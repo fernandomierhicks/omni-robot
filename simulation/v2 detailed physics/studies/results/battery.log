@@ -1,0 +1,3 @@
+﻿7S1P-P50B  612 g, R0 137 mOhm: burst 12.6 A, 29.26 -> 27.52 V; play 28 W -> 3.9 h; at 10% SoC 22.4 V: top speed 1.97 m/s, flywheel max 26173 rpm
+7S1P-P45B  612 g, R0 130 mOhm: burst 12.6 A, 29.26 -> 27.62 V; play 28 W -> 3.5 h; at 10% SoC 22.5 V: top speed 1.98 m/s, flywheel max 26279 rpm
+7S2P-P45B  1225 g, R0 72 mOhm: burst 12.4 A, 29.26 -> 28.36 V; play 28 W -> 6.9 h; at 10% SoC 23.2 V: top speed 2.05 m/s, flywheel max 27153 rpm

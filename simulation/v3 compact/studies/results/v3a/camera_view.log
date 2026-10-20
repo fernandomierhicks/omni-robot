@@ -1,0 +1,3 @@
+﻿side_posts   cable ~71 cm | stereo in the first 0.5 s: median 100% (worst 100%) | whole flight 74% | last stereo frame 291 ms before the rim (worst 491) | ball >= 16 px | caught 15/15
+plate_front  cable ~40 cm | stereo in the first 0.5 s: median 100% (worst 100%) | whole flight 56% | last stereo frame 517 ms before the rim (worst 634) | ball >= 15 px | caught 15/15
+rim          cable ~96 cm | stereo in the first 0.5 s: median 92% (worst 70%) | whole flight 36% | last stereo frame 750 ms before the rim (worst 884) | ball >= 16 px | caught 15/15

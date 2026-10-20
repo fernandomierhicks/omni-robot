@@ -1,0 +1,1782 @@
+{
+ "capacity": [
+  {
+   "n": 6,
+   "at_rest": 6,
+   "after_tilt_-30": 6,
+   "after_tilt_+25": 6,
+   "after_tilt_+0": 6,
+   "after_driving": 6,
+   "held_in_pocket": true,
+   "hopper": "tube",
+   "tube_height": 0.33
+  },
+  {
+   "n": 10,
+   "at_rest": 6,
+   "after_tilt_-30": 6,
+   "after_tilt_+25": 6,
+   "after_tilt_+0": 6,
+   "after_driving": 6,
+   "held_in_pocket": true,
+   "hopper": "tube",
+   "tube_height": 0.33
+  },
+  {
+   "n": 6,
+   "at_rest": 6,
+   "after_tilt_-30": 5,
+   "after_tilt_+25": 5,
+   "after_tilt_+0": 5,
+   "after_driving": 5,
+   "held_in_pocket": false,
+   "hopper": "indexer",
+   "tube_height": 0.33
+  },
+  {
+   "n": 10,
+   "at_rest": 10,
+   "after_tilt_-30": 7,
+   "after_tilt_+25": 5,
+   "after_tilt_+0": 5,
+   "after_driving": 5,
+   "held_in_pocket": false,
+   "hopper": "indexer",
+   "tube_height": 0.33
+  },
+  {
+   "n": 6,
+   "at_rest": 6,
+   "after_tilt_-30": 4,
+   "after_tilt_+25": 3,
+   "after_tilt_+0": 3,
+   "after_driving": 2,
+   "held_in_pocket": false,
+   "hopper": "indexer",
+   "tube_height": 0.33
+  },
+  {
+   "n": 10,
+   "at_rest": 10,
+   "after_tilt_-30": 5,
+   "after_tilt_+25": 3,
+   "after_tilt_+0": 3,
+   "after_driving": 2,
+   "held_in_pocket": false,
+   "hopper": "indexer",
+   "tube_height": 0.33
+  }
+ ],
+ "burst": [
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 2.044499999998867,
+   "left_aboard": 1,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.751999999998074,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2184999999998789,
+     "speed": 7.828891998074053,
+     "elev": 27.607251548063555,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.5814999999996777,
+     "speed": 7.109063193583325,
+     "elev": 26.567424669360676,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.9339999999994824,
+     "speed": 6.984724490484382,
+     "elev": 26.195309133754304,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 1.3094999999992742,
+     "speed": 7.1840241469092225,
+     "elev": 21.276362536993044,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 1.674499999999072,
+     "speed": 7.70666064134804,
+     "elev": 27.16162927692776,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.044499999998867,
+     "speed": 7.265522980694715,
+     "elev": 25.29907724972908,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.346481241848956,
+   "speed_spread": 0.04241718617480579,
+   "elev_spread": 2.101570561426569,
+   "interval": 0.3649999999997977
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 2.013999999998884,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.721499999998037,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2204999999998778,
+     "speed": 7.9547396366879175,
+     "elev": 42.87032824650848,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.5669999999996858,
+     "speed": 7.774800799524844,
+     "elev": 42.40775712483307,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.9384999999994799,
+     "speed": 7.1283708483437,
+     "elev": 42.22507113293323,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 1.2979999999992806,
+     "speed": 6.652214652195801,
+     "elev": 36.334373387855564,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 1.6534999999990836,
+     "speed": 7.60354844994402,
+     "elev": 42.61515423882553,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.013999999998884,
+     "speed": 7.185798100699018,
+     "elev": 40.68232000959348,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.3832454145658835,
+   "speed_spread": 0.059727812907083365,
+   "elev_spread": 2.281947884857212,
+   "interval": 0.35949999999980076
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 2.031499999998874,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.735499999998054,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.22249999999987669,
+     "speed": 7.226121111867877,
+     "elev": 55.36349955576888,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.5894999999996733,
+     "speed": 7.334214010150266,
+     "elev": 57.97174457034251,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.9449999999994763,
+     "speed": 7.308556714751824,
+     "elev": 58.48563796651911,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 1.3039999999992773,
+     "speed": 7.481958238542558,
+     "elev": 57.804965040526874,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 1.6774999999990703,
+     "speed": 6.957242511329857,
+     "elev": 57.70032638541863,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.031499999998874,
+     "speed": 7.3670898152939435,
+     "elev": 57.964240250145224,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.279197066989387,
+   "speed_spread": 0.02237739506720841,
+   "elev_spread": 1.0077413641853465,
+   "interval": 0.35899999999980103
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.1769999999993477,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.639499999998537,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.21649999999988,
+     "speed": 7.38592341158807,
+     "elev": 26.887724798664554,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.40049999999977803,
+     "speed": 7.192456128183466,
+     "elev": 27.238485709113885,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.5849999999996758,
+     "speed": 7.387303626051258,
+     "elev": 28.74132593835637,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7769999999995694,
+     "speed": 7.621644406382429,
+     "elev": 28.371914186717966,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9804999999994566,
+     "speed": 7.733992620218316,
+     "elev": 26.12277672971245,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.1769999999993477,
+     "speed": 7.2410131961631095,
+     "elev": 29.94689139001406,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.427055564764442,
+   "speed_spread": 0.02607324024090118,
+   "elev_spread": 1.2740843066409167,
+   "interval": 0.1919999999998936
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.2374999999993141,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.6984999999985044,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.21149999999988278,
+     "speed": 7.544227329399198,
+     "elev": 42.892498234773925,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.4104999999997725,
+     "speed": 7.273204531735004,
+     "elev": 41.064416873164724,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.6154999999996589,
+     "speed": 7.271397989287533,
+     "elev": 41.091247068598236,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.8134999999995491,
+     "speed": 7.465299149670452,
+     "elev": 43.95409360053129,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 1.0224999999994333,
+     "speed": 7.194755983906665,
+     "elev": 44.44199467664078,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.2374999999993141,
+     "speed": 7.406171989508329,
+     "elev": 44.03526224102065,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.359176162251198,
+   "speed_spread": 0.016628058327315277,
+   "elev_spread": 1.379470695881691,
+   "interval": 0.20499999999988638
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.4989999999991692,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.962999999998358,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.21549999999988056,
+     "speed": 7.348252537974119,
+     "elev": 58.63992155724118,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.4234999999997653,
+     "speed": 7.284919278070908,
+     "elev": 56.96656809528076,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.6519999999996386,
+     "speed": 6.453586370820698,
+     "elev": 55.71478474252383,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.8044999999995541,
+     "speed": 7.5562649128579364,
+     "elev": 57.7107117058838,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 1.140499999999368,
+     "speed": 7.53551702440047,
+     "elev": 58.469936978355406,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.4989999999991692,
+     "speed": 7.383960009782102,
+     "elev": 57.076665625603724,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.260416688984372,
+   "speed_spread": 0.05146626324752205,
+   "elev_spread": 0.9921152078102162,
+   "interval": 0.22849999999987336
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.2294999999998728,
+   "left_aboard": 5,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 1.6639999999990778,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2294999999998728,
+     "speed": 7.404147023069068,
+     "elev": 27.30867220050811,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.404147023069068,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.23249999999987114,
+   "left_aboard": 5,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 1.6649999999990772,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.23249999999987114,
+     "speed": 7.301135027912447,
+     "elev": 42.570226855620966,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.301135027912447,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.2359999999998692,
+   "left_aboard": 5,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 1.6659999999990767,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2359999999998692,
+     "speed": 7.214281387122643,
+     "elev": 58.06269790049679,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.214281387122643,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.1074999999993862,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.5454999999985892,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2294999999998728,
+     "speed": 7.4064766937789255,
+     "elev": 27.352548371110938,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.40999999999977277,
+     "speed": 7.48780304366805,
+     "elev": 27.32423823013887,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.5889999999996736,
+     "speed": 7.610615507466088,
+     "elev": 27.258599031662325,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.755999999999581,
+     "speed": 7.683827886588549,
+     "elev": 27.89287348840643,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9229999999994885,
+     "speed": 7.468304742255674,
+     "elev": 27.40816649199043,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.1074999999993862,
+     "speed": 7.43191581068464,
+     "elev": 27.581983047584455,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.514823947406988,
+   "speed_spread": 0.01322308855561482,
+   "elev_spread": 0.2140548601378936,
+   "interval": 0.1789999999999008
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.2314999999993175,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.6659999999985224,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.23199999999987142,
+     "speed": 7.3081604682304935,
+     "elev": 42.75007692584884,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.4129999999997711,
+     "speed": 7.3692620570768845,
+     "elev": 42.744483098853166,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.5879999999996741,
+     "speed": 7.388323580127698,
+     "elev": 42.74217386353142,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7709999999995727,
+     "speed": 7.328291527264133,
+     "elev": 41.621314940105975,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9554999999994704,
+     "speed": 7.332563711780866,
+     "elev": 41.672787819684636,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.2314999999993175,
+     "speed": 7.266334216740126,
+     "elev": 42.77981719617248,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.332155926870033,
+   "speed_spread": 0.005414078999078674,
+   "elev_spread": 0.5222426059113776,
+   "interval": 0.18299999999989858
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.1409999999993676,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.568999999998576,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2359999999998692,
+     "speed": 7.221238494298707,
+     "elev": 58.26674836196961,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.4194999999997675,
+     "speed": 7.285463712147146,
+     "elev": 58.251592838463715,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.6034999999996655,
+     "speed": 6.998726241101338,
+     "elev": 57.992052120697586,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7839999999995655,
+     "speed": 7.2502629940501855,
+     "elev": 57.29532194192857,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9649999999994652,
+     "speed": 7.046218737508811,
+     "elev": 58.169763462178324,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.1409999999993676,
+     "speed": 7.265209438469251,
+     "elev": 57.986880662430636,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.177853269595906,
+   "speed_spread": 0.015653920072424877,
+   "elev_spread": 0.3316231780831993,
+   "interval": 0.18099999999989969
+  },
+  {
+   "n": 8,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.1144999999993823,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.5464999999985887,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2294999999998728,
+     "speed": 7.4067380510630265,
+     "elev": 27.358788756235217,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.40499999999977554,
+     "speed": 7.373333782174997,
+     "elev": 27.38935546423278,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.5679999999996852,
+     "speed": 7.420133923835079,
+     "elev": 27.47052400581184,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7499999999995843,
+     "speed": 7.447115783959528,
+     "elev": 27.176581170537343,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9424999999994776,
+     "speed": 7.606520306420058,
+     "elev": 27.409134907480556,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.1144999999993823,
+     "speed": 7.439418693113149,
+     "elev": 27.183888786729774,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.448876756760973,
+   "speed_spread": 0.009994163128974165,
+   "elev_spread": 0.11197887445780348,
+   "interval": 0.17549999999990273
+  },
+  {
+   "n": 8,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.181999999999345,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.617999999998549,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.23199999999987142,
+     "speed": 7.307586661721762,
+     "elev": 42.736747578659276,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.4129999999997711,
+     "speed": 7.302744490727536,
+     "elev": 42.87102807725882,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.5894999999996733,
+     "speed": 7.371634694684696,
+     "elev": 42.74275080020957,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7654999999995757,
+     "speed": 7.582848256181448,
+     "elev": 43.21099589488914,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.936499999999481,
+     "speed": 7.364113869264703,
+     "elev": 42.66570980237125,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.181999999999345,
+     "speed": 7.392330199267782,
+     "elev": 42.792538658867024,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.386876361974654,
+   "speed_spread": 0.012669244358431286,
+   "elev_spread": 0.1785499993128493,
+   "interval": 0.17649999999990218
+  },
+  {
+   "n": 8,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "tube",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 1.1814999999993452,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.6139999999985513,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2359999999998692,
+     "speed": 7.280882189939628,
+     "elev": 58.23926596944925,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.41649999999976917,
+     "speed": 7.287959667380746,
+     "elev": 58.233273033021504,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.598999999999668,
+     "speed": 7.000750222087193,
+     "elev": 58.08488306633413,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 0.7714999999995724,
+     "speed": 7.323197904431864,
+     "elev": 58.155174028656106,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 0.9609999999994674,
+     "speed": 7.260557337054952,
+     "elev": 57.30699851450624,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 1.1814999999993452,
+     "speed": 7.197011943893043,
+     "elev": 58.274731764218544,
+     "ball": 5,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.225059877464571,
+   "speed_spread": 0.01484952112279551,
+   "elev_spread": 0.3376978987049932,
+   "interval": 0.18249999999989885
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "sweep",
+   "hopper": "stirrer",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 3.498499999998061,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 4.9304999999995145,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2294999999998728,
+     "speed": 7.40680944753223,
+     "elev": 27.2727173007702,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.6329999999996492,
+     "speed": 7.169836899901516,
+     "elev": 27.197390979654383,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 1.2854999999992875,
+     "speed": 7.472946449344323,
+     "elev": 27.666547460480928,
+     "ball": 5,
+     "double": false
+    },
+    {
+     "t": 1.5094999999991634,
+     "speed": 7.443097206764048,
+     "elev": 27.32134365983241,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 2.491999999998619,
+     "speed": 7.471216569576389,
+     "elev": 27.164199365309877,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 3.498499999998061,
+     "speed": 7.442315526765442,
+     "elev": 26.419785171271148,
+     "ball": 3,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.401037016647325,
+   "speed_spread": 0.014284017738843911,
+   "elev_spread": 0.37495350405445055,
+   "interval": 0.6524999999996384
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "sweep",
+   "hopper": "stirrer",
+   "aboard": 6,
+   "fired": 4,
+   "shakes": 0,
+   "elapsed": 1.2184999999993247,
+   "left_aboard": 2,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.657499999998527,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.23249999999987114,
+     "speed": 7.354827773076553,
+     "elev": 42.47182815318005,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.6229999999996547,
+     "speed": 7.6235292498042275,
+     "elev": 43.06922927263968,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 0.8429999999995328,
+     "speed": 7.3581711860642525,
+     "elev": 42.68644951286911,
+     "ball": 5,
+     "double": false
+    },
+    {
+     "t": 1.2184999999993247,
+     "speed": 7.54493035603878,
+     "elev": 42.75852978249238,
+     "ball": 3,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.470364641245953,
+   "speed_spread": 0.015690403450381783,
+   "elev_spread": 0.2140966973054352,
+   "interval": 0.3754999999997919
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "sweep",
+   "hopper": "stirrer",
+   "aboard": 6,
+   "fired": 2,
+   "shakes": 0,
+   "elapsed": 0.6644999999996317,
+   "left_aboard": 1,
+   "lost": 3,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 2.098499999998837,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2359999999998692,
+     "speed": 7.214356336124164,
+     "elev": 58.00272100472386,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 0.6644999999996317,
+     "speed": 7.422874350239186,
+     "elev": 58.06548354586852,
+     "ball": 1,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.3186153431816745,
+   "speed_spread": 0.014245728483960201,
+   "elev_spread": 0.031381270572328646,
+   "interval": 0.4284999999997625
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "vib:0.6:25",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.2294999999998728,
+   "left_aboard": 5,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.1639999999982464,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2294999999998728,
+     "speed": 7.404147023069068,
+     "elev": 27.30867220050811,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.404147023069068,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "vib:0.6:25",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.23249999999987114,
+   "left_aboard": 6,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.164999999998246,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.23249999999987114,
+     "speed": 7.301135027912447,
+     "elev": 42.570226855620966,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.301135027912447,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "vib:0.6:25",
+   "hopper": "none",
+   "aboard": 6,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 0.2359999999998692,
+   "left_aboard": 5,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 3.1659999999982453,
+     "what": "no ball in the pocket"
+    }
+   ],
+   "shots": [
+    {
+     "t": 0.2359999999998692,
+     "speed": 7.214281387122643,
+     "elev": 58.06269790049679,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.214281387122643,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 6,
+   "fired": 2,
+   "shakes": 0,
+   "elapsed": 3.5174999999980505,
+   "left_aboard": 4,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 9.422000000005003,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3429999999992557,
+     "speed": 7.27301658506848,
+     "elev": 27.767309356827063,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 3.5174999999980505,
+     "speed": 7.352081693443417,
+     "elev": 28.268615075749203,
+     "ball": 2,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.312549139255949,
+   "speed_spread": 0.005406124927796538,
+   "elev_spread": 0.25065285946106997,
+   "interval": 2.174499999998795
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 6,
+   "fired": 2,
+   "shakes": 0,
+   "elapsed": 2.0719999999988516,
+   "left_aboard": 4,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 7.973000000003233,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3519999999992507,
+     "speed": 7.444588476862204,
+     "elev": 40.82189282220433,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 2.0719999999988516,
+     "speed": 7.429488546019662,
+     "elev": 43.13632843434352,
+     "ball": 2,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.437038511440933,
+   "speed_spread": 0.0010151843922357995,
+   "elev_spread": 1.1572178060695926,
+   "interval": 0.719999999999601
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 5,
+   "fired": 1,
+   "shakes": 0,
+   "elapsed": 1.2894999999992853,
+   "left_aboard": 4,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 7.259500000002361,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.2894999999992853,
+     "speed": 7.495619008844277,
+     "elev": 56.7483488728726,
+     "ball": 3,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.495619008844277,
+   "speed_spread": NaN,
+   "elev_spread": NaN,
+   "interval": NaN
+  },
+  {
+   "n": 6,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 7.1365000000022105,
+   "left_aboard": 0,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 13.04800000000452,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3394999999992576,
+     "speed": 7.45124303849237,
+     "elev": 26.821238130758513,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.070999999998852,
+     "speed": 7.508440238486462,
+     "elev": 27.375533634732307,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.790999999998453,
+     "speed": 7.6601864743486585,
+     "elev": 25.50667707573027,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 3.512999999998053,
+     "speed": 7.5727409331580215,
+     "elev": 25.389048781544677,
+     "ball": 5,
+     "double": false
+    },
+    {
+     "t": 4.976999999999571,
+     "speed": 7.6510077583656955,
+     "elev": 25.438083089200365,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 7.1365000000022105,
+     "speed": 7.515594891172579,
+     "elev": 27.1227168377638,
+     "ball": 3,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.559868889003965,
+   "speed_spread": 0.010094230915459369,
+   "elev_spread": 0.8469388008604355,
+   "interval": 0.7314999999995946
+  },
+  {
+   "n": 6,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 6,
+   "fired": 6,
+   "shakes": 0,
+   "elapsed": 4.973499999999567,
+   "left_aboard": 1,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 10.873500000006779,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.351499999999251,
+     "speed": 7.414113435506026,
+     "elev": 43.108153801191854,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.076499999998849,
+     "speed": 6.963019274009303,
+     "elev": 42.290773558654294,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.802499999998447,
+     "speed": 7.5708162864302055,
+     "elev": 40.98334505553573,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 3.525999999998046,
+     "speed": 7.647457701682806,
+     "elev": 41.27658875440085,
+     "ball": 5,
+     "double": false
+    },
+    {
+     "t": 4.253999999998688,
+     "speed": 7.552593896765707,
+     "elev": 40.92253361111466,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 4.973499999999567,
+     "speed": 7.405791791557797,
+     "elev": 43.10685706272745,
+     "ball": 0,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.425632064325307,
+   "speed_spread": 0.03016003462890666,
+   "elev_spread": 0.934463640591469,
+   "interval": 0.7249999999995982
+  },
+  {
+   "n": 6,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 4,
+   "fired": 2,
+   "shakes": 0,
+   "elapsed": 2.0684999999988536,
+   "left_aboard": 2,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 7.9735000000032334,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.309999999999274,
+     "speed": 7.220209955595884,
+     "elev": 59.155593395117954,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.0684999999988536,
+     "speed": 7.460238508176433,
+     "elev": 56.62972246853454,
+     "ball": 4,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.340224231886158,
+   "speed_spread": 0.016350219352826965,
+   "elev_spread": 1.2629354632917078,
+   "interval": 0.7584999999995796
+  },
+  {
+   "n": 10,
+   "tilt": 0.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 10,
+   "fired": 3,
+   "shakes": 0,
+   "elapsed": 2.793499999999386,
+   "left_aboard": 7,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 8.700500000006606,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3434999999992554,
+     "speed": 7.209194938882606,
+     "elev": 29.436238262316824,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.0564999999988602,
+     "speed": 7.260266040525512,
+     "elev": 27.807590259599937,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.793499999999386,
+     "speed": 7.632551025009291,
+     "elev": 26.551244395042218,
+     "ball": 2,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.3673373348058036,
+   "speed_spread": 0.025611675369242144,
+   "elev_spread": 1.181058323066274,
+   "interval": 0.7250000000000654
+  },
+  {
+   "n": 10,
+   "tilt": -15.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 10,
+   "fired": 10,
+   "shakes": 0,
+   "elapsed": 14.395999999998896,
+   "left_aboard": 2,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 20.299999999985136,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3529999999992501,
+     "speed": 7.179056245215998,
+     "elev": 43.161925775521404,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.0779999999988483,
+     "speed": 7.419067006331237,
+     "elev": 43.11998848313797,
+     "ball": 4,
+     "double": false
+    },
+    {
+     "t": 2.801499999999396,
+     "speed": 7.569233519808936,
+     "elev": 41.044171317593815,
+     "ball": 2,
+     "double": false
+    },
+    {
+     "t": 3.5270000000002826,
+     "speed": 7.477294777330893,
+     "elev": 43.212910898856535,
+     "ball": 5,
+     "double": false
+    },
+    {
+     "t": 4.241500000001156,
+     "speed": 7.432424445313229,
+     "elev": 40.88211298478975,
+     "ball": 8,
+     "double": false
+    },
+    {
+     "t": 6.42150000000382,
+     "speed": 7.485285557964123,
+     "elev": 40.91687373529363,
+     "ball": 3,
+     "double": false
+    },
+    {
+     "t": 12.225500000003954,
+     "speed": 7.460124956676378,
+     "elev": 40.821877456232244,
+     "ball": 9,
+     "double": false
+    },
+    {
+     "t": 12.955500000002253,
+     "speed": 7.339202160547218,
+     "elev": 41.640789190499646,
+     "ball": 0,
+     "double": false
+    },
+    {
+     "t": 13.672500000000582,
+     "speed": 7.549104320693684,
+     "elev": 41.00484540412964,
+     "ball": 6,
+     "double": false
+    },
+    {
+     "t": 14.395999999998896,
+     "speed": 7.368394775060957,
+     "elev": 41.042172420825004,
+     "ball": 7,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.427918776494266,
+   "speed_spread": 0.014428804701960805,
+   "elev_spread": 0.9921236048997484,
+   "interval": 0.7249999999995982
+  },
+  {
+   "n": 10,
+   "tilt": -30.0,
+   "rpm": 3000,
+   "kick_speed": 0.4,
+   "agitate": "none",
+   "hopper": "indexer",
+   "aboard": 5,
+   "fired": 2,
+   "shakes": 0,
+   "elapsed": 2.0449999999988666,
+   "left_aboard": 3,
+   "lost": 0,
+   "doubles": 0,
+   "events": [
+    {
+     "t": 7.972500000005716,
+     "what": "hopper empty"
+    }
+   ],
+   "shots": [
+    {
+     "t": 1.3254999999992654,
+     "speed": 7.427234662350559,
+     "elev": 56.64356747981157,
+     "ball": 1,
+     "double": false
+    },
+    {
+     "t": 2.0449999999988666,
+     "speed": 7.444917083420085,
+     "elev": 58.18216236049472,
+     "ball": 4,
+     "double": false
+    }
+   ],
+   "speed_mean": 7.436075872885322,
+   "speed_spread": 0.001188961851102353,
+   "elev_spread": 0.7692974403415747,
+   "interval": 0.7194999999996012
+  }
+ ],
+ "names": [
+  "v5: plunger, magazine tube",
+  "v5: plunger, magazine tube",
+  "v5: plunger, magazine tube",
+  "v6 roller, magazine tube",
+  "v6 roller, magazine tube",
+  "v6 roller, magazine tube",
+  "v6 chute, bare funnel",
+  "v6 chute, bare funnel",
+  "v6 chute, bare funnel",
+  "v6 chute, magazine tube",
+  "v6 chute, magazine tube",
+  "v6 chute, magazine tube",
+  "v6 chute, magazine tube, 8 balls (overfilled)",
+  "v6 chute, magazine tube, 8 balls (overfilled)",
+  "v6 chute, magazine tube, 8 balls (overfilled)",
+  "v6 chute, stirrer 8 rad/s",
+  "v6 chute, stirrer 8 rad/s",
+  "v6 chute, stirrer 8 rad/s",
+  "v6 chute, vibrator 0.6 N m 25 Hz",
+  "v6 chute, vibrator 0.6 N m 25 Hz",
+  "v6 chute, vibrator 0.6 N m 25 Hz",
+  "v6 roller, indexer",
+  "v6 roller, indexer",
+  "v6 roller, indexer",
+  "v6 roller, indexer, net roll 4 mm",
+  "v6 roller, indexer, net roll 4 mm",
+  "v6 roller, indexer, net roll 4 mm",
+  "v6 roller, indexer, net roll 4 mm, 10 balls",
+  "v6 roller, indexer, net roll 4 mm, 10 balls",
+  "v6 roller, indexer, net roll 4 mm, 10 balls"
+ ]
+}

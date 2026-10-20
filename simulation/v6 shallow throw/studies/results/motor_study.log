@@ -1,0 +1,22 @@
+A. Actuator duty in play (catch + return throws, 6 tosses x 4 runs per row): peak / 99% / RMS
+   firmware 3.0 m: drive torque 1.32 / 0.80 / 0.223 N m, speed 244 / 207 rpm, power 21.5 W, winding 25.3 C | flywheel 25.0 A peak (4.25 RMS), 3243 rpm | tilt 3.00 / 1.04 N m, 6.4 rad/s | feed 2.27 A peak (0.242 RMS) | bus 8.9 A peak, 1.03 A mean | caught 24/24
+   firmware 6.5 m: drive torque 1.32 / 0.93 / 0.292 N m, speed 376 / 320 rpm, power 34.2 W, winding 25.5 C | flywheel 25.0 A peak (5.00 RMS), 5249 rpm | tilt 3.00 / 1.05 N m, 6.5 rad/s | feed 2.27 A peak (0.239 RMS) | bus 12.0 A peak, 1.24 A mean | caught 24/24
+   physics  3.0 m: drive torque 1.98 / 1.11 / 0.281 N m, speed 289 / 229 rpm, power 40.6 W, winding 25.5 C | flywheel 25.0 A peak (4.26 RMS), 3260 rpm | tilt 3.00 / 1.03 N m, 6.4 rad/s | feed 2.27 A peak (0.225 RMS) | bus 9.0 A peak, 1.05 A mean | caught 24/24
+   physics  6.5 m: drive torque 1.94 / 1.17 / 0.357 N m, speed 406 / 334 rpm, power 50.9 W, winding 25.7 C | flywheel 25.0 A peak (5.08 RMS), 5051 rpm | tilt 3.00 / 1.05 N m, 6.4 rad/s | feed 2.27 A peak (0.215 RMS) | bus 11.7 A peak, 1.26 A mean | caught 24/24
+   AK40-10 for reference: peak 3.68 N m, rated 1.36 N m, no-load 435 rpm at 24 V
+B. Drive alternatives, 6-7 m shallow throws (72 per row): caught (not in place / bounced), peak base speed, drive torque, bus current, winding temp, mass, price of the drive set
+   X4 x AK40-10 (baseline)      firmware   96% (3/0), 2.00 m/s, 1.51 N m (motor peak 3.68), 4.8 A, 25.8 C, 5.43 kg, CG 9.9 cm, $544
+   X4 x AK40-10 (baseline)      physics    99% (0/1), 2.59 m/s, 3.01 N m (motor peak 3.68), 8.4 A, 26.1 C, 5.43 kg, CG 9.9 cm, $544
+   X4 x DJI M2006 + C610        firmware   93% (5/0), 2.02 m/s, 1.58 N m (motor peak 2.69), 7.9 A, 33.1 C, 5.10 kg, CG 10.3 cm, $320
+   X4 x DJI M2006 + C610        physics    99% (1/0), 2.70 m/s, 2.69 N m (motor peak 2.69), 13.6 A, 38.1 C, 5.10 kg, CG 10.3 cm, $320
+   X4 x Pololu 37D 24V 19:1     firmware   97% (2/0), 2.01 m/s, 0.96 N m (motor peak 0.96), 10.4 A, 38.3 C, 5.53 kg, CG 9.8 cm, $292
+   X4 x Pololu 37D 24V 19:1     physics    97% (2/0), 2.47 m/s, 0.96 N m (motor peak 0.96), 13.5 A, 42.7 C, 5.53 kg, CG 9.8 cm, $292
+   X4 x GIM6010-8               firmware   96% (3/0), 1.99 m/s, 1.73 N m (motor peak 9.79), 5.6 A, 25.6 C, 6.22 kg, CG 9.3 cm, $420
+   X4 x GIM6010-8               physics    96% (3/0), 2.46 m/s, 3.68 N m (motor peak 9.79), 10.5 A, 26.0 C, 6.22 kg, CG 9.3 cm, $420
+   kiwi 3 x AK40-10             firmware   85% (11/0), 1.95 m/s, 1.34 N m (motor peak 3.68), 3.6 A, 25.6 C, 4.92 kg, CG 10.4 cm, $408
+   kiwi 3 x AK40-10             physics    92% (6/0), 2.57 m/s, 2.96 N m (motor peak 3.68), 6.1 A, 26.2 C, 4.92 kg, CG 10.4 cm, $408
+C. Flywheel motors (bench, 3000 / 4500 rpm): spin-up from rest, dip per shot, recovery, peak current
+   F90-2806.5-1300    $30 47 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+   XING-2806.5-1300   $26 50 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+   2207-1750          $25 34 g: spin-up 0.19 / 0.28 s (25.0 A), dip 25 / 23%, recovered in 159 ms
+   3115-900           $40 80 g: spin-up 0.10 / 0.14 s (25.0 A), dip 24 / 23%, recovered in 126 ms

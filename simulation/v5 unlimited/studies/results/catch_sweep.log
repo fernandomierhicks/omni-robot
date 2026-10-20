@@ -1,0 +1,84 @@
+﻿
+== firmware, stop, 1.4 m/s: 175/216 = 81% caught; misses {'reach': 36, 'bounce': 5}; funnel offset of catches median 3.3 cm; moving catches 0 (0 caught, speed up to 0.0 m/s); gated 0; landing 1-sigma at commit median 16.2 cm
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%   100%
+     2.25 m                                             100%   100%   100%    67%
+     3.00 m                                             100%   100%   100%   100%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%    83%
+     2.25 m                                             100%   100%   100%   100%
+     3.00 m                                             100%   100%   100%   100%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                               0%     0%   100%    83%
+     2.25 m                                               0%     0%   100%    83%
+     3.00 m                                               0%     0%   100%   100%
+
+== firmware, moving, 2 m/s, gate: 181/216 = 84% caught; misses {'reach': 27, 'bounce': 8}; funnel offset of catches median 2.7 cm; moving catches 51 (35 caught, speed up to 2.0 m/s); gated 17; landing 1-sigma at commit median 16.2 cm
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%   100%
+     2.25 m                                             100%   100%   100%    83%
+     3.00 m                                             100%   100%   100%    83%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                              83%   100%   100%    67%
+     2.25 m                                             100%   100%   100%    83%
+     3.00 m                                              83%   100%   100%    83%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                               0%    33%   100%    83%
+     2.25 m                                               0%    50%   100%    83%
+     3.00 m                                               0%   100%   100%   100%
+
+== physics, stop: 190/216 = 88% caught; misses {'reach': 18, 'bounce': 8}; funnel offset of catches median 2.6 cm; moving catches 0 (0 caught, speed up to 0.0 m/s); gated 0; landing 1-sigma at commit median 16.4 cm
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%   100%
+     2.25 m                                             100%   100%   100%    83%
+     3.00 m                                             100%   100%   100%   100%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%    67%
+     2.25 m                                             100%   100%   100%    67%
+     3.00 m                                             100%   100%    83%    83%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                               0%   100%   100%    83%
+     2.25 m                                               0%   100%   100%   100%
+     3.00 m                                               0%   100%   100%   100%
+
+== physics, moving: 192/216 = 89% caught; misses {'reach': 15, 'bounce': 9}; funnel offset of catches median 1.9 cm; moving catches 41 (27 caught, speed up to 2.9 m/s); gated 13; landing 1-sigma at commit median 16.4 cm
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%   100%
+     2.25 m                                             100%   100%   100%    83%
+     3.00 m                                             100%   100%   100%   100%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%    67%
+     2.25 m                                             100%   100%   100%    67%
+     3.00 m                                             100%   100%    83%    83%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                               0%   100%   100%    83%
+     2.25 m                                              17%    83%   100%   100%
+     3.00 m                                              33%   100%   100%   100%
+
+== physics, moving, exact state after 0.25 s: 195/216 = 90% caught; misses {'reach': 21, 'bounce': 0}; funnel offset of catches median 0.4 cm; moving catches 62 (41 caught, speed up to 2.7 m/s); gated 26
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%   100%
+     2.25 m                                             100%   100%   100%   100%
+     3.00 m                                             100%   100%   100%   100%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                              83%   100%   100%   100%
+     2.25 m                                              83%   100%   100%   100%
+     3.00 m                                              83%   100%   100%   100%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                               0%   100%   100%   100%
+     2.25 m                                               0%   100%   100%   100%
+     3.00 m                                               0%   100%   100%   100%
+
+== physics, moving, fast vision: 198/216 = 92% caught; misses {'reach': 8, 'bounce': 10}; funnel offset of catches median 1.2 cm; moving catches 42 (33 caught, speed up to 2.6 m/s); gated 10; landing 1-sigma at commit median 6.5 cm
+  landing 0.3 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%    83%
+     2.25 m                                             100%   100%   100%    83%
+     3.00 m                                             100%    83%   100%    83%
+  landing 0.6 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                             100%   100%   100%    67%
+     2.25 m                                             100%   100%    83%   100%
+     3.00 m                                             100%   100%   100%   100%
+  landing 1.0 m away (rows: thrower distance, columns: apex)       0.5    1.0    2.0    3.0
+     1.50 m                                              67%   100%    83%   100%
+     2.25 m                                              33%   100%   100%    83%
+     3.00 m                                              50%   100%   100%   100%

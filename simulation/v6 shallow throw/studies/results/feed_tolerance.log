@@ -1,0 +1,12 @@
+roller, feed 0.8 m/s: exit speed, elevation, spin at launch tilt 0 / -15 / -30 (gap between the feed-wheel and flywheel grips, ms; a negative gap = both grip at once)
+   72 mm: 7.10 m/s 28.3 deg  17 rad/s (+27) | 7.92 m/s 43.6 deg   9 rad/s (+27) | 7.54 m/s 58.8 deg   6 rad/s (+27)   resting against: back_stop, pocket_floor
+   73 mm: 7.61 m/s 28.3 deg   6 rad/s (+20) |      NO FEED | 7.54 m/s 58.8 deg   7 rad/s (+21)   resting against: back_stop, pocket_floor
+   74 mm: 7.58 m/s 29.0 deg  17 rad/s (+13) | 7.52 m/s 43.4 deg   4 rad/s (+16) | 7.49 m/s 58.7 deg   3 rad/s (+16)   resting against: back_stop, pocket_floor, feed
+   75 mm: 7.45 m/s 27.9 deg   2 rad/s (+10) | 7.40 m/s 43.1 deg   2 rad/s (+11) | 7.29 m/s 52.7 deg  81 rad/s (+11)   resting against: back_stop, feed
+   76 mm: 7.06 m/s 23.0 deg  65 rad/s (+9) | 7.00 m/s 38.1 deg  65 rad/s (+9) | 6.98 m/s 53.3 deg  66 rad/s (+9)   resting against: back_stop, feed
+chute, feed 1.6 m/s: exit speed, elevation, spin at launch tilt 0 / -15 / -30 (gap between the feed-wheel and flywheel grips, ms; a negative gap = both grip at once)
+   72 mm: 7.83 m/s 28.8 deg  23 rad/s (+62) | 7.78 m/s 43.8 deg  21 rad/s (+65) | 7.73 m/s 58.9 deg  20 rad/s (+69)   resting against: pocket_floor, feed
+   73 mm: 7.71 m/s 28.8 deg  23 rad/s (+59) | 7.65 m/s 43.8 deg  21 rad/s (+62) | 7.64 m/s 58.9 deg  19 rad/s (+66)   resting against: pocket_floor, feed
+   74 mm: 7.57 m/s 28.9 deg  22 rad/s (+56) | 7.52 m/s 43.9 deg  20 rad/s (+59) | 7.46 m/s 59.0 deg  19 rad/s (+63)   resting against: pocket_floor, feed
+   75 mm: 7.44 m/s 28.9 deg  21 rad/s (+54) | 7.38 m/s 43.9 deg  20 rad/s (+56) | 7.33 m/s 59.1 deg  18 rad/s (+59)   resting against: pocket_floor, feed
+   76 mm: 7.30 m/s 28.9 deg  21 rad/s (+51) | 7.25 m/s 44.0 deg  19 rad/s (+54) | 7.20 m/s 59.1 deg  18 rad/s (+56)   resting against: pocket_floor, feed

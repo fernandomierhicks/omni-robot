@@ -1,0 +1,21 @@
+﻿AK40-10    goBILDA-96  mass 5.37 kg  CG 15.8 cm  clear 22 mm  vtop 2.63/2.00 m/s  a_trac 2.98 a_mot 24.7  moves 0.97/0.97 s  T_ss 27 C  catch 20/20  $468  (35s)
+AK40-10    Nexus-100   mass 6.02 kg  CG 14.9 cm  clear 24 mm  vtop 2.74/2.08 m/s  a_trac 2.66 a_mot 21.2  moves 1.00/0.99 s  T_ss 27 C  catch 20/20  $513  (36s)
+AK40-10    Nexus-127   mass 6.45 kg  CG 16.3 cm  clear 37 mm  vtop 3.48/2.64 m/s  a_trac 2.62 a_mot 15.6  moves 1.00/1.00 s  T_ss 28 C  catch 20/20  $543  (35s)
+AK45-10    goBILDA-96  mass 5.58 kg  CG 15.4 cm  clear 22 mm  vtop 1.09/0.82 m/s  a_trac 3.04 a_mot 46.6  moves 0.97/0.97 s  T_ss 26 C  catch 20/20  $510  (35s)
+AK45-10    Nexus-100   mass 6.23 kg  CG 14.6 cm  clear 24 mm  vtop 1.13/0.86 m/s  a_trac 2.69 a_mot 40.1  moves 0.99/0.99 s  T_ss 26 C  catch 20/20  $555  (36s)
+AK45-10    Nexus-127   mass 6.66 kg  CG 16.0 cm  clear 37 mm  vtop 1.44/1.09 m/s  a_trac 2.65 a_mot 29.5  moves 1.00/1.00 s  T_ss 26 C  catch 20/20  $585  (35s)
+AK60-6     goBILDA-96  mass 5.94 kg  CG 14.7 cm  clear 10 mm  vtop 1.94/1.47 m/s  a_trac 3.13 a_mot 49.2  moves nan/nan s  T_ss nan C  catch -/-  $1140  (0s)
+AK60-6     Nexus-100   mass 6.59 kg  CG 14.0 cm  clear 12 mm  vtop 2.02/1.53 m/s  a_trac 2.74 a_mot 42.6  moves nan/nan s  T_ss nan C  catch -/-  $1185  (0s)
+AK60-6     Nexus-127   mass 7.02 kg  CG 15.5 cm  clear 25 mm  vtop 2.57/1.94 m/s  a_trac 2.70 a_mot 31.5  moves 0.99/0.99 s  T_ss 26 C  catch 20/20  $1215  (35s)
+GIM6010-8  goBILDA-96  mass 5.96 kg  CG 14.7 cm  clear 14 mm  vtop 2.54/1.92 m/s  a_trac 3.13 a_mot 59.3  moves nan/nan s  T_ss nan C  catch -/-  $375  (0s)
+GIM6010-8  Nexus-100   mass 6.61 kg  CG 14.0 cm  clear 16 mm  vtop 2.64/2.00 m/s  a_trac 2.75 a_mot 51.3  moves 0.99/1.00 s  T_ss 27 C  catch 20/20  $420  (35s)
+GIM6010-8  Nexus-127   mass 7.05 kg  CG 15.5 cm  clear 30 mm  vtop 3.36/2.54 m/s  a_trac 2.70 a_mot 37.9  moves 0.99/0.99 s  T_ss 28 C  catch 20/20  $450  (35s)
+DM-J4310   goBILDA-96  mass 5.70 kg  CG 15.1 cm  clear 20 mm  vtop 1.21/0.92 m/s  a_trac 3.07 a_mot 51.3  moves 0.96/0.96 s  T_ss 26 C  catch 20/20  $435  (35s)
+DM-J4310   Nexus-100   mass 6.35 kg  CG 14.4 cm  clear 22 mm  vtop 1.26/0.96 m/s  a_trac 2.71 a_mot 44.2  moves 0.99/1.00 s  T_ss 26 C  catch 20/20  $480  (36s)
+DM-J4310   Nexus-127   mass 6.78 kg  CG 15.8 cm  clear 36 mm  vtop 1.60/1.21 m/s  a_trac 2.67 a_mot 32.6  moves 1.00/1.00 s  T_ss 26 C  catch 20/20  $510  (35s)
+accel limit 1.5: caught 20/20
+accel limit 2.0: caught 20/20
+accel limit 2.5: caught 20/20
+accel limit 3.0: caught 20/20
+accel limit 3.5: caught 20/20
+accel limit 4.0: caught 20/20

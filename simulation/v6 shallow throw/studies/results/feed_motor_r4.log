@@ -1,0 +1,37 @@
+A. Feed: ball speed leaving the feed wheels (m/s) | exit at 3000 rpm (m/s, deg) per ball 72/74/76 mm; launch 30/45/60 deg
+   ideal            fed 9/9; leaves the feed wheels at 0.94-1.09 m/s; wheel reaches 100% of 764 rpm; exit 7.20-7.84 m/s, elevation -1.2..-0.9 deg off geometric; peak current 1.00 A; at 764 rpm it has 0.185 N m
+   N20-worm-380     fed 9/9; leaves the feed wheels at 0.56-0.82 m/s; wheel reaches 50% of 764 rpm; exit 6.63-7.83 m/s, elevation -1.9..+0.9 deg off geometric; peak current 0.58 A; at 764 rpm it has 0.000 N m
+   Pololu-HPCB-30   fed 2/9; leaves the feed wheels at 0.59-0.81 m/s; wheel reaches 19% of 764 rpm; exit 7.70-7.76 m/s, elevation -1.6..-1.5 deg off geometric; peak current 0.83 A; at 764 rpm it has 0.016 N m
+      NO FEED: 72 mm at tilt -30
+      NO FEED: 74 mm at tilt +0
+      NO FEED: 74 mm at tilt -15
+      NO FEED: 74 mm at tilt -30
+      NO FEED: 76 mm at tilt +0
+      NO FEED: 76 mm at tilt -15
+      NO FEED: 76 mm at tilt -30
+   Pololu-25D-9.7   fed 9/9; leaves the feed wheels at 0.95-1.42 m/s; wheel reaches 103% of 764 rpm; exit 7.20-7.88 m/s, elevation -1.1..+1.6 deg off geometric; peak current 2.40 A; at 764 rpm it has 0.115 N m
+   Pololu-25D-RoboClaw fed 9/9; leaves the feed wheels at 1.02-1.36 m/s; wheel reaches 104% of 764 rpm; exit 7.22-7.87 m/s, elevation -1.1..-0.6 deg off geometric; peak current 4.30 A; at 764 rpm it has 0.115 N m
+   GM2804           fed 9/9; leaves the feed wheels at 1.06-1.25 m/s; wheel reaches 105% of 764 rpm; exit 7.21-7.82 m/s, elevation -1.2..-0.6 deg off geometric; peak current 1.39 A; at 764 rpm it has 0.045 N m
+   GM3506           fed 9/9; leaves the feed wheels at 1.03-1.48 m/s; wheel reaches 110% of 764 rpm; exit 7.21-7.88 m/s, elevation -1.0..-0.7 deg off geometric; peak current 2.27 A; at 764 rpm it has 0.079 N m
+   LK-MF4005        fed 9/9; leaves the feed wheels at 1.22-1.55 m/s; wheel reaches 125% of 764 rpm; exit 7.26-7.95 m/s, elevation -0.9..-0.5 deg off geometric; peak current 2.65 A; at 764 rpm it has 0.120 N m
+   LK-MS4005        fed 9/9; leaves the feed wheels at 1.06-1.35 m/s; wheel reaches 104% of 764 rpm; exit 7.24-7.91 m/s, elevation -1.0..-0.5 deg off geometric; peak current 1.08 A; at 764 rpm it has 0.044 N m
+B. Holding against fast, flat catches (stopped feed wheels; 104 rig trials):
+   ideal            caught 103/104, pushed into the nip 0 (deepest 32% of the way to the axles); back-driven median 0.0 deg, max 0.0 deg (0.0 mm at the tire); peak current 1.00 A
+   N20-worm-380     caught 103/104, pushed into the nip 0 (deepest 34% of the way to the axles); back-driven median 0.5 deg, max 4.1 deg (1.4 mm at the tire); peak current 0.00 A
+   Pololu-HPCB-30   caught 103/104, pushed into the nip 0 (deepest 46% of the way to the axles); back-driven median 0.6 deg, max 15.7 deg (5.5 mm at the tire); peak current 0.83 A
+   Pololu-25D-9.7   caught 103/104, pushed into the nip 0 (deepest 31% of the way to the axles); back-driven median 0.4 deg, max 2.1 deg (0.7 mm at the tire); peak current 2.40 A
+   GM2804           caught 103/104, pushed into the nip 0 (deepest 58% of the way to the axles); back-driven median 1.5 deg, max 24.8 deg (8.7 mm at the tire); peak current 1.39 A
+   GM3506           caught 103/104, pushed into the nip 0 (deepest 38% of the way to the axles); back-driven median 1.0 deg, max 8.9 deg (3.1 mm at the tire); peak current 2.27 A
+   LK-MF4005        caught 103/104, pushed into the nip 0 (deepest 42% of the way to the axles); back-driven median 1.1 deg, max 13.0 deg (4.5 mm at the tire); peak current 2.65 A
+   Pololu-25D-RoboClaw caught 102/104, pushed into the nip 0 (deepest 30% of the way to the axles); back-driven median 0.3 deg, max 2.2 deg (0.8 mm at the tire); peak current 2.59 A
+   LK-MS4005        caught 102/104, pushed into the nip 0 (deepest 46% of the way to the axles); back-driven median 1.6 deg, max 16.5 deg (5.8 mm at the tire); peak current 1.08 A
+C. Magazine burst, 6 balls, 3000 rpm (30 / 60 deg launch): fired, doubles, speed spread, interval
+   ideal            6/6 doubles 0, +/-1.1%, 0.18 s apart (peak 1.00 A) | 6/6 doubles 0, +/-1.9%, 0.18 s apart (peak 1.00 A)
+   N20-worm-380     6/6 doubles 0, +/-4.2%, 0.16 s apart (peak 0.63 A) | 5/6 doubles 0, +/-5.3%, 0.19 s apart (peak 0.59 A)
+   Pololu-HPCB-30   4/6 doubles 0, +/-1.3%, 2.29 s apart (peak 0.83 A) | 5/6 doubles 0, +/-5.1%, 0.35 s apart (peak 0.83 A)
+   Pololu-25D-9.7   6/6 doubles 0, +/-0.5%, 0.20 s apart (peak 2.40 A) | 6/6 doubles 0, +/-1.5%, 0.20 s apart (peak 2.40 A)
+   Pololu-25D-RoboClaw 6/6 doubles 0, +/-0.4%, 0.18 s apart (peak 4.30 A) | 6/6 doubles 0, +/-0.6%, 0.19 s apart (peak 4.30 A)
+   GM2804           6/6 doubles 0, +/-0.4%, 0.21 s apart (peak 1.39 A) | 6/6 doubles 0, +/-2.1%, 0.23 s apart (peak 1.39 A)
+   GM3506           6/6 doubles 0, +/-0.5%, 0.18 s apart (peak 2.27 A) | 6/6 doubles 0, +/-0.8%, 0.19 s apart (peak 2.27 A)
+   LK-MF4005        6/6 doubles 0, +/-0.4%, 0.18 s apart (peak 2.65 A) | 6/6 doubles 0, +/-0.4%, 0.18 s apart (peak 2.65 A)
+   LK-MS4005        6/6 doubles 0, +/-0.5%, 0.19 s apart (peak 1.08 A) | 6/6 doubles 0, +/-0.6%, 0.22 s apart (peak 1.08 A)

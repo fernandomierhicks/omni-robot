@@ -1,0 +1,12 @@
+AK40-10    goBILDA-96  a 2.54 vcap 1.80: 0.6 m move 1.19 s fwd / 1.20 s worst (130 deg); catch 30/30 in 0.65 m zone
+AK40-10    Nexus-100   a 2.26 vcap 1.80: 0.6 m move 1.23 s fwd / 1.25 s worst (240 deg); catch 30/30 in 0.65 m zone
+AK40-10    Nexus-127   a 2.23 vcap 1.80: 0.6 m move 1.24 s fwd / 1.26 s worst (235 deg); catch 30/30 in 0.65 m zone
+AK45-10    goBILDA-96  a 2.58 vcap 0.78: 0.6 m move 1.27 s fwd / 1.28 s worst (130 deg); catch 30/30 in 0.65 m zone
+DM-J4310   goBILDA-96  a 2.61 vcap 0.87: 0.6 m move 1.23 s fwd / 1.24 s worst (130 deg); catch 30/30 in 0.65 m zone
+GIM6010-8  Nexus-100   a 2.33 vcap 1.80: 0.6 m move 1.22 s fwd / 1.24 s worst (240 deg); catch 30/30 in 0.65 m zone
+AK60-6     Nexus-127   a 2.29 vcap 1.80: 0.6 m move 1.23 s fwd / 1.25 s worst (235 deg); catch 30/30 in 0.65 m zone
+baseline, accel limit 1.5: 26/30
+baseline, accel limit 2.0: 30/30
+baseline, accel limit 2.5: 30/30
+baseline, accel limit 3.0: 30/30
+baseline, accel limit 3.5: 30/30

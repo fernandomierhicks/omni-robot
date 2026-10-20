@@ -1,0 +1,39 @@
+﻿A. Entry while moving (ball 6.4 m/s, 24 deg; 17 landing offsets up to 7 cm; brake 1.5 m/s^2 after):
+  with the ball    0.0 m/s: relative arrival   24 deg from vertical at 6.4 m/s -> caught 17/17
+  with the ball    0.5 m/s: relative arrival   20 deg from vertical at 6.2 m/s -> caught 17/17
+  with the ball    1.0 m/s: relative arrival   15 deg from vertical at 6.1 m/s -> caught 17/17
+  with the ball    1.5 m/s: relative arrival   11 deg from vertical at 5.9 m/s -> caught 17/17
+  with the ball    2.0 m/s: relative arrival    6 deg from vertical at 5.9 m/s -> caught 17/17
+  against the ball 0.5 m/s: relative arrival   28 deg from vertical at 6.6 m/s -> caught 17/17
+  against the ball 1.0 m/s: relative arrival   32 deg from vertical at 6.9 m/s -> caught 17/17
+  against the ball 1.5 m/s: relative arrival   35 deg from vertical at 7.1 m/s -> caught 13/17
+  against the ball 2.0 m/s: relative arrival   38 deg from vertical at 7.4 m/s -> caught 12/17
+  sideways         0.5 m/s: relative arrival   24 deg from vertical at 6.4 m/s -> caught 17/17
+  sideways         1.0 m/s: relative arrival   25 deg from vertical at 6.5 m/s -> caught 17/17
+  sideways         1.5 m/s: relative arrival   27 deg from vertical at 6.6 m/s -> caught 17/17
+  sideways         2.0 m/s: relative arrival   29 deg from vertical at 6.7 m/s -> caught 16/17
+B. Braking from 1.5 m/s with the ball in the pocket (dump starts as braking starts):
+  forward   tilt    0 deg, brake 1 m/s^2: held
+  forward   tilt    0 deg, brake 2 m/s^2: held
+  forward   tilt    0 deg, brake 3 m/s^2: held
+  forward   tilt    0 deg, brake 4 m/s^2: held
+  forward   tilt   15 deg, brake 1 m/s^2: held
+  forward   tilt   15 deg, brake 2 m/s^2: held
+  forward   tilt   15 deg, brake 3 m/s^2: held
+  forward   tilt   15 deg, brake 4 m/s^2: held
+  backward  tilt    0 deg, brake 1 m/s^2: held
+  backward  tilt    0 deg, brake 2 m/s^2: held
+  backward  tilt    0 deg, brake 3 m/s^2: held
+  backward  tilt    0 deg, brake 4 m/s^2: held
+  backward  tilt   15 deg, brake 1 m/s^2: held
+  backward  tilt   15 deg, brake 2 m/s^2: held
+  backward  tilt   15 deg, brake 3 m/s^2: held
+  backward  tilt   15 deg, brake 4 m/s^2: held
+  sideways  tilt    0 deg, brake 1 m/s^2: held
+  sideways  tilt    0 deg, brake 2 m/s^2: held
+  sideways  tilt    0 deg, brake 3 m/s^2: held
+  sideways  tilt    0 deg, brake 4 m/s^2: held
+  sideways  tilt   15 deg, brake 1 m/s^2: held
+  sideways  tilt   15 deg, brake 2 m/s^2: held
+  sideways  tilt   15 deg, brake 3 m/s^2: held
+  sideways  tilt   15 deg, brake 4 m/s^2: held

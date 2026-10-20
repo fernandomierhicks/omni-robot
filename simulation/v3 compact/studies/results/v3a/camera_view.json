@@ -1,0 +1,410 @@
+[
+ {
+  "mount": "side_posts",
+  "cable_run": 0.7086717732072852,
+  "tosses": [
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6174496644295302,
+    "last_stereo_before_crossing": 0.4750000000000518,
+    "min_px": 15.606020371756536,
+    "max_px": 201.9333613994759
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6447368421052632,
+    "last_stereo_before_crossing": 0.4499999999997506,
+    "min_px": 15.605980442483856,
+    "max_px": 213.90707544802686
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.7449664429530202,
+    "last_stereo_before_crossing": 0.3165000000003868,
+    "min_px": 15.606025694035573,
+    "max_px": 211.01185391844535
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.732824427480916,
+    "last_stereo_before_crossing": 0.29149999999932064,
+    "min_px": 15.606087225682668,
+    "max_px": 212.1155993858232
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.7553956834532374,
+    "last_stereo_before_crossing": 0.2834999999993393,
+    "min_px": 15.606010127509718,
+    "max_px": 221.9404755697394
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6066666666666667,
+    "last_stereo_before_crossing": 0.4914999999988545,
+    "min_px": 15.60602200623789,
+    "max_px": 209.7490260181492
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.8125,
+    "last_stereo_before_crossing": 0.19999999999953388,
+    "min_px": 15.605965114160867,
+    "max_px": 247.44063003515322
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.9504132231404959,
+    "last_stereo_before_crossing": 0.05000000000023874,
+    "min_px": 15.605976021512205,
+    "max_px": 245.659543097695
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.9637681159420289,
+    "last_stereo_before_crossing": 0.042000000000200544,
+    "min_px": 15.60605226229193,
+    "max_px": 215.44317595497137
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.9571428571428572,
+    "last_stereo_before_crossing": 0.05000000000023874,
+    "min_px": 15.60605712589024,
+    "max_px": 210.56041172689388
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.85,
+    "last_stereo_before_crossing": 0.15000000000071623,
+    "min_px": 15.606066267982461,
+    "max_px": 210.9914594560326
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.9453125,
+    "last_stereo_before_crossing": 0.05850000000027933,
+    "min_px": 15.60601563807101,
+    "max_px": 259.51653128151884
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6357615894039735,
+    "last_stereo_before_crossing": 0.4580000000021869,
+    "min_px": 15.60604628439328,
+    "max_px": 210.31390489003277
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6776315789473685,
+    "last_stereo_before_crossing": 0.4085000000019505,
+    "min_px": 15.606020242123398,
+    "max_px": 211.87059341744646
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6458333333333334,
+    "last_stereo_before_crossing": 0.4250000000020293,
+    "min_px": 15.606031707805386,
+    "max_px": 214.5925004823944
+   }
+  ],
+  "caught": 15.0,
+  "n": 15,
+  "stereo_fit_window_median": 1.0,
+  "stereo_fit_window_min": 1.0,
+  "stereo_whole_flight_median": 0.7449664429530202,
+  "stereo_whole_flight_min": 0.6066666666666667,
+  "last_stereo_before_crossing_median": 0.29149999999932064,
+  "last_stereo_before_crossing_min": 0.042000000000200544,
+  "min_px_median": 15.60602200623789,
+  "min_px_min": 15.605965114160867
+ },
+ {
+  "mount": "plate_front",
+  "cable_run": 0.39999999999999997,
+  "tosses": [
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5234899328859061,
+    "last_stereo_before_crossing": 0.591500000000039,
+    "min_px": 14.975806025202857,
+    "max_px": 172.5536771627645
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.506578947368421,
+    "last_stereo_before_crossing": 0.6249999999996536,
+    "min_px": 14.891659725979709,
+    "max_px": 164.65580241142075
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.4899328859060403,
+    "last_stereo_before_crossing": 0.6335000000007742,
+    "min_px": 15.49787111328552,
+    "max_px": 162.01641952420414
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6030534351145038,
+    "last_stereo_before_crossing": 0.433499999999329,
+    "min_px": 15.717059163856595,
+    "max_px": 171.94086347374648
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5755395683453237,
+    "last_stereo_before_crossing": 0.49199999999885335,
+    "min_px": 15.716981306877686,
+    "max_px": 173.93958698942808
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5266666666666666,
+    "last_stereo_before_crossing": 0.5914999999986215,
+    "min_px": 14.811795550383879,
+    "max_px": 171.02625713111422
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.65625,
+    "last_stereo_before_crossing": 0.36649999999914584,
+    "min_px": 15.716934780131202,
+    "max_px": 172.52047313185972
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6694214876033058,
+    "last_stereo_before_crossing": 0.33300000000159,
+    "min_px": 15.716944903257984,
+    "max_px": 171.531419882716
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5869565217391305,
+    "last_stereo_before_crossing": 0.47500000000226805,
+    "min_px": 15.717024461835216,
+    "max_px": 172.0772978768805
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5571428571428572,
+    "last_stereo_before_crossing": 0.5165000000024662,
+    "min_px": 15.717028618690573,
+    "max_px": 170.12429903883375
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6583333333333333,
+    "last_stereo_before_crossing": 0.342000000001633,
+    "min_px": 15.7170366335851,
+    "max_px": 170.72407385926718
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.6328125,
+    "last_stereo_before_crossing": 0.39150000000186935,
+    "min_px": 15.716986792347189,
+    "max_px": 172.5852382583754
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5099337748344371,
+    "last_stereo_before_crossing": 0.6165000000029437,
+    "min_px": 15.010039467901677,
+    "max_px": 170.5776575308601
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5197368421052632,
+    "last_stereo_before_crossing": 0.6085000000029055,
+    "min_px": 14.938077526751025,
+    "max_px": 161.4694281167531
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.5555555555555556,
+    "last_stereo_before_crossing": 0.5335000000025474,
+    "min_px": 15.245940638322224,
+    "max_px": 173.19797453715057
+   }
+  ],
+  "caught": 15.0,
+  "n": 15,
+  "stereo_fit_window_median": 1.0,
+  "stereo_fit_window_min": 1.0,
+  "stereo_whole_flight_median": 0.5571428571428572,
+  "stereo_whole_flight_min": 0.4899328859060403,
+  "last_stereo_before_crossing_median": 0.5165000000024662,
+  "last_stereo_before_crossing_min": 0.33300000000159,
+  "min_px_median": 15.716934780131202,
+  "min_px_min": 14.811795550383879
+ },
+ {
+  "mount": "rim",
+  "cable_run": 0.9606717732072851,
+  "tosses": [
+   {
+    "stereo_fit_window": 0.9666666666666667,
+    "any_fit_window": 0.9666666666666667,
+    "stereo_whole_flight": 0.38926174496644295,
+    "last_stereo_before_crossing": 0.7580000000000207,
+    "min_px": 16.357459122067933,
+    "max_px": 215.8965746899703
+   },
+   {
+    "stereo_fit_window": 0.9,
+    "any_fit_window": 0.9,
+    "stereo_whole_flight": 0.35526315789473684,
+    "last_stereo_before_crossing": 0.8164999999995475,
+    "min_px": 16.35741347971104,
+    "max_px": 239.9878563016345
+   },
+   {
+    "stereo_fit_window": 0.7166666666666667,
+    "any_fit_window": 0.7166666666666667,
+    "stereo_whole_flight": 0.28859060402684567,
+    "last_stereo_before_crossing": 0.8835000000010798,
+    "min_px": 16.357465442050508,
+    "max_px": 263.8416756254375
+   },
+   {
+    "stereo_fit_window": 0.9666666666666667,
+    "any_fit_window": 0.9666666666666667,
+    "stereo_whole_flight": 0.44274809160305345,
+    "last_stereo_before_crossing": 0.608499999999708,
+    "min_px": 16.357534733434093,
+    "max_px": 231.98488670541684
+   },
+   {
+    "stereo_fit_window": 0.9166666666666666,
+    "any_fit_window": 0.9166666666666666,
+    "stereo_whole_flight": 0.39568345323741005,
+    "last_stereo_before_crossing": 0.6999999999983686,
+    "min_px": 16.35744819897513,
+    "max_px": 248.18096383133673
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.4,
+    "last_stereo_before_crossing": 0.7499999999982521,
+    "min_px": 16.323187760649443,
+    "max_px": 216.05399991313857
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.46875,
+    "last_stereo_before_crossing": 0.5664999999986797,
+    "min_px": 16.35739615162147,
+    "max_px": 259.57813027843645
+   },
+   {
+    "stereo_fit_window": 0.7,
+    "any_fit_window": 0.7,
+    "stereo_whole_flight": 0.34710743801652894,
+    "last_stereo_before_crossing": 0.6580000000031418,
+    "min_px": 16.35740770733863,
+    "max_px": 306.02750459224643
+   },
+   {
+    "stereo_fit_window": 0.7166666666666667,
+    "any_fit_window": 0.7166666666666667,
+    "stereo_whole_flight": 0.3115942028985507,
+    "last_stereo_before_crossing": 0.7920000000037817,
+    "min_px": 16.357496134867272,
+    "max_px": 280.5621681225436
+   },
+   {
+    "stereo_fit_window": 0.7166666666666667,
+    "any_fit_window": 0.7166666666666667,
+    "stereo_whole_flight": 0.30714285714285716,
+    "last_stereo_before_crossing": 0.8085000000038605,
+    "min_px": 16.35750091506166,
+    "max_px": 258.8052829815713
+   },
+   {
+    "stereo_fit_window": 0.9666666666666667,
+    "any_fit_window": 0.9666666666666667,
+    "stereo_whole_flight": 0.48333333333333334,
+    "last_stereo_before_crossing": 0.5170000000024686,
+    "min_px": 16.35750856912067,
+    "max_px": 231.9117418965006
+   },
+   {
+    "stereo_fit_window": 0.7666666666666667,
+    "any_fit_window": 0.7666666666666667,
+    "stereo_whole_flight": 0.359375,
+    "last_stereo_before_crossing": 0.6335000000030249,
+    "min_px": 16.357454012968002,
+    "max_px": 303.8289388350767
+   },
+   {
+    "stereo_fit_window": 0.9166666666666666,
+    "any_fit_window": 0.9166666666666666,
+    "stereo_whole_flight": 0.36423841059602646,
+    "last_stereo_before_crossing": 0.8000000000038199,
+    "min_px": 16.357489708178367,
+    "max_px": 236.40020208528307
+   },
+   {
+    "stereo_fit_window": 0.8833333333333333,
+    "any_fit_window": 0.8833333333333333,
+    "stereo_whole_flight": 0.34868421052631576,
+    "last_stereo_before_crossing": 0.8250000000039392,
+    "min_px": 16.357459159940273,
+    "max_px": 239.68123739837802
+   },
+   {
+    "stereo_fit_window": 1.0,
+    "any_fit_window": 1.0,
+    "stereo_whole_flight": 0.4236111111111111,
+    "last_stereo_before_crossing": 0.6920000000033042,
+    "min_px": 16.35747219302588,
+    "max_px": 387.08181142091865
+   }
+  ],
+  "caught": 15.0,
+  "n": 15,
+  "stereo_fit_window_median": 0.9166666666666666,
+  "stereo_fit_window_min": 0.7,
+  "stereo_whole_flight_median": 0.36423841059602646,
+  "stereo_whole_flight_min": 0.28859060402684567,
+  "last_stereo_before_crossing_median": 0.7499999999982521,
+  "last_stereo_before_crossing_min": 0.5170000000024686,
+  "min_px_median": 16.357459159940273,
+  "min_px_min": 16.323187760649443
+ }
+]

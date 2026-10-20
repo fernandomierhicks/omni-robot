@@ -1,0 +1,21 @@
+﻿required exit speed: 8.78 m/s at 5 m (design max 10.09), typical 3 m throw 6.80 m/s
+D 50 mm: I 26 g cm2 x10, mass 80 g, eta [0.72 0.67 0.65 0.65 0.59], rpm typ 3959 max 5924, drop 26%, repeat 6.63+-0.22 m/s az+-1.1
+    F90-2806.5-1300    throttle@max(22V) 0.21 spin-up 0.06s (max 0.09s) recover 14 ms, I_bus peak 5.1 A
+    XING-2806.5-1300   throttle@max(22V) 0.21 spin-up 0.06s (max 0.09s) recover 14 ms, I_bus peak 4.4 A
+    2207-1750          throttle@max(22V) 0.16 spin-up 0.07s (max 0.11s) recover 19 ms, I_bus peak 4.0 A
+    3115-900           throttle@max(22V) 0.30 spin-up 0.05s (max 0.08s) recover 10 ms, I_bus peak 5.8 A
+D 60 mm: I 47 g cm2 x10, mass 98 g, eta [0.66 0.66 0.67 0.62 0.65], rpm typ 3261 max 5045, drop 23%, repeat 6.76+-0.15 m/s az+-1.5
+    F90-2806.5-1300    throttle@max(22V) 0.18 spin-up 0.09s (max 0.14s) recover 19 ms, I_bus peak 4.5 A
+    XING-2806.5-1300   throttle@max(22V) 0.18 spin-up 0.09s (max 0.14s) recover 19 ms, I_bus peak 3.8 A
+    2207-1750          throttle@max(22V) 0.13 spin-up 0.11s (max 0.18s) recover 26 ms, I_bus peak 3.6 A
+    3115-900           throttle@max(22V) 0.26 spin-up 0.07s (max 0.11s) recover 13 ms, I_bus peak 5.0 A
+D 70 mm: I 80 g cm2 x10, mass 120 g, eta [0.7  0.67 0.7  0.71 0.64], rpm typ 2737 max 3938, drop 19%, repeat 7.12+-0.15 m/s az+-0.7
+    F90-2806.5-1300    throttle@max(22V) 0.14 spin-up 0.13s (max 0.18s) recover 22 ms, I_bus peak 4.1 A
+    XING-2806.5-1300   throttle@max(22V) 0.14 spin-up 0.13s (max 0.18s) recover 22 ms, I_bus peak 3.4 A
+    2207-1750          throttle@max(22V) 0.11 spin-up 0.16s (max 0.24s) recover 30 ms, I_bus peak 3.3 A
+    3115-900           throttle@max(22V) 0.20 spin-up 0.09s (max 0.14s) recover 16 ms, I_bus peak 4.4 A
+D 80 mm: I 128 g cm2 x10, mass 143 g, eta [0.71 0.73 0.7  0.72 0.57], rpm typ 2236 max 3422, drop 19%, repeat 6.65+-0.12 m/s az+-1.3
+    F90-2806.5-1300    throttle@max(22V) 0.12 spin-up 0.16s (max 0.25s) recover 28 ms, I_bus peak 3.7 A
+    XING-2806.5-1300   throttle@max(22V) 0.12 spin-up 0.16s (max 0.25s) recover 28 ms, I_bus peak 3.0 A
+    2207-1750          throttle@max(22V) 0.09 spin-up 0.22s (max 0.33s) recover 38 ms, I_bus peak 3.0 A
+    3115-900           throttle@max(22V) 0.18 spin-up 0.12s (max 0.18s) recover 19 ms, I_bus peak 3.8 A

@@ -1,0 +1,34 @@
+﻿kiwi3 r180 (v2 size), high deck CG h 15.0 cm: sim min 2.97 mean 4.81 | model min 3.16 mean 4.13 | tip min 5.00 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'none', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'slip', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'none', 330: 'slip'}
+kiwi3 r150, high deck  CG h 15.0 cm: sim min 2.69 mean 4.10 | model min 2.85 mean 3.68 | tip min 4.07 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'none', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'slip', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'slip', 330: 'slip'}
+x4 r150 rocker, high deck (v3a) CG h 14.2 cm: sim min 3.11 mean 4.90 | model min 2.02 mean 2.99 | tip min 6.45 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'slip', 90: 'slip', 120: 'slip', 150: 'none', 180: 'none', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'slip', 330: 'slip'}
+kiwi3 r150, axle deck  CG h 10.0 cm: sim min 3.25 mean 5.43 | model min 3.49 mean 4.65 | tip min 6.44 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'none', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'none', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'none', 330: 'slip'}
+x4 r150 rigid, axle deck CG h 9.5 cm: sim min 4.23 mean 6.16 | model min 3.59 mean 4.10 | tip min 10.01 | model tip-limited dirs [] | sim failures {0: 'none', 30: 'slip', 60: 'slip', 90: 'none', 120: 'slip', 150: 'slip', 180: 'none', 210: 'slip', 240: 'slip', 270: 'none', 300: 'slip', 330: 'slip'}
+x4 r150 rocker, axle deck (v3b) CG h 9.5 cm: sim min 3.53 mean 5.34 | model min 2.54 mean 3.50 | tip min 9.92 | model tip-limited dirs [] | sim failures {0: 'none', 30: 'slip', 60: 'slip', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'none', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'slip', 330: 'slip'}
+kiwi3 r180 (v2 size), high deck mu sweep at 120 deg: sim [2.05 2.97 3.46] model [2.31 3.22 3.75]
+kiwi3 r150, high deck  mu sweep at 120 deg: sim [1.91 2.69 3.18] model [2.17 2.97 3.42]
+x4 r150 rocker, high deck (v3a) mu sweep at 300 deg: sim [2.2  3.11 3.67] model [1.74 2.29 2.58]
+kiwi3 r150, axle deck  mu sweep at 240 deg: sim [2.2  3.25 3.81] model [2.46 3.5  4.13]
+x4 r150 rigid, axle deck mu sweep at 60 deg: sim [2.76 4.23 5.5 ] model [2.67 4.01 4.89]
+x4 r150 rocker, axle deck (v3b) mu sweep at 300 deg: sim [2.34 3.53 4.3 ] model [1.96 2.7  3.11]
+panic stop kiwi3 r180 (v2 size), high deck mu 0.95: peak decel 12.3 m/s^2, worst tilt 22.3 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop kiwi3 r180 (v2 size), high deck mu 1.2: peak decel 18.3 m/s^2, worst tilt 33.4 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop kiwi3 r150, high deck  mu 0.95: peak decel 15.1 m/s^2, worst tilt 105.3 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop kiwi3 r150, high deck  mu 1.2: peak decel 27.7 m/s^2, worst tilt 112.4 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop x4 r150 rocker, high deck (v3a) mu 0.95: peak decel 9.1 m/s^2, worst tilt 10.6 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150 rocker, high deck (v3a) mu 1.2: peak decel 12.4 m/s^2, worst tilt 12.6 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+panic stop kiwi3 r150, axle deck  mu 0.95: peak decel 10.4 m/s^2, worst tilt 12.5 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop kiwi3 r150, axle deck  mu 1.2: peak decel 14.7 m/s^2, worst tilt 17.3 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150 rigid, axle deck mu 0.95: peak decel 7.1 m/s^2, worst tilt 0.2 deg moving at 60 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150 rigid, axle deck mu 1.2: peak decel 10.3 m/s^2, worst tilt 0.4 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150 rocker, axle deck (v3b) mu 0.95: peak decel 7.7 m/s^2, worst tilt 4.4 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150 rocker, axle deck (v3b) mu 1.2: peak decel 10.1 m/s^2, worst tilt 6.3 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 0.0 mm: loads [14.4 12.3 11.4 13.6] N, accel {45: 4.234375, 135: 4.09375, 225: 4.234375, 315: 4.09375}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 0.5 mm: loads [17.9  8.8 14.9 10.1] N, accel {45: 2.96875, 135: 5.640625, 225: 2.96875, 315: 5.921875}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 1.0 mm: loads [21.4  5.3 18.4  6.7] N, accel {45: 1.84375, 135: 5.21875, 225: 1.84375, 315: 5.640625}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 2.0 mm: loads [26.7  0.  23.8  1.3] N, accel {45: 1.0, 135: 5.5, 225: 1.0, 315: 5.921875}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 0.0 mm: loads [14.4 12.3 11.4 13.6] N, accel {45: 4.09375, 135: 3.953125, 225: 4.234375, 315: 3.953125}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 1.0 mm: loads [16.4 10.3 13.4 11.6] N, accel {45: 3.390625, 135: 4.65625, 225: 3.390625, 315: 4.65625}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 2.0 mm: loads [18.3  8.4 15.4  9.7] N, accel {45: 2.546875, 135: 5.359375, 225: 2.546875, 315: 6.203125}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 0.0 mm: loads [14.3 12.7 11.  14.3] N, accel {45: 3.8125, 135: 4.65625, 225: 5.359375, 315: 3.53125}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 1.0 mm: loads [14.3 12.7 11.  14.3] N, accel {45: 3.8125, 135: 4.65625, 225: 5.359375, 315: 3.53125}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 2.0 mm: loads [14.3 12.7 11.1 14.3] N, accel {45: 3.8125, 135: 4.515625, 225: 5.359375, 315: 3.53125}

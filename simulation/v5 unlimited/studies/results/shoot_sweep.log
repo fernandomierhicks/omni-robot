@@ -1,0 +1,6 @@
+﻿Hopper shooting, 6 balls at 6 targets 2-6 m away, 8 layouts per robot:
+  stop        : 34/48 shots scored; miss median 23 cm, 90% 57 cm; base speed at firing median 0.0 m/s; 6 shots in 9.5 s (median); |range| / |lateral| error median 23 / 6 cm
+  move 0.5 m/s: 42/48 shots scored; miss median 37 cm, 90% 82 cm; base speed at firing median 0.5 m/s; 6 shots in 7.1 s (median); |range| / |lateral| error median 36 / 10 cm
+  move 1 m/s  : 41/48 shots scored; miss median 34 cm, 90% 114 cm; base speed at firing median 1.0 m/s; 6 shots in 9.3 s (median); |range| / |lateral| error median 33 / 8 cm
+  move 2 m/s  : 25/48 shots scored; miss median 47 cm, 90% 121 cm; base speed at firing median 2.0 m/s; 6 shots in 11.8 s (median); |range| / |lateral| error median 46 / 15 cm
+  move 3 m/s  : 28/48 shots scored; miss median 32 cm, 90% 187 cm; base speed at firing median 2.5 m/s; 6 shots in 13.2 s (median); |range| / |lateral| error median 26 / 14 cm

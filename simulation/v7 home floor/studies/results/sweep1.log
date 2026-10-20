@@ -1,0 +1,51 @@
+﻿A. Crossings, ball aboard, every 15 deg of body direction. Per speed 0.5 / 1 / 2 m/s: crossed/all (stuck directions), ball lost, peak tilt, longest airborne / single-wheel lift (ms)
+  v6
+    rug edge 8 mm                    22/24 stuck 45,315 5deg air 0 lift 34 | 23/24 stuck 45 15deg air 2 lift 46 | 24/24 17deg air 2 lift 47
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 7deg air 0 lift 35 | 21/24 stuck 45,225,315 12deg air 0 lift 58 | 22/24 stuck 45,315 19deg air 6 lift 72
+    threshold 12 mm                  24/24 6deg air 0 lift 55 | 24/24 13deg air 0 lift 50 | 24/24 24deg air 0 lift 60
+    threshold 18 mm                  24/24 9deg air 0 lift 197 | 24/24 21deg air 0 lift 65 | 24/24 23deg air 2 lift 55
+  v6 + pods
+    rug edge 8 mm                    22/24 stuck 45,315 9deg air 0 lift 20 | 23/24 stuck 45 10deg air 0 lift 25 | 24/24 10deg air 0 lift 22
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 8deg air 0 lift 18 | 20/24 stuck 45,135,225,315 9deg air 0 lift 28 | 21/24 stuck 45,225,315 13deg air 0 lift 31
+    threshold 12 mm                  24/24 6deg air 0 lift 11 | 24/24 6deg air 0 lift 12 | 24/24 10deg air 0 lift 22
+    threshold 18 mm                  24/24 10deg air 0 lift 22 | 24/24 10deg air 0 lift 36 | 24/24 11deg air 0 lift 27
+  v6 + pods + both rockers 6 deg
+    rug edge 8 mm                    21/24 stuck 45,135,225 6deg air 0 lift 23 | 24/24 9deg air 0 lift 20 | 24/24 13deg air 0 lift 24
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 6deg air 0 lift 17 | 20/24 stuck 45,135,225,315 14deg air 0 lift 23 | 22/24 stuck 45,315 17deg air 0 lift 25
+    threshold 12 mm                  24/24 5deg air 0 lift 8 | 24/24 5deg air 0 lift 13 | 24/24 7deg air 0 lift 33
+    threshold 18 mm                  24/24 7deg air 0 lift 14 | 24/24 9deg air 0 lift 29 | 24/24 13deg air 0 lift 29
+  v6 + pendulum swing
+    rug edge 8 mm                    24/24 5deg air 0 lift 8 | 24/24 12deg air 0 lift 22 | 24/24 30deg air 3 lift 28
+    rug edge 12 mm                   24/24 6deg air 0 lift 8 | 23/24 stuck 225 8deg air 0 lift 14 | 24/24 20deg air 3 lift 32
+    threshold 12 mm                  24/24 6deg air 0 lift 9 | 24/24 7deg air 0 lift 13 | 24/24 11deg air 2 lift 14
+    threshold 18 mm                   3/24 stuck 0,15,30,45,90,105... 8deg air 73 lift 245 | 22/24 stuck 135,225 10deg air 2 lift 64 | 24/24 13deg air 2 lift 30
+  v6 + parallel swing
+    rug edge 8 mm                    20/24 stuck 45,135,225,315 6deg air 0 lift 12 | 23/24 stuck 45 10deg air 0 lift 23 | 24/24 12deg air 0 lift 29
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 7deg air 0 lift 13 | 20/24 stuck 45,135,225,315 10deg air 0 lift 35 | 21/24 stuck 45,135,315 13deg air 0 lift 36
+    threshold 12 mm                  24/24 6deg air 0 lift 11 | 24/24 6deg air 0 lift 18 | 24/24 8deg air 0 lift 25
+    threshold 18 mm                  24/24 8deg air 2 lift 19 | 24/24 10deg air 2 lift 27 | 24/24 9deg air 0 lift 42
+  Rotacaster 125
+    rug edge 8 mm                    24/24 6deg air 0 lift 25 | 24/24 7deg air 1 lift 34 | 24/24 11deg air 2 lift 50
+    rug edge 12 mm                   22/24 stuck 45,315 6deg air 0 lift 31 | 22/24 stuck 45,315 13deg air 0 lift 39 | 23/24 stuck 315 21deg air 0 lift 50
+    threshold 12 mm                  24/24 6deg air 0 lift 49 | 24/24 11deg air 0 lift 42 | 24/24 22deg air 0 lift 47
+    threshold 18 mm                  24/24 8deg air 0 lift 108 | 24/24 18deg air 0 lift 41 | 24/24 34deg air 0 lift 49
+  DuraOmni 6 in
+    rug edge 8 mm                    24/24 5deg air 0 lift 27 | 24/24 7deg air 2 lift 28 | 24/24 10deg air 0 lift 32
+    rug edge 12 mm                   23/24 stuck 45 7deg air 0 lift 25 | 24/24 10deg air 0 lift 37 | 24/24 20deg air 0 lift 56
+    threshold 12 mm                  24/24 5deg air 0 lift 35 | 24/24 8deg air 0 lift 43 | 24/24 12deg air 0 lift 42
+    threshold 18 mm                  24/24 8deg air 0 lift 79 | 24/24 11deg air 0 lift 61 | 24/24 25deg air 0 lift 42
+  printed 127 2x6 32 mm
+    rug edge 8 mm                    24/24 5deg air 0 lift 23 | 24/24 8deg air 0 lift 30 | 24/24 17deg air 1 lift 31
+    rug edge 12 mm                   22/24 stuck 45,315 7deg air 0 lift 27 | 22/24 stuck 45,315 10deg air 2 lift 33 | 22/24 stuck 45,315 19deg air 0 lift 39
+    threshold 12 mm                  24/24 5deg air 0 lift 43 | 24/24 9deg air 1 lift 37 | 24/24 21deg air 0 lift 36
+    threshold 18 mm                  24/24 7deg air 0 lift 62 | 24/24 16deg air 0 lift 45 | 24/24 33deg air 0 lift 47
+  printed 152 2x7 36 mm
+    rug edge 8 mm                    24/24 5deg air 0 lift 23 | 24/24 6deg air 0 lift 27 | 24/24 9deg air 0 lift 30
+    rug edge 12 mm                   24/24 6deg air 0 lift 26 | 24/24 10deg air 0 lift 32 | 24/24 18deg air 0 lift 48
+    threshold 12 mm                  24/24 5deg air 0 lift 40 | 24/24 8deg air 0 lift 35 | 24/24 17deg air 0 lift 43
+    threshold 18 mm                  24/24 7deg air 0 lift 68 | 24/24 13deg air 0 lift 52 | 24/24 21deg air 2 lift 43
+  mecanum 140
+    rug edge 8 mm                    21/24 stuck 45,135,315 4deg air 0 lift 17 | 24/24 6deg air 0 lift 33 | 24/24 10deg air 3 lift 36
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 4deg air 0 lift 21 | 23/24 stuck 60 7deg air 0 lift 27 | 24/24 14deg air 2 lift 33
+    threshold 12 mm                  24/24 4deg air 0 lift 11 | 24/24 6deg air 0 lift 13 | 24/24 8deg air 0 lift 27
+    threshold 18 mm                  24/24 5deg air 0 lift 107 | 24/24 6deg air 0 lift 34 | 24/24 14deg air 0 lift 43

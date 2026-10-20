@@ -1,0 +1,34 @@
+A. Roller model vs sphere model, X4 round-3 robot
+   slip-free acceleration by body direction (m/s^2): 0 30 45 60 90 135 180
+     sphere   7.95 4.06 3.79 3.68 4.88 4.66 6.03
+     rollers  6.20 4.12 4.28 3.73 4.45 5.48 5.10
+   cruising 1.5 m/s (body 0 / 45 / 90 deg): speed ripple, heading drift over 1.5 s, lateral drift
+     sphere   0.0% +0.0 deg -0.0 cm | 0.0% -0.0 deg -0.0 cm | 0.0% -0.0 deg +0.0 cm
+     rollers  0.4% +0.2 deg -0.0 cm | 0.1% -0.1 deg +0.5 cm | 0.3% +0.1 deg -0.0 cm
+   catch game, sphere  : 93% of 72 (not in place 5, bounced 0), offset 1.7 cm
+   catch game, rollers : 94% of 72 (not in place 4, bounced 0), offset 1.8 cm
+B. Crossing obstacles with a ball aboard: across / ball kept, peak tilt, heading error, path off, odometry error, per body direction 0 / 45 / 90 deg; at 0.5, 1, 2 m/s
+   sphere model:
+     threshold 6 mm                 ok ok ok 2deg 1deg 0cm odo 2cm | ok ok ok 4deg 1deg 1cm odo 3cm | ok ok ok 6deg 7deg 2cm odo 8cm
+     threshold 12 mm                ok ok ok 5deg 2deg 1cm odo 7cm | ok ok ok 9deg 5deg 2cm odo 15cm | ok ok ok 16deg 14deg 4cm odo 28cm
+     threshold 18 mm                ok ok ok 6deg 6deg 1cm odo 18cm | ok ok ok 12deg 11deg 4cm odo 30cm | ok ok ok 22deg 49deg 7cm odo 66cm
+     rug edge 8 mm                  ok ok ok 3deg 1deg 0cm odo 4cm | ok ok ok 7deg 2deg 1cm odo 4cm | ok ok ok 9deg 5deg 2cm odo 10cm
+     rug edge 12 mm                 ok ok ok 5deg 3deg 1cm odo 8cm | ok ok ok 11deg 5deg 2cm odo 13cm | ok ok ok 18deg 8deg 4cm odo 28cm
+     carpet trim 8 mm, 25 mm bevel  ok ok ok 3deg 1deg 0cm odo 2cm | ok ok ok 6deg 1deg 1cm odo 3cm | ok ok ok 8deg 5deg 1cm odo 8cm
+   rollers model:
+     threshold 6 mm                 ok ok ok 3deg 1deg 0cm odo 2cm | ok ok ok 4deg 2deg 1cm odo 5cm | ok ok ok 6deg 6deg 1cm odo 13cm
+     threshold 12 mm                ok ok ok 4deg 2deg 0cm odo 6cm | ok ok ok 10deg 4deg 3cm odo 10cm | ok ok ok 18deg 9deg 8cm odo 29cm
+     threshold 18 mm                ok ok ok 8deg 2deg 1cm odo 10cm | ok ok ok 15deg 7deg 5cm odo 18cm | ok ok ok 28deg 18deg 19cm odo 49cm
+     rug edge 8 mm                  ok STUCK ok 5deg 3deg 2cm odo 235cm | ok STUCK ok 16deg 7deg 13cm odo 326cm | ok ok ok 11deg 10deg 5cm odo 64cm
+     rug edge 12 mm                 ok STUCK ok 4deg 2deg 1cm odo 235cm | ok STUCK ok 8deg 5deg 2cm odo 329cm | ok STUCK ok 16deg 26deg 18cm odo 353cm
+     carpet trim 8 mm, 25 mm bevel  ok ok ok 3deg 1deg 0cm odo 3cm | ok ok ok 6deg 2deg 1cm odo 6cm | ok ok ok 10deg 5deg 2cm odo 11cm
+C. Catch game on real floors (firmware adult, 6-7 m shallow throws, 72 per floor)
+   uniform 0.95                           sphere     96% (not in place 3, bounced 0), offset 1.7 cm, peak tilt 0.2 deg
+   field sigma 0.1                        sphere     94% (not in place 3, bounced 1), offset 1.7 cm, peak tilt 6.1 deg
+   field sigma 0.2                        sphere     99% (not in place 1, bounced 0), offset 1.5 cm, peak tilt 0.3 deg
+   slippery stripes (0.5)                 sphere     97% (not in place 1, bounced 1), offset 2.0 cm, peak tilt 0.3 deg
+   home floor (field, threshold, rug)     sphere     86% (not in place 8, bounced 2), offset 1.5 cm, peak tilt 180.0 deg
+   home floor, <= 1 m/s over the threshold sphere     92% (not in place 6, bounced 0), offset 2.2 cm, peak tilt 10.1 deg
+   uniform 0.95                           rollers    97% (not in place 2, bounced 0), offset 1.8 cm, peak tilt 24.7 deg
+   home floor (field, threshold, rug)     rollers    86% (not in place 7, bounced 3), offset 2.2 cm, peak tilt 23.6 deg
+   home floor, <= 1 m/s over the threshold rollers    82% (not in place 12, bounced 1), offset 2.0 cm, peak tilt 23.8 deg

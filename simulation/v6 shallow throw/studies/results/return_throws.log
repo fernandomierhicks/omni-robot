@@ -1,0 +1,7 @@
+Return throws to a thrower 6.5 m away (chest height), 4 runs x 8 tosses:
+  v5 plunger                : 21 returns, miss median 27 cm (after the first 3 of each run: 35 cm, 90% 94 cm); |range error| median 23 cm; learned bias [4, -1, 3, -57] cm
+  v6 roller                 : 32 returns, miss median 3 cm (after the first 3 of each run: 2 cm, 90% 9 cm); |range error| median 1 cm; learned bias [3, 6, 6, 3] cm
+  v6 chute                  : 32 returns, miss median 14 cm (after the first 3 of each run: 15 cm, 90% 19 cm); |range error| median 8 cm; learned bias [7, 10, 8, 12] cm
+  v6 roller, seat pulse     : 32 returns, miss median 44 cm (after the first 3 of each run: 45 cm, 90% 109 cm); |range error| median 32 cm; learned bias [-5, 4, 24, -29] cm
+  v6 roller, settle 0.3 s   : 32 returns, miss median 3 cm (after the first 3 of each run: 3 cm, 90% 14 cm); |range error| median 2 cm; learned bias [6, 2, 5, 3] cm
+  v6 roller, seat + settle  : 32 returns, miss median 34 cm (after the first 3 of each run: 25 cm, 90% 114 cm); |range error| median 23 cm; learned bias [3, -14, -7, -14] cm

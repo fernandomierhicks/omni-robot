@@ -1,0 +1,1762 @@
+[
+ {
+  "feed": "v5 plunger",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16442833513645042,
+    "range_err": 0.08446083246693094
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.38005484942417256,
+    "range_err": 0.28166988450040487
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15015071158309282,
+    "range_err": 0.04284110246949412
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.7709499071395609,
+    "range_err": -0.5822055623429364
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.2684145705837258,
+    "range_err": 0.21750087329459583
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18341076351498165,
+    "range_err": 0.10845508575238963
+   }
+  ],
+  "bias": 0.03818055403521974
+ },
+ {
+  "feed": "v5 plunger",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.35793572179880523,
+    "range_err": -0.2368431253850808
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15939095292774053,
+    "range_err": 0.12117342454962055
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.17774787416708954,
+    "range_err": 0.07266042545420642
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   }
+  ],
+  "bias": -0.010752318845313455
+ },
+ {
+  "feed": "v5 plunger",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.19944981151235963,
+    "range_err": -0.11377385852733984
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20121271010378233,
+    "range_err": 0.19727163367894662
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.33914847550528027,
+    "range_err": -0.30335629906876227
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12577780444384393,
+    "range_err": -0.12030956157609726
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.36181834810607133,
+    "range_err": 0.332937698294579
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.14656370069903676,
+    "range_err": 0.12712516812541705
+   }
+  ],
+  "bias": 0.029973695231685825
+ },
+ {
+  "feed": "v5 plunger",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.3029750626322036,
+    "range_err": -1.1830674519460993
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.21890766086875094,
+    "range_err": -0.013196438209004221
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0099295830621249,
+    "range_err": -0.614437193805541
+   },
+   {
+    "caught": 0.0,
+    "launched": false,
+    "err": NaN,
+    "range_err": NaN
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4935466469991776,
+    "range_err": 0.032500632039412815
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0578861112077758,
+    "range_err": -0.784355474068797
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.45376397904935567,
+    "range_err": 0.2778219105691494
+   }
+  ],
+  "bias": -0.5711835038552199
+ },
+ {
+  "feed": "v6 roller",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03911712977798263,
+    "range_err": 0.039012700746212846
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.028281858213401793,
+    "range_err": 0.026173401594286525
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.01743015835145049,
+    "range_err": 0.017430132879118355
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.11138128636963594,
+    "range_err": 0.1113812082127748
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.014901988044743106,
+    "range_err": 0.014642729065554317
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.009536561279129569,
+    "range_err": -0.009050142469334133
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.010831198443428364,
+    "range_err": -0.010727997255123875
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.07176713991327101,
+    "range_err": -0.07087905106109596
+   }
+  ],
+  "bias": 0.029495745428098206
+ },
+ {
+  "feed": "v6 roller",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12941827624463573,
+    "range_err": 0.1290463454258982
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.025589097087425874,
+    "range_err": 0.021594699676298075
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.02063305526167021,
+    "range_err": 0.01588291007914004
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.002729048073820901,
+    "range_err": 3.828288716164532e-05
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.022869701121205312,
+    "range_err": 0.014097071156261999
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.008291466107946854,
+    "range_err": -0.007928600789680907
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.014882331025931787,
+    "range_err": -0.0007914170225852862
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.08521818989468029,
+    "range_err": 0.08509112082337586
+   }
+  ],
+  "bias": 0.06425760305896741
+ },
+ {
+  "feed": "v6 roller",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12707502540307006,
+    "range_err": 0.1270712167697323
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.030617050685405794,
+    "range_err": 0.029165783212153993
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04177177974467164,
+    "range_err": -0.04088756780079678
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0258853020982378,
+    "range_err": -0.024855914327540383
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.020349389036686243,
+    "range_err": 0.019444182774256087
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.012787708282375168,
+    "range_err": 0.012552361380979024
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.009341891133583873,
+    "range_err": 0.00705409057632052
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.11702927712783293,
+    "range_err": 0.11686899162518191
+   }
+  ],
+  "bias": 0.06160328605257166
+ },
+ {
+  "feed": "v6 roller",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.042000217408695605,
+    "range_err": 0.035477132875045635
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.034659768352622265,
+    "range_err": 0.034420714909648854
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0479740923198169,
+    "range_err": 0.045702719933756714
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0167476196769199,
+    "range_err": -0.0050929256910196355
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.02506287406645168,
+    "range_err": 0.014823677940264728
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.034919394775825556,
+    "range_err": -0.03489698919525191
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.015306073148218762,
+    "range_err": 0.01492136992211592
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.021304938344631225,
+    "range_err": 0.0004646092967950553
+   }
+  ],
+  "bias": 0.02645507749783884
+ },
+ {
+  "feed": "v6 chute",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03926669539513369,
+    "range_err": -0.039249888144061426
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.21230254297335116,
+    "range_err": 0.15995167546137473
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.08083120979900431,
+    "range_err": -0.08083059438140083
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.07063085627466172,
+    "range_err": -0.07061838389902994
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06838643744105011,
+    "range_err": 0.060059331756071054
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04219382143886111,
+    "range_err": -0.04210479521782963
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20029213528244602,
+    "range_err": 0.15796332569379
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18795758294419979,
+    "range_err": 0.12297401665309436
+   }
+  ],
+  "bias": 0.06703617198050209
+ },
+ {
+  "feed": "v6 chute",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20080767955745943,
+    "range_err": 0.15666004098865838
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0871787421954964,
+    "range_err": 0.07729669531615903
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.13370710574699923,
+    "range_err": 0.057761762338445405
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.143548730214603,
+    "range_err": 0.06553313403351718
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12405263126351093,
+    "range_err": 0.012551895726615317
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.13692505154038803,
+    "range_err": -0.1369044719782166
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.14992425556678793,
+    "range_err": 0.08237057573633078
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.14138083453219913,
+    "range_err": 0.06650836868310205
+   }
+  ],
+  "bias": 0.09544450021115289
+ },
+ {
+  "feed": "v6 chute",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04697645330436315,
+    "range_err": -0.046910754423725165
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.055916736843426275,
+    "range_err": 0.05217400965712953
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18521229582587959,
+    "range_err": 0.1418759269029104
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16301927026233806,
+    "range_err": 0.1133332863424831
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.11889507196226563,
+    "range_err": -0.1183608375680764
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06596920811657365,
+    "range_err": -0.06590713475780974
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18572474181375143,
+    "range_err": 0.13241822013062116
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16563793585064887,
+    "range_err": 0.09240913640380592
+   }
+  ],
+  "bias": 0.07525796317183471
+ },
+ {
+  "feed": "v6 chute",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.2249722889481742,
+    "range_err": 0.17563946591835236
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1570312822003686,
+    "range_err": 0.09413588584178666
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04324634541280553,
+    "range_err": -0.025167085809237214
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.2044375288947702,
+    "range_err": 0.08895863154646372
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.11894111877916978,
+    "range_err": -0.11883391706445402
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15669411764395427,
+    "range_err": 0.0851959502686887
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15909994202393707,
+    "range_err": 0.07771979274309712
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.17499818711568235,
+    "range_err": 0.08292529899598657
+   }
+  ],
+  "bias": 0.11514350561017098
+ },
+ {
+  "feed": "v6 roller, seat pulse",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20604748166496,
+    "range_err": 0.16333357236410803
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.095507233468564,
+    "range_err": -0.5692045275158443
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5855849807611341,
+    "range_err": 0.4431731738085447
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.17502408271482334,
+    "range_err": 0.14230596363919035
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.11352486915478625,
+    "range_err": 0.11351769730758748
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0758746817708598,
+    "range_err": -0.7296796318738067
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5808569479418125,
+    "range_err": 0.4309745257650864
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.25671128443685476,
+    "range_err": -0.18094416144663686
+   }
+  ],
+  "bias": -0.04663084698794271
+ },
+ {
+  "feed": "v6 roller, seat pulse",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5260373761309305,
+    "range_err": 0.35781175221502803
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4236797291705777,
+    "range_err": 0.41943057377226867
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.33076681719943773,
+    "range_err": 0.3201260254108585
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.2169781735084457,
+    "range_err": -0.9425666917630782
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0007790010893223,
+    "range_err": -0.7368019745521838
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3397285505747286,
+    "range_err": 0.3134931549784917
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.05989711203774116,
+    "range_err": 0.05935595435550877
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5350339881529438,
+    "range_err": 0.37276999101544434
+   }
+  ],
+  "bias": 0.0409046963580845
+ },
+ {
+  "feed": "v6 roller, seat pulse",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4543400286200743,
+    "range_err": 0.2695286496669131
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4132111163260077,
+    "range_err": 0.41261241061853937
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.37338082261688377,
+    "range_err": 0.11990930106107305
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12490565037211615,
+    "range_err": -0.038822295489102966
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0819409939627195,
+    "range_err": -0.032999711027579696
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3663836500160423,
+    "range_err": 0.11086411546269063
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12955599220529515,
+    "range_err": 0.02907250368319081
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.36362512456149987,
+    "range_err": 0.07888387392859576
+   }
+  ],
+  "bias": 0.23726221197608
+ },
+ {
+  "feed": "v6 roller, seat pulse",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.1188245385196198,
+    "range_err": -0.6118044864042118
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3334932909353793,
+    "range_err": 0.3102549769942133
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.8478453181891288,
+    "range_err": -0.582768679341085
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.3425280792793268,
+    "range_err": -0.3984637503055567
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.6956732303671462,
+    "range_err": 0.6110597528863027
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5713408473502894,
+    "range_err": 0.44533063380830806
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0461910990816983,
+    "range_err": -0.6278432879375259
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0756421959933624,
+    "range_err": -0.3248056214372858
+   }
+  ],
+  "bias": -0.2947601154342103
+ },
+ {
+  "feed": "v6 roller, settle 0.3 s",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03911712977798263,
+    "range_err": 0.039012700746212846
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.031137587970344837,
+    "range_err": 0.030819326835471405
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.021415497678810347,
+    "range_err": 0.021249700061118836
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.026101085216318338,
+    "range_err": 0.025831962935408022
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10174641167662911,
+    "range_err": 0.10171747435369065
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.008506828923605398,
+    "range_err": -0.007222699509831249
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0710263376932784,
+    "range_err": 0.07093571609867184
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.031070686505625795,
+    "range_err": -0.030815371956696765
+   }
+  ],
+  "bias": 0.0628822023910114
+ },
+ {
+  "feed": "v6 roller, settle 0.3 s",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12941827624463573,
+    "range_err": 0.1290463454258982
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.025589097087425874,
+    "range_err": 0.021594699676298075
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.012764871272850286,
+    "range_err": 0.011642919388126236
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.524973962448176,
+    "range_err": -0.5248968485903878
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1392703641894568,
+    "range_err": 0.13913048959497043
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09657860821060411,
+    "range_err": 0.09652988172784982
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15844561771966562,
+    "range_err": 0.1584238593208771
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03893913714286959,
+    "range_err": 0.038682774137152154
+   }
+  ],
+  "bias": 0.017538530170196062
+ },
+ {
+  "feed": "v6 roller, settle 0.3 s",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12707502540307006,
+    "range_err": 0.1270712167697323
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.030617050685405794,
+    "range_err": 0.029165783212153993
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18445205477073964,
+    "range_err": 0.13005955264559524
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.02495628504468946,
+    "range_err": -0.02492241658040714
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.019426003141085852,
+    "range_err": -0.0190549255766543
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.014713477605061304,
+    "range_err": -0.014700168295988188
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.025825584910050593,
+    "range_err": -0.02263649078948542
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.007159840288173345,
+    "range_err": -0.006689266943070826
+   }
+  ],
+  "bias": 0.04957332111046892
+ },
+ {
+  "feed": "v6 roller, settle 0.3 s",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.042000217408695605,
+    "range_err": 0.035477132875045635
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03763599172764666,
+    "range_err": 0.03752859030563046
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.040425689501220524,
+    "range_err": 0.03938157498129427
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.01430836927383468,
+    "range_err": -0.0076364317268466314
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.021225985303312832,
+    "range_err": 0.018977173779519473
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.016146241117500747,
+    "range_err": 0.015920741606109408
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.005302904378591368,
+    "range_err": 0.003429338015554
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.01094423781299766,
+    "range_err": -0.00903328455055418
+   }
+  ],
+  "bias": 0.033511208821438106
+ },
+ {
+  "feed": "v6 roller, seat + settle",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20604748166496,
+    "range_err": 0.16333357236410803
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0791631000057222,
+    "range_err": -0.6949057887143906
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5501971199710913,
+    "range_err": 0.40366999492003386
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.9789194493273827,
+    "range_err": -0.6354438628333169
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3807660227945644,
+    "range_err": 0.3801887977716141
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09051515846054727,
+    "range_err": 0.089852126593498
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.19549703127738371,
+    "range_err": 0.19369256094028472
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.24635537609339686,
+    "range_err": 0.20385823820085686
+   }
+  ],
+  "bias": 0.02606140981067203
+ },
+ {
+  "feed": "v6 roller, seat + settle",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.5260373761309305,
+    "range_err": 0.35781175221502803
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4236797291705777,
+    "range_err": 0.41943057377226867
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3333652880166233,
+    "range_err": 0.3232795517121037
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1202897178504547,
+    "range_err": 0.01274983292045683
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10208576880718231,
+    "range_err": -0.09590288616112194
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.2079477680563648,
+    "range_err": -0.8897858966833843
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1645009022967887,
+    "range_err": 0.11612820615911951
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0866910377713714,
+    "range_err": -0.8034494242213346
+   }
+  ],
+  "bias": -0.13993457257171604
+ },
+ {
+  "feed": "v6 roller, seat + settle",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4543400286200743,
+    "range_err": 0.2695286496669131
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.4132111163260077,
+    "range_err": 0.41261241061853937
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09436516559975779,
+    "range_err": -0.008254406554986896
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.1473321693889411,
+    "range_err": -0.9083859078683469
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10384122017742915,
+    "range_err": 0.10384020781670483
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.22684408403903017,
+    "range_err": 0.197993885709148
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0586965530535182,
+    "range_err": -0.6081301356318716
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.26051036590872745,
+    "range_err": 0.2598153547465067
+   }
+  ],
+  "bias": -0.07024498537434833
+ },
+ {
+  "feed": "v6 roller, seat + settle",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.1188245385196198,
+    "range_err": -0.6118044864042118
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1448147658144264,
+    "range_err": 0.1442114443798737
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3018108139789324,
+    "range_err": 0.29870678813377277
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.1402516348043283,
+    "range_err": -0.4889843477966369
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3467473623984649,
+    "range_err": 0.3175188322204823
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20818525534400706,
+    "range_err": 0.20750738716941716
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.020339888561336908,
+    "range_err": 0.014284302454517372
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 1.0890497618716795,
+    "range_err": -0.4589379791370623
+   }
+  ],
+  "bias": -0.14437451474496193
+ },
+ {
+  "feed": "v6 round 3 chute, elastic contacts",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.037338901235894624,
+    "range_err": -0.03731131139963087
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03215932201647271,
+    "range_err": -0.03207397873508742
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04013573142527828,
+    "range_err": -0.04008700437785091
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03689368965915759,
+    "range_err": -0.03686723098684954
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06978218899505155,
+    "range_err": -0.06978016341407191
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.22344323340070937,
+    "range_err": 0.19102875165131258
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03583891022372108,
+    "range_err": -0.03582633130017055
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.028160012004854306,
+    "range_err": -0.028126844622737214
+   }
+  ],
+  "bias": -0.022261028296271457
+ },
+ {
+  "feed": "v6 round 3 chute, elastic contacts",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.036943872721191505,
+    "range_err": -0.03694169555922686
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15805933751731488,
+    "range_err": 0.11254677633402269
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.054495419294388975,
+    "range_err": -0.05449491888834578
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03694048198880573,
+    "range_err": -0.036889662194805765
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1676552947980092,
+    "range_err": 0.11550682576090089
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06633801258088644,
+    "range_err": -0.06633207493762533
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18546835965655503,
+    "range_err": 0.13319691815859191
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.07117367280125815,
+    "range_err": -0.07116024196670931
+   }
+  ],
+  "bias": 0.023857981676700613
+ },
+ {
+  "feed": "v6 round 3 chute, elastic contacts",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04476285190950745,
+    "range_err": -0.04469438725222079
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.05720250127515058,
+    "range_err": 0.053409772382535185
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18629745873250397,
+    "range_err": 0.14293544167949002
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16459375516901464,
+    "range_err": 0.11293059113365254
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09975782621548716,
+    "range_err": -0.09972155962191838
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.07225968087117338,
+    "range_err": -0.07225895116783997
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18851946310937234,
+    "range_err": 0.13508128653425588
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09363991847006044,
+    "range_err": -0.09363937862372107
+   }
+  ],
+  "bias": 0.03351070376605836
+ },
+ {
+  "feed": "v6 round 3 chute, elastic contacts",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.2237278800523311,
+    "range_err": 0.1718828765375951
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.07807590603801505,
+    "range_err": -0.07803877476145107
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04405141728404268,
+    "range_err": 0.029131204140890633
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.2171996879786566,
+    "range_err": 0.11949551413940639
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15908894763627113,
+    "range_err": 0.08910964987655727
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.114999605115829,
+    "range_err": -0.11499861900167524
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.09169652496627634,
+    "range_err": -0.09167454713969374
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.19935341188305172,
+    "range_err": 0.1360817601493941
+   }
+  ],
+  "bias": 0.06524726598525586
+ },
+ {
+  "feed": "v6 round 3 chute (GM3506, viscoelastic)",
+  "seed": 0,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06735778855660744,
+    "range_err": -0.06732304282652252
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0512346101942214,
+    "range_err": -0.05120068394007305
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.05355851310133074,
+    "range_err": -0.05353878750464073
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10594099027259135,
+    "range_err": 0.10002234541792934
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.06298026271278277,
+    "range_err": -0.05993797138126574
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.027662984774725393,
+    "range_err": -0.027550584803462716
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.03359078078345485,
+    "range_err": -0.03358399392253006
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.033746774979867195,
+    "range_err": -0.033679772393115856
+   }
+  ],
+  "bias": -0.05669812283842032
+ },
+ {
+  "feed": "v6 round 3 chute (GM3506, viscoelastic)",
+  "seed": 1,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0706182141827176,
+    "range_err": -0.07057964041588656
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.3381025893286962,
+    "range_err": 0.3291344521263425
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12139944797712601,
+    "range_err": -0.007681068575216066
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.12422785138734019,
+    "range_err": -0.12420098486050171
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.04205521070901286,
+    "range_err": 0.020749472081967535
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10771499064942293,
+    "range_err": -0.1076943023968178
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15375868652050098,
+    "range_err": 0.0956568919982558
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1445177666279737,
+    "range_err": 0.07900138949805743
+   }
+  ],
+  "bias": 0.05359655236405029
+ },
+ {
+  "feed": "v6 round 3 chute (GM3506, viscoelastic)",
+  "seed": 2,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.0800763315653783,
+    "range_err": -0.0800323381585865
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.05385671856825098,
+    "range_err": -0.04812169252264308
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.18818101546504531,
+    "range_err": 0.14597897245636204
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16046496489546175,
+    "range_err": 0.11291179883776613
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.10490063176906755,
+    "range_err": -0.10473642776631056
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16627773306972632,
+    "range_err": 0.11551865314802998
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.15423289070124074,
+    "range_err": 0.08200306831362034
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1307994640467317,
+    "range_err": -0.13079918683580485
+   }
+  ],
+  "bias": 0.02318071186810837
+ },
+ {
+  "feed": "v6 round 3 chute (GM3506, viscoelastic)",
+  "seed": 3,
+  "tosses": [
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1962974203477768,
+    "range_err": 0.13538006668974273
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.14714269482794387,
+    "range_err": 0.07634376683859731
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.13476243762831303,
+    "range_err": -0.1313555698892744
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.20760156223574275,
+    "range_err": 0.12053009443078297
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1399471284721802,
+    "range_err": 0.06215851984794267
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1247447422693071,
+    "range_err": -0.12474474172101312
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.16147243179799453,
+    "range_err": 0.08800791102958516
+   },
+   {
+    "caught": 1.0,
+    "launched": true,
+    "err": 0.1759220480926664,
+    "range_err": 0.08481054534456202
+   }
+  ],
+  "bias": 0.07778264814273132
+ }
+]

@@ -1,0 +1,13 @@
+robot 5.56 kg, CG 15.1 cm high; tip-over 5.9 m/s^2 toward a wheel-triangle edge; CubeMars AK40-10 V3.0 KV170 on goBILDA 96mm Omni Wheel (14mm bore, 50A)
+[  0.60s] forward 0.8 m
+[  2.48s] strafe left 0.8 m
+[  4.39s] diagonal back while turning 180 deg
+[  6.50s] spin in place one turn
+[  9.18s] circle r=0.5 m at 0.9 m/s, heading fixed
+[ 13.27s] back to start
+[ 15.13s] forward 0.8 m
+[ 17.02s] strafe left 0.8 m
+[ 18.93s] diagonal back while turning 180 deg
+[ 21.04s] spin in place one turn
+[ 23.72s] circle r=0.5 m at 0.9 m/s, heading fixed
+wrote drive_demo.mp4 (751 frames)

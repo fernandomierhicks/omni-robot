@@ -1,0 +1,61 @@
+robot 5.56 kg, CG 15.1 cm high; tip-over 5.9 m/s^2 toward a wheel-triangle edge; CubeMars AK40-10 V3.0 KV170 on goBILDA 96mm Omni Wheel (14mm bore, 50A)
+[   1.00s] toss: aim 0.19 m from home, apex 1.04 m, release 5.39 m/s
+[   1.25s]   predicted landing 0.19 m from home, 0.72 s to go
+[   2.70s] toss 1: CAUGHT (funnel offset 0.2 cm, moved 0.19 m) - 1/1
+[   2.81s]   gate open: flywheels 2376 rpm for 6.27 m/s
+[   3.25s]   launched 6.03 m/s at 49.8 deg
+[   3.92s]   return throw arrives 15 cm from the thrower's hands
+[   5.41s] toss: aim 0.33 m from home, apex 1.91 m, release 6.74 m/s
+[   5.66s]   predicted landing 0.33 m from home, 1.00 s to go
+[   7.45s] toss 2: CAUGHT (funnel offset 0.3 cm, moved 0.33 m) - 2/2
+[   7.54s]   gate open: flywheels 2543 rpm for 6.69 m/s
+[   7.99s]   launched 6.41 m/s at 50.1 deg
+[   8.73s]   return throw arrives 8 cm from the thrower's hands
+[  10.14s] toss: aim 0.32 m from home, apex 1.54 m, release 6.01 m/s
+[  10.39s]   predicted landing 0.32 m from home, 0.89 s to go
+[  12.07s] toss 3: CAUGHT (funnel offset 0.3 cm, moved 0.32 m) - 3/3
+[  12.14s]   gate open: flywheels 2344 rpm for 6.16 m/s
+[  12.59s]   launched 5.79 m/s at 49.6 deg
+[  13.21s]   return throw arrives 11 cm from the thrower's hands
+[  14.74s] toss: aim 0.33 m from home, apex 1.00 m, release 5.66 m/s
+[  14.99s]   predicted landing 0.33 m from home, 0.71 s to go
+[  16.45s] toss 4: CAUGHT (funnel offset 1.6 cm, moved 0.33 m) - 4/4
+[  16.53s]   gate open: flywheels 2534 rpm for 6.67 m/s
+[  16.97s]   launched 6.48 m/s at 50.1 deg
+[  17.73s]   return throw arrives 18 cm from the thrower's hands
+[  19.13s] toss: aim 0.07 m from home, apex 1.73 m, release 6.39 m/s
+[  19.38s]   predicted landing 0.07 m from home, 0.95 s to go
+[  21.14s] toss 5: CAUGHT (funnel offset 0.0 cm, moved 0.07 m) - 5/5
+[  21.21s]   gate open: flywheels 2435 rpm for 6.42 m/s
+[  21.66s]   launched 6.13 m/s at 49.9 deg
+[  22.35s]   return throw arrives 9 cm from the thrower's hands
+[  23.82s] toss: aim 0.34 m from home, apex 1.54 m, release 6.20 m/s
+[  24.07s]   predicted landing 0.34 m from home, 0.89 s to go
+[  25.75s] toss 6: CAUGHT (funnel offset 0.7 cm, moved 0.34 m) - 6/6
+[  25.84s]   gate open: flywheels 2479 rpm for 6.54 m/s
+[  26.29s]   launched 6.24 m/s at 49.9 deg
+[  27.00s]   return throw arrives 7 cm from the thrower's hands
+[  28.44s] toss: aim 0.24 m from home, apex 1.03 m, release 5.41 m/s
+[  28.69s]   predicted landing 0.24 m from home, 0.72 s to go
+[  30.15s] toss 7: CAUGHT (funnel offset 0.1 cm, moved 0.24 m) - 7/7
+[  30.22s]   gate open: flywheels 2395 rpm for 6.32 m/s
+[  30.66s]   launched 6.15 m/s at 49.9 deg
+[  31.35s]   return throw arrives 21 cm from the thrower's hands
+[  32.82s] toss: aim 0.30 m from home, apex 1.65 m, release 6.36 m/s
+[  33.07s]   predicted landing 0.30 m from home, 0.92 s to go
+[  34.82s] toss 8: CAUGHT (funnel offset 0.4 cm, moved 0.30 m) - 8/8
+[  34.90s]   gate open: flywheels 2498 rpm for 6.59 m/s
+[  35.34s]   launched 6.18 m/s at 50.0 deg
+[  36.05s]   return throw arrives 5 cm from the thrower's hands
+[  37.50s] toss: aim 0.23 m from home, apex 2.00 m, release 6.67 m/s
+[  37.75s]   predicted landing 0.23 m from home, 1.02 s to go
+[  39.57s] toss 9: CAUGHT (funnel offset 0.1 cm, moved 0.23 m) - 9/9
+[  39.64s]   gate open: flywheels 2370 rpm for 6.22 m/s
+[  40.09s]   launched 5.94 m/s at 49.8 deg
+[  40.74s]   return throw arrives 10 cm from the thrower's hands
+[  42.24s] toss: aim 0.31 m from home, apex 1.65 m, release 6.40 m/s
+[  42.49s]   predicted landing 0.31 m from home, 0.92 s to go
+[  44.23s] toss 10: CAUGHT (funnel offset 0.4 cm, moved 0.31 m) - 10/10
+[  44.32s]   gate open: flywheels 2535 rpm for 6.66 m/s
+[  44.75s]   launched 6.41 m/s at 50.1 deg
+wrote catch_demo.mp4 (1351 frames)

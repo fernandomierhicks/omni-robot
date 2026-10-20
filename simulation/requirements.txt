@@ -1,0 +1,10 @@
+mujoco>=3.3
+numpy
+scipy
+matplotlib
+pyyaml
+pytest
+pillow
+imageio
+imageio-ffmpeg
+pygame>=2.6        # v7 house.py: keyboard / gamepad driving

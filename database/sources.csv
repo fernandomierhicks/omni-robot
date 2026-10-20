@@ -1,0 +1,52 @@
+id,kind,url,supports,date_checked,notes
+S001,maker,https://www.cubemars.com/product/ak40-10-v3-0-kv170-robotic-actuator.html,"cubemars-ak40-10-v3: all specs, $135.90",2026-10-19,
+S002,maker,https://www.robomaster.com/en-US/products/components/general/M2006,"dji-m2006-p36, dji-c610: 24 V rated, 500 rpm, 1 N m at 416 rpm, 36:1, 90 g, C610 10 A, 17 g",2026-10-19,No voltage range stated
+S003,maker,https://store.dji.com/product/rm-m2006-p36-brushless-motor,"dji-m2006-p36: $55, out of stock",2026-10-19,
+S004,maker,https://store.dji.com/product/rm-c610-brushless-dc-motor-speed-control,"dji-c610: $39, out of stock; FOC, M2006 only",2026-10-19,
+S005,maker,https://www.manualslib.com/manual/2908712/Robomaster-C610.html?page=9,"dji-c610: rated 24 V DC, 10 A continuous, 1 Mbps CAN, 17 g, 0-55 C",2026-10-19,Mirror of the DJI C610 user guide (rm-static.djicdn.com PDF is encrypted). No max voltage given
+S006,reseller,https://robotdoo.com/products/dji-robomaster-m2006-p36-motor,"dji-m2006-p36: kt 0.18 N m/A, R 461 mOhm, L 64.22 uH, 7 pole pairs, 0.6 A no-load, 3 A rated; stall 7 N m / 27.3 A (Z650 ESC)",2026-10-19,"$138, sold out"
+S007,reseller,https://sonnyrobotics.com/products/robomaster-c610-motor-controller,"dji-c610: CAN or serial, -10..10 A command, angle + speed feedback at 1 kHz",2026-10-19,AUD 200
+S008,maker,https://www.pololu.com/product/4691,pololu-37d-24v-19-enc: all specs and price breaks,2026-10-19,
+S009,maker,https://www.pololu.com/product/4699,pololu-37d-24v-10-enc: all specs and price breaks,2026-10-19,
+S010,maker,https://www.pololu.com/category/116/37d-metal-gearmotors,"pololu-37d-*: speed, stall torque, stall current per ratio and voltage",2026-10-19,No prices on the category page
+S011,maker,https://www.pololu.com/product/4842,pololu-25d-12v-9.7-hp-enc: specs and price breaks,2026-10-19,
+S012,maker,https://www.pololu.com/product/4035,pololu-drv8874-4035: specs and price breaks,2026-10-19,Peak current inconsistent on the page (3.5 vs 4.4 A)
+S013,reseller,https://www.pololu.com/product/3682,basicmicro-roboclaw-2x7a: $79.95 (5: $75.15),2026-10-19,Backorders allowed
+S014,reseller,https://eu.robotshop.com/products/roboclaw-2x7a-6-34vdc-regenerative-motor-controller,"basicmicro-roboclaw-2x7a: 6-34 V, 7.5 A / 15 A, dual quadrature to 19.6 M pulses/s",2026-10-19,Low or no stock
+S015,reseller,https://pololu.com/product/1496/specs,"basicmicro-roboclaw-2x15a: 6-30 V, 15 A / 30 A",2026-10-19,
+S016,maker,https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-13-7-1-ratio-24mm-length-8mm-rex-shaft-435-rpm-3-3-5v-encoder/,"gobilda-5203-435: specs, $54.99",2026-10-19,
+S017,reseller,https://openelab.io/products/feetech-sts3250-c002-servo-12v,"feetech-sts3250: $73.99, 6-12 V, 50 kg cm, 1/345, magnetic encoder, metal gears",2026-10-19,
+S018,reseller,https://robotshop.com/products/feetech-12v-30kgcm-magnetic-encoding-servo-sts3215,"feetech-sts3215: $49.22 (out of stock); 0.222 s/60 deg, 2.7 A stall, 0.18 A no-load at 12 V; 10 kg cm rated; 4-14 V",2026-10-19,aifitlab lists $26 (backorder)
+S019,maker,https://hajim.rochester.edu/me/sites/kelley/me240/DS3235-270_datasheet.pdf,dsservo-ds3235: 5-7.4 V; 35 kg cm and 2.3 A stall at 7.4 V; 60 g; 40x20x38.5 mm; IP66,2026-10-19,Copy of the DSServo datasheet
+S020,reseller,https://www.robotshop.com/products/robotis-dynamixel-xm430-w210-t-smart-servo-actuator,dynamixel-xm430-w210-t: $310.39,2026-10-19,Restocking
+S021,maker,https://www.waveshare.com/product/ddsm115.htm,"waveshare-ddsm115: all specs, $64.99",2026-10-19,
+S022,reseller,https://aifitlab.com/collections/lkmtech-motor,"LK-TECH prices: MF4005-V2 $100, MG4010E-i10-V3 $165, MG4005E-i10-V3 $145, MS3506-V3 $65 (all in stock)",2026-10-19,
+S023,reseller,https://www.roboticscenter.ai/ar/store/product/lkmtech-ms4005-v3-motor,"lk-ms4005-v3: $75 backorder; 12 V, 1090 rpm, rated 0.07 N m at 450 rpm, max 0.1 N m, 0.65 A; recommended driver DS40v3",2026-10-19,
+S024,reseller,https://www.alibaba.com/product-detail/MF4005V2-12V-DC-Brushless-Mirco-Motor_1600425335712.html,"lk-mf4005-v2: 12 V, 18-bit encoder, 1600 rpm rated, '7.4~32' V in the title; $31-67 wholesale",2026-10-19,
+S025,reseller,https://openelab.com/products/steadywin-gim6010-8-brushless-gearmotor,steadywin-gim6010-8: $104.99 with GDS68 driver; 24 V; 420 rpm max; 5 / 11 N m; 10.5 / 23.4 A; 370 g,2026-10-19,Listings disagree on KV and R
+S026,reseller,https://probots.co.in/mks-servo42d-can-closed-loop-stepper-motor-kit.html,"makerbase-mks-servo42d-can: INR 2,999; 12-24 V; 3000 rpm max; ~0.48 N m holding; 14-bit encoder; CAN, RS485, step/dir",2026-10-19,Holding torque conflicts with other listings
+S027,reseller,https://www.ebay.de/itm/264554609934,jmc-ihss42-24-05: ~US$70-73 + shipping; 24 V; 0.48 N m,2026-10-19,
+S028,maker,https://docs.simplefoc.com/simplefocmini,"simplefoc-mini-v1: DRV8313, 8-24 V, 2.5 A per phase; shop price 10-15 EUR (github.com/simplefoc/SimpleFOCMini)",2026-10-19,Retail $5.90-9.48
+S029,forum,https://hackaday.io/project/179234/log/229334,mjbots-moteus-c1: $69 at launch (April 2024),2026-10-19,Maker's project log; current price VERIFY at mjbots.com
+S030,maker,https://www.pjrc.com/store/teensy41.html,"teensy-4.1: 4 quadrature decoders, 3 CAN (1 CAN FD), 35 PWM pins, 600 MHz M7",2026-10-19,No price on the page
+S031,maker,https://www.pololu.com/product/5065,"pololu-motoron-m2t256: 4.5-48 V, 1.8 A per motor, $23.95 (100: $18.65)",2026-10-19,
+S032,maker,https://www.pololu.com/product/5040,"pololu-motoron-m2s24v14: 6.5-40 V, 14 A per motor, $64.95 kit",2026-10-19,
+S033,reseller,https://thepihut.com/collections/adafruit-robotics-cnc/products/10a-5v-30v-2-channel-dc-motor-driver,cytron-mdd10a: GBP 24.90; 5-30 V (Rev2.0); 10 A / 30 A for 10 s,2026-10-19,No reverse-polarity protection
+S034,reseller,https://www.getfpv.com/iflight-xing-2806-5-race-motor-1300kv-1800kv.html,iflight-xing-2806.5-1300: $40.99,2026-10-19,
+S035,reseller,https://pyrodrone.com/collections/motors/products/t-motor-f90-2806-5-long-range-motor,tmotor-f90-2806.5-1300: ~$30 (design.md 16),2026-10-17,Another reseller (rcdrone.top) showed $35.50 on 2026-10-19
+S036,reseller,https://www.rotorama.com/product/tbs-lucid-8s-4v1,"tbs-lucid-8s-60a-4in1: EUR 63.09; AM32, bidirectional DShot",2026-10-19,design.md 16 used $90
+S037,reseller,https://www.rotorama.com/product/pilotix-esc-4in1-pilotix-65a-am32,pilotix-65a-am32-8s: EUR 48.39; 3-8S; bidirectional DShot; current sensor,2026-10-19,
+S038,reseller,https://www.flyingtech.co.uk/product/sequre-blueson-a2-65a-6s-70a-8s-128k-4-in-1-esc-am32-firmware/,sequre-blueson-a2-70a-8s: GBP 29.99-44.99 (6S / 8S versions); AM32,2026-10-19,Bidirectional DShot not confirmed
+S039,project,../../wheeled-leg-robot/components/COMPONENTS.md,"Purchase records: cubemars-ak45-10 $149, maytech-mto5065-70-ha $90, odesc-3.6-dual $41; their specs as recorded there",2026-10-19,Sister project
+S040,project,../../wheeled-leg-robot/components/NewWheelMotor.md,generic-5010-360kv price and torque (unverified there too),2026-10-19,"Sister project, 2026-08-03"
+S041,project,simulation/v6 shallow throw/catalog.py; design.md 23,"Values carried from the omni-robot catalog (makers' pages, Oct 2026; per-value URLs not recorded)",2026-10-19,Its (est) marks are kept as est here
+S042,maker,https://database.tytorobotics.com/,"Propulsion dynamometer test data (121 motors, 55 ESCs): use for flywheel-motor curves",2026-10-19,Not used yet: the pages render client-side
+S043,reseller,https://aifitlab.com/products/feetech-sts3250-servo-motor,feetech-sts3250 (C001 double shaft): $97 backorder,2026-10-19,
+S044,project,"Fernando's brief, 2026-10-19","Values given in the request (moteus c1, LK MG4010E driver, Pololu 20D, Dynamixel speeds, DS3235 at 8.4 V)",2026-10-19,Not re-checked unless another source is listed
+S045,reseller,https://www.ebay.com/itm/325349454260,"generic-jgb37-520: 6/12 V versions with Hall encoder, US$16.95",2026-10-19,24 V curves not found
+S046,reseller,https://sigmanortec.ro/en/servomotor-ds3235mg-metal-ip66-35kg-74v,dsservo-ds3235: EUR 41.36; '5-8.4 V' (not in the datasheet),2026-10-19,
+S047,reseller,https://www.ebay.de/itm/404513205412,dsservo-ds3235: US$20.21 (listed as DS3235SG),2026-10-19,
+S048,reseller,https://core-electronics.com.au/roboclaw-2x15a-motor-controller.html,basicmicro-roboclaw-2x15a: AUD 179.95,2026-10-19,
+S049,reseller,https://openelab.io/products/mg4010e-i10-v3-dual-encoder-robot-motor,"lk-mg4010e-i10-v3: EUR 170.45; 24 V, 140 W, 2.5 N m, 1:10 (AliExpress listing $172.90)",2026-10-19,
+S050,forum,https://github.com/AlexanderKoch-Koch/low_cost_robot,dynamixel-xl330-m288: ~$24 each in a project BOM,2026-10-19,Date of the BOM unknown
+S051,maker,https://www.robomaster.com/en-US/products/components/detail/1277,dji-m2006-p36: USD 41 listing,2026-10-19,The DJI store now asks $55

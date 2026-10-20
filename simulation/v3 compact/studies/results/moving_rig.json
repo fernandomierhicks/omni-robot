@@ -1,0 +1,241 @@
+{
+ "entry": [
+  {
+   "direction": "with the ball",
+   "speed": 0.0,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "with the ball",
+   "speed": 0.5,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "with the ball",
+   "speed": 1.0,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "with the ball",
+   "speed": 1.5,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "with the ball",
+   "speed": 2.0,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "against the ball",
+   "speed": 0.5,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "against the ball",
+   "speed": 1.0,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "against the ball",
+   "speed": 1.5,
+   "brake": 1.5,
+   "caught": 13,
+   "n": 17
+  },
+  {
+   "direction": "against the ball",
+   "speed": 2.0,
+   "brake": 1.5,
+   "caught": 12,
+   "n": 17
+  },
+  {
+   "direction": "sideways",
+   "speed": 0.5,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "sideways",
+   "speed": 1.0,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "sideways",
+   "speed": 1.5,
+   "brake": 1.5,
+   "caught": 17,
+   "n": 17
+  },
+  {
+   "direction": "sideways",
+   "speed": 2.0,
+   "brake": 1.5,
+   "caught": 16,
+   "n": 17
+  }
+ ],
+ "brake": [
+  {
+   "direction": "forward",
+   "tilt": 0.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 0.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 0.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 0.0,
+   "brake": 4.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 15.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 15.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 15.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "forward",
+   "tilt": 15.0,
+   "brake": 4.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 0.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 0.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 0.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 0.0,
+   "brake": 4.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 15.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 15.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 15.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "backward",
+   "tilt": 15.0,
+   "brake": 4.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 0.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 0.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 0.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 0.0,
+   "brake": 4.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 15.0,
+   "brake": 1.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 15.0,
+   "brake": 2.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 15.0,
+   "brake": 3.0,
+   "held": true
+  },
+  {
+   "direction": "sideways",
+   "tilt": 15.0,
+   "brake": 4.0,
+   "held": true
+  }
+ ]
+}

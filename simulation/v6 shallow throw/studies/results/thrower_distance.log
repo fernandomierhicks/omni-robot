@@ -1,0 +1,36 @@
+
+=== physics, moving ===
+fixed landing offset: catch rate by distance (rows) and apex (columns), all offsets pooled; then by offset
+  dist   apex 0.5 apex 1   apex 2   apex 3     | off 0.3  off 0.6  off 1    | all   flight(1m apex)  arrival(1m)  first est
+   1.5       67%      100%      100%       94%     |     96%      100%       75%   |  90%   1.00 s         16 deg      0.122 s
+   2.0       78%      100%      100%      100%     |    100%      100%       83%   |  94%   1.00 s         19 deg      0.121 s
+   3.0       89%      100%      100%      100%     |    100%      100%       92%   |  97%   1.01 s         29 deg      0.122 s
+   4.0       78%      100%      100%      100%     |    100%      100%       83%   |  94%   1.00 s         34 deg      0.118 s
+   5.0       72%      100%      100%      100%     |    100%      100%       79%   |  93%   1.00 s         40 deg      0.124 s
+   6.0       72%      100%      100%      100%     |    100%      100%       79%   |  93%   0.98 s         45 deg      0.121 s
+human scatter (sigma 7% x 5% of distance): catch rate by distance and apex
+  dist   apex 1   apex 2   apex 3   | all   median offset  misses reach/bounce
+   1.5      100%       96%       92%   |  96%      11 cm        2/1
+   2.0      100%      100%      100%   | 100%      14 cm        0/0
+   3.0      100%      100%      100%   | 100%      22 cm        0/0
+   4.0      100%      100%      100%   | 100%      30 cm        0/0
+   5.0      100%      100%      100%   | 100%      34 cm        0/0
+   6.0      100%      100%      100%   | 100%      45 cm        0/0
+
+=== firmware adult mode ===
+fixed landing offset: catch rate by distance (rows) and apex (columns), all offsets pooled; then by offset
+  dist   apex 0.5 apex 1   apex 2   apex 3     | off 0.3  off 0.6  off 1    | all   flight(1m apex)  arrival(1m)  first est
+   1.5       67%       83%      100%      100%     |    100%      100%       62%   |  88%   1.01 s         18 deg      0.120 s
+   2.0       67%       94%      100%      100%     |    100%      100%       71%   |  90%   1.01 s         18 deg      0.125 s
+   3.0       72%      100%      100%      100%     |    100%      100%       79%   |  93%   1.01 s         29 deg      0.123 s
+   4.0       72%      100%      100%      100%     |    100%      100%       79%   |  93%   1.00 s         34 deg      0.118 s
+   5.0       67%      100%      100%      100%     |    100%      100%       75%   |  92%   1.00 s         40 deg      0.120 s
+   6.0       56%       94%      100%      100%     |    100%       92%       71%   |  88%   0.98 s         45 deg      0.122 s
+human scatter (sigma 7% x 5% of distance): catch rate by distance and apex
+  dist   apex 1   apex 2   apex 3   | all   median offset  misses reach/bounce
+   1.5      100%      100%       96%   |  99%      11 cm        1/0
+   2.0      100%      100%       96%   |  99%      14 cm        1/0
+   3.0      100%      100%      100%   | 100%      22 cm        0/0
+   4.0      100%      100%      100%   | 100%      30 cm        0/0
+   5.0      100%      100%      100%   | 100%      34 cm        0/0
+   6.0       96%      100%      100%   |  99%      45 cm        1/0

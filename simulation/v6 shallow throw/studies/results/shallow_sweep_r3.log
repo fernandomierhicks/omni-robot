@@ -1,0 +1,16 @@
+robot                                                caught  reach/bounce | apex 0.75 apex 1    apex 1.5  apex 2    | 6 m  6.5 m  7 m | offset  first est
+v5 robot, firmware adult                               57%    59/33     |     59%       59%       59%       52%   |   65%    49%    58% |  2.7 cm  0.126 s
+v5 robot, physics                                      60%    49/38     |     67%       65%       44%       63%   |   82%    53%    44% |  1.7 cm  0.128 s
+v5 robot, firmware adult, exact ball state             62%     0/82     |     81%       63%       44%       59%   |   65%    64%    57% |  1.0 cm  0.120 s
+v6 module, firmware adult                              75%    48/5      |     72%       72%       76%       81%   |   88%    67%    72% |  2.2 cm  0.125 s
+v6 module, physics                                     78%    39/8      |     70%       74%       80%       89%   |   94%    68%    72% |  1.6 cm  0.127 s
+v6 module, firmware adult, exact ball state           100%     0/1      |     98%      100%      100%      100%   |  100%   100%    99% |  0.7 cm  0.120 s
+v6 module + track start, firmware adult                96%     4/5      |     89%       96%       98%      100%   |  100%    92%    96% |  1.8 cm  0.127 s
+v6 module + track start, physics                       99%     1/2      |     96%      100%       98%      100%   |  100%    96%   100% |  1.4 cm  0.126 s
+v6 module + track start + prior, firmware adult        97%     2/4      |     98%       96%       94%      100%   |  100%    94%    97% |  1.9 cm  0.129 s
+v6 module + track start + prior, physics               97%     0/6      |     93%       96%      100%      100%   |   99%    99%    94% |  1.3 cm  0.129 s
+v6 chute + track start, firmware adult                 95%     6/5      |     94%       91%       94%      100%   |   99%    93%    93% |  1.7 cm  0.127 s
+v6 chute + track start, physics                        98%     1/3      |     94%      100%       98%      100%   |   99%    97%    99% |  1.4 cm  0.127 s
+v6 round 3 (GM3506 feed, viscoelastic), firmware adult   96%     8/0      |     94%       93%       98%      100%   |   99%    94%    96% |  1.6 cm  0.128 s
+v6 round 3 (GM3506 feed, viscoelastic), physics       100%     0/0      |    100%      100%      100%      100%   |  100%   100%   100% |  1.3 cm  0.130 s
+throws: arrival median 45 deg from vertical (range 27-71), 7.3 m/s, release 9.2 m/s, flight 1.11 s; landing 46 cm from the waiting spot (median)

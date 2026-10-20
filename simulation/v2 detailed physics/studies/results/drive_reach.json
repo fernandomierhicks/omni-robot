@@ -1,0 +1,144 @@
+{
+ "combos": [
+  {
+   "motor": "AK40-10",
+   "wheel": "goBILDA-96",
+   "accel": 2.536372501104131,
+   "v_cap": 1.8,
+   "worst_dir": 130,
+   "t_move_06_worst": 1.1994999999999012,
+   "t_move_06_fwd": 1.1884999999999024,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.009658056436674174,
+   "catch_peak_current": 2.5592548768409817,
+   "catch_v_min": 28.903540418947888
+  },
+  {
+   "motor": "AK40-10",
+   "wheel": "Nexus-100",
+   "accel": 2.262103382198273,
+   "v_cap": 1.8,
+   "worst_dir": 240,
+   "t_move_06_worst": 1.2534999999998953,
+   "t_move_06_fwd": 1.2304999999998978,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.011457256638429614,
+   "catch_peak_current": 2.380481393678806,
+   "catch_v_min": 28.891416703230583
+  },
+  {
+   "motor": "AK40-10",
+   "wheel": "Nexus-127",
+   "accel": 2.2277181182687533,
+   "v_cap": 1.8,
+   "worst_dir": 235,
+   "t_move_06_worst": 1.256499999999895,
+   "t_move_06_fwd": 1.237999999999897,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.011994117532708237,
+   "catch_peak_current": 2.4766760076180483,
+   "catch_v_min": 28.90165636784218
+  },
+  {
+   "motor": "AK45-10",
+   "wheel": "goBILDA-96",
+   "accel": 2.58331220048991,
+   "v_cap": 0.7827649150669393,
+   "worst_dir": 130,
+   "t_move_06_worst": 1.2769999999998927,
+   "t_move_06_fwd": 1.2669999999998938,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.010281805399114607,
+   "catch_peak_current": 1.9048911106251079,
+   "catch_v_min": 28.922434039902203
+  },
+  {
+   "motor": "DM-J4310",
+   "wheel": "goBILDA-96",
+   "accel": 2.6091437752744953,
+   "v_cap": 0.8721410272215664,
+   "worst_dir": 130,
+   "t_move_06_worst": 1.2364999999998971,
+   "t_move_06_fwd": 1.2254999999998983,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.009319540201284154,
+   "catch_peak_current": 2.2292934443590853,
+   "catch_v_min": 28.920242537893756
+  },
+  {
+   "motor": "GIM6010-8",
+   "wheel": "Nexus-100",
+   "accel": 2.334804208686675,
+   "v_cap": 1.8,
+   "worst_dir": 240,
+   "t_move_06_worst": 1.2444999999998962,
+   "t_move_06_fwd": 1.219499999999899,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.01106639570961633,
+   "catch_peak_current": 3.061940827641731,
+   "catch_v_min": 28.83442767913067
+  },
+  {
+   "motor": "AK60-6",
+   "wheel": "Nexus-127",
+   "accel": 2.294098667019452,
+   "v_cap": 1.8,
+   "worst_dir": 235,
+   "t_move_06_worst": 1.247499999999896,
+   "t_move_06_fwd": 1.2269999999998982,
+   "catch_caught": 30.0,
+   "catch_tosses": 30,
+   "catch_median_error": 0.011147700760100802,
+   "catch_peak_current": 2.7459245893642956,
+   "catch_v_min": 28.877810876954058
+  }
+ ],
+ "accel_sweep": [
+  {
+   "accel": 1.5,
+   "caught": 26.0,
+   "tosses": 30,
+   "median_error": 0.030570953084332456,
+   "peak_current": 7.48857208476146,
+   "v_min": 28.1496208632591
+  },
+  {
+   "accel": 2.0,
+   "caught": 30.0,
+   "tosses": 30,
+   "median_error": 0.014153264991100256,
+   "peak_current": 1.5132708998717477,
+   "v_min": 28.94536589039764
+  },
+  {
+   "accel": 2.5,
+   "caught": 30.0,
+   "tosses": 30,
+   "median_error": 0.009900311269328783,
+   "peak_current": 2.009860053200408,
+   "v_min": 28.90807900049957
+  },
+  {
+   "accel": 3.0,
+   "caught": 30.0,
+   "tosses": 30,
+   "median_error": 0.003575402675279165,
+   "peak_current": 4.563369780734979,
+   "v_min": 28.628929263889113
+  },
+  {
+   "accel": 3.5,
+   "caught": 30.0,
+   "tosses": 30,
+   "median_error": 0.006958441210697247,
+   "peak_current": 7.735134080857191,
+   "v_min": 28.19425724143677
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+﻿A. Slip-free acceleration (m/s^2) by body direction, 0 = forward (launcher side):
+      0 deg:  5.04  (above it: slip; bus current 4.3 A, tilt 0.1 deg, lightest wheel 5.6 N)
+     15 deg:  4.35  (above it: slip; bus current 4.6 A, tilt 0.1 deg, lightest wheel 6.4 N)
+     30 deg:  3.75  (above it: slip; bus current 4.2 A, tilt 0.1 deg, lightest wheel 7.4 N)
+     45 deg:  3.54  (above it: slip; bus current 4.2 A, tilt 0.1 deg, lightest wheel 7.3 N)
+     60 deg:  3.54  (above it: slip; bus current 4.0 A, tilt 0.1 deg, lightest wheel 5.7 N)
+     75 deg:  3.84  (above it: slip; bus current 4.2 A, tilt 0.2 deg, lightest wheel 2.8 N)
+     90 deg:  4.22  (above it: slip; bus current 3.8 A, tilt 0.2 deg, lightest wheel 0.0 N)
+    105 deg:  4.48  (above it: slip; bus current 4.0 A, tilt 0.3 deg, lightest wheel 0.0 N)
+    120 deg:  4.52  (above it: slip; bus current 3.9 A, tilt 0.3 deg, lightest wheel 0.0 N)
+    135 deg:  4.27  (above it: slip; bus current 3.7 A, tilt 0.2 deg, lightest wheel 0.0 N)
+    150 deg:  4.01  (above it: slip; bus current 3.6 A, tilt 0.2 deg, lightest wheel 1.8 N)
+    165 deg:  4.27  (above it: slip; bus current 4.5 A, tilt 0.2 deg, lightest wheel 4.4 N)
+    180 deg:  4.91  (above it: slip; bus current 4.2 A, tilt 0.2 deg, lightest wheel 1.6 N)
+    195 deg:  4.57  (above it: slip; bus current 4.8 A, tilt 0.2 deg, lightest wheel 0.0 N)
+    210 deg:  4.35  (above it: slip; bus current 3.8 A, tilt 0.2 deg, lightest wheel 0.0 N)
+    225 deg:  4.61  (above it: slip; bus current 3.9 A, tilt 0.4 deg, lightest wheel 0.0 N)
+    240 deg:  4.82  (above it: slip; bus current 4.1 A, tilt 3.6 deg, lightest wheel 0.0 N)
+    255 deg:  5.08  (above it: slip; bus current 4.2 A, tilt 3.4 deg, lightest wheel 0.0 N)
+    270 deg:  4.01  (above it: slip; bus current 3.7 A, tilt 0.2 deg, lightest wheel 0.0 N)
+    285 deg:  3.62  (above it: slip; bus current 4.1 A, tilt 0.2 deg, lightest wheel 2.1 N)
+    300 deg:  3.36  (above it: slip; bus current 3.9 A, tilt 0.2 deg, lightest wheel 4.9 N)
+    315 deg:  3.36  (above it: slip; bus current 4.0 A, tilt 0.1 deg, lightest wheel 7.8 N)
+    330 deg:  3.58  (above it: slip; bus current 4.1 A, tilt 0.1 deg, lightest wheel 7.6 N)
+    345 deg:  4.14  (above it: slip; bus current 4.5 A, tilt 0.1 deg, lightest wheel 6.7 N)
+   -> ACCEL_TABLE_PHYS = ((0.0, 30.0, 60.0, 90.0, 120.0, 150.0, 180.0), (5.04, 3.58, 3.36, 4.01, 4.52, 4.01, 4.91))
+B. Top speed (m/s):
+   100% charge: 0: 3.44, 15: 2.81, 30: 2.53, 45: 2.45, 60: 2.53, 75: 2.82, 90: 3.44  (min 2.45, max 3.44)
+    20% charge: 0: 2.90, 15: 2.38, 30: 2.14, 45: 2.07, 60: 2.15, 75: 2.39, 90: 2.91  (min 2.07, max 2.91)
+C. Point-to-point, time to settle within 1 cm (s), mean over directions [worst overshoot cm, peak speed m/s, peak bus A]:
+   firmware (v3b)                       0.3 m 0.93 | 0.6 m 1.29 | 1.0 m 1.58 | 1.5 m 1.95 | 2.5 m 2.69  [0.0 cm, 1.37 m/s, 2.6 A]
+   physics, jerk 40                     0.3 m 0.87 | 0.6 m 1.26 | 1.0 m 1.59 | 1.5 m 1.87 | 2.5 m 2.26  [0.0 cm, 3.01 m/s, 7.7 A]
+   physics, jerk 150                    0.3 m 0.76 | 0.6 m 1.01 | 1.0 m 1.27 | 1.5 m 1.51 | 2.5 m 1.89  [0.0 cm, 3.20 m/s, 9.7 A]
+   physics, jerk 400                    0.3 m 0.68 | 0.6 m 0.96 | 1.0 m 1.20 | 1.5 m 1.43 | 2.5 m 1.82  [0.0 cm, 3.22 m/s, 10.7 A]
+   physics, no jerk limit               0.3 m 0.64 | 0.6 m 0.89 | 1.0 m 1.13 | 1.5 m 1.39 | 2.5 m 1.79  [0.0 cm, 3.23 m/s, 10.3 A]
+   physics, jerk 150, stop margin 0.8   0.3 m 0.77 | 0.6 m 1.04 | 1.0 m 1.28 | 1.5 m 1.53 | 2.5 m 1.92  [0.0 cm, 3.08 m/s, 9.2 A]
+   physics, jerk 150, stop margin 1.0   0.3 m 0.77 | 0.6 m 0.95 | 1.0 m 1.20 | 1.5 m 1.47 | 2.5 m 1.85  [0.1 cm, 3.26 m/s, 9.6 A]
+D. Turn 180 deg and settle within 1 deg:
+   yaw accel    15 rad/s^2: 1.08 s, peak 6.5 rad/s, drift 0.0 cm
+   yaw accel    30 rad/s^2: 0.89 s, peak 9.2 rad/s, drift 0.0 cm
+   yaw accel    60 rad/s^2: 0.77 s, peak 13.1 rad/s, drift 0.1 cm
+   yaw accel   100 rad/s^2: 0.73 s, peak 15.4 rad/s, drift 1.5 cm
+   yaw accel   150 rad/s^2: 0.72 s, peak 15.9 rad/s, drift 1.8 cm
+E. Stop from top speed:
+   ramped mu 0.95,   0 deg from 3.42 m/s: 1.25 m (mean 4.7 m/s^2), peak tilt 0.2 deg, lightest wheel 1.8 N
+   naive  mu 0.95,   0 deg from 3.42 m/s: 0.92 m (mean 6.3 m/s^2), peak tilt 0.3 deg, lightest wheel 0.0 N
+   ramped mu 1.20,   0 deg from 3.42 m/s: 1.19 m (mean 4.9 m/s^2), peak tilt 0.2 deg, lightest wheel 0.0 N
+   naive  mu 1.20,   0 deg from 3.42 m/s: 0.72 m (mean 8.1 m/s^2), peak tilt 4.7 deg, lightest wheel 0.0 N
+   ramped mu 0.95,  45 deg from 2.43 m/s: 0.72 m (mean 4.1 m/s^2), peak tilt 0.6 deg, lightest wheel 0.0 N
+   naive  mu 0.95,  45 deg from 2.43 m/s: 0.55 m (mean 5.4 m/s^2), peak tilt 3.9 deg, lightest wheel 0.0 N
+   ramped mu 1.20,  45 deg from 2.43 m/s: 0.72 m (mean 4.1 m/s^2), peak tilt 0.6 deg, lightest wheel 0.0 N
+   naive  mu 1.20,  45 deg from 2.43 m/s: 0.48 m (mean 6.2 m/s^2), peak tilt 4.4 deg, lightest wheel 0.0 N
+   ramped mu 0.95,  90 deg from 3.43 m/s: 1.46 m (mean 4.0 m/s^2), peak tilt 0.2 deg, lightest wheel 0.0 N
+   naive  mu 0.95,  90 deg from 3.43 m/s: 1.10 m (mean 5.3 m/s^2), peak tilt 4.4 deg, lightest wheel 0.0 N
+   ramped mu 1.20,  90 deg from 3.43 m/s: 1.44 m (mean 4.1 m/s^2), peak tilt 0.2 deg, lightest wheel 0.0 N
+   naive  mu 1.20,  90 deg from 3.43 m/s: 0.77 m (mean 7.6 m/s^2), peak tilt 8.8 deg, lightest wheel 0.0 N
+   ramped mu 0.95, 180 deg from 3.42 m/s: 1.24 m (mean 4.7 m/s^2), peak tilt 0.1 deg, lightest wheel 4.7 N
+   naive  mu 0.95, 180 deg from 3.42 m/s: 0.88 m (mean 6.7 m/s^2), peak tilt 0.2 deg, lightest wheel 0.0 N
+   ramped mu 1.20, 180 deg from 3.42 m/s: 1.19 m (mean 4.9 m/s^2), peak tilt 0.1 deg, lightest wheel 4.8 N
+   naive  mu 1.20, 180 deg from 3.42 m/s: 0.70 m (mean 8.4 m/s^2), peak tilt 0.3 deg, lightest wheel 0.0 N
+F. Braking from 2.5 m/s with the ball in the pocket:
+   forward   tilt   0 deg, 4 m/s^2 requested (achieved 3.9): held
+   forward   tilt   0 deg, 5 m/s^2 requested (achieved 4.8): held
+   forward   tilt   0 deg, 6 m/s^2 requested (achieved 5.1): held
+   forward   tilt   0 deg, 8 m/s^2 requested (achieved 5.1): held
+   forward   tilt  15 deg, 4 m/s^2 requested (achieved 3.9): held
+   forward   tilt  15 deg, 5 m/s^2 requested (achieved 4.8): held
+   forward   tilt  15 deg, 6 m/s^2 requested (achieved 5.1): held
+   forward   tilt  15 deg, 8 m/s^2 requested (achieved 5.1): held
+   backward  tilt   0 deg, 4 m/s^2 requested (achieved 3.9): held
+   backward  tilt   0 deg, 5 m/s^2 requested (achieved 4.8): held
+   backward  tilt   0 deg, 6 m/s^2 requested (achieved 5.4): held
+   backward  tilt   0 deg, 8 m/s^2 requested (achieved 5.4): held
+   backward  tilt  15 deg, 4 m/s^2 requested (achieved 3.9): held
+   backward  tilt  15 deg, 5 m/s^2 requested (achieved 4.8): held
+   backward  tilt  15 deg, 6 m/s^2 requested (achieved 5.4): held
+   backward  tilt  15 deg, 8 m/s^2 requested (achieved 5.4): held
+   sideways  tilt   0 deg, 4 m/s^2 requested (achieved 3.9): held
+   sideways  tilt   0 deg, 5 m/s^2 requested (achieved 4.3): held
+   sideways  tilt   0 deg, 6 m/s^2 requested (achieved 4.3): held
+   sideways  tilt   0 deg, 8 m/s^2 requested (achieved 4.3): held
+   sideways  tilt  15 deg, 4 m/s^2 requested (achieved 3.9): held
+   sideways  tilt  15 deg, 5 m/s^2 requested (achieved 4.3): held
+   sideways  tilt  15 deg, 6 m/s^2 requested (achieved 4.3): held
+   sideways  tilt  15 deg, 8 m/s^2 requested (achieved 4.3): held

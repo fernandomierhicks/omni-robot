@@ -1,0 +1,30 @@
+﻿kiwi3 r150             CG h 15.5 cm: sim min 2.69 mean 3.67 | model min 2.84 mean 3.60 | tip min 3.99 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'slip', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'slip', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'slip', 330: 'slip'}
+kiwi3 r180 (v2 size)   CG h 15.5 cm: sim min 2.97 mean 4.78 | model min 3.15 mean 4.05 | tip min 4.89 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'none', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'slip', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'none', 330: 'slip'}
+x4 r150, rigid         CG h 14.8 cm: sim min 4.16 mean 5.88 | model min 3.00 mean 3.61 | tip min 6.32 | model tip-limited dirs [] | sim failures {0: 'none', 30: 'slip', 60: 'slip', 90: 'slip', 120: 'slip', 150: 'slip', 180: 'none', 210: 'slip', 240: 'slip', 270: 'none', 300: 'slip', 330: 'slip'}
+x4 r150, rigid, load-aware CG h 14.8 cm: sim min 4.30 mean 6.24 | model min 4.41 mean 5.10 | tip min 6.32 | model tip-limited dirs [] | sim failures {0: 'none', 30: 'slip', 60: 'slip', 90: 'none', 120: 'slip', 150: 'slip', 180: 'none', 210: 'slip', 240: 'slip', 270: 'none', 300: 'slip', 330: 'slip'}
+x4 r150, rocker (v3)   CG h 14.7 cm: sim min 3.04 mean 4.83 | model min 1.99 mean 2.96 | tip min 6.29 | model tip-limited dirs [] | sim failures {0: 'slip', 30: 'slip', 60: 'slip', 90: 'slip', 120: 'slip', 150: 'none', 180: 'none', 210: 'slip', 240: 'slip', 270: 'slip', 300: 'slip', 330: 'slip'}
+kiwi3 r150             mu sweep at 120 deg: sim [1.91 2.69 3.11] model [2.18 2.97 3.42]
+kiwi3 r180 (v2 size)   mu sweep at 120 deg: sim [2.05 2.97 3.46] model [2.32 3.22 3.75]
+x4 r150, rigid         mu sweep at 300 deg: sim [2.62 4.16 5.29] model [2.38 3.48 4.17]
+x4 r150, rigid, load-aware mu sweep at 120 deg: sim [2.69 4.3  5.01] model [3.05 4.6  5.31]
+x4 r150, rocker (v3)   mu sweep at 300 deg: sim [2.12 3.04 3.6 ] model [1.73 2.27 2.55]
+panic stop kiwi3 r150             mu 0.95: peak decel 24.2 m/s^2, worst tilt 112.4 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop kiwi3 r150             mu 1.2: peak decel 28.9 m/s^2, worst tilt 112.7 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop kiwi3 r180 (v2 size)   mu 0.95: peak decel 12.2 m/s^2, worst tilt 23.0 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop kiwi3 r180 (v2 size)   mu 1.2: peak decel 17.7 m/s^2, worst tilt 46.7 deg moving at 0 deg, min wheel load 0.0 N, fell: True
+panic stop x4 r150, rigid         mu 0.95: peak decel 8.4 m/s^2, worst tilt 5.7 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150, rigid         mu 1.2: peak decel 12.9 m/s^2, worst tilt 9.7 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150, rigid, load-aware mu 0.95: peak decel 8.5 m/s^2, worst tilt 5.7 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150, rigid, load-aware mu 1.2: peak decel 12.1 m/s^2, worst tilt 9.6 deg moving at 0 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150, rocker (v3)   mu 0.95: peak decel 9.2 m/s^2, worst tilt 10.9 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+panic stop x4 r150, rocker (v3)   mu 1.2: peak decel 12.0 m/s^2, worst tilt 12.8 deg moving at 90 deg, min wheel load 0.0 N, fell: False
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 0.0 mm: loads [16.1 13.1 12.6 15.5] N, accel {45: 4.234375, 135: 4.234375, 225: 4.234375, 315: 4.234375}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 0.5 mm: loads [19.5  9.7 16.1 12. ] N, accel {45: 2.96875, 135: 4.234375, 225: 2.96875, 315: 4.796875}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 1.0 mm: loads [23.   6.2 19.6  8.6] N, accel {45: 1.984375, 135: 3.953125, 225: 1.984375, 315: 4.515625}
+uneven: rocker 0 deg, wheel springs 30 N/mm, wheel 1 proud 2.0 mm: loads [29.1  0.  25.8  2.3] N, accel {45: 1.0, 135: 3.390625, 225: 1.0, 315: 3.953125}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 0.0 mm: loads [16.1 13.1 12.5 15.5] N, accel {45: 3.671875, 135: 3.671875, 225: 3.53125, 315: 3.671875}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 1.0 mm: loads [18.  11.2 14.6 13.6] N, accel {45: 3.109375, 135: 3.8125, 225: 3.109375, 315: 4.234375}
+uneven: rocker 0 deg, wheel springs 8 N/mm, wheel 1 proud 2.0 mm: loads [19.8  9.2 16.7 11.6] N, accel {45: 2.546875, 135: 3.671875, 225: 2.6875, 315: 4.09375}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 0.0 mm: loads [16.1 13.4 12.3 16.1] N, accel {45: 3.109375, 135: 4.09375, 225: 3.53125, 315: 3.109375}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 1.0 mm: loads [16.1 13.5 12.3 16.1] N, accel {45: 3.25, 135: 4.234375, 225: 3.53125, 315: 3.109375}
+uneven: rocker 3 deg, wheel springs 30 N/mm, wheel 1 proud 2.0 mm: loads [16.  13.5 12.3 16. ] N, accel {45: 3.25, 135: 4.375, 225: 3.390625, 315: 3.109375}

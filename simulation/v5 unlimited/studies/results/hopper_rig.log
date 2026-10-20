@@ -1,0 +1,45 @@
+﻿A. Capacity: balls dropped -> aboard (at rest, after tilting to -30 / +25 / 0 deg, after driving at the limits)
+   none          2 dropped:  2 at rest,  2 /  2 /  2 after tilts,  2 after driving
+   none          4 dropped:  4 at rest,  4 /  4 /  4 after tilts,  4 after driving
+   none          6 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   none          8 dropped:  8 at rest,  8 /  8 /  8 after tilts,  8 after driving
+   none         10 dropped: 10 at rest,  9 /  9 /  9 after tilts,  9 after driving
+   none         12 dropped: 11 at rest, 10 / 10 / 10 after tilts, 10 after driving
+   tube 30 cm    2 dropped:  2 at rest,  2 /  2 /  2 after tilts,  2 after driving
+   tube 30 cm    4 dropped:  4 at rest,  4 /  4 /  4 after tilts,  4 after driving
+   tube 30 cm    6 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   tube 30 cm    8 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   tube 30 cm   10 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   tube 30 cm   12 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   tube 45 cm    2 dropped:  2 at rest,  2 /  2 /  2 after tilts,  2 after driving
+   tube 45 cm    4 dropped:  4 at rest,  4 /  4 /  4 after tilts,  4 after driving
+   tube 45 cm    6 dropped:  6 at rest,  6 /  6 /  6 after tilts,  6 after driving
+   tube 45 cm    8 dropped:  8 at rest,  7 /  7 /  7 after tilts,  7 after driving
+   tube 45 cm   10 dropped:  8 at rest,  7 /  7 /  7 after tilts,  7 after driving
+   tube 45 cm   12 dropped:  9 at rest,  8 /  8 /  8 after tilts,  8 after driving
+B. Burst fire (the plunger cycles as soon as the beam sees a ball):
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, none    none : fired 2 in 0.6 s (0 flicks), left 4, lost 0, doubles 0; exit 7.26 m/s +/- 1.4%, elevation +/- 1.2 deg; median interval 0.35 s | end: no ball in the pocket
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 3 in 4.1 s (8 flicks), left 4, lost 0, doubles 0; exit 7.33 m/s +/- 1.8%, elevation +/- 1.2 deg; median interval 1.96 s | end: no ball in the pocket
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 6 in 6.0 s (9 flicks), left 1, lost 0, doubles 0; exit 7.53 m/s +/- 1.7%, elevation +/- 0.9 deg; median interval 0.36 s | end: no ball in the pocket
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 2/s sweep: fired 4 in 1.9 s (0 flicks), left 3, lost 0, doubles 0; exit 7.36 m/s +/- 4.6%, elevation +/- 1.5 deg; median interval 0.36 s | end: no ball in the pocket
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 6/s sweep: fired 6 in 3.8 s (0 flicks), left 0, lost 0, doubles 0; exit 7.36 m/s +/- 4.5%, elevation +/- 3.7 deg; median interval 0.53 s | end: no ball in the pocket
+    6 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, tube    none : fired 6 in 2.1 s (0 flicks), left 1, lost 0, doubles 0; exit 7.50 m/s +/- 3.3%, elevation +/- 0.4 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, none    none : fired 2 in 0.6 s (0 flicks), left 4, lost 0, doubles 0; exit 7.52 m/s +/- 1.4%, elevation +/- 0.0 deg; median interval 0.36 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 4 in 6.1 s (10 flicks), left 3, lost 0, doubles 0; exit 7.51 m/s +/- 1.3%, elevation +/- 0.0 deg; median interval 1.95 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 6 in 6.0 s (9 flicks), left 1, lost 0, doubles 0; exit 7.22 m/s +/- 2.7%, elevation +/- 0.5 deg; median interval 0.38 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 2/s sweep: fired 2 in 0.6 s (0 flicks), left 4, lost 0, doubles 0; exit 7.17 m/s +/- 1.6%, elevation +/- 1.2 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 6/s sweep: fired 2 in 0.6 s (0 flicks), left 3, lost 1, doubles 0; exit 7.17 m/s +/- 1.6%, elevation +/- 1.2 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.40 m/s, tube    none : fired 6 in 2.0 s (0 flicks), left 2, lost 0, doubles 0; exit 7.52 m/s +/- 2.2%, elevation +/- 0.3 deg; median interval 0.35 s | end: no ball in the pocket
+    6 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, none    none : fired 2 in 0.6 s (0 flicks), left 4, lost 0, doubles 0; exit 7.12 m/s +/- 3.9%, elevation +/- 0.9 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 6 in 7.0 s (6 flicks), left 0, lost 0, doubles 0; exit 7.33 m/s +/- 3.4%, elevation +/- 0.7 deg; median interval 1.16 s | end: no ball in the pocket
+    5 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, none    tilt : fired 3 in 1.8 s (4 flicks), left 0, lost 2, doubles 0; exit 7.20 m/s +/- 2.1%, elevation +/- 0.7 deg; median interval 0.76 s | end: no ball in the pocket
+    6 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 2/s sweep: fired 2 in 0.6 s (0 flicks), left 4, lost 0, doubles 0; exit 7.50 m/s +/- 0.4%, elevation +/- 0.1 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, sweeper 6/s sweep: fired 3 in 2.0 s (0 flicks), left 1, lost 2, doubles 0; exit 7.46 m/s +/- 0.8%, elevation +/- 0.1 deg; median interval 0.89 s | end: no ball in the pocket
+    6 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, tube    none : fired 6 in 2.0 s (0 flicks), left 0, lost 0, doubles 0; exit 7.33 m/s +/- 3.4%, elevation +/- 0.9 deg; median interval 0.36 s | end: no ball in the pocket
+    8 aboard, tilt   +0 deg (30 deg launch), 3000 rpm, plunger 0.40 m/s, tube    none : fired 8 in 2.7 s (0 flicks), left 0, lost 0, doubles 0; exit 7.31 m/s +/- 1.3%, elevation +/- 1.7 deg; median interval 0.36 s | end: no ball in the pocket
+    7 aboard, tilt  -30 deg (60 deg launch), 3000 rpm, plunger 0.40 m/s, tube    none : fired 7 in 2.1 s (0 flicks), left 0, lost 0, doubles 1; exit 6.15 m/s +/- 28.6%, elevation +/- 37.7 deg; median interval 0.36 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 2000 rpm, plunger 0.40 m/s, tube    none : fired 6 in 2.2 s (0 flicks), left 0, lost 0, doubles 0; exit 4.64 m/s +/- 4.8%, elevation +/- 3.4 deg; median interval 0.37 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 5000 rpm, plunger 0.40 m/s, tube    none : fired 6 in 2.0 s (0 flicks), left 0, lost 0, doubles 0; exit 11.16 m/s +/- 7.5%, elevation +/- 4.5 deg; median interval 0.36 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.25 m/s, tube    none : fired 6 in 2.7 s (0 flicks), left 2, lost 0, doubles 0; exit 7.58 m/s +/- 2.1%, elevation +/- 0.6 deg; median interval 0.50 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 0.80 m/s, tube    none : fired 6 in 1.9 s (0 flicks), left 0, lost 0, doubles 0; exit 7.11 m/s +/- 3.5%, elevation +/- 2.0 deg; median interval 0.25 s | end: no ball in the pocket
+    6 aboard, tilt  -15 deg (45 deg launch), 3000 rpm, plunger 1.20 m/s, tube    none : fired 6 in 1.6 s (0 flicks), left 0, lost 0, doubles 0; exit 6.90 m/s +/- 15.3%, elevation +/- 4.2 deg; median interval 0.23 s | end: no ball in the pocket

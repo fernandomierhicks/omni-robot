@@ -1,0 +1,64 @@
+﻿python.exe : C:\Dropbox\Personal Projects\Robotics\omni-robot\simulation\v5 unlimited\studies\vision_sweep.py:218: 
+RuntimeWarning: All-NaN slice encountered
+At line:1 char:381
++ ... ython.exe"; & $py vision_sweep.py spin *> results\vision_sweep_spin.l ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Dropbox\Pers...ice encountered:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  s[f"nees{tg}"] = float(np.nanmedian([t["nees"].get(str(tg), np.nan) for t in ts]))
+1. Detector (left camera, ball in the central 60% of the image): per-axis center rms, size bias / rms (px)
+    0.5 m,  0.0 m/s: radius  43.5 px, n 60: center 0.040, size -0.005 / 0.050
+    0.5 m,  6.0 m/s: radius  43.5 px, n 60: center 0.045, size -0.003 / 0.050
+    1.0 m,  0.0 m/s: radius  21.7 px, n 60: center 0.059, size +0.009 / 0.070
+    1.0 m,  6.0 m/s: radius  21.7 px, n 60: center 0.060, size -0.001 / 0.067
+    2.0 m,  0.0 m/s: radius  10.8 px, n 60: center 0.085, size -0.010 / 0.099
+    2.0 m,  6.0 m/s: radius  10.8 px, n 60: center 0.082, size -0.021 / 0.095
+    3.0 m,  0.0 m/s: radius   7.2 px, n 60: center 0.110, size -0.045 / 0.126
+    3.0 m,  6.0 m/s: radius   7.2 px, n 60: center 0.107, size -0.044 / 0.124
+    4.0 m,  0.0 m/s: radius   5.4 px, n 60: center 0.128, size -0.075 / 0.146
+    4.0 m,  6.0 m/s: radius   5.4 px, n 60: center 0.128, size -0.038 / 0.138
+    6.0 m,  0.0 m/s: radius   3.6 px, n 60: center 0.135, size -0.090 / 0.188
+    6.0 m,  6.0 m/s: radius   3.6 px, n 60: center 0.147, size -0.104 / 0.183
+
+2. Catch game, moving catches, physics limits, 144 tosses per variant (same throws). Landing error at the rim plane (cm), median / 90%:
+   variant                                              caught  reach/bounce  first est   err 0.5 s     err 0.3 s    err/sigma  offset
+   baseline: stereo + size, 1280x800 @120, 1 ms           89%    10/6       0.137 s    1.9/  3.9    1.7/  3.7    0.12     1.9 cm
+   v3 model (Gaussian noise on the true position)         87%    12/7       0.158 s    4.7/  9.1    4.2/  8.9    0.26     4.2 cm
+   exact state after 0.25 s (v3 'truth')                  90%    15/0       0.250 s    0.0/  0.1    0.0/  0.0     nan     0.4 cm
+   stereo only (no size ranging)                          92%     9/2       0.139 s    2.0/  4.7    1.7/  4.2    0.12     1.8 cm
+   mono: left camera, size ranging only                   89%    10/6       0.138 s    2.5/  5.0    2.1/  4.5    0.13     2.4 cm
+   60 fps                                                 90%    11/3       0.180 s    2.1/  4.1    1.6/  3.6    0.12     1.8 cm
+   90 fps                                                 90%     9/5       0.155 s    1.9/  4.3    1.6/  3.8    0.11     1.5 cm
+   200 fps                                                88%    10/8       0.122 s    2.0/  4.2    1.7/  4.1    0.13     1.6 cm
+   exposure 0.5 ms                                        89%     9/7       0.137 s    1.9/  4.5    1.7/  4.5    0.13     1.8 cm
+   exposure 4 ms                                          90%    10/4       0.138 s    2.1/  4.1    1.7/  3.9    0.11     1.8 cm
+   exposure 8 ms                                          91%    10/3       0.139 s    2.4/  6.2    1.8/  5.8    0.15     1.8 cm
+   latency 20 ms                                          92%     7/4       0.078 s    1.9/  4.3    1.8/  4.2    0.13     1.9 cm
+   latency 100 ms                                         85%    14/7       0.208 s    2.1/  4.7    1.8/  4.2    0.13     1.9 cm
+   latency 150 ms                                         82%    22/4       0.276 s    2.1/  5.4    1.8/  4.2    0.11     2.1 cm
+   640x400 (2x2 binning)                                  86%    10/10      0.140 s    2.4/  5.0    2.0/  4.3    0.14     2.0 cm
+   1920x1200                                              88%    10/8       0.137 s    2.1/  3.9    1.8/  3.9    0.12     1.6 cm
+   baseline 10 cm                                         85%    10/11      0.135 s    2.1/  4.3    1.9/  4.0    0.12     1.7 cm
+   baseline 30 cm                                         90%    10/5       0.136 s    1.9/  4.0    1.6/  3.7    0.12     1.8 cm
+   FOV 90 deg                                             91%     8/5       0.139 s    1.7/  4.3    1.3/  3.6    0.18     1.1 cm
+   FOV 50 deg                                             88%    13/5       0.135 s    2.6/  5.4    2.5/  5.4    0.12     2.5 cm
+   edge noise 1.0 px                                      88%    10/7       0.141 s    2.8/  5.1    2.0/  4.9    0.16     2.0 cm
+   perfect calibration                                    91%    10/3       0.138 s    2.6/  5.5    2.4/  5.5    0.17     2.5 cm
+   calibration 0.2 deg                                    90%    12/2       0.138 s    2.3/  7.5    1.6/  5.7    0.12     2.0 cm
+   calibration 0.5 deg                                    58%    58/2       0.148 s    4.2/ 27.0    2.5/ 10.3    0.18     2.8 cm
+   stereo sync 2 ms (software)                            90%     8/7       0.136 s    2.9/  7.3    2.4/  6.8    0.17     2.3 cm
+   stereo sync 5 ms                                       86%    17/3       0.154 s    4.4/ 11.7    4.0/ 10.2    0.27     4.0 cm
+   rolling shutter 20 ms, row-time stamped                72%    40/1       0.140 s    6.9/ 26.9    6.8/ 28.5    0.50     4.9 cm
+   rolling shutter 20 ms, frame stamp only                76%    33/2       0.140 s    6.0/ 23.4    5.6/ 25.1    0.43     5.0 cm
+   net opaque                                             90%    10/4       0.139 s    2.0/  4.2    1.7/  4.0    0.12     1.7 cm
+   ball size spread 3%                                    90%    10/4       0.137 s    2.0/  4.7    1.8/  4.5    0.12     1.8 cm
+   odometry drift 5%/m                                    90%    11/4       0.140 s    3.7/  7.3    3.3/  7.6    0.24     3.7 cm
+   5% clutter detections                                  88%     8/10      0.142 s    2.1/  4.4    1.6/  3.5    0.16     1.9 cm
+   20% dropped frames                                     83%    11/13      0.141 s    2.2/  4.6    2.0/  4.4    0.13     2.0 cm
+   circle-fit detector                                    91%     8/5       0.137 s    2.1/  4.1    1.8/  4.0    0.13     1.9 cm
+   filter process noise 0.2 m/s^2 (less conservative)     93%     9/1       0.142 s    1.2/  3.0    1.1/  2.5    0.19     1.0 cm
+   fast pipeline: 200 fps, 20 ms, FOV 90                  95%     5/2       0.062 s    1.6/  3.5    1.3/  3.1    0.19     1.1 cm
+   spin 10 rad/s, process noise 0.5 (baseline)            92%     9/3       0.140 s    3.8/  7.9    2.9/  7.5    0.22     3.3 cm
+   spin 10 rad/s, process noise 0.2                       90%     8/7       0.141 s    3.7/  7.1    3.0/  6.7    0.52     2.9 cm
+   spin 10 rad/s, exact state after 0.25 s                90%    14/0       0.250 s    2.7/  4.3    1.2/  1.9     nan     0.6 cm

@@ -1,0 +1,8 @@
+﻿Launcher with no rpm cap (40 deg launch; range to 0.15 m height with drag):
+    3000 rpm: exit   7.2 m/s at 38.4 deg, spin    3 rad/s, dip  23%, spin-up 0.14 s (phase 25 A); range  4.5 m (best 4.5 m at 40 deg); stress tire 0.1 / hub 0.0 MPa (est)
+    5000 rpm: exit  11.2 m/s at 39.1 deg, spin   11 rad/s, dip  20%, spin-up 0.23 s (phase 25 A); range  8.6 m (best 8.6 m at 40 deg); stress tire 0.4 / hub 0.1 MPa (est)
+    7500 rpm: exit  14.6 m/s at 39.3 deg, spin   32 rad/s, dip  17%, spin-up 0.35 s (phase 25 A); range 12.0 m (best 12.0 m at 40 deg); stress tire 0.9 / hub 0.3 MPa (est)
+   10000 rpm: exit  18.1 m/s at 39.3 deg, spin   56 rad/s, dip  15%, spin-up 0.47 s (phase 25 A); range 15.0 m (best 15.0 m at 40 deg); stress tire 1.6 / hub 0.5 MPa (est)
+   12500 rpm: exit  24.7 m/s at 39.5 deg, spin    5 rad/s, dip  15%, spin-up 0.61 s (phase 25 A); range 19.9 m (best 20.0 m at 35 deg); stress tire 2.5 / hub 0.8 MPa (est)
+   15000 rpm: exit  26.8 m/s at 39.5 deg, spin   26 rad/s, dip  14%, spin-up 0.75 s (phase 25 A); range 21.3 m (best 21.4 m at 35 deg); stress tire 3.7 / hub 1.1 MPa (est)
+   20000 rpm: exit  32.2 m/s at 39.5 deg, spin   65 rad/s, dip  12%, spin-up 1.10 s (phase 25 A); range 24.3 m (best 24.6 m at 35 deg); stress tire 6.5 / hub 2.0 MPa (est)

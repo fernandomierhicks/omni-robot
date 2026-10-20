@@ -1,0 +1,7604 @@
+{
+ "A": {
+  "accel": [
+   {
+    "model": "sphere",
+    "direction": 0.0,
+    "accel": 7.9453125,
+    "why": "none"
+   },
+   {
+    "model": "sphere",
+    "direction": 30.0,
+    "accel": 4.0625,
+    "why": "slip"
+   },
+   {
+    "model": "sphere",
+    "direction": 45.0,
+    "accel": 3.7890625,
+    "why": "slip"
+   },
+   {
+    "model": "sphere",
+    "direction": 60.0,
+    "accel": 3.6796875,
+    "why": "slip"
+   },
+   {
+    "model": "sphere",
+    "direction": 90.0,
+    "accel": 4.8828125,
+    "why": "slip"
+   },
+   {
+    "model": "sphere",
+    "direction": 135.0,
+    "accel": 4.6640625,
+    "why": "slip"
+   },
+   {
+    "model": "sphere",
+    "direction": 180.0,
+    "accel": 6.03125,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 0.0,
+    "accel": 6.1953125,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 30.0,
+    "accel": 4.1171875,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 45.0,
+    "accel": 4.28125,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 60.0,
+    "accel": 3.734375,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 90.0,
+    "accel": 4.4453125,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 135.0,
+    "accel": 5.484375,
+    "why": "slip"
+   },
+   {
+    "model": "rollers",
+    "direction": 180.0,
+    "accel": 5.1015625,
+    "why": "slip"
+   }
+  ],
+  "cruise": [
+   {
+    "model": "sphere",
+    "direction": 0.0,
+    "speed_mean": 1.4995547729874514,
+    "ripple": 0.00018691801365014368,
+    "heading_drift": 0.01883002010332271,
+    "heading_pp": 0.01883002010332271,
+    "lateral_drift": -7.244936089749918e-05
+   },
+   {
+    "model": "sphere",
+    "direction": 45.0,
+    "speed_mean": 1.4994053866269756,
+    "ripple": 4.330074989382954e-06,
+    "heading_drift": -0.0200245727600548,
+    "heading_pp": 0.0200245727600548,
+    "lateral_drift": -1.878319737513845e-05
+   },
+   {
+    "model": "sphere",
+    "direction": 90.0,
+    "speed_mean": 1.4994334316313016,
+    "ripple": 0.00021887968597992204,
+    "heading_drift": -0.045805066083580134,
+    "heading_pp": 0.045805066083580134,
+    "lateral_drift": 0.000220743852160021
+   },
+   {
+    "model": "rollers",
+    "direction": 0.0,
+    "speed_mean": 1.4894640718982457,
+    "ripple": 0.003620451362662382,
+    "heading_drift": 0.18916446033210169,
+    "heading_pp": 0.2081308834000524,
+    "lateral_drift": -0.0002339517319118729
+   },
+   {
+    "model": "rollers",
+    "direction": 45.0,
+    "speed_mean": 1.4977098233273143,
+    "ripple": 0.0013512050279771083,
+    "heading_drift": -0.14722856607717993,
+    "heading_pp": 0.15055354817652702,
+    "lateral_drift": 0.004687592594983192
+   },
+   {
+    "model": "rollers",
+    "direction": 90.0,
+    "speed_mean": 1.4900459759747833,
+    "ripple": 0.0031556341022050166,
+    "heading_drift": 0.05668278327999117,
+    "heading_pp": 0.12928527707831033,
+    "lateral_drift": -0.00014543793456207402
+   }
+  ],
+  "game": [
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.0,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.017057709224278902,
+      "ctrl_err": 0.01598555530993205
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.021884009260600232,
+      "ctrl_err": 0.008425317291967606
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.021167884975646197,
+      "ctrl_err": 0.02212579600574067
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03197128751674181,
+      "ctrl_err": 0.028885507280440238
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.010433206661410715,
+      "ctrl_err": 0.012664393295453975
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.00582421952013164,
+      "ctrl_err": 0.00405595741253671
+     }
+    ],
+    "tilt_max": 0.26292171682481613
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.0,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014251018505873967,
+      "ctrl_err": 0.02142643763958269
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.007832201804148713,
+      "ctrl_err": 0.0012814513572830574
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03229028687971424,
+      "ctrl_err": 0.034005888194403026
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.06849042220295971,
+      "ctrl_err": 0.07222862644233223
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01814798164513851,
+      "ctrl_err": 0.012968610377832973
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02337160018858155,
+      "ctrl_err": 0.022710556399808256
+     }
+    ],
+    "tilt_max": 0.2692060627209362
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.0,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.012166908261828105,
+      "ctrl_err": 0.0013612994334456956
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.012353698605087974,
+      "ctrl_err": 0.007496565972464676
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02286288213344955,
+      "ctrl_err": 0.018614108669597913
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.028620398321267525,
+      "ctrl_err": 0.0275396132296198
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.017414684985528617,
+      "ctrl_err": 0.003813999536563967
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.024362086041404434,
+      "ctrl_err": 0.01583171381415447
+     }
+    ],
+    "tilt_max": 0.21553941989433856
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.0,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.015971836926889974,
+      "ctrl_err": 0.004293696281061843
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014102379715001412,
+      "ctrl_err": 0.007601409427313972
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.007609403716804098,
+      "ctrl_err": 0.0009246606070031356
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01858174303985338,
+      "ctrl_err": 0.0020748099944272002
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.010158255122613483,
+      "ctrl_err": 0.006391717852267013
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.012937574765837373,
+      "ctrl_err": 0.009631796661763116
+     }
+    ],
+    "tilt_max": 0.21163285969046886
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.5,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0033232267636057315,
+      "ctrl_err": 0.018525688485819376
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01697007325390604,
+      "ctrl_err": 0.012709185376602941
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.017735283693168173,
+      "ctrl_err": 0.008987596204105342
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.18494311846942868,
+      "ctrl_err": 0.17811711899893692
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03662768676928823,
+      "ctrl_err": 0.024804821936402405
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.4127496420163973,
+      "ctrl_err": 0.41193071488482574
+     }
+    ],
+    "tilt_max": 0.2381869190215304
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.5,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.2894032857062656,
+      "ctrl_err": 0.29232499984088633
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02487817422450145,
+      "ctrl_err": 0.02767549963350862
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.23169767090585844,
+      "ctrl_err": 0.2828736777873083
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008262357289772378,
+      "ctrl_err": 0.00910094906563913
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03448839104678776,
+      "ctrl_err": 0.0337406747848579
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.013825112632782046,
+      "ctrl_err": 0.005439871293146069
+     }
+    ],
+    "tilt_max": 0.248958024778715
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.5,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014501924785322784,
+      "ctrl_err": 0.003467592699989511
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.013415718181494897,
+      "ctrl_err": 0.00315554250082306
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.011981932397430289,
+      "ctrl_err": 0.0055248699245851966
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016285404490873095,
+      "ctrl_err": 0.0025589211278862004
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03122933170636988,
+      "ctrl_err": 0.02360652903959669
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03170730319229112,
+      "ctrl_err": 0.004720984247866007
+     }
+    ],
+    "tilt_max": 0.37228416797903174
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 6.5,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0055953551910815445,
+      "ctrl_err": 0.010819663841896912
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.007078851596974973,
+      "ctrl_err": 0.013552962918714615
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01050369751991555,
+      "ctrl_err": 0.007383632862480092
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.020466012297742937,
+      "ctrl_err": 0.013103445250479054
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.019229247222775244,
+      "ctrl_err": 0.004559083074826832
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008987065410405051,
+      "ctrl_err": 0.004480957980330367
+     }
+    ],
+    "tilt_max": 0.2667877226560578
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 7.0,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.3110442498001088,
+      "ctrl_err": 0.3029199829355219
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.20428417053706271,
+      "ctrl_err": 0.18693527494332274
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03593430733479045,
+      "ctrl_err": 0.016319257491577904
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.4661135130685245,
+      "ctrl_err": 0.1946708467225983
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016292873772961004,
+      "ctrl_err": 0.0064212911976401724
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.06701389303797331,
+      "ctrl_err": 0.07445904791239988
+     }
+    ],
+    "tilt_max": 0.21109865465971786
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 7.0,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.059222120536935055,
+      "ctrl_err": 0.05640896632972302
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.011680807795472503,
+      "ctrl_err": 0.00974129209159475
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02515106660357004,
+      "ctrl_err": 0.00562373417240692
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.020921518229442836,
+      "ctrl_err": 0.022999370092180067
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.020208945954143475,
+      "ctrl_err": 0.009790730365222442
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04746039400643786,
+      "ctrl_err": 0.034097846090062625
+     }
+    ],
+    "tilt_max": 0.20091392498384214
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 7.0,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.012080306102955083,
+      "ctrl_err": 0.013871414624359764
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.011099043289756175,
+      "ctrl_err": 0.0028532111018758485
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0037028564196672936,
+      "ctrl_err": 0.006250750219211737
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02833775198688298,
+      "ctrl_err": 0.004083891958527462
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.010091615415849926,
+      "ctrl_err": 0.003853905019048229
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01480856834577937,
+      "ctrl_err": 0.010433202913098712
+     }
+    ],
+    "tilt_max": 0.3000367154763448
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "sphere",
+    "distance": 7.0,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008999486024382284,
+      "ctrl_err": 0.002070526924708769
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02110082697944442,
+      "ctrl_err": 0.013467212724635568
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.015442796739488207,
+      "ctrl_err": 0.0055859145633163215
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.004949940849180919,
+      "ctrl_err": 0.002000927056808062
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02651933296196182,
+      "ctrl_err": 0.004739945280408705
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.011315042357260417,
+      "ctrl_err": 0.0053594821121605435
+     }
+    ],
+    "tilt_max": 0.19111331298318188
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.0,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.007581413927023419,
+      "ctrl_err": 0.0037463030016419907
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.020849635617879513,
+      "ctrl_err": 0.01273360152957894
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04950537776868358,
+      "ctrl_err": 0.044218889724865096
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04203026420772067,
+      "ctrl_err": 0.05383665458838712
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01887589191622368,
+      "ctrl_err": 0.017507202106753446
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.002152998782938525,
+      "ctrl_err": 0.004081198992738611
+     }
+    ],
+    "tilt_max": 0.29023858382708695
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.0,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.018501357030052613,
+      "ctrl_err": 0.021962562822001968
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04364308509939123,
+      "ctrl_err": 0.030549617196526147
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.019687416269357542,
+      "ctrl_err": 0.016604106899029896
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008624771796120347,
+      "ctrl_err": 0.00830340550941111
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.006143119788019859,
+      "ctrl_err": 0.005145170158719492
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01857805070511111,
+      "ctrl_err": 0.010348759121844586
+     }
+    ],
+    "tilt_max": 0.22406208784781895
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.0,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.025270452299762217,
+      "ctrl_err": 0.027595030845894673
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.027205052880196617,
+      "ctrl_err": 0.025806302259628825
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02060452726870208,
+      "ctrl_err": 0.023643930132002104
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01401183385987058,
+      "ctrl_err": 0.005395289740355886
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01775030936854038,
+      "ctrl_err": 0.005928531890208819
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016106735707812632,
+      "ctrl_err": 0.004743021972080081
+     }
+    ],
+    "tilt_max": 0.3574667589734412
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.0,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.007527932071882694,
+      "ctrl_err": 0.007121424979145496
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.00839248015012771,
+      "ctrl_err": 0.00229258707404983
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.010956904480904446,
+      "ctrl_err": 0.007604757637392479
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.00794112482601407,
+      "ctrl_err": 0.002411692924456144
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.019699151524570177,
+      "ctrl_err": 0.006377193987729472
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.012251442552060215,
+      "ctrl_err": 0.006716528974030658
+     }
+    ],
+    "tilt_max": 0.3838862860580467
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.5,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016790371608240845,
+      "ctrl_err": 0.003924543045008269
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0131279250912294,
+      "ctrl_err": 0.0041219836740678415
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014586252829730372,
+      "ctrl_err": 0.014771084853152013
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.5443515193598095,
+      "ctrl_err": 0.5458038281202894
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01982114080291036,
+      "ctrl_err": 0.005770625299196632
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.2378052728553871,
+      "ctrl_err": 0.23648447797609762
+     }
+    ],
+    "tilt_max": 0.21695502749651718
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.5,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.026941201384944633,
+      "ctrl_err": 0.019970810748966693
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01343587817020382,
+      "ctrl_err": 0.0212504489433141
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04688962366418488,
+      "ctrl_err": 0.0283249630113949
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01621216013564283,
+      "ctrl_err": 0.015361646005707531
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.015886228171714117,
+      "ctrl_err": 0.0010742708348349418
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.024279974196514332,
+      "ctrl_err": 0.023602729474380073
+     }
+    ],
+    "tilt_max": 0.3997759457037048
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.5,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016135615285924047,
+      "ctrl_err": 0.007417133546764285
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.016066479639435995,
+      "ctrl_err": 0.010137219704102092
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.025808854072572163,
+      "ctrl_err": 0.03003351480254184
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.026771134169893514,
+      "ctrl_err": 0.011295864921988237
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03129427299015884,
+      "ctrl_err": 0.02047530865103631
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.026251745231091802,
+      "ctrl_err": 0.002572567708145745
+     }
+    ],
+    "tilt_max": 0.29758631254509527
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 6.5,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.015649243565992992,
+      "ctrl_err": 0.00843069838156106
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01677966981359236,
+      "ctrl_err": 0.006784167156709374
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.03570590069931278,
+      "ctrl_err": 0.033323803880887286
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014723959034268222,
+      "ctrl_err": 0.00903768861725088
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02018081214519274,
+      "ctrl_err": 0.0069635513002224555
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.009075345335490547,
+      "ctrl_err": 0.004343795840655333
+     }
+    ],
+    "tilt_max": 0.25893748151637863
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 7.0,
+    "apex": 0.75,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.2006855709384823,
+      "ctrl_err": 0.19171329199183812
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.11923965420924543,
+      "ctrl_err": 0.10271188386458
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.025836439841599744,
+      "ctrl_err": 0.02792651358608242
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.31383173240056783,
+      "ctrl_err": 0.2847085612219753
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.015637622775260047,
+      "ctrl_err": 0.0062106591799650996
+     },
+     {
+      "caught": false,
+      "why": "reach",
+      "pos_error": 0.18597410871002362,
+      "ctrl_err": 0.49501762739397037
+     }
+    ],
+    "tilt_max": 0.2765904901554485
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 7.0,
+    "apex": 1.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.025525786349887863,
+      "ctrl_err": 0.023248423759045723
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0090576098424705,
+      "ctrl_err": 0.0019173882271095895
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.026907047053162953,
+      "ctrl_err": 0.017590068214485107
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01195050833499049,
+      "ctrl_err": 0.006088286710820379
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.0578925406756784,
+      "ctrl_err": 0.050433882530136774
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.024635403713336307,
+      "ctrl_err": 0.024790804811642184
+     }
+    ],
+    "tilt_max": 0.23833221779505606
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 7.0,
+    "apex": 1.5,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04449620821412704,
+      "ctrl_err": 0.022438375321714367
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.023599296809546737,
+      "ctrl_err": 0.01134734470198072
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01736631753204733,
+      "ctrl_err": 0.02203872121095878
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.04121719616296445,
+      "ctrl_err": 0.033027699474534204
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008457257652643938,
+      "ctrl_err": 0.0042550756520846915
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.009017698074099401,
+      "ctrl_err": 0.010039092777264225
+     }
+    ],
+    "tilt_max": 0.26707323881047057
+   },
+   {
+    "floor": "uniform 0.95",
+    "model": "rollers",
+    "distance": 7.0,
+    "apex": 2.0,
+    "tosses": [
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.008403967742077677,
+      "ctrl_err": 0.004452543194943246
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.02284387420657781,
+      "ctrl_err": 0.00916312513802986
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.022834467817925884,
+      "ctrl_err": 0.011560942874620833
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.014032666281365154,
+      "ctrl_err": 0.009772966151499038
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 0.01681446181416039,
+      "ctrl_err": 0.008788362560877115
+     },
+     {
+      "caught": true,
+      "why": "caught",
+      "pos_error": 8.201207508633507e-05,
+      "ctrl_err": 0.0030640512717208363
+     }
+    ],
+    "tilt_max": 0.2953458856801588
+   }
+  ]
+ },
+ "B": [
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.0835112757663876,
+   "lifted": true,
+   "heading_max": 0.06503541355877947,
+   "lateral": -0.0005175163784095525,
+   "held": true,
+   "odo_err": 0.004222586405666488,
+   "odo_err_rel": 0.0030161206889148503
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.044668081710094,
+   "lifted": true,
+   "heading_max": 1.2729188180521838,
+   "lateral": -0.00474861671572733,
+   "held": true,
+   "odo_err": 0.01417567620336161,
+   "odo_err_rel": 0.010122090575918907
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 5.883793679639017,
+   "lifted": true,
+   "heading_max": 1.0811561264368956,
+   "lateral": -0.0008963527702819307,
+   "held": true,
+   "odo_err": 0.04491623656779655,
+   "odo_err_rel": 0.03207599545421813
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.184603983412044,
+   "lifted": true,
+   "heading_max": 0.32761579211082226,
+   "lateral": 0.0003733710184502249,
+   "held": true,
+   "odo_err": 0.0070851947904030654,
+   "odo_err_rel": 0.0050602579987722
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.0711329591712895,
+   "lifted": true,
+   "heading_max": 1.0783846806328812,
+   "lateral": -0.0003781689276352871,
+   "held": true,
+   "odo_err": 0.021680533062308528,
+   "odo_err_rel": 0.015480502015511995
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 6.03042448956694,
+   "lifted": true,
+   "heading_max": 6.715489531842623,
+   "lateral": -0.016429070874304445,
+   "held": true,
+   "odo_err": 0.07887389267466643,
+   "odo_err_rel": 0.056333896737003286
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.078045790927459,
+   "lifted": true,
+   "heading_max": 0.711416471261828,
+   "lateral": 0.004659907661443336,
+   "held": true,
+   "odo_err": 0.020546478314815146,
+   "odo_err_rel": 0.014675392257615267
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.056683398948258,
+   "lifted": true,
+   "heading_max": 1.141195408298209,
+   "lateral": 0.008727512108515738,
+   "held": true,
+   "odo_err": 0.0258664477900465,
+   "odo_err_rel": 0.018470282827157097
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 6.066262000761415,
+   "lifted": true,
+   "heading_max": 3.764304494771784,
+   "lateral": 0.016383974620927912,
+   "held": true,
+   "odo_err": 0.08233352125258135,
+   "odo_err_rel": 0.058798088252812644
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.8439278449967063,
+   "lifted": true,
+   "heading_max": 0.222916483432597,
+   "lateral": -0.001051240182759173,
+   "held": true,
+   "odo_err": 0.0204536669178229,
+   "odo_err_rel": 0.014607215652592959
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 9.471252082324245,
+   "lifted": true,
+   "heading_max": 2.123184969210876,
+   "lateral": -0.007839329110247109,
+   "held": true,
+   "odo_err": 0.07232446060614811,
+   "odo_err_rel": 0.051647890072140365
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 16.093123503672572,
+   "lifted": true,
+   "heading_max": 6.9616725012168645,
+   "lateral": -0.007033948172916074,
+   "held": true,
+   "odo_err": 0.2787491335504516,
+   "odo_err_rel": 0.19903097344518725
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.9814463343636146,
+   "lifted": true,
+   "heading_max": 0.7795105859644016,
+   "lateral": -0.0023036498676783034,
+   "held": true,
+   "odo_err": 0.02070204141268812,
+   "odo_err_rel": 0.01478548388897521
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.822953049786216,
+   "lifted": true,
+   "heading_max": 3.671679545745015,
+   "lateral": -0.010966973225635895,
+   "held": true,
+   "odo_err": 0.06005809315948784,
+   "odo_err_rel": 0.04288758930047814
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 9.424346674512122,
+   "lifted": true,
+   "heading_max": 13.677251349061153,
+   "lateral": -0.041998330123279,
+   "held": true,
+   "odo_err": 0.16804913452911616,
+   "odo_err_rel": 0.11996095372880895
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.935267994229356,
+   "lifted": true,
+   "heading_max": 2.294218848651347,
+   "lateral": 0.011204511637292717,
+   "held": true,
+   "odo_err": 0.07471643409605097,
+   "odo_err_rel": 0.05336555156047354
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 7.575682580866243,
+   "lifted": true,
+   "heading_max": 5.069896089954901,
+   "lateral": 0.024727622170215444,
+   "held": true,
+   "odo_err": 0.14747506627142548,
+   "odo_err_rel": 0.10532160309480315
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 12.736030730679742,
+   "lifted": true,
+   "heading_max": 7.17037695632035,
+   "lateral": 0.01346680948678496,
+   "held": true,
+   "odo_err": 0.20375478292161256,
+   "odo_err_rel": 0.14543482774586136
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 5.047698008509296,
+   "lifted": true,
+   "heading_max": 0.8859747368828724,
+   "lateral": -0.0012040312000753774,
+   "held": true,
+   "odo_err": 0.061568611255822026,
+   "odo_err_rel": 0.04397581381761471
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 12.319311843041309,
+   "lifted": true,
+   "heading_max": 2.736825461516573,
+   "lateral": 0.0006915301711684076,
+   "held": true,
+   "odo_err": 0.1822866238388648,
+   "odo_err_rel": 0.13017529064367359
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 22.483617659649994,
+   "lifted": true,
+   "heading_max": 2.803283838294124,
+   "lateral": 0.01758616992690304,
+   "held": true,
+   "odo_err": 0.4584488571733627,
+   "odo_err_rel": 0.32741388455070874
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 5.991100474059154,
+   "lifted": true,
+   "heading_max": 1.8630095038479018,
+   "lateral": -0.0002605925602395342,
+   "held": true,
+   "odo_err": 0.07271610238943622,
+   "odo_err_rel": 0.0519395823027712
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 7.649927545821244,
+   "lifted": true,
+   "heading_max": 6.269180612302532,
+   "lateral": -0.04473945271330194,
+   "held": true,
+   "odo_err": 0.09595155380629553,
+   "odo_err_rel": 0.06853016799702055
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 17.597363518112157,
+   "lifted": true,
+   "heading_max": 48.56455932653299,
+   "lateral": -0.07320767941504665,
+   "held": true,
+   "odo_err": 0.6601879079320333,
+   "odo_err_rel": 0.47127033664563545
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 5.091490699751242,
+   "lifted": true,
+   "heading_max": 5.97402777658935,
+   "lateral": 0.010268582879193001,
+   "held": true,
+   "odo_err": 0.1818025140594027,
+   "odo_err_rel": 0.12983591061267585
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 10.606020907210393,
+   "lifted": true,
+   "heading_max": 10.820824140300159,
+   "lateral": 0.041176500101605784,
+   "held": true,
+   "odo_err": 0.2965992838323251,
+   "odo_err_rel": 0.2118402515128901
+  },
+  {
+   "model": "sphere",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 16.609904756212984,
+   "lifted": true,
+   "heading_max": 18.17352560059028,
+   "lateral": 0.014578135845601276,
+   "held": true,
+   "odo_err": 0.4618668922481308,
+   "odo_err_rel": 0.3298829255728751
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.1106978973734347,
+   "lifted": true,
+   "heading_max": 0.10093090279485556,
+   "lateral": -0.00019720450712253294,
+   "held": true,
+   "odo_err": 0.014688720485680831,
+   "odo_err_rel": 0.010491413238330163
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 6.501361824033972,
+   "lifted": true,
+   "heading_max": 1.1932482328088885,
+   "lateral": -0.0032252227451617936,
+   "held": true,
+   "odo_err": 0.03367733735713833,
+   "odo_err_rel": 0.024048345049844173
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 8.746020306110838,
+   "lifted": true,
+   "heading_max": 3.9404419190693116,
+   "lateral": -0.007309392894621048,
+   "held": true,
+   "odo_err": 0.10172037378906287,
+   "odo_err_rel": 0.07263823857531276
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.9168909943913355,
+   "lifted": true,
+   "heading_max": 0.4449334914935449,
+   "lateral": -0.0015713693002014505,
+   "held": true,
+   "odo_err": 0.012387491745339187,
+   "odo_err_rel": 0.008847174003334318
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.448822327330067,
+   "lifted": true,
+   "heading_max": 0.9974586243721587,
+   "lateral": 0.0002562561023126678,
+   "held": true,
+   "odo_err": 0.021241370419133692,
+   "odo_err_rel": 0.015171918700407575
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 8.919739004417085,
+   "lifted": true,
+   "heading_max": 4.953065804699575,
+   "lateral": -0.015558685290124665,
+   "held": true,
+   "odo_err": 0.07542537296165035,
+   "odo_err_rel": 0.05384595132038425
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.8580318027385903,
+   "lifted": true,
+   "heading_max": 1.242904698997582,
+   "lateral": 0.0034074841912188026,
+   "held": true,
+   "odo_err": 0.03521890787112256,
+   "odo_err_rel": 0.025153218854250762
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 6.310970987579147,
+   "lifted": true,
+   "heading_max": 1.5170823780104719,
+   "lateral": 0.009384287612538457,
+   "held": true,
+   "odo_err": 0.0380799773769139,
+   "odo_err_rel": 0.027196563859751978
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 7.828126029256306,
+   "lifted": true,
+   "heading_max": 4.0171412220283615,
+   "lateral": 0.004850872298267309,
+   "held": true,
+   "odo_err": 0.08539960523091902,
+   "odo_err_rel": 0.06096078826467056
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.068814280496831,
+   "lifted": true,
+   "heading_max": 0.39535328995768193,
+   "lateral": 0.0002671082988921168,
+   "held": true,
+   "odo_err": 0.02922446356011715,
+   "odo_err_rel": 0.020874559644003348
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 11.106116231539616,
+   "lifted": true,
+   "heading_max": 3.7405079963315178,
+   "lateral": -0.011637453927604265,
+   "held": true,
+   "odo_err": 0.0915629397443918,
+   "odo_err_rel": 0.06539752614998573
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 17.679945853576264,
+   "lifted": true,
+   "heading_max": 2.978804364498738,
+   "lateral": 0.005102075516704003,
+   "held": true,
+   "odo_err": 0.2777882829362823,
+   "odo_err_rel": 0.19829781847739372
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.253751577073616,
+   "lifted": true,
+   "heading_max": 0.907153159223818,
+   "lateral": -0.0033622762706686997,
+   "held": true,
+   "odo_err": 0.019956837693587512,
+   "odo_err_rel": 0.014253911395120214
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 7.824651317762994,
+   "lifted": true,
+   "heading_max": 1.866142999164737,
+   "lateral": -0.015819848248336925,
+   "held": true,
+   "odo_err": 0.05213129333449978,
+   "odo_err_rel": 0.037235374364794606
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 10.093726654553642,
+   "lifted": true,
+   "heading_max": 5.243158549537432,
+   "lateral": -0.042812765600609835,
+   "held": true,
+   "odo_err": 0.1417423301168289,
+   "odo_err_rel": 0.10117396835919647
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.79735239137332,
+   "lifted": true,
+   "heading_max": 2.5724209376136726,
+   "lateral": 0.007415451427380585,
+   "held": true,
+   "odo_err": 0.077737957874634,
+   "odo_err_rel": 0.0555248388320211
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 8.801425840848182,
+   "lifted": true,
+   "heading_max": 4.500281187259118,
+   "lateral": 0.02256014774834558,
+   "held": true,
+   "odo_err": 0.1309447645692563,
+   "odo_err_rel": 0.0935137753899191
+  },
+  {
+   "model": "sphere",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 13.550286837094692,
+   "lifted": true,
+   "heading_max": 8.206563135830773,
+   "lateral": -0.0037644715907104043,
+   "held": true,
+   "odo_err": 0.19951062480811896,
+   "odo_err_rel": 0.14245613524004738
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.5212949055109215,
+   "lifted": true,
+   "heading_max": 0.03712997126152342,
+   "lateral": -0.00035271615593657137,
+   "held": true,
+   "odo_err": 0.010208978827398501,
+   "odo_err_rel": 0.007290981827631282
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.490699086927674,
+   "lifted": true,
+   "heading_max": 0.3906460185187016,
+   "lateral": -0.002686474487680487,
+   "held": true,
+   "odo_err": 0.020206447630009963,
+   "odo_err_rel": 0.014428746587825185
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 8.184849779050676,
+   "lifted": true,
+   "heading_max": 3.302659668838695,
+   "lateral": -0.004640847724357234,
+   "held": true,
+   "odo_err": 0.08448075474443183,
+   "odo_err_rel": 0.06033498846864031
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.7918167821861224,
+   "lifted": true,
+   "heading_max": 0.41263690777357753,
+   "lateral": -0.001203089196565888,
+   "held": true,
+   "odo_err": 0.009649862133019682,
+   "odo_err_rel": 0.006891593680991758
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.681292911870996,
+   "lifted": true,
+   "heading_max": 1.4081244861331788,
+   "lateral": -0.00331995226193857,
+   "held": true,
+   "odo_err": 0.022616407790850137,
+   "odo_err_rel": 0.01615122638080554
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 8.284429126612572,
+   "lifted": true,
+   "heading_max": 5.431570764949626,
+   "lateral": -0.011223216019722539,
+   "held": true,
+   "odo_err": 0.07318465013100951,
+   "odo_err_rel": 0.05225856323332453
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.049668071610525,
+   "lifted": true,
+   "heading_max": 0.7374446002233128,
+   "lateral": 0.003148101445290558,
+   "held": true,
+   "odo_err": 0.020396210882137285,
+   "odo_err_rel": 0.014566527561965473
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.616675515159503,
+   "lifted": true,
+   "heading_max": 1.0845811536788104,
+   "lateral": 0.00673314142043739,
+   "held": true,
+   "odo_err": 0.029462185633366045,
+   "odo_err_rel": 0.02103986030084588
+  },
+  {
+   "model": "sphere",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 7.508561780620692,
+   "lifted": true,
+   "heading_max": 4.595091251244149,
+   "lateral": 0.00680645019280291,
+   "held": true,
+   "odo_err": 0.08283969546714555,
+   "odo_err_rel": 0.059165100906165655
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.0454573085338907,
+   "lifted": true,
+   "heading_max": 0.08574831954613127,
+   "lateral": 0.0015520808931803439,
+   "held": true,
+   "odo_err": 0.01276497187757558,
+   "odo_err_rel": 0.009117110347004206
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 3.953987361795742,
+   "lifted": true,
+   "heading_max": 1.156950964576238,
+   "lateral": -0.0035351627763274794,
+   "held": true,
+   "odo_err": 0.028561363540269943,
+   "odo_err_rel": 0.020397468634639475
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 5.813914493763898,
+   "lifted": true,
+   "heading_max": 1.6627197378354936,
+   "lateral": -0.002585265806877737,
+   "held": true,
+   "odo_err": 0.07117598382865147,
+   "odo_err_rel": 0.050816821572443036
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.3127011988163195,
+   "lifted": true,
+   "heading_max": 0.31975769701220896,
+   "lateral": 0.0004827187460708188,
+   "held": true,
+   "odo_err": 0.008354482996071071,
+   "odo_err_rel": 0.005966931272116949
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 3.791095492573907,
+   "lifted": true,
+   "heading_max": 1.0896707678721071,
+   "lateral": -0.0043375041284302775,
+   "held": true,
+   "odo_err": 0.019576622590985377,
+   "odo_err_rel": 0.013978898840314571
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 6.318728792471902,
+   "lifted": true,
+   "heading_max": 3.3429652098196296,
+   "lateral": -0.005876048334515286,
+   "held": true,
+   "odo_err": 0.0508716097007327,
+   "odo_err_rel": 0.03631717503565507
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.7054266257909942,
+   "lifted": true,
+   "heading_max": 0.6437661085029859,
+   "lateral": -0.0008886671537959459,
+   "held": true,
+   "odo_err": 0.022157378391547744,
+   "odo_err_rel": 0.015825490751628663
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.271943200975038,
+   "lifted": true,
+   "heading_max": 1.583803355190915,
+   "lateral": 0.007930219441700364,
+   "held": true,
+   "odo_err": 0.05161714110085085,
+   "odo_err_rel": 0.03685960835887117
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 6 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 5.80482842432688,
+   "lifted": true,
+   "heading_max": 5.9162447447412765,
+   "lateral": 0.014047440727288016,
+   "held": true,
+   "odo_err": 0.12950336925282604,
+   "odo_err_rel": 0.09245264568473363
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.37845608360293,
+   "lifted": true,
+   "heading_max": 0.24550021301508243,
+   "lateral": 0.0011198183590678664,
+   "held": true,
+   "odo_err": 0.03068773277433425,
+   "odo_err_rel": 0.02191914232834258
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 10.095298299908855,
+   "lifted": true,
+   "heading_max": 2.942481022500016,
+   "lateral": 0.01822464000983153,
+   "held": true,
+   "odo_err": 0.08994220291558261,
+   "odo_err_rel": 0.064236707425993
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 18.05352522489183,
+   "lifted": true,
+   "heading_max": 7.402029012219035,
+   "lateral": -0.022413884672682138,
+   "held": true,
+   "odo_err": 0.28637489671478616,
+   "odo_err_rel": 0.20450649356983436
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.216691078447582,
+   "lifted": true,
+   "heading_max": 0.8141137519417295,
+   "lateral": -0.001436237338047822,
+   "held": true,
+   "odo_err": 0.022508443156138494,
+   "odo_err_rel": 0.01607655036847393
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.621561728948765,
+   "lifted": true,
+   "heading_max": 3.65479374474914,
+   "lateral": -0.02884761492304868,
+   "held": true,
+   "odo_err": 0.06926735304746306,
+   "odo_err_rel": 0.04947479316370623
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 13.374911288537517,
+   "lifted": true,
+   "heading_max": 9.1823886586934,
+   "lateral": -0.009053642269905685,
+   "held": true,
+   "odo_err": 0.15408171529496423,
+   "odo_err_rel": 0.10999105514798385
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.438052189223796,
+   "lifted": true,
+   "heading_max": 1.6118132330208146,
+   "lateral": 0.004229651790197449,
+   "held": true,
+   "odo_err": 0.06012991864988854,
+   "odo_err_rel": 0.04294913304641225
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 8.132211741379567,
+   "lifted": true,
+   "heading_max": 3.420919627628714,
+   "lateral": -0.005149966998858187,
+   "held": true,
+   "odo_err": 0.10188521128449914,
+   "odo_err_rel": 0.07277469270983061
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 12 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 12.363512555700101,
+   "lifted": true,
+   "heading_max": 5.31566709510453,
+   "lateral": -0.08354694429301256,
+   "held": true,
+   "odo_err": 0.2653938093467792,
+   "odo_err_rel": 0.1894613608513468
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 5.0669000317971795,
+   "lifted": true,
+   "heading_max": 0.3759537818385366,
+   "lateral": 0.0019796802874482936,
+   "held": true,
+   "odo_err": 0.046083075460915834,
+   "odo_err_rel": 0.03291091610200322
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 15.21486836496088,
+   "lifted": true,
+   "heading_max": 5.35460972745184,
+   "lateral": 0.045809647777141284,
+   "held": true,
+   "odo_err": 0.11403032078024819,
+   "odo_err_rel": 0.08143688502866135
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 28.199350231923418,
+   "lifted": true,
+   "heading_max": 3.731780007566603,
+   "lateral": 0.02019189067444143,
+   "held": true,
+   "odo_err": 0.4860414495866626,
+   "odo_err_rel": 0.3470918742057362
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 5.900824123673106,
+   "lifted": true,
+   "heading_max": 1.227243109969779,
+   "lateral": -0.008404060019694203,
+   "held": true,
+   "odo_err": 0.10191295325270523,
+   "odo_err_rel": 0.07278707266224567
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 9.805288506482242,
+   "lifted": true,
+   "heading_max": 7.160165446927706,
+   "lateral": -0.019367486218495916,
+   "held": true,
+   "odo_err": 0.1585034184212949,
+   "odo_err_rel": 0.11320757703265996
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 18.361343914913586,
+   "lifted": true,
+   "heading_max": 10.535233872196295,
+   "lateral": -0.020153298939384123,
+   "held": true,
+   "odo_err": 0.28942139753817747,
+   "odo_err_rel": 0.20658480283816374
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 8.407346805654123,
+   "lifted": true,
+   "heading_max": 1.8733833312647479,
+   "lateral": -0.0023509301213230018,
+   "held": true,
+   "odo_err": 0.05883329703816552,
+   "odo_err_rel": 0.042017220984643666
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 9.34335245555672,
+   "lifted": true,
+   "heading_max": 4.832541006882875,
+   "lateral": -0.0011922693468379058,
+   "held": true,
+   "odo_err": 0.17631551808886786,
+   "odo_err_rel": 0.12591001738774715
+  },
+  {
+   "model": "rollers",
+   "obstacle": "threshold 18 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 14.482477013656675,
+   "lifted": true,
+   "heading_max": 18.228471798419346,
+   "lateral": -0.18712731507236494,
+   "held": true,
+   "odo_err": 0.35883723513385196,
+   "odo_err_rel": 0.25613452170520123
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.8757939947682756,
+   "lifted": true,
+   "heading_max": 0.2749622174894441,
+   "lateral": 0.0012490135226863109,
+   "held": true,
+   "odo_err": 0.02331855747688993,
+   "odo_err_rel": 0.016654483601862762
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 8.531152242984843,
+   "lifted": true,
+   "heading_max": 0.8125364871378797,
+   "lateral": 0.0028316939062153273,
+   "held": true,
+   "odo_err": 0.03917461897892493,
+   "odo_err_rel": 0.02797870370741335
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 9.709421519014501,
+   "lifted": true,
+   "heading_max": 2.8598053030693484,
+   "lateral": 0.00020682426517406636,
+   "held": true,
+   "odo_err": 0.1087086824753762,
+   "odo_err_rel": 0.07759996534185126
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": false,
+   "tilt": 4.838532422092602,
+   "lifted": true,
+   "heading_max": 2.801146106758072,
+   "lateral": -0.020246809396290297,
+   "held": true,
+   "odo_err": 2.3524208446454464,
+   "odo_err_rel": 4.033511575384033
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": false,
+   "tilt": 15.560342263459185,
+   "lifted": true,
+   "heading_max": 7.038113660125894,
+   "lateral": -0.12669327065822975,
+   "held": true,
+   "odo_err": 3.2594365082694843,
+   "odo_err_rel": 5.587487562566702
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 11.002686192255805,
+   "lifted": true,
+   "heading_max": 9.994083846520152,
+   "lateral": -0.046450810126900735,
+   "held": true,
+   "odo_err": 0.6408038411160828,
+   "odo_err_rel": 0.45751551463211726
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.656069372969692,
+   "lifted": true,
+   "heading_max": 0.9708276034229546,
+   "lateral": 0.00017517697484226199,
+   "held": true,
+   "odo_err": 0.03393504798750679,
+   "odo_err_rel": 0.02423591528158382
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 7.020822002275859,
+   "lifted": true,
+   "heading_max": 2.7038437134919895,
+   "lateral": 0.008033531736846938,
+   "held": true,
+   "odo_err": 0.07930574873354825,
+   "odo_err_rel": 0.05663251402260422
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 8 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 7.382548941545124,
+   "lifted": true,
+   "heading_max": 4.577172314279752,
+   "lateral": -0.01485621689738336,
+   "held": true,
+   "odo_err": 0.12956064272275167,
+   "odo_err_rel": 0.09250021045721925
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.5469739723160267,
+   "lifted": true,
+   "heading_max": 1.1514141666413438,
+   "lateral": 0.010972656814941525,
+   "held": true,
+   "odo_err": 0.06679553967244307,
+   "odo_err_rel": 0.04770701463096663
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 5.151931828606887,
+   "lifted": true,
+   "heading_max": 4.128204980345545,
+   "lateral": -0.009401626105345279,
+   "held": true,
+   "odo_err": 0.1433124115762437,
+   "odo_err_rel": 0.10233718807815588
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 9.632810562515802,
+   "lifted": true,
+   "heading_max": 15.571730223195038,
+   "lateral": -0.08624874206898743,
+   "held": true,
+   "odo_err": 0.5967529575604559,
+   "odo_err_rel": 0.42597788726797825
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": false,
+   "tilt": 3.1529336924753357,
+   "lifted": true,
+   "heading_max": 1.19167570528656,
+   "lateral": -0.009745801016500908,
+   "held": true,
+   "odo_err": 2.354007906813899,
+   "odo_err_rel": 4.039328764041683
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": false,
+   "tilt": 8.434757202796735,
+   "lifted": true,
+   "heading_max": 2.683963693900172,
+   "lateral": -0.019375459783852716,
+   "held": true,
+   "odo_err": 3.2908984914124795,
+   "odo_err_rel": 5.6480437065791405
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": false,
+   "tilt": 15.69115245458434,
+   "lifted": true,
+   "heading_max": 5.227904641131951,
+   "lateral": -0.01722995731167645,
+   "held": true,
+   "odo_err": 3.5341786461490865,
+   "odo_err_rel": 6.064554224851002
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 4.373568921741946,
+   "lifted": true,
+   "heading_max": 1.9296451444244365,
+   "lateral": -0.0015914158803570881,
+   "held": true,
+   "odo_err": 0.07609267248146953,
+   "odo_err_rel": 0.05434526860411563
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 7.139446751303405,
+   "lifted": true,
+   "heading_max": 5.3431835197390605,
+   "lateral": -0.004775743123163018,
+   "held": true,
+   "odo_err": 0.14554501255680488,
+   "odo_err_rel": 0.10395349885209684
+  },
+  {
+   "model": "rollers",
+   "obstacle": "rug edge 12 mm",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 9.99586597616723,
+   "lifted": true,
+   "heading_max": 25.72496195365118,
+   "lateral": 0.1815266514153194,
+   "held": true,
+   "odo_err": 1.0135058888869697,
+   "odo_err_rel": 0.7237040038349377
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.7280439735487723,
+   "lifted": true,
+   "heading_max": 0.07546922599809643,
+   "lateral": 0.0008562854212397754,
+   "held": true,
+   "odo_err": 0.01495325233538286,
+   "odo_err_rel": 0.010680398546301194
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 6.252064538702136,
+   "lifted": true,
+   "heading_max": 1.5903752303853456,
+   "lateral": 0.005969686142029409,
+   "held": true,
+   "odo_err": 0.0442578891876809,
+   "odo_err_rel": 0.03160969265996828
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 0.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 10.232916151987308,
+   "lifted": true,
+   "heading_max": 3.8075226066091443,
+   "lateral": -0.004455187752811038,
+   "held": true,
+   "odo_err": 0.0989127880758238,
+   "odo_err_rel": 0.07061858728719142
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 2.6086546649610187,
+   "lifted": true,
+   "heading_max": 0.4206604058605969,
+   "lateral": 0.00027425400116434936,
+   "held": true,
+   "odo_err": 0.009429079373268973,
+   "odo_err_rel": 0.006734138128522525
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 4.403636978143226,
+   "lifted": true,
+   "heading_max": 1.4278679192889008,
+   "lateral": -0.006749788068614685,
+   "held": true,
+   "odo_err": 0.022846863695974044,
+   "odo_err_rel": 0.016317441965287692
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 45.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 8.648650584456854,
+   "lifted": true,
+   "heading_max": 4.603452426511344,
+   "lateral": -0.011829142636446605,
+   "held": true,
+   "odo_err": 0.07028532290307513,
+   "odo_err_rel": 0.05019772293590958
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 0.5,
+   "crossed": true,
+   "tilt": 3.3263538414937295,
+   "lifted": true,
+   "heading_max": 0.9587299351823896,
+   "lateral": 2.8817789764967656e-05,
+   "held": true,
+   "odo_err": 0.02737762552222727,
+   "odo_err_rel": 0.019553036998461597
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 1.0,
+   "crossed": true,
+   "tilt": 6.329810252085682,
+   "lifted": true,
+   "heading_max": 2.007730454136501,
+   "lateral": 0.0051488060120594425,
+   "held": true,
+   "odo_err": 0.0648649818149434,
+   "odo_err_rel": 0.04632519992247961
+  },
+  {
+   "model": "rollers",
+   "obstacle": "carpet trim 8 mm, 25 mm bevel",
+   "direction": 90.0,
+   "speed": 2.0,
+   "crossed": true,
+   "tilt": 7.886645411336526,
+   "lifted": true,
+   "heading_max": 5.361984510520583,
+   "lateral": -0.019954596522063817,
+   "held": true,
+   "odo_err": 0.11232731405126156,
+   "odo_err_rel": 0.08020715084296974
+  }
+ ],
+ "C": [
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04463504186700431,
+     "ctrl_err": 0.04517753991968893
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0229496501766546,
+     "ctrl_err": 0.02208861166018565
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.2767577278634687,
+     "ctrl_err": 0.2505169032017446
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04862277256570759,
+     "ctrl_err": 0.04998293234600974
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0070402346374778095,
+     "ctrl_err": 0.00876424049847164
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.399547541483294,
+     "ctrl_err": 0.40087118928257665
+    }
+   ],
+   "tilt_max": 0.20475731467453637
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0029127405885542284,
+     "ctrl_err": 0.002346485953058565
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03241821583382799,
+     "ctrl_err": 0.018999521101469453
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008002099207588495,
+     "ctrl_err": 0.018685434256803097
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0028373679615662497,
+     "ctrl_err": 0.006805311126869291
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017290210752858446,
+     "ctrl_err": 0.004265322446938872
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.028375476036680992,
+     "ctrl_err": 0.007382792736760185
+    }
+   ],
+   "tilt_max": 0.2022700350810698
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005492460200550501,
+     "ctrl_err": 0.002542470369313287
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013431440198887742,
+     "ctrl_err": 0.004021930547483692
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007191024181467939,
+     "ctrl_err": 0.001272412312073267
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005756943059381554,
+     "ctrl_err": 0.004338442583662402
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01499392325378234,
+     "ctrl_err": 0.00597225441695748
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015245549321908903,
+     "ctrl_err": 0.017177450094211524
+    }
+   ],
+   "tilt_max": 0.21776738225347256
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0026510333721077952,
+     "ctrl_err": 0.008155243382806104
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010019719681071064,
+     "ctrl_err": 0.004325145761677511
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05170616342571956,
+     "ctrl_err": 0.017397712405996742
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01236268499621767,
+     "ctrl_err": 0.005912890162593573
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0033636987735314386,
+     "ctrl_err": 0.002978979547654282
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02422903423526643,
+     "ctrl_err": 0.014354218710262899
+    }
+   ],
+   "tilt_max": 0.202857572165969
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016961661307688138,
+     "ctrl_err": 0.00816269995822899
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016609069168941056,
+     "ctrl_err": 0.019714081673395507
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016425216407784708,
+     "ctrl_err": 0.02216522355737786
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02453517694417928,
+     "ctrl_err": 0.010550291787607182
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009306856644995783,
+     "ctrl_err": 0.002186270334295617
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011831856116944317,
+     "ctrl_err": 0.0026186903327590524
+    }
+   ],
+   "tilt_max": 0.20411400515537462
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04119450071884042,
+     "ctrl_err": 0.02743299318932579
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01195360208666798,
+     "ctrl_err": 0.008659680110603732
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010015286972971126,
+     "ctrl_err": 0.006298889971087295
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007340283539095738,
+     "ctrl_err": 0.0059378578268137645
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019499406035731977,
+     "ctrl_err": 0.009106796708260985
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.027242108795359165,
+     "ctrl_err": 0.024528207479581714
+    }
+   ],
+   "tilt_max": 0.23707407073058706
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024699845518710867,
+     "ctrl_err": 0.009666764964733293
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.027340939817870967,
+     "ctrl_err": 0.017329926888262147
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03535295410817339,
+     "ctrl_err": 0.016123664140109725
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015208284472654645,
+     "ctrl_err": 0.0019885062134674713
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025632716697744425,
+     "ctrl_err": 0.01316324313296861
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021386300165322957,
+     "ctrl_err": 0.026690300206319233
+    }
+   ],
+   "tilt_max": 0.21171106202213133
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008932912170645388,
+     "ctrl_err": 0.0032572608021909674
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015991246084622813,
+     "ctrl_err": 0.004494299285781703
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012746714569100813,
+     "ctrl_err": 0.0024920806461686323
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0047279885453247635,
+     "ctrl_err": 0.006400846318998211
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01991529503255519,
+     "ctrl_err": 0.0044254110140058795
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008120338190111365,
+     "ctrl_err": 0.005813406479646059
+    }
+   ],
+   "tilt_max": 0.24008587206951593
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017408809332354176,
+     "ctrl_err": 0.015198925575800847
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06837380706326332,
+     "ctrl_err": 0.06230253709415424
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.033232061911611405,
+     "ctrl_err": 0.01861745066283502
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01969618866478041,
+     "ctrl_err": 0.011761021309362192
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.046686552604522924,
+     "ctrl_err": 0.01588884330132359
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015272404032163088,
+     "ctrl_err": 0.004718476051383998
+    }
+   ],
+   "tilt_max": 0.22836279856797076
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03303383406665968,
+     "ctrl_err": 0.025494559440971346
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02412883385728121,
+     "ctrl_err": 0.007552654518216165
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.39027907667804107,
+     "ctrl_err": 0.3829284069712808
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018319457959480114,
+     "ctrl_err": 0.00683000753936499
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.029844211771727223,
+     "ctrl_err": 0.02863224973982227
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02648647387692082,
+     "ctrl_err": 0.006579313388526885
+    }
+   ],
+   "tilt_max": 0.24366213176352022
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03738379574230362,
+     "ctrl_err": 0.03634911770537491
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030701512526315637,
+     "ctrl_err": 0.013368564663337097
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03554051249592023,
+     "ctrl_err": 0.006566139640266083
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006207543721731826,
+     "ctrl_err": 0.0011005259182415446
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0200380107859978,
+     "ctrl_err": 0.005278052753921633
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.040172836388580095,
+     "ctrl_err": 0.025185930761554
+    }
+   ],
+   "tilt_max": 0.22883824515964177
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00841530345541131,
+     "ctrl_err": 0.005072446193097229
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007074332823122819,
+     "ctrl_err": 0.009468323114231611
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017095204591486387,
+     "ctrl_err": 0.0070592249308833125
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012253038900550342,
+     "ctrl_err": 0.007334771490169631
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009902602837120878,
+     "ctrl_err": 0.00884717992143896
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022774389439834366,
+     "ctrl_err": 0.01166262126610093
+    }
+   ],
+   "tilt_max": 0.23370464718286804
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.047585077401447386,
+     "ctrl_err": 0.044674718519103145
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005448570106998915,
+     "ctrl_err": 0.006689751255545046
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.07204149146842811,
+     "ctrl_err": 0.3208037445420097
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.13989034988833396,
+     "ctrl_err": 0.14963630900783975
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012943126546054525,
+     "ctrl_err": 0.009452202832351597
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4718238494108563,
+     "ctrl_err": 0.46757969216642636
+    }
+   ],
+   "tilt_max": 6.053011510260923
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020144566980964937,
+     "ctrl_err": 0.009961596025675057
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014276990846327524,
+     "ctrl_err": 0.010780969026569429
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022900356223984227,
+     "ctrl_err": 0.025251471689636287
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.1040846412250646,
+     "ctrl_err": 0.09828848268625859
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006032442826907803,
+     "ctrl_err": 0.002290442675753083
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04150206083888595,
+     "ctrl_err": 0.014557038991372628
+    }
+   ],
+   "tilt_max": 0.19910076550117933
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007954790727356475,
+     "ctrl_err": 0.029594378178887583
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005354057375182475,
+     "ctrl_err": 0.003977842117304262
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012128477387813114,
+     "ctrl_err": 0.007152435006830839
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0015396988948814905,
+     "ctrl_err": 0.0022135863855982283
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00713062998282335,
+     "ctrl_err": 0.003460913497399
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018735764091229373,
+     "ctrl_err": 0.007190655423049707
+    }
+   ],
+   "tilt_max": 0.23818812392861458
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02146045083638854,
+     "ctrl_err": 0.025261498286357948
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013630211291164707,
+     "ctrl_err": 0.0013214257284680424
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02263908783073945,
+     "ctrl_err": 0.007384707299546612
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011591782918819012,
+     "ctrl_err": 0.0028594794454988317
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014574690796100185,
+     "ctrl_err": 0.007379728364037738
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030549033558757262,
+     "ctrl_err": 0.01020303637711013
+    }
+   ],
+   "tilt_max": 0.1976408143945935
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.035181074660399034,
+     "ctrl_err": 0.026881404448819278
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00454256841850637,
+     "ctrl_err": 0.004082914490987132
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005252065080508708,
+     "ctrl_err": 0.0027774932296806922
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02794683351680989,
+     "ctrl_err": 0.009904389575458236
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007862224438072484,
+     "ctrl_err": 0.00704428415289003
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01652567056411318,
+     "ctrl_err": 0.008014986915375008
+    }
+   ],
+   "tilt_max": 0.24347281707492813
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02476523273059447,
+     "ctrl_err": 0.023330230400061307
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008541504746659968,
+     "ctrl_err": 0.004705967562742052
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008974772768035565,
+     "ctrl_err": 0.009350747313613366
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02417104663643225,
+     "ctrl_err": 0.026487242635297996
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018716653623330946,
+     "ctrl_err": 0.019653517932345935
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005190885347526398,
+     "ctrl_err": 0.014405979002545253
+    }
+   ],
+   "tilt_max": 0.20254122438207342
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005151588877508123,
+     "ctrl_err": 0.006192594533532969
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018253244474683857,
+     "ctrl_err": 0.007639201591113646
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01022120770612491,
+     "ctrl_err": 0.0041402464411449385
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012678409795050208,
+     "ctrl_err": 0.011537797859818072
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02241205536608066,
+     "ctrl_err": 0.01498148163389925
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025609240023000128,
+     "ctrl_err": 0.02128718558350531
+    }
+   ],
+   "tilt_max": 0.2054888836553953
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005432311063546035,
+     "ctrl_err": 0.003869896092437591
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01962171189042728,
+     "ctrl_err": 0.012174439913164465
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019311265626710615,
+     "ctrl_err": 0.004449447568791802
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010862463617965359,
+     "ctrl_err": 0.028780820995769955
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008244493855107128,
+     "ctrl_err": 0.0042150679244449775
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0015931055548823432,
+     "ctrl_err": 0.007016878415001602
+    }
+   ],
+   "tilt_max": 0.22675301288793473
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011241867451015276,
+     "ctrl_err": 0.01147825682822241
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009014505629046203,
+     "ctrl_err": 0.019995493124694085
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016053705991863357,
+     "ctrl_err": 0.021942389829143375
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016280655472922574,
+     "ctrl_err": 0.016286315479398843
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02882573896774597,
+     "ctrl_err": 0.06939662145169737
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.028570688215321282,
+     "ctrl_err": 0.02574520669702747
+    }
+   ],
+   "tilt_max": 0.2503796310395848
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02833504874649769,
+     "ctrl_err": 0.019840290132431264
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020902066980195116,
+     "ctrl_err": 0.014435876940102248
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.23504170513112155,
+     "ctrl_err": 0.22854968889554408
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01667657980024165,
+     "ctrl_err": 0.005598654388218963
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02636553067295155,
+     "ctrl_err": 0.013084853522090321
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04063375729828638,
+     "ctrl_err": 0.028655170675339826
+    }
+   ],
+   "tilt_max": 0.21800245129769363
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02869365745236969,
+     "ctrl_err": 0.01803964437493052
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04233456249715505,
+     "ctrl_err": 0.08219739889104163
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018213358656480848,
+     "ctrl_err": 0.012264784250076873
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012372737466910828,
+     "ctrl_err": 0.014664639433623488
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01054692237379764,
+     "ctrl_err": 0.004657505648505664
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030935396524308725,
+     "ctrl_err": 0.016209111275907833
+    }
+   ],
+   "tilt_max": 0.227498298620113
+  },
+  {
+   "floor": "field sigma 0.1",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01203197394986485,
+     "ctrl_err": 0.0035816316955970986
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022313426717056575,
+     "ctrl_err": 0.024708672588371068
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03813867405796334,
+     "ctrl_err": 0.049837861817349914
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020691577775833917,
+     "ctrl_err": 0.013583514231013453
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01964590467329983,
+     "ctrl_err": 0.010543040554284578
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009046300418374377,
+     "ctrl_err": 0.019708349932890553
+    }
+   ],
+   "tilt_max": 0.21628794692536876
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.049927976312600104,
+     "ctrl_err": 0.05702989150022983
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014833434647406125,
+     "ctrl_err": 0.0166381994267943
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.057031842649320416,
+     "ctrl_err": 0.05215904501181717
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006931492572035175,
+     "ctrl_err": 0.024027354086336546
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01747374704404114,
+     "ctrl_err": 0.011586752421559945
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.23555006727738614,
+     "ctrl_err": 0.2143965373302938
+    }
+   ],
+   "tilt_max": 0.20067028395835107
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006525058538002913,
+     "ctrl_err": 0.008403371262876125
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015431950416614316,
+     "ctrl_err": 0.005480030836414237
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0433451905636725,
+     "ctrl_err": 0.04451605283416518
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01914455895954102,
+     "ctrl_err": 0.023154886467019395
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010763041725874455,
+     "ctrl_err": 0.0038435381019598053
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024058504063909726,
+     "ctrl_err": 0.005513303434740278
+    }
+   ],
+   "tilt_max": 0.20253555735772438
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00570657348491694,
+     "ctrl_err": 0.004922830702297387
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006284385346024063,
+     "ctrl_err": 0.0015456698023106922
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010446596273534291,
+     "ctrl_err": 0.0006313274513123305
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009593128393296721,
+     "ctrl_err": 0.006969089925631911
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017648497294121948,
+     "ctrl_err": 0.010805986080680306
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007842221890632545,
+     "ctrl_err": 0.005741772906247738
+    }
+   ],
+   "tilt_max": 0.2571959995028016
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008876911057445555,
+     "ctrl_err": 0.006266770856793491
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.023128661328132526,
+     "ctrl_err": 0.013978094399184333
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.026672735611611424,
+     "ctrl_err": 0.015406941756031852
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005542368614628683,
+     "ctrl_err": 0.0032799702988800783
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010770569530146932,
+     "ctrl_err": 0.003052965006819245
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0281685344941396,
+     "ctrl_err": 0.0024609064526886658
+    }
+   ],
+   "tilt_max": 0.18385368846018685
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013076725180015746,
+     "ctrl_err": 0.004076808247329035
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007690474416047869,
+     "ctrl_err": 0.003268236995745139
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012461308074185813,
+     "ctrl_err": 0.01912472381754833
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04668530335722434,
+     "ctrl_err": 0.027154745662836988
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03668788814339288,
+     "ctrl_err": 0.03272740823966493
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007471999300469293,
+     "ctrl_err": 0.004902574102438372
+    }
+   ],
+   "tilt_max": 0.2106137643217288
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.029544543218398008,
+     "ctrl_err": 0.017410196133614785
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011073990465216146,
+     "ctrl_err": 0.019593905909127487
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01455680125611558,
+     "ctrl_err": 0.005905230792598714
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015497870627890084,
+     "ctrl_err": 0.009730812865962
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0745919381786759,
+     "ctrl_err": 0.0583892324697077
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008842911804885842,
+     "ctrl_err": 0.01344229560322225
+    }
+   ],
+   "tilt_max": 0.27723749104044026
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012259561802448153,
+     "ctrl_err": 0.008025225174137014
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01687162408057347,
+     "ctrl_err": 0.004363276752845605
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01400014955490062,
+     "ctrl_err": 0.0067625090726807485
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015122065388709012,
+     "ctrl_err": 0.019150207664226346
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013519904043514044,
+     "ctrl_err": 0.005732471274793901
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0042777167736568755,
+     "ctrl_err": 0.00782849786353597
+    }
+   ],
+   "tilt_max": 0.19807398404491589
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01939157482071494,
+     "ctrl_err": 0.003505518022549176
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013318129775458582,
+     "ctrl_err": 0.0119499574904224
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009473476498859405,
+     "ctrl_err": 0.005372106737567327
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010052359105769631,
+     "ctrl_err": 0.021152002473851936
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006848639003850243,
+     "ctrl_err": 0.008771372090644098
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010062585296237507,
+     "ctrl_err": 0.010265820181377484
+    }
+   ],
+   "tilt_max": 0.18147256618346855
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010168468182137484,
+     "ctrl_err": 0.017396909874585635
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018884681480263454,
+     "ctrl_err": 0.022192162921527158
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.023901318070268292,
+     "ctrl_err": 0.020977263410173114
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02659033621806885,
+     "ctrl_err": 0.026747347438102365
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03891863156435097,
+     "ctrl_err": 0.0530330496323475
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00806885949198912,
+     "ctrl_err": 0.005090855443985425
+    }
+   ],
+   "tilt_max": 0.25118834490692704
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02533168250656366,
+     "ctrl_err": 0.022861620393635936
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017153383941471048,
+     "ctrl_err": 0.01003914885490017
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4675904206885858,
+     "ctrl_err": 0.4684914784715158
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021583708796953392,
+     "ctrl_err": 0.01316380322898386
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013859536500636394,
+     "ctrl_err": 0.009028840589277812
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04307329979391072,
+     "ctrl_err": 0.03139086384264675
+    }
+   ],
+   "tilt_max": 0.23861842090397736
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015195184566009542,
+     "ctrl_err": 0.004654689305276486
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.07407170441551522,
+     "ctrl_err": 0.05241423605092731
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.031909657489336836,
+     "ctrl_err": 0.013672272415539637
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014973291419374389,
+     "ctrl_err": 0.003734995471458793
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03652060089363853,
+     "ctrl_err": 0.029409867649238614
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.036835045987485486,
+     "ctrl_err": 0.013260575811222555
+    }
+   ],
+   "tilt_max": 0.20610972906718547
+  },
+  {
+   "floor": "field sigma 0.2",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0027553035339543683,
+     "ctrl_err": 0.0041215756547100775
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011217792965324014,
+     "ctrl_err": 0.008485660066303803
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024923939283896204,
+     "ctrl_err": 0.022326991158014443
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013231980770131964,
+     "ctrl_err": 0.0022181833825721444
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021927430338961267,
+     "ctrl_err": 0.006316848511315531
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012690564686302827,
+     "ctrl_err": 0.004905501451528454
+    }
+   ],
+   "tilt_max": 0.2498906110843945
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06051672317339447,
+     "ctrl_err": 0.06147739934218189
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.002266535076655195,
+     "ctrl_err": 0.004494156485456958
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05072548464613115,
+     "ctrl_err": 0.0646416742980063
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004815626697310496,
+     "ctrl_err": 0.00979163614166575
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0201624428158621,
+     "ctrl_err": 0.01232978273472584
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.10310384903773269,
+     "ctrl_err": 0.10486308380261389
+    }
+   ],
+   "tilt_max": 0.21230154508508903
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012264457326979184,
+     "ctrl_err": 0.003834491003078016
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01037545677194303,
+     "ctrl_err": 0.003921887580749116
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04156631525202764,
+     "ctrl_err": 0.03801314921678574
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03778664810477449,
+     "ctrl_err": 0.03426234044611391
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020528723584259282,
+     "ctrl_err": 0.016162282781828838
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02095345235504521,
+     "ctrl_err": 0.006767365792612649
+    }
+   ],
+   "tilt_max": 0.19738834215728773
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00429473006605145,
+     "ctrl_err": 0.006221635086788541
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0062614862159655225,
+     "ctrl_err": 0.01505220615404453
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005710296887729206,
+     "ctrl_err": 0.0029553755619575934
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.003823057839026677,
+     "ctrl_err": 0.001609427626192123
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013882948834050309,
+     "ctrl_err": 0.0025643623249662108
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019985658715025625,
+     "ctrl_err": 0.0065213201123254586
+    }
+   ],
+   "tilt_max": 0.20526936570993407
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01632724297274005,
+     "ctrl_err": 0.017584410607116872
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04366266202329599,
+     "ctrl_err": 0.01983537891897151
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024821208258046495,
+     "ctrl_err": 0.002866063227151719
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005641699864798628,
+     "ctrl_err": 0.0036437390913261172
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018739151791414194,
+     "ctrl_err": 0.010585948691142153
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019778959744424427,
+     "ctrl_err": 0.006317908003301667
+    }
+   ],
+   "tilt_max": 0.18228127181996479
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017531249086650113,
+     "ctrl_err": 0.02724850617570352
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0058958671382385456,
+     "ctrl_err": 0.0023085853096278517
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009333357150530885,
+     "ctrl_err": 0.024705958430308008
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.036884272044331215,
+     "ctrl_err": 0.02755403459678376
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02453937998434261,
+     "ctrl_err": 0.03680352081863839
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02636160089706961,
+     "ctrl_err": 0.014489015256575966
+    }
+   ],
+   "tilt_max": 0.21385568523246012
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030286595921737356,
+     "ctrl_err": 0.0286042159508031
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04400598732761334,
+     "ctrl_err": 0.04240655339939458
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.057362618224557196,
+     "ctrl_err": 0.04672584484860624
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004722923116969526,
+     "ctrl_err": 0.004961546990699264
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011291243659027629,
+     "ctrl_err": 0.010335960283053024
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0096793305452099,
+     "ctrl_err": 0.019189625397787173
+    }
+   ],
+   "tilt_max": 0.23100795847921649
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008981460115379172,
+     "ctrl_err": 0.009633746499845079
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022680201812632524,
+     "ctrl_err": 0.028375508423927685
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022557500453738714,
+     "ctrl_err": 0.008481758124728659
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05386701181499968,
+     "ctrl_err": 0.055245372940930716
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009938684795126171,
+     "ctrl_err": 0.01476977653123514
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020502066705112253,
+     "ctrl_err": 0.02227443061621912
+    }
+   ],
+   "tilt_max": 0.24270483752273478
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03638416382280203,
+     "ctrl_err": 0.029888583394846183
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007741517856406023,
+     "ctrl_err": 0.009742597608185218
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008083339615214293,
+     "ctrl_err": 0.005144929027644699
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02443390241111537,
+     "ctrl_err": 0.015358144076789775
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009199805502547138,
+     "ctrl_err": 0.0058368704853300046
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021522810978360066,
+     "ctrl_err": 0.012351772724055974
+    }
+   ],
+   "tilt_max": 0.2761592846337447
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03747178619258322,
+     "ctrl_err": 0.03510350717909178
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005181537378606015,
+     "ctrl_err": 0.010215536031974542
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02342885730761941,
+     "ctrl_err": 0.008003139433145153
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022486234291420593,
+     "ctrl_err": 0.01743366079915203
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03349258609332047,
+     "ctrl_err": 0.11095731984743595
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02220241271077009,
+     "ctrl_err": 0.01010249209976008
+    }
+   ],
+   "tilt_max": 0.2389070191633695
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0306543782745186,
+     "ctrl_err": 0.017421256663477505
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025568367757273742,
+     "ctrl_err": 0.016766956085247847
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4798795009882282,
+     "ctrl_err": 0.4712933845062815
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019854033876718385,
+     "ctrl_err": 0.019159246683585814
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03070559436629817,
+     "ctrl_err": 0.025922058327435618
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.04998467690913787,
+     "ctrl_err": 0.037966261272190244
+    }
+   ],
+   "tilt_max": 0.21659587792683213
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.027817325107097546,
+     "ctrl_err": 0.010707400081743462
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009368262646215734,
+     "ctrl_err": 0.013742563483863919
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011037820620896404,
+     "ctrl_err": 0.010604022851581369
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01745378303327292,
+     "ctrl_err": 0.0036027922321279285
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022949521121539657,
+     "ctrl_err": 0.011804357926357562
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03944610864319157,
+     "ctrl_err": 0.021429259131395515
+    }
+   ],
+   "tilt_max": 0.19082811935488514
+  },
+  {
+   "floor": "slippery stripes (0.5)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019878501601448335,
+     "ctrl_err": 0.0166530209526145
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03209878351302022,
+     "ctrl_err": 0.03335753094865783
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01578579335225071,
+     "ctrl_err": 0.004746070941895712
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024626979557337045,
+     "ctrl_err": 0.017852783322101336
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0113849692720749,
+     "ctrl_err": 0.0035031299504484224
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0076344380563528515,
+     "ctrl_err": 0.006362770376521614
+    }
+   ],
+   "tilt_max": 0.22559225857586013
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.23053987632154047,
+     "ctrl_err": 0.1676282850828996
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004560009181895814,
+     "ctrl_err": 0.009504338187336888
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.27559994099871127,
+     "ctrl_err": 0.26484049744095445
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01118428168065312,
+     "ctrl_err": 0.0016862112992677893
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006280675357573964,
+     "ctrl_err": 0.007617858967374621
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4000884045559621,
+     "ctrl_err": 0.36487516549153065
+    }
+   ],
+   "tilt_max": 18.696831077726426
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009439086654961251,
+     "ctrl_err": 0.0024340297970131372
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03058856309130548,
+     "ctrl_err": 0.025865092950541395
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030766987102835385,
+     "ctrl_err": 0.01928035815573619
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010679317055085112,
+     "ctrl_err": 0.010234597344694275
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008582525306004209,
+     "ctrl_err": 0.016585731662051285
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020224565399592824,
+     "ctrl_err": 0.007443923746462985
+    }
+   ],
+   "tilt_max": 7.692340041381132
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00268388917865202,
+     "ctrl_err": 0.005260739231433921
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0031446431395810433,
+     "ctrl_err": 0.011905745002349827
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03149153646603148,
+     "ctrl_err": 0.013566685098446257
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0023275324148738816,
+     "ctrl_err": 0.011060055990425378
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008289436303558247,
+     "ctrl_err": 0.0058497082431470514
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.07131552081875495,
+     "ctrl_err": 0.06333509150184657
+    }
+   ],
+   "tilt_max": 9.662494692018305
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007981523488840923,
+     "ctrl_err": 0.0015332578408048777
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.6743734699030124,
+     "ctrl_err": 0.613960902534411
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00973968819986365,
+     "ctrl_err": 0.005606164438641762
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00981866198375013,
+     "ctrl_err": 0.004624791659460926
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02590776626403716,
+     "ctrl_err": 0.01679492048770762
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007823239986145225,
+     "ctrl_err": 0.004002923981862449
+    }
+   ],
+   "tilt_max": 9.212824776603085
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.030488119669786224,
+     "ctrl_err": 0.016699157741276786
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.062164922980915645,
+     "ctrl_err": 0.054144664361047964
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024206421942095106,
+     "ctrl_err": 0.016176968186890555
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.13576653229085056,
+     "ctrl_err": 0.11381848706601357
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.065367075962848,
+     "ctrl_err": 0.07358693914473591
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.01825612370750203,
+     "ctrl_err": 0.128076335647153
+    }
+   ],
+   "tilt_max": 17.85840308315841
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.032321029060980666,
+     "ctrl_err": 0.030194563102731598
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0063603423274483034,
+     "ctrl_err": 0.012750979197331272
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017506138194421747,
+     "ctrl_err": 0.012912555431029099
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004942905524741206,
+     "ctrl_err": 0.009018530225596802
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009783075482891255,
+     "ctrl_err": 0.01075678866769414
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008972210974083527,
+     "ctrl_err": 0.002566989216549231
+    }
+   ],
+   "tilt_max": 6.634079059511337
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014278400120027785,
+     "ctrl_err": 0.0016793577273858666
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016437369144506848,
+     "ctrl_err": 0.03146730989138962
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.035733059062680865,
+     "ctrl_err": 0.03646500156773969
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012063841893149742,
+     "ctrl_err": 0.006420296661001748
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006329258106047759,
+     "ctrl_err": 0.033463099985335185
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022356147524308714,
+     "ctrl_err": 0.022764041543682247
+    }
+   ],
+   "tilt_max": 16.262333737500065
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018655140131617388,
+     "ctrl_err": 0.008414138594001676
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021315588241429595,
+     "ctrl_err": 0.01611418760074146
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018733450151856224,
+     "ctrl_err": 0.013201899422823547
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00858093679371133,
+     "ctrl_err": 0.01427127164948372
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01239005771173299,
+     "ctrl_err": 0.0050300102342421054
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.028215025185191672,
+     "ctrl_err": 0.025499669829373656
+    }
+   ],
+   "tilt_max": 12.329598401234165
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06665752986668659,
+     "ctrl_err": 0.05916794319906018
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009570430521226773,
+     "ctrl_err": 0.006366567520977895
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02809547907705235,
+     "ctrl_err": 0.014647282590428252
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015572148085178206,
+     "ctrl_err": 0.011124241992078034
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.061937533344222244,
+     "ctrl_err": 0.09702661121043155
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009706606486032282,
+     "ctrl_err": 0.00639925213839393
+    }
+   ],
+   "tilt_max": 8.590298427333861
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0336125081493636,
+     "ctrl_err": 0.016602446028973386
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0038807266274045664,
+     "ctrl_err": 0.002529730824900448
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5844089608008803,
+     "ctrl_err": 0.5298819181612832
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": NaN,
+     "ctrl_err": NaN
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": NaN,
+     "ctrl_err": NaN
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": NaN,
+     "ctrl_err": NaN
+    }
+   ],
+   "tilt_max": 179.99683477309853
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009178205188941704,
+     "ctrl_err": 0.008243411306567892
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.07566508203647118,
+     "ctrl_err": 0.037006494018978084
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05651690055775481,
+     "ctrl_err": 0.055153786134604664
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04592942643328829,
+     "ctrl_err": 0.11287712620927041
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011964111942151218,
+     "ctrl_err": 0.017540691672363426
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.055653290279861475,
+     "ctrl_err": 0.03299104942738238
+    }
+   ],
+   "tilt_max": 17.781011188767483
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005311841422775256,
+     "ctrl_err": 0.004106629344443073
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016146785329593336,
+     "ctrl_err": 0.013888302800999881
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004532193361501311,
+     "ctrl_err": 0.009053007519719707
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.10441587717245546,
+     "ctrl_err": 0.08760266874511365
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010892761724146249,
+     "ctrl_err": 0.005479765700897577
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01805112580768029,
+     "ctrl_err": 0.006231336121714359
+    }
+   ],
+   "tilt_max": 16.956328551522017
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.421997030716021,
+     "ctrl_err": 0.41297052597173556
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008785976138774269,
+     "ctrl_err": 0.009865675532342126
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.2885696894469477,
+     "ctrl_err": 0.27677918230776943
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0449180258875457,
+     "ctrl_err": 0.05029314414931266
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006797547440452185,
+     "ctrl_err": 0.014266683095488536
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5082460321129388,
+     "ctrl_err": 0.4919921483067525
+    }
+   ],
+   "tilt_max": 9.827372927600019
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.002873824629105883,
+     "ctrl_err": 0.0038338046381392486
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03596127060056246,
+     "ctrl_err": 0.03146030538047064
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017623249328155205,
+     "ctrl_err": 0.021360524536181428
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017844980106568948,
+     "ctrl_err": 0.01808157922265734
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015487389791931629,
+     "ctrl_err": 0.015351526121688932
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04705741238072837,
+     "ctrl_err": 0.04660101658947481
+    }
+   ],
+   "tilt_max": 7.142302195881014
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00268388917865202,
+     "ctrl_err": 0.005260739231433921
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0031446431395810433,
+     "ctrl_err": 0.011905745002349827
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024682298416893608,
+     "ctrl_err": 0.023727098130138433
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010023219173758435,
+     "ctrl_err": 0.00931734134128116
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02664303706051741,
+     "ctrl_err": 0.014003839195416791
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.12276701837214855,
+     "ctrl_err": 0.10962979612166429
+    }
+   ],
+   "tilt_max": 7.559554196506023
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0030029861500184257,
+     "ctrl_err": 0.0008182378035252213
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.034285173483114585,
+     "ctrl_err": 0.016280345747025707
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021809659573292048,
+     "ctrl_err": 0.011392091047445894
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010109736650385276,
+     "ctrl_err": 0.003056998466372271
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02722603087702462,
+     "ctrl_err": 0.01219491424229677
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03260936123200369,
+     "ctrl_err": 0.023023051470394924
+    }
+   ],
+   "tilt_max": 6.984141573267532
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03001292611864887,
+     "ctrl_err": 0.019673268994269553
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.19646047356534796,
+     "ctrl_err": 0.19650790896086706
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012154690454359324,
+     "ctrl_err": 0.004217918048914789
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.20559643293241758,
+     "ctrl_err": 0.17691684197703136
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00879472059353013,
+     "ctrl_err": 0.017080190969653183
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.18177498971843012,
+     "ctrl_err": 0.16822216069799695
+    }
+   ],
+   "tilt_max": 9.911422073466857
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03909402716789764,
+     "ctrl_err": 0.030205526555107123
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.031237957198825557,
+     "ctrl_err": 0.027712082466122265
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.052335440026540246,
+     "ctrl_err": 0.03482607181216548
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019878734592082736,
+     "ctrl_err": 0.019471565115477908
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0008760086954707544,
+     "ctrl_err": 0.01547362737714111
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01640474854431474,
+     "ctrl_err": 0.013553844483395907
+    }
+   ],
+   "tilt_max": 6.444091084935861
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006963140913031762,
+     "ctrl_err": 0.005576913474429749
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0007016374771842975,
+     "ctrl_err": 0.021934237286438164
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.17496331037010637,
+     "ctrl_err": 0.15406589713003996
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013780301960593207,
+     "ctrl_err": 0.002894298679261455
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01604053920655091,
+     "ctrl_err": 0.0050522923786801704
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.023839987599543984,
+     "ctrl_err": 0.031407800426223015
+    }
+   ],
+   "tilt_max": 10.091073568925134
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018655140131617388,
+     "ctrl_err": 0.008414138594001676
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012651014667686394,
+     "ctrl_err": 0.006488954868471819
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02173002851327266,
+     "ctrl_err": 0.014991208964134802
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.08813666779913061,
+     "ctrl_err": 0.09014297190407514
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007643404648135624,
+     "ctrl_err": 0.0018263444965892712
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012520136584445217,
+     "ctrl_err": 0.010958663339496877
+    }
+   ],
+   "tilt_max": 8.976685124376012
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06849433874550714,
+     "ctrl_err": 0.05456290980764686
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014035888952234347,
+     "ctrl_err": 0.020542923451335193
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03643420461726946,
+     "ctrl_err": 0.038955232460918546
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.001875612682314822,
+     "ctrl_err": 0.001657385666757966
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.40315755155041555,
+     "ctrl_err": 0.38541041808159415
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04320103728710998,
+     "ctrl_err": 0.025815501431303504
+    }
+   ],
+   "tilt_max": 8.858818533715015
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0336125081493636,
+     "ctrl_err": 0.016602446028973386
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0038807266274045664,
+     "ctrl_err": 0.002529730824900448
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.779331190728091,
+     "ctrl_err": 0.7580429052210951
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.09790589017079226,
+     "ctrl_err": 0.07633175654106777
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02822679398652815,
+     "ctrl_err": 0.020614185668129583
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.052547755227785015,
+     "ctrl_err": 0.03940595120490043
+    }
+   ],
+   "tilt_max": 8.27104121984964
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025605448697950024,
+     "ctrl_err": 0.011793891049625636
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04481230632370453,
+     "ctrl_err": 0.03415002147618119
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06264759500056802,
+     "ctrl_err": 0.03762054620536421
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011557858250089155,
+     "ctrl_err": 0.013309459768906708
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.378244724715694,
+     "ctrl_err": 0.363638800185018
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04279856232363947,
+     "ctrl_err": 0.03770659210116862
+    }
+   ],
+   "tilt_max": 9.929894070851955
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "sphere",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005311841422775256,
+     "ctrl_err": 0.004106629344443073
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016913564829176834,
+     "ctrl_err": 0.017980761514929427
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012133347620186157,
+     "ctrl_err": 0.011717899769175803
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.14168250665421045,
+     "ctrl_err": 0.12358474886986352
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022016699534346245,
+     "ctrl_err": 0.014533005923040462
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013447708272361112,
+     "ctrl_err": 0.005025160321859322
+    }
+   ],
+   "tilt_max": 9.944777806268121
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4118802907371912,
+     "ctrl_err": 0.42420087767241293
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019537287945397584,
+     "ctrl_err": 0.02351197257144837
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06480506484355905,
+     "ctrl_err": 0.09388068986985455
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019384461618111633,
+     "ctrl_err": 0.011164207759153109
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020834798924837795,
+     "ctrl_err": 0.0134864783455966
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.12107760489676508,
+     "ctrl_err": 0.1247562439681557
+    }
+   ],
+   "tilt_max": 0.21324416315806016
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00894940704065556,
+     "ctrl_err": 0.01850814730151112
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03984851304080492,
+     "ctrl_err": 0.025001348713467892
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019141868733347323,
+     "ctrl_err": 0.005714609993963364
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015976674013779404,
+     "ctrl_err": 0.02013647579697866
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0011985567919244144,
+     "ctrl_err": 0.004656646891412984
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020866232210499023,
+     "ctrl_err": 0.01350870745729632
+    }
+   ],
+   "tilt_max": 0.3968757861897909
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008992526688029209,
+     "ctrl_err": 0.011973576165983697
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008627274800854498,
+     "ctrl_err": 0.0035451710047526928
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006061931808341866,
+     "ctrl_err": 0.007026372901436597
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01093794371261441,
+     "ctrl_err": 0.013787682308219935
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.020341438646889042,
+     "ctrl_err": 0.011533431546141712
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016382794769712532,
+     "ctrl_err": 0.011310459596493273
+    }
+   ],
+   "tilt_max": 0.273533381115626
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015631847680929567,
+     "ctrl_err": 0.008411187696724718
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03804768633770919,
+     "ctrl_err": 0.03007369107880246
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013320223534472037,
+     "ctrl_err": 0.0015110948925691052
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004566334565331407,
+     "ctrl_err": 0.007199595051166923
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02447076790016159,
+     "ctrl_err": 0.0034514548478687167
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.023808797719787222,
+     "ctrl_err": 0.004921331418176499
+    }
+   ],
+   "tilt_max": 0.2233441454703066
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004096097623294692,
+     "ctrl_err": 0.02112719834034074
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.001466225570044165,
+     "ctrl_err": 0.0012325070856667444
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01644878026849602,
+     "ctrl_err": 0.009065895336519152
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025803004456960953,
+     "ctrl_err": 0.019161788081839628
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02255954729437152,
+     "ctrl_err": 0.017524595303246154
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.036129118100810154,
+     "ctrl_err": 0.0448598836645821
+    }
+   ],
+   "tilt_max": 0.24825379476443465
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014402176225488212,
+     "ctrl_err": 0.007700565163284448
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06472415998891552,
+     "ctrl_err": 0.04802223087307249
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03829891318625361,
+     "ctrl_err": 0.03144103667581624
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010657078888851727,
+     "ctrl_err": 0.009119298918682338
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011815944094478776,
+     "ctrl_err": 0.00526521596147413
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00401165287637064,
+     "ctrl_err": 0.009301649408083642
+    }
+   ],
+   "tilt_max": 0.3605794949577779
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013842206758856154,
+     "ctrl_err": 0.015528499618929915
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02151237146617316,
+     "ctrl_err": 0.02514296653444233
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.025522709829846058,
+     "ctrl_err": 0.01588934506492444
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019697546769534526,
+     "ctrl_err": 0.011843541598381625
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006708702585029443,
+     "ctrl_err": 0.035895706263804755
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011453922222968635,
+     "ctrl_err": 0.011778505944143695
+    }
+   ],
+   "tilt_max": 0.3050894105177347
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01703825186383628,
+     "ctrl_err": 0.0008932388359421598
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018845254773135277,
+     "ctrl_err": 0.009725919165801558
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012011500651140964,
+     "ctrl_err": 0.0022058120301246304
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011854567790014939,
+     "ctrl_err": 0.014113317012522629
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010859459020559376,
+     "ctrl_err": 0.008760781145642181
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011812083556994977,
+     "ctrl_err": 0.005731319665143928
+    }
+   ],
+   "tilt_max": 0.31248750575596607
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014554272816805488,
+     "ctrl_err": 0.07952907428045967
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014534323321067489,
+     "ctrl_err": 0.001293614432377233
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021458256279945916,
+     "ctrl_err": 0.009703207469697566
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015356484222908886,
+     "ctrl_err": 0.016616870667054886
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03237609738264964,
+     "ctrl_err": 0.04563587284348927
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03268291058539273,
+     "ctrl_err": 0.040009859638231074
+    }
+   ],
+   "tilt_max": 0.2567168089698853
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024000207601184088,
+     "ctrl_err": 0.01575275501080995
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019131667084208912,
+     "ctrl_err": 0.00788093799912435
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5512219806643195,
+     "ctrl_err": 0.5536144818818631
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017644718749470385,
+     "ctrl_err": 0.01215108452406441
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01197712785560406,
+     "ctrl_err": 0.009619724424105263
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.015820557792226044,
+     "ctrl_err": 0.0025690514072153753
+    }
+   ],
+   "tilt_max": 24.650296287097984
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.026720143365301804,
+     "ctrl_err": 0.007016493332172374
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04682912137668491,
+     "ctrl_err": 0.015485576460665328
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019260077293619015,
+     "ctrl_err": 0.006101486153298702
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013856640873156047,
+     "ctrl_err": 0.011265125669234844
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02519910476838515,
+     "ctrl_err": 0.006392429091911949
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.023974474180582094,
+     "ctrl_err": 0.010254024033145797
+    }
+   ],
+   "tilt_max": 0.28334393644863876
+  },
+  {
+   "floor": "uniform 0.95",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012803610598430595,
+     "ctrl_err": 0.012920043486513143
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017781424985371788,
+     "ctrl_err": 0.01710865728059551
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018481027952866755,
+     "ctrl_err": 0.005689763796346366
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0436437836108936,
+     "ctrl_err": 0.038020449274277744
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03241866006368699,
+     "ctrl_err": 0.011641494570228013
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.004294995762173425,
+     "ctrl_err": 0.004092135455891187
+    }
+   ],
+   "tilt_max": 0.2893929163363108
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.44931045109934004,
+     "ctrl_err": 0.4446399052196609
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022780366685482153,
+     "ctrl_err": 0.023195439234029492
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.3191733733040348,
+     "ctrl_err": 0.30923092989384193
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01280049692966774,
+     "ctrl_err": 0.0033354394689334346
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.07744890377038585,
+     "ctrl_err": 0.06105176509258261
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.4483366939515769,
+     "ctrl_err": 0.4418888029928807
+    }
+   ],
+   "tilt_max": 21.278043466994482
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005146941347341024,
+     "ctrl_err": 0.014605594366859683
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04073501188589797,
+     "ctrl_err": 0.03449607693330879
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02402457687287131,
+     "ctrl_err": 0.03109539077750139
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007744547434700674,
+     "ctrl_err": 0.007140538527305394
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.056921389222338054,
+     "ctrl_err": 0.05023464902809263
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01988226009716359,
+     "ctrl_err": 0.015001661975938625
+    }
+   ],
+   "tilt_max": 10.594013326830405
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006711206192989091,
+     "ctrl_err": 0.006781765247484814
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016615641983607113,
+     "ctrl_err": 0.012641553333649781
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.09280418818102923,
+     "ctrl_err": 0.08174587122976895
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007193551031642408,
+     "ctrl_err": 0.0026761073307721627
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011365100365372409,
+     "ctrl_err": 0.004236919605353313
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.10921789999689444,
+     "ctrl_err": 0.10408662367377074
+    }
+   ],
+   "tilt_max": 20.449720793467996
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005984056066891358,
+     "ctrl_err": 0.0056236639944103285
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03203885034222298,
+     "ctrl_err": 0.01353013774161961
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03928682858512407,
+     "ctrl_err": 0.03675422096401205
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012423254690014254,
+     "ctrl_err": 0.002428182072563979
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018696033124649677,
+     "ctrl_err": 0.018944276127761388
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013935608430007506,
+     "ctrl_err": 0.008431382493051504
+    }
+   ],
+   "tilt_max": 12.589168663351078
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017172924094168533,
+     "ctrl_err": 0.03396746875003341
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.10285060016011678,
+     "ctrl_err": 0.061274465874035865
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009227916774503105,
+     "ctrl_err": 0.011789015963652847
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.12966977554648917,
+     "ctrl_err": 0.08950946726958205
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03704502406825311,
+     "ctrl_err": 0.019624542452385613
+    },
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.041959116275072546,
+     "ctrl_err": 0.1659004041082957
+    }
+   ],
+   "tilt_max": 21.832612509522022
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019230427085049587,
+     "ctrl_err": 0.013702362123203828
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005745694948217695,
+     "ctrl_err": 0.011526985087008532
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05455415376279304,
+     "ctrl_err": 0.04520965798493237
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012024860566606352,
+     "ctrl_err": 0.00421658255017152
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01191034348488153,
+     "ctrl_err": 0.019300924121601594
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008876197754359537,
+     "ctrl_err": 0.02156738544922249
+    }
+   ],
+   "tilt_max": 12.471131488128336
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008741919230529726,
+     "ctrl_err": 0.006421838947757573
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.032837351616156425,
+     "ctrl_err": 0.0451932829338085
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.028987744325297344,
+     "ctrl_err": 0.010362333516610775
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014308875326059732,
+     "ctrl_err": 0.013616552164152333
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.052444056901845525,
+     "ctrl_err": 0.031287982212129854
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016675037069789855,
+     "ctrl_err": 0.027626963319192274
+    }
+   ],
+   "tilt_max": 21.370879115694798
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007057995509512583,
+     "ctrl_err": 0.005818596052422888
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.038399299895457206,
+     "ctrl_err": 0.036399808144815374
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.027537068930546606,
+     "ctrl_err": 0.01781559874357171
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018082079768963855,
+     "ctrl_err": 0.020398854561891406
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024781473778571792,
+     "ctrl_err": 0.010514669728814284
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02921713531313347,
+     "ctrl_err": 0.020904148564677268
+    }
+   ],
+   "tilt_max": 21.04713545841305
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.09627259735520098,
+     "ctrl_err": 0.040198918993378525
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06259609630766948,
+     "ctrl_err": 0.04905094695863473
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02786128391876407,
+     "ctrl_err": 0.03458832600305276
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.038654917629741575,
+     "ctrl_err": 0.04347291279933373
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06407391159041326,
+     "ctrl_err": 0.09838506323946007
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.09008361542190925,
+     "ctrl_err": 0.12530073643606546
+    }
+   ],
+   "tilt_max": 14.750943108103593
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04385352471717723,
+     "ctrl_err": 0.04505230211276071
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.003528840661265158,
+     "ctrl_err": 0.005769524471945698
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.6932693361026935,
+     "ctrl_err": 0.6381550041104385
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.40233432061021307,
+     "ctrl_err": 0.4005814445648405
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013771206162089161,
+     "ctrl_err": 0.005302756643593701
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.041586886840526235,
+     "ctrl_err": 0.03163349483356818
+    }
+   ],
+   "tilt_max": 23.109496872681405
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.05874987948247319,
+     "ctrl_err": 0.022317325423751814
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.3297519591442076,
+     "ctrl_err": 0.33465760387422827
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.061742827510265004,
+     "ctrl_err": 0.0536400461049551
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06929633585491901,
+     "ctrl_err": 0.09639841458312277
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.029585501225710287,
+     "ctrl_err": 0.020072150518345256
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06206684098502485,
+     "ctrl_err": 0.05637262460047642
+    }
+   ],
+   "tilt_max": 23.633212749477003
+  },
+  {
+   "floor": "home floor (field, threshold, rug)",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007153662064254201,
+     "ctrl_err": 0.002722923356969701
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02707604856239215,
+     "ctrl_err": 0.022769890122133044
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007886465178624864,
+     "ctrl_err": 0.008501237210462774
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010017610682583897,
+     "ctrl_err": 0.019023440535244473
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.022029423199456614,
+     "ctrl_err": 0.009235831172159528
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017190253358743433,
+     "ctrl_err": 0.0025545141032003757
+    }
+   ],
+   "tilt_max": 23.38973920842464
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5441076499975783,
+     "ctrl_err": 0.5497156910632184
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.005880735493497433,
+     "ctrl_err": 0.00893192846438697
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.47825226267463505,
+     "ctrl_err": 0.10852092783501786
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01967300274609529,
+     "ctrl_err": 0.022694611914362804
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010624061223989593,
+     "ctrl_err": 0.005081254171830687
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5158057380235721,
+     "ctrl_err": 0.5097473368250002
+    }
+   ],
+   "tilt_max": 10.46984854482995
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.013871604957218392,
+     "ctrl_err": 0.014714833627227199
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.017371820317346805,
+     "ctrl_err": 0.019080280465314015
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02005187149240459,
+     "ctrl_err": 0.029958419167308733
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012504678421701602,
+     "ctrl_err": 0.01706205367105174
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010713929191401728,
+     "ctrl_err": 0.015322325029673445
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.01085518846403776,
+     "ctrl_err": 0.009322759650522537
+    }
+   ],
+   "tilt_max": 9.16281440945095
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.006711206192989091,
+     "ctrl_err": 0.006781765247484814
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016615641983607113,
+     "ctrl_err": 0.012641553333649781
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.09280418818102923,
+     "ctrl_err": 0.08174587122976895
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.001339191365777088,
+     "ctrl_err": 0.0013628174578261465
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0183044618311997,
+     "ctrl_err": 0.010505947780356371
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04051527402077434,
+     "ctrl_err": 0.049764219306586734
+    }
+   ],
+   "tilt_max": 12.4214094189486
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014672182340815234,
+     "ctrl_err": 0.004912148529595426
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021537438621776542,
+     "ctrl_err": 0.009732542219482117
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024658426045666277,
+     "ctrl_err": 0.006872233552148314
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.002548884741344339,
+     "ctrl_err": 0.0031796054955327644
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02551488454810881,
+     "ctrl_err": 0.02240735275495318
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.027795533458869665,
+     "ctrl_err": 0.021421829920643464
+    }
+   ],
+   "tilt_max": 11.778639901743306
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.024778507721783406,
+     "ctrl_err": 0.03925144537216613
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.1667284588973944,
+     "ctrl_err": 0.1750127054527691
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03453768530631088,
+     "ctrl_err": 0.038489378480981794
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.2758436729844873,
+     "ctrl_err": 0.2550124388094989
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.014054195575423251,
+     "ctrl_err": 0.013797839289979652
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.2763897384185386,
+     "ctrl_err": 0.25260307484538896
+    }
+   ],
+   "tilt_max": 15.800468819728597
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02634430474899842,
+     "ctrl_err": 0.017664009760114893
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010653221817322001,
+     "ctrl_err": 0.007880424194364959
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.040740588573601876,
+     "ctrl_err": 0.031047382451602434
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.008492414471728361,
+     "ctrl_err": 0.010118466046519635
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06794466368439162,
+     "ctrl_err": 0.06532873719973087
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012907318723946204,
+     "ctrl_err": 0.02242968756881257
+    }
+   ],
+   "tilt_max": 15.296180884256854
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.010462450873617328,
+     "ctrl_err": 0.009619198252861463
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009519968158031081,
+     "ctrl_err": 0.030923469021072732
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.15811015817977608,
+     "ctrl_err": 0.15836956578529465
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.012711862577503896,
+     "ctrl_err": 0.004695026118074983
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.039859317930373284,
+     "ctrl_err": 0.022351304990319173
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.06284724464771696,
+     "ctrl_err": 0.07030176203397134
+    }
+   ],
+   "tilt_max": 12.274421580844622
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.009543137044902929,
+     "ctrl_err": 0.009626069953148908
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.043838987988557246,
+     "ctrl_err": 0.04508895395839014
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.018250997215754336,
+     "ctrl_err": 0.017367912904338832
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.07865951857927694,
+     "ctrl_err": 0.08730672467983946
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.011302776860531457,
+     "ctrl_err": 0.005973760767461499
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.002727114690783354,
+     "ctrl_err": 0.0017048866268845296
+    }
+   ],
+   "tilt_max": 9.67843189756507
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce",
+     "pos_error": 0.09867718423400194,
+     "ctrl_err": 0.052897970086769386
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03686444876995994,
+     "ctrl_err": 0.02652622731266243
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.035986811207767984,
+     "ctrl_err": 0.03159298732892314
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04677909940812108,
+     "ctrl_err": 0.06481872858056402
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.35204854729677815,
+     "ctrl_err": 0.3580522492535406
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.019368374248309016,
+     "ctrl_err": 0.015399568670894674
+    }
+   ],
+   "tilt_max": 14.062716343943324
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04385352471717723,
+     "ctrl_err": 0.04505230211276071
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.12883099342155682,
+     "ctrl_err": 0.11526501997826884
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.5916642504246075,
+     "ctrl_err": 0.5834857237257134
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.14880139821669053,
+     "ctrl_err": 0.13005258495538025
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.031952486382910573,
+     "ctrl_err": 0.03234997630019929
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.03500206535391621,
+     "ctrl_err": 0.0313004534290585
+    }
+   ],
+   "tilt_max": 23.843560093746856
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02648668327884302,
+     "ctrl_err": 0.025179214788041478
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.08318456455694784,
+     "ctrl_err": 0.08978361584679298
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0696646989190998,
+     "ctrl_err": 0.0471922467268685
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.021054876538244005,
+     "ctrl_err": 0.01715928757237789
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.40893150739343864,
+     "ctrl_err": 0.4054251683148694
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.02008946747598056,
+     "ctrl_err": 0.0919583400991988
+    }
+   ],
+   "tilt_max": 16.561076421760728
+  },
+  {
+   "floor": "home floor, <= 1 m/s over the threshold",
+   "model": "rollers",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.007153662064254201,
+     "ctrl_err": 0.002722923356969701
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.00913647248454538,
+     "ctrl_err": 0.026555568475894978
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.016926534444839453,
+     "ctrl_err": 0.017468416532805797
+    },
+    {
+     "caught": false,
+     "why": "reach",
+     "pos_error": 0.2621560631507341,
+     "ctrl_err": 0.2503198352107648
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.0219428676928214,
+     "ctrl_err": 0.00672379659314053
+    },
+    {
+     "caught": true,
+     "why": "caught",
+     "pos_error": 0.04568187985450213,
+     "ctrl_err": 0.0340277227632854
+    }
+   ],
+   "tilt_max": 10.324425431060964
+  }
+ ]
+}

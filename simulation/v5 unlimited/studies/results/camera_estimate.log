@@ -1,0 +1,14 @@
+scenario                                                           caught  reach/bounce  first est  offset(med)
+v5 assumed baseline (50 ms, 0.02 deg, no spin)                       89%    15/9        0.137 s    1.9 cm   0.3 m:  99%  0.6 m:  92%  1.0 m:  76%
+best: raw V4L2, FSIN trigger, metal bar                              91%    10/9        0.083 s    2.9 cm   0.3 m:  97%  0.6 m:  96%  1.0 m:  81%
+expected: Argus ISP, FSIN trigger, printed bracket                   92%    15/2        0.118 s    3.2 cm   0.3 m:  99%  0.6 m:  99%  1.0 m:  79%
+expected, no spin                                                    91%    13/6        0.119 s    2.5 cm   0.3 m:  96%  0.6 m:  97%  1.0 m:  81%
+expected but raw V4L2 (24 ms)                                        92%    10/7        0.081 s    2.8 cm   0.3 m:  93%  0.6 m: 100%  1.0 m:  83%
+expected but 60 fps (driver mode), 60 ms                             89%    16/7        0.182 s    3.4 cm   0.3 m:  97%  0.6 m:  94%  1.0 m:  76%
+expected but calibration drifted to 0.3 deg                          85%    26/6        0.121 s    4.2 cm   0.3 m:  86%  0.6 m:  94%  1.0 m:  75%
+expected but software sync (3 ms)                                    92%    14/4        0.122 s    3.4 cm   0.3 m:  96%  0.6 m: 100%  1.0 m:  79%
+pessimistic: GStreamer/OpenCV, software sync, knocked bracket        72%    57/3        0.192 s    4.8 cm   0.3 m:  86%  0.6 m:  81%  1.0 m:  50%
+best + 90 deg lenses                                                 93%    10/5        0.082 s    1.7 cm   0.3 m:  94%  0.6 m:  99%  1.0 m:  86%
+firmware adult mode, v5 assumed baseline                             84%    27/8        0.137 s    2.7 cm   0.3 m:  97%  0.6 m:  92%  1.0 m:  62%
+firmware adult mode, expected                                        86%    29/1        0.119 s    4.1 cm   0.3 m:  99%  0.6 m: 100%  1.0 m:  60%
+firmware adult mode, best                                            90%    18/3        0.082 s    3.6 cm   0.3 m:  99%  0.6 m:  97%  1.0 m:  75%
