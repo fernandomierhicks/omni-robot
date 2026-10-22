@@ -8,7 +8,7 @@ Publishes  /catch/cmd      omni_interfaces/McuCommand at 100 Hz (the mode manage
 Parameters (odom frame, the robot's own start pose is the origin):
            thrower_x, thrower_y      the thrower's hand, a first guess (refined from each throw's release point)
            arena_cx, arena_cy, arena_hx, arena_hy   the play area (from the map)
-           return_throws, kid
+           return_throws, kid        (both can change while the game runs: the operator console sets them)
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ import math
 import numpy as np
 import rclpy
 from omni_interfaces.msg import BallTrack, CatchStatus, McuCommand, McuState
+from rcl_interfaces.msg import SetParametersResult
 from rclpy.node import Node
 from visualization_msgs.msg import Marker
 
@@ -56,6 +57,15 @@ class BehaviorNode(Node):
         self.create_subscription(McuState, "/mcu/state", self.on_state, 50)
         self.create_timer(0.01, self.tick)
         self.create_timer(0.5, self.status)
+        self.add_on_set_parameters_callback(self.on_params)
+
+    def on_params(self, params):
+        for p in params:
+            if p.name == "return_throws":
+                self.game.p.return_throws = bool(p.value)
+            elif p.name == "kid":
+                self.game.p.kid = self.mux.kid = bool(p.value)
+        return SetParametersResult(successful=True)
 
     def on_track(self, m: BallTrack):
         if not m.tracking:

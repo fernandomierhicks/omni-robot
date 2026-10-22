@@ -17,11 +17,12 @@ v11, firmware (default true): the robot's C++ firmware runs in the loop (SIL) fo
 (TCP from the bridge) and publishes /odom, /imu and odom -> base_link, and mode_manager (TELEOP) forwards /cmd_vel.
 firmware:=false is v10's bridge.
 
-Arguments (name:=value): map (house), seed (0), rviz, foxglove, joy, viewer (MuJoCo's 3D window) (true/false; defaults
-by step), fast (the sim's firmware at 1 kHz and 2 ms lidar batches: ~1.0x real time; off for the scored steps, which
-keep v10's published settings), flatness (deg; -1 = the A2M12 model's drawn tilt), rtf (real-time factor the bridge
+Arguments (name:=value): map (house), seed (0), rviz, foxglove, joy, viewer (MuJoCo's 3D window), console (the operator
+console, http://localhost:8080) (true/false; defaults by step), fast (the sim's firmware at 1 kHz and 2 ms lidar
+batches: ~1.0x real time; off for the scored steps, which keep v10's published settings), flatness (deg; -1 = the A2M12 model's drawn tilt), rtf (real-time factor the bridge
 paces to; 0 = flat out), slam_range (m), floor_filter / deskew (scan prep), out (result name), firmware; catch steps:
-dist (m, 6.5), floor (flat | home), returns (true), tosses (catch_score: 24), kid (false).
+dist (m, 6.5), floor (flat | home), returns (true), tosses (catch_score: 24), kid (false). mcu_port (5761): the sim's
+firmware USB port on localhost TCP; another value lets a second run go alongside (with its own ROS_DOMAIN_ID).
 """
 
 from __future__ import annotations
@@ -42,16 +43,16 @@ from omni_bringup import maps_dir
 
 PKG = "omni_bringup"
 SIM = "omni_sim"
-DEFAULTS = {               # step: rviz, foxglove, joy, viewer, fast
-    "sim": ("false", "true", "true", "true", "true"),
-    "mapping": ("false", "true", "true", "true", "true"),
-    "auto_map": ("false", "false", "false", "false", "false"),
-    "localization": ("false", "true", "true", "true", "true"),
-    "navigation": ("false", "true", "false", "true", "true"),
-    "tour": ("false", "false", "false", "false", "false"),
-    "goals": ("false", "false", "false", "false", "false"),
-    "catch": ("false", "true", "false", "true", "true"),
-    "catch_score": ("false", "false", "false", "false", "false"),
+DEFAULTS = {               # step: rviz, foxglove, joy, viewer, fast, console
+    "sim": ("false", "true", "true", "true", "true", "true"),
+    "mapping": ("false", "true", "true", "true", "true", "true"),
+    "auto_map": ("false", "false", "false", "false", "false", "false"),
+    "localization": ("false", "true", "true", "true", "true", "true"),
+    "navigation": ("false", "true", "false", "true", "true", "true"),
+    "tour": ("false", "false", "false", "false", "false", "false"),
+    "goals": ("false", "false", "false", "false", "false", "false"),
+    "catch": ("false", "true", "false", "true", "true", "true"),
+    "catch_score": ("false", "false", "false", "false", "false", "false"),
 }
 CATCH_HOME_X = 3.5             # catch_world.HOME / AREA: the field the catch bridge builds (odom frame below)
 CATCH_AREA = (12.0, 6.0)
@@ -62,17 +63,18 @@ def cfg(name: str) -> str:
 
 
 def describe(kind: str) -> LaunchDescription:
-    rv, fx, jy, vw, fa = DEFAULTS[kind]
+    rv, fx, jy, vw, fa, co = DEFAULTS[kind]
     args = [DeclareLaunchArgument("map", default_value="house"), DeclareLaunchArgument("seed", default_value="0"),
             DeclareLaunchArgument("rviz", default_value=rv), DeclareLaunchArgument("foxglove", default_value=fx),
             DeclareLaunchArgument("joy", default_value=jy), DeclareLaunchArgument("viewer", default_value=vw),
-            DeclareLaunchArgument("fast", default_value=fa),
+            DeclareLaunchArgument("fast", default_value=fa), DeclareLaunchArgument("console", default_value=co),
             DeclareLaunchArgument("flatness", default_value="-1.0"),
             DeclareLaunchArgument("rtf", default_value="1.0"),
             DeclareLaunchArgument("slam_range", default_value="6.0"),
             DeclareLaunchArgument("floor_filter", default_value="true"),
             DeclareLaunchArgument("deskew", default_value="true"),
             DeclareLaunchArgument("firmware", default_value="true"),
+            DeclareLaunchArgument("mcu_port", default_value="5761"),
             DeclareLaunchArgument("dist", default_value="6.5"),
             DeclareLaunchArgument("floor", default_value="flat"),
             DeclareLaunchArgument("returns", default_value="true"),
@@ -90,13 +92,13 @@ def catch_nodes(a: dict, on, kind: str):
     score = kind == "catch_score"
     bridge = Node(package=SIM, executable="catch_bridge", name="catch_bridge", output="screen",
                   parameters=[{"dist": dist, "seed": 9000 + int(a["seed"]), "floor": a["floor"],
-                               "returns": on("returns"), "tosses": int(a["tosses"]), "rtf": float(a["rtf"]),
+                               "port": int(a["mcu_port"]), "returns": on("returns"), "tosses": int(a["tosses"]), "rtf": float(a["rtf"]),
                                "viewer": on("viewer")}])
     # the robot starts at home facing the thrower: its odom frame has the thrower dist m ahead and the field's centre
     # CATCH_HOME_X ahead (what a person detector and the map would give it)
     robot = [
         Node(package="omni_mcu", executable="mcu_link", name="mcu_link", output="screen",
-             parameters=[{"port": "tcp:127.0.0.1:5761", "publish_tf": True, **sim_t}]),
+             parameters=[{"port": f"tcp:127.0.0.1:{int(a['mcu_port'])}", "publish_tf": True, **sim_t}]),
         Node(package="omni_catch", executable="mode_manager", name="mode_manager", output="screen",
              parameters=[{"mode": "CATCH", "kid": on("kid"), **sim_t}]),
         Node(package="omni_catch", executable="catch_perception", name="catch_perception", output="screen",
@@ -115,13 +117,30 @@ def catch_nodes(a: dict, on, kind: str):
     if on("foxglove"):
         acts.append(Node(package="foxglove_bridge", executable="foxglove_bridge", name="foxglove_bridge",
                          output="log", parameters=[{"port": 8765, "address": "0.0.0.0", **sim_t}]))
+    if on("console"):
+        acts += console_nodes(a, "/scan")
     return acts
+
+
+def console_nodes(a: dict, scan: str):
+    """The operator console (omni_console): http://localhost:8080. rosbridge carries the page's topics and its one
+    command service, rosapi lists nodes and topics for its ROS tab, the mission node switches modes. None of them runs
+    on sim time: that would subscribe each to the sim's 1 kHz /clock (in Python: ~60% of a core for the mission node
+    alone). They need no stamps of their own (TF lookups take the latest, Nav2 goals carry none)."""
+    return [
+        Node(package="rosbridge_server", executable="rosbridge_websocket", name="rosbridge_websocket", output="log",
+             parameters=[{"port": 9090, "address": ""}]),
+        Node(package="rosapi", executable="rosapi_node", name="rosapi", output="log"),
+        Node(package="omni_console", executable="mission_node", name="omni_console", output="screen",
+             parameters=[{"map": a["map"], "places_dir": str(maps_dir()), "scan_topic": scan}]),
+        Node(package="omni_console", executable="console_web", name="console_web", output="screen"),
+    ]
 
 
 def build(ctx, kind: str):
     a = {k: ctx.launch_configurations[k] for k in ("map", "seed", "rviz", "foxglove", "joy", "viewer", "fast", "flatness",
-                                                   "rtf", "out", "slam_range", "floor_filter", "deskew", "firmware",
-                                                   "dist", "floor", "returns", "tosses", "kid")}
+                                                   "console", "rtf", "out", "slam_range", "floor_filter", "deskew", "firmware",
+                                                   "dist", "floor", "returns", "tosses", "kid", "mcu_port")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     if kind in ("catch", "catch_score"):
         return catch_nodes(a, on, kind)
@@ -138,12 +157,12 @@ def build(ctx, kind: str):
                                   "viewer": on("viewer"), "markers": on("foxglove") or on("rviz"),
                                   "fw_div": 2 if fast else 1, "hook_div": 4 if fast else 1,
                                   "lidar_cast_dt": 0.002 if fast else 0.001, "firmware": fw,
-                                  "clock_period": 0.001 if fw else 0.004}]))
+                                  "clock_period": 0.001 if fw else 0.004, "port": int(a["mcu_port"])}]))
     if fw:
         # the robot's own MCU link and mode manager: /odom, /imu and odom -> base_link from the firmware (the EKF
         # takes the TF over when it runs), /cmd_vel to the firmware
         acts.append(Node(package="omni_mcu", executable="mcu_link", name="mcu_link", output="screen",
-                         parameters=[{"port": "tcp:127.0.0.1:5761", "publish_tf": not ekf, **sim_t}]))
+                         parameters=[{"port": f"tcp:127.0.0.1:{int(a['mcu_port'])}", "publish_tf": not ekf, **sim_t}]))
         acts.append(Node(package="omni_catch", executable="mode_manager", name="mode_manager", output="screen",
                          parameters=[{"mode": "TELEOP", "kid": on("kid"), **sim_t}]))
     if ekf:
@@ -182,6 +201,8 @@ def build(ctx, kind: str):
     if on("foxglove"):
         acts.append(Node(package="foxglove_bridge", executable="foxglove_bridge", name="foxglove_bridge",
                          output="log", parameters=[{"port": 8765, "address": "0.0.0.0", **sim_t}]))
+    if on("console"):
+        acts += console_nodes(a, scan)
     if on("joy"):
         acts.append(Node(package=SIM, executable="joy_relay", name="joy_relay", output="screen"))
         acts.append(Node(package="teleop_twist_joy", executable="teleop_node", name="teleop_twist_joy_node",

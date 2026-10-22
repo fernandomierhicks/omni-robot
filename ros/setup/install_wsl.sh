@@ -3,7 +3,8 @@
 #
 #   wsl -d Ubuntu-24.04 -- bash "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/setup/install_wsl.sh"
 #
-# Installs ROS 2 Jazzy desktop, colcon, slam_toolbox, robot_localization, Nav2, foxglove_bridge, joy / teleop,
+# Installs ROS 2 Jazzy desktop, colcon, slam_toolbox, robot_localization, Nav2, foxglove_bridge, rosbridge (for the
+# operator console), joy / teleop,
 # then a Python venv (~/.venvs/omni-ros, with the system site packages so rclpy is visible) holding MuJoCo at the
 # same version as the Windows venv. Safe to re-run. Needs sudo inside WSL only; nothing on the Windows side.
 set -euo pipefail
@@ -36,7 +37,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
     ros-jazzy-desktop ros-dev-tools python3-colcon-common-extensions \
     ros-jazzy-slam-toolbox ros-jazzy-robot-localization \
     ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-nav2-simple-commander \
-    ros-jazzy-foxglove-bridge \
+    ros-jazzy-foxglove-bridge ros-jazzy-rosbridge-suite \
     ros-jazzy-joy ros-jazzy-teleop-twist-joy ros-jazzy-teleop-twist-keyboard \
     ros-jazzy-rosbag2-storage-mcap >/dev/null
 

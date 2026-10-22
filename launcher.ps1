@@ -35,7 +35,8 @@ function Start-Job2([string]$Name, [string]$CmdLine) {
 function Start-Omni([string]$Name, [string]$Step, [string]$Extra = "") {
     $opts = "viewer:=$(($cbViewer.Checked).ToString().ToLower()) foxglove:=$(($cbFox.Checked).ToString().ToLower()) " +
             "rviz:=$(($cbRviz.Checked).ToString().ToLower()) fast:=$(($cbFast.Checked).ToString().ToLower()) " +
-            "map:=$($tbMap.Text) firmware:=$(($cbFw.Checked).ToString().ToLower()) kid:=$(($cbKid.Checked).ToString().ToLower())"
+            "map:=$($tbMap.Text) firmware:=$(($cbFw.Checked).ToString().ToLower()) kid:=$(($cbKid.Checked).ToString().ToLower()) " +
+            "console:=$(($cbConsole.Checked).ToString().ToLower())"
     if ($Step -in "sim", "map", "localize") { $opts += " joy:=$(($cbJoy.Checked).ToString().ToLower())" }
     Start-Job2 $Name "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" $Step $opts $Extra"
 }
@@ -154,9 +155,10 @@ $tt = New-Object System.Windows.Forms.ToolTip
 
 # 1. the ROS stack
 $p1 = Add-Group "1. ROS 2 stack in WSL: the robot's software driving the MuJoCo sim" `
-    "Pick the options, then one step. Typical: 'Drive' or 'Localize', then 'Open Foxglove', then 'Joystick'. Map a new house: 'Map', drive it, 'Save map'."
+    "Pick the options, then one step. Typical: 'Navigate' or 'Play catch', then 'Open console' (drive, send goals, play). Map a new house: 'Map', drive it, 'Save map'."
 $cbViewer = Add-Check $p1 "MuJoCo 3D view" $true "MuJoCo's own window of the running sim (follows the robot; red dots = the lidar scan)"
 $cbFox = Add-Check $p1 "Foxglove bridge" $true "ws://localhost:8765 for the Foxglove app"
+$cbConsole = Add-Check $p1 "Operator console" $true "The robot's own web page (modes, map, driving, status bar): rosbridge + omni_console. Open it with 'Open console' below"
 $cbJoy = Add-Check $p1 "Joystick teleop" $true "teleop_twist_joy in ROS; also click 'Joystick -> ROS' below"
 $cbRviz = Add-Check $p1 "RViz" $false "RViz in a WSLg window"
 $cbFast = Add-Check $p1 "Fast (~real time)" $true "firmware at 1 kHz, lidar in 2 ms batches: ~0.95-1.0x real time (off: v10's published settings, ~0.6-0.7x)"
@@ -169,7 +171,7 @@ $p1.SetFlowBreak($tbMap, $true)
 [void](Add-Button $p1 "Map the house" { Start-Omni "ros_map" "map" } "slam_toolbox mapping: drive every room, then 'Save map'")
 [void](Add-Button $p1 "Save map" { Start-Job2 "ros_save_map" "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" save-map $($tbMap.Text)" } "While 'Map the house' runs: writes ros\maps\<map>")
 [void](Add-Button $p1 "Localize on map" { Start-Omni "ros_localize" "localize" } "slam_toolbox localization on ros\maps\<map>")
-[void](Add-Button $p1 "Navigate (Nav2)" { Start-Omni "ros_nav" "nav" } "Localization + Nav2: set goals in Foxglove (3D panel, publish pose) or RViz")
+[void](Add-Button $p1 "Navigate (Nav2)" { Start-Omni "ros_nav" "nav" } "Localization + Nav2: send goals from the console's Go To tab (or Foxglove / RViz)")
 [void](Add-Button $p1 "Play catch" { Start-Omni "ros_catch" "catch" "dist:=$($tbDist.Text)" } "v11: the catch game on ROS: the thrower throws, the robot's own code (perception, behavior, MCU link, firmware) catches and throws back")
 $ld = New-Object System.Windows.Forms.Label; $ld.Text = "thrower m:"; $ld.AutoSize = $true; $ld.Margin = New-Object System.Windows.Forms.Padding(6, 9, 0, 0); $p1.Controls.Add($ld)
 $tbDist = New-Object System.Windows.Forms.TextBox; $tbDist.Text = "6.5"; $tbDist.Width = 40; $tbDist.Margin = New-Object System.Windows.Forms.Padding(3, 6, 3, 3); $p1.Controls.Add($tbDist)
@@ -178,7 +180,9 @@ $bStop.BackColor = [System.Drawing.Color]::MistyRose
 
 # 2. views and input
 $p2 = Add-Group "2. Views and input" `
-    "Foxglove: Open connection -> Foxglove WebSocket -> ws://localhost:8765. First time: Layout -> Import from file -> ros\foxglove\omni_layout.json."
+    "Console: the robot's operator page (modes, map, driving, status bar) while a step runs. Foxglove (debugging): Open connection -> Foxglove WebSocket -> ws://localhost:8765. First time: Layout -> Import from file -> ros\foxglove\omni_layout.json."
+$bConsole = Add-Button $p2 "Open console" { Start-Process "http://localhost:8080" } "The operator console in your browser, served by the running step ('Operator console' ticked). A tab per mode, each with how-to help"
+$bConsole.BackColor = [System.Drawing.Color]::Honeydew
 [void](Add-Button $p2 "Open Foxglove" {
     $url = "foxglove://open?ds=foxglove-websocket&ds.url=ws%3A%2F%2Flocalhost%3A8765"
     $app = (Test-Path "Registry::HKEY_CLASSES_ROOT\foxglove") -or (Test-Path "HKCU:\Software\Classes\foxglove")

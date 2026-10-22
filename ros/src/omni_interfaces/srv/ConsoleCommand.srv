@@ -1,0 +1,8 @@
+# The operator console's one command (omni_console): a verb and its JSON arguments, a JSON reply. New robot features
+# add verbs (omni_console/missions.py VERBS), not new service types.
+string verb                   # ping, schema, stop, mission, goto, cancel, set, place_save, place_delete
+string args                   # JSON object ("" = {})
+---
+bool ok
+string message                # for the operator
+string data                   # JSON

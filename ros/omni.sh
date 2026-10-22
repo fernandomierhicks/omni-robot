@@ -66,7 +66,7 @@ copy_back() {                       # maps and results into the repo
 stop_all() {                        # everything this script started, in any ROS domain
     pkill -INT -f "ros2 launch omni_bringup" 2>/dev/null || true
     sleep 3
-    pkill -9 -f "omni_sim/|omni_perception/|omni_bringup/|omni_mcu/|omni_catch/|rviz2|foxglove_bridge|slam_toolbox|ekf_node|teleop_node|nav2_|controller_server|planner_server|bt_navigator|behavior_server|smoother_server|velocity_smoother|collision_monitor|lifecycle_manager" 2>/dev/null || true
+    pkill -9 -f "omni_sim/|omni_perception/|omni_bringup/|omni_mcu/|omni_catch/|omni_console/|rosbridge_websocket|rosapi_node|rviz2|foxglove_bridge|slam_toolbox|ekf_node|teleop_node|nav2_|controller_server|planner_server|bt_navigator|behavior_server|smoother_server|velocity_smoother|collision_monitor|lifecycle_manager" 2>/dev/null || true
     echo "stopped"
 }
 

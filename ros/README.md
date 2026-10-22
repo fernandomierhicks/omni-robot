@@ -13,7 +13,10 @@ ros/
 ├── omni.sh                ← one command per step, run in WSL (Launcher.cmd in the repo root calls it)
 ├── setup/install_wsl.sh   ← one-time: ROS 2 Jazzy, slam_toolbox, robot_localization, Nav2, foxglove_bridge, MuJoCo venv
 ├── src/
-│   ├── omni_interfaces/   ← messages: McuState, McuCommand, BallTrack, SparseImage, CatchStatus; SetMode → robot
+│   ├── omni_interfaces/   ← messages: McuState, McuCommand, BallTrack, SparseImage, CatchStatus; SetMode,
+│   │                        ConsoleCommand                                                              → robot
+│   ├── omni_console/      ← the operator console: mission_node (modes, settings, places, status), console_web
+│   │                        (serves web/, the page: plain JS, no build) + ROS-free missions.py, status.py → robot
 │   ├── omni_bringup/      ← launch + config (EKF, slam_toolbox, Nav2, teleop, RViz), save_map          → robot
 │   ├── omni_perception/   ← scan_prep: drop the A2M12's floor returns, de-skew scans                    → robot
 │   ├── omni_mcu/          ← mcu_link + protocol.py (no ROS): the MCU link, odometry, IMU, time sync      → robot
@@ -25,7 +28,8 @@ ros/
 ├── maps/                  ← saved maps (house = the main one, with its slam_toolbox pose graph)
 ├── foxglove/omni_layout.json   ← Foxglove layout: 3D (map, scan, true house, robot), status, a Teleop panel
 ├── tools/mujoco_view.py        ← MuJoCo's 3D view of the ROS sim, drawn on Windows (the bridge starts it)
-└── tools/joystick_sender.py    ← Windows side of the joystick relay (Extreme 3D; the 3Dconnexion is ignored)
+├── tools/joystick_sender.py    ← Windows side of the joystick relay (Extreme 3D; the 3Dconnexion is ignored)
+└── tools/console_smoke.py      ← the operator console checked end to end in Edge (Playwright) against `nav`
 ```
 
 `omni_sim` depends on the robot packages, never the reverse. On the robot: `colcon build --packages-skip omni_sim`.
@@ -44,12 +48,22 @@ Nothing is ever built on `/mnt/c`, so Dropbox needn't be paused. On the Jetson, 
 ## Run it
 
 **Without a terminal:** double-click `Launcher.cmd` in the repo root.
-1. Pick the options: MuJoCo 3D view, Foxglove, joystick, RViz, Fast.
-2. Click a step: *Drive*, *Map the house*, *Localize on map*, or *Navigate*.
-3. Click *Open Foxglove*.
-4. Click *Joystick → ROS*.
+1. Pick the options: MuJoCo 3D view, Foxglove, joystick, RViz, Fast, Operator console.
+2. Click a step: *Drive*, *Map the house*, *Localize on map*, *Navigate* or *Play catch*.
+3. Click *Open console*: the operator page at `http://localhost:8080`.
+   - **Manual:** drive with a gamepad, the keyboard or the on-screen pads.
+   - **Go To:** click the map, then Go.
+   - **Catch:** Start and Pause, plus the game's numbers.
+   - Every tab has a "How to use" box.
+4. For debugging, click *Open Foxglove*.
 
 The bottom panel shows each job's log.
+
+**The operator console** (`omni_console`; design.md section 2) is served by the robot itself.
+- **Connection.** In the sim the page is at `http://localhost:8080`; on the robot it is `http://<jetson>:8080`, on the PC or an iPad. It talks to ROS through rosbridge on port 9090. One-time install: `sudo apt install ros-jazzy-rosbridge-suite`.
+- **Topics.** The page uses only `/console/*`: a status at 10 Hz, a decimated scan, the path, settings and events. It also reads `/map` (CBOR, at most 1 Hz). It sends commands through `/console/command` and drives through `/console/cmd_vel`.
+- **Safety.** The robot stops 0.3 s after the page stops sending, for example when the dead man is released, the tab is closed or the Wi-Fi drops.
+- **Saved data.** Settings are kept in `~/.omni/console.json` on the robot. Saved places go in `maps/<map>.places.json`.
 
 **With a terminal** (WSL, or PowerShell with `wsl -d Ubuntu-24.04 -- bash`):
 
@@ -58,7 +72,7 @@ O="/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh"
 bash "$O" map          # drive the house (stick or Foxglove's Teleop panel), slam_toolbox mapping
 bash "$O" save-map     # (second terminal) -> ros/maps/house
 bash "$O" localize     # slam_toolbox localization on it
-bash "$O" nav          # + Nav2: goals from Foxglove's 3D panel (publish pose) or RViz
+bash "$O" nav          # + Nav2: goals from the console's Go To tab (or Foxglove's 3D panel / RViz)
 bash "$O" catch        # v11: the catch game (thrower, cameras, the robot's catch code and firmware)
 bash "$O" catch-score tosses:=24   # the same, scored: studies/results/ros_catch.json
 bash "$O" sim          # just the bridge; also: auto-map, tour, goals, score-map, build, test, stop, status
@@ -71,7 +85,8 @@ Arguments are `name:=value` after the step:
 | Argument | What it does |
 | --- | --- |
 | `viewer` | MuJoCo's 3D window |
-| `foxglove`, `rviz`, `joy` | turn those on or off |
+| `foxglove`, `rviz`, `joy`, `console` | turn those on or off (`console`: rosbridge + the operator console, on for the interactive steps) |
+| `mcu_port` | the sim firmware's USB port on localhost (5761); another value with another `ROS_DOMAIN_ID` runs a second stack alongside |
 | `fast` | the firmware at 1 kHz and the lidar in 2 ms batches (≈ real time); on for the interactive steps, off for the scored ones |
 | `map`, `seed`, `flatness`, `slam_range`, `floor_filter`, `deskew`, `rtf` | as in [../simulation/v10 ros bridge/README.md](../simulation/v10%20ros%20bridge/README.md) |
 | `firmware`, `kid` | v11: the C++ firmware in the loop (default true); the firmware's kid profile |

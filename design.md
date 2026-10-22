@@ -38,6 +38,20 @@ The current robot is the **v7 base + v6 round-3 catch module + §24 actuators + 
 
 **Software split.** *MCU firmware* (`firmware/lib/omni_fw`, C++17, board-free): modes (DISARMED / AUTO / MANUAL / ESTOP), the Jetson can only ask for less, X4 base controller (jerk-limited, direction-aware), odometry from DM-2325 positions + BNO085, flywheel rpm loop, one-ball feed, tilt, DM-2325 CAN, link. The catch's after-arrival sequence (coast, brake with the ball, hold, tilt dump 30 ms after arrival) runs here from the Jetson's predicted arrival time. *Jetson code* (`ros/src/omni_mcu`, `omni_catch`, ROS-free cores): `mcu_link`, `catch_perception` (colour-blob detector on sparse, rendered or real frames; image-space EKF with drag; a track starts only on a ball moving > 1.5 m/s), `catch_behavior`, `mode_manager` (IDLE / TELEOP / CATCH). The link: COBS + CRC-16 over USB, CMD 100 Hz (heartbeat), STATE 200 Hz, IMU 400 Hz, NTP-style time sync. Constants are generated from the sim (`robot_export.py`), like the CAD's `dims.py`. Lidar mapping/Nav2 use `slam_toolbox`, `robot_localization` and Nav2; v9's scan matcher on that map stays the catch-time localizer.
 
+**Operator console** (`ros/src/omni_console`, Oct 21, phase 1 of 2). This is how Fernando sees and commands the robot from the PC or an iPad. It is a web page that the robot serves itself at `http://<robot>:8080`; in the sim that is `http://localhost:8080`.
+- **Connection.** The page reaches ROS through rosbridge (`ws://<robot>:9090`). It is plain JavaScript with Preact, htm and roslib vendored, so there is no build step and no Node. Because the robot serves the page over plain HTTP, its `ws://` connection to rosbridge is allowed in every browser. Foxglove's HTTPS web app can't open `ws://` to the robot, iPad Safari included.
+- **Mission node.** `mission_node` switches between IDLE, MANUAL, GOTO and CATCH on top of `mode_manager` and Nav2. It keeps the per-mode settings and the saved places, and it boils the robot down to a few small topics: a 10 Hz status, a 5 Hz decimated scan and a 1 Hz path. Every command goes through one service, `/console/command` (verb + JSON). The page draws each mode's settings form, with hints, from the schema the node publishes.
+- **Layout.** There is a tab per mode (Manual, Go To, Explore, Patrol, Catch) and per subsystem (Base, Thrower, Vision, SLAM, RC, Version, ROS). Each tab has a "How to use" box. A fixed status bar shows:
+  - connection and round trip, the mode and the current task;
+  - the MCU mode and profile;
+  - battery (estimated from `v_bus`), Wi-Fi and faults with hints;
+  - the latest message, with a log drawer;
+  - STOP (also the space bar).
+- **Manual driving.** It works from a gamepad, the keyboard or on-screen pads, all behind a dead man. The robot stops 0.3 s after the input stops.
+- **Debugging** stays in Foxglove.
+
+Explore, Patrol, SLAM map management, the unified always-on launch and the Base, Thrower, Vision, RC and Version tabs are phase 2 (section 7).
+
 ## 3. Expected performance (simulation)
 
 | Metric | Result | Source |
@@ -55,6 +69,7 @@ The current robot is the **v7 base + v6 round-3 catch module + §24 actuators + 
 | Map / Nav2 | 2.1 cm median wall error; 24 of 24 goals | §28 |
 | Launcher (v2 bench) | rpm 1000/2000/3000/4000/5000 → 2.4/5.1/7.7/10.2/12.6 m/s; transfer ~0.70 of rim speed | `launcher_bench.py` |
 | Power | Worst burst 12.6 A; 28 W average (Jetson ~22 W) → ~3.9 h | v2 |
+| Operator console (sim, PC) | Status 10 Hz, ~260 kbit/s over the link (map, scan, status), page 144 fps. Mission node ~12% of a WSL core, rosbridge < 2%. Closing the page mid-drive: stopped within 0.8 s. A Go To goal 2.5 m away is reached | `ros/tools/console_smoke.py` |
 
 Key lessons behind these numbers:
 
@@ -125,7 +140,7 @@ omni-robot/
 │   ├── v3 compact/ v5 unlimited/ v6 shallow throw/ v7 home floor/ v8 swerve/ v9 sensors/ v10 ros bridge/   ← each has README.md, test_vN.py, studies/ (results/ holds JSON, plots, logs)
 │   └── v11 sil/              ← sil_robot.py, catch_world.py, sil_game.py, sil_link.py, robot_export.py, house_scene.py, rendered_camera.py, studies/
 ├── firmware/                 ← Teensy 4.1 (README, PINS.md): lib/omni_fw (board-free core), src/main.cpp (drivers), sil/ (SIL library: zig c++ on Windows, g++ in WSL)
-├── ros/                      ← omni.sh (every ROS step, in WSL), src/omni_bringup omni_perception omni_interfaces omni_mcu omni_catch (→ Jetson), omni_sim (PC only), maps/, foxglove/, tools/
+├── ros/                      ← omni.sh (every ROS step, in WSL), src/omni_bringup omni_perception omni_interfaces omni_mcu omni_catch omni_console (→ Jetson; omni_console/web = the operator page), omni_sim (PC only), maps/ (+ <map>.places.json), foxglove/, tools/ (console_smoke.py)
 ├── database/                 ← shared actuator DB: motors/servos/controllers/motor_tests/sources CSV + actuator_db.py (981 motors, 106 servos, 60 controllers, 424 dyno tests; every value has a source); keep it free of omni-robot imports
 └── cad/                      ← v7/ = current robot to the fastener level (build.py, render.py, view.py, step_export.py; out/ has STEP, STL, assembly.step, BOM.md, PRINT_LIST.md); the top level is the v2 CAD
 ```
@@ -142,7 +157,8 @@ omni-robot/
 | Folder | Command | What it does |
 | --- | --- | --- |
 | repo root | double-click `Launcher.cmd` | Buttons for the ROS steps, Foxglove, the joystick, the Windows sims, CAD view |
-| `ros` (WSL) | `bash omni.sh map` / `save-map` / `localize` / `nav` / `sim` / `catch` (`dist:=6.5`) / `catch-score tosses:=24` / `test` / `stop` | The ROS 2 stack against the sim |
+| `ros` (WSL) | `bash omni.sh map` / `save-map` / `localize` / `nav` / `sim` / `catch` (`dist:=6.5`) / `catch-score tosses:=24` / `test` / `stop` | The ROS 2 stack against the sim. The interactive steps start the operator console (`console:=false` turns it off); `mcu_port:=5771` with another `ROS_DOMAIN_ID` runs a second stack alongside |
+| repo root (Windows) | browser at `http://localhost:8080` (Launcher: "Open console"); `& $py ros\tools\console_smoke.py --shots <dir>`; `& $py -m pytest -q ros/src/omni_console/test` | The operator console; its end-to-end check in Edge (Playwright) against a running `nav` step; its core's tests |
 | `simulation/v11 sil` | `& $py sil_game.py --view --returns`; `--frames rendered --scene house` | Catch game on the real code in one process; on rendered images in the furnished house (`house_scene.py fetch` once) |
 | `simulation/v11 sil/studies` | `sil_catch.py both` / `report`; `rendered_frames.py --png`; `rendered_catch.py run --frames rendered --seeds 3 --workers 12` | SIL vs the sim's own game on 216 throws; detector on renders; the 216-throw grid on rendered vs sparse frames (~35 min) |
 | `firmware` | `pio run`; `& $py sil\build_sil.py --pins` | Teensy build (checks the pin map); the SIL library and PINS.md |
@@ -166,6 +182,19 @@ After CAD changes run `build.py` (must report 0 clashes). Run `python -m pytest 
 6. **Design gaps:** a rear battery drawer; a counterbalance spring on the tilt pivot; a bumper skirt and wheel-top guards (done in CAD); a multi-ball path (tube insert now); choose the shock spring (~12 N/mm at the shock); rework the deck for the 80 mm wheel (motor 21 mm inward).
 7. Print and bench: one wheel (3 hubs, 10 rollers, 10 pins) and one pod, with a DM-2325, before printing the rest. SolidWorks: open `cad/v7/out/assembly.step`.
 8. Fill the database gaps (`database/gaps.csv`), prices first. Spec sweep over perception latency, noise and frame rate is still open.
+9. **Operator console, phase 2:**
+   - **Explore:** a frontier explorer in the ROS-free core.
+   - **Patrol:** routes per map, run once, in a loop or back and forth.
+   - **SLAM tab:** new map, save, load and localize, set initial pose. The mission node supervises slam_toolbox. VERIFY whether Jazzy's lifecycle API can switch modes instead.
+   - **Unified always-on launch** (`omni.sh robot`): so modes switch at runtime. Today Go To needs the `nav` step and Catch the `catch` step. In the sim this needs the house and the thrower in one world.
+   - **Thrower tab:** a THROWER_TEST mode in `ModeMux`, plus a test.
+   - **Base tab:** charts, with batched 200 Hz data.
+   - **Vision tab:** camera over `web_video_server` MJPEG, never rosbridge.
+   - **RC tab:** needs CRSF channel fields in STATE.
+   - **Version tab:** git hash, plus the firmware build in a low-rate INFO message (`protocol.h` and `protocol.py` together).
+   - **Jetson:** status line (CPU, GPU, temperature).
+   - **Optionally:** a firmware software e-stop request.
+   - **Profile on the Jetson:** the mission node decodes `/mcu/state` (200 Hz) and `/tf` in Python. If that's too heavy, have `mcu_link` publish a 10 Hz summary.
 
 ## 8. Open items (VERIFY)
 
@@ -193,3 +222,4 @@ After CAD changes run `build.py` (must report 0 clashes). Run `python -m pytest 
 | Oct 21 | **v7 CAD rules (Fernando):** no heat-set inserts, M3 thread-forming into 2.8 mm, pan/flat heads only; payload plate on six standoffs (A2M12 sees past everything but them) | Fernando's stock and review |
 | Oct 21 | **Start the robot's real code (Fernando):** Teensy 4.1 firmware (board-free core, pin map checked by `static_assert`) in the loop as SIL; Jetson ROS packages `omni_catch`, `omni_mcu`; COBS + CRC link, CMD 100 Hz heartbeat; after-arrival sequence on the MCU; camera pipeline takes sparse, rendered or real frames through one interface | Real code must be tested against the sim; the sim's Python firmware used the true pose |
 | Oct 21 | v11 round 2: furnished house scene and rendered-camera frames (proposed); acquisition change in the detector | Realistic camera input; results table (§31.3) was never filled in the history file |
+| Oct 21 | **Operator console (Fernando):** a web console served by the robot over rosbridge (`omni_console`), with a tab per mode and subsystem and a fixed status bar. Foxglove is kept for debugging. Driving by gamepad, keyboard or on-screen pads. Phased: Manual, Go To, Catch and ROS now, the rest in phase 2 | Works on the PC and the iPad with nothing installed, and always matches the robot's software. Foxglove is a viewer, not an operator console: no fixed status bar, goals hidden in a menu, sign-in, and its HTTPS app can't open `ws://` to the robot. A Python GUI wouldn't be faster: the link is the limit, so high-rate data is summarized on the robot and the camera goes as video, not through rosbridge |

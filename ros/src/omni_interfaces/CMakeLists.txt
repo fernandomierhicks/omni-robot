@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(omni_interfaces)
 
-# omni-robot messages (design.md 30): the MCU link, the catch path, the sim's camera frames, robot modes
+# omni-robot messages (design.md 30): the MCU link, the catch path, the sim's camera frames, robot modes, the operator console
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
@@ -14,6 +14,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SparseImage.msg"
   "msg/CatchStatus.msg"
   "srv/SetMode.srv"
+  "srv/ConsoleCommand.srv"
   DEPENDENCIES builtin_interfaces std_msgs
 )
 

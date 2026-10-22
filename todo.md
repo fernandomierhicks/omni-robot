@@ -10,8 +10,18 @@
    - Rerun studies/localization.py and report what changed.
 
 
+-GUI
+add joystick input
 
 
 
    One Jetson caveat (VERIFY): the Orin's JetPack 6 is Ubuntu 22.04, and Jazzy needs 24.04. So Jazzy either runs in Docker on the Jetson, as section 5 already says, or waits for a JetPack 7 release for Orin, if one exists by then.
 
+
+
+CAD:
+Add speaker and small TFT screen or 7-10in monitor?
+add rx receiver
+
+
+block diagram of all components, do we need PCB?
