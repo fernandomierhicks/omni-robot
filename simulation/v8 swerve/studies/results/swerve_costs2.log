@@ -1,0 +1,4 @@
+C. Costs: mass, CG height, worst tip-over, belly clearance (static / wheel at the bump stop), wheel rpm at 2 m/s on a wheel's rolling line vs the drive motor's at 22 V, peak rim force, wheels + suspension price
+  swerve3 v2, r 170                  5.71 kg  CG 10.5 cm  tip 6.4 m/s2  clear 21/5 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $60 wheels+pods, $420 drive set
+  swerve3 v2                         5.64 kg  CG 10.6 cm  tip 5.5 m/s2  clear 21/5 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $60 wheels+pods, $420 drive set
+  swerve4 v2                         6.30 kg  CG 10.2 cm  tip 8.8 m/s2  clear 22/5 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $80 wheels+pods, $560 drive set

@@ -1,0 +1,27 @@
+# teleop_twist_joy for a Logitech Extreme 3D Pro (design.md 28), holonomic. Joy axes as ROS joy_node reports them
+# (left / forward / twist-left positive), which joy_relay reproduces from the Windows side:
+#   axis 0 stick left-right, 1 stick fore-aft, 2 twist, 3 throttle slider; button 0 trigger, 1 thumb (side) button
+# Hold the thumb button (dead man) to drive at up to 1 m/s; add the trigger for 2 m/s (the firmware cap). Release: the
+# twist stops coming, and the firmware ramps the base to a stop after 0.5 s (design.md 3).
+teleop_twist_joy_node:
+  ros__parameters:
+    use_sim_time: true
+    publish_stamped_twist: false
+    require_enable_button: true
+    enable_button: 1
+    enable_turbo_button: 0
+    axis_linear:
+      x: 1
+      y: 0
+    scale_linear:
+      x: 1.0
+      y: 1.0
+    scale_linear_turbo:
+      x: 2.0
+      y: 2.0
+    axis_angular:
+      yaw: 2
+    scale_angular:
+      yaw: 2.5
+    scale_angular_turbo:
+      yaw: 3.5

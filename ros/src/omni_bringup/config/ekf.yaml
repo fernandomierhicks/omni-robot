@@ -1,0 +1,54 @@
+# robot_localization ekf_node (design.md 28): wheel odometry + BNO085 in the odom frame. It publishes odom -> base_link
+# (the bridge's own odom TF is off when this runs). Planar robot: two_d_mode.
+ekf_filter_node:
+  ros__parameters:
+    use_sim_time: true
+    frequency: 100.0
+    sensor_timeout: 0.1
+    two_d_mode: true
+    publish_tf: true
+    print_diagnostics: true
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: odom
+
+    # wheel odometry: the body twist (vx, vy, vyaw). Its pose integrates the same twist, so it is not fused again.
+    odom0: /odom
+    odom0_config: [false, false, false,
+                   false, false, false,
+                   true,  true,  false,
+                   false, false, true,
+                   false, false, false]
+    odom0_queue_size: 10
+    odom0_differential: false
+
+    # BNO085: game-rotation-vector yaw (gyro-integrated on the chip, starts at 0 like the odom frame), yaw rate, and
+    # the horizontal accelerations with gravity removed through its roll / pitch
+    imu0: /imu
+    imu0_config: [false, false, false,
+                  false, false, true,
+                  false, false, false,
+                  false, false, true,
+                  true,  true,  false]
+    imu0_queue_size: 20
+    imu0_differential: false
+    imu0_relative: false
+    imu0_remove_gravitational_acceleration: true
+
+    # what the constant-velocity model misses: the omni base accelerates at up to 2.5 m/s^2 (est, same order as v9's EKF)
+    process_noise_covariance: [0.05, 0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.05, 0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.06, 0.0, 0.0, 0.0, 0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.03, 0.0, 0.0, 0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.03, 0.0, 0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.06, 0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.5,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.5,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.04, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.2,  0.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  1.0, 0.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 1.0, 0.0,
+                               0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0,  0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.5]

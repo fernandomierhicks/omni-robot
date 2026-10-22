@@ -1,0 +1,22 @@
+C. Costs: mass, CG height, worst tip-over, belly clearance (static / wheel at the bump stop), wheel rpm at 2 m/s on a wheel's rolling line vs the AK40-10 at 22 V, peak rim force, wheels + suspension price
+  v6                                 5.45 kg  CG 9.9 cm  tip 8.8 m/s2  clear 21/16 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $88
+  v6 + pods                          5.81 kg  CG 9.6 cm  tip 9.2 m/s2  clear 19/8 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $148
+  v6 + pods + both rockers 6 deg     5.87 kg  CG 9.6 cm  tip 9.4 m/s2  clear 19/8 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $148
+  v6 + pendulum swing                6.01 kg  CG 9.5 cm  tip 9.3 m/s2  clear 19/7 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $180
+  v6 + parallel swing                6.01 kg  CG 9.5 cm  tip 9.3 m/s2  clear 19/8 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $180
+  Rotacaster 125                     6.24 kg  CG 10.7 cm  tip 8.3 m/s2  clear 36/30 mm  306 of 367 rpm (+20%)  top 2.40 m/s  rim 59 N  $240
+  DuraOmni 6 in                      6.77 kg  CG 11.8 cm  tip 7.7 m/s2  clear 49/44 mm  251 of 367 rpm (+46%)  top 2.93 m/s  rim 48 N  $168
+  Nexus 152                          7.50 kg  CG 11.4 cm  tip 8.1 m/s2  clear 49/44 mm  251 of 367 rpm (+46%)  top 2.92 m/s  rim 48 N  $316
+  printed 127 2x6 32 mm              5.96 kg  CG 11.1 cm  tip 8.0 m/s2  clear 37/31 mm  301 of 367 rpm (+22%)  top 2.44 m/s  rim 58 N  $43
+  printed 152 2x7 36 mm              6.40 kg  CG 12.0 cm  tip 7.5 m/s2  clear 49/44 mm  251 of 367 rpm (+46%)  top 2.92 m/s  rim 48 N  $46
+  printed 152 3x6 36 mm              7.05 kg  CG 11.6 cm  tip 7.9 m/s2  clear 49/44 mm  251 of 367 rpm (+46%)  top 2.92 m/s  rim 48 N  $53
+  mecanum 140                        6.51 kg  CG 11.3 cm  tip 8.0 m/s2  clear 43/38 mm  273 of 367 rpm (+34%)  top 2.69 m/s  rim 53 N  $300
+  mecanum 140 + pods                 6.87 kg  CG 11.1 cm  tip 8.2 m/s2  clear 41/30 mm  273 of 367 rpm (+34%)  top 2.69 m/s  rim 53 N  $360
+  DuraOmni 6 in + pods               7.13 kg  CG 11.6 cm  tip 7.9 m/s2  clear 48/36 mm  251 of 367 rpm (+46%)  top 2.93 m/s  rim 48 N  $228
+  printed 127 2x5 36 mm + pods       6.48 kg  CG 10.7 cm  tip 8.4 m/s2  clear 35/23 mm  301 of 367 rpm (+22%)  top 2.44 m/s  rim 58 N  $100
+  printed 140 2x6 36 mm + pods       6.62 kg  CG 11.2 cm  tip 8.0 m/s2  clear 41/30 mm  273 of 367 rpm (+34%)  top 2.69 m/s  rim 53 N  $103
+  printed 152 2x7 36 mm + pods       6.76 kg  CG 11.8 cm  tip 7.7 m/s2  clear 47/35 mm  251 of 367 rpm (+46%)  top 2.92 m/s  rim 48 N  $106
+  printed 152 2x6 40 mm + pods       6.98 kg  CG 11.6 cm  tip 7.8 m/s2  clear 47/36 mm  251 of 367 rpm (+46%)  top 2.92 m/s  rim 48 N  $103
+  v6 + assist                        5.45 kg  CG 9.9 cm  tip 8.8 m/s2  clear 21/16 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $88
+  v6 + pods + assist                 5.81 kg  CG 9.6 cm  tip 9.2 m/s2  clear 19/8 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $148
+  printed 127 2x6 32 mm + pods + assist 6.32 kg  CG 10.8 cm  tip 8.3 m/s2  clear 35/23 mm  301 of 367 rpm (+22%)  top 2.44 m/s  rim 58 N  $103

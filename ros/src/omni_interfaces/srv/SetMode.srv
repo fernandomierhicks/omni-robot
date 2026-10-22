@@ -1,0 +1,6 @@
+# omni_catch.modes: IDLE, TELEOP or CATCH; kid selects the MCU's kid profile (design.md 14)
+string mode
+bool kid
+---
+bool success
+string message

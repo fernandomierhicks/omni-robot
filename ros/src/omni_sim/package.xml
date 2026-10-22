@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_sim</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 28, 30), PC only, never built on the robot: the MuJoCo sim as a ROS 2 robot (bridge,
+    MuJoCo viewer, Foxglove markers), scoring against ground truth, Nav2 goal runs, and the Windows joystick relay.
+    v11: the bridges run the robot's C++ firmware in the loop and expose its USB port over TCP (mcu_port); the catch
+    bridge adds the thrower, the cameras' frames and the catch scorer. The sim itself lives in simulation/ (the version
+    is set by ros/omni.sh).</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>nav2_simple_commander</exec_depend>
+  <exec_depend>omni_bringup</exec_depend>
+  <exec_depend>omni_interfaces</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

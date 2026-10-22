@@ -93,7 +93,7 @@ class Wall:
     thickness: float = 0.1
 
 
-# v7 (design.md 24): the other transitions of a one-storey house, each with its edge at x = 0.6 like
+# v7 (design.md 25): the other transitions of a one-storey house, each with its edge at x = 0.6 like
 # studies/floor_wheels.OBSTACLES (heights typical of the parts sold for them, est)
 HOUSE_OBSTACLES = {
     "T-molding 5 mm": Threshold(0.6, 0.0, height=0.005, top=0.012, ramp=0.012, mu=0.8),    # wood / laminate rooms

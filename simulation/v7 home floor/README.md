@@ -1,6 +1,10 @@
 # v7: home floors
 
-v7 is the v6 round-3 robot (X4 omni base, axle-plane deck, tilting catch/launch module, chute feed) with a base for real home floors. Fernando's goal: handle thresholds, rugs and floor transitions much better without losing flat-floor catching. The answers and numbers are in [../../design.md](../../design.md) section 24. Everything here is **proposed**.
+v7 is the v6 round-3 robot (X4 omni base, axle-plane deck, tilting catch/launch module, chute feed) with a base for real home floors. Fernando's goal: handle thresholds, rugs and floor transitions much better without losing flat-floor catching. The answers and numbers are in [../../design.md](../../design.md) section 25. Everything here is **proposed**.
+
+**The proposal** (`house.BASES["v7"]`, `studies/home_floor.V7`): printed 127 mm omni wheels with two rows of five 36 mm rollers, each wheel and its motor on a sprung, damped pod (15 mm travel, 3000 N/m, ζ 0.6). It crosses square 8 and 12 mm rug edges at every body direction, as well as 6-18 mm thresholds, reducers, T-moldings and carpet trim, with no airborne phase and no ball lost. It catches 89% on the home floor against 92% flat, 88% with a 12 mm rug turned 45° (v6: 68%), and costs ~1 kg and ~2.7 flat-floor points. Swing pods, a rear rocker and mecanum were tested and rejected.
+
+![v7 in the house](renders/v7_house.png)
 
 Every crossing study uses the explicit-roller wheel model (`wheel_model="rollers"`). The fast sphere wheel can't represent a roller meeting a step sideways, so it can't get stuck where a real omni wheel does.
 
@@ -10,7 +14,7 @@ Every crossing study uses the explicit-roller wheel model (`wheel_model="rollers
 | --- | --- | --- |
 | Wheels | goBILDA 96 mm, 2 x 8 rollers of 16 mm | Catalog entries for 120-152 mm omni wheels (goBILDA, AndyMark DuraOmni, Rotacaster, Nexus), a goBILDA 140 mm mecanum, and printed designs (`catalog.printed_omni`). `OmniWheel.rows` (2 or 3 staggered rows), `kind="mecanum"` (rollers at 45 deg, with matching kinematics), `edge_radius()` |
 | Suspension | The rollers' rubber, 0-6 mm at 30 N/mm | `suspension="pod"`: each wheel and its motor on a sprung, damped pod (`pod_travel`, `pod_rate`, `pod_preload`, `pod_damping_ratio`) |
-| Cross-axis compliance | none | `swing="pendulum"` or `"parallel"` (`swing_length`, `swing_range_deg`, `swing_stiffness`, `swing_preload`, `swing_damping`). Tested and rejected (design.md 24.2) |
+| Cross-axis compliance | none | `swing="pendulum"` or `"parallel"` (`swing_length`, `swing_range_deg`, `swing_stiffness`, `swing_preload`, `swing_damping`). Tested and rejected (design.md 25.1) |
 | Rocker | front pair, +/- 3 deg | `rocker="both"`: front and rear beams tied by a differential; `rocker_deg` |
 | Wheel loads | from the roller slide's deflection | from a force sensor on each pod (`robot_model.wheel_loads`): right for any suspension |
 | Firmware | slow zones (rectangles) | `terrain_assist`: a map of floor edges (`floor.edges`, or `terrain_map`) caps the speed before each edge (`edge_speeds`) and turns the base so a square edge's normal sits at 0 / 90 deg in the body frame (`edge_align`); 100 Hz |
@@ -46,7 +50,7 @@ cd studies
 | Camera | C (follow, chase, top); mouse drag and wheel | Y | button 4 |
 | Reset / spots | R / 1-9 | START | button 8 |
 
-The HUD shows speed and its cap, body tilt and its peak, the longest airborne phase, whether the assist is aligning the base, the ball, the floor under each wheel and its load, and how fast the sim runs relative to real time (the roller model is heavy; on a busy PC it runs in slow motion rather than skipping physics).
+The HUD shows speed and its cap, body tilt and its peak, the longest airborne phase, whether the assist is aligning the base, the ball, the floor under each wheel and its load, and how fast the sim runs relative to real time (the roller model is heavy: ~0.9× real time on an idle PC, slow motion rather than skipped physics on a busy one; `--model sphere` runs 1.6× real time but can't get stuck sideways).
 
 The floor: wood living room and hallway (laminate), a tile kitchen 6 mm up behind 40 mm reducers, wall-to-wall bedroom carpet (12 mm) behind carpet trim, a 12 mm marble threshold into the bathroom, a 5 mm T-molding into the office, a 12 mm rug turned 15 deg, an 8 mm runner turned -30 deg, a 16 mm plush rug and a 6 mm bath mat. Spots 1-9 put the robot in front of each.
 

@@ -111,7 +111,7 @@ class Robot:
         self.fly = [FlywheelDrive(p.fly_motor, p.esc_spec) for _ in range(2)]
         self.gate = GateServo(speed=p.gate_slew)        # trapdoor (rad) or kicker plunger (m)
         self.tilt_servo = TiltServo(speed=p.tilt_speed, i_stall=3.0)
-        self.battery = Battery(p.pack)
+        self.battery = Battery(p.pack, soc=p.battery_soc)
         self.cal = LauncherCal(p)
         # physics side, not firmware: viscoelastic ball contacts and tire slides (None = elastic), stepped in pre_step
         self.contacts = contact_model.attach(model, data, p)
@@ -152,6 +152,10 @@ class Robot:
         self.terrain_yaw = None
         self._hold_yaw = None
         self._fw_div = max(1, int(round(0.01 / model.opt.timestep)))
+        self.align_ok = True               # the game clears it while a catch is on (facing the ball comes first)
+        # turn to meet only the square edges the wheels can't climb sideways (0.7 x the roller radius: v6 ~6 mm, the
+        # 36 mm rollers ~13 mm)
+        self.align_height = p.edge_align_height if p.edge_align_height is not None else 0.7 * p.omni.roller_diameter / 2
         self._terrain_cap = p.base_max_speed
         # v7 cross-axis pods: preloaded centring springs (applied as joint torque, like a pair of springs on stops)
         self.swing_dofs = np.array([model.jnt_dofadr[model.joint(f"swing{i}").id] for i in range(1, nw + 1)])             if p.swing != "none" else None
@@ -277,7 +281,7 @@ class Robot:
 
     # -- commands -----------------------------------------------------------
     def drive_to(self, pose, target, v_ff=(0.0, 0.0), v_end: float = 0.0):
-        if self.terrain_yaw is not None:           # v7: crossing a square edge, the firmware holds an aligned heading
+        if self.terrain_yaw is not None and self.align_ok:   # v7: crossing a square edge, hold an aligned heading
             target = (target[0], target[1], self.terrain_yaw)
         self.wheel_cmd = self.ctl.goto_step(self.m.opt.timestep, pose, target, v_ff=v_ff, v_end=v_end)
         self.a_body_cmd = world_to_body(self.ctl.a_cmd, pose[2])
@@ -301,7 +305,7 @@ class Robot:
         return 0.5
 
     def _terrain(self):
-        """Mapped floor edges (design.md 24): cap the speed so the base meets an edge no faster than edge_speed(height),
+        """Mapped floor edges (design.md 25): cap the speed so the base meets an edge no faster than edge_speed(height),
         and when the path is about to cross a square edge (or is crossing it) turn the base so the edge's normal sits at
         a multiple of 90 deg in the body frame: every X4 wheel then meets it at 45 deg, half rolling, and none slides
         into it along its axle on its small rollers."""
@@ -312,7 +316,7 @@ class Robot:
             return
         if not hasattr(self, "_E"):
             E = np.array([e[:6] for e in self.edges], dtype=float)
-            self._E = dict(a=E[:, :2], ab=E[:, 2:4] - E[:, :2], h=E[:, 4], sq=(E[:, 5] > 0.5) & (E[:, 4] > 0.004),
+            self._E = dict(a=E[:, :2], ab=E[:, 2:4] - E[:, :2], h=E[:, 4], sq=(E[:, 5] > 0.5) & (E[:, 4] > self.align_height),
                            vz=np.array([self.edge_speed(h) for h in E[:, 4]]),
                            n_ang=np.arctan2(E[:, 3] - E[:, 1], E[:, 2] - E[:, 0]) + math.pi / 2)
         E = self._E

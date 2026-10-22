@@ -1,0 +1,6 @@
+﻿throw 1: 6.5 m, apex 1.0 m: frames 117, ball found rendered 224 / sparse 218; center error median rendered 0.12 px, sparse 0.15 px; rim crossing predicted rendered 1.4 cm, sparse 1.6 cm; render 2.2 ms, detect 0.27 ms per frame
+throw 2: 6.0 m, apex 1.5 m: frames 157, ball found rendered 228 / sparse 224; center error median rendered 0.12 px, sparse 0.18 px; rim crossing predicted rendered 5.5 cm, sparse 6.3 cm; render 2.7 ms, detect 0.30 ms per frame
+throw 3: 7.0 m, apex 0.75 m: frames 107, ball found rendered 187 / sparse 186; center error median rendered 0.11 px, sparse 0.17 px; rim crossing predicted rendered 1.0 cm, sparse 0.7 cm; render 4.6 ms, detect 0.28 ms per frame
+throw 4: 6.5 m, apex 2.0 m: frames 152, ball found rendered 254 / sparse 250; center error median rendered 0.12 px, sparse 0.19 px; rim crossing predicted rendered 2.1 cm, sparse 1.8 cm; render 4.7 ms, detect 0.29 ms per frame
+throw 5: 6.0 m, apex 1.0 m: frames 118, ball found rendered 207 / sparse 204; center error median rendered 0.12 px, sparse 0.18 px; rim crossing predicted rendered 1.5 cm, sparse 1.0 cm; render 4.6 ms, detect 0.31 ms per frame
+throw 6: 7.0 m, apex 1.5 m: frames 133, ball found rendered 266 / sparse 266; center error median rendered 0.11 px, sparse 0.18 px; rim crossing predicted rendered 0.8 cm, sparse 0.8 cm; render 4.6 ms, detect 0.28 ms per frame

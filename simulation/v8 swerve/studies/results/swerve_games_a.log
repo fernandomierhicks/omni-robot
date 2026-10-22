@@ -1,0 +1,7 @@
+B. 6-7 m catch game, firmware adult, expected cameras, roller wheel model (216 throws per row, +/-2.5 points)
+  v7 on DM-2325, flat                                   91.0% of 432 (not in place 32, bounced 7, flipped 0), peak tilt 4 deg, longest airborne 0 ms
+  v7 on DM-2325, home                                   90.0% of 432 (not in place 37, bounced 6, flipped 0), peak tilt 9 deg, longest airborne 0 ms
+  swerve3 100, flat                                     88.2% of 432 (not in place 41, bounced 10, flipped 0), peak tilt 16 deg, longest airborne 0 ms
+  swerve3 100, home                                     86.1% of 432 (not in place 38, bounced 22, flipped 0), peak tilt 20 deg, longest airborne 2 ms
+  swerve3 127, flat                                     85.6% of 432 (not in place 43, bounced 19, flipped 0), peak tilt 34 deg, longest airborne 2 ms
+  swerve3 127, home                                     79.6% of 432 (not in place 56, bounced 32, flipped 0), peak tilt 30 deg, longest airborne 3 ms

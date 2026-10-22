@@ -1,4 +1,4 @@
-"""Headless checks for the v7 sim: the v3, v5 and v6 checks it inherits, plus v7's home-floor base (design.md 24).
+"""Headless checks for the v7 sim: the v3, v5 and v6 checks it inherits, plus v7's home-floor base (design.md 25).
 Run: python -m pytest -q   (a minute or two)"""
 
 import math
@@ -480,7 +480,7 @@ def test_chute_feeds_undersized_and_oversized_balls_at_the_steepest_launch(dia):
     assert shot.spin < 40
 
 
-# -- v7: home floors (design.md 24) -------------------------------------------------------------
+# -- v7: home floors (design.md 25) -------------------------------------------------------------
 
 def _cross(cfg, obstacle, direction, speed, **extra):
     import sys
@@ -524,7 +524,7 @@ def test_square_12_mm_rug_at_45_deg_stops_the_v6_base_but_not_big_rollers():
     """The finding behind v7: at body 45 deg two X4 wheels meet a square edge on their rollers alone; a 16 mm roller
     can't climb 12 mm, a 36 mm one can."""
     assert not _cross("v6", "rug edge 12 mm", 45.0, 0.5)["crossed"]
-    out = _cross("printed 152 2x7 36 mm + pods", "rug edge 12 mm", 45.0, 0.5)
+    out = _cross("printed 127 2x5 36 mm + pods", "rug edge 12 mm", 45.0, 0.5)
     assert out["crossed"] and out["held"]
 
 

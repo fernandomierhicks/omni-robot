@@ -1,4 +1,4 @@
-"""A one-storey house floor for the v7 robot (design.md 24), and a scene you drive with the keyboard or a gamepad.
+"""A one-storey house floor for the v7 robot (design.md 25), and a scene you drive with the keyboard or a gamepad.
 
 The floor: wood living room and hallway, a raised tile kitchen behind reducers, wall-to-wall carpet in the bedroom
 behind carpet trim, a marble threshold into the bathroom, a T-molding into the office, rugs with square edges
@@ -76,10 +76,10 @@ SPOTS = {   # teleport spots: (x, y, yaw deg) just before an edge
 }
 START = (-3.0, 1.25, 0.0)
 
-# bases (design.md 24): v6 as built in round 3, and the v7 proposal
+# bases (design.md 25): v6 as built in round 3, and the v7 proposal
 BASES = {
     "v6": dict(),
-    "v7": dict(wheel="Printed-127-2x6-32", suspension="pod"),
+    "v7": dict(wheel="Printed-127-2x5-36", suspension="pod"),
 }
 
 

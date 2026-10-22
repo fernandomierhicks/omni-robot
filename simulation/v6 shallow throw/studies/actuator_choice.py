@@ -50,6 +50,18 @@ DRIVE = [
     ("waveshare-ddsm115", None, 1, 0, "7S", "low: RS485 setpoints", None),
     ("makerbase-mks-servo42d-can", None, 1, 0, "6S", "low: CAN setpoints", None),
     ("damiao-dm-j4310-2ec", None, 1, 0, "7S", "low: CAN setpoints", None),
+    # brand sweep (design.md 24.8)
+    ("damiao-dm-2325", None, 1, 0, "7S", "low: CAN setpoints (MIT / speed / position)", "X4 x Damiao DM-2325, 7S 10%"),
+    ("damiao-dm-2325", None, 1, 0, "6S", "low: as above; driver minimum 24 V?", "X4 x Damiao DM-2325, 6S 10%"),
+    ("damiao-dm-j3507-2ec", None, 1, 0, "7S", "low: CAN setpoints (MIT)", "X4 x Damiao DM-J3507, 7S 10%"),
+    ("damiao-dm-s3519", None, 1, 0, "7S", "low: CAN setpoints", "X4 x Damiao DM-S3519, 7S 10%"),
+    ("dji-m3508-p19", "dji-c620", 1, 0, "6S", "medium: speed loop on the MCU", None),
+    ("xiaomi-cybergear", None, 1, 0, "6S", "low: CAN setpoints", None),
+    ("robstride-01", None, 1, 0, "7S", "low: CAN setpoints", None),
+    ("waveshare-ddsm350-ct", None, 1, 0, "7S", "low: CAN setpoints", None),
+    ("cubemars-aka60-6", None, 1, 0, "7S", "low: CAN setpoints", None),
+    ("myactuator-rmd-x4-6-hs", None, 1, 0, "7S", "low: CAN setpoints", None),
+    ("andymark-neverest-classic-40", "pololu-drv8874-4035", 1, 0, "7S", "medium", None),
 ]
 FEED = [
     ("pololu-25d-12v-9.7-hp-enc", "pololu-drv8874-4035", 1, 0, "medium: PWM + encoder + PID on the MCU", "Pololu-25D-9.7"),
@@ -60,6 +72,8 @@ FEED = [
     ("lk-mf4005-v2", None, 1, 0, "low: CAN setpoints", "LK-MF4005"),
     ("pololu-micro-30-hpcb-12v-enc", "pololu-drv8874-4035", 1, 0, "medium", "Pololu-HPCB-30"),
     ("pololu-20d-25-12v", "pololu-drv8874-4035", 1, 0, "medium", None),
+    ("iflight-gm3506-as5048a", "odrive-micro", 1, 0, "low: ODrive Micro runs FOC + loops (CAN FD)", None),
+    ("pololu-25d-24v-20.4-hp-enc", "pololu-drv8874-4035", 1, 0, "medium", None),
 ]
 TILT = [   # servos (the 12 V rail is shared with the feed; the DS3235 needs its own BEC)
     ("dsservo-ds3235", None, 1, 10, "low: PWM, no feedback", "DS3235 at 8.4 V (3.4 N m, 9.5 rad/s)"),
@@ -67,9 +81,18 @@ TILT = [   # servos (the 12 V rail is shared with the feed; the DS3235 needs its
     ("feetech-sts3250", None, 1, 0, "low: TTL bus", "Feetech STS3250 at 12 V (4.9 N m, 7.9 rad/s)"),
     ("lk-mg4010e-i10-v3", None, 1, 0, "low: CAN (+ DG40E driver, price VERIFY)", "LK MG4010E-i10 at 24 V (4.5 N m, 27 rad/s)"),
     ("dynamixel-xm430-w210-t", None, 1, 0, "low: TTL bus", None),
+    ("hiwonder-htd-45h", None, 1, 0, "low: TTL bus (potentiometer, 240 deg)", "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)"),
+    ("hiwonder-hts-35h", None, 1, 0, "low: TTL bus (potentiometer, 240 deg)", None),
+    ("waveshare-st3215-hs", None, 1, 0, "low: TTL bus", None),
+    ("waveshare-st3025", None, 1, 0, "low: TTL bus", "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)"),
+    ("feetech-hls3930m", None, 1, 0, "low: TTL bus", None),
+    ("feetech-sts3095", None, 1, 0, "low: TTL bus", None),
+    ("dynamixel-xm430-w350-t", None, 1, 0, "low: TTL bus", None),
+    ("damiao-dm-j4310-2ec", None, 1, 0, "low: CAN (MIT)", None),
 ]
 FLY = [("tmotor-f90-2806.5-1300", "F90-2806.5-1300"), ("iflight-xing-2806.5-1300", "XING-2806.5-1300"),
-       ("generic-2207-1750", "2207-1750"), ("generic-3115-900", "3115-900")]
+       ("generic-2207-1750", "2207-1750"), ("generic-3115-900", "3115-900"),
+       ("brotherhobby-avenger-2806.5-1300", None)]
 ESCS = ["pilotix-65a-am32-8s", "sequre-blueson-a2-70a-8s", "tbs-lucid-8s-60a-4in1"]
 BUCK = "generic-buck-12v-3a"
 
@@ -180,12 +203,18 @@ def bom(db, items):
     return lines, tot
 
 
-CHEAPEST = [("Drive", "dji-m2006-p36", 4), ("Drive ESC", "dji-c610", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
+CHEAPEST = [("Drive", "damiao-dm-2325", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
             ("Flywheel ESC", "pilotix-65a-am32-8s", 1), ("Tilt", "feetech-sts3250", 1),
             ("Feed", "pololu-25d-12v-9.7-hp-enc", 2), ("Feed driver", "pololu-drv8874-4035", 2), ("12 V rail", BUCK, 1)]
-PREFERRED = [("Drive", "cubemars-ak40-10-v3", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
+PREFERRED = [("Drive", "damiao-dm-2325", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
              ("Flywheel ESC", "pilotix-65a-am32-8s", 1), ("Tilt", "feetech-sts3250", 1),
              ("Feed", "pololu-25d-12v-9.7-hp-enc", 2), ("Feed controller", "basicmicro-roboclaw-2x7a", 1), ("12 V rail", BUCK, 1)]
+DATASHEET = [("Drive", "cubemars-ak40-10-v3", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
+             ("Flywheel ESC", "pilotix-65a-am32-8s", 1), ("Tilt", "feetech-sts3250", 1),
+             ("Feed", "pololu-25d-12v-9.7-hp-enc", 2), ("Feed controller", "basicmicro-roboclaw-2x7a", 1), ("12 V rail", BUCK, 1)]
+M2006_SET = [("Drive", "dji-m2006-p36", 4), ("Drive ESC", "dji-c610", 4), ("Flywheels", "tmotor-f90-2806.5-1300", 2),
+             ("Flywheel ESC", "pilotix-65a-am32-8s", 1), ("Tilt", "feetech-sts3250", 1),
+             ("Feed", "pololu-25d-12v-9.7-hp-enc", 2), ("Feed driver", "pololu-drv8874-4035", 2), ("12 V rail", BUCK, 1)]
 
 
 def main():
@@ -220,7 +249,9 @@ def main():
     for e in sorted(ESCS, key=lambda i: db.controllers[i]["price_usd"]):
         c = db.controllers[e]
         L.append(f"| {c['name']} | {money(c['price_usd'])} ({c.prov('price_usd')}) | {c['ok_7s_full']} |")
-    for title, items in (("Cheapest compliant set (6S pack)", CHEAPEST), ("Preferred integrated set (7S pack)", PREFERRED)):
+    for title, items in (("Cheapest compliant set (7S pack)", CHEAPEST), ("Preferred integrated set (7S pack)", PREFERRED),
+                         ("Datasheet-backed integrated set (7S, AK40-10 drive)", DATASHEET),
+                         ("M2006 set (6S pack; round-1 cheapest)", M2006_SET)):
         lines, tot = bom(db, items)
         L += ["", f"## {title}", "", "| Function | Part | Qty | Each | Total |", "| --- | --- | --- | --- | --- |"] + lines
         L.append(f"| **Total** | | | | **{money(tot)}** |")

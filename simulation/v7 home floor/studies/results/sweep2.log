@@ -1,0 +1,144 @@
+﻿A. Crossings, ball aboard, every 15 deg of body direction. Per speed 0.5 / 1 / 2 m/s: crossed/all (stuck directions), ball lost, peak tilt, longest airborne / single-wheel lift (ms)
+  v6
+    rug edge 8 mm                    22/24 stuck 45,315 5deg air 0 lift 32 | 22/24 stuck 45,315 15deg air 2 lift 46 | 24/24 17deg air 2 lift 47
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 7deg air 0 lift 36 | 21/24 stuck 45,225,315 12deg air 0 lift 58 | 22/24 stuck 45,315 19deg air 6 lift 72
+    threshold 12 mm                  24/24 6deg air 0 lift 55 | 24/24 13deg air 0 lift 50 | 24/24 24deg air 0 lift 60
+    threshold 18 mm                  24/24 9deg air 0 lift 197 | 24/24 21deg air 0 lift 65 | 24/24 23deg air 2 lift 55
+    threshold 6 mm                   24/24 4deg air 0 lift 36 | 24/24 5deg air 0 lift 36 | 24/24 9deg air 0 lift 40
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 41 | 24/24 8deg air 1 lift 50 | 24/24 15deg air 2 lift 46
+    T-molding 5 mm                   24/24 4deg air 0 lift 31 | 24/24 5deg air 2 lift 24 | 24/24 6deg air 2 lift 48
+    reducer 8 mm                     24/24 3deg air 0 lift 24 | 24/24 4deg air 0 lift 25 | 24/24 8deg air 0 lift 44
+    bath mat 6 mm                    24/24 5deg air 0 lift 39 | 24/24 6deg air 5 lift 40 | 24/24 9deg air 1 lift 43
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 9deg air 0 lift 224 | 20/24 stuck 45,135,225,315 11deg air 0 lift 244 | 20/24 stuck 45,150,300,315 23deg air 2 lift 82
+  v6 + pods
+    rug edge 8 mm                    22/24 stuck 45,315 7deg air 0 lift 30 | 23/24 stuck 45 10deg air 0 lift 31 | 24/24 9deg air 0 lift 34
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 7deg air 0 lift 27 | 20/24 stuck 45,135,225,315 10deg air 0 lift 44 | 21/24 stuck 45,225,315 13deg air 0 lift 43
+    threshold 12 mm                  24/24 6deg air 0 lift 21 | 24/24 6deg air 0 lift 27 | 24/24 11deg air 0 lift 29
+    threshold 18 mm                  24/24 10deg air 0 lift 31 | 24/24 10deg air 0 lift 34 | 24/24 13deg air 0 lift 42
+    threshold 6 mm                   24/24 3deg air 0 lift 7 | 24/24 3deg air 0 lift 16 | 24/24 4deg air 0 lift 27
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 9 | 24/24 4deg air 0 lift 24 | 24/24 5deg air 0 lift 27
+    T-molding 5 mm                   24/24 3deg air 0 lift 9 | 24/24 3deg air 0 lift 24 | 24/24 5deg air 0 lift 30
+    reducer 8 mm                     24/24 4deg air 0 lift 6 | 24/24 4deg air 0 lift 19 | 24/24 5deg air 0 lift 22
+    bath mat 6 mm                    24/24 4deg air 0 lift 14 | 24/24 8deg air 0 lift 18 | 24/24 10deg air 0 lift 27
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 8deg air 0 lift 28 | 20/24 stuck 45,135,225,315 13deg air 0 lift 47 | 20/24 stuck 45,135,225,315 20deg air 0 lift 44
+  v6 + pendulum swing
+    rug edge 8 mm                    23/24 stuck 315 6deg air 0 lift 55 | 24/24 10deg air 0 lift 64 | 24/24 9deg air 0 lift 62
+    rug edge 12 mm                   20/24 stuck 45,135,225,315 6deg air 0 lift 54 | 23/24 stuck 45 9deg air 0 lift 54 | 24/24 12deg air 0 lift 50
+    threshold 12 mm                  24/24 6deg air 0 lift 84 | 24/24 7deg air 0 lift 72 | 24/24 10deg air 0 lift 57
+    threshold 18 mm                  24/24 9deg air 0 lift 54 | 24/24 11deg air 0 lift 79 | 24/24 15deg air 0 lift 76
+    threshold 6 mm                   24/24 3deg air 0 lift 29 | 24/24 3deg air 0 lift 63 | 24/24 5deg air 0 lift 27
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 29 | 24/24 5deg air 0 lift 39 | 24/24 6deg air 0 lift 31
+    T-molding 5 mm                   24/24 3deg air 0 lift 51 | 24/24 3deg air 0 lift 63 | 24/24 6deg air 0 lift 36
+    reducer 8 mm                     24/24 4deg air 0 lift 11 | 24/24 4deg air 0 lift 15 | 24/24 5deg air 0 lift 31
+    bath mat 6 mm                    23/24 stuck 45 6deg air 0 lift 39 | 24/24 11deg air 0 lift 50 | 24/24 7deg air 0 lift 63
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 8deg air 0 lift 64 | 24/24 10deg air 0 lift 80 | 24/24 17deg air 0 lift 63
+  mecanum 140
+    rug edge 8 mm                    24/24 6deg air 0 lift 25 | 24/24 8deg air 0 lift 27 | 24/24 12deg air 2 lift 30
+    rug edge 12 mm                   22/24 stuck 30,300 7deg air 0 lift 34 | 24/24 16deg air 2 lift 47 | 24/24 24deg air 0 lift 44
+    threshold 12 mm                  24/24 6deg air 0 lift 50 | 24/24 10deg air 0 lift 35 | 24/24 19deg air 2 lift 39
+    threshold 18 mm                  24/24 7deg air 0 lift 66 | 24/24 14deg air 0 lift 37 | 24/24 44deg air 0 lift 47
+    threshold 6 mm                   24/24 3deg air 0 lift 17 | 24/24 4deg air 0 lift 21 | 24/24 6deg air 0 lift 32
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 22 | 24/24 6deg air 0 lift 29 | 24/24 8deg air 0 lift 45
+    T-molding 5 mm                   24/24 3deg air 0 lift 15 | 24/24 4deg air 2 lift 21 | 24/24 5deg air 2 lift 20
+    reducer 8 mm                     24/24 3deg air 0 lift 11 | 24/24 4deg air 0 lift 19 | 24/24 6deg air 0 lift 20
+    bath mat 6 mm                    24/24 5deg air 0 lift 21 | 24/24 5deg air 2 lift 23 | 24/24 6deg air 3 lift 20
+    plush rug 16 mm                  18/24 stuck 30,45,60,120,210,300 9deg air 0 lift 49 | 22/24 stuck 60,300 19deg air 0 lift 48 | 23/24 stuck 315 29deg air 0 lift 52
+  mecanum 140 + pods
+    rug edge 8 mm                    24/24 5deg air 0 lift 25 | 24/24 5deg air 0 lift 18 | 24/24 7deg air 0 lift 23
+    rug edge 12 mm                   19/24 stuck 15,30,120,210,300 8deg air 0 lift 25 | 24/24 10deg air 0 lift 32 | 24/24 17deg air 0 lift 31
+    threshold 12 mm                  24/24 5deg air 0 lift 11 | 24/24 6deg air 0 lift 21 | 24/24 9deg air 0 lift 25
+    threshold 18 mm                  24/24 8deg air 0 lift 17 | 24/24 10deg air 0 lift 25 | 24/24 17deg air 0 lift 37
+    threshold 6 mm                   24/24 3deg air 0 lift 4 | 24/24 3deg air 0 lift 11 | 24/24 5deg air 0 lift 19
+    carpet trim 8 mm, 25 mm bevel    24/24 3deg air 0 lift 3 | 24/24 4deg air 0 lift 13 | 24/24 6deg air 0 lift 19
+    T-molding 5 mm                   24/24 2deg air 0 lift 7 | 24/24 3deg air 0 lift 14 | 24/24 5deg air 0 lift 26
+    reducer 8 mm                     24/24 3deg air 0 lift 5 | 24/24 4deg air 0 lift 10 | 24/24 5deg air 0 lift 13
+    bath mat 6 mm                    24/24 3deg air 0 lift 7 | 24/24 4deg air 0 lift 18 | 24/24 6deg air 0 lift 21
+    plush rug 16 mm                  17/24 stuck 15,30,120,195,210,285... 9deg air 0 lift 26 | 21/24 stuck 45,60,300 13deg air 0 lift 33 | 23/24 stuck 315 32deg air 0 lift 35
+  DuraOmni 6 in + pods
+    rug edge 8 mm                    24/24 5deg air 0 lift 12 | 24/24 5deg air 0 lift 23 | 24/24 6deg air 0 lift 24
+    rug edge 12 mm                   23/24 stuck 45 7deg air 0 lift 27 | 24/24 7deg air 0 lift 25 | 24/24 10deg air 0 lift 35
+    threshold 12 mm                  24/24 5deg air 0 lift 14 | 24/24 6deg air 0 lift 18 | 24/24 8deg air 0 lift 24
+    threshold 18 mm                  24/24 7deg air 0 lift 31 | 24/24 10deg air 0 lift 45 | 24/24 12deg air 0 lift 29
+    threshold 6 mm                   24/24 3deg air 0 lift 6 | 24/24 3deg air 0 lift 11 | 24/24 5deg air 0 lift 19
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 8 | 24/24 4deg air 0 lift 9 | 24/24 6deg air 0 lift 23
+    T-molding 5 mm                   24/24 3deg air 0 lift 10 | 24/24 3deg air 0 lift 11 | 24/24 5deg air 0 lift 18
+    reducer 8 mm                     24/24 4deg air 0 lift 5 | 24/24 4deg air 0 lift 6 | 24/24 5deg air 0 lift 23
+    bath mat 6 mm                    24/24 3deg air 0 lift 4 | 24/24 3deg air 0 lift 15 | 24/24 6deg air 0 lift 20
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 8deg air 0 lift 27 | 22/24 stuck 45,315 12deg air 0 lift 35 | 22/24 stuck 45,315 18deg air 0 lift 33
+  printed 127 2x5 36 mm + pods
+    rug edge 8 mm                    24/24 3deg air 0 lift 12 | 24/24 5deg air 0 lift 25 | 24/24 7deg air 0 lift 27
+    rug edge 12 mm                   24/24 6deg air 0 lift 24 | 24/24 8deg air 0 lift 27 | 24/24 10deg air 0 lift 34
+    threshold 12 mm                  24/24 5deg air 0 lift 23 | 24/24 6deg air 0 lift 20 | 24/24 7deg air 0 lift 31
+    threshold 18 mm                  24/24 7deg air 0 lift 28 | 24/24 10deg air 0 lift 30 | 24/24 12deg air 0 lift 31
+    threshold 6 mm                   24/24 4deg air 0 lift 9 | 24/24 3deg air 0 lift 13 | 24/24 4deg air 0 lift 22
+    carpet trim 8 mm, 25 mm bevel    24/24 3deg air 0 lift 6 | 24/24 4deg air 0 lift 13 | 24/24 6deg air 0 lift 22
+    T-molding 5 mm                   24/24 3deg air 0 lift 11 | 24/24 3deg air 0 lift 17 | 24/24 4deg air 0 lift 20
+    reducer 8 mm                     24/24 3deg air 0 lift 10 | 24/24 4deg air 0 lift 10 | 24/24 4deg air 0 lift 21
+    bath mat 6 mm                    24/24 3deg air 0 lift 5 | 24/24 3deg air 0 lift 18 | 24/24 6deg air 0 lift 25
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 7deg air 0 lift 24 | 23/24 stuck 45 11deg air 0 lift 34 | 22/24 stuck 45,315 15deg air 0 lift 31
+  printed 140 2x6 36 mm + pods
+    rug edge 8 mm                    24/24 6deg air 0 lift 24 | 24/24 10deg air 0 lift 28 | 24/24 8deg air 0 lift 27
+    rug edge 12 mm                   22/24 stuck 45,315 6deg air 0 lift 20 | 23/24 stuck 45 10deg air 0 lift 29 | 23/24 stuck 45 16deg air 0 lift 25
+    threshold 12 mm                  24/24 5deg air 0 lift 20 | 24/24 6deg air 0 lift 21 | 24/24 8deg air 0 lift 26
+    threshold 18 mm                  24/24 8deg air 0 lift 29 | 24/24 10deg air 0 lift 33 | 24/24 13deg air 0 lift 28
+    threshold 6 mm                   24/24 3deg air 0 lift 7 | 24/24 3deg air 0 lift 15 | 24/24 4deg air 0 lift 20
+    carpet trim 8 mm, 25 mm bevel    24/24 3deg air 0 lift 6 | 24/24 4deg air 0 lift 11 | 24/24 6deg air 0 lift 21
+    T-molding 5 mm                   24/24 3deg air 0 lift 8 | 24/24 3deg air 0 lift 19 | 24/24 4deg air 0 lift 18
+    reducer 8 mm                     24/24 3deg air 0 lift 6 | 24/24 4deg air 0 lift 7 | 24/24 5deg air 0 lift 22
+    bath mat 6 mm                    24/24 3deg air 0 lift 12 | 24/24 4deg air 0 lift 13 | 24/24 5deg air 0 lift 20
+    plush rug 16 mm                  22/24 stuck 45,315 8deg air 0 lift 21 | 22/24 stuck 45,315 10deg air 0 lift 28 | 22/24 stuck 45,315 16deg air 0 lift 29
+  printed 152 2x7 36 mm + pods
+    rug edge 8 mm                    24/24 4deg air 0 lift 6 | 24/24 4deg air 0 lift 12 | 24/24 6deg air 0 lift 23
+    rug edge 12 mm                   23/24 stuck 315 6deg air 0 lift 24 | 24/24 7deg air 0 lift 18 | 24/24 9deg air 0 lift 25
+    threshold 12 mm                  24/24 5deg air 0 lift 15 | 24/24 6deg air 0 lift 17 | 24/24 8deg air 0 lift 21
+    threshold 18 mm                  24/24 8deg air 0 lift 26 | 24/24 10deg air 0 lift 41 | 24/24 14deg air 0 lift 45
+    threshold 6 mm                   24/24 3deg air 0 lift 6 | 24/24 3deg air 0 lift 15 | 24/24 4deg air 0 lift 15
+    carpet trim 8 mm, 25 mm bevel    24/24 3deg air 0 lift 3 | 24/24 4deg air 0 lift 12 | 24/24 5deg air 0 lift 24
+    T-molding 5 mm                   24/24 2deg air 0 lift 8 | 24/24 3deg air 0 lift 10 | 24/24 4deg air 0 lift 18
+    reducer 8 mm                     24/24 3deg air 0 lift 6 | 24/24 4deg air 0 lift 6 | 24/24 5deg air 0 lift 19
+    bath mat 6 mm                    24/24 3deg air 0 lift 4 | 24/24 3deg air 0 lift 10 | 24/24 4deg air 0 lift 20
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 7deg air 0 lift 25 | 21/24 stuck 45,135,315 10deg air 0 lift 26 | 22/24 stuck 45,315 16deg air 0 lift 29
+  printed 152 2x6 40 mm + pods
+    rug edge 8 mm                    24/24 6deg air 0 lift 26 | 24/24 6deg air 0 lift 18 | 24/24 6deg air 0 lift 23
+    rug edge 12 mm                   23/24 stuck 45 7deg air 0 lift 20 | 24/24 10deg air 0 lift 23 | 24/24 16deg air 0 lift 33
+    threshold 12 mm                  24/24 5deg air 0 lift 13 | 24/24 6deg air 0 lift 18 | 24/24 7deg air 0 lift 23
+    threshold 18 mm                  24/24 7deg air 0 lift 20 | 24/24 10deg air 0 lift 32 | 24/24 13deg air 0 lift 27
+    threshold 6 mm                   24/24 3deg air 0 lift 6 | 24/24 3deg air 0 lift 13 | 24/24 4deg air 0 lift 21
+    carpet trim 8 mm, 25 mm bevel    24/24 3deg air 0 lift 4 | 24/24 4deg air 0 lift 11 | 24/24 5deg air 0 lift 22
+    T-molding 5 mm                   24/24 2deg air 0 lift 8 | 24/24 3deg air 0 lift 9 | 24/24 4deg air 0 lift 19
+    reducer 8 mm                     24/24 3deg air 0 lift 4 | 24/24 4deg air 0 lift 8 | 24/24 5deg air 0 lift 22
+    bath mat 6 mm                    24/24 3deg air 0 lift 4 | 24/24 3deg air 0 lift 15 | 24/24 5deg air 0 lift 20
+    plush rug 16 mm                  22/24 stuck 45,315 7deg air 0 lift 25 | 22/24 stuck 45,315 10deg air 0 lift 27 | 22/24 stuck 45,315 16deg air 0 lift 33
+  v6 + assist
+    rug edge 8 mm                    24/24 7deg air 0 lift 35 | 24/24 14deg air 4 lift 66 | 24/24 15deg air 6 lift 64
+    rug edge 12 mm                   24/24 8deg air 1 lift 38 | 24/24 20deg air 5 lift 50 | 24/24 27deg air 4 lift 51
+    threshold 12 mm                  24/24 6deg air 0 lift 57 | 24/24 13deg air 2 lift 67 | 24/24 23deg air 0 lift 68
+    threshold 18 mm                  24/24 8deg air 0 lift 121 | 24/24 20deg air 0 lift 58 | 24/24 20deg air 0 lift 55
+    threshold 6 mm                   24/24 4deg air 0 lift 31 | 24/24 5deg air 0 lift 41 | 24/24 9deg air 0 lift 50
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 43 | 24/24 7deg air 2 lift 60 | 24/24 12deg air 0 lift 66
+    T-molding 5 mm                   24/24 4deg air 0 lift 26 | 24/24 5deg air 2 lift 37 | 24/24 6deg air 2 lift 37
+    reducer 8 mm                     24/24 3deg air 0 lift 26 | 24/24 4deg air 0 lift 29 | 24/24 6deg air 0 lift 34
+    bath mat 6 mm                    24/24 5deg air 0 lift 31 | 24/24 8deg air 6 lift 38 | 24/24 10deg air 0 lift 47
+    plush rug 16 mm                  24/24 9deg air 0 lift 40 | 24/24 24deg air 6 lift 50 | 24/24 24deg air 0 lift 49
+  v6 + pods + assist
+    rug edge 8 mm                    24/24 5deg air 0 lift 22 | 24/24 9deg air 0 lift 28 | 24/24 12deg air 0 lift 33
+    rug edge 12 mm                   24/24 8deg air 0 lift 28 | 24/24 11deg air 0 lift 27 | 24/24 14deg air 0 lift 38
+    threshold 12 mm                  24/24 6deg air 0 lift 22 | 24/24 6deg air 0 lift 33 | 24/24 8deg air 0 lift 28
+    threshold 18 mm                  24/24 10deg air 0 lift 31 | 24/24 10deg air 0 lift 40 | 24/24 10deg air 0 lift 36
+    threshold 6 mm                   24/24 3deg air 0 lift 5 | 24/24 3deg air 0 lift 19 | 24/24 4deg air 0 lift 28
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 7 | 24/24 4deg air 0 lift 22 | 24/24 4deg air 0 lift 21
+    T-molding 5 mm                   24/24 3deg air 0 lift 13 | 24/24 3deg air 0 lift 24 | 24/24 5deg air 0 lift 29
+    reducer 8 mm                     24/24 4deg air 0 lift 5 | 24/24 4deg air 0 lift 20 | 24/24 4deg air 0 lift 23
+    bath mat 6 mm                    24/24 5deg air 0 lift 20 | 24/24 6deg air 0 lift 27 | 24/24 10deg air 0 lift 25
+    plush rug 16 mm                  24/24 10deg air 0 lift 28 | 24/24 12deg air 0 lift 32 | 24/24 13deg air 0 lift 33
+  printed 127 2x6 32 mm + pods + assist
+    rug edge 8 mm                    24/24 5deg air 0 lift 21 | 24/24 4deg air 0 lift 14 | 24/24 6deg air 0 lift 17
+    rug edge 12 mm                   24/24 6deg air 0 lift 23 | 24/24 7deg air 0 lift 21 | 24/24 9deg air 0 lift 25
+    threshold 12 mm                  24/24 5deg air 0 lift 22 | 24/24 6deg air 0 lift 22 | 24/24 7deg air 0 lift 23
+    threshold 18 mm                  24/24 8deg air 0 lift 28 | 24/24 9deg air 0 lift 34 | 24/24 9deg air 0 lift 35
+    threshold 6 mm                   24/24 3deg air 0 lift 6 | 24/24 3deg air 0 lift 13 | 24/24 4deg air 0 lift 22
+    carpet trim 8 mm, 25 mm bevel    24/24 4deg air 0 lift 10 | 24/24 4deg air 0 lift 13 | 24/24 4deg air 0 lift 22
+    T-molding 5 mm                   24/24 3deg air 0 lift 10 | 24/24 3deg air 0 lift 18 | 24/24 4deg air 0 lift 21
+    reducer 8 mm                     24/24 3deg air 0 lift 7 | 24/24 4deg air 0 lift 7 | 24/24 4deg air 0 lift 20
+    bath mat 6 mm                    24/24 3deg air 0 lift 6 | 24/24 3deg air 0 lift 10 | 24/24 4deg air 0 lift 18
+    plush rug 16 mm                  24/24 8deg air 0 lift 23 | 24/24 11deg air 0 lift 25 | 24/24 10deg air 0 lift 31

@@ -1,0 +1,164 @@
+{
+ "goals": [
+  {
+   "goal": "bedroom, over the 25 mm carpet trim onto 12 mm carpet",
+   "target": [
+    -3.0,
+    3.3,
+    90
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 9.028,
+   "path": 2.0763374305410665,
+   "err": 0.08704236196118484,
+   "yaw_err": 7.838290088192433,
+   "recoveries": 0,
+   "end": [
+    -2.913431728781428,
+    3.309072331233465,
+    1.4339923570295017
+   ]
+  },
+  {
+   "goal": "office, over the 5 mm T-molding",
+   "target": [
+    0.45,
+    3.2,
+    90
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 16.266000000000002,
+   "path": 6.6159117853801295,
+   "err": 0.08226527704790332,
+   "yaw_err": 2.918211512758539,
+   "recoveries": 0,
+   "end": [
+    0.46412941691255793,
+    3.1189572002860255,
+    1.6217287259621374
+   ]
+  },
+  {
+   "goal": "bathroom, over the 12 mm marble threshold, onto the 6 mm mat",
+   "target": [
+    4.6,
+    3.25,
+    0
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 19.736,
+   "path": 6.778190571144807,
+   "err": 0.08885222523091726,
+   "yaw_err": 8.677970804185982,
+   "recoveries": 0,
+   "end": [
+    4.657791869216103,
+    3.3174893901364833,
+    0.1514591629249856
+   ]
+  },
+  {
+   "goal": "kitchen, up the 6 mm tile reducer",
+   "target": [
+    2.5,
+    -2.0,
+    0
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 13.255,
+   "path": 5.914245591116731,
+   "err": 0.1696144688162138,
+   "yaw_err": 7.359072870085688,
+   "recoveries": 0,
+   "end": [
+    2.642836165196562,
+    -1.9085292508845217,
+    0.1284400514771842
+   ]
+  },
+  {
+   "goal": "living room, onto the 12 mm square-edged rug (turned 15 deg)",
+   "target": [
+    -3.1,
+    -2.4,
+    -135
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 15.534,
+   "path": 5.718245593002755,
+   "err": 0.12728084781730667,
+   "yaw_err": 7.7244915587501275,
+   "recoveries": 0,
+   "end": [
+    -2.9727206921890073,
+    -2.4006261183968856,
+    -2.221376679449646
+   ]
+  },
+  {
+   "goal": "onto the 8 mm runner (turned -30 deg)",
+   "target": [
+    -0.8,
+    -0.4,
+    60
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 10.015,
+   "path": 3.0462854273453224,
+   "err": 0.09418007982610131,
+   "yaw_err": 7.561430556093415,
+   "recoveries": 0,
+   "end": [
+    -0.7078472634051057,
+    -0.41943606375074033,
+    0.9152256918318615
+   ]
+  },
+  {
+   "goal": "onto the 16 mm plush rug",
+   "target": [
+    -5.0,
+    -0.1,
+    90
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 9.788,
+   "path": 4.121859851002221,
+   "err": 0.2236767556089673,
+   "yaw_err": 0.23989935046686528,
+   "recoveries": 0,
+   "end": [
+    -4.780991744868443,
+    -0.14546069933452835,
+    1.5666092932558537
+   ]
+  },
+  {
+   "goal": "back to the hallway start",
+   "target": [
+    -3.0,
+    1.25,
+    0
+   ],
+   "result": "SUCCEEDED",
+   "ok": true,
+   "time": 8.089,
+   "path": 2.3659893182996523,
+   "err": 0.01724604100486327,
+   "yaw_err": 7.354034677257236,
+   "recoveries": 0,
+   "end": [
+    -2.983663172351561,
+    1.2555257572084397,
+    0.1283521184239775
+   ]
+  }
+ ]
+}

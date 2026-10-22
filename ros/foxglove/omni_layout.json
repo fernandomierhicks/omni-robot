@@ -1,0 +1,48 @@
+{
+  "configById": {
+    "3D!omni": {
+      "followTf": "base_link",
+      "followMode": "follow-position",
+      "scene": { "transforms": { "showLabel": false, "axisScale": 0.6 } },
+      "cameraState": {
+        "perspective": true, "distance": 9, "phi": 50, "thetaOffset": 0,
+        "targetOffset": [0, 0, 0], "target": [0, 0, 0], "targetOrientation": [0, 0, 0, 1],
+        "fovy": 45, "near": 0.01, "far": 5000
+      },
+      "topics": {
+        "/map": { "visible": true, "colorMode": "map" },
+        "/scan_filtered": { "visible": true, "colorField": "range", "colorMode": "flat", "flatColor": "#ff3030", "pointSize": 3 },
+        "/scan": { "visible": false },
+        "/sim/house": { "visible": true },
+        "/sim/robot": { "visible": true },
+        "/plan": { "visible": true, "lineWidth": 0.04, "gradient": ["#30d050", "#30d050"] },
+        "/global_costmap/costmap": { "visible": false },
+        "/odometry/filtered": { "visible": false }
+      },
+      "layers": { "grid": { "layerId": "foxglove.Grid", "visible": true, "frameId": "map", "size": 14, "divisions": 14 } },
+      "publish": {
+        "type": "pose", "poseTopic": "/goal_pose", "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose", "poseEstimateXDeviation": 0.3, "poseEstimateYDeviation": 0.3,
+        "poseEstimateThetaDeviation": 0.2
+      },
+      "imageMode": {}
+    },
+    "RawMessages!status": { "topicPath": "/sim/status.data", "diffEnabled": false, "expansion": "all" },
+    "Teleop!drive": {
+      "topic": "/cmd_vel", "publishRate": 10,
+      "upButton": { "field": "linear-x", "value": 0.6 },
+      "downButton": { "field": "linear-x", "value": -0.6 },
+      "leftButton": { "field": "angular-z", "value": 1.2 },
+      "rightButton": { "field": "angular-z", "value": -1.2 }
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": { "speed": 1 },
+  "layout": {
+    "first": "3D!omni",
+    "second": { "first": "RawMessages!status", "second": "Teleop!drive", "direction": "column", "splitPercentage": 40 },
+    "direction": "row",
+    "splitPercentage": 74
+  }
+}

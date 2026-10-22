@@ -415,6 +415,8 @@ class CatchGame:
                 self.results[-1].return_top = self.top_out
                 self.state, self.t_next = "wait", t + 0.4
 
+        # v7 terrain assist: never turn the base away from the ball to meet a floor edge while a catch is on
+        r.align_ok = self.state not in ("flight", "settle")
         after = self.state in ("flight", "settle") and self.cross_err is not None
         coast = cfg.coast_moving if (self.moving_plan or float(np.linalg.norm(self.v_c)) > 0.05) else cfg.coast_after_catch
         if after and t - self.t_in < coast:

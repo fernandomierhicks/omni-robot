@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_catch</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 30): the catch path and the play-catch behavior, robot code with no sim in it.
+    catch_perception (camera frames -> color-blob detector -> drag-aware ballistic filter on the MCU's odometry),
+    catch_behavior (predict, intercept, tilt, catch, aim, return), mode_manager (IDLE / TELEOP / CATCH, kid profile).
+    The cores (perception.py, game.py, modes.py ...) have no ROS in them; the sim's harness runs them directly.</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>omni_interfaces</exec_depend>
+  <exec_depend>omni_mcu</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-scipy</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

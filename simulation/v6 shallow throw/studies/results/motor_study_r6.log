@@ -1,0 +1,56 @@
+A. Actuator duty in play (catch + return throws, 6 tosses x 4 runs per row): peak / 99% / RMS
+   firmware 3.0 m: drive torque 1.32 / 0.80 / 0.223 N m, speed 244 / 207 rpm, power 21.5 W, winding 25.3 C | flywheel 25.0 A peak (4.25 RMS), 3243 rpm | tilt 3.00 / 1.04 N m, 6.4 rad/s | feed 2.27 A peak (0.242 RMS) | bus 8.9 A peak, 1.03 A mean | caught 24.0/24
+   firmware 6.5 m: drive torque 1.32 / 0.93 / 0.292 N m, speed 376 / 320 rpm, power 34.2 W, winding 25.5 C | flywheel 25.0 A peak (5.00 RMS), 5249 rpm | tilt 3.00 / 1.05 N m, 6.5 rad/s | feed 2.27 A peak (0.239 RMS) | bus 12.0 A peak, 1.24 A mean | caught 24.0/24
+   physics  3.0 m: drive torque 1.98 / 1.11 / 0.281 N m, speed 289 / 229 rpm, power 40.6 W, winding 25.5 C | flywheel 25.0 A peak (4.26 RMS), 3260 rpm | tilt 3.00 / 1.03 N m, 6.4 rad/s | feed 2.27 A peak (0.225 RMS) | bus 9.0 A peak, 1.05 A mean | caught 24.0/24
+   physics  6.5 m: drive torque 1.94 / 1.17 / 0.357 N m, speed 406 / 334 rpm, power 50.9 W, winding 25.7 C | flywheel 25.0 A peak (5.08 RMS), 5051 rpm | tilt 3.00 / 1.05 N m, 6.4 rad/s | feed 2.27 A peak (0.215 RMS) | bus 11.7 A peak, 1.26 A mean | caught 24.0/24
+   AK40-10 for reference: peak 3.68 N m, rated 1.36 N m, no-load 435 rpm at 24 V
+B. Drive alternatives, 6-7 m shallow throws (72 per row): caught (not in place / bounced), peak base speed, drive torque, bus current, winding temp, mass, price of the drive set
+   X4 x AK40-10 (baseline)            firmware   96% (3/0), 2.00 m/s, 1.51 N m (motor peak 3.68), 4.8 A, 25.8 C, 5.43 kg, CG 9.9 cm, $544
+   X4 x AK40-10 (baseline)            physics    99% (0/1), 2.59 m/s, 3.01 N m (motor peak 3.68), 8.4 A, 26.1 C, 5.43 kg, CG 9.9 cm, $544
+   X4 x DJI M2006 + C610              firmware   93% (5/0), 2.02 m/s, 1.58 N m (motor peak 2.69), 7.9 A, 33.1 C, 5.10 kg, CG 10.3 cm, $376
+   X4 x DJI M2006 + C610              physics    99% (1/0), 2.70 m/s, 2.69 N m (motor peak 2.69), 13.6 A, 38.1 C, 5.10 kg, CG 10.3 cm, $376
+   X4 x Pololu 37D 24V 19:1           firmware   97% (2/0), 2.01 m/s, 0.96 N m (motor peak 0.96), 10.4 A, 38.3 C, 5.53 kg, CG 9.8 cm, $292
+   X4 x Pololu 37D 24V 19:1           physics    97% (2/0), 2.47 m/s, 0.96 N m (motor peak 0.96), 13.5 A, 42.7 C, 5.53 kg, CG 9.8 cm, $292
+   X4 x GIM6010-8                     firmware   96% (3/0), 1.99 m/s, 1.73 N m (motor peak 9.79), 5.6 A, 25.6 C, 6.22 kg, CG 9.3 cm, $420
+   X4 x GIM6010-8                     physics    96% (3/0), 2.46 m/s, 3.68 N m (motor peak 9.79), 10.5 A, 26.0 C, 6.22 kg, CG 9.3 cm, $420
+   kiwi 3 x AK40-10                   firmware   85% (11/0), 1.95 m/s, 1.34 N m (motor peak 3.68), 3.6 A, 25.6 C, 4.92 kg, CG 10.4 cm, $408
+   kiwi 3 x AK40-10                   physics    92% (6/0), 2.57 m/s, 2.96 N m (motor peak 3.68), 6.1 A, 26.2 C, 4.92 kg, CG 10.4 cm, $408
+   X4 x AK40-10, 7S 10%               firmware   94% (4/0), 2.00 m/s, 3.68 N m (motor peak 3.68), 8.0 A, 25.8 C, 5.43 kg, CG 9.9 cm, $544, RMS 0.38 N m, session steady-state winding 32 C (est), bus min 22.9 V
+   X4 x AK40-10, 7S 10%               physics    97% (2/0), 2.29 m/s, 3.61 N m (motor peak 3.68), 11.6 A, 26.2 C, 5.43 kg, CG 9.9 cm, $544, RMS 0.51 N m, session steady-state winding 36 C (est), bus min 22.6 V
+   X4 x M2006, 7S 10%                 firmware   93% (5/0), 2.02 m/s, 1.58 N m (motor peak 2.69), 10.1 A, 33.2 C, 5.10 kg, CG 10.3 cm, $376, RMS 0.41 N m, session steady-state winding 69 C (est), bus min 22.1 V
+   X4 x M2006, 7S 10%                 physics   100% (0/0), 2.79 m/s, 2.69 N m (motor peak 2.69), 18.9 A, 39.3 C, 5.10 kg, CG 10.3 cm, $376, RMS 0.56 N m, session steady-state winding 97 C (est), bus min 20.7 V
+   X4 x M2006 (reseller kt), 7S 10%   firmware   93% (5/0), 2.02 m/s, 1.58 N m (motor peak 1.80), 13.4 A, 43.5 C, 5.10 kg, CG 10.3 cm, $376, RMS 0.41 N m, session steady-state winding 127 C (est), bus min 21.4 V
+   X4 x M2006 (reseller kt), 7S 10%   physics    97% (1/1), 2.49 m/s, 1.80 N m (motor peak 1.80), 23.7 A, 56.2 C, 5.10 kg, CG 10.3 cm, $376, RMS 0.55 N m, session steady-state winding 182 C (est), bus min 19.4 V
+   X4 x M2006, 6S full                firmware   93% (5/0), 2.21 m/s, 2.69 N m (motor peak 2.69), 12.0 A, 33.2 C, 5.01 kg, CG 10.4 cm, $376, RMS 0.42 N m, session steady-state winding 67 C (est), bus min 23.8 V
+   X4 x M2006, 6S full                physics    99% (0/1), 2.62 m/s, 2.69 N m (motor peak 2.69), 16.5 A, 38.4 C, 5.01 kg, CG 10.4 cm, $376, RMS 0.55 N m, session steady-state winding 93 C (est), bus min 23.0 V
+   X4 x M2006, 6S 10%                 firmware   93% (4/1), 2.21 m/s, 2.69 N m (motor peak 2.69), 15.8 A, 33.3 C, 5.01 kg, CG 10.4 cm, $376, RMS 0.42 N m, session steady-state winding 70 C (est), bus min 18.4 V
+   X4 x M2006, 6S 10%                 physics    97% (1/1), 2.59 m/s, 2.69 N m (motor peak 2.69), 23.4 A, 38.0 C, 5.01 kg, CG 10.4 cm, $376, RMS 0.55 N m, session steady-state winding 92 C (est), bus min 16.7 V
+   X4 x Pololu 37D, 7S 10%            firmware   90% (6/1), 2.01 m/s, 0.96 N m (motor peak 0.96), 10.7 A, 36.2 C, 5.53 kg, CG 9.8 cm, $292, RMS 0.35 N m, session steady-state winding 157 C (est), bus min 21.9 V
+   X4 x Pololu 37D, 7S 10%            physics    92% (3/3), 2.31 m/s, 0.96 N m (motor peak 0.96), 13.4 A, 40.6 C, 5.53 kg, CG 9.8 cm, $292, RMS 0.42 N m, session steady-state winding 193 C (est), bus min 21.5 V
+   X4 x Pololu 37D, 6S 10%            firmware   89% (7/1), 1.94 m/s, 0.96 N m (motor peak 0.96), 10.7 A, 34.4 C, 5.44 kg, CG 9.9 cm, $292, RMS 0.33 N m, session steady-state winding 127 C (est), bus min 18.8 V
+   X4 x Pololu 37D, 6S 10%            physics    90% (7/0), 2.14 m/s, 0.96 N m (motor peak 0.96), 12.5 A, 37.4 C, 5.44 kg, CG 9.9 cm, $292, RMS 0.38 N m, session steady-state winding 161 C (est), bus min 18.6 V
+   X4 x Damiao DM-2325, 7S 10%        firmware   92% (3/3), 2.01 m/s, 1.72 N m (motor peak 4.97), 6.4 A, 27.3 C, 5.36 kg, CG 10.0 cm, $344, RMS 0.41 N m, session steady-state winding 37 C (est), bus min 22.9 V
+   X4 x Damiao DM-2325, 7S 10%        physics    97% (0/2), 2.72 m/s, 3.32 N m (motor peak 4.97), 9.7 A, 28.7 C, 5.36 kg, CG 10.0 cm, $344, RMS 0.58 N m, session steady-state winding 44 C (est), bus min 22.7 V
+   X4 x Damiao DM-2325, 6S 10%        firmware   96% (3/0), 2.01 m/s, 1.62 N m (motor peak 4.97), 7.5 A, 27.2 C, 5.27 kg, CG 10.1 cm, $344, RMS 0.42 N m, session steady-state winding 36 C (est), bus min 19.3 V
+   X4 x Damiao DM-2325, 6S 10%        physics    94% (2/2), 2.54 m/s, 3.34 N m (motor peak 4.97), 16.6 A, 29.2 C, 5.27 kg, CG 10.1 cm, $344, RMS 0.59 N m, session steady-state winding 47 C (est), bus min 18.6 V
+   X4 x Damiao DM-2325 (2 N m peak), 7S 10% firmware   92% (3/3), 2.01 m/s, 1.72 N m (motor peak 1.99), 6.4 A, 27.3 C, 5.36 kg, CG 10.0 cm, $344, RMS 0.41 N m, session steady-state winding 37 C (est), bus min 22.9 V
+   X4 x Damiao DM-2325 (2 N m peak), 7S 10% physics    96% (2/1), 2.87 m/s, 1.99 N m (motor peak 1.99), 9.6 A, 28.6 C, 5.36 kg, CG 10.0 cm, $344, RMS 0.57 N m, session steady-state winding 44 C (est), bus min 22.4 V
+   X4 x Damiao DM-S3519, 7S 10%       firmware   93% (4/1), 2.01 m/s, 2.09 N m (motor peak 7.78), 8.1 A, 25.8 C, 6.26 kg, CG 9.3 cm, $408, RMS 0.60 N m, session steady-state winding 31 C (est), bus min 22.5 V
+   X4 x Damiao DM-S3519, 7S 10%       physics   100% (0/0), 2.38 m/s, 4.70 N m (motor peak 7.78), 14.1 A, 26.3 C, 6.26 kg, CG 9.3 cm, $408, RMS 0.84 N m, session steady-state winding 33 C (est), bus min 21.4 V
+   X4 x Damiao DM-J3507, 7S 10%       firmware   96% (3/0), 1.99 m/s, 1.47 N m (motor peak 2.69), 5.6 A, 26.2 C, 5.27 kg, CG 10.1 cm, $368, RMS 0.35 N m, session steady-state winding 34 C (est), bus min 23.0 V
+   X4 x Damiao DM-J3507, 7S 10%       physics    96% (2/1), 2.49 m/s, 2.69 N m (motor peak 2.69), 7.8 A, 27.0 C, 5.27 kg, CG 10.1 cm, $368, RMS 0.48 N m, session steady-state winding 40 C (est), bus min 22.5 V
+C. Flywheel motors (bench, 3000 / 4500 rpm): spin-up from rest, dip per shot, recovery, peak current
+   F90-2806.5-1300    7S $30 47 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+   XING-2806.5-1300   7S $41 50 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+   2207-1750          7S $25 34 g: spin-up 0.19 / 0.28 s (25.0 A), dip 25 / 23%, recovered in 159 ms
+   3115-900           7S $40 80 g: spin-up 0.10 / 0.14 s (25.0 A), dip 24 / 23%, recovered in 126 ms
+   F90-2806.5-1300    6S $30 47 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+   XING-2806.5-1300   6S $41 50 g: spin-up 0.14 / 0.21 s (25.0 A), dip 24 / 23%, recovered in 141 ms
+D. Tilt actuator, 6-7 m shallow throws, firmware adult (72 per row): caught (not in place / bounced)
+   sim default (3 N m, 5 rad/s)                     93% (4/1)
+   DS3235 at 8.4 V (3.4 N m, 9.5 rad/s)             92% (5/1)
+   Feetech STS3250 at 12 V (4.9 N m, 7.9 rad/s)     89% (7/1)
+   Feetech STS3215 at 12 V (2.9 N m, 4.7 rad/s)     96% (3/0)
+   LK MG4010E-i10 at 24 V (4.5 N m, 27 rad/s)       94% (3/1)
+   Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)   92% (5/1)
+   Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)    93% (5/0)

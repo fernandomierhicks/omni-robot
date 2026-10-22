@@ -121,6 +121,38 @@ DRIVE_MOTORS = {
         notes="As M2006, with the reseller's output torque constant (0.18 N m/A incl. gear losses): 1.8 N m at the "
               "C610's 10 A. DJI store Oct 2026: motor $55, C610 $39, both out of stock. Exported from "
               "database/actuator_db.py (dji-m2006-p36)."),
+    # design.md 24 sweep: Damiao planetary BLDC motors with a built-in FOC driver (CAN: MIT / speed / position modes).
+    # Reseller data only (Foxtech, aifitlab, Oct 2026). kt ~ ke from the no-load speed (est), gear efficiency 0.9 (est).
+    "DM-2325": DriveMotor(
+        "Damiao DM-2325 28 mm planetary BLDC with driver, 1:25", "DM-2325", 86.0, 0.172, 0.028, 0.070,
+        kv=560 * 25 / 24, kt=24 / (560 * 25 * 2 * math.pi / 60), gear=25,
+        r_ll=2 * 0.2915, i_rated=3.6, i_peak=13.5, v_rated=24, noload_rpm=560, rotor_inertia=3.0e-6,
+        backdrive_torque=0.08, gear_eff=0.9, thermal=Thermal(3.0, 40.0, 3.0, 12.0, 100.0),
+        notes="Reseller spec table: 24 V (driver 24-48 V), 1:25, ~560 rpm no-load, ~380 rpm nominal, phase R 0.2915 ohm, "
+              "L 75 uH, 172 g, $86. Torque conflicts between listings (1.35 rated / 5 peak vs 5 / 2): this entry takes "
+              "1.35 / 5 N m (i_rated, i_peak from kt est). Length, inertia, drag, thermal (est, as the M2006). Exported "
+              "from database/actuator_db.py (damiao-dm-2325)."),
+    "DM-2325-low": DriveMotor(
+        "Damiao DM-2325 (cautious: 2 N m peak)", "DM-2325", 86.0, 0.172, 0.028, 0.070,
+        kv=560 * 25 / 24, kt=24 / (560 * 25 * 2 * math.pi / 60), gear=25, r_ll=2 * 0.2915, i_rated=3.6, i_peak=5.4,
+        v_rated=24, noload_rpm=560, rotor_inertia=3.0e-6, backdrive_torque=0.08, gear_eff=0.9,
+        thermal=Thermal(3.0, 40.0, 3.0, 12.0, 100.0),
+        notes="As DM-2325 with the other listing's 2 N m peak (i_peak 5.4 A at the estimated kt)."),
+    "DM-J3507": DriveMotor(
+        "Damiao DM-J3507-2EC V1.1, 7:1, dual encoder, MIT driver", "DM-J3507-2EC", 92.0, 0.150, 0.040, 0.040,
+        kv=460 * 7 / 24, kt=24 / (460 * 7 * 2 * math.pi / 60), gear=7, r_ll=1.0, i_rated=1.6, i_peak=6.0, v_rated=24,
+        noload_rpm=460, rotor_inertia=1.0e-5, backdrive_torque=0.05, gear_eff=0.9, thermal=Thermal(5.0, 60.0, 2.0, 12.0, 100.0),
+        notes="Damiao manual (aifitlab wiki): 24 V version 460 rpm no-load, 150 rpm rated, 0.8 N m rated / 3 N m peak, "
+              "7:1, 14-bit dual encoders, CAN + MIT; $89-95 (Foxtech). Currents set from those torques with kt from ke; R, "
+              "size, inertia, thermal (est). Exported from database/actuator_db.py (damiao-dm-j3507-2ec)."),
+    "DM-S3519": DriveMotor(
+        "Damiao DM-S3519 42 mm planetary BLDC with driver, 1:19.2", "DM-S3519-1EC", 102.0, 0.396, 0.042, 0.0915,
+        kv=435 * 19.2 / 24, kt=24 / (435 * 19.2 * 2 * math.pi / 60), gear=19.2, r_ll=0.4, i_rated=7.4, i_peak=16.4,
+        v_rated=24, noload_rpm=435, rotor_inertia=1.5e-5, backdrive_torque=0.12, gear_eff=0.9,
+        thermal=Thermal(10.0, 150.0, 1.5, 6.0, 100.0),
+        notes="Reseller listings: 24 V (driver 15-52 V), 1:19.2, 435 rpm no-load, 3.5 N m rated at 395 rpm, 7.8 N m peak, "
+              "396 g, $102 (an M3508-class motor with its own driver). R, inertia, drag, thermal (est). Exported from "
+              "database/actuator_db.py (damiao-dm-s3519)."),
     "Pololu-37D-19": DriveMotor(
         "Pololu 19:1 Metal Gearmotor 37Dx68L 24V, 64 CPR encoder + H-bridge", "Pololu #4691", 60.95 + 12.0, 0.215,
         0.037, 0.068, kv=410, kt=0.0223, gear=18.75, r_ll=10.67, i_rated=1.0, i_peak=3.0, v_rated=24,

@@ -1,0 +1,10 @@
+﻿B. 6-7 m catch game, firmware adult, expected cameras, roller wheel model (216 throws per row, +/-2.5 points)
+  v6, flat                                              94.0% of 216 (not in place 12, bounced 1, flipped 0), peak tilt 1 deg, longest airborne 0 ms
+  v6, home                                              87.5% of 216 (not in place 27, bounced 0, flipped 0), peak tilt 41 deg, longest airborne 8 ms
+  v6, home 12 mm rug at 45 deg                          67.6% of 216 (not in place 69, bounced 1, flipped 0), peak tilt 25 deg, longest airborne 9 ms
+  v6 + assist, home 12 mm rug at 45 deg                 55.6% of 216 (not in place 83, bounced 13, flipped 0), peak tilt 34 deg, longest airborne 5 ms
+  v7, flat                                              91.2% of 216 (not in place 17, bounced 2, flipped 0), peak tilt 3 deg, longest airborne 0 ms
+  v7, home                                              88.9% of 216 (not in place 21, bounced 3, flipped 0), peak tilt 9 deg, longest airborne 0 ms
+  v7, home 12 mm rug at 45 deg                          87.5% of 216 (not in place 24, bounced 3, flipped 0), peak tilt 9 deg, longest airborne 0 ms
+  v7 + assist, home                                     88.4% of 216 (not in place 21, bounced 4, flipped 0), peak tilt 9 deg, longest airborne 0 ms
+  v7 + assist, home 12 mm rug at 45 deg                 58.8% of 216 (not in place 74, bounced 15, flipped 0), peak tilt 12 deg, longest airborne 0 ms

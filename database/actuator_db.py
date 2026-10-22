@@ -30,7 +30,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 V_7S_FULL = 29.4                       # V: a full 7S Li-ion pack (4.2 V per cell)
 V_6S_FULL = 25.2
-PROVENANCE = ("datasheet", "reseller", "forum", "est", "measured")
+# third_party: a third-party bench / test database (e.g. Tyto Robotics' propulsion database), not the maker's sheet
+PROVENANCE = ("datasheet", "reseller", "forum", "est", "measured", "third_party")
 RPM = 2 * math.pi / 60                 # rad/s per rpm
 KGCM = 0.0980665                       # N m per kg cm
 
@@ -209,17 +210,43 @@ CONTROLLER_COLS = COMMON_HEAD + _cols(
     ("config_tool", "str", "Configuration software"),
 ) + COMMON_TAIL
 
+TEST_COLS = _cols(
+    ("id", "str", "Test id (e.g. tyto-7ee: source prefix + the database's hash)"),
+    ("motor_id", "str", "motors.csv id of the motor tested (blank if the motor isn't in motors.csv)"),
+    ("motor_name", "str", "Motor as named by the test"),
+    ("esc", "str", "ESC / driver used"),
+    ("load", "str", "Load: propeller, dynamometer brake, wheel ..."),
+    ("device", "str", "Test stand"),
+    ("v_min_V", "float", "Lowest supply voltage seen in the run"),
+    ("v_max_V", "float", "Highest supply voltage seen in the run"),
+    ("rpm_max", "float", "Highest speed reached, rpm"),
+    ("rpm_per_V_at_max", "float", "rpm / V at the top point (a loaded lower bound of KV)"),
+    ("current_max_A", "float", "Highest supply current"),
+    ("power_elec_max_W", "float", "Highest electrical input power"),
+    ("power_mech_max_W", "float", "Highest mechanical (shaft) power"),
+    ("torque_max_Nm", "float", "Highest shaft torque"),
+    ("thrust_max_N", "float", "Highest thrust (propeller tests)"),
+    ("eff_max", "float", "Best motor + ESC efficiency, 0-1"),
+    ("n_points", "int", "Data points in the run"),
+    ("url", "str", "Link to the test"),
+    Col("prov_default", "enum", "Provenance of the values", PROVENANCE),
+    ("source_ids", "list", "Source ids from sources.csv"),
+    ("date_checked", "date", "YYYY-MM-DD the test was read"),
+    ("notes", "str", "Notes"),
+)
+
 SOURCE_COLS = _cols(
     ("id", "str", "Source id (S001 ...)"),
-    Col("kind", "enum", "maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records)",
-        ("maker", "reseller", "forum", "project")),
+    Col("kind", "enum", "maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records), "
+        "test_database (third-party bench data)", ("maker", "reseller", "forum", "project", "test_database")),
     ("url", "str", "Link (or a repo path for project sources)"),
     ("supports", "str", "Which parts and values it supports"),
     ("date_checked", "date", "YYYY-MM-DD"),
     ("notes", "str", "Notes"),
 )
 
-TABLES = {"motors": MOTOR_COLS, "servos": SERVO_COLS, "controllers": CONTROLLER_COLS, "sources": SOURCE_COLS}
+TABLES = {"motors": MOTOR_COLS, "servos": SERVO_COLS, "controllers": CONTROLLER_COLS, "motor_tests": TEST_COLS,
+          "sources": SOURCE_COLS}
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -285,14 +312,19 @@ class DB:
     motors: dict[str, Part] = field(default_factory=dict)
     servos: dict[str, Part] = field(default_factory=dict)
     controllers: dict[str, Part] = field(default_factory=dict)
+    motor_tests: dict[str, Part] = field(default_factory=dict)
     sources: dict[str, Part] = field(default_factory=dict)
     errors: list[str] = field(default_factory=list)       # parse errors met while loading
 
     def table(self, name: str) -> dict[str, Part]:
         return getattr(self, name)
 
+    def tests_of(self, motor_id: str) -> list[Part]:
+        """Third-party bench tests of one motor."""
+        return [t for t in self.motor_tests.values() if t.get("motor_id") == motor_id]
+
     def get(self, pid: str) -> Part:
-        for t in ("motors", "servos", "controllers", "sources"):
+        for t in ("motors", "servos", "controllers", "motor_tests", "sources"):
             if pid in self.table(t):
                 return self.table(t)[pid]
         raise KeyError(pid)
@@ -374,6 +406,13 @@ def validate(db: DB) -> list[str]:
                     errs.append(f"{where}: {c.name}={v} is negative")
             if name == "sources":
                 continue
+            if name == "motor_tests":
+                if p.get("motor_id") and p["motor_id"] not in db.motors:
+                    errs.append(f"{where}: motor_id {p['motor_id']} not in motors.csv")
+                for s in p.get("source_ids") or []:
+                    if s not in db.sources:
+                        errs.append(f"{where}: source {s} not in sources.csv")
+                continue
             if not re.match(r"^[a-z0-9][a-z0-9.\-]*$", pid):
                 errs.append(f"{where}: id must be lowercase letters, digits, '-' and '.'")
             if p.get("prov_default") is None:
@@ -411,9 +450,9 @@ def _consistency(name: str, p: Part, db: DB) -> list[str]:
         if g("torque_rated_Nm") is not None and g("torque_peak_Nm") is not None and \
                 g("torque_rated_Nm") > g("torque_peak_Nm") * 1.001:
             e.append("torque_rated_Nm > torque_peak_Nm")
-        has_pts = any(g(k) is not None for k in ("speed_noload_rpm", "torque_stall_Nm", "torque_rated_Nm"))
-        if has_pts and g("v_test_V") is None:
-            e.append("speed/torque points without v_test_V")
+        # a stall point is meaningless without its voltage; rated speeds without one are kept (gaps lists v_test_V)
+        if g("torque_stall_Nm") is not None and g("v_test_V") is None:
+            e.append("torque_stall_Nm without v_test_V")
         c = g("controller")
         if c and c != "integrated" and c not in db.controllers:
             e.append(f"controller {c!r} not in controllers.csv")
@@ -603,7 +642,12 @@ def check(part: Part, req: Requirement, ctl: Part | None = None, share: int = 1,
         ilim = controller_limit(part, ctl)
         if req.speed_rpm is not None:
             v = vmin if vmin is not None else part.get("v_test_V")
-            if mdl is None or v is None:
+            n0, vt = part.meas("speed_noload_rpm"), part.get("v_test_V")
+            if mdl is None and None not in (v, n0, vt):
+                n = n0 * v / vt                                # no model: no-load speed scales with the supply
+                add("speed at min supply", "PASS" if n >= req.speed_rpm else "FAIL", n, req.speed_rpm,
+                    f"rpm no-load at {v} V (scaled from {n0:.0f} at {vt} V)")
+            elif mdl is None or v is None:
                 add("speed at min supply", "UNKNOWN", None, req.speed_rpm)
             else:
                 n = mdl.speed_noload(v) / RPM
@@ -633,8 +677,13 @@ def check(part: Part, req: Requirement, ctl: Part | None = None, share: int = 1,
                 add("holding", "UNKNOWN" if t is None else ("PASS" if t >= req.holding_torque_Nm else "FAIL"), t,
                     req.holding_torque_Nm, "current-limited hold")
         if req.feedback_required:
-            ok = part.get("sensor_cpr_output") or part.get("sensor_type") not in (None, "none")
-            add("feedback", "PASS" if ok else "FAIL", part.get("sensor_type"), "an encoder")
+            ok = part.get("sensor_cpr_output") or part.get("sensor_type") not in (None, "none") or \
+                part.get("commutation") in ("encoder_foc", "hall", "stepper_closed")
+            add("feedback", "PASS" if ok else "FAIL", part.get("sensor_type") or part.get("commutation"), "an encoder")
+    if vmin is not None and part.get("v_min_V") is not None and vmin < part["v_min_V"]:
+        firm = part.prov("v_min_V") in ("datasheet", "measured")
+        add("min supply", "FAIL" if firm else "UNKNOWN", vmin, part["v_min_V"],
+            f"supply sags below the listed minimum{'' if firm else ' (reseller value: VERIFY the undervoltage cutoff)'}")
     if req.v_supply_max_V is not None:
         vm = part.get("v_max_V")
         add("survives max supply", "UNKNOWN" if vm is None else ("PASS" if vm >= req.v_supply_max_V else "FAIL"), vm,
@@ -904,6 +953,10 @@ def show(db: DB, pid: str) -> str:
                          f"drag {mdl.drag:.3g} N m (output side)")
         if Nm_per_kg(p):
             lines.append(f"  peak N m per kg {Nm_per_kg(p):.2f}")
+        for t in db.tests_of(pid):
+            lines.append(f"  test {t['id']}: {t.get('load') or ''} up to {_fmt(t.get('rpm_max'))} rpm, "
+                         f"{_fmt(t.get('current_max_A'))} A, {_fmt(t.get('power_mech_max_W'))} W shaft, "
+                         f"eff {_fmt(t.get('eff_max'))} [{t.get('prov_default')}] {t.get('url')}")
     return "\n".join(lines)
 
 
@@ -914,7 +967,7 @@ def main(argv):
         errs = validate(db)
         print("\n".join(errs) if errs else
               f"OK: {len(db.motors)} motors, {len(db.servos)} servos, {len(db.controllers)} controllers, "
-              f"{len(db.sources)} sources")
+              f"{len(db.motor_tests)} motor tests, {len(db.sources)} sources")
         return 1 if errs else 0
     if cmd == "gaps":
         g = gaps(db)

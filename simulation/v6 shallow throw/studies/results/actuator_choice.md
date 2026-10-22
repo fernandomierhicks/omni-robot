@@ -4,16 +4,27 @@
 
 | Cost / wheel | Option | Pack | Integration | Firmware | Mass kg | Sim firmware / physics (10% charge) | Session winding C (est) | Checks |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| $30.94 | AndyMark NeveRest Classic 40 gearmotor with encoder + Pololu DRV8874 single brushed DC motor driver carrier | 7S | gearbox_encoder | medium | ? |  |  | FAIL: speed at min supply, peak torque |
 | $36.00 | Makerbase MKS SERVO42D closed-loop NEMA 17 kit, CAN | 6S | smart | low: CAN setpoints | ? |  |  | FAIL: peak torque, survives max supply |
-| $64.99 | Waveshare DDSM115 direct-drive hub servo motor | 7S | smart | low: RS485 setpoints | 0.765 |  |  | FAIL: mass |
+| $64.99 | Waveshare DDSM115 direct-drive hub servo motor | 7S | smart | low: RS485 setpoints | 0.765 |  |  | FAIL: speed at min supply, mass |
 | $72.89 | Pololu 19:1 Metal Gearmotor 37Dx68L mm 24V, 64 CPR encoder + Pololu DRV8874 single brushed DC motor driver carrier | 7S | gearbox_encoder | medium: PWM + encoder + PID on the MCU | 0.215 | 90% / 92% | 157 | FAIL: peak torque, RMS thermal, sim steady-state winding |
+| $86.00 | Damiao DM-2325 28 mm planetary BLDC with built-in driver, 1:25 | 7S | smart | low: CAN setpoints (MIT / speed / position) | 0.1722 | 92% / 97% | 37 | PASS (unknown: min supply) |
+| $86.00 | Damiao DM-2325 28 mm planetary BLDC with built-in driver, 1:25 | 6S | smart | low: as above; driver minimum 24 V? | 0.1722 | 96% / 94% | 36 | PASS (unknown: min supply) |
+| $92.00 | Damiao DM-J3507-2EC V1.1 joint motor, 7:1, dual encoder | 7S | smart | low: CAN setpoints (MIT) | 0.15 | 96% / 96% | 34 | PASS (unknown: survives max supply) |
 | $94.00 | DJI RoboMaster M2006 P36 brushless gear motor + DJI RoboMaster C610 brushless ESC (for the M2006) | 6S | gearbox_encoder | medium: speed loop on the MCU, current over CAN | 0.09 | 93% / 97% | 70 | PASS (unknown: survives max supply, controller max supply) |
 | $94.00 | DJI RoboMaster M2006 P36 brushless gear motor + DJI RoboMaster C610 brushless ESC (for the M2006) | 7S | gearbox_encoder | medium: as above; C610 at 29.4 V unverified | 0.09 | 93% / 100% | 69 | PASS (unknown: survives max supply, controller max supply) |
 | $101 | Pololu 19:1 Metal Gearmotor 37Dx68L mm 24V, 64 CPR encoder + BasicMicro RoboClaw 2x7A (1 per 2) | 7S | smart (controller) | low: RoboClaw runs the loops | 0.215 | 90% / 92% | 157 | FAIL: peak torque, RMS thermal, sim steady-state winding |
+| $102 | Damiao DM-S3519 42 mm planetary BLDC with built-in driver, 1:19.2 | 7S | smart | low: CAN setpoints | 0.396 | 93% / 100% | 31 | PASS |
 | $105 | SteadyWin GIM6010-8 planetary actuator with GDS68 driver | 7S | smart | low: CAN setpoints | 0.37 | 96% / 96% |  | PASS (unknown: survives max supply) |
+| $110 | Waveshare DDSM350-CT high-speed direct-drive hub servo | 7S | smart | low: CAN setpoints | 1.286 |  |  | FAIL: speed at min supply, mass |
 | $110 | Maytech MTO5065 70KV outrunner with Hall sensors + ODESC 3.6 dual FOC controller (ODrive v0.5 firmware) (1 per 2) | 7S | encoder | high: ODrive Hall setup, belt reduction | 0.45 |  |  | FAIL: mass |
-| $125 | Damiao DM-J4310-2EC V1.1 actuator (dual encoder) | 7S | smart | low: CAN setpoints | 0.3 |  |  | FAIL: speed at min supply |
+| $116 | Damiao DM-J4310-2EC V1.1 actuator (dual encoder) | 7S | smart | low: CAN setpoints | 0.3 |  |  | FAIL: speed at min supply |
+| $130 | RobStride 01 QDD actuator | 7S | smart | low: CAN setpoints | 0.38 |  |  | FAIL: speed at min supply, min supply |
 | $136 | CubeMars AK40-10 V3.0 KV170 actuator with driver | 7S | smart | low: CAN setpoints | 0.19 | 94% / 97% | 32 | PASS (unknown: survives max supply) |
+| $179 | Xiaomi CyberGear micro motor | 6S | smart | low: CAN setpoints | 0.317 |  |  | FAIL: speed at min supply |
+| $229 | MyActuator RMD-X4 1:6 high-speed actuator | 7S | smart | low: CAN setpoints | ? |  |  | PASS (unknown: speed at min supply, peak torque, survives max supply, mass) |
+| $299 | CubeMars AKA60-6 KV80 actuator with driver | 7S | smart | low: CAN setpoints | 0.46 |  |  | FAIL: speed at min supply, mass |
+| ? | DJI RoboMaster M3508 P19 brushless gear motor + DJI RoboMaster C620 brushless ESC (for the M3508) | 6S | gearbox_encoder | medium: speed loop on the MCU | 0.365 |  |  | PASS (unknown: peak torque, survives max supply, controller max supply) |
 
 ## Feed wheel (per wheel, 12 V rail)
 
@@ -26,16 +37,26 @@
 | $75.00 | LK-TECH MS4005-V3 servo BLDC motor | smart | low: CAN setpoints | 0.09 | fed 9/9, back-driven 5.8 mm | FAIL: torque at speed, sim hold <= 5 mm |
 | $96.93 | Pololu 9.7:1 Metal Gearmotor 25Dx63L mm HP 12V, 48 CPR encoder + BasicMicro RoboClaw 2x7A (1 per 2) | smart (controller) | low: RoboClaw runs the loops | 0.095 | fed 9/9, back-driven 0.8 mm | PASS |
 | $100 | LK-TECH MF4005-V2 gimbal motor with integrated FOC driver + 18-bit encoder | smart | low: CAN setpoints | 0.105 | fed 9/9, back-driven 4.5 mm | PASS |
+| $143 | iFlight iPower GM3506 gimbal motor with AS5048A encoder + ODrive Micro FOC controller | encoder | low: ODrive Micro runs FOC + loops (CAN FD) | 0.072 |  | PASS |
 | ? | Pololu 25:1 Metal Gearmotor 20D 12V (encoder add-on) + Pololu DRV8874 single brushed DC motor driver carrier | gearbox | medium | ? |  | FAIL: speed at min supply, torque at speed, feedback |
+| ? | Pololu 20.4:1 Metal Gearmotor 25D HP 24V, 48 CPR encoder + Pololu DRV8874 single brushed DC motor driver carrier | gearbox_encoder | medium | ? |  | FAIL: speed at min supply, torque at speed |
 
 ## Tilt
 
 | Cost | Option | Firmware | Mass kg | Sim caught (firmware adult) | Checks |
 | --- | --- | --- | --- | --- | --- |
+| $21.99 | Waveshare ST3215-HS 20 kg cm high-speed serial bus servo | low: TTL bus | 0.068 |  | FAIL: peak torque |
+| $27.00 | Hiwonder HTS-35H high-voltage bus servo, 35 kg cm | low: TTL bus (potentiometer, 240 deg) | 0.064 |  | FAIL: speed |
+| $29.99 | Hiwonder HTD-45H high-voltage serial bus servo, 45 kg cm | low: TTL bus (potentiometer, 240 deg) | 0.064 | 92% | FAIL: speed |
 | $30.21 | DSServo DS3235 35 kg cm coreless digital servo | low: PWM, no feedback | 0.06 | 92% | FAIL: feedback, datasheet voltage |
 | $49.22 | Feetech STS3215 12 V 30 kg cm serial bus servo, magnetic encoder | low: TTL bus | ? | 96% | FAIL: speed, peak torque, RMS vs rated |
 | $73.99 | Feetech STS3250 12 V 50 kg cm serial bus servo, magnetic encoder | low: TTL bus | ? | 89% | PASS (unknown: RMS vs rated) |
-| $165 | LK-TECH MG4010E-i10-V3 geared motor, dual encoder | low: CAN (+ DG40E driver, price VERIFY) | ? | 94% | PASS (unknown: speed at min supply) |
+| $76.00 | Feetech HLS3930M 12 V 35 kg cm constant-force serial bus servo | low: TTL bus | ? |  | FAIL: RMS vs rated, feedback |
+| $79.99 | Waveshare ST3025 40 kg cm brushless serial bus servo | low: TTL bus | 0.124 | 93% | PASS (unknown: RMS vs rated) |
+| $116 | Damiao DM-J4310-2EC V1.1 actuator (dual encoder) | low: CAN (MIT) | 0.3 |  | PASS |
+| $136 | Feetech STS3095 12 V 95 kg cm serial bus servo | low: TTL bus | 0.1945 |  | FAIL: speed |
+| $165 | LK-TECH MG4010E-i10-V3 geared motor, dual encoder | low: CAN (+ DG40E driver, price VERIFY) | ? | 94% | PASS |
+| $270 | ROBOTIS Dynamixel XM430-W350-T | low: TTL bus | ? |  | FAIL: speed |
 | $310 | ROBOTIS Dynamixel XM430-W210-T | low: TTL bus | ? |  | PASS (unknown: RMS vs rated) |
 
 ## Flywheel motors (ESC: one 8S 4-in-1 board, 2 of 4 channels)
@@ -43,6 +64,7 @@
 | Cost | Motor | Mass kg | Spin-up to 3000 / 4500 rpm, 7S | Same, 6S |
 | --- | --- | --- | --- | --- |
 | $25.00 | Generic 2207 1750KV (5-inch 6S class), e.g. T-Motor F60 Pro V | 0.034 | 0.19 / 0.28 s |  |
+| $26.99 | BrotherHobby Avenger 2806.5 1300KV | 0.041 |  |  |
 | $30.00 | T-Motor F90 2806.5 1300KV | 0.0466 | 0.14 / 0.21 s | 0.14 / 0.21 s |
 | $40.00 | Generic 3115 900KV (cinelifter class) | 0.08 | 0.10 / 0.14 s |  |
 | $40.99 | iFlight XING 2806.5 1300KV | 0.0495 | 0.14 / 0.21 s | 0.14 / 0.21 s |
@@ -53,7 +75,46 @@
 | Sequre Blueson A2 70A 8S 4-in-1 ESC (AM32) | $60.00 (est) | yes |
 | TBS Lucid 8S 60A 4-in-1 ESC (AM32) | $73.00 (est) | yes |
 
-## Cheapest compliant set (6S pack)
+## Cheapest compliant set (7S pack)
+
+| Function | Part | Qty | Each | Total |
+| --- | --- | --- | --- | --- |
+| Drive | Damiao DM-2325 28 mm planetary BLDC with built-in driver, 1:25 | 4 | $86.00 | $344 |
+| Flywheels | T-Motor F90 2806.5 1300KV | 2 | $30.00 | $60.00 |
+| Flywheel ESC | Pilotix 65A 3-8S 4-in-1 ESC (AM32) | 1 | $56.00 (est) | $56.00 |
+| Tilt | Feetech STS3250 12 V 50 kg cm serial bus servo, magnetic encoder | 1 | $73.99 | $73.99 |
+| Feed | Pololu 9.7:1 Metal Gearmotor 25Dx63L mm HP 12V, 48 CPR encoder | 2 | $56.95 | $114 |
+| Feed driver | Pololu DRV8874 single brushed DC motor driver carrier | 2 | $11.94 | $23.88 |
+| 12 V rail | 12 V ~3 A buck converter from the pack | 1 | $10.00 (est) | $10.00 |
+| **Total** | | | | **$682** |
+
+## Preferred integrated set (7S pack)
+
+| Function | Part | Qty | Each | Total |
+| --- | --- | --- | --- | --- |
+| Drive | Damiao DM-2325 28 mm planetary BLDC with built-in driver, 1:25 | 4 | $86.00 | $344 |
+| Flywheels | T-Motor F90 2806.5 1300KV | 2 | $30.00 | $60.00 |
+| Flywheel ESC | Pilotix 65A 3-8S 4-in-1 ESC (AM32) | 1 | $56.00 (est) | $56.00 |
+| Tilt | Feetech STS3250 12 V 50 kg cm serial bus servo, magnetic encoder | 1 | $73.99 | $73.99 |
+| Feed | Pololu 9.7:1 Metal Gearmotor 25Dx63L mm HP 12V, 48 CPR encoder | 2 | $56.95 | $114 |
+| Feed controller | BasicMicro RoboClaw 2x7A | 1 | $79.95 | $79.95 |
+| 12 V rail | 12 V ~3 A buck converter from the pack | 1 | $10.00 (est) | $10.00 |
+| **Total** | | | | **$738** |
+
+## Datasheet-backed integrated set (7S, AK40-10 drive)
+
+| Function | Part | Qty | Each | Total |
+| --- | --- | --- | --- | --- |
+| Drive | CubeMars AK40-10 V3.0 KV170 actuator with driver | 4 | $136 | $544 |
+| Flywheels | T-Motor F90 2806.5 1300KV | 2 | $30.00 | $60.00 |
+| Flywheel ESC | Pilotix 65A 3-8S 4-in-1 ESC (AM32) | 1 | $56.00 (est) | $56.00 |
+| Tilt | Feetech STS3250 12 V 50 kg cm serial bus servo, magnetic encoder | 1 | $73.99 | $73.99 |
+| Feed | Pololu 9.7:1 Metal Gearmotor 25Dx63L mm HP 12V, 48 CPR encoder | 2 | $56.95 | $114 |
+| Feed controller | BasicMicro RoboClaw 2x7A | 1 | $79.95 | $79.95 |
+| 12 V rail | 12 V ~3 A buck converter from the pack | 1 | $10.00 (est) | $10.00 |
+| **Total** | | | | **$937** |
+
+## M2006 set (6S pack; round-1 cheapest)
 
 | Function | Part | Qty | Each | Total |
 | --- | --- | --- | --- | --- |
@@ -66,16 +127,3 @@
 | Feed driver | Pololu DRV8874 single brushed DC motor driver carrier | 2 | $11.94 | $23.88 |
 | 12 V rail | 12 V ~3 A buck converter from the pack | 1 | $10.00 (est) | $10.00 |
 | **Total** | | | | **$714** |
-
-## Preferred integrated set (7S pack)
-
-| Function | Part | Qty | Each | Total |
-| --- | --- | --- | --- | --- |
-| Drive | CubeMars AK40-10 V3.0 KV170 actuator with driver | 4 | $136 | $544 |
-| Flywheels | T-Motor F90 2806.5 1300KV | 2 | $30.00 | $60.00 |
-| Flywheel ESC | Pilotix 65A 3-8S 4-in-1 ESC (AM32) | 1 | $56.00 (est) | $56.00 |
-| Tilt | Feetech STS3250 12 V 50 kg cm serial bus servo, magnetic encoder | 1 | $73.99 | $73.99 |
-| Feed | Pololu 9.7:1 Metal Gearmotor 25Dx63L mm HP 12V, 48 CPR encoder | 2 | $56.95 | $114 |
-| Feed controller | BasicMicro RoboClaw 2x7A | 1 | $79.95 | $79.95 |
-| 12 V rail | 12 V ~3 A buck converter from the pack | 1 | $10.00 (est) | $10.00 |
-| **Total** | | | | **$937** |

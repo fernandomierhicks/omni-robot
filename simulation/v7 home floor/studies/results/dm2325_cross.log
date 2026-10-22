@@ -1,0 +1,23 @@
+A. Crossings, ball aboard, every 15 deg of body direction. Per speed 0.5 / 1 / 2 m/s: crossed/all (stuck directions), ball lost, peak tilt, longest airborne / single-wheel lift (ms)
+  v7 on DM-2325
+    rug edge 8 mm                    24/24 4deg air 0 lift 18 | 24/24 4deg air 0 lift 26 | 24/24 6deg air 0 lift 26
+    rug edge 12 mm                   24/24 6deg air 0 lift 23 | 24/24 8deg air 0 lift 38 | 24/24 10deg air 0 lift 30
+    threshold 12 mm                  
+    threshold 18 mm                  24/24 7deg air 0 lift 26 | 24/24 9deg air 0 lift 31 | 24/24 12deg air 0 lift 35
+    threshold 6 mm                   
+    carpet trim 8 mm, 25 mm bevel    
+    T-molding 5 mm                   
+    reducer 8 mm                     
+    bath mat 6 mm                    
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 6deg air 0 lift 24 | 24/24 11deg air 0 lift 27 | 22/24 stuck 45,315 15deg air 0 lift 33
+  v7 on DM-2325-low
+    rug edge 8 mm                    24/24 4deg air 0 lift 18 | 24/24 4deg air 0 lift 26 | 24/24 6deg air 0 lift 26
+    rug edge 12 mm                   24/24 6deg air 0 lift 23 | 24/24 7deg air 0 lift 34 | 24/24 9deg air 0 lift 26
+    threshold 12 mm                  
+    threshold 18 mm                  24/24 7deg air 0 lift 33 | 24/24 9deg air 0 lift 26 | 24/24 11deg air 0 lift 34
+    threshold 6 mm                   
+    carpet trim 8 mm, 25 mm bevel    
+    T-molding 5 mm                   
+    reducer 8 mm                     
+    bath mat 6 mm                    
+    plush rug 16 mm                  20/24 stuck 45,135,225,315 6deg air 0 lift 23 | 24/24 10deg air 0 lift 35 | 22/24 stuck 45,315 15deg air 0 lift 42

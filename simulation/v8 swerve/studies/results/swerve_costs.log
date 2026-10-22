@@ -1,0 +1,7 @@
+C. Costs: mass, CG height, worst tip-over, belly clearance (static / wheel at the bump stop), wheel rpm at 2 m/s on a wheel's rolling line vs the drive motor's at 22 V, peak rim force, wheels + suspension price
+  v7 on DM-2325                      6.40 kg  CG 10.7 cm  tip 8.4 m/s2  clear 35/23 mm  301 of 472 rpm (+57%)  top 3.14 m/s  rim 78 N  $100 wheels+pods, $444 drive set
+  swerve3 100                        5.64 kg  CG 10.6 cm  tip 5.5 m/s2  clear 20/10 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $60 wheels+pods, $420 drive set
+  swerve3 127                        5.79 kg  CG 11.8 cm  tip 4.9 m/s2  clear 33/23 mm  301 of 472 rpm (+57%)  top 3.14 m/s  rim 78 N  $66 wheels+pods, $426 drive set
+  swerve3 76                         5.52 kg  CG 9.5 cm  tip 6.1 m/s2  clear 8/-2 mm  503 of 472 rpm (-6%)  top 1.88 m/s  rim 131 N  $57 wheels+pods, $417 drive set
+  swerve3 100, r 170                 5.71 kg  CG 10.5 cm  tip 6.4 m/s2  clear 20/10 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $60 wheels+pods, $420 drive set
+  swerve4 100                        6.30 kg  CG 10.2 cm  tip 8.8 m/s2  clear 21/10 mm  382 of 472 rpm (+24%)  top 2.47 m/s  rim 99 N  $80 wheels+pods, $560 drive set

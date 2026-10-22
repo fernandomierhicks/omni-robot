@@ -1,0 +1,103 @@
+{
+ "label": "dist 6.5, seed 0, flat",
+ "throws": [
+  {
+   "t_release": 1.0004999999999453,
+   "apex": 1.5504193651185543,
+   "zone_dist": 0.7897953757363099,
+   "release_speed": 8.15794854569101,
+   "caught": true,
+   "pos_error": 0.000963194168700057,
+   "arrival_deg": 35.015273164910894,
+   "catch_speed": 1.0063566034304021,
+   "flight_time": 1.1454999999999387,
+   "launched": false,
+   "return_error": null,
+   "t_held": 2.250999999999919,
+   "t_in": 2.145999999999884,
+   "t_result": 2.751000000000086
+  },
+  {
+   "t_release": 5.5484999999996445,
+   "apex": 1.3455066468232952,
+   "zone_dist": 1.1257960261363056,
+   "release_speed": 8.022541151936448,
+   "caught": false,
+   "pos_error": 0.18768215062293875,
+   "arrival_deg": 37.30560185981035,
+   "catch_speed": 1.9253181459864928,
+   "flight_time": 1.0949999999993931,
+   "launched": false,
+   "return_error": null,
+   "t_held": null,
+   "t_in": 6.643499999999038,
+   "t_result": 6.956999999998864
+  },
+  {
+   "t_release": 8.157499999998478,
+   "apex": 0.9379821521207597,
+   "zone_dist": 0.28969549590308563,
+   "release_speed": 9.379787043878508,
+   "caught": false,
+   "pos_error": 0.997709116650325,
+   "arrival_deg": 48.33601434226514,
+   "catch_speed": 1.9397001543562145,
+   "flight_time": 0.9450000000011549,
+   "launched": false,
+   "return_error": null,
+   "t_held": null,
+   "t_in": 9.102499999999633,
+   "t_result": 9.529000000000154
+  }
+ ],
+ "robot": [
+  {
+   "toss": 1,
+   "caught": true,
+   "moving": true,
+   "gated": false,
+   "land_sigma": 0.029802373072119522,
+   "v_end": 1.0567475186660886,
+   "predicted": [
+    0.8485597458182215,
+    -0.0412014937351282,
+    0.3912414141074177
+   ]
+  },
+  {
+   "toss": 2,
+   "caught": false,
+   "moving": true,
+   "gated": false,
+   "land_sigma": 0.02951236700840828,
+   "v_end": 1.8,
+   "predicted": [
+    0.9997624767861361,
+    0.7843129959977465,
+    0.38993913767608523
+   ]
+  }
+ ],
+ "perception": {
+  "pairs": 1055,
+  "detections": 707,
+  "stereo": 585,
+  "coarse": 982,
+  "tracking": true,
+  "proc_ms_median": 1.07,
+  "proc_ms_95": 3.49,
+  "pending": 0
+ },
+ "link": {
+  "connected": true,
+  "port": "tcp:127.0.0.1:5761",
+  "states": 1776,
+  "imus": 3553,
+  "cmds": 889,
+  "errors": 0,
+  "rtt_ms": 1.0,
+  "mode": "AUTO",
+  "faults": [],
+  "mcu_rx_errors": 0
+ }
+}

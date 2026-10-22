@@ -11,8 +11,12 @@ B. Drive alternatives in the 6-7 m catch game (72 throws per robot, firmware adu
 C. Flywheel motors on the launcher bench: spin-up time to the indoor 4,500 rpm, the speed dip of a shot, peak current.
 D. The tilt servo (it saturates at the sim's 3 N m in A): DS3235 and Feetech STS3250 specs in the 6-7 m catch game.
 
-  python motor_study.py            # A, B, C
-  python motor_study.py B          # one part
+design.md 24 added B rows at 10% charge and on a 6S pack (SimParams.battery_soc, battery), a session steady-state
+winding temperature per drive (est thermal constants), more tilt actuators in D, and the flywheels on 6S in C.
+
+  python motor_study.py                  # A, B, C, D
+  python motor_study.py B                # one part
+  python motor_study.py BD 10% STS3215   # only the rows whose names contain these; the other rows are kept
 Writes results/motor_study.json.
 """
 
@@ -98,19 +102,40 @@ def duty_job(args):
 
 # -- B ---------------------------------------------------------------------------
 
+LOW = dict(battery_soc=0.1)                # design.md 24: the drive must meet its speed on a low battery
+S6 = dict(battery="6S1P-P50B")              # a 6S pack keeps the C610 (rated 24 V) inside its rating
 BASES = {
     "X4 x AK40-10 (baseline)": dict(drive_motor="AK40-10"),
     "X4 x DJI M2006 + C610": dict(drive_motor="M2006"),
     "X4 x Pololu 37D 24V 19:1": dict(drive_motor="Pololu-37D-19"),
     "X4 x GIM6010-8": dict(drive_motor="GIM6010-8"),
     "kiwi 3 x AK40-10": dict(drive_motor="AK40-10", layout="kiwi3"),
+    # design.md 24 (actuator choice): the same sets at 10% charge, and on a 6S pack
+    "X4 x AK40-10, 7S 10%": dict(drive_motor="AK40-10", **LOW),
+    "X4 x M2006, 7S 10%": dict(drive_motor="M2006", **LOW),
+    "X4 x M2006 (reseller kt), 7S 10%": dict(drive_motor="M2006-lowkt", **LOW),
+    "X4 x M2006, 6S full": dict(drive_motor="M2006", **S6),
+    "X4 x M2006, 6S 10%": dict(drive_motor="M2006", **S6, **LOW),
+    "X4 x Pololu 37D, 7S 10%": dict(drive_motor="Pololu-37D-19", **LOW),
+    "X4 x Pololu 37D, 6S 10%": dict(drive_motor="Pololu-37D-19", **S6, **LOW),
+    "X4 x Damiao DM-2325, 7S 10%": dict(drive_motor="DM-2325", **LOW),
+    "X4 x Damiao DM-2325, 6S 10%": dict(drive_motor="DM-2325", **S6, **LOW),
+    "X4 x Damiao DM-2325 (2 N m peak), 7S 10%": dict(drive_motor="DM-2325-low", **LOW),
+    "X4 x Damiao DM-S3519, 7S 10%": dict(drive_motor="DM-S3519", **LOW),
+    "X4 x Damiao DM-J3507, 7S 10%": dict(drive_motor="DM-J3507", **LOW),
 }
 # D. the tilt actuator (it sits at the sim's 3 N m cap in A): real servo specs at the pivot
 TILTS = {
     "sim default (3 N m, 5 rad/s)": dict(),
     "DS3235 at 8.4 V (3.4 N m, 9.5 rad/s)": dict(tilt_torque=3.4, tilt_speed=9.5),
     "Feetech STS3250 at 12 V (4.9 N m, 7.9 rad/s)": dict(tilt_torque=4.9, tilt_speed=7.9),
+    "Feetech STS3215 at 12 V (2.9 N m, 4.7 rad/s)": dict(tilt_torque=2.94, tilt_speed=4.72),
+    "LK MG4010E-i10 at 24 V (4.5 N m, 27 rad/s)": dict(tilt_torque=4.5, tilt_speed=27.0),
+    "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)": dict(tilt_torque=4.41, tilt_speed=5.82),
+    "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)": dict(tilt_torque=3.92, tilt_speed=8.95),
 }
+# C. flywheel motors on the bench, per pack
+FLY = [(mo, "7S1P-P50B") for mo in FLYWHEEL_MOTORS] + [(mo, "6S1P-P50B") for mo in ("F90-2806.5-1300", "XING-2806.5-1300")]
 TOSSES = 6
 
 
@@ -128,10 +153,15 @@ def base_job(args):
     log = DutyLog(game.robot)
     rim = p.funnel_catch_radius - p.ball_spec.radius
     v_peak = 0.0
+    drives = game.robot.drives
+    e_cu = np.zeros(len(drives))                       # J of copper loss per drive motor
     while len(game.results) < TOSSES and d.time < 150:
         game.step()
         log.step()
+        e_cu += [dr.p_loss * m.opt.timestep for dr in drives]
         v_peak = max(v_peak, float(np.linalg.norm(d.sensor("base_linvel").data[:2])))
+    th = drives[0].s.thermal
+    p_cu = float(e_cu.max() / d.time)                  # the hottest motor's mean copper loss over the game
     out = [dict(caught=bool(r.caught), why="caught" if r.caught else ("reach" if not np.isfinite(r.pos_error) or
                                                                       r.pos_error > rim else "bounce"))
            for r in game.results]
@@ -139,15 +169,19 @@ def base_job(args):
     mass, cg = mass_properties(m, p)
     return dict(base=name, limits=limits, distance=dist, apex=apex, tosses=out, v_peak=v_peak,
                 tau_peak=s["drive_tau_peak"], w_peak=s["drive_w_peak"], i_bus_peak=s["i_bus_peak"],
-                t_winding=max(dr.thermal.t_w for dr in game.robot.drives), mass=float(mass), cg=float(cg[2]))
+                t_winding=max(dr.thermal.t_w for dr in game.robot.drives), mass=float(mass), cg=float(cg[2]),
+                tau_rms=s["drive_tau_rms"], p_cu=p_cu,
+                # winding temperature if this duty went on for a whole session (thermal constants est)
+                t_steady=25.0 + p_cu * (th.r_wc + th.r_ca), v_bus_min=float(game.robot.battery.v_min))
 
 
 # -- C ---------------------------------------------------------------------------
 
-def fly_job(motor):
-    b = Bench(SimParams(flywheel_motor=motor))
+def fly_job(args):
+    motor, battery = args if isinstance(args, tuple) else (args, "7S1P-P50B")
+    b = Bench(SimParams(flywheel_motor=motor, battery=battery))
     r, d = b.r, b.d
-    out = dict(motor=motor)
+    out = dict(motor=motor, battery=battery)
     for rpm in (3000, 4500):
         r.fly_target, r.fly_brake = 0.0, True              # from rest: brake the wheels to a stop first
         while r.flywheel_speeds().max() > 2.0:
@@ -183,23 +217,31 @@ def fly_job(motor):
 
 # -- run + report -------------------------------------------------------------------
 
-def run(parts):
+def run(parts, only=()):
+    """only: substrings of BASES / TILTS names (or flywheel motor keys) to run; their rows replace the old ones and
+    every other row in results/motor_study.json is kept."""
     path = RESULTS / "motor_study.json"
     out = json.loads(path.read_text()) if path.exists() else {}
+    pick = lambda names: [n for n in names if not only or any(o in n for o in only)]  # noqa: E731
+    merge = lambda key, new, field: [x for x in out.get(key, []) if x[field] not in {y[field] for y in new}] + new  # noqa: E731
     with ProcessPoolExecutor(min(27, os.cpu_count() or 4)) as pool:
         if "A" in parts:
             out["A"] = list(pool.map(duty_job, [(lim, dd, s) for lim in ("firmware", "physics") for dd in (3.0, 6.5)
                                                 for s in range(4)]))
         if "B" in parts:
             jobs = [(nm, lim, dd, a, 9000 + 10 * DISTANCES.index(dd) + APEXES.index(a))
-                    for nm in BASES for lim in ("firmware", "physics") for dd in DISTANCES for a in APEXES]
-            out["B"] = list(pool.map(base_job, jobs, chunksize=1))
+                    for nm in pick(BASES) for lim in ("firmware", "physics") for dd in DISTANCES for a in APEXES]
+            out["B"] = merge("B", list(pool.map(base_job, jobs, chunksize=1)), "base")
         if "C" in parts:
-            out["C"] = list(pool.map(fly_job, list(FLYWHEEL_MOTORS)))
+            new = list(pool.map(fly_job, [f for f in FLY if not only or any(o in f[0] or o in f[1] for o in only)]))
+            for x in out.get("C", []):
+                x.setdefault("battery", "7S1P-P50B")
+            key = lambda x: (x["motor"], x["battery"])  # noqa: E731
+            out["C"] = [x for x in out.get("C", []) if key(x) not in {key(y) for y in new}] + new
         if "D" in parts:
             jobs = [(nm, "firmware", dd, a, 9000 + 10 * DISTANCES.index(dd) + APEXES.index(a))
-                    for nm in TILTS for dd in DISTANCES for a in APEXES]
-            out["D"] = list(pool.map(base_job, jobs, chunksize=1))
+                    for nm in pick(TILTS) for dd in DISTANCES for a in APEXES]
+            out["D"] = merge("D", list(pool.map(base_job, jobs, chunksize=1)), "base")
     save("motor_study", out)
     report(out)
 
@@ -236,16 +278,20 @@ def report(out):
                     continue
                 ts = [t for x in rs for t in x["tosses"]]
                 k = np.mean([t["caught"] for t in ts])
-                print(f"   {nm:28s} {lim:8s} {100 * k:4.0f}% ({sum(t['why'] == 'reach' for t in ts)}/"
+                extra = ""
+                if "t_steady" in rs[0]:
+                    extra = (f", RMS {max(x['tau_rms'] for x in rs):.2f} N m, session steady-state winding "
+                             f"{max(x['t_steady'] for x in rs):.0f} C (est), bus min {min(x['v_bus_min'] for x in rs):.1f} V")
+                print(f"   {nm:34s} {lim:8s} {100 * k:4.0f}% ({sum(t['why'] == 'reach' for t in ts)}/"
                       f"{sum(t['why'] == 'bounce' for t in ts)}), {max(x['v_peak'] for x in rs):.2f} m/s, "
                       f"{max(x['tau_peak'] for x in rs):.2f} N m (motor peak {dm.peak_torque:.2f}), "
                       f"{max(x['i_bus_peak'] for x in rs):.1f} A, {max(x['t_winding'] for x in rs):.1f} C, "
-                      f"{rs[0]['mass']:.2f} kg, CG {100 * rs[0]['cg']:.1f} cm, ${nwh * dm.price:.0f}")
+                      f"{rs[0]['mass']:.2f} kg, CG {100 * rs[0]['cg']:.1f} cm, ${nwh * dm.price:.0f}{extra}")
     if "C" in out:
         print("C. Flywheel motors (bench, 3000 / 4500 rpm): spin-up from rest, dip per shot, recovery, peak current")
         for x in out["C"]:
             fm = FLYWHEEL_MOTORS[x["motor"]]
-            print(f"   {x['motor']:18s} ${fm.price:.0f} {1000 * fm.mass:.0f} g: spin-up {x['spinup_3000']:.2f} / "
+            print(f"   {x['motor']:18s} {x.get('battery', '7S1P-P50B')[:2]} ${fm.price:.0f} {1000 * fm.mass:.0f} g: spin-up {x['spinup_3000']:.2f} / "
                   f"{x['spinup_4500']:.2f} s ({x['i_spinup_4500']:.1f} A), dip {100 * x['dip_3000']:.0f} / "
                   f"{100 * x['dip_4500']:.0f}%, recovered in {1000 * (x['recover_4500'] or float('nan')):.0f} ms")
     if "D" in out:
@@ -265,5 +311,5 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a and a[0] == "report":
         report(json.loads((RESULTS / "motor_study.json").read_text()))
-    else:
-        run(a or ["A", "B", "C", "D"])
+    else:                                   # motor_study.py [parts] [name filters...], e.g. motor_study.py BD 10% STS
+        run(list(a[0]) if a else ["A", "B", "C", "D"], a[1:])

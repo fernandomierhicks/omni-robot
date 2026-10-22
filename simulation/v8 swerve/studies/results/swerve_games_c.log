@@ -1,0 +1,6 @@
+B. 6-7 m catch game, firmware adult, expected cameras, roller wheel model (216 throws per row, +/-2.5 points)
+  swerve3 v2, flat                                      89.8% of 432 (not in place 28, bounced 16, flipped 0), peak tilt 60 deg, longest airborne 11 ms
+  swerve3 v2 frac 0.7, flat                             87.3% of 432 (not in place 43, bounced 12, flipped 0), peak tilt 36 deg, longest airborne 2 ms
+  swerve3 v2 frac 0.6, flat                             88.2% of 432 (not in place 40, bounced 11, flipped 0), peak tilt 16 deg, longest airborne 0 ms
+  swerve3 v2 r 170, flat                                90.3% of 432 (not in place 30, bounced 12, flipped 0), peak tilt 17 deg, longest airborne 0 ms
+  swerve4 v2, flat                                      91.2% of 432 (not in place 31, bounced 7, flipped 0), peak tilt 53 deg, longest airborne 0 ms

@@ -120,6 +120,15 @@ def test_gaps_report(tmp_path):
     assert (tmp_path / "gaps.csv").read_text().count("\n") == len(g) + 1
 
 
+def test_motor_tests_link_to_motors():
+    assert len(DB.motor_tests) > 100
+    linked = [t for t in DB.motor_tests.values() if t.get("motor_id")]
+    assert linked and all(t["motor_id"] in DB.motors for t in linked)
+    m = linked[0]["motor_id"]
+    assert DB.tests_of(m) and all(t.get("prov_default") == "third_party" for t in DB.tests_of(m))
+    assert all(t.get("eff_max") is None or 0 < t["eff_max"] <= 1 for t in DB.motor_tests.values())
+
+
 def test_table_round_trip(tmp_path):
     for f in Path(adb.HERE).glob("*.csv"):
         shutil.copy(f, tmp_path / f.name)

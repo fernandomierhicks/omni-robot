@@ -1,4 +1,4 @@
-"""v7 (design.md 24): a base that handles home floors without losing flat-floor catching.
+"""v7 (design.md 25): a base that handles home floors without losing flat-floor catching.
 
 Every crossing uses the explicit-roller wheel model (the sphere wheel can't climb sideways or fail to).
 
@@ -70,11 +70,24 @@ CONFIGS = {
     "v6 + assist": dict(terrain_assist=True),
     "v6 + pods + assist": dict(**POD, terrain_assist=True),
     "printed 127 2x6 32 mm + pods + assist": dict(wheel="Printed-127-2x6-32", **POD, terrain_assist=True),
+    "printed 127 2x6 32 mm + pods": dict(wheel="Printed-127-2x6-32", **POD),
+    "printed 127 2x5 36 mm": dict(wheel="Printed-127-2x5-36"),
+    "printed 127 2x7 28 mm + pods": dict(wheel="Printed-127-2x7-28", **POD),
+    # diagnostics for the flat-floor loss (25.5): the v7 wheel at the goBILDA's mass; the speed loops retuned for the
+    # bigger wheel ((63.5/48)^2 x 1.19 heavier = 2.08x the gains: the same force per m/s of error)
+    "v7, light wheels": dict(wheel="Printed-127-2x5-36-light", **POD),
+    "v7, retuned speed loops": dict(wheel="Printed-127-2x5-36", **POD, drive_kp=4.16, drive_ki=83.2),
+    # the firmware's acceleration table at 85% of what this base measured (home_floor.py Rflat), not v6's scaled one
+    "v7, own accel table": dict(wheel="Printed-127-2x5-36", **POD, accel_table=(
+        (0.0, 30.0, 45.0, 60.0, 90.0, 135.0, 180.0), (3.78, 3.50, 3.17, 2.99, 3.22, 4.20, 3.78))),
+    # the v7 base on design.md 25's proposed drive (reseller torques, and the cautious 2 N m-peak reading)
+    "v7 on DM-2325": dict(wheel="Printed-127-2x5-36", **POD, drive_motor="DM-2325"),
+    "v7 on DM-2325-low": dict(wheel="Printed-127-2x5-36", **POD, drive_motor="DM-2325-low"),
 }
 
 
 def params(cfg: str, **kw) -> SimParams:
-    return SimParams(wheel_model="rollers", **{**CONFIGS[cfg], **kw})
+    return SimParams(**{"wheel_model": "rollers", **CONFIGS[cfg], **kw})
 
 
 # -- A ---------------------------------------------------------------------------
@@ -187,7 +200,8 @@ def report_A(rows, configs=None):
                 lost = o["n"] - o["held"]
                 cells.append(f"{o['crossed']:2d}/{o['n']}{st}{' LOST ' + str(lost) if lost else ''} {o['tilt']:.0f}deg "
                              f"air {o['air']:.0f} lift {o['lift']:.0f}")
-            print(f"    {ob:32s} " + " | ".join(cells))
+            if cells:
+                print(f"    {ob:32s} " + " | ".join(cells))
 
 
 # -- B ---------------------------------------------------------------------------
@@ -201,7 +215,8 @@ GAME_FLOORS = {
         Carpet(HOME[0] + 0.3, -1.1, HOME[0] + 2.5, 1.1, thickness=0.012, yaw_deg=45.0))),
 }
 SEEDS = 3
-V7 = "printed 152 2x7 36 mm + pods"          # the proposal (design.md 24)
+V7 = "printed 127 2x5 36 mm + pods"          # the proposal (design.md 25)
+V7B = "printed 127 2x6 32 mm + pods"
 GAME_ROWS = {      # tag: (config, floor, extra)
     "v6, flat": ("v6", "flat", {}),
     "v6, home": ("v6", "home", {}),
@@ -212,6 +227,25 @@ GAME_ROWS = {      # tag: (config, floor, extra)
     "v7, home 12 mm rug at 45 deg": (V7, "home, 12 mm rug at 45 deg", {}),
     "v7 + assist, home": (V7, "home", dict(terrain_assist=True)),
     "v7 + assist, home 12 mm rug at 45 deg": (V7, "home, 12 mm rug at 45 deg", dict(terrain_assist=True)),
+    "v7 on DM-2325, 10% charge, home": ("v7 on DM-2325", "home", dict(battery_soc=0.1)),
+    "v7 on DM-2325-low, 10% charge, home": ("v7 on DM-2325-low", "home", dict(battery_soc=0.1)),
+    "v7 on AK40-10, 10% charge, home": (V7, "home", dict(battery_soc=0.1)),
+    # why v7 catches less on a flat floor: the wheel, the pods, or the acceleration table
+    "v6 + pods, flat": ("v6 + pods", "flat", {}),
+    "v7 wheels without pods, flat": ("printed 127 2x5 36 mm", "flat", {}),
+    "v7 own accel table, flat": ("v7, own accel table", "flat", {}),
+    "v7 on DM-2325, flat": ("v7 on DM-2325", "flat", {}),
+    # roller geometry or wheel size? the same bases on the smooth sphere wheel model
+    "v6, flat, sphere wheels": ("v6", "flat", dict(wheel_model="sphere")),
+    "v7, flat, sphere wheels": (V7, "flat", dict(wheel_model="sphere")),
+    "v7 light wheels, flat, sphere wheels": ("v7, light wheels", "flat", dict(wheel_model="sphere")),
+    "v7 retuned loops, flat, sphere wheels": ("v7, retuned speed loops", "flat", dict(wheel_model="sphere")),
+    "v7 with 0.95 roller grip, flat": (V7, "flat", dict(wheel_mu=0.95)),
+    "printed 127 2x7 28 mm + pods, flat": ("printed 127 2x7 28 mm + pods", "flat", {}),
+    # the alternative: smaller 32 mm rollers (smoother, 8 mm narrower) that need the assist for square 12 mm edges
+    "v7b + assist, flat": (V7B, "flat", dict(terrain_assist=True)),
+    "v7b + assist, home": (V7B, "home", dict(terrain_assist=True)),
+    "v7b + assist, home 12 mm rug at 45 deg": (V7B, "home, 12 mm rug at 45 deg", dict(terrain_assist=True)),
 }
 
 
@@ -248,11 +282,11 @@ def game_job(args):
                 tosses=out, tilt_max=tilt, airborne_ms=1000 * air, flipped=bool(flips))
 
 
-def run_B(rows_spec):
+def run_B(rows_spec, seeds=SEEDS):
     """rows_spec: [(config, floor, extra dict, tag)]."""
     jobs, tags = [], []
     for cfg, fl, extra, tag in rows_spec:
-        for s in range(SEEDS):
+        for s in range(seeds):
             for dd in DISTANCES:
                 for a in APEXES:
                     jobs.append((cfg, fl, extra, dd, a, 9000 + 100 * s + 10 * DISTANCES.index(dd) + APEXES.index(a)))
@@ -262,7 +296,7 @@ def run_B(rows_spec):
     for r, t in zip(rows, tags):
         r["tag"] = t
     out = _merge("B", rows, by=("tag",))
-    report_B(out["B"])
+    report_B([r for r in out["B"] if r["tag"] in set(tags)])
 
 
 def report_B(rows):
@@ -315,12 +349,94 @@ def costs(cfg: str, **kw) -> dict:
 
 def report_C(rows):
     print("C. Costs: mass, CG height, worst tip-over, belly clearance (static / wheel at the bump stop), wheel rpm at "
-          "2 m/s on a wheel's rolling line vs the AK40-10 at 22 V, peak rim force, wheels + suspension price")
+          "2 m/s on a wheel's rolling line vs the drive motor's at 22 V, peak rim force, wheels + suspension price")
     for x in rows:
         print(f"  {x['config']:34s} {x['mass']:.2f} kg  CG {100 * x['cg']:.1f} cm  tip {x['tip']:.1f} m/s2  clear "
               f"{1000 * x['clearance']:.0f}/{1000 * x['clearance_at_bump']:.0f} mm  {x['rpm_2ms']:.0f} of "
               f"{x['rpm_avail_22V']:.0f} rpm ({100 * x['speed_margin']:+.0f}%)  top {x['top_speed_22V']:.2f} m/s  "
               f"rim {x['rim_force']:.0f} N  ${x['price']:.0f}")
+
+
+# -- R: robustness of the proposal, and what it costs on a flat floor ------------------------------
+
+def accel_job(args):
+    """Slip-free acceleration. The tracking tolerance is 0.12 m/s, not common.max_clean_accel's 0.05: a wide two-row
+    wheel moves its contact ~40 mm sideways at each row handover, and that ripple alone exceeds 0.05 at any
+    acceleration (it is not slip)."""
+    from common import max_clean_accel
+    cfg, direction = args
+    a, why = max_clean_accel(params(cfg), direction, lo=1.0, hi=8.0, track_tol=0.12)
+    return dict(config=cfg, direction=direction, accel=a, why=why)
+
+
+def cruise_job(args):
+    """Cruise at 1.5 m/s for 1.5 s at a body direction: speed ripple and heading wander (5 rollers a row roll rougher)."""
+    cfg, direction = args
+    from common import tilt_deg as _t  # noqa: F401
+    b = Bench(params(cfg, area_size=(14.0, 14.0)))
+    r, d = b.r, b.d
+    u = np.array([math.cos(math.radians(direction)), math.sin(math.radians(direction))])
+    yaw0 = r.pose()[2]
+    sp, hd, zz = [], [], []
+    t0 = d.time
+    while d.time - t0 < 2.5:
+        r.drive_velocity(1.5 * u, 0.0, r.pose()[2], a_cap=2.0)
+        r.step()
+        if d.time - t0 > 1.0:
+            sp.append(float(np.linalg.norm(d.sensor("base_linvel").data[:2])))
+            hd.append(math.degrees(wrap_angle(r.pose()[2] - yaw0)))
+            zz.append(float(d.sensor("base_pos").data[2]))
+    return dict(config=cfg, direction=direction, ripple=float(np.std(sp) / np.mean(sp)), heading_pp=float(np.ptp(hd)),
+                bounce_mm=1000 * float(np.ptp(zz)))
+
+
+def run_R(cfgs=("v6", None, V7B), crossings=True):
+    cfgs = [c or V7 for c in cfgs]
+    rob = [(V7, ob, a + 7.5, v, ex) for ob in ("rug edge 8 mm", "rug edge 12 mm") for a in DIRS for v in SPEEDS
+           for ex in (dict(), dict(wheel_mu=0.7))] if crossings else []
+    with ProcessPoolExecutor(min(27, os.cpu_count() or 4)) as pool:
+        cr = list(pool.map(cross_job, rob, chunksize=1))
+        acc = list(pool.map(accel_job, [(c, a) for c in cfgs for a in (0.0, 30.0, 45.0, 60.0, 90.0, 135.0, 180.0)]))
+        cru = list(pool.map(cruise_job, [(c, a) for c in cfgs for a in (0.0, 45.0, 90.0)]))
+    for x, j in zip(cr, rob):
+        x["config"] = f"{V7}, dirs +7.5" + (", floor mu 0.7" if j[4] else "")
+    if cr:
+        _merge("A", cr)
+    out = json.loads((RESULTS / "home_floor.json").read_text())
+    out["R"] = dict(accel=acc, cruise=cru)
+    save("home_floor", out)
+    if cr:
+        report_A(cr)
+    report_R(out["R"])
+
+
+def report_R(R):
+    print("R. Flat floor: slip-free acceleration by body direction 0/30/45/60/90/135/180 (m/s^2); cruising 1.5 m/s at "
+          "body 0/45/90: speed ripple, heading wander, deck bounce")
+    for c in dict.fromkeys(x["config"] for x in R["accel"]):
+        print(f"  {c:34s} " + " ".join(f"{x['accel']:.2f}" for x in R["accel"] if x["config"] == c) + "  | " +
+              " | ".join(f"{100 * x['ripple']:.1f}% {x['heading_pp']:.1f} deg {x['bounce_mm']:.1f} mm"
+                         for x in R["cruise"] if x["config"] == c))
+
+
+def table_A(rows, cfgs=None):
+    """design.md 25's table: crossings out of 72 (24 directions x 3 speeds) per obstacle, worst tilt over the 12 / 18 mm
+    thresholds at 2 m/s, the longest airborne phase anywhere, balls lost."""
+    S = summarize_A(rows)
+    cfgs = cfgs or list(dict.fromkeys(x["config"] for x in rows))
+    obs = ["rug edge 8 mm", "rug edge 12 mm", "plush rug 16 mm", "bath mat 6 mm", "threshold 12 mm", "threshold 18 mm",
+           "carpet trim 8 mm, 25 mm bevel", "reducer 8 mm", "T-molding 5 mm", "threshold 6 mm"]
+    print("config | " + " | ".join(obs) + " | tilt 12/18 mm thr. at 2 m/s | longest airborne | balls lost")
+    for c in cfgs:
+        rr = [x for x in rows if x["config"] == c]
+        cells = []
+        for ob in obs:
+            os_ = [S.get((c, ob, v)) for v in SPEEDS]
+            cells.append(f"{sum(o['crossed'] for o in os_)}/{sum(o['n'] for o in os_)}" if all(os_) else "-")
+        th = {h: [x["tilt"] for x in rr if x["obstacle"] == f"threshold {h} mm" and x["speed"] == 2.0] for h in (12, 18)}
+        t = "/".join(f"{max(v):.0f}" if v else "-" for v in th.values())
+        print(f"{c} | " + " | ".join(cells) + f" | {t} deg | {max(x['airborne_ms'] for x in rr):.0f} ms | "
+              f"{sum(not x['held'] for x in rr)} of {len(rr)}")
 
 
 # -- pod tuning -------------------------------------------------------------------------
@@ -385,6 +501,12 @@ if __name__ == "__main__":
         out = json.loads((RESULTS / "home_floor.json").read_text())
         if "A" in out:
             report_A(out["A"])
+        if "B" in out:
+            report_B(out["B"])
+        if "C" in out:
+            report_C(out["C"])
+        if "R" in out:
+            report_R(out["R"])
     elif a[0] == "probe":
         cfg = a[1]
         ob = a[2] if len(a) > 2 else "rug edge 12 mm"
@@ -394,10 +516,26 @@ if __name__ == "__main__":
         print(describe(build_model(p), p))
         print(cross_job((cfg, ob, dr, v)))
     elif a[0] == "A":
-        run_A(a[1:] or list(CONFIGS))
+        obs = None
+        if "--obstacles" in a:
+            k = a.index("--obstacles")
+            obs = a[k + 1].split(",")
+            a = a[:k] + a[k + 2:]
+        run_A(a[1:] or list(CONFIGS), obstacles=obs)
     elif a[0] == "B":
+        seeds = SEEDS
+        if "--seeds" in a:
+            k = a.index("--seeds")
+            seeds = int(a[k + 1])
+            a = a[:k] + a[k + 2:]
         want = a[1:] or list(GAME_ROWS)
-        run_B([(*GAME_ROWS[t], t) for t in want])
+        run_B([(*GAME_ROWS[t], t) for t in want], seeds)
+    elif a[0] == "R":
+        run_R()
+    elif a[0] == "Rflat":
+        run_R(crossings=False)
+    elif a[0] == "table":
+        table_A(json.loads((RESULTS / "home_floor.json").read_text())["A"], a[1:] or None)
     elif a[0] == "tune":
         tune_pods(*a[1:2])
     elif a[0] == "C":

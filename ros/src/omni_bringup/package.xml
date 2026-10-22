@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_bringup</name>
+  <version>0.10.0</version>
+  <description>omni-robot (design.md 28): launch files and configuration for the robot's ROS 2 stack: robot_localization,
+    slam_toolbox, Nav2, teleop, RViz, Foxglove. The same launches run on the robot and against the MuJoCo sim (omni_sim).</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>omni_perception</exec_depend>
+  <exec_depend>omni_mcu</exec_depend>
+  <exec_depend>omni_catch</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>foxglove_bridge</exec_depend>
+  <exec_depend>teleop_twist_joy</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

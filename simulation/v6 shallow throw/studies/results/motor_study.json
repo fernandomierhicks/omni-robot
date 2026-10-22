@@ -12321,6 +12321,5166 @@
    "p_cu": 9.789696998621277,
    "t_steady": 118.00212148690214,
    "v_bus_min": 18.661779072885405
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9864979700064958,
+   "tau_peak": 1.5140147769076648,
+   "w_peak": 42.255468471683855,
+   "i_bus_peak": 4.5413881246135395,
+   "t_winding": 27.252364545217787,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.40599066565492786,
+   "p_cu": 0.8196247212297273,
+   "t_steady": 37.29437081844591,
+   "v_bus_min": 23.503552868453983
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9998992369624793,
+   "tau_peak": 1.3720944858039417,
+   "w_peak": 32.49276587355503,
+   "i_bus_peak": 5.991066712522857,
+   "t_winding": 26.654405347437155,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3782766006499236,
+   "p_cu": 0.5847877990862888,
+   "t_steady": 33.77181698629433,
+   "v_bus_min": 22.896135672509388
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4229722951918398,
+   "tau_peak": 1.3418470021142106,
+   "w_peak": 29.151764733225285,
+   "i_bus_peak": 3.7670365633293708,
+   "t_winding": 26.411874205777814,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3649510088417393,
+   "p_cu": 0.4645727710799505,
+   "t_steady": 31.968591566199258,
+   "v_bus_min": 23.336900621283363
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4236383563720645,
+   "tau_peak": 1.3818903809341005,
+   "w_peak": 26.29078317845465,
+   "i_bus_peak": 3.5123468858697238,
+   "t_winding": 26.576548024315777,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3694252082870674,
+   "p_cu": 0.5680378166230269,
+   "t_steady": 33.520567249345405,
+   "v_bus_min": 23.505106525379542
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.943309011594341,
+   "tau_peak": 1.3194659224469802,
+   "w_peak": 33.473367029404805,
+   "i_bus_peak": 5.257708079763582,
+   "t_winding": 25.821784892745697,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.2952522867021172,
+   "p_cu": 0.3057021519654388,
+   "t_steady": 29.585532279481583,
+   "v_bus_min": 23.050077609241505
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.987994239210356,
+   "tau_peak": 1.360906131512806,
+   "w_peak": 35.98883753328582,
+   "i_bus_peak": 5.946355763009239,
+   "t_winding": 26.498658669156736,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3954868937866857,
+   "p_cu": 0.5962027401653013,
+   "t_steady": 33.94304110247952,
+   "v_bus_min": 23.685372849054986
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7673602473256218,
+   "tau_peak": 1.3729567161005463,
+   "w_peak": 29.834497593105763,
+   "i_bus_peak": 4.514343283950863,
+   "t_winding": 26.528666013079608,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3721384172589239,
+   "p_cu": 0.5199738955450731,
+   "t_steady": 32.7996084331761,
+   "v_bus_min": 23.185813611345928
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9496210190928127,
+   "tau_peak": 1.2869816577968862,
+   "w_peak": 40.05744916306093,
+   "i_bus_peak": 4.366801725897381,
+   "t_winding": 26.672447130782434,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3655568927070402,
+   "p_cu": 0.6257034558423508,
+   "t_steady": 34.38555183763526,
+   "v_bus_min": 23.46849529612076
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9919093422896033,
+   "tau_peak": 1.723383533305251,
+   "w_peak": 39.785701376304004,
+   "i_bus_peak": 5.660901794497218,
+   "t_winding": 26.815078635962884,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3965093650235096,
+   "p_cu": 0.6239130835309628,
+   "t_steady": 34.35869625296444,
+   "v_bus_min": 23.547659777374484
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9565528866210298,
+   "tau_peak": 1.4001760909814678,
+   "w_peak": 39.6640585104726,
+   "i_bus_peak": 6.368571770964886,
+   "t_winding": 26.866603257396317,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.37971267321392843,
+   "p_cu": 0.6283972940060004,
+   "t_steady": 34.42595941009001,
+   "v_bus_min": 22.96581760898756
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.006268730630817,
+   "tau_peak": 1.5346164086445881,
+   "w_peak": 42.188726688190094,
+   "i_bus_peak": 4.64538168280121,
+   "t_winding": 27.19257083368535,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4104503237007728,
+   "p_cu": 0.6877873768993331,
+   "t_steady": 35.316810653489995,
+   "v_bus_min": 23.150482111689954
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9491260437238391,
+   "tau_peak": 1.4658910800504048,
+   "w_peak": 39.87895311548381,
+   "i_bus_peak": 4.996811291656529,
+   "t_winding": 26.649658177752706,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3742988115076285,
+   "p_cu": 0.5456650338090817,
+   "t_steady": 33.18497550713623,
+   "v_bus_min": 23.577416173109174
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.494069854901663,
+   "tau_peak": 2.3971469281108373,
+   "w_peak": 52.25472225513714,
+   "i_bus_peak": 7.408603251183629,
+   "t_winding": 28.199430866943995,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4884708487447876,
+   "p_cu": 1.1830052564366715,
+   "t_steady": 42.74507884655007,
+   "v_bus_min": 23.488139532984963
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.042233483515228,
+   "tau_peak": 1.8042945136217945,
+   "w_peak": 33.19830828802627,
+   "i_bus_peak": 6.010255753875439,
+   "t_winding": 27.53449124810225,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.45685401498781675,
+   "p_cu": 0.8725101324535218,
+   "t_steady": 38.087651986802825,
+   "v_bus_min": 22.89000666228906
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6075785476622244,
+   "tau_peak": 2.1729184760025833,
+   "w_peak": 32.29423547443194,
+   "i_bus_peak": 5.453326338092848,
+   "t_winding": 27.31139663464115,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.43289383098137524,
+   "p_cu": 0.778549391588971,
+   "t_steady": 36.67824087383457,
+   "v_bus_min": 23.086031723972155
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.64791760623436,
+   "tau_peak": 3.286150286226409,
+   "w_peak": 32.07840621767324,
+   "i_bus_peak": 9.608154314696996,
+   "t_winding": 27.27042792569078,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.44212176040479456,
+   "p_cu": 0.8732832864663386,
+   "t_steady": 38.099249296995076,
+   "v_bus_min": 23.441065973308817
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6385706787932843,
+   "tau_peak": 1.961506718783479,
+   "w_peak": 31.47484029060886,
+   "i_bus_peak": 5.0722433243236384,
+   "t_winding": 26.688725051688355,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.41117895854784026,
+   "p_cu": 0.6255142936167348,
+   "t_steady": 34.38271440425102,
+   "v_bus_min": 23.082324223035418
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.3070553519975103,
+   "tau_peak": 2.0207203796760425,
+   "w_peak": 42.343996968281274,
+   "i_bus_peak": 7.571026472577335,
+   "t_winding": 27.12984684734173,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.464388647129723,
+   "p_cu": 0.8108621874596769,
+   "t_steady": 37.16293281189515,
+   "v_bus_min": 23.430587888092923
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.998608893436475,
+   "tau_peak": 1.9553855806671052,
+   "w_peak": 33.60676161880441,
+   "i_bus_peak": 6.549477481280185,
+   "t_winding": 27.425413952611386,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4689773275107783,
+   "p_cu": 0.8489316848620574,
+   "t_steady": 37.73397527293086,
+   "v_bus_min": 22.77913913413883
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9470437922050412,
+   "tau_peak": 3.109086178879682,
+   "w_peak": 41.087335218314266,
+   "i_bus_peak": 9.299707499998222,
+   "t_winding": 27.9925922894928,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.49265245570337507,
+   "p_cu": 1.119425553784705,
+   "t_steady": 41.79138330677058,
+   "v_bus_min": 23.213016412097602
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.719401112071975,
+   "tau_peak": 2.670269587965926,
+   "w_peak": 52.67034918878092,
+   "i_bus_peak": 8.463119013159906,
+   "t_winding": 27.956055306885588,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.5007894302260661,
+   "p_cu": 1.0621193800742819,
+   "t_steady": 40.931790701114224,
+   "v_bus_min": 23.143919166512212
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.257901896944389,
+   "tau_peak": 2.269546636928659,
+   "w_peak": 38.29371758111661,
+   "i_bus_peak": 6.835165821133615,
+   "t_winding": 27.661015450832206,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4881063969792046,
+   "p_cu": 0.9728436691279563,
+   "t_steady": 39.592655036919346,
+   "v_bus_min": 22.85079579000537
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.164405587763861,
+   "tau_peak": 3.3190393793697215,
+   "w_peak": 40.22918804709671,
+   "i_bus_peak": 9.689852067956206,
+   "t_winding": 28.71133329160838,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.5762821920616414,
+   "p_cu": 1.2960357847119832,
+   "t_steady": 44.44053677067975,
+   "v_bus_min": 22.73778631661376
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.2006077433879856,
+   "tau_peak": 1.8357686682100578,
+   "w_peak": 44.33267781019255,
+   "i_bus_peak": 5.8034398221604455,
+   "t_winding": 27.273512413803797,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.44302130919487615,
+   "p_cu": 0.7736440511037913,
+   "t_steady": 36.60466076655687,
+   "v_bus_min": 23.366203084438013
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9828548988277102,
+   "tau_peak": 1.5140818298126142,
+   "w_peak": 42.57677020037223,
+   "i_bus_peak": 5.831313911611212,
+   "t_winding": 26.86813751050346,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.39246495212403365,
+   "p_cu": 0.7327708242890622,
+   "t_steady": 35.991562364335934,
+   "v_bus_min": 20.12751158175762
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.956398165983181,
+   "tau_peak": 1.4219240744850588,
+   "w_peak": 33.14391236657255,
+   "i_bus_peak": 7.453724044131646,
+   "t_winding": 26.706643589017933,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.39467895735751485,
+   "p_cu": 0.595669730702682,
+   "t_steady": 33.93504596054023,
+   "v_bus_min": 19.326750277862626
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4124187917872058,
+   "tau_peak": 1.3100983488542326,
+   "w_peak": 29.214456787604465,
+   "i_bus_peak": 4.230256148208113,
+   "t_winding": 26.690774115870596,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.37558925744437155,
+   "p_cu": 0.5443924897456797,
+   "t_steady": 33.165887346185194,
+   "v_bus_min": 19.992951994715966
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4573118669359684,
+   "tau_peak": 1.300278290378861,
+   "w_peak": 26.62627250866003,
+   "i_bus_peak": 4.045237317017819,
+   "t_winding": 26.758078848850943,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.36141497724400523,
+   "p_cu": 0.6089665409395107,
+   "t_steady": 34.134498114092665,
+   "v_bus_min": 20.189500911126654
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9471778045296464,
+   "tau_peak": 1.3262211950940674,
+   "w_peak": 33.169742898425646,
+   "i_bus_peak": 5.771655038103976,
+   "t_winding": 25.923762850109455,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.31095159453045224,
+   "p_cu": 0.32923540366031445,
+   "t_steady": 29.938531054904715,
+   "v_bus_min": 19.630676646471397
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9582170767472624,
+   "tau_peak": 1.30658071674452,
+   "w_peak": 34.93342311567704,
+   "i_bus_peak": 6.198716736120786,
+   "t_winding": 26.329304143485842,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.37476818619091495,
+   "p_cu": 0.5400091553474728,
+   "t_steady": 33.10013733021209,
+   "v_bus_min": 20.20188120853546
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7730490546386448,
+   "tau_peak": 1.3068148943384834,
+   "w_peak": 30.20791855478408,
+   "i_bus_peak": 5.089109650937095,
+   "t_winding": 26.577847099431427,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.38128036326469955,
+   "p_cu": 0.5715618453462308,
+   "t_steady": 33.57342768019346,
+   "v_bus_min": 19.737666240547497
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9049588281280134,
+   "tau_peak": 1.487279789662869,
+   "w_peak": 39.30400707572691,
+   "i_bus_peak": 4.639616351616085,
+   "t_winding": 26.677030741454146,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.37613443973522176,
+   "p_cu": 0.6171008712670087,
+   "t_steady": 34.25651306900513,
+   "v_bus_min": 19.97074096481327
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.00573400906072,
+   "tau_peak": 1.345947071133736,
+   "w_peak": 41.91861400704374,
+   "i_bus_peak": 6.874825385234862,
+   "t_winding": 26.97058880418105,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.389459671059283,
+   "p_cu": 0.660511684041363,
+   "t_steady": 34.907675260620444,
+   "v_bus_min": 19.99608174141383
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9907110735792273,
+   "tau_peak": 1.4223414618530015,
+   "w_peak": 38.86826742051937,
+   "i_bus_peak": 7.507822049490641,
+   "t_winding": 26.802465622411365,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.37807015912623126,
+   "p_cu": 0.63797782586307,
+   "t_steady": 34.56966738794605,
+   "v_bus_min": 19.502150879926155
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9863790280137337,
+   "tau_peak": 1.618565418586666,
+   "w_peak": 42.05416546722786,
+   "i_bus_peak": 5.3017830252990965,
+   "t_winding": 27.23455047562064,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.41587352407848444,
+   "p_cu": 0.693760622771642,
+   "t_steady": 35.40640934157463,
+   "v_bus_min": 19.71227330822606
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9490499720199377,
+   "tau_peak": 1.3220387966486165,
+   "w_peak": 40.04060117427277,
+   "i_bus_peak": 5.184344169191546,
+   "t_winding": 26.409558219735512,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.372150046045414,
+   "p_cu": 0.5333507613858984,
+   "t_steady": 33.000261420788476,
+   "v_bus_min": 19.932471230211455
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.1500390727049363,
+   "tau_peak": 2.329165771351043,
+   "w_peak": 45.670622627192266,
+   "i_bus_peak": 8.177066489637488,
+   "t_winding": 28.065624242324777,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.47960441083985106,
+   "p_cu": 1.0977483594207842,
+   "t_steady": 41.46622539131177,
+   "v_bus_min": 19.936637102461862
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.26468621568107,
+   "tau_peak": 2.293935876073327,
+   "w_peak": 37.77877884409026,
+   "i_bus_peak": 9.298855904742894,
+   "t_winding": 27.786161281142945,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.45827403126720595,
+   "p_cu": 0.8929102700781003,
+   "t_steady": 38.3936540511715,
+   "v_bus_min": 19.003062416026328
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6515464116603447,
+   "tau_peak": 2.241467556087551,
+   "w_peak": 32.193150358215235,
+   "i_bus_peak": 6.474000994064236,
+   "t_winding": 27.172662470978256,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.42632748119325414,
+   "p_cu": 0.721986500050738,
+   "t_steady": 35.82979750076107,
+   "v_bus_min": 19.500629845455272
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6302455901405057,
+   "tau_peak": 3.1850580026167137,
+   "w_peak": 32.088268481946855,
+   "i_bus_peak": 11.601245105733408,
+   "t_winding": 27.478940688388402,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4415580167680765,
+   "p_cu": 0.8966447140708113,
+   "t_steady": 38.44967071106217,
+   "v_bus_min": 19.836298756620092
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.805399668973243,
+   "tau_peak": 1.9167775192892256,
+   "w_peak": 32.29438697055402,
+   "i_bus_peak": 6.716805020818064,
+   "t_winding": 26.686626154734338,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.3935365140083197,
+   "p_cu": 0.6059267553004405,
+   "t_steady": 34.088901329506605,
+   "v_bus_min": 19.463839356038832
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.5443636492457062,
+   "tau_peak": 2.077072375851543,
+   "w_peak": 44.326098419244886,
+   "i_bus_peak": 9.034173796191727,
+   "t_winding": 27.213811400019587,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4736302457396835,
+   "p_cu": 0.8582949415500005,
+   "t_steady": 37.87442412325001,
+   "v_bus_min": 20.020807273867735
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0320186617593095,
+   "tau_peak": 1.8862338356918187,
+   "w_peak": 34.18663491026454,
+   "i_bus_peak": 8.022606668384123,
+   "t_winding": 27.699992026495963,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4679757024692535,
+   "p_cu": 0.864515313277323,
+   "t_steady": 37.96772969915985,
+   "v_bus_min": 19.2213730853568
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9481561580921332,
+   "tau_peak": 3.0408077972520466,
+   "w_peak": 41.166447418722456,
+   "i_bus_peak": 10.450924626262942,
+   "t_winding": 28.221321124271768,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.49940768800014346,
+   "p_cu": 1.149540050217342,
+   "t_steady": 42.24310075326013,
+   "v_bus_min": 19.385882063804292
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.3832612931048063,
+   "tau_peak": 2.3417925560025417,
+   "w_peak": 44.98586502286692,
+   "i_bus_peak": 8.980360914173216,
+   "t_winding": 27.64403964442317,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4795905261827863,
+   "p_cu": 0.9320238103760661,
+   "t_steady": 38.98035715564099,
+   "v_bus_min": 19.803053128629916
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.1897511490533104,
+   "tau_peak": 2.5448953253799385,
+   "w_peak": 38.121553645162685,
+   "i_bus_peak": 9.322729673366343,
+   "t_winding": 27.589930979691164,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4698089305760313,
+   "p_cu": 0.9317677100778174,
+   "t_steady": 38.97651565116726,
+   "v_bus_min": 19.22292266824545
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.3306823503990333,
+   "tau_peak": 3.338322789952189,
+   "w_peak": 44.80853759595329,
+   "i_bus_peak": 16.63964487610767,
+   "t_winding": 29.247352299580097,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.5926582752918865,
+   "p_cu": 1.4566980598053623,
+   "t_steady": 46.850470897080434,
+   "v_bus_min": 18.630011053169724
+  },
+  {
+   "base": "X4 x Damiao DM-2325, 6S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.2206388705274844,
+   "tau_peak": 2.0228365773557497,
+   "w_peak": 43.79153694545267,
+   "i_bus_peak": 7.223260249519716,
+   "t_winding": 27.313280667021694,
+   "mass": 5.272212,
+   "cg": 0.1010770778613681,
+   "tau_rms": 0.4410212334109577,
+   "p_cu": 0.7839591597794824,
+   "t_steady": 36.75938739669223,
+   "v_bus_min": 19.805485911955273
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9864979700064958,
+   "tau_peak": 1.5140147769076648,
+   "w_peak": 42.255468471683855,
+   "i_bus_peak": 4.5413881246135395,
+   "t_winding": 27.252364545217787,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.40599066565492786,
+   "p_cu": 0.8196247212297273,
+   "t_steady": 37.29437081844591,
+   "v_bus_min": 23.503552868453983
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9998992369624793,
+   "tau_peak": 1.3720944858039417,
+   "w_peak": 32.49276587355503,
+   "i_bus_peak": 5.991066712522857,
+   "t_winding": 26.654405347437155,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3782766006499236,
+   "p_cu": 0.5847877990862888,
+   "t_steady": 33.77181698629433,
+   "v_bus_min": 22.896135672509388
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4229722951918398,
+   "tau_peak": 1.3418470021142106,
+   "w_peak": 29.151764733225285,
+   "i_bus_peak": 3.7670365633293708,
+   "t_winding": 26.411874205777814,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3649510088417393,
+   "p_cu": 0.4645727710799505,
+   "t_steady": 31.968591566199258,
+   "v_bus_min": 23.336900621283363
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4236383563720645,
+   "tau_peak": 1.3818903809341005,
+   "w_peak": 26.29078317845465,
+   "i_bus_peak": 3.5123468858697238,
+   "t_winding": 26.576548024315777,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3694252082870674,
+   "p_cu": 0.5680378166230269,
+   "t_steady": 33.520567249345405,
+   "v_bus_min": 23.505106525379542
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.943309011594341,
+   "tau_peak": 1.3194659224469802,
+   "w_peak": 33.473367029404805,
+   "i_bus_peak": 5.257708079763582,
+   "t_winding": 25.821784892745697,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.2952522867021172,
+   "p_cu": 0.3057021519654388,
+   "t_steady": 29.585532279481583,
+   "v_bus_min": 23.050077609241505
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.987994239210356,
+   "tau_peak": 1.360906131512806,
+   "w_peak": 35.98883753328582,
+   "i_bus_peak": 5.946355763009239,
+   "t_winding": 26.498658669156736,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3954868937866857,
+   "p_cu": 0.5962027401653013,
+   "t_steady": 33.94304110247952,
+   "v_bus_min": 23.685372849054986
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7673602473256218,
+   "tau_peak": 1.3729567161005463,
+   "w_peak": 29.834497593105763,
+   "i_bus_peak": 4.514343283950863,
+   "t_winding": 26.528666013079608,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3721384172589239,
+   "p_cu": 0.5199738955450731,
+   "t_steady": 32.7996084331761,
+   "v_bus_min": 23.185813611345928
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9496210190928127,
+   "tau_peak": 1.2869816577968862,
+   "w_peak": 40.05744916306093,
+   "i_bus_peak": 4.366801725897381,
+   "t_winding": 26.672447130782434,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3655568927070402,
+   "p_cu": 0.6257034558423508,
+   "t_steady": 34.38555183763526,
+   "v_bus_min": 23.46849529612076
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9919093422896033,
+   "tau_peak": 1.723383533305251,
+   "w_peak": 39.785701376304004,
+   "i_bus_peak": 5.660901794497218,
+   "t_winding": 26.815078635962884,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3965093650235096,
+   "p_cu": 0.6239130835309628,
+   "t_steady": 34.35869625296444,
+   "v_bus_min": 23.547659777374484
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9565528866210298,
+   "tau_peak": 1.4001760909814678,
+   "w_peak": 39.6640585104726,
+   "i_bus_peak": 6.368571770964886,
+   "t_winding": 26.866603257396317,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.37971267321392843,
+   "p_cu": 0.6283972940060004,
+   "t_steady": 34.42595941009001,
+   "v_bus_min": 22.96581760898756
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.006268730630817,
+   "tau_peak": 1.5346164086445881,
+   "w_peak": 42.188726688190094,
+   "i_bus_peak": 4.64538168280121,
+   "t_winding": 27.19257083368535,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4104503237007728,
+   "p_cu": 0.6877873768993331,
+   "t_steady": 35.316810653489995,
+   "v_bus_min": 23.150482111689954
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9491260437238391,
+   "tau_peak": 1.4658910800504048,
+   "w_peak": 39.87895311548381,
+   "i_bus_peak": 4.996811291656529,
+   "t_winding": 26.649658177752706,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.3742988115076285,
+   "p_cu": 0.5456650338090817,
+   "t_steady": 33.18497550713623,
+   "v_bus_min": 23.577416173109174
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.492557935654889,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 51.859855076655734,
+   "i_bus_peak": 7.221613641501907,
+   "t_winding": 28.342333029758162,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.49921164391668266,
+   "p_cu": 1.2128176531729162,
+   "t_steady": 43.192264797593744,
+   "v_bus_min": 23.438186439632936
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.042233483515228,
+   "tau_peak": 1.8042945136217945,
+   "w_peak": 33.19830828802627,
+   "i_bus_peak": 6.010255753875439,
+   "t_winding": 27.53449124810225,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.45685401498781675,
+   "p_cu": 0.8725101324535218,
+   "t_steady": 38.087651986802825,
+   "v_bus_min": 22.89000666228906
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.5134366434554551,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 32.06269789940838,
+   "i_bus_peak": 5.361675108614494,
+   "t_winding": 27.181009045346546,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4270433403626629,
+   "p_cu": 0.7582974262830299,
+   "t_steady": 36.37446139424545,
+   "v_bus_min": 23.16434455273229
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6492097495058406,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 32.17030684679103,
+   "i_bus_peak": 7.035888596547108,
+   "t_winding": 27.644117267628655,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.45681883818753294,
+   "p_cu": 0.9732182783345147,
+   "t_steady": 39.59827417501772,
+   "v_bus_min": 23.304207158037116
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6385706787932843,
+   "tau_peak": 1.961506718783479,
+   "w_peak": 31.47484029060886,
+   "i_bus_peak": 5.0722433243236384,
+   "t_winding": 26.688725051688355,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.41117895854784026,
+   "p_cu": 0.6255142936167348,
+   "t_steady": 34.38271440425102,
+   "v_bus_min": 23.082324223035418
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.2394952555476384,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 41.080975225029455,
+   "i_bus_peak": 7.5699296847974615,
+   "t_winding": 27.209675572510662,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4696933207179275,
+   "p_cu": 0.8216496334737368,
+   "t_steady": 37.32474450210605,
+   "v_bus_min": 23.47716738025418
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.998608893436475,
+   "tau_peak": 1.9553855806671052,
+   "w_peak": 33.60676161880441,
+   "i_bus_peak": 6.549477481280185,
+   "t_winding": 27.425413952611386,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.4689773275107783,
+   "p_cu": 0.8489316848620574,
+   "t_steady": 37.73397527293086,
+   "v_bus_min": 22.77913913413883
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9690244838918005,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 41.181051634593864,
+   "i_bus_peak": 7.864126193098382,
+   "t_winding": 28.049460851736892,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.49802597071998167,
+   "p_cu": 1.112000218670626,
+   "t_steady": 41.68000328005939,
+   "v_bus_min": 22.824950826808195
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.873120489001484,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 48.78780590936238,
+   "i_bus_peak": 9.64208129439992,
+   "t_winding": 28.11880256776562,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.5146766903395313,
+   "p_cu": 1.0912704058814269,
+   "t_steady": 41.3690560882214,
+   "v_bus_min": 23.250955620817937
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.1205787443485393,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 38.14083463135049,
+   "i_bus_peak": 6.904571750331552,
+   "t_winding": 27.723511592665606,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.49341931505895037,
+   "p_cu": 0.9685745947437672,
+   "t_steady": 39.52861892115651,
+   "v_bus_min": 22.856131764546934
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.245772932416479,
+   "tau_peak": 1.9889820602398582,
+   "w_peak": 43.62485455429392,
+   "i_bus_peak": 8.613771489029459,
+   "t_winding": 28.611372062834384,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.5687193583091682,
+   "p_cu": 1.2380488527186173,
+   "t_steady": 43.57073279077926,
+   "v_bus_min": 22.363283699067765
+  },
+  {
+   "base": "X4 x Damiao DM-2325 (2 N m peak), 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.2006077433879856,
+   "tau_peak": 1.8357686682100578,
+   "w_peak": 44.33267781019255,
+   "i_bus_peak": 5.8034398221604455,
+   "t_winding": 27.273512413803797,
+   "mass": 5.359712000000004,
+   "cg": 0.0999738480025865,
+   "tau_rms": 0.44302130919487615,
+   "p_cu": 0.7736440511037913,
+   "t_steady": 36.60466076655687,
+   "v_bus_min": 23.366203084438013
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.005339416863327,
+   "tau_peak": 1.9860852321961886,
+   "w_peak": 43.02248901925771,
+   "i_bus_peak": 6.979230512293013,
+   "t_winding": 25.814144384473526,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6049127976130813,
+   "p_cu": 0.7581750427496606,
+   "t_steady": 30.686312820622454,
+   "v_bus_min": 23.401517488697586
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9721807418769508,
+   "tau_peak": 1.8279482314230222,
+   "w_peak": 32.78402393346402,
+   "i_bus_peak": 8.13729742622396,
+   "t_winding": 25.575872283975325,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5699433946777772,
+   "p_cu": 0.510218997235171,
+   "t_steady": 28.826642479263782,
+   "v_bus_min": 22.461728314227553
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.3272262838650624,
+   "tau_peak": 1.7234033170343572,
+   "w_peak": 27.176397899098326,
+   "i_bus_peak": 4.489259145846408,
+   "t_winding": 25.487645968760138,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5271444811087679,
+   "p_cu": 0.41726528052849504,
+   "t_steady": 28.129489603963712,
+   "v_bus_min": 23.194958405056394
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.426834402049459,
+   "tau_peak": 1.7698741066521713,
+   "w_peak": 26.71384980017017,
+   "i_bus_peak": 4.4513850800124475,
+   "t_winding": 25.599280840297244,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5456673890112811,
+   "p_cu": 0.5256457034213784,
+   "t_steady": 28.942342775660336,
+   "v_bus_min": 23.309116544870452
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9793776533573617,
+   "tau_peak": 1.7299919786564004,
+   "w_peak": 34.42320974674932,
+   "i_bus_peak": 6.594012969374128,
+   "t_winding": 25.362205924032214,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.48199753827408987,
+   "p_cu": 0.32550308202181305,
+   "t_steady": 27.441273115163597,
+   "v_bus_min": 22.7803958367249
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9836082716929724,
+   "tau_peak": 1.8923264290819581,
+   "w_peak": 36.75421058259192,
+   "i_bus_peak": 7.434596152653622,
+   "t_winding": 25.474201840570323,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5348272644667663,
+   "p_cu": 0.42269983332500566,
+   "t_steady": 28.170248749937542,
+   "v_bus_min": 23.578508358296478
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.795710482208155,
+   "tau_peak": 1.7914015493782838,
+   "w_peak": 30.46267149209059,
+   "i_bus_peak": 6.104630910052762,
+   "t_winding": 25.51322026875111,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5565969497129238,
+   "p_cu": 0.4875090016378743,
+   "t_steady": 28.65631751228406,
+   "v_bus_min": 22.865362962836056
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.8225800286410647,
+   "tau_peak": 1.992657369759205,
+   "w_peak": 37.70333174241567,
+   "i_bus_peak": 5.0407865758178785,
+   "t_winding": 25.56804823547171,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5431943824816652,
+   "p_cu": 0.5218422735219006,
+   "t_steady": 28.913817051414256,
+   "v_bus_min": 23.26139717639817
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.994374691221087,
+   "tau_peak": 1.9611300900228934,
+   "w_peak": 40.30810945040979,
+   "i_bus_peak": 7.109870155426607,
+   "t_winding": 25.560335486577248,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5809967177780974,
+   "p_cu": 0.5135294982673245,
+   "t_steady": 28.851471237004933,
+   "v_bus_min": 23.3382871891301
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9641224015196075,
+   "tau_peak": 2.0033801324772327,
+   "w_peak": 37.20201651947428,
+   "i_bus_peak": 6.810757288037212,
+   "t_winding": 25.682155202040565,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5787674273101556,
+   "p_cu": 0.6216823609993893,
+   "t_steady": 29.66261770749542,
+   "v_bus_min": 23.02513701631936
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9695628599126571,
+   "tau_peak": 2.0870981966453357,
+   "w_peak": 42.15735322669507,
+   "i_bus_peak": 6.2278807574063935,
+   "t_winding": 25.723121994790187,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6030585876779498,
+   "p_cu": 0.589526791613506,
+   "t_steady": 29.421450937101294,
+   "v_bus_min": 22.851758772855757
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.953780649562129,
+   "tau_peak": 1.8041231182994029,
+   "w_peak": 40.01859508966548,
+   "i_bus_peak": 5.8769316327773105,
+   "t_winding": 25.57154360311614,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5455154597827692,
+   "p_cu": 0.47548667541859885,
+   "t_steady": 28.56615006563949,
+   "v_bus_min": 23.32668869082272
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9516899036575257,
+   "tau_peak": 3.8261003334944377,
+   "w_peak": 41.43428962859968,
+   "i_bus_peak": 9.474118859668927,
+   "t_winding": 26.009767926752104,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6915898019464499,
+   "p_cu": 0.9589011991083267,
+   "t_steady": 32.19175899331245,
+   "v_bus_min": 23.255697869085886
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0500859413676102,
+   "tau_peak": 2.6685569849527724,
+   "w_peak": 35.463141578575275,
+   "i_bus_peak": 8.922753981877769,
+   "t_winding": 25.75339189914951,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6515915154830615,
+   "p_cu": 0.6766298110322113,
+   "t_steady": 30.074723582741584,
+   "v_bus_min": 22.30827507195371
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.630982456271008,
+   "tau_peak": 3.439427287513782,
+   "w_peak": 32.165112944802296,
+   "i_bus_peak": 6.771222091656311,
+   "t_winding": 25.719150674831866,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6244929317109834,
+   "p_cu": 0.6255463168855734,
+   "t_steady": 29.691597376641802,
+   "v_bus_min": 22.737316962051537
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.64567161102463,
+   "tau_peak": 4.699937985740455,
+   "w_peak": 32.67953520373823,
+   "i_bus_peak": 13.199312927644238,
+   "t_winding": 25.80463167764362,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6392944918537122,
+   "p_cu": 0.7292832515754448,
+   "t_steady": 30.469624386815838,
+   "v_bus_min": 23.269676578420178
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.384564112230904,
+   "tau_peak": 2.9428970413540085,
+   "w_peak": 39.72537384630466,
+   "i_bus_peak": 9.76148424200326,
+   "t_winding": 25.57738544253549,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.5866272416886964,
+   "p_cu": 0.5105607985886957,
+   "t_steady": 28.829205989415218,
+   "v_bus_min": 22.149397270818913
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.2031217035813886,
+   "tau_peak": 3.384899682835723,
+   "w_peak": 40.61429654592338,
+   "i_bus_peak": 11.015020945287365,
+   "t_winding": 25.60513553973335,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6367614810743001,
+   "p_cu": 0.6167571694692674,
+   "t_steady": 29.625678771019505,
+   "v_bus_min": 23.391161649725724
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.056211381874602,
+   "tau_peak": 2.7239347049364775,
+   "w_peak": 33.657792125020265,
+   "i_bus_peak": 8.616997384148924,
+   "t_winding": 25.797990972525504,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6802439360467795,
+   "p_cu": 0.7067753485948329,
+   "t_steady": 30.300815114461248,
+   "v_bus_min": 22.364016280117035
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9478953363703448,
+   "tau_peak": 4.460475798878239,
+   "w_peak": 40.2267215216309,
+   "i_bus_peak": 14.106056668540003,
+   "t_winding": 26.051580960318823,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.7171641073839863,
+   "p_cu": 0.9451854219037829,
+   "t_steady": 32.088890664278374,
+   "v_bus_min": 23.075156911605443
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.229140581195761,
+   "tau_peak": 3.808976315812812,
+   "w_peak": 41.53944674212843,
+   "i_bus_peak": 10.855003462251855,
+   "t_winding": 25.91801734497335,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.674260359548378,
+   "p_cu": 0.7993392653404208,
+   "t_steady": 30.995044490053154,
+   "v_bus_min": 23.12895220951792
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.102248833973973,
+   "tau_peak": 3.4618543772039345,
+   "w_peak": 37.374084720600585,
+   "i_bus_peak": 9.347658628558253,
+   "t_winding": 25.895935004635312,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6823420319312806,
+   "p_cu": 0.8110803538526897,
+   "t_steady": 31.083102653895175,
+   "v_bus_min": 22.491991798339672
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9966462288744597,
+   "tau_peak": 4.39594287647321,
+   "w_peak": 40.45158602097253,
+   "i_bus_peak": 14.071475992268248,
+   "t_winding": 26.30722875873322,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.8428450139848872,
+   "p_cu": 1.1159865854456454,
+   "t_steady": 33.36989939084234,
+   "v_bus_min": 21.350622051976487
+  },
+  {
+   "base": "X4 x Damiao DM-S3519, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.012027797349662,
+   "tau_peak": 2.565537249747785,
+   "w_peak": 40.81929783615404,
+   "i_bus_peak": 7.1074870140338975,
+   "t_winding": 25.707782474890013,
+   "mass": 6.255712000000003,
+   "cg": 0.09252968052647548,
+   "tau_rms": 0.6286887378019246,
+   "p_cu": 0.6161695462158372,
+   "t_steady": 29.62127159661878,
+   "v_bus_min": 22.982924605636278
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9663114456044337,
+   "tau_peak": 1.414929375887052,
+   "w_peak": 42.162681716824274,
+   "i_bus_peak": 4.429678789722271,
+   "t_winding": 26.10408273043936,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.338469242812405,
+   "p_cu": 0.6404775343628818,
+   "t_steady": 33.96668548108035,
+   "v_bus_min": 23.585053448222748
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9655813487410325,
+   "tau_peak": 1.2677103668371492,
+   "w_peak": 32.48914830318594,
+   "i_bus_peak": 5.587770805315962,
+   "t_winding": 25.947298874410528,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.33581256139986576,
+   "p_cu": 0.5203273889906732,
+   "t_steady": 32.28458344586942,
+   "v_bus_min": 22.978301165090993
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.338081391638617,
+   "tau_peak": 1.1934008371410005,
+   "w_peak": 27.755989235620504,
+   "i_bus_peak": 3.1264824053864433,
+   "t_winding": 25.744134310726288,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.29830451591063745,
+   "p_cu": 0.3960154141812238,
+   "t_steady": 30.544215798537135,
+   "v_bus_min": 23.467123409301585
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4508776710222795,
+   "tau_peak": 1.2376609369529632,
+   "w_peak": 26.861921813865994,
+   "i_bus_peak": 2.931718416620024,
+   "t_winding": 25.99306296286774,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3096050506153965,
+   "p_cu": 0.520792514566006,
+   "t_steady": 32.29109520392409,
+   "v_bus_min": 23.571846700409473
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.941652225718435,
+   "tau_peak": 1.184892125382511,
+   "w_peak": 32.77480216309413,
+   "i_bus_peak": 4.231038641135493,
+   "t_winding": 25.658934508250223,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.2919119055321788,
+   "p_cu": 0.38531949981839514,
+   "t_steady": 30.394472997457534,
+   "v_bus_min": 23.251114511513663
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9553645939832924,
+   "tau_peak": 1.1823401841296786,
+   "w_peak": 35.79447973562055,
+   "i_bus_peak": 5.017254636291919,
+   "t_winding": 25.797269199115167,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.32776129555035344,
+   "p_cu": 0.49804417898364617,
+   "t_steady": 31.972618505771045,
+   "v_bus_min": 23.718604472095436
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7732347281744465,
+   "tau_peak": 1.2624247907848254,
+   "w_peak": 30.23156391873979,
+   "i_bus_peak": 3.804695947295288,
+   "t_winding": 25.973927027879245,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3351213589166822,
+   "p_cu": 0.5105338809008578,
+   "t_steady": 32.147474332612006,
+   "v_bus_min": 23.327248692262224
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.8805584954414956,
+   "tau_peak": 1.2775313296068367,
+   "w_peak": 39.03122727650045,
+   "i_bus_peak": 3.378347079473748,
+   "t_winding": 25.885027779763806,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.31625443390848273,
+   "p_cu": 0.5104348637982538,
+   "t_steady": 32.14608809317555,
+   "v_bus_min": 23.541909814662944
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.992712243167065,
+   "tau_peak": 1.4684175374522668,
+   "w_peak": 40.441371411775265,
+   "i_bus_peak": 4.960395507166577,
+   "t_winding": 25.865087219397605,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3262085378758538,
+   "p_cu": 0.48460124335647226,
+   "t_steady": 31.784417406990613,
+   "v_bus_min": 23.53332984549157
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9710565892595755,
+   "tau_peak": 1.1978009155246028,
+   "w_peak": 39.06280423332248,
+   "i_bus_peak": 5.502213241442142,
+   "t_winding": 25.997317302565556,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.33062404590301836,
+   "p_cu": 0.5246725145444648,
+   "t_steady": 32.34541520362251,
+   "v_bus_min": 23.110949571186012
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    }
+   ],
+   "v_peak": 1.9205066441401972,
+   "tau_peak": 1.4000704334506437,
+   "w_peak": 38.73341449017669,
+   "i_bus_peak": 3.705320581141861,
+   "t_winding": 26.15348950094091,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3484631187528587,
+   "p_cu": 0.5594711085709507,
+   "t_steady": 32.83259551999331,
+   "v_bus_min": 23.355104531738498
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9481625659641917,
+   "tau_peak": 1.1909278362152094,
+   "w_peak": 40.06277792117953,
+   "i_bus_peak": 4.122842759866069,
+   "t_winding": 25.869014834499072,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.30820257559879694,
+   "p_cu": 0.43736274207886483,
+   "t_steady": 31.12307838910411,
+   "v_bus_min": 23.612536466144263
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0636180294100726,
+   "tau_peak": 1.772450121811076,
+   "w_peak": 43.73826195678793,
+   "i_bus_peak": 5.210127459411398,
+   "t_winding": 26.659827424271572,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.4056104954555644,
+   "p_cu": 0.9966480019054842,
+   "t_steady": 38.95307202667678,
+   "v_bus_min": 23.45933966356387
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0812165970084116,
+   "tau_peak": 1.7409342228286881,
+   "w_peak": 35.853534021929285,
+   "i_bus_peak": 5.443746094329927,
+   "t_winding": 26.37741803854776,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3919034967349759,
+   "p_cu": 0.7527133413361675,
+   "t_steady": 35.53798677870635,
+   "v_bus_min": 23.005369090386235
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6487538120255905,
+   "tau_peak": 1.6595838074626954,
+   "w_peak": 31.98420539251226,
+   "i_bus_peak": 4.7853088680111036,
+   "t_winding": 26.21533852061571,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3722207424399113,
+   "p_cu": 0.6398813983859758,
+   "t_steady": 33.95833957740366,
+   "v_bus_min": 23.247028743754015
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.630920858677751,
+   "tau_peak": 2.6904105162664744,
+   "w_peak": 31.774530940641647,
+   "i_bus_peak": 7.363440085284008,
+   "t_winding": 26.46916835630459,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.39383782592307753,
+   "p_cu": 0.8224418246672301,
+   "t_steady": 36.51418554534122,
+   "v_bus_min": 23.422560116224023
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.6213382436071733,
+   "tau_peak": 1.7725180828344564,
+   "w_peak": 30.458700483215498,
+   "i_bus_peak": 4.352214932243049,
+   "t_winding": 25.898829401805436,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3436067042083572,
+   "p_cu": 0.5234442872317105,
+   "t_steady": 32.32822002124395,
+   "v_bus_min": 23.22757392115124
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.423442810657974,
+   "tau_peak": 1.7266394625681523,
+   "w_peak": 42.896332009080005,
+   "i_bus_peak": 6.523392135986576,
+   "t_winding": 26.15199398464061,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.39780374577649247,
+   "p_cu": 0.6986052392128121,
+   "t_steady": 34.78047334897937,
+   "v_bus_min": 23.54183820755039
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0150532629205022,
+   "tau_peak": 1.9361134195998853,
+   "w_peak": 33.96252668320593,
+   "i_bus_peak": 5.687164229309031,
+   "t_winding": 26.332751162533754,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.40756636533330376,
+   "p_cu": 0.7389506509030432,
+   "t_steady": 35.3453091126426,
+   "v_bus_min": 22.954405173178376
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9436079155522854,
+   "tau_peak": 2.6904105162664744,
+   "w_peak": 41.185294904816686,
+   "i_bus_peak": 6.718302277905727,
+   "t_winding": 26.637861494074212,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.41559623149598607,
+   "p_cu": 0.9391664523794159,
+   "t_steady": 38.14833033331182,
+   "v_bus_min": 23.428681109314812
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.493003309561964,
+   "tau_peak": 2.556694263068559,
+   "w_peak": 42.84717060556045,
+   "i_bus_peak": 7.556919566398067,
+   "t_winding": 26.617505245851145,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.4268557825727874,
+   "p_cu": 0.916449508550236,
+   "t_steady": 37.830293119703306,
+   "v_bus_min": 23.376009986581764
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.165665828274543,
+   "tau_peak": 1.6864071687020221,
+   "w_peak": 37.94940273750844,
+   "i_bus_peak": 6.108424553588286,
+   "t_winding": 26.453666355068677,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.4085774455635763,
+   "p_cu": 0.8049434908989175,
+   "t_steady": 36.26920887258484,
+   "v_bus_min": 22.870173003909688
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0870714155739765,
+   "tau_peak": 2.6904105162664744,
+   "w_peak": 42.64284151846099,
+   "i_bus_peak": 7.778310194211507,
+   "t_winding": 26.951737652429365,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.4766399368437457,
+   "p_cu": 1.0441449603746957,
+   "t_steady": 39.61802944524574,
+   "v_bus_min": 22.535270174821264
+  },
+  {
+   "base": "X4 x Damiao DM-J3507, 7S 10%",
+   "limits": "physics",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.142249634616537,
+   "tau_peak": 1.9154061407909317,
+   "w_peak": 42.79992263446556,
+   "i_bus_peak": 4.717474266957111,
+   "t_winding": 26.244323524175037,
+   "mass": 5.271712000000003,
+   "cg": 0.10084144066019521,
+   "tau_rms": 0.3801590134900324,
+   "p_cu": 0.6739378492222068,
+   "t_steady": 34.4351298891109,
+   "v_bus_min": 23.39602473481943
   }
  ],
  "C": [
@@ -14833,6 +19993,1038 @@
    "p_cu": 0.41575138187178107,
    "t_steady": 29.78114089152548,
    "v_bus_min": 28.952470750400266
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "bounce"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9945855071845102,
+   "tau_peak": 1.6162804437515508,
+   "w_peak": 43.5535154314911,
+   "i_bus_peak": 4.2487239887536825,
+   "t_winding": 25.75810643225592,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3712438285421206,
+   "p_cu": 0.6337309135723019,
+   "t_steady": 32.28790550608147,
+   "v_bus_min": 28.942690665784706
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9986179686724816,
+   "tau_peak": 1.3889427267511394,
+   "w_peak": 31.89051871640211,
+   "i_bus_peak": 4.868083047042733,
+   "t_winding": 25.585535830610684,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3513972073589153,
+   "p_cu": 0.46905934153899587,
+   "t_steady": 30.394182427698453,
+   "v_bus_min": 28.549186754667282
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.469024145923041,
+   "tau_peak": 1.4715856272791648,
+   "w_peak": 30.467622099245755,
+   "i_bus_peak": 2.6639540855893635,
+   "t_winding": 25.594330453358516,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.34137339599273886,
+   "p_cu": 0.44757379995069885,
+   "t_steady": 30.147098699433037,
+   "v_bus_min": 28.867894886419396
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4702722707470264,
+   "tau_peak": 1.453043086134901,
+   "w_peak": 27.053781820067446,
+   "i_bus_peak": 2.653769798118279,
+   "t_winding": 25.609238705737663,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.346074190824032,
+   "p_cu": 0.47127974103611364,
+   "t_steady": 30.419717021915307,
+   "v_bus_min": 28.902005386203683
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9515649834022897,
+   "tau_peak": 1.2433351361202014,
+   "w_peak": 34.156234479378426,
+   "i_bus_peak": 4.06529658990942,
+   "t_winding": 25.32294973355801,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.2957295357981006,
+   "p_cu": 0.2874382489285142,
+   "t_steady": 28.305539862677914,
+   "v_bus_min": 28.663694524357993
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9732155094681498,
+   "tau_peak": 1.2886193172380942,
+   "w_peak": 35.95501726768815,
+   "i_bus_peak": 3.8276694678045797,
+   "t_winding": 25.47519730875224,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.35631750037210735,
+   "p_cu": 0.42063561745798217,
+   "t_steady": 29.837309600766794,
+   "v_bus_min": 28.967977628343828
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7776384696883645,
+   "tau_peak": 1.2239743722835428,
+   "w_peak": 29.986561005244553,
+   "i_bus_peak": 3.9502802395319914,
+   "t_winding": 25.57235057784968,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.35609887522963646,
+   "p_cu": 0.4412132109184871,
+   "t_steady": 30.073951925562604,
+   "v_bus_min": 28.770236983406445
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9489856298501131,
+   "tau_peak": 1.2507401158931195,
+   "w_peak": 39.499326707021545,
+   "i_bus_peak": 3.568170464048823,
+   "t_winding": 25.538577948769923,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.34452366224520037,
+   "p_cu": 0.4561974501573942,
+   "t_steady": 30.246270676810035,
+   "v_bus_min": 28.914125010937596
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9796897502162805,
+   "tau_peak": 1.3677038657610192,
+   "w_peak": 38.525281741252975,
+   "i_bus_peak": 4.094615018762791,
+   "t_winding": 25.64136764993908,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.37643337221330203,
+   "p_cu": 0.5058013644227575,
+   "t_steady": 30.816715690861713,
+   "v_bus_min": 28.90111289029034
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9749523222927414,
+   "tau_peak": 1.2513949777030504,
+   "w_peak": 37.866062020136,
+   "i_bus_peak": 4.8236142923612,
+   "t_winding": 25.64517762007911,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3577206837610888,
+   "p_cu": 0.49071893054459065,
+   "t_steady": 30.643267701262793,
+   "v_bus_min": 28.749793889977695
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    }
+   ],
+   "v_peak": 1.9534384775912397,
+   "tau_peak": 1.7064392961224542,
+   "w_peak": 41.131943500744256,
+   "i_bus_peak": 3.4914513528274282,
+   "t_winding": 25.796854096769575,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3899453114106242,
+   "p_cu": 0.5726387375643048,
+   "t_steady": 31.585345481989506,
+   "v_bus_min": 28.745220767506442
+  },
+  {
+   "base": "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9488719821576042,
+   "tau_peak": 1.6159674329212574,
+   "w_peak": 39.47782646790373,
+   "i_bus_peak": 3.1589833829217384,
+   "t_winding": 25.606554025675784,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.35000109397093254,
+   "p_cu": 0.45957860915812954,
+   "t_steady": 30.28515400531849,
+   "v_bus_min": 28.928164059261295
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9859066829697425,
+   "tau_peak": 1.7106120725924594,
+   "w_peak": 42.9048123248876,
+   "i_bus_peak": 3.912352042461217,
+   "t_winding": 25.795382455228083,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.38810817509725165,
+   "p_cu": 0.6741013109708104,
+   "t_steady": 32.75216507616432,
+   "v_bus_min": 28.944376427334994
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9544495937206872,
+   "tau_peak": 1.6047577920213882,
+   "w_peak": 31.099572027201567,
+   "i_bus_peak": 4.711417706340665,
+   "t_winding": 25.652502978242914,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3779234195987592,
+   "p_cu": 0.5121518634231411,
+   "t_steady": 30.889746429366124,
+   "v_bus_min": 28.57014972206902
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.4453676712658359,
+   "tau_peak": 1.5842804417417327,
+   "w_peak": 29.420527575527853,
+   "i_bus_peak": 2.7510499010483835,
+   "t_winding": 25.543998186030247,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3477137087040944,
+   "p_cu": 0.3914435997882436,
+   "t_steady": 29.5016013975648,
+   "v_bus_min": 28.840076933276247
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.469653926048695,
+   "tau_peak": 1.4423745372914265,
+   "w_peak": 26.444617949919415,
+   "i_bus_peak": 2.5855323848430727,
+   "t_winding": 25.57669981017401,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3512634038551162,
+   "p_cu": 0.465979968828095,
+   "t_steady": 30.358769641523093,
+   "v_bus_min": 28.944452436829888
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.5562985992193004,
+   "tau_peak": 1.7639373996569496,
+   "w_peak": 28.23617526850133,
+   "i_bus_peak": 2.914069856707762,
+   "t_winding": 25.53706688211684,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3555346580306436,
+   "p_cu": 0.46057743347851193,
+   "t_steady": 30.29664048500289,
+   "v_bus_min": 28.81965092511016
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9829327572365953,
+   "tau_peak": 1.6316924820769998,
+   "w_peak": 35.46656368782759,
+   "i_bus_peak": 4.429397800686894,
+   "t_winding": 25.63665469446923,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.390267177399175,
+   "p_cu": 0.5138227305912303,
+   "t_steady": 30.908961401799147,
+   "v_bus_min": 28.962912142055043
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.7608619698513863,
+   "tau_peak": 1.504848033073472,
+   "w_peak": 30.28231507473088,
+   "i_bus_peak": 3.581779258964542,
+   "t_winding": 25.611143963841542,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.36560636586579337,
+   "p_cu": 0.4466956145738384,
+   "t_steady": 30.13699956759914,
+   "v_bus_min": 28.722915892189377
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 6.5,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.8554812823957214,
+   "tau_peak": 1.3970978203672288,
+   "w_peak": 38.37180735764635,
+   "i_bus_peak": 2.8712699440399114,
+   "t_winding": 25.51024491550313,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.33188617807058557,
+   "p_cu": 0.42729797903365824,
+   "t_steady": 29.91392675888707,
+   "v_bus_min": 28.91650407598855
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 0.75,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 2.0242854235188217,
+   "tau_peak": 1.8982840022924332,
+   "w_peak": 42.46835278101553,
+   "i_bus_peak": 4.41085993258381,
+   "t_winding": 25.666390555394962,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.38442314444452796,
+   "p_cu": 0.5300459183117567,
+   "t_steady": 31.095528060585202,
+   "v_bus_min": 28.905061866074842
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9597125430965072,
+   "tau_peak": 1.8219906763151883,
+   "w_peak": 39.90972181146931,
+   "i_bus_peak": 4.158531263991639,
+   "t_winding": 25.723228385413382,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3871512513235346,
+   "p_cu": 0.5504106064723872,
+   "t_steady": 31.329721974432452,
+   "v_bus_min": 28.64147542397562
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 1.5,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": false,
+     "why": "reach"
+    }
+   ],
+   "v_peak": 1.9928360942787247,
+   "tau_peak": 1.654298915768095,
+   "w_peak": 42.109809707061366,
+   "i_bus_peak": 3.428100352925541,
+   "t_winding": 25.803248095716356,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.40029683079091366,
+   "p_cu": 0.5780829797192332,
+   "t_steady": 31.64795426677118,
+   "v_bus_min": 28.774981375265607
+  },
+  {
+   "base": "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)",
+   "limits": "firmware",
+   "distance": 7.0,
+   "apex": 2.0,
+   "tosses": [
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    },
+    {
+     "caught": true,
+     "why": "caught"
+    }
+   ],
+   "v_peak": 1.9487147579154198,
+   "tau_peak": 1.8420279782316804,
+   "w_peak": 40.00043916633961,
+   "i_bus_peak": 3.4002809699648258,
+   "t_winding": 25.573894202894994,
+   "mass": 5.431712000000003,
+   "cg": 0.09928490921934724,
+   "tau_rms": 0.3508074619966315,
+   "p_cu": 0.42134047272501435,
+   "t_steady": 29.845415436337664,
+   "v_bus_min": 28.862699143436124
   }
  ]
 }

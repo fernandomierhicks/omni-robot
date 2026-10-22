@@ -118,6 +118,11 @@ BASES = {
     "X4 x M2006, 6S 10%": dict(drive_motor="M2006", **S6, **LOW),
     "X4 x Pololu 37D, 7S 10%": dict(drive_motor="Pololu-37D-19", **LOW),
     "X4 x Pololu 37D, 6S 10%": dict(drive_motor="Pololu-37D-19", **S6, **LOW),
+    "X4 x Damiao DM-2325, 7S 10%": dict(drive_motor="DM-2325", **LOW),
+    "X4 x Damiao DM-2325, 6S 10%": dict(drive_motor="DM-2325", **S6, **LOW),
+    "X4 x Damiao DM-2325 (2 N m peak), 7S 10%": dict(drive_motor="DM-2325-low", **LOW),
+    "X4 x Damiao DM-S3519, 7S 10%": dict(drive_motor="DM-S3519", **LOW),
+    "X4 x Damiao DM-J3507, 7S 10%": dict(drive_motor="DM-J3507", **LOW),
 }
 # D. the tilt actuator (it sits at the sim's 3 N m cap in A): real servo specs at the pivot
 TILTS = {
@@ -126,6 +131,8 @@ TILTS = {
     "Feetech STS3250 at 12 V (4.9 N m, 7.9 rad/s)": dict(tilt_torque=4.9, tilt_speed=7.9),
     "Feetech STS3215 at 12 V (2.9 N m, 4.7 rad/s)": dict(tilt_torque=2.94, tilt_speed=4.72),
     "LK MG4010E-i10 at 24 V (4.5 N m, 27 rad/s)": dict(tilt_torque=4.5, tilt_speed=27.0),
+    "Hiwonder HTD-45H at 11.1 V (4.4 N m, 5.8 rad/s)": dict(tilt_torque=4.41, tilt_speed=5.82),
+    "Waveshare ST3025 at 12 V (3.9 N m, 9.0 rad/s)": dict(tilt_torque=3.92, tilt_speed=8.95),
 }
 # C. flywheel motors on the bench, per pack
 FLY = [(mo, "7S1P-P50B") for mo in FLYWHEEL_MOTORS] + [(mo, "6S1P-P50B") for mo in ("F90-2806.5-1300", "XING-2806.5-1300")]

@@ -1,0 +1,9 @@
+﻿36 jobs in 64 s
+v11 SIL vs the sim's own catch game: the 6-7 m catch game, the same throws, firmware adult, expected cameras
+  flat  ref (Python firmware, true pose)    93.1% +/- 1.7 of 216 (not in place 14, bounced 1), funnel offset median 2.2 cm, 95% 29.5 cm, real time x0.65
+  flat  sil (C++ firmware, Jetson code)     90.3% +/- 2.0 of 216 (not in place 16, bounced 5), funnel offset median 2.5 cm, 95% 33.0 cm, real time x0.50
+      apex 0.75 m: ref 83%, sil 76%
+      apex 1.00 m: ref 96%, sil 89%
+      apex 1.50 m: ref 93%, sil 96%
+      apex 2.00 m: ref 100%, sil 100%
+      sil link errors 0, time sync error median 200 us, firmware faults at the end: none

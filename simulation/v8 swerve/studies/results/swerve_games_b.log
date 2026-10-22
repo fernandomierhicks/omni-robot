@@ -1,0 +1,5 @@
+B. 6-7 m catch game, firmware adult, expected cameras, roller wheel model (216 throws per row, +/-2.5 points)
+  swerve3 100, home 12 mm rug at 45 deg                 85.6% of 216 (not in place 18, bounced 13, flipped 0), peak tilt 16 deg, longest airborne 0 ms
+  swerve3 100, cap 6, flat                              82.9% of 216 (not in place 25, bounced 12, flipped 0), peak tilt 16 deg, longest airborne 0 ms
+  swerve3 100, ST3215 steer, flat                       78.2% of 216 (not in place 33, bounced 14, flipped 0), peak tilt 19 deg, longest airborne 0 ms
+  swerve4 100, flat                                     89.8% of 216 (not in place 16, bounced 6, flipped 0), peak tilt 17 deg, longest airborne 0 ms

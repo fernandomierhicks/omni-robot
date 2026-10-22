@@ -1,0 +1,5 @@
+C. Costs: mass, CG height, worst tip-over, belly clearance (static / wheel at the bump stop), wheel rpm at 2 m/s on a wheel's rolling line vs the AK40-10 at 22 V, peak rim force, wheels + suspension price
+  v6                                 5.45 kg  CG 9.9 cm  tip 8.8 m/s2  clear 21/16 mm  398 of 367 rpm (-8%)  top 1.84 m/s  rim 77 N  $88
+  printed 127 2x5 36 mm + pods       6.48 kg  CG 10.7 cm  tip 8.4 m/s2  clear 35/23 mm  301 of 367 rpm (+22%)  top 2.44 m/s  rim 58 N  $100
+  printed 127 2x6 32 mm + pods       6.32 kg  CG 10.8 cm  tip 8.3 m/s2  clear 35/23 mm  301 of 367 rpm (+22%)  top 2.44 m/s  rim 58 N  $103
+  v7 on DM-2325                      6.40 kg  CG 10.7 cm  tip 8.4 m/s2  clear 35/23 mm  301 of 472 rpm (+57%)  top 3.14 m/s  rim 78 N  $100

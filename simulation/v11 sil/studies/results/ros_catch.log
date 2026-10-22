@@ -1,0 +1,203 @@
+﻿[INFO] [launch]: All log files can be found below /home/fernando/.ros/log/2026-10-21-12-40-19-052211-FernandoDesktop-467
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [catch_bridge-1]: process started with pid [471]
+[INFO] [mcu_link-2]: process started with pid [472]
+[INFO] [mode_manager-3]: process started with pid [473]
+[INFO] [catch_perception-4]: process started with pid [474]
+[INFO] [catch_behavior-5]: process started with pid [475]
+[INFO] [catch_scorer-6]: process started with pid [476]
+[mode_manager-3] [INFO] [1792611619.437674070] [mode_manager]: mode CATCH (adult profile)
+[mcu_link-2] [WARN] [1792611619.484290412] [mcu_link]: MCU link tcp:127.0.0.1:5761: [Errno 111] Connection refused
+[catch_perception-4] [INFO] [1792611619.581892736] [catch_perception]: perception on sparse frames, 2 cameras
+[catch_bridge-1] [INFO] [1792611619.634002912] [catch_bridge]: building the catch field: thrower 6.5 m out, flat floor, seed 9000, returns True
+[mcu_link-2] [INFO] [1792611619.985111444] [mcu_link]: MCU link up on tcp:127.0.0.1:5761
+[catch_bridge-1] [INFO] [1792611619.985632422] [catch_bridge]: MCU port 5761: the Jetson side connected
+[mcu_link-2] [INFO] [1792611620.001383148] [mcu_link]: MCU mode AUTO (faults: none)
+[catch_behavior-5] [INFO] [1792611621.097100971] [catch_behavior]: toss 1: tracking, ball 9.1 m/s, 5.7 m out
+[catch_behavior-5] [INFO] [1792611621.101173771] [catch_behavior]:   predicted landing 1.04 m from home, 1.01 s to go -> tilt 26 deg
+[catch_behavior-5] [INFO] [1792611623.161793920] [catch_behavior]: toss 1: CAUGHT (1/1)
+[catch_behavior-5] [INFO] [1792611623.601858128] [catch_behavior]:   fire: 8.86 m/s at 50.0 deg, 3528 rpm
+[catch_bridge-1] [INFO] [1792611624.835303594] [catch_bridge]: throw 1: CAUGHT, funnel offset 16.1 cm (1/1)
+[catch_scorer-6] [INFO] [1792611624.841024785] [catch_scorer]: score: 1/1 caught
+[catch_bridge-1] [INFO] [1792611624.894004112] [catch_bridge]: sim t     4.8 s, x0.95 real time, 1/1 caught
+[catch_behavior-5] [INFO] [1792611626.241723600] [catch_behavior]: toss 2: tracking, ball 5.6 m/s, 6.0 m out
+[catch_behavior-5] [INFO] [1792611626.245432424] [catch_behavior]:   predicted landing 2.67 m from home, 1.06 s to go -> tilt 16 deg
+[catch_bridge-1] [INFO] [1792611627.637408882] [catch_bridge]: throw 2: missed, funnel offset 26.9 cm (1/2)
+[catch_scorer-6] [INFO] [1792611627.637442301] [catch_scorer]: score: 1/2 caught
+[catch_behavior-5] [INFO] [1792611628.444044087] [catch_behavior]: toss 2: missed (1/2)
+[catch_behavior-5] [INFO] [1792611628.962144824] [catch_behavior]: toss 3: tracking, ball 6.0 m/s, 4.9 m out
+[catch_behavior-5] [INFO] [1792611628.965756205] [catch_behavior]:   predicted landing 2.08 m from home, 1.02 s to go -> tilt 18 deg
+[catch_bridge-1] [INFO] [1792611629.894197776] [catch_bridge]: sim t     9.5 s, x0.94 real time, 1/2 caught
+[catch_behavior-5] [INFO] [1792611630.886062494] [catch_behavior]: toss 3: CAUGHT (2/3)
+[catch_behavior-5] [INFO] [1792611631.489431785] [catch_behavior]:   fire: 10.32 m/s at 50.0 deg, 4205 rpm
+[catch_bridge-1] [INFO] [1792611632.893562333] [catch_bridge]: throw 3: CAUGHT, funnel offset 2.3 cm (2/3)
+[catch_scorer-6] [INFO] [1792611632.893604366] [catch_scorer]: score: 2/3 caught
+[catch_behavior-5] [INFO] [1792611634.296943551] [catch_behavior]: toss 4: tracking, ball 7.5 m/s, 5.2 m out
+[catch_behavior-5] [INFO] [1792611634.301014596] [catch_behavior]:   predicted landing 0.86 m from home, 1.06 s to go -> tilt 22 deg
+[catch_bridge-1] [INFO] [1792611634.894514440] [catch_bridge]: sim t    14.4 s, x0.98 real time, 2/3 caught
+[catch_behavior-5] [INFO] [1792611636.401177120] [catch_behavior]: toss 4: CAUGHT (3/4)
+[catch_behavior-5] [INFO] [1792611637.012206580] [catch_behavior]:   fire: 10.83 m/s at 50.0 deg, 4413 rpm
+[catch_bridge-1] [INFO] [1792611638.423426965] [catch_bridge]: throw 4: CAUGHT, funnel offset 2.1 cm (3/4)
+[catch_scorer-6] [INFO] [1792611638.423478768] [catch_scorer]: score: 3/4 caught
+[catch_behavior-5] [INFO] [1792611638.968386779] [catch_behavior]: toss 5: tracking, ball 2.3 m/s, 6.9 m out
+[catch_behavior-5] [INFO] [1792611638.969753695] [catch_behavior]:   track lost before a plan
+[catch_behavior-5] [INFO] [1792611639.797852652] [catch_behavior]: toss 5: missed (3/5)
+[catch_behavior-5] [INFO] [1792611639.839311469] [catch_behavior]: toss 6: tracking, ball 9.2 m/s, 5.1 m out
+[catch_behavior-5] [INFO] [1792611639.842454527] [catch_behavior]:   predicted landing 0.77 m from home, 0.80 s to go -> tilt 31 deg
+[catch_bridge-1] [INFO] [1792611639.896534440] [catch_bridge]: sim t    19.2 s, x0.96 real time, 3/4 caught
+[catch_bridge-1] [INFO] [1792611641.749834067] [catch_bridge]: throw 5: missed, funnel offset 31.7 cm (3/5)
+[catch_scorer-6] [INFO] [1792611641.749863304] [catch_scorer]: score: 3/5 caught
+[catch_behavior-5] [INFO] [1792611642.553416724] [catch_behavior]: toss 6: missed (3/6)
+[catch_behavior-5] [INFO] [1792611643.280859027] [catch_behavior]: toss 7: tracking, ball 11.4 m/s, 4.2 m out
+[catch_behavior-5] [INFO] [1792611643.284275643] [catch_behavior]:   predicted landing 2.62 m from home, 0.84 s to go -> tilt 32 deg
+[catch_bridge-1] [INFO] [1792611644.897032165] [catch_bridge]: sim t    23.2 s, x0.81 real time, 3/5 caught
+[catch_behavior-5] [INFO] [1792611645.465152338] [catch_behavior]: toss 7: CAUGHT (4/7)
+[catch_behavior-5] [INFO] [1792611646.078085765] [catch_behavior]:   fire: 10.42 m/s at 50.0 deg, 4248 rpm
+[catch_scorer-6] [INFO] [1792611647.492348262] [catch_scorer]: score: 4/6 caught
+[catch_bridge-1] [INFO] [1792611647.492299948] [catch_bridge]: throw 6: CAUGHT, funnel offset 9.9 cm (4/6)
+[catch_behavior-5] [INFO] [1792611647.930610048] [catch_behavior]: toss 8: tracking, ball 70.6 m/s, 6.9 m out
+[catch_behavior-5] [INFO] [1792611647.931975362] [catch_behavior]:   track lost before a plan
+[catch_behavior-5] [INFO] [1792611648.720282031] [catch_behavior]: toss 8: missed (4/8)
+[catch_behavior-5] [INFO] [1792611648.852973232] [catch_behavior]: toss 9: tracking, ball 9.5 m/s, 5.1 m out
+[catch_behavior-5] [INFO] [1792611648.856522893] [catch_behavior]:   predicted landing 1.81 m from home, 0.96 s to go -> tilt 28 deg
+[catch_bridge-1] [INFO] [1792611649.897642813] [catch_bridge]: sim t    28.1 s, x0.97 real time, 4/6 caught
+[catch_behavior-5] [INFO] [1792611650.711392587] [catch_behavior]: toss 9: CAUGHT (5/9)
+[catch_behavior-5] [INFO] [1792611651.087920751] [catch_behavior]:   fire: 11.24 m/s at 50.0 deg, 4585 rpm
+[catch_bridge-1] [INFO] [1792611652.633873344] [catch_bridge]: throw 7: CAUGHT, funnel offset 2.8 cm (5/7)
+[catch_scorer-6] [INFO] [1792611652.633933238] [catch_scorer]: score: 5/7 caught
+[catch_behavior-5] [INFO] [1792611654.058590734] [catch_behavior]: toss 10: tracking, ball 5.5 m/s, 5.6 m out
+[catch_behavior-5] [INFO] [1792611654.062487399] [catch_behavior]:   predicted landing 1.93 m from home, 1.05 s to go -> tilt 16 deg
+[catch_bridge-1] [INFO] [1792611654.897833241] [catch_bridge]: sim t    32.9 s, x0.96 real time, 5/7 caught
+[catch_behavior-5] [INFO] [1792611656.106084383] [catch_behavior]: toss 10: CAUGHT (6/10)
+[catch_behavior-5] [INFO] [1792611656.540259097] [catch_behavior]:   fire: 9.38 m/s at 50.0 deg, 3788 rpm
+[catch_bridge-1] [INFO] [1792611657.864139988] [catch_bridge]: throw 8: CAUGHT, funnel offset 2.0 cm (6/8)
+[catch_scorer-6] [INFO] [1792611657.864131161] [catch_scorer]: score: 6/8 caught
+[catch_behavior-5] [INFO] [1792611659.270341753] [catch_behavior]: toss 11: tracking, ball 9.8 m/s, 5.0 m out
+[catch_behavior-5] [INFO] [1792611659.273638573] [catch_behavior]:   predicted landing 1.60 m from home, 0.86 s to go -> tilt 30 deg
+[catch_bridge-1] [INFO] [1792611659.896869200] [catch_bridge]: sim t    37.7 s, x0.97 real time, 6/8 caught
+[catch_behavior-5] [INFO] [1792611661.203071546] [catch_behavior]: toss 11: CAUGHT (7/11)
+[catch_behavior-5] [INFO] [1792611661.575179768] [catch_behavior]:   fire: 10.08 m/s at 50.0 deg, 4110 rpm
+[catch_bridge-1] [INFO] [1792611662.984838137] [catch_bridge]: throw 9: CAUGHT, funnel offset 2.7 cm (7/9)
+[catch_scorer-6] [INFO] [1792611662.984876744] [catch_scorer]: score: 7/9 caught
+[catch_behavior-5] [INFO] [1792611664.362426955] [catch_behavior]: toss 12: tracking, ball 11.6 m/s, 4.8 m out
+[catch_behavior-5] [INFO] [1792611664.365170065] [catch_behavior]:   predicted landing 1.67 m from home, 0.67 s to go -> tilt 35 deg
+[catch_bridge-1] [INFO] [1792611664.898627513] [catch_bridge]: sim t    42.6 s, x0.97 real time, 7/9 caught
+[catch_scorer-6] [INFO] [1792611665.581883651] [catch_scorer]: score: 7/10 caught
+[catch_bridge-1] [INFO] [1792611665.581935610] [catch_bridge]: throw 10: missed, funnel offset 29.0 cm (7/10)
+[catch_behavior-5] [INFO] [1792611666.231289503] [catch_behavior]: toss 12: missed (7/12)
+[catch_behavior-5] [INFO] [1792611666.859134018] [catch_behavior]: toss 13: tracking, ball 7.3 m/s, 6.0 m out
+[catch_behavior-5] [INFO] [1792611666.862900038] [catch_behavior]:   predicted landing 0.57 m from home, 1.02 s to go -> tilt 23 deg
+[catch_behavior-5] [INFO] [1792611668.787903331] [catch_behavior]: toss 13: CAUGHT (8/13)
+[catch_behavior-5] [INFO] [1792611669.434093983] [catch_behavior]:   fire: 10.33 m/s at 50.0 deg, 4212 rpm
+[catch_bridge-1] [INFO] [1792611669.898843515] [catch_bridge]: sim t    47.5 s, x0.99 real time, 8/11 caught
+[catch_scorer-6] [INFO] [1792611670.839136060] [catch_scorer]: score: 8/11 caught
+[catch_bridge-1] [INFO] [1792611670.839149282] [catch_bridge]: throw 11: CAUGHT, funnel offset 5.7 cm (8/11)
+[catch_behavior-5] [INFO] [1792611672.206794542] [catch_behavior]: toss 14: tracking, ball 6.6 m/s, 5.6 m out
+[catch_behavior-5] [INFO] [1792611672.210709232] [catch_behavior]:   predicted landing 1.80 m from home, 1.11 s to go -> tilt 18 deg
+[catch_behavior-5] [INFO] [1792611674.166513015] [catch_behavior]: toss 14: CAUGHT (9/14)
+[catch_behavior-5] [INFO] [1792611674.793435243] [catch_behavior]:   fire: 10.09 m/s at 50.0 deg, 4111 rpm
+[catch_bridge-1] [INFO] [1792611674.899308540] [catch_bridge]: sim t    52.5 s, x0.99 real time, 9/12 caught
+[catch_bridge-1] [INFO] [1792611676.106097328] [catch_bridge]: throw 12: CAUGHT, funnel offset 1.1 cm (9/12)
+[catch_scorer-6] [INFO] [1792611676.106162407] [catch_scorer]: score: 9/12 caught
+[catch_behavior-5] [INFO] [1792611676.517639110] [catch_behavior]: toss 15: tracking, ball 3.6 m/s, 7.1 m out
+[catch_behavior-5] [INFO] [1792611676.518907824] [catch_behavior]:   track lost before a plan
+[catch_behavior-5] [INFO] [1792611677.322650122] [catch_behavior]: toss 15: missed (9/15)
+[catch_behavior-5] [INFO] [1792611677.477519906] [catch_behavior]: toss 16: tracking, ball 5.9 m/s, 5.6 m out
+[catch_behavior-5] [INFO] [1792611677.481176012] [catch_behavior]:   predicted landing 1.71 m from home, 1.11 s to go -> tilt 16 deg
+[catch_behavior-5] [INFO] [1792611679.666632479] [catch_behavior]: toss 16: CAUGHT (10/16)
+[catch_bridge-1] [INFO] [1792611679.899607784] [catch_bridge]: sim t    57.5 s, x1.00 real time, 9/12 caught
+[catch_behavior-5] [INFO] [1792611680.188983075] [catch_behavior]:   fire: 9.13 m/s at 50.0 deg, 3661 rpm
+[catch_bridge-1] [INFO] [1792611681.385694845] [catch_bridge]: throw 13: CAUGHT, funnel offset 3.8 cm (10/13)
+[catch_scorer-6] [INFO] [1792611681.385712289] [catch_scorer]: score: 10/13 caught
+[catch_behavior-5] [INFO] [1792611682.746269623] [catch_behavior]: toss 17: tracking, ball 11.3 m/s, 4.9 m out
+[catch_behavior-5] [INFO] [1792611682.749041123] [catch_behavior]:   predicted landing 1.90 m from home, 0.74 s to go -> tilt 35 deg
+[catch_behavior-5] [INFO] [1792611684.666457416] [catch_behavior]: toss 17: CAUGHT (11/17)
+[catch_bridge-1] [INFO] [1792611684.899674864] [catch_bridge]: sim t    62.5 s, x1.00 real time, 11/14 caught
+[catch_behavior-5] [INFO] [1792611685.184298235] [catch_behavior]:   fire: 10.18 m/s at 50.0 deg, 4150 rpm
+[catch_scorer-6] [INFO] [1792611686.467119197] [catch_scorer]: score: 11/14 caught
+[catch_bridge-1] [INFO] [1792611686.467118910] [catch_bridge]: throw 14: CAUGHT, funnel offset 2.9 cm (11/14)
+[catch_behavior-5] [INFO] [1792611687.855167358] [catch_behavior]: toss 18: tracking, ball 8.2 m/s, 5.2 m out
+[catch_behavior-5] [INFO] [1792611687.858745908] [catch_behavior]:   predicted landing 0.87 m from home, 1.01 s to go -> tilt 24 deg
+[catch_behavior-5] [INFO] [1792611689.863606598] [catch_behavior]: toss 18: CAUGHT (12/18)
+[catch_bridge-1] [INFO] [1792611689.900168737] [catch_bridge]: sim t    67.4 s, x1.00 real time, 11/14 caught
+[catch_behavior-5] [INFO] [1792611690.235416175] [catch_behavior]:   fire: 10.05 m/s at 50.0 deg, 4098 rpm
+[catch_bridge-1] [INFO] [1792611691.587262768] [catch_bridge]: throw 15: CAUGHT, funnel offset 8.3 cm (12/15)
+[catch_scorer-6] [INFO] [1792611691.587290300] [catch_scorer]: score: 12/15 caught
+[catch_behavior-5] [INFO] [1792611692.926730233] [catch_behavior]: toss 19: tracking, ball 6.7 m/s, 5.5 m out
+[catch_behavior-5] [INFO] [1792611692.930343846] [catch_behavior]:   predicted landing 0.72 m from home, 0.98 s to go -> tilt 22 deg
+[catch_behavior-5] [INFO] [1792611694.406496807] [catch_behavior]: toss 19: CAUGHT (13/19)
+[catch_behavior-5] [INFO] [1792611694.747057466] [catch_behavior]:   fire: 9.97 m/s at 50.0 deg, 4064 rpm
+[catch_bridge-1] [INFO] [1792611694.900464181] [catch_bridge]: sim t    72.4 s, x0.99 real time, 13/16 caught
+[catch_bridge-1] [INFO] [1792611697.649263249] [catch_bridge]: throw 16: CAUGHT, funnel offset 4.2 cm (13/16)
+[catch_scorer-6] [INFO] [1792611697.649276871] [catch_scorer]: score: 13/16 caught
+[catch_behavior-5] [INFO] [1792611698.140725275] [catch_behavior]: toss 20: tracking, ball 33.4 m/s, 23.9 m out
+[catch_behavior-5] [INFO] [1792611698.142363079] [catch_behavior]:   predicted landing 16.42 m from home, 0.28 s to go -> tilt 35 deg
+[catch_behavior-5] [INFO] [1792611699.106726646] [catch_behavior]: toss 20: missed (13/20)
+[catch_behavior-5] [INFO] [1792611699.107011135] [catch_behavior]: toss 21: tracking, ball 9.9 m/s, 4.7 m out
+[catch_behavior-5] [INFO] [1792611699.109871749] [catch_behavior]:   predicted landing 1.08 m from home, 0.72 s to go -> tilt 33 deg
+[catch_bridge-1] [INFO] [1792611700.535698895] [catch_bridge]: throw 17: missed, funnel offset 26.5 cm (13/17)
+[catch_scorer-6] [INFO] [1792611700.535747615] [catch_scorer]: score: 13/17 caught
+[catch_behavior-5] [INFO] [1792611701.193460178] [catch_behavior]: toss 21: missed (13/21)
+[catch_bridge-1] [INFO] [1792611701.407230051] [catch_bridge]: sim t    77.1 s, x0.93 real time, 13/17 caught
+[catch_behavior-5] [INFO] [1792611701.844736111] [catch_behavior]: toss 22: tracking, ball 9.0 m/s, 5.3 m out
+[catch_behavior-5] [INFO] [1792611701.848468546] [catch_behavior]:   predicted landing 0.94 m from home, 1.01 s to go -> tilt 26 deg
+[catch_behavior-5] [INFO] [1792611703.545582549] [catch_behavior]: toss 22: CAUGHT (14/22)
+[catch_behavior-5] [INFO] [1792611704.064982619] [catch_behavior]:   fire: 9.79 m/s at 50.0 deg, 3988 rpm
+[catch_bridge-1] [INFO] [1792611705.427928710] [catch_bridge]: throw 18: CAUGHT, funnel offset 3.0 cm (14/18)
+[catch_scorer-6] [INFO] [1792611705.427956902] [catch_scorer]: score: 14/18 caught
+[catch_bridge-1] [INFO] [1792611706.407329512] [catch_bridge]: sim t    82.0 s, x0.97 real time, 14/18 caught
+[catch_behavior-5] [INFO] [1792611706.752799029] [catch_behavior]: toss 23: tracking, ball 7.2 m/s, 5.7 m out
+[catch_behavior-5] [INFO] [1792611706.756621588] [catch_behavior]:   predicted landing 0.87 m from home, 1.15 s to go -> tilt 19 deg
+[catch_behavior-5] [INFO] [1792611708.682352908] [catch_behavior]: toss 23: CAUGHT (15/23)
+[catch_behavior-5] [INFO] [1792611709.211565604] [catch_behavior]:   fire: 9.59 m/s at 50.0 deg, 3892 rpm
+[catch_bridge-1] [INFO] [1792611710.471546641] [catch_bridge]: throw 19: CAUGHT, funnel offset 1.8 cm (15/19)
+[catch_scorer-6] [INFO] [1792611710.471558109] [catch_scorer]: score: 15/19 caught
+[catch_bridge-1] [INFO] [1792611711.407871523] [catch_bridge]: sim t    87.0 s, x1.00 real time, 15/19 caught
+[catch_behavior-5] [INFO] [1792611711.854103256] [catch_behavior]: toss 24: tracking, ball 9.0 m/s, 5.0 m out
+[catch_behavior-5] [INFO] [1792611711.856834516] [catch_behavior]:   predicted landing 0.54 m from home, 0.72 s to go -> tilt 32 deg
+[catch_behavior-5] [INFO] [1792611713.472775329] [catch_behavior]: toss 24: CAUGHT (16/24)
+[catch_behavior-5] [INFO] [1792611713.853836936] [catch_behavior]:   fire: 10.44 m/s at 50.0 deg, 4257 rpm
+[catch_bridge-1] [INFO] [1792611715.256253902] [catch_bridge]: throw 20: CAUGHT, funnel offset 2.9 cm (16/20)
+[catch_scorer-6] [INFO] [1792611715.256287057] [catch_scorer]: score: 16/20 caught
+[catch_bridge-1] [INFO] [1792611716.408129592] [catch_bridge]: sim t    92.0 s, x1.00 real time, 16/20 caught
+[catch_behavior-5] [INFO] [1792611716.612436144] [catch_behavior]: toss 25: tracking, ball 6.6 m/s, 5.6 m out
+[catch_behavior-5] [INFO] [1792611716.615869902] [catch_behavior]:   predicted landing 0.93 m from home, 0.99 s to go -> tilt 21 deg
+[catch_behavior-5] [INFO] [1792611718.322088576] [catch_behavior]: toss 25: CAUGHT (17/25)
+[catch_behavior-5] [INFO] [1792611718.682898949] [catch_behavior]:   fire: 9.63 m/s at 50.0 deg, 3908 rpm
+[catch_bridge-1] [INFO] [1792611719.957213505] [catch_bridge]: throw 21: CAUGHT, funnel offset 2.3 cm (17/21)
+[catch_scorer-6] [INFO] [1792611719.957357161] [catch_scorer]: score: 17/21 caught
+[catch_behavior-5] [INFO] [1792611721.326970306] [catch_behavior]: toss 26: tracking, ball 9.2 m/s, 5.3 m out
+[catch_behavior-5] [INFO] [1792611721.330595146] [catch_behavior]:   predicted landing 1.47 m from home, 0.96 s to go -> tilt 27 deg
+[catch_bridge-1] [INFO] [1792611721.408566706] [catch_bridge]: sim t    96.9 s, x1.00 real time, 17/21 caught
+[catch_behavior-5] [INFO] [1792611723.320639191] [catch_behavior]: toss 26: CAUGHT (18/26)
+[catch_behavior-5] [INFO] [1792611723.753924881] [catch_behavior]:   fire: 10.59 m/s at 50.0 deg, 4317 rpm
+[catch_scorer-6] [INFO] [1792611725.232432642] [catch_scorer]: score: 18/22 caught
+[catch_bridge-1] [INFO] [1792611725.232561495] [catch_bridge]: throw 22: CAUGHT, funnel offset 5.6 cm (18/22)
+[catch_bridge-1] [INFO] [1792611726.408944586] [catch_bridge]: sim t   101.8 s, x0.98 real time, 18/22 caught
+[catch_behavior-5] [INFO] [1792611726.593774496] [catch_behavior]: toss 27: tracking, ball 11.1 m/s, 5.1 m out
+[catch_behavior-5] [INFO] [1792611726.597184465] [catch_behavior]:   predicted landing 2.43 m from home, 0.90 s to go -> tilt 31 deg
+[catch_behavior-5] [INFO] [1792611728.411242808] [catch_behavior]: toss 27: CAUGHT (19/27)
+[catch_behavior-5] [INFO] [1792611728.782461531] [catch_behavior]:   fire: 10.67 m/s at 50.0 deg, 4351 rpm
+[catch_bridge-1] [INFO] [1792611731.539708739] [catch_bridge]: throw 23: CAUGHT, funnel offset 2.1 cm (19/23)
+[catch_scorer-6] [INFO] [1792611731.539726409] [catch_scorer]: score: 19/23 caught
+[catch_bridge-1] [INFO] [1792611732.710895314] [catch_bridge]: sim t   106.8 s, x0.99 real time, 19/23 caught
+[catch_behavior-5] [INFO] [1792611732.850630781] [catch_behavior]: toss 28: tracking, ball 5.0 m/s, 6.2 m out
+[catch_behavior-5] [INFO] [1792611732.854871158] [catch_behavior]:   predicted landing 4.30 m from home, 1.14 s to go -> tilt 8 deg
+[catch_behavior-5] [INFO] [1792611734.860863960] [catch_behavior]: toss 28: CAUGHT (20/28)
+[catch_behavior-5] [INFO] [1792611735.221902696] [catch_behavior]:   fire: 9.68 m/s at 50.0 deg, 3934 rpm
+[catch_bridge-1] [INFO] [1792611736.588204237] [catch_bridge]: throw 24: CAUGHT, funnel offset 2.9 cm (20/24)
+[catch_scorer-6] [INFO] [1792611736.588288048] [catch_scorer]: score: 20/24 caught
+[catch_bridge-1] [INFO] [1792611736.588476455] [catch_bridge]: 24 throws done: exiting
+[mcu_link-2] [WARN] [1792611736.588940870] [mcu_link]: MCU link lost: closed
+[mcu_link-2] [WARN] [1792611736.589258844] [mcu_link]: MCU link tcp:127.0.0.1:5761: [Errno 111] Connection refused
+[INFO] [catch_bridge-1]: process has finished cleanly [pid 471]
+[INFO] [catch_scorer-6]: sending signal 'SIGINT' to process[catch_scorer-6]
+[INFO] [catch_behavior-5]: sending signal 'SIGINT' to process[catch_behavior-5]
+[INFO] [catch_perception-4]: sending signal 'SIGINT' to process[catch_perception-4]
+[INFO] [mode_manager-3]: sending signal 'SIGINT' to process[mode_manager-3]
+[INFO] [mcu_link-2]: sending signal 'SIGINT' to process[mcu_link-2]
+[INFO] [catch_scorer-6]: process has finished cleanly [pid 476]
+[INFO] [mode_manager-3]: process has finished cleanly [pid 473]
+[INFO] [catch_behavior-5]: process has finished cleanly [pid 475]
+[INFO] [mcu_link-2]: process has finished cleanly [pid 472]
+[INFO] [catch_perception-4]: process has finished cleanly [pid 474]

@@ -7,6 +7,7 @@ Motors, servos and motor controllers for all of Fernando's robotics projects, as
 | `motors.csv` | Bare motors, gearmotors and integrated actuators. One row per part: the same motor with another gearbox is another row |
 | `servos.csv` | Smart (serial-bus) and hobby (PWM) servos |
 | `controllers.csv` | H-bridges, ESCs, FOC drivers and controllers, smart brushed controllers, MCUs used as motor hosts, and the DC-DC converters a function needs |
+| `motor_tests.csv` | Third-party bench tests (dynamometer runs): one row per test with its maxima, linked to `motors.csv` by `motor_id` |
 | `sources.csv` | Every source: id, kind, URL, what it supports, date checked |
 | `actuator_db.py` | Schema, loader, validator, derived quantities, requirement checks, costs, compatibility, export to a sim catalog, gaps report |
 | `test_actuator_db.py` | Its checks: `python -m pytest -q` in this folder |
@@ -26,7 +27,7 @@ python actuator_db.py schema          # regenerates the schema tables below
 1. **SI units, written into the column name**: `torque_stall_Nm`, `speed_noload_rpm`, `mass_kg`, `price_usd`. rpm is the one non-SI unit kept (for speeds); convert kg cm to N m (× 0.0980665).
 2. **Output shaft vs motor side.** Speeds and torques (`speed_*`, `torque_*`) are at the output, after any gearbox. `kv_rpm_per_V`, `kt_Nm_per_A`, `ke_Vs_per_rad`, `r_ohm` and `rotor_inertia_kgm2` are motor side. `r_kind` says whether `r_ohm` is per phase, line-to-line or terminal.
 3. **Blank means unknown. Never invent a number.** An estimate is allowed only when it is marked `est` in the provenance columns and explained in `notes`.
-4. **Provenance per value.** `prov_default` (datasheet / reseller / forum / est / measured) covers every filled value in the row; `prov_overrides` lists the exceptions, e.g. `est: rotor_inertia_kgm2, gear_eff; reseller: price_usd`. A reseller's number is never written as a datasheet value: a reseller page quoting a spec is `reseller`, even when it probably copied the maker.
+4. **Provenance per value.** `prov_default` (datasheet / reseller / forum / est / measured / third_party, the last for a third-party test database such as Tyto Robotics') covers every filled value in the row; `prov_overrides` lists the exceptions, e.g. `est: rotor_inertia_kgm2, gear_eff; reseller: price_usd`. A reseller's number is never written as a datasheet value: a reseller page quoting a spec is `reseller`, even when it probably copied the maker.
 5. **Sources and dates.** `source_ids` lists the `sources.csv` rows behind the row; `date_checked` is when the values and price were last checked (YYYY-MM-DD). Re-check prices before ordering.
 6. **Prices** are USD at quantity 1 from `vendor`; quantity breaks go in `price_breaks` (`5:56.07;25:51.59`). A converted price (EUR, GBP, INR, AUD) is `est`, with the original in `notes`.
 7. **Bench data goes in the `meas_*` columns** (motors and servos), with `meas_date` and `meas_notes`. Where a measured value exists, `actuator_db` uses it instead of the datasheet value (`Part.meas`, `dc_model(measured=True)`). Don't overwrite the datasheet columns: the difference between the two is the sim-to-real gap.
@@ -39,6 +40,23 @@ python actuator_db.py schema          # regenerates the schema tables below
 3. Set `prov_default`, `prov_overrides`, `source_ids`, `date_checked`, and say in `notes` what is uncertain (VERIFY ...).
 4. Controllers: set `ok_7s_full` from `v_max_V` (yes ≥ 31.4 V, marginal 29.4-31.4 V, no below, VERIFY when the maximum isn't published). `validate` checks it.
 5. Run `python actuator_db.py validate`, then `gaps --csv`.
+
+## What is in it, and where it came from (October 2026)
+
+- **Maker catalogs, complete:**
+  - Pololu micro metal gearmotors (every class and voltage), 25D and 37D (every ratio and voltage);
+  - the Dynamixel X series (one row per model; the other voltages are in its notes) plus prices for the AX / MX / P lines;
+  - the CubeMars AK, AKA, AKH and AKE actuators, the GL gimbal motors and the RI / RO frameless motors;
+  - ODrive's motors and controllers (S1, Pro, Micro, v3.6);
+  - every RoboClaw, the SimpleFOC boards, SOLO MINI, VESC (Trampa, Makerbase, Flipsky);
+  - Damiao, RobStride, MyActuator, Unitree, Xiaomi, DJI, LK-TECH, Feetech, Waveshare, Hiwonder, goBILDA, REV.
+- **Tyto Robotics propulsion database** (`tyto-*` motors, all of `motor_tests.csv`): 121 drone motors and up to 8 dynamometer tests each (424 tests). The site embeds each test's data as JSON in the page, and its own `/tests/search` endpoint lists every test. Each row keeps the run's maxima (rpm, current, power, torque, thrust, motor + ESC efficiency) and its URL. Uploads are user-made: some tests link a motor that differs from the one in the title (flagged in `notes`).
+- **RobotShop listings** (`rs-*` motors):
+  - all 18 pages of the brushless DC gear motors collection;
+  - the first 3 pages (best sellers) of the BLDC and planetary gearmotor collections;
+  - all 6 pages of the smart servos.
+
+  Specs are parsed from product titles only: voltage, rpm, KV, torque, frame size and ratio. Kind, commutation and gear type are inferred (marked `est`). RobotShop sits behind Cloudflare, so these were read page by page. The remaining collections (planetary pages 4-23, BLDC 4-17, brushed / spur / stepper / RC servo) are not imported yet.
 
 ## What the loader does
 
@@ -116,7 +134,7 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
 | `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured) | Provenance of every filled value unless overridden |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
@@ -169,7 +187,7 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
 | `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured) | Provenance of every filled value unless overridden |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
@@ -215,18 +233,45 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
 | `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured) | Provenance of every filled value unless overridden |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
 | `notes` | str | Anything else: caveats, VERIFY items, why rejected |
+
+### motor_tests.csv
+
+| Column | Type | Meaning |
+| --- | --- | --- |
+| `id` | str | Test id (e.g. tyto-7ee: source prefix + the database's hash) |
+| `motor_id` | str | motors.csv id of the motor tested (blank if the motor isn't in motors.csv) |
+| `motor_name` | str | Motor as named by the test |
+| `esc` | str | ESC / driver used |
+| `load` | str | Load: propeller, dynamometer brake, wheel ... |
+| `device` | str | Test stand |
+| `v_min_V` | float | Lowest supply voltage seen in the run |
+| `v_max_V` | float | Highest supply voltage seen in the run |
+| `rpm_max` | float | Highest speed reached, rpm |
+| `rpm_per_V_at_max` | float | rpm / V at the top point (a loaded lower bound of KV) |
+| `current_max_A` | float | Highest supply current |
+| `power_elec_max_W` | float | Highest electrical input power |
+| `power_mech_max_W` | float | Highest mechanical (shaft) power |
+| `torque_max_Nm` | float | Highest shaft torque |
+| `thrust_max_N` | float | Highest thrust (propeller tests) |
+| `eff_max` | float | Best motor + ESC efficiency, 0-1 |
+| `n_points` | int | Data points in the run |
+| `url` | str | Link to the test |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of the values |
+| `source_ids` | list | Source ids from sources.csv |
+| `date_checked` | date | YYYY-MM-DD the test was read |
+| `notes` | str | Notes |
 
 ### sources.csv
 
 | Column | Type | Meaning |
 | --- | --- | --- |
 | `id` | str | Source id (S001 ...) |
-| `kind` | enum (maker / reseller / forum / project) | maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records) |
+| `kind` | enum (maker / reseller / forum / project / test_database) | maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records), test_database (third-party bench data) |
 | `url` | str | Link (or a repo path for project sources) |
 | `supports` | str | Which parts and values it supports |
 | `date_checked` | date | YYYY-MM-DD |

@@ -1,4 +1,7 @@
-﻿"""v5 simulation parameters: the v3b compact robot with its firmware limits removed.
+"""v7 simulation parameters (design.md 25): v6 round 3, plus wheels, pods, rockers and terrain-aware firmware for home
+floors. SimParams() is still the v6 robot; the v7 proposal is house.BASES["v7"] / studies/home_floor.V7.
+
+v5 simulation parameters: the v3b compact robot with its firmware limits removed.
 
 v5 (see README.md):
   - limits "physics" (default): no speed, acceleration, jerk or yaw caps beyond what
@@ -90,6 +93,7 @@ class SimParams:
     flywheel_motor: str = "F90-2806.5-1300"
     esc: str = "Lucid-8S-4in1"
     battery: str = "7S1P-P50B"
+    battery_soc: float = 1.0           # state of charge at start (0.1 = the low-battery case the drive must still meet)
     ball: str = "foam-pickleball"
 
     # --- wheels --------------------------------------------------------------
@@ -104,7 +108,7 @@ class SimParams:
     rocker_deg: float = 3.0            # 0 = rigid; else the two front wheels share a rocker with +/- this travel.
                                        # Rigid X4 loses half its diagonal traction with 1 mm of floor/build error
     allocation: str = "pinv"           # "pinv" (plain speed loops) or "load_aware" (4+ wheels: null-space torque)
-    # --- v7: suspension for home floors (design.md 24) -------------------------
+    # --- v7: suspension for home floors (design.md 25) -------------------------
     rocker: str = "front"              # "front" (v3-v6: front pair on a beam), "both" (front and rear beams tied by a
                                        # differential link, so the deck rolls at their mean), "none". rocker_deg = travel
     suspension: str = "roller"         # "roller" (v6: only the rubber rollers' 0-6 mm compliance), "pod": each wheel and its
@@ -135,6 +139,7 @@ class SimParams:
                                        # edges, exactly (a perfect map)
     edge_speeds: tuple = ((0.007, 2.5), (0.013, 1.5), (0.02, 1.0))   # (edge height up to, crossing speed m/s)
     edge_align: bool = True            # terrain_assist: also turn the base to cross square edges at 0/90 deg
+    edge_align_height: float | None = None   # m: only square edges taller than this (None: 0.7 x the roller radius)
 
     # --- base geometry -----------------------------------------------------
     wheel_base_radius: float = 0.15    # base center to wheel center (v2: 0.18)

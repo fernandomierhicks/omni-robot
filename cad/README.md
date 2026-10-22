@@ -1,5 +1,8 @@
 # CAD v1: printable play-catch robot (build123d → STEP / STL)
 
+> **The current robot's CAD is [`v7/`](v7/README.md)** (v7 base + v6 round-3 module, to the fastener level; design.md
+> section 29). This folder is the v2 kiwi robot, kept as it was.
+
 Parametric parts in Python (build123d). Every printed part exports as STEP for SolidWorks and STL for Bambu Studio. The robot layout comes straight from the v2 simulation (`dims.py` imports its `SimParams` and `geometry()`), so the CAD and the sim cannot drift apart.
 
 ![front](out/renders/front_left.png)
