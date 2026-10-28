@@ -18,6 +18,7 @@ from pathlib import Path
 import mujoco
 import numpy as np
 
+import arm_so101
 import contact_model
 import floor
 from models import Battery, DriveActuator, FeedDrive, FlywheelDrive, GateServo
@@ -122,15 +123,18 @@ class Robot:
         self.floor = floor.attach(model, data, p)          # rolling resistance, varying wheel friction ([] = v6's floor)
 
         self.a_wheel = [model.actuator(f"wheel{i}").id for i in range(1, nw + 1)]
-        self.a_fly = [model.actuator(f"flywheel_{s}").id for s in "LR"]
+        # payload "arm" (design.md 15): no catch module, so no flywheels, trigger or tilt; the arm's servos instead
+        catch = self.has_catch = p.payload == "catch"
+        self.arm = arm_so101.ArmServos(model, data, arm_so101.start_pose(p)) if p.payload == "arm" else None
+        self.a_fly = [model.actuator(f"flywheel_{s}").id for s in "LR"] if catch else []
         # trigger: the trapdoor / plunger position servo, or (roller feed) the two feed-wheel gearmotors
-        self.a_feed = [model.actuator(f"feed_{s}").id for s in "LR"] if p.feed_wheels else []
-        self.a_gate = None if p.feed_wheels else model.actuator("gate").id
+        self.a_feed = [model.actuator(f"feed_{s}").id for s in "LR"] if p.feed_wheels and catch else []
+        self.a_gate = model.actuator("gate").id if catch and not p.feed_wheels else None
         # the feed gearmotors + drivers (catalog.FEED_MOTORS; "ideal" = v6 rounds 1-2's velocity actuators)
         self.feed_drives = [FeedDrive(p.feed_spec, feed_kv(p)) for _ in self.a_feed]
         self.j_feed = [(model.joint(f"feed_{s}").qposadr[0], model.jnt_dofadr[model.joint(f"feed_{s}").id])
-                       for s in "LR"] if p.feed_wheels else []
-        self.a_tilt = model.actuator("tilt").id
+                       for s in "LR"] if self.a_feed else []
+        self.a_tilt = model.actuator("tilt").id if catch else None
         self.a_sweep = model.actuator("sweeper").id if p.hopper in ("sweeper", "stirrer") else None
         # indexer (v6): position-controlled wheel; index_step() moves one pocket on
         self.a_index = model.actuator("indexer").id if p.hopper == "indexer" else None
@@ -145,10 +149,10 @@ class Robot:
         self._ix_backoff = False
         self.sweep = False                 # hopper sweeper arm running
         self.j_drive_v = [model.jnt_dofadr[model.joint(f"drive{i}").id] for i in range(1, nw + 1)]
-        self.j_fly_v = [model.jnt_dofadr[model.joint(f"flywheel_{s}").id] for s in "LR"]
-        self.exit_site = model.site("launch_exit").id
-        self.funnel_site = model.site("funnel_center").id
-        self.module = model.body("catch_module").id
+        self.j_fly_v = [model.jnt_dofadr[model.joint(f"flywheel_{s}").id] for s in "LR"] if catch else []
+        self.exit_site = model.site("launch_exit").id if catch else None
+        self.funnel_site = model.site("funnel_center").id if catch else None
+        self.module = model.body("catch_module").id if catch else None
         self.susp_k = p.roller_stiffness
         self._load_cache = {}
         # v7 terrain-aware firmware: the mapped edges (a perfect map from the floor features unless terrain_map is given)
@@ -219,20 +223,26 @@ class Robot:
         return wheel_loads(self.m, self.d, self.p, self._load_cache)
 
     def flywheel_speeds(self):
+        if not self.has_catch:
+            return np.zeros(2)
         return np.array([self.d.sensor(f"flywheel_{s}_speed").data[0] for s in "LR"])
 
     def tilt(self) -> float:
-        return float(self.d.sensor("tilt_pos").data[0])
+        return float(self.d.sensor("tilt_pos").data[0]) if self.has_catch else 0.0
 
     def tilt_settled(self, tol=math.radians(1.0)) -> bool:
         return abs(self.tilt() - self.tilt_target) < tol and abs(self.tilt_servo.pos_cmd - self.tilt_target) < 1e-6
 
     def feed_exit_blocked(self) -> bool:
         """Chute: the beam where the ball leaves the feed wheels sees a ball."""
+        if not self.has_catch:
+            return False
         r = self.d.sensor("feed_exit_beam").data[0]
         return 0 <= r < 2 * self.g.w
 
     def ball_held(self) -> bool:
+        if not self.has_catch:
+            return False
         r = self.d.sensor("catch_beam").data[0]
         return 0 <= r < 2 * self.g.w
 
@@ -457,8 +467,8 @@ class Robot:
             ctrl, (lo, hi) = drv.command(cmd[k], d.qvel[self.j_drive_v[k]], v_bus, dt)
             d.ctrl[self.a_wheel[k]] = ctrl + self.tau_ff[k] / drv.kp      # force range still clips the total
             m.actuator_forcerange[self.a_wheel[k]] = (lo, hi)
-        for k, fly in enumerate(self.fly):
-            d.ctrl[self.a_fly[k]] = fly.step(self.fly_target, d.qvel[self.j_fly_v[k]], v_bus, dt, brake=self.fly_brake)
+        for a, fly, jv in zip(self.a_fly, self.fly, self.j_fly_v):
+            d.ctrl[a] = fly.step(self.fly_target, d.qvel[jv], v_bus, dt, brake=self.fly_brake)
         open_ = self.gate_open
         target = self.p.gate_open_target
         if self.a_feed:
@@ -492,8 +502,11 @@ class Robot:
             ctrl, (lo, hi) = fd.command(g_cmd, float(d.qpos[jq]), float(d.qvel[jv]), dt)
             d.ctrl[a] = ctrl
             m.actuator_forcerange[a] = (lo, hi)
-        lo, hi = self.p.tilt_limits
-        d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_target, lo, hi)), dt)
+        if self.a_tilt is not None:
+            lo, hi = self.p.tilt_limits
+            d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_target, lo, hi)), dt)
+        if self.arm is not None:
+            self.arm.step(dt)
         if self.a_index is not None:
             self._index_service()
             step = self.p.indexer_speed * dt
@@ -517,13 +530,16 @@ class Robot:
             for a, fd, (jq, jv) in zip(self.a_feed, self.feed_drives, self.j_feed):
                 i_ph = fd.account(d.actuator_force[a], d.qvel[jv], dt)
                 i += i_ph * fm.v_supply / v_bus / 0.9 * min(1.0, (fm.r * i_ph + fm.ke * abs(d.qvel[jv])) / fm.v_supply)
-        else:
+        elif self.a_gate is not None:
             moving = abs(self.gate.pos_cmd - (self.p.gate_open_target if self.gate_open else 0.0)) > 1e-3
             i += self.gate.bus_current(moving, v_bus)
         for k, sv in enumerate(self.steer_servos):          # v8: steering servos on the 12 V rail
             i += sv.bus_current(abs(sv.pos_cmd - float(self.kin.target[k])) > 1e-3, v_bus)
-        tilt_moving = abs(self.tilt_servo.pos_cmd - self.tilt_target) > 1e-3
-        i += self.tilt_servo.bus_current(tilt_moving, v_bus)
+        if self.a_tilt is not None:
+            tilt_moving = abs(self.tilt_servo.pos_cmd - self.tilt_target) > 1e-3
+            i += self.tilt_servo.bus_current(tilt_moving, v_bus)
+        if self.arm is not None:
+            i += self.arm.bus_current(v_bus)
         i += self.p.electronics_power / v_bus
         self.i_total = i
         self.battery.step(i, dt)

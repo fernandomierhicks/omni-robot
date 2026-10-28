@@ -1,0 +1,64 @@
+{
+ "log": "2026-10-22_143035_catch.jsonl",
+ "source": "sim",
+ "throws": 6,
+ "real_caught": 6,
+ "sim_caught": 6,
+ "real_rate": 100.0,
+ "sim_rate": 100.0,
+ "gap_points": 0.0,
+ "agree": 100.0,
+ "rows": [
+  {
+   "toss": 1,
+   "real": true,
+   "sim": true,
+   "speed": 9.18,
+   "sim_pos_error": 0.026,
+   "logged_truth": true
+  },
+  {
+   "toss": 2,
+   "real": true,
+   "sim": true,
+   "speed": 9.02,
+   "sim_pos_error": 0.018,
+   "logged_truth": true
+  },
+  {
+   "toss": 3,
+   "real": true,
+   "sim": true,
+   "speed": 9.36,
+   "sim_pos_error": 0.015,
+   "logged_truth": true
+  },
+  {
+   "toss": 4,
+   "real": true,
+   "sim": true,
+   "speed": 9.47,
+   "sim_pos_error": 0.05,
+   "logged_truth": true
+  },
+  {
+   "toss": 5,
+   "real": true,
+   "sim": true,
+   "speed": 8.92,
+   "sim_pos_error": 0.023,
+   "logged_truth": true
+  },
+  {
+   "toss": 6,
+   "real": true,
+   "sim": true,
+   "speed": 9.69,
+   "sim_pos_error": 0.021,
+   "logged_truth": true
+  }
+ ],
+ "unreplayed": 0,
+ "seed": 9000,
+ "spin": 0.0
+}

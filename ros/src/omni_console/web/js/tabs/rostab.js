@@ -1,6 +1,6 @@
 // @ts-check
 /* The ROS tab: what's running underneath, for debugging. Nodes, topics and services come from rosapi on demand; a
-   topic's rate is measured for 3 s when asked (binary, so even a camera topic won't flood the page for long). */
+   topic's rate is measured for 3 s when asked (the raw bytes, so even a camera topic won't flood the page for long). */
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
 import { getRos, setRosUrl, store, useStore } from "../ros.js";
 import { HelpBox } from "../ui.js";
@@ -37,8 +37,10 @@ export function RosTab() {
     if (!ros) return;
     setRates((r) => ({ ...r, [t.name]: "measuring..." }));
     let n = 0, bytes = 0;
-    const sub = new ROSLIB.Topic({ ros, name: t.name, messageType: t.type, compression: "cbor", queue_length: 10 });
-    sub.subscribe((/** @type {any} */ m) => { n++; try { bytes += JSON.stringify(m).length; } catch { /* typed arrays */ } });
+    // the publisher's bytes (cbor-raw): nothing to convert on the robot, the exact size, and the same mode as the
+    // page's raw topics (rosbridge shares one subscription per topic, raw or not, between its clients)
+    const sub = new ROSLIB.Topic({ ros, name: t.name, messageType: t.type, compression: "cbor-raw", queue_length: 10 });
+    sub.subscribe((/** @type {any} */ m) => { n++; bytes += m.bytes?.length || 0; });
     setTimeout(() => {
       sub.unsubscribe();
       setRates((r) => ({ ...r, [t.name]: `${(n / 3).toFixed(1)} Hz${n ? `, ~${Math.round(bytes / n / 100) / 10} kB` : ""}` }));

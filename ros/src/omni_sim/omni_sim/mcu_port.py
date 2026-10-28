@@ -20,7 +20,17 @@ class McuPort:
         self.port = port
         self.rx_bytes = self.tx_bytes = 0
 
-    def exchange(self, fw):
+    def exchange(self, fw, link_down: bool = False):
+        """link_down (fault injection, faults.py): the bytes are lost both ways, the TCP connection stays."""
+        if link_down:
+            fw.tx()
+            if self.conn is not None:
+                try:
+                    while self.conn.recv(65536):
+                        pass
+                except (BlockingIOError, OSError):
+                    pass
+            return
         if self.conn is None:
             try:
                 self.conn, _ = self.srv.accept()

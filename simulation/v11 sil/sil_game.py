@@ -140,13 +140,15 @@ class PerceptionScore:
 
 class SilCatchGame:
     def __init__(self, cfg: WorldConfig | None = None, verbose: bool = False, game_kw: dict | None = None,
-                 dcfg: DetectorConfig | None = None, **param_kw):
+                 dcfg: DetectorConfig | None = None, rc: RobotConfig | None = None, **param_kw):
+        """rc: the robot as the Jetson's code knows it (default robot_v11.json; when param_kw builds another robot,
+        robot_export.robot_json of its params)."""
         self.cfg = c = cfg or WorldConfig()
         self.verbose = verbose
         self.world = w = CatchWorld(c, **param_kw)
         self.robot = w.robot
         self.link = SimLink(w.robot, seed=c.seed)
-        self.rc = RobotConfig()
+        self.rc = rc or RobotConfig()
         self.perc = Perception(self.rc, tracker_config(c.vision), dcfg)
         # what the robot is told about its surroundings, in its odom frame: home is where it starts, the thrower about
         # where the world puts them (a person detector or an AprilTag would say), the play area from the map
@@ -165,6 +167,61 @@ class SilCatchGame:
         self.score = PerceptionScore(w)
         self.last_view = None               # (left image, its blob, the truth) for the viewer's inset
         self._last_pair = None              # (the last frame pair, the blobs the robot's code reported)
+        self.records = []                   # the robot's own record of each throw (game.last), as it logs them
+        self.log = None                     # session_log.SessionLog (--log): the robot's format, plus the truth
+        self._n_logged = 0
+        self._t_pose = 0.0
+
+    def open_log(self, folder):
+        """Write this run as a session log (omni-log/1, the robot's own format: omni_console/session_log.py), with the
+        world's truth beside each throw, so the sim's runs and the robot's sessions compare line by line."""
+        from omni_console.session_log import SessionLog
+        c = self.cfg
+        self.log = SessionLog(folder, "CATCH", source="sim", map=None,          # t: sim seconds from here on
+                              world=dict(dist=c.dist, apex_range=list(c.apex_range), seed=c.seed, frames=c.frames,
+                                         scene=c.scene, throwers=c.throwers, returns=c.return_throws))
+        return self.log
+
+    def _log_step(self, t: float):
+        g = self.game
+        if g.last.get("toss") is not None and (not self.records or self.records[-1]["toss"] != g.last["toss"]):
+            self.records.append(dict(g.last))
+        if self.log is None:
+            return
+        if t - self._t_pose >= 0.5:
+            self._t_pose = t
+            p = self.rv.pose
+            self.log.write("pose", t=round(t, 3), frame="odom", x=round(float(p[0]), 3), y=round(float(p[1]), 3),
+                           yaw=round(float(p[2]), 3))
+        res, cur = self.world.results, self.world.cur
+        while self._n_logged < len(self.records):
+            rec = self.records[self._n_logged]
+            t0 = rec.get("t0") or 0.0
+            if cur is not None and "t_result" not in cur and cur["t_release"] <= t0:
+                break                                     # the world hasn't decided this throw yet
+            # the world's throw this record is about: released before the robot's track started, the latest such
+            match = [r for r in res if r["t_release"] <= t0 <= r["t_release"] + 2.5]
+            truth = None
+            if match:
+                w = match[-1]
+                truth = {k: w.get(k) for k in ("caught", "pos_error", "release", "release_v", "apex", "thrower",
+                                               "return_error", "launched")}
+            self.log.write("throw", t=round(rec.get("t0") or t, 3), frame="odom", player=f"thrower {rec.get('thrower', 0) + 1}",
+                           **{k: v for k, v in rec.items() if k != "t0"}, truth=truth)
+            self._n_logged += 1
+
+    def close_log(self):
+        if self.log is not None:
+            # the robot's own record of the last throw can land a few ms after the world decided it (run() stops on
+            # the world's count): let its game catch up, briefly
+            t_end = self.world.d.time + 0.5
+            while len(self.records) < len(self.world.results) and self.world.d.time < t_end:
+                self.step()
+            self._log_step(self.world.d.time)              # the throws the world decided last
+            s = self.log.close(now=self.log.start + self.world.d.time)
+            self.log = None
+            return s
+        return None
 
     def _log(self, msg: str):
         if self.verbose:
@@ -197,6 +254,7 @@ class SilCatchGame:
             self.t_cmd = t + 0.01
             cc = self.game.step(t, self.rv, self.perc.view())
             self.link.send(self.mux.command(self.link.host.sync, catch=cc), t)
+            self._log_step(t)
         w.step()
 
     def run(self, tosses: int, t_max: float = 400.0, view: bool = False):
@@ -297,12 +355,21 @@ def main():
     ap.add_argument("--frames", choices=("sparse", "rendered"), default="sparse")
     ap.add_argument("--scene", choices=("arena", "house"), default="arena")
     ap.add_argument("--acquire", type=int, default=None, help="DetectorConfig.acquire_candidates (default: its own)")
+    ap.add_argument("--pass-game", action="store_true", help="two throwers taking turns; the robot returns to the other")
+    ap.add_argument("--log", default=None, help="write the run as a session log (omni-log/1) into this folder")
     a = ap.parse_args()
     dcfg = DetectorConfig(acquire_candidates=a.acquire) if a.acquire else None
     g = SilCatchGame(WorldConfig(dist=a.dist, apex_range=(a.apex, a.apex_max or a.apex), seed=a.seed,
-                                 return_throws=a.returns, frames=a.frames, scene=a.scene), verbose=True, dcfg=dcfg)
+                                 return_throws=a.returns, frames=a.frames, scene=a.scene,
+                                 throwers=2 if a.pass_game else 1), verbose=True, dcfg=dcfg,
+                     game_kw=dict(return_to="other") if a.pass_game else None)
+    if a.log:
+        g.open_log(a.log)
     g.run(a.tosses, view=a.view)
     print(g.summary())
+    if a.log:
+        s = g.close_log()
+        print(f"session log: {s['name']} ({s['throws']} throws) in {a.log}")
 
 
 if __name__ == "__main__":

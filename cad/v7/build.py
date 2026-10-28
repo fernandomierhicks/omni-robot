@@ -1,11 +1,12 @@
 """Build the v7 robot: STEP + STL of every printed part, the assembly STEP, clash checks over the tilt and
-suspension range, every screw's thread engagement, the lidar's self-occlusion, mass and CG against the sim, a BOM
-down to the fasteners.
+suspension range, every screw's thread engagement, head, clamping and tool access, insertion paths, single-solid
+parts, wall thickness, the lidar's self-occlusion, mass and CG against the sim, a BOM down to the fasteners.
 
   python build.py              # everything (several minutes)
-  python build.py --quick      # parts, BOM, mass, engagement; clash check at the static pose only
+  python build.py --quick      # parts, BOM, mass, engagement, access; clash check at the static pose; no walls
   python build.py --no-export  # skip STEP / STL files
   python build.py --render-only  # only the meshes for render.py and view.py
+  python build.py --head-only  # only the head's meshes (out/head_stl, for layout_trade.py) and clearances
 
 Outputs (cad/v7/out/):
   step/<part>.step        printed parts in their contract frame (ROBOT / POD / MODULE, see dims.py); mirrored pods'
@@ -21,6 +22,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 import sys
 import time
 from collections import Counter, defaultdict
@@ -47,10 +49,11 @@ MASS_G = {
     "ELRS receiver": 3.0,
     "Damiao DM-2325": 172.2, "Pololu 25D": 98.0, "Pololu #1999 hub": 6.5, "Pololu #1997 hub": 3.5,
     "T-Motor F90": 46.6, "Feetech STS3250": 72.0, "RPLIDAR A2M12": 190.0, "Jetson Orin Nano": 250.0,
-    "battery 7S1P": 612.0, "BMS": 40.0, "power board": 40.0, "MCU board": 15.0, "speaker": 15.0,
-    "e-stop": 45.0, "ESC 8S": 15.0, "RoboClaw": 50.0, "OV9782 camera": 12.0, "stereo bar": 99.0,
+    "battery 7S1P": 612.0, "BMS": 40.0, "power board": 40.0, "MCU board": 15.0, "micro speaker": 20.0,
+    "5 in display": 110.0, "polycarbonate window": 22.0, "USB mic array": 15.0,
+    "e-stop": 45.0, "ESC 8S": 15.0, "RoboClaw": 50.0, "OV9782 camera": 12.0, "camera bar": 68.0, "standoff rod": 13.3,
     "bearing 61808": 26.0, "bearing 623": 1.8, "608-2RS": 12.0, "RC shock": 18.0, "carbon tube": 4.0,
-    "shaft 8 x 40": 15.8, "pin 3 x 58": 3.2, "pin 4 x 16": 1.6, "servo horn": 4.0, "IR break-beam": 2.0,
+    "SO-101 arm": 780.0, "shaft 8 x 40": 15.8, "pin 3 x 58": 3.2, "pin 4 x 16": 1.6, "servo horn": 4.0, "IR break-beam": 2.0,
     "M5 prop nut": 1.5, "feed torsion spring": 0.3, "shim": 0.1, "12 V buck": 15.0, "19 V buck": 15.0,
 }
 FOAM_DENSITY, NET_G = 0.07, 30.0
@@ -79,6 +82,8 @@ def item_mass(it) -> float:
         return NET_G
     if it.kind == "ball":
         return 0.0
+    if it.kind == "proxy":
+        return purchased_mass(it.key)
     return purchased_mass(it.key)
 
 
@@ -90,7 +95,7 @@ def fill(infill: int) -> float:
 
 INTENDED = (("flywheel_hub", "flywheel_tyre"), ("feed_wheel_hub", "feed_wheel_tyre"), ("roller_core", "roller_tread"),
             ("payload_plate", "pin 4"))            # press fits
-SKIP_KINDS = {"fabric"}
+SKIP_KINDS = {"fabric", "proxy"}
 
 
 def _bbox(s):
@@ -136,7 +141,7 @@ def clashes(items, only=None, min_vol=2.0):
 NOT_THREAD = ("bearing", "608", "shim", "pin ", "shaft", "carbon", "servo horn")   # bores a probe may touch, not threads
 
 
-def engagement(items):
+def engagement(items, only=None):
     """Thread each screw engages, from its probe (hw.py): mm in printed parts and in nuts / metal parts. A screw passes
     with >= ENGAGE_MIN in printed parts or >= ENGAGE_METAL in a nut or metal thread."""
     hosts = [(it, _bbox(it.shape)) for it in items
@@ -144,7 +149,7 @@ def engagement(items):
                  or (it.kind == "fastener" and "nut" in it.key))]
     out = []
     for it in items:
-        if it.probe is None or "SSCS" in it.key:
+        if it.probe is None or "SSCS" in it.key or (only and not only(it)):
             continue
         r0, r1 = hw.PROBE_R[it.size]
         area = math.pi * (r1 * r1 - r0 * r0)
@@ -171,6 +176,286 @@ def engagement(items):
         out.append(dict(screw=it.key, group=it.group, at=[round(c.X, 1), round(c.Y, 1), round(c.Z, 1)],
                         printed_mm=round(printed, 1), metal_mm=round(metal, 1), into=into, ok=ok))
     return out
+
+
+# --- assembly: heads, clamping, tool access, insertion paths, single solids ------------------------------------------
+
+DRIVER_R = {"M2": 1.4, "M2.5": 1.6, "M3": 2.4}       # screwdriver shaft (set screws: a 1.5 mm hex key)
+BURIED_MM = 40.0                                    # a screw's own parts blocking its driver this close: it can't be driven
+CLR_R = {"M2": 1.25, "M2.5": 1.5, "M3": 1.75}
+OUT_R = {"M2": 2.2, "M2.5": 2.6, "M3": 3.0}
+
+
+def _local_z(shape, loc):
+    b = shape.moved(loc.inverse()).bounding_box()
+    return round(b.min.Z, 1), round(b.max.Z, 1)
+
+
+def access(items, only=None):
+    """Every screw: what its head bears on, what it clamps (parts between the head and the thread), and a straight
+    driver path out of its head. Fails: a head bearing on nothing, a screw that clamps nothing, a driver path blocked
+    by the screw's own parts within BURIED_MM (no assembly order can drive it). Blockers further out or by other
+    parts are assembly-order constraints (listed in checks.json)."""
+    from build123d import Cylinder
+    hosts = [(it, _bbox(it.shape)) for it in items if it.kind not in ("fabric", "ball", "foam", "proxy")
+             and not (it.kind == "fastener" and not ("nut" in it.key or "washer" in it.key))]
+    out = []
+    for it in items:
+        if it.kind != "fastener" or it.loc is None or not any(k in it.key for k in ("PAN", "FLAT", "SSCS")) or \
+                (only and not only(it)):
+            continue
+        size, _, rest = it.key.partition(" x ")
+        length, kind = float(rest.split()[0]), rest.split()[1]
+        sr = CLR_R[size]
+        if kind == "SSCS":
+            head, z_sh = None, 0.0
+            driver = Cylinder(0.75, 60, align=hw.CB).moved(Pos(0, 0, 0.2))
+        else:
+            hd, hh = hw.SCREWS[kind][2][size]
+            if kind == "PAN":
+                head = Cylinder(hd / 2 + 0.3, 0.6, align=hw.CT).moved(Pos(0, 0, -0.02)) - Cylinder(sr, 2)
+                driver, z_sh = Cylinder(DRIVER_R[size], 120, align=hw.CB).moved(Pos(0, 0, hh + 0.3)), 0.0
+            else:
+                head = Cylinder(hd / 2 + 0.6, hh + 0.5, align=hw.CT).moved(Pos(0, 0, -0.05)) - Cylinder(sr, 5)
+                driver, z_sh = Cylinder(DRIVER_R[size], 120, align=hw.CB).moved(Pos(0, 0, 0.3)), -hh
+        tube = (Cylinder(OUT_R[size], length + z_sh, align=hw.CT) - Cylinder(sr, length + 2, align=hw.CT).moved(Pos(0, 0, 1))).moved(
+            Pos(0, 0, z_sh - 0.05))
+        T = it.loc
+        tube_w, driver_w = tube.moved(T), driver.moved(T)
+        head_w = head.moved(T) if head is not None else None
+        sb, db = _bbox(it.shape), _bbox(driver_w)
+        on, stack, thread, blockers = [], [], set(), []
+        for o, ob in hosts:
+            if o is it:
+                continue
+            if _overlap(sb, ob, 1.5):
+                try:
+                    if head_w is not None and (head_w & o.shape) is not None and (head_w & o.shape).volume > 0.05:
+                        on.append(o.name)
+                    t = tube_w & o.shape
+                    if t is not None and t.volume > 0.3:
+                        stack.append(o.name)
+                        pr = it.probe & o.shape if it.probe is not None else None
+                        if pr is not None and pr.volume > 0.3:
+                            thread.add(o.name)
+                except Exception:  # noqa: BLE001
+                    pass
+            if _overlap(db, ob):
+                try:
+                    d = driver_w & o.shape
+                    if d is not None and d.volume > 0.5:
+                        blockers.append((_local_z(d, T)[0], o.name))
+                except Exception:  # noqa: BLE001
+                    pass
+        blockers.sort()
+        own = set(on) | set(stack)
+        clamped = (set(on) | set(stack)) - thread - {n for n in stack if n.startswith(("bearing", "shim"))}
+        rec = dict(screw=it.key, group=it.group, at=[round(v, 1) for v in (T.position.X, T.position.Y, T.position.Z)],
+                   head_on=on, thread=sorted(thread), clamps=sorted(clamped),
+                   driver_blocked_by=[f"{n} at {z:.0f} mm" for z, n in blockers[:3]])
+        problems = []
+        if kind != "SSCS":
+            if not on:
+                problems.append("head bears on nothing")
+            if not clamped:
+                problems.append("clamps nothing")
+            if blockers and blockers[0][0] < BURIED_MM and blockers[0][1] in own:
+                problems.append(f"buried: {blockers[0][1]} blocks the driver at {blockers[0][0]:.0f} mm")
+        rec["problems"] = problems
+        out.append(rec)
+    return out
+
+
+def insertion_paths():
+    """Bought parts that slide into printed ones: the DM-2325 into its cup from the inner end (+x, POD frame), the
+    STS3250 out of yoke R's window (-y). The worst interference along each path (mm^3)."""
+    import mounts as MT
+    import vendor as V
+    res = {}
+    cup, mot = P.motor_cup(), V.dm2325(trim=True).moved(P.MOTOR_LOC)
+    worst = 0.0
+    for dx in range(1, 66, 2):
+        i = mot.moved(Pos(dx, 0, 0)) & cup
+        worst = max(worst, i.volume if i is not None else 0.0)
+    res["DM-2325 into the motor cup"] = round(worst, 2)
+    yr, srv = MT.yoke(-1), V.sts3250().moved(MT.servo_loc())
+    worst = 0.0
+    for dy in range(0, 46, 3):
+        i = srv.moved(Pos(0, -dy, 0)) & yr
+        worst = max(worst, i.volume if i is not None else 0.0)
+    res["STS3250 through yoke R's window"] = round(worst, 2)
+    return res
+
+
+def ball_path(items, step=4.0):
+    """The ball (0.5 mm under size) swept down the chute from its resting spot, round the J and up the launch run:
+    printed parts it touches (mm^3), other than the feed wheels and flywheels that grip it. MODULE frame at tilt 0."""
+    import math as m
+    from build123d import Sphere
+    import module as M
+    pts = []
+    n = max(2, int(m.dist(D.HOLD, M.J0) / step))
+    pts += [(D.HOLD[0] + (M.J0[0] - D.HOLD[0]) * k / n, D.HOLD[1] + (M.J0[1] - D.HOLD[1]) * k / n) for k in range(n)]
+    arc = M.RHO * (M.TH - M.BE)
+    for k in range(max(2, int(arc / step))):
+        ph = M.BE + (M.TH - M.BE) * k / max(2, int(arc / step))
+        pts.append((M.CJ[0] + M.RHO * m.sin(ph), M.CJ[1] - M.RHO * m.cos(ph)))
+    for k in range(int(M.LAUNCH_END / step) + 1):
+        pts.append((M.J1[0] + M.U[0] * k * step, M.J1[1] + M.U[1] * k * step))
+    ml = A.module_loc(0.0)
+    parts = [(it, _bbox(it.shape)) for it in items if it.group == "module" and it.kind == "printed"
+             and not it.name.startswith(("feed_wheel", "flywheel"))]
+    hits = {}
+    for x, z in pts:
+        ball = Sphere(D.RB - 0.5).moved(ml * Pos(x, 0, z))
+        bb = _bbox(ball)
+        for it, ob in parts:
+            if _overlap(bb, ob):
+                i = ball & it.shape
+                if i is not None and i.volume > 0.05:
+                    hits[it.name] = max(hits.get(it.name, 0.0), round(i.volume, 2))
+    return dict(positions=len(pts), hits=hits)
+
+
+def index_sweep():
+    """The camera bar turned from the catch index to the arm index (the swap: the module and the face off first)
+    against everything that stays: clashes at every 10 deg (the index screw out between the stops)."""
+    import head as H
+    out = {}
+    fixed = A.build(0.0, 0.0, "base,pods,mounts", index=-5.0).items     # between the stops: no face, no index screw
+    a, b = H.INDEX["catch"], H.INDEX["arm"]
+    for k in range(int(round(abs(a - b) / 10)) + 1):
+        pitch = a + (b - a) * k / round(abs(a - b) / 10)
+        bar = A.build(0.0, 0.0, "head", index=pitch).items
+        out[f"index {pitch:+.0f}"] = clashes(fixed + bar, only=lambda x, y: (x.group == "head") != (y.group == "head"))
+    return out
+
+
+HEAD_PARTS = ("cheek", "cam_holder", "camera bar", "face_housing", "face_back", "5 in display", "polycarbonate")
+ARM_KIT_PARTS = ("arm_riser", "arm_adapter", "bin", "face_upright", "audio_", "12 V buck (arm)")
+
+
+def _head_items(items):
+    return [it for it in items if it.kind != "fastener" and it.name.startswith(HEAD_PARTS)]
+
+
+def export_head_meshes():
+    """out/head_stl/<kit>/<part>.stl: the head's parts in the ROBOT frame (mm), at the catch and the arm index, with
+    the face at its seat and (arm) the arm kit, for simulation/v11 sil/studies/layout_trade.py to cast its rays at
+    and measure the SO-101's meshes against the drawn geometry. The cameras are left out: the study puts its own
+    camera bodies at the CAD's lenses."""
+    import head as H
+    for name in H.INDEX:
+        d = OUT / "head_stl" / name
+        d.mkdir(parents=True, exist_ok=True)
+        for f in d.glob("*.stl"):
+            f.unlink()
+        items = A.build(0.0, 0.0, "mounts,head", kit=name).items
+        keep = _head_items(items) + ([it for it in items if it.kind != "fastener" and it.name.startswith(ARM_KIT_PARTS)]
+                                     if name == "arm" else [])
+        for it in keep:
+            export_stl(it.shape, str(d / f"{re.sub(r'[^A-Za-z0-9]+', '_', it.name).strip('_')}.stl"), tolerance=0.1,
+                       angular_tolerance=0.2)
+    log("head meshes for layout_trade.py")
+
+
+def head_clearance(margin: float = 5.0):
+    """Exact distances (OCC) from the head and the face: the module over its tilt range (closest part and tilt), and
+    the launch line (the ball's centre from the nip out to 0.6 m, at each launch elevation) less the ball's radius and
+    a 5 mm margin: the lowest elevation from which every steeper one clears, and the clearance at 30 deg (the game's
+    flattest)."""
+    from build123d import Edge, Vector
+    head = [(it, _bbox(it.shape)) for it in _head_items(A.build(0.0, 0.0, "mounts,head").items)]
+    best = (1e9, None, None, None)
+    for tilt in range(int(D.TILT_RANGE[0]), int(D.TILT_RANGE[1]) + 1, 2):
+        for m in A.build(float(tilt), 0.0, "module").items:
+            if m.kind in SKIP_KINDS or m.kind == "fastener":
+                continue
+            mb = _bbox(m.shape)
+            for h, hb in head:
+                if not _overlap(mb, hb, best[0] if best[0] < 60 else 60):
+                    continue
+                dist = m.shape.distance_to(h.shape)
+                if dist < best[0]:
+                    best = (dist, tilt, m.name, h.name)
+    out = dict(module=dict(min_mm=round(best[0], 1), at_tilt=best[1], module_part=best[2], head_part=best[3]))
+    clear = {}
+    for el in range(0, 61, 2):
+        tilt = math.degrees(D.THETA) - el
+        if not D.TILT_RANGE[0] <= tilt <= D.TILT_RANGE[1]:
+            continue
+        nx, nz = D.module_to_robot_xz(*D.NIP, tilt)
+        u = (math.cos(math.radians(el)), math.sin(math.radians(el)))
+        line = Edge.make_line(Vector(nx, 0, nz), Vector(nx + 600 * u[0], 0, nz + 600 * u[1]))
+        clear[el] = min(line.distance_to(h.shape) for h, _ in head) - D.RB - margin
+    lowest = None
+    for el in sorted(clear, reverse=True):
+        if clear[el] < 0:
+            break
+        lowest = el
+    out["launch"] = dict(lowest_clear_elev_deg=lowest, clear_at_30_mm=round(clear.get(30, float("nan")), 1),
+                         by_elevation_mm={str(k): round(v, 1) for k, v in sorted(clear.items())})
+    return out
+
+
+def arm_clearance():
+    """The SO-101's own meshes against the arm robot as drawn (out/head_stl/arm), at its fixed poses and grasps, mm:
+    simulation/v11 sil/studies/layout_trade.py arm-check (its own process: the v11 sim's modules share names with
+    the v7 sim's that dims.py loads)."""
+    import subprocess
+    study = D.ROOT / "simulation" / "v11 sil" / "studies"
+    r = subprocess.run([sys.executable, "layout_trade.py", "arm-check"], cwd=study, capture_output=True, text=True)
+    lines = [ln for ln in r.stdout.splitlines() if ln.startswith("{")]
+    return json.loads(lines[-1]) if lines else dict(error=(r.stderr or r.stdout)[-400:])
+
+
+def arm_robot_checks(robot, export: bool, walls_too: bool):
+    """The arm robot (kit "arm": design.md 12.3): its own parts' STEP / STL, the arm kit's screws (thread, access),
+    every pair of placed solids at its static pose, single solids, walls, mass; out/ARM_KIT.md (what the swap takes
+    off and puts on)."""
+    arm = A.build(0.0, 0.0, kit="arm")
+    new = {n: pp for n, pp in arm.printed.items() if n not in robot.printed}
+    if export:
+        for name, pp in new.items():
+            write_step(pp.shape, OUT / "step" / f"{name}.step")
+            bb = pp.shape.bounding_box()
+            export_stl(pp.shape.moved(Pos(-bb.center().X, -bb.center().Y, -bb.min.Z)), str(OUT / "stl" / f"{name}.stl"),
+                       tolerance=0.02, angular_tolerance=0.1)
+    kit = lambda it: it.group == "mounts"                      # noqa: E731  (the kit's and the moved face's)
+    eng = engagement(arm.items, only=kit)
+    acc = access(arm.items, only=kit)
+    mass, pm = masses(arm)
+    out = dict(mass=mass, printed=sorted(new), clashes_static=clashes(arm.items),
+               engagement=dict(screws=len(eng), short=[e for e in eng if not e["ok"]]),
+               access=dict(screws=len(acc), problems=[a for a in acc if a["problems"]]),
+               solids={n: dict(solids=len(pp.shape.solids()), valid=pp.shape.is_valid) for n, pp in new.items()
+                       if len(pp.shape.solids()) != 1 or not pp.shape.is_valid})
+    if walls_too:
+        import walls
+        out["walls"] = {n: r for n, r in walls.report(new).items() if r["thin"]}
+    cat = Counter(it.key for it in robot.items if it.kind in ("purchased", "proxy", "fastener"))
+    arm_c = Counter(it.key for it in arm.items if it.kind in ("purchased", "proxy", "fastener"))
+    rows = ["# Arm kit (generated by build.py)", "",
+            "What the swap from the catch robot to the arm robot takes off and puts on (design.md 12.3). The base, the head "
+            "and their boards stay; the camera bar turns to its arm index; the face unit and the audio box move to the "
+            "kit's seats.", "", f"Arm robot: **{mass['total_kg']:.2f} kg**, CG at {mass['cg_mm']} mm (the SO-101 stowed, est).",
+            "", "## Printed parts of the kit", "", "| Part | Qty | Material | Infill | Orientation | Mass each |", "| --- | --- | --- | --- | --- | --- |"]
+    for n, pp in sorted(new.items()):
+        rows.append(f"| {n} | {pp.qty} | {pp.material} | {pp.infill}% | {pp.orientation} | {pm[n]:.0f} g |")
+    rows += ["", "## Purchased parts and fasteners: put on (+) / taken off (-)", "", "| Change | Part |", "| --- | --- |"]
+    for k in sorted(set(cat) | set(arm_c)):
+        dlt = arm_c[k] - cat[k]
+        if dlt:
+            rows.append(f"| {dlt:+d} | {k} |")
+    rows += ["", "Taken off with the catch kit and not listed above: the module and its prints, the yokes, the servo cap."]
+    (OUT / "ARM_KIT.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
+    return out
+
+
+def solids(robot):
+    """Printed parts that aren't one valid solid (a feature joined to nothing prints loose)."""
+    return {n: dict(solids=len(pp.shape.solids()), valid=pp.shape.is_valid) for n, pp in robot.printed.items()
+            if len(pp.shape.solids()) != 1 or not pp.shape.is_valid}
 
 
 # --- lidar self-occlusion ---------------------------------------------------------------------------------------------
@@ -230,11 +515,22 @@ def lidar_occlusion(items, z_scan: float, centre=(B.LIDAR_XY[0], B.LIDAR_XY[1]))
 
 # --- outputs --------------------------------------------------------------------------------------------------------
 
+def write_step(shape, path):
+    """export_step, retried: a new file in the Dropbox folder is sometimes locked for a moment while it syncs."""
+    for k in range(4):
+        try:
+            return export_step(shape, str(path))
+        except RuntimeError:
+            if k == 3:
+                raise
+            time.sleep(2.0)
+
+
 def export_parts(robot):
     (OUT / "step").mkdir(parents=True, exist_ok=True)
     (OUT / "stl").mkdir(parents=True, exist_ok=True)
     for name, pp in robot.printed.items():
-        export_step(pp.shape, str(OUT / "step" / f"{name}.step"))
+        write_step(pp.shape, OUT / "step" / f"{name}.step")
         bb = pp.shape.bounding_box()
         export_stl(pp.shape.moved(Pos(-bb.center().X, -bb.center().Y, -bb.min.Z)), str(OUT / "stl" / f"{name}.stl"),
                    tolerance=0.02, angular_tolerance=0.1)
@@ -292,9 +588,18 @@ def export_render(robot, sub="render_stl", keep=lambda it: True):
     n = 0
     for c, shapes in groups.items():          # chunks: MuJoCo takes at most 200 000 faces per mesh
         for k in range(0, len(shapes), 6):
-            export_stl(Compound(children=shapes[k:k + 6]), str(d / f"{c}__{k // 6}.stl"), tolerance=0.25, angular_tolerance=0.4)
+            export_stl(Compound(shapes[k:k + 6]), str(d / f"{c}__{k // 6}.stl"), tolerance=0.25, angular_tolerance=0.4)
             n += 1
     log("render meshes", n)
+
+
+def export_render_arm():
+    """out/render_stl_arm: the arm robot (the arm kit, the bar at its arm index) with the SO-101 stowed (its meshes, from
+    simulation/v11 sil/studies/layout_trade.py arm-stl)."""
+    import subprocess
+    export_render(A.build(0.0, 0.0, kit="arm"), "render_stl_arm")
+    subprocess.run([sys.executable, "layout_trade.py", "arm-stl", str(OUT / "render_stl_arm")],
+                   cwd=D.ROOT / "simulation" / "v11 sil" / "studies", check=False, capture_output=True)
 
 
 def export_assembly(robot):
@@ -351,7 +656,7 @@ def write_lists(robot, printed_mass, mass, sim):
     for it in robot.items:
         if it.kind == "fastener":
             fast[it.key] += 1
-        elif it.kind in ("purchased",):
+        elif it.kind in ("purchased", "proxy"):
             purch[it.key] += 1
         elif it.kind in ("foam", "fabric"):
             mats[it.key] += 1
@@ -395,12 +700,20 @@ def write_lists(robot, printed_mass, mass, sim):
 def main():
     quick = "--quick" in sys.argv
     OUT.mkdir(exist_ok=True)
+    if "--head-only" in sys.argv:                   # the head's meshes and clearances (checks.json untouched)
+        export_head_meshes()
+        res = head_clearance()
+        res["arm"] = arm_clearance()
+        (OUT / "head_checks.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
+        log(res["module"], {k: v for k, v in res["launch"].items() if k != "by_elevation_mm"})
+        return
     if "--render-only" in sys.argv:
         robot = A.build(0.0, 0.0)
         export_render(robot)
         # cutaways: one pod without its wheel guard (front-left), the module on its own
         export_render(robot, "render_stl_pod", lambda it: it.group in ("pod0", "pod0u") and not it.name.startswith("wheel_guard"))
-        export_render(robot, "render_stl_module", lambda it: it.group in ("module", "mounts") and not it.name.startswith("funnel_net"))
+        export_render(robot, "render_stl_module", lambda it: it.group in ("module", "mounts", "head") and not it.name.startswith("funnel_net"))
+        export_render_arm()
         log("view meshes", view.export_meshes(robot))
         return
     log("building the robot (tilt 0, static)")
@@ -425,8 +738,16 @@ def main():
         export_parts(robot)
         export_pads(robot)
         export_render(robot)
+        export_render_arm()
         log("view meshes", view.export_meshes(robot))
         export_assembly(robot)
+        export_head_meshes()
+        log("the SO-101 against the arm robot (its own meshes, fixed poses and grasps)")
+        checks["arm"] = arm_clearance()
+        log("arm clearance, mm:", checks["arm"])
+    log("the head's clearances: the module over its tilt range, the launch line")
+    checks["head"] = head_clearance()
+    log("head:", checks["head"]["module"], {k: v for k, v in checks["head"]["launch"].items() if k != "by_elevation_mm"})
     log("thread engagement")
     eng = engagement(robot.items)
     bad = [e for e in eng if not e["ok"]]
@@ -434,6 +755,19 @@ def main():
     log(len(eng), "screws,", len(bad), "short of thread")
     for e in bad:
         log("  short:", e["screw"], e["group"], e["at"], "printed", e["printed_mm"], "metal", e["metal_mm"], e["into"])
+    checks["solids"] = solids(robot)
+    log("printed parts that aren't one valid solid:", checks["solids"] or "none")
+    log("assembly access (heads, clamping, drivers)")
+    acc = access(robot.items)
+    bad_acc = [a for a in acc if a["problems"]]
+    checks["access"] = dict(screws=len(acc), problems=bad_acc, all=acc)
+    log(len(acc), "screws,", len(bad_acc), "with access / clamping problems")
+    for a in bad_acc:
+        log("  ", a["screw"], a["group"], a["at"], a["problems"])
+    checks["insertion"] = insertion_paths()
+    log("insertion paths (worst interference, mm3):", checks["insertion"])
+    checks["ball_path"] = ball_path(robot.items)
+    log("ball path:", checks["ball_path"]["positions"], "positions, printed parts in the way:", checks["ball_path"]["hits"] or "none")
     log("clash check, static pose")
     checks["clashes_static"] = clashes(robot.items)
     log(len(checks["clashes_static"]), "clashes")
@@ -444,19 +778,42 @@ def main():
         sorted({p["part"].split("#")[0] for p in checks["lidar"]["parts"]}))
     if not quick:
         sweep = {}
-        fixed = A.build(0.0, 0.0, "base,pods,mounts").items
+        fixed = A.build(0.0, 0.0, "base,pods,mounts,head").items
         for tilt in (D.TILT_RANGE[0], -20.0, -10.0, 10.0, 15.0, 20.0, 30.0, D.TILT_RANGE[1]):
             mod = A.build(tilt, 0.0, "module").items
             c = clashes(fixed + mod, only=lambda a, b: (a.group == "module") != (b.group == "module"))
             sweep[f"tilt {tilt:+.0f}"] = c
             log("tilt", tilt, len(c), "clashes", [(x["a"], x["b"], x["volume_mm3"]) for x in c][:6])
         for bump in (D.POD_TRAVEL, -3.0):
-            rb = A.build(0.0, bump, "base,pods,mounts")
+            rb = A.build(0.0, bump, "base,pods,mounts,head")
             mod = A.build(0.0, 0.0, "module").items
             c = clashes(rb.items + mod, only=lambda a, b: a.group.endswith("u") != b.group.endswith("u"))
             sweep[f"bump {bump:+.1f}"] = c
             log("bump", bump, len(c), "clashes", [(x["a"], x["b"], x["volume_mm3"]) for x in c][:6])
         checks["sweep"] = sweep
+        log("camera bar index: catch (+30) -> arm (-40), the face and the module off (the swap)")
+        checks["index"] = index_sweep()
+        for k, c in checks["index"].items():
+            log(k, len(c), "clashes", [(x["a"], x["b"], x["volume_mm3"]) for x in c][:6])
+        import walls
+        log("wall thickness (ray casting)")
+        w = walls.report(robot.printed)
+        checks["walls"] = w
+        thin = {n: r["thin"] for n, r in w.items() if r["thin"]}
+        log(len(thin), f"printed parts with walls under {walls.THIN} mm:")
+        for n, cl in thin.items():
+            log("  ", n, [(c["t"], c["at"]) for c in cl[:4]])
+    log("the arm robot: its kit's parts, screws, clashes, solids")
+    checks["arm_robot"] = a = arm_robot_checks(robot, "--no-export" not in sys.argv, not quick)
+    log("arm robot:", a["mass"]["total_kg"], "kg;", len(a["clashes_static"]), "clashes;", len(a["engagement"]["short"]),
+        "short of", a["engagement"]["screws"], "screws;", len(a["access"]["problems"]), "access problems;",
+        "not one solid:", a["solids"] or "none", "; thin walls:", list(a.get("walls", {})) or "none")
+    for c in a["clashes_static"]:
+        log("  arm robot clash:", c)
+    for e in a["engagement"]["short"]:
+        log("  arm robot short:", e["screw"], e["at"], e["into"])
+    for x in a["access"]["problems"]:
+        log("  arm robot access:", x["screw"], x["at"], x["problems"])
     (OUT / "checks.json").write_text(json.dumps(checks, indent=1), encoding="utf-8")
     log("done")
 

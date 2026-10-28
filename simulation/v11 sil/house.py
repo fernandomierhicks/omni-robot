@@ -135,6 +135,8 @@ class Driver:
         return self.d.xpos[b] + self.d.xmat[b].reshape(3, 3) @ np.asarray(xyz, dtype=float)
 
     def load_ball(self):
+        if self.p.payload != "catch":                         # the arm robot has no pocket (the ball stays parked)
+            return
         g = self.r.g
         pos = self.module_point((g.hold[0], 0, g.hold[2] + 0.003))
         self.d.qpos[self.bq:self.bq + 7] = [*pos, 1, 0, 0, 0]

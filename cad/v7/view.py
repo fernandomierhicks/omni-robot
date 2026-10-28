@@ -4,7 +4,7 @@
   python view.py --meshes   # rebuild the meshes from the CAD first (~30 s)
 
 Mouse: left-drag rotates, right-drag pans, scroll zooms, double-click a part to centre the view on it.
-Keys 0-5 toggle groups: 0 base, 1 pods, 2 module, 3 yokes and cameras, 4 fasteners, 5 foam pads, net and ball.
+Keys 0-5 toggle groups: 0 base, 1 pods, 2 module, 3 yokes, head and face, 4 fasteners, 5 foam pads, net and ball.
 Right panel, Control: "tilt" turns the module about its pivot (radians: -0.52 .. 0.70 is -30 .. +40 deg).
 Tab / Shift+Tab hide the side panels.
 """
@@ -23,7 +23,7 @@ import dims as D
 
 OUT = Path(__file__).with_name("out")
 STL = OUT / "view_stl"
-GROUPS = {"base": 0, "pods": 1, "module": 2, "mounts": 3, "fasteners": 4, "soft": 5}
+GROUPS = {"base": 0, "pods": 1, "module": 2, "mounts": 3, "head": 3, "fasteners": 4, "soft": 5}
 
 
 def category(it) -> tuple[str, int]:
@@ -56,7 +56,7 @@ def export_meshes(robot=None):
     n = 0
     for (body, grp, col), shapes in buckets.items():
         for k in range(0, len(shapes), 6):           # MuJoCo takes at most 200 000 faces per mesh
-            export_stl(Compound(children=shapes[k:k + 6]), str(STL / f"{body}__{grp}__{col}__{k // 6}.stl"),
+            export_stl(Compound(shapes[k:k + 6]), str(STL / f"{body}__{grp}__{col}__{k // 6}.stl"),
                        tolerance=0.25, angular_tolerance=0.4)
             n += 1
     return n

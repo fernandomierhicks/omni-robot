@@ -19,8 +19,11 @@ dip, wheel_z_offset) sets how they share the weight. The slide position reads
 out each wheel's normal load. Optional rocker: the two front wheels on a beam
 pivoting about x, with end stops at +/- rocker_deg.
 
+payload="arm" (design.md 15): an SO-101 arm (arm_so101.py) on the payload plate instead of the tilt body and catch
+module; no flywheel, feed, gate or tilt actuators, sensors or ball pairs.
+
 Collision groups (contype / conaffinity bits)
-  1 = general (ball, structure, walls)   2 = wheel contacts (floor only)
+  1 = general (ball, structure, walls)   2 = wheel contacts and the arm's links (floor only)
 """
 
 from __future__ import annotations
@@ -32,6 +35,8 @@ from pathlib import Path
 import mujoco
 import numpy as np
 
+import arm_objects
+import arm_so101
 import floor as floor_mod
 from assets import barrel, cone_shell, ensure_textures, _f
 from params import SimParams
@@ -1046,6 +1051,13 @@ def camera_positions(p: SimParams, g: Geometry):
     if p.camera_mount == "side_posts":
         z = g.rim_center_robot(0.0)[1]
         return "base", [(n, (0.03, y, z)) for n, y in (("left", 0.20), ("right", -0.20))]
+    if p.camera_mount == "nose_pods":
+        x, z = p.camera_pod_xz
+        return "base", [(n, (x, y, z)) for n, y in (("left", hb), ("right", -hb))]
+    if p.camera_mount == "head":           # camera_head_xz is the optical centre; _camera puts it 17 mm ahead of pos
+        ct = math.radians(p.camera_tilt_deg)
+        x, z = p.camera_head_xz[0] - 0.017 * math.cos(ct), p.camera_head_xz[1] - 0.017 * math.sin(ct)
+        return "base", [(n, (x, y, z)) for n, y in (("left", hb), ("right", -hb))]
     raise ValueError(p.camera_mount)
 
 
@@ -1152,7 +1164,7 @@ def _robot(p: SimParams, g: Geometry) -> str:
         standoffs.append(f'<geom class="decor" type="cylinder" size="0.004" material="aluminum" mass="0.02" '
                          f'fromto="{_f(0.1 * c, 0.1 * s, top, 0.1 * c, 0.1 * s, g.plate_top - 0.006)}"/>')
     bumper = []
-    nb, rbump = 36, p.deck_radius + 0.008
+    nb, rbump = 36, p.deck_radius + 0.008 if p.bumper_radius is None else p.bumper_radius
     # the TPU bumper ring (34-62 mm up): v6 round 3 makes it collide, so a ball on the floor is pushed, not driven over
     bcls = 'class="structure" friction="0.3 0.005 0.0001"' if p.bumper_collides else 'class="decor"'
     zbump = dz + 0.003 if axle else dz - 0.004
@@ -1167,15 +1179,20 @@ def _robot(p: SimParams, g: Geometry) -> str:
         battery = (f'<geom class="decor" type="box" size="0.075 0.036 0.0115" pos="0 0 {_f(dz - 0.0115)}" material="battery" mass="{pack.mass}"/>'
                    f'<geom class="decor" type="box" size="0.077 0.012 0.0005" pos="0 0 {_f(dz - 0.0235)}" material="pla_black" mass="{p.m_battery_tray}"/>')
         jet, pcb, estop = (0.0, 0.0), (0.0, 0.125), (-0.155, 0.0)
+        if p.lidar_mount == "rear":                             # the e-stop moves aside for it
+            estop = (-0.09, -0.13)
         lidar_base = max(top, 2 * g.R + 0.004 - 0.026)          # scan plane (~26 mm up) above the wheel tops
     else:
         battery = (f'<geom class="decor" type="box" size="0.045 0.038 0.036" pos="0 0 {_f(dz - 0.04)}" material="battery" mass="{pack.mass}"/>'
                    f'<geom class="decor" type="box" size="0.046 0.039 0.002" pos="0 0 {_f(dz - 0.003)}" material="pla_black" mass="{p.m_battery_tray}"/>')
         jet, pcb, estop = (-0.07, 0.0), (0.03, 0.1), (-0.13, -0.08)
         lidar_base = top
+    if p.lidar_scan_z is not None:                               # the drawn robot: cad/v7's scan plane
+        lidar_base = max(top, p.lidar_scan_z - 0.026)
     deck_top_decor = "" if axle else \
         f'<geom class="decor" type="cylinder" size="{_f(p.deck_radius - 0.03, 0.0035)}" pos="0 0 {_f(dz + 0.0032)}" material="petg_grey"/>'
-    riser = (f'<geom class="decor" type="cylinder" size="0.024 {_f((lidar_base - top) / 2)}" pos="{_f(p.deck_radius - 0.045, 0, (lidar_base + top) / 2)}" '
+    rl = (p.deck_radius - 0.045) * (-1.0 if p.lidar_mount == "rear" else 1.0)     # lidar near the front (rear) edge
+    riser = (f'<geom class="decor" type="cylinder" size="0.024 {_f((lidar_base - top) / 2)}" pos="{_f(rl, 0, (lidar_base + top) / 2)}" '
              f'material="pla_black"/>') if lidar_base > top + 0.002 else ""
     parent, cams = camera_positions(p, g)
     cam_xml = ""
@@ -1184,9 +1201,12 @@ def _robot(p: SimParams, g: Geometry) -> str:
         if p.camera_mount == "side_posts":     # thin carbon posts from the deck edge
             cam_xml += "".join(f'<geom class="decor" type="cylinder" size="0.005" material="petg_dark" mass="0.025" '
                                f'fromto="{_f(pos[0], pos[1], top, pos[0], pos[1], pos[2] - 0.014)}"/>' for _, pos in cams)
+        if p.camera_mount == "nose_pods":      # each pod on a short post from the deck's front lobe
+            cam_xml += "".join(f'<geom class="decor" type="box" size="0.012 0.012 {_f((pos[2] - 0.014 - top) / 2)}" '
+                               f'material="petg_dark" mass="0.02" pos="{_f(pos[0] - 0.01, pos[1], (pos[2] - 0.014 + top) / 2)}"/>'
+                               for _, pos in cams)
     hx, hy = p.home_xy
     q = quat_axis((0, 0, 1), p.home_yaw)
-    rl = p.deck_radius - 0.045                 # lidar near the front edge
     lb = lidar_base
     return f"""
     <body name="base" pos="{_f(hx, hy, 0)}" quat="{_f(*q)}">
@@ -1212,9 +1232,18 @@ def _robot(p: SimParams, g: Geometry) -> str:
       {_guards(p, g) if p.bumper_collides else ''}
       <geom class="structure" type="cylinder" size="{_f(p.plate_radius, 0.003)}" pos="0 0 {_f(g.plate_top - 0.003)}" material="petg_grey" mass="{p.m_plate}"/>
       {cam_xml}
+      {_extra_masses(p)}
       {_wheels(p, g)}
-      {_catch_module(p, g)}
+      {_catch_module(p, g) if p.payload == "catch" else arm_so101.body_xml(p, g.plate_top)}
+      {arm_so101.bracket_xml(p, top, g.plate_top) if p.payload == "arm" else ""}
+      {arm_so101.bin_xml(p, g.plate_top) if p.payload == "arm" else ""}
     </body>"""
+
+
+def _extra_masses(p: SimParams) -> str:
+    """params.extra_masses: point masses fixed to the base (a ballast, the CAD's mass the sim lacks)."""
+    return "".join(f'<body name="extra_mass{k}" pos="{_f(x, y, z)}"><inertial pos="0 0 0" mass="{m:.6g}" '
+                   f'diaginertia="1e-4 1e-4 1e-4"/></body>' for k, (m, x, y, z) in enumerate(p.extra_masses))
 
 
 def _thrower(p: SimParams) -> str:
@@ -1318,7 +1347,7 @@ def guard_geoms(p: SimParams) -> list:
 
 def _guards(p: SimParams, g: Geometry) -> str:
     out = []
-    rs = p.deck_radius + 0.010
+    rs = p.deck_radius + 0.010 if p.bumper_radius is None else p.bumper_radius + 0.002   # under the bumper ring
     for k in range(SKIRT_SEGMENTS):
         a0, a1 = 2 * math.pi * k / SKIRT_SEGMENTS, 2 * math.pi * (k + 1) / SKIRT_SEGMENTS
         out.append(f'<geom name="skirt{k}" type="capsule" size="0.008" contype="0" conaffinity="0" material="tpu_orange" '
@@ -1401,10 +1430,12 @@ def build_xml(p: SimParams = SimParams()) -> str:
     ball_solref = _solref(ball.stiffness, ball.mass, ball.restitution)
     stiff = 'solref="0.002 1" solimp="0.95 0.99 0.001"'
     pairs = []
-    pads, slick = pad_geoms(p, g), slick_geoms(p) + guard_geoms(p)
+    catch = p.payload == "catch"
+    pads, slick = (pad_geoms(p, g), slick_geoms(p)) if catch else ([], [])
+    slick = slick + guard_geoms(p)
     for bname in ball_names(p):      # every ball, including the hopper's extra ones, gets the same contacts
         pairs += [f'<pair geom1="{bname}" geom2="flywheel_{s}" condim="3" friction="{p.flywheel_mu} {p.flywheel_mu} 0.005 0.0001 0.0001" '
-                  f'{stiff}/>' for s in ("L", "R")]
+                  f'{stiff}/>' for s in ("L", "R") if catch]
         pad_ref = f'solref="{_solref(ball.stiffness, ball.mass, p.gate_pad_restitution)}" solimp="0.95 0.99 0.001"'
         # the J-bend and the launch run only see fed balls: smooth, slick PETG, not the catch pad (at the pad's
         # friction a ball sliding round the bend lost ~1 m/s and stalled before the flywheels)
@@ -1417,15 +1448,15 @@ def build_xml(p: SimParams = SimParams()) -> str:
         # the indexer: padded like the pocket (the caught ball lands in one of its pockets)
         pairs += [f'<pair geom1="{bname}" geom2="{gn}" condim="3" friction="{p.indexer_mu} {p.indexer_mu} 0.005 0.0001 0.0001" '
                   f'{pad_ref}/>' for gn in indexer_geoms(p)]
-        if p.feed_wheels:
+        if p.feed_wheels and catch:
             pairs += [f'<pair geom1="{bname}" geom2="feed_{s}" condim="3" friction="{p.flywheel_mu} {p.flywheel_mu} 0.005 0.0001 0.0001" '
                       f'{stiff}/>' for s in ("L", "R")]
-        if p.throat_flaps and p.feed == "j_bend":      # the flaps exist only in the J-bend pocket
+        if p.throat_flaps and p.feed == "j_bend" and catch:      # the flaps exist only in the J-bend pocket
             pairs += [f'<pair geom1="{bname}" geom2="flap_{s}" condim="3" friction="0.6 0.6 0.005 0.0001 0.0001" '
                       f'solref="0.003 1" solimp="0.95 0.99 0.001"/>' for s in ("L", "R")]
         fm, fr = p.funnel_mu, p.funnel_roll
         pairs += [f'<pair geom1="{bname}" geom2="funnel{k}" condim="6" friction="{fm} {fm} 0.005 {fr} {fr}" solref="0.004 1.0"/>'
-                  for k in range(p.funnel_panels)]
+                  for k in range(p.funnel_panels if catch else 0)]
     if p.wheel_model == "tire":                       # v8 swerve: one tyre per module
         wheel_contacts = [f"tire{i}" for i in range(1, nw + 1)]
     else:
@@ -1452,7 +1483,9 @@ def build_xml(p: SimParams = SimParams()) -> str:
             actuators.append(f'<position name="steer{i}" joint="steer{i}" kp="{p.steer_kp}" '
                              f'kv="{2 * 0.7 * math.sqrt(p.steer_kp * 1e-3):.3g}" forcelimited="true" '
                              f'forcerange="{_f(-tq, tq)}"/>')
-    if p.feed_wheels and p.feed_motor == "ideal":
+    if not catch:
+        gate_act = ""
+    elif p.feed_wheels and p.feed_motor == "ideal":
         # v6 rounds 1-2: stiff velocity loops; at zero command they hold (as a worm that can't be back-driven)
         gate_act = "".join(f'<velocity name="feed_{s}" joint="feed_{s}" kv="0.05" forcelimited="true" '
                            f'forcerange="{_f(-p.feed_torque, p.feed_torque)}"/>' for s in ("L", "R"))
@@ -1465,10 +1498,13 @@ def build_xml(p: SimParams = SimParams()) -> str:
         gate_act = f'<position name="gate" joint="gate" kp="2000" kv="40" forcelimited="true" forcerange="{_f(-p.kick_force, p.kick_force)}"/>'
     else:
         gate_act = f'<position name="gate" joint="gate" kp="25" kv="0.3" forcelimited="true" forcerange="{_f(-p.gate_torque, p.gate_torque)}"/>'
-    actuators += ['<motor name="flywheel_L" joint="flywheel_L" gear="1"/>',
-                  '<motor name="flywheel_R" joint="flywheel_R" gear="1"/>',
-                  gate_act,
-                  f'<position name="tilt" joint="tilt" kp="60" kv="1.0" forcelimited="true" forcerange="{_f(-p.tilt_torque, p.tilt_torque)}"/>']
+    if catch:
+        actuators += ['<motor name="flywheel_L" joint="flywheel_L" gear="1"/>',
+                      '<motor name="flywheel_R" joint="flywheel_R" gear="1"/>',
+                      gate_act,
+                      f'<position name="tilt" joint="tilt" kp="60" kv="1.0" forcelimited="true" forcerange="{_f(-p.tilt_torque, p.tilt_torque)}"/>']
+    else:
+        actuators.append(arm_so101.actuators_xml())
     if p.hopper == "indexer":
         actuators.append(f'<position name="indexer" joint="indexer" kp="{p.indexer_kp}" kv="{0.1 * p.indexer_kp ** 0.5:.3g}" '
                          f'forcelimited="true" forcerange="{_f(-p.indexer_torque, p.indexer_torque)}"/>')
@@ -1483,17 +1519,22 @@ def build_xml(p: SimParams = SimParams()) -> str:
         '<subtreelinvel name="base_cg_vel" body="base"/>',
         '<gyro name="imu_gyro" site="imu"/>',
         '<accelerometer name="imu_accel" site="imu"/>',
-        '<rangefinder name="catch_beam" site="catch_beam" cutoff="0.5"/>',
-        *(['<rangefinder name="feed_exit_beam" site="feed_exit_beam" cutoff="0.5"/>'] if p.feed == "chute" else []),
+        *(['<rangefinder name="catch_beam" site="catch_beam" cutoff="0.5"/>'] if catch else []),
+        *(['<rangefinder name="feed_exit_beam" site="feed_exit_beam" cutoff="0.5"/>'] if catch and p.feed == "chute" else []),
         '<framepos name="ball_pos" objtype="xbody" objname="ball"/>',
         '<framelinvel name="ball_vel" objtype="xbody" objname="ball"/>',
         '<frameangvel name="ball_angvel" objtype="xbody" objname="ball"/>',
-        '<jointvel name="flywheel_L_speed" joint="flywheel_L"/>',
-        '<jointvel name="flywheel_R_speed" joint="flywheel_R"/>',
-        f'<jointpos name="gate_pos" joint="{"feed_L" if p.feed_wheels else "gate"}"/>',
-        '<jointpos name="tilt_pos" joint="tilt"/>',
-        '<actuatorfrc name="tilt_torque" actuator="tilt"/>',
     ]
+    if catch:
+        sensors += [
+            '<jointvel name="flywheel_L_speed" joint="flywheel_L"/>',
+            '<jointvel name="flywheel_R_speed" joint="flywheel_R"/>',
+            f'<jointpos name="gate_pos" joint="{"feed_L" if p.feed_wheels else "gate"}"/>',
+            '<jointpos name="tilt_pos" joint="tilt"/>',
+            '<actuatorfrc name="tilt_torque" actuator="tilt"/>',
+        ]
+    else:
+        sensors.append(arm_so101.sensors_xml())
     for i in range(1, nw + 1):
         sensors.append(f'<jointvel name="wheel{i}_speed" joint="drive{i}"/>')
         sensors.append(f'<jointpos name="susp{i}" joint="susp{i}"/>')
@@ -1513,8 +1554,12 @@ def build_xml(p: SimParams = SimParams()) -> str:
         roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, g.R * math.sin(math.pi * om.coverage / om.rollers_per_row))
                               for i in range(1, nw + 1))
     alpha = math.radians(p.funnel_wall_angle_deg)
-    funnel_mesh = cone_shell("funnel_net", p.funnel_throat_radius + 0.002, g.throat_z + 0.002 / math.tan(alpha),
-                             p.funnel_rim_radius + 0.002, g.rim_z, n=60, wraps=10)
+    if catch:
+        payload_assets, payload_defaults = cone_shell(
+            "funnel_net", p.funnel_throat_radius + 0.002, g.throat_z + 0.002 / math.tan(alpha),
+            p.funnel_rim_radius + 0.002, g.rim_z, n=60, wraps=10), ""
+    else:
+        payload_assets, payload_defaults = arm_so101.assets_xml(), arm_so101.defaults_xml()
     if house:
         visual, sky = house_scene.VISUAL_XML, house_scene.SKY_XML
         scene_assets, lights = house_scene.assets_xml(), house_scene.lights_xml()
@@ -1554,7 +1599,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
     {MATERIALS}
     {scene_assets}
     {roller_mesh}
-    {funnel_mesh}
+    {payload_assets}
     {_deck_assets(p)}
     {floor_mod.assets_xml(p)}
     {_indexer_assets(p, g)}
@@ -1580,6 +1625,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
     <default class="funnel_collision">
       <geom group="3" contype="0" conaffinity="0" mass="{p.m_funnel * 0.1 / p.funnel_panels:.4g}" rgba="0.2 0.6 0.9 0.3"/>
     </default>
+    {payload_defaults}
   </default>
 
   <worldbody>
@@ -1591,6 +1637,8 @@ def build_xml(p: SimParams = SimParams()) -> str:
     <camera name="robot_close" mode="targetbody" target="base" pos="2.4 -1.3 1.0" fovy="40"/>
     <camera name="overhead" pos="-0.4 0 6.2" xyaxes="1 0 0 0 1 0" fovy="50"/>
     {scene_world}
+    {_person() if p.person else ""}
+    {arm_objects.world_xml(p)}
     <body name="landing_marker" mocap="true" pos="{_f(*p.home_xy, -0.05)}">
       <geom class="decor" type="cylinder" size="{_f(p.funnel_rim_radius, 0.0008)}" material="marker"/>
     </body>
@@ -1615,6 +1663,19 @@ def build_xml(p: SimParams = SimParams()) -> str:
   </sensor>
 </mujoco>
 """
+
+
+def _person() -> str:
+    """A person for the console's Follow / Tag (params.person): mocap, moved by the sim (bridge_core), parked far away
+    until then. Legs: 12 cm cylinders 20 cm apart, in group 0 so the lidar's rays (groups 0, 1, 3) cut them at its
+    15 cm plane; no contacts (the robot's code must keep its distance, the collision monitor sees them as obstacles)."""
+    leg = 'type="cylinder" size="0.06 0.42" contype="0" conaffinity="0" group="0" rgba="0.25 0.3 0.55 1" mass="0"'
+    return (f'<body name="person" mocap="true" pos="50 50 0">'
+            f'<geom name="person_leg_l" {leg} pos="0 0.1 0.42"/><geom name="person_leg_r" {leg} pos="0 -0.1 0.42"/>'
+            f'<geom name="person_body" type="capsule" size="0.18 0.3" pos="0 0 1.25" contype="0" conaffinity="0" '
+            f'group="1" rgba="0.85 0.45 0.2 1" mass="0"/>'
+            f'<geom name="person_head" type="sphere" size="0.11" pos="0 0 1.72" contype="0" conaffinity="0" group="1" '
+            f'rgba="0.9 0.75 0.6 1" mass="0"/></body>')
 
 
 def _equalities(p: SimParams) -> str:
@@ -1649,12 +1710,17 @@ def build_model(p: SimParams = SimParams()) -> mujoco.MjModel:
     return mujoco.MjModel.from_xml_string(build_xml(p))
 
 
-def mass_properties(model: mujoco.MjModel, p: SimParams, tilt: float = 0.0):
-    """(mass, CG xyz in the robot frame) with the robot upright at the origin and the module at tilt."""
+def mass_properties(model: mujoco.MjModel, p: SimParams, tilt: float = 0.0, arm_q=None):
+    """(mass, CG xyz in the robot frame) with the robot upright at the origin and the module at tilt (payload "arm":
+    the arm at arm_q, default folded)."""
     data = mujoco.MjData(model)
     adr = model.joint("base").qposadr[0]
     data.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
-    data.qpos[model.joint("tilt").qposadr[0]] = tilt
+    if p.payload == "catch":
+        data.qpos[model.joint("tilt").qposadr[0]] = tilt
+    else:
+        q = arm_so101.POSES["stow"] if arm_q is None else arm_q
+        data.qpos[[model.joint(arm_so101.name(j)).qposadr[0] for j in arm_so101.JOINTS]] = q
     mujoco.mj_forward(model, data)
     b = model.body("base").id
     return float(model.body_subtreemass[b]), data.subtree_com[b] - data.xpos[b]

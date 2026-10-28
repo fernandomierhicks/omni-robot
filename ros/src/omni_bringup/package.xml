@@ -11,10 +11,18 @@
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>rcl_interfaces</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>omni_interfaces</exec_depend>
   <exec_depend>omni_perception</exec_depend>
   <exec_depend>omni_mcu</exec_depend>
   <exec_depend>omni_catch</exec_depend>
   <exec_depend>omni_console</exec_depend>
+  <exec_depend>omni_slam</exec_depend>
+  <exec_depend>omni_face</exec_depend>
+  <exec_depend>omni_calib</exec_depend>
   <exec_depend>robot_localization</exec_depend>
   <exec_depend>slam_toolbox</exec_depend>
   <exec_depend>nav2_bringup</exec_depend>

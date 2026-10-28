@@ -156,10 +156,12 @@ def camera() -> Part:
     return _label(p, "OV9782 camera")
 
 
-def estop() -> Part:
-    """22 mm mushroom e-stop, 40 mm head. Frame: panel top surface at z = 0, head up, contact block down."""
+def estop(panel: float = 4.0) -> Part:
+    """22 mm mushroom e-stop, 40 mm head, with its ring nut under a `panel` mm panel. Frame: panel top surface at
+    z = 0, head up, contact block down (VERIFY the contact block's footprint: the deck hole is 30 mm)."""
     p = Cylinder(20.0, 12.0, align=CB).moved(Pos(0, 0, 10.0)) + Cylinder(13.5, 10.0, align=CB)
     p += Cylinder(11.0, 44.0, align=CT).moved(Pos(0, 0, -3.0))
+    p += Cylinder(15.0, 4.0, align=CT).moved(Pos(0, 0, -panel)) - Cylinder(11.0, 20)          # ring nut
     return _label(p, "e-stop 22 mm")
 
 

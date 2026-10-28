@@ -6,7 +6,8 @@ Publishes  /clock                  rosgraph_msgs/Clock, every clock_period of si
            /imu                    sensor_msgs/Imu, BNO085 at 400 Hz: game rotation vector, gyro, accelerometer
            /odom                   nav_msgs/Odometry, wheel odometry (50 Hz est) with covariance
            /tf                     odom -> base_link from the wheel odometry (publish_odom_tf; off when an EKF does it)
-           /tf_static              base_link -> laser, base_link -> imu_link (from the model)
+           /tf_static              base_link -> the robot's frames (robot_export.frames: laser, imu_link, cameras ...)
+           /tags/detections        omni_interfaces/TagDetections, 10 Hz, with tags:=true (design.md 10, tag_sim.py)
            /ground_truth/odom      nav_msgs/Odometry in "world" (the house frame): for scoring only
            /v9/<variant>/pose      v9's own estimators on the same readings (shadow), world frame
            /sim/origin             the odom (= SLAM map) frame's pose in the world, latched
@@ -23,6 +24,15 @@ v11 (design.md 30), firmware:=true: the robot runs its C++ firmware (SIL). The b
 port on localhost TCP (port, default 5761) instead: mcu_link publishes /odom, /imu and odom -> base_link from the
 MCU, and /cmd_vel reaches the firmware through the mode manager. The bridge keeps /clock, /scan, the truth and the
 markers.
+
+design.md 11, payload:=arm: the arm robot (the SO-101 on its nose, things on the floor ahead of its start). The bridge
+also serves the arm's servo bus on localhost TCP (servo_port, default 5763: omni_arm's arm_node connects to it as to
+the bus board's USB port) and renders its cameras on sim time (MuJoCo, EGL in WSL):
+           /stereo/depth (+ /stereo/camera_info)      the left nose camera's depth, 32FC1, as a stereo matcher gives it
+                                                      (sil_pick.PickCameras), when /arm/camera_request asks "depth"
+           /arm_cam/image_raw (+ /arm_cam/camera_info)  the wrist camera, rgb8: on request ("wrist") and at wrist_hz
+           /sim/objects                               std_msgs/String JSON, 1 Hz: the things' true positions (world) and
+                                                      how many are in the bin, for scoring
 """
 
 from __future__ import annotations
@@ -43,13 +53,46 @@ from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile
 from rosgraph_msgs.msg import Clock
-from sensor_msgs.msg import Imu, LaserScan
+from omni_interfaces.msg import TagDetection, TagDetections
+from sensor_msgs.msg import CameraInfo, Image, Imu, LaserScan, TimeReference
 from std_msgs.msg import String
 from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 
 from omni_sim import sim_dir
 
 LATCHED = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+
+
+class FaultTopic:
+    """Fault injection from ROS (simulation/v11 sil/faults.py; the console's System tab in the sim):
+    /sim/fault (std_msgs/String JSON {"kind", "on", "s", "motor", "volts"}) in, /sim/faults (latched JSON list of
+    what's active) out. With the firmware in the loop only."""
+
+    def __init__(self, node, robot):
+        from faults import FaultInjector, KINDS
+        self.node, self.inj = node, FaultInjector(robot)
+        self.pub = node.create_publisher(String, "/sim/faults", LATCHED)
+        node.create_subscription(String, "/sim/fault", self.on_fault, 10)
+        self.kinds = KINDS
+        self.last = None
+        self.publish()
+        node.create_timer(0.5, self.publish)
+
+    def on_fault(self, m: String):
+        try:
+            a = json.loads(m.data)
+            self.inj.inject(str(a["kind"]), bool(a.get("on", True)), a.get("s"), int(a.get("motor", 0)),
+                            float(a.get("volts", 21.5)))
+            self.node.get_logger().warn(f"fault injection: {a}")
+        except (ValueError, KeyError, TypeError) as e:
+            self.node.get_logger().warn(f"/sim/fault: {e}")
+        self.publish()
+
+    def publish(self):
+        d = json.dumps(dict(active=self.inj.active(), kinds=self.kinds))
+        if d != self.last:
+            self.last = d
+            self.pub.publish(String(data=d))
 
 
 def stamp(t: float) -> Time:
@@ -71,6 +114,8 @@ class Bridge(Node):
         shadow = P("shadow", mode == "tour").value
         flat = P("lidar_flatness_deg", -1.0).value
         kw = {} if flat < 0 else dict(lidar_flatness=math.radians(flat))
+        if not P("lidar_mask", True).value:                 # the drawn robot's lidar shadows off (an experiment)
+            kw["lidar_blocked"] = ()
         fw = P("fw_div", 2).value                           # firmware every fw_div physics steps (2 = 1 kHz)
         hk = P("hook_div", 4).value                         # floor + electrical hooks (4 = 500 Hz, est: they vary slowly)
         sil = P("firmware", False).value and mode != "tour"  # v11: the C++ firmware in the loop
@@ -78,7 +123,17 @@ class Bridge(Node):
                               seed=P("seed", 0).value, mode=mode, tour_rounds=P("tour_rounds", 1).value,
                               shadow=("wheels+IMU", "wheels+IMU+lidar") if shadow else (), sensor_kw=kw,
                               fw_div=fw, floor_div=hk, post_div=hk, lidar_cast_dt=P("lidar_cast_dt", 0.002).value,
+                              person=P("person", False).value,      # a person walking ahead (the console's Follow)
+                              timing=P("timing", "ideal").value,    # design.md 10: "real" = drifting MCU clock
+                              payload=P("payload", "catch").value,  # design.md 11: "arm" = the arm robot
+                              objects=P("objects", "toys").value, n_objects=P("n_objects", 6).value,
+                              # the Launcher's live world (sim_world.py): person, clutter, thrower on and off
+                              live_world=P("live_world", False).value, clutter=P("clutter", "off").value,
+                              thrower=P("thrower", True).value,
                               **(dict(firmware=True) if sil else {}))
+        # design.md 10: the Jetson's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
+        # (/sim/sync_edge; mcu_link's sync_source:=topic)
+        self.sync_gpio = P("sync_gpio", "none").value
         self.want_viewer = P("viewer", False).value
         self.viewer_mode = P("viewer_mode", "windows").value       # "windows" (native GL) or "wsl"
         self.want_markers = P("markers", True).value
@@ -106,15 +161,25 @@ class Bridge(Node):
         self.tf = TransformBroadcaster(self)
         self.tf_static = StaticTransformBroadcaster(self)
         self.port = None
+        self.faults = None
         self.no_ekf = self.publish_odom_tf                  # odom -> base_link comes from the odometry, not an EKF
         if getattr(self.core, "firmware", False):
             from omni_sim.mcu_port import McuPort
             self.port = McuPort(P("port", 5761).value, log=self.get_logger().info)
+            self.faults = FaultTopic(self, self.core.r)
             self.publish_odom_tf = False                    # mcu_link publishes the MCU's odometry
             self.get_logger().info(f"firmware in the loop: its USB port is tcp:127.0.0.1:{self.port.port}")
+            if self.sync_gpio != "none":
+                from sil_link import GpioStamp
+                self.gpio = GpioStamp(self.sync_gpio, np.random.default_rng(71_000 + self.cfg.seed))
+                self.n_sync = 0
+                self.p_sync = self.create_publisher(TimeReference, "/sim/sync_edge", 10)
         else:
             self.create_subscription(Twist, "/cmd_vel", self.on_cmd, 10)
         self._static_frames()
+        self.tag_cam = None
+        if P("tags", False).value:
+            self._tag_sim()
         o = self.core.world_from_odom()
         msg = PoseStamped()
         msg.header.frame_id = "world"
@@ -145,19 +210,59 @@ class Bridge(Node):
         self.last_scan = None
         if self.want_viewer:
             self._open_viewer()
+        self.arm = None
+        if self.core.bus_sim is not None:
+            self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value)
+        self.catch = None
+        if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
+            self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
+        elif getattr(self.core, "world", None) is not None:
+            self.core.world.thrower = None                  # no catch game in this step
+        self.rtf_now = None
+        self.control = None
+        cport = P("control_port", 9873).value
+        if cport > 0:
+            from sim_world import ControlPort
+            try:
+                self.control = ControlPort(cport)
+                self.get_logger().info(f"the Launcher's control port: tcp {cport}")
+            except OSError as e:
+                self.get_logger().warn(f"control port {cport}: {e} (the Launcher can't change this sim)")
+
+    def on_control(self, req: dict) -> dict:
+        """The Launcher (sim_world.ControlPort): {"get": 1} or the live world's changes; the reply is the sim's state."""
+        w = getattr(self.core, "world", None)
+        msg = ""
+        if any(k in req for k in ("person", "clutter", "thrower")):
+            if w is None:
+                return dict(ok=False, message="this step has no live world (the Robot and Arm robot steps have one)")
+            msg = w.set(person=req.get("person"), clutter=req.get("clutter"), thrower=req.get("thrower"))
+            if msg:
+                self.get_logger().info(f"world: {msg}")
+            if "thrower" in req and self.catch is not None:
+                self.catch.apply()
+        d = self.core.d
+        return dict(ok=True, message=msg, t=round(d.time, 1), rtf=self.rtf_now, payload=self.cfg.payload,
+                    base=self.cfg.base, world=w.state() if w is not None else None,
+                    catch=bool(self.catch is not None and self.catch.hc.on))
 
     # -- the MuJoCo viewer and the Foxglove / RViz markers ------------------------------------------------
     def _open_viewer(self):
         """MuJoCo's 3D view (omni_sim.viewer_proc): drawn on Windows (default), or in its own WSL process."""
         c = self.core
         self._scan_pts = None
+        hello = dict(base=self.cfg.base, wheel_model=self.cfg.wheel_model, nq=int(c.m.nq), nmocap=int(c.m.nmocap))
+        try:                                     # v11: the model's own settings (the drawn robot, the arm, the person)
+            from bridge_core import model_hello
+            hello["core"] = model_hello(self.cfg)
+        except ImportError:                      # an older sim folder: the base alone
+            pass
         if self.viewer_mode == "wsl":
             from omni_sim.viewer_proc import ViewerLink
-            self.viewer = ViewerLink(str(sim_dir()), self.cfg.base, self.cfg.wheel_model, c.m.nq, c.base_id)
+            self.viewer = ViewerLink(str(sim_dir()), hello, c.base_id)
             self.get_logger().info("MuJoCo viewer opening in WSL (its own process; slow: see viewer_proc.py)")
         else:
             from omni_sim.viewer_proc import WinViewer
-            hello = dict(base=self.cfg.base, wheel_model=self.cfg.wheel_model, nq=int(c.m.nq))
             self.viewer = WinViewer(hello, log=self.get_logger().info)
 
     def _sync_viewer(self):
@@ -177,7 +282,8 @@ class Bridge(Node):
             ok = np.isfinite(s.rng)
             a, r = s.ang[ok], s.rng[ok]
             pts = p0 + (R @ np.vstack([r * np.cos(a), r * np.sin(a), np.zeros(len(r))])).T
-        v.push(self.core.d.qpos, pts)
+        d = self.core.d
+        v.push(d.qpos, pts, mocap=(d.mocap_pos, d.mocap_quat))
 
     def _house_markers(self):
         """The static scene (walls, rugs, thresholds, the start mat ...) as boxes / cylinders in frame "world"."""
@@ -261,18 +367,61 @@ class Bridge(Node):
         self.p_robot.publish(arr)
 
     def _static_frames(self):
+        """base_link -> the robot's frames (design.md 10: robot_export.frames, the same description robot_frames
+        publishes on the robot: laser, imu_link, the cameras and their optical frames, the module pivot, arm mount)."""
+        from robot_export import frames
         out = []
-        for child, site in (("laser", "lidar"), ("imu_link", "imu")):
-            p, q = self.core.frame(site)
+        for f in frames(self.core.m, self.core.d, self.core.p):
             t = TransformStamped()
             t.header.stamp = stamp(self.core.d.time)
-            t.header.frame_id = "base_link"
-            t.child_frame_id = child
-            t.transform.translation.x, t.transform.translation.y, t.transform.translation.z = map(float, p)
-            t.transform.rotation.w, t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z = map(float, q)
+            t.header.frame_id, t.child_frame_id = f["parent"], f["child"]
+            t.transform.translation.x, t.transform.translation.y, t.transform.translation.z = map(float, f["xyz"])
+            r = t.transform.rotation
+            r.x, r.y, r.z, r.w = map(float, f["quat"])
             out.append(t)
         self._static = out
         self.tf_static.sendTransform(out)
+        self._frames = {f["child"]: f for f in frames(self.core.m, self.core.d, self.core.p)}
+
+    def _tag_sim(self):
+        """design.md 10: AprilTags on the house's walls, seen by the left camera (tag_sim.py) -> /tags/detections."""
+        from tag_sim import TagCamera, TagWorld                      # (it puts omni_slam's source on the path)
+        from omni_slam.tags import Pinhole
+        c, f = self._frames["cam_left"], self._frames["cam_left_optical"]
+
+        def mat(fr):
+            x, y, z, w = fr["quat"]
+            M = np.eye(4)
+            M[:3, :3] = [[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
+                         [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+                         [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]]
+            M[:3, 3] = fr["xyz"]
+            return M
+        cid = self.core.m.camera("stereo_left").id
+        self.tag_world = TagWorld(self.core.m, self.core.d)
+        self.tag_cam = TagCamera(self.tag_world, Pinhole.from_fovy(float(self.core.m.cam_fovy[cid])), mat(c) @ mat(f),
+                                 seed=self.cfg.seed)
+        self.p_tags = self.create_publisher(TagDetections, "/tags/detections", 10)
+        self.get_logger().info(f"{len(self.tag_world.tags)} AprilTags on the house's walls (/tags/detections, 10 Hz)")
+
+    def pub_tags(self):
+        d, b = self.core.d, self.core.base_id
+        T = np.eye(4)
+        q = d.xquat[b]
+        w, x, y, z = q
+        T[:3, :3] = [[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
+                     [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+                     [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]]
+        T[:3, 3] = d.xpos[b]
+        dets = self.tag_cam.observe(d.time, T, float(d.sensor("imu_gyro").data[2]))
+        m = TagDetections()
+        m.header.stamp, m.header.frame_id = stamp(d.time), "cam_left_optical"
+        for k in dets:
+            td = TagDetection()
+            td.id, td.size, td.margin = int(k.tag_id), float(k.size), float(k.margin)
+            td.corners = [float(v) for v in np.asarray(k.corners).ravel()]
+            m.detections.append(td)
+        self.p_tags.publish(m)
 
     def on_cmd(self, msg: Twist):
         self.core.set_cmd(msg.linear.x, msg.linear.y, msg.angular.z)
@@ -362,6 +511,17 @@ class Bridge(Node):
             ps.pose.orientation.x, ps.pose.orientation.y, ps.pose.orientation.z, ps.pose.orientation.w = q
             self.p_shadow[k].publish(ps)
 
+    def pub_sync_edges(self):
+        """The firmware's new SYNC_OUT edges as the Jetson's GPIO would stamp them (sim time + its latency)."""
+        r = self.core.r
+        new = list(r.sync_edges)[-(r.n_sync - self.n_sync):]
+        self.n_sync = r.n_sync
+        for te in new:
+            m = TimeReference()
+            m.header.stamp = stamp(te + self.gpio.latency())
+            m.source = f"sync_gpio:{self.sync_gpio}"
+            self.p_sync.publish(m)
+
     # -- the loop ----------------------------------------------------------------------------------
     def run(self):
         core, d = self.core, self.core.d
@@ -373,11 +533,19 @@ class Bridge(Node):
         w_rep, s_rep = w0, s0
         done_t = None
         n_truth, w_view = 0, 0.0
+        w_rtf, s_rtf = w0, s0
         fw_div = getattr(core.r, "fw_div", 1)
         while rclpy.ok():
             ev = core.step()
+            if self.catch is not None:
+                self.catch.step(d.time)
             if self.port is not None and k % fw_div == fw_div - 1:     # once per firmware tick: its USB port
-                self.port.exchange(core.r.fw)
+                self.faults.inj.step()
+                self.port.exchange(core.r.fw, self.faults.inj.link_down())
+                if self.sync_gpio != "none" and core.r.n_sync > self.n_sync:
+                    self.pub_sync_edges()
+                if self.arm is not None:                                # the arm's servo bus, its cameras
+                    self.arm.step(d.time)
             if d.time >= next_clock - 1e-9:
                 next_clock += self.clock_period
                 self.p_clock.publish(Clock(clock=stamp(d.time)))
@@ -388,6 +556,8 @@ class Bridge(Node):
             if ev.scan is not None:
                 self.pub_scan(ev.scan)
                 self.last_scan = ev.scan
+            if self.tag_cam is not None and self.tag_cam.due(d.time):
+                self.pub_tags()
             if ev.truth is not None:
                 self.pub_truth(ev.truth, ev.shadow)
                 n_truth += 1
@@ -404,6 +574,11 @@ class Bridge(Node):
             k += 1
             if k % 10 == 0:                                   # commands in every 5 ms of sim time
                 ex.spin_once(timeout_sec=0.0)
+            if self.control is not None and k % 100 == 0:     # the Launcher, every 50 ms of sim time
+                self.control.poll(self.on_control)
+                if time.perf_counter() - w_rtf >= 1.0:
+                    self.rtf_now = round((d.time - s_rtf) / (time.perf_counter() - w_rtf), 2)
+                    w_rtf, s_rtf = time.perf_counter(), d.time
             if self.rtf > 0 and k % 4 == 0:                   # pace to the wall clock
                 ahead = (d.time - s0) / self.rtf - (time.perf_counter() - w0)
                 if ahead > 0.002:
@@ -424,6 +599,167 @@ class Bridge(Node):
                 break
 
 
+class CatchSide:
+    """design.md 7, 13: the catch game in the house (house_catch.HouseCatch), so the console's Catch runs in the same
+    world as every other mode. When /robot_mode turns CATCH a thrower steps in front of the robot; the bridge says
+    where (/catch/setup, relative to the robot: catch_behavior turns it into its odom frame) and publishes the
+    cameras' frames as the catch bridge does (/cam/<side>/sparse) and each throw's truth (/sim/catch_result)."""
+
+    def __init__(self, node, dist: float, returns: bool):
+        from house_catch import HouseCatch
+        from omni_interfaces.msg import SparseImage
+        self.node, self.SparseImage = node, SparseImage
+        c = node.core
+        self.hc = HouseCatch(c.m, c.d, c.p, c.r, seed=node.cfg.seed, dist=dist, returns=returns)
+        self.p_cam = [node.create_publisher(SparseImage, f"/cam/{s}/sparse", 20) for s in ("left", "right")]
+        self.p_setup = node.create_publisher(String, "/catch/setup", LATCHED)
+        self.p_result = node.create_publisher(String, "/sim/catch_result", 50)
+        self.p_event = node.create_publisher(String, "/console/events", 10)
+        node.create_subscription(String, "/robot_mode", self.on_mode, 10)
+        self.mode = None
+        self.n_res = 0
+        self.p_setup.publish(String(data=json.dumps(dict(ok=False, seq=0, message="not playing"))))
+
+    def on_mode(self, m: String):
+        mode = (m.data.split() or [""])[0].upper()
+        if mode == self.mode:
+            return
+        self.mode = mode
+        self.apply()
+
+    def apply(self):
+        """The game for the mode and the Launcher's thrower switch (sim_world.World.thrower): CATCH with a thrower
+        plays; anything else, or no thrower, doesn't."""
+        d = self.node.core.d
+        w = getattr(self.node.core, "world", None)
+        thrower = w is None or w.thrower is not False
+        if self.mode == "CATCH" and thrower:
+            if self.hc.on:
+                return
+            pose = self.node.core.r.pose()
+            setup = self.hc.start(pose, d.time)
+            self.node.get_logger().info(f"catch: {setup['message']}")
+        else:
+            self.hc.stop()
+            msg = "No thrower: the sim's thrower is off (the Launcher's World)" if self.mode == "CATCH" else "not playing"
+            setup = dict(ok=False, seq=self.hc.n_start, message=msg)
+        if not setup["ok"] and self.mode == "CATCH":
+            self.p_event.publish(String(data=json.dumps(dict(t=time.time(), level="warn", text=setup["message"],
+                                                             source="sim"))))
+        self.p_setup.publish(String(data=json.dumps(setup)))
+
+    def step(self, t: float):
+        hc = self.hc
+        hc.step(t)
+        if not hc.on:
+            return
+        for pair in hc.pop_frames(t):
+            for f in pair:
+                msg = self.SparseImage()
+                msg.header.stamp = stamp(f.t_cap)
+                msg.header.frame_id = f"cam_{('left', 'right')[f.cam]}_optical"
+                msg.width, msg.height = f.width, f.height
+                msg.ball = f.idx.astype(np.uint32).tolist()
+                msg.clutter = f.clutter.astype(np.uint32).tolist()
+                msg.seed = int(f.seed) & 0xFFFFFFFF
+                self.p_cam[f.cam].publish(msg)
+        while self.n_res < len(hc.results) - (1 if hc.phase == "held" else 0):
+            r = hc.results[self.n_res]
+            self.n_res += 1
+            self.p_result.publish(String(data=json.dumps({k: (None if isinstance(v, float) and math.isnan(v) else v)
+                                                          for k, v in r.items()})))
+            self.node.get_logger().info(f"catch: throw {self.n_res} {'CAUGHT' if r['caught'] else 'missed'} "
+                                        f"({sum(x['caught'] for x in hc.results)}/{self.n_res})")
+
+
+class ArmSide:
+    """design.md 11: the arm robot's servo bus (arm_bus.ServoPort) and cameras (sil_pick.PickCameras) for the ROS
+    side, run once per firmware tick from the bridge's loop."""
+
+    def __init__(self, node, port: int, wrist_hz: float):
+        from arm_bus import ServoPort
+        from sil_pick import PickCameras
+        import arm_objects
+        self.node, self.core = node, node.core
+        c = self.core
+        self.objects = arm_objects
+        self.port = ServoPort(c.bus_sim, port, log=node.get_logger().info)
+        self.cams = PickCameras(c.m, c.d, c.p, seed=c.cfg.seed)
+        self.wrist_dt = 1.0 / wrist_hz if wrist_hz > 0 else math.inf
+        self.t_wrist = 0.0
+        self.t_obj = 0.0
+        self.pending = set()
+        self.p_depth = node.create_publisher(Image, "/stereo/depth", 2)
+        self.p_dinfo = node.create_publisher(CameraInfo, "/stereo/camera_info", LATCHED)
+        self.p_wrist = node.create_publisher(Image, "/arm_cam/image_raw", 2)
+        self.p_winfo = node.create_publisher(CameraInfo, "/arm_cam/camera_info", LATCHED)
+        self.p_obj = node.create_publisher(String, "/sim/objects", 5)
+        node.create_subscription(String, "/arm/camera_request", lambda m: self.pending.add(m.data), 10)
+        self.dinfo = self._info(self.cams.Kd, self.cams.DEPTH_WH, "cam_left_optical")
+        self.winfo = self._info(self.cams.Kw, self.cams.WRIST_WH, "arm_wrist_cam_optical")
+        self.p_dinfo.publish(self.dinfo)
+        self.p_winfo.publish(self.winfo)
+        node.get_logger().info(f"arm robot: servo bus on tcp:127.0.0.1:{port}, {len(c.p.floor_objects)} things on "
+                               f"the floor; cameras rendered on request")
+
+    @staticmethod
+    def _info(K, wh, frame) -> CameraInfo:
+        m = CameraInfo()
+        m.header.frame_id = frame
+        m.width, m.height = wh
+        fx, fy, cx, cy = K
+        m.k = [fx, 0.0, cx, 0.0, fy, cy, 0.0, 0.0, 1.0]
+        m.p = [fx, 0.0, cx, 0.0, 0.0, fy, cy, 0.0, 0.0, 0.0, 1.0, 0.0]
+        m.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        m.distortion_model, m.d = "plumb_bob", [0.0] * 5
+        return m
+
+    @staticmethod
+    def _image(arr, enc: str, frame: str, t: float) -> Image:
+        m = Image()
+        m.header.stamp, m.header.frame_id = stamp(t), frame
+        m.height, m.width = arr.shape[:2]
+        m.encoding = enc
+        m.step = arr.strides[0]
+        m.data = arr.tobytes()
+        return m
+
+    def step(self, t: float):
+        self.port.exchange()
+        if "depth" in self.pending:                      # each frame with its camera_info, as camera drivers send them
+            self.pending.discard("depth")
+            self.p_depth.publish(self._image(np.ascontiguousarray(self.cams.depth()), "32FC1", "cam_left_optical", t))
+            self.p_dinfo.publish(self.dinfo)
+        if "wrist" in self.pending or t - self.t_wrist >= self.wrist_dt:
+            self.pending.discard("wrist")
+            self.t_wrist = t
+            self.p_wrist.publish(self._image(self.cams.wrist(), "rgb8", "arm_wrist_cam_optical", t))
+            self.p_winfo.publish(self.winfo)
+        if t - self.t_obj >= 1.0:
+            self.t_obj = t
+            self.p_obj.publish(String(data=json.dumps(self.objects_state(t))))
+
+    def objects_state(self, t: float) -> dict:
+        """The things' true positions (world) and which are in the bin (robot frame, the truth)."""
+        c = self.core
+        P = self.objects.positions(c.m, c.d)
+        P = P[np.hypot(P[:, 0], P[:, 1]) < 20.0]              # not the ones parked outside (sim_world.World)
+        b = c.m.body("base").id
+        R, pb = c.d.xmat[b].reshape(3, 3), c.d.xpos[b]
+        bx, by, L, W, H = c.p.arm_bin
+        z0 = float(c.d.xpos[b][2])
+        inb = []
+        for q in P:
+            x, y, z = R.T @ (q - pb)
+            inb.append(bool(abs(x - bx) < L / 2 and abs(y - by) < W / 2 and z > 0.15 + z0))
+        return dict(t=round(t, 2), positions=[[round(float(v), 3) for v in q] for q in P], in_bin=inb,
+                    n_in_bin=int(sum(inb)), n=len(P))
+
+    def close(self):
+        self.port.close()
+        self.cams.close()
+
+
 def main():
     rclpy.init()
     node = Bridge()
@@ -434,8 +770,12 @@ def main():
     finally:
         if node.viewer is not None:
             node.viewer.close()
+        if node.control is not None:
+            node.control.close()
         if node.port is not None:
             node.port.close()
+        if node.arm is not None:
+            node.arm.close()
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()

@@ -7,7 +7,16 @@
 //
 //   CMD   0x01  Jetson -> MCU, 100 Hz (it is also the heartbeat: none for CMD_TIMEOUT -> ramped stop)
 //   STATE 0x81  MCU -> Jetson, 200 Hz: odometry, module, beams, mode, faults, time-sync echo
-//   IMU   0x82  MCU -> Jetson, every BNO085 report (400 Hz), forwarded for robot_localization
+//   IMU   0x82  MCU -> Jetson, every BNO085 sample (400 Hz), stamped with its own sample time (protocol 4)
+//   INFO  0x83  MCU -> Jetson, 10 Hz: the protocol version, the firmware build, the RC receiver, the drive motors'
+//               temperatures (the operator console)
+//   TIME  0x84  MCU -> Jetson, protocol 4 (design.md 10): an edge of a time reference, MCU clock: the 1 Hz SYNC_OUT
+//               pulse the Jetson also stamps on a GPIO (clock_sync.py), each camera trigger (120 Hz), the left
+//               camera's measured exposure (STROBE)
+//
+// Times: everything the MCU stamps is its own clock, microseconds since boot, taken where the event happened, not
+// when the tick got to it: the CMD's arrival (echo_rx_us) when its last byte was read, a drive motor's position at
+// its CAN reply's interrupt less the reply's own length, an IMU sample from the BNO085's timestamps.
 #pragma once
 
 #include <stddef.h>
@@ -15,7 +24,11 @@
 
 namespace fw {
 
-enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82 };
+enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82, MSG_INFO = 0x83, MSG_TIME = 0x84 };
+enum TimeKind : uint8_t { TE_SYNC = 1, TE_CAM_TRIGGER = 2, TE_CAM_STROBE = 3 };
+
+constexpr uint16_t PROTOCOL_VERSION = 4;       // bump with any change to the bodies below (and in protocol.py)
+constexpr uint32_t INFO_PERIOD_US = 100000;
 
 enum ReqMode : uint8_t { REQ_DISARM = 0, REQ_AUTO = 1 };
 enum Profile : uint8_t { PROFILE_ADULT = 0, PROFILE_KID = 1 };
@@ -73,16 +86,37 @@ struct StateBody {
 };
 
 struct ImuBody {
-    uint64_t t_mcu_us;
+    uint64_t t_mcu_us;           // protocol 4: when the BNO085 sampled it (was: the tick that forwarded it)
     float quat[4];               // w x y z, game rotation vector
     float gyro[3];
     float accel[3];
+};
+
+struct InfoBody {
+    uint64_t t_mcu_us;
+    uint16_t protocol;           // PROTOCOL_VERSION
+    char build[12];              // firmware build id (FW_BUILD: firmware/fw_build_id.py), zero-padded
+    uint8_t rc_ok;               // the RC receiver's link is up
+    uint8_t rc_manual;           // its switch asks for MANUAL
+    int16_t rc[8];               // channels x 1000 (-1000..1000)
+    uint8_t dm_t_rotor[4];       // protocol 3: each drive motor's rotor (winding) and driver (MOSFET) temperature, deg C,
+    uint8_t dm_t_mos[4];         // from its CAN feedback (the console's Health tab)
+};
+
+struct TimeBody {
+    uint64_t t_mcu_us;           // the edge
+    uint8_t kind;                // TimeKind
+    uint8_t _r[3];
+    uint32_t seq;                // SYNC: pulse number; CAM_TRIGGER: trigger number; CAM_STROBE: the trigger it follows
+    uint32_t value;              // CAM_STROBE: exposure length, us; else 0
 };
 #pragma pack(pop)
 
 static_assert(sizeof(CmdBody) == 74, "CmdBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(StateBody) == 116, "StateBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(ImuBody) == 48, "ImuBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(InfoBody) == 48, "InfoBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(TimeBody) == 20, "TimeBody layout changed: update omni_mcu/protocol.py");
 
 uint16_t crc16(const uint8_t* d, size_t n);
 // payload (type, seq, body) -> a COBS frame ending in 0x00; returns its length (0 if out does not fit)

@@ -154,7 +154,7 @@ void Odometry::reset() {
     imu_ok = false;
 }
 
-void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_max) {
+void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us) {
     float span = 2.0f * p_max;
     for (int i = 0; i < prm::N_WHEELS; ++i) {
         if (!valid[i]) {
@@ -166,10 +166,16 @@ void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_
             if (dp > p_max) dp -= span;      // the 16-bit position wraps at +/-p_max
             if (dp < -p_max) dp += span;
             float h = last_dt_[i] + dt;
+            if (t_us && t_us[i] > last_t_[i] && last_t_[i] && t_us[i] - last_t_[i] < 100000) {
+                // the samples' own interval: on a loaded bus the 4th reply lands up to ~0.8 ms after the 1st
+                // (design.md 10), so tick spacing would add that jitter to every wheel speed
+                h = (float)(t_us[i] - last_t_[i]) * 1e-6f;
+            }
             w_[i] = dp / h;
         }
         last_pos_[i] = pos[i];
         last_dt_[i] = 0.0f;
+        last_t_[i] = t_us ? t_us[i] : 0;
         have_pos_[i] = true;
     }
     float tw[3] = {0.0f, 0.0f, 0.0f};

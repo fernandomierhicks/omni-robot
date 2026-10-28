@@ -31,7 +31,7 @@ def stale(out: Path) -> bool:
     if not out.exists():
         return True
     t = out.stat().st_mtime
-    return any(p.stat().st_mtime > t for p in SOURCES + HEADERS + [Path(__file__)])
+    return any(p.stat().st_mtime > t for p in SOURCES + HEADERS + [Path(__file__), FW / "fw_build_id.py"])
 
 
 def build(force: bool = False, quiet: bool = True) -> Path:
@@ -39,8 +39,10 @@ def build(force: bool = False, quiet: bool = True) -> Path:
     if not force and not stale(out):
         return out
     out.parent.mkdir(parents=True, exist_ok=True)
+    sys.path.insert(0, str(FW))
+    from fw_build_id import build_id                 # FW_BUILD, the id the INFO message reports
     flags = ["-std=c++17", "-O2", "-shared", "-fno-exceptions", "-fno-rtti", "-Wall", "-Wextra",
-             "-Wno-unused-parameter", f"-I{CORE}"]
+             "-Wno-unused-parameter", f"-I{CORE}", f'-DFW_BUILD="{build_id(CORE)}"']
     if sys.platform == "win32":
         cmd = [sys.executable, "-m", "ziglang", "c++", "-target", "x86_64-windows-gnu", *flags]
     else:

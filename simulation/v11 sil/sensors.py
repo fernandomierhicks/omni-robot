@@ -81,6 +81,8 @@ class SensorConfig:
     lidar_rate: float = 5000.0
     lidar_scan_hz: float = 10.0
     lidar_range: tuple = (0.05, 12.0)
+    lidar_blocked: tuple = ()               # ((start deg, width deg), ...) in the lidar's frame (0 = forward, + = left):
+                                            # sectors the robot's own parts hide (the drawn robot: BLOCKED_CAD)
     lidar_sigma: float = 0.012              # m (+/-30 mm accuracy ~ 2.5 sigma)
     lidar_res: float = 0.015                # m ranging resolution
     lidar_dropout: float = 0.03             # (est)
@@ -122,6 +124,12 @@ class SensorConfig:
         elif lidar != "C1":
             raise ValueError(lidar)
         return cls(**{**c, **kw})
+
+
+# the drawn robot's lidar shadows (cad/v7, design.md 12.2: 22 deg blocked, the widest wedge 8.2 deg): the payload
+# plate's rear standoffs and the head's side posts, (start deg, width deg) in the lidar's frame, from
+# studies/layout_trade.py C2 (results/layout_trade.json, "any tilt")
+BLOCKED_CAD = ((137.2, 8.2), (170.8, 2.8), (186.8, 2.8), (214.8, 8.2))
 
 
 @dataclass
@@ -302,6 +310,8 @@ class Sensors:
         bad = (gid < 0) | (rng < c.lidar_range[0]) | (rng > c.lidar_range[1])
         bad |= np.where(gid >= 0, self.robot_geom[np.maximum(gid, 0)], False)
         bad |= self.rng.random(n_due) < c.lidar_dropout
+        for a0, width in c.lidar_blocked:              # the robot's own standoffs: inside the minimum range, no return
+            bad |= np.mod(np.degrees(ang) - a0, 360.0) < width
         if c.lidar_acc_frac is None:
             noise = self.rng.normal(0, c.lidar_sigma, n_due)
         else:                                          # v10 (A2M12): accuracy is a fraction of range, by band

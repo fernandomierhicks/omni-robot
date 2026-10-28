@@ -8,10 +8,11 @@ Everything placed in `assembly.step`, counted from the model. Prices and part nu
 | --- | --- | --- | --- |
 | 1 | 12 V buck | 12 V 5 A step-down (Pololu D36V50F12 class) for the feed motors' RoboClaw and the STS3250 | pololu.com #4096 (~$30) |
 | 1 | 19 V buck | 19 V 4 A step-down for the Jetson dev kit (est) | TBD (~$15) |
+| 1 | 5 in display 800x480 | 5 in 800 x 480 IPS HDMI display + USB touch, 121 x 77 x 12 with its driver on its back (Waveshare 5inch HDMI LCD class; VERIFY size, connectors and depth); HDMI + USB to the Jetson | Waveshare / generic (~$40) |
 | 1 | 608-2RS bearing | 608-2RS ball bearing 8 x 22 x 7 (tilt pivot, yoke L) | generic; McMaster 6383K (608) |
 | 1 | BMS | 7S 40 A BMS (Daly-class, est 60 x 38 x 12) | TBD (VERIFY size) |
 | 4 | Damiao DM-2325 | Damiao DM-S2325-1EC planetary BLDC + FOC driver, 1:25, CAN (section 24) | aifitlab.com / Foxtech, $86 |
-| 1 | ELRS receiver | ELRS 2.4 GHz receiver (RadioMaster RP2 class), 3M dual-lock on yoke R, antenna up | RadioMaster ($15) |
+| 1 | ELRS receiver | ELRS 2.4 GHz receiver (RadioMaster RP2 class), 3M dual-lock on cheek R's outer face, antenna up (a base part: it stays when the payload kits are swapped) | RadioMaster ($15) |
 | 1 | ESC 8S 4-in-1 (AM32) | 8S AM32 4-in-1 ESC, bidirectional DShot, 30.5 x 30.5 mount (Pilotix 65A / TBS Lucid 8S) | section 24 (~$56-73) |
 | 1 | Feetech STS3250 | Feetech STS3250 serial-bus servo, 12 V, 12-bit absolute encoder (tilt, section 24) | feetechrc.com / robotshop ($73.99) |
 | 4 | IR break-beam half | 5 mm IR break-beam sensor half (emitter or receiver; Adafruit #2168 pair) | adafruit.com #2168 ($5.95 per pair) |
@@ -26,20 +27,23 @@ Everything placed in `assembly.step`, counted from the model. Prices and part nu
 | 1 | RPLIDAR A2M12 | Slamtec RPLIDAR A2M12 (design.md 7, Fernando's choice) | Slamtec / robotshop (~$229) |
 | 1 | RoboClaw 2x7A | Basicmicro RoboClaw 2x7A (feed motors' speed / position loops) | basicmicro.com ($79.95) |
 | 2 | T-Motor F90 2806.5 1300KV | T-Motor F90 2806.5 1300KV (or iFlight XING 2806.5) | T-Motor via GetFPV / Pyrodrone (~$30) |
+| 1 | USB mic array | USB 2-mic array, echo cancellation and beamforming, speaker output (Seeed ReSpeaker Lite class, VERIFY board size, holes and amp power) | Seeed Studio (~$25 est) |
 | 1 | battery 7S1P P50B | 7S1P Molicel P50B 21700 pack (5 Ah, 25.2 V), flat row, wrapped, XT60 + balance lead | Molicel INR21700-P50B x 7 + nickel strip / pack builder (~$90) |
 | 4 | bearing 61808-2RS | 61808-2RS thin-section ball bearing 40 x 52 x 7 | generic (VXB / Amazon); McMaster 5972K (search 40 mm ID x 52 mm OD) |
 | 8 | bearing 623-2RS | 623-2RS ball bearing 3 x 10 x 4 | generic; McMaster 6661K (search 3 mm ID x 10 mm OD) |
+| 1 | camera bar 20 x 20 tube | 6061 square tube 20 x 20 x 1.5, 228 mm; 2 x 3.4 cross holes at +-95 mm (holders) | McMaster 6546K (6061 square tube 3/4 in) or 20 x 20 x 1.5 metric stock |
 | 6 | carbon tube 8 x 6 | carbon-fibre tube 8 mm OD x 6 mm ID (6 struts, cut to 115 mm) | McMaster 2153T (carbon-fibre tube 8 mm) or RC hobby supplier |
-| 1 | e-stop 22 mm | 22 mm mushroom e-stop, 1 NC contact, 40 mm head (design.md 14) | e.g. IDEC / generic ($12) |
+| 1 | e-stop 22 mm | 22 mm mushroom e-stop, 1 NC contact, 40 mm head, ring nut (design.md 14) | e.g. IDEC / generic ($12) |
 | 2 | feed torsion spring | torsion spring, 0.5 mm wire, 3.2 mm ID, 90 deg legs (~6 N at the wheel) | McMaster 9271K (torsion spring, est) |
+| 1 | micro speaker 4 ohm 3 W | 4 ohm 3 W enclosed micro speaker 40 x 28 x 12, on VHB tape under the lid (VERIFY) | generic (~$5) |
 | 40 | pin 3 x 58 | 3 mm hardened steel pin, 58 mm (cut from 3 mm drill rod) | McMaster 8893K (3 mm O1 drill rod, cut) or 3 x 60 dowel ground down |
 | 2 | pin 4 x 16 | 4 mm dowel pin x 16 (module keying), pressed into the plate | McMaster 91585A (4 mm x 16 dowel) |
+| 1 | polycarbonate window 2 mm | 2 mm clear polycarbonate, cut to 121 x 77 (in front of the panel) | McMaster 8574K (polycarbonate sheet, 1/16 in) (est) |
 | 1 | power board | power board: e-stop MOSFET switch, 40 A fuse, XT60 in/out, CAN + 24 V to the payload (TBD) | custom / TBD |
 | 1 | servo horn | Feetech 25T aluminium disc horn (with the STS3250) | with the servo |
 | 1 | shaft 8 x 40 | 8 mm steel shaft, h6, 40 mm (tilt pivot, +y side) | McMaster 6112K (8 mm shaft, cut) |
 | 8 | shim 3x6x0.5 | M3 shim washer 3 x 6 x 0.5, DIN 988 | McMaster 98055A (shim washer, metric) |
-| 1 | speaker | 28 mm 8 ohm speaker + MAX98357A I2S amp | Adafruit #4227 / #3006 (~$10) |
-| 1 | stereo bar | 6061 aluminium flat bar 25 x 6 mm x 244 mm; 4 x 3.4 holes (wedges), 4 x M3 tapped (posts) | McMaster 8975K (6061 flat bar) or 25 x 6 metric stock |
+| 2 | standoff rod 8 x 98 | 6061 aluminium rod Ø8 x 98 mm, M3 tapped 10 deep at both ends (front standoffs; or Ø8 M3 female round standoffs of that length, VERIFY) | McMaster 8974K (6061 rod, 8 mm) + M3 tap |
 
 ## Fasteners
 
@@ -49,26 +53,24 @@ Thread-forming into 2.8 mm printed holes unless a nut is listed. Totals include 
 | --- | --- | --- | --- |
 | 8 | M2 x 6 PAN | M2 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric, M2) |
 | 4 | M2.5 x 8 PAN | M2.5 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric, M2.5) |
-| 16 | M3 x 8 FLAT | M3 flat head screw 90 deg, ISO 7046 (Phillips) / ISO 14584 (Torx), 18-8 stainless | McMaster 92010A (18-8 SS flat head Phillips, metric) |
 | 6 | M3 x 14 FLAT | M3 flat head screw 90 deg, ISO 7046 (Phillips) / ISO 14584 (Torx), 18-8 stainless | McMaster 92010A (18-8 SS flat head Phillips, metric) |
-| 24 | M3 x 6 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 8 | M3 x 8 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 106 | M3 x 10 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 42 | M3 x 12 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 32 | M3 x 14 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 12 | M3 x 16 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 4 | M3 x 18 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 48 | M3 x 8 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 95 | M3 x 10 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 44 | M3 x 12 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 52 | M3 x 14 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 24 | M3 x 16 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
 | 45 | M3 x 20 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
 | 16 | M3 x 22 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 2 | M3 x 25 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
 | 4 | M3 x 30 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
-| 4 | M3 x 35 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
+| 4 | M3 x 40 PAN | M3 pan head screw, ISO 7045 (Phillips) / ISO 14583 (Torx), 18-8 stainless | McMaster 92000A (18-8 SS pan head Phillips, metric) |
 | 4 | M3 x 3 SSCS | M3 set screw, cup point, ISO 4029 | McMaster 92015A (18-8 SS set screw, metric) |
 | 6 | M3 x 10 SSCS | M3 set screw, cup point, ISO 4029 | McMaster 92015A (18-8 SS set screw, metric) |
 | 1 | M3 hex nut | M3 hex nut, ISO 4032, 18-8 stainless | McMaster 91828A (18-8 SS hex nut, metric) |
 | 10 | M3 nyloc nut | M3 nylon-insert locknut, ISO 10511, 18-8 stainless | McMaster 93625A (18-8 SS nylon-insert locknut, metric) |
 | 4 | M3 washer | M3 flat washer, ISO 7089, 18-8 stainless | McMaster 93475A (18-8 SS washer, metric) |
 
-Total fasteners: 356 (M3: 344).
+Total fasteners: 377 (M3: 365).
 
 ## Materials
 
@@ -79,8 +81,8 @@ Total fasteners: 356 (M3: 344).
 
 ## Mass
 
-CAD estimate: **7.69 kg**, CG at [16.1, -1.2, 121.0] mm (ROBOT frame, module at tilt 0). Printed parts 4.34 kg.
+CAD estimate: **8.19 kg**, CG at [18.0, -1.4, 124.6] mm (ROBOT frame, module at tilt 0). Printed parts 4.65 kg.
 
 The v7 sim (DM-2325): 6.40 kg, CG at [14.5, 3.4, 114.7] mm.
 
-By group: base 2.29 kg, module 1.27 kg, mounts 0.59 kg, pod 3.54 kg
+By group: base 2.33 kg, head 0.19 kg, module 1.27 kg, mounts 0.77 kg, pod 3.62 kg

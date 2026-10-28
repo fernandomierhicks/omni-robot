@@ -67,6 +67,9 @@ class GameParams:
     arena_half: tuple = (6.0, 3.0)
     learn_thrower: bool = True
     kid: bool = False
+    return_to: str = "thrower"          # "thrower", or "other": the pass game (two people; the robot throws each caught
+                                        # ball to the one who didn't throw it)
+    pass_gap: float = 1.5               # m between two people's release points for them to count as two
 
 
 @dataclass
@@ -128,7 +131,9 @@ class CatchBehavior:
         self.range_bias = 0.0
         self.tosses = 0
         self.catches = 0
-        self.last = {}                    # the last catch's record (for logs and the scorer)
+        self.last = {}                    # the last catch's record (for logs, the scorer and the console's throw radar)
+        self.hands = [self.hand[:2].copy()]   # where each player throws from (one; two in the pass game), learned
+        self.thrower_i = 0                # who threw the ball in the air
         self._new_toss_state()
 
     def _new_toss_state(self):
@@ -143,6 +148,8 @@ class CatchBehavior:
         self.gated = False
         self.land_sigma = math.nan
         self.t_track_seen = 0.0
+        self.throw = {}                   # this throw as tracked: release, speed, apex, the path (t, x, y, z)
+        self.t_path = -1.0
 
     # -- helpers ------------------------------------------------------------------------------------------------------
     @staticmethod
@@ -153,9 +160,35 @@ class CatchBehavior:
         p = self.p
         if not p.gate:
             return SafetyZone(half_x=1e3, half_y=1e3, margin=0.0)
+        people = ([(h[0], h[1], p.person_radius) for h in self.hands] if p.return_to == "other"
+                  else [(self.hand[0], self.hand[1], p.person_radius)])
         return SafetyZone(half_x=p.arena_half[0], half_y=p.arena_half[1], margin=p.safety_margin,
-                          people=[(self.hand[0], self.hand[1], p.person_radius)], robot_radius=self.cfg.robot_radius,
-                          center=p.arena_center)
+                          people=people, robot_radius=self.cfg.robot_radius, center=p.arena_center)
+
+    def _learn_hand(self, est_p, est_v, pose):
+        """The thrower's spot from the ball's best-informed state, integrated back to the release height."""
+        if not self.p.learn_thrower:
+            return
+        rp = self.flight.release_point(est_p, est_v, self.p.release_height, t_max=4.0)
+        if rp is None or not 1.0 < float(np.linalg.norm(rp[0][:2] - pose[:2])) < 12.0:
+            return
+        self.throw["release"] = [round(float(c), 3) for c in rp[0]]
+        i = self._which_hand(rp[0][:2])
+        self.hands[i] = 0.5 * self.hands[i] + 0.5 * rp[0][:2]
+        self.thrower_i = i
+        self.hand[:2] = self.hands[i]
+
+    def _which_hand(self, xy) -> int:
+        """Which player threw from xy: the one thrower, or in the pass game the nearer of two (a second one is added
+        when a throw comes from farther than pass_gap from the first)."""
+        if self.p.return_to != "other":
+            return 0
+        d = [float(np.linalg.norm(np.asarray(xy) - h)) for h in self.hands]
+        i = int(np.argmin(d))
+        if d[i] > self.p.pass_gap and len(self.hands) < 2:
+            self.hands.append(np.array(xy, dtype=float))
+            return len(self.hands) - 1
+        return i
 
     def catch_plan(self, ball_p, ball_v, v_robot=(0.0, 0.0)):
         """Base pose and tilt that put the tilted funnel's rim center on the ball's path (catch_game.catch_plan)."""
@@ -235,10 +268,19 @@ class CatchBehavior:
     def _settle_done(self, t, rv, pose):
         caught = rv.ball_held
         self.catches += caught
+        th = self.throw
         self.last = dict(toss=self.tosses, caught=caught, moving=self.moving_plan, gated=self.gated,
                          land_sigma=self.land_sigma, v_end=self.v_end,
-                         predicted=None if self.predicted is None else [float(c) for c in self.predicted])
+                         predicted=None if self.predicted is None else [float(c) for c in self.predicted],
+                         speed=round(th.get("speed", math.nan), 3), apex=round(th.get("apex", math.nan), 3),
+                         release=th.get("release"), path=th.get("path", []), thrower=self.thrower_i,
+                         t0=th.get("t0"), state0=th.get("state0"),      # the track's first state, and its state when
+                         statef=th.get("statef"), tf=th.get("tf"),      # the plan froze (a replay starts from that)
+                         flight_time=None if self.t_c is None else round(self.t_c - self.t_flight, 3),
+                         robot=[round(float(c), 3) for c in pose])
         self.log(f"toss {self.tosses}: {'CAUGHT' if caught else 'missed'} ({self.catches}/{self.tosses})")
+        if self.p.return_to == "other" and len(self.hands) == 2:
+            self.hand[:2] = self.hands[1 - self.thrower_i]   # the pass game: throw it to (and face) the other player
         if caught and self.p.return_throws:
             self._set("aim", t)
             self.target = np.array([*pose[:2], self._face(pose, self.hand)])
@@ -272,14 +314,22 @@ class CatchBehavior:
                 self._set("flight", t)
                 self.t_flight = t
                 self.tosses += 1
-                if p.learn_thrower:
-                    rp = self.flight.release_point(bp, bv, p.release_height)
-                    if rp is not None and 1.0 < float(np.linalg.norm(rp[0][:2] - pose[:2])) < 12.0:
-                        self.hand[:2] = 0.5 * self.hand[:2] + 0.5 * rp[0][:2]
+                self.throw = dict(speed=float(np.linalg.norm(bv)), apex=float(self.flight.apex(bp, bv)), release=None,
+                                  path=[], t0=t, state0=[round(float(c), 4) for c in (*bp, *bv)])
+                rp = self.flight.release_point(bp, bv, p.release_height)
+                if rp is not None and 1.0 < float(np.linalg.norm(rp[0][:2] - pose[:2])) < 12.0:
+                    self.throw["release"] = [round(float(c), 3) for c in rp[0]]
+                # the thrower's spot is learned at the freeze (_learn_hand), from the filter's state after most of the
+                # flight: the track's first state is a few frames old and its velocity noisy, and integrated back
+                # 1.5-3 m to the hand that put the spot up to 2 m off
                 self.log(f"toss {self.tosses}: tracking, ball {np.linalg.norm(bv):.1f} m/s, "
                          f"{np.linalg.norm(pose[:2] - bp[:2]):.1f} m out")
 
         if self.state == "flight":
+            if track is not None and t - self.t_path >= 0.05 and len(self.throw.get("path", ())) < 80:
+                self.t_path = t                                # the throw's path, for the console's replay
+                bp_t = track.estimate(t)[0]
+                self.throw["path"].append([round(t - self.throw["t0"], 3)] + [round(float(c), 3) for c in bp_t])
             if track is not None and track.ready and t >= self.t_plan and not self.frozen:
                 self.t_plan = t + p.replan_period
                 est_p, est_v, _ = track.estimate(t)
@@ -312,6 +362,11 @@ class CatchBehavior:
                     self.tilt_target = tilt
                     if t_go < p.tilt_freeze:
                         self.frozen = True
+                        # the best-informed state of the ball (the filter has seen the whole flight): a replay
+                        # integrates it back to the release (studies/replay_log.py)
+                        self.throw["statef"] = [round(float(c), 4) for c in (*est_p, *est_v)]
+                        self.throw["tf"] = round(t - self.throw.get("t0", t), 3)
+                        self._learn_hand(est_p, est_v, pose)
                         self.moving_plan = self.v_end > 0.3
                         cr = track.crossing(t, self.cfg.rim_center(tilt)[1])
                         if cr is not None:

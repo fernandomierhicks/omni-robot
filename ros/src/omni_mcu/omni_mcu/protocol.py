@@ -5,21 +5,29 @@ the SIL library.
 Frame:   COBS( type | seq | body | crc16 ) 0x00      crc16 = CRC-16/CCITT-FALSE over type | seq | body, little-endian
   CMD   0x01  Jetson -> MCU (100 Hz; also the heartbeat)
   STATE 0x81  MCU -> Jetson (200 Hz)
-  IMU   0x82  MCU -> Jetson (every BNO085 report, 400 Hz)
+  IMU   0x82  MCU -> Jetson (every BNO085 sample, 400 Hz; protocol 4: stamped with the sample's own time)
+  INFO  0x83  MCU -> Jetson (10 Hz): protocol version, firmware build id, the RC receiver
+  TIME  0x84  MCU -> Jetson (protocol 4): an edge of a time reference: the 1 Hz sync pulse, a camera trigger, the
+              left camera's measured exposure (design.md 10)
 
-Time: the MCU stamps everything with its own clock (microseconds since boot). TimeSync maps it onto the Jetson's
-clock from the CMD / STATE echo (an NTP-style exchange: the CMD carries the Jetson's send time, STATE echoes it with
-the MCU's receive and send times; the offset of the exchange with the shortest round trip in the last few seconds wins).
+Time: the MCU stamps everything with its own clock (microseconds since boot), where it happened. TimeSync
+(clock_sync.ClockSync) maps it onto the Jetson's clock: a line t_host = a t_mcu + b from the sync pulses the Jetson
+also stamps on a GPIO (HostLink.add_sync_edge), else from the CMD / STATE echo (NTP-style: the fastest exchange of
+each second).
 """
 
 from __future__ import annotations
 
 import math
 import struct
-from collections import deque
-from dataclasses import dataclass, field, fields
+from dataclasses import dataclass, fields
 
-MSG_CMD, MSG_STATE, MSG_IMU = 0x01, 0x81, 0x82
+from omni_mcu.clock_sync import ClockSync
+
+MSG_CMD, MSG_STATE, MSG_IMU, MSG_INFO, MSG_TIME = 0x01, 0x81, 0x82, 0x83, 0x84
+TE_SYNC, TE_CAM_TRIGGER, TE_CAM_STROBE = 1, 2, 3
+TIME_KINDS = {TE_SYNC: "sync", TE_CAM_TRIGGER: "cam_trigger", TE_CAM_STROBE: "cam_strobe"}
+PROTOCOL_VERSION = 4             # protocol.h PROTOCOL_VERSION: bump both with any body change
 REQ_DISARM, REQ_AUTO = 0, 1
 PROFILE_ADULT, PROFILE_KID = 0, 1
 DRIVE_IDLE, DRIVE_VEL_BODY, DRIVE_GOTO = 0, 1, 2
@@ -32,7 +40,10 @@ FEED_STATES = {0: "IDLE", 1: "SEAT", 2: "RUN", 3: "DONE"}
 CMD_FMT = struct.Struct("<Q4B6fQ3fQ2fH")
 STATE_FMT = struct.Struct("<3Q4BH4B9f3f2f3f2B2HfHH")
 IMU_FMT = struct.Struct("<Q4f3f3f")
-assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size) == (74, 116, 48), "protocol.h changed"
+INFO_FMT = struct.Struct("<QH12s2B8h4B4B")
+TIME_FMT = struct.Struct("<QB3xII")
+assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size, INFO_FMT.size, TIME_FMT.size) == (74, 116, 48, 48, 20), \
+    "protocol.h changed"
 
 
 def crc16(data: bytes) -> int:
@@ -182,36 +193,44 @@ class Imu:
         return cls(v[0], tuple(v[1:5]), tuple(v[5:8]), tuple(v[8:11]))
 
 
-class TimeSync:
-    """MCU microseconds -> the Jetson's clock (ns), from the CMD / STATE echo."""
+@dataclass
+class Info:
+    t_mcu_us: int
+    protocol: int        # the firmware's PROTOCOL_VERSION
+    build: str           # its build id (firmware/fw_build_id.py)
+    rc_ok: bool          # the RC receiver's link is up
+    rc_manual: bool      # its switch asks for MANUAL
+    rc: tuple            # 8 channels, -1..1
+    t_rotor: tuple = (0, 0, 0, 0)    # protocol 3: each drive motor's winding and driver temperature, deg C
+    t_mos: tuple = (0, 0, 0, 0)
+    t_host: float = math.nan
 
-    def __init__(self, window_s: float = 5.0):
-        self.window_ns = int(window_s * 1e9)
-        self.samples: deque = deque()          # (t4 host rx ns, rtt ns, offset ns)
-        self.offset_ns = None
-        self.rtt_ns = None
+    @classmethod
+    def unpack(cls, body: bytes) -> "Info":
+        v = INFO_FMT.unpack(body)
+        return cls(v[0], v[1], v[2].split(b"\0", 1)[0].decode("ascii", "replace"), bool(v[3]), bool(v[4]),
+                   tuple(c / 1000.0 for c in v[5:13]), tuple(v[13:17]), tuple(v[17:21]))
 
-    def add(self, t1_host_ns: int, t2_mcu_us: int, t3_mcu_us: int, t4_host_ns: int):
-        if not t1_host_ns or t2_mcu_us == 0:
-            return
-        t2, t3 = t2_mcu_us * 1000, t3_mcu_us * 1000
-        rtt = (t4_host_ns - t1_host_ns) - (t3 - t2)
-        off = ((t2 - t1_host_ns) + (t3 - t4_host_ns)) // 2        # mcu - host
-        self.samples.append((t4_host_ns, rtt, off))
-        while self.samples and self.samples[0][0] < t4_host_ns - self.window_ns:
-            self.samples.popleft()
-        best = min(self.samples, key=lambda s: s[1])
-        self.rtt_ns, self.offset_ns = best[1], best[2]
 
-    def to_host_s(self, t_mcu_us: int) -> float:
-        if self.offset_ns is None:
-            return math.nan
-        return (t_mcu_us * 1000 - self.offset_ns) * 1e-9
+@dataclass
+class TimeEvent:
+    """A time reference's edge (TimeBody): kind TE_*, seq, the MCU time and, mapped, the Jetson's."""
+    t_mcu_us: int
+    kind: int
+    seq: int
+    value: int                   # CAM_STROBE: the exposure's length, us
+    t_host: float = math.nan
 
-    def to_mcu_us(self, t_host_s: float) -> int:
-        if self.offset_ns is None:
-            return 0
-        return int(round((t_host_s * 1e9 + self.offset_ns) / 1000))
+    @classmethod
+    def unpack(cls, body: bytes) -> "TimeEvent":
+        return cls(*TIME_FMT.unpack(body))
+
+    @property
+    def kind_name(self) -> str:
+        return TIME_KINDS.get(self.kind, str(self.kind))
+
+
+TimeSync = ClockSync             # the link's clock map (clock_sync.py; offset + drift, pulses or echoes)
 
 
 @dataclass
@@ -220,24 +239,31 @@ class LinkStats:
     errors: int = 0
     states: int = 0
     imus: int = 0
+    infos: int = 0
     cmds: int = 0
+    times: int = 0
 
 
 class HostLink:
     """Bytes <-> messages for the Jetson side. feed() with what arrived (and when, on the Jetson's clock); encode()
     the next CMD with the Jetson's send time."""
 
-    def __init__(self):
+    def __init__(self, **sync_kw):
         self.buf = bytearray()
         self.seq = 0
-        self.sync = TimeSync()
+        self.sync = TimeSync(**sync_kw)
         self.state: State | None = None
+        self.info: Info | None = None
         self.stats = LinkStats()
 
     def encode(self, cmd: Command, t_host_ns: int) -> bytes:
         self.seq = (self.seq + 1) & 0xFF
         self.stats.cmds += 1
         return frame(MSG_CMD, self.seq, cmd.pack(t_host_ns))
+
+    def add_sync_edge(self, t_host_ns: int):
+        """The Jetson's GPIO stamped the MCU's SYNC_OUT edge (this clock)."""
+        self.sync.add_host_edge(t_host_ns)
 
     def feed(self, data: bytes, t_host_ns: int) -> list:
         out = []
@@ -267,6 +293,19 @@ class HostLink:
                 m = Imu.unpack(body)
                 m.t_host = self.sync.to_host_s(m.t_mcu_us)
                 self.stats.imus += 1
+                out.append(m)
+            elif t == MSG_INFO and len(body) == INFO_FMT.size:
+                m = Info.unpack(body)
+                m.t_host = self.sync.to_host_s(m.t_mcu_us)
+                self.info = m
+                self.stats.infos += 1
+                out.append(m)
+            elif t == MSG_TIME and len(body) == TIME_FMT.size:
+                m = TimeEvent.unpack(body)
+                if m.kind == TE_SYNC:
+                    self.sync.add_mcu_pulse(m.seq, m.t_mcu_us)
+                m.t_host = self.sync.to_host_s(m.t_mcu_us)
+                self.stats.times += 1
                 out.append(m)
             else:
                 self.stats.errors += 1

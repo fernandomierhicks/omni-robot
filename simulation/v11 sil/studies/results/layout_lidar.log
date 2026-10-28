@@ -1,0 +1,9 @@
+
+mask                                           blocked  pos med    p95    max  yaw p95  rejected
+full 360                                            0d   12.9mm  26.6   83.4    0.34d     0.0%
+front lidar, CAD standoffs (C1, A5 stowed)         31d   12.9mm  27.2  110.1    0.34d     0.0%
+A5 during a far grasp                              45d   12.8mm  26.6   53.6    0.35d     0.1%
+rear lidar, nose arm (A0 today)                    50d   13.1mm  25.4   51.3    0.35d     0.0%
+rear 90 deg blocked                                90d   14.0mm  32.0  109.8    0.33d     0.1%
+rear half blocked (180 deg)                       180d   21.3mm  49.9   93.5    0.42d     0.3%
+front 90 deg blocked                               90d   14.0mm  25.5   48.3    0.37d     0.0%

@@ -1,7 +1,8 @@
 """The whole robot as placed items (ROBOT frame), at a module tilt and a wheel bump.
 
 Item kinds: printed, purchased (vendor parts, bearings, pins, materials), fastener. Groups: base, pod<k> (sprung) /
-pod<k>u (unsprung), module, mounts. The printed-part registry (unique parts, their export frame, material, quantity)
+pod<k>u (unsprung), module, mounts (yokes, cheeks, the face, the audio box), head (the camera bar and what turns with
+it: placed at an index pitch, 30 = catch, -40 = arm; the face only at the catch index). The printed-part registry (unique parts, their export frame, material, quantity)
 comes from the same calls, so the print list and the assembly can't disagree.
 
 Mirrored pods (front-left, rear-right): the handed prints (arm, cup, mount, guard) are mirror images (`_M` parts).
@@ -15,11 +16,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from functools import lru_cache
 
-from build123d import Location, Part, Plane, Pos, Rot
+from build123d import Box, Location, Part, Plane, Pos, Rot
 from OCP.gp import gp_Trsf
 
 import base as B
 import dims as D
+import arm_kit as AK
+import display as DP
+import head as H
 import hw
 import module as M
 import mounts as MT
@@ -27,7 +31,9 @@ import pod as P
 import vendor as V
 import wheel as WH
 
-GROUP_NAMES = {"base": "base", "module": "module (tilting)", "mounts": "mounts (yokes, cameras)"}
+GROUP_NAMES = {"base": "base", "module": "module (tilting)", "mounts": "mounts (yokes, cheeks, face, audio)",
+               "head": "head (camera bar, indexed)"}
+_MARKER = Box(0.1, 0.1, 0.1)     # placed like a hardware item to read its ROBOT-frame location
 WHEEL_TURN = Rot(180.0 / D.ROLLERS_PER_ROW, 0, 0)        # half a roller pitch about the axle (POD x)
 POD_NAMES = {45.0: "FL", 135.0: "RL", 225.0: "RR", 315.0: "FR"}
 
@@ -52,6 +58,7 @@ class Item:
     material: str = ""
     probe: Part | None = None    # screws: engagement probe, placed like shape
     size: str = ""
+    loc: Location | None = None  # hardware: its frame in the ROBOT frame (screws: head's bearing face, shank -Z)
 
 
 @dataclass
@@ -83,7 +90,7 @@ class Robot:
             kind = "fastener" if it.key.startswith(("M3 ", "M2 ", "M2.5 ")) else "purchased"
             probe = place(it.probe, it.loc) if it.probe is not None else None
             self.items.append(Item(it.key, kind, group, place(it.shape, it.loc), it.key, it.desc, it.source,
-                                   probe=probe, size=it.size))
+                                   probe=probe, size=it.size, loc=place(_MARKER, it.loc).location))
 
 
 def module_loc(tilt: float) -> Location:
@@ -120,9 +127,18 @@ def _roller() -> tuple:
     return WH.roller_core(), WH.roller_tread()
 
 
-def build(tilt: float = 0.0, bump: float = 0.0, parts: str = "all") -> Robot:
-    """parts: 'all', or a comma list of groups to include ('base', 'pods', 'module', 'mounts')."""
-    want = set(parts.split(",")) if parts != "all" else {"base", "pods", "module", "mounts"}
+def build(tilt: float = 0.0, bump: float = 0.0, parts: str = "all", index: float | None = None,
+          kit: str = "catch") -> Robot:
+    """parts: 'all', or a comma list of groups to include ('base', 'pods', 'module', 'mounts', 'head'). kit: the
+    payload, "catch" (the module, its yokes and their boards; the face on the head's cheeks, the audio box on the
+    plate) or "arm" (arm_kit.py: the SO-101 on its riser, the bin, the face and the audio box over it; no module).
+    index: the camera bar's pitch (deg), by default the kit's; between the stops (the swap) the face is off."""
+    want = set(parts.split(",")) if parts != "all" else {"base", "pods", "module", "mounts", "head"}
+    if kit == "arm":
+        want.discard("module")
+    index = H.INDEX[kit] if index is None else index
+    seat = kit if abs(index - H.INDEX[kit]) < 1e-6 else None
+    audio = "plate" if kit == "catch" else "shelf"
     r = Robot()
     at = (lambda s, loc: s.moved(loc))
     if "base" in want:
@@ -131,13 +147,13 @@ def build(tilt: float = 0.0, bump: float = 0.0, parts: str = "all") -> Robot:
             r.add_printed(f"deck_{name}", s, s, "PETG", 30, "flat (posts and bosses up)", "base", "ROBOT")
         sp = B.splice()
         for lobe in B.SPLICED:
-            r.add_printed("deck_splice", sp, sp.rotate(_zaxis(), B.LOBES[lobe]), "PETG", 40, "flat", "base", "ROBOT")
+            r.add_printed("deck_splice", sp, sp.rotate(_zaxis(), B.LOBES[lobe]), "PETG", 60, "flat", "base", "ROBOT")
         for name, fn, inf, orient in (("battery_tray", B.battery_tray, 30, "flange up"), ("payload_plate", B.payload_plate, 30, "flat"),
                                       ("lidar_riser", B.lidar_riser, 30, "top down"), ("estop_riser", B.estop_riser, 40, "flange down")):
             s = fn()
             r.add_printed(name, s, s, "PETG", inf, orient, "base", "ROBOT")
         so = B.standoff()
-        for x, y in D.STANDOFF_XY:
+        for x, y in D.STANDOFF_XY[len(D.ROD_XY):]:
             r.add_printed("standoff", so, so.moved(Pos(x, y, D.DECK_TOP)), "PETG", 100, "standing", "base", "local")
         bp = B.board_post()
         for nm, (desc, src, x, y, z, w, d, hh, holes, up) in B.BOARDS.items():
@@ -210,9 +226,32 @@ def build(tilt: float = 0.0, bump: float = 0.0, parts: str = "all") -> Robot:
         r.items.append(Item("ball", "ball", "module", V.ball().moved(ml * Pos(D.HOLD[0], 0, D.HOLD[1])), "foam ball 74 mm",
                             "74 mm foam pickleball (design.md 2)", "any"))
     if "mounts" in want:
-        for nmp, s, mat, inf, orient in MT.printed():
-            r.add_printed(nmp, s, s, mat, inf, orient, "mounts", "ROBOT")
-        r.add_hw(MT.hardware(), at, "mounts")
+        if kit == "catch":                                     # the module's yokes and their boards
+            for nmp, s, mat, inf, orient in MT.printed():
+                r.add_printed(nmp, s, s, mat, inf, orient, "mounts", "ROBOT")
+            r.add_hw(MT.hardware(), at, "mounts")
+        else:                                                  # the arm kit
+            for nmp, s, mat, inf, orient in AK.printed():
+                r.add_printed(nmp, s, s, mat, inf, orient, "mounts", "ROBOT")
+            r.add_hw(AK.hardware(), at, "mounts")
+            r.items.append(Item("SO-101 arm", "proxy", "mounts", Box(1.0, 1.0, 1.0).moved(Pos(*AK.ARM_CG)), "SO-101 arm",
+                                "TheRobotStudio SO-101 follower arm, 6 x Feetech STS3215 12 V, Waveshare bus servo board on its "
+                                "base; on the arm kit's adapter with 4 x M3 (VERIFY its hole pattern). Not modelled as a solid: "
+                                "build.py checks its own meshes against the CAD (arm_clearance)",
+                                "TheRobotStudio kit / Seeed / PartaBot (~$120-250)"))
+        for nmp, s, mv, mat, inf, orient in DP.printed(seat, audio):    # the face, the audio box at their seats
+            r.add_printed(nmp, s, s.moved(mv), mat, inf, orient, "mounts", "ROBOT")
+        r.add_hw(DP.hardware(seat, audio), at, "mounts")
+        for nmp, s, mat, inf, orient in H.printed():
+            if nmp.startswith("cheek"):
+                r.add_printed(nmp, s, s, mat, inf, orient, "mounts", "ROBOT")
+        r.add_hw(H.cheek_hardware(index), at, "mounts")
+    if "head" in want:
+        mv = H.index_loc(index)
+        for nmp, s, mat, inf, orient in H.printed():
+            if not nmp.startswith("cheek"):
+                r.add_printed(nmp, s, s.moved(mv), mat, inf, orient, "head", "ROBOT")
+        r.add_hw(H.hardware(index), at, "head")
     return r
 
 

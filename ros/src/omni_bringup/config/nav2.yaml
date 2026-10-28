@@ -1,6 +1,12 @@
 # Nav2 (Jazzy) for the v7 omni base in the house (design.md 28). Started from nav2_bringup's nav2_params.yaml; changes:
 #   - frames base_link (no base_footprint); the map comes from slam_toolbox (localization mode), no AMCL / map_server
-#   - MPPI with the Omni motion model (vy used), up to 0.8 m/s (est: a home pace; the firmware allows 2 m/s)
+#   - MPPI with the Omni motion model (vy used), up to 2.0 m/s: the firmware's adult limit, the real cap (Oct 27; was
+#     0.8, est a home pace, then 1.5). The drive motors could go faster (3.5 m/s diagonally at 0.95 of no-load), but
+#     stops and tipping are simulated to 2 m/s. The console's Go To speed is the velocity smoother's cap below it
+#     (2.0 by default: MPPI slows for the goal itself), the heading node turns it after that (forward by default)
+#   - the local costmap covers MPPI's horizon at top speed (2.8 s x 2.0 m/s = 5.6 m each way): trajectory points off
+#     it are unknown space, scored as collisions, so a 3 m costmap held the robot to ~0.55 m/s (peaks 0.50-0.64 m/s
+#     with the 0.8 cap, Oct 27)
 #   - robot_radius 0.24 m (the v7 outline is 0.234 m), inflation sized so the 0.9 m doors stay open
 #   - velocity smoother and collision monitor with y velocity; no route / docking servers
 bt_navigator:
@@ -32,6 +38,7 @@ controller_server:
     progress_checker_plugins: ["progress_checker"]
     goal_checker_plugins: ["general_goal_checker"]
     controller_plugins: ["FollowPath"]
+    speed_limit_topic: "/speed_limit"      # the global costmap's speed filter (the console's floor edges)
     use_realtime_priority: false
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
@@ -52,16 +59,21 @@ controller_server:
       ay_max: 2.0
       ay_min: -2.0
       az_max: 3.5
-      vx_std: 0.2
-      vy_std: 0.2
+      vx_std: 0.6                          # (0.2, sized for 0.5 m/s) samples reach the higher speeds
+      vy_std: 0.6
       wz_std: 0.4
-      vx_max: 0.8
-      vx_min: -0.8
-      vy_max: 0.8
+      vx_max: 2.0
+      vx_min: -2.0
+      vy_max: 2.0
       wz_max: 1.9
       iteration_count: 1
-      prune_distance: 1.7
-      transform_tolerance: 0.1
+      prune_distance: 6.0                 # (1.7) the path ahead it scores against: its horizon at top speed
+      transform_tolerance: 1.0     # (0.1) how long MPPI waits for map -> odom at the robot pose's stamp. slam_toolbox
+                                   # post-dates it ~0.2 s, but its publisher stalls up to ~0.9 s on the loaded sim stack
+                                   # (4 stalls > 0.3 s in 2 min) and each one aborted the goal ("Unable to transform goal
+                                   # pose into costmap frame": 4 of 8 goals). The collision monitor works in odom meanwhile.
+                                   # Oct 26: no stall left with restamp_tf (0 in 14 min of patrol, either restamp setting);
+                                   # the "~1 s every 32 s" was WSL's clock stepping (design.md 10). Kept as margin
       temperature: 0.3
       gamma: 0.015
       motion_model: "Omni"
@@ -77,7 +89,8 @@ controller_server:
         enabled: true
         cost_power: 1
         cost_weight: 5.0
-        threshold_to_consider: 1.4
+        threshold_to_consider: 0.5         # (1.4) straight-line distance: a goal 1.2 m away behind a wall (8.6 m by the
+                                           # path) made MPPI drop the path and push at the wall until Nav2 gave up
       GoalAngleCritic:
         enabled: true
         cost_power: 1
@@ -106,8 +119,8 @@ controller_server:
         enabled: true
         cost_power: 1
         cost_weight: 5.0
-        offset_from_furthest: 5
-        threshold_to_consider: 1.4
+        offset_from_furthest: 30           # (5) a target further along the path draws faster trajectories
+        threshold_to_consider: 0.5         # (1.4) follow the path until the goal is this near, as GoalCritic
       PathAngleCritic:                     # holonomic: don't force it to face along the path
         enabled: true
         cost_power: 1
@@ -128,12 +141,19 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
+      transform_tolerance: 1.0     # (0.3) the controller's goal check transforms through it: 4 goals lost in a 2 h soak
+                                   # (Oct 25) to late map -> odom; not seen since (design.md 10). Kept as margin
       rolling_window: true
-      width: 3
-      height: 3
+      width: 12                            # (3) MPPI's horizon at top speed each way (header)
+      height: 12
       resolution: 0.05
       robot_radius: 0.24
       plugins: ["obstacle_layer", "inflation_layer"]
+      filters: ["keepout_filter"]          # the console's no-go zones (omni_console zones.py, its Map edit tab)
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: True
+        filter_info_topic: "/keepout_filter_info"
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 6.0
@@ -148,9 +168,9 @@ local_costmap:
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 4.0
+          raytrace_max_range: 6.5          # (4.0) as far as the costmap reaches
           raytrace_min_range: 0.0
-          obstacle_max_range: 3.5
+          obstacle_max_range: 6.0          # (3.5)
           obstacle_min_range: 0.0
       always_send_full_costmap: True
 
@@ -161,10 +181,23 @@ global_costmap:
       publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_link
+      transform_tolerance: 1.0     # (0.3) as the local costmap's
       robot_radius: 0.24
       resolution: 0.05
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      # the console's no-go zones (planned around) and floor edges (slow bands: the controller's speed limit), both
+      # published by omni_console's mission node from its Map edit tab (zones.py); without them the filters wait idle
+      filters: ["keepout_filter", "speed_filter"]
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: True
+        filter_info_topic: "/keepout_filter_info"
+      speed_filter:
+        plugin: "nav2_costmap_2d::SpeedFilter"
+        enabled: True
+        filter_info_topic: "/speed_filter_info"
+        speed_limit_topic: "/speed_limit"
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -239,8 +272,8 @@ velocity_smoother:
     stamp_smoothed_velocity_with_smoothing_time: False
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.8, 0.8, 2.0]
-    min_velocity: [-0.8, -0.8, -2.0]
+    max_velocity: [2.0, 2.0, 2.0]         # (0.8 to Oct 27) the console's Go To default; it sets its Go To / Patrol /
+    min_velocity: [-2.0, -2.0, -2.0]      # Explore speed here (up to MPPI's 2.0; the firmware caps the vector's length)
     max_accel: [2.0, 2.0, 3.2]
     max_decel: [-2.0, -2.0, -3.2]
     odom_topic: "/odometry/filtered"

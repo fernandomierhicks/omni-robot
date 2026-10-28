@@ -177,6 +177,12 @@ class SimParams:
     m_electronics: float = 0.25        # MCU, power board, relay, DC-DCs
     m_lidar: float = 0.11
     m_bumper: float = 0.17
+    bumper_radius: float | None = None # m, the bumper ring's centre line (None: deck_radius + 8 mm; its tube is 14 mm)
+    mass_model: str = "sim"            # "sim": the parts' masses above; "cad": the drawn robot's (cad/v7): its wheel,
+                                       # no rocker, its bumper ring, and robot_export.drawn_params' point mass
+    wheel_mass: float | None = None    # kg per wheel, in place of the catalog's estimate
+    lidar_scan_z: float | None = None  # m, the lidar's scan plane over the floor (None: ~26 mm over the wheel tops;
+                                       # the drawn robot: 0.150, cad/v7 design.md 12.1)
     bumper_collides: bool = True       # v6 round 3: the bumper ring pushes a ball on the floor, and guards over the wheel
                                        # tops deflect one falling beside the funnel (False = v6: decoration only; a missed
                                        # ball in a wheel slot flipped the robot at 2 m/s)
@@ -318,10 +324,37 @@ class SimParams:
 
     # --- cameras ----------------------------------------------------------------
     camera_mount: str = "plate_front"  # "plate_front" (fixed, low, ~40 cm of FFC to the Jetson), "side_posts"
-                                       # (fixed, beside the funnel, ~70 cm), "rim" (v2: moves with the tilt)
+                                       # (fixed, beside the funnel, ~70 cm), "rim" (v2: moves with the tilt), "nose_pods"
+                                       # (the arm robot: two pods either side of the arm's nose bracket, looking down
+                                       # at the floor ahead: camera_tilt_deg < 0), "head" (the CAD's camera bar)
+    camera_pod_xz: tuple = (0.17, 0.125)   # "nose_pods": (x, z) m of the pods (robot frame)
+    # "head": the indexed camera bar at the plate's front edge (cad/v7 head.py, design.md 12.1): the lenses' optical
+    # centres (x, z) m, robot frame (catch index: 30 deg up; the arm index puts them at (0.1827, 0.1657), -40 deg)
+    camera_head_xz: tuple = (0.192, 0.211)
     camera_baseline: float = 0.19      # m between the stereo pair (plate_front, rim)
     camera_tilt_deg: float = 30.0
     camera_fovy_deg: float = 70.0
+
+    # --- payload (design.md 15): what rides on the payload plate ------------------
+    payload: str = "catch"             # "catch": the tilting catch / launch module; "arm": an SO-101 arm in its place
+                                       # (arm_so101.py: no funnel, feed, launcher or tilt; the cameras stay on the plate)
+    arm_mount: tuple = (0.0, 0.0, 0.0)     # (x m, y m, yaw deg) of the arm's base on the plate, robot frame (+x = front)
+    arm_mount_z: float | None = None   # m: the arm's adapter on a low nose bracket at this height (robot frame) instead
+                                       # of on the plate (None); the plate then has a notch over it (design.md 11)
+    arm_riser: float = 0.0             # m: on the plate, a printed riser under the adapter (cad/v7 arm_kit.py)
+    arm_display: str = "bin_back"      # "bin_back": Oct 24's 7 in on the bin's back facing the rear; "face": the arm kit
+                                       # as drawn (cad/v7 arm_kit.py): the 5 in face over the bin, its uprights and the
+                                       # audio box on a shelf above it
+    arm_payload_kg: float = 0.0        # held at the arm's tool point
+    arm_bin: tuple | None = None       # (x, y, length, width, height) m: an open bin on the plate the arm drops into
+    arm_pick: bool = False             # the picking arm (arm_so101.py): finger pads that grasp loose objects, fingertips
+                                       # that touch the floor (the gripper's capsule trimmed to the fingers' roots) and
+                                       # the wrist camera; False = the Oct 23 reach study's arm
+    lidar_mount: str = "front"         # "front" (the deck's front edge, the catch robot), "rear" (the arm's front is low)
+    floor_objects: tuple = ()          # ((kind, size xyz m, x, y, yaw deg, rgba, kg), ...) loose things on the floor,
+                                       # world frame: kind "box", "cylinder" (lying along x), "sphere" (arm_objects.py)
+    extra_masses: tuple = ()           # ((kg, x, y, z), ...) point masses on the base, robot frame: a ballast, or the
+                                       # CAD's mass the sim doesn't have yet
 
     # --- hopper -----------------------------------------------------------------
     n_balls: int = 0                   # extra balls in the scene ("ball_1".. "ball_n"), to load the funnel as a hopper
@@ -360,9 +393,11 @@ class SimParams:
     wall_height: float = 2.0
     scene: str = "arena"               # v11 (design.md 31): "arena" (netting, studio lights) or "house" (a furnished
                                        # great room, house_scene.py; decoration only, the same physics)
+    person: bool = False               # a person (two legs and a body, mocap: the sim moves them) the lidar sees, for the
+                                       # console's Follow / Tag (bridge_core.CoreConfig.person); no collisions
     thrower_xy: tuple = (-2.0, 0.0)
     home_xy: tuple = (1.0, 0.0)
-    floor_mu: float = 0.9              # the ball (and structure) on the floor; the wheels' grip is wheel_mu / the catalog's
+    floor_mu: float = 0.9             # the ball (and structure) on the floor; the wheels' grip is wheel_mu / the catalog's
     # floor and wheel realism (v6 round 3, floor.py): rolling resistance of the omni wheels (rubber hysteresis), and
     # optionally a varying floor friction, thresholds and carpet
     wheel_crr: float = 0.02            # rolling-resistance coefficient of the rubber rollers on a hard floor (est); 0 = v6
@@ -382,6 +417,14 @@ class SimParams:
         for k, v in fd.items():
             if getattr(self, k) is None:
                 setattr(self, k, v)
+        if self.payload not in ("catch", "arm"):
+            raise ValueError(f"payload {self.payload!r}: 'catch' or 'arm'")
+        if self.payload == "arm" and (self.camera_mount == "rim" or self.hopper != "none"):
+            raise ValueError("payload='arm' has no catch module: no rim cameras, no hopper")
+        if self.lidar_mount not in ("front", "rear"):
+            raise ValueError(f"lidar_mount {self.lidar_mount!r}: 'front' or 'rear'")
+        if self.payload != "arm" and (self.arm_mount_z is not None or self.arm_bin is not None or self.arm_pick):
+            raise ValueError("arm_mount_z, arm_bin and arm_pick need payload='arm'")
         if self.hopper == "indexer" and self.feed == "chute":
             raise ValueError("the indexer is modeled on the roller pocket: use feed='roller' with hopper='indexer'")
         if self.hopper == "indexer":
@@ -404,6 +447,16 @@ class SimParams:
             self.deck_radius = max(self.deck_radius, self.wheel_base_radius + sweep - 0.005)
         if self.deck_slot_half_width is None:
             self.deck_slot_half_width = max(0.055, self.wheel_radius + 0.007)
+        if self.mass_model == "cad":
+            # the robot as cad/v7 draws it (design.md 29, 12.2): the printed wheel weighs 515 g (the sim's estimate
+            # ~285 g), no front rocker (the pods do it all), the TPU bumper ring at r 205-217 mm. The rest of the
+            # CAD's mass and its CG come as one point mass (robot_export.drawn_params, from cad/v7/out/BOM.md)
+            self.wheel_mass = 0.515 if self.wheel_mass is None else self.wheel_mass
+            self.rocker_deg = 0.0
+            self.bumper_radius = 0.203 if self.bumper_radius is None else self.bumper_radius
+            self.lidar_scan_z = 0.150 if self.lidar_scan_z is None else self.lidar_scan_z
+        elif self.mass_model != "sim":
+            raise ValueError(f"mass_model: sim or cad, not {self.mass_model!r}")
         if self.rocker_deg <= 0:
             self.rocker = "none"
         if self.accel_table == "auto":
@@ -473,7 +526,8 @@ class SimParams:
 
     @property
     def omni(self):
-        return OMNI_WHEELS[self.wheel]
+        w = OMNI_WHEELS[self.wheel]
+        return w if self.wheel_mass is None else replace(w, mass=self.wheel_mass)
 
     @property
     def fly_motor(self):

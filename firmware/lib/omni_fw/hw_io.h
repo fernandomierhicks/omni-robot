@@ -9,6 +9,7 @@
 #include <stdint.h>
 
 #define FW_CAN_MAX 16
+#define FW_IMU_MAX 4
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,18 +20,29 @@ typedef struct {
     uint8_t len;
     uint8_t data[8];
     uint8_t _pad[3];
+    // design.md 10: when the frame finished arriving, MCU clock (the board stamps it in the CAN RX interrupt);
+    // 0 = not stamped (the core uses the tick's time). Unused on frames to send
+    uint64_t t_rx_us;
 } FwCanFrame;
+
+// one BNO085 sample: its own time, not the tick's (design.md 10). The board stamps the INT line's falling edge in its
+// interrupt and turns each SH-2 report's delay into a sample time (sh2.h); a FIFO read with several samples keeps
+// each one's time
+typedef struct {
+    uint64_t t_us;                 // when the BNO085 sampled it, MCU clock (0 = unknown: the tick's time)
+    float quat[4];                 // game rotation vector, w x y z (yaw starts at 0)
+    float gyro[3];                 // rad/s, calibrated
+    float accel[3];                // m/s^2, with gravity
+} FwImuSample;
 
 typedef struct {
     uint64_t t_us;                 // MCU clock, microseconds since boot
     // CAN1 (drive motors, 1 Mbit/s): frames received since the last tick
     uint32_t n_can_rx;
     FwCanFrame can_rx[FW_CAN_MAX];
-    // BNO085 over SPI (400 Hz): a new report since the last tick?
-    uint32_t imu_new;
-    float imu_quat[4];             // game rotation vector, w x y z (yaw starts at 0)
-    float imu_gyro[3];             // rad/s, calibrated
-    float imu_accel[3];            // m/s^2, with gravity
+    // BNO085 over SPI (400 Hz): the samples since the last tick, oldest first
+    uint32_t imu_n;
+    FwImuSample imu[FW_IMU_MAX];
     // flywheel ESC (bidirectional DShot): a new eRPM frame per channel?
     uint32_t fly_new[2];
     float fly_erpm[2];             // electrical rpm
@@ -49,6 +61,12 @@ typedef struct {
     // RC receiver (ELRS / CRSF): link up, channels -1..1
     uint32_t rc_ok;
     float rc[8];
+    // time references (design.md 10): edges the board's timers made or captured since the last tick, MCU clock;
+    // 0 = none
+    uint64_t sync_fired_us;        // SYNC_OUT rose (the Jetson's GPIO stamps the same edge)
+    uint64_t cam_fired_us;         // CAM_TRIG pulsed both cameras' FSIN (external-trigger mode)
+    uint64_t strobe_rise_us;       // the left camera's STROBE rose: its exposure started ...
+    uint32_t strobe_width_us;      // ... and lasted this long
 } FwHwInputs;
 
 typedef struct {
@@ -69,6 +87,10 @@ typedef struct {
     float dbg_v_cmd[2];            // commanded velocity, odom frame
     float dbg_w_cmd;
     float dbg_wheel_cmd[4];        // rad/s sent to the drive motors
+    // time references: when the board's timers fire next, MCU clock (it arms a hardware compare for each; the core
+    // schedules them so the edges are exact: SYNC_OUT on whole seconds, CAM_TRIG at the camera rate)
+    uint64_t sync_next_us;
+    uint64_t cam_next_us;
 } FwHwOutputs;
 
 #ifdef __cplusplus

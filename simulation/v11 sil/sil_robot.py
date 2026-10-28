@@ -18,6 +18,18 @@ What's new in the parts: the DM-2325's CAN port (enable state, latched errors, o
 12-bit velocity / 16-bit position, a comm-loss timeout) and DShot's eRPM resolution.
 
 The Jetson side talks to the firmware only through bytes (fw.rx / fw.tx): see sil_link.py and the ROS bridge.
+
+Timing (design.md 10), timing="real" (the default "ideal" reproduces earlier results: every input carries the tick's
+time, the MCU's clock runs at exactly the sim's rate):
+  the MCU clock    boot offset + a crystal error (clock_ppm, est +/-20 ppm) and a slow wander
+  CAN1             the bus as it really runs at 1 Mbit/s: the four speed frames go out in order at the tick, each motor
+                   samples its position as it turns its command around and replies, replies win arbitration (lower
+                   ids), so the fourth reply lands ~0.8 ms after the tick (the bus is ~85% busy at 1 kHz). Each reply
+                   carries its arrival time (the board's RX interrupt) and the position at the motor's sample time
+  BNO085           each sample keeps its time, quantized to the SH-2 timestamps' 100 us
+  time references  SYNC_OUT, CAM_TRIG fire exactly when the firmware scheduled them (hardware compares); the left
+                   camera's STROBE follows each trigger by trig_to_exp with the exposure's length. sync_edges /
+                   cam_triggers keep each edge's true sim time for the Jetson side's GPIO model (sil_link)
 """
 
 from __future__ import annotations
@@ -26,6 +38,7 @@ import math
 import os
 import struct
 import sys
+from collections import deque
 from pathlib import Path
 
 import mujoco
@@ -99,6 +112,42 @@ class DmMotor:
         return f
 
 
+CAN_BIT = 1e-6                     # s at 1 Mbit/s
+
+
+def can_frame_time(n_bytes: int) -> float:
+    """A standard (11-bit) data frame on the wire: 47 + 8n bits, plus stuffing (~1 in 10 of the stuffable bits, est)."""
+    return (47 + 8 * n_bytes + (34 + 8 * n_bytes) // 10) * CAN_BIT
+
+
+class DmBus:
+    """CAN1's timing (design.md 10). The tick queues its frames at t; each motor turns its command around in
+    turnaround s (sampling its position then) and replies; a reply waiting goes before the next command (its id is
+    lower), otherwise frames go in order. Returns, per frame, (end of the command, sample time, reply arrival)."""
+
+    def __init__(self, turnaround: float = 15e-6, board_delay: float = 5e-6):
+        self.turnaround, self.board_delay = turnaround, board_delay
+
+    def schedule(self, t: float, cmd_lens: list) -> list:
+        bus = t + self.board_delay
+        pending, out = [], [None] * len(cmd_lens)
+        i = 0
+        while i < len(cmd_lens) or pending:
+            ready = [p for p in pending if p[0] <= bus + 1e-12]
+            if ready:
+                r = min(ready, key=lambda p: p[0])
+                pending.remove(r)
+                bus += can_frame_time(8)
+                out[r[1]] = (r[2], r[0], bus)            # sampled as it turned the command around
+            elif i < len(cmd_lens):
+                bus += can_frame_time(cmd_lens[i])
+                pending.append((bus + self.turnaround, i, bus))
+                i += 1
+            else:
+                bus = min(p[0] for p in pending)
+        return out
+
+
 class EscMotor(FlywheelDrive):
     """The flywheel motor on its AM32 ESC, driven by the MCU's throttle (the rpm loop moved into the firmware).
     Telemetry: bidirectional DShot sends the electrical period in microseconds as a 9-bit mantissa and 3-bit exponent,
@@ -131,13 +180,29 @@ class SilRobot(Robot):
     """Robot whose MCU decisions come from the C++ firmware. fw_div: physics steps per firmware tick (2 at 0.5 ms)."""
 
     def __init__(self, model: mujoco.MjModel, data: mujoco.MjData, p, *, seed: int = 0, lidar: bool = False,
-                 boot_offset: float = 12.345, dm_comm_timeout: float = 0.1, sensor_kw: dict | None = None):
+                 boot_offset: float = 12.345, dm_comm_timeout: float = 0.1, sensor_kw: dict | None = None,
+                 timing: str = "ideal", clock_ppm: float = 20.0, exposure: float = 0.003, trig_to_exp: float = 20e-6):
         super().__init__(model, data, p)
         if p.n_wheels != 4 or p.is_swerve:
             raise ValueError("the firmware core is built for the X4 base")
+        if timing not in ("ideal", "real"):
+            raise ValueError(timing)
         self.fw = Firmware()
         self.fw_div = max(1, int(round(0.001 / model.opt.timestep)))
         self.boot_offset = boot_offset            # s: the MCU booted this long before sim time 0
+        # design.md 10: the MCU's clock and the edges it makes (see the module docstring)
+        self.timing = timing
+        self.real = timing == "real"
+        self.clock_ppm = clock_ppm if self.real else 0.0    # the Teensy's crystal (est: +/-20 ppm, VERIFY)
+        self.wander_ppm, self.wander_period = (1.0, 600.0) if self.real else (0.0, 600.0)   # temperature (est)
+        self.bus = DmBus()
+        self.exposure, self.trig_to_exp = exposure, trig_to_exp
+        self.sync_edges = deque(maxlen=64)        # true sim times of the SYNC_OUT edges (the Jetson's GPIO sees them)
+        self.n_sync = 0                           # ... how many so far
+        self.cam_triggers = deque(maxlen=512)     # (trigger number, true sim time) of each CAM_TRIG pulse
+        self._sync_next = self._cam_next = 0
+        self._n_cam = 0
+        self._strobe = None                       # (rise us, width us, due us) of the exposure in progress
         sc = SensorConfig.parts("BNO085", "A2M12", seed=seed, flow=False, **(sensor_kw or {}))
         sc.lidar = lidar                          # the catch scene needs no scans
         self.sn = Sensors(self, sc)
@@ -161,10 +226,52 @@ class SilRobot(Robot):
         self.n_ticks = 0
         self.fw_out = None
         self.can_cut_until = -1.0                 # fault injection: CAN1 is cut until this sim time (tests)
+        # fault injection (faults.py): one motor's CAN cut, the battery's voltage forced, the IMU or the flywheels'
+        # telemetry silent, each until a sim time (math.inf: until cleared)
+        self.motor_cut_until = [-1.0] * 4
+        self.v_bus_override = None
+        self.imu_cut_until = -1.0
+        self.fly_telem_cut_until = -1.0
 
     # -- the firmware tick -------------------------------------------------------------------------------------
-    def mcu_time_us(self) -> int:
-        return int(round((self.d.time + self.boot_offset) * 1e6))
+    def mcu_s(self, t: float) -> float:
+        """The MCU's clock (s since its boot) at sim time t."""
+        s = t + self.boot_offset
+        if not self.real:
+            return s
+        w = self.wander_ppm * 1e-6 * self.wander_period / (2 * math.pi)
+        return s * (1 + self.clock_ppm * 1e-6) + w * math.sin(2 * math.pi * t / self.wander_period)
+
+    def mcu_time_us(self, t: float | None = None) -> int:
+        return int(round(self.mcu_s(self.d.time if t is None else t) * 1e6))
+
+    def sim_time_of(self, t_mcu_us: float) -> float:
+        """The sim time at which the MCU's clock reads t_mcu_us."""
+        target = t_mcu_us * 1e-6
+        t = target - self.boot_offset
+        for _ in range(3):
+            t -= (self.mcu_s(t) - target) / (1 + self.clock_ppm * 1e-6)
+        return t
+
+    def _time_refs(self, inp, now_us: int):
+        """The board's timers: the edges the firmware scheduled last tick, fired on time; the strobe that follows a
+        trigger, reported once the exposure has ended."""
+        inp.sync_fired_us = inp.cam_fired_us = inp.strobe_rise_us = 0
+        inp.strobe_width_us = 0
+        if self._sync_next and now_us >= self._sync_next:
+            inp.sync_fired_us = self._sync_next
+            self.sync_edges.append(self.sim_time_of(self._sync_next))
+            self.n_sync += 1
+        if self._strobe is not None and now_us >= self._strobe[2]:
+            inp.strobe_rise_us, inp.strobe_width_us = self._strobe[0], self._strobe[1]
+            self._strobe = None
+        if self._cam_next and now_us >= self._cam_next:
+            inp.cam_fired_us = self._cam_next
+            self.cam_triggers.append((self._n_cam, self.sim_time_of(self._cam_next)))
+            self._n_cam += 1
+            rise = self._cam_next + int(round(self.trig_to_exp * 1e6))
+            width = int(round(self.exposure * 1e6))
+            self._strobe = (rise, width, rise + width)
 
     def _fw_tick(self):
         d, inp = self.d, self.fw.inputs
@@ -175,20 +282,26 @@ class SilRobot(Robot):
             inp.can_rx[i] = self.can_rx[i]
         inp.n_can_rx = n
         self.can_rx = self.can_rx[n:]
+        if self.imu_pending is not None and t < self.imu_cut_until:
+            self.imu_pending = None                  # fault injection: the BNO085 went quiet
         if self.imu_pending is not None:
-            _, q, g, a = self.imu_pending
-            inp.imu_new = 1
+            ts, q, g, a = self.imu_pending
+            inp.imu_n = 1
+            s = inp.imu[0]
+            # the sample's own time: the INT stamp (us) less the SH-2 delay, in its 100 us steps
+            s.t_us = (inp.t_us - 100 * int(round((inp.t_us - self.mcu_time_us(ts)) / 100))) if self.real else 0
             for i in range(4):
-                inp.imu_quat[i] = q[i]
+                s.quat[i] = q[i]
             for i in range(3):
-                inp.imu_gyro[i] = g[i]
-                inp.imu_accel[i] = a[i]
+                s.gyro[i] = g[i]
+                s.accel[i] = a[i]
             self.imu_pending = None
         else:
-            inp.imu_new = 0
+            inp.imu_n = 0
+        self._time_refs(inp, inp.t_us)
         w_fly = self.flywheel_speeds()
         for k in range(2):                       # telemetry every 0.5 ms: always a fresh frame at the 1 ms tick
-            inp.fly_new[k] = 1
+            inp.fly_new[k] = 0 if t < self.fly_telem_cut_until else 1
             inp.fly_erpm[k] = EscMotor.erpm_telemetry(w_fly[k], self.pole_pairs)
         inp.feed_new = 0
         if t - self._t_feed >= 0.01 - 1e-9 and self.j_feed:       # RoboClaw speed read at 100 Hz (est)
@@ -205,19 +318,27 @@ class SilRobot(Robot):
         inp.beam_feed_exit = int(self.p.feed == "chute" and self.feed_exit_blocked())
         inp.estop = int(self.estop)
         inp.bumper = int(self.bumper)
-        inp.v_bus = float(self.battery.v + self.rng.normal(0, 0.02))       # ADC through a divider (est)
+        v = self.battery.v if self.v_bus_override is None else self.v_bus_override
+        inp.v_bus = float(v + self.rng.normal(0, 0.02))                    # ADC through a divider (est)
         inp.rc_ok = 0
         out = self.fw.tick()
         self.fw_out = out
         self.n_ticks += 1
-        for i in range(out.n_can_tx if t >= self.can_cut_until else 0):
+        self._sync_next, self._cam_next = int(out.sync_next_us), int(out.cam_next_us)
+        n_tx = out.n_can_tx if t >= self.can_cut_until else 0
+        sched = self.bus.schedule(t, [out.can_tx[i].len for i in range(n_tx)]) if self.real else None
+        for i in range(n_tx):
             f = out.can_tx[i]
             for k, mot in enumerate(self.dm):
-                if f.id == 0x200 + mot.id:
+                if f.id == 0x200 + mot.id and t >= self.motor_cut_until[k]:
                     a = self.a_wheel[k]
-                    r = mot.on_frame(f, t, float(d.qpos[self.j_drive_q[k]]), float(d.qvel[self.j_drive_v[k]]),
-                                     float(d.actuator_force[a]), self.drives[k].thermal.t_w)
+                    q, w = float(d.qpos[self.j_drive_q[k]]), float(d.qvel[self.j_drive_v[k]])
+                    if sched is not None:
+                        q += w * (sched[i][1] - t)          # the position when the motor sampled it
+                    r = mot.on_frame(f, t, q, w, float(d.actuator_force[a]), self.drives[k].thermal.t_w)
                     if r is not None:
+                        if sched is not None:
+                            r.t_rx_us = self.mcu_time_us(sched[i][2])
                         self.can_rx.append(r)
         self.throttle = [out.fly_throttle[0], out.fly_throttle[1]]
         self.fly_brake_cmd = bool(out.fly_brake)
@@ -254,17 +375,19 @@ class SilRobot(Robot):
                 drv.integ = 0.0
                 d.ctrl[a] = w
                 m.actuator_forcerange[a] = (0.0, 0.0)
-        for k, fly in enumerate(self.fly):
-            d.ctrl[self.a_fly[k]] = fly.step_throttle(self.throttle[k], d.qvel[self.j_fly_v[k]], v_bus, dt,
-                                                      self.fly_brake_cmd)
+        for k, (a, jv) in enumerate(zip(self.a_fly, self.j_fly_v)):
+            d.ctrl[a] = self.fly[k].step_throttle(self.throttle[k], d.qvel[jv], v_bus, dt, self.fly_brake_cmd)
         for a, fd, (jq, jv) in zip(self.a_feed, self.feed_drives, self.j_feed):
             ctrl, (lo, hi) = fd.command(self.feed_cmd, float(d.qpos[jq]), float(d.qvel[jv]), dt)
             d.ctrl[a] = ctrl
             m.actuator_forcerange[a] = (lo, hi)
         if self.a_gate is not None:
             d.ctrl[self.a_gate] = self.gate.step(self.p.gate_open_target if self.feed_cmd else 0.0, dt)
-        lo, hi = self.p.tilt_limits
-        d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_cmd, lo, hi)), dt)
+        if self.a_tilt is not None:
+            lo, hi = self.p.tilt_limits
+            d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_cmd, lo, hi)), dt)
+        if self.arm is not None:        # payload "arm": the arm's servos, commanded outside the firmware
+            self.arm.step(dt)
 
     def post_step(self):
         super().post_step()

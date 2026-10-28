@@ -46,10 +46,10 @@ def build_xml(stl: Path = STL) -> str:
 
 VIEWS = {   # name: (lookat, distance, azimuth, elevation, label)
     "front_left": ((0.0, 0.0, 0.2), 1.25, 145, -22, "Assembly, front-left"),
-    "rear_right": ((0.0, 0.0, 0.2), 1.25, -35, -24, "Rear-right: e-stop, yokes, RoboClaw"),
+    "rear_right": ((0.0, 0.0, 0.2), 1.25, -35, -24, "Rear-right: audio box, e-stop, yokes, RoboClaw"),
     "side": ((0.0, 0.0, 0.22), 1.15, 90, -6, "Side (left)"),
     "top": ((0.0, 0.0, 0.25), 1.15, 90, -89, "Top"),
-    "front": ((0.0, 0.0, 0.2), 1.15, 180, -10, "Front: stereo bar, lidar under the plate"),
+    "front": ((0.0, 0.0, 0.2), 1.15, 180, -10, "Front: camera bar, 5 in face, lidar under the plate"),
     "module": ((0.04, 0.0, 0.3), 0.6, 125, -18, "Catch module: chute, feed wheels, flywheels"),
     "pod": ((0.11, 0.11, 0.07), 0.42, 205, -12, "Wheel pod: in-wheel DM-2325, trailing arm, shock"),
     "under": ((0.0, 0.0, 0.05), 0.95, 160, 22, "Underside: battery tray, skirt"),
@@ -79,7 +79,7 @@ def main():
         robot = A.build(0.0, 0.0)
         B.export_render(robot)
         B.export_render(robot, "render_stl_pod", lambda it: it.group in ("pod0", "pod0u") and not it.name.startswith("wheel_guard"))
-        B.export_render(robot, "render_stl_module", lambda it: it.group in ("module", "mounts") and not it.name.startswith("funnel_net"))
+        B.export_render(robot, "render_stl_module", lambda it: it.group in ("module", "mounts", "head") and not it.name.startswith("funnel_net"))
     model = mujoco.MjModel.from_xml_string(build_xml())
     data = mujoco.MjData(model)
     mujoco.mj_forward(model, data)
@@ -97,7 +97,10 @@ def main():
     for sub, shots in (("render_stl_pod", {"pod_cutaway": ((0.106, 0.106, 0.07), 0.5, 200, -15, "Pod (guard removed): in-wheel DM-2325, arm, shock"),
                                            "pod_inside": ((0.09, 0.09, 0.07), 0.42, 20, -20, "Pod from inside: arm, pivot, shock tower")}),
                        ("render_stl_module", {"module_cutaway": ((0.05, 0.0, 0.3), 0.75, 120, -15, "Module (net hidden): chute, feed wheels, flywheels, yokes"),
-                                              "module_side": ((0.05, 0.0, 0.29), 0.7, 90, -4, "Module from the left: chute floor, J, launch run")})):
+                                              "module_side": ((0.05, 0.0, 0.29), 0.7, 90, -4, "Module from the left: chute floor, J, launch run")}),
+                       ("render_stl_arm", {"arm_front_left": ((0.0, 0.0, 0.24), 1.3, 145, -20, "Arm robot: SO-101 stowed on its riser, camera bar 40 deg down"),
+                                           "arm_rear_right": ((0.0, 0.0, 0.26), 1.3, -35, -22, "Arm robot from behind: bin, face and audio box over it"),
+                                           "arm_side": ((0.0, 0.0, 0.26), 1.2, 90, -4, "Arm robot from the left")})):
         if not (OUT / sub).exists():
             continue
         m2 = mujoco.MjModel.from_xml_string(build_xml(OUT / sub))

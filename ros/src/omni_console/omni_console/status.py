@@ -6,6 +6,10 @@ the motors pull hard and recovers at rest. The firmware's LOW_BATT fault (22.4 V
 
 from __future__ import annotations
 
+import hashlib
+import os
+from pathlib import Path
+
 CELLS = 7
 BATT_LOW_V = 22.4                  # firmware fw_params BATT_LOW: 3.2 V/cell
 # (V/cell, %) at light load, Li-ion NMC 21700 (est, not measured on the P50B)
@@ -74,10 +78,59 @@ def mcu_summary(m: dict, age: float) -> dict:
                 faults=faults(m["faults"]), v_bus=round(m["v_bus"], 2),
                 battery_pct=None if pct is None else round(pct), battery_low=m["v_bus"] < BATT_LOW_V,
                 age=round(age, 2), dm_err=list(m["dm_err"]), fly_rpm=[round(r) for r in m["fly_rpm"]],
-                tilt=round(m["tilt"], 3), ball_held=m["ball_held"], drive_mode=m["drive_mode"])
+                tilt=round(m["tilt"], 3), ball_held=m["ball_held"], drive_mode=m["drive_mode"],
+                **{k: round(m[k], 3) if isinstance(m[k], float) else m[k] for k in EXTRA if k in m})
+
+
+# McuState fields the Base and Thrower tabs show, passed through as they are
+EXTRA = ("fly_target_rpm", "fly_ready", "tilt_cmd", "feed_state", "feed_exit_beam", "fire_seq_done", "fire_rejected",
+         "vx", "vy", "wz", "slip", "roll", "pitch", "sync_rtt_ms")
+
+
+def clean(v):
+    """NaN and infinities to None, all the way down: JSON has no NaN, and the page's JSON.parse refuses the whole
+    message for one."""
+    if isinstance(v, float):
+        return v if v == v and v not in (float("inf"), float("-inf")) else None
+    if isinstance(v, dict):
+        return {k: clean(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [clean(x) for x in v]
+    return v
 
 
 def catch_summary(c: dict) -> dict:
-    return dict(state=c["state"], text=CATCH_TEXT.get(c["state"], c["state"]), tosses=c["tosses"],
-                catches=c["catches"], rate=round(100.0 * c["catches"] / c["tosses"]) if c["tosses"] else None,
-                last=c.get("last") or {}, ball=c.get("ball"), target=c.get("target"))
+    """The status's catch part. The last throw's path stays out (it goes once, on /console/throw)."""
+    last = {k: v for k, v in (c.get("last") or {}).items() if k != "path"}
+    return clean(dict(state=c["state"], text=CATCH_TEXT.get(c["state"], c["state"]), tosses=c["tosses"],
+                      catches=c["catches"], rate=round(100.0 * c["catches"] / c["tosses"]) if c["tosses"] else None,
+                      last=last, ball=c.get("ball"), target=c.get("target")))
+
+
+def firmware_build_id(core) -> str | None:
+    """firmware/fw_build_id.py's id of a copy of lib/omni_fw (None if absent): what the MCU should report."""
+    core = Path(core)
+    files = sorted(core.glob("*.h")) + sorted(core.glob("*.cpp"))
+    if not files:
+        return None
+    h = hashlib.sha1()
+    for p in files:
+        h.update(p.name.encode())
+        h.update(p.read_bytes().replace(b"\r\n", b"\n"))
+    return h.hexdigest()[:8]
+
+
+def system() -> dict:
+    """The computer the robot code runs on (the Jetson; WSL in the sim): load and the hottest thermal zone."""
+    try:
+        load = os.getloadavg()[0]
+    except (OSError, AttributeError):                    # AttributeError: Windows
+        load = None
+    temps = []
+    for z in Path("/sys/class/thermal").glob("thermal_zone*/temp"):
+        try:
+            temps.append(int(z.read_text().strip()) / 1000.0)
+        except (OSError, ValueError):
+            pass
+    return dict(load=None if load is None else round(load, 2), cpus=os.cpu_count(),
+                temp_c=round(max(temps), 1) if temps else None)

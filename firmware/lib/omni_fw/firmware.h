@@ -45,7 +45,9 @@ class Firmware {
 public:
     void init();
     void tick(const FwHwInputs& in, FwHwOutputs& out);
-    void rx(const uint8_t* data, size_t n);
+    // bytes from the Jetson; t_rx_us = when they were read (MCU clock), the CMD's arrival for the time sync's echo
+    // (0 = unknown: the next tick's time)
+    void rx(const uint8_t* data, size_t n, uint64_t t_rx_us = 0);
     size_t tx(uint8_t* out, size_t cap);
 
     // read-only views for tests and the sim's logs
@@ -61,7 +63,10 @@ private:
     void run_module(float dt, bool auto_ok, const FwHwInputs& in, FwHwOutputs& out);
     void drive_motors(bool enable, const float* wheel_cmd, FwHwOutputs& out);
     void send_state(const FwHwInputs& in);
-    void send_imu(const FwHwInputs& in);
+    void send_imu(const FwImuSample& s);
+    void send_info(const FwHwInputs& in);
+    void send_time(uint64_t t, uint8_t kind, uint32_t seq, uint32_t value);
+    void time_refs(const FwHwInputs& in, FwHwOutputs& out);
     void push_tx(const uint8_t* d, size_t n);
     Limits limits() const;
 
@@ -76,17 +81,23 @@ private:
     bool have_cmd_ = false;
     bool cmd_new_ = false;
     uint64_t t_cmd_us_ = 0;
+    uint64_t t_cmd_rx_us_ = 0;   // when the last CMD's bytes were read (0: not stamped)
     uint64_t echo_host_ = 0, echo_rx_us_ = 0;
     uint16_t cmd_count_ = 0;
-    uint8_t seq_state_ = 0, seq_imu_ = 0;
-    uint64_t t_state_next_ = 0;
+    uint8_t seq_state_ = 0, seq_imu_ = 0, seq_info_ = 0, seq_time_ = 0;
+
+    // time references (design.md 10): the next scheduled edges and their counters
+    uint64_t sync_next_ = 0, cam_next_ = 0, cam_first_ = 0;
+    uint32_t sync_seq_ = 0, cam_seq_ = 0, cam_k_ = 0;
+    uint64_t cam_last_fired_ = 0;
+    uint64_t t_state_next_ = 0, t_info_next_ = 0;
     uint8_t txbuf_[4096];
     size_t tx_head_ = 0, tx_tail_ = 0;
 
     // drive motors
     DmFeedback fb_[prm::N_WHEELS]{};
     bool fb_valid_[prm::N_WHEELS]{};
-    uint64_t t_fb_us_[prm::N_WHEELS]{};
+    uint64_t t_fb_us_[prm::N_WHEELS]{};      // the tick that got each motor's last reply (the silent-motor fault)
     uint64_t t_enable_us_[prm::N_WHEELS]{};
     float wheel_cmd_[prm::N_WHEELS]{};
 

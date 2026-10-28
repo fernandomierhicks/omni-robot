@@ -1,0 +1,8069 @@
+{
+ "runs": [
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 168.2,
+   "wall": 403.2,
+   "depth_frames": 59,
+   "wrist_frames": 20,
+   "render_ms": 118.0,
+   "max_tilt_deg": 1.34,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.65, -0.02), 39 x 22 mm"
+    ],
+    [
+     3.8,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     5.94,
+     "HOVER",
+     "wrist camera: 16 mm off, moving over it"
+    ],
+    [
+     14.08,
+     "LIFT",
+     "holding object 1 (44 mm)"
+    ],
+    [
+     19.62,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     24.28,
+     "APPROACH",
+     "object 2 at (1.03, 0.91), 20 x 11 mm"
+    ],
+    [
+     29.42,
+     "APPROACH",
+     "re-centre on object 2 (3.2 cm off)"
+    ],
+    [
+     30.28,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     32.48,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     40.28,
+     "LIFT",
+     "holding object 2 (39 mm)"
+    ],
+    [
+     47.66,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     52.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     54.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     56.6,
+     "APPROACH",
+     "object 3 at (-0.05, 0.57), 92 x 11 mm"
+    ],
+    [
+     60.78,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     63.14,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     69.44,
+     "LIFT",
+     "holding object 3 (11 mm)"
+    ],
+    [
+     75.02,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     79.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     81.82,
+     "APPROACH",
+     "object 4 at (0.41, -0.92), 33 x 17 mm"
+    ],
+    [
+     88.16,
+     "APPROACH",
+     "re-centre on object 4 (2.0 cm off)"
+    ],
+    [
+     88.92,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     91.14,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     99.22,
+     "LIFT",
+     "holding object 4 (36 mm)"
+    ],
+    [
+     106.58,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     111.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     113.36,
+     "APPROACH",
+     "object 5 at (1.01, -0.96), 51 x 28 mm"
+    ],
+    [
+     116.98,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     119.32,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     125.86,
+     "LIFT",
+     "holding object 5 (24 mm)"
+    ],
+    [
+     131.5,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     136.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     144.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.24,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     155.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     163.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     168.2,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 0,
+   "set": "toys",
+   "names": [
+    "brick",
+    "ball40",
+    "crayon",
+    "cube30",
+    "cube30"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 170.0,
+   "wall": 405.5,
+   "depth_frames": 55,
+   "wrist_frames": 20,
+   "render_ms": 113.4,
+   "max_tilt_deg": 1.85,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 1 at (0.46, 0.14), 44 x 35 mm"
+    ],
+    [
+     2.84,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     5.04,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     12.76,
+     "LIFT",
+     "holding object 1 (33 mm)"
+    ],
+    [
+     20.16,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     24.82,
+     "APPROACH",
+     "object 2 at (0.73, 0.66), 34 x 18 mm"
+    ],
+    [
+     28.88,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     31.02,
+     "HOVER",
+     "wrist camera: 14 mm off, moving over it"
+    ],
+    [
+     39.16,
+     "LIFT",
+     "holding object 2 (43 mm)"
+    ],
+    [
+     46.62,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     51.26,
+     "APPROACH",
+     "object 3 at (1.48, -0.31), 54 x 39 mm"
+    ],
+    [
+     56.56,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     58.66,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     66.8,
+     "LIFT",
+     "holding object 3 (46 mm)"
+    ],
+    [
+     72.34,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     76.98,
+     "APPROACH",
+     "object 4 at (1.81, -0.61), 64 x 32 mm"
+    ],
+    [
+     80.8,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     82.98,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     90.28,
+     "LIFT",
+     "holding object 4 (33 mm)"
+    ],
+    [
+     97.66,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     102.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     104.42,
+     "APPROACH",
+     "object 6 at (1.91, 0.21), 35 x 15 mm"
+    ],
+    [
+     108.0,
+     "APPROACH",
+     "re-centre on object 6 (3.6 cm off)"
+    ],
+    [
+     108.96,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     111.3,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     117.6,
+     "LIFT",
+     "holding object 6 (11 mm)"
+    ],
+    [
+     123.2,
+     "STOW",
+     "object 6 in the bin (5 so far)"
+    ],
+    [
+     127.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     130.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     132.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     134.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     136.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.86,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     148.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     153.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     155.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.94,
+     "TURN",
+     "something far off at (1.83, -0.57): going closer"
+    ],
+    [
+     167.54,
+     "TURN",
+     "something far off at (1.91, 0.25): going closer"
+    ],
+    [
+     170.0,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 1,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "cube40",
+    "block",
+    "crayon",
+    "ball40"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 169.2,
+   "wall": 402.1,
+   "depth_frames": 63,
+   "wrist_frames": 18,
+   "render_ms": 114.3,
+   "max_tilt_deg": 1.78,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 2 at (1.08, -0.58), 44 x 29 mm"
+    ],
+    [
+     6.04,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     8.28,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     15.98,
+     "LIFT",
+     "holding object 2 (37 mm)"
+    ],
+    [
+     23.4,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     27.18,
+     "APPROACH",
+     "object 3 at (1.24, 0.52), 38 x 20 mm"
+    ],
+    [
+     31.92,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     34.08,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     42.26,
+     "LIFT",
+     "holding object 3 (44 mm)"
+    ],
+    [
+     47.74,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     51.5,
+     "APPROACH",
+     "object 1 at (1.03, 0.92), 43 x 27 mm"
+    ],
+    [
+     55.04,
+     "APPROACH",
+     "re-centre on object 1 (2.5 cm off)"
+    ],
+    [
+     55.86,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     58.0,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     66.3,
+     "LIFT",
+     "holding object 1 (45 mm)"
+    ],
+    [
+     72.12,
+     "STOW",
+     "object 1 in the bin (3 so far)"
+    ],
+    [
+     75.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     78.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     80.22,
+     "APPROACH",
+     "object 4 at (0.33, -0.72), 52 x 30 mm"
+    ],
+    [
+     86.46,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     88.8,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     95.34,
+     "LIFT",
+     "holding object 4 (24 mm)"
+    ],
+    [
+     100.96,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     104.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     106.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     109.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     111.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     113.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     115.6,
+     "APPROACH",
+     "object 5 at (-0.04, -0.57), 39 x 23 mm"
+    ],
+    [
+     118.36,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     127.48,
+     "LIFT",
+     "holding object 5 (42 mm)"
+    ],
+    [
+     134.9,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     138.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     143.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.82,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     155.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     164.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     166.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.2,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 2,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "ball40",
+    "cube40",
+    "ball40",
+    "brick"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 160.7,
+   "wall": 377.5,
+   "depth_frames": 53,
+   "wrist_frames": 20,
+   "render_ms": 107.8,
+   "max_tilt_deg": 1.64,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.87, -0.35), 90 x 12 mm"
+    ],
+    [
+     4.8,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     7.16,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     13.46,
+     "LIFT",
+     "holding object 1 (11 mm)"
+    ],
+    [
+     19.02,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     23.68,
+     "APPROACH",
+     "object 2 at (1.23, -0.15), 63 x 30 mm"
+    ],
+    [
+     27.2,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     29.4,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     36.7,
+     "LIFT",
+     "holding object 2 (33 mm)"
+    ],
+    [
+     44.1,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     48.74,
+     "APPROACH",
+     "object 3 at (1.82, 0.55), 44 x 29 mm"
+    ],
+    [
+     53.86,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     56.1,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     63.94,
+     "LIFT",
+     "holding object 3 (33 mm)"
+    ],
+    [
+     71.34,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     75.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     78.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     80.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     82.46,
+     "APPROACH",
+     "object 4 at (0.46, -0.72), 51 x 21 mm"
+    ],
+    [
+     88.76,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     91.1,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     97.64,
+     "LIFT",
+     "holding object 4 (24 mm)"
+    ],
+    [
+     103.22,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     107.86,
+     "APPROACH",
+     "object 5 at (0.12, -0.71), 92 x 11 mm"
+    ],
+    [
+     111.02,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     113.38,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     119.68,
+     "LIFT",
+     "holding object 5 (11 mm)"
+    ],
+    [
+     125.22,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     129.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     132.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     134.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     136.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.94,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     147.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.7,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 3,
+   "set": "toys",
+   "names": [
+    "crayon",
+    "cube30",
+    "block",
+    "brick",
+    "crayon"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 4,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 179.5,
+   "wall": 439.4,
+   "depth_frames": 81,
+   "wrist_frames": 16,
+   "render_ms": 98.5,
+   "max_tilt_deg": 1.33,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     2.64,
+     "APPROACH",
+     "object 1 at (0.70, 0.76), 60 x 33 mm"
+    ],
+    [
+     7.36,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     9.58,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     16.9,
+     "LIFT",
+     "holding object 1 (33 mm)"
+    ],
+    [
+     22.46,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     27.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     29.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     31.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     33.56,
+     "APPROACH",
+     "object 2 at (-0.15, -0.58), 52 x 35 mm"
+    ],
+    [
+     39.0,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     41.12,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     49.5,
+     "LIFT",
+     "holding object 2 (46 mm)"
+    ],
+    [
+     56.9,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     61.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     63.68,
+     "APPROACH",
+     "object 3 at (0.41, -0.96), 39 x 21 mm"
+    ],
+    [
+     67.52,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     69.64,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     77.78,
+     "LIFT",
+     "holding object 3 (44 mm)"
+    ],
+    [
+     83.3,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     87.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     90.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     92.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     94.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     96.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     98.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     100.84,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     105.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     107.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     109.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     111.9,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     114.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     116.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     118.4,
+     "TURN",
+     "something far off at (1.55, -0.65): going closer"
+    ],
+    [
+     123.24,
+     "APPROACH",
+     "object 4 at (1.57, -0.60), 90 x 12 mm"
+    ],
+    [
+     127.56,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     129.92,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     136.24,
+     "LIFT",
+     "holding object 4 (11 mm)"
+    ],
+    [
+     141.88,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     146.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     148.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     150.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     153.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     155.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.54,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     166.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     168.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     170.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     172.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     175.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     177.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     179.48,
+     "DONE",
+     "nothing more in sight (4 picked, 0 failed)"
+    ]
+   ],
+   "seed": 4,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "cube40",
+    "crayon",
+    "ball40",
+    "block"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 192.7,
+   "wall": 451.1,
+   "depth_frames": 75,
+   "wrist_frames": 20,
+   "render_ms": 104.7,
+   "max_tilt_deg": 1.49,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.63, 0.01), 53 x 40 mm"
+    ],
+    [
+     3.7,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     5.86,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     14.34,
+     "LIFT",
+     "holding object 1 (45 mm)"
+    ],
+    [
+     21.76,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     26.42,
+     "APPROACH",
+     "object 2 at (1.10, -0.18), 85 x 15 mm"
+    ],
+    [
+     30.42,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     32.8,
+     "HOVER",
+     "wrist camera: 20 mm off, moving over it"
+    ],
+    [
+     39.82,
+     "LIFT",
+     "holding object 2 (13 mm)"
+    ],
+    [
+     45.62,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     50.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     52.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     54.54,
+     "APPROACH",
+     "object 3 at (0.50, 1.01), 56 x 37 mm"
+    ],
+    [
+     59.62,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     61.8,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     70.04,
+     "LIFT",
+     "holding object 3 (45 mm)"
+    ],
+    [
+     77.44,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     82.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     84.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     86.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     88.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     90.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     92.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     94.92,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     100.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     102.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     104.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     106.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     108.88,
+     "APPROACH",
+     "object 4 at (0.77, -0.96), 56 x 39 mm"
+    ],
+    [
+     114.24,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     116.36,
+     "HOVER",
+     "wrist camera: 22 mm off, moving over it"
+    ],
+    [
+     124.5,
+     "LIFT",
+     "holding object 4 (46 mm)"
+    ],
+    [
+     130.06,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     134.72,
+     "APPROACH",
+     "object 5 at (1.06, -0.85), 64 x 33 mm"
+    ],
+    [
+     137.18,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     139.4,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     146.72,
+     "LIFT",
+     "holding object 5 (33 mm)"
+    ],
+    [
+     152.34,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     157.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     163.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     170.04,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     175.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     178.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     184.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     186.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     188.98,
+     "TURN",
+     "something far off at (1.06, -0.84): going closer"
+    ],
+    [
+     192.7,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 5,
+   "set": "toys",
+   "names": [
+    "cube40",
+    "block",
+    "crayon",
+    "cube40",
+    "cube40"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 162.2,
+   "wall": 395.7,
+   "depth_frames": 57,
+   "wrist_frames": 16,
+   "render_ms": 117.3,
+   "max_tilt_deg": 1.57,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.66, -0.02), 92 x 11 mm"
+    ],
+    [
+     3.82,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     6.18,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     12.48,
+     "LIFT",
+     "holding object 1 (11 mm)"
+    ],
+    [
+     18.1,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     22.76,
+     "APPROACH",
+     "object 2 at (1.01, 0.88), 47 x 20 mm"
+    ],
+    [
+     27.78,
+     "APPROACH",
+     "re-centre on object 2 (5.7 cm off)"
+    ],
+    [
+     28.96,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     37.28,
+     "LIFT",
+     "holding object 2 (17 mm)"
+    ],
+    [
+     42.94,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     47.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     49.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     51.9,
+     "APPROACH",
+     "object 3 at (-0.05, 0.57), 44 x 30 mm"
+    ],
+    [
+     56.06,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     58.3,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     66.12,
+     "LIFT",
+     "holding object 3 (33 mm)"
+    ],
+    [
+     73.52,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     78.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     80.32,
+     "APPROACH",
+     "object 4 at (0.40, -0.92), 126 x 16 mm"
+    ],
+    [
+     86.66,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     94.98,
+     "LIFT",
+     "holding object 4 (17 mm)"
+    ],
+    [
+     100.58,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     105.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     107.4,
+     "APPROACH",
+     "object 5 at (1.00, -0.95), 49 x 29 mm"
+    ],
+    [
+     111.04,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     113.38,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     119.92,
+     "LIFT",
+     "holding object 5 (24 mm)"
+    ],
+    [
+     125.52,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     130.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     132.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     134.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     136.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     141.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     143.3,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     149.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     153.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     155.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.18,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 0,
+   "set": "clutter",
+   "names": [
+    "brick",
+    "crayon",
+    "cube30",
+    "marker",
+    "marker"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 7,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 210.6,
+   "wall": 468.0,
+   "depth_frames": 67,
+   "wrist_frames": 22,
+   "render_ms": 110.3,
+   "max_tilt_deg": 1.43,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 1 at (0.46, 0.14), 130 x 16 mm"
+    ],
+    [
+     2.86,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     11.16,
+     "LIFT",
+     "holding object 1 (17 mm)"
+    ],
+    [
+     16.84,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     21.5,
+     "APPROACH",
+     "object 2 at (0.73, 0.67), 88 x 15 mm"
+    ],
+    [
+     25.58,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     27.94,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     34.24,
+     "LIFT",
+     "holding object 2 (11 mm)"
+    ],
+    [
+     39.76,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     44.4,
+     "APPROACH",
+     "object 3 at (1.48, -0.31), 31 x 25 mm"
+    ],
+    [
+     49.68,
+     "APPROACH",
+     "re-centre on object 3 (2.3 cm off)"
+    ],
+    [
+     50.5,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     58.62,
+     "LIFT",
+     "holding object 3 (28 mm)"
+    ],
+    [
+     64.24,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     68.88,
+     "APPROACH",
+     "object 4 at (1.81, -0.60), 54 x 42 mm"
+    ],
+    [
+     72.62,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     82.02,
+     "LIFT",
+     "holding object 4 (54 mm)"
+    ],
+    [
+     87.6,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     92.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     94.36,
+     "APPROACH",
+     "object 6 at (1.92, 0.22), 22 x 13 mm"
+    ],
+    [
+     98.0,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     100.2,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     108.04,
+     "LIFT",
+     "holding object 6 (33 mm)"
+    ],
+    [
+     113.62,
+     "STOW",
+     "object 6 in the bin (5 so far)"
+    ],
+    [
+     118.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     120.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     122.58,
+     "APPROACH",
+     "object 9 at (1.27, -0.22), 32 x 31 mm"
+    ],
+    [
+     124.98,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     127.34,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     134.8,
+     "LIFT",
+     "holding object 9 (28 mm)"
+    ],
+    [
+     140.54,
+     "STOW",
+     "object 9 in the bin (6 so far)"
+    ],
+    [
+     145.2,
+     "APPROACH",
+     "object 10 at (1.16, -0.22), 32 x 26 mm"
+    ],
+    [
+     146.88,
+     "HOVER",
+     "over object 10"
+    ],
+    [
+     149.16,
+     "HOVER",
+     "wrist camera: 14 mm off, moving over it"
+    ],
+    [
+     157.08,
+     "LIFT",
+     "holding object 10 (29 mm)"
+    ],
+    [
+     164.48,
+     "STOW",
+     "object 10 in the bin (7 so far)"
+    ],
+    [
+     169.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     171.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     173.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     175.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     177.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.34,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     189.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     193.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     196.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     198.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     200.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     202.5,
+     "TURN",
+     "something far off at (1.81, -0.59): going closer"
+    ],
+    [
+     208.06,
+     "TURN",
+     "something far off at (1.90, 0.24): going closer"
+    ],
+    [
+     210.6,
+     "DONE",
+     "nothing more in sight (7 picked, 0 failed)"
+    ]
+   ],
+   "seed": 1,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "cap",
+    "cube40",
+    "cube30",
+    "crayon"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 6,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 208.0,
+   "wall": 463.7,
+   "depth_frames": 71,
+   "wrist_frames": 20,
+   "render_ms": 112.4,
+   "max_tilt_deg": 1.54,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 2 at (1.08, -0.58), 130 x 15 mm"
+    ],
+    [
+     6.02,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     14.34,
+     "LIFT",
+     "holding object 2 (17 mm)"
+    ],
+    [
+     20.0,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     23.78,
+     "APPROACH",
+     "object 3 at (1.24, 0.52), 89 x 14 mm"
+    ],
+    [
+     28.54,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     30.92,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     37.22,
+     "LIFT",
+     "holding object 3 (11 mm)"
+    ],
+    [
+     42.82,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     46.58,
+     "APPROACH",
+     "object 1 at (1.02, 0.92), 25 x 23 mm"
+    ],
+    [
+     50.16,
+     "APPROACH",
+     "re-centre on object 1 (2.0 cm off)"
+    ],
+    [
+     50.92,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     53.28,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     61.34,
+     "LIFT",
+     "holding object 1 (11 mm)"
+    ],
+    [
+     64.34,
+     "STOW",
+     "object 1: dropped it on the way up; try 2 after a fresh look"
+    ],
+    [
+     66.66,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     69.02,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     76.02,
+     "LIFT",
+     "holding object 1 (29 mm)"
+    ],
+    [
+     81.86,
+     "STOW",
+     "object 1 in the bin (3 so far)"
+    ],
+    [
+     85.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     87.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     89.9,
+     "APPROACH",
+     "object 4 at (0.33, -0.72), 52 x 28 mm"
+    ],
+    [
+     96.18,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     104.52,
+     "LIFT",
+     "holding object 4 (24 mm)"
+    ],
+    [
+     111.94,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     115.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     117.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     120.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     122.26,
+     "APPROACH",
+     "object 5 at (1.04, 0.65), 128 x 20 mm"
+    ],
+    [
+     127.52,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     135.88,
+     "LIFT",
+     "holding object 5 (17 mm)"
+    ],
+    [
+     144.66,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     148.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     150.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     152.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.94,
+     "APPROACH",
+     "object 6 at (-0.06, -0.57), 89 x 14 mm"
+    ],
+    [
+     160.62,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     168.76,
+     "LIFT",
+     "holding object 6 (11 mm)"
+    ],
+    [
+     174.42,
+     "STOW",
+     "object 6 in the bin (6 so far)"
+    ],
+    [
+     178.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     184.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     186.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.18,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     194.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     196.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     199.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     201.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     203.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     205.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     207.96,
+     "DONE",
+     "nothing more in sight (6 picked, 0 failed)"
+    ]
+   ],
+   "seed": 2,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "crayon",
+    "cap",
+    "crayon",
+    "brick"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 162.4,
+   "wall": 398.3,
+   "depth_frames": 53,
+   "wrist_frames": 18,
+   "render_ms": 112.2,
+   "max_tilt_deg": 1.53,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.87, -0.34), 41 x 31 mm"
+    ],
+    [
+     4.76,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     7.0,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     14.3,
+     "LIFT",
+     "holding object 1 (33 mm)"
+    ],
+    [
+     19.86,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     24.52,
+     "APPROACH",
+     "object 2 at (1.23, -0.15), 46 x 22 mm"
+    ],
+    [
+     28.04,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     30.2,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     38.76,
+     "LIFT",
+     "holding object 2 (45 mm)"
+    ],
+    [
+     46.14,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     50.78,
+     "APPROACH",
+     "object 3 at (1.82, 0.55), 131 x 15 mm"
+    ],
+    [
+     55.92,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     64.24,
+     "LIFT",
+     "holding object 3 (17 mm)"
+    ],
+    [
+     69.86,
+     "STOW",
+     "object 3 in the bin (3 so far)"
+    ],
+    [
+     74.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     76.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     78.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     80.98,
+     "APPROACH",
+     "object 4 at (0.45, -0.71), 52 x 24 mm"
+    ],
+    [
+     87.32,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     89.66,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     96.2,
+     "LIFT",
+     "holding object 4 (24 mm)"
+    ],
+    [
+     101.78,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     106.42,
+     "APPROACH",
+     "object 5 at (0.13, -0.71), 44 x 32 mm"
+    ],
+    [
+     109.56,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     111.78,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     119.48,
+     "LIFT",
+     "holding object 5 (36 mm)"
+    ],
+    [
+     126.88,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     131.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     133.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     135.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     144.62,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     149.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     153.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     155.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.42,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 3,
+   "set": "clutter",
+   "names": [
+    "cube30",
+    "marker",
+    "cube40",
+    "brick",
+    "cube30"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 3,
+   "task_picked": 3,
+   "task_failed": 1,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 185.1,
+   "wall": 425.0,
+   "depth_frames": 63,
+   "wrist_frames": 24,
+   "render_ms": 113.6,
+   "max_tilt_deg": 1.39,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     2.64,
+     "APPROACH",
+     "object 1 at (0.70, 0.76), 49 x 34 mm"
+    ],
+    [
+     7.32,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     9.48,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     17.84,
+     "LIFT",
+     "holding object 1 (45 mm)"
+    ],
+    [
+     25.26,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     29.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     32.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     34.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     36.38,
+     "APPROACH",
+     "object 2 at (-0.16, -0.58), 28 x 29 mm"
+    ],
+    [
+     41.86,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     44.22,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     52.26,
+     "LIFT",
+     "holding object 2 (9 mm)"
+    ],
+    [
+     55.26,
+     "STOW",
+     "object 2: dropped it on the way up; try 2 after a fresh look"
+    ],
+    [
+     57.62,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     59.98,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     67.76,
+     "LIFT",
+     "holding object 2 (12 mm)"
+    ],
+    [
+     70.76,
+     "STOW",
+     "object 2: dropped it on the way up; try 3 after a fresh look"
+    ],
+    [
+     73.1,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     75.44,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     83.06,
+     "LIFT",
+     "holding object 2 (13 mm)"
+    ],
+    [
+     86.06,
+     "STOW",
+     "object 2: dropped it on the way up; giving up after 3 tries"
+    ],
+    [
+     88.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     90.52,
+     "APPROACH",
+     "object 3 at (0.41, -0.97), 92 x 10 mm"
+    ],
+    [
+     94.36,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     96.72,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     103.02,
+     "LIFT",
+     "holding object 3 (11 mm)"
+    ],
+    [
+     108.64,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     113.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     115.44,
+     "APPROACH",
+     "object 4 at (1.57, -0.64), 36 x 28 mm"
+    ],
+    [
+     121.12,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     123.34,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     131.38,
+     "LIFT",
+     "holding object 4 (33 mm)"
+    ],
+    [
+     138.8,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     143.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     152.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.42,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     163.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     172.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     174.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     176.5,
+     "TURN",
+     "something far off at (1.56, -0.65): going closer"
+    ],
+    [
+     181.36,
+     "TURN",
+     "something far off at (1.97, 0.12): going closer"
+    ],
+    [
+     185.1,
+     "DONE",
+     "nothing more in sight (3 picked, 1 failed)"
+    ]
+   ],
+   "seed": 4,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "cap",
+    "cube30",
+    "crayon",
+    "cube40"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 2,
+   "task_picked": 4,
+   "task_failed": 3,
+   "task_skipped": 0,
+   "reason": "",
+   "t": 420.0,
+   "wall": 667.1,
+   "depth_frames": 164,
+   "wrist_frames": 58,
+   "render_ms": 10.7,
+   "max_tilt_deg": 1.88,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.63, 0.00), 31 x 29 mm"
+    ],
+    [
+     3.76,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     11.88,
+     "STOW",
+     "object 1: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     15.06,
+     "APPROACH",
+     "re-centre on object 1 (2.6 cm off)"
+    ],
+    [
+     15.96,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     24.1,
+     "STOW",
+     "object 1: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     27.28,
+     "APPROACH",
+     "re-centre on object 1 (2.5 cm off)"
+    ],
+    [
+     28.18,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     30.54,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     37.92,
+     "LIFT",
+     "holding object 1 (12 mm)"
+    ],
+    [
+     40.92,
+     "STOW",
+     "object 1: dropped it on the way up; giving up after 3 tries"
+    ],
+    [
+     43.28,
+     "APPROACH",
+     "object 2 at (1.10, -0.17), 36 x 30 mm"
+    ],
+    [
+     47.08,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     49.3,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     57.4,
+     "LIFT",
+     "holding object 2 (35 mm)"
+    ],
+    [
+     64.78,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     69.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     71.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     73.66,
+     "APPROACH",
+     "object 3 at (0.51, 1.03), 30 x 27 mm"
+    ],
+    [
+     78.76,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     86.9,
+     "STOW",
+     "object 3: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     90.08,
+     "APPROACH",
+     "re-centre on object 3 (2.5 cm off)"
+    ],
+    [
+     91.04,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     99.16,
+     "STOW",
+     "object 3: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     102.32,
+     "APPROACH",
+     "re-centre on object 3 (2.8 cm off)"
+    ],
+    [
+     103.24,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     111.36,
+     "STOW",
+     "object 3: missed (gripper at -10 deg); giving up after 3 tries"
+    ],
+    [
+     114.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     116.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     118.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     121.02,
+     "APPROACH",
+     "object 4 at (0.61, -0.00), 32 x 28 mm"
+    ],
+    [
+     124.84,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     133.0,
+     "STOW",
+     "object 4: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     136.2,
+     "APPROACH",
+     "re-centre on object 4 (2.8 cm off)"
+    ],
+    [
+     137.16,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     145.3,
+     "STOW",
+     "object 4: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     148.48,
+     "APPROACH",
+     "re-centre on object 4 (2.6 cm off)"
+    ],
+    [
+     149.4,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     157.54,
+     "LIFT",
+     "holding object 4 (16 mm)"
+    ],
+    [
+     163.22,
+     "STOW",
+     "object 4 in the bin (2 so far)"
+    ],
+    [
+     167.88,
+     "APPROACH",
+     "object 5 at (1.02, -0.85), 56 x 36 mm"
+    ],
+    [
+     173.1,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     175.28,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     183.78,
+     "LIFT",
+     "holding object 5 (45 mm)"
+    ],
+    [
+     191.22,
+     "STOW",
+     "object 5 in the bin (3 so far)"
+    ],
+    [
+     195.88,
+     "APPROACH",
+     "object 6 at (0.73, -0.97), 30 x 26 mm"
+    ],
+    [
+     197.86,
+     "APPROACH",
+     "re-centre on object 6 (1.6 cm off)"
+    ],
+    [
+     198.64,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     201.0,
+     "HOVER",
+     "wrist camera: 17 mm off, moving over it"
+    ],
+    [
+     209.08,
+     "LIFT",
+     "holding object 6 (10 mm)"
+    ],
+    [
+     212.1,
+     "STOW",
+     "object 6: dropped it on the way up; try 2 after a fresh look"
+    ],
+    [
+     214.46,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     216.82,
+     "HOVER",
+     "wrist camera: 16 mm off, moving over it"
+    ],
+    [
+     224.46,
+     "LIFT",
+     "holding object 6 (15 mm)"
+    ],
+    [
+     227.48,
+     "STOW",
+     "object 6: dropped it on the way up; try 3 after a fresh look"
+    ],
+    [
+     229.82,
+     "APPROACH",
+     "re-centre on object 6 (2.0 cm off)"
+    ],
+    [
+     230.42,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     232.78,
+     "HOVER",
+     "wrist camera: 17 mm off, moving over it"
+    ],
+    [
+     240.5,
+     "LIFT",
+     "holding object 6 (14 mm)"
+    ],
+    [
+     243.52,
+     "STOW",
+     "object 6: dropped it on the way up; giving up after 3 tries"
+    ],
+    [
+     245.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     247.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     250.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     252.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     254.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     256.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     258.9,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     264.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     266.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     269.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     271.26,
+     "APPROACH",
+     "object 7 at (0.60, 1.12), 31 x 24 mm"
+    ],
+    [
+     276.74,
+     "HOVER",
+     "over object 7"
+    ],
+    [
+     279.12,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     285.44,
+     "LIFT",
+     "holding object 7 (29 mm)"
+    ],
+    [
+     292.96,
+     "STOW",
+     "object 7 in the bin (4 so far)"
+    ],
+    [
+     297.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     299.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     301.96,
+     "APPROACH",
+     "object 8 at (-0.17, 0.85), 33 x 15 mm"
+    ],
+    [
+     305.18,
+     "APPROACH",
+     "re-centre on object 8 (7.2 cm off)"
+    ],
+    [
+     306.32,
+     "APPROACH",
+     "re-centre on object 8 (2.8 cm off)"
+    ],
+    [
+     307.22,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     315.94,
+     "STOW",
+     "object 8: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     319.1,
+     "STOW",
+     "object 8 not there on the close look"
+    ],
+    [
+     319.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     321.74,
+     "APPROACH",
+     "object 9 at (-0.10, 0.39), 33 x 16 mm"
+    ],
+    [
+     323.5,
+     "APPROACH",
+     "re-centre on object 9 (3.8 cm off)"
+    ],
+    [
+     324.48,
+     "APPROACH",
+     "re-centre on object 9 (2.1 cm off)"
+    ],
+    [
+     325.3,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     334.06,
+     "STOW",
+     "object 9: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     337.24,
+     "STOW",
+     "object 9 not there on the close look"
+    ],
+    [
+     337.7,
+     "APPROACH",
+     "object 10 at (-0.06, 0.05), 34 x 16 mm"
+    ],
+    [
+     340.76,
+     "APPROACH",
+     "re-centre on object 10 (6.9 cm off)"
+    ],
+    [
+     342.08,
+     "APPROACH",
+     "re-centre on object 10 (2.8 cm off)"
+    ],
+    [
+     342.98,
+     "HOVER",
+     "over object 10"
+    ],
+    [
+     351.76,
+     "STOW",
+     "object 10: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     354.94,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     355.4,
+     "APPROACH",
+     "object 11 at (-0.01, -0.31), 34 x 16 mm"
+    ],
+    [
+     358.66,
+     "APPROACH",
+     "re-centre on object 11 (6.8 cm off)"
+    ],
+    [
+     359.98,
+     "APPROACH",
+     "re-centre on object 11 (2.7 cm off)"
+    ],
+    [
+     360.88,
+     "HOVER",
+     "over object 11"
+    ],
+    [
+     369.66,
+     "STOW",
+     "object 11: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     372.84,
+     "STOW",
+     "object 11 not there on the close look"
+    ],
+    [
+     373.3,
+     "APPROACH",
+     "object 12 at (0.03, -0.67), 34 x 17 mm"
+    ],
+    [
+     376.54,
+     "APPROACH",
+     "re-centre on object 12 (6.3 cm off)"
+    ],
+    [
+     377.8,
+     "APPROACH",
+     "re-centre on object 12 (2.4 cm off)"
+    ],
+    [
+     378.66,
+     "HOVER",
+     "over object 12"
+    ],
+    [
+     387.44,
+     "STOW",
+     "object 12: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     390.62,
+     "STOW",
+     "object 12 not there on the close look"
+    ],
+    [
+     391.08,
+     "APPROACH",
+     "object 13 at (0.07, -1.00), 33 x 16 mm"
+    ],
+    [
+     394.22,
+     "APPROACH",
+     "re-centre on object 13 (5.8 cm off)"
+    ],
+    [
+     395.44,
+     "APPROACH",
+     "re-centre on object 13 (2.3 cm off)"
+    ],
+    [
+     396.28,
+     "HOVER",
+     "over object 13"
+    ],
+    [
+     405.06,
+     "STOW",
+     "object 13: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     408.24,
+     "STOW",
+     "object 13 not there on the close look"
+    ],
+    [
+     408.7,
+     "APPROACH",
+     "object 14 at (0.10, -1.32), 32 x 16 mm"
+    ],
+    [
+     411.74,
+     "APPROACH",
+     "re-centre on object 14 (5.5 cm off)"
+    ],
+    [
+     412.94,
+     "APPROACH",
+     "re-centre on object 14 (2.1 cm off)"
+    ],
+    [
+     413.76,
+     "HOVER",
+     "over object 14"
+    ]
+   ],
+   "seed": 5,
+   "set": "clutter",
+   "names": [
+    "cap",
+    "cube40",
+    "cube30",
+    "cap",
+    "cap"
+   ],
+   "world": "arena"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 4,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 242.5,
+   "wall": 546.7,
+   "depth_frames": 121,
+   "wrist_frames": 22,
+   "render_ms": 55.4,
+   "max_tilt_deg": 1.46,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 2 at (1.02, 0.38), 53 x 29 mm"
+    ],
+    [
+     5.28,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     7.62,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     14.16,
+     "LIFT",
+     "holding object 2 (24 mm)"
+    ],
+    [
+     19.78,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     24.44,
+     "APPROACH",
+     "object 3 at (1.25, -0.23), 38 x 22 mm"
+    ],
+    [
+     28.14,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     30.42,
+     "HOVER",
+     "wrist camera: 22 mm off, moving over it"
+    ],
+    [
+     37.86,
+     "LIFT",
+     "holding object 3 (42 mm)"
+    ],
+    [
+     40.86,
+     "STOW",
+     "object 3: dropped it on the way up; try 2 after a fresh look"
+    ],
+    [
+     43.2,
+     "STOW",
+     "object 3 not there on the close look"
+    ],
+    [
+     43.64,
+     "APPROACH",
+     "object 5 at (1.82, -0.25), 37 x 32 mm"
+    ],
+    [
+     47.72,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     50.0,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     57.58,
+     "LIFT",
+     "holding object 5 (33 mm)"
+    ],
+    [
+     64.96,
+     "STOW",
+     "object 5 in the bin (2 so far)"
+    ],
+    [
+     69.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     71.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     73.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     76.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     78.26,
+     "APPROACH",
+     "object 6 at (1.00, -0.87), 43 x 34 mm"
+    ],
+    [
+     82.4,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     84.62,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     92.6,
+     "LIFT",
+     "holding object 6 (33 mm)"
+    ],
+    [
+     99.98,
+     "STOW",
+     "object 6 in the bin (3 so far)"
+    ],
+    [
+     104.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     106.74,
+     "APPROACH",
+     "object 7 at (1.54, -1.09), 39 x 23 mm"
+    ],
+    [
+     110.0,
+     "STOW",
+     "object 7 not there on the close look"
+    ],
+    [
+     110.44,
+     "APPROACH",
+     "object 8 at (1.55, -1.20), 39 x 25 mm"
+    ],
+    [
+     112.14,
+     "APPROACH",
+     "re-centre on object 8 (5.3 cm off)"
+    ],
+    [
+     113.28,
+     "APPROACH",
+     "re-centre on object 8 (3.3 cm off)"
+    ],
+    [
+     114.22,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     123.2,
+     "STOW",
+     "object 8: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     126.36,
+     "STOW",
+     "object 8 not there on the close look"
+    ],
+    [
+     126.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     129.0,
+     "APPROACH",
+     "object 10 at (1.74, -0.66), 44 x 5 mm"
+    ],
+    [
+     131.38,
+     "APPROACH",
+     "re-centre on object 10 (2.9 cm off)"
+    ],
+    [
+     132.26,
+     "HOVER",
+     "over object 10"
+    ],
+    [
+     134.62,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     140.94,
+     "LIFT",
+     "holding object 10 (11 mm)"
+    ],
+    [
+     146.64,
+     "STOW",
+     "object 10 in the bin (4 so far)"
+    ],
+    [
+     151.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     153.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     155.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     164.3,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     172.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     174.52,
+     "APPROACH",
+     "object 15 at (0.26, 0.80), 62 x 8 mm"
+    ],
+    [
+     178.6,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     179.06,
+     "APPROACH",
+     "object 16 at (0.34, 0.80), 66 x 9 mm"
+    ],
+    [
+     180.38,
+     "STOW",
+     "object 16 not there on the close look"
+    ],
+    [
+     180.84,
+     "APPROACH",
+     "object 17 at (0.45, 0.80), 22 x 5 mm"
+    ],
+    [
+     182.64,
+     "STOW",
+     "object 17 not there on the close look"
+    ],
+    [
+     183.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     185.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     187.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     194.1,
+     "APPROACH",
+     "object 11 at (1.83, 0.70), 531 x 12 mm"
+    ],
+    [
+     200.36,
+     "STOW",
+     "object 11 not there on the close look"
+    ],
+    [
+     200.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     203.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     205.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     207.36,
+     "APPROACH",
+     "object 22 at (0.22, 0.98), 79 x 32 mm"
+    ],
+    [
+     213.02,
+     "STOW",
+     "object 22 not there on the close look"
+    ],
+    [
+     213.48,
+     "APPROACH",
+     "object 25 at (-0.88, 1.12), 64 x 7 mm"
+    ],
+    [
+     219.92,
+     "STOW",
+     "object 25 not there on the close look"
+    ],
+    [
+     220.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     222.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     224.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     227.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     229.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     231.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     233.82,
+     "TURN",
+     "something far off at (1.71, -0.62): going closer"
+    ],
+    [
+     242.54,
+     "DONE",
+     "nothing more in sight (4 picked, 0 failed)"
+    ]
+   ],
+   "seed": 0,
+   "set": "toys",
+   "names": [
+    "brick",
+    "ball40",
+    "crayon",
+    "cube30",
+    "cube30"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 166.0,
+   "wall": 439.2,
+   "depth_frames": 53,
+   "wrist_frames": 18,
+   "render_ms": 105.8,
+   "max_tilt_deg": 1.5,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 1 at (0.48, 0.14), 90 x 12 mm"
+    ],
+    [
+     3.04,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     5.38,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     11.68,
+     "LIFT",
+     "holding object 1 (11 mm)"
+    ],
+    [
+     17.3,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     21.96,
+     "APPROACH",
+     "object 2 at (0.70, -0.04), 62 x 31 mm"
+    ],
+    [
+     24.7,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     26.88,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     34.18,
+     "LIFT",
+     "holding object 2 (33 mm)"
+    ],
+    [
+     41.56,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     46.2,
+     "APPROACH",
+     "object 4 at (1.38, -0.34), 57 x 35 mm"
+    ],
+    [
+     50.98,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     53.16,
+     "HOVER",
+     "wrist camera: 19 mm off, moving over it"
+    ],
+    [
+     61.06,
+     "LIFT",
+     "holding object 4 (46 mm)"
+    ],
+    [
+     66.6,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     71.24,
+     "APPROACH",
+     "object 5 at (1.64, -0.43), 41 x 31 mm"
+    ],
+    [
+     74.6,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     83.14,
+     "LIFT",
+     "holding object 5 (36 mm)"
+    ],
+    [
+     88.68,
+     "STOW",
+     "object 5 in the bin (4 so far)"
+    ],
+    [
+     93.32,
+     "APPROACH",
+     "object 6 at (1.67, -0.16), 38 x 24 mm"
+    ],
+    [
+     96.44,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     98.62,
+     "HOVER",
+     "wrist camera: 16 mm off, moving over it"
+    ],
+    [
+     106.34,
+     "LIFT",
+     "holding object 6 (44 mm)"
+    ],
+    [
+     113.7,
+     "STOW",
+     "object 6 in the bin (5 so far)"
+    ],
+    [
+     118.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     120.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     122.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     124.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     127.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     129.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     131.62,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     138.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.56,
+     "TURN",
+     "something far off at (1.67, -0.14): going closer"
+    ],
+    [
+     156.36,
+     "TURN",
+     "something far off at (-1.47, -0.80): going closer"
+    ],
+    [
+     163.46,
+     "TURN",
+     "something far off at (-1.49, -1.17): going closer"
+    ],
+    [
+     165.98,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 1,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "cube40",
+    "block",
+    "crayon",
+    "ball40"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 168.5,
+   "wall": 439.6,
+   "depth_frames": 57,
+   "wrist_frames": 20,
+   "render_ms": 117.8,
+   "max_tilt_deg": 1.78,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 3 at (0.97, 0.14), 42 x 30 mm"
+    ],
+    [
+     5.22,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     7.44,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     15.46,
+     "LIFT",
+     "holding object 3 (40 mm)"
+    ],
+    [
+     22.86,
+     "STOW",
+     "object 3 in the bin (1 so far)"
+    ],
+    [
+     26.64,
+     "APPROACH",
+     "object 2 at (0.87, -0.58), 35 x 27 mm"
+    ],
+    [
+     30.26,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     32.66,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     40.04,
+     "LIFT",
+     "holding object 2 (24 mm)"
+    ],
+    [
+     45.52,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     49.28,
+     "APPROACH",
+     "object 6 at (1.02, -0.87), 56 x 42 mm"
+    ],
+    [
+     52.68,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     54.9,
+     "HOVER",
+     "wrist camera: 17 mm off, moving over it"
+    ],
+    [
+     62.78,
+     "LIFT",
+     "holding object 6 (46 mm)"
+    ],
+    [
+     70.14,
+     "STOW",
+     "object 6 in the bin (3 so far)"
+    ],
+    [
+     73.9,
+     "APPROACH",
+     "object 4 at (1.42, -0.13), 38 x 21 mm"
+    ],
+    [
+     77.42,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     79.56,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     87.72,
+     "LIFT",
+     "holding object 4 (44 mm)"
+    ],
+    [
+     93.22,
+     "STOW",
+     "object 4 in the bin (4 so far)"
+    ],
+    [
+     96.98,
+     "APPROACH",
+     "object 5 at (1.70, 0.15), 39 x 21 mm"
+    ],
+    [
+     100.62,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     102.76,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     110.92,
+     "LIFT",
+     "holding object 5 (44 mm)"
+    ],
+    [
+     116.44,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     120.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     122.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     124.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     126.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     128.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     131.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     133.32,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     140.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.58,
+     "APPROACH",
+     "object 9 at (-0.43, 0.85), 32 x 7 mm"
+    ],
+    [
+     147.06,
+     "STOW",
+     "object 9 not there on the close look"
+    ],
+    [
+     147.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     151.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.6,
+     "TURN",
+     "something far off at (1.65, 0.70): going closer"
+    ],
+    [
+     166.3,
+     "TURN",
+     "something far off at (1.69, 0.14): going closer"
+    ],
+    [
+     168.46,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 2,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "ball40",
+    "cube40",
+    "ball40",
+    "brick"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 240.3,
+   "wall": 545.5,
+   "depth_frames": 123,
+   "wrist_frames": 20,
+   "render_ms": 40.2,
+   "max_tilt_deg": 1.51,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.60, -0.30), 89 x 10 mm"
+    ],
+    [
+     3.88,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     6.24,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     12.54,
+     "LIFT",
+     "holding object 1 (11 mm)"
+    ],
+    [
+     18.1,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     22.76,
+     "APPROACH",
+     "object 3 at (0.87, -0.15), 65 x 35 mm"
+    ],
+    [
+     25.78,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     28.04,
+     "HOVER",
+     "wrist camera: 21 mm off, moving over it"
+    ],
+    [
+     34.84,
+     "LIFT",
+     "holding object 3 (33 mm)"
+    ],
+    [
+     40.38,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     45.02,
+     "APPROACH",
+     "object 4 at (1.12, -0.01), 91 x 12 mm"
+    ],
+    [
+     48.26,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     50.62,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     56.92,
+     "LIFT",
+     "holding object 4 (11 mm)"
+    ],
+    [
+     62.48,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     67.12,
+     "APPROACH",
+     "object 5 at (1.39, 0.23), 51 x 26 mm"
+    ],
+    [
+     70.64,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     72.98,
+     "HOVER",
+     "wrist camera: 15 mm off, moving over it"
+    ],
+    [
+     79.52,
+     "LIFT",
+     "holding object 5 (24 mm)"
+    ],
+    [
+     85.04,
+     "STOW",
+     "object 5 in the bin (4 so far)"
+    ],
+    [
+     89.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     91.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     93.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     96.14,
+     "APPROACH",
+     "object 9 at (0.48, -0.60), 43 x 29 mm"
+    ],
+    [
+     100.42,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     102.66,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     110.54,
+     "LIFT",
+     "holding object 9 (33 mm)"
+    ],
+    [
+     117.94,
+     "STOW",
+     "object 9 in the bin (5 so far)"
+    ],
+    [
+     122.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     124.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     126.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     129.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     131.16,
+     "APPROACH",
+     "object 8 at (0.24, 0.80), 153 x 11 mm"
+    ],
+    [
+     136.56,
+     "STOW",
+     "object 8 not there on the close look"
+    ],
+    [
+     137.02,
+     "APPROACH",
+     "object 12 at (0.14, 0.80), 47 x 8 mm"
+    ],
+    [
+     138.52,
+     "STOW",
+     "object 12 not there on the close look"
+    ],
+    [
+     138.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     141.12,
+     "APPROACH",
+     "object 15 at (-1.17, 0.65), 64 x 7 mm"
+    ],
+    [
+     147.22,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     147.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     150.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     152.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.68,
+     "APPROACH",
+     "object 18 at (0.54, 0.88), 59 x 6 mm"
+    ],
+    [
+     163.14,
+     "STOW",
+     "object 18 not there on the close look"
+    ],
+    [
+     163.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.76,
+     "APPROACH",
+     "object 19 at (0.35, 1.06), 50 x 5 mm"
+    ],
+    [
+     166.8,
+     "STOW",
+     "object 19 not there on the close look"
+    ],
+    [
+     167.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     171.72,
+     "APPROACH",
+     "object 21 at (-1.33, 0.91), 50 x 7 mm"
+    ],
+    [
+     178.22,
+     "STOW",
+     "object 21 not there on the close look"
+    ],
+    [
+     178.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     181.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     183.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     185.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     187.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.92,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     198.68,
+     "APPROACH",
+     "object 26 at (-0.64, 1.21), 57 x 14 mm"
+    ],
+    [
+     204.46,
+     "STOW",
+     "object 26 not there on the close look"
+    ],
+    [
+     204.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     207.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     209.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     211.48,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     213.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     215.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     218.02,
+     "APPROACH",
+     "object 28 at (-0.82, 1.21), 25 x 5 mm"
+    ],
+    [
+     221.2,
+     "STOW",
+     "object 28 not there on the close look"
+    ],
+    [
+     221.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     223.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     226.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     228.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     230.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     232.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     234.64,
+     "TURN",
+     "something far off at (-1.75, -0.74): going closer"
+    ],
+    [
+     240.3,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 3,
+   "set": "toys",
+   "names": [
+    "crayon",
+    "cube30",
+    "block",
+    "brick",
+    "crayon"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 186.4,
+   "wall": 471.4,
+   "depth_frames": 79,
+   "wrist_frames": 20,
+   "render_ms": 93.1,
+   "max_tilt_deg": 1.34,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.65, 0.18), 57 x 42 mm"
+    ],
+    [
+     3.88,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     6.02,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     14.38,
+     "LIFT",
+     "holding object 1 (45 mm)"
+    ],
+    [
+     21.8,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     26.46,
+     "APPROACH",
+     "object 4 at (1.41, 0.39), 63 x 13 mm"
+    ],
+    [
+     31.44,
+     "APPROACH",
+     "re-centre on object 4 (1.8 cm off)"
+    ],
+    [
+     32.2,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     34.56,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     40.86,
+     "LIFT",
+     "holding object 4 (11 mm)"
+    ],
+    [
+     46.48,
+     "STOW",
+     "object 4 in the bin (2 so far)"
+    ],
+    [
+     51.12,
+     "APPROACH",
+     "object 5 at (1.78, 0.14), 38 x 24 mm"
+    ],
+    [
+     54.66,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     56.98,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     64.08,
+     "LIFT",
+     "holding object 5 (42 mm)"
+    ],
+    [
+     69.74,
+     "STOW",
+     "object 5 in the bin (3 so far)"
+    ],
+    [
+     74.38,
+     "APPROACH",
+     "object 3 at (1.22, -0.76), 65 x 29 mm"
+    ],
+    [
+     78.94,
+     "APPROACH",
+     "re-centre on object 3 (2.3 cm off)"
+    ],
+    [
+     79.76,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     82.02,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     88.82,
+     "LIFT",
+     "holding object 3 (33 mm)"
+    ],
+    [
+     96.22,
+     "STOW",
+     "object 3 in the bin (4 so far)"
+    ],
+    [
+     100.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     103.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     105.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     107.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     109.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     111.72,
+     "APPROACH",
+     "object 9 at (0.37, -0.47), 40 x 21 mm"
+    ],
+    [
+     116.02,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     118.14,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     126.3,
+     "LIFT",
+     "holding object 9 (44 mm)"
+    ],
+    [
+     131.84,
+     "STOW",
+     "object 9 in the bin (5 so far)"
+    ],
+    [
+     136.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     143.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.34,
+     "APPROACH",
+     "object 14 at (-0.12, 0.80), 108 x 28 mm"
+    ],
+    [
+     153.62,
+     "STOW",
+     "object 14 not there on the close look"
+    ],
+    [
+     154.08,
+     "APPROACH",
+     "object 15 at (-0.25, 0.79), 90 x 22 mm"
+    ],
+    [
+     155.84,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     156.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     164.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.28,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     173.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     175.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     177.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     179.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     184.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     186.42,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 4,
+   "set": "toys",
+   "names": [
+    "cube30",
+    "cube40",
+    "crayon",
+    "ball40",
+    "block"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 276.9,
+   "wall": 588.1,
+   "depth_frames": 143,
+   "wrist_frames": 20,
+   "render_ms": 41.5,
+   "max_tilt_deg": 3.41,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 3 at (0.96, -0.12), 90 x 11 mm"
+    ],
+    [
+     4.88,
+     "APPROACH",
+     "re-centre on object 3 (2.3 cm off)"
+    ],
+    [
+     5.56,
+     "APPROACH",
+     "re-centre on object 3 (3.6 cm off)"
+    ],
+    [
+     6.02,
+     "STOW",
+     "object 3 not there on the close look"
+    ],
+    [
+     6.48,
+     "APPROACH",
+     "object 2 at (0.97, 0.32), 66 x 34 mm"
+    ],
+    [
+     8.86,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     11.1,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     18.42,
+     "LIFT",
+     "holding object 2 (33 mm)"
+    ],
+    [
+     25.94,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     30.6,
+     "APPROACH",
+     "object 4 at (1.27, -0.24), 47 x 32 mm"
+    ],
+    [
+     33.92,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     36.12,
+     "HOVER",
+     "wrist camera: 25 mm off, moving over it"
+    ],
+    [
+     43.82,
+     "LIFT",
+     "holding object 4 (47 mm)"
+    ],
+    [
+     51.24,
+     "STOW",
+     "object 4 in the bin (2 so far)"
+    ],
+    [
+     55.88,
+     "APPROACH",
+     "object 5 at (1.58, -0.10), 44 x 34 mm"
+    ],
+    [
+     59.2,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     61.36,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     69.78,
+     "LIFT",
+     "holding object 5 (45 mm)"
+    ],
+    [
+     77.16,
+     "STOW",
+     "object 5 in the bin (3 so far)"
+    ],
+    [
+     81.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     83.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     86.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     88.22,
+     "APPROACH",
+     "object 8 at (0.94, -0.10), 75 x 5 mm"
+    ],
+    [
+     89.54,
+     "STOW",
+     "object 8 not there on the close look"
+    ],
+    [
+     89.98,
+     "APPROACH",
+     "object 9 at (0.47, 0.72), 75 x 10 mm"
+    ],
+    [
+     95.12,
+     "STOW",
+     "object 9 not there on the close look"
+    ],
+    [
+     95.56,
+     "APPROACH",
+     "object 10 at (0.34, 0.81), 49 x 13 mm"
+    ],
+    [
+     97.84,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     98.28,
+     "APPROACH",
+     "object 15 at (0.42, 0.84), 96 x 36 mm"
+    ],
+    [
+     99.3,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     99.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     101.98,
+     "APPROACH",
+     "object 18 at (-0.33, 0.91), 84 x 8 mm"
+    ],
+    [
+     106.5,
+     "STOW",
+     "object 18 not there on the close look"
+    ],
+    [
+     106.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     109.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     111.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     113.62,
+     "APPROACH",
+     "object 19 at (0.88, 0.06), 89 x 11 mm"
+    ],
+    [
+     118.7,
+     "HOVER",
+     "over object 19"
+    ],
+    [
+     121.06,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     127.36,
+     "LIFT",
+     "holding object 19 (11 mm)"
+    ],
+    [
+     132.94,
+     "STOW",
+     "object 19 in the bin (4 so far)"
+    ],
+    [
+     137.6,
+     "APPROACH",
+     "object 20 at (1.25, -0.74), 43 x 22 mm"
+    ],
+    [
+     142.84,
+     "HOVER",
+     "over object 20"
+    ],
+    [
+     145.02,
+     "HOVER",
+     "wrist camera: 14 mm off, moving over it"
+    ],
+    [
+     153.5,
+     "LIFT",
+     "holding object 20 (45 mm)"
+    ],
+    [
+     160.92,
+     "STOW",
+     "object 20 in the bin (5 so far)"
+    ],
+    [
+     165.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     172.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     174.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     176.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     178.68,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     184.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     187.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.42,
+     "APPROACH",
+     "object 28 at (0.03, 1.02), 58 x 8 mm"
+    ],
+    [
+     196.12,
+     "STOW",
+     "object 28 not there on the close look"
+    ],
+    [
+     196.58,
+     "APPROACH",
+     "object 26 at (-0.07, 1.02), 124 x 8 mm"
+    ],
+    [
+     198.08,
+     "STOW",
+     "object 26 not there on the close look"
+    ],
+    [
+     198.54,
+     "APPROACH",
+     "object 27 at (0.30, 1.01), 38 x 7 mm"
+    ],
+    [
+     200.52,
+     "STOW",
+     "object 27 not there on the close look"
+    ],
+    [
+     200.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     203.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     205.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     207.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     209.74,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     211.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     214.08,
+     "TURN",
+     "something far off at (-1.12, 0.83): going closer"
+    ],
+    [
+     218.42,
+     "APPROACH",
+     "object 29 at (-1.66, 1.00), 37 x 6 mm"
+    ],
+    [
+     224.62,
+     "STOW",
+     "object 29 not there on the close look"
+    ],
+    [
+     225.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     227.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     229.62,
+     "APPROACH",
+     "object 30 at (-1.78, -0.40), 126 x 63 mm"
+    ],
+    [
+     235.64,
+     "STOW",
+     "object 30 not there on the close look"
+    ],
+    [
+     236.1,
+     "APPROACH",
+     "object 31 at (-1.77, -0.52), 62 x 10 mm"
+    ],
+    [
+     237.94,
+     "STOW",
+     "object 31 not there on the close look"
+    ],
+    [
+     238.4,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     240.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     242.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     245.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     247.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     249.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     251.8,
+     "TURN",
+     "something far off at (1.35, -0.91): going closer"
+    ],
+    [
+     261.42,
+     "TURN",
+     "something far off at (1.79, 0.82): going closer"
+    ],
+    [
+     267.46,
+     "TURN",
+     "something far off at (-1.78, -0.64): going closer"
+    ],
+    [
+     276.94,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 5,
+   "set": "toys",
+   "names": [
+    "cube40",
+    "block",
+    "crayon",
+    "cube40",
+    "cube40"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 170.1,
+   "wall": 439.6,
+   "depth_frames": 65,
+   "wrist_frames": 16,
+   "render_ms": 113.6,
+   "max_tilt_deg": 1.61,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 2 at (1.02, 0.38), 53 x 29 mm"
+    ],
+    [
+     5.28,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     7.62,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     14.16,
+     "LIFT",
+     "holding object 2 (24 mm)"
+    ],
+    [
+     19.78,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     24.44,
+     "APPROACH",
+     "object 3 at (1.26, -0.23), 86 x 13 mm"
+    ],
+    [
+     28.16,
+     "STOW",
+     "object 3 not there on the close look"
+    ],
+    [
+     28.62,
+     "APPROACH",
+     "object 5 at (1.83, -0.25), 128 x 16 mm"
+    ],
+    [
+     32.68,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     40.8,
+     "LIFT",
+     "holding object 5 (17 mm)"
+    ],
+    [
+     46.42,
+     "STOW",
+     "object 5 in the bin (2 so far)"
+    ],
+    [
+     51.06,
+     "APPROACH",
+     "object 6 at (1.72, -0.63), 33 x 23 mm"
+    ],
+    [
+     53.58,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     55.86,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     63.2,
+     "LIFT",
+     "holding object 6 (39 mm)"
+    ],
+    [
+     70.58,
+     "STOW",
+     "object 6 in the bin (3 so far)"
+    ],
+    [
+     75.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     77.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     79.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     81.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     83.76,
+     "APPROACH",
+     "object 8 at (1.24, -0.23), 90 x 13 mm"
+    ],
+    [
+     84.66,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     87.02,
+     "HOVER",
+     "wrist camera: 9 mm off, moving over it"
+    ],
+    [
+     93.32,
+     "LIFT",
+     "holding object 8 (11 mm)"
+    ],
+    [
+     98.96,
+     "STOW",
+     "object 8 in the bin (4 so far)"
+    ],
+    [
+     103.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     105.74,
+     "APPROACH",
+     "object 10 at (1.00, -0.87), 128 x 20 mm"
+    ],
+    [
+     109.56,
+     "HOVER",
+     "over object 10"
+    ],
+    [
+     117.68,
+     "LIFT",
+     "holding object 10 (17 mm)"
+    ],
+    [
+     123.3,
+     "STOW",
+     "object 10 in the bin (5 so far)"
+    ],
+    [
+     127.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     130.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     132.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     134.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     136.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     138.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.96,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     147.9,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     150.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     152.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     154.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.02,
+     "TURN",
+     "something far off at (1.70, -0.62): going closer"
+    ],
+    [
+     166.26,
+     "TURN",
+     "something far off at (0.28, 0.81): going closer"
+    ],
+    [
+     170.06,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 0,
+   "set": "clutter",
+   "names": [
+    "brick",
+    "crayon",
+    "cube30",
+    "marker",
+    "marker"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 7,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 276.9,
+   "wall": 586.5,
+   "depth_frames": 129,
+   "wrist_frames": 26,
+   "render_ms": 59.2,
+   "max_tilt_deg": 3.84,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 1 at (0.48, 0.14), 44 x 35 mm"
+    ],
+    [
+     3.04,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     5.24,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     12.98,
+     "LIFT",
+     "holding object 1 (33 mm)"
+    ],
+    [
+     20.38,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     25.04,
+     "APPROACH",
+     "object 2 at (0.70, -0.04), 48 x 41 mm"
+    ],
+    [
+     27.76,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     29.9,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     38.5,
+     "LIFT",
+     "holding object 2 (45 mm)"
+    ],
+    [
+     45.88,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     50.52,
+     "APPROACH",
+     "object 4 at (1.38, -0.35), 30 x 23 mm"
+    ],
+    [
+     55.34,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     57.72,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     63.76,
+     "LIFT",
+     "holding object 4 (28 mm)"
+    ],
+    [
+     69.36,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     74.0,
+     "APPROACH",
+     "object 8 at (1.47, -0.35), 25 x 9 mm"
+    ],
+    [
+     75.58,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     77.96,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     84.0,
+     "LIFT",
+     "holding object 8 (28 mm)"
+    ],
+    [
+     89.6,
+     "STOW",
+     "object 8 in the bin (4 so far)"
+    ],
+    [
+     94.24,
+     "APPROACH",
+     "object 5 at (1.64, -0.43), 128 x 17 mm"
+    ],
+    [
+     96.68,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     104.56,
+     "LIFT",
+     "holding object 5 (17 mm)"
+    ],
+    [
+     110.16,
+     "STOW",
+     "object 5 in the bin (5 so far)"
+    ],
+    [
+     114.8,
+     "APPROACH",
+     "object 6 at (1.68, -0.16), 81 x 15 mm"
+    ],
+    [
+     117.94,
+     "STOW",
+     "object 6 not there on the close look"
+    ],
+    [
+     118.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     120.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     122.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     124.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     127.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     129.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     131.38,
+     "APPROACH",
+     "object 10 at (1.68, -0.17), 87 x 5 mm"
+    ],
+    [
+     133.18,
+     "APPROACH",
+     "re-centre on object 10 (2.5 cm off)"
+    ],
+    [
+     133.64,
+     "APPROACH",
+     "re-centre on object 10 (3.6 cm off)"
+    ],
+    [
+     134.3,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     134.76,
+     "APPROACH",
+     "object 11 at (1.68, -0.17), 37 x 5 mm"
+    ],
+    [
+     135.22,
+     "STOW",
+     "object 11 not there on the close look"
+    ],
+    [
+     135.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     137.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     140.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     142.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     144.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     146.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     148.8,
+     "APPROACH",
+     "object 12 at (1.67, -0.18), 88 x 5 mm"
+    ],
+    [
+     150.46,
+     "HOVER",
+     "over object 12"
+    ],
+    [
+     152.84,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     158.92,
+     "LIFT",
+     "holding object 12 (11 mm)"
+    ],
+    [
+     164.72,
+     "STOW",
+     "object 12 in the bin (6 so far)"
+    ],
+    [
+     169.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     171.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     173.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     175.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     178.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.48,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     189.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     192.08,
+     "APPROACH",
+     "object 14 at (1.46, -0.41), 30 x 19 mm"
+    ],
+    [
+     198.3,
+     "HOVER",
+     "over object 14"
+    ],
+    [
+     200.7,
+     "HOVER",
+     "wrist camera: 8 mm off, moving over it"
+    ],
+    [
+     206.78,
+     "LIFT",
+     "holding object 14 (28 mm)"
+    ],
+    [
+     212.38,
+     "STOW",
+     "object 14 in the bin (7 so far)"
+    ],
+    [
+     217.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     219.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     221.38,
+     "APPROACH",
+     "object 17 at (0.38, 0.90), 50 x 10 mm"
+    ],
+    [
+     227.42,
+     "STOW",
+     "object 17 not there on the close look"
+    ],
+    [
+     227.88,
+     "APPROACH",
+     "object 18 at (-0.38, 0.99), 78 x 9 mm"
+    ],
+    [
+     232.46,
+     "STOW",
+     "object 18 not there on the close look"
+    ],
+    [
+     232.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     235.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     237.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     239.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     242.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     244.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     247.0,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     252.18,
+     "APPROACH",
+     "object 19 at (-0.26, 1.05), 73 x 9 mm"
+    ],
+    [
+     256.96,
+     "STOW",
+     "object 19 not there on the close look"
+    ],
+    [
+     257.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     259.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     261.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     263.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     266.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     268.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     270.46,
+     "TURN",
+     "something far off at (1.64, -0.42): going closer"
+    ],
+    [
+     276.92,
+     "DONE",
+     "nothing more in sight (7 picked, 0 failed)"
+    ]
+   ],
+   "seed": 1,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "cap",
+    "cube40",
+    "cube30",
+    "crayon"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 3,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 203.2,
+   "wall": 496.6,
+   "depth_frames": 85,
+   "wrist_frames": 16,
+   "render_ms": 87.0,
+   "max_tilt_deg": 1.76,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.7,
+     "APPROACH",
+     "object 3 at (0.97, 0.14), 126 x 13 mm"
+    ],
+    [
+     5.22,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     13.34,
+     "LIFT",
+     "holding object 3 (17 mm)"
+    ],
+    [
+     19.02,
+     "STOW",
+     "object 3 in the bin (1 so far)"
+    ],
+    [
+     22.8,
+     "APPROACH",
+     "object 2 at (0.87, -0.58), 35 x 27 mm"
+    ],
+    [
+     26.44,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     28.84,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     36.2,
+     "LIFT",
+     "holding object 2 (24 mm)"
+    ],
+    [
+     41.68,
+     "STOW",
+     "object 2 in the bin (2 so far)"
+    ],
+    [
+     45.44,
+     "APPROACH",
+     "object 4 at (1.42, -0.13), 88 x 12 mm"
+    ],
+    [
+     48.92,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     51.32,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     57.36,
+     "LIFT",
+     "holding object 4 (11 mm)"
+    ],
+    [
+     63.02,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     66.78,
+     "APPROACH",
+     "object 5 at (1.70, 0.15), 91 x 11 mm"
+    ],
+    [
+     70.32,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     72.68,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     78.98,
+     "LIFT",
+     "holding object 5 (11 mm)"
+    ],
+    [
+     86.38,
+     "STOW",
+     "object 5 in the bin (4 so far)"
+    ],
+    [
+     90.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     92.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     94.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     96.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     98.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     100.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     102.94,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     109.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     112.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     114.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     116.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     118.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     120.76,
+     "APPROACH",
+     "object 13 at (0.95, -0.89), 30 x 17 mm"
+    ],
+    [
+     126.26,
+     "HOVER",
+     "over object 13"
+    ],
+    [
+     134.2,
+     "LIFT",
+     "holding object 13 (29 mm)"
+    ],
+    [
+     139.86,
+     "STOW",
+     "object 13 in the bin (5 so far)"
+    ],
+    [
+     143.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     148.0,
+     "APPROACH",
+     "object 15 at (0.19, 0.83), 44 x 8 mm"
+    ],
+    [
+     154.5,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     154.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     157.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     163.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.94,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     172.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     174.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     176.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     178.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     183.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     185.26,
+     "TURN",
+     "something far off at (-1.54, -0.77): going closer"
+    ],
+    [
+     190.36,
+     "TURN",
+     "something far off at (-1.65, 0.80): going closer"
+    ],
+    [
+     194.58,
+     "TURN",
+     "something far off at (1.65, 0.70): going closer"
+    ],
+    [
+     203.18,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 2,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "crayon",
+    "cap",
+    "crayon",
+    "brick"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 5,
+   "task_picked": 6,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 244.1,
+   "wall": 550.1,
+   "depth_frames": 111,
+   "wrist_frames": 26,
+   "render_ms": 40.7,
+   "max_tilt_deg": 2.17,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.60, -0.30), 36 x 32 mm"
+    ],
+    [
+     3.88,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     6.1,
+     "HOVER",
+     "wrist camera: 7 mm off, moving over it"
+    ],
+    [
+     14.14,
+     "LIFT",
+     "holding object 1 (33 mm)"
+    ],
+    [
+     21.58,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     26.24,
+     "APPROACH",
+     "object 3 at (0.87, -0.15), 57 x 41 mm"
+    ],
+    [
+     29.24,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     31.5,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     39.04,
+     "LIFT",
+     "holding object 3 (47 mm)"
+    ],
+    [
+     46.42,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     51.06,
+     "APPROACH",
+     "object 4 at (1.11, -0.01), 40 x 30 mm"
+    ],
+    [
+     54.3,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     56.54,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     64.44,
+     "LIFT",
+     "holding object 4 (33 mm)"
+    ],
+    [
+     71.84,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     76.48,
+     "APPROACH",
+     "object 5 at (1.39, 0.23), 51 x 25 mm"
+    ],
+    [
+     79.98,
+     "APPROACH",
+     "re-centre on object 5 (2.1 cm off)"
+    ],
+    [
+     80.68,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     83.02,
+     "HOVER",
+     "wrist camera: 14 mm off, moving over it"
+    ],
+    [
+     89.56,
+     "LIFT",
+     "holding object 5 (24 mm)"
+    ],
+    [
+     95.16,
+     "STOW",
+     "object 5 in the bin (4 so far)"
+    ],
+    [
+     99.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     101.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     104.06,
+     "APPROACH",
+     "object 8 at (0.88, 0.21), 53 x 23 mm"
+    ],
+    [
+     105.24,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     107.62,
+     "HOVER",
+     "wrist camera: 17 mm off, moving over it"
+    ],
+    [
+     115.7,
+     "LIFT",
+     "holding object 8 (13 mm)"
+    ],
+    [
+     118.7,
+     "STOW",
+     "object 8: dropped it on the way up; try 2 after a fresh look"
+    ],
+    [
+     120.98,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     123.36,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     129.68,
+     "LIFT",
+     "holding object 8 (24 mm)"
+    ],
+    [
+     135.56,
+     "STOW",
+     "object 8 in the bin (5 so far)"
+    ],
+    [
+     140.22,
+     "APPROACH",
+     "object 10 at (0.27, 0.79), 89 x 12 mm"
+    ],
+    [
+     145.26,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     145.72,
+     "APPROACH",
+     "object 13 at (0.37, 0.81), 98 x 23 mm"
+    ],
+    [
+     146.9,
+     "STOW",
+     "object 13 not there on the close look"
+    ],
+    [
+     147.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     149.62,
+     "APPROACH",
+     "object 16 at (-0.39, 0.84), 139 x 9 mm"
+    ],
+    [
+     154.16,
+     "STOW",
+     "object 16 not there on the close look"
+    ],
+    [
+     154.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     156.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     159.1,
+     "APPROACH",
+     "object 17 at (0.39, -0.39), 29 x 18 mm"
+    ],
+    [
+     164.44,
+     "APPROACH",
+     "re-centre on object 17 (5.5 cm off)"
+    ],
+    [
+     165.64,
+     "HOVER",
+     "over object 17"
+    ],
+    [
+     173.78,
+     "LIFT",
+     "holding object 17 (17 mm)"
+    ],
+    [
+     179.46,
+     "STOW",
+     "object 17 in the bin (6 so far)"
+    ],
+    [
+     184.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     186.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     188.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     190.76,
+     "APPROACH",
+     "object 19 at (0.19, 0.97), 50 x 9 mm"
+    ],
+    [
+     195.72,
+     "STOW",
+     "object 19 not there on the close look"
+    ],
+    [
+     196.18,
+     "APPROACH",
+     "object 25 at (0.31, 0.98), 28 x 5 mm"
+    ],
+    [
+     197.82,
+     "STOW",
+     "object 25 not there on the close look"
+    ],
+    [
+     198.28,
+     "APPROACH",
+     "object 21 at (0.01, 0.97), 60 x 8 mm"
+    ],
+    [
+     201.52,
+     "STOW",
+     "object 21 not there on the close look"
+    ],
+    [
+     201.98,
+     "APPROACH",
+     "object 22 at (-0.07, 0.96), 63 x 7 mm"
+    ],
+    [
+     203.4,
+     "STOW",
+     "object 22 not there on the close look"
+    ],
+    [
+     203.86,
+     "APPROACH",
+     "object 23 at (-0.17, 0.96), 72 x 9 mm"
+    ],
+    [
+     205.56,
+     "STOW",
+     "object 23 not there on the close look"
+    ],
+    [
+     206.02,
+     "APPROACH",
+     "object 24 at (-0.27, 0.95), 49 x 8 mm"
+    ],
+    [
+     207.62,
+     "STOW",
+     "object 24 not there on the close look"
+    ],
+    [
+     208.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     210.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     212.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     214.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     216.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     219.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     221.22,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     225.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     227.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     230.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     232.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     234.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     236.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     238.92,
+     "TURN",
+     "something far off at (-1.49, -0.95): going closer"
+    ],
+    [
+     244.12,
+     "DONE",
+     "nothing more in sight (6 picked, 0 failed)"
+    ]
+   ],
+   "seed": 3,
+   "set": "clutter",
+   "names": [
+    "cube30",
+    "marker",
+    "cube40",
+    "brick",
+    "cube30"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 3,
+   "task_picked": 5,
+   "task_failed": 0,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 191.4,
+   "wall": 471.3,
+   "depth_frames": 83,
+   "wrist_frames": 18,
+   "render_ms": 75.7,
+   "max_tilt_deg": 1.6,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 1 at (0.65, 0.18), 31 x 31 mm"
+    ],
+    [
+     3.9,
+     "HOVER",
+     "over object 1"
+    ],
+    [
+     6.26,
+     "HOVER",
+     "wrist camera: 12 mm off, moving over it"
+    ],
+    [
+     13.66,
+     "LIFT",
+     "holding object 1 (28 mm)"
+    ],
+    [
+     21.08,
+     "STOW",
+     "object 1 in the bin (1 so far)"
+    ],
+    [
+     25.74,
+     "APPROACH",
+     "object 4 at (1.42, 0.38), 43 x 30 mm"
+    ],
+    [
+     30.74,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     32.96,
+     "HOVER",
+     "wrist camera: 5 mm off, moving over it"
+    ],
+    [
+     40.94,
+     "LIFT",
+     "holding object 4 (33 mm)"
+    ],
+    [
+     48.32,
+     "STOW",
+     "object 4 in the bin (2 so far)"
+    ],
+    [
+     52.96,
+     "APPROACH",
+     "object 5 at (1.76, 0.14), 81 x 20 mm"
+    ],
+    [
+     56.48,
+     "APPROACH",
+     "re-centre on object 5 (2.9 cm off)"
+    ],
+    [
+     57.38,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     65.5,
+     "LIFT",
+     "holding object 5 (17 mm)"
+    ],
+    [
+     71.14,
+     "STOW",
+     "object 5 in the bin (3 so far)"
+    ],
+    [
+     75.78,
+     "APPROACH",
+     "object 3 at (1.21, -0.76), 56 x 36 mm"
+    ],
+    [
+     80.34,
+     "APPROACH",
+     "re-centre on object 3 (2.0 cm off)"
+    ],
+    [
+     81.12,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     83.32,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     91.16,
+     "LIFT",
+     "holding object 3 (46 mm)"
+    ],
+    [
+     98.54,
+     "STOW",
+     "object 3 in the bin (4 so far)"
+    ],
+    [
+     103.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     105.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     107.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     109.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     111.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     113.92,
+     "APPROACH",
+     "object 9 at (0.36, -0.46), 82 x 15 mm"
+    ],
+    [
+     118.26,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     120.62,
+     "HOVER",
+     "wrist camera: 6 mm off, moving over it"
+    ],
+    [
+     126.92,
+     "LIFT",
+     "holding object 9 (11 mm)"
+    ],
+    [
+     132.5,
+     "STOW",
+     "object 9 in the bin (5 so far)"
+    ],
+    [
+     137.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     139.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     141.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     143.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     147.96,
+     "APPROACH",
+     "object 12 at (0.30, 0.81), 120 x 30 mm"
+    ],
+    [
+     153.66,
+     "STOW",
+     "object 12 not there on the close look"
+    ],
+    [
+     154.12,
+     "APPROACH",
+     "object 14 at (0.40, 0.80), 24 x 5 mm"
+    ],
+    [
+     155.48,
+     "STOW",
+     "object 14 not there on the close look"
+    ],
+    [
+     155.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.12,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     164.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.3,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     173.86,
+     "APPROACH",
+     "object 16 at (-0.50, 0.75), 95 x 7 mm"
+    ],
+    [
+     178.12,
+     "STOW",
+     "object 16 not there on the close look"
+    ],
+    [
+     178.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     185.0,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     187.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.38,
+     "DONE",
+     "nothing more in sight (5 picked, 0 failed)"
+    ]
+   ],
+   "seed": 4,
+   "set": "clutter",
+   "names": [
+    "marker",
+    "cap",
+    "cube30",
+    "crayon",
+    "cube40"
+   ],
+   "world": "house"
+  },
+  {
+   "objects": 5,
+   "in_bin": 4,
+   "task_picked": 10,
+   "task_failed": 0,
+   "task_skipped": 1,
+   "reason": "nothing in sight",
+   "t": 399.2,
+   "wall": 715.6,
+   "depth_frames": 177,
+   "wrist_frames": 40,
+   "render_ms": 11.1,
+   "max_tilt_deg": 1.74,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 2 at (0.96, -0.12), 36 x 31 mm"
+    ],
+    [
+     4.9,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     7.24,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     14.6,
+     "LIFT",
+     "holding object 2 (35 mm)"
+    ],
+    [
+     22.04,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     26.7,
+     "APPROACH",
+     "object 3 at (0.96, 0.31), 57 x 36 mm"
+    ],
+    [
+     29.16,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     31.34,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     40.02,
+     "LIFT",
+     "holding object 3 (45 mm)"
+    ],
+    [
+     47.42,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     52.06,
+     "APPROACH",
+     "object 4 at (1.27, -0.25), 30 x 20 mm"
+    ],
+    [
+     55.44,
+     "HOVER",
+     "over object 4"
+    ],
+    [
+     57.84,
+     "HOVER",
+     "wrist camera: 23 mm off, moving over it"
+    ],
+    [
+     64.82,
+     "LIFT",
+     "holding object 4 (29 mm)"
+    ],
+    [
+     70.34,
+     "STOW",
+     "object 4 in the bin (3 so far)"
+    ],
+    [
+     74.98,
+     "APPROACH",
+     "object 6 at (1.35, -0.23), 34 x 16 mm"
+    ],
+    [
+     76.4,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     78.8,
+     "HOVER",
+     "wrist camera: 23 mm off, moving over it"
+    ],
+    [
+     85.46,
+     "LIFT",
+     "holding object 6 (29 mm)"
+    ],
+    [
+     91.04,
+     "STOW",
+     "object 6 in the bin (4 so far)"
+    ],
+    [
+     95.68,
+     "APPROACH",
+     "object 8 at (1.43, -0.27), 31 x 14 mm"
+    ],
+    [
+     97.12,
+     "HOVER",
+     "over object 8"
+    ],
+    [
+     99.52,
+     "HOVER",
+     "wrist camera: 14 mm off, moving over it"
+    ],
+    [
+     105.56,
+     "LIFT",
+     "holding object 8 (29 mm)"
+    ],
+    [
+     111.14,
+     "STOW",
+     "object 8 in the bin (5 so far)"
+    ],
+    [
+     115.78,
+     "APPROACH",
+     "object 7 at (1.58, -0.12), 28 x 12 mm"
+    ],
+    [
+     118.48,
+     "HOVER",
+     "over object 7"
+    ],
+    [
+     120.88,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     126.92,
+     "LIFT",
+     "holding object 7 (29 mm)"
+    ],
+    [
+     132.6,
+     "STOW",
+     "object 7 in the bin (6 so far)"
+    ],
+    [
+     137.26,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     139.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     141.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     143.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     145.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     148.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     150.22,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     156.82,
+     "APPROACH",
+     "object 10 at (1.32, -0.93), 29 x 13 mm"
+    ],
+    [
+     163.38,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     163.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     166.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     168.22,
+     "APPROACH",
+     "object 11 at (1.42, -0.13), 32 x 14 mm"
+    ],
+    [
+     171.84,
+     "HOVER",
+     "over object 11"
+    ],
+    [
+     174.22,
+     "HOVER",
+     "wrist camera: 15 mm off, moving over it"
+    ],
+    [
+     181.64,
+     "LIFT",
+     "holding object 11 (11 mm)"
+    ],
+    [
+     187.18,
+     "STOW",
+     "object 11 in the bin (7 so far)"
+    ],
+    [
+     191.84,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     194.02,
+     "APPROACH",
+     "object 15 at (0.37, 0.84), 82 x 19 mm"
+    ],
+    [
+     200.38,
+     "STOW",
+     "object 15 not there on the close look"
+    ],
+    [
+     200.84,
+     "APPROACH",
+     "object 16 at (0.47, 0.83), 101 x 5 mm"
+    ],
+    [
+     202.02,
+     "STOW",
+     "object 16 not there on the close look"
+    ],
+    [
+     202.48,
+     "APPROACH",
+     "object 17 at (-0.43, 0.90), 58 x 9 mm"
+    ],
+    [
+     207.4,
+     "STOW",
+     "object 17 not there on the close look"
+    ],
+    [
+     207.86,
+     "APPROACH",
+     "object 18 at (-1.50, 0.94), 54 x 6 mm"
+    ],
+    [
+     213.76,
+     "STOW",
+     "object 18 not there on the close look"
+    ],
+    [
+     214.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     216.48,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     218.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     220.88,
+     "APPROACH",
+     "object 19 at (-0.78, 1.10), 42 x 5 mm"
+    ],
+    [
+     224.58,
+     "STOW",
+     "object 19 not there on the close look"
+    ],
+    [
+     225.04,
+     "APPROACH",
+     "object 22 at (-0.74, 1.36), 58 x 6 mm"
+    ],
+    [
+     228.58,
+     "STOW",
+     "object 22 not there on the close look"
+    ],
+    [
+     229.04,
+     "APPROACH",
+     "object 25 at (-0.75, 1.60), 68 x 6 mm"
+    ],
+    [
+     232.4,
+     "STOW",
+     "object 25 not there on the close look"
+    ],
+    [
+     232.86,
+     "APPROACH",
+     "object 30 at (0.36, 1.76), 60 x 6 mm"
+    ],
+    [
+     238.86,
+     "STOW",
+     "object 30 not there on the close look"
+    ],
+    [
+     239.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     241.48,
+     "APPROACH",
+     "object 31 at (0.21, 1.93), 13 x 5 mm"
+    ],
+    [
+     242.74,
+     "STOW",
+     "object 31 not there on the close look"
+    ],
+    [
+     243.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     245.38,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     247.58,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     249.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     252.04,
+     "APPROACH",
+     "object 33 at (1.16, 0.77), 30 x 29 mm"
+    ],
+    [
+     258.04,
+     "HOVER",
+     "over object 33"
+    ],
+    [
+     260.44,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     266.52,
+     "LIFT",
+     "holding object 33 (29 mm)"
+    ],
+    [
+     272.14,
+     "STOW",
+     "object 33 in the bin (8 so far)"
+    ],
+    [
+     276.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     278.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     281.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     283.36,
+     "APPROACH",
+     "object 35 at (0.09, 1.95), 71 x 13 mm"
+    ],
+    [
+     288.86,
+     "STOW",
+     "object 35 not there on the close look"
+    ],
+    [
+     289.32,
+     "APPROACH",
+     "object 36 at (0.19, 1.96), 99 x 22 mm"
+    ],
+    [
+     290.48,
+     "STOW",
+     "object 36 not there on the close look"
+    ],
+    [
+     290.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     293.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     295.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     297.76,
+     "APPROACH",
+     "object 40 at (1.15, 0.89), 30 x 27 mm"
+    ],
+    [
+     302.82,
+     "HOVER",
+     "over object 40"
+    ],
+    [
+     305.22,
+     "HOVER",
+     "wrist camera: 18 mm off, moving over it"
+    ],
+    [
+     311.32,
+     "LIFT",
+     "holding object 40 (29 mm)"
+    ],
+    [
+     316.96,
+     "STOW",
+     "object 40 in the bin (9 so far)"
+    ],
+    [
+     321.62,
+     "APPROACH",
+     "object 41 at (0.98, 0.25), 24 x 19 mm"
+    ],
+    [
+     325.78,
+     "HOVER",
+     "over object 41"
+    ],
+    [
+     328.18,
+     "HOVER",
+     "wrist camera: 13 mm off, moving over it"
+    ],
+    [
+     334.44,
+     "LIFT",
+     "holding object 41 (29 mm)"
+    ],
+    [
+     341.96,
+     "STOW",
+     "object 41 in the bin (10 so far)"
+    ],
+    [
+     346.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     348.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     350.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     353.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     355.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     357.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     359.74,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     365.78,
+     "APPROACH",
+     "object 46 at (0.18, -1.19), 42 x 10 mm"
+    ],
+    [
+     371.06,
+     "STOW",
+     "object 46 not there on the close look"
+    ],
+    [
+     371.52,
+     "APPROACH",
+     "object 45 at (0.43, -1.14), 132 x 10 mm"
+    ],
+    [
+     374.5,
+     "STOW",
+     "object 45: 167 x 5 mm, too big for the gripper"
+    ],
+    [
+     374.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     377.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     379.34,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     381.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     383.7,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     385.9,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     388.1,
+     "TURN",
+     "something far off at (1.36, -0.91): going closer"
+    ],
+    [
+     391.2,
+     "TURN",
+     "something far off at (0.21, 0.83): going closer"
+    ],
+    [
+     396.1,
+     "TURN",
+     "something far off at (-0.48, 0.76): going closer"
+    ],
+    [
+     399.18,
+     "DONE",
+     "nothing more in sight (10 picked, 0 failed)"
+    ]
+   ],
+   "seed": 5,
+   "set": "clutter",
+   "names": [
+    "cap",
+    "cube40",
+    "cube30",
+    "cap",
+    "cap"
+   ],
+   "world": "house"
+  }
+ ],
+ "total": 120,
+ "in_bin": 102,
+ "rate": 0.85,
+ "t_per_object": 50.53039215686274,
+ "why": {
+  "dropped": 10,
+  "missed": 14,
+  "not there": 71,
+  "too big": 1
+ },
+ "n": 5,
+ "seeds": 6
+}

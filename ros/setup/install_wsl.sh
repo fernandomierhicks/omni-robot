@@ -53,6 +53,12 @@ mkdir -p "$(dirname "$VENV")"
 set +u; source /opt/ros/jazzy/setup.bash; set -u
 "$VENV/bin/python" -c "import mujoco, numpy, scipy, rclpy; print('mujoco', mujoco.__version__, 'numpy', numpy.__version__, 'rclpy ok')"
 
+echo "== one clock: WSL keeps the clock on Windows' time; systemd-timesyncd must not also steer it toward NTP"
+# Windows ran 0.64 s off NTP (Oct 26): WSL slowed the Linux clock up to 6% (kernel tick) to pull it back while
+# timesyncd jumped it ~1 s forward at every 32 s poll. Steady time ran 3% slow and the wall clock stepped every 32 s
+# (read as "slam_toolbox's map -> odom stalls ~1 s every 32 s", design.md 10)
+sudo systemctl disable --now systemd-timesyncd 2>/dev/null || true
+
 echo "== shell setup"
 LINE='source /opt/ros/jazzy/setup.bash'
 grep -qxF "$LINE" ~/.bashrc || echo "$LINE" >> ~/.bashrc

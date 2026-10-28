@@ -10,7 +10,7 @@ const QUIET_S = 1.0;                // no status for this long: the robot (or th
 export function stop() { act("stop", {}, true); }
 
 export function StatusBar() {
-  const s = useStore("status", "conn", "events", "rtt");
+  const s = useStore("status", "conn", "events", "rtt", "supervisor");
   const [drawer, setDrawer] = useState(false);
   const [, tick] = useState(0);
   useEffect(() => {
@@ -29,7 +29,17 @@ export function StatusBar() {
   const st = s.status;
   const age = (performance.now() - s.tStatus) / 1000;
   let conn;
-  if (s.conn !== "open") {
+  const sup = s.supervisor;
+  const cur = sup?.current;
+  const running = cur && (cur.state === "running" || cur.state === "stopping");
+  if (s.conn !== "open" && sup && !sup.unreachable && !running) {
+    conn = html`<span class="sb" title="The page server answers, but the robot's software isn't running">
+      <span class="dot err"></span>Robot software stopped${cur?.state === "exited" && cur.code ? ` (exit ${cur.code})` : ""}
+      <a href="#home">Start</a></span>`;
+  } else if (s.conn !== "open" && running) {
+    conn = html`<span class="sb" title=${`${cur.label}: waiting for rosbridge ${s.url}`}><span class="dot warn"></span>
+      Starting ${cur.label}... <a href="#system">log</a></span>`;
+  } else if (s.conn !== "open") {
     conn = html`<span class="sb" title=${`rosbridge ${s.url}`}><span class="dot err"></span>
       ${s.conn === "connecting" ? "Connecting..." : "OFFLINE: reconnecting"}</span>`;
   } else if (!st || age > QUIET_S) {
@@ -58,7 +68,10 @@ export function StatusBar() {
           ${wifi(st)}
         </div>
         <div class="line">
+          ${mcu && mcu.age > 1 && html`<span class="badge red" title="No state from the MCU: the link (USB) is down. The MCU stops the robot by itself after 0.5 s without commands.">MCU SILENT ${mcu.age.toFixed(0)} s</span>`}
           ${(mcu?.faults || []).map((/** @type {any} */ f) => html`<span class="badge red" title=${f.hint}>${f.name}</span>`)}
+          ${st?.sys && st.sys.load != null && html`<span class="sb dim" title="The robot computer's load (1 min) and its hottest sensor">
+            CPU ${st.sys.load}${st.sys.temp_c != null ? ` · ${st.sys.temp_c} °C` : ""}</span>`}
           ${st && st.consoles > 1 && html`<span class="sb dim" title="Pages open on this robot (PC, iPad...)">${st.consoles} consoles</span>`}
           <span class="sb ticker" onClick=${() => setDrawer(!drawer)} title="All messages">
             ${last ? html`<span class=${levelClass(last.level)}>${last.level === "info" ? "•" : "⚠"}</span>
@@ -85,7 +98,7 @@ function Drawer({ close }) {
 }
 
 /** @param {string} m */
-export const missionName = (m) => ({ IDLE: "IDLE", MANUAL: "MANUAL", GOTO: "GO TO", CATCH: "CATCH" })[m] || m;
+export const missionName = (m) => ({ GOTO: "GO TO", THROWER: "THROWER TEST" })[m] || m;
 /** @param {string} m */
 const mcuClass = (m) => (m === "AUTO" ? "green" : m === "ESTOP" ? "red" : m === "MANUAL" ? "orange" : "");
 /** @param {string} l */

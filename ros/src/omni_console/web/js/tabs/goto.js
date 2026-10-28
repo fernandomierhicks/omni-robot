@@ -2,7 +2,7 @@
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
 import { MapView } from "../mapview.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm, deg } from "../ui.js";
+import { Banner, DrivingPicker, HelpBox, SettingsForm, deg } from "../ui.js";
 
 export function GotoTab() {
   const s = useStore("status", "schema");
@@ -28,15 +28,18 @@ export function GotoTab() {
     <div class="side">
       <${HelpBox} tab="goto">
         <ol>
-          <li><b>Click the map</b> where the robot should go. To choose which way it faces when it gets there, <b>drag</b>
-            before letting go (the arrow follows). On a tablet: touch and drag.</li>
+          <li><b>Click the map</b> where the robot should go. To choose which way it faces when it gets there, <b>drag</b> before
+            letting go (the arrow follows). On a tablet: touch and drag.</li>
           <li>Press <b>Go</b> (or <kbd>Enter</kbd>). The robot plans around obstacles and drives there (Nav2).</li>
           <li><b>Cancel</b> stops it where it is; <kbd>Space</kbd> stops and disarms.</li>
         </ol>
         Right-click or <kbd>Esc</kbd> clears the orange goal. Saved places: give a goal a name and press Save; then
         one click on a place sends the robot there. Pan: right-drag or two fingers; zoom: wheel, pinch or + / −.
+        <b>Driving</b> picks which way the robot faces on the way (forward, agnostic or spinning); a change applies
+        on the way too.
       <//>
       ${!nav && html`<${Banner} title="Navigation isn't running.">Start 'Navigate (Nav2)' in the Launcher (in the sim); on the robot it starts with it.<//>`}
+      <${DrivingPicker} />
       ${going && st.goal && html`<div class="card">
         <div class="row"><b class="grow">${st.task}</b><button class="btn danger small" onClick=${() => act("cancel")}>Cancel</button></div>
         <div class="bar" style="margin-top: 6px"><div style=${`width: ${Math.round((st.progress || 0) * 100)}%`}></div></div></div>`}
@@ -63,7 +66,7 @@ export function GotoTab() {
       <${SettingsForm} tab="goto" />
     </div>
     <div class="main">
-      <${MapView} goalMode=${true} pending=${pending} places=${places}
+      <${MapView} goalMode=${true} pending=${pending} places=${places} zones=${s.schema?.zones} edges=${s.schema?.edges}
         onGoal=${(/** @type {any} */ g) => setPending(g)} onClear=${() => setPending(null)}
         hint=${pending ? "Go (Enter) sends it. Click again to move it; right-click clears." : "Click where to go; drag to set the heading."}
         empty=${nav ? "Waiting for the robot's position on the map..." : "No map: start 'Navigate (Nav2)' or 'Localize on map'."} />

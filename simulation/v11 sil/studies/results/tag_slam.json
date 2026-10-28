@@ -1,0 +1,205 @@
+{
+ "seconds": 44.7,
+ "wall_s": 88.8,
+ "distance_m": 45.6,
+ "tags_in_house": 27,
+ "detections": 559,
+ "frames": 444,
+ "calib_error_deg": 0.3,
+ "lidar_gap": [
+  18.0,
+  33.0
+ ],
+ "outcomes": {
+  "oblique": 74,
+  "new tag": 14,
+  "used": 159,
+  "ambiguous": 221,
+  "small,far": 17,
+  "small": 14,
+  "far": 24,
+  "redundant": 33,
+  "too far to start": 2,
+  "small,oblique": 1
+ },
+ "position_m_all": {
+  "odometry": {
+   "med": 0.2416,
+   "p95": 0.5732,
+   "max": 0.6158
+  },
+  "tags+odometry": {
+   "med": 0.1084,
+   "p95": 0.3,
+   "max": 0.4457
+  },
+  "lidar": {
+   "med": 0.0143,
+   "p95": 0.2026,
+   "max": 0.398
+  },
+  "lidar+tags": {
+   "med": 0.0315,
+   "p95": 0.2584,
+   "max": 0.367
+  },
+  "lidar+tags+cam": {
+   "med": 0.0301,
+   "p95": 0.2693,
+   "max": 0.3062
+  }
+ },
+ "heading_deg_all": {
+  "odometry": {
+   "med": 4.1342,
+   "p95": 9.7333,
+   "max": 10.1575
+  },
+  "tags+odometry": {
+   "med": 1.5006,
+   "p95": 4.0297,
+   "max": 4.9191
+  },
+  "lidar": {
+   "med": 0.2127,
+   "p95": 2.7248,
+   "max": 5.6063
+  },
+  "lidar+tags": {
+   "med": 0.3576,
+   "p95": 2.7384,
+   "max": 3.4366
+  },
+  "lidar+tags+cam": {
+   "med": 0.3496,
+   "p95": 2.7035,
+   "max": 3.1419
+  }
+ },
+ "position_m_gap": {
+  "odometry": {
+   "med": 0.3151,
+   "p95": 0.5377,
+   "max": 0.6155
+  },
+  "tags+odometry": {
+   "med": 0.1494,
+   "p95": 0.3278,
+   "max": 0.4457
+  },
+  "lidar": {
+   "med": 0.1143,
+   "p95": 0.3059,
+   "max": 0.398
+  },
+  "lidar+tags": {
+   "med": 0.1116,
+   "p95": 0.2787,
+   "max": 0.367
+  },
+  "lidar+tags+cam": {
+   "med": 0.0899,
+   "p95": 0.2859,
+   "max": 0.3062
+  }
+ },
+ "heading_deg_gap": {
+  "odometry": {
+   "med": 4.8917,
+   "p95": 7.0011,
+   "max": 8.3361
+  },
+  "tags+odometry": {
+   "med": 2.1899,
+   "p95": 3.7487,
+   "max": 4.6876
+  },
+  "lidar": {
+   "med": 2.162,
+   "p95": 4.2713,
+   "max": 5.6063
+  },
+  "lidar+tags": {
+   "med": 2.2589,
+   "p95": 2.9774,
+   "max": 3.4366
+  },
+  "lidar+tags+cam": {
+   "med": 2.1471,
+   "p95": 2.8698,
+   "max": 3.1419
+  }
+ },
+ "tag_map_tags+odometry": {
+  "mapped": 14,
+  "med": 0.0709,
+  "p95": 0.1666,
+  "max": 0.2009,
+  "keyframes": 336,
+  "tag_rms_px": 0.787,
+  "dropped_views": 0
+ },
+ "tag_map_lidar+tags": {
+  "mapped": 14,
+  "med": 0.0322,
+  "p95": 0.0727,
+  "max": 0.0791,
+  "keyframes": 336,
+  "tag_rms_px": 0.89,
+  "dropped_views": 0
+ },
+ "tag_map_lidar+tags+cam": {
+  "mapped": 14,
+  "med": 0.0174,
+  "p95": 0.0657,
+  "max": 0.1004,
+  "keyframes": 336,
+  "tag_rms_px": 0.634,
+  "dropped_views": 0
+ },
+ "camera_rotation": {
+  "true_error_deg": [
+   0.139,
+   0.229,
+   0.043
+  ],
+  "imu_tilt_bias_deg": [
+   0.307,
+   -0.244
+  ],
+  "enabled": true,
+  "deg": [
+   -0.2043,
+   0.4242,
+   -0.0188
+  ],
+  "sigma_deg": [
+   0.0112,
+   0.0157,
+   0.0854
+  ],
+  "observable": true,
+  "at_bound": false
+ },
+ "relocalize": {
+  "single_views": 19,
+  "single_err_m": {
+   "med": 0.0331,
+   "p95": 0.1014,
+   "max": 0.1156
+  },
+  "single_misdecodes": 0,
+  "single_worst_m": 0.116,
+  "votes": 6,
+  "vote_err_m": {
+   "med": 0.0278,
+   "p95": 0.0801,
+   "max": 0.0896
+  },
+  "vote_err_deg": {
+   "med": 0.3126,
+   "p95": 1.5178,
+   "max": 1.686
+  }
+ }
+}

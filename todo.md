@@ -10,8 +10,14 @@
    - Rerun studies/localization.py and report what changed.
 
 
+code
+
+
 -GUI
-add joystick input
+
+-
+
+
 
 
 
@@ -20,8 +26,4 @@ add joystick input
 
 
 CAD:
-Add speaker and small TFT screen or 7-10in monitor?
 add rx receiver
-
-
-block diagram of all components, do we need PCB?

@@ -1,0 +1,17 @@
+{
+  "_comment": "The Jetson's steps for omni_console's supervisor (supervisor.py --steps robot). 'robot' is the whole robot: every console mode, Catch included, switches at runtime. VERIFY on the robot: robot.launch.py still starts omni_sim's bridge; the hardware bring-up (real drivers: mcu_link on /dev/ttyACM0, rplidar_ros, the cameras) replaces it, and Jazzy on JetPack 6 runs in Docker (design.md 8), which changes cmd to a 'docker exec'.",
+  "sim": false,
+  "detect": ["pgrep", "-af", "ros2 launch omni_bringup"],
+  "stop_all": ["pkill", "-INT", "-f", "ros2 launch omni_bringup"],
+  "power": {
+    "shutdown": ["sudo", "-n", "/usr/bin/systemctl", "poweroff"],
+    "reboot": ["sudo", "-n", "/usr/bin/systemctl", "reboot"]
+  },
+  "steps": [
+    {"id": "robot", "label": "Robot", "group": "robot", "keep_running": true,
+     "cmd": ["ros2", "launch", "omni_bringup", "robot.launch.py", "web:=false", "viewer:=false", "foxglove:=true"],
+     "hint": "The robot's software: every mode from its tab. Started at boot; started again if it crashes (3 times in 5 minutes at most).",
+     "args": [{"key": "map", "label": "map", "kind": "text", "default": "house"},
+              {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"}]}
+  ]
+}

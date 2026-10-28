@@ -2,26 +2,33 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>omni_console</name>
-  <version>0.1.0</version>
-  <description>omni-robot: the operator console's robot side. mission_node (IDLE / MANUAL / GOTO / CATCH over
-    mode_manager and Nav2, settings, saved places, one status topic), console_web (serves web/, the page, over HTTP).
-    The page reaches the robot through rosbridge. Runs on the Jetson; no sim in it.</description>
+  <version>0.3.0</version>
+  <description>omni-robot: the operator console's robot side. mission_node (the missions over mode_manager and Nav2:
+    Manual, Go To, Explore, Patrol, Catch, Thrower, Follow / Tag, Program, Calibrate; settings, places, zones, the throw
+    log, health, session logs, one status topic), supervisor (serves web/, the page, and starts and stops the robot's
+    software: the console is the launcher), console_web (serves the page alone). The page reaches the robot through
+    rosbridge. Runs on the Jetson; no sim in it.</description>
   <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
   <license>Proprietary</license>
 
   <exec_depend>rclpy</exec_depend>
   <exec_depend>omni_interfaces</exec_depend>
+  <exec_depend>omni_mcu</exec_depend>
+  <exec_depend>omni_catch</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>rcl_interfaces</exec_depend>
   <exec_depend>nav2_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
   <exec_depend>rosbridge_server</exec_depend>
   <exec_depend>rosapi</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>

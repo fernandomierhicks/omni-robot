@@ -8,6 +8,7 @@ Run: python -m pytest -q   (a few minutes)"""
 
 import math
 import sys
+from pathlib import Path
 
 import mujoco
 import numpy as np
@@ -832,7 +833,8 @@ def test_robot_export_is_current():
 
 def test_sil_protocol_matches_the_python_side():
     FW, PR = _sil()
-    assert (FW.sizeof(2), FW.sizeof(3), FW.sizeof(4)) == (PR.CMD_FMT.size, PR.STATE_FMT.size, PR.IMU_FMT.size)
+    assert (FW.sizeof(2), FW.sizeof(3), FW.sizeof(4), FW.sizeof(6)) == (PR.CMD_FMT.size, PR.STATE_FMT.size,
+                                                                        PR.IMU_FMT.size, PR.INFO_FMT.size)
     rng = np.random.default_rng(3)
     for n in (0, 1, 74, 116, 200):
         body = bytes(rng.integers(0, 256, n, dtype=np.uint8))
@@ -845,7 +847,7 @@ def test_firmware_state_reaches_the_host_and_time_syncs():
     FW, PR = _sil()
     fw, host = FW.Firmware(), PR.HostLink()
     boot = 3.25                                                          # the MCU booted 3.25 s before host time 0
-    states = []
+    states, infos = [], []
     for k in range(400):
         t = k * 0.001
         if k % 10 == 0:
@@ -853,8 +855,15 @@ def test_firmware_state_reaches_the_host_and_time_syncs():
         fw.inputs.t_us = int(round((t + boot) * 1e6))
         fw.inputs.v_bus = 26.0
         fw.tick()
-        states += [m for m in host.feed(fw.tx(), int((t + 0.0002) * 1e9)) if isinstance(m, PR.State)]
+        msgs = host.feed(fw.tx(), int((t + 0.0002) * 1e9))
+        states += [m for m in msgs if isinstance(m, PR.State)]
+        infos += [m for m in msgs if isinstance(m, PR.Info)]
     assert len(states) == pytest.approx(80, abs=1) and host.stats.errors == 0
+    # INFO, 10 Hz: the protocol version both sides were built with and the build id the console checks
+    sys.path.insert(0, str(Path(FW.__file__).resolve().parents[1]))          # firmware/ (the SIL is firmware/sil)
+    from fw_build_id import build_id
+    assert len(infos) == 4 and infos[-1].protocol == PR.PROTOCOL_VERSION and infos[-1].build == build_id()
+    assert not infos[-1].rc_ok and infos[-1].rc == (0.0,) * 8
     assert states[-1].mode_name == "AUTO" and states[-1].cmd_count == 40
     assert abs(host.sync.offset_ns * 1e-9 - boot) < 0.0015              # within the 1 ms tick
 
@@ -930,10 +939,18 @@ def test_fire_needs_the_flywheels_at_speed():
     c.fly_rpm = 3000.0
     sil_run(rig, 1.0, lambda t: c)
     assert link.host.state.fly_ready and link.host.state.fly_rpm[0] == pytest.approx(3000, rel=0.02)
+    c.tilt = math.radians(20.0)                    # a 10 deg launch: into the face (design.md 12.2), refused
+    sil_run(rig, 1.0, lambda t: c)
     c.fire_seq = 2
     sil_run(rig, 0.05, lambda t: c)
     st = link.host.state
-    assert st.fire_rejected == 1 and st.fire_seq_done == 2 and st.feed_state in (2, 3)
+    assert st.tilt > math.radians(15) and st.fire_rejected == 2 and st.feed_state == 0
+    c.tilt = 0.0
+    sil_run(rig, 1.0, lambda t: c)
+    c.fire_seq = 3
+    sil_run(rig, 0.05, lambda t: c)
+    st = link.host.state
+    assert st.fire_rejected == 2 and st.fire_seq_done == 3 and st.feed_state in (2, 3)
 
 
 def test_kid_profile_caps_what_the_jetson_asks():
@@ -1032,9 +1049,10 @@ def test_catch_game_through_the_whole_stack():
 def test_pin_map_has_every_signal():
     FW, _ = _sil()
     rep = FW.board_report()
-    for sig in ("CAN1 TX", "BNO085 CS", "RoboClaw", "STS3250", "DShot ch1", "DShot ch2", "catch beam", "e-stop"):
+    for sig in ("CAN1 TX", "BNO085 CS", "RoboClaw", "STS3250", "DShot ch1", "DShot ch2", "catch beam", "e-stop",
+                "SYNC_OUT", "CAM_TRIG", "CAM_STROBE", "BNO085 BOOTN"):
         assert sig in rep
-    assert "13 spare" in rep
+    assert "8 spare" in rep
 
 
 # -- v11: rendered cameras in a house (design.md 31) ----------------------------------------------------------------
@@ -1139,3 +1157,753 @@ def test_acquisition_starts_on_the_moving_ball_not_the_still_clutter():
         if starts:                       # on the ball (its depth velocity takes longer: ~0.2 m of stereo noise at 6 m)
             assert start[0] <= 2 and start[1] < 0.1
             assert pc.tracker.x is not None and pc.tracker.n == 8 - start[0]
+
+
+def test_mode_mux_thrower_mode_and_one_fire_counter():
+    """THROWER (the operator console's bench test) parks the base and passes tilt / rpm / fire; whoever drives the
+    module, the MCU sees one fire counter that moves once per new request, and a source taking over never fires."""
+    _sil()                                                                # ros/src on the path
+    from omni_catch.modes import ModeMux
+    from omni_mcu.protocol import DRIVE_IDLE, REQ_AUTO, Request
+    m = ModeMux("THROWER")
+    t = Request(tilt=0.2, fly_rpm=3000.0, fire_seq=7)
+    r = m.request(thrower=t)
+    assert (r.req_mode, r.drive_mode, r.fly_rpm, r.tilt) == (REQ_AUTO, DRIVE_IDLE, 3000.0, 0.2)
+    assert r.fire_seq == 0                                                # the console's counter adopted: no shot
+    t.fire_seq = 8
+    assert m.request(thrower=t).fire_seq == 1 and m.request(thrower=t).fire_seq == 1     # one request, one shot
+    assert m.request().fly_rpm == 0.0 and m.request().fire_seq == 1       # the console went quiet: flywheels down
+    m.set_mode("CATCH")
+    assert m.fire(55) == 1 and m.fire(56) == 2                            # the behavior's stale counter adopted
+    m.set_mode("TELEOP")
+    assert m.request(twist=(0.1, 0.0, 0.0)).fire_seq == 2
+    m.set_mode("THROWER")
+    assert m.request(thrower=t).fire_seq == 2                             # back again: adopted, not fired
+    assert m.set_mode("THROWER")[0] and not m.set_mode("FLY")[0]
+
+
+# -- the operator console's round 3 (design.md 2, 7): faults, the native detector, logs, the pass game, a person ------
+
+def _mcu_dict(s, info=None):
+    """The McuState fields the console's status uses, from the link's State (as mission_node.on_mcu does)."""
+    return dict(mode=s.mode_name, profile="kid" if s.profile else "adult", faults=s.fault_names(), v_bus=s.v_bus,
+                dm_err=list(s.dm_err), fly_rpm=list(s.fly_rpm), tilt=s.tilt, ball_held=bool(s.ball_held),
+                drive_mode=s.drive_mode, vx=s.vx, vy=s.vy, wz=s.wz, roll=s.roll, pitch=s.pitch)
+
+
+def test_each_injected_fault_stops_the_robot_safely_and_the_console_says_so():
+    """faults.py on the SIL robot, the link's bytes, the console's status (status.mcu_summary) and its core's reaction
+    (missions.Console.on_mcu): the same path as the ROS run, in one process."""
+    FW, PR = _sil()
+    from faults import EXPECT, FaultInjector
+    from omni_console import status as st
+    from omni_console.missions import Console
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    inj = FaultInjector(r)
+    link.faults = inj
+    con = Console()
+    con.on_robot_mode("TELEOP adult")
+    con.command("mission", {"name": "MANUAL"})
+    cmd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.5, c=0.6)          # round and round (0.8 m): no walls
+    t_state = [d.time]
+
+    def run(seconds, c=cmd):
+        out, t_next, t0 = [], d.time, d.time
+        while d.time - t0 < seconds:
+            if d.time >= t_next - 1e-9:
+                t_next = d.time + 0.01
+                link.send(c, d.time)
+                inj.step()
+            for msg in link.poll(d.time):
+                if isinstance(msg, PR.State):
+                    t_state[0] = d.time
+            r.step()
+            out.append(float(np.linalg.norm(d.sensor("base_linvel").data[:2])))
+            if int(d.time * 1000) % 50 == 0 and link.host.state is not None:     # the node's 20 Hz summary
+                con.on_mcu(st.mcu_summary(_mcu_dict(link.host.state), d.time - t_state[0]))
+        if link.host.state is not None:
+            con.on_mcu(st.mcu_summary(_mcu_dict(link.host.state), d.time - t_state[0]))
+        return np.array(out)
+
+    def said(name):
+        return any(name in text for _, text in con.pop_events())
+
+    run(1.5)
+    con.pop_events()
+    for kind, secs in (("battery", None), ("motor", 0.5), ("imu", 0.5), ("bumper", None)):
+        inj.inject(kind, True, secs, motor=1)
+        run(0.3)                                                          # during the fault
+        name = EXPECT[kind]
+        assert name in link.host.state.fault_names(), kind
+        hint = st.mcu_summary(_mcu_dict(link.host.state), 0.0)["faults"]
+        assert said(name) and all(f["hint"] for f in hint), kind
+        if secs is None:
+            inj.inject(kind, False)
+        run(1.5)
+        assert name not in link.host.state.fault_names() and said(f"{name} cleared"), kind
+    v = run(1.0)
+    assert v[-1] == pytest.approx(0.5, abs=0.05)                        # driving again after them all
+    # the flywheels' telemetry: only a fault while they run
+    spin = PR.Command(drive_mode=PR.DRIVE_IDLE, fly_rpm=3000.0)
+    run(0.8, spin)
+    inj.inject("flywheel", True, 0.3)
+    run(0.1, spin)
+    assert "FLY_TELEM" in link.host.state.fault_names() and said("FLY_TELEM")
+    run(1.0, spin)
+    # the link drops while driving: the firmware stops the robot by itself, the console says the MCU went quiet
+    run(1.5)
+    inj.inject("link", True, 2.0)
+    v = run(2.0)
+    assert v[-1] < 0.05 and v[int(0.3 / m.opt.timestep)] > 0.4 and said("went quiet")
+    run(0.5)
+    assert said("MCU is back")
+    # the e-stop: motors off, and the console ends the mission
+    run(1.0)
+    inj.inject("estop", True)
+    run(0.3)
+    assert link.host.state.mode_name == "ESTOP" and con.mission == "IDLE" and all(not mt.enabled for mt in r.dm)
+    assert ("set_mode", "IDLE", False) in con.pop_fx()
+
+
+def test_native_detector_finds_the_same_blobs():
+    _sil()
+    from omni_catch.detector import Detector, DetectorConfig
+    from omni_catch.fast_detector import FastDetector, available
+    from omni_catch.frames import ArrayFrame, BALL_RGB, SparseFrame
+    if not available():
+        pytest.skip("no C++ compiler here")
+    rng = np.random.default_rng(5)
+    img = rng.integers(60, 140, (800, 1280, 3), dtype=np.uint8)
+    yy, xx = np.mgrid[0:800, 0:1280]
+    for _ in range(30):
+        u, v, rad = rng.uniform(-10, 1290), rng.uniform(-10, 810), rng.uniform(2, 28)
+        mk = (xx + 0.5 - u) ** 2 + ((yy + 0.5 - v) * rng.uniform(0.6, 1.4)) ** 2 < rad * rad
+        img[mk] = (np.array(BALL_RGB) * rng.uniform(0.5, 1.0, (int(mk.sum()), 1))).clip(0, 255).astype(np.uint8)
+    cfg = DetectorConfig(size_gain=1.08)
+    py, cc = Detector(cfg), FastDetector(cfg)
+    for fr in (ArrayFrame(img), SparseFrame(1280, 800, _disk(400.3, 300.7, 6.0), clutter=_disk(900.0, 600.0, 9.0))):
+        for call in (lambda d: d.detect(fr), lambda d: d.detect(fr, pred=(402.0, 299.0, 6.0)),
+                     lambda d: d.candidates(fr, 40)):
+            a, b = call(py), call(cc)
+            assert (a is None) == (b is None)
+            if a is not None:
+                assert np.allclose(np.array(a, dtype=float), np.array(b, dtype=float), atol=1e-9)
+
+
+def test_a_session_log_is_written_and_its_throws_replay_in_the_sim(tmp_path):
+    from catch_world import WorldConfig
+    from sil_game import SilCatchGame
+    from omni_console import session_log
+    sys.path.insert(0, str(Path(__file__).parent / "studies"))
+    import replay_log
+    g = SilCatchGame(WorldConfig(dist=6.5, apex_range=(1.2, 1.5), seed=9101))
+    g.open_log(tmp_path)
+    g.run(3, t_max=45.0)
+    s = g.close_log()
+    g.world.close()
+    head, recs = session_log.read(tmp_path / s["name"])
+    throws = [x for x in recs if x["type"] == "throw"]
+    assert head["source"] == "sim" and len(throws) == 3 and s["throws"] == 3
+    assert all(t["statef"] and t["truth"] is not None and t["path"] for t in throws)
+    assert all(t["caught"] == t["truth"]["caught"] for t in throws)      # the robot's beam agrees with the world
+    r = replay_log.replay(tmp_path / s["name"], seed=9101)
+    assert r["throws"] == 3 and r["agree"] >= 66.0
+
+
+def test_pass_game_throws_each_ball_to_the_other_player():
+    from catch_world import WorldConfig
+    from sil_game import SilCatchGame
+    g = SilCatchGame(WorldConfig(dist=6.5, apex_range=(1.2, 1.5), seed=9102, return_throws=True, throwers=2),
+                     game_kw=dict(return_to="other"))
+    res = g.run(4, t_max=80.0)
+    g.world.close()
+    assert [r["thrower"] for r in res] == [0, 1, 0, 1]
+    # the first return goes back to the thrower (the robot hasn't seen the other player throw yet); from then on each
+    # goes to the one who didn't throw, 2.5 m away
+    launched = [r for r in res[1:] if r["launched"] and r["return_error"] == r["return_error"]]
+    assert len(launched) >= 2 and all(r["return_error"] < 1.2 for r in launched)
+    assert len(g.game.hands) == 2
+
+
+def test_a_walking_person_is_seen_by_the_lidar_as_legs():
+    from bridge_core import CoreConfig, SimCore
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "ros" / "src" / "omni_console"))
+    from omni_console.people import detect
+    core = SimCore(CoreConfig(base="v7", seed=0, shadow=(), person=True))
+    scan = None
+    while core.d.time < 1.0 or scan is None:
+        ev = core.step()
+        scan = ev.scan if ev.scan is not None else scan
+    x, y = core.frame("lidar")[0][:2]
+    r = np.where(np.isfinite(scan.rng), scan.rng, np.inf)
+    people = detect(r, 0.0, 2 * math.pi / len(r), (x, y, 0.0))          # as the bridge publishes it (/scan)
+    assert people and abs(math.hypot(*people[0]) - 1.6) < 0.25 and abs(people[0][1]) < 0.3
+
+
+def test_the_launchers_live_world_person_clutter_and_thrower():
+    """design.md 2, the Launcher as the sim's controller (sim_world.World): the model holds the person and every piece
+    of clutter, parked outside the house while off; switched on they come in where they touch nothing (obstacles in
+    the rooms, clear of the robot, the hallway and the doorways), the lidar sees the tall ones; off, they leave. The
+    viewer builds the same model from the bridge's hello."""
+    import json
+    import arm_objects
+    from bridge_core import CoreConfig, SimCore, model_hello, model_params
+    from robot_model import build_model
+    from sim_world import DOORS, HALL_Y, ControlPort, World
+    core = SimCore(CoreConfig(base="drawn", seed=0, shadow=(), live_world=True, clutter="off"))
+    w = core.world
+    m, d = core.m, core.d
+    inside = lambda: [k for k, a in enumerate(w.adr) if abs(d.qpos[a]) < 10]           # noqa: E731
+    assert w.state() == dict(person=False, clutter="off", thrower=True, obstacles=0, toys=6) and inside() == []
+    assert d.mocap_pos[w.mocap][0] > 40
+    assert w.set(clutter="toys") == "toys on the floor" and inside() == list(range(6))
+    assert "8 larger things" in w.set(person=True, clutter="all") and len(inside()) == 14
+    for _ in range(int(1.0 / m.opt.timestep)):
+        core.step()
+    rx, ry, _ = core.r.pose()
+    for k in w.placed:
+        x, y, z = d.qpos[w.adr[k]:w.adr[k] + 3]
+        assert not HALL_Y[0] < y < HALL_Y[1] and min(math.hypot(x - a, y - b) for a, b in DOORS) >= 1.0
+        assert math.hypot(x - rx, y - ry) > 1.1 and abs(x) < 6 and abs(y) < 4.5
+        assert not w._touching(k), k                                                   # resting, not inside a wall
+        h = arm_objects.height(w.objs[k])
+        assert abs(z - h / 2) < 0.03, (k, z)                                           # on the floor (or a rug)
+    # the tall ones reach the lidar's 15 cm plane in a group its rays see (sensors: groups 0, 1, 3)
+    tall = [k for k in w.placed if arm_objects.height(w.objs[k]) > 0.2]
+    assert len(tall) >= 5 and all(m.geom_group[w.geom[k]] in (0, 1, 3) for k in tall)
+    assert abs(math.hypot(*(d.mocap_pos[w.mocap][:2] - (rx, ry))) - 1.6) < 0.5         # the person ahead of the robot
+    assert w.set(person=False, clutter="off") == "the person left; the floor is clear" and inside() == []
+    assert w.set(thrower=False) == "no thrower" and w.state()["thrower"] is False
+    with pytest.raises(ValueError):
+        w.set(clutter="lots")
+    # the viewer's model, from the bridge's hello (JSON)
+    vm = build_model(model_params(CoreConfig(**json.loads(json.dumps(model_hello(core.cfg))))))
+    assert (vm.nq, vm.nbody, vm.nmocap) == (m.nq, m.nbody, m.nmocap)
+    # the arm robot: its toys are on at the start, it has no thrower
+    arm = SimCore(CoreConfig(base="drawn", payload="arm", seed=0, shadow=(), live_world=True, clutter="toys")).world
+    assert arm.state()["thrower"] is None and arm.state()["toys"] == 6
+    # the Launcher's port: one JSON line each way
+    import socket
+    import threading
+    import time
+    cp = ControlPort(0, host="127.0.0.1")
+    got = []
+
+    def ask():
+        s = socket.create_connection(("127.0.0.1", cp.port), timeout=2)
+        s.sendall(b'{"person": true}\n')
+        got.append(json.loads(s.makefile().readline()))
+        s.close()
+    th = threading.Thread(target=ask)
+    th.start()
+    t0 = time.monotonic()
+    while not got and time.monotonic() - t0 < 3:
+        cp.poll(lambda r: dict(ok=True, message=w.set(**r), world=w.state()))
+        time.sleep(0.01)
+    th.join()
+    cp.close()
+    assert got and got[0]["ok"] and got[0]["world"]["person"] is True
+
+
+# -- design.md 10: time synchronization and sensor timing --------------------------------------------------------------
+
+def test_bno085_reports_keep_each_samples_own_time():
+    import struct
+    FW, PR = _sil()
+
+    def rep(rid, seq, delay, vals):
+        return struct.pack("<BBBB", rid, seq, (delay >> 8) << 2 | 3, delay & 0xFF) + struct.pack(f"<{len(vals)}h", *vals)
+    t_int = 5_000_000
+    batch = (struct.pack("<Bi", 0xFB, 25) +                                  # the batch's base: 2.5 ms before INT
+             rep(0x02, 1, 5, (256, 0, -512)) + rep(0x01, 1, 5, (0, 0, 2511)) + rep(0x08, 1, 6, (0, 0, 0, 16384)) +
+             struct.pack("<Bi", 0xFA, 25) + rep(0x02, 2, 0, (0, 512, 0)))   # rebased back to INT
+    s = FW.sh2_samples(batch, t_int)
+    assert [x[0] for x in s] == [t_int - 2000, t_int]                        # -base + rebase + delay, in 100 us
+    assert s[0][2] == pytest.approx((0.5, 0.0, -1.0)) and s[1][2] == pytest.approx((0.0, 1.0, 0.0))
+    assert s[0][3][2] == pytest.approx(9.81, abs=0.01) and s[0][1] == pytest.approx((1.0, 0.0, 0.0, 0.0))
+
+
+def test_firmware_schedules_exact_sync_pulses_and_camera_triggers():
+    FW, PR = _sil()
+    fw, host = FW.Firmware(), PR.HostLink()
+    out, events = None, []
+    for k in range(2200):
+        t_us = 3_250_000 + 1000 * k
+        inp = fw.inputs
+        inp.sync_fired_us = inp.cam_fired_us = 0
+        if out is not None:                                   # the board's timers fire when scheduled
+            if out.sync_next_us and t_us >= out.sync_next_us:
+                inp.sync_fired_us = out.sync_next_us
+            if out.cam_next_us and t_us >= out.cam_next_us:
+                inp.cam_fired_us = out.cam_next_us
+        inp.t_us, inp.v_bus = t_us, 26.0
+        out = fw.tick()
+        events += [m for m in host.feed(fw.tx(), t_us * 1000) if isinstance(m, PR.TimeEvent)]
+    sync = [e.t_mcu_us for e in events if e.kind == PR.TE_SYNC]
+    cam = np.array([e.t_mcu_us for e in events if e.kind == PR.TE_CAM_TRIGGER])
+    assert sync == [4_000_000, 5_000_000]                     # on whole seconds of MCU time
+    assert cam[0] == 4_000_000 and set(np.diff(cam)) <= {8333, 8334}
+    assert cam[120] == 5_000_000                              # 120 Hz with no drift from rounding the period
+
+
+def test_can_bus_replies_land_up_to_08_ms_after_the_tick():
+    from sil_robot import DmBus, can_frame_time
+    s = DmBus().schedule(0.0, [4, 4, 4, 4])
+    arrivals = [x[2] for x in s]
+    assert arrivals == sorted(arrivals) and 0.70e-3 < arrivals[-1] < 0.95e-3      # the bus is ~85% busy at 1 kHz
+    for cmd_end, sample, rx in s:                              # each sample precedes its reply's end by >= the frame
+        assert rx - sample >= can_frame_time(8) and sample > cmd_end
+
+
+def _timing_rig(gpio, seconds=6.0, drive=False, **link_kw):
+    from sil_link import SimLink
+    p, m, d, r, _ = sil_rig()
+    r2 = type(r)(m, d, p, seed=1, timing="real", clock_ppm=20.0)
+    r.close()
+    link = SimLink(r2, latency_up=0.00025, latency_down=0.00075, jitter=0.0001, gpio=gpio, **link_kw)
+    _, PR = _sil()
+    errs, vx = [], []
+    t_next = d.time
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.8, flags=PR.CMD_HOLD_YAW)
+    while d.time < seconds:
+        t = d.time
+        if t >= t_next - 1e-9:
+            t_next = t + 0.01
+            link.send(fwd if drive and t > 1.0 else PR.Command(drive_mode=PR.DRIVE_IDLE), t)
+        for msg in link.poll(t):
+            if t > seconds - 1.0 and isinstance(msg, (PR.Imu, PR.State, PR.TimeEvent)) and msg.t_host == msg.t_host:
+                errs.append(msg.t_host - r2.sim_time_of(msg.t_mcu_us))     # the Jetson's stamp vs the truth
+                if isinstance(msg, PR.State):
+                    vx.append(msg.vx)
+        r2.step()
+    r2.close()
+    return link.host.sync, np.array(errs), np.array(vx)
+
+
+def test_sync_pulses_map_the_mcu_clock_to_microseconds_the_usb_echo_does_not():
+    sync, e, _ = _timing_rig("hte")
+    st = sync.status()
+    assert st["mode"] == "pulse" and st["pulses"] >= 4 and len(e) > 700      # IMU, STATE and TIME of the last second
+    assert np.max(np.abs(e)) < 5e-6                            # HTE-stamped pulses: the Jetson's stamps to ~1 us
+    assert abs(st["drift_ppm"] - 20.0) < 1.5                   # the crystal's 20 ppm (+/- 1 ppm of wander)
+    # the echo alone is biased by the USB path's asymmetry (0.25 vs 0.75 ms here, + the SIL's half-step to fetch
+    # the reply), which it cannot see; the pulses can
+    assert st["echo_minus_pulse_us"] > 200
+    sync, e, _ = _timing_rig(None)
+    assert sync.mode == "echo" and np.mean(e) > 200e-6
+
+
+def test_a_plain_gpio_interrupt_still_syncs_within_15_us_and_wheel_speeds_stay_right():
+    sync, e, vx = _timing_rig("irq", drive=True)
+    assert sync.mode == "pulse" and np.max(np.abs(e)) < 15e-6     # 8 us of fixed IRQ latency: calibrate it out
+    assert np.mean(vx) == pytest.approx(0.8, abs=0.01) and np.std(vx) < 0.04
+
+
+def _ros_pkg(name):
+    import os                                   # ros/omni.sh mirrors the sources into WSL and says where
+    p = str(Path(os.environ.get("OMNI_ROS_SRC", Path(__file__).resolve().parents[2] / "ros" / "src")) / name)
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+
+def test_exported_frames_follow_rep105_and_calibration_stays_in_bounds():
+    _ros_pkg("omni_bringup")
+    from omni_bringup.frames import angle_between, apply_calibration, check_tree, load_frames, quat_to_R, R_to_quat
+    import robot_export
+    fr = load_frames(robot_export.ROBOT_JSON)
+    edges = [(f.parent, f.child, f.R) for f in fr] + [("odom", "base_link", None), ("map", "odom", None)]
+    assert check_tree(edges) == []
+    names = {f.child for f in fr}
+    assert {"laser", "imu_link", "cam_left_optical", "cam_right_optical", "module_pivot", "arm_mount"} <= names
+    # the cameras look 30 deg up along x; their optical z is that view
+    cam = next(f for f in fr if f.child == "cam_left")
+    opt = next(f for f in fr if f.child == "cam_left_optical")
+    z_view = cam.R @ opt.R @ np.array([0, 0, 1.0])
+    assert math.degrees(math.atan2(z_view[2], z_view[0])) == pytest.approx(30.0, abs=0.5)
+    # the rules catch: a second parent, base_link off odom, a non-optical optical frame
+    bad = edges + [("map", "base_link", None), ("cam_left", "cam_left_optical", np.eye(3))]
+    probs = " | ".join(check_tree(bad))
+    assert "two parents" in probs and "REP-103" in probs
+    # a calibrated laser 8 mm / 1 deg off the drawing is applied; one 5 cm off is refused
+    las = next(f for f in fr if f.child == "laser")
+    turn = quat_to_R((0.0, 0.0, math.sin(math.radians(0.5)), math.cos(math.radians(0.5))))
+    ok = dict(laser=dict(xyz=list(las.xyz + [0.008, 0, 0]), quat=R_to_quat(las.R @ turn)))
+    out, rep = apply_calibration(fr, ok)
+    assert rep[0]["applied"] and angle_between(next(f for f in out if f.child == "laser").R, las.R) > 0.01
+    out, rep = apply_calibration(fr, dict(laser=dict(xyz=list(las.xyz + [0.05, 0, 0]), quat=R_to_quat(las.R))))
+    assert not rep[0]["applied"] and np.allclose(next(f for f in out if f.child == "laser").xyz, las.xyz)
+
+
+def test_odom_jumps_are_found_and_map_corrections_measured():
+    _ros_pkg("omni_bringup")
+    from omni_bringup.frames import check_motion
+    smooth = [(0.02 * k, 0.02 * k, 0.0, 0.01 * k) for k in range(100)]           # 1 m/s, 0.5 rad/s
+    assert check_motion(smooth)["jumps"] == 0
+    jumpy = smooth[:50] + [(t, x + 0.15, y, a) for t, x, y, a in smooth[50:]]
+    r = check_motion(jumpy)
+    assert r["jumps"] == 1 and r["largest_jump_m"] == pytest.approx(0.17, abs=0.01)
+
+
+def test_camera_frames_take_their_trigger_time_at_mid_exposure():
+    _ros_pkg("omni_perception")
+    from omni_perception.camera_time import FrameStamper
+    rng = np.random.default_rng(4)
+    fs = FrameStamper(exposure_s=0.003, trig_to_exp_s=20e-6)
+    T = 1 / 120
+    d_true = 20e-6 + 0.003 + 0.25e-3                       # trigger -> exposure -> readout's SOF stamp
+    out = []
+    fseq = 1000
+    for k in range(400):
+        t_trig = 10.0 + k * T
+        if k == 200:                                       # a trigger the camera missed: the offset moves by one
+            fs.on_trigger(k, t_trig)
+            continue
+        fs.on_trigger(k, t_trig)
+        if k == 300:                                       # a frame lost on the Jetson: no offset change
+            fseq += 1
+            continue
+        st = fs.stamp(fseq, t_trig + d_true + rng.normal(0, 20e-6))
+        fseq += 1
+        out.append((k, st))
+    good = [(k, s) for k, s in out if s.source == "trigger"]
+    assert len(good) > 350 and all(s.trig_seq == k for k, s in good)
+    err = [s.t - (10.0 + k * T + 20e-6 + 0.0015) for k, s in good]
+    assert max(abs(e) for e in err) < 1e-6                 # the trigger's own time, not the SOF's jitter
+    assert fs.report()["relocks"] == 1 and abs(fs.d - d_true) < 5e-6
+
+
+def _box_range(px, py, ang, half=(3.0, 2.0)):
+    """Ray from (px, py) at world angle ang to the walls of a box room centred on 0."""
+    c, s = math.cos(ang), math.sin(ang)
+    ts = []
+    for lim, comp, p in ((half[0], c, px), (-half[0], c, px), (half[1], s, py), (-half[1], s, py)):
+        if abs(comp) > 1e-9 and (lim - p) / comp > 0:
+            ts.append((lim - p) / comp)
+    return min(ts)
+
+
+def test_deskew_puts_a_moving_robots_scan_back_on_the_walls_only_in_the_right_time_order():
+    _ros_pkg("omni_perception")
+    from omni_perception.scan_time import deskew, sample_times
+    n, dt = 1600, 0.1 / 1600
+    v, w, lx = 1.5, 3.0, 0.14
+    pose = lambda t: (v * t - 1.0, 0.0, w * t)                    # noqa: E731
+    a = 2 * math.pi * np.arange(n) / n
+    for order in (1, -1):                                          # the array's index order against time
+        ts = sample_times(n, 0.0, dt, order)
+        r = np.empty(n)
+        for i in range(n):
+            x, y, yaw = pose(ts[i])
+            ox, oy = x + lx * math.cos(yaw), y + lx * math.sin(yaw)
+            r[i] = _box_range(ox, oy, yaw + a[i])
+        def wall_err(rr):
+            x, y, yaw = pose(0.0)
+            ox, oy = x + lx * math.cos(yaw), y + lx * math.sin(yaw)
+            ok = np.isfinite(rr)
+            px, py = ox + rr[ok] * np.cos(yaw + a[ok]), oy + rr[ok] * np.sin(yaw + a[ok])
+            return np.max(np.minimum(np.abs(np.abs(px) - 3.0), np.abs(np.abs(py) - 2.0)))
+        raw = wall_err(r)
+        good = wall_err(deskew(a, r, ts, pose, (lx, 0.0), t_ref=0.0, angle_increment=2 * math.pi / n))
+        wrong = wall_err(deskew(a, r, sample_times(n, 0.0, dt, -order), pose, (lx, 0.0), t_ref=0.0,
+                                angle_increment=2 * math.pi / n))
+        assert raw > 0.15 and good < 0.01 and wrong > 0.15
+
+
+def test_scan_clock_removes_the_drivers_delivery_jitter():
+    _ros_pkg("omni_perception")
+    from omni_perception.scan_time import ScanClock
+    rng = np.random.default_rng(2)
+    sc = ScanClock(latency_s=0.002)
+    errs = []
+    for k in range(200):
+        t_true = 5.0 + k * 0.1004                                 # the motor's real period
+        if k == 120:
+            continue                                              # a lost turn
+        stamp = t_true + 0.002 + rng.exponential(0.0015)          # serial + USB delivery: late, never early
+        t = sc.update(stamp, 0.1)
+        if k > 20:
+            errs.append(t - t_true)
+    errs = np.abs(np.array(errs))
+    assert np.max(errs) < 0.6e-3 and np.median(errs) < 0.3e-3     # vs ~1.5 ms of raw jitter
+
+
+# -- payload "arm": an SO-101 on the payload plate instead of the catch module (design.md 11) ----------------------
+
+def _arm_robot(**kw):
+    from robot_export import v11_params
+    p = v11_params(payload="arm", home_xy=(0.0, 0.0), **kw)
+    return make(p)
+
+
+def test_arm_payload_replaces_the_catch_module():
+    import arm_so101 as A
+    from robot_export import v11_params
+    from robot_model import mass_properties
+    pc = v11_params()
+    p, m, d, r = _arm_robot()
+    names = {m.joint(j).name for j in range(m.njnt)}
+    assert "tilt" not in names and not any(n.startswith(("flywheel", "feed_")) for n in names)
+    assert all(f"arm_{j}" in names for j in A.JOINTS) and m.nu == 4 + 6
+    mc, _ = mass_properties(build_model(pc), pc)
+    ma, _ = mass_properties(m, p)
+    arm = m.body_subtreemass[m.body("arm_mount").id]
+    assert arm == pytest.approx(0.632 + A.M_BASE_EXTRA + A.M_WRIST_CAM, abs=0.002)     # the official links + est parts
+    assert 0.9 < mc - (ma - arm) < 1.5                                   # the catch module (~1.2 kg) is gone
+    assert r.flywheel_speeds().tolist() == [0.0, 0.0] and r.tilt() == 0.0 and not r.ball_held()
+
+
+def test_arm_holds_the_official_zero_pose_and_slews_at_servo_speed():
+    import arm_so101 as A
+    p, m, d, r = _arm_robot()
+    r.arm.set_pose(A.POSES["zero"], snap=True)
+    mujoco.mj_forward(m, d)
+    for _ in range(int(0.6 / m.opt.timestep)):
+        r.step()
+    b = m.body("arm_mount").id
+    tool = d.xmat[b].reshape(3, 3).T @ (d.sensor("arm_tool_pos").data - d.xpos[b])
+    assert tool == pytest.approx([0.391, 0.0, 0.006 + 0.2265], abs=0.006)  # so101_new_calib.xml's tool at zero
+    r.arm.set_pose(A.POSES["stow"])
+    dq = np.max(np.abs(np.array(A.POSES["stow"]) - np.array(A.POSES["zero"])))
+    t0 = d.time
+    while not r.arm.settled() and d.time - t0 < 3.0:
+        r.step()
+    assert r.arm.settled() and d.time - t0 >= dq / A.SERVO_SPEED - 0.01
+    d.qvel[r.arm.vadr[1]] = 0.5 * A.SERVO_SPEED
+    r.arm.step(m.opt.timestep)
+    lo, hi = m.actuator_forcerange[r.arm.a[1]]
+    assert hi == pytest.approx(0.5 * A.SERVO_STALL, rel=0.02) and lo == pytest.approx(-A.SERVO_STALL)
+
+
+def test_firmware_drives_the_arm_robot():
+    FW, PR = _sil()
+    rig = sil_rig(payload="arm")
+    p, m, d, r, link = rig
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.5, flags=PR.CMD_HOLD_YAW)
+    s = sil_run(rig, 1.5, lambda t: fwd)
+    assert r.fw.mode == 2 and s[-1, 1] == pytest.approx(0.5, abs=0.05)
+    assert r.arm.settled()                                               # the arm stayed folded while it drove
+
+
+# -- the picking arm robot (design.md 11, Oct 24; the arm kit, 12.3, Oct 25): servo bus, omni_arm, the tidy ---------
+
+def _pick_robot(**kw):
+    from robot_export import arm_params
+    return make(arm_params(home_xy=(0.0, 0.0), **kw))
+
+
+def _omni_arm():
+    import sil_link  # noqa: F401  (puts ros/src/omni_arm on the path)
+    from omni_arm.kinematics import ArmKinematics
+    return ArmKinematics()
+
+
+def test_the_pick_robots_layout():
+    """The arm kit as drawn (design.md 12.3): the arm on its riser at the plate's front edge, the cameras on the head's
+    bar 40 deg down, the lidar at the front, the bin with the face behind it; the catch robot's own layout unchanged."""
+    import arm_so101 as A
+    from robot_export import ARM_POSES, v11_params
+    p, m, d, r = _pick_robot()
+    b = m.body("arm_mount").id
+    assert d.xpos[b] == pytest.approx([0.14, 0.0, 0.1685 + 0.05], abs=1e-6)
+    for s in ("left", "right"):
+        c = m.camera(f"stereo_{s}").id
+        view = -d.cam_xmat[c].reshape(3, 3)[:, 2]
+        assert math.degrees(math.asin(-view[2])) == pytest.approx(40.0, abs=0.5) and d.cam_xpos[c][0] > 0.15
+    assert d.site_xpos[m.site("lidar").id][0] > 0.1                                   # at the deck's front edge
+    names = {m.geom(g).name for g in range(m.ngeom)}
+    assert {"arm_bin0", "arm_face", "arm_audio", "arm_pad_fixed", "arm_pad_moving", "arm_tip0", "arm_tip1"} <= names
+    assert r.arm.q() == pytest.approx(np.array(A.POSES["kit_stow"]), abs=1e-6)                       # folded
+    _omni_arm()
+    from omni_arm.kinematics import ArmKinematics
+    from omni_arm.pick import TidyTask
+    assert np.allclose(TidyTask(ArmKinematics()).poses["stow"], ARM_POSES["stow"])                  # the robot's stow
+    pc, mc, dc, rc = make(v11_params(home_xy=(0.0, 0.0)))
+    assert dc.site_xpos[mc.site("lidar").id][0] > 0.1 and "arm_bin0" not in {mc.geom(g).name for g in range(mc.ngeom)}
+
+
+def test_omni_arm_kinematics_are_the_sims():
+    """omni_arm's chain (from robot_arm.json) against MuJoCo's: the tool point, the jaw and the wrist camera."""
+    import arm_so101 as A
+    p, m, d, r = _pick_robot()
+    K = _omni_arm()
+    qadr = [m.joint(A.name(j)).qposadr[0] for j in A.JOINTS]
+    adr = m.joint("base").qposadr[0]
+    d.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
+    rng = np.random.default_rng(3)
+    for _ in range(30):
+        q = rng.uniform(K.lo, K.hi)
+        d.qpos[qadr] = q
+        mujoco.mj_kinematics(m, d)
+        mujoco.mj_camlight(m, d)
+        T = K.fk(q)
+        assert T["tool"][:3, 3] == pytest.approx(d.site_xpos[m.site("arm_tool").id], abs=1e-9)
+        assert T["arm_jaw"][:3, 3] == pytest.approx(d.xpos[m.body("arm_jaw").id], abs=1e-9)
+        c = m.camera("arm_wrist").id
+        assert T["wrist_cam"][:3, :3] == pytest.approx(d.cam_xmat[c].reshape(3, 3), abs=1e-9)
+
+
+def test_the_driver_runs_the_arm_through_the_servo_bus():
+    """omni_arm's driver over the STS3215s as their bus behaves (arm_bus): it reads the joints, its goals move them,
+    torque off leaves the arm limp, a calibration error shows as an offset between what it reads and the joint."""
+    import arm_so101 as A
+    from arm_bus import ServoBusSim
+    _omni_arm()
+    from omni_arm.driver import ArmDriver
+    from omni_arm.feetech import Bus
+    from omni_arm.kinematics import ArmConfig
+    p, m, d, r = _pick_robot()
+    bus = ServoBusSim(r.arm)
+    drv = ArmDriver(Bus(bus, timeout=0.0, clock=lambda: 0.0), ArmConfig())
+    assert drv.ping() == []
+    drv.enable(True)
+    st = drv.read(0.0)
+    assert st.ok and st.q == pytest.approx(r.arm.q(), abs=2 * 2 * math.pi / 4096)
+    goal = np.array([0.4, -1.0, 0.6, 0.8, 0.5, 0.3])
+    drv.send(goal)
+    for _ in range(int(1.5 / m.opt.timestep)):
+        r.step()
+    assert drv.read(1.5).q == pytest.approx(goal, abs=0.03) and bus.n_errors == 0
+    drv.enable(False)
+    assert np.all(m.actuator_forcerange[r.arm.a] == 0.0) or np.all(r.arm.torque_scale == 0.0)
+    off = ServoBusSim(r.arm, joint_err_deg=1.0, seed=5)
+    drv2 = ArmDriver(Bus(off, timeout=0.0, clock=lambda: 0.0), ArmConfig())
+    q_true = r.arm.q()
+    assert np.abs(drv2.read(0.0).q[:5] - (q_true[:5] - off.err[:5])).max() < 2e-3 and np.abs(off.err[:5]).max() > 1e-3
+    del A
+
+
+def test_mode_mux_caps_the_base_while_the_arm_is_out():
+    import json
+    _omni_arm()
+    from omni_arm.kinematics import CONFIG
+    from omni_catch.modes import ARM_OUT_CAPS, ModeMux
+    ao = json.loads(CONFIG.read_text())["arm_out"]
+    assert ARM_OUT_CAPS == pytest.approx((ao["speed_cap"], ao["a_cap"]))            # the mux and the export agree
+    mux = ModeMux("PICK")
+    r = mux.request(pick=(0.3, 0.0, 0.0))
+    assert r.drive_mode == 1 and r.a == 0.3 and r.speed_cap == 0.0 and r.a_cap == 0.0
+    mux.arm_out = True
+    for mode, kw in (("PICK", dict(pick=(0.3, 0.0, 0.0))), ("TELEOP", dict(twist=(1.5, 0.0, 0.0)))):
+        mux.set_mode(mode)
+        r = mux.request(**kw)
+        assert r.speed_cap == ARM_OUT_CAPS[0] and r.a_cap == ARM_OUT_CAPS[1]
+    mux.set_mode("PICK")
+    assert mux.request().drive_mode == 0                                             # no fresh twist: a ramped stop
+
+
+def test_the_gripper_picks_up_a_block():
+    """The physics of a grasp: the IK's hover, straight down, close, up; the block comes with it, the fingers
+    stopped apart at its width."""
+    import arm_objects
+    import arm_so101 as A
+    K = _omni_arm()
+    from omni_arm.kinematics import DOWN, q_for_gap
+    obj = arm_objects.objects_for(["cube30"], [(0.33, 0.0)], [0.0])
+    p, m, d, r = _pick_robot(floor_objects=obj)
+    for _ in range(int(0.3 / m.opt.timestep)):
+        r.step()
+    tool = np.array([0.33, -(0.015 + 0.008), 0.005 + 0.006])         # the fixed finger 8 mm off the cube's side
+    seq = []
+    for z in (0.12, tool[2]):
+        q = K.ik([tool[0], tool[1], z], DOWN, yaw=math.pi / 2, seed=np.array([0, -0.5, 0.6, 1.5, 0, 0]), flip_ok=False)
+        assert q is not None
+        q[5] = q_for_gap(K.cfg, 0.06)
+        seq.append(q)
+    grip = seq[1].copy()
+    grip[5] = A.GRIPPER_CLOSED
+    up = seq[0].copy()
+    up[5] = A.GRIPPER_CLOSED
+    for target, s in ((seq[0], 2.5), (seq[1], 1.5), (grip, 1.0), (up, 2.0)):
+        r.arm.set_pose(target)
+        for _ in range(int(s / m.opt.timestep)):
+            r.step()
+    cube = d.xpos[m.body("obj0").id]
+    from omni_arm.kinematics import gap_at
+    assert cube[2] > 0.08 and 0.024 < gap_at(K.cfg, r.arm.q()[5]) < 0.034          # the pads' gap near the tips
+
+
+def test_the_tidy_picks_up_a_toy_through_the_whole_stack():
+    """sil_pick: the robot's own code (driver, vision, the tidy task, the mode mux, the C++ firmware) finds one cube
+    near the robot, picks it up and drops it in the bin; then finds nothing more."""
+    from sil_pick import SilPick
+    g = SilPick(1, "toys", seed=2, spread=0.4)
+    s = g.run(t_max=150.0)
+    g.cams.close()
+    assert s["in_bin"] == 1 and s["task_picked"] == 1 and s["reason"] == "nothing in sight", s["events"]
+    assert s["bus_errors"] == 0 and s["max_tilt_deg"] < 5.0
+
+
+def test_the_drawn_robot_has_the_cads_mass_cg_wheels_and_scan_plane():
+    """design.md 7 step 1: robot_export.drawn_params is the robot as cad/v7 draws it: 8.19 kg and the BOM's CG, the
+    515 g printed wheels, no front rocker, the bumper ring at r 205-217 mm, the A2M12's plane 150 mm up. The constants
+    are the BOM's (cad/v7/out/BOM.md, written by build.py): this fails when a CAD change moves them."""
+    import re
+    from robot_export import CAD_CG, CAD_MASS_KG, drawn_params
+    from robot_model import mass_properties
+    bom = (Path(__file__).resolve().parents[2] / "cad" / "v7" / "out" / "BOM.md").read_text(encoding="utf-8")
+    mt = re.search(r"CAD estimate: \*\*([\d.]+) kg\*\*, CG at \[([-\d.]+), ([-\d.]+), ([-\d.]+)\] mm", bom)
+    assert mt, "BOM.md's mass line moved"
+    assert float(mt.group(1)) == pytest.approx(CAD_MASS_KG, abs=0.005)
+    assert [float(mt.group(k)) / 1000 for k in (2, 3, 4)] == pytest.approx(list(CAD_CG), abs=0.0006)
+    p = drawn_params()
+    m = build_model(p)
+    mass, cg = mass_properties(m, p, 0.0)
+    assert mass == pytest.approx(CAD_MASS_KG, abs=1e-3) and list(cg) == pytest.approx(list(CAD_CG), abs=1e-3)
+    assert p.omni.mass == pytest.approx(0.515) and p.rocker == "none" and p.accel_table is not None
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    assert d.site_xpos[m.site("lidar").id][2] == pytest.approx(0.150, abs=1e-3)
+    rb = max(float(np.hypot(*m.geom_pos[g][:2])) for g in range(m.ngeom) if m.geom_matid[g] == m.material("tpu_orange").id
+             and m.geom_type[g] == mujoco.mjtGeom.mjGEOM_CAPSULE and m.geom_size[g][0] > 0.01)
+    assert 0.20 < rb + 0.014 <= 0.2175                                   # the ring's outer edge at the CAD's 217 mm
+
+
+def test_the_lidar_mask_hides_the_drawn_robots_standoff_sectors():
+    """The A2M12 gets no return where the drawn robot's own parts stand (sensors.BLOCKED_CAD, 22 deg in all)."""
+    from bridge_core import CoreConfig, SimCore
+    from sensors import BLOCKED_CAD
+    c = SimCore(CoreConfig(base="drawn", shadow=()))
+    scan = None
+    while scan is None and c.d.time < 0.5:
+        scan = c.step().scan
+    assert scan is not None
+    deg = np.degrees(scan.ang) % 360
+    blocked = np.zeros(len(deg), bool)
+    for a0, w in BLOCKED_CAD:
+        blocked |= (deg - a0) % 360 < w
+    assert np.isnan(scan.rng[blocked]).all()
+    assert np.isfinite(scan.rng[~blocked]).mean() > 0.9                  # the house's walls everywhere else
+    assert 0.055 < blocked.mean() < 0.07                                 # 22 of 360 deg
+
+
+def test_the_house_catch_places_a_thrower_where_there_is_room():
+    """house_catch: in the house (the robot step's one world) a thrower stands dist m in front of the robot when
+    there is room, else where there is (the robot turns to them); the throws fly and are scored. Where no direction
+    has room it refuses and says why."""
+    from bridge_core import CoreConfig, SimCore
+    from house_catch import HouseCatch
+    c = SimCore(CoreConfig(base="drawn", firmware=True, shadow=()))
+    hc = HouseCatch(c.m, c.d, c.p, c.r, seed=1, returns=False)
+    x, y, yaw = c.r.pose()                               # the hallway start, facing down the hallway
+    s = hc.start((x, y, yaw + math.pi), c.d.time)        # turned round, facing the wall: the thrower goes behind it
+    assert s["ok"] and abs(abs(s["bearing"]) - math.pi) < 0.6 and "deg to its" in s["message"]
+    hc.MIN_DIST = 20.0                                   # nowhere in the house has 20 m
+    s = hc.start((x, y, yaw), c.d.time)
+    assert not s["ok"] and "No room" in s["message"]
+    hc.MIN_DIST = HouseCatch.MIN_DIST
+    s = hc.start((x, y, yaw), c.d.time)
+    assert s["ok"] and s["dist"] == pytest.approx(6.5) and s["bearing"] == 0.0 and 0.5 < s["half"] <= 2.0
+    seen = 0
+    while c.d.time < 9.0:
+        c.step()
+        hc.step(c.d.time)
+        seen += sum(len(pair[0].idx) > 0 for pair in hc.pop_frames(c.d.time))
+    assert len(hc.results) >= 2 and seen > 100           # (nobody runs the catch code here: the throws miss)
+    assert all(6.0 < np.hypot(*(np.array(r["release"][:2]) - [x, y])) < 7.0 for r in hc.results)
+    hc.stop()
+    n = len(hc.results)
+    while c.d.time < 12.0:
+        c.step()
+        hc.step(c.d.time)
+    assert len(hc.results) == n and not hc.pop_frames(c.d.time)

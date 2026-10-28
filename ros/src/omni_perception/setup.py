@@ -15,5 +15,6 @@ setup(
     maintainer="Fernando",
     description="omni-robot scan preparation (design.md 28)",
     license="Proprietary",
-    entry_points={"console_scripts": ["scan_prep = omni_perception.scan_prep:main"]},
+    entry_points={"console_scripts": ["scan_prep = omni_perception.scan_prep:main",
+                                      "image_preview = omni_perception.image_preview:main"]},
 )

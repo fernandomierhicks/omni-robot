@@ -7,12 +7,14 @@ McuPort), catch_perception gets the cameras' frames, catch_behavior and mode_man
 Publishes /clock                     every clock_period of sim time (1 ms: the link's time sync and the catch need it)
           /cam/left/sparse, /cam/right/sparse   omni_interfaces/SparseImage: each frame when the capture pipeline
                                      delivers it (exposure + latency, catch_world), stamped with its exposure
-          /tf_static                 base_link -> cam_left / cam_right (the calibrated extrinsics), odom -> world
+          /tf_static                 base_link -> the robot's frames (robot_export.frames: cameras REP-103, frames
+                                     cam_<side>_optical on the images), odom -> world
           /ground_truth/odom         the base's true pose, world frame
           /sim/ball                  visualization_msgs/Marker: the true ball (world frame)
           /sim/catch_result          std_msgs/String, JSON, one per throw (the truth: caught, funnel offset, ...)
           /sim/status                std_msgs/String, JSON, every 5 s wall
-Parameters dist, apex_min, apex_max, seed, returns, tosses (0 = forever), floor, rtf, port, viewer.
+Parameters dist, apex_min, apex_max, seed, returns, tosses (0 = forever), floor, rtf, port, viewer, pass_game (two
+           throwers taking turns: catch_world.WorldConfig.throwers).
 """
 
 from __future__ import annotations
@@ -56,7 +58,7 @@ class CatchBridge(Node):
         self.dist = P("dist", 6.5).value
         cfg = WorldConfig(dist=self.dist, apex_range=(P("apex_min", 0.75).value, P("apex_max", 2.0).value),
                           seed=P("seed", 9000).value, return_throws=P("returns", True).value,
-                          floor=GAME_FLOORS[self.floor])
+                          floor=GAME_FLOORS[self.floor], throwers=2 if P("pass_game", False).value else 1)
         self.tosses = P("tosses", 0).value
         self.rtf = P("rtf", 1.0).value
         self.clock_period = P("clock_period", 0.001).value
@@ -66,6 +68,8 @@ class CatchBridge(Node):
         self.w = CatchWorld(cfg)
         self.r = self.w.robot
         self.port = McuPort(P("port", 5761).value, log=self.get_logger().info)
+        from omni_sim.bridge_node import FaultTopic
+        self.faults = FaultTopic(self, self.r)              # /sim/fault: the console's fault injection
         self.p_clock = self.create_publisher(Clock, "/clock", 10)
         self.p_cam = [self.create_publisher(SparseImage, f"/cam/{s}/sparse", 20) for s in ("left", "right")]
         self.p_truth = self.create_publisher(Odometry, "/ground_truth/odom", 20)
@@ -88,21 +92,17 @@ class CatchBridge(Node):
 
     def _static_frames(self):
         m, d = self.w.m, self.w.d
-        base = m.body("base").id
-        Rb = d.xmat[base].reshape(3, 3)
         out = []
-        import mujoco
-        for name in ("left", "right"):
-            cid = m.camera(f"stereo_{name}").id
-            p = Rb.T @ (d.cam_xpos[cid] - d.xpos[base])
-            q = np.zeros(4)
-            mujoco.mju_mat2Quat(q, (Rb.T @ d.cam_xmat[cid].reshape(3, 3)).reshape(-1))
+        # design.md 10: the robot's frames as robot_export writes them (REP-103: cam_<side> x along the view,
+        # cam_<side>_optical z forward), from this world's own model
+        from robot_export import frames
+        for f in frames(m, d, self.w.p):
             t = TransformStamped()
             t.header.stamp = stamp(d.time)
-            t.header.frame_id = "base_link"
-            t.child_frame_id = f"cam_{name}"
-            t.transform.translation.x, t.transform.translation.y, t.transform.translation.z = map(float, p)
-            t.transform.rotation.w, t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z = map(float, q)
+            t.header.frame_id, t.child_frame_id = f["parent"], f["child"]
+            t.transform.translation.x, t.transform.translation.y, t.transform.translation.z = map(float, f["xyz"])
+            t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z, t.transform.rotation.w = \
+                map(float, f["quat"])
             out.append(t)
         x0, y0, a = self.w.pose0                           # odom -> world: the world seen from the robot's start
         c, s = math.cos(a), math.sin(a)
@@ -121,7 +121,7 @@ class CatchBridge(Node):
             for f in pair:
                 msg = SparseImage()
                 msg.header.stamp = stamp(f.t_cap)
-                msg.header.frame_id = f"cam_{('left', 'right')[f.cam]}"
+                msg.header.frame_id = f"cam_{('left', 'right')[f.cam]}_optical"
                 msg.width, msg.height = f.width, f.height
                 msg.ball = f.idx.astype(np.uint32).tolist()
                 msg.clutter = f.clutter.astype(np.uint32).tolist()
@@ -167,7 +167,8 @@ class CatchBridge(Node):
             w.step()
             t = d.time
             if k % self.r.fw_div == self.r.fw_div - 1:      # once per firmware tick: the USB port
-                self.port.exchange(self.r.fw)
+                self.faults.inj.step()
+                self.port.exchange(self.r.fw, self.faults.inj.link_down())
             if t >= next_clock - 1e-9:
                 next_clock += self.clock_period
                 self.p_clock.publish(Clock(clock=stamp(t)))

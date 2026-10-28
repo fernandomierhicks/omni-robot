@@ -128,9 +128,16 @@ class Hardware:
 
 # --- hole cutters (solids to subtract), modelled at the origin, axis along Z ----------------------------------------------
 
-def tap(depth: float, top: float = 0.0, d: float = D.TAP_M3) -> Part:
-    """Thread-forming hole of `depth` going down from z = top."""
-    return Cylinder(d / 2, depth + 0.02, align=CT).moved(Pos(0, 0, top + 0.01))
+def tap(depth: float, top: float = 0.0, d: float = D.TAP_M3, entry: str | None = None) -> Part:
+    """Thread-forming hole of `depth` going down from z = top. entry 'top' / 'bottom': a 0.5 mm 90 deg countersink
+    where the screw enters (it starts straight, and the printed lip can't hold the joint open). Only where the hole
+    has thread to spare: the countersink isn't thread."""
+    h = Cylinder(d / 2, depth + 0.02, align=CT).moved(Pos(0, 0, top + 0.01))
+    if entry == "top":
+        h += Cone(d / 2 + D.TAP_CSK, d / 2, D.TAP_CSK, align=CT).moved(Pos(0, 0, top + 0.01))
+    elif entry == "bottom":
+        h += Cone(d / 2, d / 2 + D.TAP_CSK, D.TAP_CSK, align=CB).moved(Pos(0, 0, top - depth - 0.01))
+    return h
 
 
 def clear(length: float, top: float = 0.0, d: float = D.CLR_M3) -> Part:
@@ -150,6 +157,58 @@ def csink(length: float, top: float = 0.0) -> Part:
 def nut_trap(top: float = 0.0, depth: float = D.NUT_M3[1], af: float = D.NUT_M3[0], angle: float = 30.0) -> Part:
     return extrude(RegularPolygon(af / 2 / math.cos(math.pi / 6), 6), depth + 0.01).rotate(Axis.Z, angle).moved(
         Pos(0, 0, top - depth))
+
+
+def lead_in(r: float, c: float = 0.5, z: float = 0.0, up: bool = True) -> Part:
+    """Cutter: a c x 45 deg lead-in chamfer at the mouth of a bore of radius r whose face is at z = z (the bore goes
+    -Z from the face if up, +Z if not). For bearing seats and press fits."""
+    cone = Cone(r, r + c, c + 0.01, align=CB if up else CT)
+    return (cone if up else cone.rotate(Axis.X, 180)).moved(Pos(0, 0, z - c if up else z + c))
+
+
+def edge_chamfer(r: float, c: float = 0.5, z: float = 0.0, up: bool = True) -> Part:
+    """Cutter: a c x 45 deg chamfer on the outer edge of a boss / disc of radius r, at its end face z (the solid is
+    below z if up, above it if not)."""
+    ring = Cylinder(r + 1.0, c + 0.01, align=CT if up else CB).moved(Pos(0, 0, z + (0.005 if up else -0.005)))
+    keep = Cone(r, r - c, c + 0.01, align=CT if up else CB).moved(Pos(0, 0, z)) if up else \
+        Cone(r - c, r, c + 0.01, align=CB).moved(Pos(0, 0, z))
+    return ring - keep
+
+
+def cove(r: float, length: float) -> Part:
+    """r x r square minus the quarter circle centred at (r, r), along +Z from 0 to length: a fillet's material at an
+    inside corner, or the cutter that rounds an outside edge (cove_at places it)."""
+    e = 0.05                  # reaches 0.05 mm into the two faces (coplanar faces break OCC's fuse)
+    return Box(r + e, r + e, length, align=(Align.MIN, Align.MIN, Align.MIN)).moved(Pos(-e, -e, 0)) - \
+        Cylinder(r, length + 2, align=CB).moved(Pos(r, r, -1))
+
+
+def cove_ring(r0: float, rf: float, outward: bool = True) -> Part:
+    """Fillet ring at the foot of a boss of radius r0 standing on the plane z = 0 (boss along +Z, face below):
+    the material between the boss, the face and a torus of radius rf. outward=False: the boss is a bore of radius r0
+    (material outside it), and the ring rounds the bore's mouth when subtracted (the face is the solid's top)."""
+    n = 10
+    if outward:
+        pts = [(r0, 0.0), (r0 + rf, 0.0)] + [(r0 + rf - rf * math.sin(math.pi / 2 * k / n), rf - rf * math.cos(math.pi / 2 * k / n))
+                                            for k in range(1, n + 1)]
+    else:
+        pts = [(r0, 0.0), (r0 + rf, 0.0)] + [(r0 + rf - rf * math.sin(math.pi / 2 * k / n), -rf + rf * math.cos(math.pi / 2 * k / n))
+                                            for k in range(1, n + 1)]
+    from build123d import Plane, Polygon, revolve
+    return revolve(Plane.XZ * Polygon(*pts, align=None), Axis.Z)
+
+
+def cove_at(r: float, corner, u, v, w, length: float) -> Part:
+    """cove(r) placed at a straight edge: corner = a point on the edge, u and v = unit directions away from the edge
+    along its two faces, w = the edge direction (the strip runs from corner along w for length). For an inside corner
+    u and v point into the empty quadrant (add it: a fillet); for an outside edge they point into the solid (subtract
+    it: a round)."""
+    from build123d import Plane, Vector
+    u, v, w, c = Vector(*u), Vector(*v), Vector(*w), Vector(*corner)
+    z = u.cross(v)                        # the frame (u, v, u x v) is right-handed; if u x v runs against w, the strip
+    if z.dot(w) < 0:                      # starts at the far end and runs back over the same edge
+        c = c + w * length
+    return cove(r, length).moved(Location(Plane(c, x_dir=u, z_dir=z)))
 
 
 @lru_cache(maxsize=None)

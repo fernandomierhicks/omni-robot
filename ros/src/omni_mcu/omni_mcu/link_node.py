@@ -2,14 +2,28 @@
 against the sim (TCP to the bridge, which feeds the bytes to the SIL firmware); nothing else changes between them.
 
 Publishes /mcu/state   omni_interfaces/McuState, every STATE (200 Hz), stamped on this clock (time sync)
+          /mcu/state_10hz  the same, every 20th: for the operator console (decoding 200 Hz in Python costs the Jetson)
+          /mcu/samples std_msgs/Float32MultiArray, 20 Hz, only while someone listens (the console's Base tab, straight
+                       through rosbridge): the 200 Hz samples batched, rows of SAMPLE_COLS (t: s since this node started)
           /odom        nav_msgs/Odometry (50 Hz): the MCU's wheel + BNO085 odometry, covariance from speed and slip
           /tf          odom -> base_link (publish_tf; off when an EKF publishes it)
           /imu         sensor_msgs/Imu: every BNO085 report the MCU forwards (400 Hz)
           /mcu/link    std_msgs/String, JSON link statistics, 1 Hz
+          /mcu/info    omni_interfaces/McuInfo: protocol version, firmware build, the RC receiver, the drive motors'
+                       temperatures (10 Hz)
+          /mcu/clock   std_msgs/String, JSON, 1 Hz: the clock map (clock_sync.ClockSync.status: pulse / echo mode,
+                       offset, drift, residual, the echo's bias against the pulses)
+          /mcu/time_ref sensor_msgs/TimeReference per camera trigger and strobe (protocol 4): header.stamp = the edge
+                       on this clock, time_ref = on the MCU's, source "cam_trigger:<seq>" / "cam_strobe:<seq>:<us>"
+                       (the camera node stamps its frames from them: omni_perception/camera_time.py)
 Subscribes /mcu/cmd    omni_interfaces/McuCommand (the mode manager); sent at 100 Hz as the heartbeat. A request older
                        than 0.3 s is replaced by a ramped stop (the mode manager has died); the MCU's own watchdog
                        stops the robot if this node dies.
-Parameters port: "tcp:127.0.0.1:5761" (sim) or "serial:/dev/ttyACM0"; publish_tf; rate (Hz).
+           /sim/sync_edge sensor_msgs/TimeReference (sync_source "topic", the sim): the GPIO's stamp of SYNC_OUT
+Parameters port: "tcp:127.0.0.1:5761" (sim) or "serial:/dev/ttyACM0"; publish_tf; rate (Hz);
+           sync_source: "none" | "gpio" (the robot: sync_gpio "/dev/gpiochip0:<line>", sync_clock realtime /
+           monotonic / hte) | "topic" (the sim); edge_latency_us: the GPIO stamp's fixed delay (bench).
+Every time is mapped through the clock map: never stamped on arrival (design.md 10).
 """
 
 from __future__ import annotations
@@ -23,16 +37,18 @@ import time
 import rclpy
 from geometry_msgs.msg import TransformStamped
 from nav_msgs.msg import Odometry
-from omni_interfaces.msg import McuCommand, McuState
+from omni_interfaces.msg import McuCommand, McuInfo, McuState
 from rclpy.node import Node
-from sensor_msgs.msg import Imu
-from std_msgs.msg import String
+from sensor_msgs.msg import Imu, TimeReference
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension, String
 from tf2_ros import TransformBroadcaster
 
-from omni_mcu.protocol import (DRIVE_IDLE, FEED_STATES, REQ_AUTO, HostLink, Imu as ImuMsg, Request, State,
-                               to_command)
+from omni_mcu.protocol import (DRIVE_IDLE, FEED_STATES, PROTOCOL_VERSION, REQ_AUTO, TE_CAM_STROBE, TE_CAM_TRIGGER,
+                               HostLink, Imu as ImuMsg, Info, Request, State, TimeEvent, to_command)
 
 DEG = math.pi / 180
+# /mcu/samples columns: velocities in the body frame, the command in odom (the page turns it with yaw), angles in rad
+SAMPLE_COLS = ("t", "vx", "vy", "wz", "v_cmd_x", "v_cmd_y", "w_cmd", "slip", "roll", "pitch", "yaw")
 
 
 def stamp_of(t: float):
@@ -99,17 +115,35 @@ class McuLink(Node):
         self.port = P("port", "tcp:127.0.0.1:5761").value
         self.publish_tf = P("publish_tf", True).value
         self.rate = P("rate", 100.0).value
-        self.link = HostLink()
+        self.link = HostLink(edge_latency_ns=int(P("edge_latency_us", 0.0).value * 1000))
+        self.sync_source = P("sync_source", "none").value
+        sync_gpio = P("sync_gpio", "").value
+        sync_clock = P("sync_clock", "realtime").value
         self.lock = threading.Lock()
         self.tr = Transport(self.port, self.get_logger().warn)
         self.req = Request(req_mode=0, drive_mode=DRIVE_IDLE)
         self.t_req = -math.inf
         self.p_state = self.create_publisher(McuState, "/mcu/state", 50)
+        self.p_state10 = self.create_publisher(McuState, "/mcu/state_10hz", 5)
+        self.p_samples = self.create_publisher(Float32MultiArray, "/mcu/samples", 5)
+        self.samples = []
+        self.want_samples = False
+        self.t0 = None
         self.p_odom = self.create_publisher(Odometry, "/odom", 20)
         self.p_imu = self.create_publisher(Imu, "/imu", 50)
         self.p_link = self.create_publisher(String, "/mcu/link", 5)
+        self.p_info = self.create_publisher(McuInfo, "/mcu/info", 5)
+        self.p_clock = self.create_publisher(String, "/mcu/clock", 5)
+        self.p_tref = self.create_publisher(TimeReference, "/mcu/time_ref", 50)
         self.tf = TransformBroadcaster(self)
         self.create_subscription(McuCommand, "/mcu/cmd", self.on_cmd, 10)
+        self.edges = None
+        if self.sync_source == "topic":
+            self.create_subscription(TimeReference, "/sim/sync_edge", self.on_sync_topic, 10)
+        elif self.sync_source == "gpio":
+            from omni_mcu.gpio_edges import EdgeReader
+            chip, _, line = sync_gpio.rpartition(":")
+            self.edges = EdgeReader(chip, int(line), self.on_sync_edge, sync_clock, self.get_logger().warn).start()
         self.create_timer(1.0 / self.rate, self.send)
         self.create_timer(1.0, self.report)
         self.n_state = 0
@@ -174,6 +208,36 @@ class McuLink(Node):
                     self.on_state(m)
                 elif isinstance(m, ImuMsg):
                     self.on_imu(m)
+                elif isinstance(m, Info):
+                    self.on_info(m)
+                elif isinstance(m, TimeEvent):
+                    self.on_time(m)
+
+    # -- time sync (design.md 10) ---------------------------------------------------------------------------------
+    def on_sync_edge(self, t_ns: int):
+        with self.lock:
+            self.link.add_sync_edge(t_ns)
+
+    def on_sync_topic(self, m: TimeReference):
+        self.on_sync_edge(m.header.stamp.sec * 1_000_000_000 + m.header.stamp.nanosec)
+
+    def on_time(self, e: TimeEvent):
+        if e.kind not in (TE_CAM_TRIGGER, TE_CAM_STROBE) or math.isnan(e.t_host):
+            return
+        m = TimeReference()
+        m.header.stamp = stamp_of(e.t_host)
+        m.time_ref.sec, m.time_ref.nanosec = e.t_mcu_us // 1_000_000, (e.t_mcu_us % 1_000_000) * 1000
+        m.source = f"cam_trigger:{e.seq}" if e.kind == TE_CAM_TRIGGER else f"cam_strobe:{e.seq}:{e.value}"
+        self.p_tref.publish(m)
+
+    def on_info(self, i: Info):
+        m = McuInfo()
+        if not math.isnan(i.t_host):
+            m.header.stamp = stamp_of(i.t_host)
+        m.protocol, m.build, m.rc_ok, m.rc_manual = i.protocol, i.build, i.rc_ok, i.rc_manual
+        m.rc = [float(c) for c in i.rc]
+        m.motor_temp_c, m.driver_temp_c = list(i.t_rotor), list(i.t_mos)
+        self.p_info.publish(m)
 
     def on_state(self, s: State):
         if math.isnan(s.t_host):
@@ -206,6 +270,19 @@ class McuLink(Node):
         m.v_bus = s.v_bus
         m.sync_rtt_ms = (self.link.sync.rtt_ns or 0) * 1e-6
         self.p_state.publish(m)
+        if self.n_state % 20 == 0:
+            self.p_state10.publish(m)
+        if self.n_state % 40 == 0:                        # 5 Hz: is the Base tab listening (samples start at once)
+            self.want_samples = self.p_samples.get_subscription_count() > 0
+            if not self.want_samples:
+                self.samples = []
+        if self.want_samples:
+            if self.t0 is None:
+                self.t0 = s.t_mcu_us
+            self.samples += ((s.t_mcu_us - self.t0) * 1e-6, s.vx, s.vy, s.wz, s.v_cmd_x, s.v_cmd_y, s.w_cmd, s.slip,
+                             s.roll, s.pitch, s.yaw)
+            if self.n_state % 10 == 0:
+                self.publish_samples()
         if self.n_state % 4:
             return
         # odometry at 50 Hz, with a covariance that grows with speed and slip (as v10's bridge, estimator.EKF)
@@ -257,16 +334,35 @@ class McuLink(Node):
         m.linear_acceleration_covariance = [sa, 0.0, 0.0, 0.0, sa, 0.0, 0.0, 0.0, sa]
         self.p_imu.publish(m)
 
+    def publish_samples(self):
+        buf, self.samples = self.samples, []
+        n = len(buf) // len(SAMPLE_COLS)
+        if not n:
+            return
+        m = Float32MultiArray()
+        m.layout.dim = [MultiArrayDimension(label="rows", size=n, stride=len(buf)),
+                        MultiArrayDimension(label=",".join(SAMPLE_COLS), size=len(SAMPLE_COLS), stride=len(SAMPLE_COLS))]
+        m.data = [float(v) for v in buf]
+        self.p_samples.publish(m)
+
     def report(self):
         st, s = self.link.stats, self.last_state
         d = dict(connected=self.connected, port=self.port, states=st.states, imus=st.imus, cmds=st.cmds,
                  errors=st.errors, rtt_ms=round((self.link.sync.rtt_ns or 0) * 1e-6, 3),
                  mode=s.mode_name if s else None, faults=s.fault_names() if s else None,
-                 mcu_rx_errors=s.rx_errors if s else None)
+                 mcu_rx_errors=s.rx_errors if s else None, infos=st.infos,
+                 protocol=self.link.info.protocol if self.link.info else None, protocol_host=PROTOCOL_VERSION,
+                 fw_build=self.link.info.build if self.link.info else None)
         self.p_link.publish(String(data=json.dumps(d)))
+        with self.lock:
+            c = self.link.sync.status()
+        c["source"] = self.sync_source
+        self.p_clock.publish(String(data=json.dumps(c)))
 
     def destroy_node(self):
         self.running = False
+        if self.edges is not None:
+            self.edges.stop()
         self.tr.close()
         super().destroy_node()
 

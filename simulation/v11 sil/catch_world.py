@@ -65,6 +65,10 @@ class WorldConfig:
     frames: str = "sparse"              # "sparse" (CameraSim's pixel lists) or "rendered" (rendered_camera.py)
     sensor: object = None               # rendered_camera.SensorConfig (None: its defaults)
     hold_time: float = 1.0              # house: the thrower shows the next ball in their hand this long before a throw
+    throwers: int = 1                   # 2: the pass game (the console's Catch tab): two people pass_gap apart take
+    pass_gap: float = 2.5               # turns, and a return throw is scored against the one who didn't throw
+    scripted: list | None = None        # throws to replay instead of drawing them: [(release xyz, velocity xyz, spin
+                                        # xyz)] in the world frame (studies/replay_log.py: a session log's throws)
 
 
 @dataclass
@@ -221,15 +225,28 @@ class CameraSim:
 class Thrower:
     """HumanToss (shallow_sweep.py): the same random streams, so the same seed gives the same throws."""
 
-    def __init__(self, p, cfg: WorldConfig, flight: BallFlight, z_aim: float):
+    def __init__(self, p, cfg: WorldConfig, flight: BallFlight, z_aim: float, home=None, hand=None):
+        """home, hand: where the robot waits (x, y) and the release point (x, y, z), world frame (default: the
+        arena's, the thrower on -x facing +x; house_catch.py stands one anywhere)."""
         self.p, self.cfg, self.flight, self.z_aim = p, cfg, flight, z_aim
         self.rng = np.random.default_rng(cfg.seed)
         self.spin_rng = np.random.default_rng(cfg.seed + 99)
-        self.home = np.array(p.home_xy)
-        self.hand = np.array([p.thrower_xy[0] + 0.3, p.thrower_xy[1], cfg.release_height])
+        self.home = np.array(p.home_xy if home is None else home, dtype=float)
+        self.hand = (np.array([p.thrower_xy[0] + 0.3, p.thrower_xy[1], cfg.release_height]) if hand is None
+                     else np.asarray(hand, dtype=float).copy())
+        if cfg.scripted:
+            self.hand = np.asarray(cfg.scripted[0][0], dtype=float).copy()
 
     def toss(self):
         """(position, velocity, spin, aim point, apex) of the next throw."""
+        if self.cfg.scripted is not None:          # a replay: the logged throws in order (then they repeat)
+            k = getattr(self, "_k", 0)
+            self._k = k + 1
+            pos, vel, spin = (np.asarray(v, dtype=float) for v in self.cfg.scripted[k % len(self.cfg.scripted)])
+            self.hand = pos.copy()                 # the thrower stands where the logged ball left the hand
+            hit = self.flight.crossing(pos, vel, self.z_aim)
+            aim = np.asarray(hit[0][:2]) if hit is not None else self.home.copy()
+            return pos.copy(), vel.copy(), spin.copy(), aim, float(self.flight.apex(pos, vel) - pos[2])
         spin = self.spin_rng.normal(0, self.cfg.toss_spin, 3) if self.cfg.toss_spin > 0 else np.zeros(3)
         e = self.rng.normal(0, 1, 2) * np.array([SIG_RANGE, SIG_LAT]) * self.cfg.dist
         u = self.home - self.hand[:2]
@@ -260,7 +277,14 @@ class CatchWorld:
         bid = mujoco.mj_name2id(self.m, mujoco.mjtObj.mjOBJ_BODY, "held_ball")
         self.held_mocap = self.m.body_mocapid[bid] if bid >= 0 else -1
         self.lat_rng = np.random.default_rng(c.seed + 11)
-        self.thrower = Thrower(p, c, self.flight, self.robot.g.rim_center_robot(0.0)[1])
+        z_aim = self.robot.g.rim_center_robot(0.0)[1]
+        self.throwers = [Thrower(p, c, self.flight, z_aim)]
+        if c.throwers == 2:                # the pass game: the second person has their own throws (another seed)
+            self.throwers.append(Thrower(p, replace(c, seed=c.seed + 500), self.flight, z_aim))
+            for k, th in enumerate(self.throwers):
+                th.hand[1] += (c.pass_gap / 2) * (1 if k == 0 else -1)
+        self.thrower = self.throwers[0]    # who throws next
+        self.n_toss = 0
         j = self.m.joint("ball")
         self.bq, self.bv = j.qposadr[0], j.dofadr[0]
         self.frames: deque = deque()          # (t due, [SimFrame, SimFrame])
@@ -315,12 +339,17 @@ class CatchWorld:
             self._hold(t >= self.t_next - c.hold_time)
             if t >= self.t_next:
                 self._hold(False)
-                pos, v0, spin, aim, apex = self.thrower.toss()
+                i = self.n_toss % len(self.throwers)
+                self.n_toss += 1
+                pos, v0, spin, aim, apex = self.throwers[i].toss()
                 self.place_ball(pos, v0, spin)
+                back = self.throwers[1 - i] if len(self.throwers) == 2 else self.throwers[i]
                 self.cur = dict(t_release=t, apex=apex, zone_dist=float(np.linalg.norm(aim - np.array(HOME))),
                                 release_speed=float(np.linalg.norm(v0)), caught=False, pos_error=math.nan,
                                 arrival_deg=math.nan, catch_speed=math.nan, flight_time=math.nan, launched=False,
-                                return_error=math.nan, t_held=None)
+                                return_error=math.nan, t_held=None, thrower=i, release=[float(c) for c in pos],
+                                release_v=[float(c) for c in v0], return_hand=[float(c) for c in back.hand[:2]])
+                self.thrower = self.throwers[(i + 1) % len(self.throwers)]
                 self.phase = "flight"
             return
         cur = self.cur
@@ -348,7 +377,7 @@ class CatchWorld:
                 cur["t_launch"] = t
                 cur["launch_speed"] = float(np.linalg.norm(bv))
             if cur["launched"] and bv[2] < 0 and bp[2] < c.return_height and math.isnan(cur["return_error"]):
-                cur["return_error"] = float(np.hypot(*(bp[:2] - self.thrower.hand[:2])))
+                cur["return_error"] = float(np.hypot(*(bp[:2] - np.array(cur["return_hand"]))))
                 self.phase, self.t_next = "wait", t + c.wait_between
             elif t - self.t_held_since > 8.0:
                 self.phase, self.t_next = "wait", t + c.wait_between

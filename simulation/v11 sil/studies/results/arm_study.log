@@ -1,0 +1,243 @@
+Mass without the arm (the arm adds 0.76 kg):
+  sim/centre   5.17 kg, CG +6 / 71 mm (x / height)
+  sim/front    5.17 kg, CG +6 / 71 mm (x / height)
+  cad/centre   7.10 kg, CG -0 / 97 mm (x / height)
+  cad/front    7.10 kg, CG -0 / 97 mm (x / height)
+  cad trim: {'centre': [1.932, -0.0175, -0.0158, 0.1664], 'front': [1.932, -0.0175, -0.0158, 0.1664]}
+
+Reach of the tool point (m from the robot's centre along the arm; the bumper is at 0.217):
+  mount   arm         floor   top-down     0.45 m     0.75 m     0.90 m  highest
+  centre  ahead   0.23-0.39  0.23-0.37 -0.30-0.44          -          -     0.70
+  centre  side    0.23-0.35  0.23-0.33 -0.34-0.40          -          -     0.70
+  front   ahead   0.23-0.45  0.23-0.43 -0.24-0.50          -          -     0.70
+  front   side    0.21-0.35  0.21-0.33 -0.34-0.40          -          -     0.70
+  lidar shadow by pose (deg of the scan): {'centre': {'stow': 0.0, 'carry': 0.0, 'level': 0.0, 'floor': 21.4, 'pick': 14.6, 'up': 0.0}, 'front': {'stow': 0.0, 'carry': 0.0, 'level': 0.0, 'floor': 14.4, 'pick': 11.0, 'up': 0.0}}
+
+Static, arm ahead (phi 0: over the support edge 106 mm out) / over a wheel (45: 150 mm). Servo-held payload at stall / rated torque; payload that tips (sim / cad base); push, pull at the tool that tip (sim base):
+  centre floor              s 0.24  holds  1.43 / 0.23  tips at   3.84 /   5.66 kg (wheel:   7.21)  push 156.4 N pull 235.8 N press   37.6 N
+  centre floor              s 0.28  holds  1.17 / 0.18  tips at   3.03 /   4.49 kg (wheel:   5.42)  push 203.1 N pull 310.2 N press   29.8 N
+  centre floor              s 0.32  holds  0.95 / 0.12  tips at   2.40 /   3.57 kg (wheel:   4.14)  push 107.7 N pull 167.6 N press   23.6 N
+  centre floor              s 0.36  holds  0.80 / 0.09  tips at   1.98 /   2.95 kg (wheel:   3.33)  push 108.4 N pull 170.4 N press   19.4 N
+  centre level              s -0.32  holds  0.55 / 0.02  tips at   2.96 /   3.80 kg (wheel:   4.31)  push  20.4 N pull  22.1 N press   29.0 N
+  centre level              s -0.28  holds  0.63 / 0.04  tips at   3.73 /   4.77 kg (wheel:   5.45)  push  20.8 N pull  22.0 N press   36.6 N
+  centre level              s -0.24  holds  0.74 / 0.08  tips at   4.95 /   6.31 kg (wheel:   7.28)  push  20.6 N pull  21.3 N press   48.5 N
+  centre level              s -0.20  holds  0.85 / 0.11  tips at   6.51 /   8.28 kg (wheel:   9.66)  push  20.4 N pull  20.6 N press   63.8 N
+  centre level              s -0.04  holds  1.81 / 0.54  tips at    inf /    inf kg (wheel:    inf)  push  23.5 N pull  19.0 N press    inf N
+  centre level              s 0.16  holds  1.66 / 0.38  tips at   9.00 /  12.94 kg (wheel:  23.94)  push  18.9 N pull  24.7 N press   88.3 N
+  centre level              s 0.20  holds  1.78 / 0.41  tips at   5.73 /   8.31 kg (wheel:  11.90)  push  18.3 N pull  25.1 N press   56.2 N
+  centre level              s 0.24  holds  1.51 / 0.34  tips at   4.07 /   5.93 kg (wheel:   7.58)  push  18.1 N pull  25.5 N press   39.9 N
+  centre level              s 0.28  holds  1.33 / 0.35  tips at   3.20 /   4.63 kg (wheel:   5.56)  push  18.5 N pull  25.1 N press   31.4 N
+  centre level              s 0.32  holds  1.08 / 0.26  tips at   2.56 /   3.72 kg (wheel:   4.31)  push  18.1 N pull  25.3 N press   25.1 N
+  centre level              s 0.36  holds  0.88 / 0.17  tips at   2.09 /   3.06 kg (wheel:   3.47)  push  17.3 N pull  25.4 N press   20.5 N
+  centre level              s 0.40  holds  0.72 / 0.10  tips at   1.72 /   2.56 kg (wheel:   2.84)  push  17.1 N pull  26.3 N press   16.9 N
+  centre level              s 0.44  holds  0.60 / 0.05  tips at   1.48 /   2.21 kg (wheel:   2.43)  push  15.6 N pull  25.4 N press   14.5 N
+  centre coffee table 0.45  s -0.28  holds  0.65 / 0.07  tips at   3.69 /   4.70 kg (wheel:   5.36)  push  12.4 N pull  12.8 N press   36.2 N
+  centre coffee table 0.45  s -0.24  holds  0.79 / 0.12  tips at   5.02 /   6.38 kg (wheel:   7.34)  push  12.9 N pull  12.7 N press   49.3 N
+  centre coffee table 0.45  s -0.20  holds  0.95 / 0.18  tips at   7.48 /   9.46 kg (wheel:  11.09)  push  13.7 N pull  13.0 N press   73.4 N
+  centre coffee table 0.45  s -0.16  holds  1.20 / 0.29  tips at  14.92 /  18.80 kg (wheel:  23.38)  push  13.3 N pull  12.1 N press  146.4 N
+  centre coffee table 0.45  s -0.12  holds  1.43 / 0.39  tips at  59.40 /  74.52 kg (wheel: 148.80)  push  13.5 N pull  11.8 N press  582.7 N
+  centre coffee table 0.45  s 0.00  holds  2.17 / 0.52  tips at    inf /    inf kg (wheel:    inf)  push  12.9 N pull  12.6 N press    inf N
+  centre coffee table 0.45  s 0.04  holds  2.89 / 0.73  tips at    inf /    inf kg (wheel:    inf)  push  11.6 N pull  13.8 N press    inf N
+  centre coffee table 0.45  s 0.08  holds  2.26 / 0.56  tips at    inf /    inf kg (wheel:    inf)  push  11.6 N pull  13.9 N press    inf N
+  centre coffee table 0.45  s 0.12  holds  1.80 / 0.54  tips at 100.60 / 141.11 kg (wheel:    inf)  push  12.0 N pull  13.5 N press  986.9 N
+  centre coffee table 0.45  s 0.16  holds  1.73 / 0.51  tips at  10.65 /  15.07 kg (wheel:  31.14)  push  11.8 N pull  14.0 N press  104.4 N
+  centre coffee table 0.45  s 0.20  holds  1.63 / 0.46  tips at   5.80 /   8.27 kg (wheel:  11.66)  push  11.4 N pull  14.2 N press   56.9 N
+  centre coffee table 0.45  s 0.24  holds  1.46 / 0.40  tips at   3.88 /   5.58 kg (wheel:   6.98)  push  11.2 N pull  14.7 N press   38.0 N
+  centre coffee table 0.45  s 0.28  holds  1.26 / 0.29  tips at   3.10 /   4.51 kg (wheel:   5.41)  push  10.7 N pull  15.0 N press   30.4 N
+  centre coffee table 0.45  s 0.32  holds  1.05 / 0.23  tips at   2.52 /   3.68 kg (wheel:   4.27)  push  10.7 N pull  15.4 N press   24.7 N
+  centre coffee table 0.45  s 0.36  holds  0.88 / 0.17  tips at   2.08 /   3.05 kg (wheel:   3.45)  push  10.3 N pull  15.1 N press   20.4 N
+  centre coffee table 0.45  s 0.40  holds  0.73 / 0.11  tips at   1.75 /   2.58 kg (wheel:   2.87)  push  10.4 N pull  15.9 N press   17.2 N
+  centre coffee table 0.45  s 0.44  holds  0.61 / 0.06  tips at   1.49 /   2.22 kg (wheel:   2.44)  push  10.3 N pull  16.5 N press   14.6 N
+  front  floor              s 0.24  holds  2.44 / 0.53  tips at   3.69 /   5.56 kg (wheel:   5.55)  push 108.5 N pull 180.2 N press   36.2 N
+  front  floor              s 0.28  holds  1.73 / 0.35  tips at   2.78 /   4.20 kg (wheel:   4.18)  push 188.9 N pull 319.0 N press   27.3 N
+  front  floor              s 0.32  holds  1.35 / 0.25  tips at   2.25 /   3.42 kg (wheel:   3.39)  push  96.7 N pull 167.0 N press   22.1 N
+  front  floor              s 0.36  holds  1.06 / 0.19  tips at   1.82 /   2.76 kg (wheel:   2.72)  push 128.0 N pull 222.5 N press   17.8 N
+  front  floor              s 0.40  holds  0.91 / 0.15  tips at   1.60 /   2.43 kg (wheel:   2.39)  push 120.7 N pull 211.8 N press   15.7 N
+  front  floor              s 0.44  holds  0.75 / 0.09  tips at   1.36 /   2.08 kg (wheel:   2.05)  push  98.1 N pull 179.8 N press   13.3 N
+  front  level              s -0.28  holds  0.51 / 0.01  tips at   3.88 /   4.91 kg (wheel:   3.86)  push  21.1 N pull  20.1 N press   38.1 N
+  front  level              s -0.24  holds  0.58 / 0.03  tips at   5.11 /   6.44 kg (wheel:   4.72)  push  21.4 N pull  19.8 N press   50.1 N
+  front  level              s -0.04  holds  0.99 / 0.22  tips at    inf /    inf kg (wheel:    inf)  push  25.1 N pull  17.8 N press    inf N
+  front  level              s 0.00  holds  1.80 / 0.54  tips at    inf /    inf kg (wheel:    inf)  push  17.8 N pull  25.2 N press    inf N
+  front  level              s 0.04  holds  1.78 / 0.53  tips at    inf /    inf kg (wheel:    inf)  push  17.6 N pull  25.9 N press    inf N
+  front  level              s 0.20  holds  1.47 / 0.34  tips at   5.08 /   7.42 kg (wheel:   7.47)  push  17.9 N pull  25.7 N press   49.8 N
+  front  level              s 0.24  holds  1.78 / 0.41  tips at   3.46 /   5.15 kg (wheel:   5.14)  push  17.0 N pull  26.8 N press   34.0 N
+  front  level              s 0.28  holds  1.64 / 0.38  tips at   2.64 /   3.96 kg (wheel:   3.92)  push  15.6 N pull  25.4 N press   25.9 N
+  front  level              s 0.32  holds  1.54 / 0.44  tips at   2.44 /   3.61 kg (wheel:   3.57)  push  17.2 N pull  26.3 N press   23.9 N
+  front  level              s 0.36  holds  1.16 / 0.28  tips at   1.91 /   2.86 kg (wheel:   2.83)  push  16.0 N pull  25.9 N press   18.8 N
+  front  level              s 0.40  holds  0.95 / 0.19  tips at   1.64 /   2.47 kg (wheel:   2.44)  push  15.5 N pull  26.2 N press   16.0 N
+  front  level              s 0.44  holds  0.80 / 0.13  tips at   1.41 /   2.14 kg (wheel:   2.10)  push  15.1 N pull  26.4 N press   13.8 N
+  front  level              s 0.48  holds  0.66 / 0.07  tips at   1.21 /   1.86 kg (wheel:   1.83)  push  14.4 N pull  26.7 N press   11.9 N
+  front  level              s 0.52  holds  0.55 / 0.03  tips at   1.06 /   1.65 kg (wheel:   1.62)  push  14.1 N pull  27.3 N press   10.4 N
+  front  coffee table 0.45  s -0.24  holds  0.60 / 0.04  tips at   5.25 /   6.61 kg (wheel:   4.81)  push  13.6 N pull  12.5 N press   51.5 N
+  front  coffee table 0.45  s -0.20  holds  0.71 / 0.09  tips at   7.78 /   9.77 kg (wheel:   6.23)  push  13.5 N pull  11.9 N press   76.3 N
+  front  coffee table 0.45  s -0.16  holds  0.87 / 0.16  tips at  14.75 /  18.42 kg (wheel:   8.82)  push  13.9 N pull  11.6 N press  144.7 N
+  front  coffee table 0.45  s -0.12  holds  1.07 / 0.24  tips at 120.97 / 150.52 kg (wheel:  14.98)  push  14.3 N pull  11.4 N press 1186.7 N
+  front  coffee table 0.45  s -0.08  holds  1.36 / 0.36  tips at    inf /    inf kg (wheel:  48.70)  push  14.9 N pull  11.4 N press    inf N
+  front  coffee table 0.45  s -0.04  holds  1.41 / 0.16  tips at    inf /    inf kg (wheel:    inf)  push  13.4 N pull  11.9 N press    inf N
+  front  coffee table 0.45  s -0.00  holds  1.88 / 0.25  tips at    inf /    inf kg (wheel:    inf)  push  11.8 N pull  13.5 N press    inf N
+  front  coffee table 0.45  s 0.04  holds  2.34 / 0.38  tips at    inf /    inf kg (wheel:    inf)  push  11.7 N pull  13.6 N press    inf N
+  front  coffee table 0.45  s 0.08  holds  2.04 / 0.62  tips at    inf /    inf kg (wheel:    inf)  push  11.6 N pull  13.8 N press    inf N
+  front  coffee table 0.45  s 0.12  holds  2.62 / 0.66  tips at  54.29 /  78.79 kg (wheel: 110.98)  push  10.7 N pull  14.7 N press  532.6 N
+  front  coffee table 0.45  s 0.16  holds  1.96 / 0.47  tips at  11.85 /  17.24 kg (wheel:  18.06)  push  10.6 N pull  14.7 N press  116.3 N
+  front  coffee table 0.45  s 0.20  holds  1.79 / 0.53  tips at   5.75 /   8.30 kg (wheel:   8.38)  push  11.2 N pull  15.1 N press   56.4 N
+  front  coffee table 0.45  s 0.24  holds  1.58 / 0.44  tips at   3.70 /   5.40 kg (wheel:   5.39)  push  11.0 N pull  15.7 N press   36.3 N
+  front  coffee table 0.45  s 0.28  holds  1.49 / 0.41  tips at   3.01 /   4.41 kg (wheel:   4.39)  push  10.4 N pull  15.3 N press   29.5 N
+  front  coffee table 0.45  s 0.32  holds  1.45 / 0.40  tips at   2.31 /   3.43 kg (wheel:   3.40)  push   9.9 N pull  15.4 N press   22.7 N
+  front  coffee table 0.45  s 0.36  holds  1.18 / 0.29  tips at   1.95 /   2.92 kg (wheel:   2.88)  push  10.1 N pull  16.3 N press   19.1 N
+  front  coffee table 0.45  s 0.40  holds  0.96 / 0.20  tips at   1.64 /   2.47 kg (wheel:   2.44)  push   9.6 N pull  16.1 N press   16.1 N
+  front  coffee table 0.45  s 0.44  holds  0.81 / 0.15  tips at   1.42 /   2.15 kg (wheel:   2.12)  push   9.6 N pull  16.5 N press   13.9 N
+  front  coffee table 0.45  s 0.48  holds  0.67 / 0.08  tips at   1.22 /   1.87 kg (wheel:   1.84)  push   9.5 N pull  17.3 N press   12.0 N
+
+Stops (the firmware's ramp from 1 and 2 m/s, 4 directions). At rest: tilt, the tilt that would put the CG over an edge, the lightest wheel. Worst run: peak tilt, a loaded wheel off the floor (ms), servo use of stall, tool sag (mm); runs tipped:
+  catch centre catch module 0.00 kg | rest  0.1 deg, tips at 38.4, lightest  14.9 N | peak   2.1 deg (v 1 th 45 phi 0), lift  167 /  236 ms at 1 / 2 m/s, sat 0.00, sag  0.0 | 0/6
+  sim   centre stow         0.00 kg | rest  0.1 deg, tips at 45.0, lightest  14.2 N | peak   1.6 deg (v 2 th 90 phi 0), lift   58 /  112 ms at 1 / 2 m/s, sat 0.16, sag  0.1 | 0/8
+  sim   centre stow         0.25 kg | rest  0.1 deg, tips at 44.5, lightest  14.9 N | peak   1.7 deg (v 2 th 90 phi 0), lift   56 /  102 ms at 1 / 2 m/s, sat 0.25, sag  0.1 | 0/8
+  sim   centre stow         0.50 kg | rest  0.0 deg, tips at 44.0, lightest  15.6 N | peak   1.8 deg (v 2 th 90 phi 0), lift   55 /  105 ms at 1 / 2 m/s, sat 0.39, sag  0.1 | 0/8
+  sim   centre carry        0.00 kg | rest  0.1 deg, tips at 44.0, lightest  14.2 N | peak   1.5 deg (v 2 th 90 phi 0), lift   62 /  129 ms at 1 / 2 m/s, sat 0.24, sag  0.1 | 0/8
+  sim   centre carry        0.25 kg | rest  0.2 deg, tips at 39.9, lightest  14.1 N | peak   1.9 deg (v 2 th 45 phi 0), lift  150 /  230 ms at 1 / 2 m/s, sat 0.38, sag  0.1 | 0/8
+  sim   centre carry        0.50 kg | rest  0.4 deg, tips at 37.1, lightest  13.0 N | peak   4.7 deg (v 2 th 45 phi 45), lift  218 /  418 ms at 1 / 2 m/s, sat 0.59, sag  0.1 | 0/8
+  sim   centre level        0.00 kg | rest  0.9 deg, tips at 41.0, lightest   8.5 N | peak   4.8 deg (v 2 th 45 phi 45), lift  281 /  485 ms at 1 / 2 m/s, sat 0.50, sag  0.6 | 0/8
+  sim   centre level        0.25 kg | rest  1.2 deg, tips at 34.1, lightest   3.2 N | peak   8.1 deg (v 1 th 45 phi 45), lift  907 /  990 ms at 1 / 2 m/s, sat 0.92, sag  1.0 | 0/8
+  sim   centre level        0.50 kg | rest  3.9 deg, tips at 28.7, lightest   0.0 N | peak   9.2 deg (v 1 th 45 phi 45), lift  488 /  813 ms at 1 / 2 m/s, sat 1.00, sag 24.5 | 0/8
+  sim   centre floor        0.00 kg | rest  0.8 deg, tips at 44.5, lightest   9.5 N | peak   1.7 deg (v 1 th 45 phi 45), lift  190 /  282 ms at 1 / 2 m/s, sat 0.42, sag  0.3 | 0/8
+  sim   centre floor        0.25 kg | rest  1.1 deg, tips at 41.1, lightest   5.3 N | peak   5.1 deg (v 1 th 45 phi 45), lift  474 /  635 ms at 1 / 2 m/s, sat 1.00, sag  1.6 | 0/8
+  sim   centre floor        0.50 kg | rest  1.4 deg, tips at 37.6, lightest   0.3 N | peak   5.0 deg (v 2 th 45 phi 45), lift  247 /  402 ms at 1 / 2 m/s, sat 1.00, sag  5.7 | 0/8
+  sim   centre up           0.00 kg | rest  0.1 deg, tips at 40.5, lightest  14.0 N | peak   2.0 deg (v 1 th 45 phi 45), lift  186 /  268 ms at 1 / 2 m/s, sat 0.30, sag  0.5 | 0/8
+  sim   centre up           0.25 kg | rest  0.2 deg, tips at 34.6, lightest  14.1 N | peak   5.8 deg (v 2 th 45 phi 45), lift  415 /  592 ms at 1 / 2 m/s, sat 0.60, sag  1.1 | 0/8
+  sim   centre up           0.50 kg | rest  0.2 deg, tips at 30.2, lightest  14.1 N | peak   8.3 deg (v 2 th 45 phi 45), lift  615 /  855 ms at 1 / 2 m/s, sat 0.85, sag  1.6 | 0/8
+  sim   front  stow         0.00 kg | rest  0.3 deg, tips at 42.6, lightest  12.8 N | peak   1.5 deg (v 1 th 0 phi 0), lift   76 /  186 ms at 1 / 2 m/s, sat 0.20, sag  0.1 | 0/8
+  sim   front  stow         0.25 kg | rest  0.2 deg, tips at 41.5, lightest  13.5 N | peak   1.6 deg (v 1 th 0 phi 0), lift   80 /  160 ms at 1 / 2 m/s, sat 0.47, sag  0.3 | 0/8
+  sim   front  stow         0.50 kg | rest  0.2 deg, tips at 40.5, lightest  14.2 N | peak   1.8 deg (v 2 th 90 phi 0), lift  102 /  166 ms at 1 / 2 m/s, sat 0.45, sag  0.2 | 0/8
+  sim   front  carry        0.00 kg | rest  0.2 deg, tips at 41.7, lightest  13.1 N | peak   1.6 deg (v 2 th 45 phi 45), lift   90 /  180 ms at 1 / 2 m/s, sat 0.22, sag  0.1 | 0/8
+  sim   front  carry        0.25 kg | rest  0.5 deg, tips at 37.2, lightest  11.8 N | peak   3.0 deg (v 1 th 45 phi 45), lift  204 /  388 ms at 1 / 2 m/s, sat 0.44, sag  0.1 | 0/8
+  sim   front  carry        0.50 kg | rest  0.8 deg, tips at 33.3, lightest  10.5 N | peak   5.8 deg (v 1 th 45 phi 45), lift  290 /  482 ms at 1 / 2 m/s, sat 0.61, sag  0.2 | 0/8
+  sim   front  level        0.00 kg | rest  0.9 deg, tips at 38.3, lightest   7.4 N | peak   5.5 deg (v 1 th 45 phi 45), lift  374 /  498 ms at 1 / 2 m/s, sat 0.49, sag  0.6 | 0/8
+  sim   front  level        0.25 kg | rest  1.0 deg, tips at 30.3, lightest   5.0 N | peak   8.7 deg (v 1 th 45 phi 45), lift 1401 / 1212 ms at 1 / 2 m/s, sat 1.00, sag  0.9 | 0/8
+  sim   front  level        0.50 kg | rest  1.7 deg, tips at 16.4, lightest   4.5 N | peak  11.4 deg (v 2 th 0 phi 0), lift  754 / 1100 ms at 1 / 2 m/s, sat 1.00, sag 40.8 | 0/8
+  sim   front  floor        0.00 kg | rest  0.9 deg, tips at 41.8, lightest   8.3 N | peak   3.0 deg (v 1 th 45 phi 45), lift  274 /  378 ms at 1 / 2 m/s, sat 0.43, sag  0.3 | 0/8
+  sim   front  floor        0.25 kg | rest  1.2 deg, tips at 37.2, lightest   3.8 N | peak   4.5 deg (v 2 th 45 phi 45), lift  635 /  736 ms at 1 / 2 m/s, sat 1.00, sag  2.6 | 0/8
+  sim   front  floor        0.50 kg | rest  1.4 deg, tips at 25.8, lightest   6.0 N | peak   5.6 deg (v 1 th 45 phi 0), lift  396 /  569 ms at 1 / 2 m/s, sat 1.00, sag  0.9 | 0/8
+  sim   front  up           0.00 kg | rest  0.3 deg, tips at 38.1, lightest  12.6 N | peak   2.4 deg (v 2 th 45 phi 45), lift  216 /  302 ms at 1 / 2 m/s, sat 0.36, sag  0.6 | 0/8
+  sim   front  up           0.25 kg | rest  0.5 deg, tips at 31.7, lightest  11.9 N | peak   6.7 deg (v 1 th 45 phi 45), lift  494 /  718 ms at 1 / 2 m/s, sat 0.76, sag  1.5 | 0/8
+  sim   front  up           0.50 kg | rest  0.6 deg, tips at 26.9, lightest  11.4 N | peak   8.9 deg (v 1 th 45 phi 45), lift  743 / 1156 ms at 1 / 2 m/s, sat 0.97, sag  1.9 | 0/8
+  cad   centre stow         0.00 kg | rest  0.0 deg, tips at 42.1, lightest  19.2 N | peak   2.3 deg (v 2 th 90 phi 0), lift   40 /   76 ms at 1 / 2 m/s, sat 0.12, sag  0.0 | 0/8
+  cad   centre stow         0.25 kg | rest  0.0 deg, tips at 41.9, lightest  19.9 N | peak   2.4 deg (v 2 th 90 phi 0), lift   42 /   64 ms at 1 / 2 m/s, sat 0.22, sag  0.1 | 0/8
+  cad   centre stow         0.50 kg | rest  0.0 deg, tips at 41.6, lightest  20.5 N | peak   2.5 deg (v 2 th 90 phi 0), lift   52 /   70 ms at 1 / 2 m/s, sat 0.38, sag  0.1 | 0/8
+  cad   centre carry        0.00 kg | rest  0.0 deg, tips at 41.4, lightest  19.2 N | peak   2.3 deg (v 2 th 90 phi 0), lift   54 /   84 ms at 1 / 2 m/s, sat 0.23, sag  0.1 | 0/8
+  cad   centre carry        0.25 kg | rest  0.0 deg, tips at 39.0, lightest  19.7 N | peak   3.3 deg (v 2 th 45 phi 45), lift  156 /  215 ms at 1 / 2 m/s, sat 0.41, sag  0.1 | 0/8
+  cad   centre carry        0.50 kg | rest  0.1 deg, tips at 36.8, lightest  20.1 N | peak   5.2 deg (v 1 th 45 phi 45), lift  211 /  350 ms at 1 / 2 m/s, sat 0.63, sag  0.1 | 0/8
+  cad   centre level        0.00 kg | rest  0.4 deg, tips at 39.3, lightest  16.8 N | peak   4.9 deg (v 1 th 45 phi 45), lift  181 /  336 ms at 1 / 2 m/s, sat 0.51, sag  0.5 | 0/8
+  cad   centre level        0.25 kg | rest  1.5 deg, tips at 34.8, lightest  10.3 N | peak   7.8 deg (v 1 th 45 phi 45), lift  406 /  569 ms at 1 / 2 m/s, sat 1.00, sag  1.2 | 0/8
+  cad   centre level        0.50 kg | rest  2.0 deg, tips at 31.2, lightest   4.6 N | peak   9.6 deg (v 1 th 45 phi 45), lift  620 /  780 ms at 1 / 2 m/s, sat 1.00, sag 26.8 | 0/8
+  cad   centre floor        0.00 kg | rest  0.2 deg, tips at 41.5, lightest  17.8 N | peak   2.8 deg (v 1 th 45 phi 45), lift  150 /  200 ms at 1 / 2 m/s, sat 0.41, sag  0.2 | 0/8
+  cad   centre floor        0.25 kg | rest  1.1 deg, tips at 39.4, lightest  13.2 N | peak   4.6 deg (v 1 th 45 phi 45), lift  218 /  433 ms at 1 / 2 m/s, sat 0.83, sag  1.3 | 0/8
+  cad   centre floor        0.50 kg | rest  1.8 deg, tips at 37.1, lightest   8.7 N | peak   4.6 deg (v 1 th 45 phi 45), lift  380 /  668 ms at 1 / 2 m/s, sat 1.00, sag  2.5 | 0/8
+  cad   centre up           0.00 kg | rest  0.0 deg, tips at 39.1, lightest  19.2 N | peak   3.1 deg (v 1 th 45 phi 45), lift  158 /  203 ms at 1 / 2 m/s, sat 0.37, sag  0.6 | 0/8
+  cad   centre up           0.25 kg | rest  0.0 deg, tips at 35.0, lightest  19.8 N | peak   6.2 deg (v 1 th 45 phi 45), lift  402 /  406 ms at 1 / 2 m/s, sat 0.76, sag  1.4 | 0/8
+  cad   centre up           0.50 kg | rest  0.0 deg, tips at 31.7, lightest  20.3 N | peak   8.3 deg (v 2 th 45 phi 45), lift  495 /  634 ms at 1 / 2 m/s, sat 0.98, sag  1.9 | 0/8
+  cad   front  stow         0.00 kg | rest  0.0 deg, tips at 40.4, lightest  19.1 N | peak   2.2 deg (v 2 th 90 phi 0), lift   66 /  102 ms at 1 / 2 m/s, sat 0.13, sag  0.1 | 0/8
+  cad   front  stow         0.25 kg | rest  0.0 deg, tips at 39.8, lightest  19.8 N | peak   2.3 deg (v 2 th 90 phi 0), lift   69 /  115 ms at 1 / 2 m/s, sat 0.28, sag  0.1 | 0/8
+  cad   front  stow         0.50 kg | rest  0.0 deg, tips at 39.2, lightest  20.4 N | peak   2.7 deg (v 1 th 45 phi 0), lift  100 /  138 ms at 1 / 2 m/s, sat 0.55, sag  0.3 | 0/8
+  cad   front  carry        0.00 kg | rest  0.0 deg, tips at 39.8, lightest  19.2 N | peak   2.4 deg (v 2 th 90 phi 0), lift   80 /  161 ms at 1 / 2 m/s, sat 0.26, sag  0.1 | 0/8
+  cad   front  carry        0.25 kg | rest  0.1 deg, tips at 36.9, lightest  19.4 N | peak   4.4 deg (v 1 th 45 phi 45), lift  182 /  276 ms at 1 / 2 m/s, sat 0.45, sag  0.1 | 0/8
+  cad   front  carry        0.50 kg | rest  0.4 deg, tips at 34.2, lightest  18.1 N | peak   6.6 deg (v 1 th 45 phi 45), lift  326 /  419 ms at 1 / 2 m/s, sat 0.70, sag  0.2 | 0/8
+  cad   front  level        0.00 kg | rest  0.6 deg, tips at 37.6, lightest  15.6 N | peak   5.4 deg (v 1 th 45 phi 45), lift  183 /  396 ms at 1 / 2 m/s, sat 0.51, sag  0.5 | 0/8
+  cad   front  level        0.25 kg | rest  1.7 deg, tips at 32.4, lightest   8.9 N | peak   8.6 deg (v 1 th 45 phi 45), lift  494 /  652 ms at 1 / 2 m/s, sat 1.00, sag  1.4 | 0/8
+  cad   front  level        0.50 kg | rest  2.0 deg, tips at 28.1, lightest   3.0 N | peak   9.9 deg (v 1 th 45 phi 45), lift  430 /  714 ms at 1 / 2 m/s, sat 1.00, sag 23.5 | 0/8
+  cad   front  floor        0.00 kg | rest  0.4 deg, tips at 39.8, lightest  16.4 N | peak   3.9 deg (v 1 th 45 phi 45), lift  180 /  285 ms at 1 / 2 m/s, sat 0.45, sag  0.3 | 0/8
+  cad   front  floor        0.25 kg | rest  1.3 deg, tips at 36.9, lightest  11.5 N | peak   4.2 deg (v 1 th 45 phi 45), lift  272 /  464 ms at 1 / 2 m/s, sat 0.97, sag  1.5 | 0/8
+  cad   front  floor        0.50 kg | rest  1.3 deg, tips at 30.0, lightest  13.7 N | peak   5.4 deg (v 2 th 45 phi 0), lift  458 /  646 ms at 1 / 2 m/s, sat 1.00, sag  1.0 | 0/8
+  cad   front  up           0.00 kg | rest  0.0 deg, tips at 37.5, lightest  19.1 N | peak   3.7 deg (v 1 th 45 phi 45), lift  173 /  270 ms at 1 / 2 m/s, sat 0.35, sag  0.6 | 0/8
+  cad   front  up           0.25 kg | rest  0.1 deg, tips at 33.0, lightest  19.5 N | peak   6.9 deg (v 1 th 45 phi 45), lift  428 /  536 ms at 1 / 2 m/s, sat 0.82, sag  1.5 | 0/8
+  cad   front  up           0.50 kg | rest  0.2 deg, tips at 29.3, lightest  19.3 N | peak   9.2 deg (v 2 th 45 phi 45), lift  512 /  760 ms at 1 / 2 m/s, sat 0.97, sag  1.9 | 0/8
+  parked swings (pan 90 deg each way at full speed with the arm level; floor reach to straight up):
+    sim/centre pan  0.00 kg: rest 1.0, peak 1.1 deg (tips at 40.2), lift 2 ms, tipped False
+    sim/centre lift 0.00 kg: rest 0.5, peak 0.9 deg (tips at 42.8), lift 0 ms, tipped False
+    sim/centre pan  0.25 kg: rest 1.6, peak 1.8 deg (tips at 31.8), lift 306 ms, tipped False
+    sim/centre lift 0.25 kg: rest 0.9, peak 1.4 deg (tips at 37.7), lift 4 ms, tipped False
+    sim/centre pan  0.50 kg: rest 3.5, peak 6.6 deg (tips at 24.9), lift 1164 ms, tipped False
+    sim/centre lift 0.50 kg: rest 1.2, peak 1.7 deg (tips at 32.0), lift 1 ms, tipped False
+    sim/front  pan  0.00 kg: rest 1.0, peak 1.1 deg (tips at 40.2), lift 2 ms, tipped False
+    sim/front  lift 0.00 kg: rest 0.7, peak 1.2 deg (tips at 40.0), lift 4 ms, tipped False
+    sim/front  pan  0.25 kg: rest 1.5, peak 3.5 deg (tips at 31.8), lift 5 ms, tipped False
+    sim/front  lift 0.25 kg: rest 1.1, peak 1.6 deg (tips at 33.3), lift 4 ms, tipped False
+    sim/front  pan  0.50 kg: rest 4.0, peak 7.6 deg (tips at 24.9), lift 1316 ms, tipped False
+    sim/front  lift 0.50 kg: rest 1.4, peak 1.9 deg (tips at 25.8), lift 6 ms, tipped False
+    cad/centre pan  0.00 kg: rest 0.6, peak 0.8 deg (tips at 38.7), lift 0 ms, tipped False
+    cad/centre lift 0.00 kg: rest 0.1, peak 0.7 deg (tips at 40.4), lift 0 ms, tipped False
+    cad/centre pan  0.25 kg: rest 1.8, peak 2.1 deg (tips at 33.2), lift 6 ms, tipped False
+    cad/centre lift 0.25 kg: rest 0.5, peak 1.2 deg (tips at 37.1), lift 0 ms, tipped False
+    cad/centre pan  0.50 kg: rest 2.5, peak 2.7 deg (tips at 28.6), lift 26 ms, tipped False
+    cad/centre lift 0.50 kg: rest 0.9, peak 1.6 deg (tips at 33.6), lift 0 ms, tipped False
+    cad/front  pan  0.00 kg: rest 0.6, peak 0.9 deg (tips at 38.7), lift 0 ms, tipped False
+    cad/front  lift 0.00 kg: rest 0.3, peak 0.8 deg (tips at 38.6), lift 0 ms, tipped False
+    cad/front  pan  0.25 kg: rest 1.9, peak 2.1 deg (tips at 33.2), lift 8 ms, tipped False
+    cad/front  lift 0.25 kg: rest 0.8, peak 1.5 deg (tips at 34.4), lift 0 ms, tipped False
+    cad/front  pan  0.50 kg: rest 2.5, peak 2.6 deg (tips at 28.6), lift 557 ms, tipped False
+    cad/front  lift 0.50 kg: rest 1.3, peak 2.1 deg (tips at 30.0), lift 0 ms, tipped False
+
+Floor edges at 1 m/s (sim base):
+  centre stow  0.00 kg rug 12 mm square  th  0: rest 0.1, peak   4.6 deg (tips at 45.0), lift   14 ms, tipped False
+  centre stow  0.00 kg rug 12 mm square  th 45: rest 0.1, peak   4.4 deg (tips at 45.0), lift   12 ms, tipped False
+  centre stow  0.00 kg threshold 18 mm   th  0: rest 0.1, peak   6.9 deg (tips at 45.0), lift   30 ms, tipped False
+  centre stow  0.00 kg threshold 18 mm   th 45: rest 0.1, peak   5.4 deg (tips at 45.0), lift   22 ms, tipped False
+  centre stow  0.25 kg rug 12 mm square  th  0: rest 0.1, peak   4.1 deg (tips at 44.5), lift   14 ms, tipped False
+  centre stow  0.25 kg rug 12 mm square  th 45: rest 0.1, peak   4.6 deg (tips at 44.5), lift    4 ms, tipped False
+  centre stow  0.25 kg threshold 18 mm   th  0: rest 0.1, peak   6.8 deg (tips at 44.5), lift   60 ms, tipped False
+  centre stow  0.25 kg threshold 18 mm   th 45: rest 0.1, peak   5.5 deg (tips at 44.5), lift   21 ms, tipped False
+  centre level 0.00 kg rug 12 mm square  th  0: rest 0.6, peak   4.1 deg (tips at 39.0), lift   36 ms, tipped False
+  centre level 0.00 kg rug 12 mm square  th 45: rest 0.6, peak   4.0 deg (tips at 39.0), lift   40 ms, tipped False
+  centre level 0.00 kg threshold 18 mm   th  0: rest 0.6, peak   7.0 deg (tips at 39.0), lift   89 ms, tipped False
+  centre level 0.00 kg threshold 18 mm   th 45: rest 0.6, peak   5.7 deg (tips at 39.0), lift   93 ms, tipped False
+  centre level 0.25 kg rug 12 mm square  th  0: rest 1.0, peak   3.3 deg (tips at 29.9), lift  176 ms, tipped False
+  centre level 0.25 kg rug 12 mm square  th 45: rest 1.0, peak   3.2 deg (tips at 29.9), lift  135 ms, tipped False
+  centre level 0.25 kg threshold 18 mm   th  0: rest 1.0, peak  11.6 deg (tips at 29.9), lift  244 ms, tipped False
+  centre level 0.25 kg threshold 18 mm   th 45: rest 1.0, peak   6.4 deg (tips at 29.9), lift  186 ms, tipped False
+  front  stow  0.00 kg rug 12 mm square  th  0: rest 0.3, peak   3.9 deg (tips at 42.6), lift   36 ms, tipped False
+  front  stow  0.00 kg rug 12 mm square  th 45: rest 0.3, peak   4.2 deg (tips at 42.6), lift   16 ms, tipped False
+  front  stow  0.00 kg threshold 18 mm   th  0: rest 0.3, peak   6.6 deg (tips at 42.6), lift   57 ms, tipped False
+  front  stow  0.00 kg threshold 18 mm   th 45: rest 0.3, peak   5.3 deg (tips at 42.6), lift   24 ms, tipped False
+  front  stow  0.25 kg rug 12 mm square  th  0: rest 0.2, peak   4.0 deg (tips at 41.5), lift   22 ms, tipped False
+  front  stow  0.25 kg rug 12 mm square  th 45: rest 0.2, peak   4.1 deg (tips at 41.5), lift   10 ms, tipped False
+  front  stow  0.25 kg threshold 18 mm   th  0: rest 0.2, peak   6.3 deg (tips at 41.5), lift   60 ms, tipped False
+  front  stow  0.25 kg threshold 18 mm   th 45: rest 0.2, peak   5.3 deg (tips at 41.5), lift   31 ms, tipped False
+  front  level 0.00 kg rug 12 mm square  th  0: rest 0.8, peak   4.0 deg (tips at 36.2), lift  106 ms, tipped False
+  front  level 0.00 kg rug 12 mm square  th 45: rest 0.8, peak   3.8 deg (tips at 36.2), lift   34 ms, tipped False
+  front  level 0.00 kg threshold 18 mm   th  0: rest 0.8, peak   7.6 deg (tips at 36.2), lift  158 ms, tipped False
+  front  level 0.00 kg threshold 18 mm   th 45: rest 0.8, peak   5.8 deg (tips at 36.2), lift  126 ms, tipped False
+  front  level 0.25 kg rug 12 mm square  th  0: rest 1.2, peak   3.7 deg (tips at 25.7), lift  273 ms, tipped False
+  front  level 0.25 kg rug 12 mm square  th 45: rest 1.2, peak   3.1 deg (tips at 25.7), lift  342 ms, tipped False
+  front  level 0.25 kg threshold 18 mm   th  0: rest 1.2, peak  13.5 deg (tips at 25.7), lift  411 ms, tipped False
+  front  level 0.25 kg threshold 18 mm   th 45: rest 1.2, peak   8.5 deg (tips at 25.7), lift  432 ms, tipped False
+
+The worst stops through the real firmware (SilRobot) vs the Python controller:
+  cad/front up 0.5 kg v 2.0 th 45: firmware tilt 8.9 lift 475 ms tipped False  |  python tilt 9.2 lift 518 ms tipped False
+  cad/front up 0.5 kg v 2.0 th 45: firmware tilt 8.9 lift 434 ms tipped False  |  python tilt 9.2 lift 522 ms tipped False
+  cad/centre level 0.5 kg v 2.0 th 45: firmware tilt 9.0 lift 776 ms tipped False  |  python tilt 9.2 lift 780 ms tipped False
+  sim/front level 0.5 kg v 2.0 th 0: firmware tilt 12.2 lift 851 ms tipped False  |  python tilt 11.4 lift 854 ms tipped False
+
+The worst stops the servos can hold (<= 0.25 kg), slower or ballasted:
+  sim/centre level 0.25 kg v 1.0 th 45 phi 45: as is: peak   8.1 deg, lift  907 ms
+      accel x0.75 : rest 1.2, peak   7.2 deg (tips at 34.1), lift  920 ms, tipped False
+      accel x0.5  : rest 1.2, peak   5.3 deg (tips at 34.1), lift  990 ms, tipped False
+      accel x0.35 : rest 1.2, peak   4.0 deg (tips at 34.1), lift 1190 ms, tipped False
+      ballast 1 kg: rest 1.5, peak   7.2 deg (tips at 38.7), lift  585 ms, tipped False
+      ballast 2 kg: rest 1.7, peak   5.4 deg (tips at 42.5), lift  366 ms, tipped False
+  cad/front up 0.25 kg v 1.0 th 45 phi 45: as is: peak   6.9 deg, lift  185 ms
+      accel x0.75 : rest 0.1, peak   3.7 deg (tips at 33.0), lift  270 ms, tipped False
+      accel x0.5  : rest 0.1, peak   2.0 deg (tips at 33.0), lift   42 ms, tipped False
+      accel x0.35 : rest 0.1, peak   1.6 deg (tips at 33.0), lift    0 ms, tipped False
+      ballast 1 kg: rest 0.1, peak   6.0 deg (tips at 35.7), lift  172 ms, tipped False
+      ballast 2 kg: rest 0.1, peak   5.2 deg (tips at 38.2), lift  148 ms, tipped False
+  cad/front level 0.25 kg v 1.0 th 45 phi 45: as is: peak   8.6 deg, lift  494 ms
+      accel x0.75 : rest 1.7, peak   6.7 deg (tips at 32.4), lift  566 ms, tipped False
+      accel x0.5  : rest 1.7, peak   2.5 deg (tips at 32.4), lift  517 ms, tipped False
+      accel x0.35 : rest 1.7, peak   2.1 deg (tips at 32.4), lift  338 ms, tipped False
+      ballast 1 kg: rest 1.7, peak   7.3 deg (tips at 35.7), lift  341 ms, tipped False
+      ballast 2 kg: rest 1.6, peak   6.3 deg (tips at 38.6), lift  206 ms, tipped False
+  sim/front level 0.25 kg v 1.0 th 45 phi 45: as is: peak   8.7 deg, lift 1401 ms
+      accel x0.75 : rest 1.0, peak   8.0 deg (tips at 30.3), lift 1500 ms, tipped False
+      accel x0.5  : rest 1.0, peak   6.2 deg (tips at 30.3), lift 2354 ms, tipped False
+      accel x0.35 : rest 1.0, peak   5.0 deg (tips at 30.3), lift 1616 ms, tipped False
+      ballast 1 kg: rest 1.5, peak   7.9 deg (tips at 35.4), lift  735 ms, tipped False
+      ballast 2 kg: rest 1.8, peak   6.3 deg (tips at 39.7), lift  496 ms, tipped False

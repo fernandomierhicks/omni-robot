@@ -19,9 +19,20 @@ const ROBOT_R = 0.217;              // m: the bumper ring (cad/v7)
  *   onGoal?: (p: Pose) => void,
  *   onClear?: () => void,
  *   places?: Record<string, number[]>,
+ *   route?: number[][] | null,
+ *   marks?: {x: number, y: number, color?: string, label?: string}[],
+ *   pendingColor?: string,
  *   hint?: string,
  *   empty?: string,
  *   catchView?: boolean,
+ *   zones?: Record<string, number[][]>,
+ *   edges?: Record<string, {points: number[][], speed: number, height_mm: number, kind: string}>,
+ *   draft?: number[][] | null,
+ *   draftClosed?: boolean,
+ *   pointMode?: boolean,
+ *   onPoint?: (p: {x: number, y: number}) => void,
+ *   trail?: number[][] | null,
+ *   ghost?: Pose | null,
  *   children?: any,
  * }} p
  */
@@ -42,7 +53,7 @@ export function MapView(p) {
     const cv = /** @type {HTMLCanvasElement} */ (canvas.current);
     const css = getComputedStyle(document.documentElement);
     for (const k of ["map-bg", "map-unknown", "map-free", "map-wall", "map-grid", "map-scan", "map-robot", "map-plan",
-      "map-goal", "map-pending", "map-place", "map-ball", "text", "dim", "blue", "surface"]) {
+      "map-goal", "map-pending", "map-place", "map-ball", "text", "dim", "blue", "green", "red", "orange", "surface"]) {
       v.colors[k] = css.getPropertyValue(`--${k}`).trim();
     }
     const ro = new ResizeObserver(() => {
@@ -96,10 +107,10 @@ export function MapView(p) {
     if (goal) {
       const w = toWorld(sx, sy);
       v.drag = { kind: "goal", x: w.x, y: w.y, sx, sy, yaw: null };
-    } else if (e.button === 2 && props.current.goalMode) {
+    } else if (e.button === 2 && (props.current.goalMode || props.current.pointMode)) {
       v.drag = { kind: "pan", sx, sy, moved: false, clear: true };
     } else {
-      v.drag = { kind: "pan", sx, sy, moved: false };
+      v.drag = { kind: "pan", sx, sy, moved: false, point: !!props.current.pointMode && e.button === 0 };
     }
   };
   /** @param {any} e */
@@ -144,6 +155,9 @@ export function MapView(p) {
       props.current.onGoal?.({ x: d.x, y: d.y, yaw });
     } else if (d && d.kind === "pan" && d.clear && !d.moved) {
       props.current.onClear?.();
+    } else if (d && d.kind === "pan" && d.point && !d.moved) {        // point mode: a click adds a point
+      const { sx, sy } = local(e);
+      props.current.onPoint?.(toWorld(sx, sy));
     }
     v.drag = v.pointers.size >= 2 ? { kind: "pinch", ...pinchState(v) } : null;
     v.dirty = true;
@@ -267,7 +281,7 @@ function draw(cv, v, p) {
   }
 
   const plan = store.plan;
-  if (plan && plan.frame === frame && plan.xy.length >= 4 && st?.mission === "GOTO") {
+  if (plan && plan.frame === frame && plan.xy.length >= 4 && ["GOTO", "EXPLORE", "PATROL"].includes(st?.mission)) {
     ctx.strokeStyle = c["map-plan"]; ctx.lineWidth = 2.5; ctx.setLineDash([]);
     ctx.beginPath();
     for (let k = 0; k < plan.xy.length; k += 2) { const [sx, sy] = S(plan.xy[k], plan.xy[k + 1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }
@@ -281,6 +295,46 @@ function draw(cv, v, p) {
     for (let k = 0; k < scan.xy.length; k += 2) { const [sx, sy] = S(scan.xy[k], scan.xy[k + 1]); ctx.fillRect(sx - r / 2, sy - r / 2, r, r); }
   }
 
+  // the Map edit tab's no-go zones (red) and floor edges (orange: a slow band either side)
+  if (frame === "map") {
+    ctx.font = "11px Segoe UI, system-ui, sans-serif";
+    for (const [name, poly] of Object.entries(p.zones || {})) {
+      ctx.beginPath();
+      poly.forEach((q, k) => { const [sx, sy] = S(q[0], q[1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); });
+      ctx.closePath();
+      ctx.fillStyle = c["red"]; ctx.globalAlpha = 0.22; ctx.fill(); ctx.globalAlpha = 1;
+      ctx.strokeStyle = c["red"]; ctx.lineWidth = 2; ctx.stroke();
+      const [lx, ly] = S(poly[0][0], poly[0][1]);
+      ctx.fillStyle = c["red"]; ctx.fillText(`no-go: ${name}`, lx + 4, ly - 4);
+    }
+    for (const [name, e] of Object.entries(p.edges || {})) {
+      ctx.strokeStyle = c["orange"]; ctx.lineWidth = Math.max(4, 0.7 * v.scale); ctx.lineCap = "round";
+      ctx.beginPath();
+      e.points.forEach((q, k) => { const [sx, sy] = S(q[0], q[1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); });
+      ctx.globalAlpha = 0.25; ctx.stroke(); ctx.globalAlpha = 1;          // the slow band: 35 cm either side
+      ctx.lineWidth = 3; ctx.stroke(); ctx.lineCap = "butt";
+      const [lx, ly] = S(e.points[0][0], e.points[0][1]);
+      ctx.fillStyle = c["orange"]; ctx.fillText(`${name} (${e.kind}, ${e.height_mm} mm, ${e.speed} m/s)`, lx + 6, ly - 6);
+    }
+    if (p.draft && p.draft.length) {
+      ctx.strokeStyle = c["blue"]; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      p.draft.forEach((q, k) => { const [sx, sy] = S(q[0], q[1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); });
+      if (p.draftClosed && p.draft.length > 2) ctx.closePath();
+      ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = c["blue"];
+      for (const q of p.draft) { const [sx, sy] = S(q[0], q[1]); ctx.beginPath(); ctx.arc(sx, sy, 4, 0, 2 * Math.PI); ctx.fill(); }
+    }
+  }
+  // the Logbook's replay: where the robot drove, and where it was at the slider's time
+  if (p.trail && p.trail.length > 1) {
+    ctx.strokeStyle = c["green"]; ctx.globalAlpha = 0.6; ctx.lineWidth = 2;
+    ctx.beginPath();
+    p.trail.forEach((q, k) => { const [sx, sy] = S(q[0], q[1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); });
+    ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  if (p.ghost) arrow(ctx, S, p.ghost, c["green"], v.scale, true);
+
   if (p.places && frame === "map") {
     ctx.font = "12px Segoe UI, system-ui, sans-serif";
     for (const [name, q] of Object.entries(p.places)) {
@@ -291,10 +345,34 @@ function draw(cv, v, p) {
     }
   }
 
+  if (p.route && p.route.length && frame === "map") {
+    ctx.strokeStyle = c["map-place"]; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    p.route.forEach((/** @type {number[]} */ q, /** @type {number} */ k) => { const [sx, sy] = S(q[0], q[1]); k ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); });
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.font = "bold 11px Segoe UI, system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    p.route.forEach((/** @type {number[]} */ q, /** @type {number} */ k) => {
+      const [sx, sy] = S(q[0], q[1]);
+      ctx.fillStyle = c["map-place"]; ctx.beginPath(); ctx.arc(sx, sy, 9, 0, 2 * Math.PI); ctx.fill();
+      ctx.strokeStyle = c["map-place"]; ctx.beginPath(); ctx.moveTo(sx, sy);
+      ctx.lineTo(sx + Math.cos(q[2] || 0) * 18, sy - Math.sin(q[2] || 0) * 18); ctx.stroke();
+      ctx.fillStyle = c["map-bg"]; ctx.fillText(String(k + 1), sx, sy + 0.5);
+    });
+    ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
+  }
+  for (const m of p.marks || []) {
+    const [sx, sy] = S(m.x, m.y);
+    const mc = c[m.color || "dim"] || m.color;
+    ctx.strokeStyle = mc; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(sx, sy, 6, 0, 2 * Math.PI); ctx.stroke();
+    if (m.label) { ctx.fillStyle = mc; ctx.font = "11px Segoe UI, system-ui, sans-serif"; ctx.fillText(m.label, sx + 9, sy - 7); }
+  }
+
+  const pc = c[p.pendingColor || "map-pending"] || p.pendingColor;
   if (st?.goal && frame === "map") arrow(ctx, S, st.goal, c["map-goal"], v.scale, false);
-  if (p.pending && frame === "map") arrow(ctx, S, p.pending, c["map-pending"], v.scale, true);
+  if (p.pending && frame === "map") arrow(ctx, S, p.pending, pc, v.scale, true);
   const d = v.drag;
-  if (d && d.kind === "goal") arrow(ctx, S, { x: d.x, y: d.y, yaw: d.yaw ?? 0 }, c["map-pending"], v.scale, true, d.yaw === null);
+  if (d && d.kind === "goal") arrow(ctx, S, { x: d.x, y: d.y, yaw: d.yaw ?? 0 }, pc, v.scale, true, d.yaw === null);
 
   if (p.catchView && st?.catch) {
     const t = st.catch.target;
@@ -313,9 +391,15 @@ function draw(cv, v, p) {
     const [sx, sy] = S(pose.x, pose.y);
     const r = Math.max(6, ROBOT_R * v.scale);
     ctx.lineWidth = 2; ctx.strokeStyle = c["map-robot"];
+    if (pose.stale) {                       // no odometry from the MCU: where the estimate guesses, not where it is
+      ctx.setLineDash([4, 4]); ctx.globalAlpha = 0.5;
+      ctx.fillStyle = c["red"]; ctx.font = "11px Segoe UI, system-ui, sans-serif";
+      ctx.fillText("position stale (MCU silent)", sx + r + 4, sy - r);
+    }
     ctx.fillStyle = "rgba(0, 230, 118, 0.18)";
     ctx.beginPath(); ctx.arc(sx, sy, r, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + Math.cos(pose.yaw) * r * 1.5, sy - Math.sin(pose.yaw) * r * 1.5); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
   }
 
   // scale bar

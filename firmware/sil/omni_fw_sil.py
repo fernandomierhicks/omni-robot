@@ -19,23 +19,31 @@ sys.path.insert(0, str(SIL))
 import build_sil  # noqa: E402
 
 CAN_MAX = 16
+IMU_MAX = 4
 
 
 class CanFrame(C.Structure):
-    _fields_ = [("id", C.c_uint32), ("len", C.c_uint8), ("data", C.c_uint8 * 8), ("_pad", C.c_uint8 * 3)]
+    _fields_ = [("id", C.c_uint32), ("len", C.c_uint8), ("data", C.c_uint8 * 8), ("_pad", C.c_uint8 * 3),
+                ("t_rx_us", C.c_uint64)]
+
+
+class ImuSample(C.Structure):
+    _fields_ = [("t_us", C.c_uint64), ("quat", C.c_float * 4), ("gyro", C.c_float * 3), ("accel", C.c_float * 3)]
 
 
 class HwInputs(C.Structure):
     _fields_ = [
         ("t_us", C.c_uint64),
         ("n_can_rx", C.c_uint32), ("can_rx", CanFrame * CAN_MAX),
-        ("imu_new", C.c_uint32), ("imu_quat", C.c_float * 4), ("imu_gyro", C.c_float * 3), ("imu_accel", C.c_float * 3),
+        ("imu_n", C.c_uint32), ("imu", ImuSample * IMU_MAX),
         ("fly_new", C.c_uint32 * 2), ("fly_erpm", C.c_float * 2),
         ("feed_new", C.c_uint32), ("feed_speed", C.c_float * 2),
         ("tilt_new", C.c_uint32), ("tilt_pos", C.c_float),
         ("beam_catch", C.c_uint32), ("beam_feed_exit", C.c_uint32), ("estop", C.c_uint32), ("bumper", C.c_uint32),
         ("v_bus", C.c_float),
         ("rc_ok", C.c_uint32), ("rc", C.c_float * 8),
+        ("sync_fired_us", C.c_uint64), ("cam_fired_us", C.c_uint64), ("strobe_rise_us", C.c_uint64),
+        ("strobe_width_us", C.c_uint32),
     ]
 
 
@@ -47,6 +55,7 @@ class HwOutputs(C.Structure):
         ("tilt_cmd", C.c_float), ("tilt_enable", C.c_uint32),
         ("buzzer", C.c_uint32), ("led", C.c_uint32),
         ("dbg_v_cmd", C.c_float * 2), ("dbg_w_cmd", C.c_float), ("dbg_wheel_cmd", C.c_float * 4),
+        ("sync_next_us", C.c_uint64), ("cam_next_us", C.c_uint64),
     ]
 
 
@@ -61,7 +70,9 @@ def lib():
         L.fw_create.restype = C.c_void_p
         L.fw_destroy.argtypes = [C.c_void_p]
         L.fw_tick.argtypes = [C.c_void_p, C.POINTER(HwInputs), C.POINTER(HwOutputs)]
-        L.fw_rx.argtypes = [C.c_void_p, C.c_char_p, C.c_uint32]
+        L.fw_rx.argtypes = [C.c_void_p, C.c_char_p, C.c_uint32, C.c_uint64]
+        L.fw_sh2_samples.argtypes = [C.c_char_p, C.c_uint32, C.c_uint64, C.POINTER(C.c_double), C.c_uint32]
+        L.fw_sh2_samples.restype = C.c_uint32
         L.fw_tx.argtypes = [C.c_void_p, C.c_char_p, C.c_uint32]
         L.fw_tx.restype = C.c_uint32
         L.fw_mode.argtypes = [C.c_void_p]
@@ -77,7 +88,7 @@ def lib():
         L.fw_board_report.restype = C.c_uint32
         L.fw_param.argtypes = [C.c_char_p]
         L.fw_param.restype = C.c_double
-        for k, st in enumerate((HwInputs, HwOutputs)):
+        for k, st in ((0, HwInputs), (1, HwOutputs), (5, CanFrame), (7, ImuSample)):
             if L.fw_sizeof(k) != C.sizeof(st):
                 raise RuntimeError(f"{st.__name__}: {C.sizeof(st)} bytes here, {L.fw_sizeof(k)} in hw_io.h")
         _lib = L
@@ -111,6 +122,14 @@ def crc16(data: bytes) -> int:
     return lib().fw_crc16(data, len(data))
 
 
+def sh2_samples(payload: bytes, t_int_us: int) -> list:
+    """The firmware's BNO085 parser (sh2.h) on one channel-3 payload: [(t_us, quat wxyz, gyro, accel), ...]."""
+    out = (C.c_double * (11 * 16))()
+    n = lib().fw_sh2_samples(payload, len(payload), t_int_us, out, 16)
+    return [(int(out[11 * i]), tuple(out[11 * i + 1:11 * i + 5]), tuple(out[11 * i + 5:11 * i + 8]),
+             tuple(out[11 * i + 8:11 * i + 11])) for i in range(n)]
+
+
 def dm_decode(frame: CanFrame):
     o = (C.c_float * 5)()
     if not lib().fw_dm_decode(C.byref(frame), o):
@@ -133,9 +152,10 @@ class Firmware:
         self.L.fw_tick(self.h, C.byref(self.inputs), C.byref(self.outputs))
         return self.outputs
 
-    def rx(self, data: bytes):
+    def rx(self, data: bytes, t_rx_us: int = 0):
+        """Bytes from the Jetson, read at MCU time t_rx_us (0 = unknown: the next tick's)."""
         if data:
-            self.L.fw_rx(self.h, data, len(data))
+            self.L.fw_rx(self.h, data, len(data), int(t_rx_us))
 
     def tx(self) -> bytes:
         n = self.L.fw_tx(self.h, self._txbuf, len(self._txbuf))

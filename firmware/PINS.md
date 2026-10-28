@@ -21,7 +21,12 @@ Generated from `lib/omni_fw/board_teensy41.h` by `sil/build_sil.py --pins` (the 
 | 17 | Serial4 TX (half duplex): STS3250 tilt servo bus |
 | 22 | CAN1 TX: DM-2325 x4 |
 | 23 | CAN1 RX: DM-2325 x4 |
+| 24 | CAM_TRIG: both OV9782 FSIN (external trigger, 120 Hz; level shift to DOVDD, VERIFY) |
+| 25 | SYNC_OUT: 1 Hz pulse to the Jetson's 40-pin GPIO (AON pin for HTE stamps, VERIFY) |
+| 26 | CAM_STROBE: left OV9782 STROBE in (exposure active), interrupt on both edges |
+| 27 | BNO085 BOOTN (low at reset: its bootloader, for firmware updates) |
 | 28 | status LED |
+| 29 | BNO085 PS1 (high at reset with PS0: SPI mode) |
 | 30 | CAN3 RX: payload connector, reserved |
 | 31 | CAN3 TX: payload connector (module id), reserved |
 | 32 | feed-exit beam receiver |
@@ -34,4 +39,4 @@ Generated from `lib/omni_fw/board_teensy41.h` by `sil/build_sil.py --pins` (the 
 | 40 | A16: 12 V rail |
 | 41 | A17: battery voltage (divider) |
 
-29 of 42 header pins used, 13 spare: 0 1 16 18 19 20 21 24 25 26 27 29 34
+34 of 42 header pins used, 8 spare: 0 1 16 18 19 20 21 34

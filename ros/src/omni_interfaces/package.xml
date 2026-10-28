@@ -4,7 +4,7 @@
   <name>omni_interfaces</name>
   <version>0.11.0</version>
   <description>omni-robot (design.md 30): messages and services. McuState / McuCommand (the Jetson's view of the MCU
-    link), BallTrack (the catch path's filter state), SparseImage (the sim's camera frames), CatchStatus, SetMode, ConsoleCommand (the operator console).</description>
+    link), BallTrack (the catch path's filter state), SparseImage (the sim's camera frames), CatchStatus, McuInfo, SetMode, ConsoleCommand (the operator console).</description>
   <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
   <license>Proprietary</license>
 

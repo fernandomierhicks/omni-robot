@@ -31,6 +31,7 @@ SPOKE_HX = 12.0                   # spoke half thickness along the axle
 JOINT_R = 36.0                    # radius of the hub joint screws
 N = D.ROLLERS_PER_ROW
 PITCH = 360.0 / N
+PIN_CHAMFER = 0.4
 
 
 def r_barrel(s: float) -> float:
@@ -98,6 +99,12 @@ def _spokes(row: int) -> Part:
     for loc in roller_locs(row):
         out -= _roller_env(1.0).moved(loc)
         out -= Cylinder(D.PIN_D / 2 + 0.03, D.PIN_L + 0.2).moved(loc)           # pin half-channels after the split
+        # 0.4 mm x 45 deg chamfers on the channels' edges in the split face (a diamond across the split): the hubs
+        # print split face down, and the first layer's squash would otherwise pinch the pin
+        s = (D.PIN_D / 2 + 0.03 + PIN_CHAMFER) * math.sqrt(2)
+        out -= Box(s, s, D.PIN_L + 0.2).rotate(Axis.Z, 45).moved(loc)
+    # (where a spoke's face meets a roller's clearance envelope at a grazing angle it ends in a knife edge, 0.1-0.3 mm
+    # along the cut-out: no load there, and the slicer drops it; walls.py lists them)
     return out
 
 
@@ -149,15 +156,17 @@ def hub(which: str) -> Part:
             p -= (_x_cyl(D.CLR_M3 / 2, D.X_DRUM_OUT - 1, x_flange + 1) + _x_cyl(3.1, D.X_DRUM_OUT - 1, D.X_DRUM_OUT + 1.8)).moved(
                 Pos(0, y, z))
         p -= _joint_holes(0, xo - SPOKE_HX, xo, head=True)
+        p -= hw.edge_chamfer(30.0, 0.5).moved(Pos(D.X_DRUM_OUT, 0, 0) * hw.rot_to("-x"))   # first layer
     elif which == "B":
         p = _drum(xo, xi) + (_spokes(0) & _slab(xo, xo + SPOKE_HX)) + (_spokes(1) & _slab(xi - SPOKE_HX, xi))
-        p -= _joint_holes(0, xo, xo + SPOKE_HX - 0.5, head=False)
-        p -= _joint_holes(1, xi, xi - SPOKE_HX + 0.5, head=False)
+        p -= _joint_holes(0, xo, xo + SPOKE_HX - 1.5, head=False)            # 1.5 mm floors (10.2 mm of thread used)
+        p -= _joint_holes(1, xi, xi - SPOKE_HX + 1.5, head=False)
     else:
         p = _drum(xi, X_ZONE) + (_spokes(1) & _slab(xi, xi + SPOKE_HX))
         bx0, bx1 = D.X_BRG
         p += _x_cyl(30.0, X_ZONE, bx1) - _x_cyl(DRUM[0], X_ZONE - 1, bx1 + 1)
         p -= _x_cyl(D.BRG_61808[1] / 2, bx0, bx1 + 0.1)              # bearing seat (outer race)
+        p -= hw.lead_in(D.BRG_61808[1] / 2).moved(Pos(bx1, 0, 0) * hw.rot_to("x"))   # lead-in, pressed from the arm side
         p -= _x_cyl(24.6, X_ZONE - 1, bx0 + 0.01)                    # shoulder on the outer race's outer side
         p -= _joint_holes(1, xi + SPOKE_HX, xi, head=True)
     p.label = f"wheel_hub_{which}"
@@ -182,7 +191,7 @@ def hardware() -> hw.Hardware:
            "pololu.com #1999 ($8.95 per 2)", V.hub_1999(), Pos(D.X_HUB - 9.2, 0, 0) * hw.rot_to("-x"))
     for k in range(6):
         y, z = D.polar(D.HUB_1999["pcd"] / 2, 60 * k)
-        h.screw("PAN", 6, Pos(D.X_DRUM_OUT + 1.8, y, z) * hw.rot_to("-x"))
+        h.screw("PAN", 8, Pos(D.X_DRUM_OUT + 1.8, y, z) * hw.rot_to("-x"))
     # the hub's two set screws (boss and flange, on one radial line), onto the shaft's flat
     h.screw("SSCS", 3, Pos(D.X_HUB - 2.1, 0, 0) * Rot(60, 0, 0) * Pos(0, 0, 6.0))
     h.screw("SSCS", 10, Pos(D.X_HUB - 6.7, 0, 0) * Rot(60, 0, 0) * Pos(0, 0, 12.7))

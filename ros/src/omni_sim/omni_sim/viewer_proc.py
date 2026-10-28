@@ -23,7 +23,8 @@ import time
 import numpy as np
 
 MAX_PTS = 1600
-HDR = struct.Struct("<4sIII")          # magic b"OMNI", seq, nq, n points (then qpos float64, points float32 xyz)
+HDR = struct.Struct("<4sIII")          # magic b"OMNI", seq, nq, n points (then qpos float64, points float32 xyz,
+                                       # and with hello["nmocap"]: mocap_pos, mocap_quat float64)
 
 
 class WinViewer:
@@ -54,7 +55,7 @@ class WinViewer:
     def running(self) -> bool:
         return True
 
-    def push(self, qpos, pts=None):
+    def push(self, qpos, pts=None, mocap=None):
         if self.conn is None:
             try:
                 self.conn, _ = self.srv.accept()
@@ -70,6 +71,10 @@ class WinViewer:
         p = np.zeros((0, 3), np.float32) if pts is None else np.asarray(pts[:MAX_PTS], np.float32)
         self.seq += 1
         msg = HDR.pack(b"OMNI", self.seq, len(qpos), len(p)) + np.asarray(qpos, np.float64).tobytes() + p.tobytes()
+        if self.hello.get("nmocap"):                  # the person (mocap bodies): positions, then quaternions
+            pos, quat = mocap if mocap is not None else (np.zeros((self.hello["nmocap"], 3)),
+                                                         np.tile([1.0, 0, 0, 0], (self.hello["nmocap"], 1)))
+            msg += np.asarray(pos, np.float64).tobytes() + np.asarray(quat, np.float64).tobytes()
         try:
             self.conn.sendall(msg)
         except OSError:
@@ -88,14 +93,14 @@ class WinViewer:
 class ViewerLink:
     """The bridge's end: start the viewer process, push the state now and then."""
 
-    def __init__(self, sim_dir: str, base: str, wheel_model: str, nq: int, base_body: int):
+    def __init__(self, sim_dir: str, hello: dict, base_body: int):
         ctx = mp.get_context("spawn")
-        self.qpos = ctx.Array("d", nq, lock=False)
+        self.qpos = ctx.Array("d", hello["nq"], lock=False)
         self.pts = ctx.Array("d", 3 * MAX_PTS, lock=False)
         self.n_pts = ctx.Value("i", 0, lock=False)
         self.seq = ctx.Value("i", 0, lock=False)
         self.alive = ctx.Value("i", 1, lock=False)
-        self.proc = ctx.Process(target=_run, args=(sim_dir, base, wheel_model, base_body, self.qpos, self.pts,
+        self.proc = ctx.Process(target=_run, args=(sim_dir, hello, base_body, self.qpos, self.pts,
                                                    self.n_pts, self.seq, self.alive), daemon=True)
         self.proc.start()
         self._q = np.frombuffer(self.qpos, dtype=np.float64)
@@ -104,7 +109,7 @@ class ViewerLink:
     def running(self) -> bool:
         return self.proc.is_alive() and bool(self.alive.value)
 
-    def push(self, qpos, pts=None):
+    def push(self, qpos, pts=None, mocap=None):
         self._q[:] = qpos
         if pts is not None:
             n = min(len(pts), MAX_PTS)
@@ -119,15 +124,24 @@ class ViewerLink:
             self.proc.terminate()
 
 
-def _run(sim_dir, base, wheel_model, base_body, qpos, pts, n_pts, seq, alive):
+def house_model(hello: dict):
+    """The bridge's house model from its hello (run with the sim folder on sys.path): v11's bridge sends its
+    CoreConfig's model settings ("core": the drawn robot, the arm, the person), an older one the base alone."""
+    from robot_model import build_model
+    if "core" in hello:
+        from bridge_core import CoreConfig, model_params
+        return build_model(model_params(CoreConfig(**hello["core"])))
+    import house
+    return build_model(house.house_params(hello["base"], wheel_model=hello["wheel_model"]))
+
+
+def _run(sim_dir, hello, base_body, qpos, pts, n_pts, seq, alive):
     sys.path.insert(0, sim_dir)
     sys.path.insert(0, sim_dir + "/studies")
     import mujoco
     import mujoco.viewer
 
-    import house
-    from robot_model import build_model
-    m = build_model(house.house_params(base, wheel_model=wheel_model))
+    m = house_model(hello)
     d = mujoco.MjData(m)
     q = np.frombuffer(qpos, dtype=np.float64)
     P = np.frombuffer(pts, dtype=np.float64)
@@ -151,6 +165,7 @@ def _run(sim_dir, base, wheel_model, base_body, qpos, pts, n_pts, seq, alive):
         with v.lock():
             d.qpos[:] = q
             mujoco.mj_kinematics(m, d)
+            mujoco.mj_comPos(m, d)                        # subtree_com: what the tracking camera follows
             scn = v.user_scn
             scn.ngeom = 0
             n = n_pts.value

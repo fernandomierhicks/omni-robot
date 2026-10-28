@@ -25,9 +25,9 @@ from dataclasses import dataclass
 import numpy as np
 
 try:
-    from scipy.ndimage import label as _label
+    from scipy.ndimage import find_objects as _find_objects, label as _label
 except ImportError:                       # pragma: no cover - the Jetson image has scipy; this keeps it optional
-    _label = None
+    _label = _find_objects = None
 
 
 @dataclass
@@ -44,6 +44,8 @@ class DetectorConfig:
                                        # only (before design.md 31: rendered house 11% caught, with 40: ~80%)
     size_gain: float = 1.0             # measured minor semi-axis x this: the threshold drops the ball's dim rim, so a
                                        # real blob reads small; calibrate on the bench (design.md 31)
+    backend: str = "python"            # "native": the pixel loops in C++ (fast_detector.py), the same blobs; the robot's
+                                       # catch_perception uses it, the sim's studies keep numpy unless asked
 
 
 def ball_mask(rgb: np.ndarray, cfg: DetectorConfig) -> np.ndarray:
@@ -125,6 +127,29 @@ class Detector:
                 out.append(res)
         return out
 
+    def _coarse(self, fr) -> list:
+        """The decimated view's components in label order: (k, size, x_min, x_max, y_min, y_max), coarse pixels.
+        (fast_detector.FastDetector does this in C++.)"""
+        cm = ball_mask(fr.coarse(self.cfg.coarse_stride), self.cfg)
+        if not cm.any():
+            return []
+        lab, n = label(cm)
+        sizes = np.bincount(lab.ravel(), minlength=n + 1)
+        if _find_objects is not None:
+            return [(k, int(sizes[k]), sl[1].start, sl[1].stop - 1, sl[0].start, sl[0].stop - 1)
+                    for k, sl in enumerate(_find_objects(lab), start=1)]
+        out = []
+        for k in range(1, n + 1):
+            ys, xs = np.nonzero(lab == k)
+            out.append((k, int(sizes[k]), int(xs.min()), int(xs.max()), int(ys.min()), int(ys.max())))
+        return out
+
+    def _window(self, fr, comp):
+        """A coarse component's window at full resolution (a stride's margin around it)."""
+        s = self.cfg.coarse_stride
+        _, _, x0, x1, y0, y1 = comp
+        return self._components(fr, x0 * s - s - 2, y0 * s - s - 2, (x1 + 1) * s + s + 2, (y1 + 1) * s + s + 2)
+
     def detect(self, fr, pred=None):
         """(u, v, b, n_px) of the ball, or None. pred: (u, v, radius px) where the tracker expects it."""
         cfg = self.cfg
@@ -135,19 +160,13 @@ class Detector:
             if comps:
                 return min(comps, key=lambda c: (c[0] - pu) ** 2 + (c[1] - pv) ** 2)
         # whole frame, decimated
-        s = cfg.coarse_stride
         self.n_coarse += 1
-        cm = ball_mask(fr.coarse(s), cfg)
-        if not cm.any():
+        coarse = self._coarse(fr)
+        if not coarse:
             return None
-        lab, n = label(cm)
-        sizes = [(int((lab == k).sum()), k) for k in range(1, n + 1)]
         best = None
-        for _, k in sorted(sizes, reverse=True)[:cfg.max_candidates]:
-            ys, xs = np.nonzero(lab == k)
-            comps = self._components(fr, xs.min() * s - s - 2, ys.min() * s - s - 2,
-                                     (xs.max() + 1) * s + s + 2, (ys.max() + 1) * s + s + 2)
-            for c in comps:
+        for _, k in sorted([(c[1], c[0]) for c in coarse], reverse=True)[:cfg.max_candidates]:
+            for c in self._window(fr, coarse[k - 1]):
                 if best is None or c[3] > best[3]:
                     best = c
         if best is None and pred is None:
@@ -158,18 +177,14 @@ class Detector:
         """Up to n blobs (u, v, b, n_px), largest first, from the whole frame: the coarse view's n largest
         components, each measured at full resolution (acquisition, no prediction)."""
         cfg = self.cfg
-        s = cfg.coarse_stride
         self.n_coarse += 1
-        cm = ball_mask(fr.coarse(s), cfg)
-        if not cm.any():
+        coarse = self._coarse(fr)
+        if not coarse:
             return []
-        lab, nl = label(cm)
-        sizes = np.bincount(lab.ravel(), minlength=nl + 1)[1:]
+        sizes = np.array([c[1] for c in coarse])
         out = []
-        for k in np.argsort(-sizes, kind="stable")[:max(n, cfg.max_candidates)] + 1:
-            ys, xs = np.nonzero(lab == k)
-            for c in self._components(fr, xs.min() * s - s - 2, ys.min() * s - s - 2,
-                                      (xs.max() + 1) * s + s + 2, (ys.max() + 1) * s + s + 2):
+        for k in np.argsort(-sizes, kind="stable")[:max(n, cfg.max_candidates)]:
+            for c in self._window(fr, coarse[k]):
                 if all((c[0] - o[0]) ** 2 + (c[1] - o[1]) ** 2 > 4.0 for o in out):    # neighbours' windows overlap
                     out.append(c)
         out.sort(key=lambda c: -c[3])

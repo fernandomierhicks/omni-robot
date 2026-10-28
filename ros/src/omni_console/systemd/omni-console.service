@@ -1,0 +1,20 @@
+# The operator console's supervisor on the Jetson (omni_console/supervisor.py; design.md 2): at boot it serves the page
+# on port 8080 and starts the robot's software. Install: systemd/README.md.
+[Unit]
+Description=omni-robot operator console (page + launcher)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=omni
+Environment=PYTHONUNBUFFERED=1
+# VERIFY: with Jazzy in Docker on JetPack 6 this runs inside the container (docker run ... the same command)
+ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash && source /home/omni/omni_ws/install/setup.bash && exec python3 -m omni_console.supervisor --steps robot --autostart robot'
+Restart=always
+RestartSec=3
+KillSignal=SIGTERM
+TimeoutStopSec=40
+
+[Install]
+WantedBy=multi-user.target

@@ -55,6 +55,10 @@ class Perception:
         self.tcfg = tcfg or TrackerConfig()
         self.tracker = ImageTracker(self.flight, self.tcfg, self.cams[0].f)
         self.det = Detector(dcfg)
+        if dcfg is not None and dcfg.backend == "native":       # the C++ pixel loops, if they build
+            from omni_catch.fast_detector import FastDetector, available
+            if available():
+                self.det = FastDetector(dcfg)
         self.R_ball = b["radius"]
         self.poses: deque = deque(maxlen=600)          # (t, x, y, yaw, roll, pitch), odom frame
         self.t_last_det = -math.inf

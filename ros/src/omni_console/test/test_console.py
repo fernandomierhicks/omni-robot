@@ -44,6 +44,17 @@ def test_stop_goes_idle_and_cancels_a_goal():
     assert c.mission == "IDLE" and kinds(r) == ["nav_cancel", "set_mode"] and r.effects[1][1] == "IDLE"
 
 
+def test_goto_sends_its_speed_and_facing_and_a_change_applies_on_the_way():
+    c = ready()
+    r = c.command("goto", {"x": 1, "y": 2})
+    lim = r.effects[0]
+    assert lim[:2] == ("nav_limits", 2.0) and lim[3] == "forward"            # the defaults: 2 m/s, facing forward
+    r = c.command("set", {"key": "goto.facing", "value": "spinning"})
+    assert r.ok and r.effects[0][3] == "spinning" and abs(r.effects[0][4] - math.radians(120)) < 1e-9
+    assert not c.command("set", {"key": "goto.facing", "value": "moonwalk"}).ok
+    assert not c.command("set", {"key": "goto.speed", "value": 2.1}).ok       # over the firmware's 2 m/s
+
+
 def test_goto_needs_navigation_and_catch_needs_the_catch_code():
     c = ready(nav=False, catch=False)
     assert not c.command("goto", {"x": 0, "y": 0}).ok

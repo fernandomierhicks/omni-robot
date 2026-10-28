@@ -52,6 +52,8 @@ struct Use {
 namespace pin {
 constexpr uint8_t CAN1_TX = 22, CAN1_RX = 23, CAN3_TX = 31, CAN3_RX = 30;
 constexpr uint8_t BNO_MOSI = 11, BNO_MISO = 12, BNO_SCK = 13, BNO_CS = 10, BNO_INT = 9, BNO_RST = 6, BNO_WAKE = 5;
+constexpr uint8_t BNO_BOOTN = 27, BNO_PS1 = 29;
+constexpr uint8_t CAM_TRIG = 24, SYNC_OUT = 25, CAM_STROBE = 26;
 constexpr uint8_t RC_RX = 7, RC_TX = 8, ROBOCLAW_RX = 15, ROBOCLAW_TX = 14, SERVO_BUS = 17;
 constexpr uint8_t DSHOT_L = 2, DSHOT_R = 3;
 constexpr uint8_t IR_EMIT = 36, BEAM_CATCH = 33, BEAM_FEED_EXIT = 32;
@@ -76,6 +78,12 @@ constexpr Use PINS[] = {
     {pin::BNO_INT, GPIO, "BNO085 INT (data ready, interrupt)"},
     {pin::BNO_RST, GPIO, "BNO085 RST"},
     {pin::BNO_WAKE, GPIO, "BNO085 PS0/WAKE"},
+    {pin::BNO_BOOTN, GPIO, "BNO085 BOOTN (low at reset: its bootloader, for firmware updates)"},
+    {pin::BNO_PS1, GPIO, "BNO085 PS1 (high at reset with PS0: SPI mode)"},
+    // time references (design.md 10): edges on hardware timers, reported in the MCU clock
+    {pin::SYNC_OUT, PWM, "SYNC_OUT: 1 Hz pulse to the Jetson's 40-pin GPIO (AON pin for HTE stamps, VERIFY)"},
+    {pin::CAM_TRIG, PWM, "CAM_TRIG: both OV9782 FSIN (external trigger, 120 Hz; level shift to DOVDD, VERIFY)"},
+    {pin::CAM_STROBE, GPIO, "CAM_STROBE: left OV9782 STROBE in (exposure active), interrupt on both edges"},
     // RC: ELRS receiver, CRSF at 420 kbaud (sticks + failsafe; design.md 15)
     {pin::RC_RX, SER2_RX, "Serial2 RX: ELRS receiver (CRSF)"},
     {pin::RC_TX, SER2_TX, "Serial2 TX: ELRS receiver (CRSF telemetry)"},
@@ -110,7 +118,7 @@ constexpr const char* REQUIRED[] = {
     "CAN1 TX", "CAN1 RX", "SPI0 MOSI", "SPI0 MISO", "SPI0 SCK", "BNO085 CS", "BNO085 INT", "BNO085 RST",
     "Serial2 RX", "Serial3 RX", "Serial3 TX", "Serial4 TX", "DShot ch1", "DShot ch2", "IR emitters",
     "catch beam", "feed-exit beam", "e-stop", "bumper switches, front", "bumper switches, rear", "A17: battery",
-    "buzzer",
+    "buzzer", "SYNC_OUT", "CAM_TRIG", "CAM_STROBE",
 };
 
 // -- compile-time checks ------------------------------------------------------------------------------------------

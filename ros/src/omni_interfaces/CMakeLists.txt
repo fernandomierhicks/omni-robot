@@ -13,6 +13,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BallTrack.msg"
   "msg/SparseImage.msg"
   "msg/CatchStatus.msg"
+  "msg/McuInfo.msg"
+  "msg/TagDetection.msg"
+  "msg/TagDetections.msg"
   "srv/SetMode.srv"
   "srv/ConsoleCommand.srv"
   DEPENDENCIES builtin_interfaces std_msgs

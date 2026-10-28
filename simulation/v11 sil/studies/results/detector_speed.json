@@ -1,0 +1,75 @@
+{
+ "machine": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+ "python": "3.11.7",
+ "sets": {
+  "sparse (sim)": {
+   "frames": 40,
+   "python_ms": {
+    "tracking": 0.245,
+    "search": 1.008,
+    "acquire_40": 1.014
+   },
+   "native_ms": {
+    "tracking": 0.102,
+    "search": 0.187,
+    "acquire_40": 0.23
+   },
+   "speedup": {
+    "tracking": 2.4,
+    "search": 5.4,
+    "acquire_40": 4.4
+   },
+   "same": {
+    "tracking": 1.0,
+    "search": 1.0,
+    "acquire_40": 1.0
+   }
+  },
+  "clutter (synthetic)": {
+   "frames": 6,
+   "python_ms": {
+    "tracking": 8.934,
+    "search": 5.05,
+    "acquire_40": 14.998
+   },
+   "native_ms": {
+    "tracking": 0.273,
+    "search": 1.421,
+    "acquire_40": 2.6
+   },
+   "speedup": {
+    "tracking": 32.8,
+    "search": 3.6,
+    "acquire_40": 5.8
+   },
+   "same": {
+    "tracking": 1.0,
+    "search": 1.0,
+    "acquire_40": 1.0
+   }
+  },
+  "rendered house": {
+   "frames": 40,
+   "python_ms": {
+    "tracking": 0.146,
+    "search": 1.804,
+    "acquire_40": 3.845
+   },
+   "native_ms": {
+    "tracking": 0.02,
+    "search": 0.281,
+    "acquire_40": 0.624
+   },
+   "speedup": {
+    "tracking": 7.2,
+    "search": 6.4,
+    "acquire_40": 6.2
+   },
+   "same": {
+    "tracking": 1.0,
+    "search": 1.0,
+    "acquire_40": 1.0
+   }
+  }
+ }
+}

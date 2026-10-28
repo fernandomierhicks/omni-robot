@@ -44,14 +44,17 @@ public:
     bool imu_ok = false;
 
     void reset();
-    // wheel angles from the motors' feedback (rad, wrapping at +/-p_max); valid[i] = a new reply this tick
-    void on_wheels(float dt, const float* pos, const bool* valid, float p_max);
+    // wheel angles from the motors' feedback (rad, wrapping at +/-p_max); valid[i] = a new reply this tick.
+    // t_us[i] (design.md 10): when motor i measured it, MCU clock; the speed is the angle step over the real interval
+    // between two samples, not over the ticks (null, or an unusable interval: the ticks')
+    void on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us = nullptr);
     void on_imu(const float* quat_wxyz, const float* gyro);
     void integrate(float dt);
 
 private:
     float last_pos_[prm::N_WHEELS] = {};
     float last_dt_[prm::N_WHEELS] = {};
+    uint64_t last_t_[prm::N_WHEELS] = {};
     bool have_pos_[prm::N_WHEELS] = {};
     float w_[prm::N_WHEELS] = {};
     float imu_yaw0_ = 0.0f, imu_yaw_ = 0.0f, imu_unwrap_ = 0.0f, imu_last_ = 0.0f;

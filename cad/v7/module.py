@@ -78,12 +78,19 @@ def band(o0: float, o1: float, s_back: float, s_end: float, chute=True, bend=Tru
     sides = []
     for o in (o1, o0):
         lst = []
+        # an offset past the bend's centre (o < -RHO): the two straight offsets cross before the bend, so the boundary
+        # is their intersection (the arc, inverted, made the polygon cross itself: an invalid solid)
+        sharp = bend and chute and run and RHO + o <= 0
         if chute:
-            lst += [_pt(_pt(P0, C, -s_back), L, -o), _pt(J0, L, -o)]
-        if bend:
+            lst += [_pt(_pt(P0, C, -s_back), L, -o)] + ([] if sharp else [_pt(J0, L, -o)])
+        if sharp:
+            a, b = _pt(J0, L, -o), _pt(J1, NRM, -o)
+            t = ((b[0] - a[0]) * U[1] - (b[1] - a[1]) * U[0]) / (C[0] * U[1] - C[1] * U[0])
+            lst += [_pt(a, C, t)]
+        elif bend:
             lst += [(CJ[0] + (RHO + o) * math.sin(ph), CJ[1] - (RHO + o) * math.cos(ph)) for ph in _lin(BE, TH, 24)]
         if run:
-            lst += [_pt(J1, NRM, -o), _pt(_pt(J1, U, s_end), NRM, -o)]
+            lst += ([] if sharp else [_pt(J1, NRM, -o)]) + [_pt(_pt(J1, U, s_end), NRM, -o)]
         sides.append(lst)
     return sides[0] + sides[1][::-1]
 
@@ -139,10 +146,12 @@ def feed_carriage() -> Part:
     a boss with the M3 stop screw (bears on the side wall). Feed frame of the +y wheel."""
     z0, z1 = -FEED_FACE, -FEED_FACE + 6.0
     p = Box(30.0, 30.0, 6.0, align=CB).moved(Pos(0, 0, z0))
-    p -= Cylinder(4.2, 20).moved(Pos(0, 0, z0))                                          # bushing
+    p -= Cylinder(3.8, 20).moved(Pos(0, 0, z0))                                          # bushing (Ø7)
     for dy in (-8.5, 8.5):
         p -= hw.cbore(6.0, top=z1).moved(Pos(0, dy, 0))
-    p += Box(FEED_HINGE - 10.0, 10.0, 6.0, align=(Align.MAX, Align.CENTER, Align.MIN)).moved(Pos(-10.0, HINGE_DY, z0))
+    p += Box(FEED_HINGE - 10.0, 12.0, 6.0, align=(Align.MAX, Align.CENTER, Align.MIN)).moved(Pos(-10.0, HINGE_DY, z0))
+    for y, s in ((HINGE_DY - 6.0, -1), (HINGE_DY + 6.0, 1)):                              # arm into the plate
+        p += hw.cove_at(2.0, (-15.0, y, z0), (-1, 0, 0), (0, s, 0), (0, 0, 1), 6.0)        # (the plate ends 2 mm out)
     p += Cylinder(5.0, KNUCKLE[1] - KNUCKLE[0], align=CB).moved(Pos(-FEED_HINGE, HINGE_DY, KNUCKLE[0]))
     p -= Cylinder(D.CLR_M3 / 2, 60).moved(Pos(-FEED_HINGE, HINGE_DY, 0))
     # stop boss: an M3 through it along -y, its tip on the side wall's outer face
@@ -154,12 +163,13 @@ def feed_carriage() -> Part:
 
 @lru_cache(maxsize=None)
 def feed_wheel_hub() -> Part:
-    """PETG hub for the Ø40 x 12 TPU tyre, on a Pololu #1997 (4 x M3 on PCD 12.7). Feed frame (local z = axis)."""
+    """PETG hub for the Ø40 x 12 TPU tyre, on a Pololu #1997 (4 x M3 on PCD 12.7, pan heads on the outer face:
+    counterbores left 0.6 mm webs to the bore). Feed frame (local z = axis)."""
     h = D.FEED_WHEEL[1]
     p = Cylinder(D.FEED_WHEEL[0] / 2 - 4.0, h) - Cylinder(2.6, h + 1)
     for k in range(4):
         x, y = D.polar(D.HUB_1997["pcd"] / 2, 90 * k + 45)
-        p -= hw.cbore(h, top=h / 2).moved(Pos(x, y, 0))
+        p -= hw.clear(h, top=h / 2).moved(Pos(x, y, 0))
     p.label = "feed_wheel_hub"
     return p
 
@@ -204,7 +214,8 @@ def flywheel_tyre() -> Part:
 
 KEEL = dict(x=(52.0, 104.0), y=(0.0, W_IN + 0.5), z0=2.0)
 FW_Y = (W_OUT, D.FW_Y + 20.0)                        # fw_mount wedge: against the side wall's outer face .. the plate's edge
-FW_SCREWS = ((64.0, 5.5), (77.0, 5.5), (90.0, 5.5), (100.0, 5.5))   # (x, z) along -y into the keel (through the wall
+FW_SCREWS = ((65.0, 7.0), (74.0, 7.0), (90.0, 7.0), (100.0, 7.0))   # (x, z) along -y into the keel (through the wall
+                                                     # at x < 78); z 7: 2 mm of wedge under the head pockets (0.5 at 5.5)
 FW_SCREW_SEAT = 54.5                                 # at x < 78); heads on pocket floors at this y
 
 
@@ -277,13 +288,17 @@ def fw_mount() -> Part:
 
 
 # --- chute halves ---------------------------------------------------------------------------------------------------------
-JOINT_TABS = [(-W_OUT - 6.0, 118.0), (-W_OUT - 6.0, 92.0), (60.0, 6.0), (W_OUT + 6.0, 118.0)]   # heads clear the flange
+JOINT_TABS = [(-W_OUT - 6.0, 118.0), (-W_OUT - 6.0, 92.0), (57.0, 7.0), (W_OUT + 6.0, 118.0)]   # heads clear the flange;
+# the keel's (x 57, ahead of the flywheel mount, which covered it at x 60) is driven through a bore in the R half's keel
+# and side wall; its tab is 10 mm tall (z 2-12: the J's floor is at z 12.0 there)
 FLANGE_R = 62.0
 COLLAR_SCREWS = [(58.0 * math.cos(math.radians(a)), 58.0 * math.sin(math.radians(a))) for a in (30, 90, 150, 210, 270, 330)]
 EXIT_BEAM_S = 10.0                # feed-exit beam this far down the bend from J0 (the sim's spot is inside the
                                   # feed-wheel window, where there's no wall to hold the sensor)
-CATCH_BEAM = _pt(_pt(P0, C, -12.0), L, 10.0)   # a chord through the resting ball, clear of the feed wheels (the sim's
-                                               # beam crosses the ball's centre, where the wheels' sensors would sit)
+CATCH_BEAM = _pt(_pt(P0, C, -22.0), L, 10.0)   # a chord through the resting ball, clear of the feed wheels (the sim's
+                                               # beam crosses the ball's centre, where the wheels' sensors would sit);
+                                               # 22 mm up the chute so the sensor is 11 mm off the carriage hinge's axis
+                                               # (at 12 it covered the hinge bolt's head)
 BEAMS = (CATCH_BEAM, (CJ[0] + RHO * math.sin(BE + EXIT_BEAM_S / RHO), CJ[1] - RHO * math.cos(BE + EXIT_BEAM_S / RHO)))
 
 
@@ -315,7 +330,7 @@ def chute_half(side: int = 1) -> Part:
     p += fl - Box(2 * W_IN, W_IN + 0.1, 20, align=(Align.CENTER, Align.MIN, Align.MAX)).moved(Pos(0, -0.01, TUBE_TOP + 1))
     # joint tabs on the centreline
     for x, z in JOINT_TABS:
-        p += Box(12.0, 8.0, 12.0, align=(Align.CENTER, Align.MIN, Align.CENTER)).moved(Pos(x, 0, z))
+        p += Box(12.0, 8.0, 12.0 if z > 20 else 10.0, align=(Align.CENTER, Align.MIN, Align.CENTER)).moved(Pos(x, 0, z))
     # feed wheel / motor window, hinge lugs, IR beam windows and sensor pads
     p -= _feed_window()
     p += _hinge_lugs()
@@ -326,20 +341,27 @@ def chute_half(side: int = 1) -> Part:
     # holes: collar screws, joint screws, flywheel mount flange
     for x, y in COLLAR_SCREWS:
         if y > 0:
-            p -= hw.tap(10.0, top=TUBE_TOP).moved(Pos(x, y, 0))
+            p -= hw.tap(10.0, top=TUBE_TOP, entry="top").moved(Pos(x, y, 0))
     for x, z in FW_SCREWS:                       # flywheel mount: through the side wall's foot (x < 78) into the keel
-        p -= _y_cyl(D.TAP_M3 / 2, x, z, 36.0, W_OUT + 0.1)
+        p -= hw.tap(W_OUT - 36.0, entry="top").moved(Pos(x, W_OUT, z) * hw.rot_to("y"))
+    # where the ball touches printed edges: the launch run's end (R3), a 1 x 0.6 mm relief along the split on the J and
+    # the run (a step between the halves would catch the ball), the side wall's end (R2)
+    u3, n3 = (U[0], 0.0, U[1]), (NRM[0], 0.0, NRM[1])
+    e = _pt(_pt(J1, U, LAUNCH_END), NRM, -RB)
+    p -= hw.cove_at(3.0, (e[0], -0.1, e[1]), (-u3[0], 0, -u3[2]), (-n3[0], 0, -n3[2]), (0, 1, 0), W_IN + 0.7)
+    p -= xz_prism(band(RB - 0.01, RB + 0.6, 0, LAUNCH_END + 1.0, chute=False), -0.1, 0.5)
+    p -= hw.cove_at(2.0, (SIDE_END, W_IN, -0.1), (-1, 0, 0), (0, 1, 0), (0, 0, 1), TUBE_TOP + 0.2)
     p &= Box(400, 200, 400, align=(Align.CENTER, Align.MIN, Align.CENTER))
-    if side > 0:                     # L: thread-forming holes for the joint screws coming from R
+    if side > 0:                     # L: thread-forming holes for the joint screws coming from R (M3 x 16: 8 mm)
         for x, z in JOINT_TABS:
-            p -= _y_cyl(D.TAP_M3 / 2, x, z, -1, 9)
+            p -= hw.tap(9.0, entry="top").moved(Pos(x, 0, z) * hw.rot_to("-y"))
         p.label = "chute_half"
         return p
-    p = _mirror(p, "chute_half")    # R: clearance, and an access bore to the keel joint's head
+    p = _mirror(p, "chute_half")    # R: clearance, and an access bore through the keel and wall to the keel joint's head
     for x, z in JOINT_TABS:
         p -= _y_cyl(D.CLR_M3 / 2, x, z, -9, 1)
         if x > 0 and z < 20:
-            p -= _y_cyl(3.4, x, z, -KEEL["y"][1] - 1, -8.0)
+            p -= _y_cyl(3.2, x, z, -W_OUT - 1.0, -8.0)
     p.label = "chute_half"
     return p
 
@@ -395,12 +417,22 @@ def strut_span(a: float):
     return SOCKET[1] - 8.0, n - (SOCKET[1] - 8.0)
 
 
+LACE_R = D.FUNNEL_THROAT_R + 5.0  # net lacing holes; a groove under the collar joins them (the chute's flange is right
+                                  # under the collar, so the cord had no way back up)
+BOSS_R = 11.0                     # pivot bosses: the horn's M3 on PCD 14 (-y; they carry the servo's torque) and the
+                                  # shaft clamp's screw (+y) had 0.6 mm of wall in a Ø18 boss
+
+
 @lru_cache(maxsize=None)
 def collar() -> Part:
     p = Cylinder(COLLAR_R, COLLAR_T, align=CT).moved(Pos(0, 0, Z_TOP)) - Cylinder(D.FUNNEL_THROAT_R, 20).moved(Pos(0, 0, Z_TOP))
-    for k in range(24):                                                 # net lacing
-        x, y = D.polar(D.FUNNEL_THROAT_R + 4.0, 15 * k + 7.5)
+    for k in range(24):                                                 # net lacing, holes rounded both ends
+        x, y = D.polar(LACE_R, 15 * k + 7.5)
         p -= Cylinder(1.25, 20).moved(Pos(x, y, Z_TOP))
+        p -= hw.lead_in(1.25).moved(Pos(x, y, Z_TOP)) + hw.lead_in(1.25).moved(Pos(x, y, Z_TOP - COLLAR_T + 2.0) * Rot(180, 0, 0))
+    p -= Cylinder(LACE_R + 1.5, 2.0, align=CB).moved(Pos(0, 0, Z_TOP - COLLAR_T - 0.01)) - \
+        Cylinder(LACE_R - 1.5, 3.0, align=CB).moved(Pos(0, 0, Z_TOP - COLLAR_T - 0.5))     # lacing groove underneath
+    p -= hw.cove_ring(D.FUNNEL_THROAT_R, 2.5, outward=False).moved(Pos(0, 0, Z_TOP))       # round throat edge (ball, net)
     for x, y in COLLAR_SCREWS:
         p -= hw.cbore(COLLAR_T, top=Z_TOP).moved(Pos(x, y, 0))
     for a in STRUT_ANGLES:                                              # strut sockets, under the net
@@ -411,15 +443,23 @@ def collar() -> Part:
         p -= _seg_cyl(s0, s1, RIM_TUBE / 2 + 0.15, SOCKET[0], 60)
     px, pz = D.PIVOT_M
     y0, y1 = PIVOT_BOSS_Y
-    for s in (1, -1):                                                   # pivot arms under the net
+    for s in (1, -1):                                                   # pivot arms under the net, filleted into the collar
         arm = xz_prism([(px - 8, TUBE_TOP), (px + 8, TUBE_TOP), (px + 8, pz + 4), (px - 8, pz + 4)], COLLAR_R - 14, y1)
-        arm = (arm & _under_net(3.0)) + _y_cyl(9.0, px, pz, y0, y1)
+        y_end = math.sqrt(COLLAR_R ** 2 - (abs(px) + 8) ** 2)
+        for sx in (-1, 1):
+            arm += hw.cove_at(D.FILLET, (px + 8 * sx, COLLAR_R - 14, Z_TOP), (sx, 0, 0), (0, 0, 1), (0, 1, 0),
+                              y_end - (COLLAR_R - 14))
+        arm = (arm & _under_net(3.0)) + _y_cyl(9.0, px, pz, y0, y1) + (_y_cyl(BOSS_R, px, pz, y0, y1) & _under_net(1.5))
         p += arm if s > 0 else arm.mirror(Plane.XZ)
     p -= Cylinder(D.FUNNEL_THROAT_R, 400).moved(Pos(0, 0, Z_TOP))
     # +y boss: 8 mm shaft clamped by an M3 across a slit; -y boss: 4 x M3 on PCD 14 for the servo horn
     p -= _y_cyl(4.0, px, pz, y0 + 2.0, y1 + 1)
     p -= Box(1.2, y1 - y0 - 1, 12.0, align=(Align.CENTER, Align.MIN, Align.MIN)).moved(Pos(px, y0 + 2.0, pz))
     p -= Cylinder(D.CLR_M3 / 2, 30, rotation=(0, 90, 0)).moved(Pos(px, (y0 + y1) / 2 + 1, pz + 6.0))
+    for x0, x1 in ((px - 20.0, px - 8.0), (px + 8.5, px + 20.0)):     # spot faces for the clamp's head and nut, open
+        yc = (y0 + y1) / 2 + 1                                         # upward (a closed one left a skin under the net)
+        p -= Cylinder(3.6, x1 - x0, rotation=(0, 90, 0)).moved(Pos((x0 + x1) / 2, yc, pz + 6.0))
+        p -= Box(x1 - x0, 7.2, 20.0, align=(Align.MIN, Align.CENTER, Align.MIN)).moved(Pos(x0, yc, pz + 6.0))
     for k in range(4):
         x, z = D.polar(D.STS3250["horn_pcd"] / 2, 90 * k + 45)
         p -= _y_cyl(D.TAP_M3 / 2, px + x, pz + z, -y1 - 0.01, -y1 + 9.0)
@@ -429,6 +469,7 @@ def collar() -> Part:
 
 RIM_JOINTS = tuple(a + 30.0 for a in STRUT_ANGLES)
 RIM_Z0, RIM_Z1 = D.RIM_Z - 10.0, D.RIM_Z + 2.0     # 12 mm: 6 mm laps, so the lap screws get 6 mm of thread
+RIM_CHAMFER = 1.5                                   # the catch edge (balls glance off it; the net's cord wraps it)
 
 
 @lru_cache(maxsize=None)
@@ -440,11 +481,13 @@ def rim_arc(k: int) -> Part:
     zm = (RIM_Z0 + RIM_Z1) / 2
 
     def ring(z0, z1, b0, b1):
-        return revolve(Plane.XZ * Polygon((r0, z0), (r1, z0), (r1, z1), (r0, z1), align=None), Axis.Z, b1 - b0).rotate(Axis.Z, b0)
+        top = [(r1, z1), (r0 + RIM_CHAMFER, z1), (r0, z1 - RIM_CHAMFER)] if z1 >= RIM_Z1 else [(r1, z1), (r0, z1)]
+        return revolve(Plane.XZ * Polygon((r0, z0), (r1, z0), *top, align=None), Axis.Z, b1 - b0).rotate(Axis.Z, b0)
     p = ring(RIM_Z0, RIM_Z1, a0 + 4.0, a1 - 4.0) + ring(zm, RIM_Z1, a1 - 4.0, a1 + 4.0) + ring(RIM_Z0, zm, a0 - 4.0, a0 + 4.0)
-    for a in _lin(a0 + 6, a1 - 6, 5):                                           # lacing
+    for a in _lin(a0 + 6, a1 - 6, 5):                                           # lacing, holes rounded both ends
         x, y = D.polar(r0 + 3.5, a)
         p -= Cylinder(1.25, 40).moved(Pos(x, y, D.RIM_Z))
+        p -= hw.lead_in(1.25).moved(Pos(x, y, RIM_Z1)) + hw.lead_in(1.25).moved(Pos(x, y, RIM_Z0) * Rot(180, 0, 0))
     s0, s1 = strut_ends(a_c)
     n = math.dist(s0, s1)
     p += (_seg_cyl(s0, s1, 7.0, n - SOCKET[1], n + 2.0) - _seg_cyl(s0, s1, RIM_TUBE / 2 + 0.15, n - 40, n - SOCKET[0]))
@@ -520,9 +563,9 @@ def hardware() -> hw.Hardware:
                "pololu.com #4842 ($56.95)", V.pololu_25d(), f * Pos(0, 0, -FEED_FACE) * flip)
         h.part("Pololu #1997 hub", "Pololu universal aluminium mounting hub, 4 mm shaft, 4 x M3 (pair: #1997)",
                "pololu.com #1997 ($7.95 per 2)", V.hub_1997(), f * Pos(0, 0, -D.FEED_WHEEL[1] / 2))
-        for k in range(4):                         # feed wheel -> #1997 hub
+        for k in range(4):                         # feed wheel -> #1997 hub, heads on the wheel's face
             x, y = D.polar(D.HUB_1997["pcd"] / 2, 90 * k + 45)
-            h.screw("PAN", 14, f * Pos(x, y, D.FEED_WHEEL[1] / 2 - D.CB_M3[1]))
+            h.screw("PAN", 16, f * Pos(x, y, D.FEED_WHEEL[1] / 2))
         for dy in (-8.5, 8.5):                     # 25D face -> carriage
             h.screw("PAN", 8, f * Pos(0, dy, -FEED_FACE + 6.0 - D.CB_M3[1]))
         hf = _hinge_frame(s)
@@ -545,7 +588,7 @@ def hardware() -> hw.Hardware:
             h.part("IR break-beam half", "5 mm IR break-beam sensor half (emitter or receiver; Adafruit #2168 pair)",
                    "adafruit.com #2168 ($5.95 per pair)", V.ir_pair(), Pos(x, s * (W_OUT + 13.0), z) * hw.rot_to("-y" if s > 0 else "y"))
     for x, z in JOINT_TABS:                        # across the split, from -y into +y
-        h.screw("PAN", 14, Pos(x, -8.0, z) * hw.rot_to("-y"))
+        h.screw("PAN", 16, Pos(x, -8.0, z) * hw.rot_to("-y"))
     for x, y in COLLAR_SCREWS:                     # collar -> chute flanges
         h.screw("PAN", 10, Pos(x, y, Z_TOP - D.CB_M3[1]))
     for a in STRUT_ANGLES:

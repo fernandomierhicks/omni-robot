@@ -16,11 +16,13 @@ def web_files():
 
 setup(
     name=package_name,
-    version="0.1.0",
+    version="0.3.0",
     packages=[package_name],
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
+        ("share/" + package_name + "/config", ["config/robot_steps.json"]),
+        ("share/" + package_name + "/systemd", ["systemd/omni-console.service", "systemd/README.md"]),
     ] + web_files(),
     install_requires=["setuptools"],
     zip_safe=False,
@@ -30,5 +32,6 @@ setup(
     entry_points={"console_scripts": [
         "mission_node = omni_console.mission_node:main",
         "console_web = omni_console.web_server:main",
+        "supervisor = omni_console.supervisor:main",
     ]},
 )

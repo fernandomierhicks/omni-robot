@@ -47,8 +47,17 @@ By apex: 0.75 m 83 → 76%, 1.0 m 96 → 89%, 1.5 m 93 → 96%, 2.0 m 100 → 10
 & $py studies\rendered_catch.py report                  # every variation run so far
 & $py studies\rendered_catch.py pictures                # camera frames with the detector's blob + the overview
 & $py robot_export.py                                   # after a change to params / catalog / the model
-& $py -m pytest -q                                      # v10's checks + 22 firmware / catch-code / house checks
+& $py sil_game.py --returns --tosses 6 --log logs\      # + a session log in the robot's own format (omni-log/1)
+& $py sil_game.py --returns --pass-game --tosses 6      # two throwers taking turns: the pass game
+& $py studies\replay_log.py <log.jsonl>                 # a session's throws thrown again in the sim (--demo: end to end)
+& $py studies\detector_speed.py --rendered              # the detector's C++ pixel loops against numpy
+& $py -m pytest -q                                      # 94 checks (~3.5 min)
 ```
+
+Fault injection (`faults.py`): `FaultInjector(robot).inject("link" | "motor" | "battery" | "estop" | "bumper" |
+"imu" | "flywheel", on, seconds)`; `SimLink.faults` drops the link's bytes. On ROS the bridges take
+`{"kind", "on", "s", "motor"}` on `/sim/fault` (the console's System tab in the sim) and list what's active on
+`/sim/faults`.
 
 The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asset names, the 1k diffuse JPGs, md5-checked against Poly Haven's API, recoloured where noted). They live in `assets/house/` (not in git, ~28 MB; `SOURCES.md` there lists URL and md5 for each). Without them the house builds with flat stand-ins and says so.
 
@@ -70,4 +79,26 @@ The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asse
 | `catch_world.py` | + `WorldConfig.scene / frames / sensor`; `CameraSim.truth` (where the ball really projects, for scoring); the thrower shows the next ball in the hand (house) |
 | `sil_game.py` | + `--frames`, `--scene`, `--acquire`; `PerceptionScore` (the detector against the truth); the viewer shows the left camera |
 | `studies/rendered_catch.py` | new (31): the grid on rendered vs sparse frames; `report`, `pictures` |
-| `test_v11.py` | v10's checks + protocol and codec cross-checks, time sync, ramped stop on link loss, DM-2325 comm-loss recovery, bumper, e-stop, the fire interlock, the kid profile, DShot resolution, the detector, the robot config against the sim, `catch_plan` against the sim's game, a short game through the whole stack, the pin map |
+| `test_v11.py` | v10's checks + protocol and codec cross-checks, time sync, ramped stop on link loss, DM-2325 comm-loss recovery, bumper, e-stop, the fire interlock, the kid profile, DShot resolution, the detector, the robot config against the sim, `catch_plan` against the sim's game, a short game through the whole stack, the pin map; Oct 22: every injected fault through the console's core, the C++ detector against numpy, a session log written and replayed, the pass game, the walking person in the lidar |
+| `faults.py` | new (Oct 22): fault injection on `SilRobot` and the link (link, motor, battery, e-stop, bumper, IMU, flywheel telemetry) |
+| `sil_robot.py`, `sil_link.py` | + per-motor CAN cut, forced battery voltage, IMU and flywheel-telemetry cut-offs; the link drops bytes while a fault says so |
+| `catch_world.py`, `sil_game.py` | + `WorldConfig.throwers` (the pass game), `scripted` (replayed throws); `--log`, `--pass-game` |
+| `params.py`, `robot_model.py`, `bridge_core.py` | + `SimParams.person`: a mocap person whose legs the lidar sees; `CoreConfig.person` and `Walker` walk them ahead of the start |
+| `studies/replay_log.py`, `studies/detector_speed.py` | new (Oct 22): a session log's throws replayed in the sim; the C++ detector timed against numpy |
+| `sil_robot.py`, `sil_link.py`, `bridge_core.py` | design.md 10: `SilRobot(timing="real")`: the MCU's crystal error and wander, the CAN bus's reply timing (`DmBus`), IMU samples at their own times, the SYNC_OUT / CAM_TRIG / strobe edges the firmware schedules; `SimLink(latency_up=, latency_down=, gpio="hte" \| "irq")`: an asymmetric USB path and the Jetson's GPIO stamps of the sync pulses; `CoreConfig.timing`. Defaults ("ideal", symmetric, no GPIO) reproduce earlier results |
+| `robot_export.py` | + `frames()`: every fixed frame on base_link (REP-103 optical frames) into `robot_v11.json`; `fw_params.h` + SYNC_PERIOD_US, CAM_TRIGGER_HZ, DM_SAMPLE_TO_RX_US |
+| `tag_sim.py` | new: AprilTags on the house's walls (`TagWorld`) and the left camera's detections of them (`TagCamera`: visibility, size, angle, occlusion, blur, corner noise, misses, misdecodes) |
+| `studies/tag_slam.py` | new: v9's house tour with odometry, tags + odometry, the lidar matcher and lidar + tags (camera refined), a 15 s lidar gap, the tag map, relocalization by votes (`results/tag_slam.json`) |
+| `test_v11.py` | + the BNO085 report parser, exact sync / trigger schedules, CAN reply timing, the clock map through the link (HTE, IRQ, echo-only), wheel speeds on real timing, the frames file against REP-105 and calibration bounds, odom jumps, camera stamps from triggers, de-skew and its time order, the scan clock |
+| `arm_so101.py` | new (design.md 11): an SO-101 arm (the official model, STS3215 12 V servos, `ArmServos`) for `SimParams(payload="arm")`; `fetch` its meshes |
+| `params.py`, `robot_model.py`, `robot.py`, `sil_robot.py` | + `payload` ("catch" default, "arm": no tilt, funnel, feed or launcher, the arm on the plate at `arm_mount`), `arm_payload_kg`, `extra_masses`; Robot and SilRobot step the arm's servos |
+| `arm_view.py`, `studies/arm_study.py` | new: watch the arm robot; its reach, static tipping, stops, swings, floor edges, the firmware check, fixes (`results/arm_study.json`, `arm_reach.png`) |
+| `test_v11.py` | + the arm replaces the catch module, holds the official zero pose and slews at servo speed, the firmware drives the arm robot |
+| `params.py`, `robot_model.py`, `arm_so101.py` | design.md 11, Oct 24 (the picking arm robot): `arm_mount_z` (a low nose bracket), `arm_pick` (finger pads that grasp, fingertips on the floor, the wrist camera; the self-view boxes), `arm_bin` (+ the display behind it), `lidar_mount="rear"`, `camera_mount="nose_pods"` + `camera_pod_xz`, `floor_objects`; `POSES["pick_stow"]`, `gap_at` |
+| `arm_objects.py` | new: loose things on the floor (box, cylinder, puck, sphere; `CATALOG`, `SETS` toys / clutter, `scatter`) |
+| `arm_bus.py` | new: the six STS3215s' side of the bus (`ServoBusSim`, with a per-joint calibration error) and its TCP port (`ServoPort`) |
+| `sil_pick.py` | new: the tidy in one process (firmware, link, mode mux in PICK, `omni_arm` on the emulated bus, depth and wrist renders), `--world arena \| house`, `--view` |
+| `robot_export.py` | + `ARM`, `arm_params()`, `arm_json()` → `ros/src/omni_arm/omni_arm/config/robot_arm.json`; `frames()` puts `arm_mount` on the arm's adapter for the arm robot; writes only the files that changed |
+| `bridge_core.py`, `house.py`, `robot.py` | + `CoreConfig.payload / objects / n_objects / joint_err_deg` (the arm world: `arm_kw`, `ARM_AREA`); no ball loading without a catch module; the picking arm starts at `pick_stow` |
+| `studies/arm_mount.py`, `studies/arm_pick.py` | new: where the arm goes (floor reach, bin drop, stow; `results/arm_mount.json`); the tidy scored over seeds, sets and worlds (`results/arm_pick.json`) |
+| `test_v11.py` | + the pick robot's layout, `omni_arm`'s kinematics against MuJoCo's, the driver through the emulated bus, the arm-out caps, a grasp in physics, a whole tidy through the stack |

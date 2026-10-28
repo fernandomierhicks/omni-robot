@@ -1,0 +1,29 @@
+# The robot's face on the 5 in 800x480 panel at the front, its voice on the speaker and its ears on the mic array,
+# from boot (design.md 2, 12.2). No desktop: the Jetson boots
+# to multi-user.target and this draws straight on the display (SDL's KMS/DRM backend). If NVIDIA's DRM path won't take
+# it (VERIFY on JetPack), use the fallback line: a bare X server with nothing but the face (no window manager).
+# Install: sudo cp omni-face.service /etc/systemd/system/ && sudo systemctl enable --now omni-face
+[Unit]
+Description=omni-robot face and voice
+After=sound.target network.target
+
+[Service]
+User=omni
+SupplementaryGroups=video audio render input
+Environment=SDL_VIDEODRIVER=kmsdrm
+Environment=SDL_AUDIODRIVER=alsa
+# the speaker is the mic array's output (its echo cancelling needs to hear what the robot plays): VERIFY the card name
+Environment=AUDIODEV=plughw:CARD=Lite,DEV=0
+# the voice: Kokoro (python3 -m omni_face.voice fetch; pip install kokoro-onnx), else Piper's model below
+Environment=OMNI_KOKORO_DIR=/opt/omni/kokoro
+Environment=OMNI_PIPER_MODEL=/opt/omni/piper/en_US-amy-medium.onnx
+# voice commands (listen.py): Vosk's small English model, the mic array's capture device (VERIFY its ALSA name)
+Environment=OMNI_VOSK_MODEL=/opt/omni/vosk/vosk-model-small-en-us-0.15
+Environment=OMNI_MIC=ReSpeaker
+ExecStart=/usr/bin/python3 -m omni_face.display --fullscreen --listen auto
+# fallback: ExecStart=/usr/bin/xinit /usr/bin/python3 -m omni_face.display --fullscreen --listen auto -- :0 -nocursor
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

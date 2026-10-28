@@ -9,7 +9,7 @@ Subscribes /mcu/state                  omni_interfaces/McuState: where the robot
 Publishes  /catch/track                omni_interfaces/BallTrack, after every frame pair while tracking
            /catch/ball                 visualization_msgs/Marker: the track and its rim crossing (odom frame)
            /catch/perception           std_msgs/String, JSON: frames, detections, processing time, 1 Hz
-Parameters source, calib_rot_deg, ball_size_rel; arena_cx, arena_cy, arena_hx, arena_hy (odom frame, as
+Parameters source, detector ("native": the C++ pixel loops, fast_detector.py; "python"), calib_rot_deg, ball_size_rel; arena_cx, arena_cy, arena_hx, arena_hy (odom frame, as
            catch_behavior): the play area, where acquisition may start a track (design.md 31)
 """
 
@@ -27,6 +27,7 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import String
 from visualization_msgs.msg import Marker
 
+from omni_catch.detector import DetectorConfig
 from omni_catch.frames import ArrayFrame, SparseFrame
 from omni_catch.perception import Perception
 from omni_catch.tracker import TrackerConfig
@@ -48,7 +49,8 @@ class PerceptionNode(Node):
         P = self.declare_parameter
         self.source = P("source", "sparse").value
         tc = TrackerConfig(calib_rot_deg=P("calib_rot_deg", 0.10).value, ball_size_rel=P("ball_size_rel", 0.015).value)
-        self.perc = Perception(tcfg=tc)
+        # the detector's pixel loops in C++ (fast_detector.py; the Python ones if it doesn't build): "native" | "python"
+        self.perc = Perception(tcfg=tc, dcfg=DetectorConfig(backend=P("detector", "native").value))
         # the play area from the map, as catch_behavior has it: where a throw can start (acquisition, design.md 31)
         self.perc.set_play_area((P("arena_cx", 3.5).value, P("arena_cy", 0.0).value),
                                 (P("arena_hx", 6.0).value, P("arena_hy", 3.0).value))
@@ -61,6 +63,10 @@ class PerceptionNode(Node):
         self.p_ball = self.create_publisher(Marker, "/catch/ball", 10)
         self.p_stats = self.create_publisher(String, "/catch/perception", 5)
         self.create_subscription(McuState, "/mcu/state", self.on_state, 50)
+        # the field catch_behavior worked out from /catch/setup (the house's catch): the play area moves with it
+        from rclpy.qos import DurabilityPolicy, QoSProfile
+        self.create_subscription(String, "/catch/field", self.on_field,
+                                 QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
         if self.source == "sparse":
             for k, side in enumerate(("left", "right")):
                 self.create_subscription(SparseImage, f"/cam/{side}/sparse", lambda m, k=k: self.on_sparse(k, m), 20)
@@ -70,6 +76,13 @@ class PerceptionNode(Node):
         self.create_timer(0.005, self.flush)
         self.create_timer(1.0, self.report)
         self.get_logger().info(f"perception on {self.source} frames, {len(self.perc.cams)} cameras")
+
+    def on_field(self, m: String):
+        try:
+            f = json.loads(m.data)
+            self.perc.set_play_area(tuple(f["play_center"]), tuple(f["play_half"]))
+        except (ValueError, KeyError, TypeError):
+            pass
 
     def on_state(self, m: McuState):
         self.perc.add_pose(t_of(m.header.stamp), m.x, m.y, m.yaw, m.roll, m.pitch)

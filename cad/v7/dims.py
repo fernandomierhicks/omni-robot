@@ -30,7 +30,7 @@ SIM_DIR = ROOT / "simulation" / "v7 home floor"
 sys.path.insert(0, str(SIM_DIR))
 
 from params import SimParams  # noqa: E402
-from robot_model import camera_positions, geometry  # noqa: E402
+from robot_model import geometry  # noqa: E402
 
 # the v7 proposal (house.BASES["v7"]) on section 24's drive and feed choice. plate_gap (CAD, Oct 21): the payload
 # plate rides on six standoffs high enough for the lidar's scan plane to pass over the wheels at their bump stop and
@@ -50,6 +50,8 @@ TAP_M3 = 2.8                    # M3 thread-forming hole in PETG / PLA
 CLR_M3 = 3.4                    # M3 through hole
 CB_M3 = (6.4, 2.2)              # pan-head counterbore (dia, depth): the 5.6 x 1.8 head sits 0.4 under the face
 CSK_M3 = 6.6                    # 90 deg countersink dia (ISO 7046 head 5.5)
+TAP_CSK = 0.5                   # entry countersink on tapped holes with thread to spare (hw.tap(entry=...))
+FILLET = 3.0                    # inside fillet on load paths (printed parts crack at sharp inside corners)
 ENGAGE_MIN = {"M2": 4.0, "M2.5": 5.0, "M3": 6.0}   # thread in printed parts (2 x d)
 ENGAGE_METAL = {"M2": 1.6, "M2.5": 2.0, "M3": 2.4}  # thread in nuts and metal parts (0.8 x d, a nut's height)
 NUT_M3 = (5.8, 2.6)             # hex nut trap (across flats, depth)
@@ -86,6 +88,11 @@ STANDOFF_D, STANDOFF_FLANGE = 12.0, (20.0, 3.0)   # printed payload standoffs (d
 # Six standoffs, deck to plate. Side pair under the yokes; the front pair on the lidar's rays through the side pair, so
 # their shadows overlap; rear pair far from the lidar (thin shadows). The front pair clears the inner wheel slot by 2 mm.
 STANDOFF_XY = ((97.0, 34.5), (97.0, -34.5), (0.0, 112.0), (0.0, -112.0), (-104.0, 34.0), (-104.0, -34.0))
+# The front pair, 55 mm from the lidar, threw the widest shadows (12.5 deg each at Ø12): 6061 rods Ø8 instead (8.3 deg),
+# M3 tapped at both ends, located in 1 mm recesses in the deck and the plate (design.md 12.1, Oct 24). The other four
+# stay printed: they carry the sway (a rod's ends are near pins), and their shadows lie inside the rods' wedges or far.
+ROD_XY = STANDOFF_XY[:2]
+ROD_D, ROD_RECESS = 8.0, 1.0
 
 # --- wheel (POD frame, x inward) -------------------------------------------------------------------------------------
 ROW_X = (-WHEEL_W / 4, WHEEL_W / 4)              # outer row plane x = -20, inner row x = +20
@@ -110,7 +117,8 @@ X_FACE = -23.0                  # motor output face: the 17 mm shaft ends at the
 X_REAR = X_FACE + DM_BODY       # 37.6 motor rear
 X_CUP_OUT = X_FACE - 3.0        # -26 outer face of the motor cup's end wall (countersunk face screws)
 X_HUB = X_CUP_OUT - 2.0         # -28 Pololu #1999 hub, boss toward the motor
-X_DRUM_OUT = X_HUB - 9.2 - 3.8  # -41 outer face of the wheel's outer end plate
+X_DRUM_OUT = X_HUB - 9.2 - 5.8  # -43 outer face of the wheel's outer end plate (4 mm under the #1999 hub's screw
+                                # heads, which carry the drive torque; 2 mm before)
 X_CUP_IN = 41.0                 # inner end of the motor cup = outer face of the arm's bearing boss
 X_BRG = (41.0, 48.0)            # 61808-2RS (40 x 52 x 7) on the arm boss: wheel's inner support
 X_ARM = (49.0, 57.0)            # arm plate
@@ -124,14 +132,16 @@ POD_Z_DECK = DECK_TOP - WHEEL_R  # 3.0: deck top in the POD frame
 PIVOT_YZ = (48.0, 14.0)         # pivot; tube clears the deck by 2 mm
 SHOCK_LO_YZ = (20.0, 12.0)      # shock eye on the arm (tapped boss)
 SHOCK_HI_YZ = (40.0, 56.0)      # shock eye on the tower (fixed): 48.3 mm static; motion ratio ~0.5
-SLOT_R1 = 108.0                 # the wheel slot is 141 mm wide only beyond r 108 (the wheel's inner face is at r 110) ...
+SLOT_R1 = 110.0                 # the wheel slot is 141 mm wide only beyond r 110 (the rollers start at r 112; at 108 the
+                                # pod mounts' outer-ear screws were 0.8 mm from the step) ...
 SLOT_HW_IN = 36.0               # ... and 72 mm wide from SLOT_R0 to SLOT_R1 (arm, cup, bearing housing: |y| < 30)
 POD_MIRROR = {45.0: True, 135.0: False, 225.0: True, 315.0: False}   # mirrored pods put both left mounts on the
                                 # left lobe and both right ones on the right lobe: the front lobe stays free for the
                                 # lidar and camera posts, the rear for the e-stop and power (mirror-symmetric robot)
 SHOCK_X = (59.5, 65.5)          # shock eyes between these x (body ~dia 11 clears the arm and the tower web)
 X_PIVOT_TUBE = (49.0, 68.0)     # arm's pivot tube (two 623s)
-X_EAR = ((43.5, 48.5), (68.5, 74.5))   # pivot clevis ears; 0.5 mm shims at the bearings' inner races
+X_EAR = ((40.5, 48.5), (68.5, 74.5))   # pivot clevis ears (the outer one 8 mm: its two deck screws get 2.6 mm walls;
+                                       # the rollers end at x 38); 0.5 mm shims at the bearings' inner races
 HOUSE_R_IN = WHEEL_R + POD_TRAVEL + 4.0  # 82.5: wheel-house roof, 4 mm over the wheel at its bump stop
 HOUSE_X_IN = L_WHEEL - PLATE_R - 2.0     # 28: the house stops outside the payload plate
 HOUSE_Y = 75.0                  # house legs (on the lobes, outside the 70.5 slot)
@@ -170,10 +180,7 @@ PIVOT_M = (GEO.pivot_m[0] * MM, GEO.pivot_m[1] * MM)     # (-10, 150) module fra
 PIVOT_R = (GEO.pivot_r[0] * MM, GEO.pivot_r[1] * MM)     # (-10, 329.3) robot frame
 TILT_RANGE = SIM.tilt_range_deg                    # (-30, 40)
 YOKE_Y = 105.0                                      # the sim's pivot yokes
-CAM_BASELINE = SIM.camera_baseline * MM            # 190
-CAM_TILT = SIM.camera_tilt_deg
-CAM_SIM = [(n, tuple(v * MM for v in pos)) for n, pos in camera_positions(SIM, GEO)[1]]
-CAM_RAISE = 12.5                                   # CAD: cameras sit this much above the sim's spot to clear the wheel houses
+CAM_BASELINE = SIM.camera_baseline * MM            # 190 (the cameras themselves: head.py)
 
 # --- vendor parts with drawings ------------------------------------------------------------------------------------------
 POLOLU_25D = dict(d=25.0, gearbox=17.0, motor=30.8, encoder=14.7, shaft=(4.0, 3.5, 12.5), bushing=(7.0, 2.5),

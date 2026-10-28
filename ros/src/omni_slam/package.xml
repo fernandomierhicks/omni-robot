@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_slam</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 10): AprilTags as unknown landmarks in a factor graph with the odometry and the lidar's
+    poses (tag_slam), the tag detector for the robot's camera, and the localization's health (speed scale, relocalization).
+    ROS-free cores: tags, graph, slam, health.</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>omni_interfaces</exec_depend>
+  <exec_depend>omni_calib</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-scipy</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

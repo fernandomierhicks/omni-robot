@@ -12,6 +12,11 @@ slam_toolbox treats a scan as taken at its stamp (the first sample, ROS conventi
 smeared and late by half a turn. Each sample is moved into the laser frame at the stamp with odom -> base_link (the
 EKF) at its own time (stamp + i * time_increment), then re-binned by angle (nearest return kept); time_increment is
 set to 0. This is what v9's matcher does with its own pose history (estimator.ScanMatcher).
+
+Timing (design.md 10, scan_time.py): time_order = -1 when the driver's array runs against time (sllidar flips it to
+counter-clockwise angles; VERIFY on the robot); refine_stamps fits the turn starts on a line under the driver's
+stamps (its serial delivery jitter out) and subtracts latency (s, bench-measured with omni_calib.temporal). The sim's
+stamps are exact: both off there.
 """
 
 from __future__ import annotations
@@ -29,6 +34,8 @@ from rclpy.time import Time
 from sensor_msgs.msg import Imu, LaserScan
 from tf2_ros import Buffer, TransformListener
 
+from omni_perception.scan_time import ScanClock, deskew, sample_times
+
 LATCHED = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
 
 
@@ -43,7 +50,10 @@ class ScanPrep(Node):
         self.floor = self.declare_parameter("floor", True).value
         self.deskew = self.declare_parameter("deskew", True).value
         self.n_key = self.declare_parameter("deskew_keys", 11).value        # odom poses per turn, interpolated
-        self.cal = None                                                     # (tan tilt, azimuth, height)
+        self.order = 1 if self.declare_parameter("time_order", 1).value >= 0 else -1
+        self.clock = ScanClock(self.declare_parameter("latency", 0.0).value) \
+            if self.declare_parameter("refine_stamps", False).value else None
+        self.cal = None                                                    # (tan tilt, azimuth, height)
         self.rp = (0.0, 0.0)
         self.n_in = self.n_drop = self.n_scans = self.n_skew_fail = 0
         self.buf = Buffer(cache_time=Duration(seconds=5.0))
@@ -84,8 +94,7 @@ class ScanPrep(Node):
         q = tr.transform.rotation
         return tr.transform.translation.x, tr.transform.translation.y, _yaw(q)
 
-    def deskew_scan(self, m, a, r):
-        t0 = Time.from_msg(m.header.stamp).nanoseconds * 1e-9
+    def deskew_scan(self, m, a, r, t0):
         n = len(r)
         dt = m.time_increment
         if dt <= 0:
@@ -93,35 +102,21 @@ class ScanPrep(Node):
         if self.laser_off is None:
             tr = self.buf.lookup_transform("base_link", m.header.frame_id, Time())
             self.laser_off = (tr.transform.translation.x, tr.transform.translation.y)
-        T = n * dt
-        tk = t0 + np.linspace(0.0, T, self.n_key)
+        ts = sample_times(n, t0, dt, self.order)
         try:
-            K = np.array([self.odom_pose(float(t)) for t in tk])
+            return deskew(a, r, ts, self.odom_pose, self.laser_off, t_ref=t0, angle_min=m.angle_min,
+                          angle_increment=m.angle_increment, n_out=n, n_key=self.n_key)
         except Exception as e:
             if not self.n_skew_fail:
                 self.get_logger().warn(f"de-skew: no odom -> base_link over the scan ({type(e).__name__}: {e})")
             self.n_skew_fail += 1
             return r
-        K[:, 2] = np.unwrap(K[:, 2])
-        ts = t0 + dt * np.arange(n)
-        px, py, pyaw = (np.interp(ts, tk, K[:, j]) for j in range(3))
-        ok = np.isfinite(r)
-        lx, ly = self.laser_off
-        bx = lx + r[ok] * np.cos(a[ok])                     # base frame at the sample's time
-        by = ly + r[ok] * np.sin(a[ok])
-        c, s = np.cos(pyaw[ok]), np.sin(pyaw[ok])
-        wx, wy = px[ok] + c * bx - s * by, py[ok] + s * bx + c * by    # odom frame
-        c0, s0 = math.cos(K[0, 2]), math.sin(K[0, 2])
-        qx, qy = c0 * (wx - K[0, 0]) + s0 * (wy - K[0, 1]), -s0 * (wx - K[0, 0]) + c0 * (wy - K[0, 1])  # base at t0
-        qx, qy = qx - lx, qy - ly                           # laser at t0
-        rr = np.hypot(qx, qy)
-        aa = np.mod(np.arctan2(qy, qx) - m.angle_min, 2 * math.pi)
-        k = np.round(aa / m.angle_increment).astype(int) % n
-        out = np.full(n, np.inf)
-        np.minimum.at(out, k, rr)
-        return out
 
     def on_scan(self, m: LaserScan):
+        if self.clock is not None:                          # the turn's start on the line under the driver's stamps
+            t = self.clock.update(Time.from_msg(m.header.stamp).nanoseconds * 1e-9, m.scan_time)
+            ns = int(round(t * 1e9))
+            m.header.stamp.sec, m.header.stamp.nanosec = ns // 1_000_000_000, ns % 1_000_000_000
         if not self.deskew:
             self.prepare(m)
             return
@@ -154,7 +149,7 @@ class ScanPrep(Node):
         out.angle_increment, out.time_increment, out.scan_time = m.angle_increment, m.time_increment, m.scan_time
         out.range_min, out.range_max = m.range_min, m.range_max
         if self.deskew:
-            r = self.deskew_scan(m, a, r)
+            r = self.deskew_scan(m, a, r, Time.from_msg(m.header.stamp).nanoseconds * 1e-9)
             out.time_increment = 0.0
         r = np.where((r < m.range_min) | (r > m.range_max), np.inf, r)
         arr = array.array("f")

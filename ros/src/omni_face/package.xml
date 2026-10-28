@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_face</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 2): the face on the 7 in display and the voice on the speaker. face_node turns the
+    console's status into what to show and say (moments.py); the display program (pygame, no desktop, no browser) draws
+    it full screen on the robot and plays the sounds and speech (Piper / espeak-ng; Windows' voice in the sim).</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>omni_interfaces</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-pygame</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
