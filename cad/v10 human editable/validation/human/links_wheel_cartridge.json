@@ -1,0 +1,16 @@
+{
+  "part": "wheel_cartridge",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Mounting Hole Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "screw_pcd": "\"D24@Control Measures-Shared Layout\" * 2",
+    "first_screw_angle": "\"D2@Angle cartridge phase-Shared Layout\"",
+    "screw_count": "(\"D112@Control Measures-Shared Layout\" / 1mm)",
+    "bearing_seat_radius": "\"D78@Control Measures-Shared Layout\" * 0.5"
+  }
+}

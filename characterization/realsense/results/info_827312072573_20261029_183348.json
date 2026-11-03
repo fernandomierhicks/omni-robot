@@ -1,0 +1,360 @@
+{
+ "test": "info",
+ "date": "2026-10-29T18:33:48",
+ "host": {
+  "machine": "FernandoDesktop",
+  "os": "Windows-10-10.0.22631-SP0",
+  "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+ },
+ "device": {
+  "name": "RealSense USB2",
+  "serial_number": "827312072573",
+  "firmware_version": "5.9.2",
+  "recommended_firmware_version": null,
+  "product_id": "0AD6",
+  "usb_type_descriptor": null,
+  "physical_port": "\\\\?\\usb#vid_8086&pid_0ad6&mi_00#6&113e494d&0&0000#{e5323777-f976-4f5b-9b55-b94699c46e44}\\global",
+  "product_line": "D400",
+  "asic_serial_number": "825513021139",
+  "librealsense": "2.59.1"
+ },
+ "datasheet": {
+  "depth_sensor": "OmniVision OV9282 (x2), global shutter, 3 um pixels, 1280x800, mono (IR + visible)",
+  "rgb_sensor": "OmniVision OV2740, rolling shutter, 1.4 um pixels, 1920x1080",
+  "baseline_mm": 50.0,
+  "depth_fov_deg": [
+   87,
+   58
+  ],
+  "rgb_fov_deg": [
+   69,
+   42
+  ],
+  "min_z_m_848x480": 0.195,
+  "ground_zero_mm": 3.2,
+  "sync_connector": "9-pin JST SH on the back; sync pin 1.8 V (inter_cam_sync_mode)",
+  "depth_rms_spec": "<= 2% at 2 m, 80% ROI, 848x480 (datasheet)",
+  "source": "Intel RealSense D400 Series Product Family Datasheet (rev 2023+); VERIFY"
+ },
+ "temperatures": {
+  "asic_temperature": null,
+  "projector_temperature": null
+ },
+ "sensors": {
+  "Stereo Module": {
+   "name": "Stereo Module",
+   "modes": {
+    "infrared": [
+     [
+      424,
+      240,
+      6,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "uyvy"
+     ],
+     [
+      424,
+      240,
+      6,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "uyvy"
+     ],
+     [
+      424,
+      240,
+      15,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "uyvy"
+     ],
+     [
+      424,
+      240,
+      30,
+      "rgba8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "rgb8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "bgr8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "bgra8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "uyvy"
+     ],
+     [
+      480,
+      270,
+      6,
+      "rgba8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "rgb8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "bgr8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "bgra8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "uyvy"
+     ],
+     [
+      480,
+      270,
+      15,
+      "rgba8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "rgba8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "rgb8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "bgr8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "bgra8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "uyvy"
+     ]
+    ],
+    "infrared1": [
+     [
+      424,
+      240,
+      6,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "y8"
+     ]
+    ],
+    "infrared2": [
+     [
+      424,
+      240,
+      6,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "y8"
+     ]
+    ],
+    "depth": [
+     [
+      424,
+      240,
+      6,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      15,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      30,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      6,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      15,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      30,
+      "z16"
+     ]
+    ]
+   },
+   "options": {}
+  }
+ },
+ "geometry": {
+  "depth_scale_m": 0.0010000000474974513
+ },
+ "requirements": {
+  "ir_pair: global shutter": "PASS (OV9282, datasheet)",
+  "ir_pair: colour": "FAIL: mono (the robot's colour-blob detector would need a shape / motion detector)",
+  "ir_pair: >= 60 fps at >= 640x400": "FAIL",
+  "rgb: global shutter": "FAIL: rolling shutter (OV2740, datasheet); the sweep put rolling 20 ms at 72%",
+  "rgb: >= 60 fps at >= 640x400": "FAIL",
+  "hw sync (inter_cam_sync_mode)": "not offered by this firmware",
+  "usb3": "FAIL: The D435 needs USB 3 for its fast modes. If it shows up as USB 2.x (or as PID 0AD6 in Device Manager with Code 10): use the cable it came with, a USB 3 port straight on the PC (not a hub, not a front-panel USB 2 port), and try flipping the USB-C plug at the camera end (a known D435 quirk).",
+  "latency <= 60 ms": "measure: rs_timing.py (to host), rs_flash_latency.py (photons to host)"
+ }
+}

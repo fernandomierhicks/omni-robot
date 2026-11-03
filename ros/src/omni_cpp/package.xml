@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_cpp</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 4.9): the robot's always-on glue nodes in C++, replacing their Python versions on
+    the robot computer: mcu_link (the MCU link, its frames compiled from the firmware's own protocol.h), mode_manager,
+    scan_prep and heading_node; and the catch path's catch_perception and catch_behavior (catch_impl:=cpp). Same topics, parameters and behaviour; the Python cores stay the reference
+    (test/test_cores.py runs both on the same inputs). Each is also an rclcpp component.</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>builtin_interfaces</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_msgs</depend>
+  <depend>omni_interfaces</depend>
+  <depend>visualization_msgs</depend>
+  <depend>ament_index_cpp</depend>
+  <exec_depend>omni_catch</exec_depend>
+  <exec_depend>omni_arm</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

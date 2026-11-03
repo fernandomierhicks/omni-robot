@@ -1,0 +1,113 @@
+{
+  "part": "pod_mount",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pod_mount.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0058_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0060_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0063_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0066_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0070_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0073_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0075_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0080_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0082_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0087_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0091_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0093_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0098_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0100_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0105_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0107_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0112_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0114_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0119_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0121_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 16267.359483818584,
+  "mass_integration_tolerance_mm3": 0.5,
+  "reference_volume_mm3": 16267.3594838186
+}

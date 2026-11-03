@@ -181,12 +181,12 @@ class ServoPort:
     """The bus board's USB port as a localhost TCP server (the ROS bridge; like omni_sim's McuPort): omni_arm's driver
     connects to it as it opens /dev/ttyUSB0 on the robot. exchange() once per firmware tick."""
 
-    def __init__(self, bus: ServoBusSim, port: int = 5763, log=None):
-        self.bus, self.port = bus, port
+    def __init__(self, bus: ServoBusSim, port: int = 5763, log=None, bind: str = "127.0.0.1"):
+        self.bus, self.port, self.bind = bus, port, bind
         self.log = log or (lambda m: None)
         self.srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.srv.bind(("127.0.0.1", port))
+        self.srv.bind((bind, port))                   # 0.0.0.0: arm_node runs on another computer (stack.py side:=sim)
         self.srv.listen(1)
         self.srv.setblocking(False)
         self.conn = None

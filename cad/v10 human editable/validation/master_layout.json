@@ -1,0 +1,930 @@
+{
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "patterns": {
+    "Cradle_to_fork": {
+      "points": [
+        [
+          -0.0,
+          6.5
+        ],
+        [
+          -6.5,
+          3.9801020972288977e-16
+        ],
+        [
+          -7.960204194457795e-16,
+          -6.5
+        ],
+        [
+          6.5,
+          -1.1940306291686693e-15
+        ]
+      ]
+    },
+    "Hub_joint_row_1": {
+      "points": [
+        [
+          -18.999999999999996,
+          32.908965343808674
+        ],
+        [
+          -38.0,
+          2.326828918379971e-15
+        ],
+        [
+          -18.999999999999996,
+          -32.908965343808674
+        ],
+        [
+          19.000000000000004,
+          -32.90896534380867
+        ],
+        [
+          38.0,
+          -6.980486755139913e-15
+        ],
+        [
+          19.000000000000018,
+          32.90896534380866
+        ]
+      ]
+    },
+    "Hub_joint_row_2": {
+      "points": [
+        [
+          -32.90896534380867,
+          19.000000000000004
+        ],
+        [
+          -32.908965343808674,
+          -18.999999999999993
+        ],
+        [
+          -4.653657836759942e-15,
+          -38.0
+        ],
+        [
+          32.90896534380866,
+          -19.000000000000018
+        ],
+        [
+          32.90896534380867,
+          19.000000000000004
+        ],
+        [
+          9.307315673519884e-15,
+          38.0
+        ]
+      ]
+    },
+    "Bearing_cartridge": {
+      "points": [
+        [
+          -12.999999999999998,
+          22.516660498395407
+        ],
+        [
+          -12.999999999999998,
+          -22.516660498395407
+        ],
+        [
+          26.0,
+          -4.776122516674677e-15
+        ]
+      ]
+    },
+    "Motor_output": {
+      "points": [
+        [
+          -6.749999999999999,
+          11.691342951089922
+        ],
+        [
+          -6.749999999999999,
+          -11.691342951089922
+        ],
+        [
+          13.5,
+          -2.47990976827339e-15
+        ]
+      ]
+    },
+    "Motor_rear": {
+      "points": [
+        [
+          -0.0,
+          23.5
+        ],
+        [
+          -23.5,
+          1.43895998899814e-15
+        ],
+        [
+          -2.87791997799628e-15,
+          -23.5
+        ],
+        [
+          23.5,
+          -4.3168799669944195e-15
+        ]
+      ]
+    },
+    "Motor_cover": {
+      "points": [
+        [
+          -16.47558800164656,
+          16.47558800164656
+        ],
+        [
+          16.475588001646557,
+          16.47558800164656
+        ],
+        [
+          16.47558800164656,
+          -16.475588001646557
+        ],
+        [
+          -16.475588001646553,
+          -16.47558800164656
+        ]
+      ]
+    },
+    "Guard_feet": {
+      "points": [
+        [
+          -14.0,
+          87.5
+        ],
+        [
+          16.0,
+          87.5
+        ],
+        [
+          -14.0,
+          -87.5
+        ],
+        [
+          16.0,
+          -87.5
+        ],
+        [
+          40.25,
+          87.5
+        ],
+        [
+          -31.5,
+          87.5
+        ]
+      ]
+    },
+    "Tower_feet": {
+      "points": [
+        [
+          86.0,
+          22.0
+        ],
+        [
+          86.0,
+          46.0
+        ],
+        [
+          90.0,
+          30.0
+        ],
+        [
+          97.0,
+          26.0
+        ],
+        [
+          100.0,
+          33.5
+        ]
+      ]
+    },
+    "Fork_bar": {
+      "points": [
+        [
+          -43.5,
+          -12.0
+        ],
+        [
+          -43.5,
+          -24.0
+        ],
+        [
+          51.0,
+          -12.0
+        ],
+        [
+          51.0,
+          -24.0
+        ]
+      ]
+    },
+    "Roller_axles": {
+      "points": [
+        [
+          -18.0,
+          52.0
+        ],
+        [
+          18.0,
+          52.0
+        ]
+      ]
+    },
+    "Pivot": {
+      "points": [
+        [
+          -43.0,
+          68.2
+        ]
+      ]
+    },
+    "Shaft_pin": {
+      "points": [
+        [
+          40.25,
+          68.2
+        ]
+      ]
+    },
+    "Shock_Inner_lower": {
+      "points": [
+        [
+          -10.0,
+          30.0
+        ]
+      ]
+    },
+    "Shock_Inner_upper": {
+      "points": [
+        [
+          -58.3,
+          30.0
+        ]
+      ]
+    },
+    "Shock_Outer_lower": {
+      "points": [
+        [
+          -10.0,
+          36.0
+        ]
+      ]
+    },
+    "Shock_Outer_upper": {
+      "points": [
+        [
+          -58.0,
+          36.0
+        ]
+      ]
+    }
+  },
+  "sketches": [
+    {
+      "name": "MASTER_Cradle_to_fork",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Hub_joint_row_1",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Hub_joint_row_2",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Bearing_cartridge",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Motor_output",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Motor_rear",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Motor_cover",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Guard_feet",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Tower_feet",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Fork_bar",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Roller_axles",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Pivot",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Shaft_pin",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Shock_Inner_lower",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Shock_Inner_upper",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Shock_Outer_lower",
+      "status": 3
+    },
+    {
+      "name": "MASTER_Shock_Outer_upper",
+      "status": 3
+    },
+    {
+      "name": "VIEW_001_Motor_cover",
+      "status": 3
+    },
+    {
+      "name": "VIEW_002_Motor_rear",
+      "status": 3
+    },
+    {
+      "name": "VIEW_003_Motor_output",
+      "status": 3
+    },
+    {
+      "name": "VIEW_004_Fork_bar",
+      "status": 3
+    },
+    {
+      "name": "VIEW_005_Fork_bar",
+      "status": 3
+    },
+    {
+      "name": "VIEW_006_Shaft_pin",
+      "status": 3
+    }
+  ],
+  "references": {
+    "patterns": {
+      "Cradle_to_fork": {
+        "feature": "MASTER_Cradle_to_fork",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Cradle_to_fork",
+            "D4@MASTER_Cradle_to_fork"
+          ],
+          [
+            "D5@MASTER_Cradle_to_fork",
+            "D6@MASTER_Cradle_to_fork"
+          ],
+          [
+            "D7@MASTER_Cradle_to_fork",
+            "D8@MASTER_Cradle_to_fork"
+          ],
+          [
+            "D9@MASTER_Cradle_to_fork",
+            "D10@MASTER_Cradle_to_fork"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Cradle_to_fork",
+          "D2@MASTER_Cradle_to_fork"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Hub_joint_row_1": {
+        "feature": "MASTER_Hub_joint_row_1",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Hub_joint_row_1",
+            "D4@MASTER_Hub_joint_row_1"
+          ],
+          [
+            "D5@MASTER_Hub_joint_row_1",
+            "D6@MASTER_Hub_joint_row_1"
+          ],
+          [
+            "D7@MASTER_Hub_joint_row_1",
+            "D8@MASTER_Hub_joint_row_1"
+          ],
+          [
+            "D9@MASTER_Hub_joint_row_1",
+            "D10@MASTER_Hub_joint_row_1"
+          ],
+          [
+            "D11@MASTER_Hub_joint_row_1",
+            "D12@MASTER_Hub_joint_row_1"
+          ],
+          [
+            "D13@MASTER_Hub_joint_row_1",
+            "D14@MASTER_Hub_joint_row_1"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Hub_joint_row_1",
+          "D2@MASTER_Hub_joint_row_1"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Hub_joint_row_2": {
+        "feature": "MASTER_Hub_joint_row_2",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Hub_joint_row_2",
+            "D4@MASTER_Hub_joint_row_2"
+          ],
+          [
+            "D5@MASTER_Hub_joint_row_2",
+            "D6@MASTER_Hub_joint_row_2"
+          ],
+          [
+            "D7@MASTER_Hub_joint_row_2",
+            "D8@MASTER_Hub_joint_row_2"
+          ],
+          [
+            "D9@MASTER_Hub_joint_row_2",
+            "D10@MASTER_Hub_joint_row_2"
+          ],
+          [
+            "D11@MASTER_Hub_joint_row_2",
+            "D12@MASTER_Hub_joint_row_2"
+          ],
+          [
+            "D13@MASTER_Hub_joint_row_2",
+            "D14@MASTER_Hub_joint_row_2"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Hub_joint_row_2",
+          "D2@MASTER_Hub_joint_row_2"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Bearing_cartridge": {
+        "feature": "MASTER_Bearing_cartridge",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Bearing_cartridge",
+            "D4@MASTER_Bearing_cartridge"
+          ],
+          [
+            "D5@MASTER_Bearing_cartridge",
+            "D6@MASTER_Bearing_cartridge"
+          ],
+          [
+            "D7@MASTER_Bearing_cartridge",
+            "D8@MASTER_Bearing_cartridge"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Bearing_cartridge",
+          "D2@MASTER_Bearing_cartridge"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Motor_output": {
+        "feature": "MASTER_Motor_output",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Motor_output",
+            "D4@MASTER_Motor_output"
+          ],
+          [
+            "D5@MASTER_Motor_output",
+            "D6@MASTER_Motor_output"
+          ],
+          [
+            "D7@MASTER_Motor_output",
+            "D8@MASTER_Motor_output"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Motor_output",
+          "D2@MASTER_Motor_output"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Motor_rear": {
+        "feature": "MASTER_Motor_rear",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Motor_rear",
+            "D4@MASTER_Motor_rear"
+          ],
+          [
+            "D5@MASTER_Motor_rear",
+            "D6@MASTER_Motor_rear"
+          ],
+          [
+            "D7@MASTER_Motor_rear",
+            "D8@MASTER_Motor_rear"
+          ],
+          [
+            "D9@MASTER_Motor_rear",
+            "D10@MASTER_Motor_rear"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Motor_rear",
+          "D2@MASTER_Motor_rear"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Motor_cover": {
+        "feature": "MASTER_Motor_cover",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Motor_cover",
+            "D4@MASTER_Motor_cover"
+          ],
+          [
+            "D5@MASTER_Motor_cover",
+            "D6@MASTER_Motor_cover"
+          ],
+          [
+            "D7@MASTER_Motor_cover",
+            "D8@MASTER_Motor_cover"
+          ],
+          [
+            "D9@MASTER_Motor_cover",
+            "D10@MASTER_Motor_cover"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Motor_cover",
+          "D2@MASTER_Motor_cover"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Guard_feet": {
+        "feature": "MASTER_Guard_feet",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Guard_feet",
+            "D4@MASTER_Guard_feet"
+          ],
+          [
+            "D5@MASTER_Guard_feet",
+            "D6@MASTER_Guard_feet"
+          ],
+          [
+            "D7@MASTER_Guard_feet",
+            "D8@MASTER_Guard_feet"
+          ],
+          [
+            "D9@MASTER_Guard_feet",
+            "D10@MASTER_Guard_feet"
+          ],
+          [
+            "D11@MASTER_Guard_feet",
+            "D12@MASTER_Guard_feet"
+          ],
+          [
+            "D13@MASTER_Guard_feet",
+            "D14@MASTER_Guard_feet"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Guard_feet",
+          "D2@MASTER_Guard_feet"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Tower_feet": {
+        "feature": "MASTER_Tower_feet",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Tower_feet",
+            "D4@MASTER_Tower_feet"
+          ],
+          [
+            "D5@MASTER_Tower_feet",
+            "D6@MASTER_Tower_feet"
+          ],
+          [
+            "D7@MASTER_Tower_feet",
+            "D8@MASTER_Tower_feet"
+          ],
+          [
+            "D9@MASTER_Tower_feet",
+            "D10@MASTER_Tower_feet"
+          ],
+          [
+            "D11@MASTER_Tower_feet",
+            "D12@MASTER_Tower_feet"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Tower_feet",
+          "D2@MASTER_Tower_feet"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Fork_bar": {
+        "feature": "MASTER_Fork_bar",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Fork_bar",
+            "D4@MASTER_Fork_bar"
+          ],
+          [
+            "D5@MASTER_Fork_bar",
+            "D6@MASTER_Fork_bar"
+          ],
+          [
+            "D7@MASTER_Fork_bar",
+            "D8@MASTER_Fork_bar"
+          ],
+          [
+            "D9@MASTER_Fork_bar",
+            "D10@MASTER_Fork_bar"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Fork_bar",
+          "D2@MASTER_Fork_bar"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Roller_axles": {
+        "feature": "MASTER_Roller_axles",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Roller_axles",
+            "D4@MASTER_Roller_axles"
+          ],
+          [
+            "D5@MASTER_Roller_axles",
+            "D6@MASTER_Roller_axles"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Roller_axles",
+          "D2@MASTER_Roller_axles"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Pivot": {
+        "feature": "MASTER_Pivot",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Pivot",
+            "D4@MASTER_Pivot"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Pivot",
+          "D2@MASTER_Pivot"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Shaft_pin": {
+        "feature": "MASTER_Shaft_pin",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Shaft_pin",
+            "D4@MASTER_Shaft_pin"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Shaft_pin",
+          "D2@MASTER_Shaft_pin"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Shock_Inner_lower": {
+        "feature": "MASTER_Shock_Inner_lower",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Shock_Inner_lower",
+            "D4@MASTER_Shock_Inner_lower"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Shock_Inner_lower",
+          "D2@MASTER_Shock_Inner_lower"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Shock_Inner_upper": {
+        "feature": "MASTER_Shock_Inner_upper",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Shock_Inner_upper",
+            "D4@MASTER_Shock_Inner_upper"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Shock_Inner_upper",
+          "D2@MASTER_Shock_Inner_upper"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Shock_Outer_lower": {
+        "feature": "MASTER_Shock_Outer_lower",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Shock_Outer_lower",
+            "D4@MASTER_Shock_Outer_lower"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Shock_Outer_lower",
+          "D2@MASTER_Shock_Outer_lower"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      },
+      "Shock_Outer_upper": {
+        "feature": "MASTER_Shock_Outer_upper",
+        "coordinate_dimensions": [
+          [
+            "D3@MASTER_Shock_Outer_upper",
+            "D4@MASTER_Shock_Outer_upper"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@MASTER_Shock_Outer_upper",
+          "D2@MASTER_Shock_Outer_upper"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 100
+      }
+    },
+    "views": {
+      "VIEW_001_Motor_cover": {
+        "feature": "VIEW_001_Motor_cover",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_001_Motor_cover",
+            "D4@VIEW_001_Motor_cover"
+          ],
+          [
+            "D5@VIEW_001_Motor_cover",
+            "D6@VIEW_001_Motor_cover"
+          ],
+          [
+            "D7@VIEW_001_Motor_cover",
+            "D8@VIEW_001_Motor_cover"
+          ],
+          [
+            "D9@VIEW_001_Motor_cover",
+            "D10@VIEW_001_Motor_cover"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_001_Motor_cover",
+          "D2@VIEW_001_Motor_cover"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      },
+      "VIEW_002_Motor_rear": {
+        "feature": "VIEW_002_Motor_rear",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_002_Motor_rear",
+            "D4@VIEW_002_Motor_rear"
+          ],
+          [
+            "D5@VIEW_002_Motor_rear",
+            "D6@VIEW_002_Motor_rear"
+          ],
+          [
+            "D7@VIEW_002_Motor_rear",
+            "D8@VIEW_002_Motor_rear"
+          ],
+          [
+            "D9@VIEW_002_Motor_rear",
+            "D10@VIEW_002_Motor_rear"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_002_Motor_rear",
+          "D2@VIEW_002_Motor_rear"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      },
+      "VIEW_003_Motor_output": {
+        "feature": "VIEW_003_Motor_output",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_003_Motor_output",
+            "D4@VIEW_003_Motor_output"
+          ],
+          [
+            "D5@VIEW_003_Motor_output",
+            "D6@VIEW_003_Motor_output"
+          ],
+          [
+            "D7@VIEW_003_Motor_output",
+            "D8@VIEW_003_Motor_output"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_003_Motor_output",
+          "D2@VIEW_003_Motor_output"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      },
+      "VIEW_004_Fork_bar": {
+        "feature": "VIEW_004_Fork_bar",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_004_Fork_bar",
+            "D4@VIEW_004_Fork_bar"
+          ],
+          [
+            "D5@VIEW_004_Fork_bar",
+            "D6@VIEW_004_Fork_bar"
+          ],
+          [
+            "D7@VIEW_004_Fork_bar",
+            "D8@VIEW_004_Fork_bar"
+          ],
+          [
+            "D9@VIEW_004_Fork_bar",
+            "D10@VIEW_004_Fork_bar"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_004_Fork_bar",
+          "D2@VIEW_004_Fork_bar"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      },
+      "VIEW_005_Fork_bar": {
+        "feature": "VIEW_005_Fork_bar",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_005_Fork_bar",
+            "D4@VIEW_005_Fork_bar"
+          ],
+          [
+            "D5@VIEW_005_Fork_bar",
+            "D6@VIEW_005_Fork_bar"
+          ],
+          [
+            "D7@VIEW_005_Fork_bar",
+            "D8@VIEW_005_Fork_bar"
+          ],
+          [
+            "D9@VIEW_005_Fork_bar",
+            "D10@VIEW_005_Fork_bar"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_005_Fork_bar",
+          "D2@VIEW_005_Fork_bar"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      },
+      "VIEW_006_Shaft_pin": {
+        "feature": "VIEW_006_Shaft_pin",
+        "coordinate_dimensions": [
+          [
+            "D3@VIEW_006_Shaft_pin",
+            "D4@VIEW_006_Shaft_pin"
+          ]
+        ],
+        "datum_dimensions": [
+          "D1@VIEW_006_Shaft_pin",
+          "D2@VIEW_006_Shaft_pin"
+        ],
+        "segment_offset": 1,
+        "offset_mm": 1000
+      }
+    }
+  }
+}

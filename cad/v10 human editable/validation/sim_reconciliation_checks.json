@@ -1,0 +1,517 @@
+{
+  "interfaces": [
+    {
+      "a": "payload_plate#1",
+      "b": "RPLIDAR A2M12",
+      "clearance_mm": 2.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "arm_riser#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "arm_adapter#1",
+      "clearance_mm": 30.5,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "bin#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "cheek_L#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "cheek_R#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 35.78376674018866,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 35.78376674018866,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 27.119412505920607,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 56.22992554803895,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "payload_plate#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 56.229925548038956,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "arm_riser#1",
+      "clearance_mm": 8.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "arm_adapter#1",
+      "clearance_mm": 38.5,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "bin#1",
+      "clearance_mm": 114.75626344561765,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "cheek_L#1",
+      "clearance_mm": 26.800186566514792,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "cheek_R#1",
+      "clearance_mm": 26.800186566514792,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 32.11468779882769,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 32.11468779882769,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 12.41167947194441,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "OV9782 camera",
+      "clearance_mm": 41.36437056326965,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "RPLIDAR A2M12",
+      "b": "OV9782 camera",
+      "clearance_mm": 41.36437056326966,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "arm_adapter#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "bin#1",
+      "clearance_mm": 72.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "cheek_L#1",
+      "clearance_mm": 4.6097722286464435,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "cheek_R#1",
+      "clearance_mm": 7.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 15.95411173612824,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 18.560711193270585,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 10.91167947194441,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 42.48221776442422,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_riser#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 42.48221776442422,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "bin#1",
+      "clearance_mm": 72.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "cheek_L#1",
+      "clearance_mm": 8.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "cheek_R#1",
+      "clearance_mm": 8.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 8.528774824088158,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 8.528774824088158,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 3.1116794719443988,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 25.881075089060744,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "arm_adapter#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 25.881075089060744,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "cheek_L#1",
+      "clearance_mm": 88.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "cheek_R#1",
+      "clearance_mm": 88.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 148.08460428079619,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 148.08460428079619,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 150.9116794719444,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 169.6166788317263,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "bin#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 169.6166788317263,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "cheek_R#1",
+      "clearance_mm": 110.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 0.19999996314686677,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 125.61240026491565,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 3.0578643762690523,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 4.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_L#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 140.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_R#1",
+      "b": "cam_holder_L#1",
+      "clearance_mm": 125.61240026491565,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_R#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 0.1999999999999843,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_R#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 3.0578643762690523,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_R#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 140.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cheek_R#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 4.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_L#1",
+      "b": "cam_holder_R#1",
+      "clearance_mm": 129.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_L#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 0.14999999999996821,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_L#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 2.2598386956229e-12,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_L#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 140.70003553659834,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_R#1",
+      "b": "camera bar 20 x 20 tube",
+      "clearance_mm": 0.14999999999998997,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_R#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 140.70003553659834,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "cam_holder_R#1",
+      "b": "OV9782 camera",
+      "clearance_mm": 2.2598386956229e-12,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "camera bar 20 x 20 tube",
+      "b": "OV9782 camera",
+      "clearance_mm": 14.000000000002274,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "camera bar 20 x 20 tube",
+      "b": "OV9782 camera",
+      "clearance_mm": 14.000000000002274,
+      "overlap_mm3": 0.0
+    },
+    {
+      "a": "OV9782 camera",
+      "b": "OV9782 camera",
+      "clearance_mm": 152.0,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "floor_poses": [
+    {
+      "target_mm": [
+        270.0,
+        0.0,
+        8.3
+      ],
+      "q_rad": [
+        -0.004283359861996994,
+        1.7179496793210702,
+        0.18124246646866585,
+        -0.3284057656413686,
+        0.0443961549913282,
+        -0.17
+      ],
+      "tool_mm": [
+        269.9973890042432,
+        0.028389563255992116,
+        8.301596224192506
+      ],
+      "down_cos": 0.9999999999505337,
+      "coarse_clear": [
+        true,
+        ""
+      ]
+    },
+    {
+      "target_mm": [
+        310.0,
+        0.0,
+        8.3
+      ],
+      "q_rad": [
+        -0.002997038264670214,
+        1.665988140448289,
+        -0.05119962778046894,
+        -0.04400391525510657,
+        0.04568247658959469,
+        -0.17
+      ],
+      "tool_mm": [
+        309.99762540481277,
+        0.02084558315456158,
+        8.301536122161751
+      ],
+      "down_cos": 0.9999999999312124,
+      "coarse_clear": [
+        true,
+        ""
+      ]
+    },
+    {
+      "target_mm": [
+        340.0,
+        0.0,
+        8.3
+      ],
+      "q_rad": [
+        -0.002444461432378675,
+        1.6981889516765254,
+        -0.31721529200976645,
+        0.18980782276291666,
+        0.04623505342389839,
+        -0.17
+      ],
+      "tool_mm": [
+        339.997400917388,
+        0.017336100687625783,
+        8.301822881310816
+      ],
+      "down_cos": 0.9999999998898239,
+      "coarse_clear": [
+        true,
+        ""
+      ]
+    }
+  ],
+  "arm_checks": [
+    {
+      "pose": "high",
+      "min_robot_clearance_lower_bound_mm": 18.599999899999943,
+      "lowest_mesh_z_mm": 222.09999999999997,
+      "overlaps": [],
+      "nonadjacent_self_overlaps": []
+    },
+    {
+      "pose": "drop",
+      "min_robot_clearance_lower_bound_mm": 12.152082024615481,
+      "lowest_mesh_z_mm": 222.09999999999997,
+      "overlaps": [],
+      "nonadjacent_self_overlaps": []
+    },
+    {
+      "pose": "floor_270",
+      "min_robot_clearance_lower_bound_mm": 18.599999899999943,
+      "lowest_mesh_z_mm": 2.0036728463028126,
+      "overlaps": [],
+      "nonadjacent_self_overlaps": []
+    },
+    {
+      "pose": "floor_310",
+      "min_robot_clearance_lower_bound_mm": 18.599999899999943,
+      "lowest_mesh_z_mm": 2.003607576812024,
+      "overlaps": [],
+      "nonadjacent_self_overlaps": []
+    },
+    {
+      "pose": "floor_340",
+      "min_robot_clearance_lower_bound_mm": 18.599999899999915,
+      "lowest_mesh_z_mm": 2.003885307026792,
+      "overlaps": [],
+      "nonadjacent_self_overlaps": []
+    }
+  ],
+  "nominal_arm_base_mm": 224.5,
+  "note": "Exact STEP checks, nominal suspension; no physical validation.",
+  "pass": true
+}

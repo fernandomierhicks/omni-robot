@@ -1,0 +1,592 @@
+{
+ "label": "P8_pi_final_d435_face",
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "cores": 4,
+ "phases": {
+  "MANUAL": {
+   "seconds": 60,
+   "host_samples": 59,
+   "cpu_windows": 12,
+   "cpu_total_pct": {
+    "median": 70.4,
+    "p95": 74.9,
+    "max": 76.3
+   },
+   "busiest_core_pct": {
+    "median": 72.7,
+    "p95": 77.8
+   },
+   "cores_used_median": 2.82,
+   "mem_avail_mb_min": 2702,
+   "swap_mb_max": 0,
+   "temp_c_max": 38.459,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 73.3,
+    "arm_node": 57.1,
+    "ekf_node": 27.6,
+    "mission_node": 27.6,
+    "mcu_link": 24.5,
+    "scan_prep": 17.4,
+    "omni_face.display": 14.5,
+    "face_node": 10.2,
+    "localization_slam_toolbox_node": 9.1,
+    "mode_manager": 6.4,
+    "ros2 launch/daemon": 1.0,
+    "rosapi_node": 0.9,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 269.9,
+   "rss_mb": {
+    "arm_node": 96,
+    "component_container_isolated": 138,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 119,
+    "mode_manager": 37,
+    "omni_face.display": 68,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": [
+     true,
+     "Driving by hand"
+    ],
+    "start": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  },
+  "ROUTE": {
+   "seconds": 448,
+   "host_samples": 439,
+   "cpu_windows": 85,
+   "cpu_total_pct": {
+    "median": 95.3,
+    "p95": 99.8,
+    "max": 100.0
+   },
+   "busiest_core_pct": {
+    "median": 96.1,
+    "p95": 100.0
+   },
+   "cores_used_median": 3.81,
+   "mem_avail_mb_min": 2679,
+   "swap_mb_max": 0,
+   "temp_c_max": 41.868,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 86.5,
+    "localization_slam_toolbox_node": 71.7,
+    "arm_node": 48.2,
+    "mission_node": 38.9,
+    "ekf_node": 25.2,
+    "mcu_link": 23.2,
+    "omni_face.display": 17.1,
+    "scan_prep": 16.5,
+    "face_node": 10.9,
+    "mode_manager": 8.0,
+    "ros2 launch/daemon": 1.9,
+    "rosapi_node": 1.2,
+    "console_web": 0.6,
+    "image_preview": 0.6,
+    "rosbridge_websocket": 0.6
+   },
+   "robot_total_pct_of_one_core": 351.7,
+   "rss_mb": {
+    "arm_node": 96,
+    "component_container_isolated": 154,
+    "console_web": 76,
+    "ekf_node": 46,
+    "face_node": 76,
+    "image_preview": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 120,
+    "mode_manager": 37,
+    "omni_face.display": 75,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "rosbridge_websocket": 88,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   },
+   "route": {
+    "reached": 14,
+    "n": 16,
+    "mean_err_m": 0.286,
+    "vmax": 0.83,
+    "time_s": 445.7
+   }
+  },
+  "NAVTIDY": {
+   "seconds": 290,
+   "host_samples": 285,
+   "cpu_windows": 56,
+   "cpu_total_pct": {
+    "median": 72.7,
+    "p95": 98.0,
+    "max": 99.5
+   },
+   "busiest_core_pct": {
+    "median": 75.5,
+    "p95": 99.0
+   },
+   "cores_used_median": 2.91,
+   "mem_avail_mb_min": 2636,
+   "swap_mb_max": 0,
+   "temp_c_max": 40.894,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 75.2,
+    "arm_node": 61.7,
+    "mission_node": 28.4,
+    "ekf_node": 26.0,
+    "mcu_link": 23.9,
+    "omni_face.display": 17.5,
+    "scan_prep": 16.9,
+    "face_node": 10.6,
+    "localization_slam_toolbox_node": 9.4,
+    "mode_manager": 7.5,
+    "ros2 launch/daemon": 1.2,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 286.2,
+   "rss_mb": {
+    "arm_node": 127,
+    "component_container_isolated": 152,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 120,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": {
+      "state": "DONE",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 0,
+      "target": null,
+      "tries": 0,
+      "reason": "nothing in sight"
+     },
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  },
+  "NAVTIDY1_drive": {
+   "seconds": 3,
+   "host_samples": 4,
+   "cpu_windows": 0,
+   "cpu_total_pct": {
+    "median": 86.9,
+    "p95": 98.8,
+    "max": 98.8
+   },
+   "busiest_core_pct": {
+    "median": 90.7,
+    "p95": 100.0
+   },
+   "cores_used_median": 3.48,
+   "mem_avail_mb_min": 2689,
+   "swap_mb_max": 0,
+   "temp_c_max": 39.92,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": null,
+     "patrol": null
+    },
+    "end": {
+     "mission": null,
+     "patrol": null
+    },
+    "arm_start": {},
+    "arm_end": {}
+   },
+   "leg": {
+    "drive": {
+     "name": "cluster 1",
+     "goal": [
+      -2.687963979479359,
+      0.7545412779273598
+     ],
+     "reached": true,
+     "timed_out": false,
+     "task": "Arrived at cluster 1",
+     "time_s": 3.4,
+     "err_m": 0.111,
+     "loc_err_m": 0.173,
+     "dist_m": 0.37,
+     "vmax": 0.38,
+     "end_wall": 1793676287.0151286
+    }
+   }
+  },
+  "NAVTIDY1_tidy": {
+   "seconds": 243,
+   "host_samples": 239,
+   "cpu_windows": 47,
+   "cpu_total_pct": {
+    "median": 72.5,
+    "p95": 98.3,
+    "max": 99.5
+   },
+   "busiest_core_pct": {
+    "median": 75.0,
+    "p95": 99.0
+   },
+   "cores_used_median": 2.9,
+   "mem_avail_mb_min": 2636,
+   "swap_mb_max": 0,
+   "temp_c_max": 40.894,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 74.3,
+    "arm_node": 61.3,
+    "mission_node": 28.3,
+    "ekf_node": 26.0,
+    "mcu_link": 24.0,
+    "omni_face.display": 17.4,
+    "scan_prep": 17.0,
+    "face_node": 10.6,
+    "localization_slam_toolbox_node": 9.4,
+    "mode_manager": 7.5,
+    "ros2 launch/daemon": 1.2,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 286.0,
+   "rss_mb": {
+    "arm_node": 127,
+    "component_container_isolated": 152,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 120,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": null,
+     "patrol": null
+    },
+    "end": {
+     "mission": null,
+     "patrol": null
+    },
+    "arm_start": {},
+    "arm_end": {}
+   },
+   "leg": {
+    "drive": {
+     "name": "cluster 1",
+     "goal": [
+      -2.687963979479359,
+      0.7545412779273598
+     ],
+     "reached": true,
+     "timed_out": false,
+     "task": "Arrived at cluster 1",
+     "time_s": 3.4,
+     "err_m": 0.111,
+     "loc_err_m": 0.173,
+     "dist_m": 0.37,
+     "vmax": 0.38,
+     "end_wall": 1793676287.0151286
+    },
+    "tidy": {
+     "state": "DONE",
+     "picked": 5,
+     "failed": 0,
+     "skipped": 0,
+     "known": 2,
+     "target": null,
+     "tries": 0,
+     "reason": "stopped"
+    },
+    "bin_before": 0,
+    "bin_after": 5
+   }
+  },
+  "NAVTIDY2_drive": {
+   "seconds": 6,
+   "host_samples": 6,
+   "cpu_windows": 2,
+   "cpu_total_pct": {
+    "median": 77.6,
+    "p95": 94.8,
+    "max": 94.8
+   },
+   "busiest_core_pct": {
+    "median": 80.5,
+    "p95": 95.0
+   },
+   "cores_used_median": 3.1,
+   "mem_avail_mb_min": 2670,
+   "swap_mb_max": 0,
+   "temp_c_max": 38.946,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 79.6,
+    "arm_node": 54.5,
+    "mission_node": 37.5,
+    "ekf_node": 25.9,
+    "mcu_link": 23.4,
+    "omni_face.display": 18.1,
+    "localization_slam_toolbox_node": 17.8,
+    "scan_prep": 16.6,
+    "face_node": 10.7,
+    "mode_manager": 7.6,
+    "ros2 launch/daemon": 1.4,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 293.9,
+   "rss_mb": {
+    "arm_node": 121,
+    "component_container_isolated": 152,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 120,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": null,
+     "patrol": null
+    },
+    "end": {
+     "mission": null,
+     "patrol": null
+    },
+    "arm_start": {},
+    "arm_end": {}
+   },
+   "leg": {
+    "drive": {
+     "name": "cluster 2",
+     "goal": [
+      -2.429717382871461,
+      1.420620486347262
+     ],
+     "reached": true,
+     "timed_out": false,
+     "task": "Arrived at cluster 2",
+     "time_s": 6.2,
+     "err_m": 0.072,
+     "loc_err_m": 0.082,
+     "dist_m": 0.32,
+     "vmax": 0.29,
+     "end_wall": 1793676538.679162
+    }
+   }
+  },
+  "NAVTIDY2_tidy": {
+   "seconds": 33,
+   "host_samples": 32,
+   "cpu_windows": 6,
+   "cpu_total_pct": {
+    "median": 70.7,
+    "p95": 89.2,
+    "max": 91.9
+   },
+   "busiest_core_pct": {
+    "median": 73.0,
+    "p95": 92.1
+   },
+   "cores_used_median": 2.83,
+   "mem_avail_mb_min": 2645,
+   "swap_mb_max": 0,
+   "temp_c_max": 39.433,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 75.9,
+    "arm_node": 63.2,
+    "mission_node": 29.0,
+    "ekf_node": 26.3,
+    "mcu_link": 24.4,
+    "omni_face.display": 18.4,
+    "scan_prep": 17.0,
+    "face_node": 11.1,
+    "localization_slam_toolbox_node": 9.9,
+    "mode_manager": 7.5,
+    "ros2 launch/daemon": 1.2,
+    "rosapi_node": 1.0,
+    "console_web": 0.5
+   },
+   "robot_total_pct_of_one_core": 285.9,
+   "rss_mb": {
+    "arm_node": 121,
+    "component_container_isolated": 152,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 120,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": null,
+    "start": {
+     "mission": null,
+     "patrol": null
+    },
+    "end": {
+     "mission": null,
+     "patrol": null
+    },
+    "arm_start": {},
+    "arm_end": {}
+   },
+   "leg": {
+    "drive": {
+     "name": "cluster 2",
+     "goal": [
+      -2.429717382871461,
+      1.420620486347262
+     ],
+     "reached": true,
+     "timed_out": false,
+     "task": "Arrived at cluster 2",
+     "time_s": 6.2,
+     "err_m": 0.072,
+     "loc_err_m": 0.082,
+     "dist_m": 0.32,
+     "vmax": 0.29,
+     "end_wall": 1793676538.679162
+    },
+    "tidy": {
+     "state": "DONE",
+     "picked": 0,
+     "failed": 0,
+     "skipped": 0,
+     "known": 0,
+     "target": null,
+     "tries": 0,
+     "reason": "nothing in sight"
+    },
+    "bin_before": 5,
+    "bin_after": 5
+   }
+  }
+ }
+}

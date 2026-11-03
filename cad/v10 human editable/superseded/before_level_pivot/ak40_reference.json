@@ -1,0 +1,61 @@
+{
+  "part": "ak40_reference",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_ak40_reference.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0000_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0002_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0004_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0006_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0009_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0012_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0015_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0018_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0021_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0024_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 87267.49648913211
+}

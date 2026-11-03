@@ -1,0 +1,556 @@
+building ROS packages ...
+[INFO] [launch]: All log files can be found below /home/fernando/.ros/log/2026-11-03-08-09-07-165873-FernandoDesktop-56599
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [bridge-1]: process started with pid [56616]
+[INFO] [arm_driver-2]: process started with pid [56617]
+[INFO] [arm_brain-3]: process started with pid [56618]
+[INFO] [mcu_link-4]: process started with pid [56619]
+[INFO] [mode_manager-5]: process started with pid [56620]
+[INFO] [ekf_node-6]: process started with pid [56621]
+[INFO] [scan_prep-7]: process started with pid [56622]
+[INFO] [component_container_isolated-8]: process started with pid [56623]
+[INFO] [rosbridge_websocket-9]: process started with pid [56624]
+[INFO] [rosapi_node-10]: process started with pid [56625]
+[INFO] [mission_node-11]: process started with pid [56626]
+[INFO] [image_preview-12]: process started with pid [56627]
+[INFO] [web_video_server-13]: process started with pid [56630]
+[mode_manager-5] [INFO] [1793722147.605408134] [mode_manager]: mode TELEOP (adult profile)
+[arm_driver-2] [INFO] [1793722147.725049794] [arm_driver]: arm driver on tcp:127.0.0.1:5763 at 50 Hz (/home/fernando/omni_ws/install/omni_arm/share/omni_arm/config/robot_arm.json)
+[web_video_server-13] [INFO] [1793722147.919129270] [web_video_server]: Loading streamer plugin: web_video_server/stream/h264
+[ekf_node-6] [INFO] [1793722147.939994878] [ekf_filter_node]: Waiting for clock to start...
+[web_video_server-13] [INFO] [1793722147.971037224] [web_video_server]: Loading streamer plugin: web_video_server/stream/mjpeg
+[web_video_server-13] [INFO] [1793722147.971091441] [web_video_server]: Loading streamer plugin: web_video_server/stream/png
+[web_video_server-13] [INFO] [1793722147.971096441] [web_video_server]: Loading streamer plugin: web_video_server/stream/ros_compressed
+[web_video_server-13] [INFO] [1793722147.971100728] [web_video_server]: Loading streamer plugin: web_video_server/stream/vp8
+[web_video_server-13] [INFO] [1793722147.971104733] [web_video_server]: Loading streamer plugin: web_video_server/stream/vp9
+[web_video_server-13] [INFO] [1793722147.971108559] [web_video_server]: Loading streamer plugin: web_video_server/snapshot/jpeg
+[web_video_server-13] [INFO] [1793722147.971148783] [web_video_server]: Loading streamer plugin: web_video_server/snapshot/png
+[web_video_server-13] [INFO] [1793722147.971152657] [web_video_server]: Loading streamer plugin: web_video_server/snapshot/ros_compressed
+[web_video_server-13] [INFO] [1793722148.008017452] [web_video_server]: Waiting For connections on 0.0.0.0:8081
+[component_container_isolated-8] [INFO] [1793722148.173367220] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libcontroller_server_core.so
+[component_container_isolated-8] [INFO] [1793722148.178497085] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_controller::ControllerServer>
+[component_container_isolated-8] [INFO] [1793722148.178548109] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_controller::ControllerServer>
+[component_container_isolated-8] [INFO] [1793722148.191997032] [controller_server]: 
+[component_container_isolated-8] 	controller_server lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.194068380] [controller_server]: Creating controller server
+[component_container_isolated-8] [INFO] [1793722148.205797023] [local_costmap.local_costmap]: 
+[component_container_isolated-8] 	local_costmap lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.206175302] [local_costmap.local_costmap]: Creating Costmap
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/controller_server' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.209176720] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libsmoother_server_core.so
+[component_container_isolated-8] [INFO] [1793722148.210259110] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_smoother::SmootherServer>
+[component_container_isolated-8] [INFO] [1793722148.210286082] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_smoother::SmootherServer>
+[component_container_isolated-8] [INFO] [1793722148.220468815] [smoother_server]: 
+[component_container_isolated-8] 	smoother_server lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.221254643] [smoother_server]: Creating smoother server
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/smoother_server' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.223056583] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libplanner_server_core.so
+[component_container_isolated-8] [INFO] [1793722148.223549649] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_planner::PlannerServer>
+[component_container_isolated-8] [INFO] [1793722148.223574442] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_planner::PlannerServer>
+[component_container_isolated-8] [INFO] [1793722148.233554755] [planner_server]: 
+[component_container_isolated-8] 	planner_server lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.234351780] [planner_server]: Creating
+[component_container_isolated-8] [INFO] [1793722148.249527070] [global_costmap.global_costmap]: 
+[component_container_isolated-8] 	global_costmap lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.250061834] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/planner_server' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.254609661] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libbehavior_server_core.so
+[component_container_isolated-8] [INFO] [1793722148.255199623] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<behavior_server::BehaviorServer>
+[component_container_isolated-8] [INFO] [1793722148.255228577] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<behavior_server::BehaviorServer>
+[component_container_isolated-8] [INFO] [1793722148.272967463] [behavior_server]: 
+[component_container_isolated-8] 	behavior_server lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/behavior_server' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.276455790] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libbt_navigator_core.so
+[component_container_isolated-8] [INFO] [1793722148.278691333] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_bt_navigator::BtNavigator>
+[component_container_isolated-8] [INFO] [1793722148.278736766] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_bt_navigator::BtNavigator>
+[component_container_isolated-8] [INFO] [1793722148.299915710] [bt_navigator]: 
+[component_container_isolated-8] 	bt_navigator lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.300682800] [bt_navigator]: Creating
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/bt_navigator' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.302902120] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libvelocity_smoother_core.so
+[component_container_isolated-8] [INFO] [1793722148.303784122] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_velocity_smoother::VelocitySmoother>
+[component_container_isolated-8] [INFO] [1793722148.303843548] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_velocity_smoother::VelocitySmoother>
+[component_container_isolated-8] [INFO] [1793722148.324101409] [velocity_smoother]: 
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/velocity_smoother' in container '/nav2_container'
+[component_container_isolated-8] 	velocity_smoother lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.325603785] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libcollision_monitor_core.so
+[component_container_isolated-8] [INFO] [1793722148.327478692] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_collision_monitor::CollisionMonitor>
+[component_container_isolated-8] [INFO] [1793722148.327513472] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_collision_monitor::CollisionMonitor>
+[component_container_isolated-8] [INFO] [1793722148.353031237] [collision_monitor]: 
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/collision_monitor' in container '/nav2_container'
+[component_container_isolated-8] 	collision_monitor lifecycle node launched. 
+[component_container_isolated-8] 	Waiting on external lifecycle transitions to activate
+[component_container_isolated-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[component_container_isolated-8] [INFO] [1793722148.354406046] [nav2_container]: Load Library: /opt/ros/jazzy/lib/libnav2_lifecycle_manager_core.so
+[component_container_isolated-8] [INFO] [1793722148.354966155] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[component_container_isolated-8] [INFO] [1793722148.354997534] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<nav2_lifecycle_manager::LifecycleManager>
+[rosbridge_websocket-9] [INFO] [1793722148.355321299] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9090
+[component_container_isolated-8] [INFO] [1793722148.371780016] [lifecycle_manager_navigation]: Creating
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/lifecycle_manager_navigation' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.376377704] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.378279477] [nav2_container]: Load Library: /home/fernando/omni_ws/install/omni_cpp/lib/libheading_component.so
+[component_container_isolated-8] [INFO] [1793722148.379731769] [nav2_container]: Found class: rclcpp_components::NodeFactoryTemplate<omni::HeadingNode>
+[component_container_isolated-8] [INFO] [1793722148.379776762] [nav2_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<omni::HeadingNode>
+[component_container_isolated-8] [INFO] [1793722148.411820136] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.411891163] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.412364103] [controller_server]: Configuring controller interface
+[component_container_isolated-8] [INFO] [1793722148.412386846] [controller_server]: getting progress checker plugins..
+[component_container_isolated-8] [INFO] [1793722148.413114440] [controller_server]: getting goal checker plugins..
+[component_container_isolated-8] [INFO] [1793722148.413408339] [controller_server]: Controller frequency set to 20.0000Hz
+[component_container_isolated-8] [INFO] [1793722148.413451383] [local_costmap.local_costmap]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.416609177] [heading_node]: heading forward
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/heading_node' in container '/nav2_container'
+[component_container_isolated-8] [INFO] [1793722148.426896385] [local_costmap.local_costmap]: Using plugin "obstacle_layer"
+[component_container_isolated-8] [INFO] [1793722148.430181525] [local_costmap.local_costmap]: Subscribed to Topics: scan
+[arm_brain-3] [INFO] [1793722148.443845383] [arm_node]: arm brain: poses stow / ready / high / drop from robot_arm.json; depth from /stereo/depth (left); the driver plays what it sends
+[component_container_isolated-8] [INFO] [1793722148.447636656] [local_costmap.local_costmap]: Initialized plugin "obstacle_layer"
+[component_container_isolated-8] [INFO] [1793722148.447853641] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[component_container_isolated-8] [INFO] [1793722148.449604154] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[component_container_isolated-8] [INFO] [1793722148.449670273] [local_costmap.local_costmap]: Using costmap filter "keepout_filter"
+[component_container_isolated-8] [INFO] [1793722148.453850769] [local_costmap.local_costmap]: Initialized costmap filter "keepout_filter"
+[component_container_isolated-8] [INFO] [1793722148.473379219] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[component_container_isolated-8] [INFO] [1793722148.473923700] [controller_server]: Controller Server has progress_checker  progress checkers available.
+[component_container_isolated-8] [INFO] [1793722148.474422474] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[component_container_isolated-8] [INFO] [1793722148.475239141] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[component_container_isolated-8] [INFO] [1793722148.475887156] [controller_server]: Created controller : FollowPath of type nav2_mppi_controller::MPPIController
+[component_container_isolated-8] [INFO] [1793722148.483804794] [controller_server]: Controller period is equal to model dt. Control sequence shifting is ON
+[component_container_isolated-8] [INFO] [1793722148.485684081] [controller_server]: ConstraintCritic instantiated with 1 power and 4.000000 weight.
+[component_container_isolated-8] [INFO] [1793722148.485873163] [controller_server]: Critic loaded : mppi::critics::ConstraintCritic
+[component_container_isolated-8] [INFO] [1793722148.488646786] [controller_server]: InflationCostCritic instantiated with 1 power and 300.000000 / 0.015000 weights. Critic will collision check based on circular cost.
+[component_container_isolated-8] [INFO] [1793722148.488697232] [controller_server]: Critic loaded : mppi::critics::CostCritic
+[component_container_isolated-8] [INFO] [1793722148.489765049] [controller_server]: GoalCritic instantiated with 1 power and 5.000000 weight.
+[component_container_isolated-8] [INFO] [1793722148.489810712] [controller_server]: Critic loaded : mppi::critics::GoalCritic
+[component_container_isolated-8] [INFO] [1793722148.490771162] [controller_server]: GoalAngleCritic instantiated with 1 power, 3.000000 weight, 0.500000 angular threshold and symmetric_yaw_tolerance disabled
+[component_container_isolated-8] [INFO] [1793722148.490793878] [controller_server]: Critic loaded : mppi::critics::GoalAngleCritic
+[component_container_isolated-8] [INFO] [1793722148.493896675] [controller_server]: ReferenceTrajectoryCritic instantiated with 1 power and 14.000000 weight
+[component_container_isolated-8] [INFO] [1793722148.493935913] [controller_server]: Critic loaded : mppi::critics::PathAlignCritic
+[component_container_isolated-8] [INFO] [1793722148.495383370] [controller_server]: Critic loaded : mppi::critics::PathFollowCritic
+[component_container_isolated-8] [INFO] [1793722148.497146598] [controller_server]: PathAngleCritic instantiated with 1 power and 2.000000 weight. Mode set to: Consider Feasible Path Orientations
+[component_container_isolated-8] [INFO] [1793722148.497179751] [controller_server]: Critic loaded : mppi::critics::PathAngleCritic
+[component_container_isolated-8] [INFO] [1793722148.497791443] [controller_server]: TwirlingCritic instantiated with 1 power and 10.000000 weight.
+[component_container_isolated-8] [INFO] [1793722148.497822786] [controller_server]: Critic loaded : mppi::critics::TwirlingCritic
+[component_container_isolated-8] [INFO] [1793722148.499730809] [controller_server]: Optimizer reset
+[bridge-1] [INFO] [1793722148.501623835] [mujoco_bridge]: building the v7 house (CoreConfig(base='drawn', assist=True, wheel_model='rollers', seed=0, imu='BNO085', lidar='A2M12', flow=False, odom_hz=50.0, truth_hz=50.0, cmd_timeout=0.5, shadow=(), mode='cmd_vel', start=(-3.0, 1.25, 0.0), tour_rounds=1, lidar_cast_dt=0.002, fw_div=2, floor_div=4, post_div=4, sensor_kw={}, firmware=True, person=False, timing='ideal', payload='arm', objects='toys', n_objects=6, joint_err_deg=1.0, arm_camera='stereo', live_world=True, clutter='toys', thrower=True, terrain=False))
+[component_container_isolated-8] [INFO] [1793722148.510114275] [MPPIController]: Configured MPPI Controller: FollowPath
+[component_container_isolated-8] [INFO] [1793722148.510140784] [controller_server]: Controller Server has FollowPath  controllers available.
+[component_container_isolated-8] [INFO] [1793722148.519909331] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.520229625] [smoother_server]: Configuring smoother server
+[component_container_isolated-8] [INFO] [1793722148.527079128] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[component_container_isolated-8] [INFO] [1793722148.528789310] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[component_container_isolated-8] [INFO] [1793722148.535113430] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.535376245] [planner_server]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.535432776] [global_costmap.global_costmap]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.541368893] [global_costmap.global_costmap]: Using plugin "static_layer"
+[component_container_isolated-8] [INFO] [1793722148.543059859] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[component_container_isolated-8] [INFO] [1793722148.544164083] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[component_container_isolated-8] [INFO] [1793722148.544362643] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[component_container_isolated-8] [INFO] [1793722148.545664050] [global_costmap.global_costmap]: Subscribed to Topics: scan
+[component_container_isolated-8] [INFO] [1793722148.550861669] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[component_container_isolated-8] [INFO] [1793722148.550924381] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[component_container_isolated-8] [INFO] [1793722148.552338108] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[component_container_isolated-8] [INFO] [1793722148.552410408] [global_costmap.global_costmap]: Using costmap filter "keepout_filter"
+[component_container_isolated-8] [INFO] [1793722148.555026685] [global_costmap.global_costmap]: Initialized costmap filter "keepout_filter"
+[component_container_isolated-8] [INFO] [1793722148.555102726] [global_costmap.global_costmap]: Using costmap filter "speed_filter"
+[component_container_isolated-8] [INFO] [1793722148.557289399] [global_costmap.global_costmap]: Initialized costmap filter "speed_filter"
+[component_container_isolated-8] [INFO] [1793722148.580672844] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722148.580795004] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722148.582112694] [planner_server]: Planner Server has GridBased  planners available.
+[mission_node-11] [INFO] [1793722148.582456197] [omni_console]: slam_toolbox localization on house (log /home/fernando/omni_pc_general_state/slam_toolbox.log)
+[mission_node-11] [INFO] [1793722148.584560462] [omni_console]: console ready: settings /home/fernando/omni_pc_general_state/console.json, maps /home/fernando/omni_ws/maps, running SLAM
+[component_container_isolated-8] [INFO] [1793722148.601876357] [lifecycle_manager_navigation]: [34m[1mConfiguring behavior_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.602142093] [behavior_server]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.605509555] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[component_container_isolated-8] [INFO] [1793722148.606241506] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[component_container_isolated-8] [INFO] [1793722148.606750898] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[component_container_isolated-8] [INFO] [1793722148.607204231] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[component_container_isolated-8] [INFO] [1793722148.610793709] [behavior_server]: Configuring spin
+[component_container_isolated-8] [INFO] [1793722148.622499931] [behavior_server]: Configuring backup
+[component_container_isolated-8] [INFO] [1793722148.631614570] [behavior_server]: Configuring drive_on_heading
+[component_container_isolated-8] [INFO] [1793722148.638237674] [behavior_server]: Configuring wait
+[component_container_isolated-8] [INFO] [1793722148.646474676] [lifecycle_manager_navigation]: [34m[1mConfiguring velocity_smoother[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.646632814] [velocity_smoother]: Configuring velocity smoother
+[component_container_isolated-8] [INFO] [1793722148.652468491] [lifecycle_manager_navigation]: [34m[1mConfiguring collision_monitor[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.652774803] [collision_monitor]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.658530372] [collision_monitor]: [scan]: Creating Scan
+[component_container_isolated-8] [INFO] [1793722148.661342461] [collision_monitor]: [FootprintApproach]: Creating Polygon
+[component_container_isolated-8] [INFO] [1793722148.661656274] [collision_monitor]: [FootprintApproach]: Polygon points are not defined. Using dynamic subscription instead.
+[component_container_isolated-8] [INFO] [1793722148.664016844] [collision_monitor]: [FootprintApproach]: Making footprint subscriber on /local_costmap/published_footprint topic
+[component_container_isolated-8] [INFO] [1793722148.670579702] [lifecycle_manager_navigation]: [34m[1mConfiguring bt_navigator[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.670778816] [bt_navigator]: Configuring
+[component_container_isolated-8] [INFO] [1793722148.675420754] [bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[component_container_isolated-8] [INFO] [1793722148.736282013] [bt_navigator]: Creating navigator id navigate_through_poses of type nav2_bt_navigator::NavigateThroughPosesNavigator
+[component_container_isolated-8] [INFO] [1793722148.773310773] [lifecycle_manager_navigation]: [34m[1mActivating controller_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722148.773519367] [controller_server]: Activating
+[component_container_isolated-8] [INFO] [1793722148.773582171] [local_costmap.local_costmap]: Activating
+[component_container_isolated-8] [INFO] [1793722148.773609982] [local_costmap.local_costmap]: Checking transform
+[component_container_isolated-8] [INFO] [1793722148.773650930] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[component_container_isolated-8] [INFO] [1793722149.273721593] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[bridge-1] [INFO] [1793722149.275280491] [mujoco_bridge]: sensors: BNO085 at 400 Hz, A2M12 16000 samples/s at 10 Hz, scan plane tilt 1.18 deg
+[bridge-1] [INFO] [1793722149.294114201] [mujoco_bridge]: firmware in the loop: its USB port is tcp:127.0.0.1:5761
+[component_container_isolated-8] [INFO] [1793722149.773797027] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[bridge-1] [INFO] [1793722149.840393866] [mujoco_bridge]: arm robot: servo bus on tcp:127.0.0.1:5763,14 things on the floor; cameras rendered on request
+[bridge-1] [INFO] [1793722149.842949919] [mujoco_bridge]: the Launcher's control port: tcp 9873
+[bridge-1] [INFO] [1793722149.851036386] [mujoco_bridge]: servo bus port 5763: the arm driver connected
+[arm_driver-2] [INFO] [1793722149.883523308] [arm_driver]: arm connected on tcp:127.0.0.1:5763: holding where it is
+[arm_brain-3] [INFO] [1793722149.884741305] [arm_node]: arm connected on tcp:127.0.0.1:5763: holding where it is
+[mission_node-11] [INFO] [1793722149.937486511] [omni_console]: 1 drains so far ended on a message rmw handed back twice (dropped)
+[scan_prep-7] [WARN] [1793722149.990884694] []: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[component_container_isolated-8] [INFO] [1793722150.273717747] [local_costmap.local_costmap]: Timed out waiting for transform from base_link to odom to become available, tf error: Invalid frame ID "odom" passed to canTransform argument target_frame - frame does not exist
+[scan_prep-7] [WARN] [1793722150.418162176] [scan_prep]: de-skew: no odom -> base_link over the scan ("odom" passed to lookupTransform argument target_frame does not exist. )
+[mcu_link-4] [INFO] [1793722150.581141934] [mcu_link]: MCU link up on tcp:127.0.0.1:5761
+[bridge-1] [INFO] [1793722150.582603682] [mujoco_bridge]: MCU port 5761: the Jetson side connected
+[mcu_link-4] [INFO] [1793722150.594699955] [mcu_link]: MCU mode AUTO (faults: none)
+[component_container_isolated-8] [INFO] [1793722150.773815050] [local_costmap.local_costmap]: start
+[component_container_isolated-8] [INFO] [1793722150.774919598] [local_costmap.local_costmap]: KeepoutFilter: Subscribing to "/keepout_filter_info" topic for filter info...
+[component_container_isolated-8] [WARN] [1793722150.976779543] [controller_server]: Parameter controller_server.verbose not found
+[component_container_isolated-8] [INFO] [1793722150.978151543] [controller_server]: Optimizer reset
+[component_container_isolated-8] [INFO] [1793722150.978648771] [MPPIController]: Activated MPPI Controller: FollowPath
+[component_container_isolated-8] [INFO] [1793722150.978690538] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722151.083758823] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[component_container_isolated-8] [INFO] [1793722151.083828433] [lifecycle_manager_navigation]: [34m[1mActivating smoother_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722151.084107483] [smoother_server]: Activating
+[component_container_isolated-8] [INFO] [1793722151.084209285] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722151.188404267] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[component_container_isolated-8] [INFO] [1793722151.188471073] [lifecycle_manager_navigation]: [34m[1mActivating planner_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722151.188765094] [planner_server]: Activating
+[component_container_isolated-8] [INFO] [1793722151.188886221] [global_costmap.global_costmap]: Activating
+[component_container_isolated-8] [INFO] [1793722151.188959474] [global_costmap.global_costmap]: Checking transform
+[component_container_isolated-8] [INFO] [1793722151.189004351] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[component_container_isolated-8] [INFO] [1793722151.689073922] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[component_container_isolated-8] [INFO] [1793722151.831101465] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 189 at 0.050000 m/pix
+[component_container_isolated-8] [INFO] [1793722151.832086280] [local_costmap.local_costmap]: KeepoutFilter: Received filter info from /keepout_filter_info topic.
+[component_container_isolated-8] [INFO] [1793722151.832174988] [local_costmap.local_costmap]: KeepoutFilter: Subscribing to "/keepout_filter_mask" topic for filter mask...
+[component_container_isolated-8] [INFO] [1793722151.843654016] [local_costmap.local_costmap]: KeepoutFilter: Received filter mask from /keepout_filter_mask topic.
+[component_container_isolated-8] [INFO] [1793722152.189102173] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 1.802500 but the earliest data is at time 1.813000, when looking up transform from frame [base_link] to frame [map]
+[component_container_isolated-8] [INFO] [1793722152.689147208] [global_costmap.global_costmap]: start
+[component_container_isolated-8] [INFO] [1793722152.690002793] [global_costmap.global_costmap]: KeepoutFilter: Subscribing to "/keepout_filter_info" topic for filter info...
+[component_container_isolated-8] [INFO] [1793722152.691704030] [global_costmap.global_costmap]: SpeedFilter: Subscribing to "/speed_filter_info" topic for filter info...
+[component_container_isolated-8] [INFO] [1793722152.701372170] [global_costmap.global_costmap]: KeepoutFilter: Received filter info from /keepout_filter_info topic.
+[component_container_isolated-8] [INFO] [1793722152.701436330] [global_costmap.global_costmap]: KeepoutFilter: Subscribing to "/keepout_filter_mask" topic for filter mask...
+[component_container_isolated-8] [INFO] [1793722152.702904622] [global_costmap.global_costmap]: SpeedFilter: Received filter info from /speed_filter_info topic.
+[component_container_isolated-8] [INFO] [1793722152.702953033] [global_costmap.global_costmap]: SpeedFilter: Using absolute speed_limit = 0.000000 + filter_mask_data * 0.010000
+[component_container_isolated-8] [INFO] [1793722152.702969887] [global_costmap.global_costmap]: SpeedFilter: Subscribing to "/speed_filter_mask" topic for filter mask...
+[component_container_isolated-8] [INFO] [1793722152.713290608] [global_costmap.global_costmap]: KeepoutFilter: Received filter mask from /keepout_filter_mask topic.
+[component_container_isolated-8] [INFO] [1793722152.714121742] [global_costmap.global_costmap]: SpeedFilter: Received filter mask from /speed_filter_mask topic.
+[component_container_isolated-8] [INFO] [1793722153.693320964] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722153.694645202] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722153.799169824] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[component_container_isolated-8] [INFO] [1793722153.799236149] [lifecycle_manager_navigation]: [34m[1mActivating behavior_server[0m[0m
+[component_container_isolated-8] [INFO] [1793722153.799489174] [behavior_server]: Activating
+[component_container_isolated-8] [INFO] [1793722153.799531167] [behavior_server]: Activating spin
+[component_container_isolated-8] [INFO] [1793722153.799572959] [behavior_server]: Activating backup
+[component_container_isolated-8] [INFO] [1793722153.799620471] [behavior_server]: Activating drive_on_heading
+[component_container_isolated-8] [INFO] [1793722153.799630502] [behavior_server]: Activating wait
+[component_container_isolated-8] [INFO] [1793722153.799642713] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722153.904316370] [lifecycle_manager_navigation]: Server behavior_server connected with bond.
+[component_container_isolated-8] [INFO] [1793722153.904389304] [lifecycle_manager_navigation]: [34m[1mActivating velocity_smoother[0m[0m
+[component_container_isolated-8] [INFO] [1793722153.904631531] [velocity_smoother]: Activating
+[component_container_isolated-8] [INFO] [1793722153.904725123] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722154.009924251] [lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[component_container_isolated-8] [INFO] [1793722154.010025169] [lifecycle_manager_navigation]: [34m[1mActivating collision_monitor[0m[0m
+[component_container_isolated-8] [INFO] [1793722154.010445223] [collision_monitor]: Activating
+[component_container_isolated-8] [INFO] [1793722154.010599457] [collision_monitor]: Creating bond (collision_monitor) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722154.118766886] [lifecycle_manager_navigation]: Server collision_monitor connected with bond.
+[component_container_isolated-8] [INFO] [1793722154.118850638] [lifecycle_manager_navigation]: [34m[1mActivating bt_navigator[0m[0m
+[component_container_isolated-8] [INFO] [1793722154.119107601] [bt_navigator]: Activating
+[component_container_isolated-8] [INFO] [1793722154.199899604] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722154.306911407] [lifecycle_manager_navigation]: Server bt_navigator connected with bond.
+[component_container_isolated-8] [INFO] [1793722154.306981681] [lifecycle_manager_navigation]: [34m[1mManaged nodes are active[0m[0m
+[component_container_isolated-8] [INFO] [1793722154.307016664] [lifecycle_manager_navigation]: [34m[1mCreating bond timer...[0m[0m
+[bridge-1] [INFO] [1793722154.843655840] [mujoco_bridge]: sim t     3.5 s, x0.64 real time, 0 cmd_vel, 0.0 m driven
+[component_container_isolated-8] [INFO] [1793722156.850434516] [bt_navigator]: Begin navigating from current location (-0.01, -0.00) to (0.27, 0.10)
+[component_container_isolated-8] [INFO] [1793722156.871041658] [controller_server]: Received a goal, begin computing control effort.
+[component_container_isolated-8] [WARN] [1793722156.871122645] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[component_container_isolated-8] [WARN] [1793722156.871152775] [controller_server]: No progress checker was specified in parameter 'current_progress_checker'. Server will use only plugin loaded progress_checker . This warning will appear once.
+[component_container_isolated-8] [INFO] [1793722157.689294065] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 189 at 0.050000 m/pix
+[component_container_isolated-8] [INFO] [1793722157.921278309] [controller_server]: Passing new path to controller.
+[mission_node-11] [WARN] [1793722158.437184099] [omni_console]: busy: 7.8% of a core in 10 s (fast_tick includes drain, status, drive): fast_tick 4.14% (193 calls, max 302 ms), status 3.18% (96 calls, max 302 ms), drain 0.36% (194 calls, max 0 ms), check_caps 0.05% (9 calls, max 1 ms), drive 0.02% (193 calls, max 0 ms)
+[component_container_isolated-8] [INFO] [1793722158.921280440] [controller_server]: Passing new path to controller.
+[component_container_isolated-8] [INFO] [1793722159.671308469] [controller_server]: Reached the goal!
+[component_container_isolated-8] [INFO] [1793722159.672255229] [controller_server]: Optimizer reset
+[component_container_isolated-8] [INFO] [1793722159.701126375] [bt_navigator]: Goal succeeded
+[mode_manager-5] [INFO] [1793722159.738399160] [mode_manager]: mode PICK (adult profile)
+[arm_brain-3] [INFO] [1793722159.781373396] [arm_node]: tidy: started
+[arm_brain-3] [INFO] [1793722159.794320398] [arm_node]: tidy: start: arm to stow
+[bridge-1] [INFO] [1793722159.844194922] [mujoco_bridge]: sim t     6.8 s, x0.65 real time, 0 cmd_vel, 0.3 m driven
+[arm_brain-3] [INFO] [1793722160.671659858] [arm_node]: tidy: object 1 at (1.02, 0.38), 45 x 34 mm
+[bridge-1] [INFO] [1793722164.844903404] [mujoco_bridge]: sim t    10.0 s, x0.64 real time, 0 cmd_vel, 0.7 m driven
+[scan_prep-7] [INFO] [1793722164.861868768] [scan_prep]: 96 scans, dropped 16.2% of returns as floor, de-skew failed on 6
+[arm_brain-3] [INFO] [1793722166.948455145] [arm_node]: tidy: over object 1
+[mode_manager-5] [INFO] [1793722167.495879628] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722169.868804396] [mujoco_bridge]: sim t    13.0 s, x0.60 real time, 0 cmd_vel, 0.8 m driven
+[arm_brain-3] [INFO] [1793722170.589291297] [arm_node]: tidy: wrist camera: 9 mm off, moving over it
+[bridge-1] [INFO] [1793722174.868976995] [mujoco_bridge]: sim t    16.0 s, x0.60 real time, 0 cmd_vel, 0.8 m driven
+[bridge-1] [INFO] [1793722179.869569097] [mujoco_bridge]: sim t    19.1 s, x0.62 real time, 0 cmd_vel, 0.8 m driven
+[scan_prep-7] [INFO] [1793722181.305623908] [scan_prep]: 196 scans, dropped 12.9% of returns as floor, de-skew failed on 6
+[arm_brain-3] [INFO] [1793722183.328054568] [arm_node]: tidy: holding object 1 (34 mm)
+[bridge-1] [INFO] [1793722184.870146334] [mujoco_bridge]: sim t    22.2 s, x0.62 real time, 0 cmd_vel, 0.8 m driven
+[bridge-1] [INFO] [1793722189.870438524] [mujoco_bridge]: sim t    25.3 s, x0.61 real time, 0 cmd_vel, 0.8 m driven
+[mode_manager-5] [INFO] [1793722192.963632364] [mode_manager]: arm in: base limits back
+[bridge-1] [INFO] [1793722194.870449758] [mujoco_bridge]: sim t    28.4 s, x0.62 real time, 0 cmd_vel, 0.8 m driven
+[arm_brain-3] [INFO] [1793722195.481035523] [arm_node]: tidy: object 1 in the bin (1 so far)
+[mode_manager-5] [INFO] [1793722196.920552369] [mode_manager]: arm out: base capped
+[scan_prep-7] [INFO] [1793722197.531018156] [scan_prep]: 296 scans, dropped 11.5% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722199.870678271] [mujoco_bridge]: sim t    31.5 s, x0.61 real time, 0 cmd_vel, 0.8 m driven
+[mode_manager-5] [INFO] [1793722201.817517600] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722202.979766874] [arm_node]: tidy: object 3 at (1.40, 0.36), 55 x 39 mm
+[bridge-1] [INFO] [1793722204.902318308] [mujoco_bridge]: sim t    34.5 s, x0.60 real time, 0 cmd_vel, 1.0 m driven
+[arm_brain-3] [INFO] [1793722208.799790036] [arm_node]: tidy: over object 3
+[mode_manager-5] [INFO] [1793722209.377296084] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722209.902387160] [mujoco_bridge]: sim t    37.7 s, x0.64 real time, 0 cmd_vel, 1.2 m driven
+[arm_brain-3] [INFO] [1793722212.335482248] [arm_node]: tidy: wrist camera: 24 mm off, moving over it
+[scan_prep-7] [INFO] [1793722213.585953909] [scan_prep]: 396 scans, dropped 10.6% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722214.903006856] [mujoco_bridge]: sim t    40.7 s, x0.60 real time, 0 cmd_vel, 1.2 m driven
+[bridge-1] [INFO] [1793722219.903274577] [mujoco_bridge]: sim t    43.8 s, x0.62 real time, 0 cmd_vel, 1.2 m driven
+[arm_brain-3] [INFO] [1793722224.752336761] [arm_node]: tidy: holding object 3 (48 mm)
+[bridge-1] [INFO] [1793722224.903623154] [mujoco_bridge]: sim t    47.0 s, x0.64 real time, 0 cmd_vel, 1.2 m driven
+[scan_prep-7] [INFO] [1793722229.814073842] [scan_prep]: 496 scans, dropped 9.6% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722229.903748738] [mujoco_bridge]: sim t    50.1 s, x0.61 real time, 0 cmd_vel, 1.2 m driven
+[mode_manager-5] [INFO] [1793722234.291057974] [mode_manager]: arm in: base limits back
+[bridge-1] [INFO] [1793722234.903787391] [mujoco_bridge]: sim t    53.2 s, x0.62 real time, 0 cmd_vel, 1.2 m driven
+[arm_brain-3] [INFO] [1793722236.672497446] [arm_node]: tidy: object 3 in the bin (2 so far)
+[mode_manager-5] [INFO] [1793722238.082167550] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722239.948610780] [mujoco_bridge]: sim t    56.3 s, x0.62 real time, 0 cmd_vel, 1.2 m driven
+[mode_manager-5] [INFO] [1793722242.675897190] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722243.940518439] [arm_node]: tidy: object 2 at (1.26, -0.23), 91 x 13 mm
+[bridge-1] [INFO] [1793722244.949283286] [mujoco_bridge]: sim t    59.6 s, x0.65 real time, 0 cmd_vel, 1.2 m driven
+[scan_prep-7] [INFO] [1793722245.544391189] [scan_prep]: 596 scans, dropped 8.4% of returns as floor, de-skew failed on 6
+[arm_brain-3] [INFO] [1793722248.816980023] [arm_node]: tidy: over object 2
+[mode_manager-5] [INFO] [1793722249.616148202] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722249.949483798] [mujoco_bridge]: sim t    62.8 s, x0.65 real time, 0 cmd_vel, 1.4 m driven
+[arm_brain-3] [INFO] [1793722252.676893542] [arm_node]: tidy: wrist camera: 12 mm off, moving over it
+[bridge-1] [INFO] [1793722255.076309109] [mujoco_bridge]: sim t    66.0 s, x0.61 real time, 0 cmd_vel, 1.4 m driven
+[bridge-1] [INFO] [1793722260.077233692] [mujoco_bridge]: sim t    69.3 s, x0.66 real time, 0 cmd_vel, 1.5 m driven
+[scan_prep-7] [INFO] [1793722261.235080392] [scan_prep]: 696 scans, dropped 8.0% of returns as floor, de-skew failed on 6
+[arm_brain-3] [INFO] [1793722261.965512995] [arm_node]: tidy: holding object 2 (11 mm)
+[bridge-1] [INFO] [1793722265.077810724] [mujoco_bridge]: sim t    72.5 s, x0.64 real time, 0 cmd_vel, 1.5 m driven
+[mode_manager-5] [INFO] [1793722268.794681192] [mode_manager]: arm in: base limits back
+[bridge-1] [INFO] [1793722270.078181625] [mujoco_bridge]: sim t    75.7 s, x0.64 real time, 0 cmd_vel, 1.5 m driven
+[arm_brain-3] [INFO] [1793722270.896875422] [arm_node]: tidy: object 2 in the bin (3 so far)
+[mode_manager-5] [INFO] [1793722272.093398077] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722275.078282136] [mujoco_bridge]: sim t    78.9 s, x0.65 real time, 0 cmd_vel, 1.5 m driven
+[scan_prep-7] [INFO] [1793722276.856371898] [scan_prep]: 796 scans, dropped 7.5% of returns as floor, de-skew failed on 6
+[mode_manager-5] [INFO] [1793722276.974357295] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722278.062319182] [arm_node]: tidy: object 4 at (1.81, -0.24), 32 x 22 mm
+[bridge-1] [INFO] [1793722280.078542402] [mujoco_bridge]: sim t    82.0 s, x0.62 real time, 0 cmd_vel, 1.7 m driven
+[arm_brain-3] [INFO] [1793722283.952017500] [arm_node]: tidy: over object 4
+[mode_manager-5] [INFO] [1793722284.498393194] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722285.078437638] [mujoco_bridge]: sim t    85.3 s, x0.66 real time, 0 cmd_vel, 1.9 m driven
+[arm_brain-3] [INFO] [1793722287.501639176] [arm_node]: tidy: wrist camera: 11 mm off, moving over it
+[bridge-1] [INFO] [1793722290.079012742] [mujoco_bridge]: sim t    88.4 s, x0.63 real time, 0 cmd_vel, 1.9 m driven
+[scan_prep-7] [INFO] [1793722292.592044713] [scan_prep]: 896 scans, dropped 7.6% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722295.079099296] [mujoco_bridge]: sim t    91.6 s, x0.64 real time, 0 cmd_vel, 1.9 m driven
+[arm_brain-3] [INFO] [1793722298.980421323] [arm_node]: tidy: holding object 4 (37 mm)
+[bridge-1] [INFO] [1793722300.158295000] [mujoco_bridge]: sim t    94.8 s, x0.63 real time, 0 cmd_vel, 1.9 m driven
+[bridge-1] [INFO] [1793722305.159063360] [mujoco_bridge]: sim t    97.9 s, x0.61 real time, 0 cmd_vel, 1.9 m driven
+[mode_manager-5] [INFO] [1793722308.438713603] [mode_manager]: arm in: base limits back
+[scan_prep-7] [INFO] [1793722308.465207059] [scan_prep]: 996 scans, dropped 7.7% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722310.159636029] [mujoco_bridge]: sim t   101.1 s, x0.63 real time, 0 cmd_vel, 1.9 m driven
+[arm_brain-3] [INFO] [1793722310.762668729] [arm_node]: tidy: object 4 in the bin (4 so far)
+[mode_manager-5] [INFO] [1793722312.240454207] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722315.160414282] [mujoco_bridge]: sim t   104.2 s, x0.63 real time, 0 cmd_vel, 1.9 m driven
+[mode_manager-5] [INFO] [1793722316.974528831] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722318.248089514] [arm_node]: tidy: object 6 at (1.70, -0.63), 39 x 23 mm
+[bridge-1] [INFO] [1793722320.161734825] [mujoco_bridge]: sim t   107.4 s, x0.64 real time, 0 cmd_vel, 2.0 m driven
+[component_container_isolated-8] [INFO] [1793722322.689279294] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 190 at 0.050000 m/pix
+[arm_brain-3] [INFO] [1793722322.942181926] [arm_node]: tidy: over object 6
+[mode_manager-5] [INFO] [1793722323.547962191] [mode_manager]: arm out: base capped
+[scan_prep-7] [INFO] [1793722324.259146952] [scan_prep]: 1096 scans, dropped 7.2% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722325.161988644] [mujoco_bridge]: sim t   110.6 s, x0.64 real time, 0 cmd_vel, 2.1 m driven
+[arm_brain-3] [INFO] [1793722326.488512468] [arm_node]: tidy: wrist camera: 22 mm off, moving over it
+[bridge-1] [INFO] [1793722330.162357509] [mujoco_bridge]: sim t   113.6 s, x0.60 real time, 0 cmd_vel, 2.1 m driven
+[bridge-1] [INFO] [1793722335.163476128] [mujoco_bridge]: sim t   116.8 s, x0.64 real time, 0 cmd_vel, 2.1 m driven
+[arm_brain-3] [INFO] [1793722338.703566972] [arm_node]: tidy: holding object 6 (44 mm)
+[scan_prep-7] [INFO] [1793722340.149801362] [scan_prep]: 1196 scans, dropped 7.5% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722340.163631832] [mujoco_bridge]: sim t   120.0 s, x0.64 real time, 0 cmd_vel, 2.2 m driven
+[bridge-1] [INFO] [1793722345.164630378] [mujoco_bridge]: sim t   123.2 s, x0.64 real time, 0 cmd_vel, 2.2 m driven
+[mode_manager-5] [INFO] [1793722345.557687347] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722347.665397638] [arm_node]: tidy: object 6 in the bin (5 so far)
+[mode_manager-5] [INFO] [1793722349.051678364] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722350.165082190] [mujoco_bridge]: sim t   126.4 s, x0.63 real time, 0 cmd_vel, 2.2 m driven
+[mode_manager-5] [INFO] [1793722353.741882057] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722354.915843462] [arm_node]: tidy: object 5 at (1.01, -0.87), 51 x 27 mm
+[bridge-1] [INFO] [1793722355.288057313] [mujoco_bridge]: sim t   129.6 s, x0.62 real time, 0 cmd_vel, 2.2 m driven
+[scan_prep-7] [INFO] [1793722356.025092022] [scan_prep]: 1296 scans, dropped 7.5% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722360.288253499] [mujoco_bridge]: sim t   132.5 s, x0.60 real time, 0 cmd_vel, 2.6 m driven
+[arm_brain-3] [INFO] [1793722361.739838554] [arm_node]: tidy: over object 5
+[mode_manager-5] [INFO] [1793722362.538444288] [mode_manager]: arm out: base capped
+[component_container_isolated-8] [INFO] [1793722362.689377975] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 189 at 0.050000 m/pix
+[bridge-1] [INFO] [1793722365.288364075] [mujoco_bridge]: sim t   135.5 s, x0.58 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722365.940651215] [arm_node]: tidy: wrist camera: 14 mm off, moving over it
+[bridge-1] [INFO] [1793722370.300792453] [mujoco_bridge]: sim t   138.2 s, x0.55 real time, 0 cmd_vel, 2.7 m driven
+[scan_prep-7] [INFO] [1793722373.194044655] [scan_prep]: 1396 scans, dropped 7.0% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722375.301815690] [mujoco_bridge]: sim t   141.2 s, x0.60 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722376.792330433] [arm_node]: tidy: holding object 5 (24 mm)
+[bridge-1] [INFO] [1793722380.301608018] [mujoco_bridge]: sim t   144.0 s, x0.55 real time, 0 cmd_vel, 2.7 m driven
+[mode_manager-5] [INFO] [1793722384.709900503] [mode_manager]: arm in: base limits back
+[bridge-1] [INFO] [1793722385.302362155] [mujoco_bridge]: sim t   146.9 s, x0.58 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722386.762127311] [arm_node]: tidy: object 5 in the bin (6 so far)
+[mode_manager-5] [INFO] [1793722388.222570396] [mode_manager]: arm out: base capped
+[bridge-1] [INFO] [1793722390.302621845] [mujoco_bridge]: sim t   149.7 s, x0.57 real time, 0 cmd_vel, 2.7 m driven
+[scan_prep-7] [INFO] [1793722390.742047068] [scan_prep]: 1496 scans, dropped 6.5% of returns as floor, de-skew failed on 6
+[mode_manager-5] [INFO] [1793722393.553730023] [mode_manager]: arm in: base limits back
+[arm_brain-3] [INFO] [1793722394.949205047] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722395.303763814] [mujoco_bridge]: sim t   152.6 s, x0.57 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722398.811091502] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722400.304109363] [mujoco_bridge]: sim t   155.3 s, x0.55 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722402.675130317] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722405.304401326] [mujoco_bridge]: sim t   158.1 s, x0.56 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722406.675338593] [arm_node]: tidy: nothing in view: turn 60 deg
+[scan_prep-7] [INFO] [1793722408.782055409] [scan_prep]: 1596 scans, dropped 6.3% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722410.305004205] [mujoco_bridge]: sim t   160.9 s, x0.55 real time, 0 cmd_vel, 2.7 m driven
+[arm_brain-3] [INFO] [1793722410.456003951] [arm_node]: tidy: nothing in view: turn 60 deg
+[arm_brain-3] [INFO] [1793722414.258307718] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722415.305631698] [mujoco_bridge]: sim t   163.6 s, x0.55 real time, 0 cmd_vel, 2.8 m driven
+[arm_brain-3] [INFO] [1793722418.108831193] [arm_node]: tidy: nothing here: back to the start for a look round
+[bridge-1] [INFO] [1793722420.306287999] [mujoco_bridge]: sim t   166.3 s, x0.53 real time, 0 cmd_vel, 3.1 m driven
+[component_container_isolated-8] [INFO] [1793722422.689279796] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 190 at 0.050000 m/pix
+[bridge-1] [INFO] [1793722425.306480666] [mujoco_bridge]: sim t   169.0 s, x0.54 real time, 0 cmd_vel, 3.8 m driven
+[scan_prep-7] [INFO] [1793722427.107605517] [scan_prep]: 1696 scans, dropped 6.0% of returns as floor, de-skew failed on 6
+[component_container_isolated-8] [INFO] [1793722427.689401611] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 190 at 0.050000 m/pix
+[arm_brain-3] [INFO] [1793722430.111506242] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722430.306897116] [mujoco_bridge]: sim t   171.7 s, x0.54 real time, 0 cmd_vel, 4.0 m driven
+[component_container_isolated-8] [INFO] [1793722432.689296867] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 189 at 0.050000 m/pix
+[arm_brain-3] [INFO] [1793722434.047044477] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722435.306922197] [mujoco_bridge]: sim t   174.4 s, x0.54 real time, 0 cmd_vel, 4.0 m driven
+[arm_brain-3] [INFO] [1793722438.045800205] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722440.307230129] [mujoco_bridge]: sim t   177.0 s, x0.53 real time, 0 cmd_vel, 4.0 m driven
+[arm_brain-3] [INFO] [1793722442.154608777] [arm_node]: tidy: nothing in view: turn 60 deg
+[bridge-1] [INFO] [1793722445.307824200] [mujoco_bridge]: sim t   179.7 s, x0.53 real time, 0 cmd_vel, 4.0 m driven
+[scan_prep-7] [INFO] [1793722445.875318937] [scan_prep]: 1796 scans, dropped 5.8% of returns as floor, de-skew failed on 6
+[arm_brain-3] [INFO] [1793722446.233734024] [arm_node]: tidy: nothing in view: turn 60 deg
+[mission_node-11] [INFO] [1793722449.937494716] [omni_console]: 443 drains so far ended on a message rmw handed back twice (dropped)
+[bridge-1] [INFO] [1793722450.308459499] [mujoco_bridge]: sim t   182.3 s, x0.52 real time, 0 cmd_vel, 4.1 m driven
+[arm_brain-3] [INFO] [1793722450.459369382] [arm_node]: tidy: nothing in view: turn 60 deg
+[arm_brain-3] [INFO] [1793722454.589446420] [arm_node]: tidy: something far off at (-1.42, -0.91): going closer
+[bridge-1] [INFO] [1793722455.308556033] [mujoco_bridge]: sim t   184.9 s, x0.53 real time, 0 cmd_vel, 4.2 m driven
+[bridge-1] [INFO] [1793722460.308751319] [mujoco_bridge]: sim t   187.3 s, x0.47 real time, 0 cmd_vel, 4.9 m driven
+[component_container_isolated-8] [INFO] [1793722462.689351393] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 190 at 0.050000 m/pix
+[scan_prep-7] [INFO] [1793722465.073554491] [scan_prep]: 1896 scans, dropped 5.5% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722465.309632996] [mujoco_bridge]: sim t   190.1 s, x0.57 real time, 0 cmd_vel, 5.1 m driven
+[arm_brain-3] [INFO] [1793722465.601216656] [arm_node]: tidy: something far off at (0.31, 0.80): going closer
+[bridge-1] [INFO] [1793722470.309673236] [mujoco_bridge]: sim t   192.6 s, x0.48 real time, 0 cmd_vel, 5.6 m driven
+[component_container_isolated-8] [INFO] [1793722472.689331281] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 251 X 189 at 0.050000 m/pix
+[arm_brain-3] [INFO] [1793722474.523339684] [arm_node]: tidy: nothing more in sight (6 picked, 0 failed)
+[arm_brain-3] [INFO] [1793722474.531423750] [arm_node]: tidy done: 6 picked, 0 not (nothing in sight)
+[mode_manager-5] [INFO] [1793722474.532594848] [mode_manager]: mode TELEOP (adult profile)
+[bridge-1] [INFO] [1793722475.310233405] [mujoco_bridge]: sim t   195.3 s, x0.54 real time, 0 cmd_vel, 5.7 m driven
+[mode_manager-5] [INFO] [1793722477.992643404] [mode_manager]: mode IDLE (adult profile)
+[mcu_link-4] [INFO] [1793722478.037368638] [mcu_link]: MCU mode DISARMED (faults: none)
+[bridge-1] [INFO] [1793722480.310399128] [mujoco_bridge]: sim t   198.0 s, x0.55 real time, 0 cmd_vel, 5.7 m driven
+[scan_prep-7] [INFO] [1793722483.994186951] [scan_prep]: 1996 scans, dropped 5.8% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722485.310466505] [mujoco_bridge]: sim t   200.7 s, x0.54 real time, 0 cmd_vel, 5.7 m driven
+[bridge-1] [INFO] [1793722490.310801037] [mujoco_bridge]: sim t   203.5 s, x0.57 real time, 0 cmd_vel, 5.7 m driven
+[bridge-1] [INFO] [1793722495.311341875] [mujoco_bridge]: sim t   206.4 s, x0.57 real time, 0 cmd_vel, 5.7 m driven
+[bridge-1] [INFO] [1793722500.312114516] [mujoco_bridge]: sim t   209.2 s, x0.57 real time, 0 cmd_vel, 5.7 m driven
+[scan_prep-7] [INFO] [1793722501.761263466] [scan_prep]: 2096 scans, dropped 6.2% of returns as floor, de-skew failed on 6
+[bridge-1] [INFO] [1793722505.312375048] [mujoco_bridge]: sim t   212.0 s, x0.55 real time, 0 cmd_vel, 5.7 m driven
+[bridge-1] [INFO] [1793722510.313151144] [mujoco_bridge]: sim t   214.7 s, x0.56 real time, 0 cmd_vel, 5.7 m driven
+[bridge-1] [INFO] [1793722515.313835509] [mujoco_bridge]: sim t   217.5 s, x0.55 real time, 0 cmd_vel, 5.7 m driven
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [web_video_server-13]: sending signal 'SIGINT' to process[web_video_server-13]
+[INFO] [image_preview-12]: sending signal 'SIGINT' to process[image_preview-12]
+[INFO] [mission_node-11]: sending signal 'SIGINT' to process[mission_node-11]
+[INFO] [rosapi_node-10]: sending signal 'SIGINT' to process[rosapi_node-10]
+[INFO] [rosbridge_websocket-9]: sending signal 'SIGINT' to process[rosbridge_websocket-9]
+[INFO] [component_container_isolated-8]: sending signal 'SIGINT' to process[component_container_isolated-8]
+[INFO] [scan_prep-7]: sending signal 'SIGINT' to process[scan_prep-7]
+[INFO] [ekf_node-6]: sending signal 'SIGINT' to process[ekf_node-6]
+[INFO] [mode_manager-5]: sending signal 'SIGINT' to process[mode_manager-5]
+[INFO] [mcu_link-4]: sending signal 'SIGINT' to process[mcu_link-4]
+[INFO] [arm_brain-3]: sending signal 'SIGINT' to process[arm_brain-3]
+[INFO] [arm_driver-2]: sending signal 'SIGINT' to process[arm_driver-2]
+[INFO] [bridge-1]: sending signal 'SIGINT' to process[bridge-1]
+[web_video_server-13] [INFO] [1793722519.510380359] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[component_container_isolated-8] [INFO] [1793722519.516616738] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[component_container_isolated-8] [INFO] [1793722519.516697644] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[component_container_isolated-8] [INFO] [1793722519.516887313] [controller_server]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.516946164] [MPPIController]: Deactivated MPPI Controller: FollowPath
+[component_container_isolated-8] [INFO] [1793722519.516966712] [local_costmap.local_costmap]: Deactivating
+[scan_prep-7] [INFO] [1793722519.517581894] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ekf_node-6] [INFO] [1793722519.518745174] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[mode_manager-5] [INFO] [1793722519.519728482] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[mcu_link-4] [INFO] [1793722519.521024520] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[arm_driver-2] [INFO] [1793722519.527243256] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bridge-1] [INFO] [1793722519.528440057] [mujoco_bridge]: MCU port 5761: the Jetson side disconnected
+[component_container_isolated-8] [INFO] [1793722519.574073746] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.584492943] [controller_server]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.589832539] [MPPIController]: Cleaned up MPPI Controller: FollowPath
+[component_container_isolated-8] [INFO] [1793722519.590563288] [local_costmap.local_costmap]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.617797373] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.617925276] [smoother_server]: Running Nav2 LifecycleNode rcl preshutdown (smoother_server)
+[component_container_isolated-8] [INFO] [1793722519.617942758] [smoother_server]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.617981213] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.628351371] [smoother_server]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.637247274] [smoother_server]: Destroying bond (smoother_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.637380073] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[component_container_isolated-8] [INFO] [1793722519.637475679] [planner_server]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.637587895] [global_costmap.global_costmap]: Deactivating
+[INFO] [scan_prep-7]: process has finished cleanly [pid 56622]
+[INFO] [web_video_server-13]: process has finished cleanly [pid 56630]
+[INFO] [mode_manager-5]: process has finished cleanly [pid 56620]
+[INFO] [ekf_node-6]: process has finished cleanly [pid 56621]
+[INFO] [mcu_link-4]: process has finished cleanly [pid 56619]
+[INFO] [arm_driver-2]: process has finished cleanly [pid 56617]
+[INFO] [image_preview-12]: process has finished cleanly [pid 56627]
+[component_container_isolated-8] [INFO] [1793722519.689334083] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722519.689422808] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.699676773] [planner_server]: Cleaning up
+[INFO] [rosapi_node-10]: process has finished cleanly [pid 56625]
+[INFO] [rosbridge_websocket-9]: process has finished cleanly [pid 56624]
+[component_container_isolated-8] [INFO] [1793722519.707149484] [lifecycle_manager_navigation]: [34m[1mHave not received a heartbeat from controller_server.[0m[0m
+[component_container_isolated-8] [ERROR] [1793722519.707223451] [lifecycle_manager_navigation]: CRITICAL FAILURE: SERVER controller_server IS DOWN after not receiving a heartbeat for 4000 ms. Shutting down related nodes.
+[component_container_isolated-8] [INFO] [1793722519.707291427] [lifecycle_manager_navigation]: [34m[1mTerminating bond timer...[0m[0m
+[component_container_isolated-8] [INFO] [1793722519.707324313] [lifecycle_manager_navigation]: [34m[1mResetting managed nodes...[0m[0m
+[component_container_isolated-8] [INFO] [1793722519.707338918] [lifecycle_manager_navigation]: [34m[1mDeactivating bt_navigator[0m[0m
+[component_container_isolated-8] [INFO] [1793722519.707587025] [bt_navigator]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.707700695] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.709843370] [global_costmap.global_costmap]: Cleaning up
+[INFO] [arm_brain-3]: process has finished cleanly [pid 56618]
+[component_container_isolated-8] [INFO] [1793722519.715094114] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722519.715227051] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[component_container_isolated-8] [INFO] [1793722519.737184203] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.737264828] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[component_container_isolated-8] [INFO] [1793722519.737328295] [behavior_server]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.737364362] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.747650634] [behavior_server]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.750125148] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.750203687] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[component_container_isolated-8] [INFO] [1793722519.750222438] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.750228287] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[component_container_isolated-8] [INFO] [1793722519.750271669] [velocity_smoother]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.750316611] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.760586143] [velocity_smoother]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.760655144] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.760688351] [collision_monitor]: Running Nav2 LifecycleNode rcl preshutdown (collision_monitor)
+[component_container_isolated-8] [INFO] [1793722519.760750837] [collision_monitor]: Deactivating
+[component_container_isolated-8] [INFO] [1793722519.760775491] [collision_monitor]: Destroying bond (collision_monitor) to lifecycle manager.
+[INFO] [bridge-1]: process has finished cleanly [pid 56616]
+[component_container_isolated-8] [INFO] [1793722519.820311624] [lifecycle_manager_navigation]: [34m[1mDeactivating collision_monitor[0m[0m
+[component_container_isolated-8] [INFO] [1793722519.862614429] [collision_monitor]: Cleaning up
+[component_container_isolated-8] [INFO] [1793722519.864428113] [collision_monitor]: [FootprintApproach]: Destroying Polygon
+[component_container_isolated-8] [INFO] [1793722519.866257976] [collision_monitor]: Destroying bond (collision_monitor) to lifecycle manager.
+[component_container_isolated-8] [INFO] [1793722519.866317968] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)
+[INFO] [mission_node-11]: process has finished cleanly [pid 56626]
+[ERROR] [component_container_isolated-8]: process[component_container_isolated-8] failed to terminate '3' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [component_container_isolated-8]: sending signal 'SIGTERM' to process[component_container_isolated-8]
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT) again, ignoring...
+[ERROR] [component_container_isolated-8]: process[component_container_isolated-8] failed to terminate '5.0' seconds after receiving 'SIGTERM', escalating to 'SIGKILL'
+[INFO] [component_container_isolated-8]: sending signal 'SIGKILL' to process[component_container_isolated-8]
+[ERROR] [component_container_isolated-8]: process has died [pid 56623, exit code -9, cmd '/opt/ros/jazzy/lib/rclcpp_components/component_container_isolated --ros-args -r __node:=nav2_container -r __ns:=/ --params-file /tmp/tmpehf799n0_nav2.yaml --params-file /tmp/launch_params__va9dast'].

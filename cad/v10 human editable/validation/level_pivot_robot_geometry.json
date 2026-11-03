@@ -1,0 +1,722 @@
+{
+  "date": "2026-11-02",
+  "slot_pod_frame": [
+    [
+      -49.3,
+      -37.0,
+      79.0,
+      95.1
+    ],
+    [
+      -37.0,
+      37.0,
+      79.0,
+      89.5
+    ],
+    [
+      37.0,
+      60.5,
+      30.0,
+      66.0
+    ],
+    [
+      37.0,
+      56.3,
+      66.0,
+      95.6
+    ]
+  ],
+  "feet_old": [
+    [
+      -31.5,
+      87.5
+    ],
+    [
+      -14.0,
+      87.5
+    ],
+    [
+      16.0,
+      87.5
+    ],
+    [
+      40.25,
+      87.5
+    ]
+  ],
+  "feet_new": [
+    [
+      -31.5,
+      94.5
+    ],
+    [
+      -14.0,
+      94.5
+    ],
+    [
+      16.0,
+      94.5
+    ],
+    [
+      30.0,
+      94.5
+    ]
+  ],
+  "hole": 3.4,
+  "side_bumper_deg": [
+    23.35835493834063,
+    17.0
+  ],
+  "parts": {
+    "REC_deck_left_outer_pivot": {
+      "original": null,
+      "new": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 40933.395,
+        "min": [
+          -70.676,
+          135.199,
+          67.0
+        ],
+        "max": [
+          70.676,
+          217.0,
+          73.0
+        ]
+      },
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 40933.395,
+        "min": [
+          -70.676,
+          135.199,
+          67.0
+        ],
+        "max": [
+          70.676,
+          217.0,
+          73.0
+        ]
+      },
+      "pods": [
+        "FL",
+        "RL"
+      ]
+    },
+    "REC_deck_left_inner_pivot": {
+      "original": null,
+      "new": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 16224.405,
+        "min": [
+          -50.208,
+          70.0,
+          67.0
+        ],
+        "max": [
+          50.208,
+          126.855,
+          73.0
+        ]
+      },
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 16224.405,
+        "min": [
+          -50.208,
+          70.0,
+          67.0
+        ],
+        "max": [
+          50.208,
+          126.855,
+          73.0
+        ]
+      },
+      "pods": [
+        "FL",
+        "RL"
+      ]
+    },
+    "deck_left split": {
+      "original": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 84433.315,
+        "min": [
+          -87.051,
+          70.0,
+          67.0
+        ],
+        "max": [
+          87.051,
+          217.0,
+          73.0
+        ]
+      },
+      "dropped_slivers_mm3": [
+        329.8,
+        329.8,
+        216.0,
+        216.0
+      ],
+      "removed_mm3": 27275.5
+    },
+    "REC_deck_right_outer_pivot": {
+      "original": null,
+      "new": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 40933.395,
+        "min": [
+          -70.676,
+          -217.0,
+          67.0
+        ],
+        "max": [
+          70.676,
+          -135.199,
+          73.0
+        ]
+      },
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 40933.395,
+        "min": [
+          -70.676,
+          -217.0,
+          67.0
+        ],
+        "max": [
+          70.676,
+          -135.199,
+          73.0
+        ]
+      },
+      "pods": [
+        "RR",
+        "FR"
+      ]
+    },
+    "REC_deck_right_inner_pivot": {
+      "original": null,
+      "new": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 16224.405,
+        "min": [
+          -50.208,
+          -126.855,
+          67.0
+        ],
+        "max": [
+          50.208,
+          -70.0,
+          73.0
+        ]
+      },
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 16224.405,
+        "min": [
+          -50.208,
+          -126.855,
+          67.0
+        ],
+        "max": [
+          50.208,
+          -70.0,
+          73.0
+        ]
+      },
+      "pods": [
+        "RR",
+        "FR"
+      ]
+    },
+    "deck_right split": {
+      "original": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 84433.315,
+        "min": [
+          -87.051,
+          -217.0,
+          67.0
+        ],
+        "max": [
+          87.051,
+          -70.0,
+          73.0
+        ]
+      },
+      "dropped_slivers_mm3": [
+        329.8,
+        329.8,
+        216.0,
+        216.0
+      ],
+      "removed_mm3": 27275.5
+    },
+    "REC_bumper_corner_pivot": {
+      "original": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 49987.776,
+        "min": [
+          197.866,
+          -92.8,
+          34.0
+        ],
+        "max": [
+          225.0,
+          92.8,
+          95.0
+        ]
+      },
+      "new": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 49986.903,
+        "min": [
+          197.866,
+          -92.8,
+          34.0
+        ],
+        "max": [
+          225.0,
+          92.8,
+          95.0
+        ]
+      },
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 49986.903,
+        "min": [
+          197.866,
+          -92.8,
+          34.0
+        ],
+        "max": [
+          225.0,
+          92.8,
+          95.0
+        ]
+      },
+      "volume_change_mm3": -0.873
+    }
+  },
+  "moved": [
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "left",
+      "at": [
+        -6.0,
+        94.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "left",
+      "at": [
+        6.0,
+        94.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "left",
+      "at": [
+        0.0,
+        161.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "left",
+      "at": [
+        0.0,
+        167.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "right",
+      "at": [
+        6.0,
+        -94.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "right",
+      "at": [
+        -6.0,
+        -94.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "right",
+      "at": [
+        -0.0,
+        -161.0
+      ]
+    },
+    {
+      "screw": "deck bridge M3 x 14 (new)",
+      "side": "right",
+      "at": [
+        -0.0,
+        -167.0
+      ]
+    },
+    {
+      "pod": "FL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -31.5,
+        -87.5
+      ],
+      "new": [
+        -31.5,
+        -94.5
+      ]
+    },
+    {
+      "pod": "FL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -14.0,
+        -87.5
+      ],
+      "new": [
+        -14.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "FL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        16.0,
+        -87.5
+      ],
+      "new": [
+        16.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "FL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        40.25,
+        -87.5
+      ],
+      "new": [
+        30.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "FL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "FL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "FL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "FL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "RL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -31.5,
+        87.5
+      ],
+      "new": [
+        -31.5,
+        94.5
+      ]
+    },
+    {
+      "pod": "RL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -14.0,
+        87.5
+      ],
+      "new": [
+        -14.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "RL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        16.0,
+        87.5
+      ],
+      "new": [
+        16.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "RL",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        40.25,
+        87.5
+      ],
+      "new": [
+        30.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "RL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "RL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "RL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "RL",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "RR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -31.5,
+        -87.5
+      ],
+      "new": [
+        -31.5,
+        -94.5
+      ]
+    },
+    {
+      "pod": "RR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -14.0,
+        -87.5
+      ],
+      "new": [
+        -14.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "RR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        16.0,
+        -87.5
+      ],
+      "new": [
+        16.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "RR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        40.25,
+        -87.5
+      ],
+      "new": [
+        30.0,
+        -94.5
+      ]
+    },
+    {
+      "pod": "RR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "RR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "RR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "RR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "FR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -31.5,
+        87.5
+      ],
+      "new": [
+        -31.5,
+        94.5
+      ]
+    },
+    {
+      "pod": "FR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        -14.0,
+        87.5
+      ],
+      "new": [
+        -14.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "FR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        16.0,
+        87.5
+      ],
+      "new": [
+        16.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "FR",
+      "screw": "guard foot M3 x 14",
+      "old": [
+        40.25,
+        87.5
+      ],
+      "new": [
+        30.0,
+        94.5
+      ]
+    },
+    {
+      "pod": "FR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "FR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": 23.35835493834063,
+      "new_deg": 17.0,
+      "z": 18.0
+    },
+    {
+      "pod": "FR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 10.0
+    },
+    {
+      "pod": "FR",
+      "screw": "bumper side M3 x 10",
+      "old_deg": -23.35835493834063,
+      "new_deg": -17.0,
+      "z": 18.0
+    }
+  ],
+  "bridge": {
+    "info": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 50796.837,
+      "min": [
+        -13.0,
+        88.0,
+        73.0
+      ],
+      "max": [
+        13.0,
+        170.0,
+        140.0
+      ]
+    },
+    "screws_left": [
+      [
+        -6.0,
+        94.0
+      ],
+      [
+        6.0,
+        94.0
+      ],
+      [
+        0.0,
+        161.0
+      ],
+      [
+        0.0,
+        167.0
+      ]
+    ],
+    "note": "PROPOSED: a new structural part, strength untested"
+  }
+}

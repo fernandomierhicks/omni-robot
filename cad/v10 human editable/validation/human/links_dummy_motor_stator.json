@@ -1,0 +1,16 @@
+{
+  "part": "dummy_motor_stator",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Rear Mount Pilot Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "rear_mount_pcd": "\"D28@Control Measures-Shared Layout\" * 2",
+    "rear_screw_count": "(\"D116@Control Measures-Shared Layout\" / 1mm)",
+    "rear_first_angle": "180deg - \"D2@Angle rear phase-Shared Layout\"",
+    "bearing_seat_radius": "\"D86@Control Measures-Shared Layout\" * 0.5"
+  }
+}

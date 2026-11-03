@@ -1,0 +1,46 @@
+{
+  "part": "roller_tread",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_roller_tread.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0019_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0020_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0026_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0022_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0029_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0024_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0032_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 9669.440934281256
+}

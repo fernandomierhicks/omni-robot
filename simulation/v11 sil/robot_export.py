@@ -10,6 +10,9 @@
                                                the arm robot (design.md 11, ARM below): the SO-101's chain as the sim
                                                builds it, its servos, finger pads, wrist camera, the stereo pods, the
                                                bin, the robot's keep-out volumes for the arm, the arm-out base caps
+  ros/src/omni_arm/omni_arm/config/robot_arm_d435.json
+                                               the same robot with a RealSense D435 on the deck's nose as its depth
+                                               camera (ARM_D435, design.md 4.11, proposed)
 
 The robot is V11 below: the v7 base (design.md 25, adopted: 127 mm printed omni wheels, sprung pods), the v6 round 3
 catch / launch module (sections 22-23: chute feed, padded pocket, 35 deg catch tilt) and section 24's actuators
@@ -25,6 +28,7 @@ import json
 import math
 import os
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 import mujoco
@@ -43,6 +47,9 @@ from vision import VisionConfig  # noqa: E402
 
 # (ros/omni.sh mirrors both into WSL's ~/omni_ws and says where)
 FW_PARAMS = Path(os.environ.get("OMNI_FIRMWARE_DIR", REPO / "firmware")) / "lib" / "omni_fw" / "fw_params.h"
+# the arm robot's (cad/v10) wheel, base and motor: a second constants header, compiled into its own SIL library
+# (firmware/sil/build_sil.py variant "arm"; sil_robot picks it by firmware_variant(p)). fw_params.h stays the catch robot's
+FW_PARAMS_ARM = FW_PARAMS.with_name("fw_params_arm.h")
 ROBOT_JSON = Path(os.environ.get("OMNI_ROS_SRC", REPO / "ros" / "src")) / "omni_catch" / "omni_catch" / "config" / \
     "robot_v11.json"
 ARM_JSON = Path(os.environ.get("OMNI_ROS_SRC", REPO / "ros" / "src")) / "omni_arm" / "omni_arm" / "config" / \
@@ -80,28 +87,68 @@ CAD_MASS_KG = 8.19
 CAD_CG = (0.0180, -0.0014, 0.1246)
 
 
+def _ballasted(p: SimParams, kg: float, cg) -> SimParams:
+    """p with one point mass on the base that brings the robot's total and CG to the CAD's: what the CAD has and the sim
+    doesn't (the head and face, heavier printed parts, fasteners, cables). The payload at its default pose."""
+    from dataclasses import replace
+    from robot_model import mass_properties
+    mass, now = mass_properties(build_model(p), p, 0.0)
+    dm = kg - mass
+    if dm <= 0.0:
+        raise ValueError(f"the sim's robot ({mass:.2f} kg) is already heavier than the CAD's")
+    pos = (kg * np.array(cg) - mass * np.asarray(now)) / dm
+    return replace(p, extra_masses=tuple(p.extra_masses) + ((round(dm, 4), *(round(float(x), 4) for x in pos)),))
+
+
 def drawn_params(**kw) -> SimParams:
     """The v11 robot with the CAD's masses (design.md 7, step 1): mass_model "cad" (the 515 g printed wheels, no front
     rocker, the bumper ring at r 205-217 mm) and one point mass on the base that brings the total and the CG to the
     BOM's: what the CAD has and the sim doesn't (the head and face, heavier printed parts, fasteners, cables)."""
-    from dataclasses import replace
-    from robot_model import mass_properties
-    p = v11_params(mass_model="cad", **kw)
-    mass, cg = mass_properties(build_model(p), p, 0.0)
-    dm = CAD_MASS_KG - mass
-    if dm <= 0.0:
-        raise ValueError(f"the sim's robot ({mass:.2f} kg) is already heavier than the CAD's")
-    pos = (CAD_MASS_KG * np.array(CAD_CG) - mass * np.asarray(cg)) / dm
-    return replace(p, extra_masses=tuple(p.extra_masses) + ((round(dm, 4), *(round(float(x), 4) for x in pos)),))
+    return _ballasted(v11_params(mass_model="cad", **kw), CAD_MASS_KG, CAD_CG)
 
 
-# the arm robot as drawn (design.md 12.3, Oct 25; cad/v7 arm_kit.py, studies/layout_trade.py A6): the baseline base
+# the Oct 25 arm robot as cad/v7 drew it (design.md 12.3; cad/v7 arm_kit.py, studies/layout_trade.py A6): the baseline base
 # and head with the arm kit in place of the catch module: the SO-101 on a 50 mm riser at the plate's front edge (its
 # base over the camera bar), the bar at its arm index (40 deg down), the lidar at the front, the bin on the plate's
-# rear, the face and the audio box over it
-ARM = dict(payload="arm", plate_gap=0.096, arm_mount=(0.14, 0.0, 0.0), arm_riser=0.05, arm_pick=True,
-           arm_bin=(-0.07, 0.0, 0.12, 0.12, 0.07), arm_display="face", lidar_mount="front", camera_mount="head",
-           camera_head_xz=(0.18266, 0.16573), camera_tilt_deg=-40.0)
+# rear, the face and the audio box over it. Kept for the layout studies and the earlier results; since Nov 1 the arm
+# robot is ARM (cad/v10's coarse model, below)
+ARM_V7 = dict(payload="arm", plate_gap=0.096, arm_mount=(0.14, 0.0, 0.0), arm_riser=0.05, arm_pick=True,
+              arm_bin=(-0.07, 0.0, 0.12, 0.12, 0.07), arm_display="face", lidar_mount="front", camera_mount="head",
+              camera_head_xz=(0.18266, 0.16573), camera_tilt_deg=-40.0)
+
+# The arm robot as cad/v10 human editable draws it (Nov 1; the base is cad/v9's), the baseline since Nov 1 (Fernando):
+# the sim's coarse 3D model of the CAD. The 140 mm 2 x 6 x 36 wheel (rows 72 mm apart) on r 146, the AK40-10 inside it,
+# each wheel on a fork that pivots on a shaft beside it (80.6 mm from the axle, level with it: y 80.6, z 0), the axle -3 to
+# +15 mm (18 mm travel, 12.9 deg), the deck and wheel guards out to r 217 with the TPU bumper 8 mm outside (450 x 453 mm), wheel
+# slots 158 mm wide from r 85, the plate at 181.5 mm (cad/v9's upper parts 13 mm up: 6.5 mm of wheel radius and 6.5 mm
+# of plate gap) and the lidar scan plane at 163, 140 mm from the centre, and Fernando's D435 as a box on the nose where
+# design.md 4.11 puts it (an idealized spot, rides the deck: 6.5 mm up). Three things differ from the drawn CAD, for the
+# arm to reach the floor (design.md 4.11, Nov 1): the arm kit is NOT lifted (riser 37 mm: the arm base stays at the v7
+# robot's 218.5 mm; at the drawn 231.5 mm the SO-101 has no fingers-down reach to the floor at all) and the head is only
+# HEAD_LIFT higher, not 13 mm (the window between the lidar's top and the adapter over the bar: 4 mm each side).
+# Nov 2 (Fernando, from the motor study): the fork's pivot moves level with the axle, the same 80.6 mm arm. With the AK40
+# on the fork, a pivot 43 mm up turned drive torque into hinge torque (~0.6 tau: torque jacking), so the wheels bounced
+# and fought (2 m/s cruise 55 -> 41 W at 10 kg, 102 -> 62 W at 20 kg; forward start 2.6 -> 6.2 m/s^2 at 10 kg;
+# studies/pivot_quick.py). Nov 2: cad/v10's fork is redrawn to match (CAD_POD_PIVOT, the drawn fork: the deck slotted at
+# the pivots, a bridge over each side strip); its earlier pivot was (0.0682, 0.043). The pods stay opposite hands on opposite
+# diagonals: one hand everywhere would lose forward start 6.2 -> 4.1 m/s^2 and slope start 28 -> 16-18 deg at 10 kg
+# (studies/hands_quick.py, pod_hands).
+CAD_POD_PIVOT = (0.0806, 0.0)
+POD_PIVOT = (0.0806, 0.0)
+V10 = dict(wheel="Printed-140-2x6-36-cad", drive_motor="AK40-10", wheel_base_radius=0.146,
+           pod_travel=0.018, pod_droop=0.003, pod_pivot=POD_PIVOT,
+           deck_radius=0.217, deck_cut_radius=0.085, deck_slot_half_width=0.079, bumper_radius=0.211,
+           plate_gap=0.1025, lidar_x=0.14, lidar_scan_z=0.163, mass_model="cad",
+           # Nov 1 (motor study): the v10 rollers are PLA cores turning on their M3 axle bolts, no bearings (est mu)
+           roller_pin_mu=0.3, roller_pin_radius=0.0015,
+           # and a smooth roller hull: 14 flats around hammered the floor (wheel loads 0-120 N, base 7% slow at 1 m/s)
+           roller_mesh=(13, 64))
+HEAD_LIFT = 0.005                # m: the camera bar and cheeks over the v7 robot's (cad/v9 has 0.013; see above)
+ARM = dict(ARM_V7, **V10, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
+           d435_box=True, d435_pos=(0.19, 0.0, 0.1115))
+# cad/v9/out/ARM_KIT.md (the arm robot's CAD estimate, the SO-101 stowed; v10 keeps v9's base) plus the D435's 72 g
+CAD_ARM_MASS_KG = 9.56 + 0.072
+CAD_ARM_CG = (0.0066, 0.0, 0.1264)
 # its fixed poses (rad, JOINTS order): a drop 10 deg off vertical over the bin's middle (layout_trade.py A6); a stow
 # folded sideways over the plate's right half, 0.41 m up; high, the arm upright (the way between the stow, the work
 # ahead and the bin); predrop, folded back low before the drop (the face over the bin is in the way of a straight
@@ -126,8 +173,51 @@ ARM_OUT = dict(speed_cap=1.0, a_cap_frac=0.5, out_radius=0.217, out_z=0.40)
 ARM_SERVO_IDS = (1, 2, 3, 4, 5, 6)
 
 
-def arm_params(**kw) -> SimParams:
-    return v11_params(**{**ARM, **kw})
+def sprung_mass(p: SimParams, total: float) -> float:
+    """kg the pods carry: the robot's total less each wheel, its motor and its pod (fork, shaft, shocks)."""
+    unsprung = (p.wheel_mass if p.wheel_mass is not None else p.omni.mass) + p.motor.mass + p.m_pod + p.m_pod_suspension
+    return total - p.n_wheels * unsprung
+
+
+@lru_cache(maxsize=None)
+def arm_ballast(depth_camera: str = "none", kg: float = CAD_ARM_MASS_KG, cg_dz: float = 0.0,
+                drive_motor: str | None = None) -> tuple:
+    """The point mass that brings the arm robot to the CAD's total and CG (one entry for params.extra_masses), or to
+    kg with the CG cg_dz higher (the motor study's heavier robots: the extra mass is payload on the plate)."""
+    kw = {**ARM, "depth_camera": depth_camera}
+    if drive_motor is not None:
+        kw["drive_motor"] = drive_motor
+    cg = (CAD_ARM_CG[0], CAD_ARM_CG[1], CAD_ARM_CG[2] + cg_dz)
+    return _ballasted(v11_params(**kw), kg, cg).extra_masses
+
+
+def arm_robot(camera: str = "stereo", mass_kg: float | None = None, cg_dz: float = 0.0,
+              drive_motor: str | None = None) -> dict:
+    """ARM (camera "stereo": the head's pair gives the depth) or ARM_D435 (the D435 on the nose does) as SimParams
+    overrides, with the CAD's mass and CG (or mass_kg, CG cg_dz higher) and the pods' damping set for that mass.
+    drive_motor swaps the AK40-10s (the ballast keeps the total)."""
+    base = dict(ARM_D435 if camera == "d435" else ARM)
+    if drive_motor is not None:
+        base["drive_motor"] = drive_motor
+    kg = CAD_ARM_MASS_KG if mass_kg is None else float(mass_kg)
+    extra = arm_ballast(base.get("depth_camera", "none"), kg, cg_dz, drive_motor)
+    return dict(base, extra_masses=extra, pod_sprung_mass=round(sprung_mass(v11_params(**base), kg), 3))
+
+
+def arm_params(mass_kg: float | None = None, cg_dz: float = 0.0, **kw) -> SimParams:
+    """The arm robot (ARM), with the CAD's total mass and CG unless extra_masses is given; mass_kg / cg_dz / a
+    drive_motor in kw give the motor study's variants."""
+    return v11_params(**{**arm_robot("stereo", mass_kg, cg_dz, kw.get("drive_motor")), **kw})
+
+
+# design.md 4.11 (Nov 1, proposed): the arm robot with Fernando's RealSense D435 on the deck's nose as its floor camera
+# (and Nav2's near-field depth), the stereo pair not used: robot_arm_d435.json; ROS: omni.sh arm arm_camera:=d435
+ARM_D435 = dict(ARM, depth_camera="d435")
+ARM_D435_JSON = ARM_JSON.with_name("robot_arm_d435.json")
+
+
+def arm_d435_params(**kw) -> SimParams:
+    return v11_params(**{**arm_robot("d435", drive_motor=kw.get("drive_motor")), **kw})
 
 
 def _c(v) -> str:
@@ -135,7 +225,61 @@ def _c(v) -> str:
     return (s if any(ch in s for ch in ".e") else s + ".0") + "f"
 
 
-def firmware_header(p: SimParams) -> str:
+def firmware_variant(p: SimParams) -> str:
+    """Which compiled-in constants header the firmware in the loop needs for p: "arm" (fw_params_arm.h) when p has the arm
+    robot's wheels, base radius and motor (cad/v10), else "" (fw_params.h: the catch robot's). The constants (wheel radius,
+    the kinematics matrix, the wheel speed limit) are compile-time in the firmware, as on the Teensy."""
+    a = ARM
+    same = (p.wheel == a["wheel"] and abs(p.wheel_base_radius - a["wheel_base_radius"]) < 1e-9
+            and p.drive_motor == a["drive_motor"])
+    return "arm" if same else ""
+
+
+def study_firmware(p: SimParams, tag: str, robot: dict | None = None) -> str:
+    """A simulation study's firmware variant (Nov 1 motor study): p's constants (motor, wheel, limits) in a header under
+    firmware/sil/build/headers (never lib/omni_fw: not for hardware), built as the SIL library variant `tag`. Returns
+    tag, for SimParams.fw_variant."""
+    sys.path.insert(0, str(REPO / "firmware" / "sil"))
+    import build_sil
+    path = build_sil.STUDY_HEADERS / f"fw_params_{tag}.h"
+    text = firmware_header(p, robot if robot is not None else {"study": tag})
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not path.exists() or path.read_text() != text:
+        path.write_text(text)
+    build_sil.build(variant=tag)
+    return tag
+
+
+def study_limits(p: SimParams, speed: float, accel_scale: float = 1.0) -> SimParams:
+    """p with the firmware's ADULT speed cap at `speed` and its acceleration table, acceleration, jerk and yaw limits x
+    accel_scale (the Nov 1 motor study's profiles: where the firmware stops being the limit). Not adopted defaults."""
+    dirs, vals = p.accel_table
+    return p.with_(base_max_speed=speed, accel_table=(tuple(dirs), tuple(v * accel_scale for v in vals)),
+                   base_max_accel=p.base_max_accel * accel_scale, base_max_jerk=p.base_max_jerk * accel_scale,
+                   base_max_yaw_rate=p.base_max_yaw_rate * accel_scale,
+                   base_max_yaw_accel=p.base_max_yaw_accel * accel_scale)
+
+
+def study_from_env(p: SimParams, camera: str = "stereo") -> SimParams:
+    """The ROS sim bridge's study hook (Nov 1 motor study, phase 6): OMNI_SIM_STUDY='{"motor": "AK40-10", "mass": 10,
+    "speed": 3.0, "accel_scale": 1.5}' swaps the arm robot's drive motor and mass and builds the firmware with those
+    limits (study_firmware). Unset: p unchanged. Not a launch option: a study's environment only."""
+    raw = os.environ.get("OMNI_SIM_STUDY")
+    if not raw or p.payload != "arm":
+        return p
+    st = json.loads(raw)
+    motor = st.get("motor", p.drive_motor)
+    kg = float(st.get("mass", CAD_ARM_MASS_KG))
+    k = sprung_mass(p, kg) / sprung_mass(p, 10.0)
+    p = p.with_(**arm_robot(camera, kg, float(st.get("cg_dz", 0.0)), motor))
+    p = p.with_(pod_rate=p.pod_rate * k, pod_preload=p.pod_preload * k)
+    p = study_limits(p, float(st.get("speed", p.base_max_speed)), float(st.get("accel_scale", 1.0)))
+    import re
+    tag = "ros_" + re.sub(r"[^A-Za-z0-9]", "_", f"{motor}_{st.get('speed')}_{st.get('accel_scale', 1.0)}")
+    return p.with_(fw_variant=study_firmware(p, tag))
+
+
+def firmware_header(p: SimParams, robot: dict | None = None) -> str:
     kin = OmniKinematics(p.wheel_angles_deg, p.wheel_base_radius, p.wheel_radius)
     w_max = p.wheel_speed_frac * p.motor.noload_rpm * 2 * math.pi / 60
     dirs, vals = p.accel_table if p.accel_table is not None else ((), ())
@@ -149,7 +293,7 @@ def firmware_header(p: SimParams) -> str:
     rows = lambda M: ", ".join("{" + ", ".join(_c(x) for x in r) + "}" for r in M)      # noqa: E731
     L = [
         "// GENERATED by simulation/v11 sil/robot_export.py from the sim's SimParams: do not edit by hand.",
-        f"// Robot: {json.dumps(V11)}",
+        f"// Robot: {json.dumps(V11 if robot is None else robot)}",
         "#pragma once",
         "",
         "#include <stdint.h>",
@@ -161,7 +305,7 @@ def firmware_header(p: SimParams) -> str:
         "constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the Jetson at 200 Hz",
         "constexpr float CMD_TIMEOUT = 0.5f;              // s without a CMD -> ramped stop (est)",
         "constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault",
-        f"constexpr float BATT_LOW = {_c(3.2 * p.pack.series)};          // V: 3.2 V per cell",
+        f"constexpr float BATT_LOW = {_c(p.pack.v_low_cell * p.pack.series)};          // V: {p.pack.v_low_cell:g} V per cell (catalog pack setting)",
         "constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)",
         "",
         "// time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN",
@@ -269,6 +413,15 @@ def frames(m, d, p) -> list:
             f"OV9782 {name}: camera body frame (x along the view, REP-103)")
         add(f"cam_{name}", f"cam_{name}_optical", (0.0, 0.0, 0.0), BODY_TO_OPTICAL,
             "optical frame (z forward, x right, y down): images and intrinsics")
+    if p.depth_camera == "d435":
+        # realsense2_camera's names (camera_name d435): d435_link at the depth origin (the left imager), x forward;
+        # on the robot base_link -> d435_link comes from here and the driver publishes the rest
+        cid = m.camera("d435_depth").id
+        R_body = Rb.T @ d.cam_xmat[cid].reshape(3, 3) @ MJCAM_TO_OPTICAL @ BODY_TO_OPTICAL.T
+        add("base_link", "d435_link", Rb.T @ (d.cam_xpos[cid] - pb), R_body,
+            "RealSense D435 (design.md 4.11): the depth origin (left imager), x along the view")
+        add("d435_link", "d435_depth_optical_frame", (0.0, 0.0, 0.0), BODY_TO_OPTICAL,
+            "its depth image's optical frame (z forward, x right, y down)")
     jid = m.joint("tilt").id if any(m.joint(i).name == "tilt" for i in range(m.njnt)) else None
     if jid is not None:
         add("base_link", "module_pivot", Rb.T @ (d.xanchor[jid] - pb), np.eye(3),
@@ -330,10 +483,11 @@ def _wxyz(q) -> list:
     return [float(v) for v in q]
 
 
-def arm_json(p: SimParams) -> dict:
+def arm_json(p: SimParams, robot: dict = ARM) -> dict:
     """The arm robot for omni_arm (kinematics.ArmConfig): every transform as the sim's model has it (MuJoCo's body
     frames: pos + quaternion w x y z in the parent body; each joint turns its body about its axis through the body's
-    origin), so the Jetson's kinematics are the sim's to the bit."""
+    origin), so the Jetson's kinematics are the sim's to the bit. cameras[0] is the depth image's camera (the tidy's
+    looks): the stereo pair's left, or the D435 when the robot has one (design.md 4.11)."""
     m = build_model(p)
     d = mujoco.MjData(m)
     adr = m.joint("base").qposadr[0]
@@ -375,6 +529,15 @@ def arm_json(p: SimParams) -> dict:
         cams.append(dict(name=name, pos=[float(v) for v in d.cam_xpos[c] - d.xpos[base]],
                          R=[[float(v) for v in r] for r in d.cam_xmat[c].reshape(3, 3)], fovy_deg=p.camera_fovy_deg,
                          width=1280, height=800, baseline=p.camera_baseline))
+    if p.depth_camera == "d435":
+        from robot_model import D435
+        c = m.camera("d435_depth").id
+        w, h = p.d435_wh
+        cams.insert(0, dict(name="d435", pos=[float(v) for v in d.cam_xpos[c] - d.xpos[base]],
+                            R=[[float(v) for v in r] for r in d.cam_xmat[c].reshape(3, 3)],
+                            fovy_deg=D435["depth_fovy_deg"], width=w, height=h, baseline=D435["baseline"],
+                            min_z=round(D435["min_z_848"] * w / 848, 4), frame="d435_depth_optical_frame",
+                            note="RealSense D435 depth (design.md 4.11); min_z scaled from the datasheet's 848 px (VERIFY)"))
     mx, my, _ = p.arm_mount
     mz = A.mount_z(p, g.plate_top)
     bx, by, L, W, H = p.arm_bin
@@ -394,18 +557,27 @@ def arm_json(p: SimParams) -> dict:
         keep_out.append(dict(kind="box", min=[dx0 - 0.005, dy0 - 0.005, dz0], max=[dx1 + 0.005, dy1 + 0.005, dz1 + 0.005],
                              note=nm.replace("arm_", "the ").replace("_", " ")))
     if p.camera_mount == "head":                      # the head and the kit's riser (cad/v7)
+        up = p.camera_head_xz[1] - ARM_V7["camera_head_xz"][1]    # the head's lift over cad/v7 (the arm kit's adapter stays)
         for note, lo, hi in ARM_HEAD_KEEP_OUT:
-            keep_out.append(dict(kind="box", min=list(lo), max=list(hi), note=note))
+            u = 0.0 if "adapter" in note else up
+            keep_out.append(dict(kind="box", min=[lo[0], lo[1], lo[2] + u], max=[hi[0], hi[1], hi[2] + u], note=note))
     else:
         for c in cams:                                # each camera pod, a 4 cm block
             x, y, z = c["pos"]
             keep_out.append(dict(kind="box", min=[x - 0.03, y - 0.02, 0.0], max=[x + 0.01, y + 0.02, z + 0.02],
                                  note=f"the {c['name']} camera pod"))
+    if p.depth_camera == "d435":                      # its body and bracket, a box round it on the deck's nose
+        gid = m.geom("d435").id
+        R, c0, hs = d.geom_xmat[gid].reshape(3, 3), d.geom_xpos[gid] - d.xpos[base], m.geom_size[gid]
+        signs = np.array([(sx, sy, sz) for sx in (-1, 1) for sy in (-1, 1) for sz in (-1, 1)])
+        corners = c0 + (signs * hs) @ R.T
+        keep_out.append(dict(kind="box", min=[float(v) for v in corners.min(axis=0) - 0.005],
+                             max=[float(v) for v in corners.max(axis=0) + 0.005], note="the D435 on the deck's nose"))
     tbl = p.accel_table
     a_ahead = float(tbl[1][0]) if tbl else float(p.base_max_accel)
     return dict(
         generated_by="simulation/v11 sil/robot_export.py", robot={k: (list(v) if isinstance(v, tuple) else v)
-                                                                  for k, v in ARM.items()},
+                                                                  for k, v in robot.items()},
         base=dict(base_link_height=float(d.xpos[base][2]), robot_radius=0.217, max_speed=p.base_max_speed,
                   a_ahead=a_ahead, J=OmniKinematics(p.wheel_angles_deg, p.wheel_base_radius, p.wheel_radius).J.tolist()),
         arm_out=dict(speed_cap=ARM_OUT["speed_cap"], a_cap=ARM_OUT["a_cap_frac"] * a_ahead, out_radius=ARM_OUT["out_radius"],
@@ -453,17 +625,19 @@ def _rounded(x):
 def main(check: bool = False) -> bool:
     p = v11_params()
     hdr = firmware_header(p)
+    hdr_arm = firmware_header(arm_params(), ARM)
     js = json.dumps(_rounded(robot_json(p)), indent=1) + "\n"
     arm = json.dumps(_rounded(arm_json(arm_params())), indent=1) + "\n"
-    same = (FW_PARAMS.exists() and FW_PARAMS.read_text() == hdr and ROBOT_JSON.exists() and ROBOT_JSON.read_text() == js
-            and ARM_JSON.exists() and ARM_JSON.read_text() == arm)
+    arm_d435 = json.dumps(_rounded(arm_json(arm_d435_params(), ARM_D435)), indent=1) + "\n"
+    files = ((FW_PARAMS, hdr), (FW_PARAMS_ARM, hdr_arm), (ROBOT_JSON, js), (ARM_JSON, arm), (ARM_D435_JSON, arm_d435))
+    same = all(f.exists() and f.read_text() == text for f, text in files)
     if check:
         return same
-    for f, text in ((FW_PARAMS, hdr), (ROBOT_JSON, js), (ARM_JSON, arm)):
+    for f, text in files:
         f.parent.mkdir(parents=True, exist_ok=True)
         if not f.exists() or f.read_text() != text:       # unchanged files keep their time (the SIL library's build)
             f.write_text(text)
-    print(f"wrote {FW_PARAMS}, {ROBOT_JSON} and {ARM_JSON}" + ("" if not same else " (unchanged)"))
+    print(f"wrote {', '.join(str(f) for f, _ in files)}" + ("" if not same else " (unchanged)"))
     return True
 
 

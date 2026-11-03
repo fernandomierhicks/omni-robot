@@ -1,0 +1,31 @@
+{
+  "part": "bolt_M3_12_PAN",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_12_PAN.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0030_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0032_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0035_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0036_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 130.5319618082678
+}

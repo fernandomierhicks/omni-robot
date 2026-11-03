@@ -105,19 +105,23 @@ class Sapi(Backend):
     SCRIPT = (
         "Add-Type -AssemblyName System.Speech; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
         "$v = $s.GetInstalledVoices() | Where-Object { $_.VoiceInfo.Name -match 'Zira|Aria|Jenny' } | Select-Object -First 1; "
-        "if ($v) { $s.SelectVoice($v.VoiceInfo.Name) }; $s.Rate = 1; "
+        "if ($env:OMNI_SAPI_VOICE) { $s.SelectVoice($env:OMNI_SAPI_VOICE) } "
+        "elseif ($v) { $s.SelectVoice($v.VoiceInfo.Name) }; $s.Rate = 1; "
         "while ($true) { $l = [Console]::In.ReadLine(); if ($l -eq $null) { break }; $p = $l.Split(\"`t\", 2); "
         "try { $s.SetOutputToWaveFile($p[0]); $s.Speak($p[1]); $s.SetOutputToNull(); [Console]::Out.WriteLine('ok') } "
         "catch { [Console]::Out.WriteLine('err') }; [Console]::Out.Flush() }")
 
-    def __init__(self):
+    def __init__(self, voice: str | None = None):
         self.lock = threading.Lock()
         self.proc = None
+        self.voice = voice or os.environ.get("OMNI_SAPI_VOICE", "")
+        self.key = f"sapi-{self.voice}" if self.voice else "sapi"
 
     def _start(self):
         self.proc = subprocess.Popen([POWERSHELL, "-NoProfile", "-NonInteractive", "-Command", self.SCRIPT],
                                      stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
-                                     text=True, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                                     text=True, env={**os.environ, "OMNI_SAPI_VOICE": self.voice},
+                                     creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
 
     def synth(self, text, out, rate=1.0):
         with self.lock:

@@ -1,0 +1,289 @@
+{
+  "sketches": [
+    {
+      "name": "Mount Foot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Tower Web Sketch",
+      "status": 3
+    },
+    {
+      "name": "Shock Spacer Sketch",
+      "status": 3
+    },
+    {
+      "name": "Shock Hinge Sketch",
+      "status": 3
+    },
+    {
+      "name": "Tower Foot Pilot Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 16208.81694036839,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"deck_height\"= 3mm 'Top of bench deck",
+    "\"foot_left\"= 69.5mm 'Tower foot outer edge X",
+    "\"foot_right\"= 92mm 'Tower foot inner edge X",
+    "\"foot_y_min\"= 18mm 'Tower foot near edge Y",
+    "\"foot_y_max\"= 50mm 'Tower foot far edge Y",
+    "\"tie_right\"= 104mm 'Deck tie extension end X",
+    "\"tie_y_min\"= 23mm 'Tie near edge Y",
+    "\"tie_y_max\"= 38mm 'Tie far edge Y",
+    "\"foot_thickness\"= 10mm 'Printed foot thickness",
+    "\"web_right\"= 75.5mm 'Tower web inner face X",
+    "\"web_y_min\"= 22mm 'Tower web near edge Y",
+    "\"web_y_max\"= 46mm 'Tower web far edge Y",
+    "\"web_top\"= 64.3mm 'Tower web top Z",
+    "\"shock_boss_start\"= 66.5mm 'Shock spacer face X",
+    "\"shock_boss_diameter\"= 9mm 'Shock spacer outside diameter",
+    "\"shock_clearance\"= 3.4mm 'M3 shock hinge clearance",
+    "\"foot_pilot\"= 2.8mm 'M3 thread-form foot pilot",
+    "\"foot_entry_chamfer\"= 0.5mm 'Pilot entry lead",
+    "\"web_root_fillet\"= 2mm 'Tower web reinforcing root fillet",
+    "\"D1@Deck Top Plane\"= \"deck_height\"",
+    "\"D1@Mount Foot Sketch\"= \"foot_left\"",
+    "\"D2@Mount Foot Sketch\"= \"foot_right\"",
+    "\"D3@Mount Foot Sketch\"= \"tie_right\"",
+    "\"D4@Mount Foot Sketch\"= \"foot_y_min\"",
+    "\"D5@Mount Foot Sketch\"= \"tie_y_min\"",
+    "\"D6@Mount Foot Sketch\"= \"tie_y_max\"",
+    "\"D7@Mount Foot Sketch\"= \"foot_y_max\"",
+    "\"D1@Mount Foot Extrude\"= \"foot_thickness\"",
+    "\"D1@Foot Top Plane\"= \"deck_height\" + \"foot_thickness\"",
+    "\"D1@Tower Web Sketch\"= \"foot_left\"",
+    "\"D2@Tower Web Sketch\"= \"web_right\"",
+    "\"D3@Tower Web Sketch\"= \"web_y_min\"",
+    "\"D4@Tower Web Sketch\"= \"web_y_max\"",
+    "\"D1@Tower Web Extrude\"= \"web_top\" - \"deck_height\" - \"foot_thickness\"",
+    "\"D1@Tower Root Fillets\"= \"web_root_fillet\"",
+    "\"D1@Shock Spacer Plane\"= \"shock_boss_start\"",
+    "\"D3@Shock Spacer Sketch\"= \"shock_boss_diameter\"",
+    "\"D1@Shock Spacer Boss\"= \"foot_left\" - \"shock_boss_start\"",
+    "\"D3@Shock Hinge Sketch\"= \"shock_clearance\"",
+    "\"D1@Shock Hinge Through Hole\"= \"web_right\" - \"shock_boss_start\"",
+    "\"D3@Tower Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D6@Tower Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D9@Tower Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D12@Tower Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D15@Tower Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D1@Tower Foot Pilots\"= \"foot_thickness\"",
+    "\"D1@Tower Foot Entry Chamfers\"= \"foot_entry_chamfer\""
+  ],
+  "design_features": [
+    {
+      "name": "Mount Foot Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Mount Foot Extrude"
+      ]
+    },
+    {
+      "name": "Tower Web Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Tower Web Extrude"
+      ]
+    },
+    {
+      "name": "Tower Root Fillets",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Tower Root Fillets"
+      ]
+    },
+    {
+      "name": "Shock Spacer Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Shock Spacer Boss"
+      ]
+    },
+    {
+      "name": "Shock Hinge Through Hole",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Shock Hinge Through Hole"
+      ]
+    },
+    {
+      "name": "Tower Foot Pilots",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Tower Foot Pilots"
+      ]
+    },
+    {
+      "name": "Tower Foot Entry Chamfers",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Tower Foot Entry Chamfers"
+      ]
+    }
+  ],
+  "pass": true
+}

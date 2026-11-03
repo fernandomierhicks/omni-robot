@@ -1,0 +1,7069 @@
+{
+ "date": "2026-11-03",
+ "environment": {
+  "host": "desktop PC",
+  "ros": "Jazzy in Ubuntu-24.04 WSL",
+  "workspace": "~/omni_ws",
+  "domain": 73,
+  "hardware": false,
+  "pi": false,
+  "firmware_build": "90817150",
+  "protocol": 5,
+  "arm": "current ARM / coarse v10",
+  "seed": 0,
+  "objects": 6,
+  "nav_profile": "full",
+  "caveat": "single scenario runs, simulator below real time, different clock/camera/arm combinations are not controlled performance comparisons"
+ },
+ "runs": {
+  "python_d435_wall_240s_limit": {
+   "started": "2026-11-03 07:59:20",
+   "ready_after_s": 11.2,
+   "ready": true,
+   "phase_s": 120.0,
+   "settle_s": 15.0,
+   "phases": {
+    "NAVTIDY": {
+     "start": {
+      "t": 1793721560.4745817,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": -0.03,
+       "y": 0.004,
+       "yaw": 0.0025,
+       "t": 1793721560.3791
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": null,
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "end": {
+      "t": 1793721808.5595381,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": 0.622,
+       "y": -0.197,
+       "yaw": 1.8194,
+       "t": 1793721808.4803
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": {
+        "state": "DONE",
+        "picked": 2,
+        "failed": 1,
+        "skipped": 1,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "stopped"
+       },
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "legs": [
+      {
+       "leg": 1,
+       "object": [
+        -1.979,
+        1.634
+       ],
+       "start_dist_m": 1.09,
+       "drive": {
+        "name": "cluster 1",
+        "goal": [
+         -2.727840252488131,
+         1.3525070582527636
+        ],
+        "reached": true,
+        "timed_out": false,
+        "task": "Arrived at cluster 1",
+        "time_s": 2.7,
+        "err_m": 0.048,
+        "loc_err_m": 0.027,
+        "dist_m": 0.25,
+        "vmax": 0.21,
+        "end_wall": 1793721565.1829422
+       },
+       "tidy_cmd": [
+        true,
+        "Tidying up: looking for things on the floor"
+       ],
+       "tidy": {
+        "state": "DONE",
+        "picked": 2,
+        "failed": 1,
+        "skipped": 1,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "stopped"
+       },
+       "tidy_s": 243.4,
+       "bin_before": 0,
+       "bin_after": 2,
+       "t_drive": 1793721562.483549,
+       "t_tidy": 1793721565.1829438,
+       "t_end": 1793721808.5594957
+      }
+     ]
+    },
+    "ROUTE": {
+     "start": {
+      "t": 1793721808.5595477,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": 0.622,
+       "y": -0.197,
+       "yaw": 1.8194,
+       "t": 1793721808.4803
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": {
+        "state": "DONE",
+        "picked": 2,
+        "failed": 1,
+        "skipped": 1,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "stopped"
+       },
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "end": {
+      "t": 1793722030.8678453,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": 0.018,
+       "y": 0.017,
+       "yaw": 0.1323,
+       "t": 1793722030.7778
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": {
+        "state": "DONE",
+        "picked": 2,
+        "failed": 1,
+        "skipped": 1,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "stopped"
+       },
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "goals": [
+      {
+       "name": "spot 1",
+       "goal": [
+        -3.0,
+        3.3
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 1",
+       "time_s": 10.0,
+       "err_m": 0.115,
+       "loc_err_m": 0.004,
+       "dist_m": 2.41,
+       "vmax": 0.51,
+       "end_wall": 1793721820.58337,
+       "lap": 1
+      },
+      {
+       "name": "spot 2",
+       "goal": [
+        0.45,
+        3.2
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 2",
+       "time_s": 56.2,
+       "err_m": 0.196,
+       "loc_err_m": 0.059,
+       "dist_m": 9.06,
+       "vmax": 0.88,
+       "end_wall": 1793721876.7835143,
+       "lap": 1
+      },
+      {
+       "name": "spot 3",
+       "goal": [
+        4.6,
+        3.25
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 3",
+       "time_s": 63.7,
+       "err_m": 0.092,
+       "loc_err_m": 0.079,
+       "dist_m": 8.37,
+       "vmax": 0.75,
+       "end_wall": 1793721940.4892585,
+       "lap": 1
+      },
+      {
+       "name": "spot 4",
+       "goal": [
+        2.5,
+        -2.0
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 4",
+       "time_s": 23.9,
+       "err_m": 0.09,
+       "loc_err_m": 0.085,
+       "dist_m": 6.42,
+       "vmax": 1.2,
+       "end_wall": 1793721964.388799,
+       "lap": 1
+      },
+      {
+       "name": "spot 5",
+       "goal": [
+        -3.1,
+        -2.4
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 5",
+       "time_s": 15.9,
+       "err_m": 0.139,
+       "loc_err_m": 0.12,
+       "dist_m": 5.58,
+       "vmax": 1.19,
+       "end_wall": 1793721980.3379984,
+       "lap": 1
+      },
+      {
+       "name": "spot 6",
+       "goal": [
+        -0.8,
+        -0.4
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 6",
+       "time_s": 20.0,
+       "err_m": 0.109,
+       "loc_err_m": 0.105,
+       "dist_m": 4.07,
+       "vmax": 0.74,
+       "end_wall": 1793722000.3036797,
+       "lap": 1
+      },
+      {
+       "name": "spot 7",
+       "goal": [
+        -5.0,
+        -0.1
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 7",
+       "time_s": 15.7,
+       "err_m": 0.146,
+       "loc_err_m": 0.156,
+       "dist_m": 4.29,
+       "vmax": 0.92,
+       "end_wall": 1793722016.0429804,
+       "lap": 1
+      },
+      {
+       "name": "spot 8",
+       "goal": [
+        -3.0,
+        1.25
+       ],
+       "reached": true,
+       "timed_out": false,
+       "task": "Arrived at spot 8",
+       "time_s": 14.8,
+       "err_m": 0.016,
+       "loc_err_m": 0.018,
+       "dist_m": 2.7,
+       "vmax": 0.52,
+       "end_wall": 1793722030.8677936,
+       "lap": 1
+      }
+     ],
+     "reached": 8,
+     "n": 8,
+     "mean_err_m": 0.113,
+     "vmax": 1.2,
+     "time_s": 220.2
+    }
+   }
+  },
+  "cpp_stereo_sim_600s_limit": {
+   "started": "2026-11-03 08:09:14",
+   "ready_after_s": 10.1,
+   "ready": true,
+   "phase_s": 120.0,
+   "settle_s": 15.0,
+   "phases": {
+    "NAVTIDY": {
+     "start": {
+      "t": 1793722154.8385243,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": -0.006,
+       "y": -0.0,
+       "yaw": -0.0011,
+       "t": 3.5125
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": null,
+       "source": "hold",
+       "pose": null,
+       "out": null
+      }
+     },
+     "end": {
+      "t": 1793722477.9917767,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": -0.276,
+       "y": 0.061,
+       "yaw": 0.9736,
+       "t": 196.6931
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": {
+        "state": "DONE",
+        "picked": 6,
+        "failed": 0,
+        "skipped": 0,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "nothing in sight"
+       },
+       "source": "hold",
+       "pose": null,
+       "out": null
+      }
+     },
+     "legs": [
+      {
+       "leg": 1,
+       "object": [
+        -1.979,
+        1.634
+       ],
+       "start_dist_m": 1.09,
+       "drive": {
+        "name": "cluster 1",
+        "goal": [
+         -2.7275103954146083,
+         1.3516311136894383
+        ],
+        "reached": true,
+        "timed_out": false,
+        "task": "Arrived at cluster 1",
+        "time_s": 2.9,
+        "err_m": 0.032,
+        "loc_err_m": 0.047,
+        "dist_m": 0.26,
+        "vmax": 0.21,
+        "end_wall": 1793722159.7376437
+       },
+       "tidy_cmd": [
+        true,
+        "Tidying up: looking for things on the floor"
+       ],
+       "tidy": {
+        "state": "DONE",
+        "picked": 6,
+        "failed": 0,
+        "skipped": 0,
+        "known": 1,
+        "target": null,
+        "tries": 0,
+        "reason": "nothing in sight"
+       },
+       "started": true,
+       "timed_out": false,
+       "tidy_s": 318.3,
+       "bin_before": 0,
+       "bin_after": 6,
+       "t_drive": 1793722156.848517,
+       "t_tidy": 1793722159.7376451,
+       "t_end": 1793722477.991738
+      }
+     ]
+    }
+   }
+  },
+  "python_d435_wall_600s_limit": {
+   "started": "2026-11-03 08:19:23",
+   "ready_after_s": 3.0,
+   "ready": true,
+   "phase_s": 120.0,
+   "settle_s": 15.0,
+   "phases": {
+    "NAVTIDY": {
+     "start": {
+      "t": 1793722763.6152172,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": -0.02,
+       "y": 0.002,
+       "yaw": 0.0021,
+       "t": 1793722763.5358
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": null,
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "end": {
+      "t": 1793723013.0923266,
+      "mission": "MANUAL",
+      "pose": {
+       "frame": "map",
+       "x": 0.182,
+       "y": 0.061,
+       "yaw": -3.045,
+       "t": 1793723013.0726
+      },
+      "patrol": null,
+      "arm": {
+       "connected": true,
+       "tidy_on": false,
+       "tidy": {
+        "state": "DONE",
+        "picked": 6,
+        "failed": 0,
+        "skipped": 0,
+        "known": 0,
+        "target": null,
+        "tries": 0,
+        "reason": "nothing in sight"
+       },
+       "source": "hold",
+       "pose": null,
+       "out": false
+      }
+     },
+     "legs": [
+      {
+       "leg": 1,
+       "object": [
+        -1.979,
+        1.634
+       ],
+       "start_dist_m": 1.09,
+       "drive": {
+        "name": "cluster 1",
+        "goal": [
+         -2.727501899303364,
+         1.3516085930144879
+        ],
+        "reached": true,
+        "timed_out": false,
+        "task": "Arrived at cluster 1",
+        "time_s": 2.3,
+        "err_m": 0.072,
+        "loc_err_m": 0.034,
+        "dist_m": 0.22,
+        "vmax": 0.21,
+        "end_wall": 1793722767.9033155
+       },
+       "tidy_cmd": [
+        true,
+        "Tidying up: looking for things on the floor"
+       ],
+       "tidy": {
+        "state": "DONE",
+        "picked": 6,
+        "failed": 0,
+        "skipped": 0,
+        "known": 0,
+        "target": null,
+        "tries": 0,
+        "reason": "nothing in sight"
+       },
+       "started": true,
+       "timed_out": false,
+       "tidy_s": 245.2,
+       "bin_before": 0,
+       "bin_after": 6,
+       "t_drive": 1793722765.6250145,
+       "t_tidy": 1793722767.903317,
+       "t_end": 1793723013.0922928
+      }
+     ]
+    }
+   }
+  },
+  "manual_arm_and_follow": {
+   "high": {
+    "command": [
+     true,
+     "Arm to high",
+     {}
+    ],
+    "arm": {
+     "connected": true,
+     "torque": true,
+     "source": "hold",
+     "port": "tcp:127.0.0.1:5763",
+     "tidy": {
+      "state": "DONE",
+      "picked": 2,
+      "failed": 1,
+      "skipped": 1,
+      "known": 1,
+      "target": null,
+      "tries": 0,
+      "reason": "stopped"
+     },
+     "tidy_on": false,
+     "events": [
+      {
+       "n": 51,
+       "t": 1793721778.56,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 52,
+       "t": 1793721781.94,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 53,
+       "t": 1793721785.09,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 54,
+       "t": 1793721788.19,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 55,
+       "t": 1793721791.4,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 56,
+       "t": 1793721794.65,
+       "text": "tidy: nothing here: back to the start for a look round"
+      },
+      {
+       "n": 57,
+       "t": 1793721804.57,
+       "text": "tidy: object 19 at (0.10, 1.22), 131 x 25 mm"
+      },
+      {
+       "n": 58,
+       "t": 1793721805.56,
+       "text": "tidy: stopping"
+      },
+      {
+       "n": 59,
+       "t": 1793721805.57,
+       "text": "tidy: stop: arm to stow"
+      },
+      {
+       "n": 60,
+       "t": 1793721805.57,
+       "text": "tidy: stopped"
+      },
+      {
+       "n": 61,
+       "t": 1793721805.57,
+       "text": "tidy done: 2 picked, 1 not (stopped)"
+      },
+      {
+       "n": 62,
+       "t": 1793722051.6,
+       "text": "moving to high"
+      }
+     ],
+     "ok": true,
+     "missing": [],
+     "errors": [],
+     "joints": [
+      0.0,
+      -12.5,
+      -72.7,
+      -11.9,
+      0.0,
+      -9.8
+     ],
+     "loads": [
+      0.0,
+      -0.003,
+      -0.003,
+      0.004,
+      0.0,
+      0.0
+     ],
+     "temps": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+     ],
+     "volts": 12.0,
+     "out": true,
+     "names": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+     ]
+    }
+   },
+   "ready": {
+    "command": [
+     true,
+     "Arm to ready",
+     {}
+    ],
+    "arm": {
+     "connected": true,
+     "torque": true,
+     "source": "hold",
+     "port": "tcp:127.0.0.1:5763",
+     "tidy": {
+      "state": "DONE",
+      "picked": 2,
+      "failed": 1,
+      "skipped": 1,
+      "known": 1,
+      "target": null,
+      "tries": 0,
+      "reason": "stopped"
+     },
+     "tidy_on": false,
+     "events": [
+      {
+       "n": 52,
+       "t": 1793721781.94,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 53,
+       "t": 1793721785.09,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 54,
+       "t": 1793721788.19,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 55,
+       "t": 1793721791.4,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 56,
+       "t": 1793721794.65,
+       "text": "tidy: nothing here: back to the start for a look round"
+      },
+      {
+       "n": 57,
+       "t": 1793721804.57,
+       "text": "tidy: object 19 at (0.10, 1.22), 131 x 25 mm"
+      },
+      {
+       "n": 58,
+       "t": 1793721805.56,
+       "text": "tidy: stopping"
+      },
+      {
+       "n": 59,
+       "t": 1793721805.57,
+       "text": "tidy: stop: arm to stow"
+      },
+      {
+       "n": 60,
+       "t": 1793721805.57,
+       "text": "tidy: stopped"
+      },
+      {
+       "n": 61,
+       "t": 1793721805.57,
+       "text": "tidy done: 2 picked, 1 not (stopped)"
+      },
+      {
+       "n": 62,
+       "t": 1793722051.6,
+       "text": "moving to high"
+      },
+      {
+       "n": 63,
+       "t": 1793722058.49,
+       "text": "moving to ready"
+      }
+     ],
+     "ok": true,
+     "missing": [],
+     "errors": [],
+     "joints": [
+      4.4,
+      5.7,
+      72.7,
+      11.6,
+      -82.9,
+      -9.8
+     ],
+     "loads": [
+      -0.001,
+      -0.08,
+      -0.033,
+      -0.003,
+      0.0,
+      0.0
+     ],
+     "temps": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+     ],
+     "volts": 12.0,
+     "out": true,
+     "names": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+     ]
+    }
+   },
+   "stow": {
+    "command": [
+     true,
+     "Arm to stow",
+     {}
+    ],
+    "arm": {
+     "connected": true,
+     "torque": true,
+     "source": "hold",
+     "port": "tcp:127.0.0.1:5763",
+     "tidy": {
+      "state": "DONE",
+      "picked": 2,
+      "failed": 1,
+      "skipped": 1,
+      "known": 1,
+      "target": null,
+      "tries": 0,
+      "reason": "stopped"
+     },
+     "tidy_on": false,
+     "events": [
+      {
+       "n": 53,
+       "t": 1793721785.09,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 54,
+       "t": 1793721788.19,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 55,
+       "t": 1793721791.4,
+       "text": "tidy: nothing in view: turn 60 deg"
+      },
+      {
+       "n": 56,
+       "t": 1793721794.65,
+       "text": "tidy: nothing here: back to the start for a look round"
+      },
+      {
+       "n": 57,
+       "t": 1793721804.57,
+       "text": "tidy: object 19 at (0.10, 1.22), 131 x 25 mm"
+      },
+      {
+       "n": 58,
+       "t": 1793721805.56,
+       "text": "tidy: stopping"
+      },
+      {
+       "n": 59,
+       "t": 1793721805.57,
+       "text": "tidy: stop: arm to stow"
+      },
+      {
+       "n": 60,
+       "t": 1793721805.57,
+       "text": "tidy: stopped"
+      },
+      {
+       "n": 61,
+       "t": 1793721805.57,
+       "text": "tidy done: 2 picked, 1 not (stopped)"
+      },
+      {
+       "n": 62,
+       "t": 1793722051.6,
+       "text": "moving to high"
+      },
+      {
+       "n": 63,
+       "t": 1793722058.49,
+       "text": "moving to ready"
+      },
+      {
+       "n": 64,
+       "t": 1793722065.52,
+       "text": "moving to stow"
+      }
+     ],
+     "ok": true,
+     "missing": [],
+     "errors": [],
+     "joints": [
+      90.0,
+      -100.0,
+      83.1,
+      81.4,
+      0.0,
+      -9.8
+     ],
+     "loads": [
+      0.0,
+      0.011,
+      -0.141,
+      -0.02,
+      -0.002,
+      0.0
+     ],
+     "temps": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+     ],
+     "volts": 12.0,
+     "out": false,
+     "names": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+     ]
+    }
+   },
+   "follow": [
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.47,
+       -0.005
+      ]
+     },
+     "truth": [
+      -2.8985624222699804,
+      1.25754141255758,
+      0.11238449755049226,
+      0.6378488258013132
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.074,
+      "y": 0.007,
+      "yaw": 0.1133,
+      "t": 1793722073.0414
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.32,
+       0.013
+      ]
+     },
+     "truth": [
+      -2.7055159093806465,
+      1.2811119092361045,
+      0.11734298630618543,
+      0.5397770393732672
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.268,
+      "y": 0.031,
+      "yaw": 0.1148,
+      "t": 1793722073.523
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.16,
+       0.003
+      ]
+     },
+     "truth": [
+      -2.600566278351381,
+      1.2947072315402237,
+      0.12454839849720292,
+      0.3667791348837586
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.47,
+      "y": 0.066,
+      "yaw": 0.1253,
+      "t": 1793722074.0419
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.1,
+       0.0
+      ]
+     },
+     "truth": [
+      -2.49088180080701,
+      1.3104069004411099,
+      0.13100230488352396,
+      0.19634945052732533
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.487,
+      "y": 0.065,
+      "yaw": 0.1288,
+      "t": 1793722074.4008
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.03,
+       0.002
+      ]
+     },
+     "truth": [
+      -2.4504963862799216,
+      1.3153133272465534,
+      0.129078894423328,
+      0.08594685728837478
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.57,
+      "y": 0.079,
+      "yaw": 0.1239,
+      "t": 1793722074.9378
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.01,
+       0.0
+      ]
+     },
+     "truth": [
+      -2.4400585091525033,
+      1.3173290131503894,
+      0.12966716454880334,
+      0.025473212660299387
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.548,
+      "y": 0.073,
+      "yaw": 0.1297,
+      "t": 1793722075.5218
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4330218408932964,
+      1.317954657100269,
+      0.12914375834951577,
+      0.00871099907073244
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.545,
+      "y": 0.07,
+      "yaw": 0.1272,
+      "t": 1793722076.0318
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.002
+      ]
+     },
+     "truth": [
+      -2.4321974745237975,
+      1.3179453543236361,
+      0.12835219388414712,
+      0.002214229742397334
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.545,
+      "y": 0.072,
+      "yaw": 0.1287,
+      "t": 1793722076.6618
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.0
+      ]
+     },
+     "truth": [
+      -2.4340047400332687,
+      1.3177553696952151,
+      0.12727460932542486,
+      0.005924971911511854
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.54,
+      "y": 0.074,
+      "yaw": 0.1275,
+      "t": 1793722076.9718
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.0
+      ]
+     },
+     "truth": [
+      -2.435670013105301,
+      1.3176333812855865,
+      0.12978485942032414,
+      0.003968978087722972
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.535,
+      "y": 0.076,
+      "yaw": 0.1295,
+      "t": 1793722077.501
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.002
+      ]
+     },
+     "truth": [
+      -2.436206848019631,
+      1.3174360607068454,
+      0.12961009966471876,
+      0.0005171145188631232
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.53,
+      "y": 0.075,
+      "yaw": 0.1302,
+      "t": 1793722078.1119
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.0
+      ]
+     },
+     "truth": [
+      -2.436054548183406,
+      1.317503283963761,
+      0.12883544120015789,
+      0.0006598911698469862
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.527,
+      "y": 0.075,
+      "yaw": 0.1279,
+      "t": 1793722078.6818
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.0
+      ]
+     },
+     "truth": [
+      -2.4358104520195467,
+      1.3175627428483105,
+      0.12824766196979065,
+      0.0007033365728349265
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.523,
+      "y": 0.072,
+      "yaw": 0.1277,
+      "t": 1793722079.1919
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4357853745217244,
+      1.3176246294716387,
+      0.12889132283787333,
+      0.00044957134702970424
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.52,
+      "y": 0.072,
+      "yaw": 0.1292,
+      "t": 1793722079.6619
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.003
+      ]
+     },
+     "truth": [
+      -2.435918458017344,
+      1.3175234379613088,
+      0.12889635429576912,
+      0.00010984057919777159
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.519,
+      "y": 0.072,
+      "yaw": 0.1302,
+      "t": 1793722080.019
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4359952122180184,
+      1.317516311289029,
+      0.1278757235379224,
+      0.0008957908273652996
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.516,
+      "y": 0.072,
+      "yaw": 0.128,
+      "t": 1793722080.6619
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4362842255967645,
+      1.3174759603094295,
+      0.12774574088522353,
+      0.0009683571045172977
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.515,
+      "y": 0.072,
+      "yaw": 0.1274,
+      "t": 1793722081.0319
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.0
+      ]
+     },
+     "truth": [
+      -2.4364495556762455,
+      1.317522421022397,
+      0.12746656502533027,
+      0.0006097402390481755
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.51,
+      "y": 0.073,
+      "yaw": 0.1275,
+      "t": 1793722081.6118
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.001
+      ]
+     },
+     "truth": [
+      -2.4365557530963358,
+      1.31761664232689,
+      0.12551169384813946,
+      0.00039266846980664567
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.507,
+      "y": 0.073,
+      "yaw": 0.1272,
+      "t": 1793722082.1119
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.003
+      ]
+     },
+     "truth": [
+      -2.4364520526445306,
+      1.3176166781456489,
+      0.12487234201447425,
+      0.0008626903347730306
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.506,
+      "y": 0.073,
+      "yaw": 0.125,
+      "t": 1793722082.4843
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       0.003
+      ]
+     },
+     "truth": [
+      -2.436269986503324,
+      1.3174869950004595,
+      0.1268633969556464,
+      0.00034758492892608835
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.501,
+      "y": 0.074,
+      "yaw": 0.1244,
+      "t": 1793722083.0727
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4360022740966514,
+      1.3175288803609897,
+      0.12882434417364,
+      0.00013132609660860143
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.498,
+      "y": 0.074,
+      "yaw": 0.1312,
+      "t": 1793722083.8218
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.0,
+       -0.001
+      ]
+     },
+     "truth": [
+      -2.4361780612391786,
+      1.317479060491995,
+      0.12898160286768906,
+      0.0005174528498978412
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.496,
+      "y": 0.074,
+      "yaw": 0.1285,
+      "t": 1793722084.2719
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.11,
+       -0.003
+      ]
+     },
+     "truth": [
+      -2.435700607936046,
+      1.3175617958282766,
+      0.12826166400081948,
+      0.02107264510416626
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.493,
+      "y": 0.075,
+      "yaw": 0.1283,
+      "t": 1793722084.8018
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.24,
+       -0.0
+      ]
+     },
+     "truth": [
+      -2.400615431276814,
+      1.32117809229828,
+      0.12646162466391678,
+      0.19209843469729576
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.554,
+      "y": 0.086,
+      "yaw": 0.127,
+      "t": 1793722085.3319
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.24,
+       0.001
+      ]
+     },
+     "truth": [
+      -2.317884844777768,
+      1.3323192409575282,
+      0.129638234166556,
+      0.28369382242830543
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.628,
+      "y": 0.081,
+      "yaw": 0.1262,
+      "t": 1793722085.7518
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.41,
+       0.001
+      ]
+     },
+     "truth": [
+      -2.2033029525034573,
+      1.3471941521058768,
+      0.12931145834192267,
+      0.35891554932359016
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.751,
+      "y": 0.099,
+      "yaw": 0.1243,
+      "t": 1793722086.1572
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.37,
+       -0.006
+      ]
+     },
+     "truth": [
+      -2.070925063533662,
+      1.363998112842042,
+      0.12867494016679099,
+      0.5505210855244422
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 0.984,
+      "y": 0.141,
+      "yaw": 0.1302,
+      "t": 1793722086.9719
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.3,
+       -0.008
+      ]
+     },
+     "truth": [
+      -1.9128776239142713,
+      1.3850699883120445,
+      0.1300881385347928,
+      0.5060837249199636
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.014,
+      "y": 0.131,
+      "yaw": 0.1292,
+      "t": 1793722087.3122
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.46,
+       -0.005
+      ]
+     },
+     "truth": [
+      -1.808944803418057,
+      1.399365675088537,
+      0.13259857133671865,
+      0.012076712353928263
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.174,
+      "y": 0.152,
+      "yaw": 0.1336,
+      "t": 1793722087.676
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.43,
+       -0.019
+      ]
+     },
+     "truth": [
+      -1.706483143157484,
+      1.4125577120289128,
+      0.1294021115563101,
+      0.46249303696853317
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.296,
+      "y": 0.181,
+      "yaw": 0.1431,
+      "t": 1793722088.4119
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.29,
+       -0.01
+      ]
+     },
+     "truth": [
+      -1.5114882226388258,
+      1.4378796226134096,
+      0.13063657347726312,
+      0.5950209520371228
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.426,
+      "y": 0.194,
+      "yaw": 0.1288,
+      "t": 1793722088.8619
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.38,
+       -0.01
+      ]
+     },
+     "truth": [
+      -1.298535615834499,
+      1.4663525976594165,
+      0.13188344965872123,
+      0.5825213842396988
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.719,
+      "y": 0.234,
+      "yaw": 0.133,
+      "t": 1793722089.4118
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.31,
+       -0.007
+      ]
+     },
+     "truth": [
+      -1.1270950970217313,
+      1.4877247830928066,
+      0.12854626487482612,
+      0.5579355444040328
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.741,
+      "y": 0.234,
+      "yaw": 0.1245,
+      "t": 1793722089.7118
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.32,
+       -0.001
+      ]
+     },
+     "truth": [
+      -0.9566182223131294,
+      1.5085454700528829,
+      0.1258144029895719,
+      0.5416502418541076
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 1.957,
+      "y": 0.264,
+      "yaw": 0.1213,
+      "t": 1793722090.4318
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.35,
+       0.006
+      ]
+     },
+     "truth": [
+      -0.7659041459275491,
+      1.5314146755453715,
+      0.12334231380058039,
+      0.4538610542370489
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.228,
+      "y": 0.292,
+      "yaw": 0.115,
+      "t": 1793722090.9718
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.42,
+       0.003
+      ]
+     },
+     "truth": [
+      -0.6256538586747804,
+      1.5488247214877773,
+      0.12348879008966188,
+      0.5305506141663079
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.393,
+      "y": 0.319,
+      "yaw": 0.1218,
+      "t": 1793722091.5319
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.26,
+       -0.005
+      ]
+     },
+     "truth": [
+      -0.44537154368369297,
+      1.5719144403164993,
+      0.12697458908817447,
+      0.4931765264542591
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.496,
+      "y": 0.332,
+      "yaw": 0.1259,
+      "t": 1793722091.9619
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.38,
+       -0.065
+      ]
+     },
+     "truth": [
+      -0.2562215382124533,
+      1.5969383532232768,
+      0.12969152969463718,
+      0.5474057966854657
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.737,
+      "y": 0.361,
+      "yaw": 0.1242,
+      "t": 1793722092.5019
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.45,
+       -0.05
+      ]
+     },
+     "truth": [
+      -0.09098581146922884,
+      1.614659085178499,
+      0.11159461045520336,
+      0.5447105708405554
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.769,
+      "y": 0.381,
+      "yaw": 0.1071,
+      "t": 1793722092.7914
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.15,
+       -0.012
+      ]
+     },
+     "truth": [
+      0.07399841325762876,
+      1.6222800294779964,
+      0.08523469298040975,
+      0.5828117352955757
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.204,
+      "y": 0.437,
+      "yaw": 0.0737,
+      "t": 1793722093.5619
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       1.23,
+       -0.003
+      ]
+     },
+     "truth": [
+      0.2891647705411678,
+      1.6267156738072523,
+      0.04887063477887745,
+      0.5746314616973672
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.261,
+      "y": 0.432,
+      "yaw": 0.0636,
+      "t": 1793722093.8519
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.95,
+       0.044
+      ]
+     },
+     "truth": [
+      0.4221354827492599,
+      1.6285945779115027,
+      0.0383150113449407,
+      0.2931033949100877
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.415,
+      "y": 0.442,
+      "yaw": 0.0515,
+      "t": 1793722094.6818
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.97,
+       0.005
+      ]
+     },
+     "truth": [
+      0.4677129323261586,
+      1.6319164287674912,
+      0.0588282896078589,
+      0.06525203164846756
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.428,
+      "y": 0.453,
+      "yaw": 0.0604,
+      "t": 1793722095.0919
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.98,
+       -0.006
+      ]
+     },
+     "truth": [
+      0.4696417245119346,
+      1.6310050728670507,
+      0.09352351267360808,
+      0.008999576711665382
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.412,
+      "y": 0.447,
+      "yaw": 0.0828,
+      "t": 1793722095.3922
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.99,
+       -0.013
+      ]
+     },
+     "truth": [
+      0.46553379749374213,
+      1.630428526460394,
+      0.11119340270926302,
+      0.02109773095981604
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.396,
+      "y": 0.442,
+      "yaw": 0.1039,
+      "t": 1793722096.1318
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.99,
+       -0.01
+      ]
+     },
+     "truth": [
+      0.4587943802852194,
+      1.6299089908723137,
+      0.10864911753667474,
+      0.0010486375314789642
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.38,
+      "y": 0.434,
+      "yaw": 0.0991,
+      "t": 1793722096.5318
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.99,
+       -0.009
+      ]
+     },
+     "truth": [
+      0.456082894442332,
+      1.6296730426481059,
+      0.10261818014480183,
+      0.00951340914503956
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.375,
+      "y": 0.432,
+      "yaw": 0.0925,
+      "t": 1793722097.0518
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.99,
+       -0.005
+      ]
+     },
+     "truth": [
+      0.4535465958609437,
+      1.6295255769498096,
+      0.09724809682010035,
+      0.006101195640066711
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.369,
+      "y": 0.434,
+      "yaw": 0.0871,
+      "t": 1793722097.6818
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.89,
+       -0.004
+      ]
+     },
+     "truth": [
+      0.45019784053100265,
+      1.62923070615211,
+      0.08999719731165826,
+      0.035257555824092957
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.366,
+      "y": 0.434,
+      "yaw": 0.0822,
+      "t": 1793722098.0917
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.77,
+       -0.01
+      ]
+     },
+     "truth": [
+      0.3903866347951705,
+      1.6240535110300263,
+      0.08494983091400601,
+      0.26816328098650594
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.268,
+      "y": 0.429,
+      "yaw": 0.0785,
+      "t": 1793722098.7506
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.7,
+       -0.011
+      ]
+     },
+     "truth": [
+      0.2986929083870292,
+      1.617662573527734,
+      0.07936902807573679,
+      0.38166867361479406
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.235,
+      "y": 0.446,
+      "yaw": 0.0779,
+      "t": 1793722099.1541
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.69,
+       -0.013
+      ]
+     },
+     "truth": [
+      0.1625927363702283,
+      1.6086642582019313,
+      0.07106180023764043,
+      0.37877721665159075
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.138,
+      "y": 0.446,
+      "yaw": 0.073,
+      "t": 1793722099.7149
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.64,
+       -0.017
+      ]
+     },
+     "truth": [
+      0.0035157609137834453,
+      1.6012989684486323,
+      0.05874920584938606,
+      0.47774285161879787
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 3.061,
+      "y": 0.437,
+      "yaw": 0.0625,
+      "t": 1793722100.2571
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.68,
+       -0.018
+      ]
+     },
+     "truth": [
+      -0.12852539004459182,
+      1.5966132660379202,
+      0.04722244848042488,
+      0.49084387775897154
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.879,
+      "y": 0.429,
+      "yaw": 0.0542,
+      "t": 1793722100.6519
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.62,
+       0.021
+      ]
+     },
+     "truth": [
+      -0.3047020607343929,
+      1.59386682016131,
+      0.029185414874303445,
+      0.5007653940241664
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.745,
+      "y": 0.434,
+      "yaw": 0.0425,
+      "t": 1793722101.2023
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.65,
+       0.047
+      ]
+     },
+     "truth": [
+      -0.4843862003784198,
+      1.5795245124925792,
+      0.06095039981638657,
+      0.48233218812270917
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.565,
+      "y": 0.403,
+      "yaw": 0.0485,
+      "t": 1793722101.7351
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.71,
+       0.018
+      ]
+     },
+     "truth": [
+      -0.6158805433701093,
+      1.5642369494584731,
+      0.08482941271713533,
+      0.5351199054730983
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.266,
+      "y": 0.351,
+      "yaw": 0.0866,
+      "t": 1793722102.2818
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.59,
+       0.009
+      ]
+     },
+     "truth": [
+      -0.797299670427662,
+      1.5397200986720294,
+      0.1084317775742964,
+      0.47911185679678175
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.241,
+      "y": 0.313,
+      "yaw": 0.1003,
+      "t": 1793722102.6803
+     }
+    },
+    {
+     "follow": {
+      "mode": "follow",
+      "phase": "follow",
+      "text": "Following you (1.0 m behind)",
+      "tags": 0,
+      "person": [
+       0.61,
+       -0.005
+      ]
+     },
+     "truth": [
+      -0.969797281430717,
+      1.5194040750685214,
+      0.11230425082686872,
+      0.49537484441516244
+     ],
+     "pose": {
+      "frame": "map",
+      "x": 2.068,
+      "y": 0.29,
+      "yaw": 0.1061,
+      "t": 1793722103.3259
+     }
+    }
+   ]
+  },
+  "slam_switches_with_initial_pose": {
+   "initial_pose_seeded": true,
+   "inactive_recovery": {
+    "states": [
+     2,
+     2,
+     null,
+     1,
+     3
+    ],
+    "ok": true,
+    "status": {
+     "mission": "MANUAL",
+     "task": "Driving by hand",
+     "progress": null,
+     "goal": null,
+     "robot_mode": "TELEOP",
+     "kid": false,
+     "caps": {
+      "nav": true,
+      "catch": true,
+      "collision": true,
+      "arm": false
+     },
+     "version": "0.3.0",
+     "slam": {
+      "mode": "localization",
+      "map": "house",
+      "managed": true,
+      "maps": [
+       "house"
+      ],
+      "busy": false
+     },
+     "explore": null,
+     "patrol": null,
+     "thrower": null,
+     "follow": null,
+     "program": null,
+     "calib": null,
+     "slow": null,
+     "player": "Player 1",
+     "localization": null,
+     "arm": null,
+     "t": 1793723864.573071,
+     "map": "house",
+     "mcu": {
+      "mode": "AUTO",
+      "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+      "profile": "adult",
+      "faults": [],
+      "v_bus": 25.07,
+      "battery_pct": 98,
+      "battery_low": false,
+      "age": 0.0,
+      "dm_err": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "fly_rpm": [
+       0,
+       0
+      ],
+      "tilt": 0.012,
+      "ball_held": true,
+      "drive_mode": 0,
+      "fly_target_rpm": 0.0,
+      "fly_ready": false,
+      "tilt_cmd": 0.0,
+      "feed_state": "IDLE",
+      "feed_exit_beam": false,
+      "fire_seq_done": 0,
+      "fire_rejected": 0,
+      "vx": 0.0,
+      "vy": 0.0,
+      "wz": 0.0,
+      "slip": 0.0,
+      "roll": 0.014,
+      "pitch": 0.038,
+      "sync_rtt_ms": 1.0
+     },
+     "link": {
+      "connected": true,
+      "port": "tcp:127.0.0.1:5761",
+      "states": 56898,
+      "imus": 113798,
+      "cmds": 28449,
+      "errors": 0,
+      "rtt_ms": 1.0,
+      "mode": "AUTO",
+      "faults": [],
+      "mcu_rx_errors": 0,
+      "infos": 2844,
+      "protocol": 5,
+      "protocol_host": 5,
+      "fw_build": "90817150"
+     },
+     "pose": {
+      "frame": "map",
+      "x": 0.274,
+      "y": 0.217,
+      "yaw": 0.065,
+      "t": 285.111
+     },
+     "catch": {
+      "state": "wait",
+      "text": "Waiting for a throw",
+      "tosses": 0,
+      "catches": 0,
+      "rate": null,
+      "last": {},
+      "ball": null,
+      "target": null
+     },
+     "vision": {
+      "perception": {
+       "pairs": 0,
+       "detections": 0,
+       "stereo": 0,
+       "coarse": 0,
+       "tracking": false,
+       "proc_ms_median": 0.0,
+       "proc_ms_95": 0.0,
+       "pending": 0
+      },
+      "track": null,
+      "images": [
+       "/cam/left/image_raw",
+       "/cam/right/image_raw"
+      ],
+      "video_port": 8081
+     },
+     "rc": {
+      "ok": false,
+      "manual": false,
+      "ch": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ],
+      "age": 0.0
+     },
+     "fw": {
+      "build": "90817150",
+      "protocol": 5
+     },
+     "wifi": null,
+     "sys": {
+      "load": 4.39,
+      "cpus": 28,
+      "temp_c": null
+     },
+     "consoles": 0,
+     "manual": {
+      "active": false,
+      "cmd": null
+     }
+    }
+   },
+   "switches": [
+    {
+     "mapping": true,
+     "command": [
+      true,
+      "Exploring",
+      {}
+     ],
+     "first": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 6 openings left, 34 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": 2.8689194628855144,
+       "y": -2.5817515559139084,
+       "yaw": -0.5880026035475675,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        3.2234071348758193,
+        -0.6883615338578783,
+        1.5442819397936054
+       ],
+       "info": {
+        "frontiers": 6,
+        "known_m2": 33.5
+       },
+       "failed": []
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723871.7230082,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 25.1,
+       "battery_pct": 99,
+       "battery_low": false,
+       "age": 0.0,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 0,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.0,
+       "vy": 0.0,
+       "wz": -0.001,
+       "slip": 0.0,
+       "roll": 0.01,
+       "pitch": 0.039,
+       "sync_rtt_ms": 1.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 57898,
+       "imus": 115798,
+       "cmds": 28949,
+       "errors": 0,
+       "rtt_ms": 1.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 2894,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 3.223,
+       "y": -0.688,
+       "yaw": 1.5419,
+       "t": 290.931
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.0
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 5.16,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "last": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 11 openings left, 82 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": 7.468919531430856,
+       "y": 1.7167794420359934,
+       "yaw": -0.6255918978811754,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        3.2234071348758193,
+        -0.6883615338578783,
+        1.5442819397936054
+       ],
+       "info": {
+        "frontiers": 11,
+        "known_m2": 82.4
+       },
+       "failed": []
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723881.7230194,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 25.04,
+       "battery_pct": 98,
+       "battery_low": false,
+       "age": 0.1,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 1,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.531,
+       "vy": 0.154,
+       "wz": 0.851,
+       "slip": 0.012,
+       "roll": 0.023,
+       "pitch": 0.006,
+       "sync_rtt_ms": 1.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 59498,
+       "imus": 118998,
+       "cmds": 29749,
+       "errors": 0,
+       "rtt_ms": 1.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 2974,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 4.91,
+       "y": -2.372,
+       "yaw": 0.8897,
+       "t": 298.291
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.1
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 4.6,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "restored": true
+    },
+    {
+     "mapping": true,
+     "command": [
+      true,
+      "Exploring",
+      {}
+     ],
+     "first": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 9 openings left, 42 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": 2.0415846245173723,
+       "y": -1.7663281944205949,
+       "yaw": 1.0735160918461335,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        4.911925383348468,
+        -2.257256098718894,
+        1.0735160918461335
+       ],
+       "info": {
+        "frontiers": 9,
+        "known_m2": 42.2
+       },
+       "failed": []
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723902.322867,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 25.06,
+       "battery_pct": 98,
+       "battery_low": false,
+       "age": 0.0,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 1,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.0,
+       "vy": 0.0,
+       "wz": 0.002,
+       "slip": 0.0,
+       "roll": 0.01,
+       "pitch": 0.003,
+       "sync_rtt_ms": 0.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 62898,
+       "imus": 125798,
+       "cmds": 31449,
+       "errors": 0,
+       "rtt_ms": 0.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 3144,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 4.912,
+       "y": -2.257,
+       "yaw": 1.0751,
+       "t": 315.0405
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.05
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 4.27,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "last": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 9 openings left, 75 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": 7.428250955093537,
+       "y": 2.133671863693934,
+       "yaw": -1.1381010661257676,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        4.911925383348468,
+        -2.257256098718894,
+        1.0735160918461335
+       ],
+       "info": {
+        "frontiers": 9,
+        "known_m2": 74.8
+       },
+       "failed": [
+        [
+         0.6547489758494063,
+         -4.46632823465373
+        ]
+       ]
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723912.3228314,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 25.01,
+       "battery_pct": 98,
+       "battery_low": false,
+       "age": 0.05,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 1,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.497,
+       "vy": -0.051,
+       "wz": -0.124,
+       "slip": 0.012,
+       "roll": -0.001,
+       "pitch": 0.002,
+       "sync_rtt_ms": 0.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 64298,
+       "imus": 128598,
+       "cmds": 32149,
+       "errors": 0,
+       "rtt_ms": 0.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 3214,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 5.203,
+       "y": -2.095,
+       "yaw": 1.1671,
+       "t": 322.6405
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.05
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 3.92,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "restored": true
+    },
+    {
+     "mapping": true,
+     "command": [
+      true,
+      "Exploring",
+      {}
+     ],
+     "first": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 13 openings left, 41 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": 2.301541694066989,
+       "y": -2.399907493671602,
+       "yaw": 1.1750858830693964,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        5.247107942332845,
+        -1.953242672041553,
+        1.1750858830693964
+       ],
+       "info": {
+        "frontiers": 13,
+        "known_m2": 41.3
+       },
+       "failed": []
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723933.7229197,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 25.03,
+       "battery_pct": 98,
+       "battery_low": false,
+       "age": 0.05,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 0,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.0,
+       "vy": 0.0,
+       "wz": -0.001,
+       "slip": 0.0,
+       "roll": 0.002,
+       "pitch": 0.0,
+       "sync_rtt_ms": 0.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 67898,
+       "imus": 135798,
+       "cmds": 33949,
+       "errors": 0,
+       "rtt_ms": 0.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 3394,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 5.247,
+       "y": -1.953,
+       "yaw": 1.1756,
+       "t": 340.1613
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.05
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 3.4,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "last": {
+      "mission": "EXPLORE",
+      "task": "Exploring: 6 openings left, 87 m\u00b2 mapped",
+      "progress": null,
+      "goal": {
+       "x": -1.5204391488868003,
+       "y": -4.482200297115621,
+       "yaw": -3.0846881623353344,
+       "name": "frontier"
+      },
+      "robot_mode": "TELEOP",
+      "kid": false,
+      "caps": {
+       "nav": true,
+       "catch": true,
+       "collision": true,
+       "arm": false
+      },
+      "version": "0.3.0",
+      "slam": {
+       "mode": "mapping",
+       "map": null,
+       "managed": true,
+       "maps": [
+        "house"
+       ],
+       "busy": false
+      },
+      "explore": {
+       "phase": "explore",
+       "start": [
+        5.247107942332845,
+        -1.953242672041553,
+        1.1750858830693964
+       ],
+       "info": {
+        "frontiers": 6,
+        "known_m2": 86.8
+       },
+       "failed": []
+      },
+      "patrol": null,
+      "thrower": null,
+      "follow": null,
+      "program": null,
+      "calib": null,
+      "slow": null,
+      "player": "Player 1",
+      "localization": null,
+      "arm": null,
+      "t": 1793723943.7229562,
+      "map": "_new",
+      "mcu": {
+       "mode": "AUTO",
+       "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+       "profile": "adult",
+       "faults": [],
+       "v_bus": 24.97,
+       "battery_pct": 97,
+       "battery_low": false,
+       "age": 0.0,
+       "dm_err": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "fly_rpm": [
+        0,
+        0
+       ],
+       "tilt": 0.012,
+       "ball_held": true,
+       "drive_mode": 1,
+       "fly_target_rpm": 0.0,
+       "fly_ready": false,
+       "tilt_cmd": 0.0,
+       "feed_state": "IDLE",
+       "feed_exit_beam": false,
+       "fire_seq_done": 0,
+       "fire_rejected": 0,
+       "vx": 0.111,
+       "vy": -0.026,
+       "wz": 0.658,
+       "slip": 0.006,
+       "roll": 0.015,
+       "pitch": 0.002,
+       "sync_rtt_ms": 1.0
+      },
+      "link": {
+       "connected": true,
+       "port": "tcp:127.0.0.1:5761",
+       "states": 69298,
+       "imus": 138598,
+       "cmds": 34649,
+       "errors": 0,
+       "rtt_ms": 1.0,
+       "mode": "AUTO",
+       "faults": [],
+       "mcu_rx_errors": 0,
+       "infos": 3464,
+       "protocol": 5,
+       "protocol_host": 5,
+       "fw_build": "90817150"
+      },
+      "pose": {
+       "frame": "map",
+       "x": 2.943,
+       "y": -0.632,
+       "yaw": -3.0338,
+       "t": 347.841
+      },
+      "catch": {
+       "state": "wait",
+       "text": "Waiting for a throw",
+       "tosses": 0,
+       "catches": 0,
+       "rate": null,
+       "last": {},
+       "ball": null,
+       "target": null
+      },
+      "vision": {
+       "perception": {
+        "pairs": 0,
+        "detections": 0,
+        "stereo": 0,
+        "coarse": 0,
+        "tracking": false,
+        "proc_ms_median": 0.0,
+        "proc_ms_95": 0.0,
+        "pending": 0
+       },
+       "track": null,
+       "images": [
+        "/cam/left/image_raw",
+        "/cam/right/image_raw"
+       ],
+       "video_port": 8081
+      },
+      "rc": {
+       "ok": false,
+       "manual": false,
+       "ch": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "age": 0.05
+      },
+      "fw": {
+       "build": "90817150",
+       "protocol": 5
+      },
+      "wifi": null,
+      "sys": {
+       "load": 3.03,
+       "cpus": 28,
+       "temp_c": null
+      },
+      "consoles": 0,
+      "manual": {
+       "active": false,
+       "cmd": null
+      }
+     },
+     "restored": true
+    }
+   ],
+   "goal": {
+    "name": "after SLAM switching",
+    "goal": [
+     -3.0,
+     3.3
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at after SLAM switching",
+    "time_s": 13.5,
+    "err_m": 0.052,
+    "loc_err_m": 0.061,
+    "dist_m": 4.84,
+    "vmax": 1.0,
+    "end_wall": 1793723962.91111
+   },
+   "qualification": "Debug only: later orphan-publisher discovery invalidates this as a clean multi-switch qualification run."
+  },
+  "d435_raw_probe": {
+   "objects": 6,
+   "in_bin": 6,
+   "task_picked": 6,
+   "task_failed": 1,
+   "task_skipped": 0,
+   "reason": "nothing in sight",
+   "t": 244.7,
+   "wall": 310.9,
+   "depth_frames": 79,
+   "wrist_frames": 30,
+   "render_ms": 4.7,
+   "max_tilt_deg": 3.14,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 2 at (1.01, 0.38), 44 x 32 mm"
+    ],
+    [
+     5.28,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     7.48,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     15.28,
+     "LIFT",
+     "holding object 2 (33 mm)"
+    ],
+    [
+     20.9,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     25.56,
+     "APPROACH",
+     "object 3 at (1.40, 0.36), 51 x 40 mm"
+    ],
+    [
+     29.14,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     31.44,
+     "HOVER",
+     "wrist camera: 25 mm off, moving over it"
+    ],
+    [
+     38.62,
+     "LIFT",
+     "holding object 3 (48 mm)"
+    ],
+    [
+     44.22,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     48.86,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     50.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     53.08,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     55.2,
+     "APPROACH",
+     "object 6 at (0.48, 0.70), 60 x 10 mm"
+    ],
+    [
+     59.2,
+     "APPROACH",
+     "re-centre on object 6 (4.5 cm off)"
+    ],
+    [
+     59.98,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     70.68,
+     "STOW",
+     "object 6: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     73.84,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     84.98,
+     "STOW",
+     "object 6: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     88.14,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     99.26,
+     "STOW",
+     "object 6: missed (gripper at -10 deg); giving up after 3 tries"
+    ],
+    [
+     102.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     104.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     106.74,
+     "APPROACH",
+     "object 9 at (1.00, -0.79), 37 x 29 mm"
+    ],
+    [
+     112.46,
+     "HOVER",
+     "over object 9"
+    ],
+    [
+     114.84,
+     "HOVER",
+     "wrist camera: 20 mm off, moving over it"
+    ],
+    [
+     121.28,
+     "LIFT",
+     "holding object 9 (24 mm)"
+    ],
+    [
+     128.78,
+     "STOW",
+     "object 9 in the bin (3 so far)"
+    ],
+    [
+     133.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     135.6,
+     "APPROACH",
+     "object 10 at (1.69, -0.56), 39 x 24 mm"
+    ],
+    [
+     139.4,
+     "HOVER",
+     "over object 10"
+    ],
+    [
+     141.6,
+     "HOVER",
+     "wrist camera: 20 mm off, moving over it"
+    ],
+    [
+     149.52,
+     "LIFT",
+     "holding object 10 (44 mm)"
+    ],
+    [
+     155.14,
+     "STOW",
+     "object 10 in the bin (4 so far)"
+    ],
+    [
+     159.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     161.98,
+     "APPROACH",
+     "object 11 at (1.81, -0.18), 43 x 31 mm"
+    ],
+    [
+     164.9,
+     "HOVER",
+     "over object 11"
+    ],
+    [
+     167.12,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     175.08,
+     "LIFT",
+     "holding object 11 (33 mm)"
+    ],
+    [
+     182.5,
+     "STOW",
+     "object 11 in the bin (5 so far)"
+    ],
+    [
+     187.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     189.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     191.46,
+     "APPROACH",
+     "object 13 at (1.25, -0.16), 91 x 9 mm"
+    ],
+    [
+     192.54,
+     "HOVER",
+     "over object 13"
+    ],
+    [
+     194.94,
+     "HOVER",
+     "wrist camera: 10 mm off, moving over it"
+    ],
+    [
+     201.02,
+     "LIFT",
+     "holding object 13 (11 mm)"
+    ],
+    [
+     206.7,
+     "STOW",
+     "object 13 in the bin (6 so far)"
+    ],
+    [
+     211.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     213.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     215.64,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     217.76,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     219.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     222.02,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     224.16,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     231.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     233.82,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     235.98,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     238.16,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     240.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     242.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     244.74,
+     "DONE",
+     "nothing more in sight (6 picked, 1 failed)"
+    ]
+   ]
+  },
+  "d435_median_probe_rejected": {
+   "objects": 6,
+   "in_bin": 5,
+   "task_picked": 6,
+   "task_failed": 1,
+   "task_skipped": 1,
+   "reason": "",
+   "t": 400.0,
+   "wall": 519.0,
+   "depth_frames": 182,
+   "wrist_frames": 36,
+   "render_ms": 4.5,
+   "max_tilt_deg": 3.67,
+   "bus_errors": 0,
+   "events": [
+    [
+     0.0,
+     "STOW",
+     "start: arm to stow"
+    ],
+    [
+     0.42,
+     "APPROACH",
+     "object 2 at (1.01, 0.38), 43 x 27 mm"
+    ],
+    [
+     5.28,
+     "HOVER",
+     "over object 2"
+    ],
+    [
+     7.48,
+     "HOVER",
+     "wrist camera: 11 mm off, moving over it"
+    ],
+    [
+     15.3,
+     "LIFT",
+     "holding object 2 (33 mm)"
+    ],
+    [
+     20.92,
+     "STOW",
+     "object 2 in the bin (1 so far)"
+    ],
+    [
+     25.58,
+     "APPROACH",
+     "object 3 at (1.40, 0.36), 50 x 33 mm"
+    ],
+    [
+     29.18,
+     "HOVER",
+     "over object 3"
+    ],
+    [
+     31.28,
+     "HOVER",
+     "wrist camera: 17 mm off, moving over it"
+    ],
+    [
+     39.64,
+     "LIFT",
+     "holding object 3 (49 mm)"
+    ],
+    [
+     47.04,
+     "STOW",
+     "object 3 in the bin (2 so far)"
+    ],
+    [
+     51.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     53.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     55.9,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     58.04,
+     "APPROACH",
+     "object 5 at (0.48, 0.70), 62 x 8 mm"
+    ],
+    [
+     62.1,
+     "APPROACH",
+     "re-centre on object 5 (4.4 cm off)"
+    ],
+    [
+     62.88,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     73.8,
+     "STOW",
+     "object 5: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     76.96,
+     "APPROACH",
+     "re-centre on object 5 (0.2 cm off)"
+    ],
+    [
+     77.72,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     88.88,
+     "STOW",
+     "object 5: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     92.04,
+     "HOVER",
+     "over object 5"
+    ],
+    [
+     103.18,
+     "STOW",
+     "object 5: missed (gripper at -10 deg); giving up after 3 tries"
+    ],
+    [
+     106.34,
+     "APPROACH",
+     "object 6 at (0.31, 0.80), 76 x 10 mm"
+    ],
+    [
+     109.04,
+     "APPROACH",
+     "re-centre on object 6 (7.9 cm off)"
+    ],
+    [
+     110.04,
+     "APPROACH",
+     "re-centre on object 6 (3.6 cm off)"
+    ],
+    [
+     111.04,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     122.4,
+     "STOW",
+     "object 6: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     125.56,
+     "APPROACH",
+     "re-centre on object 6 (0.1 cm off)"
+    ],
+    [
+     126.54,
+     "APPROACH",
+     "re-centre on object 6 (3.6 cm off)"
+    ],
+    [
+     127.52,
+     "HOVER",
+     "over object 6"
+    ],
+    [
+     138.7,
+     "STOW",
+     "object 6: missed (gripper at -10 deg); try 3 after a fresh look"
+    ],
+    [
+     141.88,
+     "APPROACH",
+     "re-centre on object 6 (0.0 cm off)"
+    ],
+    [
+     142.9,
+     "APPROACH",
+     "re-centre on object 6 (3.7 cm off)"
+    ],
+    [
+     143.9,
+     "STOW",
+     "object 6: 151 x 8 mm, too big for the gripper"
+    ],
+    [
+     144.36,
+     "APPROACH",
+     "object 8 at (0.06, 1.17), 99 x 7 mm"
+    ],
+    [
+     148.12,
+     "STOW",
+     "object 8 not there on the close look"
+    ],
+    [
+     148.58,
+     "APPROACH",
+     "object 10 at (0.12, 1.23), 85 x 6 mm"
+    ],
+    [
+     149.58,
+     "STOW",
+     "object 10 not there on the close look"
+    ],
+    [
+     150.04,
+     "APPROACH",
+     "object 12 at (-1.05, 1.26), 35 x 8 mm"
+    ],
+    [
+     156.08,
+     "STOW",
+     "object 12 not there on the close look"
+    ],
+    [
+     156.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     158.68,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     160.8,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     162.96,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     165.1,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     167.28,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     169.48,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     176.46,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     178.6,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     180.72,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     182.86,
+     "APPROACH",
+     "object 17 at (0.49, -0.25), 48 x 25 mm"
+    ],
+    [
+     185.84,
+     "HOVER",
+     "over object 17"
+    ],
+    [
+     188.2,
+     "HOVER",
+     "wrist camera: 15 mm off, moving over it"
+    ],
+    [
+     194.52,
+     "LIFT",
+     "holding object 17 (24 mm)"
+    ],
+    [
+     200.24,
+     "STOW",
+     "object 17 in the bin (3 so far)"
+    ],
+    [
+     204.9,
+     "APPROACH",
+     "object 18 at (1.18, -0.02), 40 x 25 mm"
+    ],
+    [
+     209.42,
+     "HOVER",
+     "over object 18"
+    ],
+    [
+     211.62,
+     "HOVER",
+     "wrist camera: 19 mm off, moving over it"
+    ],
+    [
+     219.52,
+     "LIFT",
+     "holding object 18 (44 mm)"
+    ],
+    [
+     243.9,
+     "STOW",
+     "object 18 in the bin (4 so far)"
+    ],
+    [
+     248.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     250.72,
+     "APPROACH",
+     "object 19 at (1.30, 0.37), 44 x 30 mm"
+    ],
+    [
+     253.88,
+     "HOVER",
+     "over object 19"
+    ],
+    [
+     256.08,
+     "HOVER",
+     "wrist camera: 16 mm off, moving over it"
+    ],
+    [
+     263.96,
+     "LIFT",
+     "holding object 19 (33 mm)"
+    ],
+    [
+     269.58,
+     "STOW",
+     "object 19 in the bin (5 so far)"
+    ],
+    [
+     274.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     276.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     278.48,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     280.62,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     282.78,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     284.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     287.1,
+     "TURN",
+     "nothing here: back to the start for a look round"
+    ],
+    [
+     292.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     295.08,
+     "APPROACH",
+     "object 25 at (-0.11, 1.45), 49 x 11 mm"
+    ],
+    [
+     301.18,
+     "STOW",
+     "object 25 not there on the close look"
+    ],
+    [
+     301.64,
+     "APPROACH",
+     "object 26 at (-0.03, 1.43), 51 x 6 mm"
+    ],
+    [
+     302.84,
+     "HOVER",
+     "over object 26"
+    ],
+    [
+     313.64,
+     "STOW",
+     "object 26: missed (gripper at -10 deg); try 2 after a fresh look"
+    ],
+    [
+     316.8,
+     "STOW",
+     "object 26 not there on the close look"
+    ],
+    [
+     317.26,
+     "APPROACH",
+     "object 27 at (-0.03, 1.43), 53 x 5 mm"
+    ],
+    [
+     317.72,
+     "STOW",
+     "object 27 not there on the close look"
+    ],
+    [
+     318.18,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     320.3,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     322.42,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     324.54,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     326.68,
+     "APPROACH",
+     "object 29 at (0.74, 0.39), 78 x 15 mm"
+    ],
+    [
+     331.46,
+     "STOW",
+     "object 29 not there on the close look"
+    ],
+    [
+     331.92,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     334.06,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     336.2,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     338.36,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     340.5,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     342.66,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     344.78,
+     "APPROACH",
+     "object 31 at (0.73, 0.39), 42 x 6 mm"
+    ],
+    [
+     346.4,
+     "HOVER",
+     "over object 31"
+    ],
+    [
+     348.8,
+     "HOVER",
+     "wrist camera: 20 mm off, moving over it"
+    ],
+    [
+     354.88,
+     "LIFT",
+     "holding object 31 (11 mm)"
+    ],
+    [
+     360.66,
+     "STOW",
+     "object 31 in the bin (6 so far)"
+    ],
+    [
+     365.32,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     367.44,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     369.52,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     371.64,
+     "APPROACH",
+     "object 33 at (-0.17, 1.46), 66 x 12 mm"
+    ],
+    [
+     377.12,
+     "STOW",
+     "object 33 not there on the close look"
+    ],
+    [
+     377.58,
+     "APPROACH",
+     "object 34 at (-0.99, 1.54), 92 x 13 mm"
+    ],
+    [
+     382.48,
+     "STOW",
+     "object 34 not there on the close look"
+    ],
+    [
+     382.94,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     385.04,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     387.14,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     389.22,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     391.36,
+     "APPROACH",
+     "object 36 at (-0.17, 1.57), 99 x 7 mm"
+    ],
+    [
+     393.78,
+     "STOW",
+     "object 36 not there on the close look"
+    ],
+    [
+     394.24,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     396.56,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ],
+    [
+     398.88,
+     "TURN",
+     "nothing in view: turn 60 deg"
+    ]
+   ]
+  },
+  "arm_autonomous_explore": {
+   "start": {
+    "mission": "MANUAL",
+    "task": "Driving by hand",
+    "progress": null,
+    "goal": null,
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": false,
+     "collision": true,
+     "arm": true
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "localization",
+     "map": "house",
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": null,
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": {
+     "torque": true,
+     "source": "hold",
+     "ok": true,
+     "joints": [
+      91.2,
+      -100.0,
+      83.1,
+      80.9,
+      1.3,
+      -9.8
+     ],
+     "names": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+     ],
+     "loads": [
+      0.0,
+      0.01,
+      -0.141,
+      -0.02,
+      -0.002,
+      0.0
+     ],
+     "temps": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+     ],
+     "volts": 12.0,
+     "out": false,
+     "tidy": null,
+     "tidy_on": false
+    },
+    "t": 1793724861.7625797,
+    "map": "house",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.12,
+     "battery_pct": 99,
+     "battery_low": false,
+     "age": 0.05,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.0,
+     "ball_held": false,
+     "drive_mode": 0,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.0,
+     "vy": 0.0,
+     "wz": -0.0,
+     "slip": 0.0,
+     "roll": 0.008,
+     "pitch": 0.001,
+     "sync_rtt_ms": 0.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 486,
+     "imus": 972,
+     "cmds": 243,
+     "errors": 0,
+     "rtt_ms": 0.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 24,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": -0.018,
+     "y": -0.0,
+     "yaw": 0.0008,
+     "t": 3.3227
+    },
+    "catch": null,
+    "vision": {
+     "perception": null,
+     "track": null,
+     "images": [
+      "/arm_cam/image_raw",
+      "/cam/left/image_raw",
+      "/cam/right/image_raw",
+      "/stereo/depth"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.0
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 2.34,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "truth_start": [
+    -3.0003619199795155,
+    1.2489188890698255,
+    -0.00032864579240830675,
+    1.0406114808278649e-05
+   ],
+   "command": [
+    true,
+    "Exploring",
+    {}
+   ],
+   "rows": [
+    {
+     "wall_s": 2.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: waiting for the map",
+     "explore": {
+      "phase": "wait",
+      "start": null,
+      "info": {},
+      "failed": []
+     },
+     "known_m2": 115.6,
+     "truth": [
+      -3.0003550643321377,
+      1.2489136742901736,
+      -0.0003222482232189501,
+      6.932197577778686e-06
+     ]
+    },
+    {
+     "wall_s": 4.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: waiting for the map",
+     "explore": {
+      "phase": "wait",
+      "start": null,
+      "info": {},
+      "failed": []
+     },
+     "known_m2": 0.0,
+     "truth": [
+      -3.000350096260372,
+      1.2489070529201118,
+      -0.0003164493966336773,
+      7.989075838727712e-06
+     ]
+    },
+    {
+     "wall_s": 6.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: waiting for the map",
+     "explore": {
+      "phase": "wait",
+      "start": null,
+      "info": {},
+      "failed": []
+     },
+     "known_m2": 0.0,
+     "truth": [
+      -3.0003494541667153,
+      1.2489072935831316,
+      -0.000310156008812667,
+      2.9482332470117612e-05
+     ]
+    },
+    {
+     "wall_s": 8.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: 9 openings left, 29 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 9,
+       "known_m2": 29.1
+      },
+      "failed": []
+     },
+     "known_m2": 29.1,
+     "truth": [
+      -2.9396946627434897,
+      1.0542670901920148,
+      -0.9007418745963356,
+      0.42896326467555773
+     ]
+    },
+    {
+     "wall_s": 10.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: 9 openings left, 29 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 9,
+       "known_m2": 29.1
+      },
+      "failed": []
+     },
+     "known_m2": 46.0,
+     "truth": [
+      -2.8506200088194307,
+      0.43960794067110337,
+      -1.4153169675071766,
+      0.5066380846956822
+     ]
+    },
+    {
+     "wall_s": 12.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: 16 openings left, 61 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 16,
+       "known_m2": 61.2
+      },
+      "failed": []
+     },
+     "known_m2": 61.2,
+     "truth": [
+      -2.929474998221508,
+      -0.19967334093117345,
+      -2.0640740043267782,
+      0.560262662871358
+     ]
+    },
+    {
+     "wall_s": 14.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: 16 openings left, 61 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 16,
+       "known_m2": 61.2
+      },
+      "failed": []
+     },
+     "known_m2": 64.4,
+     "truth": [
+      -3.3828500517102422,
+      -0.7144937564068983,
+      -2.1950443983917785,
+      0.5096460458762904
+     ]
+    },
+    {
+     "wall_s": 16.0,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 64.9,
+     "truth": [
+      -3.6305152151660143,
+      -1.034151920298142,
+      -2.1568140511825815,
+      0.28245541987883166
+     ]
+    },
+    {
+     "wall_s": 18.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 64.9,
+     "truth": [
+      -3.6335719128688755,
+      -0.3763752973624717,
+      2.039343765641212,
+      0.6537074887608666
+     ]
+    },
+    {
+     "wall_s": 20.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 65.2,
+     "truth": [
+      -3.5845919223997385,
+      0.3314490560467608,
+      1.4560936000567761,
+      0.450655193283711
+     ]
+    },
+    {
+     "wall_s": 22.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 65.7,
+     "truth": [
+      -3.459291331485414,
+      0.9307758518169152,
+      1.2567373032108091,
+      0.49916753194573626
+     ]
+    },
+    {
+     "wall_s": 24.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 66.3,
+     "truth": [
+      -3.1340976921325754,
+      1.5073524406377177,
+      1.026194634519013,
+      0.4536308489724202
+     ]
+    },
+    {
+     "wall_s": 26.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 5 openings left, 65 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 5,
+       "known_m2": 64.9
+      },
+      "failed": []
+     },
+     "known_m2": 66.9,
+     "truth": [
+      -2.9963498838425586,
+      2.1003941664556818,
+      1.563126398832527,
+      0.48711437669360974
+     ]
+    },
+    {
+     "wall_s": 28.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 72.8,
+     "truth": [
+      -3.0692007572911075,
+      2.3487579182116534,
+      1.8375696277752966,
+      0.083463623235765
+     ]
+    },
+    {
+     "wall_s": 30.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 72.9,
+     "truth": [
+      -2.9007148227483888,
+      1.9579909064232985,
+      0.3801108471467538,
+      0.5002617239405717
+     ]
+    },
+    {
+     "wall_s": 32.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 73.0,
+     "truth": [
+      -2.6486668164755813,
+      1.4074045571719833,
+      -0.9427493915067969,
+      0.5191936673875681
+     ]
+    },
+    {
+     "wall_s": 34.1,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 73.1,
+     "truth": [
+      -2.0286813234882977,
+      1.189903069689614,
+      -0.23213108574282232,
+      0.4989926486683009
+     ]
+    },
+    {
+     "wall_s": 36.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 73.1,
+     "truth": [
+      -1.520102768827116,
+      0.7631895306533726,
+      -0.749197035684428,
+      0.5026145185982466
+     ]
+    },
+    {
+     "wall_s": 38.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 76.6,
+     "truth": [
+      -1.0277670644947037,
+      0.38915672066547785,
+      -0.6542263037108288,
+      0.5124501096577907
+     ]
+    },
+    {
+     "wall_s": 40.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 80.2,
+     "truth": [
+      -0.49678371899297674,
+      0.041098965550171514,
+      -0.455668248282002,
+      0.5184802676316024
+     ]
+    },
+    {
+     "wall_s": 42.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 85.2,
+     "truth": [
+      0.051650279200805185,
+      -0.23250922622734732,
+      -0.45320015982618167,
+      0.4965818681318462
+     ]
+    },
+    {
+     "wall_s": 44.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 93.2,
+     "truth": [
+      0.6036843118923998,
+      -0.5326599331975983,
+      -0.49445641554585634,
+      0.5048936817604581
+     ]
+    },
+    {
+     "wall_s": 46.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 2 openings left, 73 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 2,
+       "known_m2": 72.8
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ]
+      ]
+     },
+     "known_m2": 99.1,
+     "truth": [
+      1.1088861622840356,
+      -0.8542180545045569,
+      -0.6081395274685782,
+      0.49416210751942374
+     ]
+    },
+    {
+     "wall_s": 48.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 3 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 3,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 104.0,
+     "truth": [
+      1.3230956690042253,
+      -1.0009110534663208,
+      -0.5931845959589274,
+      0.00031473742182751274
+     ]
+    },
+    {
+     "wall_s": 50.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 104.0,
+     "truth": [
+      1.2423869231441724,
+      -0.478666837424813,
+      0.9979081367246689,
+      0.6919453276876393
+     ]
+    },
+    {
+     "wall_s": 52.2,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 105.0,
+     "truth": [
+      1.0951789703811667,
+      0.16626439313676103,
+      1.8688557314842478,
+      0.5249612572640038
+     ]
+    },
+    {
+     "wall_s": 54.3,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 105.5,
+     "truth": [
+      0.8869669974193742,
+      0.7145525771679251,
+      1.9571060428753206,
+      0.46676627914659574
+     ]
+    },
+    {
+     "wall_s": 56.3,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 106.0,
+     "truth": [
+      0.6364806205746868,
+      1.3304176391151374,
+      2.0299814333673085,
+      0.5122772723289699
+     ]
+    },
+    {
+     "wall_s": 58.3,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 106.6,
+     "truth": [
+      0.45292604462836106,
+      1.943046542036942,
+      1.785059152762587,
+      0.4310424327197767
+     ]
+    },
+    {
+     "wall_s": 60.3,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.0,
+     "truth": [
+      0.3683657601025496,
+      2.491317039963996,
+      1.8213881525668894,
+      0.39862371912214595
+     ]
+    },
+    {
+     "wall_s": 62.3,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      0.17925718682004047,
+      2.920824552267546,
+      2.0268113965373926,
+      0.39734943162567277
+     ]
+    },
+    {
+     "wall_s": 64.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.09835700335086603,
+      3.3615164513481015,
+      2.1259005986447512,
+      0.3787392930276076
+     ]
+    },
+    {
+     "wall_s": 66.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.3547169159665845,
+      3.6579443498232886,
+      1.8735093087838468,
+      0.1564895291746499
+     ]
+    },
+    {
+     "wall_s": 68.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.38425480732129813,
+      3.693809102671469,
+      0.8708877417402502,
+      0.02505986693698798
+     ]
+    },
+    {
+     "wall_s": 70.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 104 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 104.0
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.35785972946414096,
+      3.680823291482276,
+      -0.21196993352063984,
+      0.018608780497945267
+     ]
+    },
+    {
+     "wall_s": 72.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.32314829097279935,
+      3.6176530754364467,
+      -0.826738832378153,
+      0.2953552610399262
+     ]
+    },
+    {
+     "wall_s": 74.4,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      -0.05361501720487141,
+      3.1589147947520186,
+      -1.0203708843807842,
+      0.5059523122197214
+     ]
+    },
+    {
+     "wall_s": 76.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      0.2655113765432997,
+      2.5874132153492146,
+      -1.0975132700994843,
+      0.5082832312085719
+     ]
+    },
+    {
+     "wall_s": 78.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      0.4327112471090102,
+      2.0010175899339253,
+      -1.4806498360761913,
+      0.46372643624946397
+     ]
+    },
+    {
+     "wall_s": 80.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.5,
+     "truth": [
+      0.650318483669385,
+      1.4801462046016427,
+      -0.8634926028010174,
+      0.4914332372138907
+     ]
+    },
+    {
+     "wall_s": 82.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.6,
+     "truth": [
+      1.2985130417068942,
+      1.3647241128202405,
+      -0.029551710803783087,
+      0.5165876568904871
+     ]
+    },
+    {
+     "wall_s": 84.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 107.8,
+     "truth": [
+      1.9666555700623365,
+      1.374395324150191,
+      0.011012301918933265,
+      0.4891001212897461
+     ]
+    },
+    {
+     "wall_s": 86.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 108.1,
+     "truth": [
+      2.5967534197817206,
+      1.3757289727643396,
+      0.0016303453979585427,
+      0.4320408580818245
+     ]
+    },
+    {
+     "wall_s": 88.5,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 108.7,
+     "truth": [
+      3.074180459221557,
+      1.4090271908308512,
+      0.18064882424328843,
+      0.37433102988698475
+     ]
+    },
+    {
+     "wall_s": 90.6,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 110.3,
+     "truth": [
+      3.425980654849713,
+      1.7314970503918574,
+      1.0634236030656108,
+      0.319872848298003
+     ]
+    },
+    {
+     "wall_s": 92.6,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 114.3,
+     "truth": [
+      3.4640802192162656,
+      2.2540072596640814,
+      1.5217991412126797,
+      0.5070451088638737
+     ]
+    },
+    {
+     "wall_s": 94.6,
+     "mission": "EXPLORE",
+     "task": "Exploring: 1 openings left, 108 m\u00b2 mapped",
+     "explore": {
+      "phase": "explore",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 1,
+       "known_m2": 107.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      3.8332918555353173,
+      2.626715722344375,
+      0.5073515395189265,
+      0.4564414015629152
+     ]
+    },
+    {
+     "wall_s": 96.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      4.066533293877582,
+      2.617676132795039,
+      -0.5661251708067561,
+      0.2952716619680179
+     ]
+    },
+    {
+     "wall_s": 98.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      3.7458788629372366,
+      2.511762296754351,
+      -2.599347584620126,
+      0.22169054543928582
+     ]
+    },
+    {
+     "wall_s": 100.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      3.4482447643062346,
+      2.210185362893658,
+      -2.1329882320680116,
+      0.4674138539860092
+     ]
+    },
+    {
+     "wall_s": 102.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      3.3512048189296406,
+      1.671913437713126,
+      -1.7628106065736218,
+      0.42547852655313895
+     ]
+    },
+    {
+     "wall_s": 104.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      2.7919652220424287,
+      1.3773515472904714,
+      -3.0035042536597123,
+      0.46561039680053967
+     ]
+    },
+    {
+     "wall_s": 106.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.5,
+     "truth": [
+      2.1407066675537707,
+      1.3969421642599853,
+      -3.0416217950697693,
+      0.48298571572586363
+     ]
+    },
+    {
+     "wall_s": 108.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.6,
+     "truth": [
+      1.541759966344958,
+      1.456251341606637,
+      3.0399491509237593,
+      0.47792977095220507
+     ]
+    },
+    {
+     "wall_s": 110.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.6,
+     "truth": [
+      0.8988240600588961,
+      1.4631764630105282,
+      -3.1270214384608446,
+      0.4872473317904578
+     ]
+    },
+    {
+     "wall_s": 112.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.6,
+     "truth": [
+      0.26207398872269416,
+      1.4366320282459484,
+      -3.1205179423308214,
+      0.501623661943351
+     ]
+    },
+    {
+     "wall_s": 114.6,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.6,
+     "truth": [
+      -0.41545121760913667,
+      1.4197993569297531,
+      -3.0973223534668097,
+      0.49196318925426635
+     ]
+    },
+    {
+     "wall_s": 116.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.6,
+     "truth": [
+      -1.0494555669938082,
+      1.42258517253915,
+      3.093879637037753,
+      0.4996318080164605
+     ]
+    },
+    {
+     "wall_s": 118.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.3,
+     "truth": [
+      -1.6169991241077284,
+      1.4233845549358792,
+      3.138241758644962,
+      0.46338492915551643
+     ]
+    },
+    {
+     "wall_s": 120.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.3,
+     "truth": [
+      -2.1917399749040856,
+      1.4255895722017833,
+      3.1403239082900747,
+      0.4036833725915855
+     ]
+    },
+    {
+     "wall_s": 122.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.3,
+     "truth": [
+      -2.584499343447439,
+      1.3948445758611805,
+      -3.025661935644915,
+      0.3154459473250915
+     ]
+    },
+    {
+     "wall_s": 124.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.4,
+     "truth": [
+      -2.926711257500937,
+      1.2980664217950726,
+      -2.7526784828279727,
+      0.171948390774714
+     ]
+    },
+    {
+     "wall_s": 126.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.4,
+     "truth": [
+      -2.9357626548199205,
+      1.2436262977969295,
+      -1.514527748496562,
+      0.044930956467157314
+     ]
+    },
+    {
+     "wall_s": 128.7,
+     "mission": "EXPLORE",
+     "task": "Exploring done (nothing left to explore): driving back",
+     "explore": {
+      "phase": "home",
+      "start": [
+       -0.0004907018219046943,
+       9.267653745285318e-05,
+       0.0011222194233297953
+      ],
+      "info": {
+       "frontiers": 0,
+       "known_m2": 115.5
+      },
+      "failed": [
+       [
+        3.992137400080861,
+        1.440747921438283
+       ],
+       [
+        7.500042758294092,
+        1.9407479288888636
+       ]
+      ]
+     },
+     "known_m2": 115.4,
+     "truth": [
+      -2.921123716576471,
+      1.2545433593525903,
+      -0.46476744116931346,
+      0.013007305346647853
+     ]
+    },
+    {
+     "wall_s": 130.7,
+     "mission": "MANUAL",
+     "task": "Exploring done: back at the start, 116 m\u00b2 mapped",
+     "explore": null,
+     "known_m2": 115.4,
+     "truth": [
+      -2.928265448938181,
+      1.2578660297811235,
+      -0.1063490995201417,
+      7.432910254810492e-05
+     ]
+    }
+   ],
+   "known_m2": 115.4,
+   "wall_s": 130.7,
+   "ended": true,
+   "end": {
+    "mission": "MANUAL",
+    "task": "Exploring done: back at the start, 116 m\u00b2 mapped",
+    "progress": null,
+    "goal": null,
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": false,
+     "collision": true,
+     "arm": true
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": null,
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": {
+     "torque": true,
+     "source": "hold",
+     "ok": true,
+     "joints": [
+      91.2,
+      -100.0,
+      83.1,
+      80.9,
+      1.3,
+      -9.8
+     ],
+     "names": [
+      "shoulder_pan",
+      "shoulder_lift",
+      "elbow_flex",
+      "wrist_flex",
+      "wrist_roll",
+      "gripper"
+     ],
+     "loads": [
+      0.0,
+      0.01,
+      -0.141,
+      -0.02,
+      -0.002,
+      0.0
+     ],
+     "temps": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+     ],
+     "volts": 12.0,
+     "out": false,
+     "tidy": null,
+     "tidy_on": false
+    },
+    "t": 1793724992.5624301,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.05,
+     "battery_pct": 98,
+     "battery_low": false,
+     "age": 0.05,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.0,
+     "ball_held": false,
+     "drive_mode": 1,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.0,
+     "vy": 0.0,
+     "wz": -0.003,
+     "slip": 0.0,
+     "roll": 0.004,
+     "pitch": -0.008,
+     "sync_rtt_ms": 1.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 17286,
+     "imus": 34572,
+     "cmds": 8643,
+     "errors": 0,
+     "rtt_ms": 1.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 864,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": -0.002,
+     "y": 0.005,
+     "yaw": -0.102,
+     "t": 87.4355
+    },
+    "catch": null,
+    "vision": {
+     "perception": null,
+     "track": null,
+     "images": [
+      "/arm_cam/image_raw",
+      "/cam/left/image_raw",
+      "/cam/right/image_raw",
+      "/stereo/depth"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.05
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 2.61,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   }
+  },
+  "arm_return_map_and_inactive_recovery": {
+   "load": [
+    true,
+    "Localizing on 'house': the robot assumes it is at the map's start; if not, set its position",
+    {}
+   ],
+   "initial_pose": [
+    true,
+    "Position set: the scan matcher refines it as the robot moves",
+    {}
+   ],
+   "inactive_recovery": {
+    "states": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3
+    ],
+    "before": [
+     4388
+    ],
+    "after": [
+     4388
+    ],
+    "ok": true
+   },
+   "goal": {
+    "name": "after arm Explore and SLAM recovery",
+    "goal": [
+     -3.0,
+     3.3
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at after arm Explore and SLAM recovery",
+    "time_s": 10.2,
+    "err_m": 0.061,
+    "loc_err_m": 0.023,
+    "dist_m": 2.0,
+    "vmax": 0.44,
+    "end_wall": 1793725103.729854
+   }
+  }
+ },
+ "logs": {
+  "pc_general_smoke.log": "console at http://localhost:8080\n  ok   status arrives\n  ok   status at 10 Hz (10 expected)\n  ok   console traffic 549 kbit/s (map, scan, status; < 1000)\n  ok   page frame rate 145 fps (>= 30)\n  ok   the lidar scan, placed by the page: {'frame': 'map', 'n': 1259}\n  ok   the map, decoded by the page: [251, 190, 0.05000000074505806, 47690]\n  ok   Take control -> MANUAL\n  ok   the robot reports the console's stick while W is held\n  ok   W drove the robot 1.34 m in 2 s\n  ok   it stays put after W is released\n  ok   the stick is no longer active\n  ok   Top speed 0.7 m/s set and echoed\n  ok   out-of-range setting refused\n  ok   closing the page while driving: stopped within 0.8 s\n  ok   a click on the map makes a pending goal\n  ok   Go -> GOTO\n  ok   progress reported: 'Going to smoke test: 4.5 m left'\n  ok   goal 2.5 m away reached in 60 s\n  ok   Go To ended: 'Arrived at smoke test'\n  ok   firmware: MCU runs 90817150, this checkout builds 90817150, protocol 5\n  ok   RC receiver reported (INFO, 10 Hz)\n  ok   Base tab: 261 MCU samples in 2 s (200 Hz in batches, raw from mcu_link)\n  ok   Thrower: bench mode\n  ok   Thrower: flywheels at 3000 rpm\n  ok   Thrower: one fire request reaches the MCU\n  ok   back to MANUAL without another shot\n  ok   Patrol: Run\n  ok   Patrol: both points visited\n  ok   Patrol ended: 'Patrol 'smoke test' finished'\n  ok   Explore: a new map\n  ok   Explore: planning\n  ok   Explore: mapped 6.8 -> 92.2 m2 in 45 s ('Exploring: 2 openings left, 92 m\ufffd mapped')\n  ok   SLAM: back on 'house'\n  ok   supervisor: 'Robot (all modes)' running (10 steps)\n  ok   supervisor: the step's log (20 lines)\n  ok   Home: a card per mode\n  ok   Health: 170 s of history, counters {'km': 0.028, 'hours': 0.047, 'throws': 0, 'catches': 0, 'fires': 1}\n  ok   Program: run (Running 'smoke' (4 steps))\n  ok   Program: running\n  ok   Program: done in 60 s\n  ok   Program: finished back where it started ('Program 'smoke' finished', 0.018 m off)\n  ok   Map edit: a no-go zone saved\n  ok   Map edit: Go To into the zone sent\n  ok   Map edit: Go To into the no-go zone ends\n  ok   Map edit: Nav2 won't enter it ('Could not reach inside the zone: Nav2 gave up (blocked or no path)')\n  ok   Map edit: in the edge's band the stick is capped ({'speed': 0.4, 'edge': 'smoke edge'}, 0.4 m/s)\n  ok   Calibrate: IMU level started (Calibrating: imu_level)\n  ok   Calibrate: IMU level result: IMU mount offset roll +0.14 deg, pitch +0.18 deg (the floor here tilts -0.06 / +0.16 deg): subtract the offset in the firmware's attitude\n  ok   Follow: back to the start\n  ok   Follow: at the start\n  FAIL Follow: a person found\n  ok   Logbook: 102 session logs (2026-11-03_071415_manual.jsonl)\n  ok   Faults: low battery -> LOW_BATT\n  ok   Faults: LOW_BATT clears\n  ok   Faults: Manual\n  ok   Faults: link down: the MCU went quiet (2.05 s) and the robot stopped turning (true 2.18 -> 0.001 rad/s)\n  ok   Faults: the page marks the robot's position as stale\n  ok   Faults: the console said the MCU went quiet and came back\n  ok   Faults: e-stop -> ESTOP, mission IDLE\n  ok   Faults: released -> DISARMED (no re-arm by itself)\n  ok   Faults: none left ([])\n  ok   Space -> IDLE\n  ok   the MCU disarms\n  ok   ROS tab lists 127 topics\n  ok   no errors in the page\n\n1 failed\n",
+  "pc_general_smoke_final.log": "console at http://127.0.0.1:8080\n  ok   status arrives\n  ok   status at 10 Hz (10 expected)\n  ok   console traffic 549 kbit/s (map, scan, status; < 1000)\n  ok   page frame rate 144 fps (>= 30)\n  ok   the lidar scan, placed by the page: {'frame': 'map', 'n': 1143}\n  ok   the map, decoded by the page: [251, 190, 0.05000000074505806, 47690]\n  ok   Take control -> MANUAL\n  ok   the robot reports the console's stick while W is held\n  ok   W drove the robot 1.52 m in 2 s\n  ok   it stays put after W is released\n  ok   the stick is no longer active\n  ok   Top speed 0.7 m/s set and echoed\n  ok   out-of-range setting refused\n  ok   closing the page while driving: stopped within 0.8 s\n  ok   a click on the map makes a pending goal\n  ok   Go -> GOTO\n  ok   progress reported: 'Going to smoke test: 3.5 m left'\n  ok   goal 2.5 m away reached in 60 s\n  ok   Go To ended: 'Arrived at smoke test'\n  ok   firmware: MCU runs 90817150, this checkout builds 90817150, protocol 5\n  ok   RC receiver reported (INFO, 10 Hz)\n  ok   Base tab: 321 MCU samples in 2 s (200 Hz in batches, raw from mcu_link)\n  ok   Thrower: bench mode\n  ok   Thrower: flywheels at 3000 rpm\n  ok   Thrower: one fire request reaches the MCU\n  ok   back to MANUAL without another shot\n  ok   Patrol: Run\n  ok   Patrol: both points visited\n  ok   Patrol ended: 'Patrol 'smoke test' finished'\n  ok   Explore: a new map\n  FAIL Explore: planning\n  ok   Explore: mapped 0 -> 0 m2 in 45 s ('Exploring done: the map never came (is SLAM running?)')\n  ok   SLAM: back on 'house'\n  ok   supervisor: 'Robot (all modes)' running (10 steps)\n  ok   supervisor: the step's log (20 lines)\n  ok   Home: a card per mode\n  ok   Health: 234 s of history, counters {'km': 0.15, 'hours': 0.501, 'throws': 0, 'catches': 0, 'fires': 2}\n  ok   Program: run (Running 'smoke' (4 steps))\n  ok   Program: running\n  ok   Program: done in 60 s\n  ok   Program: finished back where it started ('Program 'smoke' finished', 0.037 m off)\n  ok   Map edit: a no-go zone saved\n  ok   Map edit: Go To into the zone sent\n  ok   Map edit: Go To into the no-go zone ends\n  ok   Map edit: Nav2 won't enter it ('Could not reach inside the zone: Nav2 gave up (blocked or no path)')\n  ok   Map edit: in the edge's band the stick is capped ({'speed': 0.4, 'edge': 'smoke edge'}, 0.4 m/s)\n  ok   Calibrate: IMU level started (Calibrating: imu_level)\n  ok   Calibrate: IMU level result: IMU mount offset roll +0.46 deg, pitch +0.10 deg (the floor here tilts +0.09 / +0.04 deg): subtract the offset in the firmware's attitude\n  ok   Follow: back to the start\n  ok   Follow: return trip ended\n  ok   Follow: arrived at the start (Arrived at the start)\n  ok   Follow: a person found\n  ok   Follow: the robot went after them (0.84 m out, tracked 83% of 15 s)\n  ok   Logbook: 102 session logs (2026-11-03_071415_manual.jsonl)\n  ok   Faults: low battery -> LOW_BATT\n  ok   Faults: LOW_BATT clears\n  ok   Faults: Manual\n  ok   Faults: link down: the MCU went quiet (1.95 s) and the robot stopped turning (true 1.83 -> 0.0 rad/s)\n  ok   Faults: the page marks the robot's position as stale\n  ok   Faults: the console said the MCU went quiet and came back\n  ok   Faults: e-stop -> ESTOP, mission IDLE\n  ok   Faults: released -> DISARMED (no re-arm by itself)\n  ok   Faults: none left ([])\n  ok   Space -> IDLE\n  ok   the MCU disarms\n  ok   ROS tab lists 129 topics\n  ok   no errors in the page\n\n1 failed\n",
+  "pc_general_smoke_verified.log": "console at http://127.0.0.1:8080\n  ok   status arrives\n  ok   status at 10 Hz (10 expected)\n  ok   console traffic 625 kbit/s (map, scan, status; < 1000)\n  ok   page frame rate 144 fps (>= 30)\n  ok   the lidar scan, placed by the page: {'frame': 'map', 'n': 1159}\n  ok   the map, decoded by the page: [251, 189, 0.05000000074505806, 47439]\n  ok   Take control -> MANUAL\n  ok   the robot reports the console's stick while W is held\n  ok   W drove the robot 1.43 m in 2 s\n  ok   it stays put after W is released\n  ok   the stick is no longer active\n  ok   Top speed 0.7 m/s set and echoed\n  ok   out-of-range setting refused\n  ok   closing the page while driving: stopped within 0.8 s\n  ok   a click on the map makes a pending goal\n  ok   Go -> GOTO\n  ok   progress reported: 'Going to smoke test: 5.1 m left'\n  ok   goal 2.5 m away reached in 60 s\n  ok   Go To ended: 'Arrived at smoke test'\n  ok   firmware: MCU runs 90817150, this checkout builds 90817150, protocol 5\n  ok   RC receiver reported (INFO, 10 Hz)\n  ok   Base tab: 291 MCU samples in 2 s (200 Hz in batches, raw from mcu_link)\n  ok   Thrower: bench mode\n  ok   Thrower: flywheels at 3000 rpm\n  ok   Thrower: one fire request reaches the MCU\n  ok   back to MANUAL without another shot\n  ok   Patrol: Run\n  ok   Patrol: both points visited\n  ok   Patrol ended: 'Patrol 'smoke test' finished'\n  ok   Explore: a new map\n  FAIL Explore: planning\n",
+  "pc_general_console_final.log": "building ROS packages ...\n[supervisor 08:24:10] operator console: http://FernandoDesktop:8080 (page from /home/fernando/omni_ws/install/omni_console/share/omni_console/web); steps: sim\n[supervisor 08:24:10] a step started outside the console is running: stopping it\n[supervisor 08:24:13] started robot (pid 1534): bash /mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh robot web:=false map:=house kid:=false person:=true clutter:=off thrower:=true terrain:=false viewer:=false foxglove:=false fast:=true firmware:=true\n[supervisor 08:24:13] Started 'Robot (all modes)'\n[supervisor 08:31:10] shutting down: stopping the running step\n[supervisor 08:31:16] robot ended (exit 0)\n",
+  "pc_slam_check.log": "deactivate lifecycle_msgs.srv.ChangeState_Response(success=True)\nrecovery [2, 1, 3, 3]\nswitch 1\nmapping/restored True True\nswitch 2\nmapping/restored True True\nswitch 3\nmapping/restored True True\n{'name': 'after SLAM switching', 'goal': [-3.0, 3.3], 'reached': True, 'timed_out': False, 'task': 'Arrived at after SLAM switching', 'time_s': 8.7, 'err_m': 4.185, 'loc_err_m': 4.162, 'dist_m': 2.09, 'vmax': 0.5, 'end_wall': 1793723705.7601964}\n",
+  "pc_slam_check_seeded.log": "deactivate lifecycle_msgs.srv.ChangeState_Response(success=True)\nrecovery [2, 2, None, 1, 3]\nswitch 1\nmapping/restored True True\nswitch 2\nmapping/restored True True\nswitch 3\nmapping/restored True True\n{'name': 'after SLAM switching', 'goal': [-3.0, 3.3], 'reached': True, 'timed_out': False, 'task': 'Arrived at after SLAM switching', 'time_s': 13.5, 'err_m': 0.052, 'loc_err_m': 0.061, 'dist_m': 4.84, 'vmax': 1.0, 'end_wall': 1793723962.91111}\n",
+  "pc_nav_cleanup_check.log": "available True\ndone True result nav2_msgs.srv.ManageLifecycleNodes_Response(success=True)\n",
+  "pc_general_v11_final.log": "........................................................................ [ 54%]\n............................................................             [100%]\n132 passed in 340.62s (0:05:40)\n",
+  "pc_general_cores_final.log": "........................s...............ssss............................ [ 57%]\n......................................................                   [100%]\n121 passed, 7 skipped in 41.16s\n",
+  "pc_console_final.log": "...............................................................          [100%]\n63 passed in 10.21s\n",
+  "pc_general_smoke_clean.log": "console at http://127.0.0.1:8080\n  ok   status arrives\n  ok   status at 10 Hz (10 expected)\n  ok   console traffic 549 kbit/s (map, scan, status; < 1000)\n  ok   page frame rate 144 fps (>= 30)\n  ok   the lidar scan, placed by the page: {'frame': 'map', 'n': 1134}\n  ok   the map, decoded by the page: [251, 190, 0.05000000074505806, 47690]\n  ok   Take control -> MANUAL\n  ok   the robot reports the console's stick while W is held\n  ok   W drove the robot 1.52 m in 2 s\n  ok   it stays put after W is released\n  ok   the stick is no longer active\n  ok   Top speed 0.7 m/s set and echoed\n  ok   out-of-range setting refused\n  ok   closing the page while driving: stopped within 0.8 s\n  ok   a click on the map makes a pending goal\n  ok   Go -> GOTO\n  ok   progress reported: 'Going to smoke test: 3.6 m left'\n  ok   goal 2.5 m away reached in 60 s\n  ok   Go To ended: 'Arrived at smoke test'\n  ok   firmware: MCU runs 90817150, this checkout builds 90817150, protocol 5\n  ok   RC receiver reported (INFO, 10 Hz)\n  ok   Base tab: 321 MCU samples in 2 s (200 Hz in batches, raw from mcu_link)\n  ok   Thrower: bench mode\n  ok   Thrower: flywheels at 3000 rpm\n  ok   Thrower: one fire request reaches the MCU\n  ok   back to MANUAL without another shot\n  ok   Patrol: Run\n  ok   Patrol: both points visited\n  ok   Patrol ended: 'Patrol 'smoke test' finished'\n  ok   Explore: a new map\n  ok   Explore: planning\n  ok   Explore: mapped 10 -> 10 m2 in 45 s ('Exploring done: back at the start, 13 m\ufffd mapped')\n  ok   SLAM: back on 'house'\n  ok   SLAM: supplied return-map position accepted\n  ok   supervisor: 'Robot (all modes)' running (10 steps)\n  ok   supervisor: the step's log (20 lines)\n  ok   Home: a card per mode\n  ok   Health: 181 s of history, counters {'km': 0.227, 'hours': 0.837, 'throws': 0, 'catches': 0, 'fires': 4}\n  ok   Program: run (Running 'smoke' (4 steps))\n  ok   Program: running\n  ok   Program: done in 60 s\n  ok   Program: finished back where it started ('Program 'smoke' finished', 0.015 m off)\n  ok   Map edit: a no-go zone saved\n  ok   Map edit: Go To into the zone sent\n  ok   Map edit: Go To into the no-go zone ends\n  ok   Map edit: Nav2 won't enter it ('Could not reach inside the zone: Nav2 gave up (blocked or no path)')\n  ok   Map edit: in the edge's band the stick is capped ({'speed': 0.4, 'edge': 'smoke edge'}, 0.4 m/s)\n  ok   Calibrate: IMU level started (Calibrating: imu_level)\n  ok   Calibrate: IMU level result: IMU mount offset roll +0.70 deg, pitch +0.59 deg (the floor here tilts +0.00 / +0.01 deg): subtract the offset in the firmware's attitude\n  ok   Follow: back to the start\n  ok   Follow: return trip ended\n  ok   Follow: arrived at the start (Arrived at the start)\n  ok   Follow: a person found\n  ok   Follow: the robot went after them (1.31 m out, tracked 90% of 15 s)\n  ok   Logbook: 102 session logs (2026-11-03_071415_manual.jsonl)\n  ok   Faults: low battery -> LOW_BATT\n  ok   Faults: LOW_BATT clears\n  ok   Faults: Manual\n  ok   Faults: link down: the MCU went quiet (2 s) and the robot stopped turning (true 2.02 -> 0.0 rad/s)\n  ok   Faults: the page marks the robot's position as stale\n  ok   Faults: the console said the MCU went quiet and came back\n  ok   Faults: e-stop -> ESTOP, mission IDLE\n  ok   Faults: released -> DISARMED (no re-arm by itself)\n  ok   Faults: none left ([])\n  ok   Space -> IDLE\n  ok   the MCU disarms\n  ok   ROS tab lists 129 topics\n  ok   no errors in the page\n\nall passed\n",
+  "pc_general_console_clean.log": "building ROS packages ...\n[supervisor 08:47:27] operator console: http://FernandoDesktop:8080 (page from /home/fernando/omni_ws/install/omni_console/share/omni_console/web); steps: sim\n[supervisor 08:47:27] started robot (pid 996): bash /mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh robot web:=false map:=house kid:=false person:=true clutter:=off thrower:=true terrain:=false viewer:=false foxglove:=false fast:=true firmware:=true\n[supervisor 08:47:27] Started 'Robot (all modes)'\n[supervisor 08:54:01] started arm (pid 2857): bash /mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh arm web:=false map:=house objects:=toys n_objects:=6 kid:=false person:=false clutter:=toys terrain:=false viewer:=false foxglove:=false fast:=true firmware:=true\n----------------------------------------\nException occurred during processing of request from ('127.0.0.1', 57650)\n----------------------------------------\nException occurred during processing of request from ('127.0.0.1', 51916)\n----------------------------------------\nException occurred during processing of request from ('127.0.0.1', 58245)\nTraceback (most recent call last):\nTraceback (most recent call last):\nTraceback (most recent call last):\n  File \"/usr/lib/python3.12/socketserver.py\", line 692, in process_request_thread\n    self.finish_request(request, client_address)\n  File \"/usr/lib/python3.12/socketserver.py\", line 692, in process_request_thread\n    self.finish_request(request, client_address)\n  File \"/usr/lib/python3.12/socketserver.py\", line 692, in process_request_thread\n    self.finish_request(request, client_address)\n  File \"/usr/lib/python3.12/socketserver.py\", line 362, in finish_request\n    self.RequestHandlerClass(request, client_address, self)\n  File \"/usr/lib/python3.12/socketserver.py\", line 362, in finish_request\n    self.RequestHandlerClass(request, client_address, self)\n  File \"/usr/lib/python3.12/http/server.py\", line 672, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/usr/lib/python3.12/socketserver.py\", line 362, in finish_request\n    self.RequestHandlerClass(request, client_address, self)\n  File \"/usr/lib/python3.12/socketserver.py\", line 761, in __init__\n    self.handle()\n  File \"/usr/lib/python3.12/http/server.py\", line 672, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/usr/lib/python3.12/socketserver.py\", line 761, in __init__\n    self.handle()\n  File \"/usr/lib/python3.12/http/server.py\", line 672, in __init__\n    super().__init__(*args, **kwargs)\n  File \"/usr/lib/python3.12/socketserver.py\", line 761, in __init__\n    self.handle()\n  File \"/usr/lib/python3.12/http/server.py\", line 436, in handle\n    self.handle_one_request()\n  File \"/usr/lib/python3.12/http/server.py\", line 436, in handle\n    self.handle_one_request()\n  File \"/usr/lib/python3.12/http/server.py\", line 424, in handle_one_request\n    method()\n  File \"/usr/lib/python3.12/http/server.py\", line 424, in handle_one_request\n    method()\n  File \"/usr/lib/python3.12/http/server.py\", line 436, in handle\n    self.handle_one_request()\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 486, in do_GET\n    return self._json(200, self.sup.state())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 486, in do_GET\n    return self._json(200, self.sup.state())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 474, in _json\n    self.wfile.write(body)\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 473, in _json\n    self.end_headers()\n  File \"/usr/lib/python3.12/http/server.py\", line 424, in handle_one_request\n    method()\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 486, in do_GET\n    return self._json(200, self.sup.state())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 463, in end_headers\n    super().end_headers()\n  File \"/usr/lib/python3.12/http/server.py\", line 538, in end_headers\n    self.flush_headers()\n  File \"/usr/lib/python3.12/socketserver.py\", line 840, in write\n    self._sock.sendall(b)\n  File \"/home/fernando/omni_ws/build/omni_console/omni_console/supervisor.py\", line 474, in _json\n    self.wfile.write(body)\n  File \"/usr/lib/python3.12/socketserver.py\", line 840, in write\n    self._sock.sendall(b)\n  File \"/usr/lib/python3.12/http/server.py\", line 542, in flush_headers\n    self.wfile.write(b\"\".join(self._headers_buffer))\n  File \"/usr/lib/python3.12/socketserver.py\", line 840, in write\n    self._sock.sendall(b)\nBrokenPipeError: [Errno 32] Broken pipe\nBrokenPipeError: [Errno 32] Broken pipe\n----------------------------------------\n----------------------------------------\nConnectionResetError: [Errno 104] Connection reset by peer\n----------------------------------------\n[supervisor 09:00:24] arm ended (exit 0)\n[supervisor 09:01:57] shutting down: stopping the running step\n",
+  "pc_return_goal.log": "deactivated lifecycle_msgs.srv.ChangeState_Response(success=True)\n{'states': [2, 2, 2, 2, 2, 2, 3], 'before': [4388], 'after': [4388], 'ok': True}\n{'name': 'after arm Explore and SLAM recovery', 'goal': [-3.0, 3.3], 'reached': True, 'timed_out': False, 'task': 'Arrived at after arm Explore and SLAM recovery', 'time_s': 10.2, 'err_m': 0.061, 'loc_err_m': 0.023, 'dist_m': 2.0, 'vmax': 0.44, 'end_wall': 1793725103.729854}\n"
+ },
+ "additional_validation": {
+  "cpp_parity": "25 passed",
+  "firmware": "PlatformIO Teensy 4.1 build success; no flash",
+  "console_takeover": "regression verifies external child termination, unrelated process and supervisor survive; live takeover succeeded",
+  "remaining_issue": "Installed composed Nav2 can segfault or need SIGKILL on shutdown, including after a successful explicit lifecycle shutdown; proposed workaround not retained",
+  "clean_browser": "console_smoke.py --slam --tabs --faults: all passed",
+  "explore_return_error_m": 0.0726
+ },
+ "source_sha256": {
+  "ros/src/omni_console/omni_console/supervisor.py": "0459eb1b19d2c44a59a52e95afffaa76c38a033bf9b41ff160ae789d1b9b0b0a",
+  "ros/src/omni_console/omni_console/mission_node.py": "97e523ec7a39060cf7e3517a3b10bc231c3767ddf038eb6c0a032a3f8d3567fc",
+  "ros/src/omni_console/omni_console/tflite.py": "cba8e46346e1f7dea832f46fbb4fb6580a4f1c593a5b650632ec8c60f3ede02a",
+  "ros/src/omni_arm/omni_arm/pick.py": "2b016f57cbccdbb27926fa176b4bc153015de9c86152abcec4a3857fe50e7229",
+  "ros/src/omni_arm/omni_arm/motion.py": "45e11417f3074dcddf9f1880b179ea755b310546dec58b535f2f0d83829b8601",
+  "simulation/v11 sil/robot_export.py": "744750df5f417419365923e70d56e3d19b8afdcb387ba145170d713092f59523",
+  "simulation/v11 sil/params.py": "f424643c366edbfea2f2257d34864191e9186864e5b07e74ae4f62e25f05a204",
+  "ros/src/omni_bringup/omni_bringup/stack.py": "4817bf1ef423e6b8c16d2c14c6d63e2e78f1d3e51d91e5c87a4f21f21d7218bc",
+  "ros/src/omni_bringup/config/nav2.yaml": "0098c12314e1ce7cf25e6a23270e1fde82b8f23095c2c6ddcd71cca2e1f2e08d",
+  "firmware/lib/omni_fw/fw_params_arm.h": "8d3083d84359356fa40df99b8eeeef60fbf1c6679d138cd99dd15018b9f5b46a",
+  "firmware/lib/omni_fw/protocol.h": "3090ae65036c6a88712ccd46dc29c92ce89318d09d067639c8956ab080d6e67d",
+  "ros/tools/arm_load.py": "b5f256ffcd88775ccecbfc8d98f37bdbeb8c86c1529df84ec277fd4f56519d7d",
+  "ros/tools/console_smoke.py": "709badd88bead479d1eef21416b4bde078bd7d79e7b6645a2abc372f3781d0ef",
+  "ros/src/omni_face/omni_face/voice.py": "75ac8ca8e8ddd4a31b0cc70af31831551c1be1028ac461ecfd8e382b64f5bfc6"
+ },
+ "cleanup": {
+  "robot_launches_remaining": false,
+  "slam_children_remaining": false,
+  "supervisor_remaining": false,
+  "windows_viewers_remaining": false,
+  "temporary_checkout_removed": true,
+  "synthetic_depth_trace_removed": true
+ },
+ "package_versions": {
+  "nav2-collision-monitor": "1.3.13-1noble.20260921.030324",
+  "rclcpp-components": "28.1.22-1noble.20260911.115213",
+  "slam-toolbox": "2.8.5-1noble.20260915.204151"
+ }
+}

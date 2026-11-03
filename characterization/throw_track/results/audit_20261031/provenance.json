@@ -1,0 +1,18 @@
+{
+  "detector_hashes": {
+    "rs_detect.py": "5f3b13937650cb6e7cbec542c2b98237201e527b8411691fc6938ae2140a33bf",
+    "rs_analyze.py": "3e897e4be7a3103bba6eab34a718551c8dbb13cf00e058ecb6b67bdca1ba25ee",
+    "rs_predict.py": "ed56a343103bd1e7f2c197bf14456ccb829236f4d3faf434cc575e05beb4c95c",
+    "arc2d.py": "a7b2f01b79ed7ff2e68db3d26ba5c5d38d57197928bc634815bd2e03bce730bf",
+    "record_rs.py": "462206fd8d80dae0e722c4184cce077a61076e052e2b8edecd82a0808994d621"
+  },
+  "root": "C:\\Users\\ferna\\throw_data",
+  "held_out": "loc3: no tuning or detector edits",
+  "limits": [
+    "conditional offline metrics; not frame-labelled recall",
+    "exposure travel uses configured exposure; raw colour metadata field has different units",
+    "clips selected by colour trigger; missed unsaved throws absent",
+    "yellow ball size/mass inherited incorrectly; metric range/drag provisional",
+    "camera stationary; no robot motion or optical streak measurement"
+  ]
+}

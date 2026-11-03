@@ -1,0 +1,37 @@
+{
+  "sketches": [
+    {
+      "name": "Retainer Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 65.44565815958258,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"outside_diameter\"= 9mm 'Retainer outside diameter; contacts the bearing inner race",
+    "\"screw_clearance\"= 3.4mm 'M3 clearance",
+    "\"rear_face_distance\"= 36.7mm 'Rear face measured toward negative motor Z",
+    "\"retainer_thickness\"= 1.2mm 'Retainer thickness",
+    "\"D1@Retainer Sketch\"= \"outside_diameter\"",
+    "\"D2@Retainer Sketch\"= \"screw_clearance\"",
+    "\"D1@Retainer Extrude\"= \"retainer_thickness\"",
+    "\"D19@Retainer Extrude\"= \"rear_face_distance\""
+  ],
+  "design_features": [
+    {
+      "name": "Retainer Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Retainer Extrude",
+        "D19@Retainer Extrude"
+      ]
+    }
+  ],
+  "pass": true
+}

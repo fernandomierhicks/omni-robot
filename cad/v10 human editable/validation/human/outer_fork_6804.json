@@ -1,0 +1,452 @@
+{
+  "sketches": [
+    {
+      "name": "Fork Web Outline",
+      "status": 3
+    },
+    {
+      "name": "Bar Seat Sketch",
+      "status": 3
+    },
+    {
+      "name": "Cartridge Flange Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Cartridge Barrel Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Outer Cap Section",
+      "status": 3
+    },
+    {
+      "name": "Shock Eye Relief Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Through Bore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Bearing Seat Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Shock Boss Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Shock Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Fork Bar Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Head Ring Sketch",
+      "status": 3
+    },
+    {
+      "name": "Shock Case Slot Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 50683.71659060142,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"plate_start\"= 48mm 'Outer face magnitude of fork plate",
+    "\"plate_end\"= 39mm 'Inner face magnitude of fork plate",
+    "\"plate_thickness\"= 9mm 'Fork plate axial thickness",
+    "\"wheel_lobe_radius\"= 35mm 'Wheel lobe retains a 1.5 mm rim outside the cartridge sweep",
+    "\"pivot_y\" = \"D32@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pivot_lobe_radius\"= 13.5mm '627 bearing housing outside radius",
+    "\"shock_boss_radius\"= 6.5mm 'Shock eye spacer outside radius",
+    "\"shock_fillet\"= 1mm 'Native spacer reinforcing fillet",
+    "\"pivot_bore\" = \"D82@Control Measures-Shared Layout\" - 6mm 'Driven by the shared master layout",
+    "\"pivot_seat_diameter\" = \"D82@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pivot_seat_end\"= 39mm 'Bearing seat shoulder X magnitude",
+    "\"bearing_width\"= 7mm '627 bearing width",
+    "\"journal_radius\" = \"D76@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"journal_shoulder_radius\" = \"D76@Control Measures-Shared Layout\" / 2 + 1.5mm 'Driven by the shared master layout",
+    "\"wire_bore\"= 8mm 'Central lead clearance diameter",
+    "\"lead_chamfer\"= 0.5mm 'Native bearing and journal entry lead",
+    "\"bar_screw_y\"= 73mm 'Fork bar seating face Y",
+    "\"bar_thread_depth\"= 9mm 'Printed bar screw engagement hole depth",
+    "\"thread_pilot\"= 2.8mm 'M3 thread-forming hole diameter",
+    "\"thread_entry\"= 0.5mm 'Native pilot entry chamfer",
+    "\"journal_end\"= 43.5mm 'Journal inner axial coordinate magnitude",
+    "\"journal_shoulder_end\"= 50.5mm 'Journal shoulder axial coordinate magnitude",
+    "\"shock_boss_face\"= 51mm 'Shock spacer free face X magnitude",
+    "\"shock_thread_depth\"= 10mm 'Lower shock printed pilot depth",
+    "\"cap_outer_face\"= 54.5mm 'Cap exterior face toward -X",
+    "\"cap_inner_face\"= 44.5mm 'Cap flange inner face toward -X",
+    "\"cap_radius\"= 35mm 'Cap outside radius; avoids the former 0.5 mm annular rim",
+    "\"cartridge_flange_clearance\"= 33.5mm 'Cartridge flange sweep clearance radius",
+    "\"cartridge_barrel_clearance\"= 22.5mm 'Cartridge barrel running clearance radius",
+    "\"cap_cavity_end\"= 51.5mm 'Cap cavity blind end toward -X",
+    "\"shock_eye_clearance\"= 9mm 'Lower shock eye clearance at the outer cap",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"head_ring_outer_diameter\"= 60mm 'Outer diameter of the screw-head ring groove: head circle (r 26) plus 3.25 head radius plus 0.75 clearance",
+    "\"head_ring_inner_diameter\"= 40mm 'Inner diameter of the groove; inside the 45 mm cavity, so no material is removed there and the journal is untouched",
+    "\"head_ring_depth\"= 3mm 'Groove depth from the cap inner face; the heads are 2.5 mm tall and sit 0.5 mm behind that face",
+    "\"shock_y\" = \"D60@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"shock_z\" = \"D62@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"shock_slot_half_width\"= 5.8mm 'Half width of the shock-case slot: the case is 11 mm wide plus 0.6 mm clearance",
+    "\"shock_slot_length\"= 12mm 'Slot length from the shock eye along the shock axis (toward +Z)",
+    "\"shock_slot_depth\"= 6mm 'Slot depth into the cap: past the case inner edge (x -49) by 0.5 mm",
+    "\"lug_seat_y\"= 73mm 'Bar lug seating face Y",
+    "\"lug_bottom\"= 32mm 'Bar lug bottom toward -Z",
+    "\"bar_seat_top\"= 13mm 'Bar notch roof toward -Z, under the 627 lobe",
+    "\"bar_notch_span\"= 150mm 'Bar notch cutter overrun beyond the plate outline",
+    "\"bar_notch_depth\"= 40mm 'Bar notch cutter axial overrun",
+    "\"D1@Plate Face Plane\"= \"plate_start\"",
+    "\"D1@Fork Web Outline\"= \"wheel_lobe_radius\"",
+    "\"D2@Fork Web Outline\"= \"lug_bottom\"",
+    "\"D3@Fork Web Outline\"= \"lug_seat_y\"",
+    "\"D4@Fork Web Outline\"= \"pivot_y\"",
+    "\"D5@Fork Web Outline\"= \"pivot_lobe_radius\"",
+    "\"D1@Fork Web Extrude\"= \"plate_thickness\"",
+    "\"D1@Bar Seat Sketch\"= \"bar_seat_top\"",
+    "\"D2@Bar Seat Sketch\"= \"bar_notch_span\"",
+    "\"D3@Bar Seat Sketch\"= \"lug_seat_y\"",
+    "\"D4@Bar Seat Sketch\"= \"bar_notch_span\"",
+    "\"D1@Bar Seat Cut\"= \"bar_notch_depth\"",
+    "\"D1@Wheel Inner Face Plane\"= \"plate_end\"",
+    "\"D1@Cartridge Flange Clearance Sketch\"= 2 * \"cartridge_flange_clearance\"",
+    "\"D1@Cartridge Flange Clearance\"= \"cap_inner_face\" - \"plate_end\"",
+    "\"D1@Cartridge Barrel Clearance Sketch\"= 2 * \"cartridge_barrel_clearance\"",
+    "\"D1@Cartridge Barrel Clearance\"= \"cap_cavity_end\" - \"plate_end\"",
+    "\"D1@Outer Cap Section\"= \"cap_outer_face\"",
+    "\"D2@Outer Cap Section\"= \"cap_inner_face\"",
+    "\"D3@Outer Cap Section\"= \"cap_cavity_end\"",
+    "\"D4@Outer Cap Section\"= \"journal_shoulder_end\"",
+    "\"D5@Outer Cap Section\"= \"journal_end\"",
+    "\"D6@Outer Cap Section\"= \"wire_bore\" / 2",
+    "\"D7@Outer Cap Section\"= \"cap_radius\"",
+    "\"D8@Outer Cap Section\"= \"cartridge_barrel_clearance\"",
+    "\"D9@Outer Cap Section\"= \"journal_shoulder_radius\"",
+    "\"D10@Outer Cap Section\"= \"journal_radius\"",
+    "\"D11@Outer Cap Section\"= \"axis_reference_halfspan\"",
+    "\"D12@Outer Cap Section\"= \"axis_reference_halfspan\"",
+    "\"D1@Outer Cap and Journal Revolve\"= \"full_turn\"",
+    "\"D1@Cap Exterior Plane\"= \"cap_outer_face\"",
+    "\"D3@Shock Eye Relief Sketch\"= \"shock_eye_clearance\"",
+    "\"D1@Shock Eye Cap Relief\"= \"cap_outer_face\" - \"cap_cavity_end\"",
+    "\"D1@Journal Lead Chamfer\"= \"lead_chamfer\"",
+    "\"D2@Pivot Through Bore Sketch\"= \"pivot_bore\"",
+    "\"D1@Pivot Through Bore\"= \"plate_thickness\"",
+    "\"D1@Pivot Seat Entry Plane\"= \"pivot_seat_end\"",
+    "\"D2@Pivot Bearing Seat Sketch\"= \"pivot_seat_diameter\"",
+    "\"D1@Pivot Bearing Seat\"= \"bearing_width\"",
+    "\"D1@Pivot Bearing Lead In\"= \"lead_chamfer\"",
+    "\"D1@Shock Boss Root Plane\"= \"shock_boss_face\"",
+    "\"D3@Lower Shock Boss Sketch\"= 2 * \"shock_boss_radius\"",
+    "\"D1@Lower Shock Boss\"= \"shock_boss_face\" - \"plate_start\"",
+    "\"D1@Lower Shock Boss Root Fillet\"= \"shock_fillet\"",
+    "\"D1@Shock Screw Entry Plane\"= \"shock_boss_face\"",
+    "\"D3@Lower Shock Pilot Sketch\"= \"thread_pilot\"",
+    "\"D1@Lower Shock Pilot\"= \"shock_thread_depth\"",
+    "\"D1@Fork Bar Seat Plane\"= \"bar_screw_y\"",
+    "\"D3@Fork Bar Pilot Sketch\"= \"thread_pilot\"",
+    "\"D6@Fork Bar Pilot Sketch\"= \"thread_pilot\"",
+    "\"D1@Fork Bar Thread Pilots\"= \"bar_thread_depth\"",
+    "\"D1@Fork Bar Pilot Entry Chamfers\"= \"thread_entry\"",
+    "\"D1@Cap Inner Face Plane\"= \"cap_inner_face\"",
+    "\"D1@Head Ring Sketch\"= \"head_ring_outer_diameter\"",
+    "\"D2@Head Ring Sketch\"= \"head_ring_inner_diameter\"",
+    "\"D1@Cartridge Head Ring Groove\"= \"head_ring_depth\"",
+    "\"shock_slot_inner_reach\"= 8.5mm 'Slot reach toward the axle: the case leans 14.7 deg that way at full bump",
+    "\"D1@Shock Case Slot Sketch\"= \"shock_z\"",
+    "\"D2@Shock Case Slot Sketch\"= \"shock_z\" + \"shock_slot_length\"",
+    "\"D3@Shock Case Slot Sketch\"= \"shock_y\" - \"shock_slot_inner_reach\"",
+    "\"D4@Shock Case Slot Sketch\"= \"shock_y\" + \"shock_slot_half_width\"",
+    "\"D1@Shock Case Slot\"= \"shock_slot_depth\""
+  ],
+  "design_features": [
+    {
+      "name": "Fork Web Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Fork Web Extrude"
+      ]
+    },
+    {
+      "name": "Bar Seat Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Bar Seat Cut"
+      ]
+    },
+    {
+      "name": "Cartridge Flange Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Cartridge Flange Clearance"
+      ]
+    },
+    {
+      "name": "Cartridge Barrel Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Cartridge Barrel Clearance"
+      ]
+    },
+    {
+      "name": "Outer Cap and Journal Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Outer Cap and Journal Revolve"
+      ]
+    },
+    {
+      "name": "Shock Eye Cap Relief",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Shock Eye Cap Relief"
+      ]
+    },
+    {
+      "name": "Journal Lead Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Journal Lead Chamfer"
+      ]
+    },
+    {
+      "name": "Pivot Through Bore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Through Bore"
+      ]
+    },
+    {
+      "name": "Pivot Bearing Seat",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Bearing Seat"
+      ]
+    },
+    {
+      "name": "Pivot Bearing Lead In",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Pivot Bearing Lead In"
+      ]
+    },
+    {
+      "name": "Lower Shock Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Shock Boss"
+      ]
+    },
+    {
+      "name": "Lower Shock Boss Root Fillet",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Lower Shock Boss Root Fillet"
+      ]
+    },
+    {
+      "name": "Lower Shock Pilot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Shock Pilot"
+      ]
+    },
+    {
+      "name": "Fork Bar Thread Pilots",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Fork Bar Thread Pilots"
+      ]
+    },
+    {
+      "name": "Fork Bar Pilot Entry Chamfers",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Fork Bar Pilot Entry Chamfers"
+      ]
+    },
+    {
+      "name": "Cartridge Head Ring Groove",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Cartridge Head Ring Groove"
+      ]
+    },
+    {
+      "name": "Shock Case Slot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Shock Case Slot"
+      ]
+    }
+  ],
+  "pass": true
+}

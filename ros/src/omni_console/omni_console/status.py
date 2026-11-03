@@ -1,7 +1,8 @@
 """The console's status bar, ROS-free: battery, faults and states in words an operator can act on.
 
-Battery % is an estimate from the pack voltage alone (7S Molicel P50B, light load; design.md 2): it reads low while
-the motors pull hard and recovers at rest. The firmware's LOW_BATT fault (22.4 V, 3.2 V/cell) is the real limit.
+Battery % is an estimate from the pack voltage alone (6S OVONIC 5200 mAh LiPo, light load; design.md 2): it reads low
+while the motors pull hard and recovers at rest. The firmware's LOW_BATT fault (21 V, provisional: a ramped stop) is the
+real limit; test_console checks BATT_LOW_V against both fw_params headers.
 """
 
 from __future__ import annotations
@@ -10,26 +11,30 @@ import hashlib
 import os
 from pathlib import Path
 
-CELLS = 7
-BATT_LOW_V = 22.4                  # firmware fw_params BATT_LOW: 3.2 V/cell
-# (V/cell, %) at light load, Li-ion NMC 21700 (est, not measured on the P50B)
-CELL_CURVE = ((3.00, 0), (3.30, 5), (3.45, 10), (3.55, 20), (3.62, 30), (3.68, 40), (3.74, 50), (3.80, 60),
-              (3.88, 70), (3.96, 80), (4.06, 90), (4.20, 100))
+CELLS = 6
+BATT_LOW_V = 21.0                  # firmware fw_params BATT_LOW: 3.5 V/cell (provisional)
+# (V/cell, %) at light load, a generic LiPo curve (est, not measured on the OVONIC pack)
+CELL_CURVE = ((3.30, 0), (3.50, 5), (3.60, 10), (3.68, 20), (3.73, 30), (3.77, 40), (3.80, 50), (3.84, 60),
+              (3.90, 70), (3.97, 80), (4.06, 90), (4.20, 100))
 
 FAULT_HINTS = {
-    "LINK_LOST": "The MCU heard nothing from the Jetson for 0.5 s and stopped. It recovers when commands return.",
+    "LINK_LOST": "The MCU heard nothing from the robot computer for 0.5 s and stopped. It recovers when commands return.",
     "ESTOP": "The e-stop is pressed: power to the motors is cut. Release it, then start a mode again.",
     "BUMPER": "The bumper is pressed. Move the robot clear by hand.",
-    "MOTOR_ERR": "A drive motor reports an error (Base tab). Usually over-temperature or under-voltage.",
-    "MOTOR_SILENT": "A drive motor stopped answering on CAN: check its cable.",
-    "LOW_BATT": "Battery below 22.4 V (3.2 V a cell): charge it now.",
+    "MOTOR_ERR": "A drive motor reports an error (Base tab), usually over-temperature or under-voltage. The base "
+                 "stopped: fix it, then start a mode again.",
+    "MOTOR_SILENT": "A drive motor stopped answering on CAN: check its cable. The base stopped: start a mode again "
+                    "once it answers.",
+    "LOW_BATT": "Battery below 21 V (3.5 V a cell): the base stopped. Charge it; it re-arms above 22.2 V.",
     "IMU_SILENT": "The BNO085 stopped reporting: heading comes from the wheels only.",
     "FLY_TELEM": "A flywheel ESC stopped sending rpm: the thrower won't fire.",
+    "FAULT_STOP": "The MCU stopped and disarmed the base on a fault (battery or drive motor). The mode ended: fix the "
+                  "fault, then start a mode again.",
 }
 MCU_MODE_HINTS = {
     "BOOT": "The MCU is starting.",
     "DISARMED": "Motors off. Start a mode to arm them.",
-    "AUTO": "Armed: the Jetson drives, within the firmware's limits.",
+    "AUTO": "Armed: the robot computer drives, within the firmware's limits.",
     "MANUAL": "The RC transmitter has taken over (its switch). The console can't drive until it's switched back.",
     "ESTOP": "Emergency stop: motors unpowered.",
 }

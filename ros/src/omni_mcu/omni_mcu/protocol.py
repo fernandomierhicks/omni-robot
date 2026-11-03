@@ -27,14 +27,14 @@ from omni_mcu.clock_sync import ClockSync
 MSG_CMD, MSG_STATE, MSG_IMU, MSG_INFO, MSG_TIME = 0x01, 0x81, 0x82, 0x83, 0x84
 TE_SYNC, TE_CAM_TRIGGER, TE_CAM_STROBE = 1, 2, 3
 TIME_KINDS = {TE_SYNC: "sync", TE_CAM_TRIGGER: "cam_trigger", TE_CAM_STROBE: "cam_strobe"}
-PROTOCOL_VERSION = 4             # protocol.h PROTOCOL_VERSION: bump both with any body change
+PROTOCOL_VERSION = 5           # protocol.h PROTOCOL_VERSION: bump both with any body change
 REQ_DISARM, REQ_AUTO = 0, 1
 PROFILE_ADULT, PROFILE_KID = 0, 1
 DRIVE_IDLE, DRIVE_VEL_BODY, DRIVE_GOTO = 0, 1, 2
 CMD_HOLD_YAW = 1
 MODES = {0: "BOOT", 1: "DISARMED", 2: "AUTO", 3: "MANUAL", 4: "ESTOP"}
 FAULTS = {1: "LINK_LOST", 2: "ESTOP", 4: "BUMPER", 8: "MOTOR_ERR", 16: "MOTOR_SILENT", 32: "LOW_BATT",
-          64: "IMU_SILENT", 128: "FLY_TELEM"}
+          64: "IMU_SILENT", 128: "FLY_TELEM", 256: "FAULT_STOP"}
 FEED_STATES = {0: "IDLE", 1: "SEAT", 2: "RUN", 3: "DONE"}
 
 CMD_FMT = struct.Struct("<Q4B6fQ3fQ2fH")

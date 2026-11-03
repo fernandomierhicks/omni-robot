@@ -13,7 +13,9 @@ Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the 
                                       hold | relax                  torque on, hold here | torque off (the arm drops:
                                                                     hold it; the SO-101 has no brakes)
            odom_topic (/odom)       nav_msgs/Odometry: the base's pose for the task (the MCU's odometry)
-           /stereo/depth            sensor_msgs/Image 32FC1, the left nose camera's depth (+ /stereo/camera_info)
+           depth_topic              sensor_msgs/Image, the depth for the tidy's looks (+ its camera_info): /stereo/depth
+                                    32FC1 (the stereo pair's left camera), or with config:=d435 the RealSense D435's
+                                    /d435/depth/image_rect_raw 16UC1 mm (design.md 4.11)
            /arm_cam/image_raw       sensor_msgs/Image rgb8, the wrist camera (+ /arm_cam/camera_info)
 Publishes  /arm/joint_states        sensor_msgs/JointState (rad; effort = load, fraction of the torque limit)
            /arm/state               std_msgs/String JSON at 5 Hz: connected, torque, joints (deg), loads, temperatures,
@@ -26,13 +28,15 @@ Publishes  /arm/joint_states        sensor_msgs/JointState (rad; effort = load, 
                                     arm_wrist_cam_optical), from the joints
 Action     /arm/follow_joint_trajectory   control_msgs/FollowJointTrajectory (MoveIt's or LeRobot's driver can use it)
 Parameters port (tcp:127.0.0.1:5763 in the sim, /dev/ttyACM0 or the bus board's device on the robot), calibration
-           (a LeRobot calibration json; "" = the sim's nominal one), rate, odom_topic.
+           (a LeRobot calibration json; "" = the sim's nominal one), rate, odom_topic, config ("" | d435 | a json path:
+           the robot it runs on), depth_topic, depth_info_topic.
 """
 
 from __future__ import annotations
 
 import json
 import math
+import os
 import time
 from collections import deque
 
@@ -51,33 +55,18 @@ from tf2_ros import TransformBroadcaster
 from omni_arm import motion as mo
 from omni_arm.driver import ArmDriver
 from omni_arm.feetech import Bus, load_calibration
-from omni_arm.floor_vision import DepthFrame
-from omni_arm.kinematics import ArmKinematics, q_for_gap
+from omni_arm.floor_vision import DepthFrame, decode_depth
+from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, q_for_gap, rot_quat as _quat
 from omni_arm.pick import MJ_TO_OPTICAL, Inputs, TidyTask, wrist_frame
 from omni_arm.transport import open_port
 
 LINKS = ("arm_shoulder", "arm_upper_arm", "arm_lower_arm", "arm_wrist", "arm_gripper", "arm_jaw", "tool")
+VERBS = ("tidy", "stop", "pose", "gripper", "jog", "hold", "relax")
+HEALTH_GRACE = 0.25        # s of unhealthy feedback (a servo silent or reporting an error) a tidy rides through
 
 
 def _yaw(q) -> float:
     return math.atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z))
-
-
-def _quat(R) -> tuple:
-    """x y z w of a rotation matrix."""
-    t = np.trace(R)
-    if t > 0:
-        s = math.sqrt(t + 1.0) * 2
-        return ((R[2, 1] - R[1, 2]) / s, (R[0, 2] - R[2, 0]) / s, (R[1, 0] - R[0, 1]) / s, 0.25 * s)
-    i = int(np.argmax(np.diag(R)))
-    j, k = (i + 1) % 3, (i + 2) % 3
-    s = math.sqrt(1.0 + R[i, i] - R[j, j] - R[k, k]) * 2
-    q = [0.0, 0.0, 0.0, 0.0]
-    q[i] = 0.25 * s
-    q[j] = (R[j, i] + R[i, j]) / s
-    q[k] = (R[k, i] + R[i, k]) / s
-    q[3] = (R[k, j] - R[j, k]) / s
-    return tuple(q)
 
 
 class ArmNode(Node):
@@ -88,7 +77,13 @@ class ArmNode(Node):
         cal = P("calibration", "").value
         self.rate = float(P("rate", 50.0).value)
         odom_topic = P("odom_topic", "/odom").value
-        self.kin = ArmKinematics()
+        # the robot: "" = robot_arm.json (the stereo pair's depth), "d435" = robot_arm_d435.json (design.md 4.11), a path
+        config = P("config", "").value
+        # its depth image: /stereo/depth (32FC1) or the D435's /d435/depth/image_rect_raw (16UC1 mm); the camera_info
+        # beside it ("" = the image topic's namespace + /camera_info)
+        depth_topic = P("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth").value
+        info_topic = P("depth_info_topic", "").value or depth_topic.rsplit("/", 1)[0] + "/camera_info"
+        self.kin = ArmKinematics(ArmConfig(config_path(config)))
         self.cfg = self.kin.cfg
         self.cal = load_calibration(cal, self.cfg.joints) if cal else None
         self.driver = None
@@ -106,6 +101,7 @@ class ArmNode(Node):
         self.events = deque(maxlen=12)
         self.n_ev = 0
         self.traj_goal = None
+        self.t_healthy = -math.inf
         self.n_task_ev = 0
         cb = ReentrantCallbackGroup()
         self.p_js = self.create_publisher(JointState, "/arm/joint_states", 10)
@@ -118,9 +114,9 @@ class ArmNode(Node):
         self.create_subscription(Odometry, odom_topic, self.on_odom, 20)
         # camera_info latched (a driver may send it once) or with every frame: either way
         info_qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
-        self.create_subscription(Image, "/stereo/depth", self.on_depth, 2)
-        self.create_subscription(CameraInfo, "/stereo/camera_info", lambda m: setattr(self, "K_depth", self._k(m)),
-                                 info_qos)
+        self.depth_topic = depth_topic
+        self.create_subscription(Image, depth_topic, self.on_depth, 2)
+        self.create_subscription(CameraInfo, info_topic, lambda m: setattr(self, "K_depth", self._k(m)), info_qos)
         self.create_subscription(Image, "/arm_cam/image_raw", self.on_wrist, 2)
         self.create_subscription(CameraInfo, "/arm_cam/camera_info", lambda m: setattr(self, "K_wrist", self._k(m)),
                                  info_qos)
@@ -141,7 +137,8 @@ class ArmNode(Node):
                          callback_group=cb)
         except ImportError:
             self.get_logger().warn("control_msgs not installed: no /arm/follow_joint_trajectory action")
-        self.get_logger().info(f"arm on {self.port_spec}; poses stow / ready / high / drop from robot_arm.json")
+        self.get_logger().info(f"arm on {self.port_spec}; poses stow / ready / high / drop from "
+                               f"{config_path(config).name}; depth from {depth_topic} ({c['name']})")
 
     @staticmethod
     def _k(m: CameraInfo):
@@ -193,6 +190,14 @@ class ArmNode(Node):
             return
         self.q_hist.append((t, st.q.copy()))
         self.publish_joints(st)
+        if st.ok:
+            self.t_healthy = t
+        if self.tidy_on and t - self.t_healthy > HEALTH_GRACE:
+            # its joints are stale or a servo faulted: the task can't trust them. Hold where commanded, stop the base
+            self.tidy_on, self.motion, self.source = False, None, "hold"
+            self.task.state, self.task.done_reason = "DONE", "servo feedback"
+            self.p_twist.publish(Twist())
+            self.event(f"tidy stopped: servos {list(st.missing)} silent, {list(st.errors)} reporting errors; holding")
         if self.tidy_on:
             out = self.task.step(t, Inputs(self.pose or (0.0, 0.0, 0.0), st, self.depth, self.wrist))
             self.goal = out.arm_goal
@@ -238,13 +243,12 @@ class ArmNode(Node):
         self.pose = (p.position.x, p.position.y, _yaw(p.orientation))
 
     def on_depth(self, m: Image):
-        if self.K_depth is None or m.encoding != "32FC1":
-            self.get_logger().warn(f"depth frame dropped: {'no /stereo/camera_info yet' if self.K_depth is None else m.encoding}",
+        z = None if self.K_depth is None else decode_depth(m.encoding, bytes(m.data), m.height, m.width)
+        if z is None:
+            self.get_logger().warn(f"depth frame dropped: {'no camera_info yet' if self.K_depth is None else m.encoding}",
                                    throttle_duration_sec=5.0)
             return
-        z = np.frombuffer(bytes(m.data), np.float32).reshape(m.height, m.width)
-        self.depth = DepthFrame(m.header.stamp.sec + m.header.stamp.nanosec * 1e-9, z.copy(), self.K_depth,
-                                self.T_depth)
+        self.depth = DepthFrame(m.header.stamp.sec + m.header.stamp.nanosec * 1e-9, z, self.K_depth, self.T_depth)
 
     def on_wrist(self, m: Image):
         if self.K_wrist is None or m.encoding not in ("rgb8", "bgr8"):
@@ -268,6 +272,8 @@ class ArmNode(Node):
             self.event(f"{verb}: the arm isn't connected")
             return
         q = d.state.q.copy()
+        if verb in VERBS:
+            self.traj_goal = None            # any request takes over from a trajectory (its loop sees it and ends)
         if verb == "tidy":
             if self.tidy_on:
                 return
@@ -282,8 +288,9 @@ class ArmNode(Node):
             if self.tidy_on:
                 self.task.stop(t)           # the task stows (and finishes a drop in progress), then ends
                 self.event("tidy: stopping")
-            else:
-                self._move_to(q, self.task.poses["stow"], "stow")
+            elif not self._move_to(q, self.task.poses["stow"], "stow"):
+                self.motion, self.source = None, "hold"          # no checked way to stow: stop where it is
+                self.goal = (self.goal if self.goal is not None else q).copy()
         elif verb == "pose":
             name = str(a.get("name", ""))
             if self.tidy_on or name not in self.task.poses:
@@ -329,19 +336,23 @@ class ArmNode(Node):
         t = self.now()
         P = self.task.poses
         to_bin = name == "drop"                          # its fingers are in the bin's box, as the tidy's drop
-        path = mo.plan(self.kin, q, target, via=[P[n] for n in ("high", "ready", "predrop") if n in P],
-                       allow_bin=to_bin)
+        path, why = mo.plan_checked(self.kin, q, target, via=[P[n] for n in ("high", "ready", "predrop") if n in P],
+                                    allow_bin=to_bin)
         if path is None:
-            path = [q, P["high"]] + ([P["predrop"]] if to_bin and "predrop" in P else []) + [target]
-            self.event(f"{name}: no checked path from here, going through 'high'")
+            self.event(f"{name}: refused, {why} (jog it clear, or move it by hand)")
+            return False
+        if why:
+            self.event(f"{name}: {why}")
         if not self.driver.enabled:
             self.driver.enable(True)
         self.motion = mo.Motion(path, mo.speeds(self.kin), t)
         self.source = "pose"
         self.event(f"moving to {name}")
+        return True
 
     # -- the trajectory action -------------------------------------------------------------------------------------
     def accept_traj(self, goal):
+        """Accepted only while nothing else runs it; its points are checked (mo.check_trajectory) when it starts."""
         if self.tidy_on or self.driver is None:
             return GoalResponse.REJECT
         names = list(goal.trajectory.joint_names)
@@ -349,37 +360,39 @@ class ArmNode(Node):
 
     def execute_traj(self, gh):
         tr = gh.request.trajectory
-        idx = [self.cfg.joints.index(n) for n in tr.joint_names]
-        q0 = (self.goal if self.goal is not None else self.driver.state.q).copy()
-        t0 = self.now()
-        pts = [(0.0, q0.copy())]
-        for p in tr.points:
-            q = pts[-1][1].copy()
-            for k, v in zip(idx, p.positions):
-                q[k] = v
-            pts.append((p.time_from_start.sec + p.time_from_start.nanosec * 1e-9, np.clip(q, self.kin.lo, self.kin.hi)))
-        self.traj_goal = gh
-        self.source = "trajectory"
         res = self.FJT.Result()
+        d = self.driver
+        q0 = (self.goal if self.goal is not None else d.state.q).copy() if d is not None else None
+        times, wps = (None, "the arm isn't connected") if d is None else mo.check_trajectory(
+            self.kin, q0, tr.joint_names,
+            [(p.time_from_start.sec + p.time_from_start.nanosec * 1e-9, list(p.positions)) for p in tr.points])
+        if times is None:
+            self.event(f"trajectory refused: {wps}")
+            gh.abort()
+            res.error_code, res.error_string = res.INVALID_GOAL, str(wps)
+            return res
+        self.traj_goal, self.motion = gh, None
+        self.source = "trajectory"
+        if not d.enabled:
+            d.enable(True)
+        t0 = self.now()
+        play = mo.Linear([t0 + s for s in times], wps)
         rate = self.create_rate(self.rate)
         while True:
             if gh.is_cancel_requested or self.traj_goal is not gh or self.tidy_on:
-                gh.canceled()
+                gh.canceled()                # the goal stays where it was sampled last: the arm holds there
                 res.error_code = res.INVALID_GOAL
                 break
-            s = self.now() - t0
-            if s >= pts[-1][0]:
-                self.goal = pts[-1][1]
+            t = self.now()
+            self.goal = play.sample(t)
+            if play.done(t):
                 gh.succeed()
                 res.error_code = res.SUCCESSFUL
                 break
-            k = max(i for i in range(len(pts)) if pts[i][0] <= s)
-            a, b = pts[k], pts[min(k + 1, len(pts) - 1)]
-            f = (s - a[0]) / max(1e-6, b[0] - a[0])
-            self.goal = a[1] + f * (b[1] - a[1])
             rate.sleep()
-        self.traj_goal = None
-        self.source = "hold"
+        if self.traj_goal is gh:
+            self.traj_goal = None
+            self.source = "hold"
         return res
 
     # -- outputs ---------------------------------------------------------------------------------------------------
@@ -414,7 +427,7 @@ class ArmNode(Node):
                  port=self.port_spec, tidy=self.task.status() if (self.tidy_on or self.task.state != "IDLE") else None,
                  tidy_on=self.tidy_on, events=list(self.events))
         if st is not None:
-            s.update(ok=st.ok, missing=list(st.missing), joints=[round(math.degrees(v), 1) for v in st.q],
+            s.update(ok=st.ok, missing=list(st.missing), errors=list(st.errors), joints=[round(math.degrees(v), 1) for v in st.q],
                      loads=[round(float(v), 3) for v in st.load], temps=[int(v) for v in st.temp_c],
                      volts=round(float(st.volts), 1), out=bool(self.kin.tool_out(st.q)),
                      names=list(self.cfg.joints))
@@ -424,14 +437,23 @@ class ArmNode(Node):
 def main():
     rclpy.init()
     node = ArmNode()
-    from rclpy.executors import MultiThreadedExecutor
-    ex = MultiThreadedExecutor(num_threads=2)
+    from rclpy.executors import MultiThreadedExecutor, SingleThreadedExecutor
+    prof_out = os.environ.get("OMNI_PROFILE")           # a path: profile the node's spin (one thread) into it
+    ex = SingleThreadedExecutor() if prof_out else MultiThreadedExecutor(num_threads=2)
     ex.add_node(node)
+    prof = None
+    if prof_out:
+        import cProfile
+        prof = cProfile.Profile()
+        prof.enable()
     try:
         ex.spin()
     except KeyboardInterrupt:
         pass
     finally:
+        if prof is not None:
+            prof.disable()
+            prof.dump_stats(prof_out)
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()

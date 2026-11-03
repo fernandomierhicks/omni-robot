@@ -1,0 +1,640 @@
+{
+  "sketches": [
+    {
+      "name": "Curved Panel Sketch",
+      "status": 3
+    },
+    {
+      "name": "Far Wall Sketch",
+      "status": 3
+    },
+    {
+      "name": "Far Foot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Side Wall Sketch",
+      "status": 3
+    },
+    {
+      "name": "Outer Low Wall Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Side Foot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Ear Sketch",
+      "status": 3
+    },
+    {
+      "name": "Outer Ear Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Shaft Bore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Outer Shaft Bore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pin Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Deck Lobe Relief Sketch",
+      "status": 3
+    },
+    {
+      "name": "Fixed Shock Boss Sketch",
+      "status": 3
+    },
+    {
+      "name": "Fixed Shock Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Shock Driver Sketch",
+      "status": 3
+    },
+    {
+      "name": "Deck Foot Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Deck Envelope Trim Sketch",
+      "status": 3
+    },
+    {
+      "name": "Centre Bumper Boss Section",
+      "status": 3
+    },
+    {
+      "name": "Centre Bumper Pilot Section",
+      "status": 3
+    },
+    {
+      "name": "Side Bumper Boss Section",
+      "status": 3
+    },
+    {
+      "name": "Side Bumper Pilot Section",
+      "status": 3
+    },
+    {
+      "name": "Outer Lobe Clearance Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 128456.54395369819,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"deck_centre_x\"= 146mm 'Deck circle centre relative to wheel axle",
+    "\"deck_radius\"= 217mm 'Guard outside deck radius",
+    "\"panel_thickness\"= 5mm 'Curved impact panel radial thickness",
+    "\"panel_half_width\"= 89.5mm 'Panel outer transverse extent",
+    "\"panel_bottom\"= 22mm 'Panel lower edge toward -Z",
+    "\"panel_top\"= 70.5mm 'Panel top edge Z",
+    "\"deck_height\"= 3mm 'Chassis deck top",
+    "\"wall_top\"= 57mm 'Full side wall and inner ear top",
+    "\"low_wall_top\" = 24mm 'Outer plate clearance wall top",
+    "\"pivot_wall_top\"= 20mm 'Pivot side wall and inner ear top (Nov 2: lowered from 57 so the deck bridge can be low)",
+    "\"outer_ear_top\" = 26mm 'Outboard ear top",
+    "\"house_y\"= 83.5mm 'Side wall inside transverse coordinate",
+    "\"wall_thickness\"= 6mm 'Side wall thickness",
+    "\"house_end_x\"= 24mm 'Side wall inner end X",
+    "\"wall_front_x\"= 57.01444671179024mm 'Panel and wall overlap start toward -X",
+    "\"foot_front_x\"= 20mm 'Far side foot start toward -X",
+    "\"foot_y_inner\"= 82.5mm 'Foot strip near transverse edge",
+    "\"foot_y_outer\"= 92.5mm 'Foot strip outer transverse edge",
+    "\"foot_top\"= 11mm 'Foot top Z",
+    "\"inner_ear_x0\"= 36.5mm 'Inner ear exterior face X",
+    "\"inner_ear_x1\"= 44mm 'Inner ear interior face X",
+    "\"outer_ear_x0\"= 36.5mm 'Outer ear exterior face toward -X",
+    "\"outer_ear_x1\"= 26.5mm 'Outer ear interior face toward -X",
+    "\"shaft_bore\"= \"D80@Control Measures-Shared Layout\" + 0.1mm 'Driven by the shared master layout",
+    "\"shaft_lead\"= 0.5mm 'Native shaft bore entry lead",
+    "\"pin_pilot\"= 2.8mm 'M3 pin thread pilot below shaft",
+    "\"deck_slot_edge\"= 78.8mm 'Deck lobe relief transverse boundary",
+    "\"deck_slot_depth\"= 6.4mm 'Deck lobe relief slab thickness",
+    "\"cut_span\"= 500mm 'Cutter boundary beyond guard envelope",
+    "\"panel_root_fillet\"= 5mm 'Native side wall to curved panel reinforcing fillet",
+    "\"shock_boss_start\"= 65.14672666178214mm 'Shock boss embedded end toward -X",
+    "\"shock_boss_end\"= 58mm 'Shock eye seating face toward -X",
+    "\"shock_boss_diameter\"= 9mm 'Fixed shock boss outside diameter",
+    "\"shock_pilot\"= 2.8mm 'M3 shock thread-form pilot",
+    "\"shock_pilot_length\"= 12mm 'Shock pilot cutter through panel",
+    "\"driver_access\"= 7mm 'Lower shock driver passage diameter",
+    "\"driver_cut_length\"= 20mm 'Driver clearance through panel",
+    "\"foot_pilot\"= 2.8mm 'M3 deck foot pilot",
+    "\"foot_entry\"= 0.5mm 'Native deck pilot lead",
+    "\"foot_thread_depth\"= 8mm 'Deck foot engagement hole depth",
+    "\"bumper_boss_start\"= 206mm 'Bumper boss inner radial face",
+    "\"bumper_boss_end\"= 212.5mm 'Boss embedded end inside curved panel",
+    "\"bumper_boss_radius\"= 4.5mm 'Bumper screw support radius",
+    "\"bumper_pilot_start\"= 205.5mm 'Bumper pilot inner cutter start",
+    "\"bumper_pilot_end\"= 217.5mm 'Bumper pilot outer cutter end",
+    "\"bumper_pilot_radius\"= 1.4mm 'M3 bumper thread pilot radius",
+    "\"centre_bumper_height\"= 15mm 'Centre bumper screw height magnitude",
+    "\"side_bumper_low\"= 10mm 'Lower side bumper screw Z",
+    "\"side_bumper_high\"= 18mm 'Upper side bumper screw Z",
+    "\"axis_reference_halfspan\"= 10.123mm 'Construction axis display length; no physical effect",
+    "\"bumper_side_angle\"= 17deg 'Side bumper screw index from outward -X; 17 deg keeps the bosses clear of the outer fork (Nov 2)",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"pivot_y\"= \"D32@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"ear_boss_radius\"= 7mm 'Ear boss radius around the pivot shaft",
+    "\"pin_ledge_z\"= 14mm 'Pin screw head seat on the inner ear, above the shaft",
+    "\"pin_ledge_y\"= 85mm 'Inner ear ledge outer edge; the ear rises beyond it",
+    "\"pivot_wall_y\"= 90mm 'Pivot side wall inside transverse coordinate, on the deck beyond its slot",
+    "\"pivot_foot_inner\"= 89.5mm 'Pivot side foot strip near edge Y",
+    "\"pivot_foot_outer\"= 99.5mm 'Pivot side foot strip far edge Y",
+    "\"deck_relief_end_x\"= 37mm 'Deck lobe relief stops here toward -X, clear of the ears",
+    "\"lobe_clearance_radius\"= 15mm 'Outer fork pivot lobe clearance radius (lobe 13.5)",
+    "\"lobe_clearance_start\"= 37.5mm 'Lobe clearance cutter start toward -X, beside the outer ear",
+    "\"lobe_clearance_depth\"= 12mm 'Lobe clearance cutter length toward -X; leaves the panel skin",
+    "\"D1@Panel Base Plane\"= \"panel_bottom\"",
+    "\"D1@Curved Panel Sketch\"= \"deck_centre_x\"",
+    "\"D2@Curved Panel Sketch\"= \"deck_radius\"",
+    "\"D3@Curved Panel Sketch\"= \"deck_radius\" - \"panel_thickness\"",
+    "\"D4@Curved Panel Sketch\"= \"panel_half_width\"",
+    "\"D5@Curved Panel Sketch\"= \"panel_half_width\"",
+    "\"D1@Curved Panel Extrude\"= \"panel_top\" + \"panel_bottom\"",
+    "\"D1@Far Wall Base Plane\"= \"deck_height\"",
+    "\"D1@Far Wall Sketch\"= \"wall_front_x\"",
+    "\"D2@Far Wall Sketch\"= \"house_end_x\"",
+    "\"D3@Far Wall Sketch\"= \"house_y\" + \"wall_thickness\"",
+    "\"D4@Far Wall Sketch\"= \"house_y\"",
+    "\"D1@Far Wall Extrude\"= \"wall_top\" - \"deck_height\"",
+    "\"D1@Far Foot Base Plane\"= \"deck_height\"",
+    "\"D1@Far Foot Sketch\"= \"foot_front_x\"",
+    "\"D2@Far Foot Sketch\"= \"house_end_x\"",
+    "\"D3@Far Foot Sketch\"= \"foot_y_outer\"",
+    "\"D4@Far Foot Sketch\"= \"foot_y_inner\"",
+    "\"D1@Far Foot Extrude\"= \"foot_top\" - \"deck_height\"",
+    "\"D1@Pivot Side Wall Base Plane\"= \"deck_height\"",
+    "\"D1@Pivot Side Wall Sketch\"= \"outer_ear_x1\"",
+    "\"D2@Pivot Side Wall Sketch\"= \"inner_ear_x0\"",
+    "\"D3@Pivot Side Wall Sketch\"= \"pivot_wall_y\"",
+    "\"D4@Pivot Side Wall Sketch\"= \"pivot_wall_y\" + \"wall_thickness\"",
+    "\"D1@Pivot Side Wall Extrude\" = \"pivot_wall_top\" - \"deck_height\"",
+    "\"D1@Outer Low Wall Base Plane\"= \"deck_height\"",
+    "\"D1@Outer Low Wall Sketch\"= \"wall_front_x\"",
+    "\"D2@Outer Low Wall Sketch\"= \"outer_ear_x0\"",
+    "\"D3@Outer Low Wall Sketch\"= \"house_y\"",
+    "\"D4@Outer Low Wall Sketch\"= \"house_y\" + \"wall_thickness\"",
+    "\"D1@Outer Low Wall Extrude\"= \"low_wall_top\" - \"deck_height\"",
+    "\"D1@Pivot Side Foot Base Plane\"= \"deck_height\"",
+    "\"D1@Pivot Side Foot Sketch\"= \"outer_ear_x0\"",
+    "\"D2@Pivot Side Foot Sketch\"= \"inner_ear_x0\"",
+    "\"D3@Pivot Side Foot Sketch\"= \"pivot_foot_inner\"",
+    "\"D4@Pivot Side Foot Sketch\"= \"pivot_foot_outer\"",
+    "\"D1@Pivot Side Foot Extrude\"= \"foot_top\" - \"deck_height\"",
+    "\"D1@Inner Ear Face Plane\"= \"inner_ear_x0\"",
+    "\"D1@Inner Ear Sketch\"= \"pivot_y\"",
+    "\"D2@Inner Ear Sketch\"= \"ear_boss_radius\"",
+    "\"D3@Inner Ear Sketch\"= \"deck_height\"",
+    "\"D4@Inner Ear Sketch\"= \"pivot_wall_y\" + \"wall_thickness\"",
+    "\"D5@Inner Ear Sketch\" = \"pivot_wall_top\"",
+    "\"D6@Inner Ear Sketch\"= \"pin_ledge_y\"",
+    "\"D7@Inner Ear Sketch\"= \"pin_ledge_z\"",
+    "\"D1@Inner Shaft Ear\"= \"inner_ear_x1\" - \"inner_ear_x0\"",
+    "\"D1@Outer Ear Face Plane\"= \"outer_ear_x0\"",
+    "\"D1@Outer Ear Sketch\"= \"pivot_y\"",
+    "\"D2@Outer Ear Sketch\"= \"ear_boss_radius\"",
+    "\"D3@Outer Ear Sketch\"= \"deck_height\"",
+    "\"D4@Outer Ear Sketch\"= \"pivot_wall_y\" + \"wall_thickness\"",
+    "\"D5@Outer Ear Sketch\"= \"outer_ear_top\"",
+    "\"D1@Outer Shaft Ear\"= \"outer_ear_x0\" - \"outer_ear_x1\"",
+    "\"D1@Inner Shaft Entry Plane\"= \"inner_ear_x1\"",
+    "\"D2@Inner Shaft Bore Sketch\"= \"shaft_bore\"",
+    "\"D1@Inner Shaft Bore\"= \"inner_ear_x1\" - \"inner_ear_x0\"",
+    "\"D1@Outer Shaft Entry Plane\"= \"outer_ear_x0\"",
+    "\"D2@Outer Shaft Bore Sketch\"= \"shaft_bore\"",
+    "\"D1@Outer Shaft Bore\"= \"outer_ear_x0\" - \"outer_ear_x1\"",
+    "\"D1@Shaft Bore Entry Chamfers\"= \"shaft_lead\"",
+    "\"D1@Pin Ledge Plane\"= \"pin_ledge_z\"",
+    "\"D3@Pin Pilot Sketch\"= \"pin_pilot\"",
+    "\"D1@Pin Thread Pilot\"= \"pin_ledge_z\"",
+    "\"D1@Deck Lobe Relief Sketch\"= \"cut_span\"",
+    "\"D2@Deck Lobe Relief Sketch\"= \"deck_relief_end_x\"",
+    "\"D3@Deck Lobe Relief Sketch\"= \"deck_slot_edge\"",
+    "\"D4@Deck Lobe Relief Sketch\"= \"cut_span\"",
+    "\"D1@Deck Lobe Relief\"= \"deck_slot_depth\"",
+    "\"D1@Shock Boss Start Plane\"= \"shock_boss_start\"",
+    "\"D3@Fixed Shock Boss Sketch\"= \"shock_boss_diameter\"",
+    "\"D1@Fixed Shock Boss\"= \"shock_boss_start\" - \"shock_boss_end\"",
+    "\"D1@Shock Eye Seat Plane\"= \"shock_boss_end\"",
+    "\"D3@Fixed Shock Pilot Sketch\"= \"shock_pilot\"",
+    "\"D1@Fixed Shock Pilot\"= \"shock_pilot_length\"",
+    "\"D3@Lower Shock Driver Sketch\"= \"driver_access\"",
+    "\"D1@Lower Shock Driver Access\"= \"driver_cut_length\"",
+    "\"D1@Deck Foot Seat Plane\"= \"deck_height\"",
+    "\"D3@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D6@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D9@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D12@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D15@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D18@Deck Foot Pilot Sketch\"= \"foot_pilot\"",
+    "\"D1@Deck Foot Pilots\"= \"foot_thread_depth\"",
+    "\"D1@Deck Foot Pilot Leads\"= \"foot_entry\"",
+    "\"D1@Deck Envelope Trim Sketch\"= \"cut_span\"",
+    "\"D2@Deck Envelope Trim Sketch\"= \"cut_span\"",
+    "\"D3@Deck Envelope Trim Sketch\"= \"cut_span\"",
+    "\"D4@Deck Envelope Trim Sketch\"= \"cut_span\"",
+    "\"D5@Deck Envelope Trim Sketch\"= \"deck_centre_x\"",
+    "\"D6@Deck Envelope Trim Sketch\"= 2 * \"deck_radius\"",
+    "\"D1@True Deck Circle Trim\"= \"cut_span\"",
+    "\"D1@Panel Wall Root Fillets\"= \"panel_root_fillet\"",
+    "\"D1@Centre Bumper Plane\"= \"centre_bumper_height\"",
+    "\"D1@Centre Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_start\") * cos(0deg) + (0) * sin(0deg))",
+    "\"D2@Centre Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_end\") * cos(0deg) + (0) * sin(0deg))",
+    "\"D3@Centre Bumper Boss Section\"= abs(- (\"bumper_boss_end\") * sin(0deg) - (\"bumper_boss_radius\") * cos(0deg))",
+    "\"D4@Centre Bumper Boss Section\"= \"deck_centre_x\"",
+    "\"D5@Centre Bumper Boss Section\"= \"deck_centre_x\" - \"axis_reference_halfspan\" * cos(0deg)",
+    "\"D1@Centre Bumper Boss\"= \"full_turn\"",
+    "\"D1@Centre Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_start\") * cos(0deg) + (0) * sin(0deg))",
+    "\"D2@Centre Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_end\") * cos(0deg) + (0) * sin(0deg))",
+    "\"D3@Centre Bumper Pilot Section\"= abs(- (\"bumper_pilot_end\") * sin(0deg) - (\"bumper_pilot_radius\") * cos(0deg))",
+    "\"D4@Centre Bumper Pilot Section\"= \"deck_centre_x\"",
+    "\"D5@Centre Bumper Pilot Section\"= \"deck_centre_x\" - \"axis_reference_halfspan\" * cos(0deg)",
+    "\"D1@Centre Bumper Pilot\"= \"full_turn\"",
+    "\"D1@Side Bumper Plane\"= \"side_bumper_low\"",
+    "\"D1@Side Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_start\") * cos(\"bumper_side_angle\") + (0) * sin(\"bumper_side_angle\"))",
+    "\"D2@Side Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_end\") * cos(\"bumper_side_angle\") + (0) * sin(\"bumper_side_angle\"))",
+    "\"D3@Side Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_end\") * cos(\"bumper_side_angle\") + (\"bumper_boss_radius\") * sin(\"bumper_side_angle\"))",
+    "\"D4@Side Bumper Boss Section\"= abs(\"deck_centre_x\" - (\"bumper_boss_start\") * cos(\"bumper_side_angle\") + (\"bumper_boss_radius\") * sin(\"bumper_side_angle\"))",
+    "\"D5@Side Bumper Boss Section\"= abs(- (\"bumper_boss_start\") * sin(\"bumper_side_angle\") - (0) * cos(\"bumper_side_angle\"))",
+    "\"D6@Side Bumper Boss Section\"= abs(- (\"bumper_boss_end\") * sin(\"bumper_side_angle\") - (0) * cos(\"bumper_side_angle\"))",
+    "\"D7@Side Bumper Boss Section\"= abs(- (\"bumper_boss_end\") * sin(\"bumper_side_angle\") - (\"bumper_boss_radius\") * cos(\"bumper_side_angle\"))",
+    "\"D8@Side Bumper Boss Section\"= abs(- (\"bumper_boss_start\") * sin(\"bumper_side_angle\") - (\"bumper_boss_radius\") * cos(\"bumper_side_angle\"))",
+    "\"D9@Side Bumper Boss Section\"= \"deck_centre_x\"",
+    "\"D10@Side Bumper Boss Section\"= \"deck_centre_x\" - \"axis_reference_halfspan\" * cos(\"bumper_side_angle\")",
+    "\"D11@Side Bumper Boss Section\"= \"axis_reference_halfspan\" * sin(\"bumper_side_angle\")",
+    "\"D1@Side Bumper Boss\"= \"full_turn\"",
+    "\"D1@Side Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_start\") * cos(\"bumper_side_angle\") + (0) * sin(\"bumper_side_angle\"))",
+    "\"D2@Side Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_end\") * cos(\"bumper_side_angle\") + (0) * sin(\"bumper_side_angle\"))",
+    "\"D3@Side Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_end\") * cos(\"bumper_side_angle\") + (\"bumper_pilot_radius\") * sin(\"bumper_side_angle\"))",
+    "\"D4@Side Bumper Pilot Section\"= abs(\"deck_centre_x\" - (\"bumper_pilot_start\") * cos(\"bumper_side_angle\") + (\"bumper_pilot_radius\") * sin(\"bumper_side_angle\"))",
+    "\"D5@Side Bumper Pilot Section\"= abs(- (\"bumper_pilot_start\") * sin(\"bumper_side_angle\") - (0) * cos(\"bumper_side_angle\"))",
+    "\"D6@Side Bumper Pilot Section\"= abs(- (\"bumper_pilot_end\") * sin(\"bumper_side_angle\") - (0) * cos(\"bumper_side_angle\"))",
+    "\"D7@Side Bumper Pilot Section\"= abs(- (\"bumper_pilot_end\") * sin(\"bumper_side_angle\") - (\"bumper_pilot_radius\") * cos(\"bumper_side_angle\"))",
+    "\"D8@Side Bumper Pilot Section\"= abs(- (\"bumper_pilot_start\") * sin(\"bumper_side_angle\") - (\"bumper_pilot_radius\") * cos(\"bumper_side_angle\"))",
+    "\"D9@Side Bumper Pilot Section\"= \"deck_centre_x\"",
+    "\"D10@Side Bumper Pilot Section\"= \"deck_centre_x\" - \"axis_reference_halfspan\" * cos(\"bumper_side_angle\")",
+    "\"D11@Side Bumper Pilot Section\"= \"axis_reference_halfspan\" * sin(\"bumper_side_angle\")",
+    "\"D1@Side Bumper Pilot\"= \"full_turn\"",
+    "\"D1@Bumper Row Mirror Plane\"= (\"side_bumper_low\" + \"side_bumper_high\") / 2",
+    "\"D1@Lobe Clearance Plane\"= \"lobe_clearance_start\"",
+    "\"D2@Outer Lobe Clearance Sketch\"= 2 * \"lobe_clearance_radius\"",
+    "\"D1@Outer Lobe Clearance\"= \"lobe_clearance_depth\""
+  ],
+  "design_features": [
+    {
+      "name": "Curved Panel Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Curved Panel Extrude"
+      ]
+    },
+    {
+      "name": "Far Wall Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Far Wall Extrude"
+      ]
+    },
+    {
+      "name": "Far Foot Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Far Foot Extrude"
+      ]
+    },
+    {
+      "name": "Pivot Side Wall Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Side Wall Extrude"
+      ]
+    },
+    {
+      "name": "Outer Low Wall Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Outer Low Wall Extrude"
+      ]
+    },
+    {
+      "name": "Pivot Side Foot Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Side Foot Extrude"
+      ]
+    },
+    {
+      "name": "Inner Shaft Ear",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Shaft Ear"
+      ]
+    },
+    {
+      "name": "Outer Shaft Ear",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Outer Shaft Ear"
+      ]
+    },
+    {
+      "name": "Inner Shaft Bore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Shaft Bore"
+      ]
+    },
+    {
+      "name": "Outer Shaft Bore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Outer Shaft Bore"
+      ]
+    },
+    {
+      "name": "Shaft Bore Entry Chamfers",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Shaft Bore Entry Chamfers"
+      ]
+    },
+    {
+      "name": "Pin Thread Pilot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pin Thread Pilot"
+      ]
+    },
+    {
+      "name": "Deck Lobe Relief",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Deck Lobe Relief"
+      ]
+    },
+    {
+      "name": "Opposite Deck Lobe Relief",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Fixed Shock Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Fixed Shock Boss"
+      ]
+    },
+    {
+      "name": "Fixed Shock Pilot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Fixed Shock Pilot"
+      ]
+    },
+    {
+      "name": "Lower Shock Driver Access",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Shock Driver Access"
+      ]
+    },
+    {
+      "name": "Deck Foot Pilots",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Deck Foot Pilots"
+      ]
+    },
+    {
+      "name": "Deck Foot Pilot Leads",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Deck Foot Pilot Leads"
+      ]
+    },
+    {
+      "name": "True Deck Circle Trim",
+      "type": "ICE",
+      "dimensions": [
+        "D1@True Deck Circle Trim"
+      ]
+    },
+    {
+      "name": "Panel Wall Root Fillets",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Panel Wall Root Fillets"
+      ]
+    },
+    {
+      "name": "Centre Bumper Boss",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Centre Bumper Boss"
+      ]
+    },
+    {
+      "name": "Upper Centre Bumper Mount",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Side Bumper Boss",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Side Bumper Boss"
+      ]
+    },
+    {
+      "name": "Opposite Side Bumper Mount",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Upper Side Bumper Mounts",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Outer Lobe Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Outer Lobe Clearance"
+      ]
+    }
+  ],
+  "pass": true
+}

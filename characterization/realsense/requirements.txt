@@ -1,0 +1,7 @@
+# C:\Users\ferna\.venvs\realsense (README.md, Setup); kept apart from omni-robot-sim (opencv-python pins numpy)
+pyrealsense2>=2.56
+opencv-python
+numpy
+scipy
+matplotlib
+pytest

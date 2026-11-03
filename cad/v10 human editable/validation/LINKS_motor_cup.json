@@ -1,0 +1,63 @@
+{
+  "part": "motor_cup",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0011_cylinder",
+      "sketch": "0011_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0015_cylinder",
+      "sketch": "0015_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0019_cylinder",
+      "sketch": "0019_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0023_cylinder",
+      "sketch": "0023_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0031_cylinder",
+      "sketch": "0031_cylinder_Sketch",
+      "pattern": "Cradle_to_fork",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0035_cylinder",
+      "sketch": "0035_cylinder_Sketch",
+      "pattern": "Cradle_to_fork",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0039_cylinder",
+      "sketch": "0039_cylinder_Sketch",
+      "pattern": "Cradle_to_fork",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0043_cylinder",
+      "sketch": "0043_cylinder_Sketch",
+      "pattern": "Cradle_to_fork",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 0
+}

@@ -1,0 +1,13 @@
+{
+  "part": "pivot_shaft",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Cross Hole Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "shaft_diameter": "\"D80@Control Measures-Shared Layout\""
+  }
+}

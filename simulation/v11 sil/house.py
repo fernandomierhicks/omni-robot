@@ -9,6 +9,9 @@ random field on top. Partition walls (half height, so the camera sees over them)
   python house.py                       drive the v8 swerve robot (--base v7 / v6 for the X4 bases, --list for all)
   python house.py --base v6 --no-assist the v6 base, no terrain-aware firmware
   python house.py --sensors             v9: IMU + flow + lidar fused live; the scan drawn where the robot thinks it is
+  python house.py --base drawn --course the drawn robot, with the terrain course in the kitchen (design.md 16); the
+                                        simpler bases it was traded against: --base x4-rigid / x4-rocker / kiwi /
+                                        kiwi-pods
 
 Keys (the window must have focus):
   W / S, A / D     forward / back, strafe left / right (body frame; G switches to world frame)
@@ -16,8 +19,9 @@ Keys (the window must have focus):
   SPACE            stop (ramped)                T       terrain assist on / off (speed caps + square-edge alignment)
   F                fire the ball                L       load a ball into the pocket
   R                back to the start            C       camera: follow / chase / top
-  1-9              teleport to a spot (1 living-room rug, 2 kitchen reducer, 3 bedroom carpet, 4 bath threshold,
-                   5 office T-molding, 6 plush rug, 7 runner, 8 bath mat, 9 hallway)
+  0-9              teleport to a spot (1 living-room rug, 2 kitchen reducer, 3 bedroom carpet, 4 bath threshold,
+                   5 office T-molding, 6 plush rug, 7 runner, 8 bath mat, 9 hallway, 0 the terrain course: the bumps
+                   ahead, 13 / 25 / 38 mm; the platforms to the right, 20 / 30 / 40 mm)
   mouse drag / wheel  orbit / zoom             ESC     quit
 Gamepad (XInput layout): left stick translate, right stick turn, RT = 2 m/s, A fire, B load, X assist, Y camera,
 START back to the start. Flight stick (e.g. Logitech Extreme 3D): stick translates, twist turns, the throttle slider
@@ -70,10 +74,26 @@ HOUSE_PATCHES = (
     (-6.0, 0.5, 6.0, 2.0, 0.9),          # hallway laminate
     (2.0, 2.0, 6.0, 4.5, 0.85),          # bathroom tile (at floor level)
 )
+# design.md 16 (Oct 27): a terrain course in the kitchen's open east end, off the scored runs' paths (house_params
+# course=True; the ROS steps' terrain:=true, the Launcher's "Terrain course"). Heights are above the 6 mm tile. South:
+# three square platforms 0.62 x 0.9 m to drive up onto and off again (approach from the north). North: three
+# triangular bumps across the way, 76 mm (3 in) wide at the tile, 0.5 / 1 / 1.5 in tall (approach from the west)
+TILE_Z = 0.006
+COURSE_STEPS_MM = (20, 30, 40)
+COURSE_BUMPS_MM = (13, 25, 38)
+_W = 0.076
+TERRAIN_COURSE = tuple(
+    Carpet(cx - 0.31, -4.2, cx + 0.31, -3.3, thickness=h / 1000 + TILE_Z, mu=0.85, crr=0.02, softness=0.003,
+           rgba=(0.62, 0.58, 0.5, 1)) for cx, h in zip((4.1, 4.85, 5.6), COURSE_STEPS_MM)) + tuple(
+    # from the wood floor under the tile, as wide at the tile's top as the bump is meant to be
+    Threshold(x, -1.7, length=1.8, height=h / 1000 + TILE_Z, top=0.002,
+              ramp=_W / 2 * (h / 1000 + TILE_Z) / (h / 1000) - 0.001, mu=0.8) for x, h in zip((4.0, 4.7, 5.4), COURSE_BUMPS_MM))
+COURSE_SPOT = (3.3, -1.7, 0.0)
+
 SPOTS = {   # teleport spots: (x, y, yaw deg) just before an edge
     "1": (-3.1, -0.6, -90.0), "2": (-0.7, -2.0, 0.0), "3": (-3.0, 1.2, 90.0), "4": (3.45, 1.2, 90.0),
     "5": (0.45, 1.2, 90.0), "6": (-5.0, -1.4, 90.0), "7": (-0.8, -2.0, 90.0), "8": (4.6, 2.6, 90.0),
-    "9": (-5.0, 1.25, 0.0),
+    "9": (-5.0, 1.25, 0.0), "0": COURSE_SPOT,
 }
 START = (-3.0, 1.25, 0.0)
 
@@ -88,9 +108,21 @@ BASES = {
 }
 
 
-def house_params(base: str = "v8", assist: bool = True, wheel_model: str = "rollers", **kw) -> SimParams:
+# design.md 16: the drawn robot and the simpler bases it was traded against (studies/base_trade.py), for driving
+TRADE_BASES = {"drawn": "X4 + pods", "x4-rigid": "X4 rigid", "x4-rocker": "X4 rocker", "kiwi": "kiwi rigid",
+               "kiwi-pods": "kiwi + pods"}
+
+
+def house_params(base: str = "v8", assist: bool = True, wheel_model: str = "rollers", course: bool = False,
+                 **kw) -> SimParams:
+    if base in TRADE_BASES:
+        import base_trade
+        from robot_export import V11
+        drawn = {k: v for k, v in V11.items() if k not in ("wheel_model", "limits", "base_max_speed")}
+        base, kw = "v7", {**drawn, **base_trade.base_kw(TRADE_BASES[base]), **kw}
     return SimParams(**{**BASES[base], **kw}, wheel_model=wheel_model, area_size=(12.2, 9.2), home_xy=START[:2],
-                     thrower_xy=(START[0] - 3.0, START[1]), floor_features=HOUSE_FEATURES, floor_patches=HOUSE_PATCHES,
+                     thrower_xy=(START[0] - 3.0, START[1]),
+                     floor_features=HOUSE_FEATURES + (TERRAIN_COURSE if course else ()), floor_patches=HOUSE_PATCHES,
                      floor_mu_field=(0.05, 0.6, 11), terrain_assist=assist, limits="firmware", base_max_speed=2.0,
                      wall_height=0.6)
 
@@ -228,7 +260,7 @@ class _ScriptKeys:
 
 def run(args):
     import pygame
-    p = house_params(args.base, assist=not args.no_assist, wheel_model=args.model)
+    p = house_params(args.base, assist=not args.no_assist, wheel_model=args.model, course=args.course)
     drv = Driver(p)
     if args.spot:
         drv.teleport(SPOTS[args.spot])
@@ -301,7 +333,7 @@ def run(args):
                 elif k == pygame.K_g:
                     args.world_frame = not args.world_frame
                     msg, msg_t = f"{'world' if args.world_frame else 'body'}-frame driving", time.time()
-                elif pygame.K_1 <= k <= pygame.K_9:
+                elif pygame.K_0 <= k <= pygame.K_9:
                     drv.teleport(SPOTS[chr(k)])
             elif ev.type == pygame.JOYBUTTONDOWN:
                 b = ev.button
@@ -426,7 +458,8 @@ def run(args):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--base", default="v8", choices=list(BASES))
+    ap.add_argument("--base", default="v8", choices=list(BASES) + list(TRADE_BASES))
+    ap.add_argument("--course", action="store_true", help="the terrain course in the kitchen (key 0 goes there)")
     ap.add_argument("--no-assist", action="store_true", help="start with the terrain-aware firmware off (T toggles)")
     ap.add_argument("--model", default="rollers", choices=["rollers", "sphere"],
                     help="wheel model (sphere: faster, but it can't get stuck on a square edge sideways)")
@@ -447,6 +480,8 @@ def main():
     if args.list:
         for k, v in BASES.items():
             print(k, v)
+        for k, v in TRADE_BASES.items():
+            print(k, f"studies/base_trade.py's {v!r} (the drawn robot's masses)")
         return
     run(args)
 

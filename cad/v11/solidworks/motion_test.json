@@ -1,0 +1,65 @@
+{
+ "geometry": {
+  "droop": {
+   "axle_yz": [
+    0.06,
+    -3.0
+   ],
+   "plunger_lift": {
+    "outer": -1.1,
+    "inner": -1.1
+   },
+   "expected_lift": -1.1,
+   "mate_errors": []
+  },
+  "nominal": {
+   "axle_yz": [
+    0.0,
+    0.0
+   ],
+   "plunger_lift": {
+    "outer": 0.0,
+    "inner": 0.0
+   },
+   "expected_lift": 0.0,
+   "mate_errors": []
+  },
+  "bump": {
+   "axle_yz": [
+    1.41,
+    15.0
+   ],
+   "plunger_lift": {
+    "outer": 6.21,
+    "inner": 6.21
+   },
+   "expected_lift": 6.21,
+   "mate_errors": []
+  }
+ },
+ "limit": {
+  "past bump": {
+   "axle_yz": [
+    1.13,
+    12.77
+   ],
+   "plunger_lift": {
+    "outer": 5.51,
+    "inner": 5.51
+   },
+   "mate_errors": []
+  },
+  "past droop": {
+   "axle_yz": [
+    0.11,
+    0.71
+   ],
+   "plunger_lift": {
+    "outer": 0.28,
+    "inner": 0.28
+   },
+   "mate_errors": []
+  }
+ },
+ "pass": true
+}

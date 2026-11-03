@@ -1,0 +1,70 @@
+{
+  "pivot": [
+    80.6,
+    0.0
+  ],
+  "rows": [
+    {
+      "bump_mm": -3,
+      "wheel_deg": 90,
+      "axle_z": -3.0000000000000107,
+      "stator_rel_fork_err": 2.220446049250313e-16,
+      "rotor_axis_change_vs_stator": 0.0,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "bump_mm": -3,
+      "wheel_deg": 150,
+      "axle_z": -3.0000000000000107,
+      "stator_rel_fork_err": 2.220446049250313e-16,
+      "rotor_axis_change_vs_stator": 0.0,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 7.5,
+      "wheel_deg": 90,
+      "axle_z": 7.499999999999979,
+      "stator_rel_fork_err": 1.1102230246251565e-16,
+      "rotor_axis_change_vs_stator": 0.0,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 7.5,
+      "wheel_deg": 150,
+      "axle_z": 7.499999999999979,
+      "stator_rel_fork_err": 1.1102230246251565e-16,
+      "rotor_axis_change_vs_stator": 1.1102230246251565e-16,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 15,
+      "wheel_deg": 90,
+      "axle_z": 14.999999999999993,
+      "stator_rel_fork_err": 4.440892098500626e-16,
+      "rotor_axis_change_vs_stator": 0.0,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 15,
+      "wheel_deg": 150,
+      "axle_z": 14.999999999999993,
+      "stator_rel_fork_err": 4.440892098500626e-16,
+      "rotor_axis_change_vs_stator": 0.0,
+      "mate_errors": [],
+      "interferences": [],
+      "pass": true
+    }
+  ],
+  "nominal": [],
+  "pass": true
+}

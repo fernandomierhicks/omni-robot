@@ -1,0 +1,50 @@
+[
+ {
+  "joint": "arm_shoulder_pan",
+  "mate": "arm_shoulder_angle",
+  "value_deg": 180.0,
+  "min_deg": 70.0,
+  "max_deg": 290.0,
+  "sign": -1
+ },
+ {
+  "joint": "arm_shoulder_lift",
+  "mate": "arm_upper_arm_angle",
+  "value_deg": 167.5,
+  "min_deg": 80.0,
+  "max_deg": 280.0,
+  "sign": 1
+ },
+ {
+  "joint": "arm_elbow_flex",
+  "mate": "arm_lower_arm_angle",
+  "value_deg": 162.7,
+  "min_deg": 0.7,
+  "max_deg": 186.8,
+  "sign": -1
+ },
+ {
+  "joint": "arm_wrist_flex",
+  "mate": "arm_wrist_angle",
+  "value_deg": 191.9,
+  "min_deg": 85.0,
+  "max_deg": 275.0,
+  "sign": -1
+ },
+ {
+  "joint": "arm_wrist_roll",
+  "mate": "arm_gripper_angle",
+  "value_deg": 182.8,
+  "min_deg": 20.0,
+  "max_deg": 340.0,
+  "sign": -1
+ },
+ {
+  "joint": "arm_gripper",
+  "mate": "arm_jaw_angle",
+  "value_deg": 189.7,
+  "min_deg": 80.0,
+  "max_deg": 190.0,
+  "sign": -1
+ }
+]

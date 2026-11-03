@@ -1,0 +1,23 @@
+{
+  "part": "pivot_shaft",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pivot_shaft.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0220_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0222_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 3709.882911449246,
+  "mass_integration_tolerance_mm3": 0.5,
+  "reference_volume_mm3": 3709.862705252751
+}

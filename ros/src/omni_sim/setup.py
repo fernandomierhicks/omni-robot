@@ -24,6 +24,7 @@ setup(
             "score_map = omni_sim.score_map:main",
             "nav_goals = omni_sim.nav_goals:main",
             "joy_relay = omni_sim.joy_relay:main",
+            "ghost_ball = omni_sim.ghost_ball:main",
         ],
     },
 )

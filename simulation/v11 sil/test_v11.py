@@ -19,7 +19,7 @@ from launcher_bench import Bench
 from omni_control import OmniKinematics
 from params import SimParams
 from robot import Robot
-from robot_model import build_model, geometry
+from robot_model import build_model, geometry, mass_properties
 from traction import Base
 
 
@@ -188,10 +188,15 @@ def test_catch_and_return():
 
 # --- v5 ----------------------------------------------------------------------------
 
-@pytest.mark.parametrize("limits,lo,hi", [("firmware", 1.3, 1.45), ("physics", 3.0, 3.8)])
-def test_top_speed_follows_the_limits_profile(limits, lo, hi):
-    """Firmware caps 1.4 m/s; with no cap the X drive reaches its back-EMF limit (~3.4 m/s along its sides)."""
-    p, m, d, r = make(SimParams(home_xy=(0.0, 0.0), area_size=(30.0, 30.0), limits=limits))
+@pytest.mark.parametrize("battery,limits,lo,hi", [
+    ("7S1P-P50B", "firmware", 1.3, 1.45),
+    ("7S1P-P50B", "physics", 3.0, 3.8),
+    ("6S1P-OVONIC-5200", "firmware", 1.3, 1.45),
+    ("6S1P-OVONIC-5200", "physics", 2.7, 3.2),
+])
+def test_top_speed_follows_the_limits_profile(battery, limits, lo, hi):
+    """The 96 mm test robot retains its firmware cap; uncapped speed depends on the selected pack's voltage."""
+    p, m, d, r = make(SimParams(home_xy=(0.0, 0.0), area_size=(30.0, 30.0), limits=limits, battery=battery))
     for _ in range(int(2.0 / m.opt.timestep)):
         r.drive_velocity((20.0, 0.0), 0.0, r.pose()[2])
         r.step()
@@ -810,7 +815,7 @@ def sil_rig(**kw):
 
 
 def sil_run(rig, seconds, cmd=None):
-    """Step the robot; cmd(t) -> a protocol Command (or None: send nothing) every 10 ms. Returns (t, speed) samples."""
+    """Step the robot; cmd(t) -> Command (or None) every 10 ms. Samples: t, physical speed, commanded vx/vy."""
     p, m, d, r, link = rig
     out, t_next, t0 = [], d.time, d.time
     while d.time - t0 < seconds:
@@ -822,7 +827,7 @@ def sil_run(rig, seconds, cmd=None):
                 link.send(c, t)
         link.poll(t)
         r.step()
-        out.append((d.time, float(np.linalg.norm(d.sensor("base_linvel").data[:2]))))
+        out.append((d.time, float(np.linalg.norm(d.sensor("base_linvel").data[:2])), *r.fw.outputs.dbg_v_cmd))
     return np.array(out)
 
 
@@ -864,7 +869,9 @@ def test_firmware_state_reaches_the_host_and_time_syncs():
     from fw_build_id import build_id
     assert len(infos) == 4 and infos[-1].protocol == PR.PROTOCOL_VERSION and infos[-1].build == build_id()
     assert not infos[-1].rc_ok and infos[-1].rc == (0.0,) * 8
-    assert states[-1].mode_name == "AUTO" and states[-1].cmd_count == 40
+    assert any(s.mode_name == "AUTO" for s in states) and states[-1].cmd_count == 40
+    # no drive motor answers on this bare MCU: armed, then the fault stop (firmware.h) once its grace has passed
+    assert {"MOTOR_SILENT", "FAULT_STOP"} <= set(states[-1].fault_names()) and states[-1].mode_name == "DISARMED"
     assert abs(host.sync.offset_ns * 1e-9 - boot) < 0.0015              # within the 1 ms tick
 
 
@@ -888,18 +895,26 @@ def test_firmware_drives_then_ramps_to_a_stop_and_disarms_when_the_link_dies():
     assert r.fw.mode == 2 and s[-1, 1] == pytest.approx(1.0, abs=0.05)
     s = sil_run(rig, 2.0, lambda t: None)                                # the Jetson goes silent
     v = s[:, 1]
-    k = int(round(0.05 / m.opt.timestep))
-    a_max = float(np.max(-np.diff(v[::k]) / 0.05))
+    # Check the MCU ramp directly at its 1 kHz ticks. Contact/roller oscillation can briefly exceed the
+    # command's acceleration (5.19 m/s² over 50 ms versus a 4.24 command); average physical braking over 100 ms.
+    ticks = s[::r.fw_div]
+    u = np.linalg.norm(ticks[:, 2:4], axis=1)
+    assert np.max(np.abs(np.diff(u)) / np.diff(ticks[:, 0])) <= max(p.accel_table[1]) + 1e-3
+    k = int(round(0.1 / m.opt.timestep))
+    a_max = float(np.max(-np.diff(v[::k]) / 0.1))
     assert v[int(0.4 / m.opt.timestep)] > 0.9                            # still going inside the 0.5 s timeout
     assert v[-1] < 0.02 and a_max < 1.2 * max(p.accel_table[1])          # ramped, never a step
     assert r.fw.mode == 1 and r.fw.faults & 1                            # disarmed, LINK_LOST
 
 
-def test_drive_motor_comm_loss_is_cleared_and_the_base_recovers():
+def test_drive_motor_comm_loss_stops_the_base_until_its_mode_restarts():
+    """The fault stop (firmware.h): a CAN cut stops and disarms the base, latched while AUTO is still asked for; a
+    DISARM request (the console's IDLE) and AUTO again clear the motors' errors and drive on."""
     FW, PR = _sil()
     rig = sil_rig()
     p, m, d, r, link = rig
     fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.5, flags=PR.CMD_HOLD_YAW)
+    disarm = PR.Command(req_mode=PR.REQ_DISARM, drive_mode=PR.DRIVE_IDLE)
     sil_run(rig, 1.0, lambda t: fwd)
     assert all(mt.err == 1 for mt in r.dm)
     r.can_cut_until = d.time + 0.25                                      # the CAN bus is cut for 0.25 s
@@ -907,8 +922,12 @@ def test_drive_motor_comm_loss_is_cleared_and_the_base_recovers():
     assert all(not mt.enabled and mt.err == 0xD for mt in r.dm)          # each motor timed out (Damiao: error D)
     assert r.fw.faults & 16                                              # the firmware saw them go silent
     s = sil_run(rig, 1.5, lambda t: fwd)
+    assert r.fw.mode == 1 and r.fw.faults & 256 and s[-1, 1] < 0.05      # stopped, disarmed, latched
+    sil_run(rig, 0.2, lambda t: disarm)
+    assert not r.fw.faults & 256
+    s = sil_run(rig, 1.5, lambda t: fwd)
     assert all(mt.enabled and mt.err == 1 for mt in r.dm)                # cleared and re-enabled
-    assert s[-1, 1] == pytest.approx(0.5, abs=0.05) and not r.fw.faults & 24
+    assert s[-1, 1] == pytest.approx(0.5, abs=0.05) and not r.fw.faults & (24 | 256)
 
 
 def test_bumper_stops_ramped_and_estop_disables_the_motors():
@@ -1229,21 +1248,50 @@ def test_each_injected_fault_stops_the_robot_safely_and_the_console_says_so():
     def said(name):
         return any(name in text for _, text in con.pop_events())
 
+    def names():
+        return link.host.state.fault_names()
+
+    disarm = PR.Command(req_mode=PR.REQ_DISARM, drive_mode=PR.DRIVE_IDLE)     # the console's IDLE
     run(1.5)
     con.pop_events()
-    for kind, secs in (("battery", None), ("motor", 0.5), ("imu", 0.5), ("bumper", None)):
+    # nothing latched: the IMU (the base carries on), the bumper (a ramped stop, then on again), a short sag
+    for kind, secs in (("imu", 0.5), ("bumper", None), ("battery", None)):
         inj.inject(kind, True, secs, motor=1)
         run(0.3)                                                          # during the fault
         name = EXPECT[kind]
-        assert name in link.host.state.fault_names(), kind
+        assert name in names() and "FAULT_STOP" not in names(), kind
         hint = st.mcu_summary(_mcu_dict(link.host.state), 0.0)["faults"]
         assert said(name) and all(f["hint"] for f in hint), kind
         if secs is None:
             inj.inject(kind, False)
         run(1.5)
-        assert name not in link.host.state.fault_names() and said(f"{name} cleared"), kind
+        assert name not in names() and said(f"{name} cleared"), kind
     v = run(1.0)
     assert v[-1] == pytest.approx(0.5, abs=0.05)                        # driving again after them all
+    # the fault stop (firmware.h): a pack low for 1 s, a silent motor -> a ramped stop and DISARMED, the mode ended;
+    # still stopped once the fault is gone; re-armed only after a DISARM request (with the pack recovered)
+    dt = m.opt.timestep
+    for kind, secs in (("battery", None), ("motor", 0.5)):
+        inj.inject(kind, True, secs, motor=1)
+        v = run(2.5)
+        assert "FAULT_STOP" in names() and link.host.state.mode_name == "DISARMED", kind
+        assert said("FAULT_STOP") and con.mission == "IDLE" and ("set_mode", "IDLE", False) in con.pop_fx(), kind
+        fast, slow = np.argmax(v < 0.4), np.argmax(v < 0.05)
+        assert v[-1] < 0.05 and (slow - fast) * dt > 0.08, kind              # ramped, not a step to zero
+        if kind == "battery":
+            inj.inject("battery", True, volts=21.5)                       # a resting low pack: above the line, not
+            run(0.3, disarm)                                              # enough to re-arm
+            assert "FAULT_STOP" in names()
+            run(0.1)                                                      # AUTO asked again before the pack is back
+            inj.inject("battery", False)
+        v = run(1.5)                                                      # fault gone, AUTO still asked: stays put
+        assert v[-1] < 0.05 and "FAULT_STOP" in names() and link.host.state.mode_name == "DISARMED", kind
+        run(0.2, disarm)
+        assert "FAULT_STOP" not in names(), kind
+        con.command("mission", {"name": "MANUAL"})
+        v = run(1.5)
+        assert v[-1] == pytest.approx(0.5, abs=0.05) and link.host.state.mode_name == "AUTO", kind
+    con.pop_events()
     # the flywheels' telemetry: only a fault while they run
     spin = PR.Command(drive_mode=PR.DRIVE_IDLE, fly_rpm=3000.0)
     run(0.8, spin)
@@ -1743,6 +1791,69 @@ def test_omni_arm_kinematics_are_the_sims():
         assert T["wrist_cam"][:3, :3] == pytest.approx(d.cam_xmat[c].reshape(3, 3), abs=1e-9)
 
 
+def test_the_d435_on_the_nose_clears_the_robot():
+    """design.md 4.11: the D435 (robot_export.ARM_D435) on the deck's nose: >= 3 mm from every part of the robot (the
+    lidar, the bumper, the wheels' rollers and guards), its top >= 3 mm under the lidar's scan plane (no shadow), inside
+    the bumper's 217 mm, looking 30 deg down; the stereo arm robot has its box but not its cameras, the catch robot none."""
+    from robot_export import arm_d435_params
+    p, m, d, r = make(arm_d435_params(home_xy=(0.0, 0.0)))
+    adr = m.joint("base").qposadr[0]
+    d.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
+    mujoco.mj_forward(m, d)
+    g = m.geom("d435").id
+    ft = np.zeros(6)
+    near = min(mujoco.mj_geomDistance(m, d, g, k, 0.05, ft) for k in range(m.ngeom)
+               if k != g and m.body(m.geom_bodyid[k]).name != "world")
+    assert near >= 0.003
+    R, c, h = d.geom_xmat[g].reshape(3, 3), d.geom_xpos[g], m.geom_size[g]
+    corners = c + (np.array([(a, b, e) for a in (-1, 1) for b in (-1, 1) for e in (-1, 1)]) * h) @ R.T
+    assert corners[:, 2].max() < d.site_xpos[m.site("lidar").id][2] - 0.003
+    assert np.hypot(corners[:, 0], corners[:, 1]).max() < 0.217
+    view = -d.cam_xmat[m.camera("d435_depth").id].reshape(3, 3)[:, 2]
+    assert math.degrees(math.asin(-view[2])) == pytest.approx(30.0, abs=0.1)
+    pa, ma, da, ra = _pick_robot()
+    assert "d435" in {ma.geom(k).name for k in range(ma.ngeom)} and pa.depth_camera == "none"     # the box only
+    assert mujoco.mj_name2id(ma, mujoco.mjtObj.mjOBJ_CAMERA, "d435_depth") == -1
+    assert not any(ma.geom(k).name == "d435" for k in range(ma.ngeom) if ma.geom_contype[k])       # no collision
+
+
+def test_the_d435_sees_the_floor_the_arm_reaches():
+    """The D435's depth model (sil_pick.PickCameras) through the robot's own code (robot_arm_d435.json, floor_vision):
+    nothing nearer than its min-Z, millimetre steps; the floor seen from the arm's reach (0.26-0.42 m) out past 1 m;
+    floor points within 3 cm of z = 0 out to 1.2 m (the noise plus the arm robot's ~0.9 deg pitch on its pods)."""
+    from robot_export import arm_d435_params
+    from sil_pick import PickCameras
+    _omni_arm()
+    from omni_arm.floor_vision import DepthFrame, points
+    from omni_arm.kinematics import ArmConfig, config_path
+    from omni_arm.pick import TidyTask
+    from omni_arm.kinematics import ArmKinematics
+    p, m, d, r = make(arm_d435_params(home_xy=(0.0, 0.0), area_size=(9.0, 9.0)))
+    for _ in range(400):
+        mujoco.mj_step(m, d)
+    cams = PickCameras(m, d, p, cam_err_deg=0.0)
+    z = cams.depth()
+    assert z.shape == (270, 480) and np.nanmin(z) >= cams.z_min - 0.0005                 # (to the mm)
+    assert np.nanmax(np.abs(z * 1000 - np.round(z * 1000))) < 1e-3
+    T = TidyTask(ArmKinematics(ArmConfig(config_path("d435")))).T_base_cam
+    P = points(DepthFrame(0.0, z, cams.Kd, T))
+    floor = P[(np.abs(P[:, 1]) < 0.15) & (np.hypot(P[:, 0], P[:, 1]) < 1.2)]
+    assert np.abs(floor[:, 2]).max() < 0.03
+    x = P[np.abs(P[:, 2]) < 0.03, 0]
+    assert x.min() < 0.28 and np.percentile(x, 99) > 1.0
+    cams.close()
+
+
+def test_the_bridge_builds_the_d435_arm_robot():
+    """bridge_core: arm_camera "d435" puts the D435 on the arm robot in the house (and the viewer's hello says so)."""
+    from bridge_core import CoreConfig, model_hello, model_params
+    c = CoreConfig(payload="arm", arm_camera="d435")
+    assert model_params(c).depth_camera == "d435" and model_hello(c)["arm_camera"] == "d435"
+    assert model_params(CoreConfig(payload="arm")).depth_camera == "none"
+    with pytest.raises(ValueError):
+        model_params(CoreConfig(payload="arm", arm_camera="kinect"))
+
+
 def test_the_driver_runs_the_arm_through_the_servo_bus():
     """omni_arm's driver over the STS3215s as their bus behaves (arm_bus): it reads the joints, its goals move them,
     torque off leaves the arm limp, a calibration error shows as an offset between what it reads and the joint."""
@@ -1907,3 +2018,263 @@ def test_the_house_catch_places_a_thrower_where_there_is_room():
         c.step()
         hc.step(c.d.time)
     assert len(hc.results) == n and not hc.pop_frames(c.d.time)
+
+
+# -- design.md 16: the base trade, the terrain course ------------------------------------------------
+
+def test_terrain_course_is_optional_and_drivable():
+    """The kitchen's terrain course (house.TERRAIN_COURSE) is in the house only when asked for (house_params course,
+    CoreConfig.terrain: the bridge and its 3D view build the same model), and the drawn robot climbs its 20 mm
+    platform with the ball aboard."""
+    import house
+    from bridge_core import CoreConfig, model_hello, model_params
+    n = len(house.HOUSE_FEATURES)
+    assert len(house.house_params("v7").floor_features) == n
+    assert len(model_params(CoreConfig(base="drawn", terrain=True)).floor_features) == n + len(house.TERRAIN_COURSE)
+    assert model_hello(CoreConfig(terrain=True))["terrain"] is True
+    drv = house.Driver(house.house_params("drawn", assist=False, course=True))
+    drv.teleport((4.1, -2.7, -90.0))                         # north of the 20 mm platform, facing it
+    for _ in range(int(2.5 / drv.m.opt.timestep)):
+        drv.step(np.array([0.5, 0.0]), 0.0, False)
+    assert drv.r.pose()[1] < -3.5 and drv.r.ball_held()      # up on the platform (it starts at y -3.3)
+    assert drv.d.sensor("base_pos").data[2] > 0.02
+
+
+def test_base_trade_bases():
+    """studies/base_trade.py: the four bases keep the drawn robot's extra mass; the kiwi is a wheel, motor and pod
+    lighter, has three wheels and its own acceleration table; the rigid X4 has no pods and no rocker, the X4 rocker its
+    front beam (mass_model "cad" drops the rocker only on pods)."""
+    sys.path.insert(0, "studies")
+    import base_trade
+    from robot_model import mass_properties
+    masses = {}
+    for b in base_trade.BASES:
+        p = base_trade.params(b)
+        masses[b] = mass_properties(build_model(p), p)[0]
+        assert p.mass_model == "cad" and p.extra_masses == base_trade._drawn_extra()
+    assert masses["X4 + pods"] == pytest.approx(8.19, abs=0.01)
+    assert 0.9 < masses["X4 + pods"] - masses["kiwi rigid"] < 1.5
+    assert base_trade.params("kiwi rigid").n_wheels == 3 and base_trade.params("X4 rigid").suspension == "roller"
+    assert base_trade.params("kiwi rigid").accel_table == base_trade.KIWI_TABLE
+    assert base_trade.params("X4 rigid").rocker == "none" and base_trade.params("X4 + pods").rocker == "none"
+    m = build_model(base_trade.params("X4 rocker"))
+    assert m.joint("rocker").id >= 0
+
+
+def test_measured_cameras_overrides_only_what_the_throws_measured(tmp_path):
+    """catch_world.measured_cameras: characterization/throw_track's vision_measured.json sets the fields it names."""
+    import json as _json
+    from catch_world import expected_cameras, measured_cameras
+    f = tmp_path / "vision_measured.json"
+    f.write_text(_json.dumps({"vision": {"edge_sigma": 1.8, "latency_mean": 0.019, "drop_prob": 0.03, "not_a_field": 1}}))
+    m, e = measured_cameras(f), expected_cameras()
+    assert (m.edge_sigma, m.latency_mean, m.drop_prob) == (1.8, 0.019, 0.03)
+    assert (m.calib_rot_deg, m.exposure, m.false_prob) == (e.calib_rot_deg, e.exposure, e.false_prob)   # not measured: kept
+    from catch_world import ball_pixels
+    import numpy as _np
+    # the split-out blob model: a 4.3 px-radius ball (f 463, 4 m ahead) is found, with the same pixels for the same random draws
+    cfg = e
+    a = ball_pixels(cfg, _np.random.default_rng(1), _np.array([0.2, 0.1, -4.0]), _np.zeros(3), 0.037, 463.0, 384, 216, 768, 432)
+    b = ball_pixels(cfg, _np.random.default_rng(1), _np.array([0.2, 0.1, -4.0]), _np.zeros(3), 0.037, 463.0, 384, 216, 768, 432)
+    assert a is not None and (a[0] == b[0]).all() and 40 < a[0].sum() < 100
+
+
+def _v10_robot(**kw):
+    from robot_export import arm_params
+    return make(arm_params(home_xy=(0.0, 0.0), **kw))
+
+
+def test_the_v10_pod_is_the_cads_fork():
+    """cad/v10 human editable: each wheel hangs on a fork that pivots on a shaft beside it, level with the axle at its
+    nominal height (y 80.6, z 0 since the Nov 2 redraw; the unmirrored pods FR / RL pivot on hub +y, the mirrored FL / RR
+    on -y), the axle moving -3 to +15 mm (CAD limits 87.87 to 100.73 deg = 12.86 deg) on an arc, the 140 mm wheel on r 146
+    with the AK40 inside it."""
+    from robot_model import fork_kinematics
+    from robot_export import CAD_POD_PIVOT, POD_PIVOT
+    p, m, d, r = _v10_robot(pod_pivot=CAD_POD_PIVOT)         # the fork as drawn (the baseline's: both level since Nov 2)
+    assert CAD_POD_PIVOT == pytest.approx(POD_PIVOT, abs=1e-6) and POD_PIVOT[1] == 0.0
+    assert p.wheel == "Printed-140-2x6-36-cad" and p.wheel_base_radius == 0.146 and p.drive_motor == "AK40-10"
+    assert p.omni.width == pytest.approx(0.072) and p.omni.rollers_per_row == 6 and p.omni.roller_diameter == 0.036
+    for i, mirrored in zip((1, 2, 3, 4), (True, False, True, False)):          # 45, 135, 225, 315 deg
+        f = fork_kinematics(p, i)
+        assert (f["sgn"] < 0) == mirrored
+        assert math.degrees(f["a_max"]) == pytest.approx(100.7255175 - 87.8669100, abs=0.05)
+        j = m.joint(f"susp{i}")
+        assert j.type[0] == mujoco.mjtJoint.mjJNT_HINGE and tuple(m.jnt_range[j.id]) == pytest.approx((0.0, f["a_max"]), abs=1e-4)
+        hub, pod = m.body(f"hub{i}").id, m.body(f"carrier{i}").id
+        d.qpos[j.qposadr[0]] = 0.0
+        mujoco.mj_forward(m, d)
+        z0, c0 = d.xpos[hub][2], d.xpos[hub].copy()
+        assert np.linalg.norm(d.xpos[pod] - c0) == pytest.approx(0.0806, abs=0.0005)                       # a rigid fork
+        d.qpos[j.qposadr[0]] = f["a_max"]
+        mujoco.mj_forward(m, d)
+        assert d.xpos[hub][2] - z0 == pytest.approx(0.018, abs=2e-4)                          # droop stop to bump stop
+        away = d.xpos[hub][:2] - c0[:2]
+        assert math.hypot(*away) == pytest.approx(0.00135, abs=0.0002)                         # the arc: the axle 80.5 -> 79.2 mm from the shaft
+        th = math.radians(p.wheel_angles_deg[i - 1])
+        tangent = np.array([math.sin(th), -math.cos(th)]) * f["sgn"]                           # toward the pivot
+        assert np.dot(away, tangent) > 0                                                       # level pivot: the axle moves toward it
+    p, m = _v10_robot()[:2]                    # the baseline (pivot at the axle) keeps the CAD's mass and CG via its ballast
+    mass, cg = mass_properties(m, p)
+    assert mass == pytest.approx(9.632, abs=0.01) and cg[2] == pytest.approx(0.1264, abs=0.002)
+
+
+def test_the_v10_robot_stands_on_its_pods_inside_its_ring():
+    """The v10 arm robot settles on its four pods (all loaded, none at a stop, the deck level), the wheels and forks and the
+    guards' ears inside the deck's r 217 and the bumper ring 8 mm outside it; the lidar 140 mm out, the plate at 181.5
+    and the scan plane at 163; the D435 on the nose clear of the robot; the old robot's numbers unchanged."""
+    from robot_model import wheel_loads
+    p, m, d, r = _v10_robot()
+    adr = m.joint("base").qposadr[0]
+    d.qpos[adr + 2] = 0.004
+    for _ in range(2500):
+        mujoco.mj_step(m, d)
+    q = np.array([d.qpos[m.joint(f"susp{i}").qposadr[0]] for i in range(1, 5)])
+    hi = m.jnt_range[m.joint("susp1").id][1]
+    assert (q > 0.01 * hi).all() and (q < 0.99 * hi).all()
+    loads = wheel_loads(m, d, p)
+    assert loads.sum() == pytest.approx(9.632 * 9.81, rel=0.03) and loads.min() > 0.5 * loads.mean()
+    assert abs(d.xquat[m.body("base").id][1]) < 0.02 and abs(d.xquat[m.body("base").id][2]) < 0.02
+    # everything on the pods (rollers, hubs, forks, motor) is inside the deck
+    base = d.xpos[m.body("base").id]
+    rmax = 0.0
+    for g in range(m.ngeom):
+        b = m.geom_bodyid[g]
+        n = m.body(b).name
+        if n.startswith(("carrier", "hub")) or n.startswith("roller"):
+            R, c = d.geom_xmat[g].reshape(3, 3), d.geom_xpos[g] - base
+            lo, hi_ = m.geom_aabb[g, :3] - m.geom_aabb[g, 3:], m.geom_aabb[g, :3] + m.geom_aabb[g, 3:]
+            pts = np.array([(a, b_, e) for a in (lo[0], hi_[0]) for b_ in (lo[1], hi_[1]) for e in (lo[2], hi_[2])])
+            rmax = max(rmax, np.hypot(*(c + pts @ R.T)[:, :2].T).max())
+    assert rmax < p.deck_radius and p.deck_radius == 0.217 and p.bumper_radius + 0.014 == pytest.approx(0.225)
+    lidar = d.xmat[m.body("base").id].reshape(3, 3).T @ (d.site_xpos[m.site("lidar").id] - base)    # in the base frame
+    assert lidar[0] == pytest.approx(0.14, abs=0.001) and lidar[2] == pytest.approx(0.163, abs=0.001)
+    geo = geometry(p)
+    assert geo.plate_top == pytest.approx(0.1815, abs=1e-4) and p.lidar_scan_z == 0.163
+    # the D435's box: >= 3 mm from every part, under the scan plane, inside the bumper, looking 30 deg down
+    d.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
+    mujoco.mj_forward(m, d)
+    g = m.geom("d435").id
+    ft = np.zeros(6)
+    near = min(mujoco.mj_geomDistance(m, d, g, k, 0.05, ft) for k in range(m.ngeom)
+               if k != g and m.body(m.geom_bodyid[k]).name != "world")
+    assert near >= 0.003
+    assert m.geom_size[g] * 2 == pytest.approx([0.025, 0.090, 0.025])
+    # the baseline robot is as it was
+    p0 = SimParams()
+    assert p0.pod_pivot is None and p0.wheel_base_radius == 0.15 and p0.deck_radius == 0.185 and p0.lidar_x is None
+
+
+def test_the_v10_arm_robot_reaches_the_floor_and_clears_its_head():
+    """The arm robot's baseline (cad/v10's coarse model) with the arm on a 37 mm riser: its base at the v7 robot's 218.5 mm
+    (the CAD's 231.5 mm leaves the SO-101 no fingers-down floor reach), the fingers-down reach 0.26-0.35 m as before; the
+    head 5 mm up, 4 mm between the lidar's top and the camera bar and between the bar's top and the adapter."""
+    import json as _json
+    from robot_export import ARM, ARM_D435, ARM_V7, arm_params, main
+    assert main(check=True)
+    cfg = _json.loads((Path(__file__).resolve().parents[2] / "ros/src/omni_arm/omni_arm/config/robot_arm.json").read_text())
+    kin = _omni_arm()
+    from omni_arm import motion as mo
+    from omni_arm.pick import PickParams
+    from omni_arm.kinematics import DOWN
+    tp = PickParams()
+    assert kin.mount[2] == pytest.approx(0.2185, abs=1e-4) and ARM["arm_riser"] == 0.037
+    reach = []
+    for x in np.arange(0.20, 0.46, 0.01):
+        ok = True
+        for top in (0.015, 0.04):
+            tool = np.array([x, 0.0, (tp.tip_z_low if top < tp.low_top else tp.tip_z) + kin.cfg.pads["fingertip_below_tool"]])
+            hover = tool + np.array([0, 0, top + tp.hover_dz])
+            qh = kin.ik(hover, DOWN, yaw=0.0, flip_ok=False)
+            ok &= qh is not None and kin.clear(qh)[0] and mo.line(kin, qh, tool, DOWN, 0.0) is not None
+        if ok:
+            reach.append(x)
+    assert reach and min(reach) <= 0.27 and max(reach) >= 0.34
+    box = {k["note"]: k for k in cfg["keep_out"] if k["kind"] == "box"}
+    lidar_top = 0.163 - 0.026 + 0.045                                            # robot_model's lidar stand-in
+    assert box["the camera bar"]["min"][2] - lidar_top >= 0.003
+    assert box["the arm's adapter"]["min"][2] <= 0.1685 and kin.mount[2] - box["the camera bar"]["max"][2] >= 0.003
+    assert cfg["cameras"][0]["name"] == "left" and ARM_D435["depth_camera"] == "d435" and ARM["d435_box"]
+    assert ARM_V7["arm_riser"] == 0.05 and "pod_pivot" not in ARM_V7
+    p = arm_params()
+    assert p.extra_masses and p.depth_camera == "none" and p.d435_box
+
+
+def test_the_arm_robot_runs_the_firmware_built_for_its_wheels():
+    """The firmware's wheel radius, kinematics and wheel speed limit are compile-time constants: the arm robot (cad/v10's
+    140 mm wheels on r 146, AK40-10) gets fw_params_arm.h in its own SIL library, the catch robot fw_params.h."""
+    import robot_export
+    FW, _ = _sil()
+    assert robot_export.firmware_variant(robot_export.arm_params()) == "arm"
+    assert robot_export.firmware_variant(robot_export.v11_params()) == ""
+    assert robot_export.firmware_variant(robot_export.arm_d435_params()) == "arm"
+    assert FW.param("MAX_WHEEL_SPEED", "arm") == pytest.approx(
+        robot_export.arm_params().wheel_speed_frac * robot_export.arm_params().motor.noload_rpm * 2 * math.pi / 60, rel=1e-5)
+    assert FW.param("MAX_WHEEL_SPEED") != FW.param("MAX_WHEEL_SPEED", "arm")
+    p, m, d, r = make(robot_export.arm_params(home_xy=(0.0, 0.0)))
+    from sil_robot import SilRobot
+    assert SilRobot(m, d, p).fw.variant == "arm"
+    assert SilRobot(*make(robot_export.v11_params(home_xy=(0.0, 0.0)))[1:3], robot_export.v11_params(home_xy=(0.0, 0.0))).fw.variant == ""
+
+
+# -- Nov 1 motor study (studies/drive_char.py): the drive model and the arm robot's new physics -------------------------
+
+def test_the_ak40_model_follows_the_makers_24v_curve():
+    """catalog's AK40-10 (fitted by studies/motor_fit.py) on the maker's full-throttle chart: at each torque the speed
+    where the drive's motoring limit, less the gearbox friction, equals it, within 3% RMS."""
+    from catalog import DRIVE_MOTORS
+    from models import DriveActuator
+    mot = DRIVE_MOTORS["AK40-10"]
+    drv = DriveActuator(mot)
+    rpm = 2 * math.pi / 60
+    errs = []
+    for ln in (Path(__file__).parent / "studies" / "data" / "ak40_10_kv170_24v.csv").read_text().splitlines():
+        if not ln.strip() or ln.startswith("#") or ln.startswith("torque"):
+            continue
+        T, n = (float(x) for x in ln.split(",")[:2])
+        lo, hi = 0.0, 60.0
+        for _ in range(50):
+            w = 0.5 * (lo + hi)
+            if drv.torque_limits(w, 24.0)[1] - mot.backdrive_torque - mot.viscous * w > T:
+                lo = w
+            else:
+                hi = w
+        errs.append((lo / rpm - n) / n)
+    assert math.sqrt(np.mean(np.square(errs))) < 0.03
+    # at the shaft (the catalog's torques are before the gearbox friction): the datasheet's 4.1 peak, 1.3 rated
+    assert mot.peak_torque - mot.backdrive_torque == pytest.approx(4.1, abs=0.05)
+    assert mot.rated_torque - mot.backdrive_torque == pytest.approx(1.3, abs=0.05)
+    assert DRIVE_MOTORS["AK40-10-dc"].r_eq == pytest.approx(0.75 * 0.978)      # the earlier model, kept
+
+
+def test_the_arm_robot_at_the_motor_studys_masses():
+    """arm_params(mass_kg, cg_dz): the total and CG land where asked, and the pods' damping uses the sprung mass."""
+    import robot_export as E
+    for kg, dz in ((15.0, 0.0), (20.0, 0.04)):
+        p = E.arm_params(kg, dz)
+        mass, cg = mass_properties(build_model(p), p, 0.0)
+        assert mass == pytest.approx(kg, abs=0.01) and cg[2] == pytest.approx(E.CAD_ARM_CG[2] + dz, abs=0.002)
+        assert p.pod_sprung_mass == pytest.approx(E.sprung_mass(p, kg), abs=1e-3) and p.pod_sprung_mass < kg - 3.0
+    p = E.arm_params()
+    assert p.pod_sprung_mass == pytest.approx(5.95, abs=0.1)          # ~ the 6 kg the pods were tuned on
+    assert p.roller_pin_mu > 0 and p.roller_mesh == (13, 64)
+
+
+def test_plain_rollers_drag_with_their_load_and_an_incline_builds():
+    """floor.RollingResistance puts mu_pin x load x r_pin on each roller's hinge; floor.Incline is a ramp the wheels
+    meet through their own contact pairs."""
+    import robot_export as E
+    from floor import Incline, edges
+    inc = Incline(1.0, 0.0, angle_up=10.0, height=0.1)
+    p = E.arm_params(home_xy=(0.0, 0.0), floor_features=(inc,))
+    m, d = build_model(p), None
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    r = Robot(m, d, p)
+    for _ in range(400):
+        r.step()
+    assert m.geom("floorfeat0").id >= 0 and any(abs(e[4] - 0.1) < 1e-9 for e in edges(p))
+    rr = [h for h in r.floor if type(h).__name__ == "RollingResistance"][0]
+    load = r.wheel_loads()
+    pin = p.roller_pin_mu * p.roller_pin_radius * load[0]
+    assert m.dof_frictionloss[rr.roller_dofs[0]].min() >= pin - 1e-9 > 0.0

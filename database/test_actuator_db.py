@@ -132,11 +132,68 @@ def test_motor_tests_link_to_motors():
 def test_table_round_trip(tmp_path):
     for f in Path(adb.HERE).glob("*.csv"):
         shutil.copy(f, tmp_path / f.name)
-    for name in ("motors", "servos", "controllers", "sources"):
+    for name in ("motors", "servos", "controllers", "computers", "cameras", "sources"):
         adb.write_table(DB, name, tmp_path)
     again = adb.load(tmp_path)
     assert adb.validate(again) == []
     assert again.motors["cubemars-ak40-10-v3"] == DB.motors["cubemars-ak40-10-v3"]
+    assert again.cameras["luxonis-oak-ffc-4p"] == DB.cameras["luxonis-oak-ffc-4p"]
+
+
+def test_computers_and_cameras_cite_sources():
+    assert len(DB.computers) >= 15 and len(DB.cameras) >= 15
+    for p in DB.all_parts():
+        assert p["source_ids"] and all(s in DB.sources for s in p["source_ids"]), p["id"]
+        assert p["date_checked"], p["id"]
+    k = DB.computers["nvidia-jetson-orin-nano-super-devkit"]
+    assert k["ubuntu_2404"] == "yes" and k.prov("v_in_min_V") == "forum" and k.prov("price_usd") == "press"
+
+
+def test_validate_catches_bad_computer_and_camera_rows():
+    bad = adb.load()
+    bad.computers["raspberrypi-pi5-8gb"]["v_in_min_V"] = 9.0                  # above its 5.1 V maximum
+    bad.cameras["econ-ecam25-cuonx"]["hosts"] = ["jetson_orin", "toaster"]
+    bad.cameras["arducam-b0492n-ar0234-stereo-jetson"]["stereo_sync"] = None
+    errs = "\n".join(adb.validate(bad))
+    assert "v_in_min_V > v_in_max_V" in errs and "toaster" in errs and "stereo_kit without stereo_sync" in errs
+
+
+def test_compute_check_scales_by_single_thread_speed():
+    nano = DB.computers["nvidia-jetson-orin-nano-super-devkit"]
+    req = adb.ComputeRequirement("x", load_ref_cores=1.0, ref_gb6_single=2921, ref_7zip_single=7412)
+    lo, hi = adb.cpu_ratio(nano, req)
+    assert lo == pytest.approx(7412 / 2464) and hi == pytest.approx(2921 / 810)
+    assert adb.cores_needed(nano, req) == pytest.approx((lo, hi))
+    cpu = lambda load: next(c for c in adb.check_compute(nano, adb.ComputeRequirement(  # noqa: E731
+        "x", load_ref_cores=load, ref_gb6_single=2921, ref_7zip_single=7412)) if c.name == "CPU")
+    assert cpu(1.0).status == "PASS"                       # 3.0-3.6 of 4.5 cores
+    assert cpu(1.4).status == "UNKNOWN"                    # 4.2-5.1: the brackets straddle the cap
+    assert cpu(2.0).status == "FAIL"
+    rock = DB.computers["radxa-rock-5b-plus-8gb"]
+    assert adb.effective_cores(rock) == pytest.approx(4 + 0.35 * 4)
+    ok = adb.check_compute(DB.computers["raspberrypi-pi5-8gb"],
+                           adb.ComputeRequirement("y", ubuntu_2404=True, csi_cameras_min=2, v_rail_V=12.0))
+    assert {c.name: c.status for c in ok} == {"Ubuntu 24.04": "PASS", "CSI cameras": "PASS", "input voltage": "FAIL"}
+
+
+def test_camera_checks():
+    req = adb.CameraRequirement("catch", global_shutter=True, color=True, fps_min=60, res_min=(640, 400), hw_sync=True)
+    assert adb.passes(adb.check_camera(DB.cameras["luxonis-oak-ffc-ov9782"], req)) == "PASS"
+    st = lambda pid, name: next(c.status for c in adb.check_camera(DB.cameras[pid], req) if c.name == name)  # noqa: E731
+    assert st("arducam-ov9281-mono-pi", "color") == "FAIL"
+    assert st("arducam-b0331-ov9782-quad", "frame rate") == "FAIL"           # 45 fps with four sensors
+    assert st("arducam-ar0234-xisp-jetson", "hardware sync") == "FAIL"
+    # a stereo kit's side-by-side modes count per sensor: 2560x720@93 is 1280x720 at 93 fps
+    assert (1280, 720, 93.0) in adb.camera_modes(DB.cameras["arducam-b0492n-ar0234-stereo-jetson"])
+    assert st("arducam-b0492n-ar0234-stereo-jetson", "frame rate") == "PASS"
+
+
+def test_camera_fits_its_hosts():
+    oak, econ = DB.cameras["luxonis-oak-ffc-4p"], DB.cameras["econ-ecam25-cuonx"]
+    assert adb.camera_fits(oak, DB.computers["generic-ryzen7-8845hs-minipc"])     # USB, port count unknown
+    assert adb.camera_fits(oak, DB.computers["raspberrypi-pi5-8gb"])
+    assert adb.camera_fits(econ, DB.computers["nvidia-jetson-orin-nano-super-devkit"])
+    assert not adb.camera_fits(econ, DB.computers["raspberrypi-pi5-8gb"])
 
 
 @pytest.mark.skipif(not (SIM / "catalog.py").exists(), reason="omni-robot sim not next to the database")

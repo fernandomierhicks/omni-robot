@@ -1,0 +1,212 @@
+{
+  "sketches": [
+    {
+      "name": "Bar Outline Sketch",
+      "status": 3
+    },
+    {
+      "name": "Bar Screw Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 20436.831889245026,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"bar_length\"= 104mm 'Cut length of 6061 bar",
+    "\"bar_width\"= 10mm 'Bar width along Y",
+    "\"bar_height\"= 20mm 'Bar height along Z",
+    "\"screw_clearance\"= 3.4mm 'M3 through hole diameter",
+    "\"D1@Bar Outline Sketch\"= \"bar_length\" / 2",
+    "\"D2@Bar Outline Sketch\"= \"bar_length\" / 2",
+    "\"D3@Bar Outline Sketch\"= \"bar_width\" / 2",
+    "\"D4@Bar Outline Sketch\"= \"bar_width\" / 2",
+    "\"D1@Bar Extrude\"= \"bar_height\"",
+    "\"D3@Bar Screw Sketch\"= \"screw_clearance\"",
+    "\"D6@Bar Screw Sketch\"= \"screw_clearance\"",
+    "\"D1@Bar Screw Cut\"= \"bar_width\""
+  ],
+  "design_features": [
+    {
+      "name": "Bar Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Bar Extrude"
+      ]
+    },
+    {
+      "name": "Bar Screw Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Bar Screw Cut"
+      ]
+    },
+    {
+      "name": "Opposite Bar Screw Holes",
+      "type": "MirrorPattern",
+      "dimensions": []
+    }
+  ],
+  "pass": true
+}

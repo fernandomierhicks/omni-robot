@@ -849,15 +849,15 @@ class Console:
 
     def on_mcu(self, mcu: dict | None):
         """The MCU's summary (status.mcu_summary), from the node at 20 Hz. A fault that appears is said once, with its
-        hint, and so is its clearing; an e-stop ends the mission (the robot doesn't re-arm by itself when it's
-        released); an MCU that goes quiet (the link) is said once."""
+        hint, and so is its clearing; an e-stop or the MCU's fault stop ends the mission (the robot doesn't re-arm by
+        itself); an MCU that goes quiet (the link) is said once."""
         prev, self.mcu = self.mcu, mcu
         if mcu is None:
             return
         hints = {f["name"]: f["hint"] for f in mcu.get("faults", [])}
         old = {f["name"] for f in (prev or {}).get("faults", [])}
         for n in sorted(set(hints) - old):
-            serious = n in ("ESTOP", "LINK_LOST", "MOTOR_SILENT", "MOTOR_ERR", "LOW_BATT")
+            serious = n in ("ESTOP", "LINK_LOST", "MOTOR_SILENT", "MOTOR_ERR", "LOW_BATT", "FAULT_STOP")
             self.event("error" if serious else "warn", f"{n}: {hints[n]}")
         for n in sorted(old - set(hints)):
             self.event("info", f"{n} cleared")
@@ -869,6 +869,10 @@ class Console:
             self.event("info", "The MCU is back")
         if mcu.get("mode") == "ESTOP" and (prev or {}).get("mode") != "ESTOP" and self.mission != "IDLE":
             r = self._enter("IDLE", "E-stop: motors off. Release it, then start a mode again", "error")
+            self.fx_queue += list(r.effects)
+        elif "FAULT_STOP" in hints and "FAULT_STOP" not in old and self.mission != "IDLE":
+            # the MCU stopped the base (firmware.h's fault stop); IDLE's DISARM request is what lets it re-arm
+            r = self._enter("IDLE", "The MCU stopped the base on a fault: fix it, then start a mode again", "error")
             self.fx_queue += list(r.effects)
 
     def pop_fx(self) -> list:

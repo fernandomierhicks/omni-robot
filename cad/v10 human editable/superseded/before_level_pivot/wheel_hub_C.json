@@ -1,0 +1,468 @@
+{
+  "part": "wheel_hub_C",
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_hub_C.SLDPRT",
+  "bodies": 1,
+  "checks": [
+    0
+  ],
+  "sketches": [
+    {
+      "name": "0837_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0839_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0842_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0843_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0847_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0848_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0853_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0854_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0859_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0860_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0865_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0866_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0871_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0872_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0877_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0881_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0884_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0888_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0891_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0895_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0898_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0902_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0905_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0909_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0912_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0916_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0919_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0923_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0927_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0931_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0935_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0939_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0943_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0947_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0951_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0955_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0959_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0963_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0130_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0969_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0972_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0975_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0978_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch44",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0983_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0986_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0989_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0992_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch49",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0997_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1000_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1003_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1006_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch54",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1011_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1014_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1017_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1020_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch59",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1025_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1028_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1031_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1034_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch64",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1039_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1042_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1045_extrude_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1048_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1051_box_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1055_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1057_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1061_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1064_cone_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1070_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1072_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1076_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1078_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1083_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1085_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1090_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1092_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1097_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1099_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1104_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "1106_cylinder_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "0313_revolve_Sketch",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch87",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch88",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch89",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch90",
+      "status": 3,
+      "fully_define_result": 0
+    },
+    {
+      "name": "Sketch91",
+      "status": 3,
+      "fully_define_result": 0
+    }
+  ],
+  "volume_mm3": 54009.4714179381,
+  "mass_integration_tolerance_mm3": 5.4008966008481885,
+  "reference_volume_mm3": 54008.96600848188
+}

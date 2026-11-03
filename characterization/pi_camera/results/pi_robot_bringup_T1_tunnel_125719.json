@@ -1,0 +1,123 @@
+{
+ "test": "pi_keepup",
+ "label": "bringup T1 tunnel",
+ "time": "2026-10-30T12:58:56",
+ "host": "omni-cam",
+ "machine": "aarch64",
+ "governor": "performance",
+ "cores": 4,
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "host_load": {
+  "seconds": 39,
+  "cpu_total_pct": {
+   "median": 17.67676767676768,
+   "p95": 20.854271356783915,
+   "max": 44.245524296675185,
+   "note": "100 = all cores busy"
+  },
+  "busiest_core_pct": {
+   "median": 33.333333333333336,
+   "p95": 42.15686274509803,
+   "max": 62.62626262626263
+  },
+  "load1_max": 1.05126953125,
+  "mem_available_mb_min": 3150.1015625,
+  "swap_used_mb_max": 0.0,
+  "temp_c": {
+   "start": 32.128,
+   "max": 34.076
+  },
+  "freq_mhz_min": 1800.0,
+  "throttle_flags_seen": [],
+  "throttle_flags_hex": "0x0"
+ },
+ "processes": {
+  "systemd-journald": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 19
+  },
+  "avahi-daemon:": {
+   "median_pct": 0.25,
+   "max_pct": 0.3,
+   "rss_mb_max": 6
+  },
+  "record_throws.py": {
+   "median_pct": 63.95,
+   "max_pct": 64.8,
+   "rss_mb_max": 145
+  },
+  "ros2 launch/daemon": {
+   "median_pct": 0.15000000000000002,
+   "max_pct": 0.2,
+   "rss_mb_max": 43
+  },
+  "mcu_link": {
+   "median_pct": 0.3,
+   "max_pct": 0.4,
+   "rss_mb_max": 34
+  },
+  "mode_manager": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 31
+  },
+  "catch_perception": {
+   "median_pct": 0.2,
+   "max_pct": 0.2,
+   "rss_mb_max": 34
+  },
+  "catch_behavior": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 33
+  },
+  "pi_keepup.py": {
+   "median_pct": 3.8499999999999996,
+   "max_pct": 8.8,
+   "rss_mb_max": 73
+  },
+  "sshd:": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 37
+  },
+  "fwupd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 43
+  },
+  "_total_ros_pct_of_one_core": 68.9
+ },
+ "topics": {
+  "/clock": {
+   "type": "rosgraph_msgs/msg/Clock",
+   "messages": 0
+  },
+  "/mcu/state": {
+   "type": "omni_interfaces/msg/McuState",
+   "messages": 0
+  },
+  "/imu": {
+   "type": "sensor_msgs/msg/Imu",
+   "messages": 0
+  },
+  "/odom": {
+   "type": "nav_msgs/msg/Odometry",
+   "messages": 0
+  },
+  "/mcu/link": {
+   "type": "std_msgs/msg/String",
+   "messages": 0
+  },
+  "/catch/status": {
+   "type": "omni_interfaces/msg/CatchStatus",
+   "messages": 0
+  },
+  "/catch/track": {
+   "type": "omni_interfaces/msg/BallTrack",
+   "messages": 0
+  }
+ },
+ "last_text": {}
+}

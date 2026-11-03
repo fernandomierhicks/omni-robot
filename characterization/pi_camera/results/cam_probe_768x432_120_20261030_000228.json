@@ -1,0 +1,36 @@
+{
+ "test": "cam_probe",
+ "time": "2026-10-30T00:02:28",
+ "host": "omni-cam",
+ "machine": "aarch64",
+ "sensor": "imx708",
+ "sensor_mode": [
+  1536,
+  864
+ ],
+ "output": [
+  768,
+  432
+ ],
+ "fps_requested": 120.0,
+ "fps_achieved": 115.5,
+ "frames": 925,
+ "dropped": 37,
+ "interval_ms": {
+  "median": 8.325,
+  "p95": 8.331,
+  "max": 16.655
+ },
+ "sensor_to_python_ms": {
+  "median": 44.677291,
+  "p95": 50.6466376,
+  "max": 61.205779
+ },
+ "detect_ms": null,
+ "sensor_to_detection_ms": null,
+ "frames_with_ball": 0,
+ "exposure_us_median": 7882,
+ "cpu_cores": 0.704,
+ "max_rss_mb": 53.5703125,
+ "notes": "SensorTimestamp = start of readout (rolling shutter); latency excludes exposure and transport"
+}

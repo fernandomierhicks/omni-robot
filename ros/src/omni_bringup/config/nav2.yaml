@@ -288,7 +288,9 @@ collision_monitor:
     cmd_vel_in_topic: "cmd_vel_smoothed"
     cmd_vel_out_topic: "cmd_vel"
     state_topic: "collision_monitor_state"
-    transform_tolerance: 0.2
+    transform_tolerance: 0.5     # (0.2) how long it waits for odom -> base_link at "now" to shift each scan: in the
+                                 # firmware sim (clock:=wall) the MCU's mapped stamps scatter +-0.17 s and at 0.2 s it
+                                 # stopped the robot as an "invalid source" ~120 times a run (C4, Nov 2)
     source_timeout: 1.0
     base_shift_correction: True
     stop_pub_timeout: 2.0

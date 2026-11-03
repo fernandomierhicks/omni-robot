@@ -1,0 +1,25 @@
+{
+ "test": "head_probe",
+ "time": "2026-10-30T01:26:27",
+ "host": "omni-cam",
+ "seconds": 15.0,
+ "container_cores": 0.451,
+ "governor": "performance",
+ "capture": {
+  "fps_median": 120.12,
+  "dropped": 0,
+  "frames": 1561,
+  "lag_ms_median": 15.16,
+  "lag_ms_95_worst": 17.79,
+  "exposure_us": 7882
+ },
+ "perception": {
+  "frames": 1561,
+  "proc_ms_median": 0.57,
+  "proc_ms_95": 0.59,
+  "detections": 0,
+  "pending_max": 0
+ },
+ "track_msgs_tracking": 0,
+ "notes": "lag = SensorTimestamp (start of readout) -> published; excludes exposure; handoff not measured"
+}

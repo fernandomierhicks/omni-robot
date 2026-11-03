@@ -1,0 +1,1298 @@
+[
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      52.0,
+      -23.5
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_1"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_1"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      46.4,
+      33.3
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_2"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_2"
+    ],
+    "driver_blocked_by": [
+      "Guard at 48 mm",
+      "Bench at 56 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -5.6,
+      56.8
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_3"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_3"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -52.0,
+      23.5
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_4"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_4"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -46.4,
+      -33.3
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_5"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_5"
+    ],
+    "driver_blocked_by": [
+      "Bench at 56 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      5.6,
+      -56.8
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_A"
+    ],
+    "thread": [
+      "nut_M3_hex_6"
+    ],
+    "clamps": [
+      "Hub_A",
+      "Hub_B",
+      "Roller_1_6"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      45.0,
+      26.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Outer_fork at 12 mm",
+      "Guard at 34 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      0.0,
+      52.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Guard at 39 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      -45.0,
+      26.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Guard at 34 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      -45.0,
+      -26.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      -0.0,
+      -52.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -27.1,
+      45.0,
+      -26.0
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Outer_fork at 12 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      56.8,
+      5.6
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_7"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_1"
+    ],
+    "driver_blocked_by": [
+      "Fork_bar at 28 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      23.5,
+      52.0
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_8"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_2"
+    ],
+    "driver_blocked_by": [
+      "Guard at 66 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -33.3,
+      46.4
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_9"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_3"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -56.8,
+      -5.6
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_10"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_4"
+    ],
+    "driver_blocked_by": [
+      "Guard at 49 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -23.5,
+      -52.0
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_11"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_5"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      33.3,
+      -46.4
+    ],
+    "head_on": [
+      "Hub_B",
+      "Hub_C"
+    ],
+    "thread": [
+      "nut_M3_hex_12"
+    ],
+    "clamps": [
+      "Hub_B",
+      "Hub_C",
+      "Roller_2_6"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      26.0,
+      45.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [
+      "Tower at 42 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      -26.0,
+      45.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      -52.0,
+      0.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [
+      "Bench at 35 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      -26.0,
+      -45.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      26.0,
+      -45.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      27.1,
+      52.0,
+      -0.0
+    ],
+    "head_on": [
+      "Hub_C"
+    ],
+    "thread": [
+      "Hub_B"
+    ],
+    "clamps": [
+      "Hub_C"
+    ],
+    "driver_blocked_by": [
+      "Inner_fork at 18 mm",
+      "Bench at 35 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -26.5,
+      11.7,
+      6.7
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Motor_rotor"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Cartridge at 14 mm",
+      "bearing_6804_2 at 17 mm",
+      "Outer_fork at 25 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -26.5,
+      -11.7,
+      6.7
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Motor_rotor"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Cartridge at 14 mm",
+      "bearing_6804_2 at 17 mm",
+      "Outer_fork at 25 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -26.5,
+      -0.0,
+      -13.5
+    ],
+    "head_on": [
+      "Hub_A"
+    ],
+    "thread": [
+      "Motor_rotor"
+    ],
+    "clamps": [
+      "Hub_A"
+    ],
+    "driver_blocked_by": [
+      "Cartridge at 14 mm",
+      "bearing_6804_2 at 17 mm",
+      "Outer_fork at 25 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -44.0,
+      22.5,
+      13.0
+    ],
+    "head_on": [
+      "Cartridge"
+    ],
+    "thread": [
+      "Hub_A"
+    ],
+    "clamps": [
+      "Cartridge"
+    ],
+    "driver_blocked_by": [
+      "Outer_fork at 4 mm",
+      "Guard at 20 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -44.0,
+      -22.5,
+      13.0
+    ],
+    "head_on": [
+      "Cartridge"
+    ],
+    "thread": [
+      "Hub_A"
+    ],
+    "clamps": [
+      "Cartridge"
+    ],
+    "driver_blocked_by": [
+      "Outer_fork at 4 mm",
+      "Guard at 20 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -44.0,
+      -0.0,
+      -26.0
+    ],
+    "head_on": [
+      "Cartridge"
+    ],
+    "thread": [
+      "Hub_A"
+    ],
+    "clamps": [
+      "Cartridge"
+    ],
+    "driver_blocked_by": [
+      "Outer_fork at 4 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      21.2,
+      23.5,
+      0.0
+    ],
+    "head_on": [
+      "Motor_cup"
+    ],
+    "thread": [
+      "Motor_stator"
+    ],
+    "clamps": [
+      "Motor_cup"
+    ],
+    "driver_blocked_by": [
+      "Hub_C at 13 mm",
+      "Inner_fork at 24 mm",
+      "Bench at 41 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      21.2,
+      0.0,
+      23.5
+    ],
+    "head_on": [
+      "Motor_cup"
+    ],
+    "thread": [
+      "Motor_stator"
+    ],
+    "clamps": [
+      "Motor_cup"
+    ],
+    "driver_blocked_by": [
+      "Hub_C at 13 mm",
+      "Inner_fork at 24 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      21.2,
+      -23.5,
+      0.0
+    ],
+    "head_on": [
+      "Motor_cup"
+    ],
+    "thread": [
+      "Motor_stator"
+    ],
+    "clamps": [
+      "Motor_cup"
+    ],
+    "driver_blocked_by": [
+      "Hub_C at 13 mm",
+      "Inner_fork at 24 mm",
+      "Bench at 41 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      21.2,
+      -0.0,
+      -23.5
+    ],
+    "head_on": [
+      "Motor_cup"
+    ],
+    "thread": [
+      "Motor_stator"
+    ],
+    "clamps": [
+      "Motor_cup"
+    ],
+    "driver_blocked_by": [
+      "Hub_C at 13 mm",
+      "Inner_fork at 24 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      54.1,
+      6.5,
+      0.0
+    ],
+    "head_on": [
+      "Inner_fork"
+    ],
+    "thread": [
+      "Motor_cup"
+    ],
+    "clamps": [
+      "Inner_fork"
+    ],
+    "driver_blocked_by": [
+      "Bench at 8 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      54.1,
+      0.0,
+      6.5
+    ],
+    "head_on": [
+      "Inner_fork"
+    ],
+    "thread": [
+      "Motor_cup"
+    ],
+    "clamps": [
+      "Inner_fork"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      54.1,
+      -6.5,
+      0.0
+    ],
+    "head_on": [
+      "Inner_fork"
+    ],
+    "thread": [
+      "Motor_cup"
+    ],
+    "clamps": [
+      "Inner_fork"
+    ],
+    "driver_blocked_by": [
+      "Bench at 8 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      54.1,
+      -0.0,
+      -6.5
+    ],
+    "head_on": [
+      "Inner_fork"
+    ],
+    "thread": [
+      "Motor_cup"
+    ],
+    "clamps": [
+      "Inner_fork"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 14 PAN",
+    "group": "Inner_fork",
+    "at": [
+      66.5,
+      37.0,
+      11.0
+    ],
+    "head_on": [
+      "washer_M3_1",
+      "Inner_shock_case"
+    ],
+    "thread": [
+      "Inner_fork"
+    ],
+    "clamps": [
+      "Inner_shock_case",
+      "washer_M3_1"
+    ],
+    "driver_blocked_by": [
+      "Tower at 3 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 16 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -57.5,
+      37.0,
+      11.0
+    ],
+    "head_on": [
+      "Outer_shock_case"
+    ],
+    "thread": [
+      "Outer_fork"
+    ],
+    "clamps": [
+      "Outer_shock_case"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -43.5,
+      83.0,
+      -16.0
+    ],
+    "head_on": [
+      "Fork_bar"
+    ],
+    "thread": [
+      "Outer_fork"
+    ],
+    "clamps": [
+      "Fork_bar"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -43.5,
+      83.0,
+      -28.0
+    ],
+    "head_on": [
+      "Fork_bar"
+    ],
+    "thread": [
+      "Outer_fork"
+    ],
+    "clamps": [
+      "Fork_bar"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      51.0,
+      83.0,
+      -16.0
+    ],
+    "head_on": [
+      "Fork_bar"
+    ],
+    "thread": [
+      "Inner_fork"
+    ],
+    "clamps": [
+      "Fork_bar"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      51.0,
+      83.0,
+      -28.0
+    ],
+    "head_on": [
+      "Fork_bar"
+    ],
+    "thread": [
+      "Inner_fork"
+    ],
+    "clamps": [
+      "Fork_bar"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 16 PAN",
+    "group": "Guard",
+    "at": [
+      40.2,
+      80.6,
+      14.0
+    ],
+    "head_on": [
+      "Guard"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Pivot_shaft"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 20 PAN",
+    "group": "Guard",
+    "at": [
+      60.0,
+      37.0,
+      59.2
+    ],
+    "head_on": [
+      "Inner_shock_rod"
+    ],
+    "thread": [
+      "nut_M3_nyloc_1"
+    ],
+    "clamps": [
+      "Inner_shock_rod",
+      "Tower"
+    ],
+    "driver_blocked_by": [
+      "Roller_1_2_TPU at 69 mm",
+      "Outer_shock_rod at 112 mm",
+      "Guard at 118 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 16 PAN",
+    "group": "Guard",
+    "at": [
+      -51.5,
+      37.0,
+      59.2
+    ],
+    "head_on": [
+      "Outer_shock_rod"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Outer_shock_rod"
+    ],
+    "driver_blocked_by": [
+      "Roller_1_2_TPU at 24 mm",
+      "Inner_shock_rod at 112 mm",
+      "Tower at 118 mm"
+    ],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -14.0,
+      94.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      16.0,
+      94.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -14.0,
+      -87.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      16.0,
+      -87.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      30.0,
+      94.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -31.5,
+      94.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Guard"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      86.0,
+      22.0,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Tower"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      86.0,
+      46.0,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Tower"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      90.0,
+      30.0,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Tower"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      97.0,
+      26.0,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Tower"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      100.0,
+      33.5,
+      -0.1
+    ],
+    "head_on": [
+      "Bench"
+    ],
+    "thread": [
+      "Tower"
+    ],
+    "clamps": [
+      "Bench"
+    ],
+    "driver_blocked_by": [],
+    "problems": []
+  },
+  {
+    "screw": "M3 x 8 PAN",
+    "group": "Hub_B",
+    "at": [
+      -12.2,
+      0.0,
+      0.0
+    ],
+    "head_on": [
+      "Motor_washer"
+    ],
+    "thread": [
+      "Motor_rotor"
+    ],
+    "clamps": [
+      "Motor_washer"
+    ],
+    "driver_blocked_by": [
+      "Bench at 74 mm"
+    ],
+    "problems": []
+  }
+]

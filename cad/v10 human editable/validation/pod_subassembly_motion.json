@@ -1,0 +1,131 @@
+{
+ "suspension": [
+  {
+   "bump_mm": -3,
+   "axle_z": -3.0000000000000107,
+   "shocks": {
+    "Inner": 49.83189400623138,
+    "Outer": 49.83189400623138
+   },
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "bump_mm": 0,
+   "axle_z": 0.0,
+   "shocks": {
+    "Inner": 48.20000000000002,
+    "Outer": 48.20000000000001
+   },
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "bump_mm": 7.5,
+   "axle_z": 7.499999999999973,
+   "shocks": {
+    "Inner": 44.20729218257119,
+    "Outer": 44.20729218257118
+   },
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "bump_mm": 15,
+   "axle_z": 14.999999999999996,
+   "shocks": {
+    "Inner": 40.37584608501949,
+    "Outer": 40.37584608501949
+   },
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "bump_mm": 0,
+   "axle_z": 0.0,
+   "shocks": {
+    "Inner": 48.200000000000024,
+    "Outer": 48.20000000000002
+   },
+   "mate_errors": [],
+   "pass": true
+  }
+ ],
+ "wheel_spin": [
+  {
+   "deg": 120,
+   "screw_drift": {
+    "5": 0.0,
+    "4": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "7": 0.0
+   },
+   "hub_rotation": 0.4999999999999998,
+   "rotor_vs_hub": 1.1102230246251565e-16,
+   "fork_and_stator_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "deg": 200,
+   "screw_drift": {
+    "5": 0.0,
+    "4": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "7": 0.0
+   },
+   "hub_rotation": 1.3420201433256689,
+   "rotor_vs_hub": 1.3993956987701944e-16,
+   "fork_and_stator_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "deg": 90,
+   "screw_drift": {
+    "5": 0.0,
+    "4": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "7": 0.0
+   },
+   "hub_rotation": 0.0,
+   "rotor_vs_hub": 0.0,
+   "fork_and_stator_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  }
+ ],
+ "roller_spin": [
+  {
+   "deg": 15,
+   "roller_rotation": 0.2588190451025207,
+   "hub_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "deg": 35,
+   "roller_rotation": 0.5735764363510464,
+   "hub_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  },
+  {
+   "deg": 0,
+   "roller_rotation": 0.0,
+   "hub_moved": 0.0,
+   "mate_errors": [],
+   "pass": true
+  }
+ ],
+ "pass": true
+}

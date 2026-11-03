@@ -10,6 +10,13 @@ v11 is v10 (the v7 robot, its sensors, the ROS 2 bridge) running the code that w
 
 Numbers and decisions: [../../design.md](../../design.md) section 30. Everything is **proposed** and simulated, not measured.
 
+Nov 1 battery update: the default is `6S1P-OVONIC-5200` (OVONIC Roam 6S 5200 mAh XT90-S, 25.2 V full).
+Sag, recovery and charge depletion use the existing battery model with a separate, explicitly estimated LiPo fit
+in `catalog.py`; pack resistance and the discharge curve have not been measured. Complete pack mass is 706 g
+(maker claim), with no extra packaging multiplier. No BMS current trip is assumed; the generated firmware's
+provisional low-voltage stop is 21 V. Plan runtime with a 20% reserve. The results below predate this change;
+use `battery="7S1P-P50B"` explicitly to reproduce the previous battery, or another catalog key for comparisons.
+
 ## Results in one place
 
 **The same 216 throws** (the 6-7 m catch game, home_floor B's grid, firmware adult, expected cameras, flat floor), played two ways (`studies/sil_catch.py`):
@@ -72,6 +79,8 @@ The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asse
 | `robot_export.py` | new: writes `firmware/lib/omni_fw/fw_params.h` and `ros/src/omni_catch/omni_catch/config/robot_v11.json` from `SimParams` (the V11 robot: v7 base, v6 round-3 module, section 24's actuators) |
 | `bridge_core.py` | `firmware=True`: the house with `SilRobot`; IMU and odometry go via the MCU |
 | `studies/sil_catch.py` | new: the comparison above (`ref`, `sil`, `both`, `report`) |
+| `studies/base_trade.py` | new (Oct 27, design.md 16): the drawn robot as X4 + pods, X4 rigid, X4 rocker (Oct 28; `mass_model="cad"` drops the rocker only on pods), kiwi (+ pods): acceleration and tipping (`T`), house transitions (`A`), square steps and 76 mm triangular bumps (`S`), goal to goal at 2 m/s (`G`), the catch game (`B`) |
+| `house.py`, `bridge_core.py` | + `TERRAIN_COURSE` (design.md 16: steps 20 / 30 / 40 mm, bumps 0.5 / 1 / 1.5 in, in the kitchen's east end): `house_params(course=True)`, `CoreConfig.terrain` (the ROS steps' `terrain:=true`), `house.py --course` (key 0) and `--base drawn / x4-rigid / x4-rocker / kiwi / kiwi-pods` |
 | `studies/rendered_frames.py` | new: the detector and filter on MuJoCo-rendered frames |
 | `house_scene.py` | new (31): the house around the field (room, windows, furniture, people, ball-coloured clutter, garden, lights), decoration only; `fetch` the textures, `overview` |
 | `rendered_camera.py` | new (31): `RenderedCameraSim`, the stereo cameras as images: MuJoCo renders with the per-run calibration error, sync offset and ball size, motion blur from sub-exposure renders, the sensor model (vignetting, shot and read noise, 10-bit, gamma) |
@@ -97,8 +106,12 @@ The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asse
 | `params.py`, `robot_model.py`, `arm_so101.py` | design.md 11, Oct 24 (the picking arm robot): `arm_mount_z` (a low nose bracket), `arm_pick` (finger pads that grasp, fingertips on the floor, the wrist camera; the self-view boxes), `arm_bin` (+ the display behind it), `lidar_mount="rear"`, `camera_mount="nose_pods"` + `camera_pod_xz`, `floor_objects`; `POSES["pick_stow"]`, `gap_at` |
 | `arm_objects.py` | new: loose things on the floor (box, cylinder, puck, sphere; `CATALOG`, `SETS` toys / clutter, `scatter`) |
 | `arm_bus.py` | new: the six STS3215s' side of the bus (`ServoBusSim`, with a per-joint calibration error) and its TCP port (`ServoPort`) |
-| `sil_pick.py` | new: the tidy in one process (firmware, link, mode mux in PICK, `omni_arm` on the emulated bus, depth and wrist renders), `--world arena \| house`, `--view` |
+| `sil_pick.py` | new: the tidy in one process (firmware, link, mode mux in PICK, `omni_arm` on the emulated bus, depth and wrist renders), `--world arena \| house`, `--view`, `--camera stereo \| d435` (Nov 1: the RealSense D435 on the nose, design.md 4.11) |
+| `robot_export.ARM` (= cad/v10's coarse model since Nov 1; the Oct 25 robot is `ARM_V7`), `arm_robot()`, `arm_ballast()`, `robot_model.fork_kinematics` | the arm robot as `cad/v10 human editable` draws it: `SimParams(pod_pivot=, pod_droop=, lidar_x=, d435_box=)` (a hinged fork pod: the wheel, AK40, fork plates, shaft, bar and shocks on a hinge parallel to the axle; the guard's ears and the shocks' rods on the base), the `Printed-140-2x6-36-cad` wheel, deck r 217, bumper r 225, plate 181.5, lidar 163, a D435 box; riser 37 mm and head +5 mm (not the CAD's 50 mm / +13: the arm must reach the floor); tests `test_the_v10_*`; its firmware is built against `fw_params_arm.h` (`firmware_variant`, `build_sil.build(variant="arm")`) |
 | `robot_export.py` | + `ARM`, `arm_params()`, `arm_json()` → `ros/src/omni_arm/omni_arm/config/robot_arm.json`; `frames()` puts `arm_mount` on the arm's adapter for the arm robot; writes only the files that changed |
 | `bridge_core.py`, `house.py`, `robot.py` | + `CoreConfig.payload / objects / n_objects / joint_err_deg` (the arm world: `arm_kw`, `ARM_AREA`); no ball loading without a catch module; the picking arm starts at `pick_stow` |
 | `studies/arm_mount.py`, `studies/arm_pick.py` | new: where the arm goes (floor reach, bin drop, stow; `results/arm_mount.json`); the tidy scored over seeds, sets and worlds (`results/arm_pick.json`) |
 | `test_v11.py` | + the pick robot's layout, `omni_arm`'s kinematics against MuJoCo's, the driver through the emulated bus, the arm-out caps, a grasp in physics, a whole tidy through the stack |
+| `catalog.py`, `models.py` (Nov 1 motor study) | `DriveMotor` fit fields (`r_fit`, `k_sat`, `viscous`, `driver_eff`, `p_idle`); `AK40-10` fitted to the maker's 24 V curve (`studies/motor_fit.py`, `studies/data/ak40_10_kv170_24v.csv`), the old model as `AK40-10-dc`; `datasheet_fit()` and the `-ds` candidates (AK40, DM-2325, DM-J3507, GIM4305-10, GIM3510-8, EduLite 05, M2006) |
+| `params.py`, `floor.py`, `robot_model.py`, `robot_export.py` (Nov 1) | `roller_pin_mu` / `roller_pin_radius` (plain rollers: pin friction with the load), `roller_mesh` (ARM: 13 x 64, smooth), `pod_sprung_mass` (the damping's mass), `floor.Incline`, `arm_params(mass_kg, cg_dz)`, `sprung_mass()`, `study_firmware()` / `study_limits()` / `study_from_env()` (`OMNI_SIM_STUDY`), `SimParams.fw_variant` |
+| `studies/drive_char.py`, `drive_mission.py`, `drive_char_report.py` (Nov 1) | the drive-motor study: physics limits with the binding cause (parts C A R S F I U T P), missions through the firmware (M, E), `results/motor_char/` (`HANDOFF.md`: how to run it) |

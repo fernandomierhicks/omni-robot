@@ -1,0 +1,119 @@
+{
+  "part": "dummy_motor_rear_cap",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0011_cylinder",
+      "sketch": "0011_cylinder_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0014_cone",
+      "sketch": "0014_cone_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0017_cylinder",
+      "sketch": "0017_cylinder_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0020_cone",
+      "sketch": "0020_cone_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 1,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0023_cylinder",
+      "sketch": "0023_cylinder_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0026_cone",
+      "sketch": "0026_cone_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 2,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0029_cylinder",
+      "sketch": "0029_cylinder_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0032_cone",
+      "sketch": "0032_cone_Sketch",
+      "pattern": "Motor_cover",
+      "point_index": 3,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0035_cylinder",
+      "sketch": "0035_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0038_cylinder",
+      "sketch": "0038_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0041_cylinder",
+      "sketch": "0041_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0044_cylinder",
+      "sketch": "0044_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0047_cylinder",
+      "sketch": "0047_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0050_cylinder",
+      "sketch": "0050_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0053_cylinder",
+      "sketch": "0053_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0056_cylinder",
+      "sketch": "0056_cylinder_Sketch",
+      "pattern": "Motor_rear",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 8
+}

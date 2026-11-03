@@ -1,0 +1,524 @@
+{
+  "sketches": [
+    {
+      "name": "Hub Section",
+      "status": 3
+    },
+    {
+      "name": "Inner Spoke Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Taper Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Joint Pad Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Axle Block Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Axle Hole Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Head Tunnel Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Nut Pocket Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Nut Tunnel Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Joint Hole Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Joint Counterbore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Inner Roller Pocket Section",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 54523.9719053573,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"row_distance\" = \"D2@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"drum_outer_radius\"= 33mm 'Drum outside radius",
+    "\"drum_bore_radius\"= 30mm 'Lightweight drum bore radius",
+    "\"bearing_start\"= 37mm 'Inner bearing outer face",
+    "\"bearing_end\"= 44mm 'Inner bearing inner face",
+    "\"bearing_radius\" = \"D78@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"bearing_shoulder_radius\" = \"D78@Control Measures-Shared Layout\" / 2 - 2.5mm 'Driven by the shared master layout",
+    "\"bearing_shoulder_length\"= 2.5mm 'Axial bearing shoulder thickness",
+    "\"bearing_lead\"= 0.5mm 'Native seat entry chamfer",
+    "\"spoke_root_radius\"= 31.5mm 'Root arc embedded inside drum wall",
+    "\"spoke_half_width\"= 14mm 'Spoke tangential half width at root",
+    "\"spoke_tip_radius\"= 60mm 'Spoke radial reach",
+    "\"nose_clip\"= 4mm 'Tangential nose corner clip",
+    "\"spoke_thickness\"= 12mm 'Axial thickness from split plane",
+    "\"taper_start_radius\"= 45mm 'Radial start of axial spoke taper",
+    "\"taper_tip_thickness\"= 6mm 'Spoke axial thickness at nose",
+    "\"nose_edge_break\"= 1mm 'Native nose edge chamfer",
+    "\"joint_pad_diameter\"= 14mm 'Joining screw pad diameter",
+    "\"joint_clearance\"= 3.4mm 'M3 joining screw clearance",
+    "\"head_pocket_diameter\"= 7.2mm 'M3 shallow pan head and driver clearance",
+    "\"head_pocket_depth\"= 2.9mm 'Joint screw head counterbore depth",
+    "\"root_fillet\"= 2mm 'Spoke to drum reinforcing fillet",
+    "\"roller_axis_radius\" = \"D4@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"axle_block_diameter\"= 12mm 'Axle support block diameter",
+    "\"axle_block_start\"= 20mm 'Block near face from roller midplane",
+    "\"axle_block_end\"= 23.5mm 'Block outer face from roller midplane",
+    "\"axle_clearance\"= 3.4mm 'M3 roller axle clearance",
+    "\"axle_hole_length\"= 51mm 'Axle cut total length",
+    "\"access_tunnel_length\"= 45mm 'Axle head and nut tool tunnel length",
+    "\"nut_across_flats\"= 5.8mm 'Captive M3 hex nut pocket",
+    "\"nut_depth\"= 2.6mm 'Captive nut pocket depth",
+    "\"wheel_radius\" = \"D6@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"roller_half_length\" = \"D10@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"end_cone_length\" = \"D12@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pocket_clearance\"= 1.3mm 'Running clearance outside roller barrel",
+    "\"pocket_half_length\"= 21.3mm 'Rigid journal thrust stop distance",
+    "\"pocket_cylinder_end\"= 19.8mm 'End of full-width barrel relief",
+    "\"pocket_tip_radius\"= 9mm 'Pocket radius at thrust stop",
+    "\"pocket_end_fillet\"= 2mm 'Cutter end rounding leaves cheek reinforcing coves",
+    "\"roller_count\" = (\"D108@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"inner_spoke_phase\" = \"D2@Angle inner spoke phase-Shared Layout\" 'Driven by the shared master layout",
+    "\"inner_roller_phase\" = \"D2@Angle inner roller phase-Shared Layout\" 'Driven by the shared master layout",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Hub Section\"= \"row_distance\"",
+    "\"D2@Hub Section\"= \"bearing_end\"",
+    "\"D3@Hub Section\"= \"bearing_start\"",
+    "\"D4@Hub Section\"= \"bearing_start\" - \"bearing_shoulder_length\"",
+    "\"D5@Hub Section\"= \"drum_bore_radius\"",
+    "\"D6@Hub Section\"= \"drum_outer_radius\"",
+    "\"D7@Hub Section\"= \"bearing_radius\"",
+    "\"D8@Hub Section\"= \"bearing_shoulder_radius\"",
+    "\"D9@Hub Section\"= \"axis_reference_halfspan\"",
+    "\"D10@Hub Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Hub Body Revolve\"= \"full_turn\"",
+    "\"D1@Bearing Seat Lead In\"= \"bearing_lead\"",
+    "\"D1@Inner Row Plane\"= \"row_distance\"",
+    "\"D1@Inner Spoke Sketch\"= \"spoke_root_radius\"",
+    "\"D2@Inner Spoke Sketch\"= abs((- (\"spoke_half_width\")) * cos(\"inner_spoke_phase\") - (sqr(\"spoke_root_radius\" * \"spoke_root_radius\" - \"spoke_half_width\" * \"spoke_half_width\")) * sin(\"inner_spoke_phase\"))",
+    "\"D3@Inner Spoke Sketch\"= abs((- (\"spoke_half_width\")) * cos(\"inner_spoke_phase\") - (\"spoke_tip_radius\" - \"nose_clip\") * sin(\"inner_spoke_phase\"))",
+    "\"D4@Inner Spoke Sketch\"= abs((- (\"spoke_half_width\")) * sin(\"inner_spoke_phase\") + (\"spoke_tip_radius\" - \"nose_clip\") * cos(\"inner_spoke_phase\"))",
+    "\"D5@Inner Spoke Sketch\"= abs((- (\"spoke_half_width\" - \"nose_clip\")) * cos(\"inner_spoke_phase\") - (\"spoke_tip_radius\") * sin(\"inner_spoke_phase\"))",
+    "\"D6@Inner Spoke Sketch\"= abs((- (\"spoke_half_width\" - \"nose_clip\")) * sin(\"inner_spoke_phase\") + (\"spoke_tip_radius\") * cos(\"inner_spoke_phase\"))",
+    "\"D7@Inner Spoke Sketch\"= abs((\"spoke_half_width\" - \"nose_clip\") * cos(\"inner_spoke_phase\") - (\"spoke_tip_radius\") * sin(\"inner_spoke_phase\"))",
+    "\"D8@Inner Spoke Sketch\"= abs((\"spoke_half_width\" - \"nose_clip\") * sin(\"inner_spoke_phase\") + (\"spoke_tip_radius\") * cos(\"inner_spoke_phase\"))",
+    "\"D9@Inner Spoke Sketch\"= abs((\"spoke_half_width\") * cos(\"inner_spoke_phase\") - (\"spoke_tip_radius\" - \"nose_clip\") * sin(\"inner_spoke_phase\"))",
+    "\"D10@Inner Spoke Sketch\"= abs((\"spoke_half_width\") * sin(\"inner_spoke_phase\") + (\"spoke_tip_radius\" - \"nose_clip\") * cos(\"inner_spoke_phase\"))",
+    "\"D11@Inner Spoke Sketch\"= abs((\"spoke_half_width\") * cos(\"inner_spoke_phase\") - (sqr(\"spoke_root_radius\" * \"spoke_root_radius\" - \"spoke_half_width\" * \"spoke_half_width\")) * sin(\"inner_spoke_phase\"))",
+    "\"D1@Inner Spoke Extrude\"= \"spoke_thickness\"",
+    "\"D1@Inner Spoke Taper Plane\"= \"inner_spoke_phase\"",
+    "\"taper_overrun\"= 1mm 'Cut extends beyond the spoke nose to avoid coincident edges",
+    "\"D1@Inner Taper Sketch\"= \"row_distance\" + \"spoke_thickness\"",
+    "\"D2@Inner Taper Sketch\"= abs((\"row_distance\" + \"spoke_thickness\") - (\"spoke_thickness\" - \"taper_tip_thickness\") * (\"spoke_tip_radius\" + \"taper_overrun\" - \"taper_start_radius\") / (\"spoke_tip_radius\" - \"taper_start_radius\"))",
+    "\"D3@Inner Taper Sketch\"= \"taper_start_radius\"",
+    "\"D4@Inner Taper Sketch\"= \"spoke_tip_radius\" + \"taper_overrun\"",
+    "\"D1@Inner Axial Spoke Taper\"= 2 * \"spoke_half_width\"",
+    "\"D1@Inner Nose Chamfer\"= \"nose_edge_break\"",
+    "\"D3@Inner Spoke Pattern\"= \"full_turn\"",
+    "\"D1@Inner Spoke Pattern\"= \"roller_count\"",
+    "\"D3@Inner Joint Pad Sketch\"= \"joint_pad_diameter\"",
+    "\"D1@Inner Joint Pad\"= \"spoke_thickness\"",
+    "\"D3@Inner Joint Pad Pattern\"= \"full_turn\"",
+    "\"D1@Inner Joint Pad Pattern\"= \"roller_count\"",
+    "\"D1@Inner Roller Plane\"= \"inner_roller_phase\"",
+    "\"D3@Inner Axle Block Sketch\"= \"axle_block_diameter\" / 2",
+    "\"D1@Inner Axle Block\"= \"axle_block_end\" - \"axle_block_start\"",
+    "\"D19@Inner Axle Block\"= \"axle_block_start\"",
+    "\"D3@Inner Axle Block Pattern\"= \"full_turn\"",
+    "\"D1@Inner Axle Block Pattern\"= \"roller_count\"",
+    "\"D3@Inner Axle Hole Sketch\"= \"axle_clearance\"",
+    "\"D1@Inner Axle Hole\"= \"axle_hole_length\"",
+    "\"D3@Inner Head Tunnel Sketch\"= \"head_pocket_diameter\"",
+    "\"D1@Inner Head Access Tunnel\"= \"access_tunnel_length\"",
+    "\"D19@Inner Head Access Tunnel\"= \"axle_block_end\"",
+    "\"D3@Inner Nut Pocket Sketch\"= \"nut_across_flats\"",
+    "\"D1@Inner Captive Nut Pocket\"= \"nut_depth\"",
+    "\"D19@Inner Captive Nut Pocket\"= \"axle_block_end\"",
+    "\"D3@Inner Nut Tunnel Sketch\"= \"head_pocket_diameter\"",
+    "\"D1@Inner Nut Access Tunnel\"= \"access_tunnel_length\"",
+    "\"D19@Inner Nut Access Tunnel\"= \"axle_block_end\" + \"nut_depth\"",
+    "\"D3@Inner Axle Clearance Pattern\"= \"full_turn\"",
+    "\"D1@Inner Axle Clearance Pattern\"= \"roller_count\"",
+    "\"D1@Inner Joint Head Plane\"= \"row_distance\" + \"spoke_thickness\"",
+    "\"D3@Inner Joint Hole Sketch\"= \"joint_clearance\"",
+    "\"D1@Inner Joint Hole\"= \"spoke_thickness\"",
+    "\"D3@Inner Joint Counterbore Sketch\"= \"head_pocket_diameter\"",
+    "\"D1@Inner Joint Counterbore\"= \"head_pocket_depth\"",
+    "\"D3@Inner Joint Hole Pattern\"= \"full_turn\"",
+    "\"D1@Inner Joint Hole Pattern\"= \"roller_count\"",
+    "\"D1@Spoke Root Fillets\"= \"root_fillet\"",
+    "\"D1@Inner Pocket Radial Plane\"= \"inner_roller_phase\"",
+    "\"D1@Inner Pocket Plane\"= \"roller_axis_radius\"",
+    "\"D1@Inner Roller Pocket Section\"= \"roller_axis_radius\" - \"pocket_clearance\" - (\"row_distance\")",
+    "\"D2@Inner Roller Pocket Section\"= \"wheel_radius\"",
+    "\"D3@Inner Roller Pocket Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D4@Inner Roller Pocket Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D5@Inner Roller Pocket Section\"= \"pocket_cylinder_end\"",
+    "\"D6@Inner Roller Pocket Section\"= \"pocket_cylinder_end\"",
+    "\"D7@Inner Roller Pocket Section\"= \"pocket_half_length\"",
+    "\"D8@Inner Roller Pocket Section\"= \"pocket_half_length\"",
+    "\"D9@Inner Roller Pocket Section\"= \"row_distance\"",
+    "\"D10@Inner Roller Pocket Section\"= abs(\"row_distance\" + \"pocket_tip_radius\")",
+    "\"D11@Inner Roller Pocket Section\"= abs(\"row_distance\" + \"pocket_tip_radius\")",
+    "\"D12@Inner Roller Pocket Section\"= \"axis_reference_halfspan\"",
+    "\"D13@Inner Roller Pocket Section\"= \"axis_reference_halfspan\"",
+    "\"D1@Inner Roller Pocket Tool\"= \"full_turn\"",
+    "\"D1@Inner Pocket End Fillets\"= \"pocket_end_fillet\"",
+    "\"D3@Inner Pocket Tool Pattern\"= \"full_turn\"",
+    "\"D1@Inner Pocket Tool Pattern\"= \"roller_count\""
+  ],
+  "design_features": [
+    {
+      "name": "Hub Body Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Hub Body Revolve"
+      ]
+    },
+    {
+      "name": "Bearing Seat Lead In",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Bearing Seat Lead In"
+      ]
+    },
+    {
+      "name": "Inner Spoke Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Spoke Extrude"
+      ]
+    },
+    {
+      "name": "Inner Axial Spoke Taper",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Axial Spoke Taper"
+      ]
+    },
+    {
+      "name": "Inner Nose Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Inner Nose Chamfer"
+      ]
+    },
+    {
+      "name": "Inner Spoke Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Spoke Pattern",
+        "D1@Inner Spoke Pattern"
+      ]
+    },
+    {
+      "name": "Inner Joint Pad",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Joint Pad"
+      ]
+    },
+    {
+      "name": "Inner Joint Pad Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Joint Pad Pattern",
+        "D1@Inner Joint Pad Pattern"
+      ]
+    },
+    {
+      "name": "Inner Axle Block",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Axle Block",
+        "D19@Inner Axle Block"
+      ]
+    },
+    {
+      "name": "Inner Opposite Axle Block",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Inner Axle Block Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Axle Block Pattern",
+        "D1@Inner Axle Block Pattern"
+      ]
+    },
+    {
+      "name": "Inner Axle Hole",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Axle Hole"
+      ]
+    },
+    {
+      "name": "Inner Head Access Tunnel",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Head Access Tunnel",
+        "D19@Inner Head Access Tunnel"
+      ]
+    },
+    {
+      "name": "Inner Captive Nut Pocket",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Captive Nut Pocket",
+        "D19@Inner Captive Nut Pocket"
+      ]
+    },
+    {
+      "name": "Inner Nut Access Tunnel",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Nut Access Tunnel",
+        "D19@Inner Nut Access Tunnel"
+      ]
+    },
+    {
+      "name": "Inner Axle Clearance Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Axle Clearance Pattern",
+        "D1@Inner Axle Clearance Pattern"
+      ]
+    },
+    {
+      "name": "Inner Joint Hole",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Joint Hole"
+      ]
+    },
+    {
+      "name": "Inner Joint Counterbore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Inner Joint Counterbore"
+      ]
+    },
+    {
+      "name": "Inner Joint Hole Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Joint Hole Pattern",
+        "D1@Inner Joint Hole Pattern"
+      ]
+    },
+    {
+      "name": "Spoke Root Fillets",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Spoke Root Fillets"
+      ]
+    },
+    {
+      "name": "Inner Roller Pocket Tool",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Inner Roller Pocket Tool"
+      ]
+    },
+    {
+      "name": "Inner Pocket End Fillets",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Inner Pocket End Fillets"
+      ]
+    },
+    {
+      "name": "Inner Pocket Tool Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Inner Pocket Tool Pattern",
+        "D1@Inner Pocket Tool Pattern"
+      ]
+    },
+    {
+      "name": "Inner Roller Pockets Cut",
+      "type": "CombineBodies",
+      "dimensions": []
+    }
+  ],
+  "pass": true
+}

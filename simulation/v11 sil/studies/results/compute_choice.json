@@ -1,0 +1,2152 @@
+{
+ "load": {
+  "per_process_cores": {
+   "localization_slam_toolbox_node": 0.281,
+   "catch_perception": 0.279,
+   "mcu_link": 0.212,
+   "controller_server": 0.188,
+   "catch_behavior": 0.168,
+   "bt_navigator": 0.102,
+   "planner_server": 0.094,
+   "mode_manager": 0.091,
+   "ekf_node": 0.083,
+   "scan_prep": 0.081,
+   "behavior_server": 0.062,
+   "heading_node": 0.05,
+   "collision_monitor": 0.042,
+   "smoother_server": 0.042,
+   "lifecycle_manager": 0.038,
+   "velocity_smoother": 0.022
+  },
+  "measured": 1.835,
+  "python_share": 0.881,
+  "extras": 0.82,
+  "today": 2.655,
+  "cpp_ports": 1.994,
+  "head_today": 0.579,
+  "head_cpp_ports": 0.37
+ },
+ "mode_loads": {
+  "py": {
+   "modes": {
+    "MANUAL": {
+     "measured": 1.686,
+     "extras": 0.31,
+     "total": 1.996,
+     "head": 0.248,
+     "main": 1.748,
+     "per_process_cores": {
+      "mcu_link": 0.253,
+      "scan_prep": 0.167,
+      "planner_server": 0.154,
+      "catch_perception": 0.148,
+      "catch_behavior": 0.141,
+      "controller_server": 0.133,
+      "ekf_node": 0.116,
+      "bt_navigator": 0.107,
+      "behavior_server": 0.081,
+      "mode_manager": 0.079,
+      "smoother_server": 0.06,
+      "lifecycle_manager": 0.048,
+      "heading_node": 0.044,
+      "localization_slam_toolbox_node": 0.038,
+      "collision_monitor": 0.033,
+      "velocity_smoother": 0.033,
+      "mission_node": 0.032,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 2.041,
+     "extras": 0.51,
+     "total": 2.551,
+     "head": 0.235,
+     "main": 2.316,
+     "per_process_cores": {
+      "localization_slam_toolbox_node": 0.32,
+      "controller_server": 0.208,
+      "mcu_link": 0.205,
+      "scan_prep": 0.163,
+      "catch_perception": 0.135,
+      "catch_behavior": 0.129,
+      "bt_navigator": 0.124,
+      "planner_server": 0.122,
+      "mission_node": 0.118,
+      "ekf_node": 0.105,
+      "mode_manager": 0.076,
+      "behavior_server": 0.076,
+      "heading_node": 0.057,
+      "smoother_server": 0.054,
+      "collision_monitor": 0.05,
+      "lifecycle_manager": 0.046,
+      "velocity_smoother": 0.033,
+      "face_node": 0.014,
+      "rosapi_node": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.888,
+     "extras": 0.51,
+     "total": 2.398,
+     "head": 0.567,
+     "main": 1.831,
+     "per_process_cores": {
+      "catch_perception": 0.267,
+      "localization_slam_toolbox_node": 0.251,
+      "mcu_link": 0.191,
+      "scan_prep": 0.166,
+      "catch_behavior": 0.161,
+      "planner_server": 0.14,
+      "controller_server": 0.122,
+      "ekf_node": 0.101,
+      "bt_navigator": 0.095,
+      "behavior_server": 0.074,
+      "mode_manager": 0.059,
+      "smoother_server": 0.054,
+      "lifecycle_manager": 0.045,
+      "heading_node": 0.042,
+      "mission_node": 0.042,
+      "collision_monitor": 0.03,
+      "velocity_smoother": 0.029,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "PATROL",
+   "peak": 2.551,
+   "head_peak": 0.567,
+   "main_peak": 2.316
+  },
+  "cpp": {
+   "modes": {
+    "MANUAL": {
+     "measured": 1.118,
+     "extras": 0.31,
+     "total": 1.428,
+     "head": 0.211,
+     "main": 1.217,
+     "per_process_cores": {
+      "planner_server": 0.124,
+      "catch_behavior": 0.124,
+      "catch_perception": 0.111,
+      "controller_server": 0.11,
+      "ekf_node": 0.104,
+      "bt_navigator": 0.092,
+      "behavior_server": 0.071,
+      "mcu_link": 0.069,
+      "smoother_server": 0.054,
+      "scan_prep": 0.042,
+      "lifecycle_manager": 0.041,
+      "localization_slam_toolbox_node": 0.033,
+      "collision_monitor": 0.032,
+      "mission_node": 0.032,
+      "velocity_smoother": 0.027,
+      "mode_manager": 0.024,
+      "face_node": 0.014,
+      "heading_node": 0.009,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 1.502,
+     "extras": 0.51,
+     "total": 2.012,
+     "head": 0.211,
+     "main": 1.801,
+     "per_process_cores": {
+      "localization_slam_toolbox_node": 0.295,
+      "controller_server": 0.185,
+      "catch_behavior": 0.121,
+      "catch_perception": 0.111,
+      "bt_navigator": 0.111,
+      "mission_node": 0.11,
+      "planner_server": 0.099,
+      "ekf_node": 0.092,
+      "behavior_server": 0.066,
+      "mcu_link": 0.058,
+      "smoother_server": 0.05,
+      "collision_monitor": 0.043,
+      "lifecycle_manager": 0.038,
+      "scan_prep": 0.036,
+      "velocity_smoother": 0.029,
+      "mode_manager": 0.023,
+      "heading_node": 0.016,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.401,
+     "extras": 0.51,
+     "total": 1.911,
+     "head": 0.548,
+     "main": 1.363,
+     "per_process_cores": {
+      "catch_perception": 0.248,
+      "localization_slam_toolbox_node": 0.23,
+      "catch_behavior": 0.157,
+      "planner_server": 0.112,
+      "controller_server": 0.1,
+      "ekf_node": 0.089,
+      "bt_navigator": 0.083,
+      "behavior_server": 0.064,
+      "mcu_link": 0.056,
+      "smoother_server": 0.049,
+      "mission_node": 0.041,
+      "lifecycle_manager": 0.037,
+      "scan_prep": 0.035,
+      "collision_monitor": 0.028,
+      "velocity_smoother": 0.025,
+      "mode_manager": 0.018,
+      "face_node": 0.014,
+      "heading_node": 0.009,
+      "rosapi_node": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "PATROL",
+   "peak": 2.012,
+   "head_peak": 0.548,
+   "main_peak": 1.801
+  },
+  "lean": {
+   "modes": {
+    "MANUAL": {
+     "measured": 1.114,
+     "extras": 0.31,
+     "total": 1.424,
+     "head": 0.219,
+     "main": 1.205,
+     "per_process_cores": {
+      "planner_server": 0.13,
+      "catch_perception": 0.119,
+      "controller_server": 0.117,
+      "bt_navigator": 0.103,
+      "ekf_node": 0.102,
+      "catch_behavior": 0.089,
+      "behavior_server": 0.073,
+      "mcu_link": 0.062,
+      "smoother_server": 0.054,
+      "lifecycle_manager": 0.046,
+      "scan_prep": 0.04,
+      "collision_monitor": 0.035,
+      "localization_slam_toolbox_node": 0.034,
+      "mission_node": 0.032,
+      "velocity_smoother": 0.026,
+      "mode_manager": 0.023,
+      "face_node": 0.014,
+      "heading_node": 0.01,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 1.298,
+     "extras": 0.51,
+     "total": 1.808,
+     "head": 0.219,
+     "main": 1.589,
+     "per_process_cores": {
+      "localization_slam_toolbox_node": 0.206,
+      "controller_server": 0.128,
+      "catch_perception": 0.119,
+      "bt_navigator": 0.109,
+      "planner_server": 0.102,
+      "ekf_node": 0.095,
+      "catch_behavior": 0.086,
+      "mission_node": 0.072,
+      "behavior_server": 0.069,
+      "mcu_link": 0.056,
+      "smoother_server": 0.048,
+      "collision_monitor": 0.047,
+      "lifecycle_manager": 0.045,
+      "scan_prep": 0.035,
+      "velocity_smoother": 0.024,
+      "mode_manager": 0.023,
+      "heading_node": 0.015,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.128,
+     "extras": 0.51,
+     "total": 1.638,
+     "head": 0.518,
+     "main": 1.12,
+     "per_process_cores": {
+      "catch_perception": 0.218,
+      "planner_server": 0.109,
+      "catch_behavior": 0.108,
+      "controller_server": 0.099,
+      "bt_navigator": 0.088,
+      "ekf_node": 0.085,
+      "localization_slam_toolbox_node": 0.071,
+      "behavior_server": 0.062,
+      "mcu_link": 0.048,
+      "smoother_server": 0.042,
+      "lifecycle_manager": 0.04,
+      "mission_node": 0.04,
+      "scan_prep": 0.03,
+      "collision_monitor": 0.028,
+      "velocity_smoother": 0.017,
+      "mode_manager": 0.015,
+      "face_node": 0.014,
+      "heading_node": 0.009,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "PATROL",
+   "peak": 1.808,
+   "head_peak": 0.518,
+   "main_peak": 1.589
+  },
+  "lean_rerun": {
+   "modes": {
+    "MANUAL": {
+     "measured": 1.171,
+     "extras": 0.31,
+     "total": 1.481,
+     "head": 0.234,
+     "main": 1.247,
+     "per_process_cores": {
+      "catch_behavior": 0.134,
+      "catch_perception": 0.134,
+      "planner_server": 0.124,
+      "controller_server": 0.118,
+      "bt_navigator": 0.104,
+      "ekf_node": 0.102,
+      "behavior_server": 0.074,
+      "mcu_link": 0.066,
+      "lifecycle_manager": 0.047,
+      "smoother_server": 0.046,
+      "scan_prep": 0.043,
+      "collision_monitor": 0.035,
+      "localization_slam_toolbox_node": 0.033,
+      "mission_node": 0.032,
+      "mode_manager": 0.026,
+      "velocity_smoother": 0.024,
+      "face_node": 0.014,
+      "heading_node": 0.01,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 1.314,
+     "extras": 0.51,
+     "total": 1.824,
+     "head": 0.229,
+     "main": 1.595,
+     "per_process_cores": {
+      "localization_slam_toolbox_node": 0.185,
+      "catch_perception": 0.129,
+      "catch_behavior": 0.126,
+      "controller_server": 0.122,
+      "bt_navigator": 0.114,
+      "planner_server": 0.097,
+      "ekf_node": 0.09,
+      "mission_node": 0.072,
+      "behavior_server": 0.066,
+      "mcu_link": 0.059,
+      "collision_monitor": 0.047,
+      "smoother_server": 0.043,
+      "lifecycle_manager": 0.04,
+      "scan_prep": 0.036,
+      "mode_manager": 0.027,
+      "velocity_smoother": 0.026,
+      "heading_node": 0.015,
+      "face_node": 0.014,
+      "rosapi_node": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.154,
+     "extras": 0.51,
+     "total": 1.664,
+     "head": 0.448,
+     "main": 1.216,
+     "per_process_cores": {
+      "catch_perception": 0.148,
+      "catch_behavior": 0.141,
+      "planner_server": 0.119,
+      "controller_server": 0.113,
+      "bt_navigator": 0.108,
+      "ekf_node": 0.095,
+      "behavior_server": 0.069,
+      "mcu_link": 0.063,
+      "smoother_server": 0.045,
+      "lifecycle_manager": 0.042,
+      "scan_prep": 0.039,
+      "localization_slam_toolbox_node": 0.032,
+      "mission_node": 0.032,
+      "collision_monitor": 0.031,
+      "mode_manager": 0.025,
+      "velocity_smoother": 0.023,
+      "face_node": 0.014,
+      "heading_node": 0.01,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "PATROL",
+   "peak": 1.824,
+   "head_peak": 0.448,
+   "main_peak": 1.595
+  },
+  "sleep": {
+   "modes": {
+    "MANUAL": {
+     "measured": 0.951,
+     "extras": 0.31,
+     "total": 1.261,
+     "head": 0.154,
+     "main": 1.107,
+     "per_process_cores": {
+      "planner_server": 0.12,
+      "controller_server": 0.113,
+      "ekf_node": 0.103,
+      "bt_navigator": 0.091,
+      "behavior_server": 0.072,
+      "mcu_link": 0.056,
+      "catch_perception": 0.054,
+      "smoother_server": 0.052,
+      "catch_behavior": 0.047,
+      "scan_prep": 0.042,
+      "lifecycle_manager": 0.036,
+      "collision_monitor": 0.034,
+      "localization_slam_toolbox_node": 0.034,
+      "mission_node": 0.03,
+      "velocity_smoother": 0.022,
+      "mode_manager": 0.018,
+      "face_node": 0.012,
+      "heading_node": 0.009,
+      "rosapi_node": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 1.068,
+     "extras": 0.51,
+     "total": 1.578,
+     "head": 0.138,
+     "main": 1.44,
+     "per_process_cores": {
+      "localization_slam_toolbox_node": 0.184,
+      "controller_server": 0.122,
+      "bt_navigator": 0.096,
+      "ekf_node": 0.091,
+      "planner_server": 0.09,
+      "mission_node": 0.067,
+      "behavior_server": 0.061,
+      "smoother_server": 0.05,
+      "mcu_link": 0.048,
+      "collision_monitor": 0.045,
+      "catch_perception": 0.038,
+      "catch_behavior": 0.036,
+      "scan_prep": 0.035,
+      "lifecycle_manager": 0.032,
+      "velocity_smoother": 0.022,
+      "mode_manager": 0.02,
+      "heading_node": 0.014,
+      "face_node": 0.011,
+      "rosapi_node": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.117,
+     "extras": 0.51,
+     "total": 1.627,
+     "head": 0.524,
+     "main": 1.103,
+     "per_process_cores": {
+      "catch_perception": 0.224,
+      "catch_behavior": 0.135,
+      "planner_server": 0.098,
+      "controller_server": 0.096,
+      "ekf_node": 0.083,
+      "bt_navigator": 0.078,
+      "localization_slam_toolbox_node": 0.062,
+      "behavior_server": 0.057,
+      "mcu_link": 0.051,
+      "smoother_server": 0.046,
+      "mission_node": 0.039,
+      "lifecycle_manager": 0.031,
+      "scan_prep": 0.03,
+      "collision_monitor": 0.029,
+      "velocity_smoother": 0.017,
+      "mode_manager": 0.016,
+      "face_node": 0.012,
+      "heading_node": 0.008,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "CATCH",
+   "peak": 1.627,
+   "head_peak": 0.524,
+   "main_peak": 1.44
+  },
+  "compose": {
+   "modes": {
+    "MANUAL": {
+     "measured": 0.777,
+     "extras": 0.31,
+     "total": 1.087,
+     "head": 0.146,
+     "main": 0.941,
+     "per_process_cores": {
+      "component_container_isolated": 0.385,
+      "ekf_node": 0.095,
+      "mcu_link": 0.057,
+      "catch_perception": 0.046,
+      "catch_behavior": 0.044,
+      "scan_prep": 0.043,
+      "localization_slam_toolbox_node": 0.032,
+      "mission_node": 0.031,
+      "mode_manager": 0.025,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 0.901,
+     "extras": 0.51,
+     "total": 1.411,
+     "head": 0.112,
+     "main": 1.299,
+     "per_process_cores": {
+      "component_container_isolated": 0.394,
+      "localization_slam_toolbox_node": 0.185,
+      "ekf_node": 0.089,
+      "mission_node": 0.068,
+      "mcu_link": 0.048,
+      "scan_prep": 0.036,
+      "catch_behavior": 0.028,
+      "mode_manager": 0.022,
+      "face_node": 0.014,
+      "catch_perception": 0.012,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.387,
+     "extras": 0.51,
+     "total": 1.897,
+     "head": 0.537,
+     "main": 1.36,
+     "per_process_cores": {
+      "component_container_isolated": 0.37,
+      "localization_slam_toolbox_node": 0.355,
+      "catch_perception": 0.237,
+      "catch_behavior": 0.156,
+      "ekf_node": 0.09,
+      "mcu_link": 0.058,
+      "mission_node": 0.041,
+      "scan_prep": 0.038,
+      "mode_manager": 0.022,
+      "face_node": 0.015,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "CATCH",
+   "peak": 1.897,
+   "head_peak": 0.537,
+   "main_peak": 1.36
+  },
+  "compose_all": {
+   "modes": {
+    "MANUAL": {
+     "measured": 0.696,
+     "extras": 0.31,
+     "total": 1.006,
+     "head": 0.146,
+     "main": 0.86,
+     "per_process_cores": {
+      "component_container_isolated": 0.445,
+      "ekf_node": 0.086,
+      "catch_perception": 0.046,
+      "catch_behavior": 0.041,
+      "localization_slam_toolbox_node": 0.03,
+      "mission_node": 0.03,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 0.846,
+     "extras": 0.51,
+     "total": 1.356,
+     "head": 0.123,
+     "main": 1.233,
+     "per_process_cores": {
+      "component_container_isolated": 0.438,
+      "localization_slam_toolbox_node": 0.2,
+      "ekf_node": 0.079,
+      "mission_node": 0.068,
+      "catch_perception": 0.023,
+      "catch_behavior": 0.019,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 1.155,
+     "extras": 0.51,
+     "total": 1.665,
+     "head": 0.55,
+     "main": 1.115,
+     "per_process_cores": {
+      "component_container_isolated": 0.418,
+      "catch_perception": 0.25,
+      "localization_slam_toolbox_node": 0.202,
+      "catch_behavior": 0.149,
+      "ekf_node": 0.078,
+      "mission_node": 0.04,
+      "face_node": 0.014,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "CATCH",
+   "peak": 1.665,
+   "head_peak": 0.55,
+   "main_peak": 1.233
+  },
+  "catch_cpp": {
+   "modes": {
+    "MANUAL": {
+     "measured": 0.571,
+     "extras": 0.31,
+     "total": 0.881,
+     "head": 0.105,
+     "main": 0.776,
+     "per_process_cores": {
+      "component_container_isolated": 0.405,
+      "ekf_node": 0.081,
+      "mission_node": 0.028,
+      "localization_slam_toolbox_node": 0.026,
+      "face_node": 0.014,
+      "catch_behavior": 0.008,
+      "catch_perception": 0.005,
+      "console_web": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "PATROL": {
+     "measured": 0.759,
+     "extras": 0.51,
+     "total": 1.269,
+     "head": 0.102,
+     "main": 1.167,
+     "per_process_cores": {
+      "component_container_isolated": 0.398,
+      "localization_slam_toolbox_node": 0.201,
+      "ekf_node": 0.074,
+      "mission_node": 0.062,
+      "face_node": 0.013,
+      "catch_behavior": 0.004,
+      "catch_perception": 0.002,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    },
+    "CATCH": {
+     "measured": 0.651,
+     "extras": 0.51,
+     "total": 1.161,
+     "head": 0.334,
+     "main": 0.827,
+     "per_process_cores": {
+      "component_container_isolated": 0.367,
+      "localization_slam_toolbox_node": 0.099,
+      "ekf_node": 0.073,
+      "mission_node": 0.037,
+      "catch_perception": 0.034,
+      "catch_behavior": 0.023,
+      "face_node": 0.013,
+      "console_web": 0.001,
+      "image_preview": 0.001,
+      "rosapi_node": 0.001,
+      "rosbridge_websocket": 0.001,
+      "web_video_server": 0.001
+     }
+    }
+   },
+   "peak_mode": "PATROL",
+   "peak": 1.269,
+   "head_peak": 0.334,
+   "main_peak": 1.167
+  }
+ },
+ "loads": {
+  "first pass": [
+   2.655,
+   2.0759999999999996,
+   0.579
+  ],
+  "C++ glue": [
+   2.012,
+   1.801,
+   0.548
+  ],
+  "C++ glue + lean Nav2": [
+   1.808,
+   1.589,
+   0.518
+  ],
+  "+ catch asleep outside CATCH": [
+   1.627,
+   1.44,
+   0.524
+  ],
+  "+ Nav2 composed": [
+   1.897,
+   1.36,
+   0.537
+  ],
+  "+ catch nodes in C++": [
+   1.269,
+   1.167,
+   0.334
+  ]
+ },
+ "extras": {
+  "operator console + face node": 0.11,
+  "voice: Kokoro bursts + Vosk listening": 0.15,
+  "slam_toolbox mapping instead of localization": 0.2,
+  "camera capture, stamping, Bayer ROI at 2 x 120 fps": 0.2,
+  "lidar driver": 0.03,
+  "AprilTag detection + tag_slam": 0.1,
+  "frames, misc": 0.03
+ },
+ "computers": {
+  "raspberrypi-pi5-2gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "6.2-8.6 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "4.7-6.5 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "4.2-5.8 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "3.8-5.3 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "4.4-6.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "2.9-4.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "thundercomm-rubik-pi-3": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "5.1-5.1 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "3.9-3.9 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "3.5-3.5 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "3.1-3.1 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "3.6-3.6 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "2.4-2.4 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   }
+  },
+  "raspberrypi-pi5-4gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "6.2-8.6 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "4.7-6.5 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "4.2-5.8 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "3.8-5.3 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "4.4-6.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "2.9-4.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "generic-n150-minipc-16gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "4.8-6.0 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "3.6-4.5 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "3.2-4.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": "2.9-3.7 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "3.4-4.3 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "2.3-2.9 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "raspberrypi-pi5-8gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "6.2-8.6 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "4.7-6.5 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "4.2-5.8 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "3.8-5.3 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "4.4-6.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "2.9-4.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "hardkernel-odroid-h4-ultra": {
+   "first pass": {
+    "status": "PASS",
+    "need": "4.5-4.5 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "3.4-3.4 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "3.0-3.0 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "2.7-2.7 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "3.2-3.2 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "2.1-2.1 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   }
+  },
+  "radxa-rock-5b-plus-8gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "6.3-9.1 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "4.7-6.9 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "4.3-6.2 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": "3.8-5.6 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "4.5-6.5 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "3.0-4.4 cores",
+    "cap": "<= 4.1 (75% of 5.4)"
+   }
+  },
+  "raspberrypi-pi5-16gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "6.2-8.6 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "4.7-6.5 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "4.2-5.8 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "3.8-5.3 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "4.4-6.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "2.9-4.1 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "dfrobot-lattepanda-iota-8gb": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "4.8-6.2 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "3.6-4.7 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "3.2-4.2 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": "2.9-3.8 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "3.4-4.4 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "2.3-3.0 cores",
+    "cap": "<= 3.0 (75% of 4.0)"
+   }
+  },
+  "nvidia-jetson-orin-nano-4gb-module": {
+   "first pass": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.655
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.012
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.808
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.627
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.897
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.269
+   }
+  },
+  "gmktec-m8-6650h-16gb": {
+   "first pass": {
+    "status": "PASS",
+    "need": "4.0-4.0 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "3.0-3.0 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "2.7-2.7 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "2.5-2.5 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "2.9-2.9 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "1.9-1.9 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   }
+  },
+  "asus-nuc-14-pro-cu5-125h": {
+   "first pass": {
+    "status": "PASS",
+    "need": "3.4-3.4 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "2.6-2.6 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "2.3-2.3 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "2.1-2.1 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "2.4-2.4 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "1.6-1.6 cores",
+    "cap": "<= 5.6 (75% of 7.5)"
+   }
+  },
+  "nvidia-jetson-orin-nano-super-devkit": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "8.0-9.6 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "6.1-7.3 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "5.4-6.5 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "4.9-5.9 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "5.7-6.8 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "3.8-4.6 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   }
+  },
+  "nvidia-jetson-orin-nano-8gb-module": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "8.0-9.6 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue": {
+    "status": "FAIL",
+    "need": "6.1-7.3 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "FAIL",
+    "need": "5.4-6.5 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "FAIL",
+    "need": "4.9-5.9 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "FAIL",
+    "need": "5.7-6.8 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": "3.8-4.6 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   }
+  },
+  "generic-ryzen7-8845hs-minipc": {
+   "first pass": {
+    "status": "PASS",
+    "need": "3.2-3.2 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "2.4-2.4 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "2.2-2.2 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "1.9-1.9 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "2.3-2.3 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "1.5-1.5 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   }
+  },
+  "gmktec-m6-ultra-7640hs-16gb": {
+   "first pass": {
+    "status": "PASS",
+    "need": "3.1-3.1 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "2.4-2.4 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "2.1-2.1 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "1.9-1.9 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "2.2-2.2 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "1.5-1.5 cores",
+    "cap": "<= 4.5 (75% of 6.0)"
+   }
+  },
+  "nvidia-jetson-orin-nx-8gb-module": {
+   "first pass": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.655
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.012
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.808
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.627
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.897
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.269
+   }
+  },
+  "minisforum-ms-03-cu5-336h": {
+   "first pass": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.655
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.012
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.808
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.627
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.897
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.269
+   }
+  },
+  "nvidia-jetson-orin-nx-16gb-module": {
+   "first pass": {
+    "status": "FAIL",
+    "need": "7.2-8.8 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": "5.4-6.7 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": "4.9-6.0 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "4.4-5.4 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": "5.1-6.3 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "3.4-4.2 cores",
+    "cap": "<= 6.0 (75% of 8.0)"
+   }
+  },
+  "nvidia-jetson-agx-orin-64gb-devkit": {
+   "first pass": {
+    "status": "PASS",
+    "need": "6.2-6.2 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   },
+   "C++ glue": {
+    "status": "PASS",
+    "need": "4.7-4.7 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   },
+   "C++ glue + lean Nav2": {
+    "status": "PASS",
+    "need": "4.2-4.2 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "PASS",
+    "need": "3.8-3.8 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   },
+   "+ Nav2 composed": {
+    "status": "PASS",
+    "need": "4.4-4.4 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   },
+   "+ catch nodes in C++": {
+    "status": "PASS",
+    "need": "3.0-3.0 cores",
+    "cap": "<= 9.0 (75% of 12.0)"
+   }
+  },
+  "nvidia-jetson-agx-thor-devkit": {
+   "first pass": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.655
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.012
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.808
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.627
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.897
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.269
+   }
+  },
+  "nvidia-jetson-orin-nano-2": {
+   "first pass": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.655
+   },
+   "C++ glue": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 2.012
+   },
+   "C++ glue + lean Nav2": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.808
+   },
+   "+ catch asleep outside CATCH": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.627
+   },
+   "+ Nav2 composed": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.897
+   },
+   "+ catch nodes in C++": {
+    "status": "UNKNOWN",
+    "need": null,
+    "cap": 1.269
+   }
+  }
+ },
+ "cameras": {
+  "arducam-b0492n-ar0234-stereo-jetson": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 93 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-b0492r-ar0234-stereo-pi": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "UNKNOWN frame rate: None (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-ar0234-xisp-jetson": {
+   "verdict": "FAIL",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "UNKNOWN frame rate: None (need 60) - at >= 640x400",
+    "FAIL    hardware sync: no (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-b0331-ov9782-quad": {
+   "verdict": "FAIL",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "FAIL    frame rate: 45 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-b0385-ov9782-uvc": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 100 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-ov9281-mono-pi": {
+   "verdict": "FAIL",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "FAIL    color: mono (need color)",
+    "PASS    frame rate: 120 (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: partly (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-b0266-ov9281-stereo": {
+   "verdict": "FAIL",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "FAIL    color: mono (need color)",
+    "UNKNOWN frame rate: None (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "arducam-og05b10-color-gs-pi": {
+   "verdict": "FAIL",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "FAIL    frame rate: 30 (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: VERIFY (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "econ-ecam25-cuonx": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 120 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "raspberrypi-gs-camera-imx296": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 60 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "luxonis-oak-ffc-ov9782": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 180 (need 60) - at >= 640x400",
+    "PASS    hardware sync: yes (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "luxonis-oak-4-d": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "UNKNOWN color: mono_stereo_color_center (need color)",
+    "UNKNOWN frame rate: None (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: None (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "stereolabs-zed-x-one-gs": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "PASS    color: color (need color)",
+    "PASS    frame rate: 60 (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: VERIFY (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "orbbec-gemini-335l": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "UNKNOWN color: mono_stereo_color_center (need color)",
+    "PASS    frame rate: 60 (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: VERIFY (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  },
+  "intel-realsense-d455": {
+   "verdict": "UNKNOWN",
+   "checks": [
+    "PASS    global shutter: global (need global)",
+    "UNKNOWN color: mono_stereo_color_center (need color)",
+    "UNKNOWN frame rate: None (need 60) - at >= 640x400",
+    "UNKNOWN hardware sync: VERIFY (need yes)",
+    "UNKNOWN latency: None (need 60)"
+   ]
+  }
+ },
+ "systems": [
+  {
+   "system": "GMKtec M8 (6650H) + Pi 5 2GB camera head + 2 Pi GS cameras",
+   "usd": 642,
+   "price_unknown": [],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "budget: both computers $467; lenses, cooler, buck",
+   "cpu": {
+    "first pass": {
+     "status": "PASS",
+     "main": "3.1-3.1 cores",
+     "head": "1.3-1.9 cores"
+    },
+    "C++ glue": {
+     "status": "PASS",
+     "main": "2.7-2.7 cores",
+     "head": "1.3-1.8 cores"
+    },
+    "C++ glue + lean Nav2": {
+     "status": "PASS",
+     "main": "2.4-2.4 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "2.2-2.2 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ Nav2 composed": {
+     "status": "PASS",
+     "main": "2.1-2.1 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "1.8-1.8 cores",
+     "head": "0.8-1.1 cores"
+    }
+   }
+  },
+  {
+   "system": "GMKtec M6 Ultra (7640HS) + Pi 5 2GB camera head + 2 Pi GS cameras",
+   "usd": 752,
+   "price_unknown": [],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "lenses, cooler, buck",
+   "cpu": {
+    "first pass": {
+     "status": "PASS",
+     "main": "2.5-2.5 cores",
+     "head": "1.3-1.9 cores"
+    },
+    "C++ glue": {
+     "status": "PASS",
+     "main": "2.1-2.1 cores",
+     "head": "1.3-1.8 cores"
+    },
+    "C++ glue + lean Nav2": {
+     "status": "PASS",
+     "main": "1.9-1.9 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "1.7-1.7 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ Nav2 composed": {
+     "status": "PASS",
+     "main": "1.6-1.6 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "1.4-1.4 cores",
+     "head": "0.8-1.1 cores"
+    }
+   }
+  },
+  {
+   "system": "GMKtec M8 (6650H) + Pi 5 4GB camera head (in stock) + 2 Pi GS cameras",
+   "usd": 695,
+   "price_unknown": [],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "the in-stock Pi (Adafruit)",
+   "cpu": {
+    "first pass": {
+     "status": "PASS",
+     "main": "3.1-3.1 cores",
+     "head": "1.3-1.9 cores"
+    },
+    "C++ glue": {
+     "status": "PASS",
+     "main": "2.7-2.7 cores",
+     "head": "1.3-1.8 cores"
+    },
+    "C++ glue + lean Nav2": {
+     "status": "PASS",
+     "main": "2.4-2.4 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "2.2-2.2 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ Nav2 composed": {
+     "status": "PASS",
+     "main": "2.1-2.1 cores",
+     "head": "1.2-1.7 cores"
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "1.8-1.8 cores",
+     "head": "0.8-1.1 cores"
+    }
+   }
+  },
+  {
+   "system": "Orin Nano Super kit + 2 e-con AR0234 (trigger)",
+   "usd": 399,
+   "price_unknown": [
+    "econ-ecam25-cuonx"
+   ],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "cameras' price on request",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "8.0-9.6 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "FAIL",
+     "main": "6.1-7.3 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "FAIL",
+     "main": "5.4-6.5 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "FAIL",
+     "main": "4.9-5.9 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "FAIL",
+     "main": "5.7-6.8 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "UNKNOWN",
+     "main": "3.8-4.6 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Orin Nano Super kit + Arducam AR0234 sync stereo",
+   "usd": 659,
+   "price_unknown": [],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "trigger VERIFY on this kit",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "8.0-9.6 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "FAIL",
+     "main": "6.1-7.3 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "FAIL",
+     "main": "5.4-6.5 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "FAIL",
+     "main": "4.9-5.9 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "FAIL",
+     "main": "5.7-6.8 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "UNKNOWN",
+     "main": "3.8-4.6 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Orin NX 16GB on a J401 + 2 e-con AR0234",
+   "usd": 1304,
+   "price_unknown": [
+    "econ-ecam25-cuonx"
+   ],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "+ NVMe and cooler (est $60)",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "7.2-8.8 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "UNKNOWN",
+     "main": "5.4-6.7 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "UNKNOWN",
+     "main": "4.9-6.0 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "4.4-5.4 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "UNKNOWN",
+     "main": "5.1-6.3 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "3.4-4.2 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Ryzen 7 8845HS mini PC + OAK-FFC 4P + 2 OV9782",
+   "usd": 999,
+   "price_unknown": [],
+   "cameras": [
+    "PASS"
+   ],
+   "note": "+ 32 GB DDR5 and an SSD (est $200)",
+   "cpu": {
+    "first pass": {
+     "status": "PASS",
+     "main": "3.2-3.2 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "PASS",
+     "main": "2.4-2.4 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "PASS",
+     "main": "2.2-2.2 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "1.9-1.9 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "PASS",
+     "main": "2.3-2.3 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "1.5-1.5 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Core Ultra 5 NUC 14 Pro + OAK-FFC 4P + 2 OV9782",
+   "usd": 993,
+   "price_unknown": [],
+   "cameras": [
+    "PASS"
+   ],
+   "note": "+ RAM and SSD (est $200); launch price",
+   "cpu": {
+    "first pass": {
+     "status": "PASS",
+     "main": "3.4-3.4 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "PASS",
+     "main": "2.6-2.6 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "PASS",
+     "main": "2.3-2.3 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "PASS",
+     "main": "2.1-2.1 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "PASS",
+     "main": "2.4-2.4 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "1.6-1.6 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "N150 mini PC 16GB + OAK-FFC 4P + 2 OV9782",
+   "usd": 556,
+   "price_unknown": [],
+   "cameras": [
+    "PASS"
+   ],
+   "note": "",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "4.8-6.0 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "FAIL",
+     "main": "3.6-4.5 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "FAIL",
+     "main": "3.2-4.1 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "UNKNOWN",
+     "main": "2.9-3.7 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "FAIL",
+     "main": "3.4-4.3 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "PASS",
+     "main": "2.3-2.9 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Pi 5 16GB + 2 Pi Global Shutter cameras (XTR)",
+   "usd": 455,
+   "price_unknown": [],
+   "cameras": [
+    "UNKNOWN"
+   ],
+   "note": "+ two C/CS lenses (est $50)",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "6.2-8.6 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "FAIL",
+     "main": "4.7-6.5 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "FAIL",
+     "main": "4.2-5.8 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "FAIL",
+     "main": "3.8-5.3 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "FAIL",
+     "main": "4.4-6.1 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "UNKNOWN",
+     "main": "2.9-4.1 cores",
+     "head": null
+    }
+   }
+  },
+  {
+   "system": "Orin Nano Super kit + OAK-FFC 4P + 2 OV9782",
+   "usd": 798,
+   "price_unknown": [],
+   "cameras": [
+    "PASS"
+   ],
+   "note": "the OAK does capture and ISP; CPU as the kit",
+   "cpu": {
+    "first pass": {
+     "status": "FAIL",
+     "main": "8.0-9.6 cores",
+     "head": null
+    },
+    "C++ glue": {
+     "status": "FAIL",
+     "main": "6.1-7.3 cores",
+     "head": null
+    },
+    "C++ glue + lean Nav2": {
+     "status": "FAIL",
+     "main": "5.4-6.5 cores",
+     "head": null
+    },
+    "+ catch asleep outside CATCH": {
+     "status": "FAIL",
+     "main": "4.9-5.9 cores",
+     "head": null
+    },
+    "+ Nav2 composed": {
+     "status": "FAIL",
+     "main": "5.7-6.8 cores",
+     "head": null
+    },
+    "+ catch nodes in C++": {
+     "status": "UNKNOWN",
+     "main": "3.8-4.6 cores",
+     "head": null
+    }
+   }
+  }
+ ],
+ "pi5_count": {
+  "first pass": [
+   3,
+   3
+  ],
+  "C++ glue": [
+   2,
+   3
+  ],
+  "C++ glue + lean Nav2": [
+   2,
+   2
+  ],
+  "+ catch asleep outside CATCH": [
+   2,
+   2
+  ],
+  "+ Nav2 composed": [
+   2,
+   3
+  ],
+  "+ catch nodes in C++": [
+   1,
+   2
+  ]
+ }
+}

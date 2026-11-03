@@ -1,0 +1,71 @@
+{
+  "delta_master_u_mm": 0.2,
+  "tools": [
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0011_cylinder",
+      "kind": "circle",
+      "actual_delta_mm": [
+        -0.19999999999997797,
+        0.0,
+        0.0
+      ],
+      "expected_delta_mm": [
+        -0.2,
+        0.0,
+        0.0
+      ],
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0014_cone",
+      "kind": "cone",
+      "actual_delta_mm": [
+        -0.20000000000004547,
+        0.0,
+        0.0
+      ],
+      "expected_delta_mm": [
+        -0.2,
+        0.0,
+        0.0
+      ],
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0017_cylinder",
+      "kind": "circle",
+      "actual_delta_mm": [
+        -0.19999999999997797,
+        0.0,
+        0.0
+      ],
+      "expected_delta_mm": [
+        -0.2,
+        0.0,
+        0.0
+      ],
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0020_cylinder",
+      "kind": "circle",
+      "actual_delta_mm": [
+        -0.19999999999997797,
+        0.0,
+        0.0
+      ],
+      "expected_delta_mm": [
+        -0.2,
+        0.0,
+        0.0
+      ],
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "restored": true
+}

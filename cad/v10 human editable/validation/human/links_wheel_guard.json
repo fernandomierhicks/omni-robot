@@ -1,0 +1,78 @@
+{
+  "part": "wheel_guard",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Inner Shaft Bore Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Outer Shaft Bore Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Pin Pilot Sketch",
+      "pattern": "Pin",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Fixed Shock Boss Sketch",
+      "pattern": "Outer Upper Shock",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Fixed Shock Pilot Sketch",
+      "pattern": "Outer Upper Shock",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Lower Shock Driver Sketch",
+      "pattern": "Outer Lower Shock",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Deck Foot Pilot Sketch",
+      "pattern": "Guard Feet",
+      "circles": 6,
+      "status": 3
+    },
+    {
+      "sketch": "Outer Lobe Clearance Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    }
+  ],
+  "aliases": {
+    "guard_front_foot_x": "\"D68@Control Measures-Shared Layout\"",
+    "guard_rear_foot_x": "\"D70@Control Measures-Shared Layout\"",
+    "guard_foot_y": "\"D72@Control Measures-Shared Layout\"",
+    "outer_ear_foot_x": "\"D74@Control Measures-Shared Layout\"",
+    "inner_ear_foot_x": "\"D120@Control Measures-Shared Layout\"",
+    "pivot_foot_y": "\"D34@Control Measures-Shared Layout\"",
+    "tower_foot_1_x": "\"D88@Control Measures-Shared Layout\"",
+    "tower_foot_1_y": "\"D90@Control Measures-Shared Layout\"",
+    "tower_foot_2_x": "\"D92@Control Measures-Shared Layout\"",
+    "tower_foot_2_y": "\"D94@Control Measures-Shared Layout\"",
+    "tower_foot_3_x": "\"D96@Control Measures-Shared Layout\"",
+    "tower_foot_3_y": "\"D98@Control Measures-Shared Layout\"",
+    "tower_foot_4_x": "\"D100@Control Measures-Shared Layout\"",
+    "tower_foot_4_y": "\"D102@Control Measures-Shared Layout\"",
+    "tower_foot_5_x": "\"D104@Control Measures-Shared Layout\"",
+    "tower_foot_5_y": "\"D106@Control Measures-Shared Layout\"",
+    "pivot_y": "\"D32@Control Measures-Shared Layout\"",
+    "pin_x": "\"D36@Control Measures-Shared Layout\"",
+    "outer_shock_y": "\"D64@Control Measures-Shared Layout\"",
+    "outer_shock_z": "\"D66@Control Measures-Shared Layout\"",
+    "lower_eye_z": "\"D62@Control Measures-Shared Layout\"",
+    "shaft_bore": "\"D80@Control Measures-Shared Layout\" + 0.1mm"
+  }
+}

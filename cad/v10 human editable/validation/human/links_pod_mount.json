@@ -1,0 +1,32 @@
+{
+  "part": "pod_mount",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Shock Spacer Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Shock Hinge Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Tower Foot Pilot Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "tower_foot_1_x": "\"D88@Control Measures-Shared Layout\"",
+    "tower_foot_1_y": "\"D90@Control Measures-Shared Layout\"",
+    "tower_foot_2_x": "\"D92@Control Measures-Shared Layout\"",
+    "tower_foot_2_y": "\"D94@Control Measures-Shared Layout\"",
+    "tower_foot_3_x": "\"D96@Control Measures-Shared Layout\"",
+    "tower_foot_3_y": "\"D98@Control Measures-Shared Layout\"",
+    "tower_foot_4_x": "\"D100@Control Measures-Shared Layout\"",
+    "tower_foot_4_y": "\"D102@Control Measures-Shared Layout\"",
+    "tower_foot_5_x": "\"D104@Control Measures-Shared Layout\"",
+    "tower_foot_5_y": "\"D106@Control Measures-Shared Layout\"",
+    "shock_y": "\"D56@Control Measures-Shared Layout\"",
+    "shock_z": "\"D58@Control Measures-Shared Layout\""
+  }
+}

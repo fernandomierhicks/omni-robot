@@ -1,0 +1,311 @@
+{
+ "label": "D1 face off ekf50 arm20",
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "cores": 4,
+ "phases": {
+  "MANUAL": {
+   "seconds": 100,
+   "host_samples": 98,
+   "cpu_windows": 19,
+   "cpu_total_pct": {
+    "median": 73.2,
+    "p95": 80.3,
+    "max": 84.2
+   },
+   "busiest_core_pct": {
+    "median": 75.8,
+    "p95": 83.5
+   },
+   "cores_used_median": 2.93,
+   "mem_avail_mb_min": 2754,
+   "swap_mb_max": 0,
+   "temp_c_max": 38.946,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 83.7,
+    "arm_node": 66.1,
+    "ekf_node": 29.9,
+    "mission_node": 28.0,
+    "mcu_link": 25.3,
+    "scan_prep": 18.6,
+    "omni_face.display": 15.1,
+    "localization_slam_toolbox_node": 9.8,
+    "mode_manager": 6.5,
+    "ros2 launch/daemon": 1.0,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 286.2,
+   "rss_mb": {
+    "arm_node": 96,
+    "component_container_isolated": 140,
+    "console_web": 75,
+    "ekf_node": 45,
+    "localization_slam_toolbox_node": 76,
+    "mcu_link": 40,
+    "mission_node": 118,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 162,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": [
+     true,
+     "Driving by hand"
+    ],
+    "start": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  },
+  "TIDY": {
+   "seconds": 100,
+   "host_samples": 99,
+   "cpu_windows": 20,
+   "cpu_total_pct": {
+    "median": 73.7,
+    "p95": 89.5,
+    "max": 98.5
+   },
+   "busiest_core_pct": {
+    "median": 76.8,
+    "p95": 94.0
+   },
+   "cores_used_median": 2.95,
+   "mem_avail_mb_min": 2720,
+   "swap_mb_max": 0,
+   "temp_c_max": 39.92,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 82.6,
+    "arm_node": 69.8,
+    "mission_node": 28.9,
+    "ekf_node": 28.3,
+    "mcu_link": 24.6,
+    "scan_prep": 17.6,
+    "omni_face.display": 15.4,
+    "localization_slam_toolbox_node": 9.8,
+    "mode_manager": 7.5,
+    "ros2 launch/daemon": 1.0,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 287.5,
+   "rss_mb": {
+    "arm_node": 134,
+    "component_container_isolated": 140,
+    "console_web": 75,
+    "ekf_node": 45,
+    "localization_slam_toolbox_node": 76,
+    "mcu_link": 40,
+    "mission_node": 118,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 162,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": [
+     true,
+     "Tidying up: looking for things on the floor"
+    ],
+    "start": {
+     "mission": "TIDY",
+     "patrol": null
+    },
+    "end": {
+     "mission": "TIDY",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": true,
+     "tidy": {
+      "state": "HOVER",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 2,
+      "target": {
+       "id": 1,
+       "x": 1.02,
+       "y": 0.379,
+       "size": [
+        0.043,
+        0.036
+       ]
+      },
+      "tries": 0,
+      "reason": ""
+     },
+     "source": "tidy",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": true,
+     "tidy": {
+      "state": "REFINE",
+      "picked": 2,
+      "failed": 0,
+      "skipped": 0,
+      "known": 1,
+      "target": {
+       "id": 5,
+       "x": 0.479,
+       "y": 0.745,
+       "size": [
+        0.118,
+        0.006
+       ]
+      },
+      "tries": 1,
+      "reason": ""
+     },
+     "source": "tidy",
+     "pose": null,
+     "out": true
+    }
+   }
+  },
+  "PATROL": {
+   "seconds": 100,
+   "host_samples": 99,
+   "cpu_windows": 19,
+   "cpu_total_pct": {
+    "median": 86.8,
+    "p95": 97.3,
+    "max": 98.5
+   },
+   "busiest_core_pct": {
+    "median": 89.1,
+    "p95": 98.0
+   },
+   "cores_used_median": 3.47,
+   "mem_avail_mb_min": 2717,
+   "swap_mb_max": 0,
+   "temp_c_max": 40.894,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 96.2,
+    "arm_node": 64.0,
+    "mission_node": 61.8,
+    "ekf_node": 30.7,
+    "mcu_link": 25.9,
+    "scan_prep": 18.2,
+    "omni_face.display": 15.5,
+    "localization_slam_toolbox_node": 10.0,
+    "mode_manager": 6.9,
+    "ros2 launch/daemon": 1.8,
+    "rosapi_node": 1.0,
+    "console_web": 0.6
+   },
+   "robot_total_pct_of_one_core": 335.1,
+   "rss_mb": {
+    "arm_node": 129,
+    "component_container_isolated": 152,
+    "console_web": 75,
+    "ekf_node": 45,
+    "localization_slam_toolbox_node": 76,
+    "mcu_link": 40,
+    "mission_node": 119,
+    "mode_manager": 37,
+    "omni_face.display": 74,
+    "ros2 launch/daemon": 162,
+    "rosapi_node": 84,
+    "scan_prep": 39
+   },
+   "topics": {},
+   "outcome": {
+    "command": [
+     true,
+     "Patrolling 'mode load'"
+    ],
+    "start": {
+     "mission": "PATROL",
+     "patrol": {
+      "route": "mode load",
+      "i": 0,
+      "n": 8,
+      "lap": 1,
+      "laps": 0
+     }
+    },
+    "end": {
+     "mission": "PATROL",
+     "patrol": {
+      "route": "mode load",
+      "i": 1,
+      "n": 8,
+      "lap": 1,
+      "laps": 0
+     }
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": {
+      "state": "DONE",
+      "picked": 2,
+      "failed": 0,
+      "skipped": 0,
+      "known": 1,
+      "target": null,
+      "tries": 1,
+      "reason": "stopped"
+     },
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": {
+      "state": "DONE",
+      "picked": 2,
+      "failed": 0,
+      "skipped": 0,
+      "known": 1,
+      "target": null,
+      "tries": 1,
+      "reason": "stopped"
+     },
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,60 @@
+  10/100 0.4 min
+  20/100 0.8 min
+  30/100 0.9 min
+  40/100 1.1 min
+  50/100 1.4 min
+  60/100 1.7 min
+  70/100 1.9 min
+  80/100 2.1 min
+  90/100 2.5 min
+  100/100 4.1 min
+10 kg accel    [0.0, "brake"]               | CAD: 7.4 wheel-hop                                    | collinear: 7.2 wheel-hop
+10 kg accel    [0.0, "start"]               | CAD: 2.6 wheel-hop                                    | collinear: 6.2 wheel-hop
+10 kg accel    [180.0, "brake"]             | CAD: 7.2 wheel-hop                                    | collinear: 7.0 wheel-hop
+10 kg accel    [180.0, "start"]             | CAD: 5.5 torque                                       | collinear: 5.9 wheel-hop
+10 kg accel    [45.0, "brake"]              | CAD: 4.3 grip                                         | collinear: 5.1 grip
+10 kg accel    [45.0, "start"]              | CAD: 2.8 grip                                         | collinear: 3.8 grip
+10 kg accel    [90.0, "brake"]              | CAD: 4.7 grip                                         | collinear: 5.8 grip
+10 kg accel    [90.0, "start"]              | CAD: 4.1 grip                                         | collinear: 5.6 grip
+10 kg cruise   [0.0, 1.0]                   | CAD: 21 W, bounce 0.10, fight 0.92                    | collinear: 18 W, bounce 0.00, fight 0.82
+10 kg cruise   [0.0, 2.0]                   | CAD: 55 W, bounce 0.37, fight 0.99                    | collinear: 41 W, bounce 0.00, fight 0.81
+10 kg cruise   [0.0, 3.0]                   | CAD: 79 W, bounce 0.62, fight 0.87                    | collinear: 77 W, bounce 0.02, fight 1.05
+10 kg ladder   ["step", 45.0, 1.0]          | CAD: 12.5 mm                                          | collinear: 12.5 mm
+10 kg panic    [0.0, 2.0]                   | CAD: stop 0.31 m tilt 1.4 lift 11ms                   | collinear: stop 0.31 m tilt 0.5 lift 10ms
+10 kg slope    [0.0, "start"]               | CAD: 18 deg (wheel-hop)                               | collinear: 28 deg (grip)
+10 kg slope    [90.0, "start"]              | CAD: 8 deg (wheel-hop)                                | collinear: 24 deg (grip)
+10 kg straight [0.0, 15.2, 2.0, 5.0]        | CAD: 9.04 s (peak 1.94)                               | collinear: 8.92 s (peak 1.95)
+10 kg straight [0.0, 15.2, null, 5.0]       | CAD: 5.32 s (peak 4.28)                               | collinear: 5.12 s (peak 4.39)
+10 kg susp     ["bumpy 1"]                  | CAD: ok tilt 3 lift 14ms bottom 0ms                   | collinear: ok tilt 3 lift 19ms bottom 0ms
+10 kg susp     ["bumpy 2"]                  | CAD: ok tilt 6 lift 14ms bottom 0ms                   | collinear: ok tilt 5 lift 20ms bottom 0ms
+10 kg susp     ["rug 1 0"]                  | CAD: ok tilt 7 lift 14ms bottom 0ms                   | collinear: ok tilt 6 lift 13ms bottom 0ms
+10 kg susp     ["rug 2 45"]                 | CAD: ok tilt 14 lift 35ms bottom 184ms                | collinear: ok tilt 14 lift 54ms bottom 70ms
+10 kg susp     ["side 30 2"]                | CAD: ok tilt 13 lift 42ms bottom 62ms                 | collinear: ok tilt 12 lift 16ms bottom 12ms
+10 kg susp     ["step 20 1 45"]             | CAD: FAIL tilt 11 lift 15ms bottom 61ms               | collinear: FAIL tilt 8 lift 16ms bottom 36ms
+10 kg susp     ["step 20 2 0"]              | CAD: ok tilt 7 lift 8ms bottom 0ms                    | collinear: ok tilt 8 lift 13ms bottom 12ms
+10 kg susp     ["step 30 1 0"]              | CAD: ok tilt 11 lift 10ms bottom 0ms                  | collinear: ok tilt 12 lift 31ms bottom 0ms
+20 kg accel    [0.0, "brake"]               | CAD: 5.9 torque                                       | collinear: 6.4 torque
+20 kg accel    [0.0, "start"]               | CAD: 4.5 grip                                         | collinear: 5.0 torque
+20 kg accel    [180.0, "brake"]             | CAD: 6.3 torque                                       | collinear: 6.3 torque
+20 kg accel    [180.0, "start"]             | CAD: 4.5 grip                                         | collinear: 5.2 grip
+20 kg accel    [45.0, "brake"]              | CAD: 4.4 grip                                         | collinear: 5.4 grip
+20 kg accel    [45.0, "start"]              | CAD: 3.2 grip                                         | collinear: 4.0 grip
+20 kg accel    [90.0, "brake"]              | CAD: 4.3 grip                                         | collinear: 5.8 grip
+20 kg accel    [90.0, "start"]              | CAD: 3.4 grip                                         | collinear: 4.7 grip
+20 kg cruise   [0.0, 1.0]                   | CAD: 44 W, bounce 0.02, fight 1.85                    | collinear: 31 W, bounce 0.00, fight 1.26
+20 kg cruise   [0.0, 2.0]                   | CAD: 102 W, bounce 0.37, fight 2.05                   | collinear: 62 W, bounce 0.00, fight 1.37
+20 kg cruise   [0.0, 3.0]                   | CAD: 139 W, bounce 0.63, fight 1.54                   | collinear: 104 W, bounce 0.00, fight 1.37
+20 kg ladder   ["step", 45.0, 1.0]          | CAD: 12.5 mm                                          | collinear: 12.5 mm
+20 kg panic    [0.0, 2.0]                   | CAD: stop 0.35 m tilt 1.1 lift 5ms                    | collinear: stop 0.34 m tilt 0.8 lift 2ms
+20 kg slope    [0.0, "start"]               | CAD: 18 deg (grip)                                    | collinear: 26 deg (grip)
+20 kg slope    [90.0, "start"]              | CAD: 18 deg (grip)                                    | collinear: 24 deg (grip)
+20 kg straight [0.0, 15.2, 2.0, 5.0]        | CAD: 8.91 s (peak 1.99)                               | collinear: 8.90 s (peak 2.01)
+20 kg straight [0.0, 15.2, null, 5.0]       | CAD: 5.44 s (peak 4.17)                               | collinear: 5.22 s (peak 4.40)
+20 kg susp     ["bumpy 1"]                  | CAD: ok tilt 3 lift 22ms bottom 0ms                   | collinear: ok tilt 3 lift 12ms bottom 0ms
+20 kg susp     ["bumpy 2"]                  | CAD: ok tilt 4 lift 24ms bottom 0ms                   | collinear: ok tilt 4 lift 20ms bottom 0ms
+20 kg susp     ["rug 1 0"]                  | CAD: ok tilt 5 lift 11ms bottom 0ms                   | collinear: ok tilt 4 lift 17ms bottom 0ms
+20 kg susp     ["rug 2 45"]                 | CAD: FAIL tilt 12 lift 58ms bottom 121ms              | collinear: FAIL tilt 13 lift 58ms bottom 18ms
+20 kg susp     ["side 30 2"]                | CAD: ok tilt 9 lift 32ms bottom 0ms                   | collinear: ok tilt 9 lift 35ms bottom 22ms
+20 kg susp     ["step 20 1 45"]             | CAD: FAIL tilt 10 lift 15ms bottom 106ms              | collinear: FAIL tilt 8 lift 18ms bottom 22ms
+20 kg susp     ["step 20 2 0"]              | CAD: ok tilt 6 lift 7ms bottom 0ms                    | collinear: ok tilt 7 lift 12ms bottom 8ms
+20 kg susp     ["step 30 1 0"]              | CAD: ok tilt 9 lift 7ms bottom 0ms                    | collinear: ok tilt 10 lift 13ms bottom 7ms

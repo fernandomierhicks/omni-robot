@@ -1,0 +1,46 @@
+{
+ "load": [
+  true,
+  "Localizing on 'house': the robot assumes it is at the map's start; if not, set its position",
+  {}
+ ],
+ "initial_pose": [
+  true,
+  "Position set: the scan matcher refines it as the robot moves",
+  {}
+ ],
+ "inactive_recovery": {
+  "states": [
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   3
+  ],
+  "before": [
+   4388
+  ],
+  "after": [
+   4388
+  ],
+  "ok": true
+ },
+ "goal": {
+  "name": "after arm Explore and SLAM recovery",
+  "goal": [
+   -3.0,
+   3.3
+  ],
+  "reached": true,
+  "timed_out": false,
+  "task": "Arrived at after arm Explore and SLAM recovery",
+  "time_s": 10.2,
+  "err_m": 0.061,
+  "loc_err_m": 0.023,
+  "dist_m": 2.0,
+  "vmax": 0.44,
+  "end_wall": 1793725103.729854
+ }
+}

@@ -1,0 +1,574 @@
+{
+  "part": "wheel_hub_A",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0040_cylinder",
+      "sketch": "0040_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0044_revolve",
+      "sketch": "0044_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0047_cylinder",
+      "sketch": "0047_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0051_revolve",
+      "sketch": "0051_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 1,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0054_cylinder",
+      "sketch": "0054_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0058_revolve",
+      "sketch": "0058_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 2,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0061_cylinder",
+      "sketch": "0061_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0065_revolve",
+      "sketch": "0065_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 3,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0068_cylinder",
+      "sketch": "0068_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0072_revolve",
+      "sketch": "0072_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 4,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0075_cylinder",
+      "sketch": "0075_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0079_revolve",
+      "sketch": "0079_revolve_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 5,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0082_cylinder",
+      "sketch": "0082_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0086_cylinder",
+      "sketch": "0086_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0090_cylinder",
+      "sketch": "0090_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0094_cylinder",
+      "sketch": "0094_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0098_cylinder",
+      "sketch": "0098_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0102_cylinder",
+      "sketch": "0102_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0106_cylinder",
+      "sketch": "0106_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0110_cylinder",
+      "sketch": "0110_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0114_cylinder",
+      "sketch": "0114_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0118_cylinder",
+      "sketch": "0118_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0122_cylinder",
+      "sketch": "0122_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0126_cylinder",
+      "sketch": "0126_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0130_revolve",
+      "sketch": "0130_revolve_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0133_cylinder",
+      "sketch": "0133_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0136_cylinder",
+      "sketch": "0136_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0139_extrude",
+      "sketch": "0139_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0142_cylinder",
+      "sketch": "0142_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0147_cylinder",
+      "sketch": "0147_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0150_cylinder",
+      "sketch": "0150_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0153_extrude",
+      "sketch": "0153_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0156_cylinder",
+      "sketch": "0156_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0161_cylinder",
+      "sketch": "0161_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0164_cylinder",
+      "sketch": "0164_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0167_extrude",
+      "sketch": "0167_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0170_cylinder",
+      "sketch": "0170_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0175_cylinder",
+      "sketch": "0175_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0178_cylinder",
+      "sketch": "0178_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0181_extrude",
+      "sketch": "0181_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0184_cylinder",
+      "sketch": "0184_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0189_cylinder",
+      "sketch": "0189_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0192_cylinder",
+      "sketch": "0192_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0195_extrude",
+      "sketch": "0195_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0198_cylinder",
+      "sketch": "0198_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0203_cylinder",
+      "sketch": "0203_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0206_cylinder",
+      "sketch": "0206_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0209_extrude",
+      "sketch": "0209_extrude_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0212_cylinder",
+      "sketch": "0212_cylinder_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0234_cylinder",
+      "sketch": "0234_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0238_cylinder",
+      "sketch": "0238_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0242_cylinder",
+      "sketch": "0242_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0246_cylinder",
+      "sketch": "0246_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0250_cylinder",
+      "sketch": "0250_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0254_cylinder",
+      "sketch": "0254_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0258_cylinder",
+      "sketch": "0258_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0262_cylinder",
+      "sketch": "0262_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0266_cylinder",
+      "sketch": "0266_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0270_cylinder",
+      "sketch": "0270_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0272_cylinder",
+      "sketch": "0272_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0276_cylinder",
+      "sketch": "0276_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0278_cylinder",
+      "sketch": "0278_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0283_cylinder",
+      "sketch": "0283_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0285_cylinder",
+      "sketch": "0285_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0290_cylinder",
+      "sketch": "0290_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0292_cylinder",
+      "sketch": "0292_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0297_cylinder",
+      "sketch": "0297_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0299_cylinder",
+      "sketch": "0299_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0304_cylinder",
+      "sketch": "0304_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0306_cylinder",
+      "sketch": "0306_cylinder_Sketch",
+      "pattern": "Hub_joint_row_1",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0313_revolve",
+      "sketch": "0313_revolve_Sketch",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve8",
+      "sketch": "Sketch44",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve9",
+      "sketch": "Sketch49",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve10",
+      "sketch": "Sketch54",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve11",
+      "sketch": "Sketch59",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve12",
+      "sketch": "Sketch64",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve14",
+      "sketch": "Sketch97",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve15",
+      "sketch": "Sketch98",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve16",
+      "sketch": "Sketch99",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve17",
+      "sketch": "Sketch100",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "Revolve18",
+      "sketch": "Sketch101",
+      "pattern": "Roller_axles",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    }
+  ],
+  "equation_count": 60
+}

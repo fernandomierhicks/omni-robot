@@ -1,0 +1,1652 @@
+{
+  "controls": {
+    "row_distance": {
+      "dimension": "D2@Control Measures",
+      "kind": "length"
+    },
+    "roller_axis_radius": {
+      "dimension": "D4@Control Measures",
+      "kind": "length"
+    },
+    "wheel_radius": {
+      "dimension": "D6@Control Measures",
+      "kind": "length"
+    },
+    "tread_thickness": {
+      "dimension": "D8@Control Measures",
+      "kind": "length"
+    },
+    "roller_half_length": {
+      "dimension": "D10@Control Measures",
+      "kind": "length"
+    },
+    "end_cone_length": {
+      "dimension": "D12@Control Measures",
+      "kind": "length"
+    },
+    "key_width": {
+      "dimension": "D14@Control Measures",
+      "kind": "length"
+    },
+    "key_length": {
+      "dimension": "D16@Control Measures",
+      "kind": "length"
+    },
+    "keyway_floor_radius": {
+      "dimension": "D18@Control Measures",
+      "kind": "length"
+    },
+    "joint_radius": {
+      "dimension": "D20@Control Measures",
+      "kind": "length"
+    },
+    "cradle_radius": {
+      "dimension": "D22@Control Measures",
+      "kind": "length"
+    },
+    "cartridge_radius": {
+      "dimension": "D24@Control Measures",
+      "kind": "length"
+    },
+    "output_radius": {
+      "dimension": "D26@Control Measures",
+      "kind": "length"
+    },
+    "rear_radius": {
+      "dimension": "D28@Control Measures",
+      "kind": "length"
+    },
+    "cover_radius": {
+      "dimension": "D30@Control Measures",
+      "kind": "length"
+    },
+    "pivot_y": {
+      "dimension": "D32@Control Measures",
+      "kind": "length"
+    },
+    "pivot_z": {
+      "dimension": "D34@Control Measures",
+      "kind": "length"
+    },
+    "pin_x": {
+      "dimension": "D36@Control Measures",
+      "kind": "length"
+    },
+    "inner_bar_x": {
+      "dimension": "D38@Control Measures",
+      "kind": "length"
+    },
+    "outer_bar_x": {
+      "dimension": "D40@Control Measures",
+      "kind": "length"
+    },
+    "bar_mid_z": {
+      "dimension": "D42@Control Measures",
+      "kind": "length"
+    },
+    "bar_half_pitch": {
+      "dimension": "D44@Control Measures",
+      "kind": "length"
+    },
+    "bar_origin_x": {
+      "dimension": "D46@Control Measures",
+      "kind": "length"
+    },
+    "bar_origin_z": {
+      "dimension": "D48@Control Measures",
+      "kind": "length"
+    },
+    "shaft_origin_x": {
+      "dimension": "D50@Control Measures",
+      "kind": "length"
+    },
+    "inner_lower_y": {
+      "dimension": "D52@Control Measures",
+      "kind": "length"
+    },
+    "inner_lower_z": {
+      "dimension": "D54@Control Measures",
+      "kind": "length"
+    },
+    "inner_upper_y": {
+      "dimension": "D56@Control Measures",
+      "kind": "length"
+    },
+    "inner_upper_z": {
+      "dimension": "D58@Control Measures",
+      "kind": "length"
+    },
+    "outer_lower_y": {
+      "dimension": "D60@Control Measures",
+      "kind": "length"
+    },
+    "outer_lower_z": {
+      "dimension": "D62@Control Measures",
+      "kind": "length"
+    },
+    "outer_upper_y": {
+      "dimension": "D64@Control Measures",
+      "kind": "length"
+    },
+    "outer_upper_z": {
+      "dimension": "D66@Control Measures",
+      "kind": "length"
+    },
+    "guard_front_foot_x": {
+      "dimension": "D68@Control Measures",
+      "kind": "length"
+    },
+    "guard_rear_foot_x": {
+      "dimension": "D70@Control Measures",
+      "kind": "length"
+    },
+    "guard_foot_y": {
+      "dimension": "D72@Control Measures",
+      "kind": "length"
+    },
+    "outer_ear_foot_x": {
+      "dimension": "D74@Control Measures",
+      "kind": "length"
+    },
+    "wheel_bearing_bore": {
+      "dimension": "D76@Control Measures",
+      "kind": "length"
+    },
+    "wheel_bearing_od": {
+      "dimension": "D78@Control Measures",
+      "kind": "length"
+    },
+    "pivot_bearing_bore": {
+      "dimension": "D80@Control Measures",
+      "kind": "length"
+    },
+    "pivot_bearing_od": {
+      "dimension": "D82@Control Measures",
+      "kind": "length"
+    },
+    "motor_bearing_bore": {
+      "dimension": "D84@Control Measures",
+      "kind": "length"
+    },
+    "motor_bearing_od": {
+      "dimension": "D86@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_1_x": {
+      "dimension": "D88@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_1_y": {
+      "dimension": "D90@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_2_x": {
+      "dimension": "D92@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_2_y": {
+      "dimension": "D94@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_3_x": {
+      "dimension": "D96@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_3_y": {
+      "dimension": "D98@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_4_x": {
+      "dimension": "D100@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_4_y": {
+      "dimension": "D102@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_5_x": {
+      "dimension": "D104@Control Measures",
+      "kind": "length"
+    },
+    "tower_foot_5_y": {
+      "dimension": "D106@Control Measures",
+      "kind": "length"
+    },
+    "roller_count": {
+      "dimension": "D108@Control Measures",
+      "kind": "count"
+    },
+    "cradle_count": {
+      "dimension": "D110@Control Measures",
+      "kind": "count"
+    },
+    "cartridge_count": {
+      "dimension": "D112@Control Measures",
+      "kind": "count"
+    },
+    "output_count": {
+      "dimension": "D114@Control Measures",
+      "kind": "count"
+    },
+    "rear_count": {
+      "dimension": "D116@Control Measures",
+      "kind": "count"
+    },
+    "cover_count": {
+      "dimension": "D118@Control Measures",
+      "kind": "count"
+    },
+    "outer_spoke_phase": {
+      "dimension": "D2@Angle outer spoke phase",
+      "kind": "angle"
+    },
+    "inner_spoke_phase": {
+      "dimension": "D2@Angle inner spoke phase",
+      "kind": "angle"
+    },
+    "inner_roller_phase": {
+      "dimension": "D2@Angle inner roller phase",
+      "kind": "angle"
+    },
+    "cradle_phase": {
+      "dimension": "D2@Angle cradle phase",
+      "kind": "angle"
+    },
+    "cartridge_phase": {
+      "dimension": "D2@Angle cartridge phase",
+      "kind": "angle"
+    },
+    "output_phase": {
+      "dimension": "D2@Angle output phase",
+      "kind": "angle"
+    },
+    "rear_phase": {
+      "dimension": "D2@Angle rear phase",
+      "kind": "angle"
+    },
+    "cover_phase": {
+      "dimension": "D2@Angle cover phase",
+      "kind": "angle"
+    }
+  },
+  "patterns": {
+    "Cradle": {
+      "feature": "Layout Cradle",
+      "markers": [
+        {
+          "index": 2,
+          "x": -6.5,
+          "y": 3.9801020972288977e-16,
+          "dimensions": [
+            "D5@Layout Cradle",
+            "D6@Layout Cradle"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -7.960204194457795e-16,
+          "y": -6.5,
+          "dimensions": [
+            "D8@Layout Cradle",
+            "D9@Layout Cradle"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 6.5,
+          "y": -1.1940306291686693e-15,
+          "dimensions": [
+            "D11@Layout Cradle",
+            "D12@Layout Cradle"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 1.592040838891559e-15,
+          "y": 6.5,
+          "dimensions": [
+            "D14@Layout Cradle",
+            "D15@Layout Cradle"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Outer Joint": {
+      "feature": "Layout Outer Joint",
+      "markers": [
+        {
+          "index": 2,
+          "x": -18.999999999999996,
+          "y": 32.908965343808674,
+          "dimensions": [
+            "D5@Layout Outer Joint",
+            "D6@Layout Outer Joint"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -38.0,
+          "y": 2.326828918379971e-15,
+          "dimensions": [
+            "D8@Layout Outer Joint",
+            "D9@Layout Outer Joint"
+          ]
+        },
+        {
+          "index": 4,
+          "x": -18.999999999999996,
+          "y": -32.908965343808674,
+          "dimensions": [
+            "D11@Layout Outer Joint",
+            "D12@Layout Outer Joint"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 19.000000000000004,
+          "y": -32.90896534380867,
+          "dimensions": [
+            "D14@Layout Outer Joint",
+            "D15@Layout Outer Joint"
+          ]
+        },
+        {
+          "index": 6,
+          "x": 38.0,
+          "y": -6.980486755139913e-15,
+          "dimensions": [
+            "D17@Layout Outer Joint",
+            "D18@Layout Outer Joint"
+          ]
+        },
+        {
+          "index": 7,
+          "x": 19.000000000000018,
+          "y": 32.90896534380866,
+          "dimensions": [
+            "D20@Layout Outer Joint",
+            "D21@Layout Outer Joint"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Inner Joint": {
+      "feature": "Layout Inner Joint",
+      "markers": [
+        {
+          "index": 2,
+          "x": -32.90896534380867,
+          "y": 19.000000000000004,
+          "dimensions": [
+            "D5@Layout Inner Joint",
+            "D6@Layout Inner Joint"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -32.908965343808674,
+          "y": -18.999999999999993,
+          "dimensions": [
+            "D8@Layout Inner Joint",
+            "D9@Layout Inner Joint"
+          ]
+        },
+        {
+          "index": 4,
+          "x": -4.653657836759942e-15,
+          "y": -38.0,
+          "dimensions": [
+            "D11@Layout Inner Joint",
+            "D12@Layout Inner Joint"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 32.90896534380866,
+          "y": -19.000000000000018,
+          "dimensions": [
+            "D14@Layout Inner Joint",
+            "D15@Layout Inner Joint"
+          ]
+        },
+        {
+          "index": 6,
+          "x": 32.90896534380867,
+          "y": 19.000000000000004,
+          "dimensions": [
+            "D17@Layout Inner Joint",
+            "D18@Layout Inner Joint"
+          ]
+        },
+        {
+          "index": 7,
+          "x": 9.307315673519884e-15,
+          "y": 38.0,
+          "dimensions": [
+            "D20@Layout Inner Joint",
+            "D21@Layout Inner Joint"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Cartridge": {
+      "feature": "Layout Cartridge",
+      "markers": [
+        {
+          "index": 2,
+          "x": -12.999999999999998,
+          "y": 22.516660498395407,
+          "dimensions": [
+            "D5@Layout Cartridge",
+            "D6@Layout Cartridge"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -12.999999999999998,
+          "y": -22.516660498395407,
+          "dimensions": [
+            "D8@Layout Cartridge",
+            "D9@Layout Cartridge"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 26.0,
+          "y": -4.776122516674677e-15,
+          "dimensions": [
+            "D11@Layout Cartridge",
+            "D12@Layout Cartridge"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Output": {
+      "feature": "Layout Output",
+      "markers": [
+        {
+          "index": 2,
+          "x": -6.749999999999999,
+          "y": 11.691342951089922,
+          "dimensions": [
+            "D5@Layout Output",
+            "D6@Layout Output"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -6.749999999999999,
+          "y": -11.691342951089922,
+          "dimensions": [
+            "D8@Layout Output",
+            "D9@Layout Output"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 13.5,
+          "y": -2.47990976827339e-15,
+          "dimensions": [
+            "D11@Layout Output",
+            "D12@Layout Output"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Output Local": {
+      "feature": "Layout Output Local",
+      "markers": [
+        {
+          "index": 2,
+          "x": -13.5,
+          "y": 8.266365894244634e-16,
+          "dimensions": [
+            "D5@Layout Output Local",
+            "D6@Layout Output Local"
+          ]
+        },
+        {
+          "index": 3,
+          "x": 6.750000000000002,
+          "y": -11.69134295108992,
+          "dimensions": [
+            "D8@Layout Output Local",
+            "D9@Layout Output Local"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 6.750000000000006,
+          "y": 11.691342951089919,
+          "dimensions": [
+            "D11@Layout Output Local",
+            "D12@Layout Output Local"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Rear": {
+      "feature": "Layout Rear",
+      "markers": [
+        {
+          "index": 2,
+          "x": -23.5,
+          "y": 1.43895998899814e-15,
+          "dimensions": [
+            "D5@Layout Rear",
+            "D6@Layout Rear"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -2.87791997799628e-15,
+          "y": -23.5,
+          "dimensions": [
+            "D8@Layout Rear",
+            "D9@Layout Rear"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 23.5,
+          "y": -4.3168799669944195e-15,
+          "dimensions": [
+            "D11@Layout Rear",
+            "D12@Layout Rear"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 5.75583995599256e-15,
+          "y": 23.5,
+          "dimensions": [
+            "D14@Layout Rear",
+            "D15@Layout Rear"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Rear Local": {
+      "feature": "Layout Rear Local",
+      "markers": [
+        {
+          "index": 2,
+          "x": -23.5,
+          "y": 1.43895998899814e-15,
+          "dimensions": [
+            "D5@Layout Rear Local",
+            "D6@Layout Rear Local"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -2.87791997799628e-15,
+          "y": -23.5,
+          "dimensions": [
+            "D8@Layout Rear Local",
+            "D9@Layout Rear Local"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 23.5,
+          "y": -4.3168799669944195e-15,
+          "dimensions": [
+            "D11@Layout Rear Local",
+            "D12@Layout Rear Local"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 5.75583995599256e-15,
+          "y": 23.5,
+          "dimensions": [
+            "D14@Layout Rear Local",
+            "D15@Layout Rear Local"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Cover Local": {
+      "feature": "Layout Cover Local",
+      "markers": [
+        {
+          "index": 2,
+          "x": -16.47558800164656,
+          "y": 16.47558800164656,
+          "dimensions": [
+            "D5@Layout Cover Local",
+            "D6@Layout Cover Local"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -16.47558800164656,
+          "y": -16.475588001646557,
+          "dimensions": [
+            "D8@Layout Cover Local",
+            "D9@Layout Cover Local"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 16.475588001646557,
+          "y": -16.47558800164656,
+          "dimensions": [
+            "D11@Layout Cover Local",
+            "D12@Layout Cover Local"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 16.47558800164656,
+          "y": 16.475588001646553,
+          "dimensions": [
+            "D14@Layout Cover Local",
+            "D15@Layout Cover Local"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Guard Feet": {
+      "feature": "Layout Guard Feet",
+      "markers": [
+        {
+          "index": 2,
+          "x": -14,
+          "y": -87.5,
+          "dimensions": [
+            "D5@Layout Guard Feet",
+            "D6@Layout Guard Feet"
+          ]
+        },
+        {
+          "index": 3,
+          "x": 16,
+          "y": -87.5,
+          "dimensions": [
+            "D8@Layout Guard Feet",
+            "D9@Layout Guard Feet"
+          ]
+        },
+        {
+          "index": 4,
+          "x": -14,
+          "y": 87.5,
+          "dimensions": [
+            "D11@Layout Guard Feet",
+            "D12@Layout Guard Feet"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 16,
+          "y": 87.5,
+          "dimensions": [
+            "D14@Layout Guard Feet",
+            "D15@Layout Guard Feet"
+          ]
+        },
+        {
+          "index": 6,
+          "x": 40.25,
+          "y": 87.5,
+          "dimensions": [
+            "D17@Layout Guard Feet",
+            "D18@Layout Guard Feet"
+          ]
+        },
+        {
+          "index": 7,
+          "x": -31.5,
+          "y": 87.5,
+          "dimensions": [
+            "D20@Layout Guard Feet",
+            "D21@Layout Guard Feet"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Tower Feet": {
+      "feature": "Layout Tower Feet",
+      "markers": [
+        {
+          "index": 2,
+          "x": 86,
+          "y": 22,
+          "dimensions": [
+            "D5@Layout Tower Feet",
+            "D6@Layout Tower Feet"
+          ]
+        },
+        {
+          "index": 3,
+          "x": 86,
+          "y": 46,
+          "dimensions": [
+            "D8@Layout Tower Feet",
+            "D9@Layout Tower Feet"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 90,
+          "y": 30,
+          "dimensions": [
+            "D11@Layout Tower Feet",
+            "D12@Layout Tower Feet"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 97,
+          "y": 26,
+          "dimensions": [
+            "D14@Layout Tower Feet",
+            "D15@Layout Tower Feet"
+          ]
+        },
+        {
+          "index": 6,
+          "x": 100,
+          "y": 33.5,
+          "dimensions": [
+            "D17@Layout Tower Feet",
+            "D18@Layout Tower Feet"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Pivot": {
+      "feature": "Layout Pivot",
+      "markers": [
+        {
+          "index": 2,
+          "x": -43,
+          "y": 68.2,
+          "dimensions": [
+            "D5@Layout Pivot",
+            "D6@Layout Pivot"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Pin": {
+      "feature": "Layout Pin",
+      "markers": [
+        {
+          "index": 2,
+          "x": 40.25,
+          "y": 68.2,
+          "dimensions": [
+            "D5@Layout Pin",
+            "D6@Layout Pin"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Pin Local": {
+      "feature": "Layout Pin Local",
+      "markers": [
+        {
+          "index": 2,
+          "x": 37.25,
+          "y": 0,
+          "dimensions": [
+            "D5@Layout Pin Local",
+            "D6@Layout Pin Local"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Inner Lower Shock": {
+      "feature": "Layout Inner Lower Shock",
+      "markers": [
+        {
+          "index": 2,
+          "x": -10,
+          "y": 30,
+          "dimensions": [
+            "D5@Layout Inner Lower Shock",
+            "D6@Layout Inner Lower Shock"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Inner Upper Shock": {
+      "feature": "Layout Inner Upper Shock",
+      "markers": [
+        {
+          "index": 2,
+          "x": -58.3,
+          "y": 30,
+          "dimensions": [
+            "D5@Layout Inner Upper Shock",
+            "D6@Layout Inner Upper Shock"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Outer Lower Shock": {
+      "feature": "Layout Outer Lower Shock",
+      "markers": [
+        {
+          "index": 2,
+          "x": -10,
+          "y": 36,
+          "dimensions": [
+            "D5@Layout Outer Lower Shock",
+            "D6@Layout Outer Lower Shock"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Outer Upper Shock": {
+      "feature": "Layout Outer Upper Shock",
+      "markers": [
+        {
+          "index": 2,
+          "x": -58,
+          "y": 36,
+          "dimensions": [
+            "D5@Layout Outer Upper Shock",
+            "D6@Layout Outer Upper Shock"
+          ]
+        }
+      ],
+      "plane": "Right Plane"
+    },
+    "Fork Bar": {
+      "feature": "Layout Fork Bar",
+      "markers": [
+        {
+          "index": 2,
+          "x": -43.5,
+          "y": 12,
+          "dimensions": [
+            "D5@Layout Fork Bar",
+            "D6@Layout Fork Bar"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -43.5,
+          "y": 24,
+          "dimensions": [
+            "D8@Layout Fork Bar",
+            "D9@Layout Fork Bar"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 51,
+          "y": 12,
+          "dimensions": [
+            "D11@Layout Fork Bar",
+            "D12@Layout Fork Bar"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 51,
+          "y": 24,
+          "dimensions": [
+            "D14@Layout Fork Bar",
+            "D15@Layout Fork Bar"
+          ]
+        }
+      ],
+      "plane": "Top Plane"
+    },
+    "Fork Bar Local": {
+      "feature": "Layout Fork Bar Local",
+      "markers": [
+        {
+          "index": 2,
+          "x": -48.5,
+          "y": -6,
+          "dimensions": [
+            "D5@Layout Fork Bar Local",
+            "D6@Layout Fork Bar Local"
+          ]
+        },
+        {
+          "index": 3,
+          "x": -48.5,
+          "y": 6,
+          "dimensions": [
+            "D8@Layout Fork Bar Local",
+            "D9@Layout Fork Bar Local"
+          ]
+        },
+        {
+          "index": 4,
+          "x": 46,
+          "y": -6,
+          "dimensions": [
+            "D11@Layout Fork Bar Local",
+            "D12@Layout Fork Bar Local"
+          ]
+        },
+        {
+          "index": 5,
+          "x": 46,
+          "y": 6,
+          "dimensions": [
+            "D14@Layout Fork Bar Local",
+            "D15@Layout Fork Bar Local"
+          ]
+        }
+      ],
+      "plane": "Top Plane"
+    },
+    "Roller Axles": {
+      "feature": "Layout Roller Axles",
+      "markers": [
+        {
+          "index": 2,
+          "x": -18,
+          "y": 52,
+          "dimensions": [
+            "D5@Layout Roller Axles",
+            "D6@Layout Roller Axles"
+          ]
+        },
+        {
+          "index": 3,
+          "x": 18,
+          "y": 52,
+          "dimensions": [
+            "D8@Layout Roller Axles",
+            "D9@Layout Roller Axles"
+          ]
+        }
+      ],
+      "plane": "Front Plane"
+    },
+    "Inner Roller Axles": {
+      "feature": "Layout Inner Roller Axles",
+      "markers": [
+        {
+          "index": 2,
+          "x": -18,
+          "y": 52,
+          "dimensions": [
+            "D5@Layout Inner Roller Axles",
+            "D6@Layout Inner Roller Axles"
+          ]
+        },
+        {
+          "index": 3,
+          "x": 18,
+          "y": 52,
+          "dimensions": [
+            "D8@Layout Inner Roller Axles",
+            "D9@Layout Inner Roller Axles"
+          ]
+        }
+      ],
+      "plane": "Inner Roller Guide Plane"
+    }
+  },
+  "audit": {
+    "sketches": [
+      {
+        "name": "Control Measures",
+        "status": 3
+      },
+      {
+        "name": "Angle outer spoke phase",
+        "status": 3
+      },
+      {
+        "name": "Angle inner spoke phase",
+        "status": 3
+      },
+      {
+        "name": "Angle inner roller phase",
+        "status": 3
+      },
+      {
+        "name": "Angle cradle phase",
+        "status": 3
+      },
+      {
+        "name": "Angle cartridge phase",
+        "status": 3
+      },
+      {
+        "name": "Angle output phase",
+        "status": 3
+      },
+      {
+        "name": "Angle rear phase",
+        "status": 3
+      },
+      {
+        "name": "Angle cover phase",
+        "status": 3
+      },
+      {
+        "name": "Layout Cradle",
+        "status": 3
+      },
+      {
+        "name": "Layout Outer Joint",
+        "status": 3
+      },
+      {
+        "name": "Layout Inner Joint",
+        "status": 3
+      },
+      {
+        "name": "Layout Cartridge",
+        "status": 3
+      },
+      {
+        "name": "Layout Output",
+        "status": 3
+      },
+      {
+        "name": "Layout Output Local",
+        "status": 3
+      },
+      {
+        "name": "Layout Rear",
+        "status": 3
+      },
+      {
+        "name": "Layout Rear Local",
+        "status": 3
+      },
+      {
+        "name": "Layout Cover Local",
+        "status": 3
+      },
+      {
+        "name": "Layout Guard Feet",
+        "status": 3
+      },
+      {
+        "name": "Layout Tower Feet",
+        "status": 3
+      },
+      {
+        "name": "Layout Pivot",
+        "status": 3
+      },
+      {
+        "name": "Layout Pin",
+        "status": 3
+      },
+      {
+        "name": "Layout Pin Local",
+        "status": 3
+      },
+      {
+        "name": "Layout Inner Lower Shock",
+        "status": 3
+      },
+      {
+        "name": "Layout Inner Upper Shock",
+        "status": 3
+      },
+      {
+        "name": "Layout Outer Lower Shock",
+        "status": 3
+      },
+      {
+        "name": "Layout Outer Upper Shock",
+        "status": 3
+      },
+      {
+        "name": "Layout Fork Bar",
+        "status": 3
+      },
+      {
+        "name": "Layout Fork Bar Local",
+        "status": 3
+      },
+      {
+        "name": "Layout Roller Axles",
+        "status": 3
+      },
+      {
+        "name": "Layout Inner Roller Axles",
+        "status": 3
+      }
+    ],
+    "feature_errors": [],
+    "body_checks": [],
+    "volume_mm3": 0,
+    "dead_equations": [],
+    "unlinked_dimensions": [],
+    "equations": [
+      "\"row_distance\"= 18mm 'Wheel centre to each row split",
+      "\"roller_axis_radius\"= 52mm 'Wheel centre to roller axes",
+      "\"wheel_radius\"= 70mm 'Wheel contact radius",
+      "\"tread_thickness\"= 2.5mm 'Radial TPU sleeve thickness",
+      "\"roller_half_length\"= 19.5mm 'Roller core half length",
+      "\"end_cone_length\"= 1mm 'Roller tip cone length",
+      "\"key_width\"= 2.4mm 'Sleeve key tangential width",
+      "\"key_length\"= 30mm 'Sleeve key axial length",
+      "\"keyway_floor_radius\"= 13mm 'Sleeve key inner face",
+      "\"joint_radius\"= 38mm 'Hub joining screw pitch radius",
+      "\"cradle_radius\"= 6.5mm 'Cradle attachment screw pitch radius",
+      "\"cartridge_radius\"= 26mm 'Removable cartridge screw pitch radius",
+      "\"output_radius\"= 13.5mm 'AK40 output screw pitch radius",
+      "\"rear_radius\"= 23.5mm 'AK40 rear screw pitch radius",
+      "\"cover_radius\"= 23.3mm 'Dummy cover screw pitch radius",
+      "\"pivot_y\"= 68.2mm 'Suspension pivot transverse coordinate",
+      "\"pivot_z\"= 43mm 'Suspension pivot height",
+      "\"pin_x\"= 40.25mm 'Shaft retaining screw X",
+      "\"inner_bar_x\"= 51mm 'Inner fork bar screws X",
+      "\"outer_bar_x\"= 43.5mm 'Outer fork bar screws toward -X",
+      "\"bar_mid_z\"= 18mm 'Bar screw pattern centre toward -Z",
+      "\"bar_half_pitch\"= 6mm 'Half vertical bar screw pitch",
+      "\"bar_origin_x\"= 5mm 'Bar local origin X in pod frame",
+      "\"bar_origin_z\"= 18mm 'Bar local origin toward -Z",
+      "\"shaft_origin_x\"= 3mm 'Shaft local origin X in pod frame",
+      "\"inner_lower_y\"= 30mm 'Inner shock lower eye Y",
+      "\"inner_lower_z\"= 10mm 'Inner shock lower eye Z",
+      "\"inner_upper_y\"= 30mm 'Inner shock upper eye Y",
+      "\"inner_upper_z\"= 58.3mm 'Inner shock upper eye Z",
+      "\"outer_lower_y\"= 36mm 'Outer shock lower eye Y",
+      "\"outer_lower_z\"= 10mm 'Outer shock lower eye Z",
+      "\"outer_upper_y\"= 36mm 'Outer shock upper eye Y",
+      "\"outer_upper_z\"= 58mm 'Outer shock upper eye Z",
+      "\"guard_front_foot_x\"= 14mm 'Guard front wall foot toward -X",
+      "\"guard_rear_foot_x\"= 16mm 'Guard rear wall foot X",
+      "\"guard_foot_y\"= 87.5mm 'Guard foot transverse position",
+      "\"outer_ear_foot_x\"= 31.5mm 'Outer ear foot toward -X",
+      "\"wheel_bearing_bore\"= 20mm '6804 bearing bore",
+      "\"wheel_bearing_od\"= 32mm '6804 bearing outside diameter",
+      "\"pivot_bearing_bore\"= 7mm '627 bearing bore and pivot shaft",
+      "\"pivot_bearing_od\"= 22mm '627 bearing outside diameter",
+      "\"motor_bearing_bore\"= 7mm '687 bearing bore",
+      "\"motor_bearing_od\"= 14mm '687 bearing outside diameter",
+      "\"tower_foot_1_x\"= 86mm 'Tower foot screw 1 X",
+      "\"tower_foot_1_y\"= 22mm 'Tower foot screw 1 Y",
+      "\"tower_foot_2_x\"= 86mm 'Tower foot screw 2 X",
+      "\"tower_foot_2_y\"= 46mm 'Tower foot screw 2 Y",
+      "\"tower_foot_3_x\"= 90mm 'Tower foot screw 3 X",
+      "\"tower_foot_3_y\"= 30mm 'Tower foot screw 3 Y",
+      "\"tower_foot_4_x\"= 97mm 'Tower foot screw 4 X",
+      "\"tower_foot_4_y\"= 26mm 'Tower foot screw 4 Y",
+      "\"tower_foot_5_x\"= 100mm 'Tower foot screw 5 X",
+      "\"tower_foot_5_y\"= 33.5mm 'Tower foot screw 5 Y",
+      "\"outer_spoke_phase\"= 30deg 'Outer joint and spoke index",
+      "\"inner_spoke_phase\"= 60deg 'Inner joint and spoke index",
+      "\"inner_roller_phase\"= 30deg 'Second roller row stagger",
+      "\"cradle_phase\"= 90deg 'Cradle seed from +Y toward +Z",
+      "\"cartridge_phase\"= 30deg 'Cartridge seed from +Y toward +Z",
+      "\"output_phase\"= 30deg 'Motor output seed in pod frame",
+      "\"rear_phase\"= 90deg 'Motor rear seed in pod frame",
+      "\"cover_phase\"= 45deg 'Dummy cover seed in motor local frame",
+      "\"roller_count\"= 6 'Number of features in roller",
+      "\"cradle_count\"= 4 'Number of features in cradle",
+      "\"cartridge_count\"= 3 'Number of features in cartridge",
+      "\"output_count\"= 3 'Number of features in output",
+      "\"rear_count\"= 4 'Number of features in rear",
+      "\"cover_count\"= 4 'Number of features in cover",
+      "\"measure_display_pitch\"= 3mm 'Control measure marker display spacing",
+      "\"guide_datum_distance\"= 100mm 'In-sketch coordinate datum offset; no physical dimension",
+      "\"guide_marker_diameter\"= 1mm 'Construction circle marker diameter; no physical dimension",
+      "\"anchor_diameter\"= 0.5mm 'Construction datum marker diameter",
+      "\"control_display_radius\"= 10.123mm 'Angle control construction radius",
+      "\"full_turn\"= 360deg 'Full circle for layout patterns",
+      "\"D1@Control Measures\"= 1 * \"measure_display_pitch\"",
+      "\"D2@Control Measures\"= \"row_distance\"",
+      "\"D3@Control Measures\"= 2 * \"measure_display_pitch\"",
+      "\"D4@Control Measures\"= \"roller_axis_radius\"",
+      "\"D5@Control Measures\"= 3 * \"measure_display_pitch\"",
+      "\"D6@Control Measures\"= \"wheel_radius\"",
+      "\"D7@Control Measures\"= 4 * \"measure_display_pitch\"",
+      "\"D8@Control Measures\"= \"tread_thickness\"",
+      "\"D9@Control Measures\"= 5 * \"measure_display_pitch\"",
+      "\"D10@Control Measures\"= \"roller_half_length\"",
+      "\"D11@Control Measures\"= 6 * \"measure_display_pitch\"",
+      "\"D12@Control Measures\"= \"end_cone_length\"",
+      "\"D13@Control Measures\"= 7 * \"measure_display_pitch\"",
+      "\"D14@Control Measures\"= \"key_width\"",
+      "\"D15@Control Measures\"= 8 * \"measure_display_pitch\"",
+      "\"D16@Control Measures\"= \"key_length\"",
+      "\"D17@Control Measures\"= 9 * \"measure_display_pitch\"",
+      "\"D18@Control Measures\"= \"keyway_floor_radius\"",
+      "\"D19@Control Measures\"= 10 * \"measure_display_pitch\"",
+      "\"D20@Control Measures\"= \"joint_radius\"",
+      "\"D21@Control Measures\"= 11 * \"measure_display_pitch\"",
+      "\"D22@Control Measures\"= \"cradle_radius\"",
+      "\"D23@Control Measures\"= 12 * \"measure_display_pitch\"",
+      "\"D24@Control Measures\"= \"cartridge_radius\"",
+      "\"D25@Control Measures\"= 13 * \"measure_display_pitch\"",
+      "\"D26@Control Measures\"= \"output_radius\"",
+      "\"D27@Control Measures\"= 14 * \"measure_display_pitch\"",
+      "\"D28@Control Measures\"= \"rear_radius\"",
+      "\"D29@Control Measures\"= 15 * \"measure_display_pitch\"",
+      "\"D30@Control Measures\"= \"cover_radius\"",
+      "\"D31@Control Measures\"= 16 * \"measure_display_pitch\"",
+      "\"D32@Control Measures\"= \"pivot_y\"",
+      "\"D33@Control Measures\"= 17 * \"measure_display_pitch\"",
+      "\"D34@Control Measures\"= \"pivot_z\"",
+      "\"D35@Control Measures\"= 18 * \"measure_display_pitch\"",
+      "\"D36@Control Measures\"= \"pin_x\"",
+      "\"D37@Control Measures\"= 19 * \"measure_display_pitch\"",
+      "\"D38@Control Measures\"= \"inner_bar_x\"",
+      "\"D39@Control Measures\"= 20 * \"measure_display_pitch\"",
+      "\"D40@Control Measures\"= \"outer_bar_x\"",
+      "\"D41@Control Measures\"= 21 * \"measure_display_pitch\"",
+      "\"D42@Control Measures\"= \"bar_mid_z\"",
+      "\"D43@Control Measures\"= 22 * \"measure_display_pitch\"",
+      "\"D44@Control Measures\"= \"bar_half_pitch\"",
+      "\"D45@Control Measures\"= 23 * \"measure_display_pitch\"",
+      "\"D46@Control Measures\"= \"bar_origin_x\"",
+      "\"D47@Control Measures\"= 24 * \"measure_display_pitch\"",
+      "\"D48@Control Measures\"= \"bar_origin_z\"",
+      "\"D49@Control Measures\"= 25 * \"measure_display_pitch\"",
+      "\"D50@Control Measures\"= \"shaft_origin_x\"",
+      "\"D51@Control Measures\"= 26 * \"measure_display_pitch\"",
+      "\"D52@Control Measures\"= \"inner_lower_y\"",
+      "\"D53@Control Measures\"= 27 * \"measure_display_pitch\"",
+      "\"D54@Control Measures\"= \"inner_lower_z\"",
+      "\"D55@Control Measures\"= 28 * \"measure_display_pitch\"",
+      "\"D56@Control Measures\"= \"inner_upper_y\"",
+      "\"D57@Control Measures\"= 29 * \"measure_display_pitch\"",
+      "\"D58@Control Measures\"= \"inner_upper_z\"",
+      "\"D59@Control Measures\"= 30 * \"measure_display_pitch\"",
+      "\"D60@Control Measures\"= \"outer_lower_y\"",
+      "\"D61@Control Measures\"= 31 * \"measure_display_pitch\"",
+      "\"D62@Control Measures\"= \"outer_lower_z\"",
+      "\"D63@Control Measures\"= 32 * \"measure_display_pitch\"",
+      "\"D64@Control Measures\"= \"outer_upper_y\"",
+      "\"D65@Control Measures\"= 33 * \"measure_display_pitch\"",
+      "\"D66@Control Measures\"= \"outer_upper_z\"",
+      "\"D67@Control Measures\"= 34 * \"measure_display_pitch\"",
+      "\"D68@Control Measures\"= \"guard_front_foot_x\"",
+      "\"D69@Control Measures\"= 35 * \"measure_display_pitch\"",
+      "\"D70@Control Measures\"= \"guard_rear_foot_x\"",
+      "\"D71@Control Measures\"= 36 * \"measure_display_pitch\"",
+      "\"D72@Control Measures\"= \"guard_foot_y\"",
+      "\"D73@Control Measures\"= 37 * \"measure_display_pitch\"",
+      "\"D74@Control Measures\"= \"outer_ear_foot_x\"",
+      "\"D75@Control Measures\"= 38 * \"measure_display_pitch\"",
+      "\"D76@Control Measures\"= \"wheel_bearing_bore\"",
+      "\"D77@Control Measures\"= 39 * \"measure_display_pitch\"",
+      "\"D78@Control Measures\"= \"wheel_bearing_od\"",
+      "\"D79@Control Measures\"= 40 * \"measure_display_pitch\"",
+      "\"D80@Control Measures\"= \"pivot_bearing_bore\"",
+      "\"D81@Control Measures\"= 41 * \"measure_display_pitch\"",
+      "\"D82@Control Measures\"= \"pivot_bearing_od\"",
+      "\"D83@Control Measures\"= 42 * \"measure_display_pitch\"",
+      "\"D84@Control Measures\"= \"motor_bearing_bore\"",
+      "\"D85@Control Measures\"= 43 * \"measure_display_pitch\"",
+      "\"D86@Control Measures\"= \"motor_bearing_od\"",
+      "\"D87@Control Measures\"= 44 * \"measure_display_pitch\"",
+      "\"D88@Control Measures\"= \"tower_foot_1_x\"",
+      "\"D89@Control Measures\"= 45 * \"measure_display_pitch\"",
+      "\"D90@Control Measures\"= \"tower_foot_1_y\"",
+      "\"D91@Control Measures\"= 46 * \"measure_display_pitch\"",
+      "\"D92@Control Measures\"= \"tower_foot_2_x\"",
+      "\"D93@Control Measures\"= 47 * \"measure_display_pitch\"",
+      "\"D94@Control Measures\"= \"tower_foot_2_y\"",
+      "\"D95@Control Measures\"= 48 * \"measure_display_pitch\"",
+      "\"D96@Control Measures\"= \"tower_foot_3_x\"",
+      "\"D97@Control Measures\"= 49 * \"measure_display_pitch\"",
+      "\"D98@Control Measures\"= \"tower_foot_3_y\"",
+      "\"D99@Control Measures\"= 50 * \"measure_display_pitch\"",
+      "\"D100@Control Measures\"= \"tower_foot_4_x\"",
+      "\"D101@Control Measures\"= 51 * \"measure_display_pitch\"",
+      "\"D102@Control Measures\"= \"tower_foot_4_y\"",
+      "\"D103@Control Measures\"= 52 * \"measure_display_pitch\"",
+      "\"D104@Control Measures\"= \"tower_foot_5_x\"",
+      "\"D105@Control Measures\"= 53 * \"measure_display_pitch\"",
+      "\"D106@Control Measures\"= \"tower_foot_5_y\"",
+      "\"D107@Control Measures\"= 54 * \"measure_display_pitch\"",
+      "\"D108@Control Measures\"= \"roller_count\"",
+      "\"D109@Control Measures\"= 55 * \"measure_display_pitch\"",
+      "\"D110@Control Measures\"= \"cradle_count\"",
+      "\"D111@Control Measures\"= 56 * \"measure_display_pitch\"",
+      "\"D112@Control Measures\"= \"cartridge_count\"",
+      "\"D113@Control Measures\"= 57 * \"measure_display_pitch\"",
+      "\"D114@Control Measures\"= \"output_count\"",
+      "\"D115@Control Measures\"= 58 * \"measure_display_pitch\"",
+      "\"D116@Control Measures\"= \"rear_count\"",
+      "\"D117@Control Measures\"= 59 * \"measure_display_pitch\"",
+      "\"D118@Control Measures\"= \"cover_count\"",
+      "\"D1@Angle outer spoke phase\"= \"control_display_radius\"",
+      "\"D2@Angle outer spoke phase\"= \"outer_spoke_phase\"",
+      "\"D3@Angle outer spoke phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle inner spoke phase\"= \"control_display_radius\"",
+      "\"D2@Angle inner spoke phase\"= \"inner_spoke_phase\"",
+      "\"D3@Angle inner spoke phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle inner roller phase\"= \"control_display_radius\"",
+      "\"D2@Angle inner roller phase\"= \"inner_roller_phase\"",
+      "\"D3@Angle inner roller phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle cradle phase\"= \"control_display_radius\"",
+      "\"D2@Angle cradle phase\"= \"cradle_phase\"",
+      "\"D3@Angle cradle phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle cartridge phase\"= \"control_display_radius\"",
+      "\"D2@Angle cartridge phase\"= \"cartridge_phase\"",
+      "\"D3@Angle cartridge phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle output phase\"= \"control_display_radius\"",
+      "\"D2@Angle output phase\"= \"output_phase\"",
+      "\"D3@Angle output phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle rear phase\"= \"control_display_radius\"",
+      "\"D2@Angle rear phase\"= \"rear_phase\"",
+      "\"D3@Angle rear phase\"= \"guide_marker_diameter\"",
+      "\"D1@Angle cover phase\"= \"control_display_radius\"",
+      "\"D2@Angle cover phase\"= \"cover_phase\"",
+      "\"D3@Angle cover phase\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Cradle\"= \"anchor_diameter\"",
+      "\"D2@Layout Cradle\"= \"guide_datum_distance\"",
+      "\"D3@Layout Cradle\"= \"guide_datum_distance\"",
+      "\"D4@Layout Cradle\"= \"anchor_diameter\"",
+      "\"D5@Layout Cradle\"= \"guide_datum_distance\" + (- \"cradle_radius\" * sin(\"cradle_phase\" + 0 * \"full_turn\" / \"cradle_count\"))",
+      "\"D6@Layout Cradle\"= \"guide_datum_distance\" + (\"cradle_radius\" * cos(\"cradle_phase\" + 0 * \"full_turn\" / \"cradle_count\"))",
+      "\"D7@Layout Cradle\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Cradle\"= \"guide_datum_distance\" + (- \"cradle_radius\" * sin(\"cradle_phase\" + 1 * \"full_turn\" / \"cradle_count\"))",
+      "\"D9@Layout Cradle\"= \"guide_datum_distance\" + (\"cradle_radius\" * cos(\"cradle_phase\" + 1 * \"full_turn\" / \"cradle_count\"))",
+      "\"D10@Layout Cradle\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Cradle\"= \"guide_datum_distance\" + (- \"cradle_radius\" * sin(\"cradle_phase\" + 2 * \"full_turn\" / \"cradle_count\"))",
+      "\"D12@Layout Cradle\"= \"guide_datum_distance\" + (\"cradle_radius\" * cos(\"cradle_phase\" + 2 * \"full_turn\" / \"cradle_count\"))",
+      "\"D13@Layout Cradle\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Cradle\"= \"guide_datum_distance\" + (- \"cradle_radius\" * sin(\"cradle_phase\" + 3 * \"full_turn\" / \"cradle_count\"))",
+      "\"D15@Layout Cradle\"= \"guide_datum_distance\" + (\"cradle_radius\" * cos(\"cradle_phase\" + 3 * \"full_turn\" / \"cradle_count\"))",
+      "\"D16@Layout Cradle\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Outer Joint\"= \"anchor_diameter\"",
+      "\"D2@Layout Outer Joint\"= \"guide_datum_distance\"",
+      "\"D3@Layout Outer Joint\"= \"guide_datum_distance\"",
+      "\"D4@Layout Outer Joint\"= \"anchor_diameter\"",
+      "\"D5@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 0 * \"full_turn\" / \"roller_count\"))",
+      "\"D6@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 0 * \"full_turn\" / \"roller_count\"))",
+      "\"D7@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 1 * \"full_turn\" / \"roller_count\"))",
+      "\"D9@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 1 * \"full_turn\" / \"roller_count\"))",
+      "\"D10@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 2 * \"full_turn\" / \"roller_count\"))",
+      "\"D12@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 2 * \"full_turn\" / \"roller_count\"))",
+      "\"D13@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 3 * \"full_turn\" / \"roller_count\"))",
+      "\"D15@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 3 * \"full_turn\" / \"roller_count\"))",
+      "\"D16@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D17@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 4 * \"full_turn\" / \"roller_count\"))",
+      "\"D18@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 4 * \"full_turn\" / \"roller_count\"))",
+      "\"D19@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D20@Layout Outer Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"outer_spoke_phase\" + 5 * \"full_turn\" / \"roller_count\"))",
+      "\"D21@Layout Outer Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"outer_spoke_phase\" + 5 * \"full_turn\" / \"roller_count\"))",
+      "\"D22@Layout Outer Joint\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Inner Joint\"= \"anchor_diameter\"",
+      "\"D2@Layout Inner Joint\"= \"guide_datum_distance\"",
+      "\"D3@Layout Inner Joint\"= \"guide_datum_distance\"",
+      "\"D4@Layout Inner Joint\"= \"anchor_diameter\"",
+      "\"D5@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 0 * \"full_turn\" / \"roller_count\"))",
+      "\"D6@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 0 * \"full_turn\" / \"roller_count\"))",
+      "\"D7@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 1 * \"full_turn\" / \"roller_count\"))",
+      "\"D9@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 1 * \"full_turn\" / \"roller_count\"))",
+      "\"D10@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 2 * \"full_turn\" / \"roller_count\"))",
+      "\"D12@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 2 * \"full_turn\" / \"roller_count\"))",
+      "\"D13@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 3 * \"full_turn\" / \"roller_count\"))",
+      "\"D15@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 3 * \"full_turn\" / \"roller_count\"))",
+      "\"D16@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D17@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 4 * \"full_turn\" / \"roller_count\"))",
+      "\"D18@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 4 * \"full_turn\" / \"roller_count\"))",
+      "\"D19@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D20@Layout Inner Joint\"= \"guide_datum_distance\" + (- \"joint_radius\" * sin(\"inner_spoke_phase\" + 5 * \"full_turn\" / \"roller_count\"))",
+      "\"D21@Layout Inner Joint\"= \"guide_datum_distance\" + (\"joint_radius\" * cos(\"inner_spoke_phase\" + 5 * \"full_turn\" / \"roller_count\"))",
+      "\"D22@Layout Inner Joint\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Cartridge\"= \"anchor_diameter\"",
+      "\"D2@Layout Cartridge\"= \"guide_datum_distance\"",
+      "\"D3@Layout Cartridge\"= \"guide_datum_distance\"",
+      "\"D4@Layout Cartridge\"= \"anchor_diameter\"",
+      "\"D5@Layout Cartridge\"= \"guide_datum_distance\" + (- \"cartridge_radius\" * sin(\"cartridge_phase\" + 0 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D6@Layout Cartridge\"= \"guide_datum_distance\" + (\"cartridge_radius\" * cos(\"cartridge_phase\" + 0 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D7@Layout Cartridge\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Cartridge\"= \"guide_datum_distance\" + (- \"cartridge_radius\" * sin(\"cartridge_phase\" + 1 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D9@Layout Cartridge\"= \"guide_datum_distance\" + (\"cartridge_radius\" * cos(\"cartridge_phase\" + 1 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D10@Layout Cartridge\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Cartridge\"= \"guide_datum_distance\" + (- \"cartridge_radius\" * sin(\"cartridge_phase\" + 2 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D12@Layout Cartridge\"= \"guide_datum_distance\" + (\"cartridge_radius\" * cos(\"cartridge_phase\" + 2 * \"full_turn\" / \"cartridge_count\"))",
+      "\"D13@Layout Cartridge\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Output\"= \"anchor_diameter\"",
+      "\"D2@Layout Output\"= \"guide_datum_distance\"",
+      "\"D3@Layout Output\"= \"guide_datum_distance\"",
+      "\"D4@Layout Output\"= \"anchor_diameter\"",
+      "\"D5@Layout Output\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"output_phase\" + 0 * \"full_turn\" / \"output_count\"))",
+      "\"D6@Layout Output\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"output_phase\" + 0 * \"full_turn\" / \"output_count\"))",
+      "\"D7@Layout Output\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Output\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"output_phase\" + 1 * \"full_turn\" / \"output_count\"))",
+      "\"D9@Layout Output\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"output_phase\" + 1 * \"full_turn\" / \"output_count\"))",
+      "\"D10@Layout Output\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Output\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"output_phase\" + 2 * \"full_turn\" / \"output_count\"))",
+      "\"D12@Layout Output\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"output_phase\" + 2 * \"full_turn\" / \"output_count\"))",
+      "\"D13@Layout Output\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Output Local\"= \"anchor_diameter\"",
+      "\"D2@Layout Output Local\"= \"guide_datum_distance\"",
+      "\"D3@Layout Output Local\"= \"guide_datum_distance\"",
+      "\"D4@Layout Output Local\"= \"anchor_diameter\"",
+      "\"D5@Layout Output Local\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"full_turn\" / \"output_count\" - \"output_phase\" + 0 * \"full_turn\" / \"output_count\"))",
+      "\"D6@Layout Output Local\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"full_turn\" / \"output_count\" - \"output_phase\" + 0 * \"full_turn\" / \"output_count\"))",
+      "\"D7@Layout Output Local\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Output Local\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"full_turn\" / \"output_count\" - \"output_phase\" + 1 * \"full_turn\" / \"output_count\"))",
+      "\"D9@Layout Output Local\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"full_turn\" / \"output_count\" - \"output_phase\" + 1 * \"full_turn\" / \"output_count\"))",
+      "\"D10@Layout Output Local\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Output Local\"= \"guide_datum_distance\" + (- \"output_radius\" * sin(\"full_turn\" / \"output_count\" - \"output_phase\" + 2 * \"full_turn\" / \"output_count\"))",
+      "\"D12@Layout Output Local\"= \"guide_datum_distance\" + (\"output_radius\" * cos(\"full_turn\" / \"output_count\" - \"output_phase\" + 2 * \"full_turn\" / \"output_count\"))",
+      "\"D13@Layout Output Local\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Rear\"= \"anchor_diameter\"",
+      "\"D2@Layout Rear\"= \"guide_datum_distance\"",
+      "\"D3@Layout Rear\"= \"guide_datum_distance\"",
+      "\"D4@Layout Rear\"= \"anchor_diameter\"",
+      "\"D5@Layout Rear\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"rear_phase\" + 0 * \"full_turn\" / \"rear_count\"))",
+      "\"D6@Layout Rear\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"rear_phase\" + 0 * \"full_turn\" / \"rear_count\"))",
+      "\"D7@Layout Rear\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Rear\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"rear_phase\" + 1 * \"full_turn\" / \"rear_count\"))",
+      "\"D9@Layout Rear\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"rear_phase\" + 1 * \"full_turn\" / \"rear_count\"))",
+      "\"D10@Layout Rear\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Rear\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"rear_phase\" + 2 * \"full_turn\" / \"rear_count\"))",
+      "\"D12@Layout Rear\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"rear_phase\" + 2 * \"full_turn\" / \"rear_count\"))",
+      "\"D13@Layout Rear\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Rear\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"rear_phase\" + 3 * \"full_turn\" / \"rear_count\"))",
+      "\"D15@Layout Rear\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"rear_phase\" + 3 * \"full_turn\" / \"rear_count\"))",
+      "\"D16@Layout Rear\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Rear Local\"= \"anchor_diameter\"",
+      "\"D2@Layout Rear Local\"= \"guide_datum_distance\"",
+      "\"D3@Layout Rear Local\"= \"guide_datum_distance\"",
+      "\"D4@Layout Rear Local\"= \"anchor_diameter\"",
+      "\"D5@Layout Rear Local\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"full_turn\" / 2 - \"rear_phase\" + 0 * \"full_turn\" / \"rear_count\"))",
+      "\"D6@Layout Rear Local\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"full_turn\" / 2 - \"rear_phase\" + 0 * \"full_turn\" / \"rear_count\"))",
+      "\"D7@Layout Rear Local\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Rear Local\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"full_turn\" / 2 - \"rear_phase\" + 1 * \"full_turn\" / \"rear_count\"))",
+      "\"D9@Layout Rear Local\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"full_turn\" / 2 - \"rear_phase\" + 1 * \"full_turn\" / \"rear_count\"))",
+      "\"D10@Layout Rear Local\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Rear Local\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"full_turn\" / 2 - \"rear_phase\" + 2 * \"full_turn\" / \"rear_count\"))",
+      "\"D12@Layout Rear Local\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"full_turn\" / 2 - \"rear_phase\" + 2 * \"full_turn\" / \"rear_count\"))",
+      "\"D13@Layout Rear Local\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Rear Local\"= \"guide_datum_distance\" + (- \"rear_radius\" * sin(\"full_turn\" / 2 - \"rear_phase\" + 3 * \"full_turn\" / \"rear_count\"))",
+      "\"D15@Layout Rear Local\"= \"guide_datum_distance\" + (\"rear_radius\" * cos(\"full_turn\" / 2 - \"rear_phase\" + 3 * \"full_turn\" / \"rear_count\"))",
+      "\"D16@Layout Rear Local\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Cover Local\"= \"anchor_diameter\"",
+      "\"D2@Layout Cover Local\"= \"guide_datum_distance\"",
+      "\"D3@Layout Cover Local\"= \"guide_datum_distance\"",
+      "\"D4@Layout Cover Local\"= \"anchor_diameter\"",
+      "\"D5@Layout Cover Local\"= \"guide_datum_distance\" + (- \"cover_radius\" * sin(\"cover_phase\" + 0 * \"full_turn\" / \"cover_count\"))",
+      "\"D6@Layout Cover Local\"= \"guide_datum_distance\" + (\"cover_radius\" * cos(\"cover_phase\" + 0 * \"full_turn\" / \"cover_count\"))",
+      "\"D7@Layout Cover Local\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Cover Local\"= \"guide_datum_distance\" + (- \"cover_radius\" * sin(\"cover_phase\" + 1 * \"full_turn\" / \"cover_count\"))",
+      "\"D9@Layout Cover Local\"= \"guide_datum_distance\" + (\"cover_radius\" * cos(\"cover_phase\" + 1 * \"full_turn\" / \"cover_count\"))",
+      "\"D10@Layout Cover Local\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Cover Local\"= \"guide_datum_distance\" + (- \"cover_radius\" * sin(\"cover_phase\" + 2 * \"full_turn\" / \"cover_count\"))",
+      "\"D12@Layout Cover Local\"= \"guide_datum_distance\" + (\"cover_radius\" * cos(\"cover_phase\" + 2 * \"full_turn\" / \"cover_count\"))",
+      "\"D13@Layout Cover Local\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Cover Local\"= \"guide_datum_distance\" + (- \"cover_radius\" * sin(\"cover_phase\" + 3 * \"full_turn\" / \"cover_count\"))",
+      "\"D15@Layout Cover Local\"= \"guide_datum_distance\" + (\"cover_radius\" * cos(\"cover_phase\" + 3 * \"full_turn\" / \"cover_count\"))",
+      "\"D16@Layout Cover Local\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Guard Feet\"= \"anchor_diameter\"",
+      "\"D2@Layout Guard Feet\"= \"guide_datum_distance\"",
+      "\"D3@Layout Guard Feet\"= \"guide_datum_distance\"",
+      "\"D4@Layout Guard Feet\"= \"anchor_diameter\"",
+      "\"D5@Layout Guard Feet\"= \"guide_datum_distance\" + (- \"guard_front_foot_x\")",
+      "\"D6@Layout Guard Feet\"= \"guide_datum_distance\" + (- \"guard_foot_y\")",
+      "\"D7@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_rear_foot_x\")",
+      "\"D9@Layout Guard Feet\"= \"guide_datum_distance\" + (- \"guard_foot_y\")",
+      "\"D10@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Guard Feet\"= \"guide_datum_distance\" + (- \"guard_front_foot_x\")",
+      "\"D12@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_foot_y\")",
+      "\"D13@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_rear_foot_x\")",
+      "\"D15@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_foot_y\")",
+      "\"D16@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D17@Layout Guard Feet\"= \"guide_datum_distance\" + (\"pin_x\")",
+      "\"D18@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_foot_y\")",
+      "\"D19@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D20@Layout Guard Feet\"= \"guide_datum_distance\" + (- \"outer_ear_foot_x\")",
+      "\"D21@Layout Guard Feet\"= \"guide_datum_distance\" + (\"guard_foot_y\")",
+      "\"D22@Layout Guard Feet\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Tower Feet\"= \"anchor_diameter\"",
+      "\"D2@Layout Tower Feet\"= \"guide_datum_distance\"",
+      "\"D3@Layout Tower Feet\"= \"guide_datum_distance\"",
+      "\"D4@Layout Tower Feet\"= \"anchor_diameter\"",
+      "\"D5@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_1_x\")",
+      "\"D6@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_1_y\")",
+      "\"D7@Layout Tower Feet\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_2_x\")",
+      "\"D9@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_2_y\")",
+      "\"D10@Layout Tower Feet\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_3_x\")",
+      "\"D12@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_3_y\")",
+      "\"D13@Layout Tower Feet\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_4_x\")",
+      "\"D15@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_4_y\")",
+      "\"D16@Layout Tower Feet\"= \"guide_marker_diameter\"",
+      "\"D17@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_5_x\")",
+      "\"D18@Layout Tower Feet\"= \"guide_datum_distance\" + (\"tower_foot_5_y\")",
+      "\"D19@Layout Tower Feet\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Pivot\"= \"anchor_diameter\"",
+      "\"D2@Layout Pivot\"= \"guide_datum_distance\"",
+      "\"D3@Layout Pivot\"= \"guide_datum_distance\"",
+      "\"D4@Layout Pivot\"= \"anchor_diameter\"",
+      "\"D5@Layout Pivot\"= \"guide_datum_distance\" + (- \"pivot_z\")",
+      "\"D6@Layout Pivot\"= \"guide_datum_distance\" + (\"pivot_y\")",
+      "\"D7@Layout Pivot\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Pin\"= \"anchor_diameter\"",
+      "\"D2@Layout Pin\"= \"guide_datum_distance\"",
+      "\"D3@Layout Pin\"= \"guide_datum_distance\"",
+      "\"D4@Layout Pin\"= \"anchor_diameter\"",
+      "\"D5@Layout Pin\"= \"guide_datum_distance\" + (\"pin_x\")",
+      "\"D6@Layout Pin\"= \"guide_datum_distance\" + (\"pivot_y\")",
+      "\"D7@Layout Pin\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Pin Local\"= \"anchor_diameter\"",
+      "\"D2@Layout Pin Local\"= \"guide_datum_distance\"",
+      "\"D3@Layout Pin Local\"= \"guide_datum_distance\"",
+      "\"D4@Layout Pin Local\"= \"anchor_diameter\"",
+      "\"D5@Layout Pin Local\"= \"guide_datum_distance\" + (\"pin_x\" - \"shaft_origin_x\")",
+      "\"D6@Layout Pin Local\"= \"guide_datum_distance\" + (0)",
+      "\"D7@Layout Pin Local\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Inner Lower Shock\"= \"anchor_diameter\"",
+      "\"D2@Layout Inner Lower Shock\"= \"guide_datum_distance\"",
+      "\"D3@Layout Inner Lower Shock\"= \"guide_datum_distance\"",
+      "\"D4@Layout Inner Lower Shock\"= \"anchor_diameter\"",
+      "\"D5@Layout Inner Lower Shock\"= \"guide_datum_distance\" + (- \"inner_lower_z\")",
+      "\"D6@Layout Inner Lower Shock\"= \"guide_datum_distance\" + (\"inner_lower_y\")",
+      "\"D7@Layout Inner Lower Shock\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Inner Upper Shock\"= \"anchor_diameter\"",
+      "\"D2@Layout Inner Upper Shock\"= \"guide_datum_distance\"",
+      "\"D3@Layout Inner Upper Shock\"= \"guide_datum_distance\"",
+      "\"D4@Layout Inner Upper Shock\"= \"anchor_diameter\"",
+      "\"D5@Layout Inner Upper Shock\"= \"guide_datum_distance\" + (- \"inner_upper_z\")",
+      "\"D6@Layout Inner Upper Shock\"= \"guide_datum_distance\" + (\"inner_upper_y\")",
+      "\"D7@Layout Inner Upper Shock\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Outer Lower Shock\"= \"anchor_diameter\"",
+      "\"D2@Layout Outer Lower Shock\"= \"guide_datum_distance\"",
+      "\"D3@Layout Outer Lower Shock\"= \"guide_datum_distance\"",
+      "\"D4@Layout Outer Lower Shock\"= \"anchor_diameter\"",
+      "\"D5@Layout Outer Lower Shock\"= \"guide_datum_distance\" + (- \"outer_lower_z\")",
+      "\"D6@Layout Outer Lower Shock\"= \"guide_datum_distance\" + (\"outer_lower_y\")",
+      "\"D7@Layout Outer Lower Shock\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Outer Upper Shock\"= \"anchor_diameter\"",
+      "\"D2@Layout Outer Upper Shock\"= \"guide_datum_distance\"",
+      "\"D3@Layout Outer Upper Shock\"= \"guide_datum_distance\"",
+      "\"D4@Layout Outer Upper Shock\"= \"anchor_diameter\"",
+      "\"D5@Layout Outer Upper Shock\"= \"guide_datum_distance\" + (- \"outer_upper_z\")",
+      "\"D6@Layout Outer Upper Shock\"= \"guide_datum_distance\" + (\"outer_upper_y\")",
+      "\"D7@Layout Outer Upper Shock\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Fork Bar\"= \"anchor_diameter\"",
+      "\"D2@Layout Fork Bar\"= \"guide_datum_distance\"",
+      "\"D3@Layout Fork Bar\"= \"guide_datum_distance\"",
+      "\"D4@Layout Fork Bar\"= \"anchor_diameter\"",
+      "\"D5@Layout Fork Bar\"= \"guide_datum_distance\" + (- \"outer_bar_x\")",
+      "\"D6@Layout Fork Bar\"= \"guide_datum_distance\" + (\"bar_mid_z\" - \"bar_half_pitch\")",
+      "\"D7@Layout Fork Bar\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Fork Bar\"= \"guide_datum_distance\" + (- \"outer_bar_x\")",
+      "\"D9@Layout Fork Bar\"= \"guide_datum_distance\" + (\"bar_mid_z\" + \"bar_half_pitch\")",
+      "\"D10@Layout Fork Bar\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Fork Bar\"= \"guide_datum_distance\" + (\"inner_bar_x\")",
+      "\"D12@Layout Fork Bar\"= \"guide_datum_distance\" + (\"bar_mid_z\" - \"bar_half_pitch\")",
+      "\"D13@Layout Fork Bar\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Fork Bar\"= \"guide_datum_distance\" + (\"inner_bar_x\")",
+      "\"D15@Layout Fork Bar\"= \"guide_datum_distance\" + (\"bar_mid_z\" + \"bar_half_pitch\")",
+      "\"D16@Layout Fork Bar\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Fork Bar Local\"= \"anchor_diameter\"",
+      "\"D2@Layout Fork Bar Local\"= \"guide_datum_distance\"",
+      "\"D3@Layout Fork Bar Local\"= \"guide_datum_distance\"",
+      "\"D4@Layout Fork Bar Local\"= \"anchor_diameter\"",
+      "\"D5@Layout Fork Bar Local\"= \"guide_datum_distance\" + (- \"outer_bar_x\" - \"bar_origin_x\")",
+      "\"D6@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"bar_mid_z\" - \"bar_half_pitch\" - \"bar_origin_z\")",
+      "\"D7@Layout Fork Bar Local\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Fork Bar Local\"= \"guide_datum_distance\" + (- \"outer_bar_x\" - \"bar_origin_x\")",
+      "\"D9@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"bar_mid_z\" + \"bar_half_pitch\" - \"bar_origin_z\")",
+      "\"D10@Layout Fork Bar Local\"= \"guide_marker_diameter\"",
+      "\"D11@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"inner_bar_x\" - \"bar_origin_x\")",
+      "\"D12@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"bar_mid_z\" - \"bar_half_pitch\" - \"bar_origin_z\")",
+      "\"D13@Layout Fork Bar Local\"= \"guide_marker_diameter\"",
+      "\"D14@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"inner_bar_x\" - \"bar_origin_x\")",
+      "\"D15@Layout Fork Bar Local\"= \"guide_datum_distance\" + (\"bar_mid_z\" + \"bar_half_pitch\" - \"bar_origin_z\")",
+      "\"D16@Layout Fork Bar Local\"= \"guide_marker_diameter\"",
+      "\"D1@Layout Roller Axles\"= \"anchor_diameter\"",
+      "\"D2@Layout Roller Axles\"= \"guide_datum_distance\"",
+      "\"D3@Layout Roller Axles\"= \"guide_datum_distance\"",
+      "\"D4@Layout Roller Axles\"= \"anchor_diameter\"",
+      "\"D5@Layout Roller Axles\"= \"guide_datum_distance\" + (- \"row_distance\")",
+      "\"D6@Layout Roller Axles\"= \"guide_datum_distance\" + (\"roller_axis_radius\")",
+      "\"D7@Layout Roller Axles\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Roller Axles\"= \"guide_datum_distance\" + (\"row_distance\")",
+      "\"D9@Layout Roller Axles\"= \"guide_datum_distance\" + (\"roller_axis_radius\")",
+      "\"D10@Layout Roller Axles\"= \"guide_marker_diameter\"",
+      "\"D1@Inner Roller Guide Plane\"= \"inner_roller_phase\"",
+      "\"D1@Layout Inner Roller Axles\"= \"anchor_diameter\"",
+      "\"D2@Layout Inner Roller Axles\"= \"guide_datum_distance\"",
+      "\"D3@Layout Inner Roller Axles\"= \"guide_datum_distance\"",
+      "\"D4@Layout Inner Roller Axles\"= \"anchor_diameter\"",
+      "\"D5@Layout Inner Roller Axles\"= \"guide_datum_distance\" + (- \"row_distance\")",
+      "\"D6@Layout Inner Roller Axles\"= \"guide_datum_distance\" + (\"roller_axis_radius\")",
+      "\"D7@Layout Inner Roller Axles\"= \"guide_marker_diameter\"",
+      "\"D8@Layout Inner Roller Axles\"= \"guide_datum_distance\" + (\"row_distance\")",
+      "\"D9@Layout Inner Roller Axles\"= \"guide_datum_distance\" + (\"roller_axis_radius\")",
+      "\"D10@Layout Inner Roller Axles\"= \"guide_marker_diameter\""
+    ],
+    "design_features": [],
+    "pass": true
+  },
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT"
+}

@@ -1,0 +1,64 @@
+﻿1872 crossings in 522 s
+S. Square steps (up onto a 0.8 m platform, then down) and 76 mm triangular bumps: crossed of 13 body directions at 0.5 / 1 / 2 m/s (where it stopped), peak tilt, longest airborne, belly / hull on it, balls lost, flips
+  X4 + pods
+    step 10 mm                     13/13 | 13/13 | 13/13  tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                     12/13 (1 before the edge) | 12/13 (1 before the edge) | 13/13  tilt 11 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 20 mm                     11/13 (2 before the edge) | 11/13 (2 before the edge) | 11/13 (2 before the edge)  tilt 15 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 25 mm                      9/13 (4 before the edge) |  9/13 (1 on it, 3 before the edge) | 10/13 (3 before the edge)  tilt 15 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    step 30 mm                      7/13 (6 before the edge) | 10/13 (3 before the edge) | 10/13 (1 on it, 2 before the edge)  tilt 25 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0
+    step 35 mm                      7/13 (6 before the edge) |  7/13 (4 before the edge, 2 on it) | 11/13 (2 before the edge)  tilt 37 deg, air 0 ms, belly 0, hull 11, lost 0, flips 0
+    step 40 mm                      7/13 (5 before the edge, 1 on it) |  9/13 (4 before the edge) | 11/13 (2 before the edge)  tilt 35 deg, air 0 ms, belly 0, hull 28, lost 0, flips 0
+    bump 13 mm                     13/13 | 13/13 | 13/13  tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13 | 13/13 | 13/13  tilt 12 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                      7/13 (6 before the edge) | 13/13 | 13/13  tilt 14 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 32 mm                      7/13 (6 before the edge) | 11/13 (2 before the edge) | 12/13 (1 climbing)  tilt 20 deg, air 0 ms, belly 10, hull 8, lost 0, flips 0
+    bump 38 mm                      4/13 (3 climbing, 6 before the edge) |  7/13 (6 before the edge) | 11/13 (1 before the edge, 1 climbing)  tilt 29 deg, air 48 ms, belly 12, hull 8, lost 0, flips 0
+  X4 rigid
+    step 10 mm                     12/13 (1 before the edge) | 13/13 | 13/13  tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                      7/13 (4 before the edge, 2 on it) | 11/13 (2 before the edge) | 11/13 (2 before the edge)  tilt 20 deg, air 5 ms, belly 0, hull 0, lost 0, flips 0
+    step 20 mm                      7/13 (6 before the edge) |  9/13 (4 before the edge) | 10/13 (3 before the edge)  tilt 26 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 25 mm                      8/13 (4 before the edge, 1 coming off) |  8/13 (4 before the edge, 1 climbing) |  9/13 (3 before the edge, 1 coming off)  tilt 24 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 30 mm                      8/13 (5 before the edge) |  8/13 (5 before the edge) |  7/13 (4 before the edge, 1 on it, 1 coming off)  tilt 18 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 35 mm                      8/13 (5 before the edge) |  8/13 (5 before the edge) |  8/13 (3 before the edge, 2 on it)  tilt 29 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    step 40 mm                      8/13 (5 before the edge) |  8/13 (4 before the edge, 1 climbing) |  8/13 (1 on it, 4 before the edge)  tilt 39 deg, air 0 ms, belly 0, hull 5, lost 0, flips 0
+    bump 13 mm                     13/13 | 13/13 | 13/13  tilt 15 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                      8/13 (4 before the edge, 1 climbing) | 13/13 | 13/13  tilt 24 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                      6/13 (1 climbing, 6 before the edge) | 13/13 | 13/13  tilt 30 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 32 mm                      5/13 (1 climbing, 6 before the edge, 1 on it) |  7/13 (5 before the edge, 1 climbing) | 13/13  tilt 34 deg, air 0 ms, belly 0, hull 3, lost 0, flips 0
+    bump 38 mm                      4/13 (3 climbing, 6 before the edge) |  8/13 (4 before the edge, 1 climbing) | 12/13 (1 before the edge)  tilt 27 deg, air 8 ms, belly 9, hull 10, lost 0, flips 0
+  kiwi rigid
+    step 10 mm                     13/13 | 13/13 | 13/13  tilt 28 deg, air 0 ms, belly 0, hull 2, lost 0, flips 0
+    step 15 mm                     13/13 | 13/13 | 13/13  tilt 33 deg, air 0 ms, belly 0, hull 6, lost 0, flips 0
+    step 20 mm                     13/13 | 13/13 | 13/13  tilt 34 deg, air 0 ms, belly 0, hull 8, lost 0, flips 0
+    step 25 mm                     11/13 (1 climbing, 1 before the edge) | 12/13 (1 before the edge) | 13/13  tilt 34 deg, air 2 ms, belly 0, hull 6, lost 0, flips 0
+    step 30 mm                     10/13 (1 climbing, 2 before the edge) | 12/13 (1 before the edge) | 12/13 (1 before the edge)  tilt 34 deg, air 0 ms, belly 0, hull 10, lost 0, flips 0
+    step 35 mm                      9/13 (2 climbing, 2 before the edge) | 12/13 (1 before the edge) | 11/13 (1 on it, 1 flipped)  tilt 45 deg, air 2 ms, belly 1, hull 10, lost 0, flips 1
+    step 40 mm                      8/13 (3 climbing, 2 before the edge) | 10/13 (1 climbing, 1 flipped, 1 before the edge) | 12/13 (1 before the edge)  tilt 45 deg, air 2 ms, belly 1, hull 18, lost 0, flips 1
+    bump 13 mm                     13/13 | 13/13 | 13/13  tilt 30 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13 | 13/13 | 13/13  tilt 32 deg, air 0 ms, belly 0, hull 3, lost 0, flips 0
+    bump 25 mm                     13/13 | 13/13 | 13/13  tilt 39 deg, air 0 ms, belly 0, hull 12, lost 0, flips 0
+    bump 32 mm                     13/13 | 13/13 | 13/13  tilt 37 deg, air 2 ms, belly 0, hull 21, lost 0, flips 0
+    bump 38 mm                      9/13 (1 before the edge, 3 climbing) | 13/13 | 13/13  tilt 38 deg, air 419 ms, belly 23, hull 25, lost 0, flips 0
+  kiwi + pods
+    step 10 mm                     13/13 | 13/13 | 13/13  tilt 18 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                     13/13 | 13/13 | 13/13  tilt 27 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0
+    step 20 mm                     12/13 (1 on it) | 13/13 | 13/13  tilt 32 deg, air 0 ms, belly 0, hull 6, lost 0, flips 0
+    step 25 mm                     10/13 (1 climbing, 2 before the edge) | 13/13 | 13/13  tilt 34 deg, air 0 ms, belly 0, hull 9, lost 0, flips 0
+    step 30 mm                     10/13 (1 climbing, 2 before the edge) | 13/13 | 12/13 (1 coming off)  tilt 35 deg, air 2 ms, belly 0, hull 16, lost 0, flips 0
+    step 35 mm                      8/13 (3 climbing, 2 before the edge) | 12/13 (1 before the edge) | 11/13 (2 before the edge)  tilt 36 deg, air 2 ms, belly 1, hull 22, lost 0, flips 0
+    step 40 mm                      7/13 (4 climbing, 2 before the edge) | 12/13 (1 before the edge) | 10/13 (3 before the edge)  tilt 33 deg, air 0 ms, belly 2, hull 32, lost 0, flips 0
+    bump 13 mm                     13/13 | 13/13 | 13/13  tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13 | 13/13 | 13/13  tilt 13 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                     13/13 | 13/13 | 13/13  tilt 27 deg, air 0 ms, belly 0, hull 5, lost 0, flips 0
+    bump 32 mm                     13/13 | 13/13 | 13/13  tilt 31 deg, air 0 ms, belly 15, hull 23, lost 0, flips 0
+    bump 38 mm                     11/13 (1 before the edge, 1 climbing) | 13/13 | 13/13  tilt 34 deg, air 140 ms, belly 19, hull 29, lost 0, flips 0
+  Tallest square step (up and down) crossed at every direction / at some direction (mm), at 0.5 / 1 / 2 m/s:
+    X4 + pods      10 / 40 | 10 / 40 | 15 / 40
+    X4 rigid       0 / 40 | 10 / 40 | 10 / 40
+    kiwi rigid     20 / 40 | 20 / 40 | 25 / 40
+    kiwi + pods    15 / 40 | 30 / 40 | 25 / 40
+  Tallest 76 mm triangular bump crossed at every direction / at some direction (mm), at 0.5 / 1 / 2 m/s:
+    X4 + pods      19 / 38 | 25 / 38 | 25 / 38
+    X4 rigid       13 / 38 | 25 / 38 | 32 / 38
+    kiwi rigid     32 / 38 | 38 / 38 | 38 / 38
+    kiwi + pods    32 / 38 | 38 / 38 | 38 / 38

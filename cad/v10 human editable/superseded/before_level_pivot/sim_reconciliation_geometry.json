@@ -1,0 +1,184 @@
+{
+  "arm_origin_mm": [
+    140.0,
+    0.0,
+    224.5
+  ],
+  "plate_top_mm": 181.5,
+  "riser_top_mm": 212.0,
+  "adapter_top_mm": 222.1,
+  "arm_assembly_shift_mm": -13.0,
+  "camera_axis_mm": [
+    155.0,
+    200.0
+  ],
+  "head_lift_over_v7_mm": 5.0,
+  "mast_lift_over_v7_mm": 6.5,
+  "mast_post_length_mm": 357.0,
+  "adapter_bar_relief_mm": {
+    "x": [
+      137.5,
+      172.5
+    ],
+    "underside_z": 217.2,
+    "remaining_web": 4.9
+  },
+  "face_seat_mm": [
+    -187.0,
+    0.0,
+    436.5
+  ],
+  "parts": {
+    "REC_arm_riser": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 64482.84185414534,
+      "min": [
+        62.0,
+        -48.0,
+        181.5
+      ],
+      "max": [
+        130.0,
+        52.0000001,
+        212.0000001
+      ],
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 64482.84185413789,
+        "min": [
+          62.0,
+          -48.0,
+          181.5
+        ],
+        "max": [
+          130.0,
+          52.0000001,
+          212.0000001
+        ]
+      }
+    },
+    "REC_arm_adapter": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 133509.28769002904,
+      "min": [
+        62.0,
+        -56.00000000000004,
+        212.0
+      ],
+      "max": [
+        205.0,
+        56.0,
+        222.1
+      ],
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 133509.28769004697,
+        "min": [
+          62.0,
+          -56.000000000000576,
+          212.0
+        ],
+        "max": [
+          205.00000000000165,
+          56.00000000000048,
+          222.10000000000002
+        ]
+      }
+    },
+    "REC_cheek_L": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 36795.54192619502,
+      "min": [
+        77.9999999,
+        54.9999999,
+        159.4999999
+      ],
+      "max": [
+        176.2,
+        81.0000001,
+        221.2
+      ],
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 36795.54192951768,
+        "min": [
+          77.9999999,
+          54.9999999,
+          159.4999999
+        ],
+        "max": [
+          176.2,
+          81.00000010000022,
+          221.20000000000002
+        ]
+      }
+    },
+    "REC_cheek_R": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 36874.202158586595,
+      "min": [
+        77.9999999,
+        -81.0000001,
+        159.4999999
+      ],
+      "max": [
+        176.2,
+        -54.9999999,
+        221.2
+      ],
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 36874.20214439505,
+        "min": [
+          77.9999999,
+          -81.00000010000022,
+          159.4999999
+        ],
+        "max": [
+          176.2,
+          -54.9999999,
+          221.20000000000002
+        ]
+      }
+    },
+    "REC_mast_post": {
+      "solids": 1,
+      "valid": true,
+      "volume_mm3": 39572.52478338675,
+      "min": [
+        -10.0,
+        -10.0,
+        0.0
+      ],
+      "max": [
+        10.0,
+        10.0,
+        357.0
+      ],
+      "reimport": {
+        "solids": 1,
+        "valid": true,
+        "volume_mm3": 39572.52478338675,
+        "min": [
+          -10.0,
+          -10.0,
+          0.0
+        ],
+        "max": [
+          10.0,
+          10.0,
+          357.0
+        ]
+      }
+    }
+  },
+  "note": "Rear mast retained; simulation still uses the older face over bin. Frozen v9 not modified."
+}

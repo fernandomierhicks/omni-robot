@@ -1,0 +1,119 @@
+{
+  "part": "wheel_guard",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0019_cylinder",
+      "sketch": "0019_cylinder_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0023_cone",
+      "sketch": "0023_cone_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0027_cone",
+      "sketch": "0027_cone_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0037_cylinder",
+      "sketch": "0037_cylinder_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0041_cone",
+      "sketch": "0041_cone_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0045_cone",
+      "sketch": "0045_cone_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0049_cylinder",
+      "sketch": "0049_cylinder_Sketch",
+      "pattern": "Shaft_pin",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0053_cylinder",
+      "sketch": "0053_cylinder_Sketch",
+      "pattern": "Shaft_pin",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0073_cylinder",
+      "sketch": "0073_cylinder_Sketch",
+      "pattern": "Shock_Outer_upper",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0077_cylinder",
+      "sketch": "0077_cylinder_Sketch",
+      "pattern": "Shock_Outer_upper",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0127_cylinder",
+      "sketch": "0127_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0131_cylinder",
+      "sketch": "0131_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0135_cylinder",
+      "sketch": "0135_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0139_cylinder",
+      "sketch": "0139_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0143_cylinder",
+      "sketch": "0143_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0147_cylinder",
+      "sketch": "0147_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 8
+}

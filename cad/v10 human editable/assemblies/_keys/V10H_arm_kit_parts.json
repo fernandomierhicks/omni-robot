@@ -1,0 +1,9 @@
+{
+ "000_REC_arm_riser": "REC_arm_riser-1",
+ "001_REC_arm_adapter": "REC_arm_adapter-1",
+ "002_bin": "bin-1",
+ "003_12_V_buck_arm": "12_V_buck_arm-1",
+ "004_label_12V_BUCK_ARM": "label_12V_BUCK_ARM-1",
+ "005_REC_cheek_L": "REC_cheek_L-1",
+ "006_REC_cheek_R": "REC_cheek_R-1"
+}

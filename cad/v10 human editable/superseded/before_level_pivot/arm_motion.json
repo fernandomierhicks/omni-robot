@@ -1,0 +1,164 @@
+[
+ {
+  "joint": "arm_shoulder_pan",
+  "mate_deg": 70.5,
+  "turned_deg": 109.5,
+  "expected_deg": 109.5,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_shoulder_pan",
+  "mate_deg": 180.0,
+  "turned_deg": -0.0,
+  "expected_deg": -0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_shoulder_pan",
+  "mate_deg": 289.5,
+  "turned_deg": -109.5,
+  "expected_deg": -109.5,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_shoulder_lift",
+  "mate_deg": 80.5,
+  "turned_deg": -87.01,
+  "expected_deg": -87.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_shoulder_lift",
+  "mate_deg": 167.5,
+  "turned_deg": -0.01,
+  "expected_deg": 0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_shoulder_lift",
+  "mate_deg": 279.5,
+  "turned_deg": 111.99,
+  "expected_deg": 112.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_elbow_flex",
+  "mate_deg": 1.2,
+  "turned_deg": 161.45,
+  "expected_deg": 161.5,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_elbow_flex",
+  "mate_deg": 162.7,
+  "turned_deg": -0.05,
+  "expected_deg": -0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_elbow_flex",
+  "mate_deg": 186.3,
+  "turned_deg": -23.65,
+  "expected_deg": -23.6,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_flex",
+  "mate_deg": 85.5,
+  "turned_deg": 106.36,
+  "expected_deg": 106.4,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_flex",
+  "mate_deg": 191.9,
+  "turned_deg": -0.04,
+  "expected_deg": -0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_flex",
+  "mate_deg": 274.5,
+  "turned_deg": -82.64,
+  "expected_deg": -82.6,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_roll",
+  "mate_deg": 20.5,
+  "turned_deg": 162.29,
+  "expected_deg": 162.3,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_roll",
+  "mate_deg": 182.8,
+  "turned_deg": -0.01,
+  "expected_deg": -0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_wrist_roll",
+  "mate_deg": 339.5,
+  "turned_deg": -156.71,
+  "expected_deg": -156.7,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_gripper",
+  "mate_deg": 80.5,
+  "turned_deg": 109.24,
+  "expected_deg": 109.2,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_gripper",
+  "mate_deg": 189.7,
+  "turned_deg": 0.04,
+  "expected_deg": -0.0,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ },
+ {
+  "joint": "arm_gripper",
+  "mate_deg": 189.5,
+  "turned_deg": 0.24,
+  "expected_deg": 0.2,
+  "others_moved_mm": 0.0,
+  "mate_errors": [],
+  "pass": true
+ }
+]

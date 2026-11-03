@@ -23,6 +23,16 @@ from pathlib import Path
 import numpy as np
 
 CONFIG = Path(__file__).resolve().parent / "config" / "robot_arm.json"
+
+
+def config_path(name: str = "") -> Path:
+    """The arm robot's config: "" = robot_arm.json (the stereo pair's left camera gives the depth), a variant's name
+    ("d435": robot_arm_d435.json, the RealSense D435 on the nose, design.md 4.11), or a path to a json."""
+    if not name:
+        return CONFIG
+    if name.endswith(".json") or "/" in name or "\\" in name:
+        return Path(name)
+    return CONFIG.with_name(f"robot_arm_{name}.json")
 JOINTS = ("shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper")
 DOWN = np.array([0.0, 0.0, -1.0])
 
@@ -42,6 +52,23 @@ def axis_mat(axis, a: float) -> np.ndarray:
     return np.array([[c + x * x * C, x * y * C - z * s, x * z * C + y * s],
                      [y * x * C + z * s, c + y * y * C, y * z * C - x * s],
                      [z * x * C - y * s, z * y * C + x * s, c + z * z * C]])
+
+
+def rot_quat(R) -> tuple:
+    """x y z w of a rotation matrix."""
+    t = np.trace(R)
+    if t > 0:
+        s = math.sqrt(t + 1.0) * 2
+        return ((R[2, 1] - R[1, 2]) / s, (R[0, 2] - R[2, 0]) / s, (R[1, 0] - R[0, 1]) / s, 0.25 * s)
+    i = int(np.argmax(np.diag(R)))
+    j, k = (i + 1) % 3, (i + 2) % 3
+    s = math.sqrt(1.0 + R[i, i] - R[j, j] - R[k, k]) * 2
+    q = [0.0, 0.0, 0.0, 0.0]
+    q[i] = 0.25 * s
+    q[j] = (R[j, i] + R[i, j]) / s
+    q[k] = (R[k, i] + R[i, k]) / s
+    q[3] = (R[k, j] - R[j, k]) / s
+    return tuple(q)
 
 
 def tf(R=None, p=None) -> np.ndarray:

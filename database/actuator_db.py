@@ -1,6 +1,7 @@
-"""Actuator database: motors, servos, controllers and their sources, kept as plain CSV.
+"""Parts database: motors, servos, controllers, robot computers, cameras and their sources, kept as plain CSV.
 
 The CSV files are the data; this module is the schema, the validator, the derived quantities and the queries.
+(The name stays actuator_db: projects import it. Computers and cameras joined on Oct 28, 2026.)
 Shared by every robotics project (it lives in omni-robot/database for now and will move one level up), so it
 imports nothing project-specific: the sim exports take the project's catalog module as an argument.
 
@@ -31,7 +32,8 @@ HERE = Path(__file__).resolve().parent
 V_7S_FULL = 29.4                       # V: a full 7S Li-ion pack (4.2 V per cell)
 V_6S_FULL = 25.2
 # third_party: a third-party bench / test database (e.g. Tyto Robotics' propulsion database), not the maker's sheet
-PROVENANCE = ("datasheet", "reseller", "forum", "est", "measured", "third_party")
+# press: a news or review site reporting the maker's figures or prices (the maker's own page wasn't read)
+PROVENANCE = ("datasheet", "reseller", "forum", "est", "measured", "third_party", "press")
 RPM = 2 * math.pi / 60                 # rad/s per rpm
 KGCM = 0.0980665                       # N m per kg cm
 
@@ -64,7 +66,7 @@ COMMON_HEAD = _cols(
 COMMON_TAIL = _cols(
     Col("price_usd", "float", "Unit price in USD at quantity 1 (converted prices are est)", key=True),
     ("price_breaks", "str", "Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59)"),
-    ("availability", "str", "Stock seen on date_checked (in stock / out of stock / backorder / discontinued)"),
+    ("availability", "str", "Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench)"),
     Col("prov_default", "enum", "Provenance of every filled value unless overridden", PROVENANCE),
     ("prov_overrides", "str", "Exceptions: 'est: col, col; reseller: col' (column names of this table)"),
     ("source_ids", "list", "Source ids from sources.csv, ';'-separated"),
@@ -235,10 +237,96 @@ TEST_COLS = _cols(
     ("notes", "str", "Notes"),
 )
 
+PLATFORMS = ("jetson_orin", "jetson_thor", "raspberry_pi_5", "rk3588", "qcs6490", "x86")
+
+COMPUTER_COLS = COMMON_HEAD + _cols(
+    Col("kind", "enum", "dev_kit (module + carrier, ready to run), module (needs a carrier), carrier, sbc, mini_pc, "
+        "accelerator (an add-on NPU)", ("dev_kit", "module", "carrier", "sbc", "mini_pc", "accelerator"), key=True),
+    Col("platform", "enum", "What software and cameras it takes (cameras.csv hosts)", PLATFORMS, key=True),
+    Col("soc", "str", "SoC or CPU", key=True),
+    ("cpu", "str", "Cores, type and clock (e.g. 6x Cortex-A78AE @ 1.7 GHz)"),
+    Col("cpu_big_cores", "int", "Fast cores (all cores when they are alike)", key=True),
+    ("cpu_little_cores", "int", "Slow cores (Cortex-A55, Intel E-cores beside P-cores); 0 when all alike"),
+    ("cpu_max_GHz", "float", "Highest clock of the fast cores"),
+    Col("ram_GB", "float", "Memory as sold (blank for a barebone or a carrier)", key=True),
+    ("ram_type", "str", "LPDDR5, DDR5 SO-DIMM (not included) ..."),
+    ("gpu", "str", "GPU"),
+    ("ai_tops", "float", "Maker's AI rating, TOPS (see ai_tops_precision)"),
+    ("ai_tops_precision", "str", "What the TOPS figure counts: sparse INT8, INT8, INT4 ..."),
+    Col("bench_gb6_single", "float", "Geekbench 6 single-core score (per-thread speed: scales CPU loads)", key=True),
+    ("bench_gb6_multi", "float", "Geekbench 6 multi-core score"),
+    ("bench_7zip_single_MIPS", "float", "7-Zip single-thread rating, MIPS (sbc-bench)"),
+    ("bench_7zip_multi_MIPS", "float", "7-Zip all-threads rating, MIPS (sbc-bench)"),
+    ("os_support", "str", "Maker-supported operating systems"),
+    Col("ubuntu_2404", "enum", "Runs Ubuntu 24.04 from the maker or Canonical (ROS 2 Jazzy's tier-1 OS)", YESNO, key=True),
+    ("ros2_jazzy", "enum", "ROS 2 Jazzy binaries install natively", YESNO),
+    Col("csi_cameras", "int", "MIPI CSI-2 camera connectors (0 = USB cameras only)", key=True),
+    ("csi_lanes", "str", "Lanes per connector"),
+    ("hw_video_encoder", "enum", "Hardware video encoder", YESNO),
+    ("usb3_ports", "int", "USB 3 host ports (Type-A and host-capable Type-C)"),
+    ("usb_notes", "str", "Other USB"),
+    ("display_out", "str", "Display outputs"),
+    ("network", "str", "Ethernet, Wi-Fi"),
+    ("expansion", "str", "GPIO header, M.2, PCIe, CAN ..."),
+    Col("v_in_min_V", "float", "Lowest DC input voltage", key=True),
+    Col("v_in_max_V", "float", "Highest DC input voltage", key=True),
+    ("power_idle_W", "float", "Power at idle"),
+    Col("power_max_W", "float", "Power at full load (or the top power mode)", key=True),
+    ("power_modes", "str", "Power modes / TDP settings"),
+    Col("size_mm", "str", "L x W x H as sold (with its cooler)", key=True),
+    ("mass_kg", "float", "Mass"),
+) + COMMON_TAIL + _cols(
+    ("meas_stack_cpu_pct", "float", "MEASURED CPU load of a named software stack, % of all cores (meas_notes says which)"),
+    ("meas_power_W", "float", "MEASURED power running that stack"),
+    ("meas_date", "date", "Date of the bench test"),
+    ("meas_notes", "str", "Stack, setup, log file"),
+)
+
+CAMERA_COLS = COMMON_HEAD + _cols(
+    Col("kind", "enum", "module (one sensor board), stereo_kit (two synced sensors sold together), usb_camera, "
+        "smart_camera (does its own processing), depth_camera, capture_board (takes camera modules, feeds a host)",
+        ("module", "stereo_kit", "usb_camera", "smart_camera", "depth_camera", "capture_board"), key=True),
+    Col("sensor", "str", "Image sensor (blank for a capture board)", key=True),
+    Col("shutter", "enum", "global or rolling", ("global", "rolling", "VERIFY"), key=True),
+    Col("color", "enum", "color, mono, or both (a mono stereo pair with a color camera)",
+        ("color", "mono", "mono_stereo_color_center", "VERIFY"), key=True),
+    Col("res_w_px", "int", "Full-resolution width, px", key=True),
+    Col("res_h_px", "int", "Full-resolution height, px", key=True),
+    Col("fps_full", "float", "Frame rate at full resolution (per sensor)", key=True),
+    ("fps_modes", "str", "Other modes, 'WxH@fps; ...' (a stereo kit's side-by-side modes as sold)"),
+    ("pixel_um", "float", "Pixel pitch, um"),
+    ("output_format", "str", "RAW10, YUV, MJPEG ..."),
+    Col("interface", "list", "mipi_csi2, usb2, usb3, gmsl2, ethernet", key=True),
+    ("mipi_lanes", "int", "MIPI lanes"),
+    ("connector", "str", "Connector"),
+    Col("hw_trigger", "enum", "Takes a hardware trigger (frame sync) input that a host or MCU can drive", YESNO, key=True),
+    ("trigger_notes", "str", "Trigger pin, logic level, edge, minimum pulse, highest trigger rate"),
+    ("strobe_out", "enum", "Gives an exposure / strobe output", YESNO),
+    ("stereo_sync", "str", "How two of them are synchronised"),
+    ("baseline_mm", "float", "Stereo baseline (fixed-baseline kits and depth cameras)"),
+    ("fov_deg", "str", "Field of view (H x V, or D) with the stock lens"),
+    ("lens_mount", "str", "M12, C/CS, fixed ..."),
+    Col("hosts", "list", "Platforms it works with (computers.csv platform) plus usb (any USB 3 host), gmsl_card, oak_ffc",
+        key=True),
+    ("driver", "str", "Driver: upstream, vendor per OS release ..."),
+    ("latency_ms", "float", "Published capture-to-host latency"),
+    ("latency_notes", "str", "How that latency was measured"),
+    ("power_W", "float", "Power"),
+    ("size_mm", "str", "Size"),
+    ("mass_kg", "float", "Mass"),
+) + COMMON_TAIL + _cols(
+    ("meas_latency_ms", "float", "MEASURED trigger-to-application latency (glass to software)"),
+    ("meas_fps", "float", "MEASURED frame rate in the mode used"),
+    ("meas_calib_drift_deg", "float", "MEASURED stereo calibration drift between sessions, deg"),
+    ("meas_date", "date", "Date of the bench test"),
+    ("meas_notes", "str", "Setup, mode, log file"),
+)
+
 SOURCE_COLS = _cols(
     ("id", "str", "Source id (S001 ...)"),
     Col("kind", "enum", "maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records), "
-        "test_database (third-party bench data)", ("maker", "reseller", "forum", "project", "test_database")),
+        "test_database (third-party bench data), press (news or review site)",
+        ("maker", "reseller", "forum", "project", "test_database", "press")),
     ("url", "str", "Link (or a repo path for project sources)"),
     ("supports", "str", "Which parts and values it supports"),
     ("date_checked", "date", "YYYY-MM-DD"),
@@ -246,7 +334,8 @@ SOURCE_COLS = _cols(
 )
 
 TABLES = {"motors": MOTOR_COLS, "servos": SERVO_COLS, "controllers": CONTROLLER_COLS, "motor_tests": TEST_COLS,
-          "sources": SOURCE_COLS}
+          "computers": COMPUTER_COLS, "cameras": CAMERA_COLS, "sources": SOURCE_COLS}
+PART_TABLES = ("motors", "servos", "controllers", "computers", "cameras")      # rows with provenance and sources
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -313,6 +402,8 @@ class DB:
     servos: dict[str, Part] = field(default_factory=dict)
     controllers: dict[str, Part] = field(default_factory=dict)
     motor_tests: dict[str, Part] = field(default_factory=dict)
+    computers: dict[str, Part] = field(default_factory=dict)
+    cameras: dict[str, Part] = field(default_factory=dict)
     sources: dict[str, Part] = field(default_factory=dict)
     errors: list[str] = field(default_factory=list)       # parse errors met while loading
 
@@ -324,13 +415,19 @@ class DB:
         return [t for t in self.motor_tests.values() if t.get("motor_id") == motor_id]
 
     def get(self, pid: str) -> Part:
-        for t in ("motors", "servos", "controllers", "motor_tests", "sources"):
+        for t in TABLES:
             if pid in self.table(t):
                 return self.table(t)[pid]
         raise KeyError(pid)
 
     def parts(self):
+        """The actuator side: motors, servos, controllers."""
         for t in ("motors", "servos", "controllers"):
+            yield from self.table(t).values()
+
+    def all_parts(self):
+        """Every row with provenance: actuators, computers and cameras."""
+        for t in PART_TABLES:
             yield from self.table(t).values()
 
 
@@ -460,6 +557,20 @@ def _consistency(name: str, p: Part, db: DB) -> list[str]:
             e.append("integration=smart but controller is not 'integrated'")
     if name == "servos" and g("kind") == "hobby_pwm" and g("feedback"):
         e.append("hobby_pwm servo with feedback")
+    if name == "computers":
+        if g("v_in_min_V") is not None and g("v_in_max_V") is not None and g("v_in_min_V") > g("v_in_max_V"):
+            e.append("v_in_min_V > v_in_max_V")
+        if g("power_idle_W") is not None and g("power_max_W") is not None and g("power_idle_W") > g("power_max_W"):
+            e.append("power_idle_W > power_max_W")
+    if name == "cameras":
+        bad = [h for h in g("hosts") or [] if h not in PLATFORMS + ("usb", "gmsl_card", "oak_ffc")]
+        if bad:
+            e.append(f"hosts {bad} not in {PLATFORMS + ('usb', 'gmsl_card', 'oak_ffc')}")
+        bad = [i for i in g("interface") or [] if i not in ("mipi_csi2", "usb2", "usb3", "gmsl2", "ethernet")]
+        if bad:
+            e.append(f"interface {bad} unknown")
+        if g("kind") == "stereo_kit" and not g("stereo_sync"):
+            e.append("stereo_kit without stereo_sync")
     return e
 
 
@@ -883,6 +994,158 @@ def to_esc(cat, c: Part, current_limit: float = 25.0, telemetry_period: float = 
 
 
 # ---------------------------------------------------------------------------------------------------------------
+# Computers and cameras: requirements and checks
+
+@dataclass
+class ComputeRequirement:
+    """What a project's software asks of its computer. The CPU load is measured on a reference CPU (in cores of it)
+    and scaled to each board by single-thread speed: Geekbench 6 and 7-Zip give a low / high bracket."""
+    name: str
+    load_ref_cores: float | None = None      # CPU load, in cores of the reference CPU
+    ref_gb6_single: float | None = None      # the reference CPU's Geekbench 6 single-core score
+    ref_7zip_single: float | None = None     # ... and its 7-Zip single-thread rating, MIPS
+    cpu_share_max: float = 0.75              # the load may take this share of the cores (bursts, the OS, margin)
+    little_core_weight: float = 0.35         # a little core (A55, E-core) counts as this many big ones (est)
+    ubuntu_2404: bool = False
+    csi_cameras_min: int | None = None       # MIPI cameras it must take (0: USB cameras are fine)
+    platforms: tuple = ()                    # acceptable platforms (blank: any)
+    v_rail_V: float | None = None            # the DC rail that feeds it must sit inside its input range
+    power_max_W: float | None = None
+    price_max_usd: float | None = None
+    notes: str = ""
+
+
+def cpu_ratio(board: Part, req: ComputeRequirement) -> tuple[float, float] | None:
+    """How many of this board's cores one reference core is worth: (low, high) over the benchmarks both have."""
+    r = []
+    if req.ref_gb6_single and board.get("bench_gb6_single"):
+        r.append(req.ref_gb6_single / board["bench_gb6_single"])
+    if req.ref_7zip_single and board.get("bench_7zip_single_MIPS"):
+        r.append(req.ref_7zip_single / board["bench_7zip_single_MIPS"])
+    return (min(r), max(r)) if r else None
+
+
+def effective_cores(board: Part, little_weight: float = 0.35) -> float | None:
+    big = board.get("cpu_big_cores")
+    return None if big is None else big + little_weight * (board.get("cpu_little_cores") or 0)
+
+
+def cores_needed(board: Part, req: ComputeRequirement) -> tuple[float, float] | None:
+    """The requirement's load in this board's big cores, (low, high)."""
+    r = cpu_ratio(board, req)
+    if r is None or req.load_ref_cores is None:
+        return None
+    return req.load_ref_cores * r[0], req.load_ref_cores * r[1]
+
+
+def check_compute(board: Part, req: ComputeRequirement) -> list[Check]:
+    out: list[Check] = []
+    add = lambda *a, **k: out.append(Check(*a, **k))  # noqa: E731
+    if req.load_ref_cores is not None:
+        need, eff = cores_needed(board, req), effective_cores(board, req.little_core_weight)
+        if need is None or eff is None:
+            add("CPU", "UNKNOWN", None, req.load_ref_cores, "no benchmark or core count")
+        else:
+            cap = req.cpu_share_max * eff
+            st = "PASS" if need[1] <= cap else ("FAIL" if need[0] > cap else "UNKNOWN")
+            add("CPU", st, f"{need[0]:.1f}-{need[1]:.1f} cores", f"<= {cap:.1f} ({req.cpu_share_max:.0%} of {eff:.1f})",
+                "between the benchmarks' brackets: marginal" if st == "UNKNOWN" else "")
+    if req.ubuntu_2404:
+        u = board.get("ubuntu_2404")
+        add("Ubuntu 24.04", {"yes": "PASS", "no": "FAIL"}.get(u, "UNKNOWN"), u, "yes")
+    if req.csi_cameras_min:
+        n = board.get("csi_cameras")
+        add("CSI cameras", "UNKNOWN" if n is None else ("PASS" if n >= req.csi_cameras_min else "FAIL"), n,
+            req.csi_cameras_min)
+    if req.platforms:
+        add("platform", "PASS" if board.get("platform") in req.platforms else "FAIL", board.get("platform"),
+            list(req.platforms))
+    if req.v_rail_V is not None and board.get("kind") != "module":
+        lo, hi = board.get("v_in_min_V"), board.get("v_in_max_V")
+        add("input voltage", "UNKNOWN" if None in (lo, hi) else ("PASS" if lo <= req.v_rail_V <= hi else "FAIL"),
+            f"{lo}-{hi} V", req.v_rail_V, "" if None not in (lo, hi) else "input range unknown")
+    if req.power_max_W is not None:
+        p = board.get("meas_power_W") or board.get("power_max_W")
+        add("power", "UNKNOWN" if p is None else ("PASS" if p <= req.power_max_W else "FAIL"), p, req.power_max_W)
+    if req.price_max_usd is not None:
+        c = board.get("price_usd")
+        add("price", "UNKNOWN" if c is None else ("PASS" if c <= req.price_max_usd else "FAIL"), c, req.price_max_usd)
+    return out
+
+
+@dataclass
+class CameraRequirement:
+    """What a project's vision asks of its cameras."""
+    name: str
+    global_shutter: bool = False
+    color: bool = False
+    fps_min: float | None = None             # at a mode of at least res_min
+    res_min: tuple[int, int] | None = None   # (w, h) per sensor
+    hw_sync: bool = False                    # a trigger input, or two sensors synced in hardware
+    latency_max_ms: float | None = None
+    hosts: tuple = ()                        # any of these (computers.csv platforms, usb, gmsl_card, oak_ffc)
+    price_max_usd: float | None = None       # per camera (a stereo kit counts as two)
+    notes: str = ""
+
+
+def camera_modes(cam: Part) -> list[tuple[int, int, float]]:
+    """(w, h, fps) per sensor: the full-resolution mode plus fps_modes (a stereo kit's side-by-side modes halved)."""
+    out = []
+    if None not in (cam.get("res_w_px"), cam.get("res_h_px"), cam.get("fps_full")):
+        out.append((cam["res_w_px"], cam["res_h_px"], cam["fps_full"]))
+    for m in (cam.get("fps_modes") or "").split(";"):
+        hit = re.match(r"\s*(\d+)\s*x\s*(\d+)\s*@\s*([\d.]+)", m)
+        if hit:
+            w, h, f = int(hit[1]), int(hit[2]), float(hit[3])
+            if cam.get("kind") == "stereo_kit" and cam.get("res_w_px") and w > cam["res_w_px"]:
+                w //= 2                                    # side by side: two sensors in one frame
+            out.append((w, h, f))
+    return out
+
+
+def check_camera(cam: Part, req: CameraRequirement) -> list[Check]:
+    out: list[Check] = []
+    add = lambda *a, **k: out.append(Check(*a, **k))  # noqa: E731
+    if req.global_shutter:
+        s = cam.get("shutter")
+        add("global shutter", {"global": "PASS", "rolling": "FAIL"}.get(s, "UNKNOWN"), s, "global")
+    if req.color:
+        c = cam.get("color")
+        add("color", {"color": "PASS", "mono": "FAIL"}.get(c, "UNKNOWN"), c, "color")
+    if req.fps_min is not None:
+        rw, rh = req.res_min or (0, 0)
+        best = max((f for w, h, f in camera_modes(cam) if w >= rw and h >= rh), default=None)
+        add("frame rate", "UNKNOWN" if best is None else ("PASS" if best >= req.fps_min else "FAIL"), best,
+            req.fps_min, f"at >= {rw}x{rh}" if req.res_min else "")
+    if req.hw_sync:
+        t = cam.get("hw_trigger")
+        ok = t == "yes" or (cam.get("kind") == "stereo_kit" and bool(cam.get("stereo_sync")))
+        add("hardware sync", "PASS" if ok else ("FAIL" if t == "no" else "UNKNOWN"), t, "yes")
+    if req.latency_max_ms is not None:
+        lat = cam.meas("latency_ms")
+        add("latency", "UNKNOWN" if lat is None else ("PASS" if lat <= req.latency_max_ms else "FAIL"), lat,
+            req.latency_max_ms, cam.get("latency_notes") or "")
+    if req.hosts:
+        have = set(cam.get("hosts") or [])
+        add("host", "PASS" if have & set(req.hosts) else "FAIL", sorted(have), list(req.hosts))
+    if req.price_max_usd is not None:
+        c = cam.get("price_usd")
+        if c is not None and cam.get("kind") == "stereo_kit":
+            c = c / 2
+        add("price", "UNKNOWN" if c is None else ("PASS" if c <= req.price_max_usd else "FAIL"), c, req.price_max_usd,
+            "per sensor" if cam.get("kind") == "stereo_kit" else "")
+    return out
+
+
+def camera_fits(cam: Part, board: Part) -> bool:
+    """Can this camera feed this computer: its platform, or USB 3 when the camera is a USB device or a USB capture
+    board (an unknown USB 3 port count isn't held against the board)."""
+    hosts = set(cam.get("hosts") or [])
+    n_usb3 = board.get("usb3_ports")
+    return board.get("platform") in hosts or ("usb" in hosts and (n_usb3 is None or n_usb3 > 0))
+
+
+# ---------------------------------------------------------------------------------------------------------------
 # Gaps
 
 KEY_BY_KIND = {   # extra key columns by motor kind (on top of Col.key)
@@ -897,7 +1160,7 @@ KEY_BY_KIND = {   # extra key columns by motor kind (on top of Col.key)
 def gaps(db: DB) -> dict[str, list[str]]:
     """Blank key fields per part: what to look up or measure next (price first: cost is a primary criterion)."""
     out = {}
-    for name in ("motors", "servos", "controllers"):
+    for name in PART_TABLES:
         cols = TABLES[name]
         for pid, p in db.table(name).items():
             keys = [c.name for c in cols if c.key]
@@ -911,6 +1174,15 @@ def gaps(db: DB) -> dict[str, list[str]]:
                 keys = [k for k in keys if k not in drop]
             if name == "controllers" and p.get("kind") in ("mcu", "dcdc"):
                 keys = [k for k in keys if k in ("price_usd", "v_min_V", "v_max_V", "interface")]
+            if name == "computers" and p.get("kind") == "carrier":
+                keys = [k for k in keys if k in ("price_usd", "platform", "csi_cameras", "v_in_min_V", "v_in_max_V",
+                                                 "size_mm")]
+            if name == "computers" and p.get("kind") == "accelerator":
+                keys = [k for k in keys if k in ("price_usd", "platform", "power_max_W", "size_mm")]
+            if name == "computers" and p.get("kind") == "module":     # a carrier sets the input and the size
+                keys = [k for k in keys if k not in ("v_in_min_V", "v_in_max_V", "csi_cameras", "size_mm")]
+            if name == "cameras" and p.get("kind") == "capture_board":
+                keys = [k for k in keys if k not in ("sensor", "shutter", "color", "res_w_px", "res_h_px", "fps_full")]
             miss = [k for k in keys if p.get(k) in (None, [])]
             if name == "controllers" and p.get("ok_7s_full") == "VERIFY" and "v_max_V" not in miss:
                 miss.append("v_max_V")
@@ -967,7 +1239,8 @@ def main(argv):
         errs = validate(db)
         print("\n".join(errs) if errs else
               f"OK: {len(db.motors)} motors, {len(db.servos)} servos, {len(db.controllers)} controllers, "
-              f"{len(db.motor_tests)} motor tests, {len(db.sources)} sources")
+              f"{len(db.motor_tests)} motor tests, {len(db.computers)} computers, {len(db.cameras)} cameras, "
+              f"{len(db.sources)} sources")
         return 1 if errs else 0
     if cmd == "gaps":
         g = gaps(db)

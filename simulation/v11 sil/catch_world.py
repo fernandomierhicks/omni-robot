@@ -16,6 +16,7 @@ runs in sil_game.py (in-process) or as ROS nodes (the bridge).
 
 from __future__ import annotations
 
+import json
 import math
 import sys
 from collections import deque
@@ -46,6 +47,19 @@ def expected_cameras() -> VisionConfig:
                    odom_drift=0.02, yaw_drift_deg=0.6)
 
 
+MEASURED_CAMERAS = Path(__file__).resolve().parents[2] / "characterization" / "throw_track" / "results" / "vision_measured.json"
+
+
+def measured_cameras(path=None) -> VisionConfig:
+    """expected_cameras() with the fields a real camera's recorded throws set (characterization/throw_track:
+    analyze_throws.py, then fit_vision.py writes results/vision_measured.json): latency, jitter, drop, false blobs,
+    exposure, centroid noise as edge_sigma, rolling readout. What one camera cannot measure (stereo calibration, spin)
+    stays at the expected values. Opt in with WorldConfig(vision=measured_cameras())."""
+    f = Path(path or MEASURED_CAMERAS)
+    fields = json.loads(f.read_text())["vision"]
+    return replace(expected_cameras(), **{k: v for k, v in fields.items() if k in VisionConfig.__dataclass_fields__})
+
+
 @dataclass
 class WorldConfig:
     dist: float = 6.5                   # thrower's hand to the waiting spot, m
@@ -69,6 +83,47 @@ class WorldConfig:
     pass_gap: float = 2.5               # turns, and a return throw is scored against the one who didn't throw
     scripted: list | None = None        # throws to replay instead of drawing them: [(release xyz, velocity xyz, spin
                                         # xyz)] in the world frame (studies/replay_log.py: a session log's throws)
+
+
+def ball_pixels(cfg: VisionConfig, rng: np.random.Generator, s0, v_rel, R: float, f: float, cx: float, cy: float,
+                W: int, H: int, dt0: float = 0.0):
+    """The pixels the color threshold calls ball for a sphere of radius R at s0 (camera frame, looking along -z) moving
+    at v_rel (m/s), in a W x H image with focal length f: exposure blur over cfg.blur_samples, edge_sigma jitter of
+    the threshold. Returns (mask, u0, v0, dirs) (mask over the window starting at pixel (u0, v0); dirs: the unit rays
+    of its pixels) or None. CameraSim.render's geometry, split out so that the throw-tracking tools
+    (characterization/throw_track) can run the same blob model on a free ball path; the random draws are unchanged."""
+    span = cfg.exposure / 2 + abs(dt0)
+    pts = []
+    for tt in (-span, span):
+        img = sphere_image(s0 + v_rel * (tt + dt0), R, f)
+        if img is not None:
+            pts.append((cx + img[0], cy + img[1], img[2]))
+    if not pts:
+        return None
+    r_px = max(q[2] for q in pts) * 1.3 + 3
+    u0 = int(max(0, math.floor(min(q[0] for q in pts) - r_px)))
+    u1 = int(min(W, math.ceil(max(q[0] for q in pts) + r_px)))
+    v0 = int(max(0, math.floor(min(q[1] for q in pts) - r_px)))
+    v1 = int(min(H, math.ceil(max(q[1] for q in pts) + r_px)))
+    if u1 <= u0 or v1 <= v0:
+        return None
+    uu, vv = np.meshgrid(np.arange(u0, u1) + 0.5, np.arange(v0, v1) + 0.5)
+    dirs = np.stack([(uu - cx) / f, -(vv - cy) / f, -np.ones_like(uu)], axis=-1)
+    dirs /= np.linalg.norm(dirs, axis=-1, keepdims=True)
+    K = max(1, cfg.blur_samples)
+    noise = rng.normal(0, cfg.edge_sigma, uu.shape) if cfg.edge_sigma > 0 else 0.0
+    cover = np.zeros(uu.shape)
+    for j in range(K):
+        te = cfg.exposure * ((j + 0.5) / K - 0.5) + dt0
+        sc = s0 + v_rel * te
+        along = dirs @ sc
+        perp = np.sqrt(np.maximum(sc @ sc - along ** 2, 0.0))
+        edge = (perp - R) / np.maximum(along, 1e-3) * f
+        cover += (edge + noise < 0) & (along > 0)
+    mask = cover >= 0.5 * K
+    if not mask.any():
+        return None
+    return mask, u0, v0, dirs
 
 
 @dataclass
@@ -147,37 +202,10 @@ class CameraSim:
         dt0 = cfg.sync_error if k == 1 else 0.0
         R = self.R_ball
         empty = np.zeros(0, dtype=np.int64)
-        span = cfg.exposure / 2 + abs(dt0)
-        pts = []
-        for tt in (-span, span):
-            img = sphere_image(s0 + v_rel * (tt + dt0), R, f)
-            if img is not None:
-                pts.append((self.cx + img[0], self.cy + img[1], img[2]))
-        if not pts:
+        res = ball_pixels(cfg, self.rng, s0, v_rel, R, f, self.cx, self.cy, self.W, self.H, dt0)
+        if res is None:
             return empty
-        r_px = max(q[2] for q in pts) * 1.3 + 3
-        u0 = int(max(0, math.floor(min(q[0] for q in pts) - r_px)))
-        u1 = int(min(self.W, math.ceil(max(q[0] for q in pts) + r_px)))
-        v0 = int(max(0, math.floor(min(q[1] for q in pts) - r_px)))
-        v1 = int(min(self.H, math.ceil(max(q[1] for q in pts) + r_px)))
-        if u1 <= u0 or v1 <= v0:
-            return empty
-        uu, vv = np.meshgrid(np.arange(u0, u1) + 0.5, np.arange(v0, v1) + 0.5)
-        dirs = np.stack([(uu - self.cx) / f, -(vv - self.cy) / f, -np.ones_like(uu)], axis=-1)
-        dirs /= np.linalg.norm(dirs, axis=-1, keepdims=True)
-        K = max(1, cfg.blur_samples)
-        noise = self.rng.normal(0, cfg.edge_sigma, uu.shape) if cfg.edge_sigma > 0 else 0.0
-        cover = np.zeros(uu.shape)
-        for j in range(K):
-            te = cfg.exposure * ((j + 0.5) / K - 0.5) + dt0
-            sc = s0 + v_rel * te
-            along = dirs @ sc
-            perp = np.sqrt(np.maximum(sc @ sc - along ** 2, 0.0))
-            edge = (perp - R) / np.maximum(along, 1e-3) * f
-            cover += (edge + noise < 0) & (along > 0)
-        mask = cover >= 0.5 * K
-        if not mask.any():
-            return empty
+        mask, u0, v0, dirs = res
         # occlusion: rays from the camera through the ball's pixels (subsampled for big blobs)
         iy, ix = np.nonzero(mask)
         n = len(iy)

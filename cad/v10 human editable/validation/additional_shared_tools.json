@@ -1,0 +1,2816 @@
+[
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve8",
+    "sketch": "Sketch44",
+    "translation": "Body-Move/Copy90",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        -0.49999999999999994
+      ],
+      [
+        0.0,
+        0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.8660254037844387,
+      0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve9",
+    "sketch": "Sketch49",
+    "translation": "Body-Move/Copy107",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        0.49999999999999994
+      ],
+      [
+        -0.0,
+        -0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -25.99999999999999,
+      45.03332099679082
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.8660254037844387,
+      -0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve10",
+    "sketch": "Sketch54",
+    "translation": "Body-Move/Copy124",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_4_1",
+    "R": [
+      [
+        1.0000000000000002,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0000000000000002
+      ],
+      [
+        -0.0,
+        -1.0000000000000002,
+        0.0
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -52.00000000000001,
+      0.0
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.0,
+      -1.0000000000000002
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve11",
+    "sketch": "Sketch59",
+    "translation": "Body-Move/Copy141",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_5_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844384,
+        0.5000000000000007
+      ],
+      [
+        -0.0,
+        -0.5000000000000007,
+        0.8660254037844384
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -26.000000000000036,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.8660254037844384,
+      -0.5000000000000007
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve12",
+    "sketch": "Sketch64",
+    "translation": "Body-Move/Copy158",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844387,
+        -0.5000000000000001
+      ],
+      [
+        0.0,
+        0.5000000000000001,
+        0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.8660254037844387,
+      0.5000000000000001
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve14",
+    "sketch": "Sketch97",
+    "translation": "Body-Move/Copy248",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        -0.49999999999999994
+      ],
+      [
+        0.0,
+        0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.8660254037844387,
+      0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve15",
+    "sketch": "Sketch98",
+    "translation": "Body-Move/Copy250",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        0.49999999999999994
+      ],
+      [
+        -0.0,
+        -0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -25.99999999999999,
+      45.03332099679082
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.8660254037844387,
+      -0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve16",
+    "sketch": "Sketch99",
+    "translation": "Body-Move/Copy252",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_4_1",
+    "R": [
+      [
+        1.0000000000000002,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0000000000000002
+      ],
+      [
+        -0.0,
+        -1.0000000000000002,
+        0.0
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -52.00000000000001,
+      0.0
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.0,
+      -1.0000000000000002
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve17",
+    "sketch": "Sketch100",
+    "translation": "Body-Move/Copy254",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_5_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844384,
+        0.5000000000000007
+      ],
+      [
+        -0.0,
+        -0.5000000000000007,
+        0.8660254037844384
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -26.000000000000036,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.8660254037844384,
+      -0.5000000000000007
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_A",
+    "feature": "Revolve18",
+    "sketch": "Sketch101",
+    "translation": "Body-Move/Copy256",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844387,
+        -0.5000000000000001
+      ],
+      [
+        0.0,
+        0.5000000000000001,
+        0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.8660254037844387,
+      0.5000000000000001
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve8",
+    "sketch": "Sketch44",
+    "translation": "Body-Move/Copy90",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        -0.49999999999999994
+      ],
+      [
+        0.0,
+        0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.8660254037844387,
+      0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve9",
+    "sketch": "Sketch49",
+    "translation": "Body-Move/Copy107",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        0.49999999999999994
+      ],
+      [
+        -0.0,
+        -0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -25.99999999999999,
+      45.03332099679082
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.8660254037844387,
+      -0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve10",
+    "sketch": "Sketch54",
+    "translation": "Body-Move/Copy126",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_4_1",
+    "R": [
+      [
+        1.0000000000000002,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0000000000000002
+      ],
+      [
+        -0.0,
+        -1.0000000000000002,
+        0.0
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -52.00000000000001,
+      0.0
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.0,
+      -1.0000000000000002
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve11",
+    "sketch": "Sketch59",
+    "translation": "Body-Move/Copy143",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_5_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844384,
+        0.5000000000000007
+      ],
+      [
+        -0.0,
+        -0.5000000000000007,
+        0.8660254037844384
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -26.000000000000036,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.8660254037844384,
+      -0.5000000000000007
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve12",
+    "sketch": "Sketch64",
+    "translation": "Body-Move/Copy160",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844387,
+        -0.5000000000000001
+      ],
+      [
+        0.0,
+        0.5000000000000001,
+        0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.8660254037844387,
+      0.5000000000000001
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve19",
+    "sketch": "Sketch106",
+    "translation": "Body-Move/Copy261",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_1_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.4999999999999998,
+        -0.8660254037844388
+      ],
+      [
+        0.0,
+        0.8660254037844388,
+        -0.4999999999999998
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679081,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.4999999999999998,
+      0.8660254037844388
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve20",
+    "sketch": "Sketch111",
+    "translation": "Body-Move/Copy278",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.2246467991473532e-16
+      ],
+      [
+        0.0,
+        1.2246467991473532e-16,
+        -1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -1.0,
+      1.2246467991473532e-16
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve21",
+    "sketch": "Sketch116",
+    "translation": "Body-Move/Copy295",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.49999999999999933,
+        0.866025403784439
+      ],
+      [
+        -0.0,
+        -0.866025403784439,
+        -0.49999999999999933
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679082,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.49999999999999933,
+      -0.866025403784439
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve22",
+    "sketch": "Sketch121",
+    "translation": "Body-Move/Copy312",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_4_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000002,
+        0.8660254037844384
+      ],
+      [
+        -0.0,
+        -0.8660254037844384,
+        0.5000000000000002
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679079,
+      -26.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.5000000000000002,
+      -0.8660254037844384
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve23",
+    "sketch": "Sketch126",
+    "translation": "Body-Move/Copy328",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_5_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      -52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve24",
+    "sketch": "Sketch131",
+    "translation": "Body-Move/Copy345",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000006,
+        -0.8660254037844385
+      ],
+      [
+        0.0,
+        0.8660254037844385,
+        0.5000000000000006
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679079,
+      -26.00000000000002
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.5000000000000006,
+      0.8660254037844385
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve26",
+    "sketch": "Sketch150",
+    "translation": "Body-Move/Copy413",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        -0.49999999999999994
+      ],
+      [
+        0.0,
+        0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.8660254037844387,
+      0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve27",
+    "sketch": "Sketch151",
+    "translation": "Body-Move/Copy415",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254037844387,
+        0.49999999999999994
+      ],
+      [
+        -0.0,
+        -0.49999999999999994,
+        -0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -25.99999999999999,
+      45.03332099679082
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.8660254037844387,
+      -0.49999999999999994
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve28",
+    "sketch": "Sketch152",
+    "translation": "Body-Move/Copy417",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_4_1",
+    "R": [
+      [
+        1.0000000000000002,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0000000000000002
+      ],
+      [
+        -0.0,
+        -1.0000000000000002,
+        0.0
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -52.00000000000001,
+      0.0
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.0,
+      -1.0000000000000002
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve29",
+    "sketch": "Sketch153",
+    "translation": "Body-Move/Copy419",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_5_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844384,
+        0.5000000000000007
+      ],
+      [
+        -0.0,
+        -0.5000000000000007,
+        0.8660254037844384
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      -26.000000000000036,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.8660254037844384,
+      -0.5000000000000007
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve30",
+    "sketch": "Sketch154",
+    "translation": "Body-Move/Copy421",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 0,
+    "line": "Roller_1_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844387,
+        -0.5000000000000001
+      ],
+      [
+        0.0,
+        0.5000000000000001,
+        0.8660254037844387
+      ]
+    ],
+    "t": [
+      -18.000000000000004,
+      26.00000000000001,
+      -45.033320996790806
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.8660254037844387,
+      0.5000000000000001
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve31",
+    "sketch": "Sketch155",
+    "translation": "Body-Move/Copy423",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_1_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.4999999999999998,
+        -0.8660254037844388
+      ],
+      [
+        0.0,
+        0.8660254037844388,
+        -0.4999999999999998
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679081,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -0.4999999999999998,
+      0.8660254037844388
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve32",
+    "sketch": "Sketch156",
+    "translation": "Body-Move/Copy425",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.2246467991473532e-16
+      ],
+      [
+        0.0,
+        1.2246467991473532e-16,
+        -1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -1.0,
+      1.2246467991473532e-16
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve33",
+    "sketch": "Sketch157",
+    "translation": "Body-Move/Copy427",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.49999999999999933,
+        0.866025403784439
+      ],
+      [
+        -0.0,
+        -0.866025403784439,
+        -0.49999999999999933
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679082,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.49999999999999933,
+      -0.866025403784439
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve34",
+    "sketch": "Sketch158",
+    "translation": "Body-Move/Copy429",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_4_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000002,
+        0.8660254037844384
+      ],
+      [
+        -0.0,
+        -0.8660254037844384,
+        0.5000000000000002
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679079,
+      -26.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.5000000000000002,
+      -0.8660254037844384
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve35",
+    "sketch": "Sketch159",
+    "translation": "Body-Move/Copy430",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_5_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      -52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_B",
+    "feature": "Revolve36",
+    "sketch": "Sketch160",
+    "translation": "Body-Move/Copy432",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000006,
+        -0.8660254037844385
+      ],
+      [
+        0.0,
+        0.8660254037844385,
+        0.5000000000000006
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679079,
+      -26.00000000000002
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.5000000000000006,
+      0.8660254037844385
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve8",
+    "sketch": "Sketch44",
+    "translation": "Body-Move/Copy94",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.2246467991473532e-16
+      ],
+      [
+        0.0,
+        1.2246467991473532e-16,
+        -1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -1.0,
+      1.2246467991473532e-16
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve9",
+    "sketch": "Sketch49",
+    "translation": "Body-Move/Copy111",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.49999999999999933,
+        0.866025403784439
+      ],
+      [
+        -0.0,
+        -0.866025403784439,
+        -0.49999999999999933
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679082,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.49999999999999933,
+      -0.866025403784439
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve10",
+    "sketch": "Sketch54",
+    "translation": "Body-Move/Copy128",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_4_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000002,
+        0.8660254037844384
+      ],
+      [
+        -0.0,
+        -0.8660254037844384,
+        0.5000000000000002
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679079,
+      -26.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.5000000000000002,
+      -0.8660254037844384
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve11",
+    "sketch": "Sketch59",
+    "translation": "Body-Move/Copy144",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_5_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      -52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve12",
+    "sketch": "Sketch64",
+    "translation": "Body-Move/Copy161",
+    "kind": "revolved_profile",
+    "radius_mm": 18.8,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000006,
+        -0.8660254037844385
+      ],
+      [
+        0.0,
+        0.8660254037844385,
+        0.5000000000000006
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679079,
+      -26.00000000000002
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.5000000000000006,
+      0.8660254037844385
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve15",
+    "sketch": "Sketch87",
+    "translation": "Body-Move/Copy231",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_2_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        -1.2246467991473532e-16
+      ],
+      [
+        0.0,
+        1.2246467991473532e-16,
+        -1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      -1.0,
+      1.2246467991473532e-16
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve16",
+    "sketch": "Sketch88",
+    "translation": "Body-Move/Copy233",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_3_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.49999999999999933,
+        0.866025403784439
+      ],
+      [
+        -0.0,
+        -0.866025403784439,
+        -0.49999999999999933
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679082,
+      25.999999999999996
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      -0.49999999999999933,
+      -0.866025403784439
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve17",
+    "sketch": "Sketch89",
+    "translation": "Body-Move/Copy235",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_4_1",
+    "R": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000002,
+        0.8660254037844384
+      ],
+      [
+        -0.0,
+        -0.8660254037844384,
+        0.5000000000000002
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      -45.03332099679079,
+      -26.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      -0.0,
+      0.5000000000000002,
+      -0.8660254037844384
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve18",
+    "sketch": "Sketch90",
+    "translation": "Body-Move/Copy236",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_5_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      0.0,
+      -52.00000000000001
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dynamic_origin": null
+  },
+  {
+    "part": "wheel_hub_C",
+    "feature": "Revolve19",
+    "sketch": "Sketch91",
+    "translation": "Body-Move/Copy238",
+    "kind": "revolved_profile",
+    "radius_mm": 19.3,
+    "pattern": "Roller_axles",
+    "point_index": 1,
+    "line": "Roller_2_6_1",
+    "R": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5000000000000006,
+        -0.8660254037844385
+      ],
+      [
+        0.0,
+        0.8660254037844385,
+        0.5000000000000006
+      ]
+    ],
+    "t": [
+      18.000000000000004,
+      45.03332099679079,
+      -26.00000000000002
+    ],
+    "projection": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "projection_offset": [
+      0.0,
+      0.0
+    ],
+    "world_to_part_U": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254038
+      ],
+      [
+        0.0,
+        -0.5
+      ]
+    ],
+    "axis_local": [
+      0.0,
+      0.5000000000000006,
+      0.8660254037844385
+    ],
+    "dynamic_origin": null
+  }
+]

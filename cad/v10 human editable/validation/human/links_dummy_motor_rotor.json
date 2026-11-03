@@ -1,0 +1,21 @@
+{
+  "part": "dummy_motor_rotor",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Output Boss Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Output Pilot Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "output_screw_pcd": "\"D26@Control Measures-Shared Layout\" * 2",
+    "output_screw_count": "(\"D114@Control Measures-Shared Layout\" / 1mm)",
+    "output_first_angle": "360deg / (\"D114@Control Measures-Shared Layout\" / 1mm) - \"D2@Angle output phase-Shared Layout\"",
+    "shaft_radius": "\"D84@Control Measures-Shared Layout\" / 2 - 0.05mm",
+    "inner_race_shoulder_radius": "\"D84@Control Measures-Shared Layout\" / 2 + 1mm"
+  }
+}

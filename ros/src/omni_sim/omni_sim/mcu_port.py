@@ -1,4 +1,4 @@
-"""The SIL firmware's USB port as a localhost TCP server (design.md 30): omni_mcu's mcu_link connects to it exactly as
+"""The SIL firmware's USB port as a TCP server (localhost; `bind` 0.0.0.0 when the robot's nodes run on another computer) (design.md 30): omni_mcu's mcu_link connects to it exactly as
 it opens /dev/ttyACM0 on the robot. Bytes go in and out once per firmware tick, so the link sees the Teensy's 1 ms
 rhythm; with nobody connected the firmware's output is dropped, like a USB port with no host."""
 
@@ -8,16 +8,17 @@ import socket
 
 
 class McuPort:
-    def __init__(self, port: int = 5761, log=None):
+    def __init__(self, port: int = 5761, log=None, bind: str = "127.0.0.1"):
         self.log = log or (lambda m: None)
         self.srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.srv.bind(("127.0.0.1", port))
+        self.srv.bind((bind, port))                   # 0.0.0.0: the robot side runs on another computer (stack.py side:=sim)
         self.srv.listen(1)
         self.srv.setblocking(False)
         self.conn = None
         self.out = bytearray()
         self.port = port
+        self.bind = bind
         self.rx_bytes = self.tx_bytes = 0
 
     def exchange(self, fw, link_down: bool = False):

@@ -1,0 +1,2160 @@
+{
+ "test": "info",
+ "date": "2026-10-30T08:18:26",
+ "host": {
+  "machine": "omni-cam",
+  "os": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+  "cpu": "aarch64"
+ },
+ "device": {
+  "name": "RealSense D435",
+  "serial_number": "827312072573",
+  "firmware_version": "5.17.3.10",
+  "recommended_firmware_version": null,
+  "product_id": "0B07",
+  "usb_type_descriptor": "3.2",
+  "physical_port": "/sys/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb2/2-1/2-1:1.0/video4linux/video2",
+  "product_line": "D400",
+  "asic_serial_number": "825513021139",
+  "librealsense": "2.59.1"
+ },
+ "datasheet": {
+  "depth_sensor": "OmniVision OV9282 (x2), global shutter, 3 um pixels, 1280x800, mono (IR + visible)",
+  "rgb_sensor": "OmniVision OV2740, rolling shutter, 1.4 um pixels, 1920x1080",
+  "baseline_mm": 50.0,
+  "depth_fov_deg": [
+   87,
+   58
+  ],
+  "rgb_fov_deg": [
+   69,
+   42
+  ],
+  "min_z_m_848x480": 0.195,
+  "ground_zero_mm": 3.2,
+  "sync_connector": "9-pin JST SH on the back; sync pin 1.8 V (inter_cam_sync_mode)",
+  "depth_rms_spec": "<= 2% at 2 m, 80% ROI, 848x480 (datasheet)",
+  "source": "Intel RealSense D400 Series Product Family Datasheet (rev 2023+); VERIFY"
+ },
+ "temperatures": {
+  "asic_temperature": null,
+  "projector_temperature": null
+ },
+ "sensors": {
+  "Stereo Module": {
+   "name": "Stereo Module",
+   "modes": {
+    "infrared1": [
+     [
+      848,
+      100,
+      100,
+      "y8"
+     ],
+     [
+      848,
+      100,
+      300,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      90,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      60,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      90,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      90,
+      "y8"
+     ],
+     [
+      640,
+      400,
+      15,
+      "y16"
+     ],
+     [
+      640,
+      400,
+      25,
+      "y16"
+     ],
+     [
+      640,
+      480,
+      6,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      90,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      90,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "y8"
+     ],
+     [
+      1280,
+      800,
+      15,
+      "y8"
+     ],
+     [
+      1280,
+      800,
+      15,
+      "y16"
+     ],
+     [
+      1280,
+      800,
+      25,
+      "y16"
+     ],
+     [
+      1280,
+      800,
+      30,
+      "y8"
+     ]
+    ],
+    "infrared2": [
+     [
+      848,
+      100,
+      100,
+      "y8"
+     ],
+     [
+      848,
+      100,
+      300,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "y8"
+     ],
+     [
+      424,
+      240,
+      90,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      6,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      15,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      30,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      60,
+      "y8"
+     ],
+     [
+      480,
+      270,
+      90,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "y8"
+     ],
+     [
+      640,
+      360,
+      90,
+      "y8"
+     ],
+     [
+      640,
+      400,
+      15,
+      "y16"
+     ],
+     [
+      640,
+      400,
+      25,
+      "y16"
+     ],
+     [
+      640,
+      480,
+      6,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "y8"
+     ],
+     [
+      640,
+      480,
+      90,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "y8"
+     ],
+     [
+      848,
+      480,
+      90,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "y8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "y8"
+     ],
+     [
+      1280,
+      800,
+      15,
+      "y8"
+     ],
+     [
+      1280,
+      800,
+      15,
+      "y16"
+     ],
+     [
+      1280,
+      800,
+      25,
+      "y16"
+     ],
+     [
+      1280,
+      800,
+      30,
+      "y8"
+     ]
+    ],
+    "depth": [
+     [
+      256,
+      144,
+      90,
+      "z16"
+     ],
+     [
+      256,
+      144,
+      300,
+      "z16"
+     ],
+     [
+      848,
+      100,
+      100,
+      "z16"
+     ],
+     [
+      848,
+      100,
+      300,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      6,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      15,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      30,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      60,
+      "z16"
+     ],
+     [
+      424,
+      240,
+      90,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      6,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      15,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      30,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      60,
+      "z16"
+     ],
+     [
+      480,
+      270,
+      90,
+      "z16"
+     ],
+     [
+      640,
+      360,
+      6,
+      "z16"
+     ],
+     [
+      640,
+      360,
+      15,
+      "z16"
+     ],
+     [
+      640,
+      360,
+      30,
+      "z16"
+     ],
+     [
+      640,
+      360,
+      60,
+      "z16"
+     ],
+     [
+      640,
+      360,
+      90,
+      "z16"
+     ],
+     [
+      640,
+      480,
+      6,
+      "z16"
+     ],
+     [
+      640,
+      480,
+      15,
+      "z16"
+     ],
+     [
+      640,
+      480,
+      30,
+      "z16"
+     ],
+     [
+      640,
+      480,
+      60,
+      "z16"
+     ],
+     [
+      640,
+      480,
+      90,
+      "z16"
+     ],
+     [
+      848,
+      480,
+      6,
+      "z16"
+     ],
+     [
+      848,
+      480,
+      15,
+      "z16"
+     ],
+     [
+      848,
+      480,
+      30,
+      "z16"
+     ],
+     [
+      848,
+      480,
+      60,
+      "z16"
+     ],
+     [
+      848,
+      480,
+      90,
+      "z16"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "z16"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "z16"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "z16"
+     ]
+    ]
+   },
+   "options": {
+    "exposure": {
+     "value": 8500.0,
+     "min": 1.0,
+     "max": 165000.0,
+     "step": 1.0,
+     "default": 8500.0,
+     "description": "Depth Exposure (usec)"
+    },
+    "gain": {
+     "value": 16.0,
+     "min": 16.0,
+     "max": 248.0,
+     "step": 1.0,
+     "default": 16.0,
+     "description": "UVC image gain"
+    },
+    "enable_auto_exposure": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Enable Auto Exposure"
+    },
+    "visual_preset": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 7.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Advanced-Mode Preset"
+    },
+    "laser_power": {
+     "value": 150.0,
+     "min": 0.0,
+     "max": 360.0,
+     "step": 30.0,
+     "default": 150.0,
+     "description": "Manual laser power in mw. applicable only when laser power mode is set to Manual"
+    },
+    "emitter_enabled": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 2.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Emitter select, 0-disable all emitters, 1-enable laser, 2-enable laser auto (opt), 3-enable LED (opt)"
+    },
+    "frames_queue_size": {
+     "value": 16.0,
+     "min": 0.0,
+     "max": 32.0,
+     "step": 1.0,
+     "default": 16.0,
+     "description": "Max number of frames you can hold at a given time. Increasing this number will reduce frame drops but increase latency, and vice versa"
+    },
+    "asic_temperature": {
+     "error": "object doesn't support option Asic Temperature"
+    },
+    "error_polling_enabled": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Enable / disable polling of camera internal errors"
+    },
+    "projector_temperature": {
+     "error": "object doesn't support option Projector Temperature"
+    },
+    "output_trigger_enabled": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Generate trigger from the camera to external device once per frame"
+    },
+    "depth_units": {
+     "value": 0.0010000000474974513,
+     "min": 9.999999974752427e-07,
+     "max": 0.009999999776482582,
+     "step": 9.999999974752427e-07,
+     "default": 0.0010000000474974513,
+     "description": "Number of meters represented by a single depth unit"
+    },
+    "inter_cam_sync_mode": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 4.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "External sync"
+    },
+    "emitter_on_off": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Alternating emitter pattern, toggled on/off on per-frame basis"
+    },
+    "global_time_enabled": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Enable/Disable global timestamp"
+    },
+    "emitter_always_on": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Emitter always on mode: 0:disabled(default), 1:enabled"
+    },
+    "hdr_enabled": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "HDR Option"
+    }
+   }
+  },
+  "RGB Camera": {
+   "name": "RGB Camera",
+   "modes": {
+    "color": [
+     [
+      320,
+      180,
+      6,
+      "rgb8"
+     ],
+     [
+      320,
+      180,
+      6,
+      "yuyv"
+     ],
+     [
+      320,
+      180,
+      6,
+      "bgr8"
+     ],
+     [
+      320,
+      180,
+      6,
+      "bgra8"
+     ],
+     [
+      320,
+      180,
+      6,
+      "rgba8"
+     ],
+     [
+      320,
+      180,
+      30,
+      "rgba8"
+     ],
+     [
+      320,
+      180,
+      30,
+      "rgb8"
+     ],
+     [
+      320,
+      180,
+      30,
+      "yuyv"
+     ],
+     [
+      320,
+      180,
+      30,
+      "bgr8"
+     ],
+     [
+      320,
+      180,
+      30,
+      "bgra8"
+     ],
+     [
+      320,
+      180,
+      60,
+      "rgb8"
+     ],
+     [
+      320,
+      180,
+      60,
+      "yuyv"
+     ],
+     [
+      320,
+      180,
+      60,
+      "bgr8"
+     ],
+     [
+      320,
+      180,
+      60,
+      "bgra8"
+     ],
+     [
+      320,
+      180,
+      60,
+      "rgba8"
+     ],
+     [
+      320,
+      240,
+      6,
+      "rgb8"
+     ],
+     [
+      320,
+      240,
+      6,
+      "yuyv"
+     ],
+     [
+      320,
+      240,
+      6,
+      "bgr8"
+     ],
+     [
+      320,
+      240,
+      6,
+      "rgba8"
+     ],
+     [
+      320,
+      240,
+      6,
+      "bgra8"
+     ],
+     [
+      320,
+      240,
+      30,
+      "bgra8"
+     ],
+     [
+      320,
+      240,
+      30,
+      "rgb8"
+     ],
+     [
+      320,
+      240,
+      30,
+      "yuyv"
+     ],
+     [
+      320,
+      240,
+      30,
+      "bgr8"
+     ],
+     [
+      320,
+      240,
+      30,
+      "rgba8"
+     ],
+     [
+      320,
+      240,
+      60,
+      "bgra8"
+     ],
+     [
+      320,
+      240,
+      60,
+      "rgb8"
+     ],
+     [
+      320,
+      240,
+      60,
+      "yuyv"
+     ],
+     [
+      320,
+      240,
+      60,
+      "bgr8"
+     ],
+     [
+      320,
+      240,
+      60,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      6,
+      "yuyv"
+     ],
+     [
+      424,
+      240,
+      6,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      15,
+      "yuyv"
+     ],
+     [
+      424,
+      240,
+      15,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "bgra8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      30,
+      "yuyv"
+     ],
+     [
+      424,
+      240,
+      30,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "rgb8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "yuyv"
+     ],
+     [
+      424,
+      240,
+      60,
+      "bgr8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "rgba8"
+     ],
+     [
+      424,
+      240,
+      60,
+      "bgra8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "bgra8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "rgba8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "yuyv"
+     ],
+     [
+      640,
+      360,
+      6,
+      "rgb8"
+     ],
+     [
+      640,
+      360,
+      6,
+      "bgr8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "bgra8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "rgb8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "yuyv"
+     ],
+     [
+      640,
+      360,
+      15,
+      "bgr8"
+     ],
+     [
+      640,
+      360,
+      15,
+      "rgba8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "rgb8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "yuyv"
+     ],
+     [
+      640,
+      360,
+      30,
+      "bgr8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "rgba8"
+     ],
+     [
+      640,
+      360,
+      30,
+      "bgra8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "bgra8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "rgb8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "yuyv"
+     ],
+     [
+      640,
+      360,
+      60,
+      "bgr8"
+     ],
+     [
+      640,
+      360,
+      60,
+      "rgba8"
+     ],
+     [
+      640,
+      480,
+      6,
+      "bgra8"
+     ],
+     [
+      640,
+      480,
+      6,
+      "rgb8"
+     ],
+     [
+      640,
+      480,
+      6,
+      "yuyv"
+     ],
+     [
+      640,
+      480,
+      6,
+      "bgr8"
+     ],
+     [
+      640,
+      480,
+      6,
+      "rgba8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "rgba8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "bgra8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "rgb8"
+     ],
+     [
+      640,
+      480,
+      15,
+      "yuyv"
+     ],
+     [
+      640,
+      480,
+      15,
+      "bgr8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "bgra8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "rgb8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "yuyv"
+     ],
+     [
+      640,
+      480,
+      30,
+      "bgr8"
+     ],
+     [
+      640,
+      480,
+      30,
+      "rgba8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "yuyv"
+     ],
+     [
+      640,
+      480,
+      60,
+      "rgba8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "bgra8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "rgb8"
+     ],
+     [
+      640,
+      480,
+      60,
+      "bgr8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "rgb8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "yuyv"
+     ],
+     [
+      848,
+      480,
+      6,
+      "bgr8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "rgba8"
+     ],
+     [
+      848,
+      480,
+      6,
+      "bgra8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "bgra8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "rgb8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "yuyv"
+     ],
+     [
+      848,
+      480,
+      15,
+      "bgr8"
+     ],
+     [
+      848,
+      480,
+      15,
+      "rgba8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "bgra8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "rgb8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "yuyv"
+     ],
+     [
+      848,
+      480,
+      30,
+      "bgr8"
+     ],
+     [
+      848,
+      480,
+      30,
+      "rgba8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "rgb8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "yuyv"
+     ],
+     [
+      848,
+      480,
+      60,
+      "bgr8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "bgra8"
+     ],
+     [
+      848,
+      480,
+      60,
+      "rgba8"
+     ],
+     [
+      960,
+      540,
+      6,
+      "yuyv"
+     ],
+     [
+      960,
+      540,
+      6,
+      "bgr8"
+     ],
+     [
+      960,
+      540,
+      6,
+      "bgra8"
+     ],
+     [
+      960,
+      540,
+      6,
+      "rgba8"
+     ],
+     [
+      960,
+      540,
+      6,
+      "rgb8"
+     ],
+     [
+      960,
+      540,
+      15,
+      "rgb8"
+     ],
+     [
+      960,
+      540,
+      15,
+      "yuyv"
+     ],
+     [
+      960,
+      540,
+      15,
+      "bgr8"
+     ],
+     [
+      960,
+      540,
+      15,
+      "bgra8"
+     ],
+     [
+      960,
+      540,
+      15,
+      "rgba8"
+     ],
+     [
+      960,
+      540,
+      30,
+      "rgb8"
+     ],
+     [
+      960,
+      540,
+      30,
+      "yuyv"
+     ],
+     [
+      960,
+      540,
+      30,
+      "bgr8"
+     ],
+     [
+      960,
+      540,
+      30,
+      "bgra8"
+     ],
+     [
+      960,
+      540,
+      30,
+      "rgba8"
+     ],
+     [
+      960,
+      540,
+      60,
+      "rgb8"
+     ],
+     [
+      960,
+      540,
+      60,
+      "yuyv"
+     ],
+     [
+      960,
+      540,
+      60,
+      "bgr8"
+     ],
+     [
+      960,
+      540,
+      60,
+      "bgra8"
+     ],
+     [
+      960,
+      540,
+      60,
+      "rgba8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "rgba8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "rgb8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "yuyv"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "bgr8"
+     ],
+     [
+      1280,
+      720,
+      6,
+      "bgra8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "rgba8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "bgra8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "rgb8"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "yuyv"
+     ],
+     [
+      1280,
+      720,
+      15,
+      "bgr8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "yuyv"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "bgr8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "rgba8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "bgra8"
+     ],
+     [
+      1280,
+      720,
+      30,
+      "rgb8"
+     ],
+     [
+      1920,
+      1080,
+      6,
+      "bgra8"
+     ],
+     [
+      1920,
+      1080,
+      6,
+      "rgb8"
+     ],
+     [
+      1920,
+      1080,
+      6,
+      "yuyv"
+     ],
+     [
+      1920,
+      1080,
+      6,
+      "bgr8"
+     ],
+     [
+      1920,
+      1080,
+      6,
+      "rgba8"
+     ],
+     [
+      1920,
+      1080,
+      15,
+      "rgb8"
+     ],
+     [
+      1920,
+      1080,
+      15,
+      "yuyv"
+     ],
+     [
+      1920,
+      1080,
+      15,
+      "bgr8"
+     ],
+     [
+      1920,
+      1080,
+      15,
+      "rgba8"
+     ],
+     [
+      1920,
+      1080,
+      15,
+      "bgra8"
+     ],
+     [
+      1920,
+      1080,
+      30,
+      "bgra8"
+     ],
+     [
+      1920,
+      1080,
+      30,
+      "rgb8"
+     ],
+     [
+      1920,
+      1080,
+      30,
+      "yuyv"
+     ],
+     [
+      1920,
+      1080,
+      30,
+      "bgr8"
+     ],
+     [
+      1920,
+      1080,
+      30,
+      "rgba8"
+     ]
+    ]
+   },
+   "options": {
+    "exposure": {
+     "value": 166.0,
+     "min": 1.0,
+     "max": 10000.0,
+     "step": 1.0,
+     "default": 166.0,
+     "description": "Controls exposure time of color camera. Setting any value will disable auto exposure"
+    },
+    "gain": {
+     "value": 64.0,
+     "min": 0.0,
+     "max": 128.0,
+     "step": 1.0,
+     "default": 64.0,
+     "description": "UVC image gain"
+    },
+    "enable_auto_exposure": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Enable / disable auto-exposure"
+    },
+    "enable_auto_white_balance": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Enable / disable auto-white-balance"
+    },
+    "frames_queue_size": {
+     "value": 16.0,
+     "min": 0.0,
+     "max": 32.0,
+     "step": 1.0,
+     "default": 16.0,
+     "description": "Max number of frames you can hold at a given time. Increasing this number will reduce frame drops but increase latency, and vice versa"
+    },
+    "power_line_frequency": {
+     "value": 3.0,
+     "min": 0.0,
+     "max": 3.0,
+     "step": 1.0,
+     "default": 3.0,
+     "description": "Power Line Frequency"
+    },
+    "auto_exposure_priority": {
+     "value": 0.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 0.0,
+     "description": "Restrict Auto-Exposure to enforce constant FPS rate. Turn ON to remove the restrictions (may result in FPS drop)"
+    },
+    "global_time_enabled": {
+     "value": 1.0,
+     "min": 0.0,
+     "max": 1.0,
+     "step": 1.0,
+     "default": 1.0,
+     "description": "Enable/Disable global timestamp"
+    }
+   }
+  }
+ },
+ "geometry": {
+  "depth_640x480": {
+   "width": 640,
+   "height": 480,
+   "fx": 383.89288330078125,
+   "fy": 383.89288330078125,
+   "ppx": 320.21240234375,
+   "ppy": 235.0047149658203,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    79.63,
+    64.02
+   ]
+  },
+  "depth_848x480": {
+   "width": 848,
+   "height": 480,
+   "fx": 423.8817138671875,
+   "fy": 423.8817138671875,
+   "ppx": 424.2345275878906,
+   "ppy": 234.484375,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    59.03
+   ]
+  },
+  "depth_1280x720": {
+   "width": 1280,
+   "height": 720,
+   "fx": 639.8214721679688,
+   "fy": 639.8214721679688,
+   "ppx": 640.35400390625,
+   "ppy": 351.6045227050781,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    58.72
+   ]
+  },
+  "infrared1_640x480": {
+   "width": 640,
+   "height": 480,
+   "fx": 383.89288330078125,
+   "fy": 383.89288330078125,
+   "ppx": 320.21240234375,
+   "ppy": 235.0047149658203,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    79.63,
+    64.02
+   ]
+  },
+  "infrared1_848x480": {
+   "width": 848,
+   "height": 480,
+   "fx": 423.8817138671875,
+   "fy": 423.8817138671875,
+   "ppx": 424.2345275878906,
+   "ppy": 234.484375,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    59.03
+   ]
+  },
+  "infrared1_1280x720": {
+   "width": 1280,
+   "height": 720,
+   "fx": 639.8214721679688,
+   "fy": 639.8214721679688,
+   "ppx": 640.35400390625,
+   "ppy": 351.6045227050781,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    58.72
+   ]
+  },
+  "infrared2_640x480": {
+   "width": 640,
+   "height": 480,
+   "fx": 383.89288330078125,
+   "fy": 383.89288330078125,
+   "ppx": 320.21240234375,
+   "ppy": 235.0047149658203,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    79.63,
+    64.02
+   ]
+  },
+  "infrared2_848x480": {
+   "width": 848,
+   "height": 480,
+   "fx": 423.8817138671875,
+   "fy": 423.8817138671875,
+   "ppx": 424.2345275878906,
+   "ppy": 234.484375,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    59.03
+   ]
+  },
+  "infrared2_1280x720": {
+   "width": 1280,
+   "height": 720,
+   "fx": 639.8214721679688,
+   "fy": 639.8214721679688,
+   "ppx": 640.35400390625,
+   "ppy": 351.6045227050781,
+   "model": "brown_conrady",
+   "coeffs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fov_deg": [
+    90.02,
+    58.72
+   ]
+  },
+  "ir1_to_ir2": {
+   "rotation": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "translation_m": [
+    -0.04984968528151512,
+    0.0,
+    0.0
+   ],
+   "baseline_mm": 49.85
+  },
+  "ir1_to_color": {
+   "rotation": [
+    0.9999071359634399,
+    0.01360956858843565,
+    -0.0007467249524779618,
+    -0.013610771857202053,
+    0.999906063079834,
+    -0.0016305457102134824,
+    0.0007244637235999107,
+    0.0016405577771365643,
+    0.9999983906745911
+   ],
+   "translation_m": [
+    0.014994317665696144,
+    0.0005237587611190975,
+    0.00019493598665576428
+   ]
+  },
+  "depth_scale_m": 0.0010000000474974513
+ },
+ "timestamps": {
+  "depth": {
+   "mode": "depth:848x480@30",
+   "domain": "global_time",
+   "metadata": [
+    "frame_counter",
+    "frame_timestamp",
+    "sensor_timestamp",
+    "actual_exposure",
+    "gain_level",
+    "auto_exposure",
+    "time_of_arrival",
+    "backend_timestamp",
+    "actual_fps",
+    "frame_laser_power",
+    "frame_laser_power_mode",
+    "exposure_priority",
+    "exposure_roi_left",
+    "exposure_roi_right",
+    "exposure_roi_top",
+    "exposure_roi_bottom",
+    "frame_emitter_mode",
+    "raw_frame_size",
+    "gpio_input_data",
+    "sequence_name",
+    "sequence_id",
+    "sequence_size"
+   ],
+   "hw_timestamps": true,
+   "exposure_us": 27894
+  },
+  "ir": {
+   "mode": "ir:848x480@30",
+   "domain": "global_time",
+   "metadata": [
+    "frame_counter",
+    "frame_timestamp",
+    "sensor_timestamp",
+    "actual_exposure",
+    "gain_level",
+    "auto_exposure",
+    "time_of_arrival",
+    "backend_timestamp",
+    "actual_fps",
+    "frame_laser_power",
+    "frame_laser_power_mode",
+    "exposure_priority",
+    "exposure_roi_left",
+    "exposure_roi_right",
+    "exposure_roi_top",
+    "exposure_roi_bottom",
+    "frame_emitter_mode",
+    "raw_frame_size",
+    "gpio_input_data",
+    "sequence_name",
+    "sequence_id",
+    "sequence_size"
+   ],
+   "hw_timestamps": true,
+   "exposure_us": 27210
+  },
+  "color": {
+   "mode": "color:640x480@30",
+   "domain": "global_time",
+   "metadata": [
+    "frame_counter",
+    "frame_timestamp",
+    "sensor_timestamp",
+    "auto_exposure",
+    "time_of_arrival",
+    "backend_timestamp",
+    "actual_fps",
+    "brightness",
+    "contrast",
+    "saturation",
+    "sharpness",
+    "auto_white_balance_temperature",
+    "backlight_compensation",
+    "hue",
+    "gamma",
+    "manual_white_balance",
+    "power_line_frequency",
+    "low_light_compensation",
+    "raw_frame_size"
+   ],
+   "hw_timestamps": true,
+   "exposure_us": null
+  }
+ },
+ "requirements": {
+  "ir_pair: global shutter": "PASS (OV9282, datasheet)",
+  "ir_pair: colour": "FAIL: mono (the robot's colour-blob detector would need a shape / motion detector)",
+  "ir_pair: >= 60 fps at >= 640x400": "PASS: 640x480@60, 640x480@90, 848x480@60, 848x480@90",
+  "rgb: global shutter": "FAIL: rolling shutter (OV2740, datasheet); the sweep put rolling 20 ms at 72%",
+  "rgb: >= 60 fps at >= 640x400": "PASS: 640x480@60, 640x480@60, 640x480@60, 640x480@60",
+  "hw sync (inter_cam_sync_mode)": "offered, range 0.0..4.0: VERIFY a slave mode follows an external 1.8 V pulse",
+  "usb3": "PASS",
+  "latency <= 60 ms": "measure: rs_timing.py (to host), rs_flash_latency.py (photons to host)"
+ }
+}

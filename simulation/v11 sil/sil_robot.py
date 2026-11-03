@@ -187,7 +187,9 @@ class SilRobot(Robot):
             raise ValueError("the firmware core is built for the X4 base")
         if timing not in ("ideal", "real"):
             raise ValueError(timing)
-        self.fw = Firmware()
+        from robot_export import firmware_variant
+        # the arm robot (cad/v10) has its own wheel, base and motor constants; a study's variant names its own header
+        self.fw = Firmware(p.fw_variant or firmware_variant(p))
         self.fw_div = max(1, int(round(0.001 / model.opt.timestep)))
         self.boot_offset = boot_offset            # s: the MCU booted this long before sim time 0
         # design.md 10: the MCU's clock and the edges it makes (see the module docstring)

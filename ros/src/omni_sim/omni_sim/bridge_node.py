@@ -33,6 +33,11 @@ the bus board's USB port) and renders its cameras on sim time (MuJoCo, EGL in WS
            /arm_cam/image_raw (+ /arm_cam/camera_info)  the wrist camera, rgb8: on request ("wrist") and at wrist_hz
            /sim/objects                               std_msgs/String JSON, 1 Hz: the things' true positions (world) and
                                                       how many are in the bin, for scoring
+With arm_camera:=d435 (design.md 4.11) the depth comes from the RealSense D435 on the deck's nose instead, under the
+names realsense2_camera gives it on the robot (camera_name d435), at d435_hz (5) and on request:
+           /d435/depth/image_rect_raw (+ /d435/depth/camera_info)   16UC1 mm, 480 x 270 (sil_pick.PickCameras' D435 model)
+           /d435/depth/color/points                   sensor_msgs/PointCloud2 xyz, the depth decimated 4 x (the driver's
+                                                      decimation filter): Nav2's depth layer
 """
 
 from __future__ import annotations
@@ -54,7 +59,7 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile
 from rosgraph_msgs.msg import Clock
 from omni_interfaces.msg import TagDetection, TagDetections
-from sensor_msgs.msg import CameraInfo, Image, Imu, LaserScan, TimeReference
+from sensor_msgs.msg import CameraInfo, Image, Imu, LaserScan, PointCloud2, PointField, TimeReference
 from std_msgs.msg import String
 from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 
@@ -82,7 +87,7 @@ class FaultTopic:
         try:
             a = json.loads(m.data)
             self.inj.inject(str(a["kind"]), bool(a.get("on", True)), a.get("s"), int(a.get("motor", 0)),
-                            float(a.get("volts", 21.5)))
+                            float(a.get("volts", 20.5)))
             self.node.get_logger().warn(f"fault injection: {a}")
         except (ValueError, KeyError, TypeError) as e:
             self.node.get_logger().warn(f"/sim/fault: {e}")
@@ -95,7 +100,12 @@ class FaultTopic:
             self.pub.publish(String(data=d))
 
 
+WALL_OFFSET = [None]        # clock_mode "wall": system time minus sim time, set when the loop starts (rtf 1: the same pace)
+
+
 def stamp(t: float) -> Time:
+    if WALL_OFFSET[0] is not None:       # the robot's nodes run on the system clock, as on the real robot (no /clock)
+        t = t + WALL_OFFSET[0]
     ns = int(round(t * 1e9))                  # round once, then split (rounding the fraction can carry a second)
     return Time(sec=ns // 1_000_000_000, nanosec=ns % 1_000_000_000)
 
@@ -127,9 +137,11 @@ class Bridge(Node):
                               timing=P("timing", "ideal").value,    # design.md 10: "real" = drifting MCU clock
                               payload=P("payload", "catch").value,  # design.md 11: "arm" = the arm robot
                               objects=P("objects", "toys").value, n_objects=P("n_objects", 6).value,
+                              arm_camera=P("arm_camera", "stereo").value,   # design.md 4.11: "d435" on the nose
                               # the Launcher's live world (sim_world.py): person, clutter, thrower on and off
                               live_world=P("live_world", False).value, clutter=P("clutter", "off").value,
                               thrower=P("thrower", True).value,
+                              terrain=P("terrain", False).value,    # design.md 16: the kitchen's terrain course
                               **(dict(firmware=True) if sil else {}))
         # design.md 10: the Jetson's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
         # (/sim/sync_edge; mcu_link's sync_source:=topic)
@@ -139,6 +151,7 @@ class Bridge(Node):
         self.want_markers = P("markers", True).value
         self.rtf = P("real_time_factor", 1.0).value         # 0 = as fast as it goes
         self.clock_period = P("clock_period", 0.004).value   # 250 Hz: plenty for 100 Hz EKF / 20 Hz Nav2; cheaper
+        self.wall_clock = P("clock_mode", "sim").value == "wall"   # stamps = system time, no /clock (design.md 4.9, Pi in the loop)
         self.publish_odom_tf = P("publish_odom_tf", True).value
         self.exit_when_done = P("exit_when_done", False).value
         self.get_logger().info(f"building the v7 house ({self.cfg})")
@@ -165,10 +178,10 @@ class Bridge(Node):
         self.no_ekf = self.publish_odom_tf                  # odom -> base_link comes from the odometry, not an EKF
         if getattr(self.core, "firmware", False):
             from omni_sim.mcu_port import McuPort
-            self.port = McuPort(P("port", 5761).value, log=self.get_logger().info)
+            self.port = McuPort(P("port", 5761).value, log=self.get_logger().info, bind=P("mcu_bind", "127.0.0.1").value)
             self.faults = FaultTopic(self, self.core.r)
             self.publish_odom_tf = False                    # mcu_link publishes the MCU's odometry
-            self.get_logger().info(f"firmware in the loop: its USB port is tcp:127.0.0.1:{self.port.port}")
+            self.get_logger().info(f"firmware in the loop: its USB port is tcp:{self.port.bind}:{self.port.port}")
             if self.sync_gpio != "none":
                 from sil_link import GpioStamp
                 self.gpio = GpioStamp(self.sync_gpio, np.random.default_rng(71_000 + self.cfg.seed))
@@ -212,7 +225,9 @@ class Bridge(Node):
             self._open_viewer()
         self.arm = None
         if self.core.bus_sim is not None:
-            self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value)
+            bind = self.port.bind if self.port else "127.0.0.1"   # the MCU port's: the LAN when side:=sim
+            self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value, P("d435_hz", 5.0).value,
+                               bind=bind)
         self.catch = None
         if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
             self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
@@ -531,6 +546,8 @@ class Bridge(Node):
         k = 0
         w0, s0 = time.perf_counter(), d.time
         w_rep, s_rep = w0, s0
+        if self.wall_clock:
+            WALL_OFFSET[0] = time.time() - d.time
         done_t = None
         n_truth, w_view = 0, 0.0
         w_rtf, s_rtf = w0, s0
@@ -548,7 +565,8 @@ class Bridge(Node):
                     self.arm.step(d.time)
             if d.time >= next_clock - 1e-9:
                 next_clock += self.clock_period
-                self.p_clock.publish(Clock(clock=stamp(d.time)))
+                if not self.wall_clock:
+                    self.p_clock.publish(Clock(clock=stamp(d.time)))
             if ev.imu is not None:
                 self.pub_imu(ev.imu)
             if ev.odom is not None:
@@ -585,6 +603,8 @@ class Bridge(Node):
                     time.sleep(ahead)
                 elif ahead < -0.25:                           # behind: don't try to catch up in a burst
                     w0, s0 = time.perf_counter(), d.time
+                    if self.wall_clock:
+                        WALL_OFFSET[0] = time.time() - d.time
             now = time.perf_counter()
             if now - w_rep > 5.0:
                 rtf = (d.time - s_rep) / (now - w_rep)
@@ -676,31 +696,40 @@ class ArmSide:
     """design.md 11: the arm robot's servo bus (arm_bus.ServoPort) and cameras (sil_pick.PickCameras) for the ROS
     side, run once per firmware tick from the bridge's loop."""
 
-    def __init__(self, node, port: int, wrist_hz: float):
+    def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1"):
         from arm_bus import ServoPort
         from sil_pick import PickCameras
         import arm_objects
         self.node, self.core = node, node.core
         c = self.core
         self.objects = arm_objects
-        self.port = ServoPort(c.bus_sim, port, log=node.get_logger().info)
+        self.port = ServoPort(c.bus_sim, port, log=node.get_logger().info,
+                              bind=bind)
         self.cams = PickCameras(c.m, c.d, c.p, seed=c.cfg.seed)
         self.wrist_dt = 1.0 / wrist_hz if wrist_hz > 0 else math.inf
         self.t_wrist = 0.0
         self.t_obj = 0.0
         self.pending = set()
-        self.p_depth = node.create_publisher(Image, "/stereo/depth", 2)
-        self.p_dinfo = node.create_publisher(CameraInfo, "/stereo/camera_info", LATCHED)
+        # design.md 4.11: the D435 streams (realsense2_camera's topics and frames); the stereo pair renders on request
+        self.d435 = self.cams.d435
+        self.depth_dt = 1.0 / d435_hz if self.d435 and d435_hz > 0 else math.inf
+        self.t_depth = 0.0
+        self.dframe = "d435_depth_optical_frame" if self.d435 else "cam_left_optical"
+        dtopic = "/d435/depth" if self.d435 else "/stereo"
+        self.p_depth = node.create_publisher(Image, f"{dtopic}/image_rect_raw" if self.d435 else f"{dtopic}/depth", 2)
+        self.p_dinfo = node.create_publisher(CameraInfo, f"{dtopic}/camera_info", LATCHED)
+        self.p_cloud = node.create_publisher(PointCloud2, "/d435/depth/color/points", 2) if self.d435 else None
         self.p_wrist = node.create_publisher(Image, "/arm_cam/image_raw", 2)
         self.p_winfo = node.create_publisher(CameraInfo, "/arm_cam/camera_info", LATCHED)
         self.p_obj = node.create_publisher(String, "/sim/objects", 5)
         node.create_subscription(String, "/arm/camera_request", lambda m: self.pending.add(m.data), 10)
-        self.dinfo = self._info(self.cams.Kd, self.cams.DEPTH_WH, "cam_left_optical")
+        self.dinfo = self._info(self.cams.Kd, self.cams.DEPTH_WH, self.dframe)
         self.winfo = self._info(self.cams.Kw, self.cams.WRIST_WH, "arm_wrist_cam_optical")
         self.p_dinfo.publish(self.dinfo)
         self.p_winfo.publish(self.winfo)
-        node.get_logger().info(f"arm robot: servo bus on tcp:127.0.0.1:{port}, {len(c.p.floor_objects)} things on "
-                               f"the floor; cameras rendered on request")
+        node.get_logger().info(f"arm robot: servo bus on tcp:{self.port.bind}:{port},{len(c.p.floor_objects)} things on "
+                               f"the floor; " + (f"the D435's depth at {d435_hz:g} Hz and on request" if self.d435
+                                                 else "cameras rendered on request"))
 
     @staticmethod
     def _info(K, wh, frame) -> CameraInfo:
@@ -724,11 +753,30 @@ class ArmSide:
         m.data = arr.tobytes()
         return m
 
+    @staticmethod
+    def _cloud(xyz: np.ndarray, frame: str, t: float) -> PointCloud2:
+        m = PointCloud2()
+        m.header.stamp, m.header.frame_id = stamp(t), frame
+        m.height, m.width = 1, len(xyz)
+        m.fields = [PointField(name=n, offset=4 * k, datatype=PointField.FLOAT32, count=1) for k, n in enumerate("xyz")]
+        m.is_bigendian, m.point_step, m.row_step, m.is_dense = False, 12, 12 * len(xyz), True
+        m.data = np.ascontiguousarray(xyz, np.float32).tobytes()
+        return m
+
     def step(self, t: float):
         self.port.exchange()
-        if "depth" in self.pending:                      # each frame with its camera_info, as camera drivers send them
+        if "depth" in self.pending or t - self.t_depth >= self.depth_dt:
+            # each frame with its camera_info, as camera drivers send them
             self.pending.discard("depth")
-            self.p_depth.publish(self._image(np.ascontiguousarray(self.cams.depth()), "32FC1", "cam_left_optical", t))
+            self.t_depth = t
+            z = self.cams.depth()
+            if self.d435:
+                from omni_arm.floor_vision import cloud_points
+                mm = np.where(np.isfinite(z), np.round(z * 1000.0), 0).astype(np.uint16)
+                self.p_depth.publish(self._image(mm, "16UC1", self.dframe, t))
+                self.p_cloud.publish(self._cloud(cloud_points(z, self.cams.Kd, 4), self.dframe, t))
+            else:
+                self.p_depth.publish(self._image(np.ascontiguousarray(z), "32FC1", self.dframe, t))
             self.p_dinfo.publish(self.dinfo)
         if "wrist" in self.pending or t - self.t_wrist >= self.wrist_dt:
             self.pending.discard("wrist")

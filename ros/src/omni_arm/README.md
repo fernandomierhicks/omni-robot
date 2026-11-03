@@ -12,13 +12,31 @@ The arm robot is the v7 base with an SO-101 on a low nose bracket where the catc
 | `floor_vision.py` | Floor objects from the stereo depth: floor plane plus rug levels, a top-down grid, the ring of floor round each thing, `FloorMap` in odom |
 | `wrist_vision.py` | The last look before a grasp: the gripper's own pixels masked, the object segmented by colour against the floor around it, back onto the mid-height plane |
 | `pick.py` | `TidyTask`: look, approach, close look, hover, wrist look, descend, close, lift, drop; retries after a fresh look |
-| `arm_node.py` | The ROS node (topics in its docstring) |
+| `arm_node.py` | The ROS node, all in one Python process (`arm_impl:=py`; topics in its docstring) |
+| `arm_brain.py` | The same node's planning and tidy for `arm_impl:=cpp`: it sends whole motions to `omni_cpp`'s `arm_driver` and sleeps between requests |
+
+**Two ways to run it (`arm_impl:=py|cpp` on the arm step; `py` is the default until the C++ pair has run on the robot).**
+`py` is `arm_node`: one process reads the servos, publishes the joints and TF, plans and runs the tidy; its rclpy executor
+cost about 0.5-0.67 of a Pi 4 core holding still. `cpp` splits it (design.md 4.10):
+
+| | `arm_driver` (omni_cpp, C++) | `arm_brain` (this package, node name `arm_node`) |
+| --- | --- | --- |
+| Does | Owns the servo bus: SYNC_READ / SYNC_WRITE at 50 Hz, calibration, torque, `/arm/joint_states`, `/tf`, `/arm/out`, plays motions | `/arm/request`, planning (`pose`, `jog`, `stop`), the `FollowJointTrajectory` action, the tidy task |
+| Topics | In `/arm/motion` (`omni_interfaces/ArmMotion`: MOVE waypoints with times, HOLD, RELAX). Out `/arm/hw` (`ArmHardware`, 5 Hz: connected, joints, loads, temperatures, volts, goal, moving) | Out `/arm/motion`, `/arm/state` (JSON, the task and who drives; the console merges it with `/arm/hw`), `/pick/cmd_vel` |
+| Awake | Every cycle | On a request; while tidying, once per joint-state message. The tidy's odom, depth, wrist and joint-state subscriptions exist only then |
+
+The brain is the only writer of `/arm/motion`. A motion goes out whole and the driver plays it (quintic segments, or straight
+lines for a trajectory goal); the first waypoint is replaced by the driver's own goal so a motion that starts while another
+plays has no jump. A MOVE switches the torque on. A brain that dies mid-move leaves the arm finishing it and holding. Same
+parameters as before: the driver takes `port`, `calibration`, `rate`, `tf_hz`, `config`; the brain `odom_topic`, `config`, `depth_topic`.
+Its cores are `omni_cpp`'s `feetech`, `arm_kin` (forward kinematics, `tool_out`) and `arm_motion`, checked against `feetech.py`,
+`kinematics.py` and `motion.py` by `ros/src/omni_cpp/test` (`test_cores.py`); IK, collision checks and the task stay in Python.
 
 **On the real arm (VERIFY each):**
 
 1. Set the servo ids 1–6 (shoulder_pan … gripper) and calibrate them with LeRobot's tool (`lerobot-calibrate`, SO-101 follower). Pass its JSON as `calibration:=<file>`.
 2. Check each joint's direction and zero against the sim's convention, with the arm at the official zero pose (upper arm up, forearm and gripper forward). A joint that reads the wrong way gets `drive_mode` 1 in that file.
-3. Start with `rate` 50 and the gripper at 50% torque (`driver.GRIP_TORQUE`). Watch the servo temperatures in `/arm/state`.
+3. Start with `rate` 50 and the gripper at 50% torque (`driver.GRIP_TORQUE`, the C++ driver's `GRIP_TORQUE`). Watch the servo temperatures in `/arm/state` (`py`) or `/arm/hw` (`cpp`).
 4. The e-stop cuts the arm's 12 V rail and the arm drops (no brakes). Decide on a brake-by-shorting circuit, or a stow before the e-stop (open item in design.md 11).
 5. The wrist camera is a 32 × 32 mm UVC module on a printed bracket beside the fixed jaw (`arm_so101.WRIST_CAM`). Measure its pose and lens, then update the sim and re-export.
 

@@ -1,0 +1,188 @@
+﻿=== T
+T. Mass, CG height, worst tip-over (quasi-static), slip-free acceleration by body direction 0/30/60/90/120/150/180 (m/s^2), and the table it gives (85% of min(slip, tip), <= 4.5)
+  X4 + pods                      8.19 kg  CG 12.5 cm  tip worst 6.9  slip 4.17 4.06 3.79 3.84 3.79 3.02 3.08  -> table 3.55 3.45 3.22 3.27 3.22 2.57 2.62
+  X4 rigid                       7.83 kg  CG 12.7 cm  tip worst 6.7  slip 7.95 4.28 4.17 5.38 3.84 4.06 4.94  -> table 4.50 3.64 3.55 4.50 3.27 3.45 4.20
+  kiwi rigid                     6.99 kg  CG 13.5 cm  tip worst 3.9  slip 3.41 4.01 7.95 2.97 1.93 1.98 4.50  -> table 2.90 3.41 4.50 2.52 1.64 1.69 3.33
+  kiwi + pods                    7.26 kg  CG 13.2 cm  tip worst 4.1  slip 3.41 3.90 3.79 2.48 1.55 1.00 2.48  -> table 2.90 3.31 3.22 2.11 1.31 0.85 2.11
+  X4 rigid, a wheel 1 mm low     7.83 kg  CG 12.7 cm  tip worst 6.7  slip 3.30 2.04 2.04 4.12 4.01 4.72 3.57  -> table 2.80 1.73 1.73 3.50 3.41 4.01 3.03
+  X4 rocker                      7.89 kg  CG 12.7 cm  tip worst 6.7  slip 7.95 3.57 3.30 3.68 3.73 4.88 5.32  -> table 4.50 3.03 2.80 3.13 3.17 4.15 4.50
+  X4 rocker, a wheel 1 mm low    7.89 kg  CG 12.7 cm  tip worst 6.7  slip 7.95 3.57 3.35 3.90 3.90 4.88 5.43  -> table 4.50 3.03 2.85 3.31 3.31 4.15 4.50
+=== B
+216 games in 313 s
+B. 6-7 m catch game (firmware adult, expected cameras, the drawn robot's masses): caught of the throws (+/- 1 standard error), not in place / bounced out, peak tilt
+  X4 + pods                    flat                        90.7% +/- 2.0 of 216 (not in place 18, bounced 2, flipped 0), peak tilt 4 deg
+  X4 + pods                    home                        89.8% +/- 2.1 of 216 (not in place 19, bounced 3, flipped 0), peak tilt 9 deg
+  X4 + pods                    home, 12 mm rug at 45 deg   81.0% +/- 2.7 of 216 (not in place 34, bounced 7, flipped 0), peak tilt 11 deg
+  X4 rigid                     flat                        93.1% +/- 1.7 of 216 (not in place 14, bounced 1, flipped 0), peak tilt 1 deg
+  X4 rigid                     home                        88.4% +/- 2.2 of 216 (not in place 19, bounced 6, flipped 0), peak tilt 16 deg
+  X4 rigid                     home, 12 mm rug at 45 deg   65.3% +/- 3.2 of 216 (not in place 70, bounced 5, flipped 0), peak tilt 19 deg
+  kiwi rigid                   flat                        82.9% +/- 2.6 of 216 (not in place 37, bounced 0, flipped 0), peak tilt 2 deg
+  kiwi rigid                   home                        69.9% +/- 3.1 of 216 (not in place 54, bounced 11, flipped 0), peak tilt 30 deg
+  kiwi rigid                   home, 12 mm rug at 45 deg   64.8% +/- 3.2 of 216 (not in place 71, bounced 5, flipped 0), peak tilt 29 deg
+  X4 rigid, a wheel 1 mm low   flat                        87.0% +/- 2.3 of 216 (not in place 26, bounced 2, flipped 0), peak tilt 1 deg
+  X4 rigid, a wheel 1 mm low   home                        88.0% +/- 2.2 of 216 (not in place 24, bounced 2, flipped 0), peak tilt 18 deg
+  kiwi + pods                  flat                        82.4% +/- 2.6 of 216 (not in place 38, bounced 0, flipped 0), peak tilt 6 deg
+  kiwi + pods                  home                        79.6% +/- 2.7 of 216 (not in place 42, bounced 2, flipped 0), peak tilt 26 deg
+  kiwi + pods                  home, 12 mm rug at 45 deg   68.5% +/- 3.2 of 216 (not in place 63, bounced 5, flipped 0), peak tilt 27 deg
+  X4 rocker                    flat                        92.6% +/- 1.8 of 216 (not in place 15, bounced 1, flipped 0), peak tilt 4 deg
+  X4 rocker                    home                        88.0% +/- 2.2 of 216 (not in place 22, bounced 4, flipped 0), peak tilt 19 deg
+  X4 rocker                    home, 12 mm rug at 45 deg   83.8% +/- 2.5 of 216 (not in place 31, bounced 4, flipped 0), peak tilt 19 deg
+  X4 rocker, a wheel 1 mm low  flat                        92.1% +/- 1.8 of 216 (not in place 16, bounced 1, flipped 0), peak tilt 6 deg
+  X4 rocker, a wheel 1 mm low  home                        90.3% +/- 2.0 of 216 (not in place 20, bounced 1, flipped 0), peak tilt 16 deg
+=== G
+G in 74 s
+G. Goal to goal, firmware adult (2 m/s cap). Flat-floor moves of 1 / 2 / 4 m in 7 body directions: median / worst time to settle, peak speed, peak tilt, longest wheel lift
+  X4 + pods      1 m 1.69 / 1.72 s 1.60 m/s | 2 m 2.22 / 2.30 s 1.96 m/s | 4 m 3.27 / 3.31 s 1.95 m/s | tilt 2.5 deg, lift 16 ms
+  X4 rigid       1 m 1.68 / 1.75 s 1.62 m/s | 2 m 2.21 / 2.28 s 1.97 m/s | 4 m 3.25 / 3.33 s 1.96 m/s | tilt 0.5 deg, lift 15 ms
+  kiwi rigid     1 m 1.80 / 1.96 s 1.38 m/s | 2 m 2.38 / 2.65 s 1.95 m/s | 4 m 3.47 / 3.73 s 1.96 m/s | tilt 0.4 deg, lift 15 ms
+  kiwi + pods    1 m 1.77 / 1.95 s 1.35 m/s | 2 m 2.38 / 2.65 s 1.92 m/s | 4 m 3.43 / 3.71 s 1.97 m/s | tilt 2.6 deg, lift 20 ms
+  X4 rocker      1 m 1.66 / 1.76 s 1.62 m/s | 2 m 2.21 / 2.32 s 2.03 m/s | 4 m 3.25 / 3.33 s 2.01 m/s | tilt 3.9 deg, lift 29 ms
+  House tour (19 stops, 46 m, rugs and thresholds), 2 m/s cap: time, stuck legs, balls lost, peak speed, peak tilt, longest airborne / wheel lift
+  X4 + pods      assist off   43.9 s  stuck 0  lost 0  2.01 m/s  tilt 9.1 deg  air 0 / lift 20 ms
+  X4 + pods      assist on    44.4 s  stuck 0  lost 0  2.00 m/s  tilt 10.7 deg  air 0 / lift 22 ms
+  X4 rigid       assist off   43.7 s  stuck 0  lost 0  2.14 m/s  tilt 17.8 deg  air 0 / lift 164 ms
+  X4 rigid       assist on    41.9 s  stuck 1  lost 0  2.03 m/s  tilt 13.9 deg  air 0 / lift 121 ms
+  kiwi rigid     assist off   47.5 s  stuck 0  lost 0  2.03 m/s  tilt 32.4 deg  air 1 / lift 26 ms
+  kiwi rigid     assist on    47.5 s  stuck 0  lost 0  2.09 m/s  tilt 25.8 deg  air 6 / lift 25 ms
+  kiwi + pods    assist off   47.0 s  stuck 0  lost 0  2.03 m/s  tilt 9.4 deg  air 0 / lift 28 ms
+  kiwi + pods    assist on    47.0 s  stuck 0  lost 0  1.96 m/s  tilt 7.2 deg  air 0 / lift 27 ms
+  X4 rocker      assist off   43.6 s  stuck 0  lost 0  2.00 m/s  tilt 12.9 deg  air 4 / lift 34 ms
+  X4 rocker      assist on    44.1 s  stuck 0  lost 0  2.03 m/s  tilt 12.4 deg  air 0 / lift 30 ms
+=== A
+390 crossings in 88 s
+A. House transitions: crossed of 13 body directions and peak tilt at 0.5 / 1 / 2 m/s (where it stopped); driving forward; longest airborne, belly / hull (deck, bumper) on it, balls lost, flips
+  X4 + pods
+    threshold 6 mm                 13/13  3 deg | 13/13  3 deg | 13/13  3 deg  forward (body 0) tilt 2 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13  5 deg | 13/13  5 deg | 13/13  8 deg  forward (body 0) tilt 8 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                13/13  7 deg | 13/13  8 deg | 13/13 10 deg  forward (body 0) tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 8 mm                  13/13  4 deg | 13/13  4 deg | 13/13  4 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 13/13  5 deg | 13/13  6 deg | 13/13  9 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13  2 deg | 13/13  2 deg | 13/13  3 deg  forward (body 0) tilt 2 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 2 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                11/13  6 deg (2 before the edge) | 12/13  7 deg (1 before the edge) | 12/13 14 deg (1 before the edge)  forward (body 0) tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+  X4 rigid
+    threshold 6 mm                 13/13  2 deg | 13/13  3 deg | 13/13  5 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13  5 deg | 13/13  9 deg | 13/13 17 deg  forward (body 0) tilt 13 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                 8/13  6 deg (3 coming off, 2 before the edge) | 13/13 15 deg | 13/13 25 deg  forward (body 0) tilt 16 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 8 mm                  13/13  3 deg | 13/13  5 deg | 13/13  7 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 10/13  5 deg (2 before the edge, 1 climbing) | 13/13  9 deg | 13/13 18 deg  forward (body 0) tilt 10 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13  3 deg | 13/13  4 deg | 13/13  6 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13  2 deg | 13/13  3 deg | 13/13  3 deg  forward (body 0) tilt 3 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                 7/13  6 deg (6 before the edge) |  9/13 13 deg (4 before the edge) | 11/13 26 deg (2 before the edge)  forward (body 0) tilt 19 deg, air 4 ms, belly 0, hull 0, lost 0, flips 0
+  kiwi rigid
+    threshold 6 mm                 13/13  2 deg | 13/13  4 deg | 13/13  6 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13  7 deg | 13/13 16 deg | 13/13 31 deg  forward (body 0) tilt 9 deg, air 1 ms, belly 0, hull 3, lost 0, flips 0
+    threshold 18 mm                13/13 11 deg | 13/13 28 deg | 13/13 32 deg  forward (body 0) tilt 15 deg, air 2 ms, belly 0, hull 11, lost 0, flips 0
+    rug edge 8 mm                  13/13  8 deg | 13/13 12 deg | 13/13 28 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    rug edge 12 mm                 13/13 13 deg | 13/13 27 deg | 13/13 34 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 8, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13  3 deg | 13/13  6 deg | 13/13 16 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13  3 deg | 13/13  4 deg | 13/13  5 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13  3 deg | 13/13  3 deg | 13/13  8 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13  4 deg | 13/13  5 deg | 13/13 14 deg  forward (body 0) tilt 3 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                13/13 12 deg | 13/13 28 deg | 13/13 35 deg  forward (body 0) tilt 17 deg, air 0 ms, belly 0, hull 10, lost 0, flips 0
+  kiwi + pods
+    threshold 6 mm                 13/13  3 deg | 13/13  3 deg | 13/13  4 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13  5 deg | 13/13  6 deg | 13/13  9 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                13/13  8 deg | 13/13 13 deg | 13/13 19 deg  forward (body 0) tilt 8 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    rug edge 8 mm                  13/13  4 deg | 13/13  5 deg | 13/13  9 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 13/13 10 deg | 13/13 22 deg | 13/13 28 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 2, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13  3 deg | 13/13  4 deg | 13/13  5 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13  3 deg | 13/13  3 deg | 13/13  5 deg  forward (body 0) tilt 2 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13  3 deg | 13/13  4 deg | 13/13  5 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13  3 deg | 13/13  3 deg | 13/13  6 deg  forward (body 0) tilt 2 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                13/13 14 deg | 13/13 25 deg | 13/13 30 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0
+  X4 rocker
+    threshold 6 mm                 13/13  3 deg | 13/13  4 deg | 13/13  5 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13  5 deg | 13/13  9 deg | 13/13 17 deg  forward (body 0) tilt 13 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                13/13  8 deg | 13/13 15 deg | 13/13 30 deg  forward (body 0) tilt 19 deg, air 1 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 8 mm                  13/13  6 deg | 13/13  7 deg | 13/13  9 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 13/13  8 deg | 13/13 10 deg | 13/13 19 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13  4 deg | 13/13  6 deg | 13/13  9 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13  3 deg | 13/13  4 deg | 13/13  5 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13  3 deg | 13/13  5 deg | 13/13  7 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13  5 deg | 13/13  5 deg | 13/13  6 deg  forward (body 0) tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                12/13  8 deg (1 before the edge) | 12/13 15 deg (1 before the edge) | 13/13 31 deg  forward (body 0) tilt 21 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+=== S
+468 crossings in 145 s
+S. Square steps (up onto a 0.8 m platform, then down) and 76 mm triangular bumps: crossed of 13 body directions and peak tilt at 0.5 / 1 / 2 m/s (where it stopped); driving forward; longest airborne, belly / hull (deck, bumper) on it, balls lost, flips
+  X4 + pods
+    step 10 mm                     13/13  5 deg | 13/13  4 deg | 13/13  6 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                     12/13  6 deg (1 before the edge) | 12/13  8 deg (1 before the edge) | 13/13 11 deg  forward (body 0) tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 20 mm                     11/13  7 deg (2 before the edge) | 11/13 10 deg (2 before the edge) | 11/13 15 deg (2 before the edge)  forward (body 0) tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 25 mm                      9/13  9 deg (4 before the edge) |  9/13 14 deg (1 on it, 3 before the edge) | 10/13 15 deg (3 before the edge)  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    step 30 mm                      7/13 11 deg (6 before the edge) | 10/13 20 deg (3 before the edge) | 10/13 25 deg (1 on it, 2 before the edge)  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0
+    step 35 mm                      7/13 13 deg (6 before the edge) |  7/13 25 deg (4 before the edge, 2 on it) | 11/13 37 deg (2 before the edge)  forward (body 0) tilt 13 deg, air 0 ms, belly 0, hull 11, lost 0, flips 0
+    step 40 mm                      7/13 15 deg (5 before the edge, 1 on it) |  9/13 29 deg (4 before the edge) | 11/13 35 deg (2 before the edge)  forward (body 0) tilt 15 deg, air 0 ms, belly 0, hull 28, lost 0, flips 0
+    bump 13 mm                     13/13  5 deg | 13/13  5 deg | 13/13  6 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13  7 deg | 13/13  8 deg | 13/13 12 deg  forward (body 0) tilt 8 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                      7/13  9 deg (6 before the edge) | 13/13 11 deg | 13/13 14 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 32 mm                      7/13 12 deg (6 before the edge) | 11/13 17 deg (2 before the edge) | 12/13 20 deg (1 climbing)  forward (body 0) tilt 14 deg, air 0 ms, belly 10, hull 8, lost 0, flips 0
+    bump 38 mm                      4/13 13 deg (3 climbing, 6 before the edge) |  7/13 23 deg (6 before the edge) | 11/13 29 deg (1 before the edge, 1 climbing)  forward (body 0) tilt 18 deg, air 48 ms, belly 12, hull 8, lost 0, flips 0
+  X4 rigid
+    step 10 mm                     12/13  4 deg (1 before the edge) | 13/13  5 deg | 13/13  9 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                      7/13  6 deg (4 before the edge, 2 on it) | 11/13  9 deg (2 before the edge) | 11/13 20 deg (2 before the edge)  forward (body 0) tilt 12 deg, air 5 ms, belly 0, hull 0, lost 0, flips 0
+    step 20 mm                      7/13  7 deg (6 before the edge) |  9/13 15 deg (4 before the edge) | 10/13 26 deg (3 before the edge)  forward (body 0) tilt 14 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 25 mm                      8/13 10 deg (4 before the edge, 1 coming off) |  8/13 16 deg (4 before the edge, 1 climbing) |  9/13 24 deg (3 before the edge, 1 coming off)  forward (body 0) tilt 10 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 30 mm                      8/13 11 deg (5 before the edge) |  8/13 12 deg (5 before the edge) |  7/13 18 deg (4 before the edge, 1 on it, 1 coming off)  forward (body 0) tilt 13 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 35 mm                      8/13 13 deg (5 before the edge) |  8/13 29 deg (5 before the edge) |  8/13 26 deg (3 before the edge, 2 on it)  forward (body 0) tilt 16 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    step 40 mm                      8/13 15 deg (5 before the edge) |  8/13 31 deg (4 before the edge, 1 climbing) |  8/13 39 deg (1 on it, 4 before the edge)  forward (body 0) tilt 16 deg, air 0 ms, belly 0, hull 5, lost 0, flips 0
+    bump 13 mm                     13/13  5 deg | 13/13  6 deg | 13/13 15 deg  forward (body 0) tilt 12 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                      8/13  6 deg (4 before the edge, 1 climbing) | 13/13 11 deg | 13/13 24 deg  forward (body 0) tilt 19 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                      6/13  7 deg (1 climbing, 6 before the edge) | 13/13 14 deg | 13/13 30 deg  forward (body 0) tilt 22 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 32 mm                      5/13  9 deg (1 climbing, 6 before the edge, 1 on it) |  7/13 16 deg (5 before the edge, 1 climbing) | 13/13 34 deg  forward (body 0) tilt 20 deg, air 0 ms, belly 0, hull 3, lost 0, flips 0
+    bump 38 mm                      4/13 11 deg (3 climbing, 6 before the edge) |  8/13 16 deg (4 before the edge, 1 climbing) | 12/13 27 deg (1 before the edge)  forward (body 0) tilt 19 deg, air 8 ms, belly 9, hull 10, lost 0, flips 0
+  kiwi rigid
+    step 10 mm                     13/13 12 deg | 13/13 20 deg | 13/13 28 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 2, lost 0, flips 0
+    step 15 mm                     13/13 13 deg | 13/13 26 deg | 13/13 33 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 6, lost 0, flips 0
+    step 20 mm                     13/13 13 deg | 13/13 30 deg | 13/13 34 deg  forward (body 0) tilt 10 deg, air 0 ms, belly 0, hull 8, lost 0, flips 0
+    step 25 mm                     11/13 16 deg (1 climbing, 1 before the edge) | 12/13 34 deg (1 before the edge) | 13/13 31 deg  forward (body 0) tilt 15 deg, air 2 ms, belly 0, hull 6, lost 0, flips 0
+    step 30 mm                     10/13 20 deg (1 climbing, 2 before the edge) | 12/13 30 deg (1 before the edge) | 12/13 34 deg (1 before the edge)  forward (body 0) tilt 14 deg, air 0 ms, belly 0, hull 10, lost 0, flips 0
+    step 35 mm                      9/13 22 deg (2 climbing, 2 before the edge) | 12/13 27 deg (1 before the edge) | 11/13 45 deg (1 on it, 1 flipped)  forward (body 0) tilt 13 deg, air 2 ms, belly 1, hull 10, lost 0, flips 1
+    step 40 mm                      8/13 24 deg (3 climbing, 2 before the edge) | 10/13 45 deg (1 climbing, 1 flipped, 1 before the edge) | 12/13 36 deg (1 before the edge)  forward (body 0) tilt 25 deg, air 2 ms, belly 1, hull 18, lost 0, flips 1
+    bump 13 mm                     13/13  4 deg | 13/13  9 deg | 13/13 30 deg  forward (body 0) tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13  9 deg | 13/13 19 deg | 13/13 32 deg  forward (body 0) tilt 14 deg, air 0 ms, belly 0, hull 3, lost 0, flips 0
+    bump 25 mm                     13/13 10 deg | 13/13 26 deg | 13/13 39 deg  forward (body 0) tilt 17 deg, air 0 ms, belly 0, hull 12, lost 0, flips 0
+    bump 32 mm                     13/13 12 deg | 13/13 32 deg | 13/13 37 deg  forward (body 0) tilt 11 deg, air 2 ms, belly 0, hull 21, lost 0, flips 0
+    bump 38 mm                      9/13 15 deg (1 before the edge, 3 climbing) | 13/13 33 deg | 13/13 38 deg  forward (body 0) tilt 12 deg, air 419 ms, belly 23, hull 25, lost 0, flips 0
+  kiwi + pods
+    step 10 mm                     13/13  6 deg | 13/13  8 deg | 13/13 18 deg  forward (body 0) tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                     13/13 13 deg | 13/13 24 deg | 13/13 27 deg  forward (body 0) tilt 6 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0
+    step 20 mm                     12/13 13 deg (1 on it) | 13/13 24 deg | 13/13 32 deg  forward (body 0) tilt 8 deg, air 0 ms, belly 0, hull 6, lost 0, flips 0
+    step 25 mm                     10/13 15 deg (1 climbing, 2 before the edge) | 13/13 25 deg | 13/13 34 deg  forward (body 0) tilt 10 deg, air 0 ms, belly 0, hull 9, lost 0, flips 0
+    step 30 mm                     10/13 17 deg (1 climbing, 2 before the edge) | 13/13 25 deg | 12/13 35 deg (1 coming off)  forward (body 0) tilt 21 deg, air 2 ms, belly 0, hull 16, lost 0, flips 0
+    step 35 mm                      8/13 22 deg (3 climbing, 2 before the edge) | 12/13 26 deg (1 before the edge) | 11/13 36 deg (2 before the edge)  forward (body 0) tilt 14 deg, air 2 ms, belly 1, hull 22, lost 0, flips 0
+    step 40 mm                      7/13 17 deg (4 climbing, 2 before the edge) | 12/13 25 deg (1 before the edge) | 10/13 33 deg (3 before the edge)  forward (body 0) tilt 14 deg, air 0 ms, belly 2, hull 32, lost 0, flips 0
+    bump 13 mm                     13/13  5 deg | 13/13  5 deg | 13/13  9 deg  forward (body 0) tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13  9 deg | 13/13  9 deg | 13/13 13 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 25 mm                     13/13 10 deg | 13/13 14 deg | 13/13 27 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 5, lost 0, flips 0
+    bump 32 mm                     13/13 15 deg | 13/13 24 deg | 13/13 31 deg  forward (body 0) tilt 12 deg, air 0 ms, belly 15, hull 23, lost 0, flips 0
+    bump 38 mm                     11/13 22 deg (1 before the edge, 1 climbing) | 13/13 30 deg | 13/13 34 deg  forward (body 0) tilt 13 deg, air 140 ms, belly 19, hull 29, lost 0, flips 0
+  X4 rocker
+    step 10 mm                     13/13  6 deg | 13/13  8 deg | 13/13 13 deg  forward (body 0) tilt 7 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    step 15 mm                     12/13  9 deg (1 before the edge) | 12/13 12 deg (1 before the edge) | 12/13 24 deg (1 before the edge)  forward (body 0) tilt 14 deg, air 5 ms, belly 0, hull 0, lost 0, flips 0
+    step 20 mm                     11/13  9 deg (2 before the edge) | 11/13 16 deg (2 before the edge) | 11/13 27 deg (2 before the edge)  forward (body 0) tilt 14 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    step 25 mm                     10/13 11 deg (3 before the edge) | 10/13 16 deg (3 before the edge) | 12/13 21 deg (1 on it)  forward (body 0) tilt 9 deg, air 1 ms, belly 0, hull 1, lost 0, flips 0
+    step 30 mm                      9/13 12 deg (4 before the edge) |  9/13 18 deg (4 before the edge) | 10/13 37 deg (2 before the edge, 1 on it)  forward (body 0) tilt 14 deg, air 2 ms, belly 0, hull 5, lost 0, flips 0
+    step 35 mm                      8/13 14 deg (5 before the edge) |  7/13 29 deg (2 on it, 4 before the edge) | 10/13 37 deg (3 before the edge)  forward (body 0) tilt 15 deg, air 0 ms, belly 0, hull 8, lost 0, flips 0
+    step 40 mm                      7/13 16 deg (6 before the edge) |  7/13 33 deg (5 before the edge, 1 climbing) | 10/13 38 deg (2 before the edge, 1 on it)  forward (body 0) tilt 14 deg, air 0 ms, belly 0, hull 12, lost 0, flips 0
+    bump 13 mm                     13/13  5 deg | 13/13  6 deg | 13/13 13 deg  forward (body 0) tilt 11 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bump 19 mm                     13/13  7 deg | 13/13 10 deg | 13/13 22 deg  forward (body 0) tilt 19 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 25 mm                      9/13 10 deg (4 before the edge) | 13/13 18 deg | 13/13 30 deg  forward (body 0) tilt 23 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    bump 32 mm                      7/13 11 deg (6 before the edge) | 12/13 22 deg (1 before the edge) | 12/13 34 deg (1 climbing)  forward (body 0) tilt 21 deg, air 0 ms, belly 0, hull 10, lost 0, flips 0
+    bump 38 mm                      5/13 11 deg (2 climbing, 6 before the edge) |  9/13 21 deg (4 before the edge) | 12/13 32 deg (1 climbing)  forward (body 0) tilt 19 deg, air 2 ms, belly 11, hull 12, lost 0, flips 0
+  Tallest square step (up and down) crossed at every direction / at some direction (mm), at 0.5 / 1 / 2 m/s:
+    X4 + pods      10 / 40 | 10 / 40 | 15 / 40
+    X4 rigid       0 / 40 | 10 / 40 | 10 / 40
+    kiwi rigid     20 / 40 | 20 / 40 | 25 / 40
+    kiwi + pods    15 / 40 | 30 / 40 | 25 / 40
+    X4 rocker      10 / 40 | 10 / 40 | 10 / 40
+  Tallest 76 mm triangular bump crossed at every direction / at some direction (mm), at 0.5 / 1 / 2 m/s:
+    X4 + pods      19 / 38 | 25 / 38 | 25 / 38
+    X4 rigid       13 / 38 | 25 / 38 | 32 / 38
+    kiwi rigid     32 / 38 | 38 / 38 | 38 / 38
+    kiwi + pods    32 / 38 | 38 / 38 | 38 / 38
+    X4 rocker      19 / 38 | 25 / 38 | 25 / 38

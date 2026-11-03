@@ -1,0 +1,56 @@
+{
+  "part": "wheel_hub_C",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Inner Joint Pad Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Joint Hole Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Joint Counterbore Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Axle Block Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Axle Hole Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Head Tunnel Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Nut Pocket Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Inner Nut Tunnel Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "row_distance": "\"D2@Control Measures-Shared Layout\"",
+    "roller_axis_radius": "\"D4@Control Measures-Shared Layout\"",
+    "wheel_radius": "\"D6@Control Measures-Shared Layout\"",
+    "roller_half_length": "\"D10@Control Measures-Shared Layout\"",
+    "end_cone_length": "\"D12@Control Measures-Shared Layout\"",
+    "joint_radius": "\"D20@Control Measures-Shared Layout\"",
+    "outer_spoke_phase": "\"D2@Angle outer spoke phase-Shared Layout\"",
+    "inner_spoke_phase": "\"D2@Angle inner spoke phase-Shared Layout\"",
+    "inner_roller_phase": "\"D2@Angle inner roller phase-Shared Layout\"",
+    "roller_count": "(\"D108@Control Measures-Shared Layout\" / 1mm)",
+    "cartridge_boss_radius": "\"D24@Control Measures-Shared Layout\"",
+    "flange_pcd": "\"D26@Control Measures-Shared Layout\" * 2",
+    "mount_first_angle": "\"D2@Angle cartridge phase-Shared Layout\"",
+    "cartridge_count": "(\"D112@Control Measures-Shared Layout\" / 1mm)",
+    "flange_screw_count": "(\"D114@Control Measures-Shared Layout\" / 1mm)",
+    "bearing_radius": "\"D78@Control Measures-Shared Layout\" * 0.5"
+  }
+}

@@ -1,0 +1,6 @@
+{
+ "REFERENCE_IR_left": "REF_D435_FOV_IR_left-1",
+ "REFERENCE_IR_right": "REF_D435_FOV_IR_right-1",
+ "REFERENCE_RGB": "REF_D435_FOV_RGB-1",
+ "REFERENCE_IR_projector": "REF_D435_FOV_IR_projector-1"
+}

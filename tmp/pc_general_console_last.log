@@ -1,0 +1,6 @@
+building ROS packages ...
+[supervisor 08:40:35] operator console: http://FernandoDesktop:8080 (page from /home/fernando/omni_ws/install/omni_console/share/omni_console/web); steps: sim
+[supervisor 08:40:35] started robot (pid 4203): bash /mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh robot web:=false map:=house kid:=false person:=true clutter:=off thrower:=true terrain:=false viewer:=false foxglove:=false fast:=true firmware:=true
+[supervisor 08:40:35] Started 'Robot (all modes)'
+[supervisor 08:46:33] robot ended (exit 0)
+[supervisor 08:46:46] shutting down: stopping the running step

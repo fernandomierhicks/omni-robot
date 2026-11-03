@@ -1,0 +1,32 @@
+# The arm robot's RealSense D435 on the real robot (design.md 4.11, proposed): realsense2_camera's parameters, set
+# so it publishes what the sim's bridge publishes with arm_camera:=d435 (omni_sim bridge_node ArmSide):
+#   /d435/depth/image_rect_raw  16UC1 mm, 480 x 270  -> omni_arm's arm_node (config:=d435), the tidy's looks
+#   /d435/depth/camera_info
+#   /d435/depth/color/points    PointCloud2, the depth decimated 4 x -> Nav2's depth layer (stack.DEPTH_LAYER)
+# Launch: ros2 launch realsense2_camera rs_launch.py camera_namespace:="" camera_name:=d435 \
+#           config_file:=$(ros2 pkg prefix omni_bringup)/share/omni_bringup/config/d435.yaml
+# base_link -> d435_link comes from robot_arm_d435.json's frames (simulation/v11 sil/robot_export.py); the driver adds
+# d435_link -> its optical frames. Untested on the robot: VERIFY each against the realsense-ros release installed
+# (parameter names changed between 4.51 and 4.55), the USB 3 link (it linked at 2.1 on the PC, 3.2 on the Pi 4) and
+# the topic names (the pointcloud's is .../depth/color/points even without colour).
+d435:
+  ros__parameters:
+    camera_name: d435
+    depth_module.depth_profile: 480,270,30
+    depth_module.emitter_enabled: 1          # the IR projector: texture for bare floors
+    enable_depth: true
+    enable_color: false                      # on when the console's preview or a learned detector wants it
+    enable_infra1: false
+    enable_infra2: false
+    enable_gyro: false                       # a D435 has none (the D435i has); the BNO085 is the robot's IMU
+    enable_accel: false
+    pointcloud.enable: true
+    pointcloud.stream_filter: 0              # no texture: xyz only
+    # VERIFY: the driver's filters act on the depth frame itself, so this may shrink image_rect_raw to 120 x 68 too
+    # (the sim keeps it 480 x 270 for the tidy). If so: the filter off here and the cloud decimated by a small node
+    # (omni_arm.floor_vision.cloud_points, what the sim uses) or depth_image_proc
+    decimation_filter.enable: true
+    decimation_filter.filter_magnitude: 4
+    align_depth.enable: false
+    publish_tf: true
+    tf_publish_rate: 0.0                     # static

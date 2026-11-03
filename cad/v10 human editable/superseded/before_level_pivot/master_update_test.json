@@ -1,0 +1,69 @@
+{
+  "dimension": "D4@MASTER_Cradle_to_fork",
+  "delta_mm": 1,
+  "before": {
+    "inner_fork_6804": {
+      "0068_cylinder_Sketch": [
+        0.0,
+        6.500000000000001,
+        3
+      ],
+      "0070_cylinder_Sketch": [
+        0.0,
+        6.500000000000001,
+        3
+      ]
+    },
+    "motor_cup": {
+      "0031_cylinder_Sketch": [
+        0.0,
+        6.500000000000001,
+        3
+      ]
+    }
+  },
+  "after": {
+    "inner_fork_6804": {
+      "0068_cylinder_Sketch": [
+        7.128347169804087e-16,
+        7.500000000000007,
+        3
+      ],
+      "0070_cylinder_Sketch": [
+        7.128347169804087e-16,
+        7.500000000000007,
+        3
+      ]
+    },
+    "motor_cup": {
+      "0031_cylinder_Sketch": [
+        7.128347169804087e-16,
+        7.500000000000007,
+        3
+      ]
+    }
+  },
+  "pass": true,
+  "restored": {
+    "inner_fork_6804": {
+      "0068_cylinder_Sketch": [
+        8.352993968951456e-16,
+        6.500000000000005,
+        3
+      ],
+      "0070_cylinder_Sketch": [
+        8.352993968951456e-16,
+        6.500000000000005,
+        3
+      ]
+    },
+    "motor_cup": {
+      "0031_cylinder_Sketch": [
+        8.352993968951456e-16,
+        6.500000000000005,
+        3
+      ]
+    }
+  },
+  "restoration_pass": true
+}

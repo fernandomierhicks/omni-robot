@@ -1,0 +1,298 @@
+{
+  "session": "20261030_160603_bucket3",
+  "clip": "t001",
+  "review": null,
+  "detector": {
+    "hue_deg": [
+      0,
+      47.0
+    ],
+    "min_sat": 0.62,
+    "min_val": 0.2,
+    "min_blob_px": 8,
+    "coarse_stride": 4,
+    "window_px": 25.0,
+    "window_scale": 2.5,
+    "max_candidates": 3,
+    "acquire_candidates": 40,
+    "size_gain": 1.0,
+    "backend": "native"
+  },
+  "ball_metadata": {
+    "mass": 0.073,
+    "radius": 0.08034539414636606,
+    "drag_cd": 0.5,
+    "diameter_m": 0.16069078829273212,
+    "circumference_in": 19.875,
+    "material": "foam",
+    "colour": "orange",
+    "source": "Fernando, Oct 30 2026; drag_cd is the robot config's estimate"
+  },
+  "held_out": false,
+  "sources": {
+    "depth": {
+      "source": "depth",
+      "frames": 179,
+      "candidates": 8145,
+      "ok": false
+    },
+    "ir_stereo": {
+      "source": "ir_stereo",
+      "frames": 179,
+      "candidates": 101,
+      "ok": true,
+      "detections": 15,
+      "detection_rate": 0.25862068965517243,
+      "first_t": 1.158861312,
+      "last_t": 1.7931724800000002,
+      "first_range_m": 4.4190838164318045,
+      "last_range_m": 3.9511111621366015,
+      "rms_m": 0.04990128044941376,
+      "speed_mps": 10.241214181213667,
+      "a_norm": 6.432914696595353,
+      "a_vs_gravity_pct": -34.42492664021047,
+      "drag_arc": false,
+      "up_in_camera": null
+    },
+    "colour": {
+      "source": "colour",
+      "frames": 119,
+      "candidates": 119,
+      "ok": false,
+      "frames_with_a_blob": 119,
+      "reason": "no blob track follows an arc"
+    }
+  },
+  "prediction": {
+    "ir_stereo": {
+      "ok": true,
+      "reference": {
+        "verdict": "out",
+        "in_rim": false,
+        "radial_m": 3.1128107752879735,
+        "margin_m": 2.9705707752879733,
+        "t_cross": 2.1997487798446502,
+        "last_detection": 1.7931724800000002,
+        "extrapolated_s": 0.40657629984465005,
+        "position_cam": [
+          -0.9035252285660633,
+          1.1322981504637872,
+          2.5953479259195493
+        ],
+        "rms_m": 0.28047264650928355
+      },
+      "series": [
+        {
+          "t": 1.459321856,
+          "n": 6,
+          "ttg": 0.7404269238446501,
+          "t_cross": 1.9182734014336116,
+          "radial_m": 2.5959375746073707,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.5233790542773971
+        },
+        {
+          "t": 1.492706816,
+          "n": 7,
+          "ttg": 0.7070419638446501,
+          "t_cross": 1.9391410882676459,
+          "radial_m": 2.6100417614622216,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.5103532610054811
+        },
+        {
+          "t": 1.5260917760000001,
+          "n": 8,
+          "ttg": 0.6736570038446501,
+          "t_cross": 1.97583870141593,
+          "radial_m": 2.762196490787239,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.3558799241378936
+        },
+        {
+          "t": 1.5594767360000001,
+          "n": 9,
+          "ttg": 0.6402720438446501,
+          "t_cross": 2.0073852636379557,
+          "radial_m": 2.8371542270316645,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.27757412463417486
+        },
+        {
+          "t": 1.6262464,
+          "n": 10,
+          "ttg": 0.5735023798446501,
+          "t_cross": 2.0433076172652513,
+          "radial_m": 2.925045585227849,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.18859654949496965
+        },
+        {
+          "t": 1.6596316160000002,
+          "n": 11,
+          "ttg": 0.54011716384465,
+          "t_cross": 2.0700449616204186,
+          "radial_m": 2.9551730152415883,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.1578996913896193
+        },
+        {
+          "t": 1.693016832,
+          "n": 12,
+          "ttg": 0.5067319478446501,
+          "t_cross": 2.10603432359205,
+          "radial_m": 3.007992411713974,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.10482443822039582
+        },
+        {
+          "t": 1.7264020480000002,
+          "n": 13,
+          "ttg": 0.47334673184465004,
+          "t_cross": 2.144403072995427,
+          "radial_m": 3.0287729030528676,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.0841458358182722
+        },
+        {
+          "t": 1.759787264,
+          "n": 14,
+          "ttg": 0.43996151584465015,
+          "t_cross": 2.1724767426216562,
+          "radial_m": 3.0550288214829724,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 0.05796933360748054
+        },
+        {
+          "t": 1.7931724800000002,
+          "n": 15,
+          "ttg": 0.40657629984465005,
+          "t_cross": 2.199748849266761,
+          "radial_m": 3.1128105267502324,
+          "in_rim": false,
+          "verdict": "out",
+          "error_m": 2.727910733669913e-07
+        }
+      ],
+      "first_prediction_ttg": 0.7404269238446501,
+      "always_correct": true,
+      "settled": true,
+      "time_to_correct_ttg": 0.7404269238446501,
+      "time_to_correct_t": 1.459321856,
+      "wrong_predictions": 0,
+      "ambiguous": false
+    }
+  },
+  "analysis_seconds": 3.1829838999547064,
+  "trigger_s": 0.688703744,
+  "health": {
+    "color": {
+      "n": 119,
+      "fps": 59.53378852074252,
+      "dt_median_ms": 16.797439999999998,
+      "dt_max_ms": 16.79872,
+      "lost": 0,
+      "first_s": 0.0,
+      "last_s": 1.982067712,
+      "stamp_to_host_ms_p10_50_90": [
+        17.9573568,
+        18.270533999999998,
+        18.9779804
+      ],
+      "gain_p10_50_90": [
+        128.0,
+        128.0,
+        128.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        50.0,
+        50.0,
+        50.0
+      ]
+    },
+    "depth": {
+      "n": 179,
+      "fps": 89.36468799779144,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 22.253567999999998,
+      "lost": 1,
+      "first_s": -0.009482240000000001,
+      "last_s": 1.982355968,
+      "stamp_to_host_ms_p10_50_90": [
+        10.21738,
+        10.518835,
+        11.101666999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir1": {
+      "n": 179,
+      "fps": 89.36468799779144,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 22.253567999999998,
+      "lost": 1,
+      "first_s": -0.009482240000000001,
+      "last_s": 1.982355968,
+      "stamp_to_host_ms_p10_50_90": [
+        10.21738,
+        10.518835,
+        11.101666999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir2": {
+      "n": 179,
+      "fps": 89.36468799779144,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 22.253567999999998,
+      "lost": 1,
+      "first_s": -0.009482240000000001,
+      "last_s": 1.982355968,
+      "stamp_to_host_ms_p10_50_90": [
+        10.21738,
+        10.518835,
+        11.101666999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    }
+  },
+  "photo": [],
+  "picks": [],
+  "configured_color_exposure_us": 5000
+}

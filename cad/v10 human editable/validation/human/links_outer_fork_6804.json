@@ -1,0 +1,42 @@
+{
+  "part": "outer_fork_6804",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Pivot Through Bore Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Pivot Bearing Seat Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Fork Bar Pilot Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Lower Shock Boss Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Lower Shock Pilot Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Shock Eye Relief Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "pivot_y": "\"D32@Control Measures-Shared Layout\"",
+    "pivot_seat_diameter": "\"D82@Control Measures-Shared Layout\"",
+    "journal_radius": "\"D76@Control Measures-Shared Layout\" * 0.5",
+    "journal_shoulder_radius": "\"D76@Control Measures-Shared Layout\" / 2 + 1.5mm",
+    "pivot_bore": "\"D82@Control Measures-Shared Layout\" - 6mm",
+    "shock_y": "\"D60@Control Measures-Shared Layout\"",
+    "shock_z": "\"D62@Control Measures-Shared Layout\"",
+    "bar_screw_x": "\"D40@Control Measures-Shared Layout\"",
+    "bar_screw_top_z": "\"D42@Control Measures-Shared Layout\" - \"D44@Control Measures-Shared Layout\"",
+    "bar_screw_bottom_z": "\"D42@Control Measures-Shared Layout\" + \"D44@Control Measures-Shared Layout\""
+  }
+}

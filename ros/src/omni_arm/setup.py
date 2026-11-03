@@ -1,3 +1,5 @@
+from glob import glob
+
 from setuptools import setup
 
 package_name = "omni_arm"
@@ -10,6 +12,8 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
+        # the robot config for omni_cpp's arm_driver (arm_impl:=cpp) too
+        ("share/" + package_name + "/config", glob("omni_arm/config/*.json")),
     ],
     install_requires=["setuptools"],
     zip_safe=False,
@@ -18,5 +22,6 @@ setup(
     license="Proprietary",
     entry_points={"console_scripts": [
         "arm_node = omni_arm.arm_node:main",
+        "arm_brain = omni_arm.arm_brain:main",
     ]},
 )

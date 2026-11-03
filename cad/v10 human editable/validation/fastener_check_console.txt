@@ -1,0 +1,7 @@
+Checking 129 native components
+Thread engagement: 63 screws; 0 short
+Access: 63 screws; 0 problems
+{
+  "short": [],
+  "access_problems": []
+}

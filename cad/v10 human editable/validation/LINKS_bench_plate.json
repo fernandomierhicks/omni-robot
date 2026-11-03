@@ -1,0 +1,161 @@
+{
+  "part": "bench_plate",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0012_cylinder",
+      "sketch": "0012_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0015_cylinder",
+      "sketch": "0015_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0018_cylinder",
+      "sketch": "0018_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0021_cylinder",
+      "sketch": "0021_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0024_cylinder",
+      "sketch": "0024_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0027_cylinder",
+      "sketch": "0027_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0030_cylinder",
+      "sketch": "0030_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0033_cylinder",
+      "sketch": "0033_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0036_cylinder",
+      "sketch": "0036_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0039_cylinder",
+      "sketch": "0039_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0042_cylinder",
+      "sketch": "0042_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0045_cylinder",
+      "sketch": "0045_cylinder_Sketch",
+      "pattern": "Guard_feet",
+      "point_index": 5,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0048_cylinder",
+      "sketch": "0048_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0051_cylinder",
+      "sketch": "0051_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0054_cylinder",
+      "sketch": "0054_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0057_cylinder",
+      "sketch": "0057_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0060_cylinder",
+      "sketch": "0060_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0063_cylinder",
+      "sketch": "0063_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0066_cylinder",
+      "sketch": "0066_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0069_cylinder",
+      "sketch": "0069_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 3,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0072_cylinder",
+      "sketch": "0072_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0075_cylinder",
+      "sketch": "0075_cylinder_Sketch",
+      "pattern": "Tower_feet",
+      "point_index": 4,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 0
+}

@@ -1,0 +1,21 @@
+{
+ "Chassis": "V10H_pod_chassis-1",
+ "Fork": "V10H_pod_fork-1",
+ "Wheel": "V10H_pod_wheel-1",
+ "Motor": "V10H_dummy_motor-1",
+ "Inner_shock": "V10H_pod_shock-1",
+ "Outer_shock": "V10H_pod_shock-2",
+ "bolt_M2p5_10_PAN_1": "V10H_bolt_M2p5_10_PAN-1",
+ "bolt_M2p5_10_PAN_2": "V10H_bolt_M2p5_10_PAN-2",
+ "bolt_M2p5_10_PAN_3": "V10H_bolt_M2p5_10_PAN-3",
+ "bolt_M2p5_10_PAN_4": "V10H_bolt_M2p5_10_PAN-4",
+ "bolt_M2p5_10_PAN_5": "V10H_bolt_M2p5_10_PAN-5",
+ "bolt_M2p5_10_PAN_6": "V10H_bolt_M2p5_10_PAN-6",
+ "bolt_M2p5_10_PAN_7": "V10H_bolt_M2p5_10_PAN-7",
+ "washer_M3_1": "V10H_washer_M3-1",
+ "bolt_M3_14_PAN_1": "V10H_bolt_M3_14_PAN-1",
+ "bolt_M3_16_PAN_1": "V10H_bolt_M3_16_PAN-1",
+ "bolt_M3_20_PAN_1": "V10H_bolt_M3_20_PAN-1",
+ "nut_M3_nyloc_1": "V10H_nut_M3_nyloc-1",
+ "bolt_M3_16_PAN_2": "V10H_bolt_M3_16_PAN-2"
+}

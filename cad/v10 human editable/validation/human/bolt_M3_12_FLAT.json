@@ -1,0 +1,75 @@
+{
+  "sketches": [
+    {
+      "name": "Screw Section",
+      "status": 3
+    },
+    {
+      "name": "Hex Drive Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 64.52694863541588,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"nominal_length\"= 12.0mm 'Screw length: under pan head or including flat head",
+    "\"model_shank_radius\"= 1.2mm 'Clearance envelope minor shank radius; thread is not modeled",
+    "\"head_diameter\"= 5.5mm 'Head outside diameter",
+    "\"head_height\"= 1.65mm 'Head axial height",
+    "\"drive_across_flats\"= 2mm 'Hex drive across flats",
+    "\"tip_chamfer\"= 0.3mm 'Shank tip chamfer",
+    "\"drive_depth\"= 1.023mm 'Hex socket depth",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Screw Section\"= \"model_shank_radius\"",
+    "\"D2@Screw Section\"= \"head_diameter\" / 2",
+    "\"D3@Screw Section\"= \"nominal_length\"",
+    "\"D4@Screw Section\"= \"head_height\"",
+    "\"D5@Screw Section\"= \"axis_reference_halfspan\"",
+    "\"D6@Screw Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Screw Blank Revolve\"= \"full_turn\"",
+    "\"D1@Shank Tip Chamfer\"= \"tip_chamfer\"",
+    "\"D1@Countersunk Head Chamfer\"= \"head_height\"",
+    "\"D3@Countersunk Head Chamfer\"= \"head_diameter\" / 2 - \"model_shank_radius\"",
+    "\"D1@Hex Drive Sketch\"= \"drive_across_flats\"",
+    "\"D1@Hex Drive Cut\"= \"drive_depth\""
+  ],
+  "design_features": [
+    {
+      "name": "Screw Blank Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Screw Blank Revolve"
+      ]
+    },
+    {
+      "name": "Shank Tip Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Shank Tip Chamfer"
+      ]
+    },
+    {
+      "name": "Countersunk Head Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Countersunk Head Chamfer",
+        "D3@Countersunk Head Chamfer"
+      ]
+    },
+    {
+      "name": "Hex Drive Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Hex Drive Cut"
+      ]
+    }
+  ],
+  "pass": true
+}

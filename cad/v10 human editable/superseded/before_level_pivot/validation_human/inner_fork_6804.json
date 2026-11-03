@@ -1,0 +1,451 @@
+{
+  "sketches": [
+    {
+      "name": "Fork Web Outline",
+      "status": 3
+    },
+    {
+      "name": "Deck Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Fork Leg Sketch",
+      "status": 3
+    },
+    {
+      "name": "Wheel Journal Section",
+      "status": 3
+    },
+    {
+      "name": "Wire Bore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Cradle Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Cradle Counterbore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Through Bore Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pivot Bearing Seat Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Shock Boss Sketch",
+      "status": 3
+    },
+    {
+      "name": "Lower Shock Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Fork Bar Pilot Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 69440.09870401066,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"plate_start\"= 45mm 'Outer face magnitude of fork plate",
+    "\"plate_end\"= 57mm 'Inner face magnitude of fork plate",
+    "\"plate_thickness\"= 12mm 'Fork plate axial thickness",
+    "\"wheel_lobe_radius\"= 30mm 'Wheel-side round web lobe",
+    "\"pivot_y\"= \"D32@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pivot_z\"= \"D34@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pivot_lobe_radius\"= 13.5mm '627 bearing housing outside radius",
+    "\"shock_boss_radius\"= 6.5mm 'Shock eye spacer outside radius",
+    "\"shock_fillet\"= 1mm 'Native spacer reinforcing fillet",
+    "\"pivot_bore\"= \"D82@Control Measures-Shared Layout\" - 6mm 'Driven by the shared master layout",
+    "\"pivot_seat_diameter\"= \"D82@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"pivot_seat_start\"= 44.5mm 'Bearing seat first X face magnitude",
+    "\"bearing_width\"= 7mm '627 bearing width",
+    "\"journal_radius\"= \"D76@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"journal_shoulder_radius\"= \"D76@Control Measures-Shared Layout\" / 2 + 1.5mm 'Driven by the shared master layout",
+    "\"wire_bore\"= 6mm 'Central lead clearance diameter",
+    "\"lead_chamfer\"= 0.5mm 'Native bearing and journal entry lead",
+    "\"bar_screw_y\"= 73mm 'Fork bar seating face Y",
+    "\"bar_thread_depth\"= 9mm 'Printed bar screw engagement hole depth",
+    "\"thread_pilot\"= 2.8mm 'M3 thread-forming hole diameter",
+    "\"thread_entry\"= 0.5mm 'Native pilot entry chamfer",
+    "\"clearance_y\"= 32.5mm 'Deck clearance Y boundary",
+    "\"clearance_z\"= 5.5mm 'Deck clearance Z boundary",
+    "\"clearance_span\"= 150mm 'Clearance cutter overrun beyond plate outline",
+    "\"clearance_depth\"= 40mm 'Clearance cutter axial overrun",
+    "\"root_fillet\"= 2mm 'Native clearance corner reinforcing fillet",
+    "\"leg_y_start\"= 10mm 'Lower leg near wheel",
+    "\"leg_y_end\"= 73mm 'Lower leg fork bar seat",
+    "\"leg_y_knee\"= 64mm 'Lower leg top knee Y",
+    "\"leg_y_slope\"= 59mm 'Lower leg upper slope end Y",
+    "\"leg_y_inner\"= 34mm 'Lower leg inner shoulder Y",
+    "\"leg_y_root\"= 20mm 'Lower leg wheel root Y",
+    "\"leg_bottom\"= 28mm 'Lower leg bottom toward -Z",
+    "\"leg_top\"= 8mm 'Lower leg top at bar toward -Z",
+    "\"leg_shoulder\"= 13mm 'Lower leg inner shoulder toward -Z",
+    "\"leg_root_z\"= 2mm 'Lower leg wheel root toward -Z",
+    "\"D1@Plate Face Plane\"= \"plate_start\"",
+    "\"D1@Fork Web Outline\"= \"wheel_lobe_radius\"",
+    "\"D2@Fork Web Outline\"= \"pivot_z\"",
+    "\"D3@Fork Web Outline\"= \"pivot_y\"",
+    "\"D4@Fork Web Outline\"= \"pivot_lobe_radius\"",
+    "\"D1@Fork Web Extrude\"= \"plate_thickness\"",
+    "\"D1@Deck Clearance Sketch\"= \"clearance_z\"",
+    "\"D2@Deck Clearance Sketch\"= \"clearance_span\"",
+    "\"D3@Deck Clearance Sketch\"= \"clearance_y\"",
+    "\"D4@Deck Clearance Sketch\"= \"clearance_span\"",
+    "\"D1@Deck Clearance Cut\"= \"clearance_depth\"",
+    "\"D1@Deck Clearance Root Fillet\"= \"root_fillet\"",
+    "\"D1@Lower Fork Leg Sketch\"= \"leg_bottom\"",
+    "\"D2@Lower Fork Leg Sketch\"= \"leg_top\"",
+    "\"D3@Lower Fork Leg Sketch\"= \"leg_shoulder\"",
+    "\"D4@Lower Fork Leg Sketch\"= \"leg_root_z\"",
+    "\"D5@Lower Fork Leg Sketch\"= \"leg_y_start\"",
+    "\"D6@Lower Fork Leg Sketch\"= \"leg_y_end\"",
+    "\"D7@Lower Fork Leg Sketch\"= \"leg_y_knee\"",
+    "\"D8@Lower Fork Leg Sketch\"= \"leg_y_slope\"",
+    "\"D9@Lower Fork Leg Sketch\"= \"leg_y_inner\"",
+    "\"D10@Lower Fork Leg Sketch\"= \"leg_y_root\"",
+    "\"D1@Lower Fork Leg\"= \"plate_thickness\"",
+    "\"journal_start\"= 37mm 'Journal outer axial coordinate magnitude",
+    "\"journal_end\"= 44mm 'Journal inner axial coordinate magnitude",
+    "\"journal_shoulder_end\"= 45mm 'Journal shoulder axial coordinate magnitude",
+    "\"shock_boss_face\"= 59.5mm 'Shock spacer free face X magnitude",
+    "\"shock_thread_depth\"= 8.5mm 'Lower shock printed pilot depth",
+    "\"cup_clearance\"= 3.2mm 'Cradle screw clearance diameter",
+    "\"cup_head_diameter\"= 7.2mm 'Cradle screw head counterbore",
+    "\"cup_head_depth\"= 2.9mm 'Cradle screw head recess depth",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"cup_screw_count\"= (\"D110@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"D1@Wheel Journal Section\"= \"journal_start\"",
+    "\"D2@Wheel Journal Section\"= \"journal_end\"",
+    "\"D3@Wheel Journal Section\"= \"journal_shoulder_end\"",
+    "\"D4@Wheel Journal Section\"= \"journal_radius\"",
+    "\"D5@Wheel Journal Section\"= \"journal_shoulder_radius\"",
+    "\"D6@Wheel Journal Section\"= \"axis_reference_halfspan\"",
+    "\"D7@Wheel Journal Section\"= \"axis_reference_halfspan\"",
+    "\"D1@Wheel Journal Revolve\"= \"full_turn\"",
+    "\"D1@Inner Fork Back Plane\"= \"plate_end\"",
+    "\"D1@Wire Bore Sketch\"= \"wire_bore\"",
+    "\"D3@Cradle Clearance Sketch\"= \"cup_clearance\"",
+    "\"D1@Cradle Clearance\"= \"plate_end\" - \"journal_start\"",
+    "\"D3@Cradle Counterbore Sketch\"= \"cup_head_diameter\"",
+    "\"D1@Cradle Counterbore\"= \"cup_head_depth\"",
+    "\"D3@Cradle Mount Pattern\"= \"full_turn\"",
+    "\"D1@Cradle Mount Pattern\"= \"cup_screw_count\"",
+    "\"D1@Journal Lead Chamfer\"= \"lead_chamfer\"",
+    "\"D3@Pivot Through Bore Sketch\"= \"pivot_bore\"",
+    "\"D1@Pivot Through Bore\"= \"plate_thickness\"",
+    "\"D1@Pivot Seat Entry Plane\"= \"pivot_seat_start\"",
+    "\"D3@Pivot Bearing Seat Sketch\"= \"pivot_seat_diameter\"",
+    "\"D1@Pivot Bearing Seat\"= \"bearing_width\"",
+    "\"D1@Pivot Bearing Lead In\"= \"lead_chamfer\"",
+    "\"D1@Shock Boss Root Plane\"= \"plate_end\"",
+    "\"D3@Lower Shock Boss Sketch\"= 2 * \"shock_boss_radius\"",
+    "\"D1@Lower Shock Boss\"= \"shock_boss_face\" - \"plate_end\"",
+    "\"D1@Lower Shock Boss Root Fillet\"= \"shock_fillet\"",
+    "\"D1@Shock Screw Entry Plane\"= \"shock_boss_face\"",
+    "\"D3@Lower Shock Pilot Sketch\"= \"thread_pilot\"",
+    "\"D1@Lower Shock Pilot\"= \"shock_thread_depth\"",
+    "\"D1@Fork Bar Seat Plane\"= \"bar_screw_y\"",
+    "\"D3@Fork Bar Pilot Sketch\"= \"thread_pilot\"",
+    "\"D6@Fork Bar Pilot Sketch\"= \"thread_pilot\"",
+    "\"D1@Fork Bar Thread Pilots\"= \"bar_thread_depth\"",
+    "\"D1@Fork Bar Pilot Entry Chamfers\"= \"thread_entry\""
+  ],
+  "design_features": [
+    {
+      "name": "Fork Web Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Fork Web Extrude"
+      ]
+    },
+    {
+      "name": "Deck Clearance Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Deck Clearance Cut"
+      ]
+    },
+    {
+      "name": "Deck Clearance Root Fillet",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Deck Clearance Root Fillet"
+      ]
+    },
+    {
+      "name": "Lower Fork Leg",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Fork Leg"
+      ]
+    },
+    {
+      "name": "Wheel Journal Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Wheel Journal Revolve"
+      ]
+    },
+    {
+      "name": "Wire Through Bore",
+      "type": "ICE",
+      "dimensions": []
+    },
+    {
+      "name": "Cradle Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Cradle Clearance"
+      ]
+    },
+    {
+      "name": "Cradle Counterbore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Cradle Counterbore"
+      ]
+    },
+    {
+      "name": "Cradle Mount Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Cradle Mount Pattern",
+        "D1@Cradle Mount Pattern"
+      ]
+    },
+    {
+      "name": "Journal Lead Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Journal Lead Chamfer"
+      ]
+    },
+    {
+      "name": "Pivot Through Bore",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Through Bore"
+      ]
+    },
+    {
+      "name": "Pivot Bearing Seat",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pivot Bearing Seat"
+      ]
+    },
+    {
+      "name": "Pivot Bearing Lead In",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Pivot Bearing Lead In"
+      ]
+    },
+    {
+      "name": "Lower Shock Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Shock Boss"
+      ]
+    },
+    {
+      "name": "Lower Shock Boss Root Fillet",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Lower Shock Boss Root Fillet"
+      ]
+    },
+    {
+      "name": "Lower Shock Pilot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Lower Shock Pilot"
+      ]
+    },
+    {
+      "name": "Fork Bar Thread Pilots",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Fork Bar Thread Pilots"
+      ]
+    },
+    {
+      "name": "Fork Bar Pilot Entry Chamfers",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Fork Bar Pilot Entry Chamfers"
+      ]
+    }
+  ],
+  "pass": true
+}

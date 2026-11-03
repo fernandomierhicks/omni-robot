@@ -1,0 +1,46 @@
+﻿1560 crossings in 317 s
+A. House transitions: crossed of 13 body directions at 0.5 / 1 / 2 m/s (where it stopped), peak tilt, longest airborne, belly / hull on it, balls lost, flips
+  X4 + pods
+    threshold 6 mm                 13/13 | 13/13 | 13/13  tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13 | 13/13 | 13/13  tilt 8 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                13/13 | 13/13 | 13/13  tilt 10 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 8 mm                  13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 13/13 | 13/13 | 13/13  tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13 | 13/13 | 13/13  tilt 3 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                11/13 (2 before the edge) | 12/13 (1 before the edge) | 12/13 (1 before the edge)  tilt 14 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+  X4 rigid
+    threshold 6 mm                 13/13 | 13/13 | 13/13  tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13 | 13/13 | 13/13  tilt 17 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                 8/13 (3 coming off, 2 before the edge) | 13/13 | 13/13  tilt 25 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 8 mm                  13/13 | 13/13 | 13/13  tilt 7 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 10/13 (2 before the edge, 1 climbing) | 13/13 | 13/13  tilt 18 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13 | 13/13 | 13/13  tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13 | 13/13 | 13/13  tilt 3 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                 7/13 (6 before the edge) |  9/13 (4 before the edge) | 11/13 (2 before the edge)  tilt 26 deg, air 4 ms, belly 0, hull 0, lost 0, flips 0
+  kiwi rigid
+    threshold 6 mm                 13/13 | 13/13 | 13/13  tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13 | 13/13 | 13/13  tilt 31 deg, air 1 ms, belly 0, hull 3, lost 0, flips 0
+    threshold 18 mm                13/13 | 13/13 | 13/13  tilt 32 deg, air 2 ms, belly 0, hull 11, lost 0, flips 0
+    rug edge 8 mm                  13/13 | 13/13 | 13/13  tilt 28 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    rug edge 12 mm                 13/13 | 13/13 | 13/13  tilt 34 deg, air 0 ms, belly 0, hull 8, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13 | 13/13 | 13/13  tilt 16 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13 | 13/13 | 13/13  tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13 | 13/13 | 13/13  tilt 8 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13 | 13/13 | 13/13  tilt 14 deg, air 2 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                13/13 | 13/13 | 13/13  tilt 35 deg, air 0 ms, belly 0, hull 10, lost 0, flips 0
+  kiwi + pods
+    threshold 6 mm                 13/13 | 13/13 | 13/13  tilt 4 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 12 mm                13/13 | 13/13 | 13/13  tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    threshold 18 mm                13/13 | 13/13 | 13/13  tilt 19 deg, air 0 ms, belly 0, hull 1, lost 0, flips 0
+    rug edge 8 mm                  13/13 | 13/13 | 13/13  tilt 9 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    rug edge 12 mm                 13/13 | 13/13 | 13/13  tilt 28 deg, air 0 ms, belly 0, hull 2, lost 0, flips 0
+    carpet trim 8 mm, 25 mm bevel  13/13 | 13/13 | 13/13  tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    T-molding 5 mm                 13/13 | 13/13 | 13/13  tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    reducer 8 mm                   13/13 | 13/13 | 13/13  tilt 5 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    bath mat 6 mm                  13/13 | 13/13 | 13/13  tilt 6 deg, air 0 ms, belly 0, hull 0, lost 0, flips 0
+    plush rug 16 mm                13/13 | 13/13 | 13/13  tilt 30 deg, air 0 ms, belly 0, hull 4, lost 0, flips 0

@@ -10,7 +10,12 @@ Publishes  /catch/track                omni_interfaces/BallTrack, after every fr
            /catch/ball                 visualization_msgs/Marker: the track and its rim crossing (odom frame)
            /catch/perception           std_msgs/String, JSON: frames, detections, processing time, 1 Hz
 Parameters source, detector ("native": the C++ pixel loops, fast_detector.py; "python"), calib_rot_deg, ball_size_rel; arena_cx, arena_cy, arena_hx, arena_hy (odom frame, as
-           catch_behavior): the play area, where acquisition may start a track (design.md 31)
+           catch_behavior): the play area, where acquisition may start a track (design.md 31); sleep (true): asleep
+           outside CATCH (design.md 4.9)
+Asleep: /robot_mode (latched, from mode_manager) says a mode other than CATCH. The node then drops /mcu/state, the
+camera frames and the 200 Hz flush (they cost ~0.1 i7 core in every mode); /catch/perception keeps its 1 Hz. Waking
+it starts from an empty pose history and no track: the first frames come after /catch/setup, the first throw ~3 s
+later, by when the history holds the robot's last 3 s again. Until a /robot_mode arrives it is awake.
 """
 
 from __future__ import annotations
@@ -62,20 +67,58 @@ class PerceptionNode(Node):
         self.p_track = self.create_publisher(BallTrack, "/catch/track", 20)
         self.p_ball = self.create_publisher(Marker, "/catch/ball", 10)
         self.p_stats = self.create_publisher(String, "/catch/perception", 5)
-        self.create_subscription(McuState, "/mcu/state", self.on_state, 50)
         # the field catch_behavior worked out from /catch/setup (the house's catch): the play area moves with it
         from rclpy.qos import DurabilityPolicy, QoSProfile
-        self.create_subscription(String, "/catch/field", self.on_field,
-                                 QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
-        if self.source == "sparse":
-            for k, side in enumerate(("left", "right")):
-                self.create_subscription(SparseImage, f"/cam/{side}/sparse", lambda m, k=k: self.on_sparse(k, m), 20)
-        else:
-            for k, side in enumerate(("left", "right")):
-                self.create_subscription(Image, f"/cam/{side}/image_raw", lambda m, k=k: self.on_image(k, m), 5)
-        self.create_timer(0.005, self.flush)
+        latched = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        self.create_subscription(String, "/catch/field", self.on_field, latched)
+        self.sleep_outside = P("sleep", True).value
+        self.subs, self.t_flush = [], None
+        self.awake = False
+        self.wake()
+        self.create_subscription(String, "/robot_mode", self.on_mode, latched)
         self.create_timer(1.0, self.report)
         self.get_logger().info(f"perception on {self.source} frames, {len(self.perc.cams)} cameras")
+
+    def on_mode(self, m: String):
+        if (m.data.split() or [""])[0].upper() == "CATCH" or not self.sleep_outside:
+            self.wake()
+        else:
+            self.sleep()
+
+    def wake(self):
+        if self.awake:
+            return
+        self.awake = True
+        self.perc.poses.clear()                       # a history from before the sleep would bridge the gap
+        self.perc.reset()
+        self.pending.clear()
+        self.subs = [self.create_subscription(McuState, "/mcu/state", self.on_state, 50)]
+        if self.source == "sparse":
+            for k, side in enumerate(("left", "right")):
+                self.subs.append(self.create_subscription(SparseImage, f"/cam/{side}/sparse",
+                                                          lambda m, k=k: self.on_sparse(k, m), 20))
+        else:
+            for k, side in enumerate(("left", "right")):
+                self.subs.append(self.create_subscription(Image, f"/cam/{side}/image_raw",
+                                                          lambda m, k=k: self.on_image(k, m), 5))
+        self.t_flush = self.create_timer(0.005, self.flush)
+
+    def sleep(self):
+        if not self.awake:
+            return
+        self.awake = False
+        for s in self.subs:
+            self.destroy_subscription(s)
+        self.subs = []
+        self.destroy_timer(self.t_flush)
+        self.pending.clear()
+        self.perc.reset()
+        if self.was_tracking:                         # tell catch_behavior the track ended
+            self.was_tracking = False
+            m = BallTrack()
+            m.header.frame_id = "odom"
+            m.header.stamp = self.get_clock().now().to_msg()
+            self.p_track.publish(m)
 
     def on_field(self, m: String):
         try:
@@ -103,7 +146,7 @@ class PerceptionNode(Node):
         key = next((s for s in self.pending if abs(s - ns) < 1_000_000), ns)
         slot = self.pending.setdefault(key, [None, None, time.perf_counter()])
         slot[k] = fr
-        if slot[0] is not None and slot[1] is not None:
+        if slot[0] is not None and (slot[1] is not None or len(self.perc.cams) < 2):   # a mono config: at once
             self._process(key)
 
     def flush(self):

@@ -1,0 +1,258 @@
+{
+  "sketches": [
+    {
+      "name": "Rotor Section",
+      "status": 3
+    },
+    {
+      "name": "Output Boss Sketch",
+      "status": 3
+    },
+    {
+      "name": "Output Pilot Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 4943.445266074584,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"flange_radius\"= 18.5mm 'Output flange radius (AK40 drawing: \u00d837)",
+    "\"flange_depth\"= 4.5mm 'Output flange thickness; the first 1 mm protrudes from the stator",
+    "\"shaft_radius\"= \"D84@Control Measures-Shared Layout\" / 2 - 0.05mm 'Driven by the shared master layout",
+    "\"inner_race_shoulder_radius\"= \"D84@Control Measures-Shared Layout\" / 2 + 1mm 'Driven by the shared master layout",
+    "\"inner_race_shoulder_distance\"= 4.7mm 'Bearing front face; rotor shoulder contact plane",
+    "\"bearing_width\"= 5mm '687 bearing width",
+    "\"rotor_end_float\"= 0.3mm 'Axial end float between the shoulder and the washer",
+    "\"center_recess_radius\"= 7.5mm 'Central recess in the output face (AK40 drawing: \u00d815)",
+    "\"center_recess_depth\"= 1.1mm 'Depth of that recess",
+    "\"screw_pilot_radius\"= 1.4mm 'M3 thread-forming pilot radius",
+    "\"screw_pilot_floor_distance\" = 2.3mm 'Pilot floor; leaves 1.2 mm behind the recess floor (three perimeters)",
+    "\"output_boss_diameter\"= 5.5mm 'Reinforced printed output screw bosses",
+    "\"output_boss_length\"= 3mm 'Boss extension behind the output flange",
+    "\"output_pilot_diameter\"= 2.1mm 'M2.5 printed thread-forming pilot",
+    "\"output_screw_count\"= (\"D114@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Rotor Section\"= \"screw_pilot_radius\"",
+    "\"D2@Rotor Section\"= \"shaft_radius\"",
+    "\"D3@Rotor Section\"= \"inner_race_shoulder_radius\"",
+    "\"D4@Rotor Section\"= \"flange_radius\"",
+    "\"D5@Rotor Section\"= \"center_recess_radius\"",
+    "\"D6@Rotor Section\"= \"inner_race_shoulder_distance\" + \"bearing_width\" + \"rotor_end_float\"",
+    "\"D7@Rotor Section\"= \"inner_race_shoulder_distance\"",
+    "\"D8@Rotor Section\"= \"flange_depth\"",
+    "\"D9@Rotor Section\"= \"center_recess_depth\"",
+    "\"D10@Rotor Section\"= \"screw_pilot_floor_distance\"",
+    "\"D11@Rotor Section\"= \"axis_reference_halfspan\"",
+    "\"D12@Rotor Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Rotor Revolve\"= \"full_turn\"",
+    "\"D1@Output Boss Ends\"= \"flange_depth\" + \"output_boss_length\"",
+    "\"D3@Output Boss Sketch\"= \"output_boss_diameter\"",
+    "\"D1@Output Boss\"= \"output_boss_length\"",
+    "\"D3@Output Boss Pattern\"= \"full_turn\"",
+    "\"D1@Output Boss Pattern\"= \"output_screw_count\"",
+    "\"D3@Output Pilot Sketch\"= \"output_pilot_diameter\"",
+    "\"D3@Output Pilot Pattern\"= \"full_turn\"",
+    "\"D1@Output Pilot Pattern\"= \"output_screw_count\""
+  ],
+  "design_features": [
+    {
+      "name": "Rotor Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Rotor Revolve"
+      ]
+    },
+    {
+      "name": "Output Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Output Boss"
+      ]
+    },
+    {
+      "name": "Output Boss Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Output Boss Pattern",
+        "D1@Output Boss Pattern"
+      ]
+    },
+    {
+      "name": "Output Pilot Cut",
+      "type": "ICE",
+      "dimensions": []
+    },
+    {
+      "name": "Output Pilot Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Output Pilot Pattern",
+        "D1@Output Pilot Pattern"
+      ]
+    }
+  ],
+  "pass": true
+}

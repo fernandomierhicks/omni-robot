@@ -1,0 +1,19 @@
+{
+ "000_mast_foot_L": "mast_foot_L-1",
+ "001_mast_foot_R": "mast_foot_R-1",
+ "002_crown": "crown-1",
+ "003_face_housing": "face_housing-1",
+ "004_face_back": "face_back-1",
+ "005_audio_base": "audio_base-1",
+ "006_audio_lid": "audio_lid-1",
+ "007_REC_mast_post": "REC_mast_post-1",
+ "008_REC_mast_post": "REC_mast_post-2",
+ "009_ELRS_receiver": "ELRS_receiver-1",
+ "010_label_ELRS_RX": "label_ELRS_RX-1",
+ "011_5_in_display_800x480": "5_in_display_800x480-1",
+ "012_polycarbonate_window_2_mm": "polycarbonate_window_2_mm-1",
+ "013_USB_mic_array": "USB_mic_array-1",
+ "014_label_MIC_ARRAY": "label_MIC_ARRAY-1",
+ "015_micro_speaker_4_ohm_3_W": "micro_speaker_4_ohm_3_W-1",
+ "016_label_SPEAKER": "label_SPEAKER-1"
+}

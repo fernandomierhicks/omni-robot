@@ -1,0 +1,232 @@
+{
+  "sketches": [
+    {
+      "name": "Sleeve Section",
+      "status": 3
+    },
+    {
+      "name": "Sleeve Key Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 9676.318341697475,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"wheel_radius\"= \"D6@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"roller_axis_radius\"= \"D4@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"tread_thickness\"= \"D8@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"roller_half_length\"= \"D10@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"end_cone_length\"= \"D12@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"keyway_floor_radius\"= \"D18@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_width\"= \"D14@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_length\"= \"D16@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_overlap\"= 0.2mm 'Key overlap into the sleeve for a single printable solid",
+    "\"key_count\"= 3 'Number of equally spaced anti-rotation keys",
+    "\"axis_reference_halfspan\"= 10mm 'Half display length of the construction axis; no physical effect",
+    "\"D1@Sleeve Section\"= \"roller_axis_radius\"",
+    "\"D2@Sleeve Section\"= \"wheel_radius\"",
+    "\"D3@Sleeve Section\"= \"roller_axis_radius\" + \"tread_thickness\"",
+    "\"D4@Sleeve Section\"= \"wheel_radius\"",
+    "\"D5@Sleeve Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D6@Sleeve Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D7@Sleeve Section\"= \"axis_reference_halfspan\"",
+    "\"D8@Sleeve Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Sleeve Revolve\"= \"full_turn\"",
+    "\"D1@Sleeve Key Sketch\"= \"roller_axis_radius\" + \"tread_thickness\" - \"key_overlap\"",
+    "\"D2@Sleeve Key Sketch\"= \"wheel_radius\"",
+    "\"D3@Sleeve Key Sketch\"= \"key_length\" / 2",
+    "\"D4@Sleeve Key Sketch\"= \"key_length\" / 2",
+    "\"D5@Sleeve Key Sketch\"= \"keyway_floor_radius\"",
+    "\"D1@Sleeve Key\"= \"key_width\"",
+    "\"D3@Sleeve Key Pattern\"= \"full_turn\"",
+    "\"D1@Sleeve Key Pattern\"= \"key_count\""
+  ],
+  "design_features": [
+    {
+      "name": "Sleeve Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Sleeve Revolve"
+      ]
+    },
+    {
+      "name": "Sleeve Key",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Sleeve Key"
+      ]
+    },
+    {
+      "name": "Sleeve Key Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Sleeve Key Pattern",
+        "D1@Sleeve Key Pattern"
+      ]
+    }
+  ],
+  "pass": true
+}

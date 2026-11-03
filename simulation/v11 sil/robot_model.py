@@ -498,7 +498,7 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
     off = p.wheel_z_offset[i - 1] if len(p.wheel_z_offset) >= i else 0.0
     L = p.wheel_base_radius
     ox, oy, oz = origin
-    m_share = 6.0 / p.n_wheels
+    m_share = (p.pod_sprung_mass or 6.0) / p.n_wheels     # the damping ratio's mass (6 kg: v7-v11's default)
     if p.suspension == "pod":
         # v7: a coil-over pod in series with the rollers' rubber; preloaded onto its droop stop, a stiff bump stop at
         # pod_travel. springref sits below the droop stop so the spring pushes the wheel down with pod_preload there
@@ -523,15 +523,10 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
         f'<geom class="decor" type="box" size="0.004 {_f(mot.diameter / 2 + 0.006)} {_f(pod_hz)}" material="petg_dark" '
         f'mass="{p.m_pod + (p.m_pod_suspension if p.suspension == "pod" else 0.0):.4g}" pos="{_f(L - br, 0, pod_z - R)}"/>')
     sprung = p.suspension == "pod" or p.swing != "none"
-    hub = f"""
-          <joint name="susp{i}" type="slide" axis="0 0 1" stiffness="{k:.4g}" springref="{ref:.5g}" damping="{c_susp:.4g}"
-                 range="0 {_f(travel)}" solreflimit="0.002 1"/>
-          <geom class="decor" type="sphere" size="0.003" mass="0.005"/>
-          <site name="carrier{i}" group="5"/>
-          {motor_geoms if sprung else ''}
-          <body name="hub{i}">
+    hub_body = f"""
+          <body name="hub{i}"{{hub_pos}}>
             <joint name="drive{i}" type="hinge" axis="1 0 0" armature="{mot.reflected_inertia:.4g}"
-                   frictionloss="{mot.backdrive_torque}" damping="0.0005"/>
+                   frictionloss="{mot.backdrive_torque}" damping="{mot.viscous:.4g}"/>
             <geom class="decor" type="cylinder" size="{_f(d - rr * 0.6)}" fromto="{_f(-hw * 0.9, 0, 0, hw * 0.9, 0, 0)}" material="wheel_hub" mass="{hub_mass}"/>
             <geom class="decor" type="cylinder" size="{_f(d + rr * 0.2)}" fromto="{_f(-0.0015, 0, 0, 0.0015, 0, 0)}" material="wheel_plate"/>
             <geom class="decor" type="cylinder" size="0.012" fromto="{_f(-hw - 0.002, 0, 0, hw + 0.002, 0, 0)}" material="steel"/>
@@ -539,7 +534,16 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
             <site name="hub{i}" group="5"/>
             {contact}
           </body>"""
+    hub = f"""
+          <joint name="susp{i}" type="slide" axis="0 0 1" stiffness="{k:.4g}" springref="{ref:.5g}" damping="{c_susp:.4g}"
+                 range="0 {_f(travel)}" solreflimit="0.002 1"/>
+          <geom class="decor" type="sphere" size="0.003" mass="0.005"/>
+          <site name="carrier{i}" group="5"/>
+          {motor_geoms if sprung else ''}
+          {hub_body.replace("{hub_pos}", "")}"""
     pos = (L * c - ox, L * s - oy, R - off - oz)
+    if p.pod_pivot is not None:
+        return _wheel_on_fork(p, i, pos, q, k, c_susp, hub_body)
     if p.swing == "none":
         wheel = f'<body name="carrier{i}" pos="{_f(*pos)}" quat="{_f(*q)}">{hub}</body>'
     else:
@@ -570,6 +574,114 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
     return wheel + base_geoms
 
 
+# cad/v10 human editable: the pod's fork, the parts drawn as decoration (CAD pod frame, mm: x inward from the wheel's
+# mid-plane, y toward the pivot on an unmirrored pod, z up; the axle at its nominal ride height is the origin)
+FORK_PLATES = ((0.045, 0.057, 0.6), (-0.048, -0.039, 0.4))     # x ranges of the inner / outer fork plates, mass share
+FORK_BAR = dict(x=(-0.047, 0.057), y=(0.073, 0.083), z=(-0.033, -0.013))        # 10 x 20 mm bar under the 627 lobes (Nov 2)
+FORK_SHAFT_X = (-0.046, 0.052)                                  # the pivot shaft (Ø7, 98 mm)
+FORK_SHOCKS = ((0.063, 0.037), (-0.0545, 0.037))                # (x, y) of the inner and outer shock; eyes at z 11 / 59.2
+FORK_SHOCK_Z = (0.011, 0.0592)                                  # lower (on the fork) and upper (on the base) eyes
+FORK_EARS = ((0.0365, 0.044, 0.057), (-0.0365, -0.0265, 0.053))  # the guard's ears holding the shaft: x0, x1, top z
+FORK_EAR_Y = (0.0736, 0.096)                                    # Nov 2: from the shaft boss (r 7 about y 80.6) to the pivot wall
+FORK_EAR_Z0 = -0.007                                            # the boss hangs below the shaft, through the deck's slot
+AK40_FACE_X = -0.023                                            # the motor's rotating flange face
+
+
+def fork_kinematics(p: SimParams, i: int) -> dict:
+    """Geometry of wheel i's fork from p.pod_pivot (the pivot's (y, z) from the axle at the nominal ride height, cad/v10
+    (0.0806, 0) since Nov 2; (0.0682, 0.043) before), p.pod_hands (which pods are the mirror image), p.pod_droop (the droop stop below nominal) and p.pod_travel (droop stop to bump stop, vertical).
+    The pod body's zero is the droop stop. Returns the mirror sign (+1: pivot on hub +y), the hinge axis sign, the hinge
+    range (rad), the axle's offset from the pivot at the droop stop, the lever arms and a to_pod(y, z) that maps a CAD
+    point (nominal frame, unmirrored) to the pod body's frame (origin on the pivot, axes of the hub)."""
+    ang = p.wheel_angles_deg[i - 1]
+    sgn = -1.0 if p.pod_hands == "diagonal" and round(ang) % 180 == 45 else 1.0
+    py, pz = p.pod_pivot
+    rho = math.hypot(py, pz)
+    beta_n = math.atan2(pz, py)
+    beta0 = math.asin((pz + p.pod_droop) / rho)
+    beta1 = math.asin(math.sin(beta0) - p.pod_travel / rho)
+    a_n = beta0 - beta_n
+    phi = sgn * a_n
+    cph, sph = math.cos(phi), math.sin(phi)
+
+    def to_pod(y: float, z: float) -> tuple:
+        y, z = sgn * y - sgn * py, z - pz
+        return y * cph - z * sph, y * sph + z * cph
+
+    return dict(sgn=sgn, a_max=beta0 - beta1, phi=phi, axle=to_pod(0.0, 0.0), to_pod=to_pod,
+                lever0=rho * math.cos(beta0), lever=rho * math.cos(0.5 * (beta0 + beta1)))
+
+
+def _wheel_on_fork(p: SimParams, i: int, pos, q, k: float, c_susp: float, hub_body: str) -> str:
+    """cad/v10's pod: a body hinged on the fork's pivot shaft (parallel to the axle, beside the wheel), carrying the wheel,
+    the AK40, the fork's plates and bar; the axle swings on an arc (-3 to +15 mm). The spring, damper and preload are the
+    vertical-slide pod's at the wheel, taken through the lever arm to the hinge (torque = force x horizontal distance).
+    The guard's ears and the shocks' upper rods stay on the base. `pos` is the axle at the droop stop (robot frame)."""
+    th = math.radians(p.wheel_angles_deg[i - 1])
+    c, s = math.cos(th), math.sin(th)
+    mot = p.motor
+    f = fork_kinematics(p, i)
+    sgn, to_pod = f["sgn"], f["to_pod"]
+    ay, az = f["axle"]
+    k_t, c_t = k * f["lever"] ** 2, c_susp * f["lever"] ** 2
+    ref = -p.pod_preload * f["lever0"] / k_t
+    ppos = (pos[0] - ay * s, pos[1] + ay * c, pos[2] - az)         # hub y = (s, -c): the pivot, from the axle
+    qf = quat_axis((1, 0, 0), f["phi"])
+    geoms = []
+
+    def box(name_mass, c0, half, rot, mat):
+        m = f' mass="{name_mass:.4g}"' if name_mass else ""
+        geoms.append(f'<geom class="decor" type="box" size="{_f(*half)}" pos="{_f(*c0)}" quat="{_f(*rot)}" material="{mat}"{m}/>')
+
+    def cyl(x0, x1, rad, at, mat, mass=0.0):
+        m = f' mass="{mass:.4g}"' if mass else ""
+        geoms.append(f'<geom class="decor" type="cylinder" size="{_f(rad)}" fromto="{_f(x0, at[0], at[1], x1, at[0], at[1])}" '
+                     f'material="{mat}"{m}/>')
+
+    # the motor, inside the wheel (AK40: the stator on the fork, the rotor drives hub A; one body here)
+    cyl(AK40_FACE_X, AK40_FACE_X + mot.length, mot.diameter / 2, (ay, az), "motor_black", mot.mass)
+    # the motor cup and the arms: a plate each side of the wheel, from the axle to the shaft
+    m_fork = p.m_pod + p.m_pod_suspension
+    psi = math.atan2(-az, -ay)
+    half_len = 0.5 * math.hypot(ay, az) + 0.012
+    for x0, x1, share in FORK_PLATES:
+        box(m_fork * share, (0.5 * (x0 + x1), 0.5 * ay, 0.5 * az), (0.5 * (x1 - x0), half_len, 0.014),
+            quat_axis((1, 0, 0), psi), "petg_dark")
+    cyl(0.0172, FORK_PLATES[0][1], 0.029, (ay, az), "petg_dark")
+    cyl(FORK_PLATES[1][0], FORK_PLATES[1][1], 0.026, (ay, az), "petg_dark")
+    cyl(FORK_SHAFT_X[0], FORK_SHAFT_X[1], 0.0035, (0.0, 0.0), "steel")
+    by, bz = to_pod(0.5 * sum(FORK_BAR["y"]), 0.5 * sum(FORK_BAR["z"]))
+    box(0.0, (0.5 * sum(FORK_BAR["x"]), by, bz),
+        (0.5 * (FORK_BAR["x"][1] - FORK_BAR["x"][0]), 0.5 * (FORK_BAR["y"][1] - FORK_BAR["y"][0]),
+         0.5 * (FORK_BAR["z"][1] - FORK_BAR["z"][0])), qf, "aluminum")
+    # each shock's case on the fork, from the lower eye up; the rod's end stays on the base (below)
+    for sx, sy in FORK_SHOCKS:
+        y0, z0 = to_pod(sy, FORK_SHOCK_Z[0])
+        y1, z1 = to_pod(sy, FORK_SHOCK_Z[0] + 0.028)
+        geoms.append(f'<geom class="decor" type="capsule" size="0.0055" fromto="{_f(sx, y0, z0, sx, y1, z1)}" material="pla_black"/>')
+    hub_pos = f' pos="0 {_f(ay, az)}"'
+    body = (f'<body name="carrier{i}" pos="{_f(*ppos)}" quat="{_f(*q)}">'
+            f'<joint name="susp{i}" type="hinge" axis="{_f(-f["sgn"], 0, 0)}" stiffness="{k_t:.4g}" springref="{ref:.5g}" '
+            f'damping="{c_t:.4g}" range="0 {_f(f["a_max"])}" solreflimit="0.002 1"/>'
+            f'<geom class="decor" type="sphere" size="0.003" mass="0.005"/><site name="carrier{i}" group="5"/>'
+            f'{"".join(geoms)}{hub_body.replace("{hub_pos}", hub_pos)}</body>')
+    # fixed to the base: the guard's two ears around the shaft and the shocks' rods down from the upper eyes
+    ax = (pos[0], pos[1], pos[2] + p.pod_droop)      # the axle at its nominal height (pos: at the droop stop)
+
+    def world(x, y, z):
+        return (ax[0] - x * c + sgn * y * s, ax[1] - x * s - sgn * y * c, ax[2] + z)
+
+    fixed = []
+    ey = 0.5 * sum(FORK_EAR_Y)
+    for x0, x1, top in FORK_EARS:
+        fixed.append(f'<geom class="decor" type="box" size="{_f(0.5 * abs(x1 - x0), 0.5 * (FORK_EAR_Y[1] - FORK_EAR_Y[0]), 0.5 * (top - FORK_EAR_Z0))}" '
+                     f'pos="{_f(*world(0.5 * (x0 + x1), ey, 0.5 * (top + FORK_EAR_Z0)))}" quat="{_f(*quat_axis((0, 0, 1), th))}" material="petg_dark"/>')
+    for sx, sy in FORK_SHOCKS:
+        fixed.append(f'<geom class="decor" type="capsule" size="0.0035" fromto="{_f(*world(sx, sy, FORK_SHOCK_Z[1]), *world(sx, sy, FORK_SHOCK_Z[0] + 0.020))}" '
+                     f'material="steel"/>')
+    return body + "".join(fixed)
+
+
 def _module(p: SimParams, g: Geometry, i: int) -> str:
     """v8 swerve module i (design.md 26): a body on a vertical steering hinge over the wheel's contact ("module"), a
     sprung carrier (the pod's slide, the drive motor standing beside the wheel), and the tired wheel on the drive
@@ -580,7 +692,7 @@ def _module(p: SimParams, g: Geometry, i: int) -> str:
     R, hw = g.R, om.width / 2
     L = p.wheel_base_radius
     lim = math.radians(p.steer_range_deg)
-    m_share = 6.0 / p.n_wheels
+    m_share = (p.pod_sprung_mass or 6.0) / p.n_wheels     # the damping ratio's mass (6 kg: v7-v11's default)
     if p.suspension == "pod":
         k = 1.0 / (1.0 / p.pod_rate + 1.0 / p.roller_stiffness)
         travel, ref, zeta = p.pod_travel, -p.pod_preload / k, p.pod_damping_ratio
@@ -610,7 +722,7 @@ def _module(p: SimParams, g: Geometry, i: int) -> str:
                 mass="{p.m_pod + (p.m_pod_suspension if p.suspension == "pod" else 0.0):.4g}"/>
           <body name="hub{i}">
             <joint name="drive{i}" type="hinge" axis="1 0 0" armature="{mot.reflected_inertia:.4g}"
-                   frictionloss="{mot.backdrive_torque}" damping="0.0005"/>
+                   frictionloss="{mot.backdrive_torque}" damping="{mot.viscous:.4g}"/>
             <geom name="tire{i}" class="roller" type="cylinder" size="{_f(R)}" fromto="{_f(-hw, 0, 0, hw, 0, 0)}"
                   mass="{om.mass:.4g}" material="roller"/>
             <geom class="decor" type="cylinder" size="{_f(R * 0.7)}" fromto="{_f(-hw - 0.001, 0, 0, hw + 0.001, 0, 0)}"
@@ -1061,6 +1173,38 @@ def camera_positions(p: SimParams, g: Geometry):
     raise ValueError(p.camera_mount)
 
 
+# Intel RealSense D435 (characterization/realsense/rs_common.D435_DATASHEET; VERIFY on the unit): 90 x 25 x 25 mm,
+# 72 g (Intel's figure, est); the depth origin is the left imager, 17.5 mm left of the body's middle and 4.2 mm behind
+# the front glass; the RGB camera 15 mm further left; depth 87 x 58 deg (90 x 59 measured), RGB 69 x 42 deg
+D435 = dict(size=(0.025, 0.090, 0.025), mass=0.072, depth_at=(0.0125 - 0.0042, 0.0175, 0.0), color_at=(0.0083, 0.0325, 0.0),
+            depth_fovy_deg=58.0, color_fovy_deg=42.0, baseline=0.04985, min_z_848=0.195)
+
+
+def d435_cameras(p: SimParams) -> list:
+    """[(name, pos, forward unit vector)] of the D435's depth and colour cameras, robot frame."""
+    t = math.radians(p.d435_tilt_deg)
+    c, s = math.cos(t), math.sin(t)
+    x, y, z = p.d435_pos
+    return [(name, (x + c * dx, y + dy, z + s * dx), (c, 0.0, s))
+            for name, (dx, dy, _) in (("d435_depth", D435["depth_at"]), ("d435_color", D435["color_at"]))]
+
+
+def _d435(p: SimParams) -> str:
+    """design.md 4.11: the D435 on the deck's nose (its body; d435_depth / d435_color are MuJoCo cameras)."""
+    if p.depth_camera != "d435" and not p.d435_box:
+        return ""
+    sx, sy, sz = D435["size"]
+    q = quat_axis((0, 1, 0), -math.radians(p.d435_tilt_deg))
+    out = [f'<geom name="d435" class="decor" type="box" size="{_f(sx / 2, sy / 2, sz / 2)}" pos="{_f(*p.d435_pos)}" '
+           f'quat="{_f(*q)}" material="camera_body" mass="{D435["mass"]}"/>']
+    if p.depth_camera != "d435":                  # the body only: the stereo pair gives the depth
+        return out[0]
+    for name, pos, fwd in d435_cameras(p):
+        fovy = D435["depth_fovy_deg" if name == "d435_depth" else "color_fovy_deg"]
+        out.append(f'<camera name="{name}" pos="{_f(*pos)}" xyaxes="{xyaxes_looking_at((0, 0, 0), fwd)}" fovy="{_f(fovy)}"/>')
+    return "".join(out)
+
+
 def _catch_module(p: SimParams, g: Geometry) -> str:
     lo, hi = p.tilt_limits
     parent, cams = camera_positions(p, g)
@@ -1191,7 +1335,7 @@ def _robot(p: SimParams, g: Geometry) -> str:
         lidar_base = max(top, p.lidar_scan_z - 0.026)
     deck_top_decor = "" if axle else \
         f'<geom class="decor" type="cylinder" size="{_f(p.deck_radius - 0.03, 0.0035)}" pos="0 0 {_f(dz + 0.0032)}" material="petg_grey"/>'
-    rl = (p.deck_radius - 0.045) * (-1.0 if p.lidar_mount == "rear" else 1.0)     # lidar near the front (rear) edge
+    rl = (p.deck_radius - 0.045 if p.lidar_x is None else p.lidar_x) * (-1.0 if p.lidar_mount == "rear" else 1.0)   # lidar near the front (rear) edge
     riser = (f'<geom class="decor" type="cylinder" size="0.024 {_f((lidar_base - top) / 2)}" pos="{_f(rl, 0, (lidar_base + top) / 2)}" '
              f'material="pla_black"/>') if lidar_base > top + 0.002 else ""
     parent, cams = camera_positions(p, g)
@@ -1232,6 +1376,7 @@ def _robot(p: SimParams, g: Geometry) -> str:
       {_guards(p, g) if p.bumper_collides else ''}
       <geom class="structure" type="cylinder" size="{_f(p.plate_radius, 0.003)}" pos="0 0 {_f(g.plate_top - 0.003)}" material="petg_grey" mass="{p.m_plate}"/>
       {cam_xml}
+      {_d435(p)}
       {_extra_masses(p)}
       {_wheels(p, g)}
       {_catch_module(p, g) if p.payload == "catch" else arm_so101.body_xml(p, g.plate_top)}
@@ -1551,7 +1696,8 @@ def build_xml(p: SimParams = SimParams()) -> str:
         half = min(g.R * math.sin(math.pi * om.coverage * 1.25 / om.rollers_per_row) / c45, om.width / 2 / c45)
         roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, half, tan_frac=c45) for i in range(1, nw + 1))
     else:
-        roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, g.R * math.sin(math.pi * om.coverage / om.rollers_per_row))
+        roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, g.R * math.sin(math.pi * om.coverage / om.rollers_per_row),
+                                     ns=p.roller_mesh[0], nt=p.roller_mesh[1])
                               for i in range(1, nw + 1))
     alpha = math.radians(p.funnel_wall_angle_deg)
     if catch:

@@ -61,26 +61,30 @@ class DriveActuator:
     def __init__(self, spec: DriveMotor, kp: float = 2.0, ki: float = 40.0, t_amb: float = 25.0):
         self.s, self.kp, self.ki = spec, kp, ki
         self.thermal = ThermalNode2(spec.thermal, t_amb)
-        self.k_out = spec.kt * spec.gear * spec.gear_eff      # output N m per phase amp
+        self.k_out = spec.k_out                               # output N m per phase amp (before saturation)
         self.reset()
 
     def reset(self):
         self.integ = 0.0
         self.thermal.reset()
         self.i_phase = self.i_bus = self.p_loss = 0.0
+        self.i_limited = False          # the last command's torque was at the current/voltage envelope
 
     def resistance(self) -> float:
         return self.s.r_eq * (1 + CU_TEMPCO * (self.thermal.t_w - 25.0))
 
-    def torque_limits(self, w_out: float, v_bus: float) -> tuple[float, float]:
-        """(min, max) output torque available at this speed and bus voltage."""
+    def limit_currents(self, w_out: float, v_bus: float) -> tuple[float, float, float]:
+        """(motoring, braking current available, the thermally derated current cap) at this speed and bus."""
         s = self.s
         i_cap = s.i_peak * self.thermal.derate()
         emf = s.ke * abs(w_out) * s.gear
         r = self.resistance()
-        i_motoring = float(_clip((v_bus - emf) / r, 0.0, i_cap))
-        i_braking = float(_clip((v_bus + emf) / r, 0.0, i_cap))
-        t_mot, t_brk = self.k_out * i_motoring, self.k_out * i_braking
+        return float(_clip((v_bus - emf) / r, 0.0, i_cap)), float(_clip((v_bus + emf) / r, 0.0, i_cap)), i_cap
+
+    def torque_limits(self, w_out: float, v_bus: float) -> tuple[float, float]:
+        """(min, max) output torque available at this speed and bus voltage."""
+        i_mot, i_brk, _ = self.limit_currents(w_out, v_bus)
+        t_mot, t_brk = self.s.torque_at(i_mot), self.s.torque_at(i_brk)
         return (-t_brk, t_mot) if w_out >= 0 else (-t_mot, t_brk)
 
     def command(self, w_cmd: float, w_out: float, v_bus: float, dt: float):
@@ -89,16 +93,17 @@ class DriveActuator:
         self.integ = float(_clip(self.integ + self.ki * (w_cmd - w_out) * dt, lo, hi))
         return w_cmd + self.integ / self.kp, (lo, hi)
 
-    def account(self, tau_out: float, w_out: float, v_bus: float, dt: float, driver_eff: float = 0.95):
+    def account(self, tau_out: float, w_out: float, v_bus: float, dt: float, driver_eff: float | None = None):
         """Electrical side of the torque actually applied this step."""
         s = self.s
-        i = abs(tau_out) / self.k_out
+        eff = s.driver_eff if driver_eff is None else driver_eff
+        i = s.current_for(tau_out)
         r = self.resistance()
         p_cu = r * i * i
         p_mech = tau_out * w_out                       # >0 motoring, <0 regenerating
         p_elec = p_cu + (p_mech / s.gear_eff if p_mech > 0 else p_mech * s.gear_eff)
         self.i_phase, self.p_loss = i, p_cu
-        self.i_bus = p_elec / driver_eff / v_bus if p_elec > 0 else p_elec * driver_eff / v_bus
+        self.i_bus = (p_elec / eff if p_elec > 0 else p_elec * eff) / v_bus + s.p_idle / v_bus
         self.thermal.step(p_cu, dt)
         return self.i_bus
 
@@ -281,6 +286,6 @@ class Battery:
         self.v = self.ocv() - i_load * self.r0() - self.v_rc
         self.v_min = min(self.v_min, self.v)
         self.i_peak = max(self.i_peak, i_load)
-        if i_load > p.i_bms:
+        if p.i_bms is not None and i_load > p.i_bms:
             self.tripped = True
         return self.v

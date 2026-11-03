@@ -31,6 +31,10 @@ through the PC's speakers and microphone; `python ros/src/omni_face/omni_face/vo
 microphone off, Esc closes. `OMNI_FACE_ARGS="--listen none"` (or the Face tab's voice commands "off") keeps the
 microphone off.
 
+Windows' SAPI voice fallback can be selected with `OMNI_SAPI_VOICE` (an installed voice name). The WAV recognition
+test uses Microsoft David Desktop as a fixed speech fixture: this PC's recognizer rejects Zira's synthesized
+"follow me". This fixture result does not score microphone recognition of human speech.
+
 **What it says and shows** (`moments.py`): faults (a card, an alert, said once: priority 3, interrupts anything);
 catches, misses, streaks, records, "here it comes!", the operator's Say box and answers to voice commands (2);
 "throw it to me!" three times at most while waiting (after 8 s, then 30 s and 60 s apart; then only the screen asks),

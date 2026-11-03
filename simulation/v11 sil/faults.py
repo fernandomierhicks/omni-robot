@@ -2,8 +2,8 @@
 silent motor, low battery, e-stop, each checked end to end through the console").
 
   link      the Jetson <-> MCU link drops (both ways): the firmware's 0.5 s watchdog stops the robot (LINK_LOST)
-  motor     one drive motor goes silent on CAN (cable): it times out (error D), the firmware sees MOTOR_SILENT
-  battery   the pack reads low (21.5 V by default, under BATT_LOW 22.4 V): LOW_BATT
+  motor     one drive motor goes silent on CAN (cable): it times out (error D), the firmware sees MOTOR_SILENT and stops
+  battery   the pack reads low (20.5 V by default, under BATT_LOW 21 V): LOW_BATT, and after 1 s the fault stop
   estop     the e-stop is pressed: ESTOP, the motors unpowered
   bumper    the bumper is pressed: a ramped stop (BUMPER)
   imu       the BNO085 goes quiet: IMU_SILENT
@@ -20,7 +20,7 @@ import math
 KINDS = {
     "link": "The Jetson <-> MCU link drops (both ways)",
     "motor": "A drive motor goes silent on CAN",
-    "battery": "The pack reads low (21.5 V)",
+    "battery": "The pack reads low (20.5 V)",
     "estop": "The e-stop is pressed",
     "bumper": "The bumper is pressed",
     "imu": "The IMU goes quiet",
@@ -37,7 +37,7 @@ class FaultInjector:
         self.link_until = -1.0
         self.motor = 0
 
-    def inject(self, kind: str, on: bool = True, seconds: float | None = None, motor: int = 0, volts: float = 21.5):
+    def inject(self, kind: str, on: bool = True, seconds: float | None = None, motor: int = 0, volts: float = 20.5):
         if kind not in KINDS:
             raise ValueError(f"no fault '{kind}' (one of {', '.join(KINDS)})")
         r, t = self.r, self.r.d.time

@@ -1,0 +1,138 @@
+{
+ "test": "pi_keepup",
+ "label": "T1 tunnel clock 0.001",
+ "time": "2026-10-30T13:11:01",
+ "host": "omni-cam",
+ "machine": "aarch64",
+ "governor": "performance",
+ "cores": 4,
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "host_load": {
+  "seconds": 40,
+  "cpu_total_pct": {
+   "median": 82.05732377588765,
+   "p95": 86.3529411764706,
+   "max": 90.25641025641026,
+   "note": "100 = all cores busy"
+  },
+  "busiest_core_pct": {
+   "median": 96.3302752293578,
+   "p95": 100.0,
+   "max": 100.0
+  },
+  "load1_max": 3.6953125,
+  "mem_available_mb_min": 3265.51171875,
+  "swap_used_mb_max": 0.0,
+  "temp_c": {
+   "start": 34.076,
+   "max": 37.485
+  },
+  "freq_mhz_min": 1800.0,
+  "throttle_flags_seen": [],
+  "throttle_flags_hex": "0x0"
+ },
+ "processes": {
+  "avahi-daemon:": {
+   "median_pct": 0.4,
+   "max_pct": 0.5,
+   "rss_mb_max": 6
+  },
+  "sshd:": {
+   "median_pct": 18.7,
+   "max_pct": 19.1,
+   "rss_mb_max": 37
+  },
+  "ros2 launch/daemon": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 43
+  },
+  "mcu_link": {
+   "median_pct": 39.4,
+   "max_pct": 41.5,
+   "rss_mb_max": 34
+  },
+  "mode_manager": {
+   "median_pct": 27.0,
+   "max_pct": 28.4,
+   "rss_mb_max": 31
+  },
+  "catch_perception": {
+   "median_pct": 41.3,
+   "max_pct": 43.3,
+   "rss_mb_max": 50
+  },
+  "catch_behavior": {
+   "median_pct": 35.7,
+   "max_pct": 38.0,
+   "rss_mb_max": 33
+  },
+  "pi_keepup.py": {
+   "median_pct": 105.3,
+   "max_pct": 105.9,
+   "rss_mb_max": 70
+  },
+  "snapd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 40
+  },
+  "udisksd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 12
+  },
+  "_robot_total_pct_of_one_core": 141.9,
+  "_monitor_pct_of_one_core": 105.3
+ },
+ "topics": {
+  "/clock": {
+   "type": "rosgraph_msgs/msg/Clock",
+   "messages": 22320,
+   "rate_hz": 500.3739955854769,
+   "gap_ms": {
+    "median": 1.9437250011833385,
+    "p99": 4.099986996152438,
+    "max": 289.47873899596743
+   },
+   "clock_drift_ms": 2736.6361259941455
+  },
+  "/mcu/state_10hz": {
+   "type": "omni_interfaces/msg/McuState",
+   "messages": 418,
+   "rate_hz": 9.386308451384279,
+   "gap_ms": {
+    "median": 105.18885700003011,
+    "p99": 150.41100999951595,
+    "max": 522.1435820058105
+   },
+   "age_ms": {
+    "median": 14.778641999999564,
+    "p95": 35.02585900000099,
+    "max": 520.7061270000004
+   }
+  },
+  "/mcu/link": {
+   "type": "std_msgs/msg/String",
+   "messages": 0
+  },
+  "/catch/status": {
+   "type": "omni_interfaces/msg/CatchStatus",
+   "messages": 139,
+   "rate_hz": 3.1130587680960753,
+   "gap_ms": {
+    "median": 317.74437299827696,
+    "p99": 731.9987929950003,
+    "max": 856.8967769970186
+   },
+   "age_ms": {
+    "median": 3.0000000000001137,
+    "p95": 8.000000000002672,
+    "max": 156.00000000000236
+   }
+  }
+ },
+ "last_text": {
+  "/mcu/link": "{\"connected\": true, \"port\": \"tcp:127.0.0.1:5761\", \"states\": 9544, \"imus\": 19087, \"cmds\": 4630, \"errors\": 0, \"rtt_ms\": 0.000, \"mode\": \"AUTO\", \"faults\": [], \"mcu_rx_errors\": 0, \"infos\": 478, \"protocol\": 4, \"protocol_host\": 4, \"fw_build\": \"314388fc\"}"
+ }
+}

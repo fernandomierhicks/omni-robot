@@ -1,0 +1,4 @@
+# shell scripts and systemd units run in WSL / on the Jetson: LF even with core.autocrlf (Oct 28: a CRLF
+# checkout broke omni.sh: "set: pipefail: invalid option")
+*.sh text eol=lf
+*.service text eol=lf

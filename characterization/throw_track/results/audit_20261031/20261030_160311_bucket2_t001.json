@@ -1,0 +1,158 @@
+{
+  "session": "20261030_160311_bucket2",
+  "clip": "t001",
+  "review": null,
+  "detector": {
+    "hue_deg": [
+      0,
+      47.0
+    ],
+    "min_sat": 0.62,
+    "min_val": 0.2,
+    "min_blob_px": 8,
+    "coarse_stride": 4,
+    "window_px": 25.0,
+    "window_scale": 2.5,
+    "max_candidates": 3,
+    "acquire_candidates": 40,
+    "size_gain": 1.0,
+    "backend": "native"
+  },
+  "ball_metadata": {
+    "mass": 0.073,
+    "radius": 0.08034539414636606,
+    "drag_cd": 0.5,
+    "diameter_m": 0.16069078829273212,
+    "circumference_in": 19.875,
+    "material": "foam",
+    "colour": "orange",
+    "source": "Fernando, Oct 30 2026; drag_cd is the robot config's estimate"
+  },
+  "held_out": false,
+  "sources": {
+    "depth": {
+      "source": "depth",
+      "frames": 175,
+      "candidates": 8225,
+      "ok": false
+    },
+    "ir_stereo": {
+      "source": "ir_stereo",
+      "frames": 175,
+      "candidates": 0,
+      "ok": false
+    },
+    "colour": {
+      "source": "colour",
+      "frames": 119,
+      "candidates": 119,
+      "ok": false,
+      "frames_with_a_blob": 119,
+      "reason": "no blob track follows an arc"
+    }
+  },
+  "prediction": {},
+  "analysis_seconds": 2.497837199829519,
+  "trigger_s": 0.688770816,
+  "health": {
+    "color": {
+      "n": 119,
+      "fps": 59.527107296727074,
+      "dt_median_ms": 16.798976,
+      "dt_max_ms": 16.800256,
+      "lost": 0,
+      "first_s": 0.0,
+      "last_s": 1.982290176,
+      "stamp_to_host_ms_p10_50_90": [
+        18.0005362,
+        18.310688,
+        19.4367354
+      ],
+      "gain_p10_50_90": [
+        128.0,
+        128.0,
+        128.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        50.0,
+        50.0,
+        50.0
+      ]
+    },
+    "depth": {
+      "n": 175,
+      "fps": 87.35369721651841,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 33.385984,
+      "lost": 5,
+      "first_s": -0.006137088000000001,
+      "last_s": 1.985764864,
+      "stamp_to_host_ms_p10_50_90": [
+        9.877649799999999,
+        10.274948,
+        11.060100799999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir1": {
+      "n": 175,
+      "fps": 87.35369721651841,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 33.385984,
+      "lost": 5,
+      "first_s": -0.006137088000000001,
+      "last_s": 1.985764864,
+      "stamp_to_host_ms_p10_50_90": [
+        9.877649799999999,
+        10.274948,
+        11.060100799999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir2": {
+      "n": 175,
+      "fps": 87.35369721651841,
+      "dt_median_ms": 11.127808,
+      "dt_max_ms": 33.385984,
+      "lost": 5,
+      "first_s": -0.006137088000000001,
+      "last_s": 1.985764864,
+      "stamp_to_host_ms_p10_50_90": [
+        9.877649799999999,
+        10.274948,
+        11.060100799999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    }
+  },
+  "photo": [],
+  "picks": [],
+  "configured_color_exposure_us": 5000
+}

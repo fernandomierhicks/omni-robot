@@ -1,0 +1,15 @@
+G in 114 s
+G. Goal to goal, firmware adult (2 m/s cap). Flat-floor moves of 1 / 2 / 4 m in 7 body directions: median / worst time to settle, peak speed, peak tilt, longest wheel lift
+  X4 + pods      1 m 1.69 / 1.72 s 1.60 m/s | 2 m 2.22 / 2.30 s 1.96 m/s | 4 m 3.27 / 3.31 s 1.95 m/s | tilt 2.5 deg, lift 16 ms
+  X4 rigid       1 m 1.68 / 1.75 s 1.62 m/s | 2 m 2.21 / 2.28 s 1.97 m/s | 4 m 3.25 / 3.33 s 1.96 m/s | tilt 0.5 deg, lift 15 ms
+  kiwi rigid     1 m 1.80 / 1.96 s 1.38 m/s | 2 m 2.38 / 2.65 s 1.95 m/s | 4 m 3.47 / 3.73 s 1.96 m/s | tilt 0.4 deg, lift 15 ms
+  kiwi + pods    1 m 1.77 / 1.95 s 1.35 m/s | 2 m 2.38 / 2.65 s 1.92 m/s | 4 m 3.43 / 3.71 s 1.97 m/s | tilt 2.6 deg, lift 20 ms
+  House tour (19 stops, 46 m, rugs and thresholds), 2 m/s cap: time, stuck legs, balls lost, peak speed, peak tilt, longest airborne / wheel lift
+  X4 + pods      assist off   43.9 s  stuck 0  lost 0  2.01 m/s  tilt 9.1 deg  air 0 / lift 20 ms
+  X4 + pods      assist on    44.4 s  stuck 0  lost 0  2.00 m/s  tilt 10.7 deg  air 0 / lift 22 ms
+  X4 rigid       assist off   43.7 s  stuck 0  lost 0  2.14 m/s  tilt 17.8 deg  air 0 / lift 164 ms
+  X4 rigid       assist on    41.9 s  stuck 1  lost 0  2.03 m/s  tilt 13.9 deg  air 0 / lift 121 ms
+  kiwi rigid     assist off   47.5 s  stuck 0  lost 0  2.03 m/s  tilt 32.4 deg  air 1 / lift 26 ms
+  kiwi rigid     assist on    47.5 s  stuck 0  lost 0  2.09 m/s  tilt 25.8 deg  air 6 / lift 25 ms
+  kiwi + pods    assist off   47.0 s  stuck 0  lost 0  2.03 m/s  tilt 9.4 deg  air 0 / lift 28 ms
+  kiwi + pods    assist on    47.0 s  stuck 0  lost 0  1.96 m/s  tilt 7.2 deg  air 0 / lift 27 ms

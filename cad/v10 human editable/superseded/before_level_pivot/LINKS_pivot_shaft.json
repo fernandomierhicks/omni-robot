@@ -1,0 +1,14 @@
+{
+  "part": "pivot_shaft",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0222_cylinder",
+      "sketch": "0222_cylinder_Sketch",
+      "pattern": "Shaft_pin",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 0
+}

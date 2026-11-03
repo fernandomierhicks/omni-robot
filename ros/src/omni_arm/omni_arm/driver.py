@@ -29,8 +29,9 @@ class ArmState:
     load: np.ndarray = field(default_factory=lambda: np.zeros(6))     # fraction of each servo's torque limit
     volts: float = 0.0
     temp_c: np.ndarray = field(default_factory=lambda: np.zeros(6))
-    ok: bool = False                   # every servo answered
-    missing: tuple = ()
+    ok: bool = False                   # every servo answered, none with an error (overload, heat, voltage, ...)
+    missing: tuple = ()                # the ids that didn't answer: their joints keep the last values read
+    errors: tuple = ()                 # the ids that answered with an error
 
 
 class ArmDriver:
@@ -65,20 +66,22 @@ class ArmDriver:
         st = self.bus.sync_read_status(self.ids)
         s = self.state
         s.t = t
-        miss = []
+        miss, err = [], []
         for k, sid in enumerate(self.ids):
             r = st.get(sid)
             if r is None:
                 miss.append(sid)
                 continue
+            if not r.ok:
+                err.append(sid)
             c = self._c(k)
             s.q[k] = c.to_rad(r.position)
             s.dq[k] = c.sign * r.speed * 2 * np.pi / 4096
             s.load[k] = c.sign * r.load
             s.temp_c[k] = r.temp_c
             s.volts = r.volts
-        s.ok = not miss
-        s.missing = tuple(miss)
+        s.ok = not miss and not err
+        s.missing, s.errors = tuple(miss), tuple(err)
         self.n_reads += 1
         return s
 

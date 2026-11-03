@@ -1,0 +1,4 @@
+dummy_motor_case minimum 0.11 thin clusters 12
+dummy_motor_rotor minimum 1.69 thin clusters 0
+wheel_hub_B minimum 0.09 thin clusters 21
+wheel_hub_C minimum 0.09 thin clusters 23

@@ -1,0 +1,47 @@
+{
+  "tilt_down_deg": 40,
+  "front_bumper_x_mm": 225,
+  "intersections": [
+    {
+      "imager": "IR_left",
+      "origin_mm": [
+        205.3487261301072,
+        17.5,
+        178.63891910329767
+      ],
+      "floor_x_mm": 263.2197284643607,
+      "beyond_front_bumper_mm": 38.219728464360685
+    },
+    {
+      "imager": "IR_right",
+      "origin_mm": [
+        205.3487261301072,
+        -32.34968528151512,
+        178.63891910329767
+      ],
+      "floor_x_mm": 263.2197284643607,
+      "beyond_front_bumper_mm": 38.219728464360685
+    },
+    {
+      "imager": "RGB",
+      "origin_mm": [
+        205.39566397303992,
+        32.49990692253128,
+        179.01635986214643
+      ],
+      "floor_x_mm": 305.0155304631659,
+      "beyond_front_bumper_mm": 80.01553046316587
+    },
+    {
+      "imager": "IR_projector",
+      "origin_mm": [
+        205.3487261301072,
+        -11.5,
+        178.63891910329767
+      ],
+      "floor_x_mm": 265.12047234298007,
+      "beyond_front_bumper_mm": 40.120472342980065
+    }
+  ],
+  "note": "Side-centreline lower rays. This is geometric floor intersection, not a depth-validity or detection guarantee."
+}

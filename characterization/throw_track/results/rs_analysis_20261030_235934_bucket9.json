@@ -1,0 +1,1495 @@
+{
+ "session": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9",
+ "cfg": {
+  "ball_radius": 0.08034539414636606,
+  "zmin": 0.25,
+  "zmax": 9.0,
+  "depth_gap": 0.25,
+  "min_area": 5,
+  "ratio_lo": 0.3,
+  "ratio_hi": 3.0,
+  "elong_max": 3.0,
+  "ir_thr": 35.0,
+  "ir_min_area": 4,
+  "ir_max_r": 100.0,
+  "row_tol": 1.5,
+  "d_min": 1.0,
+  "d_max": 80.0,
+  "r_tol": 0.5,
+  "a_lo": 6.0,
+  "a_hi": 14.0,
+  "inlier_m": 0.1,
+  "ransac_iters": 400,
+  "min_inliers": 8,
+  "min_span_s": 0.15,
+  "min_density": 0.35,
+  "min_speed": 1.0,
+  "drag": true,
+  "sigma0": 0.004,
+  "sigma_z2": 0.001,
+  "ball": {
+   "mass": 0.073,
+   "radius": 0.08034539414636606,
+   "drag_cd": 0.5,
+   "air_density": 1.204,
+   "air_viscosity": 1.8e-05
+  },
+  "bg_s": 0.25,
+  "seed": 1
+ },
+ "bg": "throw",
+ "bucket": "bucket.json",
+ "throws": [
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9\\t001",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 180,
+     "candidates": 9955,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 180,
+     "candidates": 72,
+     "ok": true,
+     "detections": 12,
+     "detection_rate": 0.2608695652173913,
+     "first_t": 1.4373419520000001,
+     "last_t": 1.938128384,
+     "first_range_m": 4.011340109767508,
+     "last_range_m": 4.065207210505514,
+     "rms_m": 0.059567901022762576,
+     "speed_mps": 3.0307330039559868,
+     "a_norm": 6.2552139490734175,
+     "a_vs_gravity_pct": -36.23635118171848,
+     "drag_arc": true,
+     "up_in_camera": [
+      -0.028332313160071284,
+      -0.11269962509342388,
+      0.9932250875480348
+     ]
+    },
+    "colour": {
+     "source": "colour",
+     "frames": 119,
+     "candidates": 119,
+     "ok": true,
+     "detections": 26,
+     "detection_rate": 1.0,
+     "first_t": 0.68869888,
+     "last_t": 1.1086663680000002,
+     "first_range_m": 4.32416171814854,
+     "last_range_m": 2.0762253906510804,
+     "rms_m": 0.00717968812006313,
+     "speed_mps": 7.228802914401294,
+     "a_norm": NaN,
+     "a_vs_gravity_pct": NaN,
+     "drag_arc": true,
+     "up_in_camera": [
+      0.0,
+      -0.8660254037844387,
+      0.4999999999999999
+     ],
+     "frames_with_a_blob": 119,
+     "flight_frames": 26,
+     "core_frames": 35,
+     "bridged_frames": 0,
+     "range_from_depth": 26,
+     "range_none": 0,
+     "rms_px": 1.3942143723180356,
+     "size_over_depth": 0.9513601043949595
+    }
+   },
+   "colour": {
+    "frames": 119,
+    "frames_with_a_blob": 119,
+    "projected": false
+   },
+   "name": "t001",
+   "prediction": {
+    "ir_stereo": {
+     "ok": true,
+     "reference": {
+      "verdict": "out",
+      "in_rim": false,
+      "radial_m": 3.5753222074913023,
+      "margin_m": 3.433082207491302,
+      "t_cross": 2.4312329512111415,
+      "last_detection": 1.938128384,
+      "extrapolated_s": 0.4931045672111414,
+      "position_cam": [
+       -0.004350449441070693,
+       1.433209399141103,
+       3.116541497197654
+      ],
+      "rms_m": 0.09019833632115241
+     },
+     "series": [
+      {
+       "t": 1.67104128,
+       "n": 6,
+       "ttg": 0.7601916712111414,
+       "t_cross": 2.341498881154314,
+       "radial_m": 4.107824828936421,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.5325717307491828
+      },
+      {
+       "t": 1.704427264,
+       "n": 7,
+       "ttg": 0.7268056872111415,
+       "t_cross": 2.3578637481021922,
+       "radial_m": 4.070257991197212,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.49500453466436645
+      },
+      {
+       "t": 1.7378132480000001,
+       "n": 8,
+       "ttg": 0.6934197032111413,
+       "t_cross": 2.3627487981047772,
+       "radial_m": 3.9533520984903006,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.3780849882146488
+      },
+      {
+       "t": 1.837970176,
+       "n": 9,
+       "ttg": 0.5932627752111415,
+       "t_cross": 2.380618275412516,
+       "radial_m": 3.902661964317446,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.32736451523478777
+      },
+      {
+       "t": 1.8713561600000002,
+       "n": 10,
+       "ttg": 0.5598767912111413,
+       "t_cross": 2.4031293500559205,
+       "radial_m": 3.773685521602471,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.1983777634691987
+      },
+      {
+       "t": 1.9047424000000002,
+       "n": 11,
+       "ttg": 0.5264905512111413,
+       "t_cross": 2.422832522934831,
+       "radial_m": 3.659636122415458,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.0843220488550819
+      },
+      {
+       "t": 1.938128384,
+       "n": 12,
+       "ttg": 0.4931045672111414,
+       "t_cross": 2.4312325477738006,
+       "radial_m": 3.575322081878013,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 1.2698030280681262e-07
+      }
+     ],
+     "first_prediction_ttg": 0.7601916712111414,
+     "always_correct": true,
+     "settled": true,
+     "time_to_correct_ttg": 0.7601916712111414,
+     "time_to_correct_t": 1.67104128,
+     "wrong_predictions": 0,
+     "ambiguous": false
+    },
+    "colour": {
+     "ok": true,
+     "reference": {
+      "verdict": "rim",
+      "in_rim": false,
+      "radial_m": 0.21134917152380162,
+      "margin_m": 0.06910917152380161,
+      "t_cross": 1.474507649523085,
+      "last_detection": 1.1086663680000002,
+      "extrapolated_s": 0.3658412815230849,
+      "position_cam": [
+       0.02431209739335814,
+       -0.4600380002361046,
+       -0.1626591898213163
+      ],
+      "rms_m": 0.0071796867670863955
+     },
+     "series": [
+      {
+       "t": 0.77269248,
+       "n": 6,
+       "ttg": 0.7018151695230851,
+       "t_cross": 1.4174614247689885,
+       "radial_m": 0.13429622343130404,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.14174857799896456
+      },
+      {
+       "t": 0.7894912000000001,
+       "n": 7,
+       "ttg": 0.685016449523085,
+       "t_cross": 1.4250145789556614,
+       "radial_m": 0.22205117941209535,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.09091023035004298
+      },
+      {
+       "t": 0.8062899200000001,
+       "n": 8,
+       "ttg": 0.668217729523085,
+       "t_cross": 1.450524840195052,
+       "radial_m": 0.22066395187604967,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.08772175359555577
+      },
+      {
+       "t": 0.82308864,
+       "n": 9,
+       "ttg": 0.6514190095230851,
+       "t_cross": 1.422586387315035,
+       "radial_m": 0.3491327233597887,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.16537847491744767
+      },
+      {
+       "t": 0.8398873600000001,
+       "n": 10,
+       "ttg": 0.634620289523085,
+       "t_cross": 1.4008818219023205,
+       "radial_m": 0.4075753062618933,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.21767550871749522
+      },
+      {
+       "t": 0.85668608,
+       "n": 11,
+       "ttg": 0.6178215695230851,
+       "t_cross": 1.4235689598798065,
+       "radial_m": 0.3404907804958533,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.1527947276302208
+      },
+      {
+       "t": 0.8734845440000001,
+       "n": 12,
+       "ttg": 0.601023105523085,
+       "t_cross": 1.4288351008519458,
+       "radial_m": 0.31271834017209865,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.12595231564451617
+      },
+      {
+       "t": 0.8902835200000001,
+       "n": 13,
+       "ttg": 0.584224129523085,
+       "t_cross": 1.4311536779007854,
+       "radial_m": 0.2951685635657796,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.10917271175584622
+      },
+      {
+       "t": 0.9070819840000001,
+       "n": 14,
+       "ttg": 0.567425665523085,
+       "t_cross": 1.4409061598967972,
+       "radial_m": 0.2609266620476431,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.07857916570535417
+      },
+      {
+       "t": 0.9238809600000001,
+       "n": 15,
+       "ttg": 0.550626689523085,
+       "t_cross": 1.4527764888541395,
+       "radial_m": 0.2313190066608694,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.054126549415939126
+      },
+      {
+       "t": 0.940679424,
+       "n": 16,
+       "ttg": 0.5338282255230851,
+       "t_cross": 1.4629694447897712,
+       "radial_m": 0.2015162476101575,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.0390546571138355
+      },
+      {
+       "t": 0.9574784000000001,
+       "n": 17,
+       "ttg": 0.517029249523085,
+       "t_cross": 1.4665031100644819,
+       "radial_m": 0.1896291720861795,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.035818374137594734
+      },
+      {
+       "t": 0.974276864,
+       "n": 18,
+       "ttg": 0.5002307855230851,
+       "t_cross": 1.4717287984851564,
+       "radial_m": 0.18363394462931237,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.0332311389421206
+      },
+      {
+       "t": 0.9910755840000001,
+       "n": 19,
+       "ttg": 0.48343206552308504,
+       "t_cross": 1.4747309492956726,
+       "radial_m": 0.1807258088561498,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.032869326735231276
+      },
+      {
+       "t": 1.007874304,
+       "n": 20,
+       "ttg": 0.4666333455230851,
+       "t_cross": 1.4786248716869492,
+       "radial_m": 0.1787147993727773,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.03309307290001755
+      },
+      {
+       "t": 1.024672768,
+       "n": 21,
+       "ttg": 0.44983488152308504,
+       "t_cross": 1.476142229090532,
+       "radial_m": 0.18949735995170167,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.0221802962379732
+      },
+      {
+       "t": 1.041471488,
+       "n": 22,
+       "ttg": 0.4330361615230851,
+       "t_cross": 1.4763616878526664,
+       "radial_m": 0.19242818774909468,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.018922850435258202
+      },
+      {
+       "t": 1.0582702080000002,
+       "n": 23,
+       "ttg": 0.41623744152308495,
+       "t_cross": 1.4759040618030421,
+       "radial_m": 0.19770839625571587,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.013875975651758094
+      },
+      {
+       "t": 1.075068928,
+       "n": 24,
+       "ttg": 0.399438721523085,
+       "t_cross": 1.4735940049643625,
+       "radial_m": 0.20761883787929752,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.003842224287383547
+      },
+      {
+       "t": 1.0918673920000002,
+       "n": 25,
+       "ttg": 0.38264025752308495,
+       "t_cross": 1.4721626660077243,
+       "radial_m": 0.2100089400501676,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.002645660134998713
+      },
+      {
+       "t": 1.1086663680000002,
+       "n": 26,
+       "ttg": 0.3658412815230849,
+       "t_cross": 1.474507695816545,
+       "radial_m": 0.21134939528574526,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 2.3166562248519403e-07
+      }
+     ],
+     "first_prediction_ttg": 0.7018151695230851,
+     "always_correct": false,
+     "settled": true,
+     "time_to_correct_ttg": 0.685016449523085,
+     "time_to_correct_t": 0.7894912000000001,
+     "wrong_predictions": 1,
+     "ambiguous": true
+    }
+   }
+  },
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9\\t002",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 180,
+     "candidates": 9818,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 180,
+     "candidates": 2374,
+     "ok": false
+    },
+    "colour": {
+     "source": "colour",
+     "frames": 119,
+     "candidates": 119,
+     "ok": true,
+     "detections": 30,
+     "detection_rate": 1.0,
+     "first_t": 0.6719528960000001,
+     "last_t": 1.159141632,
+     "first_range_m": 4.487382445956816,
+     "last_range_m": 2.085903537108053,
+     "rms_m": 0.011453789543811037,
+     "speed_mps": 7.098015824473373,
+     "a_norm": NaN,
+     "a_vs_gravity_pct": NaN,
+     "drag_arc": true,
+     "up_in_camera": [
+      0.0,
+      -0.8660254037844387,
+      0.4999999999999999
+     ],
+     "frames_with_a_blob": 119,
+     "flight_frames": 30,
+     "core_frames": 38,
+     "bridged_frames": 0,
+     "range_from_depth": 30,
+     "range_none": 0,
+     "rms_px": 2.094490055114633,
+     "size_over_depth": 0.9431438793787452
+    }
+   },
+   "colour": {
+    "frames": 119,
+    "frames_with_a_blob": 119,
+    "projected": false
+   },
+   "name": "t002",
+   "prediction": {
+    "colour": {
+     "ok": true,
+     "reference": {
+      "verdict": "out",
+      "in_rim": false,
+      "radial_m": 0.30920516581879076,
+      "margin_m": 0.16696516581879076,
+      "t_cross": 1.509851029466587,
+      "last_detection": 1.159141632,
+      "extrapolated_s": 0.3507093974665869,
+      "position_cam": [
+       -0.2915456574722574,
+       -0.3494530360978068,
+       0.02887958661939767
+      ],
+      "rms_m": 0.011453789223897155
+     },
+     "series": [
+      {
+       "t": 0.755950848,
+       "n": 6,
+       "ttg": 0.753900181466587,
+       "t_cross": 1.36477157555959,
+       "radial_m": 0.36818237260493447,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.08572179681890245
+      },
+      {
+       "t": 0.7727503360000001,
+       "n": 7,
+       "ttg": 0.7371006934665869,
+       "t_cross": 1.3724627233491278,
+       "radial_m": 0.41723837865287733,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.20358349077995136
+      },
+      {
+       "t": 0.7895498240000001,
+       "n": 8,
+       "ttg": 0.7203012054665869,
+       "t_cross": 1.4162011766249392,
+       "radial_m": 0.4035330885829344,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.16658613506963646
+      },
+      {
+       "t": 0.806349568,
+       "n": 9,
+       "ttg": 0.703501461466587,
+       "t_cross": 1.4476931398275839,
+       "radial_m": 0.38647691716893956,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.11453375272688815
+      },
+      {
+       "t": 0.8231490560000001,
+       "n": 10,
+       "ttg": 0.6867019734665869,
+       "t_cross": 1.4287596600937698,
+       "radial_m": 0.4398347160679406,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.2111650854449404
+      },
+      {
+       "t": 0.8399488,
+       "n": 11,
+       "ttg": 0.669902229466587,
+       "t_cross": 1.4406698228198855,
+       "radial_m": 0.42964921940111617,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.19285863959505697
+      },
+      {
+       "t": 0.856748288,
+       "n": 12,
+       "ttg": 0.653102741466587,
+       "t_cross": 1.443471502510102,
+       "radial_m": 0.4333099308014994,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.19615927874330477
+      },
+      {
+       "t": 0.8735480320000001,
+       "n": 13,
+       "ttg": 0.6363029974665869,
+       "t_cross": 1.4522940870947962,
+       "radial_m": 0.42987190661547386,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.18614520581264452
+      },
+      {
+       "t": 0.8903475200000001,
+       "n": 14,
+       "ttg": 0.6195035094665869,
+       "t_cross": 1.4599067788344389,
+       "radial_m": 0.4228620775889514,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.16716510409949537
+      },
+      {
+       "t": 0.907147008,
+       "n": 15,
+       "ttg": 0.602704021466587,
+       "t_cross": 1.4744323634805558,
+       "radial_m": 0.4031504245343,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.12882009951642634
+      },
+      {
+       "t": 0.9239467520000001,
+       "n": 16,
+       "ttg": 0.5859042774665869,
+       "t_cross": 1.4756247155055502,
+       "radial_m": 0.39510986619287775,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.11581214364987225
+      },
+      {
+       "t": 0.940746496,
+       "n": 17,
+       "ttg": 0.569104533466587,
+       "t_cross": 1.4880862157011008,
+       "radial_m": 0.3779219758829922,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.07626123418493358
+      },
+      {
+       "t": 0.957545984,
+       "n": 18,
+       "ttg": 0.552305045466587,
+       "t_cross": 1.4998952478334486,
+       "radial_m": 0.37010438154689146,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.06103399630954083
+      },
+      {
+       "t": 0.9743454720000001,
+       "n": 19,
+       "ttg": 0.5355055574665869,
+       "t_cross": 1.508877004969458,
+       "radial_m": 0.36489517045222086,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.058770017658297216
+      },
+      {
+       "t": 0.991145472,
+       "n": 20,
+       "ttg": 0.518705557466587,
+       "t_cross": 1.5143297525245616,
+       "radial_m": 0.36168134869394986,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.05947522490938562
+      },
+      {
+       "t": 1.0079449600000001,
+       "n": 21,
+       "ttg": 0.5019060694665869,
+       "t_cross": 1.5156383921850443,
+       "radial_m": 0.35461384595627,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.05402838933531447
+      },
+      {
+       "t": 1.024744448,
+       "n": 22,
+       "ttg": 0.4851065814665869,
+       "t_cross": 1.5170298825313935,
+       "radial_m": 0.34962335448845877,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.04825772318039424
+      },
+      {
+       "t": 1.0415441920000001,
+       "n": 23,
+       "ttg": 0.46830683746658686,
+       "t_cross": 1.5162873825976073,
+       "radial_m": 0.34426617034257917,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.04181228357187638
+      },
+      {
+       "t": 1.058343936,
+       "n": 24,
+       "ttg": 0.451507093466587,
+       "t_cross": 1.5159999601581355,
+       "radial_m": 0.33893041619293757,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.035744754419877636
+      },
+      {
+       "t": 1.075143424,
+       "n": 25,
+       "ttg": 0.43470760546658704,
+       "t_cross": 1.512667894081842,
+       "radial_m": 0.3325822454653058,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.02778263407409316
+      },
+      {
+       "t": 1.091943168,
+       "n": 26,
+       "ttg": 0.417907861466587,
+       "t_cross": 1.5104771299756377,
+       "radial_m": 0.32689777362020145,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.020297335386112343
+      },
+      {
+       "t": 1.108742656,
+       "n": 27,
+       "ttg": 0.401108373466587,
+       "t_cross": 1.5135788851605938,
+       "radial_m": 0.3233439384202176,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.0182001760172361
+      },
+      {
+       "t": 1.1255426560000001,
+       "n": 28,
+       "ttg": 0.38430837346658686,
+       "t_cross": 1.5119359916994903,
+       "radial_m": 0.31799197988046846,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.011931362084829786
+      },
+      {
+       "t": 1.1423421440000001,
+       "n": 29,
+       "ttg": 0.3675088854665869,
+       "t_cross": 1.5121595514421728,
+       "radial_m": 0.3134513269618066,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.007568079436644217
+      },
+      {
+       "t": 1.159141632,
+       "n": 30,
+       "ttg": 0.3507093974665869,
+       "t_cross": 1.5098505453469437,
+       "radial_m": 0.309204329673369,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 2.99356419628391e-06
+      }
+     ],
+     "first_prediction_ttg": 0.753900181466587,
+     "always_correct": true,
+     "settled": true,
+     "time_to_correct_ttg": 0.753900181466587,
+     "time_to_correct_t": 0.755950848,
+     "wrong_predictions": 0,
+     "ambiguous": false
+    }
+   }
+  },
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9\\t003",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 180,
+     "candidates": 9457,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 180,
+     "candidates": 46,
+     "ok": true,
+     "detections": 12,
+     "detection_rate": 0.12,
+     "first_t": 0.40428544000000005,
+     "last_t": 1.505925632,
+     "first_range_m": 6.340797392145652,
+     "last_range_m": 4.12254630990922,
+     "rms_m": 0.05594568712498047,
+     "speed_mps": 6.655920463754762,
+     "a_norm": 7.518323900379706,
+     "a_vs_gravity_pct": -23.360612636292498,
+     "drag_arc": false,
+     "up_in_camera": null
+    },
+    "colour": {
+     "source": "colour",
+     "frames": 119,
+     "candidates": 119,
+     "ok": true,
+     "detections": 20,
+     "detection_rate": 0.8333333333333334,
+     "first_t": 0.70556288,
+     "last_t": 1.091948288,
+     "first_range_m": 2.2807870385151268,
+     "last_range_m": 1.3844663825447707,
+     "rms_m": 0.025199064517904185,
+     "speed_mps": 5.276926425813726,
+     "a_norm": NaN,
+     "a_vs_gravity_pct": NaN,
+     "drag_arc": true,
+     "up_in_camera": [
+      0.0,
+      -0.8660254037844387,
+      0.4999999999999999
+     ],
+     "frames_with_a_blob": 119,
+     "flight_frames": 20,
+     "core_frames": 14,
+     "bridged_frames": 4,
+     "range_from_depth": 18,
+     "range_none": 0,
+     "rms_px": 7.8101057026902625,
+     "size_over_depth": 1.095462583850152
+    }
+   },
+   "colour": {
+    "frames": 119,
+    "frames_with_a_blob": 119,
+    "projected": false
+   },
+   "name": "t003",
+   "prediction": {
+    "ir_stereo": {
+     "ok": true,
+     "reference": {
+      "verdict": "out",
+      "in_rim": false,
+      "radial_m": 3.3609698584126284,
+      "margin_m": 3.2187298584126283,
+      "t_cross": 1.931346818545641,
+      "last_detection": 1.505925632,
+      "extrapolated_s": 0.425421186545641,
+      "position_cam": [
+       -0.0029717876051261432,
+       1.3260354355801567,
+       2.9309107470615587
+      ],
+      "rms_m": 1.6454417932891992
+     },
+     "series": [
+      {
+       "t": 1.205486592,
+       "n": 6,
+       "ttg": 0.7258602265456411,
+       "t_cross": 1.4721636853625635,
+       "radial_m": 2.504531584991145,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.8565125805016408
+      },
+      {
+       "t": 1.2722536960000002,
+       "n": 7,
+       "ttg": 0.6590931225456409,
+       "t_cross": 1.499619355329175,
+       "radial_m": 2.5463913107732687,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.8146595757747849
+      },
+      {
+       "t": 1.305636864,
+       "n": 8,
+       "ttg": 0.625709954545641,
+       "t_cross": 1.730058902964214,
+       "radial_m": 2.7976204150569077,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.5634249047878884
+      },
+      {
+       "t": 1.339019776,
+       "n": 9,
+       "ttg": 0.5923270425456411,
+       "t_cross": 1.8062281262806281,
+       "radial_m": 2.934224865654341,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.4268760526672119
+      },
+      {
+       "t": 1.405782016,
+       "n": 10,
+       "ttg": 0.525564802545641,
+       "t_cross": 1.8510808880589107,
+       "radial_m": 3.089032555376136,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.2720824942600465
+      },
+      {
+       "t": 1.472544512,
+       "n": 11,
+       "ttg": 0.458802306545641,
+       "t_cross": 1.8979777998036573,
+       "radial_m": 3.3267699358154563,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.03422910207838241
+      },
+      {
+       "t": 1.505925632,
+       "n": 12,
+       "ttg": 0.425421186545641,
+       "t_cross": 1.9313469466619035,
+       "radial_m": 3.3609701489208015,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 2.927922718307718e-07
+      }
+     ],
+     "first_prediction_ttg": 0.7258602265456411,
+     "always_correct": true,
+     "settled": true,
+     "time_to_correct_ttg": 0.7258602265456411,
+     "time_to_correct_t": 1.205486592,
+     "wrong_predictions": 0,
+     "ambiguous": false
+    },
+    "colour": {
+     "ok": true,
+     "reference": {
+      "verdict": "rim",
+      "in_rim": true,
+      "radial_m": 0.119193782839341,
+      "margin_m": -0.023046217160659008,
+      "t_cross": 1.46009344273816,
+      "last_detection": 1.091948288,
+      "extrapolated_s": 0.36814515473816,
+      "position_cam": [
+       -0.0928378706315945,
+       -0.37696112442314644,
+       -0.01876581997918278
+      ],
+      "rms_m": 0.025199068876637712
+     },
+     "series": [
+      {
+       "t": 0.789559808,
+       "n": 6,
+       "ttg": 0.67053363473816,
+       "t_cross": 1.3548082182355348,
+       "radial_m": 0.2063419381932949,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.2857310368655923
+      },
+      {
+       "t": 0.80635904,
+       "n": 7,
+       "ttg": 0.65373440273816,
+       "t_cross": 1.3695609918905691,
+       "radial_m": 0.09802254835527903,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.1869853976909196
+      },
+      {
+       "t": 0.823158528,
+       "n": 8,
+       "ttg": 0.63693491473816,
+       "t_cross": 1.3566099766880497,
+       "radial_m": 0.04888084569310107,
+       "in_rim": true,
+       "verdict": "in",
+       "error_m": 0.09941331284100952
+      },
+      {
+       "t": 0.8399580160000001,
+       "n": 9,
+       "ttg": 0.6201354267381599,
+       "t_cross": 1.3637705077069862,
+       "radial_m": 0.07059116720395815,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.11214354135398223
+      },
+      {
+       "t": 0.8567572480000001,
+       "n": 10,
+       "ttg": 0.6033361947381599,
+       "t_cross": 1.3703314410614102,
+       "radial_m": 0.09596815500782603,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.11942725506625326
+      },
+      {
+       "t": 0.8735564800000001,
+       "n": 11,
+       "ttg": 0.5865369627381599,
+       "t_cross": 1.3768276578928544,
+       "radial_m": 0.035250617941624575,
+       "in_rim": true,
+       "verdict": "in",
+       "error_m": 0.10649406749280765
+      },
+      {
+       "t": 0.890356224,
+       "n": 12,
+       "ttg": 0.56973721873816,
+       "t_cross": 1.387291871507696,
+       "radial_m": 0.16270847929840407,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.24011030682238008
+      },
+      {
+       "t": 0.9743528960000001,
+       "n": 13,
+       "ttg": 0.4857405467381599,
+       "t_cross": 1.3587085527053726,
+       "radial_m": 0.19086629565803512,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.17254485393285485
+      },
+      {
+       "t": 0.991152384,
+       "n": 14,
+       "ttg": 0.46894105873815994,
+       "t_cross": 1.3782047822228392,
+       "radial_m": 0.21641189633182406,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.1854532810951884
+      },
+      {
+       "t": 1.0079516160000002,
+       "n": 15,
+       "ttg": 0.45214182673815984,
+       "t_cross": 1.4138593004947213,
+       "radial_m": 0.18514865735598318,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.14249809723436743
+      },
+      {
+       "t": 1.024750848,
+       "n": 16,
+       "ttg": 0.43534259473815995,
+       "t_cross": 1.4332417651326619,
+       "radial_m": 0.16139239641249928,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.10787412633556315
+      },
+      {
+       "t": 1.041550336,
+       "n": 17,
+       "ttg": 0.41854310673816,
+       "t_cross": 1.444439726376303,
+       "radial_m": 0.14340617360070962,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.07481875528488896
+      },
+      {
+       "t": 1.058349824,
+       "n": 18,
+       "ttg": 0.40174361873816,
+       "t_cross": 1.4510160133677292,
+       "radial_m": 0.13324038605913086,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.045081510051372675
+      },
+      {
+       "t": 1.075149056,
+       "n": 19,
+       "ttg": 0.3849443867381599,
+       "t_cross": 1.4561888393668192,
+       "radial_m": 0.1249578234836585,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.019886682550094355
+      },
+      {
+       "t": 1.091948288,
+       "n": 20,
+       "ttg": 0.36814515473816,
+       "t_cross": 1.4600938085930393,
+       "radial_m": 0.11919482322088336,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 2.601492050469409e-06
+      }
+     ],
+     "first_prediction_ttg": 0.67053363473816,
+     "always_correct": false,
+     "settled": true,
+     "time_to_correct_ttg": 0.40174361873816,
+     "time_to_correct_t": 1.058349824,
+     "wrong_predictions": 7,
+     "ambiguous": true
+    }
+   }
+  },
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9\\t004",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 180,
+     "candidates": 9557,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 180,
+     "candidates": 76,
+     "ok": true,
+     "detections": 13,
+     "detection_rate": 0.25,
+     "first_t": 0.305434368,
+     "last_t": 0.872977408,
+     "first_range_m": 4.379164138428532,
+     "last_range_m": 4.302756127072062,
+     "rms_m": 0.05071669070029467,
+     "speed_mps": 4.017565468142689,
+     "a_norm": 6.7481294451879545,
+     "a_vs_gravity_pct": -31.211728387482626,
+     "drag_arc": false,
+     "up_in_camera": null
+    },
+    "colour": {
+     "source": "colour",
+     "frames": 119,
+     "candidates": 119,
+     "ok": true,
+     "detections": 16,
+     "detection_rate": 0.9411764705882353,
+     "first_t": 0.6887605760000001,
+     "last_t": 0.957545728,
+     "first_range_m": 1.94330737883738,
+     "last_range_m": 1.3005952977915554,
+     "rms_m": 0.013546479356291797,
+     "speed_mps": 4.967960976933929,
+     "a_norm": NaN,
+     "a_vs_gravity_pct": NaN,
+     "drag_arc": true,
+     "up_in_camera": [
+      0.0,
+      -0.8660254037844387,
+      0.4999999999999999
+     ],
+     "frames_with_a_blob": 119,
+     "flight_frames": 16,
+     "core_frames": 12,
+     "bridged_frames": 1,
+     "range_from_depth": 16,
+     "range_none": 0,
+     "rms_px": 5.108110008094474,
+     "size_over_depth": 1.1333253390081581
+    }
+   },
+   "colour": {
+    "frames": 119,
+    "frames_with_a_blob": 119,
+    "projected": false
+   },
+   "name": "t004",
+   "prediction": {
+    "ir_stereo": {
+     "ok": true,
+     "reference": {
+      "verdict": "out",
+      "in_rim": false,
+      "radial_m": 3.342127436728234,
+      "margin_m": 3.199887436728234,
+      "t_cross": 1.3059871921178445,
+      "last_detection": 0.872977408,
+      "extrapolated_s": 0.4330097841178445,
+      "position_cam": [
+       -0.00706943567295269,
+       1.316600242856652,
+       2.914568513885244
+      ],
+      "rms_m": 0.21885936611352752
+     },
+     "series": [
+      {
+       "t": 0.539127808,
+       "n": 6,
+       "ttg": 0.7668593841178445,
+       "t_cross": 1.0793500803188514,
+       "radial_m": 3.009512607276088,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.33273244982722916
+      },
+      {
+       "t": 0.5725125120000001,
+       "n": 7,
+       "ttg": 0.7334746801178444,
+       "t_cross": 1.1104749182056384,
+       "radial_m": 3.1098228502224003,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.23237497083169917
+      },
+      {
+       "t": 0.672667648,
+       "n": 8,
+       "ttg": 0.6333195441178445,
+       "t_cross": 1.1558527907246459,
+       "radial_m": 3.2306703524470226,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.11164048330598224
+      },
+      {
+       "t": 0.706052352,
+       "n": 9,
+       "ttg": 0.5999348401178445,
+       "t_cross": 1.1963860188295263,
+       "radial_m": 3.1850255626860604,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.15717843514831592
+      },
+      {
+       "t": 0.7728222720000001,
+       "n": 10,
+       "ttg": 0.5331649201178444,
+       "t_cross": 1.2201545246242018,
+       "radial_m": 3.182772475149863,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.15938659158962848
+      },
+      {
+       "t": 0.806207232,
+       "n": 11,
+       "ttg": 0.49977996011784454,
+       "t_cross": 1.2406267877168093,
+       "radial_m": 3.203066068553795,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.13907823553606086
+      },
+      {
+       "t": 0.8395924480000001,
+       "n": 12,
+       "ttg": 0.46639474411784443,
+       "t_cross": 1.2792687398058407,
+       "radial_m": 3.2956908667616536,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.04644447201069478
+      },
+      {
+       "t": 0.872977408,
+       "n": 13,
+       "ttg": 0.4330097841178445,
+       "t_cross": 1.3059871105070748,
+       "radial_m": 3.3421276480136863,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 2.1376355600734254e-07
+      }
+     ],
+     "first_prediction_ttg": 0.7668593841178445,
+     "always_correct": true,
+     "settled": true,
+     "time_to_correct_ttg": 0.7668593841178445,
+     "time_to_correct_t": 0.539127808,
+     "wrong_predictions": 0,
+     "ambiguous": false
+    },
+    "colour": {
+     "ok": true,
+     "reference": {
+      "verdict": "rim",
+      "in_rim": true,
+      "radial_m": 0.12297657925125943,
+      "margin_m": -0.019263420748740573,
+      "t_cross": 1.3347613428417255,
+      "last_detection": 0.957545728,
+      "extrapolated_s": 0.3772156148417255,
+      "position_cam": [
+       0.05144982329594836,
+       -0.4135170687585563,
+       -0.08208257288677238
+      ],
+      "rms_m": 0.013546477462378845
+     },
+     "series": [
+      {
+       "t": 0.772755968,
+       "n": 6,
+       "ttg": 0.5620053748417255,
+       "t_cross": 1.2406167417239817,
+       "radial_m": 0.2150469057310619,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.3337669690263886
+      },
+      {
+       "t": 0.789554944,
+       "n": 7,
+       "ttg": 0.5452063988417255,
+       "t_cross": 1.2291237609246335,
+       "radial_m": 0.016180061354119077,
+       "in_rim": true,
+       "verdict": "in",
+       "error_m": 0.11822439176301269
+      },
+      {
+       "t": 0.806354176,
+       "n": 8,
+       "ttg": 0.5284071668417255,
+       "t_cross": 1.2493390628420455,
+       "radial_m": 0.05169138633806747,
+       "in_rim": true,
+       "verdict": "in",
+       "error_m": 0.07245206961785569
+      },
+      {
+       "t": 0.823153152,
+       "n": 9,
+       "ttg": 0.5116081908417255,
+       "t_cross": 1.2550523512164071,
+       "radial_m": 0.12847887521125775,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.011635762148423809
+      },
+      {
+       "t": 0.8399521280000001,
+       "n": 10,
+       "ttg": 0.49480921484172546,
+       "t_cross": 1.2710799736683933,
+       "radial_m": 0.17607085434728997,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.06410621516201542
+      },
+      {
+       "t": 0.8567513600000001,
+       "n": 11,
+       "ttg": 0.47800998284172547,
+       "t_cross": 1.2843508025382067,
+       "radial_m": 0.11218495842662943,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.011070739102684931
+      },
+      {
+       "t": 0.8903495680000001,
+       "n": 12,
+       "ttg": 0.44441177484172545,
+       "t_cross": 1.2918322213639222,
+       "radial_m": 0.14644196660020795,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.030453669110990136
+      },
+      {
+       "t": 0.907148544,
+       "n": 13,
+       "ttg": 0.42761279884172554,
+       "t_cross": 1.3055256014072913,
+       "radial_m": 0.1259151789668246,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.020435249612444462
+      },
+      {
+       "t": 0.92394752,
+       "n": 14,
+       "ttg": 0.4108138228417255,
+       "t_cross": 1.3128707207597359,
+       "radial_m": 0.1406990782207722,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 0.019471296676754263
+      },
+      {
+       "t": 0.940746752,
+       "n": 15,
+       "ttg": 0.3940145908417255,
+       "t_cross": 1.32132123157427,
+       "radial_m": 0.14872760478782568,
+       "in_rim": false,
+       "verdict": "rim",
+       "error_m": 0.025794728854866788
+      },
+      {
+       "t": 0.957545728,
+       "n": 16,
+       "ttg": 0.3772156148417255,
+       "t_cross": 1.3347600523553376,
+       "radial_m": 0.12297222803636393,
+       "in_rim": true,
+       "verdict": "rim",
+       "error_m": 4.518628350277925e-06
+      }
+     ],
+     "first_prediction_ttg": 0.5620053748417255,
+     "always_correct": false,
+     "settled": true,
+     "time_to_correct_ttg": 0.3772156148417255,
+     "time_to_correct_t": 0.957545728,
+     "wrong_predictions": 4,
+     "ambiguous": true
+    }
+   }
+  },
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_235934_bucket9\\t005",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 176,
+     "candidates": 7773,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 176,
+     "candidates": 158,
+     "ok": false
+    },
+    "colour": {
+     "source": "colour",
+     "frames": 119,
+     "candidates": 119,
+     "ok": false,
+     "frames_with_a_blob": 119,
+     "reason": "the blob sits on a nearer object in 8/8 frames (depth much nearer than its size: a hand or an arm, not a free ball)"
+    }
+   },
+   "colour": {
+    "frames": 119,
+    "frames_with_a_blob": 119,
+    "projected": false
+   },
+   "name": "t005",
+   "prediction": {}
+  }
+ ]
+}

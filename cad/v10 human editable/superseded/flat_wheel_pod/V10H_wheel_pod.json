@@ -1,0 +1,3330 @@
+{
+  "assembly": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10H_wheel_pod.SLDASM",
+  "mates": [
+    "POD_Guard",
+    "POD_Tower",
+    "POD_Outer_fork",
+    "POD_Motor_cup",
+    "POD_Fork_bar",
+    "POD_Hub_A",
+    "POD_Hub_C",
+    "POD_Cartridge",
+    "POD_Motor_stator",
+    "POD_Motor_rotor",
+    "POD_Roller_1_1_TPU",
+    "POD_Roller_1_2_TPU",
+    "POD_Roller_1_3_TPU",
+    "POD_Roller_1_4_TPU",
+    "POD_Roller_1_5_TPU",
+    "POD_Roller_1_6_TPU",
+    "POD_Roller_2_1_TPU",
+    "POD_Roller_2_2_TPU",
+    "POD_Roller_2_3_TPU",
+    "POD_Roller_2_4_TPU",
+    "POD_Roller_2_5_TPU",
+    "POD_Roller_2_6_TPU",
+    "POD_Shaft_axial_location",
+    "POD_Shaft_in_guard",
+    "POD_Inner_pivot_spacer_axial",
+    "POD_Inner_pivot_spacer_axis",
+    "POD_Outer_pivot_spacer_axial",
+    "POD_Outer_pivot_spacer_axis",
+    "POD_Fork_axial_location",
+    "POD_Suspension_pivot",
+    "POD_Suspension_travel",
+    "POD_Wheel_axial_location",
+    "POD_Wheel_bearings",
+    "POD_Motor_bearing_shoulder",
+    "POD_Motor_bearing_housing",
+    "POD_bearing_6804_1_shoulder",
+    "POD_bearing_6804_1_housing",
+    "POD_bearing_6804_2_shoulder",
+    "POD_bearing_6804_2_housing",
+    "POD_bearing_627_1_shoulder",
+    "POD_bearing_627_1_housing",
+    "POD_bearing_627_2_shoulder",
+    "POD_bearing_627_2_housing",
+    "POD_Inner_lower_eye",
+    "POD_Inner_shock_lateral",
+    "POD_Inner_upper_eye",
+    "POD_Inner_shock_slider",
+    "POD_Outer_lower_eye",
+    "POD_Outer_shock_lateral",
+    "POD_Outer_upper_eye",
+    "POD_Outer_shock_slider",
+    "POD_Motor_washer",
+    "POD_bolt_M3_50_PAN_1_seat",
+    "POD_bolt_M3_50_PAN_1_axis",
+    "POD_nut_M3_hex_1_seat",
+    "POD_nut_M3_hex_1_axis",
+    "POD_bolt_M3_50_PAN_2_seat",
+    "POD_bolt_M3_50_PAN_2_axis",
+    "POD_nut_M3_hex_2_seat",
+    "POD_nut_M3_hex_2_axis",
+    "POD_bolt_M3_50_PAN_3_seat",
+    "POD_bolt_M3_50_PAN_3_axis",
+    "POD_nut_M3_hex_3_seat",
+    "POD_nut_M3_hex_3_axis",
+    "POD_bolt_M3_50_PAN_4_seat",
+    "POD_bolt_M3_50_PAN_4_axis",
+    "POD_nut_M3_hex_4_seat",
+    "POD_nut_M3_hex_4_axis",
+    "POD_bolt_M3_50_PAN_5_seat",
+    "POD_bolt_M3_50_PAN_5_axis",
+    "POD_nut_M3_hex_5_seat",
+    "POD_nut_M3_hex_5_axis",
+    "POD_bolt_M3_50_PAN_6_seat",
+    "POD_bolt_M3_50_PAN_6_axis",
+    "POD_nut_M3_hex_6_seat",
+    "POD_nut_M3_hex_6_axis",
+    "POD_bolt_M3_18_PAN_1_seat",
+    "POD_bolt_M3_18_PAN_1_axis",
+    "POD_bolt_M3_18_PAN_2_seat",
+    "POD_bolt_M3_18_PAN_2_axis",
+    "POD_bolt_M3_18_PAN_3_seat",
+    "POD_bolt_M3_18_PAN_3_axis",
+    "POD_bolt_M3_18_PAN_4_seat",
+    "POD_bolt_M3_18_PAN_4_axis",
+    "POD_bolt_M3_18_PAN_5_seat",
+    "POD_bolt_M3_18_PAN_5_axis",
+    "POD_bolt_M3_18_PAN_6_seat",
+    "POD_bolt_M3_18_PAN_6_axis",
+    "POD_bolt_M3_50_PAN_7_seat",
+    "POD_bolt_M3_50_PAN_7_axis",
+    "POD_nut_M3_hex_7_seat",
+    "POD_nut_M3_hex_7_axis",
+    "POD_bolt_M3_50_PAN_8_seat",
+    "POD_bolt_M3_50_PAN_8_axis",
+    "POD_nut_M3_hex_8_seat",
+    "POD_nut_M3_hex_8_axis",
+    "POD_bolt_M3_50_PAN_9_seat",
+    "POD_bolt_M3_50_PAN_9_axis",
+    "POD_nut_M3_hex_9_seat",
+    "POD_nut_M3_hex_9_axis",
+    "POD_bolt_M3_50_PAN_10_seat",
+    "POD_bolt_M3_50_PAN_10_axis",
+    "POD_nut_M3_hex_10_seat",
+    "POD_nut_M3_hex_10_axis",
+    "POD_bolt_M3_50_PAN_11_seat",
+    "POD_bolt_M3_50_PAN_11_axis",
+    "POD_nut_M3_hex_11_seat",
+    "POD_nut_M3_hex_11_axis",
+    "POD_bolt_M3_50_PAN_12_seat",
+    "POD_bolt_M3_50_PAN_12_axis",
+    "POD_nut_M3_hex_12_seat",
+    "POD_nut_M3_hex_12_axis",
+    "POD_bolt_M3_18_PAN_7_seat",
+    "POD_bolt_M3_18_PAN_7_axis",
+    "POD_bolt_M3_18_PAN_8_seat",
+    "POD_bolt_M3_18_PAN_8_axis",
+    "POD_bolt_M3_18_PAN_9_seat",
+    "POD_bolt_M3_18_PAN_9_axis",
+    "POD_bolt_M3_18_PAN_10_seat",
+    "POD_bolt_M3_18_PAN_10_axis",
+    "POD_bolt_M3_18_PAN_11_seat",
+    "POD_bolt_M3_18_PAN_11_axis",
+    "POD_bolt_M3_18_PAN_12_seat",
+    "POD_bolt_M3_18_PAN_12_axis",
+    "POD_bolt_M2p5_10_PAN_1_seat",
+    "POD_bolt_M2p5_10_PAN_1_axis",
+    "POD_bolt_M2p5_10_PAN_2_seat",
+    "POD_bolt_M2p5_10_PAN_2_axis",
+    "POD_bolt_M2p5_10_PAN_3_seat",
+    "POD_bolt_M2p5_10_PAN_3_axis",
+    "POD_bolt_M3_12_PAN_1_seat",
+    "POD_bolt_M3_12_PAN_1_axis",
+    "POD_bolt_M3_12_PAN_2_seat",
+    "POD_bolt_M3_12_PAN_2_axis",
+    "POD_bolt_M3_12_PAN_3_seat",
+    "POD_bolt_M3_12_PAN_3_axis",
+    "POD_bolt_M2p5_10_PAN_4_seat",
+    "POD_bolt_M2p5_10_PAN_4_axis",
+    "POD_bolt_M2p5_10_PAN_5_seat",
+    "POD_bolt_M2p5_10_PAN_5_axis",
+    "POD_bolt_M2p5_10_PAN_6_seat",
+    "POD_bolt_M2p5_10_PAN_6_axis",
+    "POD_bolt_M2p5_10_PAN_7_seat",
+    "POD_bolt_M2p5_10_PAN_7_axis",
+    "POD_bolt_M3_25_PAN_1_seat",
+    "POD_bolt_M3_25_PAN_1_axis",
+    "POD_bolt_M3_25_PAN_2_seat",
+    "POD_bolt_M3_25_PAN_2_axis",
+    "POD_bolt_M3_25_PAN_3_seat",
+    "POD_bolt_M3_25_PAN_3_axis",
+    "POD_bolt_M3_25_PAN_4_seat",
+    "POD_bolt_M3_25_PAN_4_axis",
+    "POD_washer_M3_1_seat",
+    "POD_washer_M3_1_axis",
+    "POD_bolt_M3_14_PAN_1_seat",
+    "POD_bolt_M3_14_PAN_1_axis",
+    "POD_bolt_M3_16_PAN_1_seat",
+    "POD_bolt_M3_16_PAN_1_axis",
+    "POD_bolt_M3_18_PAN_13_seat",
+    "POD_bolt_M3_18_PAN_13_axis",
+    "POD_bolt_M3_18_PAN_14_seat",
+    "POD_bolt_M3_18_PAN_14_axis",
+    "POD_bolt_M3_18_PAN_15_seat",
+    "POD_bolt_M3_18_PAN_15_axis",
+    "POD_bolt_M3_18_PAN_16_seat",
+    "POD_bolt_M3_18_PAN_16_axis",
+    "POD_bolt_M3_25_PAN_5_seat",
+    "POD_bolt_M3_25_PAN_5_axis",
+    "POD_bolt_M3_20_PAN_1_seat",
+    "POD_bolt_M3_20_PAN_1_axis",
+    "POD_nut_M3_nyloc_1_seat",
+    "POD_nut_M3_nyloc_1_axis",
+    "POD_bolt_M3_16_PAN_2_seat",
+    "POD_bolt_M3_16_PAN_2_axis",
+    "POD_Guard_foot_bolt_1_seat",
+    "POD_Guard_foot_bolt_1_axis",
+    "POD_Guard_foot_bolt_2_seat",
+    "POD_Guard_foot_bolt_2_axis",
+    "POD_Guard_foot_bolt_3_seat",
+    "POD_Guard_foot_bolt_3_axis",
+    "POD_Guard_foot_bolt_4_seat",
+    "POD_Guard_foot_bolt_4_axis",
+    "POD_Guard_foot_bolt_5_seat",
+    "POD_Guard_foot_bolt_5_axis",
+    "POD_Guard_foot_bolt_6_seat",
+    "POD_Guard_foot_bolt_6_axis",
+    "POD_Tower_foot_bolt_1_seat",
+    "POD_Tower_foot_bolt_1_axis",
+    "POD_Tower_foot_bolt_2_seat",
+    "POD_Tower_foot_bolt_2_axis",
+    "POD_Tower_foot_bolt_3_seat",
+    "POD_Tower_foot_bolt_3_axis",
+    "POD_Tower_foot_bolt_4_seat",
+    "POD_Tower_foot_bolt_4_axis",
+    "POD_Tower_foot_bolt_5_seat",
+    "POD_Tower_foot_bolt_5_axis",
+    "POD_Motor_screw_seat",
+    "POD_Motor_screw_axis",
+    "POD_Roller_1_1_axle",
+    "POD_Roller_1_1_float",
+    "POD_Roller_1_2_axle",
+    "POD_Roller_1_2_float",
+    "POD_Roller_1_3_axle",
+    "POD_Roller_1_3_float",
+    "POD_Roller_1_4_axle",
+    "POD_Roller_1_4_float",
+    "POD_Roller_1_5_axle",
+    "POD_Roller_1_5_float",
+    "POD_Roller_1_6_axle",
+    "POD_Roller_1_6_float",
+    "POD_Roller_2_1_axle",
+    "POD_Roller_2_1_float",
+    "POD_Roller_2_2_axle",
+    "POD_Roller_2_2_float",
+    "POD_Roller_2_3_axle",
+    "POD_Roller_2_3_float",
+    "POD_Roller_2_4_axle",
+    "POD_Roller_2_4_float",
+    "POD_Roller_2_5_axle",
+    "POD_Roller_2_5_float",
+    "POD_Roller_2_6_axle",
+    "POD_Roller_2_6_float"
+  ],
+  "mate_errors": [],
+  "components": {
+    "V10H_wheel_guard-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_guard.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_master_layout-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+      "fixed": true,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bench_plate-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bench_plate.SLDPRT",
+      "fixed": true,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_pivot_shaft-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_shaft.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          3.000000000000001
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.20000000000002
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          43.0
+        ]
+      ]
+    },
+    "V10H_pod_mount-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pod_mount.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_roller_tread-12": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844384,
+          0.5000000000000004,
+          45.03332099679079
+        ],
+        [
+          0.0,
+          -0.5000000000000004,
+          0.8660254037844384,
+          -26.000000000000018
+        ]
+      ]
+    },
+    "V10H_motor_cup-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_motor_cup.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_25_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          40.25
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.2
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          56.99999999999999
+        ]
+      ]
+    },
+    "V10H_bolt_M3_16_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_16_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -51.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          36.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          58.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-13": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -43.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          83.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -12.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-14": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -43.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          83.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -24.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-15": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          51.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          83.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -12.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_16_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_16_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -57.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          36.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          10.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-16": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          51.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          83.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -24.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          86.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          46.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.10000000000000026
+        ]
+      ]
+    },
+    "V10H_bolt_M3_14_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_14_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          66.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          10.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          16.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_nut_M3_nyloc-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_nyloc.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          75.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          58.3
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          86.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          22.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.10000000000000026
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -14.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -14.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_bolt_M3_20_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_20_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          60.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          58.3
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          16.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          40.25
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_bolt_M3_10_PAN-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -31.5
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          87.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.09999999999999983
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          90.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          30.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.10000000000000026
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          97.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          26.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.10000000000000026
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          100.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          33.5
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -0.10000000000000026
+        ]
+      ]
+    },
+    "V10H_roller_core-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -17.99999999999987
+        ],
+        [
+          0.0,
+          -0.4999999999999998,
+          -0.8660254037844388,
+          -25.999999999999982
+        ],
+        [
+          0.0,
+          0.8660254037844388,
+          -0.4999999999999998,
+          45.033320996790856
+        ]
+      ]
+    },
+    "V10H_roller_core-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000014
+        ],
+        [
+          0.0,
+          -0.5000000000000006,
+          0.8660254037844384,
+          -26.000000000000036
+        ],
+        [
+          0.0,
+          -0.8660254037844384,
+          -0.5000000000000006,
+          -45.0333209967908
+        ]
+      ]
+    },
+    "V10H_bolt_M3_8_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_8_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -12.2
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_roller_tread-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          52.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_roller_tread-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -17.99999999999987
+        ],
+        [
+          0.0,
+          -0.4999999999999998,
+          -0.8660254037844388,
+          -25.999999999999982
+        ],
+        [
+          0.0,
+          0.8660254037844388,
+          -0.4999999999999998,
+          45.033320996790856
+        ]
+      ]
+    },
+    "V10H_roller_core-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -17.999999999999996
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          -0.8660254037844386,
+          26.0
+        ],
+        [
+          0.0,
+          0.8660254037844386,
+          0.5000000000000001,
+          45.033320996790806
+        ]
+      ]
+    },
+    "V10H_roller_tread-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000014
+        ],
+        [
+          0.0,
+          -0.5000000000000006,
+          0.8660254037844384,
+          -26.000000000000036
+        ],
+        [
+          0.0,
+          -0.8660254037844384,
+          -0.5000000000000006,
+          -45.0333209967908
+        ]
+      ]
+    },
+    "V10H_roller_tread-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -17.999999999999996
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          -0.8660254037844386,
+          26.0
+        ],
+        [
+          0.0,
+          0.8660254037844386,
+          0.5000000000000001,
+          45.033320996790806
+        ]
+      ]
+    },
+    "V10H_roller_core-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -52.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          6.938893903907228e-15
+        ]
+      ]
+    },
+    "V10H_roller_core-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          0.8660254037844386,
+          26.000000000000007
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000001,
+          -45.033320996790806
+        ]
+      ]
+    },
+    "V10H_roller_core-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          52.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_roller_tread-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -52.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          6.938893903907228e-15
+        ]
+      ]
+    },
+    "V10H_roller_tread-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          0.8660254037844386,
+          26.000000000000007
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000001,
+          -45.033320996790806
+        ]
+      ]
+    },
+    "V10H_roller_core-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          -0.49999999999999994,
+          45.03332099679082
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          0.8660254037844387,
+          25.999999999999996
+        ]
+      ]
+    },
+    "V10H_roller_tread-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          -0.49999999999999994,
+          45.03332099679082
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          0.8660254037844387,
+          25.999999999999996
+        ]
+      ]
+    },
+    "V10H_roller_core-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.000000000000092
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          3.758582806620516e-16
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          51.999999999999964
+        ]
+      ]
+    },
+    "V10H_roller_tread-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.000000000000092
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          3.758582806620516e-16
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          51.999999999999964
+        ]
+      ]
+    },
+    "V10H_pivot_shim-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_shim.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          44.000000000000014
+        ],
+        [
+          -2.2204460492503126e-16,
+          1.0,
+          0.0,
+          68.20000000000002
+        ],
+        [
+          -1.0,
+          -2.2204460492503146e-16,
+          0.0,
+          43.0
+        ]
+      ]
+    },
+    "V10H_inner_fork_6804-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_inner_fork_6804.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_pivot_outer_spacer-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_outer_spacer.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -36.5
+        ],
+        [
+          2.2204460492503126e-16,
+          1.0,
+          0.0,
+          68.2
+        ],
+        [
+          1.0,
+          -2.2204460492503146e-16,
+          0.0,
+          43.0
+        ]
+      ]
+    },
+    "V10H_outer_fork_6804-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_outer_fork_6804.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_shock_rod-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_rod.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -54.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          36.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          58.0
+        ]
+      ]
+    },
+    "V10H_shock_rod-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_rod.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          63.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          58.3
+        ]
+      ]
+    },
+    "V10H_shock_case-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_case.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          63.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          10.000000000000002
+        ]
+      ]
+    },
+    "V10H_shock_case-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_case.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -54.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          36.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          10.000000000000002
+        ]
+      ]
+    },
+    "V10H_wheel_hub_B-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_B.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_wheel_hub_A-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_A.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_fork_bar-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_fork_bar.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          78.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -18.0
+        ]
+      ]
+    },
+    "V10H_wheel_cartridge-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_cartridge.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          52.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -23.5
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000007
+        ],
+        [
+          0.0,
+          -0.5000000000000003,
+          0.8660254037844387,
+          46.35159698893432
+        ],
+        [
+          0.0,
+          -0.8660254037844387,
+          -0.5000000000000003,
+          33.283320996790785
+        ]
+      ]
+    },
+    "V10H_wheel_hub_C-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_C.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_dummy_motor_rotor-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_rotor.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -23.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          52.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          23.5
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -52.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -23.499999999999993
+        ]
+      ]
+    },
+    "V10H_dummy_motor_stator-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_stator.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -23.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_washer_M3_large-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_washer_M3_large.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -12.2
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bearing_687-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_687.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -15.8
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.00000000000001
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          -0.8660254037844386,
+          5.648403011065679
+        ],
+        [
+          0.0,
+          0.8660254037844386,
+          0.5000000000000001,
+          56.7833209967908
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.00000000000001
+        ],
+        [
+          0.0,
+          0.49999999999999967,
+          0.8660254037844389,
+          -5.648403011065649
+        ],
+        [
+          0.0,
+          -0.8660254037844389,
+          0.49999999999999967,
+          56.783320996790806
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.00000000000001
+        ],
+        [
+          0.0,
+          -0.4999999999999998,
+          -0.8660254037844388,
+          -46.35159698893429
+        ],
+        [
+          0.0,
+          0.8660254037844388,
+          -0.4999999999999998,
+          33.28332099679081
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -52.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          23.500000000000007
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000014
+        ],
+        [
+          0.0,
+          -0.5000000000000006,
+          0.8660254037844384,
+          -5.648403011065724
+        ],
+        [
+          0.0,
+          -0.8660254037844384,
+          -0.5000000000000006,
+          -56.78332099679079
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000014
+        ],
+        [
+          0.0,
+          0.5000000000000007,
+          -0.8660254037844383,
+          -46.35159698893433
+        ],
+        [
+          0.0,
+          0.8660254037844383,
+          0.5000000000000007,
+          -33.28332099679078
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.0
+        ],
+        [
+          0.0,
+          -0.5,
+          -0.8660254037844387,
+          5.6484030110656995
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          -0.5,
+          -56.783320996790806
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -18.000000000000014
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          0.8660254037844386,
+          46.3515969889343
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000001,
+          -33.2833209967908
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-11": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          19.000000000000004
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -32.90896534380867
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-12": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          38.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -9.540979117872439e-15
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          21.200000000000003
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          1.43895998899814e-15
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          23.5
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -26.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -11.691342951089922
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          6.749999999999999
+        ]
+      ]
+    },
+    "V10H_bearing_6804-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_6804.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          40.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bearing_6804-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_6804.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -47.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -26.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          11.691342951089922
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          6.749999999999999
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -26.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -2.47990976827339e-15
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -13.500000000000002
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -44.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          22.516660498395407
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          12.999999999999998
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -44.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -22.516660498395407
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          12.999999999999998
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          21.200000000000003
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          23.5
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -44.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -4.776122516674677e-15
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -26.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_25_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          54.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          3.9801020972288977e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          6.5
+        ]
+      ]
+    },
+    "V10H_roller_tread-9": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.000000000000146
+        ],
+        [
+          0.0,
+          -0.8660254037844388,
+          -0.49999999999999994,
+          -45.033320996790756
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          -0.8660254037844388,
+          25.999999999999968
+        ]
+      ]
+    },
+    "V10H_bearing_627-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_627.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          -42.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.2
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          43.0
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          21.200000000000003
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -23.5
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          2.6020852139652106e-15
+        ]
+      ]
+    },
+    "V10H_bolt_M2p5_10_PAN-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          21.200000000000003
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -4.3168799669944195e-15
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -23.5
+        ]
+      ]
+    },
+    "V10H_bolt_M3_25_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          54.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          6.5
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bearing_627-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_627.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          48.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          68.2
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          43.0
+        ]
+      ]
+    },
+    "V10H_roller_core-9": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.000000000000146
+        ],
+        [
+          0.0,
+          -0.8660254037844388,
+          -0.49999999999999994,
+          -45.033320996790756
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          -0.8660254037844388,
+          25.999999999999968
+        ]
+      ]
+    },
+    "V10H_bolt_M3_25_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          54.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.5
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_25_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          54.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -1.1940306291686693e-15
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -6.499999999999999
+        ]
+      ]
+    },
+    "V10H_washer_M3-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_washer_M3.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          66.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          30.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          10.0
+        ]
+      ]
+    },
+    "V10H_roller_core-10": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000002,
+          -45.03332099679079
+        ],
+        [
+          0.0,
+          -0.5000000000000002,
+          -0.8660254037844386,
+          -26.0
+        ]
+      ]
+    },
+    "V10H_roller_tread-10": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000002,
+          -45.03332099679079
+        ],
+        [
+          0.0,
+          -0.5000000000000002,
+          -0.8660254037844386,
+          -26.0
+        ]
+      ]
+    },
+    "V10H_roller_core-11": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.99999999999997
+        ],
+        [
+          0.0,
+          -2.220446049250313e-16,
+          1.0,
+          -2.0547525679827175e-14
+        ],
+        [
+          0.0,
+          -1.0,
+          -2.220446049250313e-16,
+          -52.00000000000001
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-10": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -0.8660254037844386,
+          0.5000000000000002,
+          -33.28332099679079
+        ],
+        [
+          0.0,
+          -0.5000000000000002,
+          -0.8660254037844386,
+          -46.351596988934304
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          32.908965343808674
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.999999999999996
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-12": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844384,
+          0.5000000000000004,
+          56.783320996790806
+        ],
+        [
+          0.0,
+          -0.5000000000000004,
+          0.8660254037844384,
+          -5.648403011065721
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-9": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.999999999999993
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          0.5,
+          -33.2833209967908
+        ],
+        [
+          0.0,
+          -0.5,
+          0.8660254037844387,
+          46.351596988934304
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-5": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.980486755139913e-15
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -38.0
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -23.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          51.99999999999999
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -32.90896534380867
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -19.000000000000004
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -0.8660254037844388,
+          0.49999999999999983,
+          56.78332099679081
+        ],
+        [
+          0.0,
+          -0.49999999999999983,
+          -0.8660254037844388,
+          5.648403011065686
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -32.908965343808674
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.999999999999996
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-10": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          -0.5000000000000001,
+          -56.78332099679079
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          0.8660254037844387,
+          -5.6484030110657075
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-11": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.999999999999996
+        ],
+        [
+          0.0,
+          3.4450928483976665e-16,
+          -1.0,
+          -23.50000000000002
+        ],
+        [
+          0.0,
+          1.0,
+          3.4450928483976665e-16,
+          -51.99999999999999
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          2.326828918379971e-15
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          38.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-6": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          -27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          32.90896534380866
+        ],
+        [
+          1.0,
+          0.0,
+          0.0,
+          -19.000000000000018
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          1.0,
+          23.500000000000004
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          51.99999999999999
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          -0.49999999999999994,
+          33.28332099679081
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          0.8660254037844387,
+          46.351596988934304
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-9": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.999999999999996
+        ],
+        [
+          0.0,
+          -0.8660254037844388,
+          -0.49999999999999994,
+          -56.78332099679079
+        ],
+        [
+          0.0,
+          0.49999999999999994,
+          -0.8660254037844388,
+          5.648403011065673
+        ]
+      ]
+    },
+    "V10H_nut_M3_hex-11": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.999999999999996
+        ],
+        [
+          0.0,
+          -2.220446049250313e-16,
+          1.0,
+          23.49999999999999
+        ],
+        [
+          0.0,
+          -1.0,
+          -2.220446049250313e-16,
+          -52.00000000000001
+        ]
+      ]
+    },
+    "V10H_bolt_M3_50_PAN-12": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          -0.8660254037844385,
+          -0.5000000000000007,
+          33.28332099679078
+        ],
+        [
+          0.0,
+          0.5000000000000007,
+          -0.8660254037844385,
+          -46.35159698893431
+        ]
+      ]
+    },
+    "V10H_roller_tread-11": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          17.99999999999997
+        ],
+        [
+          0.0,
+          -2.220446049250313e-16,
+          1.0,
+          -2.0547525679827175e-14
+        ],
+        [
+          0.0,
+          -1.0,
+          -2.220446049250313e-16,
+          -52.00000000000001
+        ]
+      ]
+    },
+    "V10H_roller_core-12": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          0.0,
+          0.8660254037844384,
+          0.5000000000000004,
+          45.03332099679079
+        ],
+        [
+          0.0,
+          -0.5000000000000004,
+          0.8660254037844384,
+          -26.000000000000018
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-7": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          19.000000000000004
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          32.90896534380867
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-8": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -18.999999999999993
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          32.908965343808674
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-9": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -38.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          4.336808689942018e-15
+        ]
+      ]
+    },
+    "V10H_bolt_M3_18_PAN-10": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          27.1
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -19.000000000000018
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -32.90896534380866
+        ]
+      ]
+    }
+  }
+}

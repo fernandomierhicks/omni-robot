@@ -64,7 +64,8 @@ SIM_STEPS = {
                   {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"},
                   {"key": "person", "label": "A person walking (Follow)", "kind": "bool", "default": "false"},
                   {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "off"},
-                  {"key": "thrower", "label": "A thrower (Catch)", "kind": "bool", "default": "true"}]
+                  {"key": "thrower", "label": "A thrower (Catch)", "kind": "bool", "default": "true"},
+                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"}]
          + VIEW_ARGS},
         {"id": "arm", "label": "Arm robot: tidy up", "group": "robot", "cmd": ["bash", "{omni_sh}", "arm", "web:=false"],
          "hint": "The arm robot (an SO-101 on the nose instead of the catch module) in the house with toys on the "
@@ -75,7 +76,8 @@ SIM_STEPS = {
                   {"key": "n_objects", "label": "how many", "kind": "number", "default": "6"},
                   {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"},
                   {"key": "person", "label": "A person walking (Follow)", "kind": "bool", "default": "false"},
-                  {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "toys"}]
+                  {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "toys"},
+                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"}]
          + VIEW_ARGS},
         {"id": "catch", "label": "Play catch", "group": "robot", "cmd": ["bash", "{omni_sh}", "catch", "web:=false"],
          "hint": "The open field: a thrower 6-7 m away, the stereo cameras, the robot's own catch code; return throws "
@@ -241,10 +243,6 @@ class Supervisor:
                 return "Nothing running"
             self.stopping = True
             self.cur["state"] = "stopping"
-            try:
-                os.killpg(p.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
             if not wait:
                 threading.Thread(target=self._finish_stop, args=(p,), daemon=True).start()
                 return "Stopping"
@@ -252,6 +250,14 @@ class Supervisor:
             return "Stopped"
 
     def _finish_stop(self, p):
+        if self.cfg.get("sim"):
+            _stop_launches([p.pid])
+            p.wait(timeout=5.0)
+            return
+        try:
+            os.killpg(p.pid, signal.SIGINT)
+        except ProcessLookupError:
+            return
         for sig, grace in ((None, STOP_GRACE), (signal.SIGTERM, 5.0), (signal.SIGKILL, 5.0)):
             if sig is not None:
                 try:
@@ -264,7 +270,7 @@ class Supervisor:
             except subprocess.TimeoutExpired:
                 continue
 
-    def external(self) -> list:
+    def _external_processes(self) -> list:
         """Steps running that this supervisor didn't start (the Launcher's buttons, a terminal)."""
         det = self.cfg.get("detect")
         if not det:
@@ -277,12 +283,25 @@ class Supervisor:
         out = []
         for line in r.stdout.splitlines():
             pid, _, cmd = line.partition(" ")
-            if mine is not None and _descends(int(pid), mine):
+            if not pid.isdigit():
                 continue
-            out.append(cmd.strip())
+            pid = int(pid)
+            if pid == os.getpid() or (mine is not None and _descends(pid, mine)):
+                continue
+            if self.cfg.get("sim"):
+                # pgrep also finds shells whose command text mentions a launch. Only accept real argv tokens.
+                if not _is_sim_launch(pid):
+                    continue
+            out.append((pid, cmd.strip()))
         return out
 
+    def external(self) -> list:
+        return [cmd for _, cmd in self._external_processes()]
+
     def _run_stop_all(self):
+        if self.cfg.get("sim"):
+            _stop_launches([pid for pid, _ in self._external_processes()])
+            return
         cmd = self.cfg.get("stop_all")
         if cmd:
             subprocess.run(cmd, capture_output=True, timeout=60)
@@ -337,6 +356,55 @@ class Supervisor:
         if r.returncode != 0:
             raise ValueError(f"{action} failed: {(r.stderr or r.stdout).strip()[:200]}")
         return f"{action.title()} requested"
+
+
+def _is_sim_launch(pid):
+    try:
+        argv = Path(f"/proc/{pid}/cmdline").read_bytes().decode().strip("\0").split("\0")
+        return any(Path(a).name == "ros2" and argv[i + 1:i + 3] == ["launch", "omni_bringup"]
+                   for i, a in enumerate(argv))
+    except (OSError, UnicodeError):
+        return False
+
+
+def _process_identity(pid: int):
+    try:
+        fields = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+        return None if fields[0] == "Z" else fields[19]        # start time: don't signal a reused PID
+    except (OSError, IndexError):
+        return None
+
+
+def _stop_launches(roots):
+    # A terminal's process group can contain unrelated work. Snapshot the actual trees before SIGINT, including
+    # separately grouped children (the mission node's slam_toolbox), and retain their identities if reparented.
+    targets = {}
+    for entry in Path("/proc").iterdir():
+        if entry.name.isdigit():
+            pid = int(entry.name)
+            if pid != os.getpid() and any(_descends(pid, root) for root in roots):
+                identity = _process_identity(pid)
+                if identity is not None:
+                    targets[pid] = identity
+    for sig, grace in ((signal.SIGINT, STOP_GRACE), (signal.SIGTERM, 5.0), (signal.SIGKILL, 5.0)):
+        alive = {pid: ident for pid, ident in targets.items() if _process_identity(pid) == ident}
+        if not alive:
+            return
+        # The launch gets the first chance to clean up its nodes. Signal its remaining children on escalation.
+        selected = ([pid for pid in alive if _is_sim_launch(pid)] or [pid for pid in roots if pid in alive]) \
+            if sig == signal.SIGINT else alive
+        for pid in selected:
+            try:
+                os.kill(pid, sig)
+            except ProcessLookupError:
+                pass
+        until = time.monotonic() + grace
+        while time.monotonic() < until:
+            if all(_process_identity(pid) != ident for pid, ident in alive.items()):
+                return
+            time.sleep(0.1)
+    if any(_process_identity(pid) == ident for pid, ident in targets.items()):
+        raise ValueError("An external launch has not stopped")
 
 
 def _descends(pid: int, ancestor: int) -> bool:

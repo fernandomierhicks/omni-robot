@@ -1,0 +1,156 @@
+{
+  "motor_pairs": [],
+  "motor_spin": [
+    {
+      "degrees": 0,
+      "clashes": []
+    },
+    {
+      "degrees": 30,
+      "clashes": []
+    },
+    {
+      "degrees": 60,
+      "clashes": []
+    },
+    {
+      "degrees": 90,
+      "clashes": []
+    },
+    {
+      "degrees": 120,
+      "clashes": []
+    },
+    {
+      "degrees": 150,
+      "clashes": []
+    },
+    {
+      "degrees": 180,
+      "clashes": []
+    },
+    {
+      "degrees": 210,
+      "clashes": []
+    },
+    {
+      "degrees": 240,
+      "clashes": []
+    },
+    {
+      "degrees": 270,
+      "clashes": []
+    },
+    {
+      "degrees": 300,
+      "clashes": []
+    },
+    {
+      "degrees": 330,
+      "clashes": []
+    }
+  ],
+  "fixed_pairs": [],
+  "static_pairs": [],
+  "travel": [
+    {
+      "bump_mm": -3.0,
+      "clashes": [],
+      "inner_shock_mm": 49.994294463482625,
+      "outer_shock_mm": 49.426677649689836
+    },
+    {
+      "bump_mm": 0.0,
+      "clashes": [],
+      "inner_shock_mm": 48.3,
+      "outer_shock_mm": 48.0
+    },
+    {
+      "bump_mm": 7.5,
+      "clashes": [],
+      "inner_shock_mm": 44.171523489600986,
+      "outer_shock_mm": 44.51147452990371
+    },
+    {
+      "bump_mm": 15.0,
+      "clashes": [],
+      "inner_shock_mm": 40.155302137535784,
+      "outer_shock_mm": 41.10228951916988
+    }
+  ],
+  "shock_pairs": [],
+  "solids": {
+    "guard": {
+      "count": 1,
+      "valid": true
+    },
+    "mount": {
+      "count": 1,
+      "valid": true
+    },
+    "bench": {
+      "count": 1,
+      "valid": true
+    },
+    "shaft": {
+      "count": 1,
+      "valid": true
+    },
+    "inner": {
+      "count": 1,
+      "valid": true
+    },
+    "outer": {
+      "count": 1,
+      "valid": true
+    },
+    "cup": {
+      "count": 1,
+      "valid": true
+    },
+    "bar": {
+      "count": 1,
+      "valid": true
+    },
+    "wheel_cartridge": {
+      "count": 1,
+      "valid": true
+    },
+    "wheel_hub_A": {
+      "count": 1,
+      "valid": true
+    },
+    "wheel_hub_B": {
+      "count": 1,
+      "valid": true
+    },
+    "wheel_hub_C": {
+      "count": 1,
+      "valid": true
+    },
+    "case": {
+      "count": 1,
+      "valid": true
+    },
+    "cap": {
+      "count": 1,
+      "valid": true
+    },
+    "rotor": {
+      "count": 1,
+      "valid": true
+    },
+    "retainer": {
+      "count": 1,
+      "valid": true
+    },
+    "front_bearing": {
+      "count": 1,
+      "valid": true
+    },
+    "rear_bearing": {
+      "count": 1,
+      "valid": true
+    }
+  }
+}

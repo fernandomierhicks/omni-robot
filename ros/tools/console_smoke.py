@@ -19,6 +19,8 @@ from __future__ import annotations
 
 import argparse
 import math
+import json
+import socket
 import sys
 import time
 
@@ -36,6 +38,14 @@ TRUE_SPEED_JS = """() => new Promise(res => {
                                messageType: 'nav_msgs/msg/Odometry' });
   t.subscribe(m => { v = [Math.hypot(m.twist.twist.linear.x, m.twist.twist.linear.y), Math.abs(m.twist.twist.angular.z)]; });
   setTimeout(() => { t.unsubscribe(); res(v); }, 600); })"""
+
+TRUE_POSE_JS = """() => new Promise(res => {
+  let p = null;
+  const t = new ROSLIB.Topic({ ros: window.omniConsole.getRos(), name: '/ground_truth/odom',
+                               messageType: 'nav_msgs/msg/Odometry' });
+  t.subscribe(m => { const q = m.pose.pose.orientation, v = m.pose.pose.position;
+    p = [v.x, v.y, Math.atan2(2 * (q.w*q.z + q.x*q.y), 1 - 2 * (q.y*q.y + q.z*q.z))]; });
+  setTimeout(() => { t.unsubscribe(); res(p); }, 600); })"""
 
 
 def robot_cpu(seconds: float) -> dict:
@@ -161,7 +171,21 @@ def run_tabs(page, a, st, cmd, wait, check):
     # Follow: needs a person in the sim (person:=true), who walks in front of the robot's start (the map's origin)
     cmd("goto", {"x": 0.0, "y": 0.0, "yaw": 0.0, "name": "the start"})
     wait(lambda s: s["mission"] == "GOTO", 5, "Follow: back to the start")
-    wait(lambda s: s["mission"] != "GOTO", 90, "Follow: at the start")
+    arrived = wait(lambda s: s["mission"] != "GOTO", 90, "Follow: return trip ended")
+    check(bool(arrived) and arrived["task"].startswith("Arrived"),
+          f"Follow: arrived at the start ({(arrived or {}).get('task')})")
+    # A long SLAM/route test leaves the walker anywhere along its path. Restart the existing simulated person
+    # in front of the robot, just as the Launcher's person toggle does; don't create one if the world has none.
+    def world(req):
+        with socket.create_connection(("127.0.0.1", a.world_port), timeout=3.0) as sock:
+            sock.sendall((json.dumps(req) + "\n").encode())
+            return json.loads(sock.makefile().readline())
+    try:
+        if world({"get": 1}).get("world", {}).get("person"):
+            world({"person": False})
+            world({"person": True})
+    except (OSError, ValueError):
+        pass                                       # older bridge: the person stays on its original path
     r = cmd("follow", {"mode": "follow"})
     p0 = st()["pose"]
     s = wait(lambda s: (s.get("follow") or {}).get("phase") == "follow", 30, "Follow: a person found")
@@ -288,6 +312,7 @@ def run_catch(page, a, st, cmd, wait, check):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--url", default="http://localhost:8080")
+    ap.add_argument("--world-port", type=int, default=9873, help="sim world control port (Follow fixture)")
     ap.add_argument("--shots", help="folder for screenshots of every tab")
     ap.add_argument("--headed", action="store_true", help="show the browser")
     ap.add_argument("--slam", action="store_true", help="also New map + Explore, then reload the map (robot step)")
@@ -496,6 +521,7 @@ def main():
                 check(False, "--slam needs the robot step (the console runs SLAM)")
             else:
                 back = sl["map"]
+                old_pose, old_truth = st()["pose"], page.evaluate(TRUE_POSE_JS)
                 cmd("explore", {"new_map": True})
                 wait(lambda s: s["slam"]["mode"] == "mapping", 60, "Explore: a new map")
                 s = wait(lambda s: s["explore"] and s["explore"]["info"].get("known_m2"), 60, "Explore: planning")
@@ -510,9 +536,23 @@ def main():
                     page.screenshot(path=f"{a.shots}/console_explore_live.png")
                 cmd("cancel")
                 if back:
+                    new_truth = page.evaluate(TRUE_POSE_JS)
                     cmd("slam_load", {"name": back})
-                    wait(lambda s: s["slam"]["mode"] == "localization" and s["slam"]["map"] == back, 60,
+                    wait(lambda s: s["slam"]["mode"] == "localization" and s["slam"]["map"] == back
+                         and (s.get("pose") or {}).get("frame") == "map", 60,
                          f"SLAM: back on '{back}'")
+                    # Loading assumes the map's start unless an initial pose is supplied. Exploration moved us;
+                    # use simulation truth only to place this test fixture back in the previous map's coordinates.
+                    if old_truth and new_truth and old_pose and old_pose["frame"] == "map":
+                        a0 = old_pose["yaw"] - old_truth[2]
+                        c, sn = math.cos(a0), math.sin(a0)
+                        dx, dy = new_truth[0] - old_truth[0], new_truth[1] - old_truth[1]
+                        seed = {"x": old_pose["x"] + c * dx - sn * dy,
+                                "y": old_pose["y"] + sn * dx + c * dy, "yaw": new_truth[2] + a0}
+                        cmd("initial_pose", seed)
+                        wait(lambda s: (s.get("pose") or {}).get("frame") == "map" and
+                             math.hypot(s["pose"]["x"] - seed["x"], s["pose"]["y"] - seed["y"]) < 0.4,
+                             20, "SLAM: supplied return-map position accepted")
 
         sup = page.evaluate("() => fetch('/api/state').then(r => r.ok ? r.json() : null).catch(() => null)")
         if sup:

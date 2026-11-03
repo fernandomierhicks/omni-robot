@@ -1,0 +1,9 @@
+{
+  "part": "bearing_6804",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [],
+  "aliases": {
+    "bore_diameter": "\"D76@Control Measures-Shared Layout\"",
+    "outside_diameter": "\"D78@Control Measures-Shared Layout\""
+  }
+}

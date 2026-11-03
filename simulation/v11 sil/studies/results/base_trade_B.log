@@ -1,0 +1,15 @@
+468 games in 634 s
+B. 6-7 m catch game (firmware adult, expected cameras, the drawn robot's masses): caught of the throws (+/- 1 standard error), not in place / bounced out, peak tilt
+  X4 + pods                    flat                        90.7% +/- 2.0 of 216 (not in place 18, bounced 2, flipped 0), peak tilt 4 deg
+  X4 + pods                    home                        89.8% +/- 2.1 of 216 (not in place 19, bounced 3, flipped 0), peak tilt 9 deg
+  X4 + pods                    home, 12 mm rug at 45 deg   81.0% +/- 2.7 of 216 (not in place 34, bounced 7, flipped 0), peak tilt 11 deg
+  X4 rigid                     flat                        93.1% +/- 1.7 of 216 (not in place 14, bounced 1, flipped 0), peak tilt 1 deg
+  X4 rigid                     home                        88.4% +/- 2.2 of 216 (not in place 19, bounced 6, flipped 0), peak tilt 16 deg
+  X4 rigid                     home, 12 mm rug at 45 deg   65.3% +/- 3.2 of 216 (not in place 70, bounced 5, flipped 0), peak tilt 19 deg
+  kiwi rigid                   flat                        82.9% +/- 2.6 of 216 (not in place 37, bounced 0, flipped 0), peak tilt 2 deg
+  kiwi rigid                   home                        69.9% +/- 3.1 of 216 (not in place 54, bounced 11, flipped 0), peak tilt 30 deg
+  kiwi rigid                   home, 12 mm rug at 45 deg   64.8% +/- 3.2 of 216 (not in place 71, bounced 5, flipped 0), peak tilt 29 deg
+  X4 rigid, a wheel 1 mm low   flat                        87.0% +/- 2.3 of 216 (not in place 26, bounced 2, flipped 0), peak tilt 1 deg
+  X4 rigid, a wheel 1 mm low   home                        88.0% +/- 2.2 of 216 (not in place 24, bounced 2, flipped 0), peak tilt 18 deg
+  kiwi + pods                  flat                        82.4% +/- 2.6 of 216 (not in place 38, bounced 0, flipped 0), peak tilt 6 deg
+  kiwi + pods                  home                        79.6% +/- 2.7 of 216 (not in place 42, bounced 2, flipped 0), peak tilt 26 deg

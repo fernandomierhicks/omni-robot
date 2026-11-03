@@ -1,0 +1,744 @@
+{
+  "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10_hubA_human.SLDPRT",
+  "title": "V10_hubA_human.SLDPRT",
+  "volume_mm3": 49935.247754770244,
+  "bodies": [
+    0
+  ],
+  "equations": [
+    "\"end_face_dist\"= 41mm 'Outer face of hub A's end plate, distance toward -X",
+    "\"end_plate_t\"= 4.4mm 'End plate thickness",
+    "\"row_plane_dist\"= 18mm 'Outer roller row plane (hub's open end), distance toward -X",
+    "\"flange_face_dist\"= 23mm 'Motor flange contact face, distance toward -X",
+    "\"flange_t\"= 3.5mm 'Drive plate thickness",
+    "\"access_bore_r\"= 16.5mm 'Access bore radius",
+    "\"drum_r_outer\"= 33mm 'Drum outer radius",
+    "\"drum_r_inner\"= 30mm 'Drum inner radius",
+    "\"D1@Hub Body Sketch\"= \"end_face_dist\"",
+    "\"D2@Hub Body Sketch\"= \"row_plane_dist\"",
+    "\"D3@Hub Body Sketch\"= \"flange_face_dist\"",
+    "\"D4@Hub Body Sketch\"= \"flange_face_dist\" + \"flange_t\"",
+    "\"D5@Hub Body Sketch\"= \"end_face_dist\" - \"end_plate_t\"",
+    "\"D6@Hub Body Sketch\"= \"access_bore_r\"",
+    "\"D7@Hub Body Sketch\"= \"drum_r_outer\"",
+    "\"D8@Hub Body Sketch\"= \"drum_r_inner\"",
+    "\"D9@Hub Body Sketch\"= \"drum_r_inner\"",
+    "\"D10@Hub Body Sketch\"= \"end_face_dist\"",
+    "\"D11@Hub Body Sketch\"= \"row_plane_dist\"",
+    "\"flange_hole_pcd\"= 27mm 'Pitch circle of the 3 M2.5 output flange screws",
+    "\"flange_hole_d\"= 2.9mm 'M2.5 clearance hole",
+    "\"first_pattern_angle\"= 30deg 'Angle of the first flange hole / boss, from +Y toward +Z",
+    "\"D1@Flange Plane\"= \"flange_face_dist\"",
+    "\"D1@End Face Plane\"= \"end_face_dist\"",
+    "\"D1@Flange Hole Sketch\"= \"flange_hole_pcd\" / 2",
+    "\"D2@Flange Hole Sketch\"= \"first_pattern_angle\"",
+    "\"D3@Flange Hole Sketch\"= \"flange_hole_d\"",
+    "\"D1@Flange Hole\"= \"flange_t\"",
+    "\"boss_pcd_r\"= 26mm 'Radius of the cartridge screw bosses",
+    "\"boss_d\"= 9mm 'Cartridge screw boss diameter",
+    "\"boss_h\"= 10mm 'Boss height from the end plate's outer face (= depth of its screw hole)",
+    "\"boss_screw_d\"= 2.8mm 'Thread-forming hole for the cartridge's M3 screws",
+    "\"D1@Cartridge Boss Sketch\"= \"boss_pcd_r\"",
+    "\"D2@Cartridge Boss Sketch\"= \"first_pattern_angle\"",
+    "\"D3@Cartridge Boss Sketch\"= \"boss_d\"",
+    "\"D1@Cartridge Boss\"= \"boss_h\"",
+    "\"D1@Cartridge Boss Hole Sketch\"= \"boss_pcd_r\"",
+    "\"D2@Cartridge Boss Hole Sketch\"= \"first_pattern_angle\"",
+    "\"D3@Cartridge Boss Hole Sketch\"= \"boss_screw_d\"",
+    "\"D1@Cartridge Boss Hole\"= \"boss_h\"",
+    "\"spoke_root_r\"= 31.5mm 'Radius where the spoke's root arc sits inside the drum wall (wall is r 30..33)",
+    "\"spoke_half_w\"= 14mm 'Spoke half width (tangential) at the root",
+    "\"spoke_tip_r\"= 60mm 'Radius of the spoke's nose",
+    "\"spoke_nose_c\"= 4mm 'Nose corner clip (radial and tangential)",
+    "\"spoke_t\"= 12mm 'Spoke thickness along the axle at the root (from the row plane toward -X)",
+    "\"D1@Row Plane\"= \"row_plane_dist\"",
+    "\"D1@Spoke Sketch\"= \"spoke_root_r\"",
+    "\"D2@Spoke Sketch\"= \"spoke_half_w\"",
+    "\"D3@Spoke Sketch\"= \"spoke_tip_r\" - \"spoke_nose_c\"",
+    "\"D4@Spoke Sketch\"= \"spoke_tip_r\"",
+    "\"D5@Spoke Sketch\"= \"spoke_half_w\" - \"spoke_nose_c\"",
+    "\"D1@Spoke Extrude\"= \"spoke_t\"",
+    "\"spoke_taper_r\"= 45mm 'Radius where the spoke starts to taper in thickness",
+    "\"spoke_tip_t\"= 6mm 'Spoke thickness at the nose",
+    "\"spoke_edge_break\"= 1mm 'Chamfer on the spoke nose edges",
+    "\"D1@Spoke Taper Sketch\"= \"row_plane_dist\" + \"spoke_t\"",
+    "\"D2@Spoke Taper Sketch\"= \"spoke_taper_r\"",
+    "\"D3@Spoke Taper Sketch\"= \"spoke_tip_r\"",
+    "\"D4@Spoke Taper Sketch\"= \"row_plane_dist\" + \"spoke_tip_t\"",
+    "\"D1@Spoke Taper Cut\"= (\"spoke_half_w\" + 1) * 2",
+    "\"roller_axis_r\"= 52mm 'Wheel axle to each roller axis",
+    "\"block_d\"= 12mm 'Roller axle block diameter",
+    "\"block_start\"= 20mm 'Axle block starts this far from the roller's mid plane",
+    "\"block_end\"= 23.5mm 'Axle block ends this far from the roller's mid plane",
+    "\"D1@Axle Block Sketch\"= \"block_d\" / 2",
+    "\"D2@Axle Block Sketch\"= \"row_plane_dist\"",
+    "\"D3@Axle Block Sketch\"= \"roller_axis_r\"",
+    "\"D1@Axle Block +Z\"= \"block_end\" - \"block_start\"",
+    "\"D19@Axle Block +Z\"= \"block_start\"",
+    "\"axle_hole_d\"= 3.4mm 'M3 screw axle clearance",
+    "\"axle_hole_half\"= 25.5mm 'Axle hole reaches this far each side of the roller mid plane",
+    "\"head_pocket_d\"= 7.2mm 'Screw-head / access tunnel diameter",
+    "\"head_pocket_len\"= 45mm 'Length of the screw access tunnels",
+    "\"nut_af\"= 5.8mm 'M3 nut across flats",
+    "\"nut_depth\"= 2.6mm 'Nut pocket depth",
+    "\"D1@Axle Hole Sketch\"= \"axle_hole_d\"",
+    "\"D2@Axle Hole Sketch\"= \"row_plane_dist\"",
+    "\"D3@Axle Hole Sketch\"= \"roller_axis_r\"",
+    "\"D1@Axle Hole\"= 2 * \"axle_hole_half\"",
+    "\"D1@Screw Head Tunnel Sketch\"= \"head_pocket_d\"",
+    "\"D2@Screw Head Tunnel Sketch\"= \"row_plane_dist\"",
+    "\"D3@Screw Head Tunnel Sketch\"= \"roller_axis_r\"",
+    "\"D1@Screw Head Tunnel\"= \"head_pocket_len\"",
+    "\"D19@Screw Head Tunnel\"= \"block_end\"",
+    "\"D1@Nut Pocket Sketch\"= \"nut_af\"",
+    "\"D2@Nut Pocket Sketch\"= \"row_plane_dist\"",
+    "\"D3@Nut Pocket Sketch\"= \"roller_axis_r\"",
+    "\"D1@Nut Pocket\"= \"nut_depth\"",
+    "\"D19@Nut Pocket\"= \"block_end\"",
+    "\"D1@Nut Access Tunnel Sketch\"= \"head_pocket_d\"",
+    "\"D2@Nut Access Tunnel Sketch\"= \"row_plane_dist\"",
+    "\"D3@Nut Access Tunnel Sketch\"= \"roller_axis_r\"",
+    "\"D1@Nut Access Tunnel\"= \"head_pocket_len\"",
+    "\"D19@Nut Access Tunnel\"= \"block_end\" + \"nut_depth\"",
+    "\"joint_r\"= 37mm'Radius of the hub-to-hub joint screws",
+    "\"m3_clearance_d\"= 3.4mm 'M3 through hole",
+    "\"m3_cbore_d\"= 7.2mm 'M3 pan-head counterbore diameter",
+    "\"m3_cbore_depth\"= 2.9mm 'M3 pan-head counterbore depth",
+    "\"D1@Spoke Face Plane\"= \"row_plane_dist\" + \"spoke_t\"",
+    "\"D1@Joint Screw Hole Sketch\"= \"joint_r\"",
+    "\"D2@Joint Screw Hole Sketch\"= \"m3_clearance_d\"",
+    "\"D1@Joint Screw Hole\"= \"spoke_t\"",
+    "\"D1@Joint Screw Counterbore Sketch\"= \"joint_r\"",
+    "\"D2@Joint Screw Counterbore Sketch\"= \"m3_cbore_d\"",
+    "\"D1@Joint Screw Counterbore\"= \"m3_cbore_depth\"",
+    "\"seam_fillet_r\"= 2mm 'Fillet where each spoke meets the drum",
+    "\"D1@Spoke Root Fillets\"= \"seam_fillet_r\"",
+    "\"wheel_r\"= 70mm 'Wheel radius (the roller barrel is an arc of this radius)",
+    "\"roller_half\"= 19.5mm 'Roller half length",
+    "\"roller_cone\"= 1mm 'Roller end cone length",
+    "\"pocket_clear\"= 1.3mm 'Radial running clearance around the roller barrel",
+    "\"pocket_half_len\"= 21.3mm 'Pocket half length: the thrust stops at the roller's journal ends",
+    "\"pocket_cyl_end\"= 19.8mm 'Where the pocket's straight section ends and its end taper begins",
+    "\"pocket_tip_r\"= 9mm 'Pocket radius at the thrust stop",
+    "\"pocket_end_fillet\"= 2mm 'Rounding of the pocket's end edges (leaves reinforcing coves)",
+    "\"D1@Roller 0 Plane\"= \"roller_axis_r\"",
+    "\"D1@Roller Pocket Sketch\"= \"row_plane_dist\"",
+    "\"D2@Roller Pocket Sketch\"= \"pocket_half_len\"",
+    "\"D3@Roller Pocket Sketch\"= \"row_plane_dist\" - \"pocket_tip_r\"",
+    "\"D4@Roller Pocket Sketch\"= \"pocket_cyl_end\"",
+    "\"D5@Roller Pocket Sketch\"= \"roller_half\" - \"roller_cone\"",
+    "\"D6@Roller Pocket Sketch\"= \"roller_half\" - \"roller_cone\"",
+    "\"D7@Roller Pocket Sketch\"= \"pocket_cyl_end\"",
+    "\"D8@Roller Pocket Sketch\"= \"row_plane_dist\" - \"pocket_tip_r\"",
+    "\"D9@Roller Pocket Sketch\"= \"pocket_half_len\"",
+    "\"D10@Roller Pocket Sketch\"= \"row_plane_dist\" + \"roller_axis_r\" - \"pocket_clear\"",
+    "\"D11@Roller Pocket Sketch\"= \"wheel_r\"",
+    "\"D1@Pocket End Fillets\"= \"pocket_end_fillet\""
+  ],
+  "features": [
+    {
+      "name": "Comments",
+      "type": "CommentsFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Favorites",
+      "type": "FavoriteFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "History",
+      "type": "HistoryFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Selection Sets",
+      "type": "SelectionSetFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Sensors",
+      "type": "SensorFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Design Binder",
+      "type": "DocsFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Annotations",
+      "type": "DetailCabinet",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Surface Bodies",
+      "type": "SurfaceBodyFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Solid Bodies",
+      "type": "SolidBodyFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Lights, Cameras and Scene",
+      "type": "EnvFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Markups",
+      "type": "InkMarkupFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Equations",
+      "type": "EqnFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Material <not specified>",
+      "type": "MaterialFolder",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Front Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Top Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Right Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Origin",
+      "type": "OriginProfileFeature",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Hub Body Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Hub Body Sketch",
+        "D2@Hub Body Sketch",
+        "D3@Hub Body Sketch",
+        "D4@Hub Body Sketch",
+        "D5@Hub Body Sketch",
+        "D6@Hub Body Sketch",
+        "D7@Hub Body Sketch",
+        "D8@Hub Body Sketch",
+        "D9@Hub Body Sketch",
+        "D10@Hub Body Sketch",
+        "D11@Hub Body Sketch"
+      ]
+    },
+    {
+      "name": "Hub Body Revolve",
+      "type": "Revolution",
+      "errors": 0,
+      "dimensions": [
+        "D1@Hub Body Revolve"
+      ],
+      "sketches": [
+        {
+          "name": "Hub Body Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Flange Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": [
+        "D1@Flange Plane"
+      ]
+    },
+    {
+      "name": "End Face Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": [
+        "D1@End Face Plane"
+      ]
+    },
+    {
+      "name": "Hub Axis (X)",
+      "type": "RefAxis",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Flange Hole Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Flange Hole Sketch",
+        "D2@Flange Hole Sketch",
+        "D3@Flange Hole Sketch"
+      ]
+    },
+    {
+      "name": "Flange Hole",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Flange Hole"
+      ],
+      "sketches": [
+        {
+          "name": "Flange Hole Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Flange Hole Pattern x3",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Flange Hole Pattern x3",
+        "D1@Flange Hole Pattern x3"
+      ]
+    },
+    {
+      "name": "Cartridge Boss Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Cartridge Boss Sketch",
+        "D2@Cartridge Boss Sketch",
+        "D3@Cartridge Boss Sketch"
+      ]
+    },
+    {
+      "name": "Cartridge Boss",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Cartridge Boss"
+      ],
+      "sketches": [
+        {
+          "name": "Cartridge Boss Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Cartridge Boss Hole Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Cartridge Boss Hole Sketch",
+        "D2@Cartridge Boss Hole Sketch",
+        "D3@Cartridge Boss Hole Sketch"
+      ]
+    },
+    {
+      "name": "Cartridge Boss Hole",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Cartridge Boss Hole"
+      ],
+      "sketches": [
+        {
+          "name": "Cartridge Boss Hole Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Cartridge Boss Pattern x3",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Cartridge Boss Pattern x3",
+        "D1@Cartridge Boss Pattern x3"
+      ]
+    },
+    {
+      "name": "Row Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": [
+        "D1@Row Plane"
+      ]
+    },
+    {
+      "name": "Spoke Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Sketch",
+        "D2@Spoke Sketch",
+        "D3@Spoke Sketch",
+        "D4@Spoke Sketch",
+        "D5@Spoke Sketch"
+      ]
+    },
+    {
+      "name": "Spoke Extrude",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Extrude"
+      ],
+      "sketches": [
+        {
+          "name": "Spoke Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Spoke Taper Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Taper Sketch",
+        "D2@Spoke Taper Sketch",
+        "D3@Spoke Taper Sketch",
+        "D4@Spoke Taper Sketch"
+      ]
+    },
+    {
+      "name": "Spoke Taper Cut",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Taper Cut"
+      ],
+      "sketches": [
+        {
+          "name": "Spoke Taper Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Spoke Nose Chamfer",
+      "type": "Chamfer",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Nose Chamfer"
+      ]
+    },
+    {
+      "name": "Spoke Pattern x6",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Spoke Pattern x6",
+        "D1@Spoke Pattern x6"
+      ]
+    },
+    {
+      "name": "Axle Block Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Axle Block Sketch",
+        "D2@Axle Block Sketch",
+        "D3@Axle Block Sketch"
+      ]
+    },
+    {
+      "name": "Axle Block +Z",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Axle Block +Z",
+        "D19@Axle Block +Z"
+      ],
+      "sketches": [
+        {
+          "name": "Axle Block Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Axle Block -Z (mirror)",
+      "type": "MirrorPattern",
+      "errors": 0,
+      "dimensions": []
+    },
+    {
+      "name": "Axle Block Pattern x6",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Axle Block Pattern x6",
+        "D1@Axle Block Pattern x6"
+      ]
+    },
+    {
+      "name": "Axle Hole Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Axle Hole Sketch",
+        "D2@Axle Hole Sketch",
+        "D3@Axle Hole Sketch"
+      ]
+    },
+    {
+      "name": "Axle Hole",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Axle Hole"
+      ],
+      "sketches": [
+        {
+          "name": "Axle Hole Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Screw Head Tunnel Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Screw Head Tunnel Sketch",
+        "D2@Screw Head Tunnel Sketch",
+        "D3@Screw Head Tunnel Sketch"
+      ]
+    },
+    {
+      "name": "Screw Head Tunnel",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Screw Head Tunnel",
+        "D19@Screw Head Tunnel"
+      ],
+      "sketches": [
+        {
+          "name": "Screw Head Tunnel Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Nut Pocket Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Nut Pocket Sketch",
+        "D2@Nut Pocket Sketch",
+        "D3@Nut Pocket Sketch"
+      ]
+    },
+    {
+      "name": "Nut Pocket",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Nut Pocket",
+        "D19@Nut Pocket"
+      ],
+      "sketches": [
+        {
+          "name": "Nut Pocket Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Nut Access Tunnel Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Nut Access Tunnel Sketch",
+        "D2@Nut Access Tunnel Sketch",
+        "D3@Nut Access Tunnel Sketch"
+      ]
+    },
+    {
+      "name": "Nut Access Tunnel",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Nut Access Tunnel",
+        "D19@Nut Access Tunnel"
+      ],
+      "sketches": [
+        {
+          "name": "Nut Access Tunnel Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Roller Axle Cuts Pattern x6",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Roller Axle Cuts Pattern x6",
+        "D1@Roller Axle Cuts Pattern x6"
+      ]
+    },
+    {
+      "name": "Spoke Face Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Face Plane"
+      ]
+    },
+    {
+      "name": "Joint Screw Hole Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Joint Screw Hole Sketch",
+        "D2@Joint Screw Hole Sketch"
+      ]
+    },
+    {
+      "name": "Joint Screw Hole",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Joint Screw Hole"
+      ],
+      "sketches": [
+        {
+          "name": "Joint Screw Hole Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Joint Screw Counterbore Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Joint Screw Counterbore Sketch",
+        "D2@Joint Screw Counterbore Sketch"
+      ]
+    },
+    {
+      "name": "Joint Screw Counterbore",
+      "type": "ICE",
+      "errors": 0,
+      "dimensions": [
+        "D1@Joint Screw Counterbore"
+      ],
+      "sketches": [
+        {
+          "name": "Joint Screw Counterbore Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Joint Screw Pattern x6",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Joint Screw Pattern x6",
+        "D1@Joint Screw Pattern x6"
+      ]
+    },
+    {
+      "name": "Spoke Root Fillets",
+      "type": "Fillet",
+      "errors": 0,
+      "dimensions": [
+        "D1@Spoke Root Fillets"
+      ]
+    },
+    {
+      "name": "Roller 0 Plane",
+      "type": "RefPlane",
+      "errors": 0,
+      "dimensions": [
+        "D1@Roller 0 Plane"
+      ]
+    },
+    {
+      "name": "Roller Pocket Sketch",
+      "type": "ProfileFeature",
+      "errors": 0,
+      "dimensions": [
+        "D1@Roller Pocket Sketch",
+        "D2@Roller Pocket Sketch",
+        "D3@Roller Pocket Sketch",
+        "D4@Roller Pocket Sketch",
+        "D5@Roller Pocket Sketch",
+        "D6@Roller Pocket Sketch",
+        "D7@Roller Pocket Sketch",
+        "D8@Roller Pocket Sketch",
+        "D9@Roller Pocket Sketch",
+        "D10@Roller Pocket Sketch",
+        "D11@Roller Pocket Sketch"
+      ]
+    },
+    {
+      "name": "Roller Pocket Revolve",
+      "type": "Revolution",
+      "errors": 0,
+      "dimensions": [
+        "D1@Roller Pocket Revolve"
+      ],
+      "sketches": [
+        {
+          "name": "Roller Pocket Sketch",
+          "status": 3
+        }
+      ]
+    },
+    {
+      "name": "Pocket End Fillets",
+      "type": "Fillet",
+      "errors": 0,
+      "dimensions": [
+        "D1@Pocket End Fillets"
+      ]
+    },
+    {
+      "name": "Roller Pocket Pattern x6",
+      "type": "CirPattern",
+      "errors": 0,
+      "dimensions": [
+        "D3@Roller Pocket Pattern x6",
+        "D1@Roller Pocket Pattern x6"
+      ]
+    },
+    {
+      "name": "Roller Pockets Cut",
+      "type": "CombineBodies",
+      "errors": 0,
+      "dimensions": []
+    }
+  ]
+}

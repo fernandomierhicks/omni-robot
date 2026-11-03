@@ -4,7 +4,9 @@ the tool (down to a grasp, up from it) are waypoints from the IK every few mm.
 
 Every segment is checked against the robot's keep-out volumes (kinematics.clear) before it plays; plan() goes through
 a "high" waypoint when the straight segment isn't clear. That is all the planning this arm needs: its work happens in
-front of the robot, on the floor or over the bin, and the robot's outline doesn't move.
+front of the robot, on the floor or over the bin, and the robot's outline doesn't move. No unchecked motion plays:
+plan_checked() refuses (with why), except one step out of a pose that already touches something; check_trajectory()
+refuses an external trajectory whole rather than clipping it.
 """
 
 from __future__ import annotations
@@ -52,6 +54,30 @@ class Motion:
         return t >= self.t[-1]
 
 
+class Linear:
+    """Straight lines between waypoints at given times (t[0] is the start), held at the last: a FollowJointTrajectory
+    goal's points. omni_cpp's arm_driver plays the same."""
+
+    def __init__(self, times, waypoints):
+        self.t = [float(x) for x in times]
+        self.q = [np.asarray(w, float) for w in waypoints]
+
+    @property
+    def t_end(self) -> float:
+        return self.t[-1]
+
+    def done(self, t: float) -> bool:
+        return t >= self.t[-1]
+
+    def sample(self, t: float) -> np.ndarray:
+        if t >= self.t[-1]:
+            return self.q[-1].copy()
+        k = max(i for i in range(len(self.t)) if self.t[i] <= t) if t >= self.t[0] else 0
+        a, b = (self.t[k], self.q[k]), (self.t[min(k + 1, len(self.t) - 1)], self.q[min(k + 1, len(self.t) - 1)])
+        f = max(0.0, (t - a[0]) / max(1e-6, b[0] - a[0]))
+        return a[1] + f * (b[1] - a[1])
+
+
 def speeds(kin: ArmKinematics, frac: float = SPEED_FRAC) -> np.ndarray:
     return np.full(6, kin.cfg.servos["speed"] * frac)
 
@@ -86,6 +112,62 @@ def plan(kin: ArmKinematics, q0, q1, via=None, **clear_kw):
         if all(kin.path_clear(a, b, **clear_kw)[0] for a, b in zip(pts[:-1], pts[1:])):
             return pts
     return None
+
+
+def plan_checked(kin: ArmKinematics, q0, q1, via=None, **clear_kw):
+    """(path, why): plan()'s, or None and why there's no checked way. The one exception is a start that touches
+    something (dropped limp, pushed), as jog's: its first step goes out to a via that is clear, the rest is checked."""
+    path = plan(kin, q0, q1, via, **clear_kw)
+    if path is not None:
+        return path, ""
+    ok, why = kin.clear(q0, **clear_kw)
+    if ok:
+        return None, "no clear path from here"
+    q0 = np.asarray(q0, float)
+    for v in ([] if via is None else ([via] if np.ndim(via) == 1 else list(via))):
+        v = np.asarray(v, float).copy()
+        v[5] = q0[5]
+        if kin.clear(v, **clear_kw)[0]:
+            rest = plan(kin, v, q1, via, **clear_kw)
+            if rest is not None:
+                return [q0] + rest, f"recovering: it touches the {why}"
+    return None, f"it touches the {why} and no clear way out"
+
+
+def check_trajectory(kin: ArmKinematics, q0, joint_names, points, max_speed: float | None = None):
+    """A FollowJointTrajectory goal checked before it plays, from q0 (where the arm is commanded): (times, waypoints)
+    starting (0, q0), or (None, why). points: (t from start, positions in joint_names' order). Nothing is clipped: a
+    goal outside a range, faster than the servos (max_speed rad/s, default their no-load speed) or into the robot's
+    keep-outs is refused whole."""
+    names = list(joint_names)
+    if not names or len(set(names)) != len(names) or not set(names) <= set(kin.cfg.joints):
+        return None, f"joint names {names}"
+    idx = [kin.cfg.joints.index(n) for n in names]
+    vmax = kin.cfg.servos["speed"] if max_speed is None else max_speed
+    q0 = np.asarray(q0, float)
+    times, wps = [0.0], [q0.copy()]
+    for k, (t, pos) in enumerate(points):
+        if len(pos) != len(names) or not all(math.isfinite(float(x)) for x in (t, *pos)):
+            return None, f"point {k}: {len(pos)} positions for {len(names)} joints, or not finite"
+        q = wps[-1].copy()
+        q[idx] = np.asarray(pos, float)
+        if np.any(q < kin.lo - 1e-6) or np.any(q > kin.hi + 1e-6):
+            return None, f"point {k}: outside a joint's range"
+        dt, dq = float(t) - times[-1], float(np.max(np.abs(q - wps[-1])))
+        if dt <= 0.0:
+            if dt == 0.0 and dq < 1e-3:                    # a repeated point (MoveIt's start state): nothing to play
+                continue
+            return None, f"point {k}: time {float(t):.3f} s doesn't follow {times[-1]:.3f} s"
+        if dq / dt > vmax:
+            return None, f"point {k}: {dq / dt:.2f} rad/s, over {vmax:.2f}"
+        times.append(float(t))
+        wps.append(q)
+    kw = dict(allow_bin=not kin.clear(q0)[0] and kin.clear(q0, allow_bin=True)[0])     # from the bin: as jog
+    for k, (a, b) in enumerate(zip(wps[:-1], wps[1:])):
+        ok, why = kin.path_clear(a, b, **kw)
+        if not ok:
+            return None, f"segment {k}: it would hit the {why}"
+    return times, wps
 
 
 def jog(kin: ArmKinematics, q_start, joint: int, delta: float, base=None):

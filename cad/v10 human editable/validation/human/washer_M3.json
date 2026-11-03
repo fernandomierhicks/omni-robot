@@ -1,0 +1,34 @@
+{
+  "sketches": [
+    {
+      "name": "Ring Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 15.221016406642548,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"bore_diameter\"= 3.2mm 'Inner diameter; bearing or shaft interface",
+    "\"outside_diameter\"= 7mm 'Outer diameter of M3 washer",
+    "\"width\"= 0.5mm 'Axial width of M3 washer",
+    "\"D1@Ring Sketch\"= \"outside_diameter\"",
+    "\"D2@Ring Sketch\"= \"bore_diameter\"",
+    "\"D1@Ring Extrude\"= \"width\""
+  ],
+  "design_features": [
+    {
+      "name": "Ring Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Ring Extrude"
+      ]
+    }
+  ],
+  "pass": true
+}

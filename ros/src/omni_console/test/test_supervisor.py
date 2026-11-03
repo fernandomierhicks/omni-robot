@@ -4,7 +4,9 @@
 
 import json
 import os
+import signal
 import sys
+import subprocess
 import threading
 import time
 import urllib.request
@@ -74,6 +76,67 @@ def test_a_keep_running_step_is_restarted_three_times_at_most(tmp_path):
     assert wait(lambda: sup.state()["current"]["state"] == "exited", 6.0)
     time.sleep(1.5)
     assert len(sup.restarts) == 4 and sup.state()["current"]["state"] == "exited"    # the 4th try isn't made
+
+
+def test_switch_from_an_external_launch_preserves_the_console_and_other_processes(tmp_path, monkeypatch):
+    from omni_console import supervisor as module
+    monkeypatch.setattr(module, "STOP_GRACE", 0.3)
+    code = ("import subprocess, signal, sys, time\n"
+            "p=subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'])\n"
+            "print(p.pid, flush=True)\n"
+            "signal.signal(signal.SIGINT, lambda *a: sys.exit(0))\n"
+            "while True: time.sleep(.05)\n")
+    launch = subprocess.Popen([sys.executable, "-u", "-c", code, "ros2", "launch", "omni_bringup"],
+                              stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+    unrelated = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)"])
+    child = int(launch.stdout.readline())
+    cfg = config(tmp_path)
+    # Mimic pgrep also matching the supervisor/test shell's command text. It must inspect argv before stopping.
+    cfg["detect"] = [sys.executable, "-c", f"print('{launch.pid} ros2 launch omni_bringup arm.launch.py'); "
+                     f"print('{os.getpid()} shell mentioning ros2 launch omni_bringup'); print('invalid output')"]
+    cfg["stop_all"] = [sys.executable, "-c", "raise RuntimeError('broad stop must never run')"]
+    sup = module.Supervisor(cfg, tmp_path, {}, log=lambda m: None)
+    try:
+        assert sup.external() == ["ros2 launch omni_bringup arm.launch.py"]
+        sup.start("a")
+        assert launch.wait(timeout=3) == 0
+        assert wait(lambda: module._process_identity(child) is None)
+        assert unrelated.poll() is None
+        assert sup.proc.poll() is None
+    finally:
+        sup.stop()
+        for p in (launch, unrelated):
+            if p.poll() is None:
+                p.terminate()
+            p.wait(timeout=3)
+        if module._process_identity(child) is not None:
+            os.kill(child, signal.SIGTERM)
+
+
+def test_stopping_an_owned_step_leaves_no_separately_grouped_child(tmp_path, monkeypatch):
+    from omni_console import supervisor as module
+    monkeypatch.setattr(module, "STOP_GRACE", 0.3)
+    cfg = config(tmp_path)
+    code = ("import subprocess, signal, sys, time\n"
+            "p=subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'], start_new_session=True)\n"
+            "print('child', p.pid, flush=True)\n"
+            "signal.signal(signal.SIGINT, lambda *a: sys.exit(0))\n"
+            "while True: time.sleep(.05)\n")
+    cfg["steps"][0]["cmd"] = [sys.executable, "-u", "-c", code]
+    sup = module.Supervisor(cfg, tmp_path, {}, log=lambda m: None)
+    child = None
+    try:
+        sup.start("a")
+        log = tmp_path / "logs/steps/a.log"
+        assert wait(lambda: "child " in log.read_text())
+        child = int(next(s.split()[1] for s in log.read_text().splitlines() if s.startswith("child ")))
+        sup.stop()
+        assert module._process_identity(child) is None
+        assert sup.proc.returncode == 0
+    finally:
+        sup.stop()
+        if child is not None and module._process_identity(child) is not None:
+            os.kill(child, signal.SIGTERM)
 
 
 def test_http_api_and_the_page(tmp_path):

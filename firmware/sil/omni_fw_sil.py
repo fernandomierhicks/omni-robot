@@ -59,13 +59,13 @@ class HwOutputs(C.Structure):
     ]
 
 
-_lib = None
+_libs: dict = {}
 
 
-def lib():
-    global _lib
-    if _lib is None:
-        path = build_sil.build()
+def lib(variant: str = ""):
+    """The SIL library, built first if a source changed; variant "arm" has the arm robot's constants (build_sil)."""
+    if variant not in _libs:
+        path = build_sil.build(variant=variant)
         L = C.CDLL(str(path))
         L.fw_create.restype = C.c_void_p
         L.fw_destroy.argtypes = [C.c_void_p]
@@ -91,16 +91,16 @@ def lib():
         for k, st in ((0, HwInputs), (1, HwOutputs), (5, CanFrame), (7, ImuSample)):
             if L.fw_sizeof(k) != C.sizeof(st):
                 raise RuntimeError(f"{st.__name__}: {C.sizeof(st)} bytes here, {L.fw_sizeof(k)} in hw_io.h")
-        _lib = L
-    return _lib
+        _libs[variant] = L
+    return _libs[variant]
 
 
 def sizeof(which: int) -> int:
     return lib().fw_sizeof(which)
 
 
-def param(name: str) -> float:
-    v = lib().fw_param(name.encode())
+def param(name: str, variant: str = "") -> float:
+    v = lib(variant).fw_param(name.encode())
     if v < -1e299:
         raise KeyError(name)
     return v
@@ -140,8 +140,9 @@ def dm_decode(frame: CanFrame):
 class Firmware:
     """One MCU running the firmware core."""
 
-    def __init__(self):
-        self.L = lib()
+    def __init__(self, variant: str = ""):
+        self.variant = variant
+        self.L = lib(variant)
         self.h = self.L.fw_create()
         self.inputs = HwInputs()
         self.outputs = HwOutputs()

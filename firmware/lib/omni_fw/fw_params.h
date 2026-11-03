@@ -11,7 +11,7 @@ constexpr float TICK_S = 0.001f;                 // the firmware's 1 kHz tick (d
 constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the Jetson at 200 Hz
 constexpr float CMD_TIMEOUT = 0.5f;              // s without a CMD -> ramped stop (est)
 constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault
-constexpr float BATT_LOW = 22.4f;          // V: 3.2 V per cell
+constexpr float BATT_LOW = 21.0f;          // V: 3.5 V per cell (catalog pack setting)
 constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)
 
 // time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN

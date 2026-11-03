@@ -126,6 +126,7 @@ class TidyTask:
         self.skipped = 0                                  # too big for the gripper
         self.events: list = []
         self.done_reason = ""
+        self.no_path = ""                                 # why the last _go found no checked path
         self.pose_goal = None
         self.stopping = False
         self.fresh = False
@@ -198,11 +199,27 @@ class TidyTask:
 
     def _go(self, t: float, q_now, q_goal, gripper=None, allow_bin=False) -> bool:
         via = [self.poses[n] for n in ("high", "ready", "predrop") if n in self.poses]
-        path = mo.plan(self.kin, q_now, q_goal, via=via, allow_bin=allow_bin)
+        q_now = np.asarray(q_now, float)
+        path, why = mo.plan_checked(self.kin, q_now, q_goal, via=via, allow_bin=allow_bin)
+        if path is None and self.goal is not None and np.max(np.abs(q_now[:5] - self.goal[:5])) < 0.05:
+            # from where the arm is commanded (the servos lag it a little): the way out of the bin passes the face
+            # closely, and a few mrad of lag can close it
+            path, why = mo.plan_checked(self.kin, self.goal, q_goal, via=via, allow_bin=allow_bin)
+            q_now = self.goal.copy()
         if path is None:
+            self.no_path = why
             return False
+        if why:
+            self.log(f"{self.state}: {why}")
         self._move(t, q_now, path[1:], gripper)
         return True
+
+    def _halt(self, t: float, q, why: str):
+        """No checked way on: the task ends with the arm held where it is commanded (nothing unchecked plays)."""
+        self.motion = None
+        self.goal = (self.goal if self.goal is not None else np.asarray(q, float)).copy()
+        self.done_reason = why
+        self._set("DONE", t, f"{why}: holding here")
 
     def _pose_at(self, t: float):
         best = None
@@ -285,7 +302,8 @@ class TidyTask:
             self.motion = None
             if np.max(np.abs(q[:5] - self.poses["stow"][:5])) > 0.03:
                 if not self._go(t, q, self.poses["stow"], gripper=self.q_closed):
-                    self._move(t, q, [self.poses["high"], self.poses["stow"]], gripper=self.q_closed)
+                    self._halt(t, q, f"no checked way to stow ({self.no_path})")
+                    return
             else:
                 self.goal = self.poses["stow"].copy()
         if self._arrived(t, q, 0.05):
@@ -568,8 +586,8 @@ class TidyTask:
         drop = self.poses["drop"].copy()
         drop[5] = self.q_closed
         if not self._go(t, q, drop, gripper=self.q_closed, allow_bin=True):
-            self._move(t, q, [self.poses[n] for n in ("high", "predrop") if n in self.poses] + [drop],
-                       gripper=self.q_closed)
+            self._halt(t, q, f"no checked way to the bin with object {self.target.id} ({self.no_path})")
+            return
         self._set("TO_BIN", t)
 
     def _s_to_bin(self, t, inp, out, q):

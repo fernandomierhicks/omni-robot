@@ -63,8 +63,10 @@ from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped, Twist
 from nav2_msgs.action import NavigateToPose
 from nav2_msgs.msg import CostmapFilterInfo
 from nav2_msgs.srv import ManageLifecycleNodes
+from lifecycle_msgs.srv import GetState, ChangeState
+from lifecycle_msgs.msg import State, Transition
 from nav_msgs.msg import OccupancyGrid, Path as PathMsg
-from omni_interfaces.msg import BallTrack, CatchStatus, McuCommand, McuInfo, McuState, SparseImage
+from omni_interfaces.msg import ArmHardware, BallTrack, CatchStatus, McuCommand, McuInfo, McuState, SparseImage
 from omni_interfaces.srv import ConsoleCommand, SetMode
 from rcl_interfaces.msg import Log
 from rclpy.action import ActionClient
@@ -295,6 +297,11 @@ class SlamSupervisor:
         if p is None or p.poll() is not None:
             return
         try:
+            subprocess.run(["ros2", "lifecycle", "set", "/slam_toolbox", "shutdown"],
+                           capture_output=True, timeout=2.0)
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+        try:
             os.killpg(p.pid, signal.SIGINT)
             p.wait(timeout=8.0)
         except (ProcessLookupError, subprocess.TimeoutExpired):
@@ -320,6 +327,8 @@ class MissionNode(Node):
         self.settings_path = state_dir / "console.json"
         self.maps_dir = Path(os.path.expanduser(P("places_dir", str(state_dir)).value))
         self.scan_topic = P("scan_topic", "/scan_filtered").value
+        # a slower computer's top navigation speed, m/s (stack.py nav_profile:=pi); 0 = the console's settings only
+        self.speed_cap = float(P("speed_cap", 0.0).value)
         map_name = P("map", "").value or None
         mapping_params = P("slam_mapping_params", "").value
         loc_params = P("slam_localization_params", "").value
@@ -404,7 +413,9 @@ class MissionNode(Node):
         self.create_subscription(Log, "/rosout", lm.wrap("rosout", self.on_log), 50)
         self.create_subscription(Twist, "/console/cmd_vel", lm.wrap("stick", self.on_console_twist), 10)
         self.create_subscription(String, "/console/heartbeat", self.on_heartbeat, 10)
-        self.create_subscription(String, "/arm/state", lm.wrap("arm", self.on_arm_state), 5)
+        self.arm_brain, self.t_arm_brain, self.arm_hw, self.t_arm_hw = {}, -math.inf, {}, -math.inf
+        self.create_subscription(String, "/arm/state", lm.wrap("arm", self.on_arm_state), 5)       # omni_arm: the task
+        self.create_subscription(ArmHardware, "/arm/hw", lm.wrap("arm_hw", self.on_arm_hw), 5)     # arm_driver: the servos
 
         self.create_service(ConsoleCommand, "/console/command", lm.wrap("command", self.on_command))
         self.set_mode_cli = self.create_client(SetMode, "/set_mode")
@@ -417,6 +428,10 @@ class MissionNode(Node):
         self.SerializePoseGraph = SerializePoseGraph
         self.c_serialize = self.create_client(SerializePoseGraph, "/slam_toolbox/serialize_map")
         self.tf = self.feed.tf
+        self.c_slam_state = self.create_client(GetState, "/slam_toolbox/get_state")
+        self.c_slam_change = self.create_client(ChangeState, "/slam_toolbox/change_state")
+        self.slam_state_pending = None
+        self.t_slam_state = self.t_slam_change = -math.inf
 
         self.use_map(map_name)
         if self.slam is not None:
@@ -479,6 +494,14 @@ class MissionNode(Node):
         """In the supervisor's thread: the new slam_toolbox is starting (check_caps sees it come up)."""
         self.use_map(map_name if mode == "localization" else NEW_MAP)
         self.grid_msg = self.grid = None
+        odom = self.tf.lookup("odom", "base_link")
+        self.tf.invalidate("map", "odom", odom[3] if odom else 0.0)
+        self.t_slam_up = None
+        pending = self.slam_state_pending
+        self.slam_state_pending = None
+        if pending is not None:
+            self.c_slam_state.remove_pending_request(pending)
+            pending.cancel()
         self.core.set_slam(mode=None, map=map_name, busy=True, maps=saved_maps(self.maps_dir))
         self.publish_schema()
 
@@ -700,6 +723,8 @@ class MissionNode(Node):
                 self.cancel_goal()
             elif kind == "nav_limits":
                 v, w, facing, spin = fx[1:]
+                if self.speed_cap > 0.0:
+                    v = min(v, self.speed_cap)
                 self.set_params("velocity_smoother", [
                     Parameter("max_velocity", Parameter.Type.DOUBLE_ARRAY, [v, v, w]),
                     Parameter("min_velocity", Parameter.Type.DOUBLE_ARRAY, [-v, -v, -w])])
@@ -727,12 +752,30 @@ class MissionNode(Node):
         self.flush_events()
 
     def on_arm_state(self, m: String):
-        """omni_arm's /arm/state: the Tidy tab's arm, and the end of a tidy (design.md 11)."""
+        """omni_arm's /arm/state: the Tidy tab's arm, and the end of a tidy (design.md 11). arm_node.py publishes it all;
+        with arm_impl:=cpp the servo fields come from arm_driver's /arm/hw (on_arm_hw) and merge here."""
         try:
             s = json.loads(m.data)
         except ValueError:
             return
+        self.arm_brain, self.t_arm_brain = s, time.monotonic()
+        self.arm_merged()
+
+    def on_arm_hw(self, m: ArmHardware):
+        self.arm_hw = dict(connected=bool(m.connected), torque=bool(m.torque), ok=bool(m.ok), missing=list(m.missing),
+                           port=m.port, names=list(m.joint_names), joints=[round(math.degrees(v), 1) for v in m.position],
+                           loads=[round(float(v), 3) for v in m.load], temps=[int(v) for v in m.temp_c],
+                           volts=round(float(m.volts), 1), out=bool(m.tool_out))
+        self.t_arm_hw = time.monotonic()
+        self.arm_merged()
+
+    def arm_merged(self):
         now = time.monotonic()
+        s = dict(self.arm_brain) if now - self.t_arm_brain < 3.0 else {}
+        if now - self.t_arm_hw < 2.0:
+            s.update(self.arm_hw)
+        elif not s:
+            return
         self.core.now = now
         self.core.caps["arm"] = bool(s.get("connected"))
         self.run_effects(self.core.on_arm_state(s, now))
@@ -854,6 +897,39 @@ class MissionNode(Node):
             return
         self.t_slam_up = self.t_slam_up or now
         in_map = (self.frame_pose("base_link") or ("",))[0] == "map"
+        if in_map:
+            self.t_slam_up = now                  # time without fresh map TF, not the process's total uptime
+        # slam_toolbox's launch can lose the configure response and leave the node inactive indefinitely.
+        # Query the actual state after the normal startup grace, then complete its lifecycle without restarting it.
+        if not in_map and now - self.t_slam_up > 8.0 and now - self.t_slam_change > 5.0 and self.c_slam_state.service_is_ready():
+            pending = self.slam_state_pending
+            if pending is not None and now - self.t_slam_state > 3.0:
+                self.slam_state_pending = None
+                self.c_slam_state.remove_pending_request(pending)
+                pending.cancel()
+            if self.slam_state_pending is None:
+                self.t_slam_state = now
+                pid = self.slam.proc.pid
+                future = self.c_slam_state.call_async(GetState.Request())
+                self.slam_state_pending = future
+
+                def state_done(f):
+                    if self.slam_state_pending is not f:
+                        return
+                    self.slam_state_pending = None
+                    if f.cancelled() or not self.slam.alive() or self.slam.proc.pid != pid:
+                        return
+                    response = f.result()
+                    state = response.current_state.id if response else None
+                    transition = {State.PRIMARY_STATE_UNCONFIGURED: Transition.TRANSITION_CONFIGURE,
+                                  State.PRIMARY_STATE_INACTIVE: Transition.TRANSITION_ACTIVATE}.get(state)
+                    if transition is not None and self.c_slam_change.service_is_ready():
+                        self.t_slam_change = time.monotonic()
+                        req = ChangeState.Request()
+                        req.transition.id = transition
+                        self.emit("warn", f"Completing SLAM lifecycle startup (state {state})")
+                        self.c_slam_change.call_async(req)
+                future.add_done_callback(state_done)
         if not in_map and now - self.t_slam_up > 40.0 and now - self.t_slam_retry > 60.0:
             self.t_slam_retry = now
             self.emit("warn", f"SLAM ({self.slam.mode}) gave no map frame in 40 s: starting it again")
@@ -1132,6 +1208,9 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
+        # The supervisor signals the process group and ros2 launch forwards SIGINT again. A second interrupt must
+        # not abandon the separately grouped SLAM child halfway through its bounded cleanup.
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
         node.shutdown()
         node.feed.destroy_node()
         node.destroy_node()

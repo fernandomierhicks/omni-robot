@@ -22,3 +22,10 @@ firmware/sil/build/
 simulation/v11 sil/assets/house/
 # v11 SO-101 arm meshes (~16 MB, Apache-2.0, TheRobotStudio/SO-ARM100 at a pinned commit): `python arm_so101.py fetch`
 simulation/v11 sil/assets/so101/
+
+# cad/v9 generated meshes, large assemblies and local logs
+cad/v9/out/render_stl*/
+cad/v9/out/wheel_render_stl/
+cad/v9/*.log
+cad/v9/out/assembly*.step
+cad/v9/out/wheel_assembly*.step

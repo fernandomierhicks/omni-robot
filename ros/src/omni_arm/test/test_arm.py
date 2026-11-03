@@ -142,6 +142,29 @@ def test_the_driver_reads_and_writes_in_radians():
     assert set(s.goals) == {1, 2, 3, 4, 5, 6} and all(v == 2048 for v in s.goals.values())
 
 
+def test_a_servo_error_or_silence_is_not_ok():
+    """Every reply with an error byte (overload, heat, voltage) and one missing: the state says so, not ok."""
+    from omni_arm.driver import ArmDriver
+
+    class Faulty(_Servos):
+        def __init__(self, err=0, silent=()):
+            super().__init__()
+            self.err, self.silent = err, silent
+
+        def write(self, data):
+            super().write(data)
+            out, self.tx = bytes(self.tx), bytearray()
+            for sid, _, err, p in F.Parser().feed(out):
+                if sid not in self.silent:
+                    self.tx += F.status_packet(sid, self.err, p)
+
+    for bus, missing, errors in ((Faulty(err=0x20), (), (1, 2, 3, 4, 5, 6)), (Faulty(silent=(3,)), (3,), ())):
+        tick = iter(range(10 ** 6))                       # a clock that moves: the silent servo's wait times out
+        d = ArmDriver(F.Bus(bus, timeout=0.0, clock=lambda: next(tick)), ArmConfig())
+        st = d.read(0.0)
+        assert not st.ok and st.missing == missing and st.errors == errors
+
+
 # -- motions ---------------------------------------------------------------------------------------------------------
 def test_motions_are_timed_by_the_slowest_joint(kin):
     sp = mo.speeds(kin)
@@ -276,6 +299,49 @@ def test_a_jog_moves_one_joint_in_its_range_and_never_into_the_robot(kin):
     assert mo.jog(kin, P["drop"], 4, math.radians(5))[0] is not None     # the wrist turns over the bin
 
 
+def _touching(kin, P):
+    """A pose that touches something: the ready pose with the shoulder lowered until it isn't clear."""
+    q = P["ready"].copy()
+    while kin.clear(q)[0]:
+        q[1] += 0.02
+        assert q[1] < kin.hi[1], "never touched"
+    return q
+
+
+def test_no_unchecked_path_plays(kin):
+    """plan_checked: plan()'s path, or from a touching pose one step out to a clear via then checked, else None."""
+    P = TidyTask(kin).poses
+    via = [P[n] for n in ("high", "ready", "predrop") if n in P]
+    path, why = mo.plan_checked(kin, P["stow"], P["ready"], via=via)
+    assert path is not None and why == ""
+    q = _touching(kin, P)
+    path, why = mo.plan_checked(kin, q, P["stow"], via=via)
+    assert path is not None and why.startswith("recovering") and kin.clear(path[1])[0]
+    assert all(kin.path_clear(a, b)[0] for a, b in zip(path[1:-1], path[2:]))
+    assert mo.plan_checked(kin, q, P["stow"], via=None) == (None, f"it touches the {kin.clear(q)[1]} and no clear "
+                                                                  "way out")
+
+
+def test_trajectories_are_checked_whole_not_clipped(kin):
+    P = TidyTask(kin).poses
+    names = list(kin.cfg.joints)
+    q0, q1 = P["stow"], P["high"]
+    slow = 3.0 * float(np.max(np.abs(q1 - q0))) / kin.cfg.servos["speed"] + 0.5
+    times, wps = mo.check_trajectory(kin, q0, names, [(0.0, list(q0)), (slow, list(q1))])
+    assert times == [0.0, slow] and np.allclose(wps[-1], q1)                     # MoveIt's start point skipped
+    times, wps = mo.check_trajectory(kin, q0, ["wrist_roll"], [(1.0, [q0[4] + 0.2])])  # a subset of the joints
+    assert times == [0.0, 1.0] and wps[-1][4] == pytest.approx(q0[4] + 0.2) and np.allclose(wps[-1][:4], q0[:4])
+    out = list(q1)
+    out[0] = kin.hi[0] + 0.1
+    bad = {"names": (["nope"], [(1.0, [0.0])]), "dims": (names, [(1.0, [0.0])]),
+           "nan": (names, [(1.0, [math.nan] * 6)]), "range": (names, [(slow, out)]),
+           "order": (names, [(2 * slow, list(q1)), (slow, list(q0))]), "fast": (names, [(0.05, list(q1))]),
+           "hits": (names, [(slow, list(_touching(kin, P)))])}
+    for case, (n, pts) in bad.items():
+        times, why = mo.check_trajectory(kin, q0, n, pts)
+        assert times is None and why, case
+
+
 # -- the task --------------------------------------------------------------------------------------------------------
 def test_the_tasks_poses_are_clear_and_it_grasps_at_the_sweet_spot(kin):
     t = TidyTask(kin)
@@ -297,3 +363,44 @@ def test_the_tasks_poses_are_clear_and_it_grasps_at_the_sweet_spot(kin):
         assert kin.clear(qh)[0]
         # the fingers close across the short side
         assert abs(math.cos(gy - (yaw + math.pi / 2))) > 0.99
+
+
+# -- the RealSense D435 as the depth camera (design.md 4.11) ---------------------------------------------------------
+def test_depth_images_decode_from_either_camera():
+    """32FC1 m (the sim's stereo pair) and 16UC1 mm with 0 = no match (realsense2_camera) give the same metres."""
+    z = np.array([[0.5, np.nan], [1.234, 2.0]], np.float32)
+    assert np.array_equal(fv.decode_depth("32FC1", z.tobytes(), 2, 2), z, equal_nan=True)
+    mm = np.where(np.isfinite(z), np.round(z * 1000), 0).astype(np.uint16)
+    got = fv.decode_depth("16UC1", mm.tobytes(), 2, 2)
+    assert np.isnan(got[0, 1]) and got[[0, 1, 1], [0, 0, 1]] == pytest.approx([0.5, 1.234, 2.0], abs=1e-6)
+    assert fv.decode_depth("rgb8", b"", 0, 0) is None
+
+
+def test_the_depth_cloud_is_decimated_like_the_drivers_filter():
+    """A flat wall 1.5 m ahead, a quarter of it unmatched: one point per 4 x 4 block (each block's median), every
+    point on the wall, no point from a block with nothing in it."""
+    K = (243.5, 243.5, 240.0, 135.0)
+    z = np.full((270, 480), 1.5, np.float32)
+    z[:, :120] = np.nan
+    P = fv.cloud_points(z, K, 4)
+    assert len(P) == (270 // 4) * ((480 - 120) // 4)
+    assert P[:, 2] == pytest.approx(1.5) and P[:, 0].min() > (120 - 240) / 243.5 * 1.5
+    assert len(fv.cloud_points(z, K, 1)) == np.isfinite(z).sum()
+
+
+def test_the_d435_robot_has_its_own_config():
+    """robot_arm_d435.json (robot_export.ARM_D435): the same arm, the D435's depth camera first (the tidy's looks),
+    its body a keep-out for the arm, its frames realsense2_camera's names."""
+    from omni_arm.kinematics import config_path
+    stereo, d435 = ArmConfig(), ArmConfig(config_path("d435"))
+    assert config_path("") == config_path() and config_path("d435").name == "robot_arm_d435.json"
+    assert d435.raw["robot"]["depth_camera"] == "d435" and "depth_camera" not in stereo.raw["robot"]
+    c = d435.cameras[0]
+    assert c["name"] == "d435" and (c["width"], c["height"]) == (480, 270) and 0.09 < c["min_z"] < 0.13
+    view = -np.array(c["R"])[:, 2]                                   # a MuJoCo camera looks along its -z
+    assert math.degrees(math.asin(-view[2])) == pytest.approx(30.0, abs=0.5) and 0.17 < c["pos"][0] < 0.217
+    assert d435.chain == stereo.chain and d435.poses.keys() == stereo.poses.keys()
+    assert any("D435" in k.get("note", "") for k in d435.keep_out)
+    assert {"d435_link", "d435_depth_optical_frame"} <= {f["child"] for f in d435.frames}
+    t = TidyTask(ArmKinematics(d435))
+    assert t.T_base_cam[:3, 3] == pytest.approx(c["pos"]) and t.T_base_cam[2, 2] < -0.4      # optical z: down-ish

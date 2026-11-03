@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_camera</name>
+  <version>0.11.0</version>
+  <description>omni-robot camera head (design.md 4.9): libcamera_capture publishes a CSI camera as /cam/&lt;side&gt;/image_raw,
+    stamped with the sensor's own timestamp, and camera_head.launch.py composes it with omni_cpp's catch_perception
+    (intra-process) so the head sends tracks, not images. Needs Raspberry Pi's libcamera fork (built from source, not a
+    rosdep key: Ubuntu's libcamera 0.2 can't drive Pi cameras); without it only the launch file installs.</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>pkg-config</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <exec_depend>omni_cpp</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

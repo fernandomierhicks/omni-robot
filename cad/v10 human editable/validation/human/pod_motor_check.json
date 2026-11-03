@@ -1,0 +1,54 @@
+{
+  "rows": [
+    {
+      "bump_mm": -3,
+      "wheel_deg": 90,
+      "stator_rel_fork_err": 2.930988785010413e-14,
+      "rotor_axis_change_vs_stator": 8.380459633469686e-18,
+      "mate_errors": [],
+      "interferences": []
+    },
+    {
+      "bump_mm": -3,
+      "wheel_deg": 150,
+      "stator_rel_fork_err": 2.930988785010413e-14,
+      "rotor_axis_change_vs_stator": 0.8660254037844387,
+      "mate_errors": [],
+      "interferences": []
+    },
+    {
+      "bump_mm": 7.5,
+      "wheel_deg": 90,
+      "stator_rel_fork_err": 2.930988785010413e-14,
+      "rotor_axis_change_vs_stator": 1.1102230246251565e-16,
+      "mate_errors": [],
+      "interferences": []
+    },
+    {
+      "bump_mm": 7.5,
+      "wheel_deg": 150,
+      "stator_rel_fork_err": 2.930988785010413e-14,
+      "rotor_axis_change_vs_stator": 0.8660254037844384,
+      "mate_errors": [],
+      "interferences": []
+    },
+    {
+      "bump_mm": 15,
+      "wheel_deg": 90,
+      "stator_rel_fork_err": 2.842170943040401e-14,
+      "rotor_axis_change_vs_stator": 2.220446049250313e-16,
+      "mate_errors": [],
+      "interferences": []
+    },
+    {
+      "bump_mm": 15,
+      "wheel_deg": 150,
+      "stator_rel_fork_err": 2.842170943040401e-14,
+      "rotor_axis_change_vs_stator": 0.8660254037844387,
+      "mate_errors": [],
+      "interferences": []
+    }
+  ],
+  "baseline_nominal": [],
+  "pass": true
+}

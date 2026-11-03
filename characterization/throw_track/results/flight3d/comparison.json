@@ -1,0 +1,309 @@
+{
+  "summary": {
+    "clear_free_flight": {
+      "clips": 15,
+      "before_causal_positive": 15,
+      "after_3d_positive": 11
+    },
+    "handling_or_rig_motion": {
+      "clips": 6,
+      "before_causal_positive": 6,
+      "after_3d_positive": 1
+    }
+  },
+  "clips": [
+    {
+      "session": "20261030_145545_realtest",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": null,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_160311_bucket2",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": false,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_160603_bucket3",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": false,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_160708_bucket4",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_160941_bucket5",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": false,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_161226_bucket6",
+      "clip": "t001",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": false,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235032_bucket7",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 1.0078545920000002,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235737_bucket8",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.9743347200000001,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235934_bucket9",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.940679424,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235934_bucket9",
+      "clip": "t002",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.940746496,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235934_bucket9",
+      "clip": "t003",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235934_bucket9",
+      "clip": "t004",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261030_235934_bucket9",
+      "clip": "t005",
+      "visual_class": "unscored_early_test",
+      "before_offline_arc": false,
+      "before_causal_trigger": false,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.940745728,
+      "held_out": false
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t002",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t003",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.974324736,
+      "held_out": false
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t004",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.9407511040000001,
+      "held_out": false
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t005",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": false,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t001",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t002",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.8734663680000001,
+      "held_out": false
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t003",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t004",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.5207587840000001,
+      "held_out": false
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t005",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": false
+    },
+    {
+      "session": "20261031_122443_loc3",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 1.007953152,
+      "held_out": true
+    },
+    {
+      "session": "20261031_122443_loc3",
+      "clip": "t002",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": true
+    },
+    {
+      "session": "20261031_122443_loc3",
+      "clip": "t003",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.403195136,
+      "held_out": true
+    },
+    {
+      "session": "20261031_122443_loc3",
+      "clip": "t004",
+      "visual_class": "handling_or_rig_motion",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": false,
+      "first_confirm_s": null,
+      "held_out": true
+    },
+    {
+      "session": "20261031_122443_loc3",
+      "clip": "t005",
+      "visual_class": "clear_free_flight",
+      "before_offline_arc": true,
+      "before_causal_trigger": true,
+      "after_3d_confirmed": true,
+      "first_confirm_s": 0.974342912,
+      "held_out": true
+    }
+  ],
+  "correction": "loc2 t004 visibly releases the ball in frames ~20..44, then catches it. Earlier coarse review called it handling; corrected using a dense contact sheet. No raw metadata modified.",
+  "limitations": [
+    "Gate-only causal replay of existing session colour detections, not end-to-end gesture/autotuning validation",
+    "15 clear-flight clips and six handling/rig-motion clips are provisional visual labels, not independent instrumented truth",
+    "Seven earlier tests/controls are listed but unscored in recall",
+    "Four clear flights remain unconfirmed; loc3 t003 is a handling false positive",
+    "loc3 knobs were not tuned on its failure; fresh real-room validation required"
+  ],
+  "hashes": {
+    "flight3d.py": "59397ed2d7c4404f817be21f6425f74f44f1bbef6f8d2bd8d622be45d676e2b2",
+    "flight3d_native.cpp": "76876434bba13cf89223789e760da0a5c0f5f0a196c8353c5009f98030f2c2b0",
+    "bucket_vision.py": "3d8893b1f0eff22d5c817c0d817fc18b586488dd17d399dadf9dbc8c0b84aa6e"
+  }
+}

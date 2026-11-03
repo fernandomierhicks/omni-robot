@@ -1,0 +1,366 @@
+{
+  "required_clearance_mm": 0.5,
+  "samples": [
+    {
+      "row": 1,
+      "roller": 1,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999964,
+        "TPU": 1.1952279048632692
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 2,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999938,
+        "TPU": 1.195227904863276
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 3,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999984,
+        "TPU": 1.1952279048632677
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 4,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.499999999999993,
+        "TPU": 1.1952279048632615
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 5,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999902,
+        "TPU": 1.1952279048632715
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 6,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999698,
+        "TPU": 1.1952279048632874
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 1,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999972,
+        "TPU": 1.2635872733888227
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 2,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999918,
+        "TPU": 1.2635872733888336
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 3,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999883,
+        "TPU": 1.2635872733888396
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 4,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999936,
+        "TPU": 1.2635872733888234
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 5,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999843,
+        "TPU": 1.2635872733888214
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 6,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.799999999999968,
+        "TPU": 1.2635872733888418
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 1,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5,
+        "TPU": 1.1952279048632508
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 2,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999984,
+        "TPU": 1.195227904863266
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 3,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5,
+        "TPU": 1.1952279048632708
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 4,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5000000000000036,
+        "TPU": 1.1952279048632528
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 5,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.499999999999986,
+        "TPU": 1.1952279048632501
+      },
+      "pass": true
+    },
+    {
+      "row": 1,
+      "roller": 6,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5000000000000062,
+        "TPU": 1.195227904863271
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 1,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999936,
+        "TPU": 1.1952279048632826
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 2,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.499999999999993,
+        "TPU": 1.1952279048632737
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 3,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999902,
+        "TPU": 1.1952279048632757
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 4,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999893,
+        "TPU": 1.1952279048632775
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 5,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999893,
+        "TPU": 1.195227904863262
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 6,
+      "shift_mm": -0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999682,
+        "TPU": 1.195227904863279
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 1,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.799999999999993,
+        "TPU": 1.263587273388851
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 2,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999936,
+        "TPU": 1.2635872733888216
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 3,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999874,
+        "TPU": 1.2635872733888431
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 4,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999892,
+        "TPU": 1.26358727338884
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 5,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.79999999999999,
+        "TPU": 1.2635872733888265
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 6,
+      "shift_mm": 0,
+      "clearance_mm": {
+        "body": 1.7999999999999663,
+        "TPU": 1.2635872733888376
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 1,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5,
+        "TPU": 1.1952279048632763
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 2,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999964,
+        "TPU": 1.1952279048632508
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 3,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.499999999999991,
+        "TPU": 1.1952279048632697
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 4,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5000000000000062,
+        "TPU": 1.1952279048632695
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 5,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.5000000000000107,
+        "TPU": 1.1952279048632555
+      },
+      "pass": true
+    },
+    {
+      "row": 2,
+      "roller": 6,
+      "shift_mm": 0.3,
+      "clearance_mm": {
+        "body": 1.4999999999999971,
+        "TPU": 1.1952279048632632
+      },
+      "pass": true
+    }
+  ],
+  "pass": true
+}

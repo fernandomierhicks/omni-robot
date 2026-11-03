@@ -1,0 +1,13 @@
+{
+  "Motor_case": "V10_dummy_motor_case-1",
+  "Rear_cover": "V10_dummy_motor_rear_cap-1",
+  "Front_687": "V10_bearing_687-1",
+  "Rear_687": "V10_bearing_687-2",
+  "Rotor": "V10_dummy_motor_rotor-1",
+  "Retaining_washer": "V10_dummy_motor_retainer-1",
+  "Cover_bolt_1": "V10_bolt_M3_12_FLAT-1",
+  "Cover_bolt_2": "V10_bolt_M3_12_FLAT-2",
+  "Cover_bolt_3": "V10_bolt_M3_12_FLAT-3",
+  "Cover_bolt_4": "V10_bolt_M3_12_FLAT-4",
+  "Retainer_bolt": "V10_bolt_M3_8_PAN-1"
+}

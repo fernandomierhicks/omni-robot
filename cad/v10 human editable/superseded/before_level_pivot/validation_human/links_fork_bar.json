@@ -1,0 +1,15 @@
+{
+  "part": "fork_bar",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Bar Screw Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "screw_half_pitch": "\"D44@Control Measures-Shared Layout\"",
+    "outer_screw_x": "\"D40@Control Measures-Shared Layout\" + \"D46@Control Measures-Shared Layout\"",
+    "inner_screw_x": "\"D38@Control Measures-Shared Layout\" - \"D46@Control Measures-Shared Layout\""
+  }
+}

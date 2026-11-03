@@ -1,0 +1,17 @@
+{
+  "joint_radius": 52.0,
+  "parts": {
+    "wheel_hub_A": {
+      "volume_mm3": 52318.33638565668,
+      "sketch_radii_ok": true
+    },
+    "wheel_hub_B": {
+      "volume_mm3": 61606.209531727356,
+      "sketch_radii_ok": true
+    },
+    "wheel_hub_C": {
+      "volume_mm3": 54523.9719053573,
+      "sketch_radii_ok": true
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+ "source": "clip_20261101_110054 (Fernando, Nov 1): the orange 160.7 mm ball moved slowly in a line at ~5.3 m, held from below; first 15 analysed frames. ball_orange_centroid: centroid of strongly orange pixels (misses the rim; truth to ~2 px). Radius ~9 px by the local mask.",
+ "frames": [
+  {
+   "file": "2723.jpg",
+   "t": 1793559654.0444195,
+   "ball_orange_centroid": [
+    282.3,
+    356.8
+   ]
+  },
+  {
+   "file": "2724.jpg",
+   "t": 1793559654.2292075,
+   "ball_orange_centroid": [
+    283.8,
+    356.8
+   ]
+  },
+  {
+   "file": "2725.jpg",
+   "t": 1793559654.413996,
+   "ball_orange_centroid": [
+    285.8,
+    357.1
+   ]
+  },
+  {
+   "file": "2726.jpg",
+   "t": 1793559654.6155837,
+   "ball_orange_centroid": [
+    286.0,
+    356.9
+   ]
+  },
+  {
+   "file": "2727.jpg",
+   "t": 1793559654.817172,
+   "ball_orange_centroid": [
+    286.7,
+    357.2
+   ]
+  },
+  {
+   "file": "2728.jpg",
+   "t": 1793559655.0019615,
+   "ball_orange_centroid": [
+    288.7,
+    357.9
+   ]
+  },
+  {
+   "file": "2729.jpg",
+   "t": 1793559655.2035565,
+   "ball_orange_centroid": [
+    292.1,
+    358.7
+   ]
+  },
+  {
+   "file": "2730.jpg",
+   "t": 1793559655.3883557,
+   "ball_orange_centroid": [
+    298.4,
+    360.0
+   ]
+  },
+  {
+   "file": "2731.jpg",
+   "t": 1793559655.573155,
+   "ball_orange_centroid": [
+    301.6,
+    360.2
+   ]
+  },
+  {
+   "file": "2732.jpg",
+   "t": 1793559655.741155,
+   "ball_orange_centroid": [
+    305.6,
+    360.9
+   ]
+  },
+  {
+   "file": "2733.jpg",
+   "t": 1793559655.9259553,
+   "ball_orange_centroid": [
+    309.9,
+    361.7
+   ]
+  },
+  {
+   "file": "2734.jpg",
+   "t": 1793559656.0771534,
+   "ball_orange_centroid": [
+    313.8,
+    362.8
+   ]
+  },
+  {
+   "file": "2735.jpg",
+   "t": 1793559656.24513,
+   "ball_orange_centroid": [
+    318.0,
+    364.3
+   ]
+  },
+  {
+   "file": "2736.jpg",
+   "t": 1793559656.429904,
+   "ball_orange_centroid": [
+    323.2,
+    365.0
+   ]
+  },
+  {
+   "file": "2737.jpg",
+   "t": 1793559656.6314747,
+   "ball_orange_centroid": [
+    329.0,
+    366.6
+   ]
+  }
+ ]
+}

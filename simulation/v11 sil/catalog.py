@@ -48,6 +48,16 @@ class DriveMotor:
     gear_eff: float = 0.90    # (est) planetary efficiency
     thermal: Thermal = field(default_factory=lambda: Thermal(8.0, 100.0, 1.5, 10.0, 100.0))
     notes: str = ""
+    # A model fitted to a measured torque-speed curve (studies/motor_fit.py) sets these; the defaults keep the
+    # datasheet DC model. r_fit replaces 0.75 * r_ll (it lumps winding, driver and wiring), k_sat makes the torque
+    # per amp fall with current (k = kt * gear * gear_eff * (1 - k_sat * i)), viscous is the output's N m s/rad,
+    # driver_eff divides the supply current (1 when r_fit already holds the driver's loss), p_idle is the driver's
+    # standing draw in W.
+    r_fit: float | None = None
+    k_sat: float = 0.0
+    viscous: float = 0.0005
+    driver_eff: float = 0.95
+    p_idle: float = 0.0
 
     @property
     def ke(self) -> float:
@@ -57,15 +67,33 @@ class DriveMotor:
     @property
     def r_eq(self) -> float:
         """DC-equivalent resistance for FOC: copper loss = r_eq * iq^2."""
-        return 0.75 * self.r_ll
+        return self.r_fit if self.r_fit is not None else 0.75 * self.r_ll
+
+    @property
+    def k_out(self) -> float:
+        """Output N m per amp at zero current (before saturation)."""
+        return self.kt * self.gear * self.gear_eff
+
+    def torque_at(self, i: float) -> float:
+        """Output torque (before gearbox friction) at q-axis current i."""
+        return self.k_out * (1.0 - self.k_sat * i) * i
+
+    def current_for(self, tau: float) -> float:
+        """Inverse of torque_at: the current that makes |tau|."""
+        tau = abs(tau)
+        if self.k_sat <= 0.0:
+            return tau / self.k_out
+        a = self.k_sat
+        disc = max(0.0, 1.0 - 4.0 * a * tau / self.k_out)
+        return (1.0 - math.sqrt(disc)) / (2.0 * a)
 
     @property
     def peak_torque(self) -> float:
-        return self.kt * self.gear * self.gear_eff * self.i_peak
+        return self.torque_at(self.i_peak)
 
     @property
     def rated_torque(self) -> float:
-        return self.kt * self.gear * self.gear_eff * self.i_rated
+        return self.torque_at(self.i_rated)
 
     @property
     def reflected_inertia(self) -> float:
@@ -75,9 +103,19 @@ class DriveMotor:
 DRIVE_MOTORS = {
     "AK40-10": DriveMotor(
         "CubeMars AK40-10 V3.0 KV170", "AK40-10 V3.0 KV170 (with driver)", 135.90, 0.190, 0.053, 0.0402,
+        kv=170, kt=0.073082, gear=10, r_ll=0.978, i_rated=2.05, i_peak=7.01, v_rated=24, noload_rpm=461.49,
+        rotor_inertia=9.735e-6, backdrive_torque=0.1208, gear_eff=1.0, r_fit=2.1288, k_sat=0.025124,
+        driver_eff=1.0, p_idle=0.0,
+        notes="Baseline. Fitted (studies/motor_fit.py, Nov 1 2026) to the maker's 24 V torque-speed chart "
+              "(studies/data/ak40_10_kv170_24v.csv): RMS 1.9 % speed, 1.6 % current, 1.6 points efficiency. "
+              "r_fit lumps winding + driver + gearbox losses; i_peak gives the datasheet 4.1 N m peak, i_rated "
+              "its 1.3 N m rated. kv / r_ll stay the datasheet values for reference. Thermal (est); all fitted "
+              "loss heats the winding node (conservative)."),
+    "AK40-10-dc": DriveMotor(
+        "CubeMars AK40-10 V3.0 KV170", "AK40-10 V3.0 KV170 (with driver)", 135.90, 0.190, 0.053, 0.0402,
         kv=170, kt=0.056, gear=10, r_ll=0.978, i_rated=2.7, i_peak=7.3, v_rated=24, noload_rpm=435,
         rotor_inertia=9.735e-6, backdrive_torque=0.06,
-        notes="Baseline. Datasheet values from cubemars.com (Oct 2026); thermal (est)."),
+        notes="Pre-Nov 1 datasheet DC model (reproduces earlier results). Datasheet values from cubemars.com (Oct 2026); thermal (est)."),
     "AK45-10": DriveMotor(
         "CubeMars AK45-10 KV75", "AK45-10 KV75", 150.0, 0.260, 0.053, 0.044,
         kv=75, kt=0.127, gear=10, r_ll=2.19, i_rated=2.4, i_peak=6.3, v_rated=24, noload_rpm=180,
@@ -162,6 +200,82 @@ DRIVE_MOTORS = {
               "R = 8 ohm (r_eq), kt from the stall point; mass, inertia, drag, thermal (est). Driver e.g. a DRV8874 "
               "carrier ($12) per motor."),
 }
+
+
+# Nov 1 motor study (studies/drive_char.py): every drive candidate fitted from its datasheet by one rule, in the same
+# model form as the AK40-10's curve fit, so they compare on equal terms. The full-voltage line runs from the no-load
+# speed through the rated point (torque, speed); when that line would stall below the motor's own peak torque the rated
+# point can't be on it (a test speed, not the voltage limit), and the line runs instead to a stall of 1.35 x the peak
+# torque (the AK40-10 curve fit's own stall / peak). ke = k (SI) from the no-load speed, R from the line's slope, no
+# saturation, all loss in R (gear_eff = driver_eff = 1), thermal scaled from the AK40-10's estimate by mass (est).
+# "AK40-10-ds" is the AK40-10 by this rule: against the "AK40-10" curve fit it shows how optimistic the rule is.
+
+def _ds_thermal(mass: float) -> Thermal:
+    """The AK40-10's (est) two-node thermal model scaled to another motor's mass: capacities with mass, the case's
+    resistance to ambient with its surface (mass^-2/3)."""
+    k = mass / 0.190
+    return Thermal(8.0 * k, 100.0 * k, 1.5 / k ** (2 / 3), 10.0 / k ** (2 / 3), 100.0)
+
+
+def datasheet_fit(name: str, part: str, price: float, mass: float, diameter: float, length: float, gear: float,
+                  v: float, n0: float, t_rated: float, n_rated: float, t_peak: float, rotor_inertia: float,
+                  backdrive_torque: float, notes: str, t_cont: float | None = None) -> DriveMotor:
+    w0 = n0 * 2 * math.pi / 60
+    ke_out = v / w0
+    slope = (n0 - n_rated) * 2 * math.pi / 60 / t_rated            # rad/s per N m on the line
+    rule = "rated point"
+    if w0 / slope < 1.2 * t_peak:
+        slope = w0 / (1.35 * t_peak)
+        rule = "stall 1.35 x peak"
+    r = slope * ke_out * ke_out
+    k = ke_out
+    return DriveMotor(name, part, price, mass, diameter, length, kv=60 / (2 * math.pi * ke_out / gear),
+                      kt=k / gear, gear=gear, r_ll=r / 0.75, i_rated=(t_cont or t_rated) / k, i_peak=t_peak / k,
+                      v_rated=v, noload_rpm=n0, rotor_inertia=rotor_inertia, backdrive_torque=backdrive_torque,
+                      gear_eff=1.0, r_fit=r, driver_eff=1.0, thermal=_ds_thermal(mass),
+                      notes=f"Datasheet fit ({rule}; R {r:.3f} ohm). " + notes)
+
+
+DRIVE_MOTORS.update({
+    "AK40-10-ds": datasheet_fit(
+        "CubeMars AK40-10 V3.0 KV170 (datasheet fit)", "AK40-10 V3.0 KV170 (with driver)", 135.90, 0.190, 0.053, 0.0402,
+        10, 24, 435, 1.3, 370, 4.1, 9.735e-6, 0.06,
+        "cubemars.com datasheet (database cubemars-ak40-10-v3): 435 rpm no-load, 1.3 N m rated at 370 rpm, 4.1 N m peak "
+        "at 24 V. Reference for the rule; the baseline is the curve fit (AK40-10)."),
+    "DM-2325-ds": datasheet_fit(
+        "Damiao DM-2325 1:25 (datasheet fit)", "DM-2325", 86.0, 0.172, 0.028, 0.0776, 25, 24, 560, 1.35, 380, 5.0,
+        3.0e-6, 0.08,
+        "Reseller tables (database damiao-dm-2325): 560 rpm no-load, 1.35 N m rated at 380 rpm, 5 N m peak (labels "
+        "conflict: the other listing's 2 N m peak; VERIFY). Ø28 x 78 mm: a different pod, not the AK40's cup."),
+    "DM-2325-low-ds": datasheet_fit(
+        "Damiao DM-2325 1:25 (datasheet fit, cautious 2 N m peak)", "DM-2325", 86.0, 0.172, 0.028, 0.0776, 25, 24, 560,
+        1.35, 380, 2.0, 3.0e-6, 0.08,
+        "As DM-2325-ds with the other listing's 2 N m peak: the pessimistic bracket until Damiao's manual settles it."),
+    "DM-J3507-ds": datasheet_fit(
+        "Damiao DM-J3507-2EC 7:1 (datasheet fit)", "DM-J3507-2EC", 92.0, 0.150, 0.040, 0.040, 7, 24, 460, 0.8, 150,
+        3.0, 1.0e-5, 0.05,
+        "Damiao manual (database damiao-dm-j3507-2ec): 460 rpm no-load, 0.8 N m rated (150 rpm), 3 N m peak at 24 V."),
+    "GIM4305-10-ds": datasheet_fit(
+        "SteadyWin GIM4305-10 + GDS34 (datasheet fit)", "GIM4305-10 V1.1 + GDS34", 127.8, 0.150, 0.053, 0.032, 10, 24,
+        366, 1.0, 300, 3.47, 8.0e-6, 0.06,
+        "Supplier sheet (database steadywin-gim4305-10-gds34): max speed 366 rpm (no-load est), 1.0 N m rated at 300 rpm, "
+        "3.47 N m peak at 24 V. Inertia, drag (est)."),
+    "GIM3510-8-ds": datasheet_fit(
+        "SteadyWin GIM3510-8 + GDS34 (datasheet fit)", "GIM3510-8 + GDS34", 145.8, 0.2596, 0.046, 0.0515, 8, 24, 529,
+        1.68, 430, 3.41, 1.0e-5, 0.06,
+        "Supplier sheet (database steadywin-gim3510-8-gds34): max speed 529 rpm (no-load est), 1.68 N m rated at 430 "
+        "rpm, 3.41 N m peak at 24 V. Inertia, drag (est)."),
+    "EduLite05-ds": datasheet_fit(
+        "RobStride EduLite 05 9:1 (datasheet fit, at 24 V)", "EduLite 05", 80.0, 0.242, 0.046, 0.044, 9, 24, 215, 1.8,
+        50, 6.0, 1.0e-5, 0.08,
+        "RobStride manual (database robstride-edulite-05): a 48 V part, 430 rpm no-load at 48 V, so ~215 rpm at 24 V "
+        "(back-EMF scaling, est); 1.8 N m rated (tested at 100 rpm), 6 N m peak. Price is a reseller reference."),
+    "M2006-ds": datasheet_fit(
+        "DJI M2006 P36 + C610 (datasheet fit)", "M2006 P36 + C610", 55.0 + 39.0, 0.107, 0.0244, 0.0648, 36, 24, 500, 1.0,
+        416, 1.8, 1.2e-6, 0.15,
+        "DJI: 500 rpm no-load, 1 N m continuous at 416 rpm; peak 1.8 N m at the C610's 10 A (reseller output kt 0.18 "
+        "N m/A). Separate C610 ESC ($39) per motor; both out of stock Oct 2026. Not an integrated actuator."),
+})
 
 
 # ---------------------------------------------------------------------------
@@ -276,6 +390,8 @@ OMNI_WHEELS = {
     "Printed-152-3x6-36": printed_omni(0.152, 6, 0.036, rows=3),
     "Printed-127-2x5-36": printed_omni(0.127, 5, 0.036),
     "Printed-140-2x6-36": printed_omni(0.140, 6, 0.036),
+    # cad/v10: the 6804 wheel as drawn: the two roller rows at x +/- 18 mm (72 mm wide; the catalog's 80 is rows + 3 mm)
+    "Printed-140-2x6-36-cad": printed_omni(0.140, 6, 0.036, width=0.072),
     "Printed-152-2x6-40": printed_omni(0.152, 6, 0.040),
 }
 # v8 swerve (design.md 26): plain tired wheels for steered modules (kind "tire": one cylinder, no rollers). Printed
@@ -514,7 +630,7 @@ class Cell:
     r0: float                # ohm DC at 50% SoC, 25 C
     r1: float                # ohm polarization
     tau1: float              # s polarization time constant
-    i_max: float             # A continuous
+    i_max: float | None      # A continuous claim; None if not trusted for sizing
     mass: float
     ocv_soc: tuple = (0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0)
     ocv_v: tuple = (3.00, 3.30, 3.45, 3.56, 3.63, 3.69, 3.75, 3.83, 3.92, 4.00, 4.08, 4.18)
@@ -527,8 +643,12 @@ class BatteryPack:
     series: int
     parallel: int
     r_extra: float           # ohm: BMS FETs, fuse, wiring, connectors (est)
-    price: float
-    i_bms: float             # A BMS overcurrent trip
+    price: float | None
+    i_bms: float | None      # A BMS overcurrent trip; None for an unprotected RC pack
+    assembled_mass: float | None = None  # kg, complete pack including leads; otherwise estimate from cells
+    v_low_cell: float = 3.2  # V under load: firmware's ramped-stop threshold, not a cell damage limit
+    source_url: str = ""
+    notes: str = ""
 
     @property
     def capacity(self) -> float:
@@ -540,13 +660,39 @@ class BatteryPack:
 
     @property
     def mass(self) -> float:
+        if self.assembled_mass is not None:
+            return self.assembled_mass
         return self.cell.mass * self.series * self.parallel * 1.25   # + BMS, wrap, wiring
 
 
 P50B = Cell("Molicel INR21700-P50B", 5.0, 0.016, 0.008, 15.0, 60.0, 0.070)
 P45B = Cell("Molicel INR21700-P45B", 4.5, 0.015, 0.008, 15.0, 45.0, 0.070)
 
+# Fernando's Nov 1 pack: O-150C-5200-6S1P-XT90-S, Amazon ASIN B0D3HS6FMC.
+# Capacity / 6S / mass are catalog claims, not bench measurements. OVONIC publishes
+# no DC resistance or OCV-vs-SoC table: ALL resistance, polarization and OCV points
+# below are generic LiPo estimates. Fit them to this pack before motor sizing.
+# The advertised 150C is deliberately NOT treated as a validated current limit.
+OVONIC_5200_LIPO = Cell(
+    "OVONIC Roam 5200 mAh pouch (electrical fit est)",
+    capacity=5.2, r0=0.005, r1=0.002, tau1=10.0,
+    i_max=None, mass=0.706 / 6,  # do not turn the marketing C rating into a 780 A model limit
+    ocv_v=(3.30, 3.50, 3.60, 3.73, 3.77, 3.80, 3.83, 3.87, 3.93, 4.00, 4.10, 4.20),
+)
+
 BATTERIES = {
+    "6S1P-OVONIC-5200": BatteryPack(
+        "OVONIC Roam 6S 5200 mAh 150C XT90-S, 115.44 Wh nominal",
+        OVONIC_5200_LIPO, 6, 1, r_extra=0.010, price=None, i_bms=None,
+        assembled_mass=0.706, v_low_cell=3.5,
+        source_url="https://www.ampow.com/products/ovonic-roam-series-6s-lipo-battery-5200mah-6s1p-150c-22-2v-long-range-lipo-battery-with-xt90-s-anti-spark-plug-for-7-10-inch-long-range-drone-6s-hd-cinelifter-multirotor-x-class",
+        notes="Manufacturer claims: 22.2 V nominal, 25.2 V full, 5.2 Ah, 150C/300C, "
+              "706 g +/-20 g, 157x47x46 mm; Amazon description instead says 678 g. "
+              "R0=5 mOhm/cell, R1=2 mOhm/cell, tau=10 s, wiring=10 mOhm and OCV table "
+              "are estimates, not published pack data. 3.5 V/cell stop threshold is a "
+              "provisional controller setting; use a 20% charge reserve for runtime planning. "
+              "No BMS assumed: current trip disabled, not a simulated 780 A capability. "
+              "Price unknown; simulation battery shape remains a coarse placeholder."),
     "7S1P-P50B": BatteryPack("7S1P Molicel P50B, 5 Ah, ~126 Wh", P50B, 7, 1, 0.025, 120.0, 40.0),
     "7S1P-P45B": BatteryPack("7S1P Molicel P45B, 4.5 Ah, ~113 Wh", P45B, 7, 1, 0.025, 110.0, 40.0),
     "7S2P-P45B": BatteryPack("7S2P Molicel P45B, 9 Ah, ~227 Wh", P45B, 7, 2, 0.020, 190.0, 60.0),

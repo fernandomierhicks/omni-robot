@@ -1,0 +1,16 @@
+{
+ "_comment": "The bucket + camera mount as drawn in SolidWorks (Fernando, Oct 30 2026, the 30 deg camera, all dimensions straight from the CAD): a 5-gallon bucket, the D435 on its outside near the base, lens toward the thrower, pitched up. camera_back_*: the camera's back-face middle point, horizontal from the bucket's axis and up from the floor; rim_height_m = the top edge of the bucket (confirmed). origin_from_back_face_m = where the D435's depth origin (the LEFT IR imager) sits relative to the back-face middle point, in the camera's own axes: forward 20.85 mm (25.05 mm body, origin 4.2 mm behind the front glass: Intel's Depth Start Point table), lateral -17.5 mm (the imager is 17.5 mm from the centreline of the 1/4-20 hole, which is the middle of the lens group: Intel Figure 4-6; assumes the back-face middle is that centreline: VERIFY against the part you modelled), up 0 (est). ball_radius_m = the TEMPORARY test ball for the camera characterization (orange foam, circumference 19 7/8 in -> diameter 160.7 mm, 73 g; NOT the robot's ball: robot_v11.json is unchanged); rs_analyze takes the ball from each session's session.json and overrides this.",
+ "cad": {
+  "rim_diameter_m": 0.28448,
+  "rim_height_m": 0.3683,
+  "camera_back_horizontal_m": 0.14159,
+  "camera_back_height_m": 0.0408,
+  "pitch_deg": 30.0,
+  "origin_from_back_face_m": {
+   "forward": 0.02085,
+   "lateral": -0.0175,
+   "up": 0.0
+  }
+ },
+ "ball_radius_m": 0.08034
+}

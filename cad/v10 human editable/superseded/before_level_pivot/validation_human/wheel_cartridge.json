@@ -1,0 +1,231 @@
+{
+  "sketches": [
+    {
+      "name": "Cartridge Section",
+      "status": 3
+    },
+    {
+      "name": "Mounting Hole Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 13362.34023703594,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"barrel_end_distance\"= 51mm 'Outer barrel end, toward negative pod X",
+    "\"flange_back_distance\"= 44mm 'Back face of mounting flange",
+    "\"flange_face_distance\"= 41mm 'Front face of mounting flange",
+    "\"bearing_shoulder_distance\"= 43.5mm '6804 outer-race shoulder location",
+    "\"barrel_radius\"= 22mm 'Cartridge barrel radius",
+    "\"flange_radius\"= 33mm 'Mounting flange radius",
+    "\"bearing_seat_radius\"= \"D78@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"shoulder_bore_radius\"= \"D78@Control Measures-Shared Layout\" / 2 - 2.5mm 'Driven by the shared master layout",
+    "\"screw_clearance\"= 3.4mm 'M3 mounting clearance",
+    "\"drill_overrun\"= 0.1mm 'Drill overrun at each flange face",
+    "\"screw_count\"= (\"D112@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"axis_reference_length\"= 10mm 'Construction-axis display length; no physical effect",
+    "\"D1@Cartridge Section\"= \"barrel_end_distance\"",
+    "\"D2@Cartridge Section\"= \"flange_back_distance\"",
+    "\"D3@Cartridge Section\"= \"flange_face_distance\"",
+    "\"D4@Cartridge Section\"= \"bearing_shoulder_distance\"",
+    "\"D5@Cartridge Section\"= \"bearing_seat_radius\"",
+    "\"D6@Cartridge Section\"= \"barrel_radius\"",
+    "\"D7@Cartridge Section\"= \"flange_radius\"",
+    "\"D8@Cartridge Section\"= \"shoulder_bore_radius\"",
+    "\"D9@Cartridge Section\"= \"axis_reference_length\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Cartridge Revolve\"= \"full_turn\"",
+    "\"D1@Mounting Drill Plane\"= \"flange_back_distance\" + \"drill_overrun\"",
+    "\"D3@Mounting Hole Sketch\"= \"screw_clearance\"",
+    "\"D1@Mounting Hole Cut\"= \"flange_back_distance\" - \"flange_face_distance\" + 2 * \"drill_overrun\"",
+    "\"D3@Mounting Hole Pattern\"= \"full_turn\"",
+    "\"D1@Mounting Hole Pattern\"= \"screw_count\""
+  ],
+  "design_features": [
+    {
+      "name": "Cartridge Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Cartridge Revolve"
+      ]
+    },
+    {
+      "name": "Mounting Hole Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Mounting Hole Cut"
+      ]
+    },
+    {
+      "name": "Mounting Hole Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Mounting Hole Pattern",
+        "D1@Mounting Hole Pattern"
+      ]
+    }
+  ],
+  "pass": true
+}

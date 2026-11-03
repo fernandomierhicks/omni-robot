@@ -95,7 +95,7 @@ class SimParams:
     wheel: str = "goBILDA-96"
     flywheel_motor: str = "F90-2806.5-1300"
     esc: str = "Lucid-8S-4in1"
-    battery: str = "7S1P-P50B"
+    battery: str = "6S1P-OVONIC-5200"   # Fernando, Nov 1; resistance / OCV fit still estimated (catalog.py)
     battery_soc: float = 1.0           # state of charge at start (0.1 = the low-battery case the drive must still meet)
     ball: str = "foam-pickleball"
 
@@ -104,6 +104,11 @@ class SimParams:
     wheel_model: str = "sphere"        # "sphere" (fast, default) or "rollers" (explicit rollers)
     wheel_mu: float | None = None      # None = catalog value for the chosen wheel
     roller_friction_torque: float = 0.004   # N m Coulomb roller-bearing drag (est)
+    roller_mesh: tuple = (9, 14)       # the barrel roller's collision hull: (points along it, around it). 14 around: each
+                                       # flat dips 0.45 mm on an 18 mm roller, so a fast-spinning roller hammers the floor
+                                       # (wheel loads 0-120 N at 1 m/s, Nov 1 motor study); finer for the arm robot
+    roller_pin_mu: float = 0.0         # plain rollers on a steel pin (no bearings): friction mu_pin * load * r_pin on the
+    roller_pin_radius: float = 0.0015  # loaded roller's hinge, set every step (floor.RollingResistance); 0 = off
     roller_damping: float = 2e-4       # N m s/rad roller viscous drag (est)
     roller_stiffness: float = 30e3     # N/m vertical compliance of a loaded 50A roller (est)
     roller_damping_ratio: float = 0.3  # of the base bouncing on its wheels (est)
@@ -120,6 +125,16 @@ class SimParams:
     pod_rate: float = 3000.0           # N/m, spring rate at the wheel (studies/home_floor.py tune: 800-3000 all work)
     pod_preload: float = 2.0           # N holding the pod on its droop stop
     pod_damping_ratio: float = 0.6     # of a quarter of the robot bouncing on one pod
+    pod_sprung_mass: float | None = None   # kg the pods carry, for the damping ratio (None: 6 kg, the v7-v11 value;
+                                       # robot_export.arm_params sets it from the robot's mass, Nov 1 motor study)
+    pod_droop: float = 0.0             # m the droop stop sits below the nominal ride height (cad/v10: 3 mm); only with pod_pivot
+    pod_pivot: tuple | None = None     # (y, z) m of the fork's pivot shaft from the axle at its nominal height, in the hub frame
+                                       # (x inward; y toward the pivot side, + on the unmirrored pods, - on the mirrored
+                                       # ones). None: the wheel rides a vertical slide (v7-v11). Set (cad/v10): the wheel,
+                                       # motor and fork hang from a hinge on a shaft along the axle, so the axle moves on
+                                       # an arc (the spring, damper and preload act at the wheel through the lever arm)
+    pod_hands: str = "diagonal"        # with pod_pivot: "diagonal" (cad/v10: the 45 / 225 deg pods are the mirror image, the
+                                       # pivot on hub -y) or "same" (every pod pivots on hub +y; Nov 2 question, studies/hands_quick.py)
     swing: str = "none"                # cross-axis compliance: "none"; "pendulum": the pod hangs from a pivot swing_length above
                                        # the axle, the pivot axis along the wheel's rolling direction, so a wheel pushed along
                                        # its axle by an edge swings back and rises (and cambers); "parallel": a parallelogram,
@@ -179,7 +194,7 @@ class SimParams:
     m_bumper: float = 0.17
     bumper_radius: float | None = None # m, the bumper ring's centre line (None: deck_radius + 8 mm; its tube is 14 mm)
     mass_model: str = "sim"            # "sim": the parts' masses above; "cad": the drawn robot's (cad/v7): its wheel,
-                                       # no rocker, its bumper ring, and robot_export.drawn_params' point mass
+                                       # no rocker on pods, its bumper ring, and robot_export.drawn_params' point mass
     wheel_mass: float | None = None    # kg per wheel, in place of the catalog's estimate
     lidar_scan_z: float | None = None  # m, the lidar's scan plane over the floor (None: ~26 mm over the wheel tops;
                                        # the drawn robot: 0.150, cad/v7 design.md 12.1)
@@ -334,6 +349,14 @@ class SimParams:
     camera_baseline: float = 0.19      # m between the stereo pair (plate_front, rim)
     camera_tilt_deg: float = 30.0
     camera_fovy_deg: float = 70.0
+    # a depth camera besides the stereo pair (design.md 4.11, Nov 1, proposed): "d435" = Fernando's Intel RealSense D435
+    # on the deck's nose, under the lidar's scan plane, looking down at the floor ahead (the arm robot's floor camera and
+    # a near-field obstacle sensor for Nav2); "none" = none (every earlier result)
+    depth_camera: str = "none"
+    d435_box: bool = False             # draw the D435's body on the nose without it being the depth camera (the stereo robot)
+    d435_pos: tuple = (0.19, 0.0, 0.105)   # m, robot frame: the middle of its 90 x 25 x 25 mm body
+    d435_tilt_deg: float = -30.0       # its view below the horizontal (the 58 deg vertical field: 1-59 deg down)
+    d435_wh: tuple = (480, 270)        # the depth mode it streams (min-Z ~0.11 m here; 0.195 m at 848 x 480, VERIFY)
 
     # --- payload (design.md 15): what rides on the payload plate ------------------
     payload: str = "catch"             # "catch": the tilting catch / launch module; "arm": an SO-101 arm in its place
@@ -351,6 +374,7 @@ class SimParams:
                                        # that touch the floor (the gripper's capsule trimmed to the fingers' roots) and
                                        # the wrist camera; False = the Oct 23 reach study's arm
     lidar_mount: str = "front"         # "front" (the deck's front edge, the catch robot), "rear" (the arm's front is low)
+    lidar_x: float | None = None       # m, the lidar's distance from the centre toward its edge (None: deck_radius - 45 mm)
     floor_objects: tuple = ()          # ((kind, size xyz m, x, y, yaw deg, rgba, kg), ...) loose things on the floor,
                                        # world frame: kind "box", "cylinder" (lying along x), "sphere" (arm_objects.py)
     extra_masses: tuple = ()           # ((kg, x, y, z), ...) point masses on the base, robot frame: a ballast, or the
@@ -407,6 +431,8 @@ class SimParams:
     slow_zones: tuple = ()             # firmware ((x0, y0, x1, y1, v), ...): mapped areas (a threshold) crossed at <= v m/s;
                                        # the speed cap drops before the base's braking distance reaches them
     timestep: float = 0.0005
+    fw_variant: str = ""               # SIL: the firmware build to load ("" = robot_export.firmware_variant's choice; a study's
+                                       # robot_export.study_firmware tag for a motor / limit variant)
     air_density: float = 1.204
     air_viscosity: float = 1.8e-5
     electronics_power: float = 22.0
@@ -423,6 +449,13 @@ class SimParams:
             raise ValueError("payload='arm' has no catch module: no rim cameras, no hopper")
         if self.lidar_mount not in ("front", "rear"):
             raise ValueError(f"lidar_mount {self.lidar_mount!r}: 'front' or 'rear'")
+        if self.depth_camera not in ("none", "d435"):
+            raise ValueError(f"depth_camera {self.depth_camera!r}: 'none' or 'd435'")
+        if self.pod_pivot is not None and (self.suspension != "pod" or self.swing != "none" or self.is_swerve
+                                           or self.n_wheels != 4):
+            raise ValueError("pod_pivot needs suspension='pod' on the four-wheel X base (no swing, no swerve)")
+        if self.pod_hands not in ("diagonal", "same"):
+            raise ValueError(f"pod_hands {self.pod_hands!r}: 'diagonal' or 'same'")
         if self.payload != "arm" and (self.arm_mount_z is not None or self.arm_bin is not None or self.arm_pick):
             raise ValueError("arm_mount_z, arm_bin and arm_pick need payload='arm'")
         if self.hopper == "indexer" and self.feed == "chute":
@@ -450,9 +483,11 @@ class SimParams:
         if self.mass_model == "cad":
             # the robot as cad/v7 draws it (design.md 29, 12.2): the printed wheel weighs 515 g (the sim's estimate
             # ~285 g), no front rocker (the pods do it all), the TPU bumper ring at r 205-217 mm. The rest of the
-            # CAD's mass and its CG come as one point mass (robot_export.drawn_params, from cad/v7/out/BOM.md)
+            # CAD's mass and its CG come as one point mass (robot_export.drawn_params, from cad/v7/out/BOM.md).
+            # A rigid base keeps the rocker it asks for (base_trade.py's "X4 rocker"; Oct 28)
             self.wheel_mass = 0.515 if self.wheel_mass is None else self.wheel_mass
-            self.rocker_deg = 0.0
+            if self.suspension == "pod":
+                self.rocker_deg = 0.0
             self.bumper_radius = 0.203 if self.bumper_radius is None else self.bumper_radius
             self.lidar_scan_z = 0.150 if self.lidar_scan_z is None else self.lidar_scan_z
         elif self.mass_model != "sim":
@@ -461,8 +496,9 @@ class SimParams:
             self.rocker = "none"
         if self.accel_table == "auto":
             # v7: the X4 axle-deck table also serves other wheels and suspensions (slip-limited, so it scales with the
-            # rollers' grip; bigger wheels raise the CG, but tipping stays far above the slip limit)
-            v3b_base = (self.layout == "x4" and self.deck_mode == "axle" and self.wheel_base_radius == 0.15
+            # rollers' grip; bigger wheels raise the CG, but tipping stays far above the slip limit). Nov 1: any X4 base within
+            # 1 cm of r 150 mm (cad/v10's is r 146)
+            v3b_base = (self.layout == "x4" and self.deck_mode == "axle" and abs(self.wheel_base_radius - 0.15) < 0.01
                         and (self.rocker != "none" or self.suspension == "pod"))
             if self.is_swerve:
                 v3b_base = False      # robot.py builds the swerve's table from its own tip-over and tyre limits

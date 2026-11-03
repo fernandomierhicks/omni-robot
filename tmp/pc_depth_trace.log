@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/tmp/pc_depth_trace.py", line 28, in <module>
+    while time.monotonic()<until:rclpy.spin_once(n,timeout_sec=.5)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 226, in spin_once
+    executor.spin_once(timeout_sec=timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 926, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 907, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 785, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException

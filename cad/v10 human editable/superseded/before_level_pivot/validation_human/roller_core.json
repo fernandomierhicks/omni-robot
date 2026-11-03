@@ -1,0 +1,276 @@
+{
+  "sketches": [
+    {
+      "name": "Core Barrel Section",
+      "status": 3
+    },
+    {
+      "name": "Journal Sketch",
+      "status": 3
+    },
+    {
+      "name": "Keyway Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 25110.90818482404,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"wheel_radius\"= \"D6@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"roller_axis_radius\"= \"D4@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"tread_thickness\"= \"D8@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"roller_half_length\"= \"D10@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"end_cone_length\"= \"D12@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"tip_radius\"= 8mm 'Core radius at the tip",
+    "\"axle_clearance_diameter\"= 3.6mm 'M3 axle running clearance",
+    "\"journal_diameter\"= 8mm 'Rigid thrust journal diameter",
+    "\"journal_length\"= 1.5mm 'Journal extension at each core end",
+    "\"keyway_floor_radius\"= \"D18@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_width\"= \"D14@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_length\"= \"D16@Control Measures-Shared Layout\" 'Driven by the shared master layout",
+    "\"key_cut_span\"= 8mm 'Radial span of the keyway cutter",
+    "\"key_count\"= 3 'Number of equally spaced anti-rotation keys",
+    "\"axis_reference_halfspan\"= 10mm 'Half display length of the construction axis; no physical effect",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Core Barrel Section\"= \"roller_axis_radius\" + \"tread_thickness\"",
+    "\"D2@Core Barrel Section\"= \"wheel_radius\"",
+    "\"D3@Core Barrel Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D4@Core Barrel Section\"= \"roller_half_length\" - \"end_cone_length\"",
+    "\"D5@Core Barrel Section\"= \"roller_half_length\"",
+    "\"D6@Core Barrel Section\"= \"roller_half_length\"",
+    "\"D7@Core Barrel Section\"= \"axle_clearance_diameter\" / 2",
+    "\"D8@Core Barrel Section\"= \"axis_reference_halfspan\"",
+    "\"D9@Core Barrel Section\"= \"axis_reference_halfspan\"",
+    "\"D1@Core Barrel Revolve\"= \"full_turn\"",
+    "\"D1@Core End Cones\"= \"end_cone_length\"",
+    "\"D3@Core End Cones\"= sqr(\"wheel_radius\" * \"wheel_radius\" - (\"roller_half_length\" - \"end_cone_length\") * (\"roller_half_length\" - \"end_cone_length\")) - \"roller_axis_radius\" - \"tread_thickness\" - \"tip_radius\"",
+    "\"D1@Opposite End Cone\"= sqr(\"wheel_radius\" * \"wheel_radius\" - (\"roller_half_length\" - \"end_cone_length\") * (\"roller_half_length\" - \"end_cone_length\")) - \"roller_axis_radius\" - \"tread_thickness\" - \"tip_radius\"",
+    "\"D3@Opposite End Cone\"= \"end_cone_length\"",
+    "\"D1@Journal Shoulder Plane\"= \"roller_half_length\"",
+    "\"D1@Journal Sketch\"= \"journal_diameter\"",
+    "\"D2@Journal Sketch\"= \"axle_clearance_diameter\"",
+    "\"D1@Thrust Journal\"= \"journal_length\"",
+    "\"D1@Keyway Sketch\"= \"keyway_floor_radius\"",
+    "\"D2@Keyway Sketch\"= \"keyway_floor_radius\" + \"key_cut_span\"",
+    "\"D3@Keyway Sketch\"= \"key_length\" / 2",
+    "\"D4@Keyway Sketch\"= \"key_length\" / 2",
+    "\"D1@Keyway Cut\"= \"key_width\"",
+    "\"D3@Keyway Pattern\"= \"full_turn\"",
+    "\"D1@Keyway Pattern\"= \"key_count\""
+  ],
+  "design_features": [
+    {
+      "name": "Core Barrel Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Core Barrel Revolve"
+      ]
+    },
+    {
+      "name": "Core End Cones",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Core End Cones",
+        "D3@Core End Cones"
+      ]
+    },
+    {
+      "name": "Opposite End Cone",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Opposite End Cone",
+        "D3@Opposite End Cone"
+      ]
+    },
+    {
+      "name": "Thrust Journal",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Thrust Journal"
+      ]
+    },
+    {
+      "name": "Opposite Thrust Journal",
+      "type": "MirrorPattern",
+      "dimensions": []
+    },
+    {
+      "name": "Keyway Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Keyway Cut"
+      ]
+    },
+    {
+      "name": "Keyway Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Keyway Pattern",
+        "D1@Keyway Pattern"
+      ]
+    }
+  ],
+  "pass": true
+}

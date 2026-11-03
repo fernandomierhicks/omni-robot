@@ -1,0 +1,88 @@
+[
+  {
+    "part": "inner_fork_6804",
+    "removed_unused_controls": [
+      "cup_first_angle",
+      "cup_screw_radius",
+      "journal_shoulder_start",
+      "bar_screw_bottom_z",
+      "bar_screw_top_z",
+      "bar_screw_x",
+      "pivot_seat_end",
+      "shock_lobe_radius",
+      "shock_z",
+      "shock_y"
+    ],
+    "pass": true,
+    "open_documents_after_close": 1
+  },
+  {
+    "part": "outer_fork_6804",
+    "removed_unused_controls": [
+      "cup_head_depth",
+      "cup_head_diameter",
+      "cup_clearance",
+      "cup_screw_radius",
+      "journal_shoulder_start",
+      "journal_start",
+      "lug_inner_y",
+      "bar_screw_bottom_z",
+      "bar_screw_top_z",
+      "bar_screw_x",
+      "pivot_seat_start",
+      "shock_lobe_radius"
+    ],
+    "pass": true,
+    "open_documents_after_close": 1
+  },
+  {
+    "part": "wheel_guard",
+    "removed_unused_controls": [
+      "tower_foot_5_y",
+      "tower_foot_5_x",
+      "tower_foot_4_y",
+      "tower_foot_4_x",
+      "tower_foot_3_y",
+      "tower_foot_3_x",
+      "tower_foot_2_y",
+      "tower_foot_2_x",
+      "tower_foot_1_y",
+      "tower_foot_1_x",
+      "outer_ear_foot_x",
+      "inner_ear_foot_x",
+      "pivot_foot_y",
+      "guard_foot_y",
+      "guard_rear_foot_x",
+      "guard_front_foot_x",
+      "lower_eye_z",
+      "outer_shock_z",
+      "outer_shock_y",
+      "pin_x"
+    ],
+    "pass": true,
+    "open_documents_after_close": 1
+  },
+  {
+    "part": "bench_plate",
+    "removed_unused_controls": [
+      "tower_foot_5_y",
+      "tower_foot_5_x",
+      "tower_foot_4_y",
+      "tower_foot_4_x",
+      "tower_foot_3_y",
+      "tower_foot_3_x",
+      "tower_foot_2_y",
+      "tower_foot_2_x",
+      "tower_foot_1_y",
+      "tower_foot_1_x",
+      "outer_ear_foot_x",
+      "inner_ear_foot_x",
+      "pivot_foot_y",
+      "guard_foot_y",
+      "guard_rear_foot_x",
+      "guard_front_foot_x"
+    ],
+    "pass": true,
+    "open_documents_after_close": 1
+  }
+]

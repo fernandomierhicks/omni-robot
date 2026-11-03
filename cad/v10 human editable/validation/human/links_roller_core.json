@@ -1,0 +1,15 @@
+{
+  "part": "roller_core",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [],
+  "aliases": {
+    "wheel_radius": "\"D6@Control Measures-Shared Layout\"",
+    "roller_axis_radius": "\"D4@Control Measures-Shared Layout\"",
+    "tread_thickness": "\"D8@Control Measures-Shared Layout\"",
+    "roller_half_length": "\"D10@Control Measures-Shared Layout\"",
+    "end_cone_length": "\"D12@Control Measures-Shared Layout\"",
+    "key_width": "\"D14@Control Measures-Shared Layout\"",
+    "key_length": "\"D16@Control Measures-Shared Layout\"",
+    "keyway_floor_radius": "\"D18@Control Measures-Shared Layout\""
+  }
+}

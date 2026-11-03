@@ -1,0 +1,224 @@
+{
+ "test": "pi_check",
+ "date": "2026-10-30T08:27:56",
+ "host": {
+  "machine": "omni-cam",
+  "os": "Linux-6.8.0-1065-raspi-aarch64-with-glibc2.39",
+  "cpu": "aarch64"
+ },
+ "usb": [
+  {
+   "path": "2-1",
+   "product_id": "0b07",
+   "name": "Intel(R) RealSense(TM) Depth Camera 435",
+   "usb_serial": "825513021139",
+   "speed_mbps": "5000",
+   "usb_version": "3.20",
+   "max_power": "720mA"
+  }
+ ],
+ "host_before": {
+  "throttled": "throttled=0x0",
+  "throttled_now": false,
+  "undervoltage_since_boot": false,
+  "cpu_temp_c": 29.206,
+  "loadavg": "0.29 0.33 0.19 1/206 9987",
+  "governor": "performance",
+  "cpu_mhz": 1800.0
+ },
+ "device": {
+  "name": "RealSense D435",
+  "serial_number": "827312072573",
+  "firmware_version": "5.17.3.10",
+  "recommended_firmware_version": null,
+  "product_id": "0B07",
+  "usb_type_descriptor": "3.2",
+  "physical_port": "/sys/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb2/2-1/2-1:1.0/video4linux/video2",
+  "product_line": "D400",
+  "asic_serial_number": "825513021139",
+  "librealsense": "2.59.1"
+ },
+ "modes": [
+  {
+   "mode": "stereo:848x480@90",
+   "seconds": 5.0,
+   "exposure_us_set": null,
+   "emitter": null,
+   "touch": true,
+   "cpu_cores": 0.20599446006415,
+   "streams": {
+    "infrared1": {
+     "frames": 450,
+     "domain": "global_time",
+     "intervals_hw": {
+      "n": 450,
+      "fps": 89.86883215337684,
+      "dt_median_ms": 11.126953125,
+      "dt_std_ms": 0.0005076935491485044,
+      "dt_max_ms": 11.128662109375,
+      "dt_p99_ms": 11.12841796875,
+      "lost_by_interval": 0
+     },
+     "intervals_host": {
+      "n": 450,
+      "fps": 89.86932839449729,
+      "dt_median_ms": 11.12548828125,
+      "dt_std_ms": 0.022502783017057125,
+      "dt_max_ms": 11.228759765625,
+      "dt_p99_ms": 11.187607421875,
+      "lost_by_interval": 0
+     },
+     "lost_by_counter": 0,
+     "exposure_us": {
+      "n": 450,
+      "mean": 1000.0,
+      "std": 0.0,
+      "min": 1000.0,
+      "max": 1000.0,
+      "p5": 1000.0,
+      "median": 1000.0,
+      "p95": 1000.0,
+      "p99": 1000.0
+     },
+     "latency_mid_exposure_to_python_ms": {
+      "n": 450,
+      "mean": 9.60896484375,
+      "std": 0.03210326149712593,
+      "min": 9.536376953125,
+      "max": 9.736083984375,
+      "p5": 9.5644287109375,
+      "median": 9.604736328125,
+      "p95": 9.66444091796875,
+      "p99": 9.6865380859375
+     },
+     "latency_mid_exposure_to_arrival_ms": {
+      "n": 450,
+      "mean": 8.097501085069444,
+      "std": 0.28943895409807846,
+      "min": 7.57080078125,
+      "max": 8.6259765625,
+      "p5": 7.6515380859375,
+      "median": 8.09521484375,
+      "p95": 8.54930419921875,
+      "p99": 8.60393798828125
+     },
+     "latency_arrival_to_python_ms": {
+      "n": 450,
+      "mean": 1.5114637586805555,
+      "std": 0.292106058828174,
+      "min": 1.0146484375,
+      "max": 2.06640625,
+      "p5": 1.0616943359375,
+      "median": 1.5185546875,
+      "p95": 1.95830078125,
+      "p99": 2.00158935546875
+     },
+     "latency_mid_exposure_to_pixels_ms": {
+      "n": 450,
+      "mean": 10.217587890625,
+      "std": 0.03887691251323621,
+      "min": 10.136962890625,
+      "max": 10.330322265625,
+      "p5": 10.15380859375,
+      "median": 10.21435546875,
+      "p95": 10.28076171875,
+      "p99": 10.30703857421875
+     },
+     "achieved_fraction": 1.0
+    },
+    "infrared2": {
+     "frames": 450,
+     "domain": "global_time",
+     "intervals_hw": {
+      "n": 450,
+      "fps": 89.86883215337684,
+      "dt_median_ms": 11.126953125,
+      "dt_std_ms": 0.0005076935491485044,
+      "dt_max_ms": 11.128662109375,
+      "dt_p99_ms": 11.12841796875,
+      "lost_by_interval": 0
+     },
+     "intervals_host": {
+      "n": 450,
+      "fps": 89.86932839449729,
+      "dt_median_ms": 11.12548828125,
+      "dt_std_ms": 0.022502783017057125,
+      "dt_max_ms": 11.228759765625,
+      "dt_p99_ms": 11.187607421875,
+      "lost_by_interval": 0
+     },
+     "lost_by_counter": 0,
+     "exposure_us": {
+      "n": 450,
+      "mean": 1000.0,
+      "std": 0.0,
+      "min": 1000.0,
+      "max": 1000.0,
+      "p5": 1000.0,
+      "median": 1000.0,
+      "p95": 1000.0,
+      "p99": 1000.0
+     },
+     "latency_mid_exposure_to_python_ms": {
+      "n": 450,
+      "mean": 9.60896484375,
+      "std": 0.03210326149712593,
+      "min": 9.536376953125,
+      "max": 9.736083984375,
+      "p5": 9.5644287109375,
+      "median": 9.604736328125,
+      "p95": 9.66444091796875,
+      "p99": 9.6865380859375
+     },
+     "latency_mid_exposure_to_arrival_ms": {
+      "n": 450,
+      "mean": 8.097501085069444,
+      "std": 0.28943895409807846,
+      "min": 7.57080078125,
+      "max": 8.6259765625,
+      "p5": 7.6515380859375,
+      "median": 8.09521484375,
+      "p95": 8.54930419921875,
+      "p99": 8.60393798828125
+     },
+     "latency_arrival_to_python_ms": {
+      "n": 450,
+      "mean": 1.5114637586805555,
+      "std": 0.292106058828174,
+      "min": 1.0146484375,
+      "max": 2.06640625,
+      "p5": 1.0616943359375,
+      "median": 1.5185546875,
+      "p95": 1.95830078125,
+      "p99": 2.00158935546875
+     },
+     "latency_mid_exposure_to_pixels_ms": {
+      "n": 450,
+      "mean": 10.589845377604167,
+      "std": 0.04155008055593325,
+      "min": 10.502197265625,
+      "max": 10.71044921875,
+      "p5": 10.52818603515625,
+      "median": 10.5859375,
+      "p95": 10.66473388671875,
+      "p99": 10.687529296875
+     },
+     "achieved_fraction": 1.0
+    }
+   }
+  }
+ ],
+ "host_after": {
+  "throttled": "throttled=0x0",
+  "throttled_now": false,
+  "undervoltage_since_boot": false,
+  "cpu_temp_c": 30.18,
+  "loadavg": "0.40 0.35 0.19 1/213 10008",
+  "governor": "performance",
+  "cpu_mhz": 1800.0
+ },
+ "temperatures": {
+  "asic_temperature": null,
+  "projector_temperature": null
+ }
+}

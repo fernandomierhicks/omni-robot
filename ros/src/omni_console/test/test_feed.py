@@ -29,6 +29,19 @@ def test_parse_tf_reads_what_was_written():
     assert t == pytest.approx(12.5) and (x, y) == (1.0, -2.0) and qz == pytest.approx(math.sin(0.15))
 
 
+def test_a_restarted_or_dead_localizer_cannot_leave_a_valid_cached_map_pose():
+    tf = TfLite()
+    tf.add(tf_bytes([("map", "odom", 10.0, 1, 0, 0), ("odom", "base_link", 10.1, 0, 0, 0)]))
+    assert tf.frame_pose("base_link")[0] == "map"
+    tf.invalidate("map", "odom", 10.1)
+    tf.add(tf_bytes([("map", "odom", 10.05, 1, 0, 0)]))      # old publisher's queued sample
+    assert tf.frame_pose("base_link")[0] == "odom"
+    tf.add(tf_bytes([("map", "odom", 10.2, 2, 0, 0)]))
+    assert tf.frame_pose("base_link")[0] == "map"
+    tf.add(tf_bytes([("odom", "base_link", 13.0, 0, 0, 0)]))  # localizer stopped, odom continues
+    assert tf.frame_pose("base_link")[0] == "odom"
+
+
 def test_tflite_composes_map_odom_base_and_the_static_laser():
     tf = TfLite()
     tf.add(tf_bytes([("odom", "base_link", 10.0, 1.0, 0.0, math.pi / 2)]))

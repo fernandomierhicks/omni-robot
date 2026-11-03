@@ -21,6 +21,7 @@ object the camera should see (in view, in range) but doesn't is dropped after mi
 from __future__ import annotations
 
 import math
+import warnings
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -110,6 +111,36 @@ def points(frame: DepthFrame, stride: int = 1) -> np.ndarray:
     pc = np.stack([(u[ok] - cx) / fx * zc, (v[ok] - cy) / fy * zc, zc], axis=1)
     T = frame.T_base_cam
     return pc @ T[:3, :3].T + T[:3, 3]
+
+
+def decode_depth(encoding: str, data: bytes, height: int, width: int) -> np.ndarray | None:
+    """A ROS depth image as m along the optical axis (nan = no match): 32FC1 (m, the sim's stereo pair) or 16UC1 (mm,
+    0 = none: realsense2_camera's, design.md 4.11). None for another encoding."""
+    if encoding == "32FC1":
+        return np.frombuffer(data, np.float32).reshape(height, width).astype(np.float32)
+    if encoding in ("16UC1", "mono16"):
+        mm = np.frombuffer(data, np.uint16).reshape(height, width)
+        return np.where(mm > 0, mm.astype(np.float32) / 1000.0, np.nan).astype(np.float32)
+    return None
+
+
+def cloud_points(depth: np.ndarray, K: tuple, decimate: int = 4) -> np.ndarray:
+    """(n, 3) float32 points in the optical frame from a depth image, decimate x decimate blocks each to their median
+    valid depth (as the RealSense decimation filter does), blocks with no match dropped: what Nav2's depth layer takes."""
+    h, w = depth.shape
+    k = max(1, int(decimate))
+    hb, wb = h // k, w // k
+    blocks = depth[:hb * k, :wb * k].reshape(hb, k, wb, k).transpose(0, 2, 1, 3).reshape(hb, wb, k * k)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)           # all-nan blocks
+        z = np.nanmedian(blocks, axis=2)
+    fx, fy, cx, cy = K
+    v, u = np.mgrid[0:hb, 0:wb]
+    u = u * k + (k - 1) / 2
+    v = v * k + (k - 1) / 2
+    ok = np.isfinite(z) & (z > 0)
+    zc = z[ok]
+    return np.stack([(u[ok] - cx) / fx * zc, (v[ok] - cy) / fy * zc, zc], axis=1).astype(np.float32)
 
 
 def _label(occ: np.ndarray):

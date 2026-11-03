@@ -1,0 +1,35 @@
+{
+  "base_deck": "rebuilt",
+  "base_fasteners": "rebuilt",
+  "import": {
+    "REC_deck_left_outer_pivot": "exists",
+    "REC_deck_left_inner_pivot": "exists",
+    "REC_deck_right_outer_pivot": "exists",
+    "REC_deck_right_inner_pivot": "exists",
+    "REC_deck_bridge": "exists",
+    "REC_bumper_corner_pivot": "1 bodies"
+  },
+  "base_bumper": "rebuilt",
+  "robots": {
+    "V10H_robot.SLDASM": {
+      "components": 870,
+      "mate_errors": [],
+      "saved": true
+    },
+    "V10H_robot_FOV.SLDASM": {
+      "components": 870,
+      "mate_errors": [],
+      "saved": true
+    },
+    "V10H_robot_FOV_side.SLDASM": {
+      "components": 873,
+      "mate_errors": [],
+      "saved": true
+    },
+    "V10H_robot_floor_reach.SLDASM": {
+      "components": 870,
+      "mate_errors": [],
+      "saved": true
+    }
+  }
+}

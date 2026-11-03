@@ -1,0 +1,299 @@
+{
+  "assembly": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10H_dummy_motor.SLDASM",
+  "mates": [
+    "POD_Motor_Rear_cover",
+    "POD_Motor_Front_687",
+    "POD_Motor_Rear_687",
+    "POD_Rotor_end_float",
+    "POD_Rotor_bearings",
+    "POD_Retainer_to_rotor",
+    "POD_Cover_bolt_1_seat",
+    "POD_Cover_bolt_1_axis",
+    "POD_Cover_bolt_2_seat",
+    "POD_Cover_bolt_2_axis",
+    "POD_Cover_bolt_3_seat",
+    "POD_Cover_bolt_3_axis",
+    "POD_Cover_bolt_4_seat",
+    "POD_Cover_bolt_4_axis",
+    "POD_Retainer_bolt_seat",
+    "POD_Retainer_bolt_axis"
+  ],
+  "mate_errors": [],
+  "components": {
+    "V10H_dummy_motor_retainer-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_retainer.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_FLAT-4": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_FLAT.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          16.475588001646553
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -16.47558800164656
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -40.2
+        ]
+      ]
+    },
+    "V10H_bolt_M3_8_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_8_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          0.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -36.7
+        ]
+      ]
+    },
+    "V10H_dummy_motor_rotor-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_rotor.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -20.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_FLAT-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_FLAT.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -16.475588001646557
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          16.47558800164656
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -40.2
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_FLAT-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_FLAT.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          16.47558800164656
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          16.47558800164656
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -40.2
+        ]
+      ]
+    },
+    "V10H_bolt_M3_12_FLAT-3": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_FLAT.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -16.47558800164656
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          -16.475588001646557
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -40.2
+        ]
+      ]
+    },
+    "V10H_bearing_687-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_687.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -6.2
+        ]
+      ]
+    },
+    "V10H_dummy_motor_rear_cap-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_rear_cap.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bearing_687-2": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_687.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -32.7
+        ]
+      ]
+    },
+    "V10H_dummy_motor_case-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_case.SLDPRT",
+      "fixed": true,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "sketches": [
+    {
+      "name": "Cradle Section",
+      "status": 3
+    },
+    {
+      "name": "Rear Mount Sketch",
+      "status": 3
+    },
+    {
+      "name": "Fork Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Diagonal Harness Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 27801.746909122026,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"sleeve_start\"= 21.5mm 'Open sleeve end distance toward -X",
+    "\"sleeve_radius\"= 29mm 'Cradle outer radius",
+    "\"motor_bore_radius\"= 26.8mm 'Motor body running clearance radius",
+    "\"bridge_front\"= 17.2mm 'Rear bridge front face",
+    "\"bridge_back\"= 21.2mm 'Rear bridge rear face",
+    "\"neck_end\"= 37mm 'Fork contact face",
+    "\"neck_radius\"= 10mm '6804-compatible support neck radius",
+    "\"wire_bore_radius\"= 3mm 'Central harness bore",
+    "\"rear_clearance\"= 2.9mm 'M2.5 rear mounting clearance",
+    "\"fork_pilot\"= 2.8mm 'M3 thread-forming pilot",
+    "\"fork_thread_depth\"= 12mm 'Cradle attachment pilot depth",
+    "\"channel_start\"= 6mm 'Harness channel starts 29 mm behind output face",
+    "\"channel_end\"= 37.1mm 'Harness cut extends past fork contact face",
+    "\"channel_half_width\"= 6mm 'Harness slot half width before indexing",
+    "\"channel_floor\"= 7.5mm 'Harness floor leaves 1.4 mm to the nominal M3 major thread",
+    "\"channel_top\"= 35mm 'Harness slot upper extent before indexing",
+    "\"bore_lead\"= 0.5mm 'Native sleeve entry chamfer",
+    "\"channel_index\"= 45deg 'Harness diagonal index between rear screws",
+    "\"screw_count\" = (\"D110@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Cradle Section\"= \"sleeve_start\"",
+    "\"D2@Cradle Section\"= \"bridge_back\"",
+    "\"D3@Cradle Section\"= \"neck_end\"",
+    "\"D4@Cradle Section\"= \"bridge_front\"",
+    "\"D5@Cradle Section\"= \"motor_bore_radius\"",
+    "\"D6@Cradle Section\"= \"sleeve_radius\"",
+    "\"D7@Cradle Section\"= \"neck_radius\"",
+    "\"D8@Cradle Section\"= \"wire_bore_radius\"",
+    "\"D9@Cradle Section\"= \"axis_reference_halfspan\"",
+    "\"D10@Cradle Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Cradle Revolve\"= \"full_turn\"",
+    "\"D1@Rear Screw Seat Plane\"= \"bridge_back\"",
+    "\"D3@Rear Mount Sketch\"= \"rear_clearance\"",
+    "\"D1@Rear Mount Clearance\"= \"bridge_back\" - \"bridge_front\"",
+    "\"D3@Rear Mount Pattern\"= \"full_turn\"",
+    "\"D1@Rear Mount Pattern\" = \"rear_mount_count\" 'Driven by the shared master layout",
+    "\"D1@Fork Contact Plane\"= \"neck_end\"",
+    "\"D3@Fork Pilot Sketch\"= \"fork_pilot\"",
+    "\"D1@Fork Thread Pilot\"= \"fork_thread_depth\"",
+    "\"D3@Fork Pilot Pattern\"= \"full_turn\"",
+    "\"D1@Fork Pilot Pattern\"= \"screw_count\"",
+    "\"D1@Harness Start Plane\"= \"channel_start\"",
+    "\"D1@Diagonal Harness Sketch\"= abs((- \"channel_floor\") * cos(\"channel_index\") + (- \"channel_half_width\") * sin(\"channel_index\"))",
+    "\"D2@Diagonal Harness Sketch\"= abs((- \"channel_top\") * cos(\"channel_index\") + (- \"channel_half_width\") * sin(\"channel_index\"))",
+    "\"D3@Diagonal Harness Sketch\"= abs((- \"channel_top\") * cos(\"channel_index\") + (\"channel_half_width\") * sin(\"channel_index\"))",
+    "\"D4@Diagonal Harness Sketch\"= abs((- \"channel_floor\") * cos(\"channel_index\") + (\"channel_half_width\") * sin(\"channel_index\"))",
+    "\"D5@Diagonal Harness Sketch\"= abs(- (- \"channel_floor\") * sin(\"channel_index\") + (- \"channel_half_width\") * cos(\"channel_index\"))",
+    "\"D6@Diagonal Harness Sketch\"= abs(- (- \"channel_top\") * sin(\"channel_index\") + (- \"channel_half_width\") * cos(\"channel_index\"))",
+    "\"D7@Diagonal Harness Sketch\"= abs(- (- \"channel_top\") * sin(\"channel_index\") + (\"channel_half_width\") * cos(\"channel_index\"))",
+    "\"D8@Diagonal Harness Sketch\"= abs(- (- \"channel_floor\") * sin(\"channel_index\") + (\"channel_half_width\") * cos(\"channel_index\"))",
+    "\"D1@Diagonal Harness Channel\"= \"channel_end\" - \"channel_start\"",
+    "\"D1@Motor Sleeve Lead In\"= \"bore_lead\"",
+    "\"rear_mount_count\" = (\"D116@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout"
+  ],
+  "design_features": [
+    {
+      "name": "Cradle Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Cradle Revolve"
+      ]
+    },
+    {
+      "name": "Rear Mount Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Rear Mount Clearance"
+      ]
+    },
+    {
+      "name": "Rear Mount Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Rear Mount Pattern",
+        "D1@Rear Mount Pattern"
+      ]
+    },
+    {
+      "name": "Fork Thread Pilot",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Fork Thread Pilot"
+      ]
+    },
+    {
+      "name": "Fork Pilot Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Fork Pilot Pattern",
+        "D1@Fork Pilot Pattern"
+      ]
+    },
+    {
+      "name": "Diagonal Harness Channel",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Diagonal Harness Channel"
+      ]
+    },
+    {
+      "name": "Motor Sleeve Lead In",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Motor Sleeve Lead In"
+      ]
+    }
+  ],
+  "pass": true
+}

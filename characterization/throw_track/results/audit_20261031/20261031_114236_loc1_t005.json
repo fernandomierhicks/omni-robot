@@ -1,0 +1,104 @@
+{
+  "session": "20261031_114236_loc1",
+  "clip": "t005",
+  "review": null,
+  "detector": {
+    "hue_deg": [
+      0.0,
+      30.0
+    ],
+    "min_sat": 0.685,
+    "min_val": 0.09,
+    "min_blob_px": 8,
+    "coarse_stride": 4,
+    "window_px": 25.0,
+    "window_scale": 2.5,
+    "max_candidates": 3,
+    "acquire_candidates": 40,
+    "size_gain": 1.171,
+    "backend": "native"
+  },
+  "ball_metadata": {
+    "mass": 0.073,
+    "radius": 0.08034539414636606,
+    "drag_cd": 0.5,
+    "diameter_m": 0.16069078829273212,
+    "circumference_in": 19.875,
+    "material": "foam",
+    "colour": "orange",
+    "source": "Fernando, Oct 30 2026; drag_cd is the robot config's estimate"
+  },
+  "held_out": false,
+  "sources": {
+    "depth": {
+      "source": "depth",
+      "frames": 180,
+      "candidates": 7694,
+      "ok": false
+    },
+    "colour": {
+      "source": "colour",
+      "frames": 119,
+      "candidates": 119,
+      "ok": false,
+      "frames_with_a_blob": 119,
+      "reason": "no blob track follows an arc"
+    }
+  },
+  "prediction": {},
+  "analysis_seconds": 2.658694500103593,
+  "trigger_s": 0.789520384,
+  "health": {
+    "color": {
+      "n": 119,
+      "fps": 59.52969811121913,
+      "dt_median_ms": 16.798208,
+      "dt_max_ms": 16.79872,
+      "lost": 0,
+      "first_s": 0.0,
+      "last_s": 1.9822039040000001,
+      "stamp_to_host_ms_p10_50_90": [
+        18.0167584,
+        18.120302,
+        18.416392000000002
+      ],
+      "gain_p10_50_90": [
+        128.0,
+        128.0,
+        128.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        20.0,
+        20.0,
+        20.0
+      ]
+    },
+    "depth": {
+      "n": 180,
+      "fps": 89.86874656510605,
+      "dt_median_ms": 11.12704,
+      "dt_max_ms": 11.128319999999999,
+      "lost": 0,
+      "first_s": -0.009809664000000001,
+      "last_s": 1.9819840000000002,
+      "stamp_to_host_ms_p10_50_90": [
+        9.464906899999999,
+        9.572823,
+        10.4436544
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    }
+  },
+  "photo": [],
+  "picks": [],
+  "configured_color_exposure_us": 2000
+}

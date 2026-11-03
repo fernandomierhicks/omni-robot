@@ -1,0 +1,7 @@
+{
+ "stator": "v10h_dummy_motor_stator-mirror-1",
+ "rotor": "v10h_dummy_motor_rotor-mirror-1",
+ "bearing_687": "v10h_bearing_687-mirror-1",
+ "washer": "v10h_washer_m3_large-mirror-1",
+ "bolt_m3_8": "v10h_bolt_m3_8_pan-mirror-1"
+}

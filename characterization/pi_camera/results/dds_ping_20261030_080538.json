@@ -1,0 +1,15 @@
+{
+ "test": "dds_ping",
+ "time": "2026-10-30T08:05:38",
+ "host": "FernandoDesktop",
+ "domain": 42,
+ "discovery_s": 0.1,
+ "sent": 200,
+ "answered": 200,
+ "rtt_ms": {
+  "median": 4.220139,
+  "p95": 6.851053,
+  "max": 26.465092
+ },
+ "notes": "round trip PC <-> Pi, std_msgs/Header, default QoS; one way ~ rtt / 2"
+}

@@ -1,0 +1,17 @@
+bench_plate minimum 0.87 thin clusters 14
+dummy_motor_rear_cap minimum 0.81 thin clusters 4
+dummy_motor_retainer minimum 1.2 thin clusters 8
+fork_bar minimum 1.81 thin clusters 0
+inner_fork_6804 minimum 0.08 thin clusters 5
+outer_fork_6804 minimum 0.24 thin clusters 7
+motor_cup minimum 0.2 thin clusters 1
+pivot_shim minimum 0.5 thin clusters 4
+pivot_outer_spacer minimum 1.89 thin clusters 0
+pod_mount minimum 0.1 thin clusters 0
+roller_core minimum 1.22 thin clusters 0
+roller_tread minimum 2.39 thin clusters 0
+shock_case minimum 2.38 thin clusters 0
+shock_rod minimum 2.38 thin clusters 0
+wheel_cartridge minimum 2.5 thin clusters 0
+wheel_guard minimum 2.05 thin clusters 0
+wheel_hub_A minimum 0.09 thin clusters 23

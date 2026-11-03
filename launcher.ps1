@@ -5,7 +5,10 @@
 # and the thrower change live (simulation/v11 sil/sim_world.py, TCP 9873); the camera (ros/tools/mujoco_view.py,
 # UDP 9872) and the face (omni_face display.py, UDP 9883) are local windows. The choices are kept in
 # logs\controller.json, which the 3D view and the face read when they open. More: CAD, firmware, tests, and the old
-# launcher with every step and study (launcher_full.ps1). Open it with Launcher.cmd (double-click).
+# launcher with every step and study (launcher_full.ps1). "Cameras on the Pi" runs the ball views and checks for the
+# D435 and the Arducam on omni-cam (rpi.md, characterization\ball_view, characterization\realsense\rs_pi.sh) through
+# Git's bash, hidden, with a log each; the view is a page on the Pi that opens in the browser. Open it with Launcher.cmd
+# (double-click).
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
@@ -16,6 +19,7 @@ $Py = Join-Path $env:USERPROFILE ".venvs\omni-robot-sim\Scripts\python.exe"
 $Wsl = "C:\Windows\System32\wsl.exe"
 $Distro = "Ubuntu-24.04"
 $OmniSh = "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh"
+$Bash = "C:\Program Files\Git\bin\bash.exe"           # Git for Windows: the Pi scripts (ssh, tar) are bash
 $Logs = Join-Path $Repo "logs"
 New-Item -ItemType Directory -Force $Logs | Out-Null
 $SettingsFile = Join-Path $Logs "controller.json"
@@ -28,12 +32,12 @@ $script:Busy = $false           # a poll is running (a slow answer never stacks 
 $script:Quiet = $false          # the controls are being set from the settings (no events)
 
 # -- the settings (remembered) ----------------------------------------------------------------------------------
-$S = @{ robot = "catch"; map = "house"; kid = $false; person = $false; thrower = $true
+$S = @{ robot = "catch"; map = "house"; kid = $false; person = $false; thrower = $true; terrain = $true
         clutter = @{ catch = "off"; arm = "toys" }; view = "follow"; face = @{ size = "normal"; mute = $false; hidden = $false } }
 if (Test-Path $SettingsFile) {
     try {
         $j = Get-Content -Raw $SettingsFile | ConvertFrom-Json
-        foreach ($k in "robot", "map", "kid", "person", "thrower", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
+        foreach ($k in "robot", "map", "kid", "person", "thrower", "terrain", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
         if ($j.clutter) { foreach ($k in "catch", "arm") { if ($j.clutter.$k) { $S.clutter[$k] = $j.clutter.$k } } }
         if ($j.face) { foreach ($k in "size", "mute", "hidden") { if ($null -ne $j.face.$k) { $S.face[$k] = $j.face.$k } } }
     } catch { }
@@ -115,6 +119,11 @@ function Start-Job2([string]$Name, [string]$CmdLine) {
     Update-LogList
 }
 function Start-Py([string]$Name, [string]$Dir, [string]$PyArgs) { Start-Job2 $Name "cd /d `"$Repo\$Dir`" && `"$Py`" -u $PyArgs" }
+function Start-Pi([string]$Name, [string]$Cmd) {
+    # a script of the repo through Git's bash, from the repo folder, hidden, logged like the other jobs
+    if (-not (Test-Path $Bash)) { Set-Note "Missing $Bash (Git for Windows)"; return }
+    Start-Job2 $Name "cd /d `"$Repo`" && `"$Bash`" -c `"$Cmd`""
+}
 function Job-Running([string]$Name) { return ($script:Jobs[$Name] -and -not $script:Jobs[$Name].HasExited) }
 
 # -- the sim on, off, again ----------------------------------------------------------------------------------------
@@ -122,7 +131,7 @@ function Step-Id { if ($S.robot -eq "arm") { return "arm" } else { return "robot
 function Step-Args {
     # the step's options (supervisor.SIM_STEPS): always the 3D view, real time (fast), the firmware in the loop
     $a = [ordered]@{ map = $S.map; kid = [bool]$S.kid; person = [bool]$S.person; clutter = (Clutter)
-                     viewer = $true; foxglove = $false; fast = $true; firmware = $true }
+                     terrain = [bool]$S.terrain; viewer = $true; foxglove = $false; fast = $true; firmware = $true }
     if ($S.robot -ne "arm") { $a.thrower = [bool]$S.thrower }
     return $a
 }
@@ -154,7 +163,7 @@ function Open-Console { Start-Process "$Api/?drive=1#manual" }
 $tt = New-Object System.Windows.Forms.ToolTip
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "omni-robot sim"
-$form.Size = New-Object System.Drawing.Size(760, 830)
+$form.Size = New-Object System.Drawing.Size(760, 900)
 $form.StartPosition = "CenterScreen"
 $form.Font = New-Object System.Drawing.Font("Segoe UI", 10)
 
@@ -244,7 +253,7 @@ function Set-Note([string]$t) { $lblNote.Text = $t }
 
 # 2. the robot and the map (they restart the sim)
 $p2 = Add-Group "Robot (a change restarts the sim)"
-$rbRobot = Add-Radios $p2 "" @("Catch robot (catches and throws)", "Arm robot (tidies up)") @("catch", "arm") $S.robot {
+$rbRobot = Add-Radios $p2 "" @("Catch robot (catches and throws)", "Arm robot (tidies up; cad/v10 model)") @("catch", "arm") $S.robot {
     param($v) $S.robot = $v; Set-Radios $rbClutter (Clutter); Update-Enabled; Restart-IfRunning "the $v robot" }
 $p2.SetFlowBreak($rbRobot, $true)
 $lm = New-Object System.Windows.Forms.Label; $lm.Text = "Map:"; $lm.AutoSize = $true; $lm.Margin = New-Object System.Windows.Forms.Padding(6, 9, 2, 0)
@@ -260,6 +269,8 @@ $cbMap.Add_SelectedIndexChanged({ if (-not $script:Quiet) { $S.map = $cbMap.Sele
 $p2.Controls.Add($cbMap)
 $cbKid = Add-Check $p2 "Kid mode" ([bool]$S.kid) "The firmware's kid profile: 0.8 m/s, gentle accelerations, lobs only"
 $cbKid.Add_CheckedChanged({ if (-not $script:Quiet) { $S.kid = $cbKid.Checked; Restart-IfRunning "kid mode" } })
+$cbTerrain = Add-Check $p2 "Terrain course" ([bool]$S.terrain) "Square steps and triangular bumps in the kitchen's east end to drive over (design.md 16): from the hallway start, the kitchen is ahead and to the right"
+$cbTerrain.Add_CheckedChanged({ if (-not $script:Quiet) { $S.terrain = $cbTerrain.Checked; Restart-IfRunning "the terrain course" } })
 
 # 3. the world (live)
 $p3 = Add-Group "World (changes live)"
@@ -292,7 +303,20 @@ $cbHide.Add_CheckedChanged({ if (-not $script:Quiet) { $S.face.hidden = $cbHide.
 [void](Add-Button $p5 "Reopen" { Start-Py "face" "ros\tools" "face_view.py" } "Opens the face again after you closed it (any running sim opens it by itself)" 90)
 function Push-Face { Save-Settings; Send-Udp $FacePort @{ size = $S.face.size; mute = [bool]$S.face.mute; hidden = [bool]$S.face.hidden } }
 
-# 6. more, and the log
+# 6. the cameras on the Pi (rpi.md): the D435 and the Arducam on omni-cam
+$pPi = Add-Group "Cameras on the Pi (omni-cam: Arducam and RealSense D435)"
+$BallUrl = "http://omni-cam.local:8085/"
+[void](Add-Button $pPi "Ball view: Arducam" { Start-Pi "ball_view" "bash characterization/ball_view/bv.sh picam"; Set-Note "Ball view (Arducam) starting on the Pi: the page opens in the browser" } "The robot's ball detector live on the Pi camera (120 fps): colour window, blob size and exposure sliders, click the ball to set its colour, position from its size. Its log: Show log, ball_view" 150)
+[void](Add-Button $pPi "Ball view: RealSense" { Start-Pi "ball_view" "bash characterization/ball_view/bv.sh realsense"; Set-Note "Ball view (RealSense) starting on the Pi: the page opens in the browser" } "The same on the D435's colour image, with the depth map aligned to it: position from depth, compared with the ball's size" 160)
+[void](Add-Button $pPi "Page" { Start-Process $BallUrl } "Opens the ball view page again (it stays up on the Pi until you stop it)" 70)
+[void](Add-Button $pPi "Stop view" { Start-Pi "ball_view_stop" "bash characterization/ball_view/bv.sh stop"; Set-Note "Stopping the ball view on the Pi" } "Stops it on the Pi (one process holds one camera)" 100)
+[void](Add-Button $pPi "Get saved settings" { Start-Pi "ball_view_fetch" "bash characterization/ball_view/bv.sh fetch"; Set-Note "Copying the ball view's saved settings from the Pi to characterizationall_view\settings (log ball_view_fetch)" } "Copies the settings you saved with the ball view page's Save button from the Pi to characterizationall_view\settings (arducam: picam.json, D435: realsense.json, plus dated copies)" 150)
+[void](Add-Button $pPi "Pi sees them?" { Start-Pi "pi_usb" "bash characterization/realsense/rs_pi.sh usb"; Set-Note "Checking the Pi's USB: log pi_usb (Show log)" } "Is the D435 on the Pi's bus, at what speed (5000M = USB 3), dmesg, power. Result in the log" 120)
+[void](Add-Button $pPi "Pi check" { Start-Pi "pi_check" "bash characterization/realsense/rs_pi.sh check --seconds 10"; Set-Note "Checking the D435 on the Pi (about 2 minutes): log pi_check (Show log)" } "The D435 on the Pi: link, camera, Pi temperature, fps / lost frames / latency / CPU per mode. Stop the ball view first (one process per camera)" 100)
+[void](Add-Button $pPi "RealSense bench..." {
+    Start-Process "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -ArgumentList "-NoProfile", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden", "-File", "`"$Repo\characterization\realsense\realsense_launcher.ps1`"" } "The D435 characterization window: one button per measurement (info, timing, depth noise, ball, throws, drift, report)" 140)
+
+# 7. more, and the log
 $p6 = Add-Group ""
 $menu = New-Object System.Windows.Forms.ContextMenuStrip
 function Add-Item($Parent, [string]$Text, [scriptblock]$Do) {
@@ -301,15 +325,16 @@ function Add-Item($Parent, [string]$Text, [scriptblock]$Do) {
     if ($Parent -is [System.Windows.Forms.ContextMenuStrip]) { [void]$Parent.Items.Add($it) } else { [void]$Parent.DropDownItems.Add($it) }
     return $it
 }
-$cad = Add-Item $menu "CAD (v8)" $null
-[void](Add-Item $cad "View in 3D (catch robot)" { Start-Py "cad_v8_view" "cad\v8" "view.py" })
-[void](Add-Item $cad "View in 3D (arm robot)" { Start-Py "cad_v8_view_arm" "cad\v8" "view.py --arm" })
-[void](Add-Item $cad "Build (STEP, STL, BOM, checks; ~15 min)" { Start-Py "cad_v8" "cad\v8" "build.py" })
-[void](Add-Item $cad "Render pictures" { Start-Py "cad_v8_render" "cad\v8" "render.py --meshes" })
-[void](Add-Item $cad "Open the STEP assembly (catch robot)" { Start-Process "$Repo\cad\v8\out\assembly.step" })
-[void](Add-Item $cad "Open the STEP assembly (arm robot)" { Start-Process "$Repo\cad\v8\out\assembly_arm.step" })
-[void](Add-Item $cad "Write STEP as one part" { Start-Py "cad_v8_bodies" "cad\v8" "step_export.py --bodies" })
-[void](Add-Item $cad "Outputs folder" { Start-Process explorer.exe "`"$Repo\cad\v8\out`"" })
+$cad = Add-Item $menu "CAD (v9)" $null
+[void](Add-Item $cad "View in 3D (catch robot)" { Start-Py "cad_v9_view" "cad\v9" "view.py" })
+[void](Add-Item $cad "View in 3D (arm robot)" { Start-Py "cad_v9_view_arm" "cad\v9" "view.py --arm" })
+[void](Add-Item $cad "Build (STEP, STL, BOM, checks; ~15 min)" { Start-Py "cad_v9" "cad\v9" "build.py" })
+[void](Add-Item $cad "Render pictures" { Start-Py "cad_v9_render" "cad\v9" "render.py --meshes" })
+[void](Add-Item $cad "Open the STEP assembly (catch robot)" { Start-Process "$Repo\cad\v9\out\assembly.step" })
+[void](Add-Item $cad "Open the STEP assembly (arm robot)" { Start-Process "$Repo\cad\v9\out\assembly_arm.step" })
+[void](Add-Item $cad "Write STEP as one part" { Start-Py "cad_v9_bodies" "cad\v9" "step_export.py --bodies" })
+[void](Add-Item $cad "Outputs folder" { Start-Process explorer.exe "`"$Repo\cad\v9\out`"" })
+[void](Add-Item $cad "Open the v10 robot (SolidWorks; the sim's arm robot)" { Start-Process "$Repo\cad\v10 human editable\V10H_robot.SLDASM" })
 $fw = Add-Item $menu "Firmware" $null
 [void](Add-Item $fw "Build for the Teensy" { Start-Job2 "fw_build" "cd /d `"$Repo\firmware`" && `"$env:USERPROFILE\.platformio\penv\Scripts\pio.exe`" run" })
 [void](Add-Item $fw "Pin map" { Start-Process "$Repo\firmware\PINS.md" })

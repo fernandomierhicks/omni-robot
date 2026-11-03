@@ -1,0 +1,27 @@
+{
+  "clashes_static": [],
+  "short": [],
+  "access": [],
+  "solids": {},
+  "sweep": {
+    "-3": [],
+    "3": [],
+    "6": [],
+    "9": [],
+    "12": [],
+    "15": []
+  },
+  "axle_height_error_mm": 7.105427357601002e-15,
+  "mount_depth_mm": {
+    "output": 2.5,
+    "rear": 4.0
+  },
+  "dimensions_mm": {
+    "wheel_diameter": 140.0,
+    "row_pitch": 36.0,
+    "base_bumper_diameter": 450.0,
+    "lidar_scan_z": 163.0,
+    "payload_top": 181.5
+  },
+  "speed_ratio_vs_127": 1.1023622047244095
+}

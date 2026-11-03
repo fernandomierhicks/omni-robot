@@ -55,9 +55,10 @@ FAULT_WORDS = {
     "IMU_SILENT": ("Balance sensor stopped", "My balance sensor stopped working."),
     "FLY_TELEM": ("Thrower not answering", "My thrower isn't answering, so I can't throw."),
     "LINK_LOST": ("Lost my controller link", "My motor controller lost contact with me."),
+    "FAULT_STOP": ("Stopped on a fault", "I stopped my wheels because of a problem."),
 }
 FAULT_LEVEL = {"ESTOP": "error", "MOTOR_ERR": "error", "MOTOR_SILENT": "error", "LOW_BATT": "warn", "BUMPER": "warn",
-               "IMU_SILENT": "warn", "FLY_TELEM": "warn", "LINK_LOST": "warn"}
+               "IMU_SILENT": "warn", "FLY_TELEM": "warn", "LINK_LOST": "warn", "FAULT_STOP": "error"}
 MISSION_LABEL = {"IDLE": "Ready", "MANUAL": "Driving", "GOTO": "Going", "EXPLORE": "Exploring", "PATROL": "Patrolling",
                  "CATCH": "Playing catch", "THROWER": "Thrower", "FOLLOW": "Following", "PROGRAM": "Program",
                  "CALIBRATE": "Calibrating", "TIDY": "Tidying up"}

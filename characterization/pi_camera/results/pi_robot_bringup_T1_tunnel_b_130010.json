@@ -1,0 +1,177 @@
+{
+ "test": "pi_keepup",
+ "label": "bringup T1 tunnel b",
+ "time": "2026-10-30T13:01:33",
+ "host": "omni-cam",
+ "machine": "aarch64",
+ "governor": "performance",
+ "cores": 4,
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "host_load": {
+  "seconds": 33,
+  "cpu_total_pct": {
+   "median": 87.31501057082453,
+   "p95": 91.58415841584159,
+   "max": 92.09039548022598,
+   "note": "100 = all cores busy"
+  },
+  "busiest_core_pct": {
+   "median": 98.05825242718447,
+   "p95": 100.0,
+   "max": 100.0
+  },
+  "load1_max": 3.87060546875,
+  "mem_available_mb_min": 3281.66796875,
+  "swap_used_mb_max": 0.0,
+  "temp_c": {
+   "start": 35.05,
+   "max": 38.459
+  },
+  "freq_mhz_min": 1800.0,
+  "throttle_flags_seen": [],
+  "throttle_flags_hex": "0x0"
+ },
+ "processes": {
+  "avahi-daemon:": {
+   "median_pct": 0.3,
+   "max_pct": 0.6,
+   "rss_mb_max": 6
+  },
+  "sshd:": {
+   "median_pct": 20.15,
+   "max_pct": 20.2,
+   "rss_mb_max": 37
+  },
+  "ros2 launch/daemon": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 43
+  },
+  "mcu_link": {
+   "median_pct": 48.0,
+   "max_pct": 48.5,
+   "rss_mb_max": 34
+  },
+  "mode_manager": {
+   "median_pct": 32.05,
+   "max_pct": 32.8,
+   "rss_mb_max": 31
+  },
+  "catch_perception": {
+   "median_pct": 44.8,
+   "max_pct": 45.4,
+   "rss_mb_max": 35
+  },
+  "catch_behavior": {
+   "median_pct": 36.7,
+   "max_pct": 36.8,
+   "rss_mb_max": 33
+  },
+  "pi_keepup.py": {
+   "median_pct": 114.85,
+   "max_pct": 116.8,
+   "rss_mb_max": 75
+  },
+  "polkitd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 7
+  },
+  "_total_ros_pct_of_one_core": 295.6
+ },
+ "topics": {
+  "/clock": {
+   "type": "rosgraph_msgs/msg/Clock",
+   "messages": 5147,
+   "rate_hz": 131.59283887924124,
+   "gap_ms": {
+    "median": 7.151584501116304,
+    "p99": 13.57358200039016,
+    "max": 80.60540299629793
+   },
+   "clock_drift_ms": 1252.4714209967626
+  },
+  "/mcu/state": {
+   "type": "omni_interfaces/msg/McuState",
+   "messages": 5170,
+   "rate_hz": 132.20644693562028,
+   "gap_ms": {
+    "median": 7.15282499731984,
+    "p99": 13.42610100255115,
+    "max": 22.536210002726875
+   },
+   "age_ms": {
+    "median": 250.6718850000027,
+    "p95": 255.3923979999979,
+    "max": 270.8589590000017
+   }
+  },
+  "/imu": {
+   "type": "sensor_msgs/msg/Imu",
+   "messages": 5170,
+   "rate_hz": 132.20712271864164,
+   "gap_ms": {
+    "median": 7.149066004785709,
+    "p99": 13.621967998915352,
+    "max": 21.81134300190024
+   },
+   "age_ms": {
+    "median": 125.65267949999992,
+    "p95": 129.6280379999999,
+    "max": 158.5981990000036
+   }
+  },
+  "/odom": {
+   "type": "nav_msgs/msg/Odometry",
+   "messages": 1893,
+   "rate_hz": 48.403461861525415,
+   "gap_ms": {
+    "median": 20.977081003366038,
+    "p99": 32.72292199835647,
+    "max": 65.96138199529378
+   },
+   "age_ms": {
+    "median": 10.018442000003347,
+    "p95": 16.46409300000151,
+    "max": 58.600613000002966
+   }
+  },
+  "/mcu/link": {
+   "type": "std_msgs/msg/String",
+   "messages": 0
+  },
+  "/catch/status": {
+   "type": "omni_interfaces/msg/CatchStatus",
+   "messages": 123,
+   "rate_hz": 3.1380966820416734,
+   "gap_ms": {
+    "median": 321.24026550445706,
+    "p99": 549.2702900010045,
+    "max": 563.4922280005412
+   },
+   "age_ms": {
+    "median": 7.000000000005002,
+    "p95": 14.000000000002899,
+    "max": 19.000000000005457
+   }
+  },
+  "/catch/track": {
+   "type": "omni_interfaces/msg/BallTrack",
+   "messages": 2932,
+   "rate_hz": 80.59550707440613,
+   "gap_ms": {
+    "median": 8.362169006431941,
+    "p99": 27.8635819995543,
+    "max": 1125.011132004147
+   },
+   "age_ms": {
+    "median": 87.00000000000152,
+    "p95": 557.5000000000045,
+    "max": 795.5000000000041
+   }
+  }
+ },
+ "last_text": {
+  "/mcu/link": "{\"connected\": true, \"port\": \"tcp:127.0.0.1:5761\", \"states\": 10382, \"imus\": 20764, \"cmds\": 5158, \"errors\": 0, \"rtt_ms\": 0.000, \"mode\": \"AUTO\", \"faults\": [], \"mcu_rx_errors\": 0, \"infos\": 519, \"protocol\": 4, \"protocol_host\": 4, \"fw_build\": \"314388fc\"}"
+ }
+}

@@ -293,14 +293,14 @@ $p5 = Add-Group "6. Tools" ""
 [void](Add-Button $p5 "WSL terminal" { Start-Process $Wsl -ArgumentList "-d", $Distro, "--cd", "~" } "A Linux terminal, for when you need one")
 [void](Add-Button $p5 "Open repo folder" { Start-Process explorer.exe "`"$Repo`"" })
 [void](Add-Button $p5 "design.md" { Start-Process "$Repo\design.md" })
-[void](Add-Button $p5 "Build CAD (v8)" { Start-Py "cad_v8" "cad\v8" "build.py" } "STEP / STL of both robots, BOM, print list, clash checks over tilt and suspension (~15 min)")
-[void](Add-Button $p5 "Render CAD (v8)" { Start-Py "cad_v8_render" "cad\v8" "render.py --meshes" } "Renders into cad\v8\out\renders")
-[void](Add-Button $p5 "View CAD 3D (v8)" { Start-Py "cad_v8_view" "cad\v8" "view.py" } "Orbit the robot; keys 0-5 toggle base / pods / module / mounts / screws / foam; Control panel 'tilt' turns the module")
-[void](Add-Button $p5 "View arm robot 3D" { Start-Py "cad_v8_view_arm" "cad\v8" "view.py --arm" } "The arm robot: the arm kit and the SO-101 stowed")
-[void](Add-Button $p5 "Open CAD STEP" { Start-Process "$Repo\cad\v8\out\assembly.step" } "cad\v8\out\assembly.step in its default app (eDrawings or SolidWorks): the catch robot, a coloured assembly with sub-assemblies")
-[void](Add-Button $p5 "Open arm STEP" { Start-Process "$Repo\cad\v8\out\assembly_arm.step" } "cad\v8\out\assembly_arm.step: the arm robot (arm kit, camera bar at its arm index)")
-[void](Add-Button $p5 "STEP as one part" { Start-Py "cad_v8_bodies" "cad\v8" "step_export.py --bodies" } "Writes cad\v8\out\assembly_bodies.step: a single multi-body part, the fastest to open in SolidWorks")
-[void](Add-Button $p5 "CAD outputs" { Start-Process explorer.exe "`"$Repo\cad\v8\out`"" })
+[void](Add-Button $p5 "Build CAD (v9)" { Start-Py "cad_v9" "cad\v9" "build.py" } "STEP / STL of both robots, BOM, print list, clash checks over tilt and suspension (~15 min)")
+[void](Add-Button $p5 "Render CAD (v9)" { Start-Py "cad_v9_render" "cad\v9" "render.py --meshes" } "Renders into cad\v9\out\renders")
+[void](Add-Button $p5 "View CAD 3D (v9)" { Start-Py "cad_v9_view" "cad\v9" "view.py" } "Orbit the robot; keys 0-5 toggle base / pods / module / mounts / screws / foam; Control panel 'tilt' turns the module")
+[void](Add-Button $p5 "View arm robot 3D" { Start-Py "cad_v9_view_arm" "cad\v9" "view.py --arm" } "The arm robot: the arm kit and the SO-101 stowed")
+[void](Add-Button $p5 "Open CAD STEP" { Start-Process "$Repo\cad\v9\out\assembly.step" } "cad\v9\out\assembly.step in its default app (eDrawings or SolidWorks): the catch robot, a coloured assembly with sub-assemblies")
+[void](Add-Button $p5 "Open arm STEP" { Start-Process "$Repo\cad\v9\out\assembly_arm.step" } "cad\v9\out\assembly_arm.step: the arm robot (arm kit, camera bar at its arm index)")
+[void](Add-Button $p5 "STEP as one part" { Start-Py "cad_v9_bodies" "cad\v9" "step_export.py --bodies" } "Writes cad\v9\out\assembly_bodies.step: a single multi-body part, the fastest to open in SolidWorks")
+[void](Add-Button $p5 "CAD outputs" { Start-Process explorer.exe "`"$Repo\cad\v9\out`"" })
 
 # jobs + log
 $bottom = New-Object System.Windows.Forms.Panel

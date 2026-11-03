@@ -1,0 +1,77 @@
+  20/140 0.7 min
+  40/140 1.4 min
+  60/140 2.0 min
+  80/140 2.8 min
+  100/140 3.5 min
+  120/140 4.0 min
+  140/140 5.4 min
+10 kg accel    [0.0, "brake"]               | diagonal: 7.2 wheel-hop                                    | same: 5.4 grip
+10 kg accel    [0.0, "start"]               | diagonal: 6.2 wheel-hop                                    | same: 4.1 grip
+10 kg accel    [135.0, "brake"]             | diagonal: 4.8 grip                                         | same: 4.7 grip
+10 kg accel    [135.0, "start"]             | diagonal: 4.4 grip                                         | same: 3.9 grip
+10 kg accel    [180.0, "brake"]             | diagonal: 7.0 wheel-hop                                    | same: 5.4 grip
+10 kg accel    [180.0, "start"]             | diagonal: 5.8 wheel-hop                                    | same: 4.7 grip
+10 kg accel    [225.0, "brake"]             | diagonal: 5.0 grip                                         | same: 4.5 grip
+10 kg accel    [225.0, "start"]             | diagonal: 4.3 grip                                         | same: 3.7 grip
+10 kg accel    [270.0, "brake"]             | diagonal: 5.7 grip                                         | same: 5.7 grip
+10 kg accel    [270.0, "start"]             | diagonal: 5.6 grip                                         | same: 4.6 grip
+10 kg accel    [315.0, "brake"]             | diagonal: 5.0 grip                                         | same: 4.6 grip
+10 kg accel    [315.0, "start"]             | diagonal: 3.8 grip                                         | same: 3.5 grip
+10 kg accel    [45.0, "brake"]              | diagonal: 4.9 grip                                         | same: 4.8 grip
+10 kg accel    [45.0, "start"]              | diagonal: 3.8 grip                                         | same: 3.8 grip
+10 kg accel    [90.0, "brake"]              | diagonal: 5.5 grip                                         | same: 5.2 grip
+10 kg accel    [90.0, "start"]              | diagonal: 5.4 grip                                         | same: 4.6 grip
+10 kg cruise   [0.0, 1.0]                   | diagonal: 18 W, bounce 0.00, fight 0.80                    | same: 15 W, bounce 0.00, fight 0.16
+10 kg cruise   [0.0, 2.0]                   | diagonal: 41 W, bounce 0.00, fight 0.81                    | same: 35 W, bounce 0.00, fight 0.33
+10 kg cruise   [0.0, 3.0]                   | diagonal: 77 W, bounce 0.02, fight 1.03                    | same: 66 W, bounce 0.04, fight 0.49
+10 kg ladder   ["step", 45.0, 1.0]          | diagonal: 12.5 mm                                          | same: 15 mm
+10 kg panic    [0.0, 2.0]                   | diagonal: stop 0.31 m tilt 0.5 lift 10ms                   | same: stop 0.30 m tilt 8.8 lift 19ms
+10 kg slope    [0.0, "start"]               | diagonal: 28 deg (grip)                                    | same: 18 deg (torque)
+10 kg slope    [180.0, "start"]             | diagonal: 28 deg (grip)                                    | same: 16 deg (torque)
+10 kg slope    [270.0, "start"]             | diagonal: 24 deg (grip)                                    | same: 18 deg (torque)
+10 kg slope    [90.0, "start"]              | diagonal: 22 deg (grip)                                    | same: 16 deg (torque)
+10 kg straight [0.0, 15.2, 2.0, 5.0]        | diagonal: 8.92 s (peak 1.96)                               | same: 8.90 s (peak 1.97)
+10 kg straight [0.0, 15.2, null, 5.0]       | diagonal: 5.16 s (peak 4.40)                               | same: 5.31 s (peak 4.36)
+10 kg susp     ["bumpy 1"]                  | diagonal: ok tilt 3 lift 18ms bottom 0ms                   | same: ok tilt 3 lift 13ms bottom 0ms
+10 kg susp     ["bumpy 2"]                  | diagonal: ok tilt 5 lift 18ms bottom 0ms                   | same: ok tilt 3 lift 13ms bottom 0ms
+10 kg susp     ["rug 1 0"]                  | diagonal: ok tilt 6 lift 13ms bottom 0ms                   | same: ok tilt 7 lift 14ms bottom 0ms
+10 kg susp     ["rug 2 45"]                 | diagonal: FAIL tilt 14 lift 28ms bottom 66ms               | same: ok tilt 16 lift 26ms bottom 67ms
+10 kg susp     ["side 30 2"]                | diagonal: ok tilt 12 lift 41ms bottom 12ms                 | same: ok tilt 10 lift 42ms bottom 32ms
+10 kg susp     ["step 20 1 45"]             | diagonal: FAIL tilt 8 lift 15ms bottom 36ms                | same: FAIL tilt 8 lift 13ms bottom 19ms
+10 kg susp     ["step 20 2 0"]              | diagonal: ok tilt 8 lift 11ms bottom 10ms                  | same: ok tilt 10 lift 20ms bottom 62ms
+10 kg susp     ["step 30 1 0"]              | diagonal: ok tilt 12 lift 26ms bottom 0ms                  | same: ok tilt 13 lift 22ms bottom 82ms
+20 kg accel    [0.0, "brake"]               | diagonal: 6.4 torque                                       | same: 5.0 torque
+20 kg accel    [0.0, "start"]               | diagonal: 5.0 torque                                       | same: 4.2 grip
+20 kg accel    [135.0, "brake"]             | diagonal: 4.9 grip                                         | same: 4.9 grip
+20 kg accel    [135.0, "start"]             | diagonal: 4.1 grip                                         | same: 3.7 grip
+20 kg accel    [180.0, "brake"]             | diagonal: 6.2 torque                                       | same: 4.9 grip
+20 kg accel    [180.0, "start"]             | diagonal: 5.2 grip                                         | same: 4.0 grip
+20 kg accel    [225.0, "brake"]             | diagonal: 4.9 grip                                         | same: 4.7 grip
+20 kg accel    [225.0, "start"]             | diagonal: 4.1 grip                                         | same: 4.1 grip
+20 kg accel    [270.0, "brake"]             | diagonal: 5.7 grip                                         | same: 5.4 grip
+20 kg accel    [270.0, "start"]             | diagonal: 4.8 grip                                         | same: 4.0 grip
+20 kg accel    [315.0, "brake"]             | diagonal: 5.4 grip                                         | same: 4.8 grip
+20 kg accel    [315.0, "start"]             | diagonal: 3.8 grip                                         | same: 4.1 grip
+20 kg accel    [45.0, "brake"]              | diagonal: 5.4 grip                                         | same: 4.9 grip
+20 kg accel    [45.0, "start"]              | diagonal: 4.0 grip                                         | same: 3.8 grip
+20 kg accel    [90.0, "brake"]              | diagonal: 5.6 grip                                         | same: 4.7 torque
+20 kg accel    [90.0, "start"]              | diagonal: 4.7 grip                                         | same: 3.8 grip
+20 kg cruise   [0.0, 1.0]                   | diagonal: 31 W, bounce 0.00, fight 1.26                    | same: 24 W, bounce 0.00, fight 0.19
+20 kg cruise   [0.0, 2.0]                   | diagonal: 62 W, bounce 0.00, fight 1.37                    | same: 52 W, bounce 0.00, fight 0.40
+20 kg cruise   [0.0, 3.0]                   | diagonal: 104 W, bounce 0.00, fight 1.38                   | same: 88 W, bounce 0.00, fight 0.55
+20 kg ladder   ["step", 45.0, 1.0]          | diagonal: 12.5 mm                                          | same: 12.5 mm
+20 kg panic    [0.0, 2.0]                   | diagonal: stop 0.34 m tilt 0.8 lift 2ms                    | same: stop 0.38 m tilt 5.4 lift 16ms
+20 kg slope    [0.0, "start"]               | diagonal: 26 deg (grip)                                    | same: 18 deg (grip)
+20 kg slope    [180.0, "start"]             | diagonal: 24 deg (grip)                                    | same: 16 deg (grip)
+20 kg slope    [270.0, "start"]             | diagonal: 24 deg (grip)                                    | same: 18 deg (grip)
+20 kg slope    [90.0, "start"]              | diagonal: 24 deg (grip)                                    | same: 16 deg (grip)
+20 kg straight [0.0, 15.2, 2.0, 5.0]        | diagonal: 8.90 s (peak 2.01)                               | same: 8.91 s (peak 1.96)
+20 kg straight [0.0, 15.2, null, 5.0]       | diagonal: 5.22 s (peak 4.39)                               | same: 5.65 s (peak 4.34)
+20 kg susp     ["bumpy 1"]                  | diagonal: ok tilt 3 lift 13ms bottom 0ms                   | same: ok tilt 2 lift 13ms bottom 0ms
+20 kg susp     ["bumpy 2"]                  | diagonal: ok tilt 4 lift 20ms bottom 0ms                   | same: ok tilt 3 lift 13ms bottom 0ms
+20 kg susp     ["rug 1 0"]                  | diagonal: ok tilt 4 lift 17ms bottom 0ms                   | same: ok tilt 6 lift 10ms bottom 0ms
+20 kg susp     ["rug 2 45"]                 | diagonal: FAIL tilt 13 lift 59ms bottom 16ms               | same: ok tilt 17 lift 38ms bottom 15ms
+20 kg susp     ["side 30 2"]                | diagonal: ok tilt 8 lift 39ms bottom 21ms                  | same: ok tilt 9 lift 18ms bottom 25ms
+20 kg susp     ["step 20 1 45"]             | diagonal: FAIL tilt 8 lift 18ms bottom 22ms                | same: FAIL tilt 8 lift 39ms bottom 16ms
+20 kg susp     ["step 20 2 0"]              | diagonal: ok tilt 7 lift 14ms bottom 9ms                   | same: ok tilt 9 lift 13ms bottom 11ms
+20 kg susp     ["step 30 1 0"]              | diagonal: ok tilt 10 lift 13ms bottom 15ms                 | same: ok tilt 12 lift 24ms bottom 0ms

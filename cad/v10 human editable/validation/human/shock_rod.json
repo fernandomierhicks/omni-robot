@@ -1,0 +1,68 @@
+{
+  "sketches": [
+    {
+      "name": "Shaft Section",
+      "status": 3
+    },
+    {
+      "name": "Eye Sketch",
+      "status": 3
+    },
+    {
+      "name": "Eye Bore Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 543.9353857714758,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"eye_diameter\"= 8mm 'Mock shock eye outside diameter",
+    "\"eye_width\"= 6mm 'Eye width along hinge axis X",
+    "\"eye_bore\"= 3.2mm 'M3 hinge clearance",
+    "\"rod_diameter\"= 4mm 'Sliding rod diameter",
+    "\"rod_end_distance\"= 27mm 'Rod tip distance from moving eye",
+    "\"neck_start\"= 3mm 'Neck junction inside eye",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Shaft Section\"= \"rod_diameter\" / 2",
+    "\"D2@Shaft Section\"= \"rod_end_distance\"",
+    "\"D3@Shaft Section\"= \"neck_start\"",
+    "\"D4@Shaft Section\"= \"axis_reference_halfspan\"",
+    "\"D5@Shaft Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Rod Revolve\"= \"full_turn\"",
+    "\"D1@Eye Sketch\"= \"eye_diameter\"",
+    "\"D1@Eye Extrude\"= \"eye_width\"",
+    "\"D1@Eye Bore Sketch\"= \"eye_bore\"",
+    "\"D1@Eye Bore Cut\"= \"eye_width\""
+  ],
+  "design_features": [
+    {
+      "name": "Rod Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Rod Revolve"
+      ]
+    },
+    {
+      "name": "Eye Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Eye Extrude"
+      ]
+    },
+    {
+      "name": "Eye Bore Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Eye Bore Cut"
+      ]
+    }
+  ],
+  "pass": true
+}

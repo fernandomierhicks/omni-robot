@@ -1,0 +1,299 @@
+{
+  "sketches": [
+    {
+      "name": "Stator Section",
+      "status": 3
+    },
+    {
+      "name": "Rear Mount Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Front Mount Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Plug Flat Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 43755.1382371649,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"outside_radius\"= 26.5mm 'AK40 body envelope radius",
+    "\"front_face_distance\"= 1mm 'Body front face; the rotor flange protrudes 1 mm ahead of it (AK40 drawing)",
+    "\"rear_face_distance\"= 40.2mm 'Rear mounting face; overall length from the rotor output face",
+    "\"rotor_recess_radius\"= 18.75mm 'Recess for the \u00d837 rotor flange: 0.25 mm radial clearance",
+    "\"bearing_front_distance\"= 4.7mm 'Front bearing face and floor of the rotor recess",
+    "\"bearing_seat_radius\"= \"D86@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"bearing_width\"= 5mm '687 bearing width",
+    "\"lip_bore_radius\"= 5.5mm 'Bore behind the bearing: bears on the outer race, clears the washer and screw head",
+    "\"cavity_floor_distance\"= 11.7mm 'Floor of the hollow, leaves a 2 mm lip behind the bearing",
+    "\"cavity_radius\"= 20mm 'Radius of the hollow opening to the rear; screw and tool access",
+    "\"relief_inner_radius\"= 10.5mm 'Inner radius of the output-boss sweep clearance",
+    "\"relief_outer_radius\"= 16.5mm 'Outer radius of that clearance",
+    "\"relief_end_distance\"= 7.7mm 'Floor of the rotating-boss clearance recess",
+    "\"rear_pilot_diameter\"= 2.1mm 'M2.5 thread-forming pilot",
+    "\"rear_pilot_depth\"= 8mm 'Blind rear pilot depth; 6 mm of M2.5 x 10 engagement",
+    "\"front_mount_pcd\"= 47.5mm 'AK40 front mounting pitch circle (3 x M2.5 x 5)",
+    "\"front_pilot_diameter\"= 2.1mm 'M2.5 thread-forming pilot",
+    "\"front_pilot_depth\"= 6mm 'Blind front pilot depth (the real motor is M2.5 x 5)",
+    "\"plug_flat_width\"= 18.7mm 'Width of the flat where the power plug cable leaves (AK40 drawing)",
+    "\"plug_flat_start\"= 27mm 'Flat starts this far behind the output face",
+    "\"plug_flat_end\"= 34.8mm 'Flat ends this far behind the output face",
+    "\"plug_cut_width\"= 24mm 'Width of the cutting sketch; wider than the flat, which ends where the plane leaves the \u00d853 cylinder",
+    "\"plug_cut_depth\"= 4mm 'Depth of the cutting sketch outward from the flat",
+    "\"rear_screw_count\"= (\"D116@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"front_first_angle\"= 60deg 'First front mounting hole from local +Y toward -X (holes at model 30, 150, 270 deg)",
+    "\"front_screw_count\"= 3 'Front mounting hole count",
+    "\"plug_angle\"= 315deg 'Plug direction in the motor frame, from local +X toward +Y; midway between two rear holes (AK40 drawing: 45 deg from a hole)",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"rotor_float_datum_distance\"= 10mm 'Offset datum from the output plane; the rotor end float is measured from it",
+    "\"D1@Stator Section\"= \"cavity_radius\"",
+    "\"D2@Stator Section\"= \"outside_radius\"",
+    "\"D3@Stator Section\"= \"rotor_recess_radius\"",
+    "\"D4@Stator Section\"= \"relief_outer_radius\"",
+    "\"D5@Stator Section\"= \"relief_inner_radius\"",
+    "\"D6@Stator Section\"= \"bearing_seat_radius\"",
+    "\"D7@Stator Section\"= \"lip_bore_radius\"",
+    "\"D8@Stator Section\"= \"rear_face_distance\"",
+    "\"D9@Stator Section\"= \"front_face_distance\"",
+    "\"D10@Stator Section\"= \"bearing_front_distance\"",
+    "\"D11@Stator Section\"= \"relief_end_distance\"",
+    "\"D12@Stator Section\"= \"bearing_front_distance\" + \"bearing_width\"",
+    "\"D13@Stator Section\"= \"cavity_floor_distance\"",
+    "\"D14@Stator Section\"= \"axis_reference_halfspan\"",
+    "\"D15@Stator Section\"= \"axis_reference_halfspan\"",
+    "\"D1@Stator Revolve\"= \"full_turn\"",
+    "\"D1@Rear Face Plane\"= \"rear_face_distance\"",
+    "\"D3@Rear Mount Pilot Sketch\"= \"rear_pilot_diameter\"",
+    "\"D1@Rear Mount Pilot Cut\"= \"rear_pilot_depth\"",
+    "\"D3@Rear Mount Pilot Pattern\"= \"full_turn\"",
+    "\"D1@Rear Mount Pilot Pattern\"= \"rear_screw_count\"",
+    "\"D1@Front Face Plane\"= \"front_face_distance\"",
+    "\"D1@Front Mount Pilot Sketch\"= \"front_mount_pcd\" / 2",
+    "\"D2@Front Mount Pilot Sketch\"= \"front_first_angle\"",
+    "\"D3@Front Mount Pilot Sketch\"= \"front_pilot_diameter\"",
+    "\"D1@Front Mount Pilot Cut\"= \"front_pilot_depth\"",
+    "\"D3@Front Mount Pilot Pattern\"= \"full_turn\"",
+    "\"D1@Front Mount Pilot Pattern\"= \"front_screw_count\"",
+    "\"D1@Plug Direction Plane\"= 360deg - \"plug_angle\"",
+    "\"D1@Plug Flat Plane\"= sqr(\"outside_radius\" * \"outside_radius\" - \"plug_flat_width\" * \"plug_flat_width\" / 4)",
+    "\"D1@Plug Flat Sketch\"= \"plug_flat_start\"",
+    "\"D2@Plug Flat Sketch\"= \"plug_flat_end\"",
+    "\"D3@Plug Flat Sketch\"= \"plug_cut_width\" / 2",
+    "\"D4@Plug Flat Sketch\"= \"plug_cut_width\" / 2",
+    "\"D1@Plug Flat Cut\"= \"plug_cut_depth\"",
+    "\"D1@Rotor Axial Datum Plane\"= \"rotor_float_datum_distance\""
+  ],
+  "design_features": [
+    {
+      "name": "Stator Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Stator Revolve"
+      ]
+    },
+    {
+      "name": "Rear Mount Pilot Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Rear Mount Pilot Cut"
+      ]
+    },
+    {
+      "name": "Rear Mount Pilot Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Rear Mount Pilot Pattern",
+        "D1@Rear Mount Pilot Pattern"
+      ]
+    },
+    {
+      "name": "Front Mount Pilot Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Front Mount Pilot Cut"
+      ]
+    },
+    {
+      "name": "Front Mount Pilot Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Front Mount Pilot Pattern",
+        "D1@Front Mount Pilot Pattern"
+      ]
+    },
+    {
+      "name": "Plug Flat Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Plug Flat Cut"
+      ]
+    }
+  ],
+  "pass": true
+}

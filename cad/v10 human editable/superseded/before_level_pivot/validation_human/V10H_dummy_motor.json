@@ -1,0 +1,139 @@
+{
+  "assembly": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10H_dummy_motor.SLDASM",
+  "mates": [
+    "POD_Motor_Bearing_687",
+    "POD_Rotor_end_float",
+    "POD_Rotor_bearing",
+    "POD_Washer_to_rotor",
+    "POD_Screw_seat",
+    "POD_Screw_axis"
+  ],
+  "mate_errors": [],
+  "components": {
+    "V10H_dummy_motor_rotor-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_rotor.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_washer_M3_large-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_washer_M3_large.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -10.8
+        ]
+      ]
+    },
+    "V10H_dummy_motor_stator-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_stator.SLDPRT",
+      "fixed": true,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "V10H_bolt_M3_8_PAN-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_8_PAN.SLDPRT",
+      "fixed": false,
+      "constrained_status": 2,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.2246467991473532e-16,
+          0.0
+        ],
+        [
+          0.0,
+          1.2246467991473532e-16,
+          -1.0,
+          -10.8
+        ]
+      ]
+    },
+    "V10H_bearing_687-1": {
+      "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_687.SLDPRT",
+      "fixed": false,
+      "constrained_status": 3,
+      "transform": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -7.2
+        ]
+      ]
+    }
+  }
+}

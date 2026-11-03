@@ -1,0 +1,22 @@
+{
+  "part": "motor_cup",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Fork Pilot Sketch",
+      "already_bound": true
+    },
+    {
+      "sketch": "Rear Mount Sketch",
+      "already_bound": true
+    }
+  ],
+  "aliases": {
+    "fork_screw_radius": "\"D22@Control Measures-Shared Layout\"",
+    "fork_first_angle": "\"D2@Angle cradle phase-Shared Layout\"",
+    "screw_count": "(\"D110@Control Measures-Shared Layout\" / 1mm)",
+    "rear_screw_pcd": "\"D28@Control Measures-Shared Layout\" * 2",
+    "rear_first_angle": "\"D2@Angle rear phase-Shared Layout\"",
+    "rear_mount_count": "(\"D116@Control Measures-Shared Layout\" / 1mm)"
+  }
+}

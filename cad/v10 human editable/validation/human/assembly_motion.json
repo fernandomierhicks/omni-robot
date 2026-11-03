@@ -1,0 +1,95 @@
+{
+  "suspension": [
+    {
+      "bump_mm": -3,
+      "actual_axle_z_mm": -3.0000000000000027,
+      "shock_lengths_mm": {
+        "Inner": 49.99429446348262,
+        "Outer": 49.42667764968984
+      },
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 0,
+      "actual_axle_z_mm": 0.0,
+      "shock_lengths_mm": {
+        "Inner": 48.3,
+        "Outer": 48.0
+      },
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 7.5,
+      "actual_axle_z_mm": 7.499999999999986,
+      "shock_lengths_mm": {
+        "Inner": 44.171523489601,
+        "Outer": 44.51147452990372
+      },
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 15,
+      "actual_axle_z_mm": 15.0,
+      "shock_lengths_mm": {
+        "Inner": 40.155302137535784,
+        "Outer": 41.10228951916989
+      },
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "bump_mm": 0,
+      "actual_axle_z_mm": 0.0,
+      "shock_lengths_mm": {
+        "Inner": 48.30000000000002,
+        "Outer": 48.00000000000002
+      },
+      "mate_errors": [],
+      "pass": true
+    }
+  ],
+  "wheel_spin": [
+    {
+      "command_deg": 105,
+      "rotation_change": 0.2588190451025209,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "command_deg": 125,
+      "rotation_change": 0.5735764363510463,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "command_deg": 90,
+      "rotation_change": 0.0,
+      "mate_errors": [],
+      "pass": true
+    }
+  ],
+  "roller_spin": [
+    {
+      "command_deg": 105,
+      "rotation_change": 0.25881904510252085,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "command_deg": 125,
+      "rotation_change": 0.5735764363510462,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "command_deg": 90,
+      "rotation_change": 0.0,
+      "mate_errors": [],
+      "pass": true
+    }
+  ],
+  "pass": true
+}

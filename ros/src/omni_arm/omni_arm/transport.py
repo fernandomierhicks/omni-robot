@@ -1,9 +1,12 @@
 """The servo bus's byte pipe (design.md 11): the bus board's USB serial port on the robot, the sim's bus over localhost
-TCP (simulation/v11 sil/arm_bus.ServoPort), both with write(bytes) / read(n) that never blocks."""
+TCP (simulation/v11 sil/arm_bus.ServoPort), both with write(bytes) / read(n) that blocks at most WAIT (1 ms; it used to return at once, and the reply loop spun)."""
 
 from __future__ import annotations
 
+import select
 import socket
+
+WAIT = 0.001                    # s a read waits for a byte
 
 
 class TcpPort:
@@ -18,7 +21,10 @@ class TcpPort:
         self.s.setblocking(False)
 
     def read(self, n: int = 256) -> bytes:
+        # waits up to WAIT for a byte (the reply loop in feetech.Bus polls this: a zero wait spun a core on a Pi 4)
         try:
+            if not select.select([self.s], [], [], WAIT)[0]:
+                return b""
             return self.s.recv(n)
         except (BlockingIOError, InterruptedError):
             return b""
@@ -30,7 +36,7 @@ class TcpPort:
 class SerialPort:
     def __init__(self, dev: str, baud: int):
         import serial                                  # pyserial (python3-serial)
-        self.s = serial.Serial(dev, baud, timeout=0, write_timeout=0.05)
+        self.s = serial.Serial(dev, baud, timeout=WAIT, write_timeout=0.05)
 
     def write(self, data: bytes):
         self.s.write(data)

@@ -1,0 +1,148 @@
+{
+ "hub": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 137366,
+  "bbox": [
+   [
+    -39.5,
+    -62.8,
+    -62.8
+   ],
+   [
+    37.0,
+    64.73,
+    64.73
+   ]
+  ]
+ },
+ "hub_overlaps_mm3": {
+  "bolt_1_1": 2.04,
+  "bolt_1_2": 2.04,
+  "bolt_1_3": 2.04,
+  "bolt_1_4": 2.04,
+  "bolt_1_5": 2.04,
+  "bolt_1_6": 2.04,
+  "bolt_2_1": 2.04,
+  "bolt_2_2": 2.04,
+  "bolt_2_3": 2.04,
+  "bolt_2_4": 2.04,
+  "bolt_2_5": 2.04,
+  "bolt_2_6": 2.04
+ },
+ "cable_clearance_mm": {
+  "wheel_cartridge": 34.968,
+  "dummy_motor_stator": 0.0,
+  "dummy_motor_rotor": 23.331,
+  "motor_cup": 0.4,
+  "bearing_6804_left": 36.48,
+  "bearing_6804_right": 1.0,
+  "cartridge_screw_1": 33.698,
+  "cartridge_screw_2": 50.938,
+  "cartridge_screw_3": 56.27,
+  "Motor_bearing": 25.986,
+  "Motor_screw": 26.59,
+  "wheel_hub": 1.6
+ },
+ "tunnel_hits": {
+  "1_1": {
+   "bolt_1_2": 0.73,
+   "roller_tread_1_2": 2.78
+  },
+  "1_2": {
+   "bolt_1_1": 0.73,
+   "roller_tread_1_1": 2.78
+  },
+  "1_3": {
+   "bolt_1_4": 0.73,
+   "roller_tread_1_4": 2.78
+  },
+  "1_4": {
+   "bolt_1_3": 0.73,
+   "roller_tread_1_3": 2.78
+  },
+  "1_5": {
+   "bolt_1_6": 0.73,
+   "roller_tread_1_6": 2.78
+  },
+  "1_6": {
+   "bolt_1_5": 0.73,
+   "roller_tread_1_5": 2.78
+  },
+  "2_1": {
+   "bolt_2_2": 0.73,
+   "roller_tread_2_2": 2.78
+  },
+  "2_2": {
+   "bolt_2_1": 0.73,
+   "roller_tread_2_1": 2.78
+  },
+  "2_3": {
+   "bolt_2_4": 0.73,
+   "roller_tread_2_4": 2.78
+  },
+  "2_4": {
+   "bolt_2_3": 0.73,
+   "roller_tread_2_3": 2.78
+  },
+  "2_5": {
+   "bolt_2_6": 0.73,
+   "roller_tread_2_6": 2.78
+  },
+  "2_6": {
+   "bolt_2_5": 0.73,
+   "roller_tread_2_5": 2.78
+  }
+ },
+ "roller_drop_in_overlap_mm3": {
+  "1_1 +0 mm": 0.0,
+  "1_1 +8 mm": 0.0,
+  "1_1 +16 mm": 0.0,
+  "1_1 +24 mm": 0.0,
+  "1_1 +32 mm": 0.0,
+  "1_2 +0 mm": 0.0,
+  "1_2 +8 mm": 0.0,
+  "1_2 +16 mm": 0.0,
+  "1_2 +24 mm": 0.0,
+  "1_2 +32 mm": 0.0,
+  "2_1 +0 mm": 0.0,
+  "2_1 +8 mm": 0.0,
+  "2_1 +16 mm": 0.0,
+  "2_1 +24 mm": 0.0,
+  "2_1 +32 mm": 0.0,
+  "2_2 +0 mm": 0.0,
+  "2_2 +8 mm": 0.0,
+  "2_2 +16 mm": 0.0,
+  "2_2 +24 mm": 0.0,
+  "2_2 +32 mm": 0.0
+ },
+ "screw_fits": {
+  "M2.5 flange screw 1": {
+   "rotor_pilot_overlap": 0.0,
+   "hub_overlap": 0.0,
+   "gap_to_cartridge": 0.3
+  },
+  "cartridge screw 1": {
+   "hub_thread_overlap": 0.0,
+   "cartridge_overlap": 0.0
+  },
+  "M2.5 flange screw 2": {
+   "rotor_pilot_overlap": 0.0,
+   "hub_overlap": 0.0,
+   "gap_to_cartridge": 0.3
+  },
+  "cartridge screw 2": {
+   "hub_thread_overlap": 0.0,
+   "cartridge_overlap": 0.0
+  },
+  "M2.5 flange screw 3": {
+   "rotor_pilot_overlap": 0.0,
+   "hub_overlap": 0.0,
+   "gap_to_cartridge": 0.3
+  },
+  "cartridge screw 3": {
+   "hub_thread_overlap": 0.0,
+   "cartridge_overlap": 0.0
+  }
+ }
+}

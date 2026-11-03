@@ -1,0 +1,77 @@
+{
+  "part": "outer_fork_6804",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0183_cylinder",
+      "sketch": "0183_cylinder_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0186_cone",
+      "sketch": "0186_cone_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0190_cylinder",
+      "sketch": "0190_cylinder_Sketch",
+      "pattern": "Pivot",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0195_cylinder",
+      "sketch": "0195_cylinder_Sketch",
+      "pattern": "Shock_Outer_lower",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0199_cylinder",
+      "sketch": "0199_cylinder_Sketch",
+      "pattern": "Shock_Outer_lower",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0203_revolve",
+      "sketch": "0203_revolve_Sketch",
+      "pattern": "Shock_Outer_lower",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0206_cylinder",
+      "sketch": "0206_cylinder_Sketch",
+      "pattern": "Fork_bar",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0208_cone",
+      "sketch": "0208_cone_Sketch",
+      "pattern": "Fork_bar",
+      "point_index": 0,
+      "method": "native_equation_to_same_master"
+    },
+    {
+      "feature": "0213_cylinder",
+      "sketch": "0213_cylinder_Sketch",
+      "pattern": "Fork_bar",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0215_cone",
+      "sketch": "0215_cone_Sketch",
+      "pattern": "Fork_bar",
+      "point_index": 1,
+      "method": "native_equation_to_same_master"
+    }
+  ],
+  "equation_count": 8
+}

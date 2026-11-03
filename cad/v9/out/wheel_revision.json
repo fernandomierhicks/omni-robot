@@ -1,0 +1,21 @@
+{
+  "axle": "M3 x 50 pan head + plain M3 nut",
+  "roller_core_length_mm": 39,
+  "roller_bore_mm": 3.6,
+  "joint_radius_mm": 38,
+  "joint_pad_diameter_mm": 14,
+  "root_cove_mm": 2,
+  "spoke_root_width_mm": 28,
+  "minimum_tpu_to_unsprung_fastener_mm": 2.393134978718895,
+  "nearest_pair": [
+    "roller_tread#6",
+    "M3 x 20 PAN"
+  ],
+  "clearance_kind": "nominal CAD surface distance, not measured hardware or deformed TPU",
+  "tests_passed": 25,
+  "source_sha256": {
+    "wheel.py": "2db4f0b445f4a6f28df355aebd83181420e41284234fe87aae2a8a798894c31d",
+    "dims.py": "eea3aa63ec10e3123270040bba57368dda25d1947e61081673c1070f65460b70",
+    "hw.py": "e9b7574efc2085fdb2f253c82c107eb15a0b1fcea9b6e9a0111d0ee0edfae63d"
+  }
+}

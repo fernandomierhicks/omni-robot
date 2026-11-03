@@ -1,0 +1,377 @@
+{
+ "status": {
+  "mission": "TIDY",
+  "task": "Tidying: approach (2 in the bin)",
+  "progress": null,
+  "goal": null,
+  "robot_mode": "PICK",
+  "kid": false,
+  "caps": {
+   "nav": true,
+   "catch": false,
+   "collision": true,
+   "arm": true
+  },
+  "version": "0.3.0",
+  "slam": {
+   "mode": "localization",
+   "map": "house",
+   "managed": true,
+   "maps": [
+    "house"
+   ],
+   "busy": false
+  },
+  "explore": null,
+  "patrol": null,
+  "thrower": null,
+  "follow": null,
+  "program": null,
+  "calib": null,
+  "slow": null,
+  "player": "Player 1",
+  "localization": null,
+  "arm": {
+   "torque": true,
+   "source": "tidy",
+   "ok": true,
+   "joints": [
+    90.0,
+    -100.0,
+    83.1,
+    81.4,
+    0.0,
+    -9.8
+   ],
+   "names": [
+    "shoulder_pan",
+    "shoulder_lift",
+    "elbow_flex",
+    "wrist_flex",
+    "wrist_roll",
+    "gripper"
+   ],
+   "loads": [
+    0.0,
+    0.01,
+    -0.14,
+    -0.018,
+    -0.002,
+    0.0
+   ],
+   "temps": [
+    30,
+    30,
+    30,
+    30,
+    30,
+    30
+   ],
+   "volts": 12.0,
+   "out": false,
+   "tidy": {
+    "state": "APPROACH",
+    "picked": 2,
+    "failed": 1,
+    "skipped": 1,
+    "known": 2,
+    "target": {
+     "id": 11,
+     "x": -0.752,
+     "y": 0.876,
+     "size": [
+      0.13,
+      0.008
+     ]
+    },
+    "tries": 0,
+    "reason": ""
+   },
+   "tidy_on": true
+  },
+  "t": 1793721753.483651,
+  "map": "house",
+  "mcu": {
+   "mode": "AUTO",
+   "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+   "profile": "adult",
+   "faults": [],
+   "v_bus": 24.97,
+   "battery_pct": 97,
+   "battery_low": false,
+   "age": 0.0,
+   "dm_err": [
+    1,
+    1,
+    1,
+    1
+   ],
+   "fly_rpm": [
+    0,
+    0
+   ],
+   "tilt": 0.0,
+   "ball_held": false,
+   "drive_mode": 1,
+   "fly_target_rpm": 0.0,
+   "fly_ready": false,
+   "tilt_cmd": 0.0,
+   "feed_state": "IDLE",
+   "feed_exit_beam": false,
+   "fire_seq_done": 0,
+   "fire_rejected": 0,
+   "vx": 0.076,
+   "vy": -0.0,
+   "wz": 0.125,
+   "slip": 0.0,
+   "roll": 0.01,
+   "pitch": -0.003,
+   "sync_rtt_ms": 1.393
+  },
+  "link": {
+   "connected": true,
+   "port": "tcp:127.0.0.1:5761",
+   "states": 26959,
+   "imus": 53918,
+   "cmds": 19849,
+   "errors": 0,
+   "rtt_ms": 1.393,
+   "mode": "AUTO",
+   "faults": [],
+   "mcu_rx_errors": 0,
+   "infos": 1348,
+   "protocol": 5,
+   "protocol_host": 5,
+   "fw_build": "90817150"
+  },
+  "pose": {
+   "frame": "map",
+   "x": -0.092,
+   "y": 0.582,
+   "yaw": -2.7405,
+   "t": 1793721753.4683
+  },
+  "catch": null,
+  "vision": {
+   "perception": null,
+   "track": null,
+   "images": [
+    "/arm_cam/image_raw",
+    "/cam/left/image_raw",
+    "/cam/right/image_raw",
+    "/d435/depth/image_rect_raw"
+   ],
+   "video_port": 8081
+  },
+  "rc": {
+   "ok": false,
+   "manual": false,
+   "ch": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "age": 0.0
+  },
+  "fw": {
+   "build": "90817150",
+   "protocol": 5
+  },
+  "wifi": null,
+  "sys": {
+   "load": 2.47,
+   "cpus": 28,
+   "temp_c": null
+  },
+  "consoles": 0,
+  "manual": {
+   "active": false,
+   "cmd": null
+  }
+ },
+ "arm": {
+  "connected": true,
+  "torque": true,
+  "source": "tidy",
+  "port": "tcp:127.0.0.1:5763",
+  "tidy": {
+   "state": "APPROACH",
+   "picked": 2,
+   "failed": 1,
+   "skipped": 1,
+   "known": 2,
+   "target": {
+    "id": 11,
+    "x": -0.752,
+    "y": 0.876,
+    "size": [
+     0.13,
+     0.008
+    ]
+   },
+   "tries": 0,
+   "reason": ""
+  },
+  "tidy_on": true,
+  "events": [
+   {
+    "n": 30,
+    "t": 1793721701.34,
+    "text": "tidy: re-centre on object 8 (4.3 cm off)"
+   },
+   {
+    "n": 31,
+    "t": 1793721703.13,
+    "text": "tidy: over object 8"
+   },
+   {
+    "n": 32,
+    "t": 1793721715.85,
+    "text": "tidy: holding object 8 (10 mm)"
+   },
+   {
+    "n": 33,
+    "t": 1793721718.85,
+    "text": "tidy: object 8: dropped it on the way up; try 2 after a fresh look"
+   },
+   {
+    "n": 34,
+    "t": 1793721721.7,
+    "text": "tidy: re-centre on object 8 (0.2 cm off)"
+   },
+   {
+    "n": 35,
+    "t": 1793721723.36,
+    "text": "tidy: re-centre on object 8 (4.4 cm off)"
+   },
+   {
+    "n": 36,
+    "t": 1793721725.07,
+    "text": "tidy: over object 8"
+   },
+   {
+    "n": 37,
+    "t": 1793721737.93,
+    "text": "tidy: object 8: missed (gripper at -10 deg); try 3 after a fresh look"
+   },
+   {
+    "n": 38,
+    "t": 1793721741.42,
+    "text": "tidy: object 8: 150 x 8 mm, too big for the gripper"
+   },
+   {
+    "n": 39,
+    "t": 1793721742.18,
+    "text": "tidy: object 12 at (-0.65, 1.14), 110 x 64 mm"
+   },
+   {
+    "n": 40,
+    "t": 1793721750.8,
+    "text": "tidy: object 12 not there on the close look"
+   },
+   {
+    "n": 41,
+    "t": 1793721751.58,
+    "text": "tidy: object 11 at (-0.75, 0.88), 130 x 8 mm"
+   }
+  ],
+  "ok": true,
+  "missing": [],
+  "errors": [],
+  "joints": [
+   90.0,
+   -100.0,
+   83.1,
+   81.4,
+   0.0,
+   -9.8
+  ],
+  "loads": [
+   0.0,
+   0.01,
+   -0.14,
+   -0.018,
+   -0.002,
+   0.0
+  ],
+  "temps": [
+   30,
+   30,
+   30,
+   30,
+   30,
+   30
+  ],
+  "volts": 12.0,
+  "out": false,
+  "names": [
+   "shoulder_pan",
+   "shoulder_lift",
+   "elbow_flex",
+   "wrist_flex",
+   "wrist_roll",
+   "gripper"
+  ]
+ },
+ "objects": {
+  "t": 135.03,
+  "positions": [
+   [
+    -2.942,
+    1.785,
+    0.194
+   ],
+   [
+    -1.739,
+    1.017,
+    0.006
+   ],
+   [
+    -1.284,
+    0.624,
+    0.02
+   ],
+   [
+    -1.98,
+    0.382,
+    0.007
+   ],
+   [
+    -1.178,
+    1.012,
+    0.015
+   ],
+   [
+    -2.925,
+    1.747,
+    0.199
+   ]
+  ],
+  "in_bin": [
+   true,
+   false,
+   false,
+   false,
+   false,
+   true
+  ],
+  "n_in_bin": 2,
+  "n": 6
+ },
+ "truth": [
+  -3.009405747407153,
+  1.752569122391011,
+  -2.753673356690161,
+  0.06423091881696028
+ ],
+ "origin": [
+  -3.000836710487469,
+  1.2496314962414181,
+  1.6601708708540376e-05
+ ]
+}

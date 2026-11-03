@@ -1,0 +1,270 @@
+{
+  "sketches": [
+    {
+      "name": "Bench Frame Sketch",
+      "status": 3
+    },
+    {
+      "name": "Curved Panel Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Pod Foot Clearance Sketch",
+      "status": 3
+    },
+    {
+      "name": "Foot Counterbore Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 87417.07700077616,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"frame_left\"= 70mm 'Frame open end toward -X",
+    "\"frame_right\"= 118mm 'Frame closed end toward +X",
+    "\"frame_half_width\"= 98mm 'Bench frame half width",
+    "\"opening_end\"= 62mm 'Wheel opening closed end",
+    "\"opening_half_width\"= 83mm 'Wheel opening half width",
+    "\"bench_thickness\"= 6mm 'Bench frame plate thickness",
+    "\"panel_centre_x\"= 146mm 'Robot deck circle centre relative to wheel",
+    "\"relief_outer_radius\"= 217.5mm 'Outer guard panel clearance radius",
+    "\"relief_inner_radius\"= 211.5mm 'Inner guard panel clearance radius",
+    "\"relief_half_width\"= 90.5mm 'Transverse panel clearance extent",
+    "\"clearance_cut_depth\"= 8mm 'Relief cutter extends past both plate faces",
+    "\"screw_clearance\"= 3.4mm 'M3 foot screw clearance",
+    "\"counterbore_diameter\"= 7.2mm 'M3 pan head counterbore",
+    "\"counterbore_depth\"= 2.9mm 'Counterbore from underside",
+    "\"D1@Bench Frame Sketch\"= \"frame_left\"",
+    "\"D2@Bench Frame Sketch\"= \"frame_right\"",
+    "\"D3@Bench Frame Sketch\"= \"opening_end\"",
+    "\"D4@Bench Frame Sketch\"= \"frame_half_width\"",
+    "\"D5@Bench Frame Sketch\"= \"frame_half_width\"",
+    "\"D6@Bench Frame Sketch\"= \"opening_half_width\"",
+    "\"D7@Bench Frame Sketch\"= \"opening_half_width\"",
+    "\"D1@Bench Frame Extrude\"= \"bench_thickness\"",
+    "\"D1@Curved Panel Clearance Sketch\"= \"panel_centre_x\"",
+    "\"D2@Curved Panel Clearance Sketch\"= \"relief_outer_radius\"",
+    "\"D3@Curved Panel Clearance Sketch\"= \"relief_inner_radius\"",
+    "\"D4@Curved Panel Clearance Sketch\"= \"relief_half_width\"",
+    "\"D5@Curved Panel Clearance Sketch\"= \"relief_half_width\"",
+    "\"D1@Curved Panel Clearance\"= \"clearance_cut_depth\"",
+    "\"D3@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D6@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D9@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D12@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D15@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D18@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D21@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D24@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D27@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D30@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D33@Pod Foot Clearance Sketch\"= \"screw_clearance\"",
+    "\"D1@Pod Foot Through Holes\"= \"clearance_cut_depth\"",
+    "\"D1@Bench Underside Plane\"= \"bench_thickness\" / 2",
+    "\"D3@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D6@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D9@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D12@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D15@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D18@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D21@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D24@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D27@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D30@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D33@Foot Counterbore Sketch\"= \"counterbore_diameter\"",
+    "\"D1@Foot Counterbores\"= \"counterbore_depth\""
+  ],
+  "design_features": [
+    {
+      "name": "Bench Frame Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Bench Frame Extrude"
+      ]
+    },
+    {
+      "name": "Curved Panel Clearance",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Curved Panel Clearance"
+      ]
+    },
+    {
+      "name": "Pod Foot Through Holes",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Pod Foot Through Holes"
+      ]
+    },
+    {
+      "name": "Foot Counterbores",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Foot Counterbores"
+      ]
+    }
+  ],
+  "pass": true
+}

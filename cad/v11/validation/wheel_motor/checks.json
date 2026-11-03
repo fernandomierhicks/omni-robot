@@ -1,0 +1,190 @@
+{
+ "hub": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 165176,
+  "x_range": [
+   -39.5,
+   29.0
+  ],
+  "diameter_over_rollers": 140.0
+ },
+ "hub_overlaps_mm3 (axle threads in their pilots by design)": {
+  "bolt_1_1": 2.02,
+  "bolt_1_2": 2.02,
+  "bolt_1_3": 2.02,
+  "bolt_1_4": 2.02,
+  "bolt_1_5": 2.02,
+  "bolt_1_6": 2.02,
+  "bolt_2_1": 2.02,
+  "bolt_2_2": 2.02,
+  "bolt_2_3": 2.02,
+  "bolt_2_4": 2.02,
+  "bolt_2_5": 2.02,
+  "bolt_2_6": 2.02
+ },
+ "hub_to_roller_min_gap_mm": {
+  "roller_core_1_1": 0.3,
+  "roller_core_1_2": 0.3,
+  "roller_core_2_1": 0.3,
+  "roller_core_2_2": 0.3,
+  "roller_tread_1_1": 0.95,
+  "roller_tread_1_2": 0.95,
+  "roller_tread_2_1": 0.95,
+  "roller_tread_2_2": 0.95
+ },
+ "roller_neighbour_gaps_mm_lt2 (closest 6)": {
+  "roller_tread_1_1 / roller_tread_2_1": 1.23,
+  "roller_tread_1_1 / roller_tread_2_6": 1.23,
+  "roller_tread_1_2 / roller_tread_2_1": 1.23,
+  "roller_tread_1_2 / roller_tread_2_2": 1.23,
+  "roller_tread_1_3 / roller_tread_2_2": 1.23,
+  "roller_tread_1_3 / roller_tread_2_3": 1.23
+ },
+ "rollers_vs_motor_proxy_overlap_mm3": 0.0,
+ "harness": {
+  "closest rotating part (want >= 4)": {
+   "gap": 4.68,
+   "pair": "xt30_housing - wheel_hub"
+  }
+ },
+ "x_range_hub_to_motor": [
+  -41.07,
+  44.7
+ ],
+ "motor_x_output_rear": [
+  4.5,
+  44.7
+ ],
+ "axle_insertion_tunnel_hits_mm3": {
+  "1_1": {
+   "roller_core_1_2": 0.35,
+   "roller_tread_1_2": 9.19,
+   "bolt_1_2": 1.22
+  },
+  "1_2": {
+   "roller_core_1_1": 0.35,
+   "roller_tread_1_1": 9.19,
+   "bolt_1_1": 1.22
+  },
+  "1_3": {
+   "roller_core_1_4": 0.35,
+   "roller_tread_1_4": 9.19,
+   "bolt_1_4": 1.22
+  },
+  "1_4": {
+   "roller_core_1_3": 0.35,
+   "roller_tread_1_3": 9.19,
+   "bolt_1_3": 1.22
+  },
+  "1_5": {
+   "roller_core_1_6": 0.35,
+   "roller_tread_1_6": 9.19,
+   "bolt_1_6": 1.22
+  },
+  "1_6": {
+   "roller_core_1_5": 0.35,
+   "roller_tread_1_5": 9.19,
+   "bolt_1_5": 1.22
+  },
+  "2_1": {
+   "roller_core_2_2": 0.35,
+   "roller_tread_2_2": 9.19,
+   "bolt_2_2": 1.22
+  },
+  "2_2": {
+   "roller_core_2_1": 0.35,
+   "roller_tread_2_1": 9.19,
+   "bolt_2_1": 1.22
+  },
+  "2_3": {
+   "roller_core_2_4": 0.35,
+   "roller_tread_2_4": 9.19,
+   "bolt_2_4": 1.22
+  },
+  "2_4": {
+   "roller_core_2_3": 0.35,
+   "roller_tread_2_3": 9.19,
+   "bolt_2_3": 1.22
+  },
+  "2_5": {
+   "roller_core_2_6": 0.35,
+   "roller_tread_2_6": 9.19,
+   "bolt_2_6": 1.22
+  },
+  "2_6": {
+   "roller_core_2_5": 0.35,
+   "roller_tread_2_5": 9.19,
+   "bolt_2_5": 1.22
+  }
+ },
+ "roller_radial_drop_in_overlap_mm3": {
+  "1_1 +0": 0.0,
+  "1_1 +10": 0.0,
+  "1_1 +20": 0.0,
+  "1_1 +30": 0.0,
+  "1_2 +0": 0.0,
+  "1_2 +10": 0.0,
+  "1_2 +20": 0.0,
+  "1_2 +30": 0.0,
+  "2_1 +0": 0.0,
+  "2_1 +10": 0.0,
+  "2_1 +20": 0.0,
+  "2_1 +30": 0.0,
+  "2_2 +0": 0.0,
+  "2_2 +10": 0.0,
+  "2_2 +20": 0.0,
+  "2_2 +30": 0.0
+ },
+ "spoke_neck_row2_az0_mm": {
+  "34": {
+   "tangential": 17.1,
+   "x": 17.5
+  },
+  "36": {
+   "tangential": 12.1,
+   "x": 15.9
+  },
+  "38": {
+   "tangential": 7.7,
+   "x": 15.9
+  },
+  "40": {
+   "tangential": 3.5,
+   "x": 15.9
+  },
+  "42": {
+   "tangential": 1.9,
+   "x": 15.9
+  },
+  "44": {
+   "tangential": 3.3,
+   "x": 15.9
+  },
+  "46": {
+   "tangential": 5.7,
+   "x": 15.9
+  },
+  "50": {
+   "tangential": 10.3,
+   "x": 15.9
+  },
+  "54": {
+   "tangential": 14.9,
+   "x": 15.9
+  },
+  "58": {
+   "tangential": 2.7,
+   "x": 15.9
+  }
+ },
+ "roller_angular_overlap_deg": 2.35,
+ "roller_bore_d": 3.4,
+ "hub_build": {
+  "root_fillet": {
+   "edges": 4,
+   "radius": 3.0
+  },
+  "slivers_dropped_mm3": []
+ }
+}

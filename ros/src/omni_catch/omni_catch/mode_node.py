@@ -14,6 +14,8 @@ Parameter  mode (initial), kid.
 
 from __future__ import annotations
 
+import dataclasses
+
 import rclpy
 from geometry_msgs.msg import Twist
 from omni_interfaces.msg import McuCommand
@@ -96,9 +98,10 @@ class ModeManager(Node):
         now = self.now()
         if self.mux.mode == "CATCH":
             if self.catch_req is not None and now - self.t_catch < 0.3:
-                r = self.catch_req
-                r.kid = self.mux.kid
-                r.fire_seq = self.mux.fire(r.fire_seq)
+                # a copy: the stored request keeps the behavior's own fire_seq (overwriting it with ours made the
+                # next tick without a new message look like a new fire request)
+                r = dataclasses.replace(self.catch_req, kid=self.mux.kid,
+                                        fire_seq=self.mux.fire(self.catch_req.fire_seq))
             else:
                 r = self.mux.request()                      # the behavior is silent: a ramped stop
         elif self.mux.mode == "THROWER":

@@ -1,0 +1,44 @@
+{
+  "spin": [
+    {
+      "angle_deg": 105,
+      "rotation_change": 0.2588190451025209,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "angle_deg": 125,
+      "rotation_change": 0.5735764363510463,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "angle_deg": 90,
+      "rotation_change": 0.0,
+      "mate_errors": [],
+      "pass": true
+    }
+  ],
+  "end_float": [
+    {
+      "requested_z_mm": 0.05,
+      "actual_z_mm": 0.05000000000000143,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "requested_z_mm": 0.25,
+      "actual_z_mm": 0.2500000000000002,
+      "mate_errors": [],
+      "pass": true
+    },
+    {
+      "requested_z_mm": 0,
+      "actual_z_mm": 0.0,
+      "mate_errors": [],
+      "pass": true
+    }
+  ],
+  "restored": true,
+  "pass": true
+}

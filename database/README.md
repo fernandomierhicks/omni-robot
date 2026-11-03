@@ -1,6 +1,6 @@
-# Actuator database
+# Parts database: actuators, robot computers, cameras
 
-Motors, servos and motor controllers for all of Fernando's robotics projects, as plain CSV you can edit in Excel or a text editor. It lives in `omni-robot/database/` for now and will move one level up (`Robotics/database/`) so other projects can share it. Nothing in it depends on omni-robot.
+Motors, servos, motor controllers, robot computers (SBCs, Jetson modules, mini PCs) and cameras for all of Fernando's robotics projects, as plain CSV you can edit in Excel or a text editor. It lives in `omni-robot/database/` for now and will move one level up (`Robotics/database/`) so other projects can share it. Nothing in it depends on omni-robot. (The module keeps its name, `actuator_db.py`, because projects import it.)
 
 | File | What it holds |
 | --- | --- |
@@ -8,8 +8,10 @@ Motors, servos and motor controllers for all of Fernando's robotics projects, as
 | `servos.csv` | Smart (serial-bus) and hobby (PWM) servos |
 | `controllers.csv` | H-bridges, ESCs, FOC drivers and controllers, smart brushed controllers, MCUs used as motor hosts, and the DC-DC converters a function needs |
 | `motor_tests.csv` | Third-party bench tests (dynamometer runs): one row per test with its maxima, linked to `motors.csv` by `motor_id` |
+| `computers.csv` | Robot computers: Jetson dev kits, modules and carriers, SBCs (Pi, RK3588, QCS6490, x86 boards), mini PCs, add-on NPUs. CPU benchmarks for scaling a measured software load, OS / ROS 2 support, camera connectors, input voltage, power, price |
+| `cameras.csv` | Cameras for robots: MIPI modules, synced stereo kits, USB cameras, capture boards (OAK-FFC, GMSL cards), depth cameras. Shutter, colour, modes, hardware trigger and how a pair syncs, hosts, driver status, published latency, price |
 | `sources.csv` | Every source: id, kind, URL, what it supports, date checked |
-| `actuator_db.py` | Schema, loader, validator, derived quantities, requirement checks, costs, compatibility, export to a sim catalog, gaps report |
+| `actuator_db.py` | Schema, loader, validator, derived quantities, requirement checks (actuators, computers, cameras), costs, compatibility, export to a sim catalog, gaps report |
 | `test_actuator_db.py` | Its checks: `python -m pytest -q` in this folder |
 | `gaps.csv` | Generated: the empty key fields per part (`python actuator_db.py gaps --csv`) |
 
@@ -27,7 +29,7 @@ python actuator_db.py schema          # regenerates the schema tables below
 1. **SI units, written into the column name**: `torque_stall_Nm`, `speed_noload_rpm`, `mass_kg`, `price_usd`. rpm is the one non-SI unit kept (for speeds); convert kg cm to N m (× 0.0980665).
 2. **Output shaft vs motor side.** Speeds and torques (`speed_*`, `torque_*`) are at the output, after any gearbox. `kv_rpm_per_V`, `kt_Nm_per_A`, `ke_Vs_per_rad`, `r_ohm` and `rotor_inertia_kgm2` are motor side. `r_kind` says whether `r_ohm` is per phase, line-to-line or terminal.
 3. **Blank means unknown. Never invent a number.** An estimate is allowed only when it is marked `est` in the provenance columns and explained in `notes`.
-4. **Provenance per value.** `prov_default` (datasheet / reseller / forum / est / measured / third_party, the last for a third-party test database such as Tyto Robotics') covers every filled value in the row; `prov_overrides` lists the exceptions, e.g. `est: rotor_inertia_kgm2, gear_eff; reseller: price_usd`. A reseller's number is never written as a datasheet value: a reseller page quoting a spec is `reseller`, even when it probably copied the maker.
+4. **Provenance per value.** `prov_default` (datasheet / reseller / forum / est / measured / third_party / press: third_party for a third-party test database such as Tyto Robotics', Geekbench or sbc-bench; press for a news or review site reporting the maker's figures or prices) covers every filled value in the row; `prov_overrides` lists the exceptions, e.g. `est: rotor_inertia_kgm2, gear_eff; reseller: price_usd`. A reseller's number is never written as a datasheet value: a reseller page quoting a spec is `reseller`, even when it probably copied the maker.
 5. **Sources and dates.** `source_ids` lists the `sources.csv` rows behind the row; `date_checked` is when the values and price were last checked (YYYY-MM-DD). Re-check prices before ordering.
 6. **Prices** are USD at quantity 1 from `vendor`; quantity breaks go in `price_breaks` (`5:56.07;25:51.59`). A converted price (EUR, GBP, INR, AUD) is `est`, with the original in `notes`.
 7. **Bench data goes in the `meas_*` columns** (motors and servos), with `meas_date` and `meas_notes`. Where a measured value exists, `actuator_db` uses it instead of the datasheet value (`Part.meas`, `dc_model(measured=True)`). Don't overwrite the datasheet columns: the difference between the two is the sim-to-real gap.
@@ -57,6 +59,24 @@ python actuator_db.py schema          # regenerates the schema tables below
   - all 6 pages of the smart servos.
 
   Specs are parsed from product titles only: voltage, rpm, KV, torque, frame size and ratio. Kind, commutation and gear type are inferred (marked `est`). RobotShop sits behind Cloudflare, so these were read page by page. The remaining collections (planetary pages 4-23, BLDC 4-17, brushed / spur / stepper / RC servo) are not imported yet.
+
+### Pendulum actuator follow-up (November 1, 2026)
+
+Six missing models discovered through Pendulum's comparison tool are now included: SteadyWin GIM4305-10, GIM4310-10 and GIM3510-8; RobStride 05 and EduLite 05; Westwood Koala BEAR KB02. GIM3510-8 has separate GDS34 and GDZ34-with-secondary-encoder rows because the supplier publishes different torque, speed and voltage limits for the two drivers (seven configurations in total). Sources S211-S220 record the comparison page, exact supplier parameter images, configured-price JSON, manufacturer manuals and Westwood's store page. These are catalog claims, not our bench measurements or adopted robot parts.
+
+- **SteadyWin:** use each driver's own table and the price of that complete configuration. The headline prices can describe a bare motor or a USB adapter. Pendulum's torque/mass figures differ from the supplier tables; the conflicts and missing thermal conditions are recorded in each row. The tables label speed as maximum, without specifying load; `speed_noload_rpm` therefore carries `est` provenance. Output-side Kv/Kt are not entered into motor-side columns. Optional output-encoder mass/dimensions are unconfirmed.
+- **RobStride:** the July 13, 2026 CAN 2.0 manuals specify no-load speed at **48 V**, and rated torque tested at 100 rpm with a 70 x 70 mm heat sink. Mechanical details and reference prices from Pendulum retain `reseller` provenance. Phase RMS/peak currents are not mixed with DC current figures. The separate CAN FD variant is not represented by these rows.
+- **Koala BEAR:** use the air-cooled continuous rating; peak torque is limited to 1.5 seconds. The 24 V no-load speed is an estimate from the published output Kv, not a measured operating point. Rated speed, interface details and output-bearing loads remain gaps.
+
+### Computers and cameras (October 28, 2026)
+
+Read for omni-robot's computer and stereo-camera choice (its `simulation/v11 sil/studies/compute_choice.py`, design.md 4.9); kept general so other robots can use them.
+
+- **Computers (24):** every Orin module and the Orin Nano Super kit, AGX Orin, Thor and the announced Orin Nano 2 (H1 2027); Raspberry Pi 5 2 / 4 / 8 / 16 GB and the AI HAT+ 2; Radxa ROCK 5B+ (RK3588); Thundercomm RUBIK Pi 3 (QCS6490); LattePanda IOTA and ODROID-H4 Ultra (x86 SBCs); N150, Core Ultra 5 125H, Ryzen 7 8845HS and Panther Lake mini PCs; GMKtec M8 (Ryzen 5 PRO 6650H, $389.99) and M6 Ultra (Ryzen 5 7640HS, $499.99), complete with RAM and SSD, from GMKtec's store on Oct 28.
+- **What changed in 2026:** NVIDIA raised every Jetson price in July (Orin Nano Super kit $249 → $399, Orin NX 16GB $599 → $999 at 1KU); Raspberry Pi list prices rose again on Oct 1 (Pi 5 2GB $77.50, 4GB $110, 8GB $180, 16GB $305; Adafruit sells the 4GB at $130 and 8GB at $200); x86 boards suffer too (ODROID-H4 discontinued, LattePanda IOTA $339). Mini PCs with RAM included held up better: Shopify stores' `products.json` gives every variant's live price and stock. JetPack 7.2 (June 2026) put Ubuntu 24.04 on every Orin, so ROS 2 Jazzy installs natively.
+- **CPU benchmarks** for scaling a load measured on another machine: Geekbench 6 single / multi and sbc-bench's 7-Zip MIPS (single and all threads). `cpu_ratio`, `cores_needed` and `check_compute` bracket a load between the two benchmarks; little cores (A55, E-cores) count `little_core_weight` (0.35, est) of a big one.
+- **Cameras (17):** colour global-shutter options per platform. Jetson: e-con e-CAM25_CUONX (AR0234, the only one with a vendor-documented hardware trigger on Orin Nano / NX), Arducam's AR0234 synced stereo kit, Arducam's AR0234 xISP (no hardware trigger), Arducam's OV9782 quad kit (45 fps), Stereolabs' GMSL2 ZED X One GS + ZED Link. Raspberry Pi: the official Global Shutter camera (IMX296, documented XTR trigger), Arducam AR0234 / OV9281 kits. Any USB host: Luxonis OAK-FFC 4P + OV9782 modules (FSYNC < 10 us, 24.5 ms published time-to-host), Arducam's OV9782 UVC camera (MJPEG), Orbbec Gemini 335L, RealSense D455, OAK 4 D. `check_camera` and `camera_fits` check them against a requirement and a computer.
+- **Watch out:** Arducam's and e-con's Jetson drivers are built per L4T release: check a JetPack 7.2 driver exists before buying. The single OV9782 MIPI module (Arducam B0296) is discontinued. The Pi Global Shutter camera ($50) is thin on stock in the US (Oct 28: Mouser listed 152; Adafruit and Micro Center out) and comes without a lens.
 
 ## What the loader does
 
@@ -133,8 +153,8 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `controller` | str | Controller it needs: 'integrated', a controllers.csv id, or blank (any of its type) |
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
-| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
+| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench) |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
@@ -186,8 +206,8 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `ip_rating` | str | Ingress protection |
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
-| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
+| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench) |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
@@ -232,8 +252,8 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `config_tool` | str | Configuration software |
 | `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
 | `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
-| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued) |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of every filled value unless overridden |
+| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench) |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of every filled value unless overridden |
 | `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
 | `source_ids` | list | Source ids from sources.csv, ';'-separated |
 | `date_checked` | date | YYYY-MM-DD the values and price were last checked |
@@ -261,19 +281,124 @@ Columns marked * are key fields: the gaps report lists them when blank.
 | `eff_max` | float | Best motor + ESC efficiency, 0-1 |
 | `n_points` | int | Data points in the run |
 | `url` | str | Link to the test |
-| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party) | Provenance of the values |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of the values |
 | `source_ids` | list | Source ids from sources.csv |
 | `date_checked` | date | YYYY-MM-DD the test was read |
 | `notes` | str | Notes |
+
+### computers.csv
+
+| Column | Type | Meaning |
+| --- | --- | --- |
+| `id` | str | Unique slug, maker-part (e.g. pololu-37d-24v-19-enc). Never reuse or rename: projects refer to it |
+| `manufacturer` | str | Maker |
+| `part_number` | str | Maker's part number or SKU |
+| `name` | str | Descriptive name |
+| `vendor` | str | Where the price comes from (shop) |
+| `kind` * | enum (dev_kit / module / carrier / sbc / mini_pc / accelerator) | dev_kit (module + carrier, ready to run), module (needs a carrier), carrier, sbc, mini_pc, accelerator (an add-on NPU) |
+| `platform` * | enum (jetson_orin / jetson_thor / raspberry_pi_5 / rk3588 / qcs6490 / x86) | What software and cameras it takes (cameras.csv hosts) |
+| `soc` * | str | SoC or CPU |
+| `cpu` | str | Cores, type and clock (e.g. 6x Cortex-A78AE @ 1.7 GHz) |
+| `cpu_big_cores` * | int | Fast cores (all cores when they are alike) |
+| `cpu_little_cores` | int | Slow cores (Cortex-A55, Intel E-cores beside P-cores); 0 when all alike |
+| `cpu_max_GHz` | float | Highest clock of the fast cores |
+| `ram_GB` * | float | Memory as sold (blank for a barebone or a carrier) |
+| `ram_type` | str | LPDDR5, DDR5 SO-DIMM (not included) ... |
+| `gpu` | str | GPU |
+| `ai_tops` | float | Maker's AI rating, TOPS (see ai_tops_precision) |
+| `ai_tops_precision` | str | What the TOPS figure counts: sparse INT8, INT8, INT4 ... |
+| `bench_gb6_single` * | float | Geekbench 6 single-core score (per-thread speed: scales CPU loads) |
+| `bench_gb6_multi` | float | Geekbench 6 multi-core score |
+| `bench_7zip_single_MIPS` | float | 7-Zip single-thread rating, MIPS (sbc-bench) |
+| `bench_7zip_multi_MIPS` | float | 7-Zip all-threads rating, MIPS (sbc-bench) |
+| `os_support` | str | Maker-supported operating systems |
+| `ubuntu_2404` * | enum (yes / no / partly / VERIFY) | Runs Ubuntu 24.04 from the maker or Canonical (ROS 2 Jazzy's tier-1 OS) |
+| `ros2_jazzy` | enum (yes / no / partly / VERIFY) | ROS 2 Jazzy binaries install natively |
+| `csi_cameras` * | int | MIPI CSI-2 camera connectors (0 = USB cameras only) |
+| `csi_lanes` | str | Lanes per connector |
+| `hw_video_encoder` | enum (yes / no / partly / VERIFY) | Hardware video encoder |
+| `usb3_ports` | int | USB 3 host ports (Type-A and host-capable Type-C) |
+| `usb_notes` | str | Other USB |
+| `display_out` | str | Display outputs |
+| `network` | str | Ethernet, Wi-Fi |
+| `expansion` | str | GPIO header, M.2, PCIe, CAN ... |
+| `v_in_min_V` * | float | Lowest DC input voltage |
+| `v_in_max_V` * | float | Highest DC input voltage |
+| `power_idle_W` | float | Power at idle |
+| `power_max_W` * | float | Power at full load (or the top power mode) |
+| `power_modes` | str | Power modes / TDP settings |
+| `size_mm` * | str | L x W x H as sold (with its cooler) |
+| `mass_kg` | float | Mass |
+| `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
+| `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
+| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench) |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of every filled value unless overridden |
+| `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
+| `source_ids` | list | Source ids from sources.csv, ';'-separated |
+| `date_checked` | date | YYYY-MM-DD the values and price were last checked |
+| `notes` | str | Anything else: caveats, VERIFY items, why rejected |
+| `meas_stack_cpu_pct` | float | MEASURED CPU load of a named software stack, % of all cores (meas_notes says which) |
+| `meas_power_W` | float | MEASURED power running that stack |
+| `meas_date` | date | Date of the bench test |
+| `meas_notes` | str | Stack, setup, log file |
+
+### cameras.csv
+
+| Column | Type | Meaning |
+| --- | --- | --- |
+| `id` | str | Unique slug, maker-part (e.g. pololu-37d-24v-19-enc). Never reuse or rename: projects refer to it |
+| `manufacturer` | str | Maker |
+| `part_number` | str | Maker's part number or SKU |
+| `name` | str | Descriptive name |
+| `vendor` | str | Where the price comes from (shop) |
+| `kind` * | enum (module / stereo_kit / usb_camera / smart_camera / depth_camera / capture_board) | module (one sensor board), stereo_kit (two synced sensors sold together), usb_camera, smart_camera (does its own processing), depth_camera, capture_board (takes camera modules, feeds a host) |
+| `sensor` * | str | Image sensor (blank for a capture board) |
+| `shutter` * | enum (global / rolling / VERIFY) | global or rolling |
+| `color` * | enum (color / mono / mono_stereo_color_center / VERIFY) | color, mono, or both (a mono stereo pair with a color camera) |
+| `res_w_px` * | int | Full-resolution width, px |
+| `res_h_px` * | int | Full-resolution height, px |
+| `fps_full` * | float | Frame rate at full resolution (per sensor) |
+| `fps_modes` | str | Other modes, 'WxH@fps; ...' (a stereo kit's side-by-side modes as sold) |
+| `pixel_um` | float | Pixel pitch, um |
+| `output_format` | str | RAW10, YUV, MJPEG ... |
+| `interface` * | list | mipi_csi2, usb2, usb3, gmsl2, ethernet |
+| `mipi_lanes` | int | MIPI lanes |
+| `connector` | str | Connector |
+| `hw_trigger` * | enum (yes / no / partly / VERIFY) | Takes a hardware trigger (frame sync) input that a host or MCU can drive |
+| `trigger_notes` | str | Trigger pin, logic level, edge, minimum pulse, highest trigger rate |
+| `strobe_out` | enum (yes / no / partly / VERIFY) | Gives an exposure / strobe output |
+| `stereo_sync` | str | How two of them are synchronised |
+| `baseline_mm` | float | Stereo baseline (fixed-baseline kits and depth cameras) |
+| `fov_deg` | str | Field of view (H x V, or D) with the stock lens |
+| `lens_mount` | str | M12, C/CS, fixed ... |
+| `hosts` * | list | Platforms it works with (computers.csv platform) plus usb (any USB 3 host), gmsl_card, oak_ffc |
+| `driver` | str | Driver: upstream, vendor per OS release ... |
+| `latency_ms` | float | Published capture-to-host latency |
+| `latency_notes` | str | How that latency was measured |
+| `power_W` | float | Power |
+| `size_mm` | str | Size |
+| `mass_kg` | float | Mass |
+| `price_usd` * | float | Unit price in USD at quantity 1 (converted prices are est) |
+| `price_breaks` | str | Quantity breaks 'qty:usd;qty:usd' (e.g. 5:56.07;25:51.59) |
+| `availability` | str | Stock seen on date_checked (in stock / out of stock / backorder / discontinued), or in hand (owned, Fernando's bench) |
+| `prov_default` | enum (datasheet / reseller / forum / est / measured / third_party / press) | Provenance of every filled value unless overridden |
+| `prov_overrides` | str | Exceptions: 'est: col, col; reseller: col' (column names of this table) |
+| `source_ids` | list | Source ids from sources.csv, ';'-separated |
+| `date_checked` | date | YYYY-MM-DD the values and price were last checked |
+| `notes` | str | Anything else: caveats, VERIFY items, why rejected |
+| `meas_latency_ms` | float | MEASURED trigger-to-application latency (glass to software) |
+| `meas_fps` | float | MEASURED frame rate in the mode used |
+| `meas_calib_drift_deg` | float | MEASURED stereo calibration drift between sessions, deg |
+| `meas_date` | date | Date of the bench test |
+| `meas_notes` | str | Setup, mode, log file |
 
 ### sources.csv
 
 | Column | Type | Meaning |
 | --- | --- | --- |
 | `id` | str | Source id (S001 ...) |
-| `kind` | enum (maker / reseller / forum / project / test_database) | maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records), test_database (third-party bench data) |
+| `kind` | enum (maker / reseller / forum / project / test_database / press) | maker (maker's page or datasheet), reseller, forum, project (own docs / purchase records), test_database (third-party bench data), press (news or review site) |
 | `url` | str | Link (or a repo path for project sources) |
 | `supports` | str | Which parts and values it supports |
 | `date_checked` | date | YYYY-MM-DD |
 | `notes` | str | Notes |
-

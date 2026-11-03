@@ -509,7 +509,9 @@ def test_windows_hears_a_spoken_command_from_a_wav(tmp_path):
     from omni_face.listen import Sapi
     from omni_face.voice import Sapi as SapiVoice
     wav = tmp_path / "omni_follow.wav"
-    v = SapiVoice()
+    # Pin the input fixture: Windows' recognizer rejects Zira's synthetic "follow me" on this PC, while David
+    # produces the full command. A change to the robot's preferred output voice must not change the test input.
+    v = SapiVoice(voice="Microsoft David Desktop")
     if not v.synth("Hey omni, follow me.", wav):
         pytest.skip("no Windows voice")
     heard = Sapi().recognize_wav(commands.phrases({"kitchen": [0, 0, 0]}), wav)

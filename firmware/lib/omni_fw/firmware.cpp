@@ -404,9 +404,22 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     if (t_us_ - t_imu_us_ > 50 * MS) faults_ |= F_IMU_SILENT;
     if (fly_target_ > 0.0f && t_us_ - t_fly_telem_us_ > 20 * MS) faults_ |= F_FLY_TELEM;
 
+    // the fault stop (firmware.h): latched in AUTO, cleared by a DISARM request with the pack recovered
+    if (in.v_bus < prm::BATT_LOW) {
+        if (!t_batt_low_us_) t_batt_low_us_ = t_us_ ? t_us_ : 1;
+    } else {
+        t_batt_low_us_ = 0;
+    }
+    bool batt_low = t_batt_low_us_ && t_us_ - t_batt_low_us_ >= BATT_LOW_HOLD_US;
+    bool motor_bad = (faults_ & (F_MOTOR_ERR | F_MOTOR_SILENT)) && t_us_ - t_armed_us_ > ARM_GRACE_US;
+    if (mode_ == MODE_AUTO && (batt_low || motor_bad)) fault_stop_ = true;
+    if (fault_stop_ && link_ok && cmd_.req_mode != REQ_AUTO && in.v_bus >= prm::BATT_LOW + BATT_RESUME)
+        fault_stop_ = false;
+    if (fault_stop_) faults_ |= F_FAULT_STOP;
+
     // mode
     bool manual = in.rc_ok && in.rc[4] > 0.5f;
-    bool want_auto = link_ok && cmd_.req_mode == REQ_AUTO;
+    bool want_auto = link_ok && cmd_.req_mode == REQ_AUTO && !fault_stop_;
     if (in.estop) {
         if (mode_ != MODE_ESTOP) {
             ctl_.reset();
@@ -425,6 +438,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         // re-arm only on a fresh request: a CMD that arrived after the stop
         if (want_auto && t_cmd_us_ >= t_stopped_us_) {
             mode_ = MODE_AUTO;
+            t_armed_us_ = t_us_;
             ctl_.reset();
         }
     } else if (mode_ == MODE_AUTO && !want_auto) {

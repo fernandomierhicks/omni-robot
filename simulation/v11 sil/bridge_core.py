@@ -75,17 +75,22 @@ class CoreConfig:
     firmware: bool = False               # v11: the C++ firmware in the loop (sil_robot.SilRobot); not with mode "tour"
     person: bool = False                 # a person walking in front of the robot's start (the console's Follow / Tag)
     timing: str = "ideal"                # design.md 10: "real" = the MCU's drifting clock, CAN reply timing (SilRobot)
-    # design.md 11: "arm" = the arm robot (robot_export.ARM: the SO-101 on its nose, the stereo pods looking down, the
-    # lidar at the rear, the bin) with n_objects things from arm_objects.SETS[objects] on the floor ahead of its start
+    # design.md 11: "arm" = the arm robot (robot_export.ARM, cad/v10's coarse model: the SO-101 on its riser, the stereo
+    # pair on the head, the lidar at the front, the bin) with n_objects things from arm_objects.SETS[objects] on the floor ahead of its start
     payload: str = "catch"
     objects: str = "toys"
     n_objects: int = 6
     joint_err_deg: float = 1.0           # the arm's servos off their calibration (arm_bus)
+    # the arm robot's depth camera (design.md 4.11): "stereo" (the head's pair, robot_export.ARM) or "d435" (the RealSense
+    # D435 on the deck's nose, robot_export.ARM_D435: the tidy's looks and Nav2's near-field depth)
+    arm_camera: str = "stereo"
     # the Launcher's live world (sim_world.World): the person, the clutter ("off", "toys", "all" = toys and larger
     # obstacles) and the house's thrower switched on and off while the sim runs
     live_world: bool = False
     clutter: str = "off"
     thrower: bool = True
+    # design.md 16: the terrain course in the kitchen's east end (house.TERRAIN_COURSE: square steps and triangular bumps)
+    terrain: bool = False
 
 
 @dataclass
@@ -115,11 +120,14 @@ def toy_objects(c: CoreConfig) -> tuple:
 
 def arm_kw(c: CoreConfig) -> dict:
     """SimParams overrides for the arm robot in the house, its things on the floor (design.md 11)."""
-    from robot_export import ARM
-    return dict(ARM, floor_objects=toy_objects(c))
+    from robot_export import arm_robot
+    if c.arm_camera not in ("stereo", "d435"):
+        raise ValueError(f"arm_camera {c.arm_camera!r}: 'stereo' or 'd435'")
+    return dict(arm_robot(c.arm_camera), floor_objects=toy_objects(c))
 
 
-MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world")
+MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world",
+                "terrain", "arm_camera")
 
 
 def model_params(c: CoreConfig):
@@ -141,7 +149,11 @@ def model_params(c: CoreConfig):
     if c.live_world:
         import sim_world
         kw["floor_objects"] = sim_world.parked_objects(c)
-    return house.house_params(base, assist=c.assist, wheel_model=c.wheel_model, **kw)
+    p = house.house_params(base, assist=c.assist, wheel_model=c.wheel_model, course=c.terrain, **kw)
+    if c.payload == "arm":
+        from robot_export import study_from_env      # OMNI_SIM_STUDY (the Nov 1 motor study); unset: p as is
+        p = study_from_env(p, "d435" if c.arm_camera == "d435" else "stereo")
+    return p
 
 
 def model_hello(c: CoreConfig) -> dict:

@@ -251,9 +251,10 @@ def test_changing_maps_stops_a_nav_mission():
 
 
 def test_firmware_build_id_matches_the_firmware_script():
-    sys.path.insert(0, os.path.join(REPO, "firmware"))
+    firmware = os.environ.get("OMNI_FIRMWARE_DIR", os.path.join(REPO, "firmware"))
+    sys.path.insert(0, firmware)
     from fw_build_id import build_id
-    core = os.path.join(REPO, "firmware", "lib", "omni_fw")
+    core = os.path.join(firmware, "lib", "omni_fw")
     assert st.firmware_build_id(core) == build_id(core)
     assert st.firmware_build_id(os.path.join(REPO, "nope")) is None
 

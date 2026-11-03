@@ -34,7 +34,7 @@ from rclpy.time import Time
 from sensor_msgs.msg import Imu, LaserScan
 from tf2_ros import Buffer, TransformListener
 
-from omni_perception.scan_time import ScanClock, deskew, sample_times
+from omni_perception.scan_time import ScanClock, deskew, floor_mask, sample_times
 
 LATCHED = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
 
@@ -79,15 +79,7 @@ class ScanPrep(Node):
         self.rp = (roll, pitch)
 
     def floor_mask(self, a, r):
-        tz, psi, h = self.cal
-        d = np.vstack([np.cos(a), np.sin(a), tz * np.cos(a - psi)])          # laser frame (= base frame axes)
-        roll, pitch = self.rp
-        cr, sr, cp, sp = math.cos(roll), math.sin(roll), math.cos(pitch), math.sin(pitch)
-        Rrp = np.array([[cp, sp * sr, sp * cr], [0.0, cr, -sr], [-sp, cp * sr, cp * cr]])   # Ry(pitch) Rx(roll)
-        w = Rrp @ d
-        slope = w[2] / np.hypot(w[0], w[1])
-        r_floor = np.where(slope < -1e-4, h / np.maximum(-slope, 1e-4), np.inf)
-        return np.isfinite(r) & (r >= r_floor - self.margin)
+        return floor_mask(a, r, self.cal, self.rp, self.margin)
 
     def odom_pose(self, t: float):
         tr = self.buf.lookup_transform("odom", "base_link", Time(seconds=t), timeout=Duration(seconds=0.0))

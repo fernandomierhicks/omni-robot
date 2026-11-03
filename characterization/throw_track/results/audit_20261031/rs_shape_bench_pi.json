@@ -1,0 +1,71 @@
+{
+  "opencv": "4.6.0",
+  "threads": 1,
+  "limits": "Timing only, not accuracy: full-frame vs 96px ROI Hough on existing Pi clips.\n\nUses installed OpenCV, one thread. RAM loading excluded; first call included. Fixed knobs\nare an illustrative workload, not a tuned detector. Does not acquire a camera.\n",
+  "rows": [
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t003",
+      "mode": "full",
+      "samples": 20,
+      "wall_ms_p50_95_99": [
+        532.947873,
+        551.22557235,
+        580.88789127
+      ],
+      "cpu_mean_ms": 535.64700105,
+      "candidates_p50_95": [
+        211.0,
+        222.0
+      ]
+    },
+    {
+      "session": "20261031_114236_loc1",
+      "clip": "t003",
+      "mode": "roi96",
+      "samples": 20,
+      "wall_ms_p50_95_99": [
+        0.3578125,
+        5.3220051,
+        5.5982210199999995
+      ],
+      "cpu_mean_ms": 1.3465536999999999,
+      "candidates_p50_95": [
+        1.0,
+        11.0
+      ]
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t005",
+      "mode": "full",
+      "samples": 20,
+      "wall_ms_p50_95_99": [
+        703.799207,
+        732.2030586,
+        732.6064757199999
+      ],
+      "cpu_mean_ms": 705.96241465,
+      "candidates_p50_95": [
+        402.0,
+        413.0
+      ]
+    },
+    {
+      "session": "20261031_121159_loc2",
+      "clip": "t005",
+      "mode": "roi96",
+      "samples": 20,
+      "wall_ms_p50_95_99": [
+        0.9106695,
+        2.69152855,
+        2.85746011
+      ],
+      "cpu_mean_ms": 1.3339861,
+      "candidates_p50_95": [
+        4.5,
+        9.0
+      ]
+    }
+  ]
+}

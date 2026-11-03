@@ -5,7 +5,7 @@
            (intercept.choose_intercept, the clear-path gate), tilt the funnel into its path; tilt_freeze s before
            arrival freeze the plan and hand the MCU the schedule: hold the velocity for the coast, brake with the ball
            aboard, hold; dump the funnel upright dump_delay s after arrival
-  settle   wait for the base to stop; the catch beam says caught or not
+  settle   wait for the base to stop; the catch beam says caught or not (a ball it saw at all counts)
   aim      turn to the thrower, set tilt and flywheel speed for the return lob (launcher calibration); fire when
            aimed, still, and the flywheels have held speed for 0.1 s
   launch   0.6 s for the feed and flywheels to throw it
@@ -148,7 +148,8 @@ class CatchBehavior:
         self.gated = False
         self.land_sigma = math.nan
         self.t_track_seen = 0.0
-        self.throw = {}                   # this throw as tracked: release, speed, apex, the path (t, x, y, z)
+        self.beam_seen = False            # the catch beam saw the ball in the pocket during this toss's settle
+        self.throw = {}                  # this throw as tracked: release, speed, apex, the path (t, x, y, z)
         self.t_path = -1.0
 
     # -- helpers ------------------------------------------------------------------------------------------------------
@@ -266,7 +267,7 @@ class CatchBehavior:
         return None
 
     def _settle_done(self, t, rv, pose):
-        caught = rv.ball_held
+        caught = rv.ball_held or self.beam_seen   # a ball the beam saw counts (and goes back), even still bouncing
         self.catches += caught
         th = self.throw
         self.last = dict(toss=self.tosses, caught=caught, moving=self.moving_plan, gated=self.gated,
@@ -379,13 +380,16 @@ class CatchBehavior:
                 self._set("settle", t)
 
         if self.state == "settle":
-            # the ball is out of the cameras' view in the funnel: the catch beam decides, once it has held for 0.3 s
-            # (a ball bouncing in the pocket blinks it), or after 1.5 s without it (one still rolling in after the
-            # dump), with the base at rest (catch_game waited for both on the truth)
+            # the ball is out of the cameras' view in the funnel: the catch beam decides. A ball it has seen counts as
+            # caught (one bouncing in the pocket blinks it: wait up to 3 s for it to hold 0.3 s, then return it); without
+            # it, after 0.8 s (one still rolling in after the dump), with the base at rest (catch_game waited for both
+            # on the truth)
             sp = float(np.hypot(rv.vel_body[0], rv.vel_body[1]))
+            self.beam_seen = self.beam_seen or rv.ball_held
             self.t_beam = (self.t_beam or t) if rv.ball_held else None
             sure = rv.ball_held and t - self.t_beam >= 0.3
-            if t - self.t_state > 0.5 and ((sp < 0.05 and (sure or t - self.t_state > 0.8)) or t - self.t_state > 3.0):
+            quiet = not self.beam_seen and t - self.t_state > 0.8
+            if t - self.t_state > 0.5 and ((sp < 0.05 and (sure or quiet)) or t - self.t_state > 3.0):
                 self._settle_done(t, rv, pose)
 
         if self.state == "aim":

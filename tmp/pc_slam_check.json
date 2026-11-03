@@ -1,0 +1,1243 @@
+{
+ "initial_pose_seeded": true,
+ "inactive_recovery": {
+  "states": [
+   2,
+   2,
+   null,
+   1,
+   3
+  ],
+  "ok": true,
+  "status": {
+   "mission": "MANUAL",
+   "task": "Driving by hand",
+   "progress": null,
+   "goal": null,
+   "robot_mode": "TELEOP",
+   "kid": false,
+   "caps": {
+    "nav": true,
+    "catch": true,
+    "collision": true,
+    "arm": false
+   },
+   "version": "0.3.0",
+   "slam": {
+    "mode": "localization",
+    "map": "house",
+    "managed": true,
+    "maps": [
+     "house"
+    ],
+    "busy": false
+   },
+   "explore": null,
+   "patrol": null,
+   "thrower": null,
+   "follow": null,
+   "program": null,
+   "calib": null,
+   "slow": null,
+   "player": "Player 1",
+   "localization": null,
+   "arm": null,
+   "t": 1793723864.573071,
+   "map": "house",
+   "mcu": {
+    "mode": "AUTO",
+    "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+    "profile": "adult",
+    "faults": [],
+    "v_bus": 25.07,
+    "battery_pct": 98,
+    "battery_low": false,
+    "age": 0.0,
+    "dm_err": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "fly_rpm": [
+     0,
+     0
+    ],
+    "tilt": 0.012,
+    "ball_held": true,
+    "drive_mode": 0,
+    "fly_target_rpm": 0.0,
+    "fly_ready": false,
+    "tilt_cmd": 0.0,
+    "feed_state": "IDLE",
+    "feed_exit_beam": false,
+    "fire_seq_done": 0,
+    "fire_rejected": 0,
+    "vx": 0.0,
+    "vy": 0.0,
+    "wz": 0.0,
+    "slip": 0.0,
+    "roll": 0.014,
+    "pitch": 0.038,
+    "sync_rtt_ms": 1.0
+   },
+   "link": {
+    "connected": true,
+    "port": "tcp:127.0.0.1:5761",
+    "states": 56898,
+    "imus": 113798,
+    "cmds": 28449,
+    "errors": 0,
+    "rtt_ms": 1.0,
+    "mode": "AUTO",
+    "faults": [],
+    "mcu_rx_errors": 0,
+    "infos": 2844,
+    "protocol": 5,
+    "protocol_host": 5,
+    "fw_build": "90817150"
+   },
+   "pose": {
+    "frame": "map",
+    "x": 0.274,
+    "y": 0.217,
+    "yaw": 0.065,
+    "t": 285.111
+   },
+   "catch": {
+    "state": "wait",
+    "text": "Waiting for a throw",
+    "tosses": 0,
+    "catches": 0,
+    "rate": null,
+    "last": {},
+    "ball": null,
+    "target": null
+   },
+   "vision": {
+    "perception": {
+     "pairs": 0,
+     "detections": 0,
+     "stereo": 0,
+     "coarse": 0,
+     "tracking": false,
+     "proc_ms_median": 0.0,
+     "proc_ms_95": 0.0,
+     "pending": 0
+    },
+    "track": null,
+    "images": [
+     "/cam/left/image_raw",
+     "/cam/right/image_raw"
+    ],
+    "video_port": 8081
+   },
+   "rc": {
+    "ok": false,
+    "manual": false,
+    "ch": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "age": 0.0
+   },
+   "fw": {
+    "build": "90817150",
+    "protocol": 5
+   },
+   "wifi": null,
+   "sys": {
+    "load": 4.39,
+    "cpus": 28,
+    "temp_c": null
+   },
+   "consoles": 0,
+   "manual": {
+    "active": false,
+    "cmd": null
+   }
+  }
+ },
+ "switches": [
+  {
+   "mapping": true,
+   "command": [
+    true,
+    "Exploring",
+    {}
+   ],
+   "first": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 6 openings left, 34 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": 2.8689194628855144,
+     "y": -2.5817515559139084,
+     "yaw": -0.5880026035475675,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      3.2234071348758193,
+      -0.6883615338578783,
+      1.5442819397936054
+     ],
+     "info": {
+      "frontiers": 6,
+      "known_m2": 33.5
+     },
+     "failed": []
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723871.7230082,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.1,
+     "battery_pct": 99,
+     "battery_low": false,
+     "age": 0.0,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 0,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.0,
+     "vy": 0.0,
+     "wz": -0.001,
+     "slip": 0.0,
+     "roll": 0.01,
+     "pitch": 0.039,
+     "sync_rtt_ms": 1.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 57898,
+     "imus": 115798,
+     "cmds": 28949,
+     "errors": 0,
+     "rtt_ms": 1.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 2894,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 3.223,
+     "y": -0.688,
+     "yaw": 1.5419,
+     "t": 290.931
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.0
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 5.16,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "last": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 11 openings left, 82 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": 7.468919531430856,
+     "y": 1.7167794420359934,
+     "yaw": -0.6255918978811754,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      3.2234071348758193,
+      -0.6883615338578783,
+      1.5442819397936054
+     ],
+     "info": {
+      "frontiers": 11,
+      "known_m2": 82.4
+     },
+     "failed": []
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723881.7230194,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.04,
+     "battery_pct": 98,
+     "battery_low": false,
+     "age": 0.1,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 1,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.531,
+     "vy": 0.154,
+     "wz": 0.851,
+     "slip": 0.012,
+     "roll": 0.023,
+     "pitch": 0.006,
+     "sync_rtt_ms": 1.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 59498,
+     "imus": 118998,
+     "cmds": 29749,
+     "errors": 0,
+     "rtt_ms": 1.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 2974,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 4.91,
+     "y": -2.372,
+     "yaw": 0.8897,
+     "t": 298.291
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.1
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 4.6,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "restored": true
+  },
+  {
+   "mapping": true,
+   "command": [
+    true,
+    "Exploring",
+    {}
+   ],
+   "first": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 9 openings left, 42 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": 2.0415846245173723,
+     "y": -1.7663281944205949,
+     "yaw": 1.0735160918461335,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      4.911925383348468,
+      -2.257256098718894,
+      1.0735160918461335
+     ],
+     "info": {
+      "frontiers": 9,
+      "known_m2": 42.2
+     },
+     "failed": []
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723902.322867,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.06,
+     "battery_pct": 98,
+     "battery_low": false,
+     "age": 0.0,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 1,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.0,
+     "vy": 0.0,
+     "wz": 0.002,
+     "slip": 0.0,
+     "roll": 0.01,
+     "pitch": 0.003,
+     "sync_rtt_ms": 0.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 62898,
+     "imus": 125798,
+     "cmds": 31449,
+     "errors": 0,
+     "rtt_ms": 0.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 3144,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 4.912,
+     "y": -2.257,
+     "yaw": 1.0751,
+     "t": 315.0405
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.05
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 4.27,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "last": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 9 openings left, 75 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": 7.428250955093537,
+     "y": 2.133671863693934,
+     "yaw": -1.1381010661257676,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      4.911925383348468,
+      -2.257256098718894,
+      1.0735160918461335
+     ],
+     "info": {
+      "frontiers": 9,
+      "known_m2": 74.8
+     },
+     "failed": [
+      [
+       0.6547489758494063,
+       -4.46632823465373
+      ]
+     ]
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723912.3228314,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.01,
+     "battery_pct": 98,
+     "battery_low": false,
+     "age": 0.05,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 1,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.497,
+     "vy": -0.051,
+     "wz": -0.124,
+     "slip": 0.012,
+     "roll": -0.001,
+     "pitch": 0.002,
+     "sync_rtt_ms": 0.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 64298,
+     "imus": 128598,
+     "cmds": 32149,
+     "errors": 0,
+     "rtt_ms": 0.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 3214,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 5.203,
+     "y": -2.095,
+     "yaw": 1.1671,
+     "t": 322.6405
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.05
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 3.92,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "restored": true
+  },
+  {
+   "mapping": true,
+   "command": [
+    true,
+    "Exploring",
+    {}
+   ],
+   "first": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 13 openings left, 41 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": 2.301541694066989,
+     "y": -2.399907493671602,
+     "yaw": 1.1750858830693964,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      5.247107942332845,
+      -1.953242672041553,
+      1.1750858830693964
+     ],
+     "info": {
+      "frontiers": 13,
+      "known_m2": 41.3
+     },
+     "failed": []
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723933.7229197,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 25.03,
+     "battery_pct": 98,
+     "battery_low": false,
+     "age": 0.05,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 0,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.0,
+     "vy": 0.0,
+     "wz": -0.001,
+     "slip": 0.0,
+     "roll": 0.002,
+     "pitch": 0.0,
+     "sync_rtt_ms": 0.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 67898,
+     "imus": 135798,
+     "cmds": 33949,
+     "errors": 0,
+     "rtt_ms": 0.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 3394,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 5.247,
+     "y": -1.953,
+     "yaw": 1.1756,
+     "t": 340.1613
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.05
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 3.4,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "last": {
+    "mission": "EXPLORE",
+    "task": "Exploring: 6 openings left, 87 m\u00b2 mapped",
+    "progress": null,
+    "goal": {
+     "x": -1.5204391488868003,
+     "y": -4.482200297115621,
+     "yaw": -3.0846881623353344,
+     "name": "frontier"
+    },
+    "robot_mode": "TELEOP",
+    "kid": false,
+    "caps": {
+     "nav": true,
+     "catch": true,
+     "collision": true,
+     "arm": false
+    },
+    "version": "0.3.0",
+    "slam": {
+     "mode": "mapping",
+     "map": null,
+     "managed": true,
+     "maps": [
+      "house"
+     ],
+     "busy": false
+    },
+    "explore": {
+     "phase": "explore",
+     "start": [
+      5.247107942332845,
+      -1.953242672041553,
+      1.1750858830693964
+     ],
+     "info": {
+      "frontiers": 6,
+      "known_m2": 86.8
+     },
+     "failed": []
+    },
+    "patrol": null,
+    "thrower": null,
+    "follow": null,
+    "program": null,
+    "calib": null,
+    "slow": null,
+    "player": "Player 1",
+    "localization": null,
+    "arm": null,
+    "t": 1793723943.7229562,
+    "map": "_new",
+    "mcu": {
+     "mode": "AUTO",
+     "mode_hint": "Armed: the robot computer drives, within the firmware's limits.",
+     "profile": "adult",
+     "faults": [],
+     "v_bus": 24.97,
+     "battery_pct": 97,
+     "battery_low": false,
+     "age": 0.0,
+     "dm_err": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "fly_rpm": [
+      0,
+      0
+     ],
+     "tilt": 0.012,
+     "ball_held": true,
+     "drive_mode": 1,
+     "fly_target_rpm": 0.0,
+     "fly_ready": false,
+     "tilt_cmd": 0.0,
+     "feed_state": "IDLE",
+     "feed_exit_beam": false,
+     "fire_seq_done": 0,
+     "fire_rejected": 0,
+     "vx": 0.111,
+     "vy": -0.026,
+     "wz": 0.658,
+     "slip": 0.006,
+     "roll": 0.015,
+     "pitch": 0.002,
+     "sync_rtt_ms": 1.0
+    },
+    "link": {
+     "connected": true,
+     "port": "tcp:127.0.0.1:5761",
+     "states": 69298,
+     "imus": 138598,
+     "cmds": 34649,
+     "errors": 0,
+     "rtt_ms": 1.0,
+     "mode": "AUTO",
+     "faults": [],
+     "mcu_rx_errors": 0,
+     "infos": 3464,
+     "protocol": 5,
+     "protocol_host": 5,
+     "fw_build": "90817150"
+    },
+    "pose": {
+     "frame": "map",
+     "x": 2.943,
+     "y": -0.632,
+     "yaw": -3.0338,
+     "t": 347.841
+    },
+    "catch": {
+     "state": "wait",
+     "text": "Waiting for a throw",
+     "tosses": 0,
+     "catches": 0,
+     "rate": null,
+     "last": {},
+     "ball": null,
+     "target": null
+    },
+    "vision": {
+     "perception": {
+      "pairs": 0,
+      "detections": 0,
+      "stereo": 0,
+      "coarse": 0,
+      "tracking": false,
+      "proc_ms_median": 0.0,
+      "proc_ms_95": 0.0,
+      "pending": 0
+     },
+     "track": null,
+     "images": [
+      "/cam/left/image_raw",
+      "/cam/right/image_raw"
+     ],
+     "video_port": 8081
+    },
+    "rc": {
+     "ok": false,
+     "manual": false,
+     "ch": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "age": 0.05
+    },
+    "fw": {
+     "build": "90817150",
+     "protocol": 5
+    },
+    "wifi": null,
+    "sys": {
+     "load": 3.03,
+     "cpus": 28,
+     "temp_c": null
+    },
+    "consoles": 0,
+    "manual": {
+     "active": false,
+     "cmd": null
+    }
+   },
+   "restored": true
+  }
+ ],
+ "goal": {
+  "name": "after SLAM switching",
+  "goal": [
+   -3.0,
+   3.3
+  ],
+  "reached": true,
+  "timed_out": false,
+  "task": "Arrived at after SLAM switching",
+  "time_s": 13.5,
+  "err_m": 0.052,
+  "loc_err_m": 0.061,
+  "dist_m": 4.84,
+  "vmax": 1.0,
+  "end_wall": 1793723962.91111
+ }
+}

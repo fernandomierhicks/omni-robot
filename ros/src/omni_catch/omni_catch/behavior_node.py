@@ -17,6 +17,11 @@ Parameters (odom frame, the robot's own start pose is the origin):
            arena_cx, arena_cy, arena_hx, arena_hy   the play area (from the map)
            return_throws, kid, return_to ("thrower", or "other": the pass game between two people)
                                      (all three can change while the game runs: the operator console sets them)
+           sleep (true)              asleep outside CATCH (design.md 4.9)
+Asleep: /robot_mode (latched, from mode_manager) says a mode other than CATCH. The node then drops /mcu/state,
+/catch/track and the 100 Hz tick, so no /catch/cmd (mode_manager forwards it only in CATCH) and no /catch/target;
+/catch/status keeps its 2 Hz. Waking forgets the robot's last state, so a /catch/setup that comes with the mode change
+waits for a fresh one (its home is the robot's pose then). Until a /robot_mode arrives it is awake.
 /catch/status's `last` is the last throw's record: caught, the throw as tracked (release point, speed, apex, its path
 at 20 Hz), the robot's pose; the console's throw radar and logbook use it.
 """
@@ -68,16 +73,43 @@ class BehaviorNode(Node):
         self.p_cmd = self.create_publisher(McuCommand, "/catch/cmd", 10)
         self.p_status = self.create_publisher(CatchStatus, "/catch/status", 10)
         self.p_target = self.create_publisher(Marker, "/catch/target", 10)
-        self.create_subscription(BallTrack, "/catch/track", self.on_track, 20)
-        self.create_subscription(McuState, "/mcu/state", self.on_state, 50)
         latched = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
         self.p_field = self.create_publisher(String, "/catch/field", latched)
         self.create_subscription(String, "/catch/setup", self.on_setup, latched)
         self.setup_seq, self.pending_setup = None, None
         self.n_tick = 0
-        self.create_timer(0.01, self.tick)
+        self.sleep_outside = P("sleep", True).value
+        self.subs, self.t_tick = [], None
+        self.awake = False
+        self.wake()
+        self.create_subscription(String, "/robot_mode", self.on_mode, latched)
         self.create_timer(0.5, self.status)
         self.add_on_set_parameters_callback(self.on_params)
+
+    def on_mode(self, m: String):
+        if (m.data.split() or [""])[0].upper() == "CATCH" or not self.sleep_outside:
+            self.wake()
+        else:
+            self.sleep()
+
+    def wake(self):
+        if self.awake:
+            return
+        self.awake = True
+        self.rv, self.track = None, None
+        self.subs = [self.create_subscription(BallTrack, "/catch/track", self.on_track, 20),
+                     self.create_subscription(McuState, "/mcu/state", self.on_state, 50)]
+        self.t_tick = self.create_timer(0.01, self.tick)
+
+    def sleep(self):
+        if not self.awake:
+            return
+        self.awake = False
+        for s in self.subs:
+            self.destroy_subscription(s)
+        self.subs = []
+        self.destroy_timer(self.t_tick)
+        self.rv, self.track = None, None
 
     def on_params(self, params):
         for p in params:

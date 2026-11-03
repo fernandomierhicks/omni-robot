@@ -1,0 +1,75 @@
+{
+  "sketches": [
+    {
+      "name": "Screw Section",
+      "status": 3
+    },
+    {
+      "name": "Hex Drive Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 189.34257628346876,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"nominal_length\"= 25.0mm 'Screw length: under pan head or including flat head",
+    "\"model_shank_radius\"= 1.2mm 'Clearance envelope minor shank radius; thread is not modeled",
+    "\"head_diameter\"= 6.5mm 'Head outside diameter",
+    "\"head_height\"= 2.5mm 'Head axial height",
+    "\"drive_across_flats\"= 2mm 'Hex drive across flats",
+    "\"tip_chamfer\"= 0.3mm 'Shank tip chamfer",
+    "\"head_round\"= 0.625mm 'Pan head crown edge radius",
+    "\"drive_depth\"= 1.375mm 'Hex socket depth",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Screw Section\"= \"model_shank_radius\"",
+    "\"D2@Screw Section\"= \"head_diameter\" / 2",
+    "\"D3@Screw Section\"= \"nominal_length\"",
+    "\"D4@Screw Section\"= \"head_height\"",
+    "\"D5@Screw Section\"= \"axis_reference_halfspan\"",
+    "\"D6@Screw Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Screw Blank Revolve\"= \"full_turn\"",
+    "\"D1@Shank Tip Chamfer\"= \"tip_chamfer\"",
+    "\"D1@Pan Head Round\"= \"head_round\"",
+    "\"D1@Head Crown Plane\"= \"head_height\"",
+    "\"D1@Hex Drive Sketch\"= \"drive_across_flats\"",
+    "\"D1@Hex Drive Cut\"= \"drive_depth\""
+  ],
+  "design_features": [
+    {
+      "name": "Screw Blank Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Screw Blank Revolve"
+      ]
+    },
+    {
+      "name": "Shank Tip Chamfer",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Shank Tip Chamfer"
+      ]
+    },
+    {
+      "name": "Pan Head Round",
+      "type": "Fillet",
+      "dimensions": [
+        "D1@Pan Head Round"
+      ]
+    },
+    {
+      "name": "Hex Drive Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Hex Drive Cut"
+      ]
+    }
+  ],
+  "pass": true
+}

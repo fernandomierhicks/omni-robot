@@ -1,0 +1,947 @@
+[
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      52.0,
+      -5.2
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_1 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      30.5,
+      42.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_2 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -21.5,
+      47.6
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_3 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -52.0,
+      5.2
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_4 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      -30.5,
+      -42.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_5 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      -18.0,
+      21.5,
+      -47.6
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_6 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      32.9,
+      19.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      0.0,
+      38.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      -32.9,
+      19.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      -32.9,
+      -19.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      -0.0,
+      -38.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      -23.1,
+      32.9,
+      -19.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      47.6,
+      21.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_7 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      5.2,
+      52.0
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_8 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -42.5,
+      30.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_9 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -47.6,
+      -21.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_10 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      -5.2,
+      -52.0
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_11 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 50 PAN",
+    "group": "Hub_B",
+    "at": [
+      18.0,
+      42.5,
+      -30.5
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 2.4,
+    "into": [
+      "nut_M3_hex_12 2.4"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      19.0,
+      32.9
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      -19.0,
+      32.9
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      -38.0,
+      0.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      -19.0,
+      -32.9
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      19.0,
+      -32.9
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Hub_B",
+    "at": [
+      23.1,
+      38.0,
+      -0.0
+    ],
+    "printed_mm": 8.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_B 8.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -24.2,
+      11.7,
+      6.7
+    ],
+    "printed_mm": 6.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rotor 6.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -24.2,
+      -11.7,
+      6.7
+    ],
+    "printed_mm": 6.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rotor 6.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Hub_B",
+    "at": [
+      -24.2,
+      -0.0,
+      -13.5
+    ],
+    "printed_mm": 6.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rotor 6.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -42.2,
+      22.5,
+      13.0
+    ],
+    "printed_mm": 9.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_A 9.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -42.2,
+      -22.5,
+      13.0
+    ],
+    "printed_mm": 9.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_A 9.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Hub_B",
+    "at": [
+      -42.2,
+      -0.0,
+      -26.0
+    ],
+    "printed_mm": 9.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Hub_A 9.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      18.9,
+      23.5,
+      -0.0
+    ],
+    "printed_mm": 6.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rear_cover 6.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      18.9,
+      0.0,
+      23.5
+    ],
+    "printed_mm": 6.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rear_cover 6.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      18.9,
+      -23.5,
+      0.0
+    ],
+    "printed_mm": 6.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rear_cover 6.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M2.5 x 10 PAN",
+    "group": "Inner_fork",
+    "at": [
+      18.9,
+      -0.0,
+      -23.5
+    ],
+    "printed_mm": 6.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rear_cover 6.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      47.2,
+      6.5,
+      -0.0
+    ],
+    "printed_mm": 7.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_cup 7.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      47.2,
+      0.0,
+      6.5
+    ],
+    "printed_mm": 7.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_cup 7.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      47.2,
+      -6.5,
+      0.0
+    ],
+    "printed_mm": 7.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_cup 7.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Inner_fork",
+    "at": [
+      47.2,
+      -0.0,
+      -6.5
+    ],
+    "printed_mm": 7.9,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_cup 7.9"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 14 PAN",
+    "group": "Inner_fork",
+    "at": [
+      64.0,
+      30.0,
+      10.0
+    ],
+    "printed_mm": 7.0,
+    "metal_mm": 0.0,
+    "into": [
+      "Inner_fork 7.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 16 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -54.3,
+      36.0,
+      10.0
+    ],
+    "printed_mm": 9.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Outer_fork 9.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -43.5,
+      79.0,
+      -12.0
+    ],
+    "printed_mm": 7.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Outer_fork 7.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      -43.5,
+      79.0,
+      -24.0
+    ],
+    "printed_mm": 7.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Outer_fork 7.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      51.0,
+      79.0,
+      -12.0
+    ],
+    "printed_mm": 7.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Inner_fork 7.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 18 PAN",
+    "group": "Inner_fork",
+    "at": [
+      51.0,
+      79.0,
+      -24.0
+    ],
+    "printed_mm": 7.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Inner_fork 7.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 25 PAN",
+    "group": "Guard",
+    "at": [
+      40.2,
+      68.2,
+      50.1
+    ],
+    "printed_mm": 7.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 7.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 20 PAN",
+    "group": "Guard",
+    "at": [
+      64.8,
+      30.0,
+      58.3
+    ],
+    "printed_mm": 0.0,
+    "metal_mm": 4.0,
+    "into": [
+      "nut_M3_nyloc_1 4.0"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 16 PAN",
+    "group": "Guard",
+    "at": [
+      -54.7,
+      36.0,
+      58.0
+    ],
+    "printed_mm": 9.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 9.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -14.0,
+      87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      16.0,
+      87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -14.0,
+      -87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      16.0,
+      -87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      40.2,
+      87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 10 PAN",
+    "group": "Bench",
+    "at": [
+      -31.5,
+      87.5,
+      1.0
+    ],
+    "printed_mm": 6.7,
+    "metal_mm": 0.0,
+    "into": [
+      "Guard 6.7"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      86.0,
+      22.0,
+      1.7
+    ],
+    "printed_mm": 8.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Tower 8.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      86.0,
+      46.0,
+      1.7
+    ],
+    "printed_mm": 8.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Tower 8.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      90.0,
+      30.0,
+      1.7
+    ],
+    "printed_mm": 8.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Tower 8.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      97.0,
+      26.0,
+      1.7
+    ],
+    "printed_mm": 8.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Tower 8.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 PAN",
+    "group": "Bench",
+    "at": [
+      100.0,
+      33.5,
+      1.7
+    ],
+    "printed_mm": 8.6,
+    "metal_mm": 0.0,
+    "into": [
+      "Tower 8.6"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 FLAT",
+    "group": "Inner_fork",
+    "at": [
+      12.1,
+      16.5,
+      16.5
+    ],
+    "printed_mm": 8.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_case 8.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 FLAT",
+    "group": "Inner_fork",
+    "at": [
+      12.1,
+      16.5,
+      -16.5
+    ],
+    "printed_mm": 8.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_case 8.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 FLAT",
+    "group": "Inner_fork",
+    "at": [
+      12.1,
+      -16.5,
+      -16.5
+    ],
+    "printed_mm": 8.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_case 8.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 12 FLAT",
+    "group": "Inner_fork",
+    "at": [
+      12.1,
+      -16.5,
+      16.5
+    ],
+    "printed_mm": 8.5,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_case 8.5"
+    ],
+    "ok": true
+  },
+  {
+    "screw": "M3 x 8 PAN",
+    "group": "Hub_B",
+    "at": [
+      13.2,
+      0.0,
+      0.0
+    ],
+    "printed_mm": 6.8,
+    "metal_mm": 0.0,
+    "into": [
+      "Motor_rotor 6.8"
+    ],
+    "ok": true
+  }
+]

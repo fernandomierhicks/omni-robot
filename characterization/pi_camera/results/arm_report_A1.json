@@ -1,0 +1,447 @@
+{
+ "label": "A1 full arm robot d435 lean",
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "cores": 4,
+ "phases": {
+  "MANUAL": {
+   "seconds": 120,
+   "host_samples": 116,
+   "cpu_windows": 22,
+   "cpu_total_pct": {
+    "median": 96.2,
+    "p95": 98.8,
+    "max": 99.0
+   },
+   "busiest_core_pct": {
+    "median": 98.0,
+    "p95": 100.0
+   },
+   "cores_used_median": 3.85,
+   "mem_avail_mb_min": 2667,
+   "swap_mb_max": 0,
+   "temp_c_max": 40.894,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 92.0,
+    "arm_node": 54.5,
+    "pi_keepup.py": 48.1,
+    "ekf_node": 32.3,
+    "mission_node": 29.9,
+    "mcu_link": 22.9,
+    "sshd:": 21.3,
+    "scan_prep": 16.8,
+    "omni_face.display": 16.6,
+    "face_node": 11.4,
+    "localization_slam_toolbox_node": 11.4,
+    "mode_manager": 6.8,
+    "ros2 launch/daemon": 1.7,
+    "rosapi_node": 1.2,
+    "console_web": 0.7,
+    "image_preview": 0.6,
+    "rosbridge_websocket": 0.6
+   },
+   "robot_total_pct_of_one_core": 299.0,
+   "rss_mb": {
+    "arm_node": 96,
+    "component_container_isolated": 144,
+    "console_web": 76,
+    "ekf_node": 45,
+    "face_node": 76,
+    "image_preview": 76,
+    "localization_slam_toolbox_node": 77,
+    "mcu_link": 40,
+    "mission_node": 119,
+    "mode_manager": 38,
+    "omni_face.display": 68,
+    "pi_keepup.py": 81,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 85,
+    "rosbridge_websocket": 88,
+    "scan_prep": 39,
+    "sshd:": 37
+   },
+   "topics": {
+    "/scan": {
+     "hz": 6.9,
+     "gap_p99_ms": 302,
+     "gap_max_ms": 346
+    },
+    "/arm/state": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/mcu/state_10hz": {
+     "hz": 6.9,
+     "gap_p99_ms": 302,
+     "gap_max_ms": 354
+    },
+    "/mcu/link": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/catch/status": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/odometry/filtered": {
+     "hz": 69.5,
+     "gap_p99_ms": 113,
+     "gap_max_ms": 2057
+    },
+    "/cmd_vel": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/arm/joint_states": {
+     "hz": 28.2,
+     "gap_p99_ms": 94,
+     "gap_max_ms": 300
+    }
+   },
+   "outcome": {
+    "command": [
+     true,
+     "Driving by hand"
+    ],
+    "start": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": null,
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  },
+  "TIDY": {
+   "seconds": 120,
+   "host_samples": 117,
+   "cpu_windows": 23,
+   "cpu_total_pct": {
+    "median": 99.8,
+    "p95": 100.0,
+    "max": 100.0
+   },
+   "busiest_core_pct": {
+    "median": 100.0,
+    "p95": 100.0
+   },
+   "cores_used_median": 3.99,
+   "mem_avail_mb_min": 2646,
+   "swap_mb_max": 0,
+   "temp_c_max": 42.355,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "localization_slam_toolbox_node": 99.2,
+    "component_container_isolated": 73.9,
+    "pi_keepup.py": 29.4,
+    "arm_node": 29.0,
+    "mission_node": 25.8,
+    "ekf_node": 24.1,
+    "sshd:": 21.0,
+    "omni_face.display": 19.6,
+    "mcu_link": 18.9,
+    "scan_prep": 15.0,
+    "face_node": 12.1,
+    "mode_manager": 6.9,
+    "ros2 launch/daemon": 4.1,
+    "rosapi_node": 1.2,
+    "console_web": 0.8,
+    "image_preview": 0.6,
+    "rosbridge_websocket": 0.6
+   },
+   "robot_total_pct_of_one_core": 329.9,
+   "rss_mb": {
+    "arm_node": 118,
+    "component_container_isolated": 147,
+    "console_web": 76,
+    "ekf_node": 46,
+    "face_node": 76,
+    "image_preview": 76,
+    "localization_slam_toolbox_node": 78,
+    "mcu_link": 41,
+    "mission_node": 120,
+    "mode_manager": 38,
+    "omni_face.display": 73,
+    "pi_keepup.py": 82,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 85,
+    "rosbridge_websocket": 88,
+    "scan_prep": 39,
+    "sshd:": 37
+   },
+   "topics": {
+    "/scan": {
+     "hz": 6.4,
+     "gap_p99_ms": 327,
+     "gap_max_ms": 405
+    },
+    "/arm/state": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/mcu/state_10hz": {
+     "hz": 6.4,
+     "gap_p99_ms": 337,
+     "gap_max_ms": 414
+    },
+    "/mcu/link": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/catch/status": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/odometry/filtered": {
+     "hz": 37.8,
+     "gap_p99_ms": 236,
+     "gap_max_ms": 444
+    },
+    "/cmd_vel": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/arm/joint_states": {
+     "hz": 13.1,
+     "gap_p99_ms": 203,
+     "gap_max_ms": 296
+    }
+   },
+   "outcome": {
+    "command": [
+     true,
+     "Tidying up: looking for things on the floor"
+    ],
+    "start": {
+     "mission": "TIDY",
+     "patrol": null
+    },
+    "end": {
+     "mission": "TIDY",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": true,
+     "tidy": {
+      "state": "APPROACH",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 2,
+      "target": {
+       "id": 1,
+       "x": 1.014,
+       "y": 0.373,
+       "size": [
+        0.044,
+        0.038
+       ]
+      },
+      "tries": 0,
+      "reason": ""
+     },
+     "source": "tidy",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": true,
+     "tidy": {
+      "state": "APPROACH",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 2,
+      "target": {
+       "id": 1,
+       "x": 1.014,
+       "y": 0.373,
+       "size": [
+        0.044,
+        0.038
+       ]
+      },
+      "tries": 0,
+      "reason": ""
+     },
+     "source": "tidy",
+     "pose": null,
+     "out": false
+    }
+   }
+  },
+  "PATROL": {
+   "seconds": 120,
+   "host_samples": 117,
+   "cpu_windows": 23,
+   "cpu_total_pct": {
+    "median": 99.5,
+    "p95": 100.0,
+    "max": 100.0
+   },
+   "busiest_core_pct": {
+    "median": 100.0,
+    "p95": 100.0
+   },
+   "cores_used_median": 3.98,
+   "mem_avail_mb_min": 2632,
+   "swap_mb_max": 0,
+   "temp_c_max": 43.329,
+   "freq_mhz_min": 1800.0,
+   "throttled_hex": "0x0",
+   "groups_pct_of_one_core": {
+    "component_container_isolated": 104.5,
+    "arm_node": 36.6,
+    "mission_node": 36.5,
+    "pi_keepup.py": 36.2,
+    "ekf_node": 32.1,
+    "sshd:": 20.6,
+    "localization_slam_toolbox_node": 19.6,
+    "mcu_link": 19.2,
+    "omni_face.display": 17.4,
+    "scan_prep": 17.1,
+    "face_node": 13.2,
+    "mode_manager": 6.4,
+    "ros2 launch/daemon": 4.1,
+    "rosapi_node": 1.2,
+    "console_web": 0.6,
+    "image_preview": 0.6,
+    "rosbridge_websocket": 0.6
+   },
+   "robot_total_pct_of_one_core": 321.8,
+   "rss_mb": {
+    "arm_node": 119,
+    "component_container_isolated": 156,
+    "console_web": 76,
+    "ekf_node": 46,
+    "face_node": 76,
+    "image_preview": 76,
+    "localization_slam_toolbox_node": 78,
+    "mcu_link": 41,
+    "mission_node": 120,
+    "mode_manager": 38,
+    "omni_face.display": 74,
+    "pi_keepup.py": 84,
+    "ros2 launch/daemon": 163,
+    "rosapi_node": 85,
+    "rosbridge_websocket": 88,
+    "scan_prep": 40,
+    "sshd:": 37
+   },
+   "topics": {
+    "/scan": {
+     "hz": 6.9,
+     "gap_p99_ms": 302,
+     "gap_max_ms": 318
+    },
+    "/arm/state": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/mcu/state_10hz": {
+     "hz": 6.9,
+     "gap_p99_ms": 312,
+     "gap_max_ms": 329
+    },
+    "/mcu/link": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/catch/status": {
+     "hz": 0.0,
+     "messages": 0
+    },
+    "/odometry/filtered": {
+     "hz": 54.9,
+     "gap_p99_ms": 109,
+     "gap_max_ms": 236
+    },
+    "/cmd_vel": {
+     "hz": 44.7,
+     "gap_p99_ms": 66,
+     "gap_max_ms": 66
+    },
+    "/arm/joint_states": {
+     "hz": 19.1,
+     "gap_p99_ms": 135,
+     "gap_max_ms": 313
+    }
+   },
+   "outcome": {
+    "command": [
+     true,
+     "Patrolling 'mode load'"
+    ],
+    "start": {
+     "mission": "PATROL",
+     "patrol": {
+      "route": "mode load",
+      "i": 0,
+      "n": 8,
+      "lap": 1,
+      "laps": 0
+     }
+    },
+    "end": {
+     "mission": "MANUAL",
+     "patrol": null
+    },
+    "arm_start": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": {
+      "state": "DONE",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 2,
+      "target": null,
+      "tries": 0,
+      "reason": "stopped"
+     },
+     "source": "hold",
+     "pose": null,
+     "out": false
+    },
+    "arm_end": {
+     "connected": true,
+     "tidy_on": false,
+     "tidy": {
+      "state": "DONE",
+      "picked": 0,
+      "failed": 0,
+      "skipped": 0,
+      "known": 2,
+      "target": null,
+      "tries": 0,
+      "reason": "stopped"
+     },
+     "source": "hold",
+     "pose": null,
+     "out": false
+    }
+   }
+  }
+ }
+}

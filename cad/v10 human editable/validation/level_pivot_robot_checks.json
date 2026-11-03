@@ -1,0 +1,1315 @@
+{
+  "bumps_mm": [
+    -3.0,
+    0.0,
+    7.5,
+    15.0
+  ],
+  "clashes": [
+    {
+      "pod": "FL",
+      "part": "Guard",
+      "base": "lidar_riser#1",
+      "mm3": 1260.892
+    },
+    {
+      "pod": "FL",
+      "part": "Guard",
+      "base": "bumper_lobe#2",
+      "mm3": 52.308
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "deck_front#1",
+      "mm3": 644.6
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "lidar_riser#1",
+      "mm3": 3.979
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "deck_front#1",
+      "mm3": 647.486
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "lidar_riser#1",
+      "mm3": 10.736
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "deck_front#1",
+      "mm3": 629.413
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "lidar_riser#1",
+      "mm3": 13.529
+    },
+    {
+      "pod": "FL",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "deck_front#1",
+      "mm3": 574.629
+    },
+    {
+      "pod": "RL",
+      "part": "Guard",
+      "base": "bumper_lobe#2",
+      "mm3": 52.308
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "deck_rear#1",
+      "mm3": 644.6
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "standoff#3",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "deck_rear#1",
+      "mm3": 647.486
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "standoff#3",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "deck_rear#1",
+      "mm3": 629.413
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "standoff#3",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "deck_rear#1",
+      "mm3": 574.629
+    },
+    {
+      "pod": "RL",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "standoff#3",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RR",
+      "part": "Guard",
+      "base": "bumper_lobe#3",
+      "mm3": 52.308
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "deck_rear#1",
+      "mm3": 644.6
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "standoff#4",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "deck_rear#1",
+      "mm3": 647.486
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "standoff#4",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "deck_rear#1",
+      "mm3": 629.413
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "standoff#4",
+      "mm3": 33.383
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "deck_rear#1",
+      "mm3": 574.629
+    },
+    {
+      "pod": "RR",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "standoff#4",
+      "mm3": 33.383
+    },
+    {
+      "pod": "FR",
+      "part": "Guard",
+      "base": "lidar_riser#1",
+      "mm3": 1260.892
+    },
+    {
+      "pod": "FR",
+      "part": "Guard",
+      "base": "bumper_lobe#3",
+      "mm3": 52.308
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "deck_front#1",
+      "mm3": 644.6
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": -3.0,
+      "base": "lidar_riser#1",
+      "mm3": 3.979
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "deck_front#1",
+      "mm3": 647.486
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": 0.0,
+      "base": "lidar_riser#1",
+      "mm3": 10.736
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "deck_front#1",
+      "mm3": 629.413
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": 7.5,
+      "base": "lidar_riser#1",
+      "mm3": 13.529
+    },
+    {
+      "pod": "FR",
+      "part": "wheel envelope",
+      "bump": 15.0,
+      "base": "deck_front#1",
+      "mm3": 574.629
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        -3.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        -3.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        -3.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        -3.0,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        0.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        0.0,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        7.5,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        7.5,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        7.5,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        7.5,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        15.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        15.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        15.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "FL",
+        "RL"
+      ],
+      "bumps": [
+        15.0,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        -3.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        -3.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        -3.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        -3.0,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        0.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        0.0,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        7.5,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        7.5,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        7.5,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        7.5,
+        15.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        15.0,
+        -3.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        15.0,
+        0.0
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        15.0,
+        7.5
+      ]
+    },
+    {
+      "pods": [
+        "RR",
+        "FR"
+      ],
+      "bumps": [
+        15.0,
+        15.0
+      ]
+    }
+  ],
+  "min_clearance": {
+    "pod fixed parts vs base (Pivot_shaft)": 4.3,
+    "pod fixed parts vs base (Inner_pivot_spacer)": 7.782,
+    "pod fixed parts vs base (Outer_pivot_spacer)": 3.4,
+    "pod fixed parts vs base (bolt_M3_16_PAN_3)": 8.275,
+    "pod fixed parts vs base (Inner_shock_rod)": 17.779,
+    "pod fixed parts vs base (Outer_shock_rod)": 13.411,
+    "pod fixed parts vs base (bolt_M3_20_PAN_1)": 24.589,
+    "pod fixed parts vs base (nut_M3_nyloc_1)": 22.893,
+    "pod fixed parts vs base (bolt_M3_16_PAN_2)": 33.01,
+    "pod fixed parts vs base (Guard)": 0.0,
+    "pod fixed parts vs base (Tower)": 0.962,
+    "pod moving parts vs base (Inner_fork)": 1.0,
+    "pod moving parts vs base (Outer_fork)": 1.0,
+    "pod moving parts vs base (Fork_bar)": 6.783,
+    "pod moving parts vs base (Motor_cup)": 20.373,
+    "pod moving parts vs base (bearing_627_1)": 4.0,
+    "pod moving parts vs base (bearing_627_2)": 2.0,
+    "pod moving parts vs base (Inner_shock_case)": 2.37,
+    "pod moving parts vs base (Outer_shock_case)": 7.057,
+    "pod moving parts vs base (bolt_M3_18_PAN_13)": 6.282,
+    "pod moving parts vs base (bolt_M3_18_PAN_14)": 8.307,
+    "pod moving parts vs base (bolt_M3_18_PAN_15)": 11.313,
+    "pod moving parts vs base (bolt_M3_18_PAN_16)": 22.73,
+    "pod moving parts vs base (bolt_M3_14_PAN_1)": 3.12,
+    "pod moving parts vs base (washer_M3_1)": 2.87,
+    "pod moving parts vs base (bolt_M3_16_PAN_1)": 6.862,
+    "pod moving parts vs base (wheel envelope)": 0.0,
+    "pod FL vs pod RL": 0.0,
+    "pod RR vs pod FR": 0.0,
+    "pod FL vs pod FR": 99.0,
+    "pod RL vs pod RR": 99.0
+  },
+  "screws": [
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        46.32,
+        179.96,
+        67.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        25.1,
+        158.75,
+        67.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        175.01,
+        51.27,
+        67.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        15.2,
+        148.85,
+        67.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        58.69,
+        192.33,
+        67.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -46.32,
+        179.96,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -25.1,
+        158.75,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -175.01,
+        51.27,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -153.8,
+        30.05,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -15.2,
+        148.85,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -58.69,
+        192.33,
+        67.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -46.32,
+        -179.96,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -25.1,
+        -158.75,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -175.01,
+        -51.27,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -153.8,
+        -30.05,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -15.2,
+        -148.85,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -58.69,
+        -192.33,
+        67.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        46.32,
+        -179.96,
+        67.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        25.1,
+        -158.75,
+        67.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        175.01,
+        -51.27,
+        67.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        15.2,
+        -148.85,
+        67.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 14 PAN",
+      "product": "M3_x_14_PAN",
+      "at": [
+        58.69,
+        -192.33,
+        67.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.5,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        155.42,
+        155.42,
+        55.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        155.42,
+        155.42,
+        85.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        194.07,
+        103.19,
+        80.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        194.07,
+        103.19,
+        88.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        103.19,
+        194.07,
+        80.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        103.19,
+        194.07,
+        88.0
+      ],
+      "into": "guard FL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -155.42,
+        155.42,
+        55.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -155.42,
+        155.42,
+        85.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -103.19,
+        194.07,
+        80.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -103.19,
+        194.07,
+        88.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -194.07,
+        103.19,
+        80.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -194.07,
+        103.19,
+        88.0
+      ],
+      "into": "guard RL",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -155.42,
+        -155.42,
+        55.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -155.42,
+        -155.42,
+        85.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -194.07,
+        -103.19,
+        80.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -194.07,
+        -103.19,
+        88.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -103.19,
+        -194.07,
+        80.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        -103.19,
+        -194.07,
+        88.0
+      ],
+      "into": "guard RR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        155.42,
+        -155.42,
+        55.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        155.42,
+        -155.42,
+        85.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        103.19,
+        -194.07,
+        80.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        103.19,
+        -194.07,
+        88.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        194.07,
+        -103.19,
+        80.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "M3 x 10 PAN",
+      "product": "M3_x_10_PAN",
+      "at": [
+        194.07,
+        -103.19,
+        88.0
+      ],
+      "into": "guard FR",
+      "engagement_mm": 7.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw left 1",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -6.0,
+        94.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw left 2",
+      "product": "M3_x_14_PAN",
+      "at": [
+        6.0,
+        94.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw left 3",
+      "product": "M3_x_14_PAN",
+      "at": [
+        0.0,
+        161.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw left 4",
+      "product": "M3_x_14_PAN",
+      "at": [
+        0.0,
+        167.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw right 1",
+      "product": "M3_x_14_PAN",
+      "at": [
+        6.0,
+        -94.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw right 2",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -6.0,
+        -94.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw right 3",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -0.0,
+        -161.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    },
+    {
+      "screw": "deck bridge screw right 4",
+      "product": "M3_x_14_PAN",
+      "at": [
+        -0.0,
+        -167.0,
+        67.0
+      ],
+      "into": "bridge",
+      "engagement_mm": 8.0,
+      "shank_in_clearance_part_mm3": 0.0,
+      "ok": true
+    }
+  ],
+  "clash_count": 68,
+  "screws_ok": true
+}

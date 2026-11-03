@@ -1,0 +1,18 @@
+# CubeMars AK40-10 V3.0 KV170 at 24 V DC: maker torque-speed chart ("AK40-10 KV170@24VDC"), supplied by Fernando
+# Nov 1 2026 (screenshot of the maker's performance curve). Digitized by hand from the image (Claude, Nov 1 2026):
+# read accuracy about +-5 rpm, +-0.1 A, +-2 %, +-2 W. current_A is the DC supply current (it matches
+# power / (24 V x efficiency) within the read accuracy). torque is at the output shaft. Not a bench measurement.
+torque_Nm,speed_rpm,current_A,efficiency_pct,power_W
+0.00,450,0.35,,0
+0.27,441,0.88,68,
+0.60,420,1.42,81,26
+0.90,398,1.95,80.5,
+1.30,373,2.75,78,51
+1.50,362,3.15,77,
+1.75,347,3.60,74,63
+2.20,322,4.35,70,
+2.60,300,5.05,66,82
+3.10,262,5.90,58,88
+3.40,240,6.40,53,89
+3.60,218,6.70,49,86
+4.08,170,7.30,39,72

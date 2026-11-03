@@ -1,0 +1,319 @@
+{
+  "datasheet": "https://realsenseai.com/wp-content/uploads/2025/08/Intel-RealSense-D400-Series-Datasheet-August-2025.pdf",
+  "calibration_source": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\characterization\\realsense\\results\\info_827312072573_20261029_185516.json",
+  "sensors": [
+    {
+      "name": "IR_left",
+      "source_pose": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          17.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -4.2
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fov_deg": [
+        90.1,
+        64.1
+      ],
+      "guard_fov_deg": [
+        94,
+        68
+      ],
+      "colour": [
+        0.0,
+        0.75,
+        1.0
+      ]
+    },
+    {
+      "name": "IR_right",
+      "source_pose": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -32.34968528151512
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -4.2
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fov_deg": [
+        90.1,
+        64.1
+      ],
+      "guard_fov_deg": [
+        94,
+        68
+      ],
+      "colour": [
+        0.8,
+        0.2,
+        1.0
+      ]
+    },
+    {
+      "name": "RGB",
+      "source_pose": [
+        [
+          -0.9999070774603868,
+          -0.013609567981551642,
+          0.0007467248889097967,
+          32.49990692253128
+        ],
+        [
+          0.013610771031304677,
+          -0.9999060163130145,
+          0.0016305457056841857,
+          0.31930745978527453
+        ],
+        [
+          0.0007244637464791082,
+          0.0016405577097113146,
+          0.9999983930454098,
+          -4.406657769428056
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fov_deg": [
+        69,
+        42
+      ],
+      "guard_fov_deg": [
+        73,
+        46
+      ],
+      "colour": [
+        1.0,
+        0.45,
+        0.05
+      ]
+    },
+    {
+      "name": "IR_projector",
+      "source_pose": [
+        [
+          -1.0,
+          0.0,
+          0.0,
+          -11.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -4.2
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fov_deg": [
+        90,
+        63
+      ],
+      "guard_fov_deg": [
+        94,
+        67
+      ],
+      "colour": [
+        1.0,
+        0.85,
+        0.0
+      ]
+    }
+  ],
+  "old_mount_occlusions": {
+    "IR_left": [
+      "deck_front#1",
+      "bumper_lobe#1",
+      "M3 x 10 PAN"
+    ],
+    "IR_right": [
+      "deck_front#1",
+      "bumper_lobe#1",
+      "M3 x 10 PAN"
+    ],
+    "RGB": [
+      "bumper_lobe#1"
+    ],
+    "IR_projector": [
+      "deck_front#1",
+      "bumper_lobe#1",
+      "M3 x 10 PAN"
+    ]
+  },
+  "trials": [
+    {
+      "local_x": 32,
+      "local_z": 16,
+      "centre": [
+        189.79802393479193,
+        0.0,
+        191.6875075799344
+      ],
+      "clearance": 4.120032520938679,
+      "hits": {
+        "IR_left": [
+          "bumper_lobe#1"
+        ],
+        "IR_right": [
+          "bumper_lobe#1"
+        ],
+        "RGB": [],
+        "IR_projector": [
+          "bumper_lobe#1"
+        ]
+      }
+    },
+    {
+      "local_x": 38,
+      "local_z": 16,
+      "centre": [
+        194.3942905935058,
+        0.0,
+        187.83078192181515
+      ],
+      "clearance": 7.976758179057954,
+      "hits": {
+        "IR_left": [
+          "bumper_lobe#1"
+        ],
+        "IR_right": [
+          "bumper_lobe#1"
+        ],
+        "RGB": [],
+        "IR_projector": []
+      }
+    },
+    {
+      "local_x": 44,
+      "local_z": 8,
+      "centre": [
+        193.84825637472733,
+        0.0,
+        177.8457007187441
+      ],
+      "clearance": 3.607901700813915,
+      "hits": {
+        "IR_left": [
+          "bumper_lobe#1"
+        ],
+        "IR_right": [
+          "bumper_lobe#1"
+        ],
+        "RGB": [],
+        "IR_projector": [
+          "bumper_lobe#1"
+        ]
+      }
+    },
+    {
+      "local_x": 44,
+      "local_z": 16,
+      "centre": [
+        198.99055725221967,
+        0.0,
+        183.97405626369593
+      ],
+      "clearance": 11.259984828428928,
+      "hits": {
+        "IR_left": [],
+        "IR_right": [],
+        "RGB": [],
+        "IR_projector": []
+      }
+    }
+  ],
+  "chosen": {
+    "local_x": 44,
+    "local_z": 16,
+    "centre": [
+      198.99055725221967,
+      0.0,
+      183.97405626369593
+    ],
+    "clearance": 11.259984828428928,
+    "hits": {
+      "IR_left": [],
+      "IR_right": [],
+      "RGB": [],
+      "IR_projector": []
+    },
+    "camera_source_to_robot": [
+      [
+        0.0,
+        0.6427876096865393,
+        0.766044443118978,
+        208.5661127912069
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.766044443118978,
+        -0.6427876096865393,
+        175.9392111426142
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "method": "Full triangle/frustum clipping. 0.15 mm tessellation; enlarged sensor guard fields plus 1 mm plane margin. Near 5 mm after pupils; far 1500 mm."
+}

@@ -1,0 +1,189 @@
+{
+ "session": "C:\\Users\\ferna\\throw_data\\20261030_160941_bucket5",
+ "cfg": {
+  "ball_radius": 0.08034539414636606,
+  "zmin": 0.25,
+  "zmax": 9.0,
+  "depth_gap": 0.25,
+  "min_area": 5,
+  "ratio_lo": 0.3,
+  "ratio_hi": 3.0,
+  "elong_max": 3.0,
+  "ir_thr": 35.0,
+  "ir_min_area": 4,
+  "ir_max_r": 100.0,
+  "row_tol": 1.5,
+  "d_min": 1.0,
+  "d_max": 80.0,
+  "r_tol": 0.5,
+  "a_lo": 6.0,
+  "a_hi": 14.0,
+  "inlier_m": 0.1,
+  "ransac_iters": 400,
+  "min_inliers": 8,
+  "min_span_s": 0.15,
+  "min_density": 0.35,
+  "min_speed": 1.0,
+  "drag": true,
+  "sigma0": 0.004,
+  "sigma_z2": 0.001,
+  "ball": {
+   "mass": 0.073,
+   "radius": 0.08034539414636606,
+   "drag_cd": 0.5,
+   "air_density": 1.204,
+   "air_viscosity": 1.8e-05
+  },
+  "bg_s": 0.25,
+  "seed": 1
+ },
+ "bg": "throw",
+ "bucket": "bucket.json",
+ "throws": [
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_160941_bucket5\\t001",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 261,
+     "candidates": 11121,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 261,
+     "candidates": 130,
+     "ok": true,
+     "detections": 12,
+     "detection_rate": 0.24,
+     "first_t": 1.824963072,
+     "last_t": 2.3702146560000004,
+     "first_range_m": 3.408110995335147,
+     "last_range_m": 3.020544336988301,
+     "rms_m": 0.045069098325718225,
+     "speed_mps": 1.918311684995456,
+     "a_norm": 10.032264965760318,
+     "a_vs_gravity_pct": 2.2656979180460453,
+     "drag_arc": true,
+     "up_in_camera": [
+      0.33659057869388176,
+      -1.267700240171127e-07,
+      0.9416510937361576
+     ]
+    }
+   },
+   "colour": {
+    "frames": 172,
+    "frames_with_a_blob": 172,
+    "projected": false
+   },
+   "name": "t001",
+   "prediction": {
+    "ir_stereo": {
+     "ok": true,
+     "reference": {
+      "verdict": "out",
+      "in_rim": false,
+      "radial_m": 3.4557577007351417,
+      "margin_m": 3.3135177007351415,
+      "t_cross": 2.4520061894881864,
+      "last_detection": 2.3702146560000004,
+      "extrapolated_s": 0.08179153348818602,
+      "position_cam": [
+       -0.8735388733587974,
+       1.3150360082038408,
+       2.9118591799916156
+      ],
+      "rms_m": 0.13779061411025229
+     },
+     "series": [
+      {
+       "t": 2.2033021440000002,
+       "n": 6,
+       "ttg": 0.24870404548818614,
+       "t_cross": 2.4134073185035905,
+       "radial_m": 3.731713142785435,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.3509030310053898
+      },
+      {
+       "t": 2.214429184,
+       "n": 7,
+       "ttg": 0.23757700548818628,
+       "t_cross": 2.4175131074443486,
+       "radial_m": 3.6938290382464825,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.3122526263663688
+      },
+      {
+       "t": 2.28119424,
+       "n": 8,
+       "ttg": 0.17081194948818634,
+       "t_cross": 2.4210808094457574,
+       "radial_m": 3.6390858661590504,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.24779465239668552
+      },
+      {
+       "t": 2.3034498560000003,
+       "n": 9,
+       "ttg": 0.1485563334881861,
+       "t_cross": 2.4255938018977026,
+       "radial_m": 3.5892102257640524,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.18391602084015096
+      },
+      {
+       "t": 2.314576896,
+       "n": 10,
+       "ttg": 0.13742929348818622,
+       "t_cross": 2.4371436658978287,
+       "radial_m": 3.5366631519926464,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.11152891636377937
+      },
+      {
+       "t": 2.3590863360000003,
+       "n": 11,
+       "ttg": 0.0929198534881861,
+       "t_cross": 2.4449513891949324,
+       "radial_m": 3.4961308446335475,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 0.05373761964805957
+      },
+      {
+       "t": 2.3702146560000004,
+       "n": 12,
+       "ttg": 0.08179153348818602,
+       "t_cross": 2.452006992887055,
+       "radial_m": 3.4557573352329425,
+       "in_rim": false,
+       "verdict": "out",
+       "error_m": 1.2867184547265022e-06
+      }
+     ],
+     "first_prediction_ttg": 0.24870404548818614,
+     "always_correct": true,
+     "settled": true,
+     "time_to_correct_ttg": 0.24870404548818614,
+     "time_to_correct_t": 2.2033021440000002,
+     "wrong_predictions": 0,
+     "ambiguous": false
+    }
+   },
+   "plot": "rs_20261030_160941_bucket5_t001.png"
+  }
+ ]
+}

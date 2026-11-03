@@ -1,0 +1,2903 @@
+{
+  "tools": [
+    {
+      "part": "bench_plate",
+      "feature": "0012_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0015_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0018_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0021_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0024_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0027_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0030_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0033_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0036_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0039_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0042_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0045_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0048_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0051_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0054_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0057_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0060_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0063_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0066_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0069_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0072_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "bench_plate",
+      "feature": "0075_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0017_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 3.872457909892546e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0020_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 3.872457909892546e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0023_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0026_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0029_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0032_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0035_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0038_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0041_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 1.43895998899814e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0044_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0047_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 4.3168799669944195e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_case",
+      "feature": "0050_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 2.87791997799628e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0011_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 3.872457909892546e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0014_cone",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 4.369837824924616e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0017_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0020_cone",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 4.405364961712621e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0023_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0026_cone",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 4.405364961712621e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0029_cylinder",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0032_cone",
+      "pattern": "Motor_cover",
+      "max_position_error_mm": 4.440892098500626e-13,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0035_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 1.43895998899814e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0038_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 1.43895998899814e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0041_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0044_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0047_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 4.3168799669944195e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0050_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 4.3168799669944195e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0053_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 2.87791997799628e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rear_cap",
+      "feature": "0056_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 2.87791997799628e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0052_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 8.881784197001252e-16,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0055_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0058_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 8.881784197001252e-16,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0061_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0064_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 2.4799097682733903e-15,
+      "pass": true
+    },
+    {
+      "part": "dummy_motor_rotor",
+      "feature": "0067_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 2.4799097682733903e-15,
+      "pass": true
+    },
+    {
+      "part": "fork_bar",
+      "feature": "0001_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "fork_bar",
+      "feature": "0004_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "fork_bar",
+      "feature": "0007_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "fork_bar",
+      "feature": "0010_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0068_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 6.217248937900877e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0070_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 6.217248937900877e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0074_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0076_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0080_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0082_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0086_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0088_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0099_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0102_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0106_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0111_cylinder",
+      "pattern": "Shock_Inner_lower",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0115_cylinder",
+      "pattern": "Shock_Inner_lower",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0119_revolve",
+      "pattern": "Shock_Inner_lower",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0131_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0133_cone",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0138_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "inner_fork_6804",
+      "feature": "0140_cone",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0011_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0015_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0019_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0023_cylinder",
+      "pattern": "Motor_rear",
+      "max_position_error_mm": 4.31687996699442e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0031_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 6.217248937900877e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0035_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0039_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "motor_cup",
+      "feature": "0043_cylinder",
+      "pattern": "Cradle_to_fork",
+      "max_position_error_mm": 1.7763568394002505e-15,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0183_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0186_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0190_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0195_cylinder",
+      "pattern": "Shock_Outer_lower",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0199_cylinder",
+      "pattern": "Shock_Outer_lower",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0203_revolve",
+      "pattern": "Shock_Outer_lower",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0206_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0208_cone",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0213_cylinder",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "outer_fork_6804",
+      "feature": "0215_cone",
+      "pattern": "Fork_bar",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "pivot_shaft",
+      "feature": "0222_cylinder",
+      "pattern": "Shaft_pin",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0066_cylinder",
+      "pattern": "Shock_Inner_upper",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0070_revolve",
+      "pattern": "Shock_Inner_upper",
+      "max_position_error_mm": 4.263256414560601e-14,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0087_cylinder",
+      "pattern": "Shock_Inner_upper",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0091_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0093_cone",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0098_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0100_cone",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0105_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0107_cone",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0112_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0114_cone",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0119_cylinder",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "pod_mount",
+      "feature": "0121_cone",
+      "pattern": "Tower_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_cartridge",
+      "feature": "0046_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_cartridge",
+      "feature": "0050_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_cartridge",
+      "feature": "0054_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0019_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0023_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0027_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0037_cylinder",
+      "pattern": "Pivot",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0041_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0045_cone",
+      "pattern": "Pivot",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0049_cylinder",
+      "pattern": "Shaft_pin",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0053_cylinder",
+      "pattern": "Shaft_pin",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0073_cylinder",
+      "pattern": "Shock_Outer_upper",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0077_cylinder",
+      "pattern": "Shock_Outer_upper",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0127_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0131_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0135_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0139_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0143_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_guard",
+      "feature": "0147_cylinder",
+      "pattern": "Guard_feet",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0040_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0044_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0047_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0051_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0054_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0058_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0061_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0065_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0068_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0072_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0075_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0079_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.263256414560601e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0082_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0086_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0090_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0094_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0098_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0102_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0106_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0110_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0114_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0118_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0122_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0126_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0130_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0133_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0136_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0139_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2997709575301997e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0142_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0147_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0150_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0153_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0156_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0161_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0164_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0167_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092870583255717e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0170_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0175_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0178_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0181_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2997709575301997e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0184_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0189_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0192_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0195_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0198_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0203_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0206_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0209_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0212_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0234_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0238_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0242_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0246_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0250_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0254_cylinder",
+      "pattern": "Bearing_cartridge",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0258_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0262_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0266_cylinder",
+      "pattern": "Motor_output",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0270_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0272_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0276_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0278_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0283_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0285_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0290_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0292_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0297_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0299_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0304_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0306_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "0313_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve8",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve9",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve10",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve11",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve12",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve14",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve15",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve16",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve17",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_A",
+      "feature": "Revolve18",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0373_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0377_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0380_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0384_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0387_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0391_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0394_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0398_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0401_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0405_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0408_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.7763568394002505e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0412_revolve",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 4.263256414560601e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0415_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0419_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0423_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0427_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0431_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0435_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0439_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0443_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0447_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0451_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0455_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0459_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0130_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0465_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0468_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0471_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2997709575301997e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0474_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0479_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0482_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0485_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0488_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0493_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0496_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0499_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092870583255717e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0502_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0507_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0510_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0513_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2997709575301997e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0516_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0521_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0524_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0527_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0530_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0535_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0538_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0541_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0544_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0586_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0590_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0593_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0597_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0600_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0604_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0607_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0611_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.263256414560601e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0614_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0618_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0621_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 9.307315673519885e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0625_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0628_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0632_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0636_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0640_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0644_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0648_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0652_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0656_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0660_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0664_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0668_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0672_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0678_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0681_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0684_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0687_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0692_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0695_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0698_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2998846443679213e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0701_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0706_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0709_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0712_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0715_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0720_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0723_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0726_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0729_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0734_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0737_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0740_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2998846443679213e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0743_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0748_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0751_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0754_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0757_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0764_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0767_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0771_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0775_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0779_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0783_cylinder",
+      "pattern": "Hub_joint_row_1",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0788_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0791_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0795_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0799_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0803_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0807_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 9.307315673519885e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "0313_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve8",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve9",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve10",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve11",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve12",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve19",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve20",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve21",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve22",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve23",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve24",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve26",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve27",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve28",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve29",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve30",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve31",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve32",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve33",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve34",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve35",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_B",
+      "feature": "Revolve36",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0877_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0881_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0884_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0888_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.121147867408581e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0891_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0895_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0898_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0902_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.263256414560601e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0905_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0909_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 4.192202140984591e-13,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0912_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 9.307315673519885e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0916_revolve",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0919_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0923_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0927_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0931_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0935_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0939_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0943_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0947_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0951_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0955_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0959_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0963_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0130_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0969_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0972_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0975_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0978_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0983_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0986_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0989_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2998846443679213e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0992_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0997_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1000_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1003_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1006_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1011_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1014_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1017_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1020_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1025_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1028_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.552713678800501e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1031_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.2998846443679213e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1034_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1039_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1042_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1045_extrude",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093083746076445e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1048_cylinder",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 1.0658141036401503e-14,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1070_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1072_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1076_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1078_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1083_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1085_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1090_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1092_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1097_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1099_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1104_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 9.307315673519885e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "1106_cylinder",
+      "pattern": "Hub_joint_row_2",
+      "max_position_error_mm": 9.307315673519885e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "0313_revolve",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.209301269180287e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve8",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve9",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve10",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve11",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve12",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve15",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve16",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2092941637529293e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve17",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve18",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "part": "wheel_hub_C",
+      "feature": "Revolve19",
+      "pattern": "Roller_axles",
+      "max_position_error_mm": 3.2093225854623597e-09,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

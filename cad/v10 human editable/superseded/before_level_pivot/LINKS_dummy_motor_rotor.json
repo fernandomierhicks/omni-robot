@@ -1,0 +1,49 @@
+{
+  "part": "dummy_motor_rotor",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0052_cylinder",
+      "sketch": "0052_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0055_cylinder",
+      "sketch": "0055_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0058_cylinder",
+      "sketch": "0058_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0061_cylinder",
+      "sketch": "0061_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0064_cylinder",
+      "sketch": "0064_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0067_cylinder",
+      "sketch": "0067_cylinder_Sketch",
+      "pattern": "Motor_output",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 0
+}

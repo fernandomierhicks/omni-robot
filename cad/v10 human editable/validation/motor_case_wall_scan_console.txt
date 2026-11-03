@@ -1,0 +1,1 @@
+dummy_motor_case minimum 0.11 thin clusters 8

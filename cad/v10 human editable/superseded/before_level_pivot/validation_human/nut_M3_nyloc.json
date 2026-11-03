@@ -1,0 +1,68 @@
+{
+  "sketches": [
+    {
+      "name": "Nut Hex Sketch",
+      "status": 3
+    },
+    {
+      "name": "Nylon Collar Sketch",
+      "status": 3
+    },
+    {
+      "name": "Thread Bore Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 72.46231034122357,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"nut_across_flats\"= 5.5mm 'M3 nut hex across flats",
+    "\"nut_height\"= 3mm 'Metal hex height",
+    "\"thread_bore_diameter\"= 2.8mm 'Simplified thread bore",
+    "\"edge_break\"= 0.2mm 'Native edge break on hex perimeter",
+    "\"collar_diameter\"= 4.95mm 'Nylon collar outside diameter",
+    "\"collar_height\"= 1mm 'Nylon collar axial height",
+    "\"D1@Nut Hex Sketch\"= \"nut_across_flats\"",
+    "\"D1@Nut Hex Extrude\"= \"nut_height\"",
+    "\"D1@Hex Edge Chamfers\"= \"edge_break\"",
+    "\"D1@Collar Seat Plane\"= \"nut_height\"",
+    "\"D1@Nylon Collar Sketch\"= \"collar_diameter\"",
+    "\"D1@Nylon Collar\"= \"collar_height\"",
+    "\"D1@Thread Bore Sketch\"= \"thread_bore_diameter\""
+  ],
+  "design_features": [
+    {
+      "name": "Nut Hex Extrude",
+      "type": "Extrusion",
+      "dimensions": [
+        "D1@Nut Hex Extrude"
+      ]
+    },
+    {
+      "name": "Hex Edge Chamfers",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Hex Edge Chamfers"
+      ]
+    },
+    {
+      "name": "Nylon Collar",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Nylon Collar"
+      ]
+    },
+    {
+      "name": "Thread Bore Cut",
+      "type": "ICE",
+      "dimensions": []
+    }
+  ],
+  "pass": true
+}

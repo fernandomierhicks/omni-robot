@@ -1,0 +1,75 @@
+{
+ "session": "C:\\Users\\ferna\\throw_data\\20261030_161226_bucket6",
+ "cfg": {
+  "ball_radius": 0.08034539414636606,
+  "zmin": 0.25,
+  "zmax": 9.0,
+  "depth_gap": 0.25,
+  "min_area": 5,
+  "ratio_lo": 0.3,
+  "ratio_hi": 3.0,
+  "elong_max": 3.0,
+  "ir_thr": 35.0,
+  "ir_min_area": 4,
+  "ir_max_r": 100.0,
+  "row_tol": 1.5,
+  "d_min": 1.0,
+  "d_max": 80.0,
+  "r_tol": 0.5,
+  "a_lo": 6.0,
+  "a_hi": 14.0,
+  "inlier_m": 0.1,
+  "ransac_iters": 400,
+  "min_inliers": 8,
+  "min_span_s": 0.15,
+  "min_density": 0.35,
+  "min_speed": 1.0,
+  "drag": true,
+  "sigma0": 0.004,
+  "sigma_z2": 0.001,
+  "ball": {
+   "mass": 0.073,
+   "radius": 0.08034539414636606,
+   "drag_cd": 0.5,
+   "air_density": 1.204,
+   "air_viscosity": 1.8e-05
+  },
+  "bg_s": 0.25,
+  "seed": 1
+ },
+ "bg": "throw",
+ "bucket": "bucket.json",
+ "throws": [
+  {
+   "path": "C:\\Users\\ferna\\throw_data\\20261030_161226_bucket6\\t001",
+   "streams": [
+    "color",
+    "depth",
+    "ir1",
+    "ir2"
+   ],
+   "sources": {
+    "depth": {
+     "source": "depth",
+     "frames": 169,
+     "candidates": 7494,
+     "ok": false
+    },
+    "ir_stereo": {
+     "source": "ir_stereo",
+     "frames": 169,
+     "candidates": 105,
+     "ok": false
+    }
+   },
+   "colour": {
+    "frames": 113,
+    "frames_with_a_blob": 113,
+    "projected": false
+   },
+   "name": "t001",
+   "prediction": {},
+   "plot": "rs_20261030_161226_bucket6_t001.png"
+  }
+ ]
+}

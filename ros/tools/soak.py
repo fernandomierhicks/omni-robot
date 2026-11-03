@@ -46,7 +46,8 @@ SPOTS = [(-3.0, 3.3, 90), (0.45, 3.2, 90), (4.6, 3.25, 0), (2.5, -2.0, 0), (-3.1
          (-5.0, -0.1, 90), (-3.0, 1.25, 0)]
 PROCS = ("bridge", "mcu_link", "mode_manager", "mission_node", "rosbridge", "slam_toolbox", "controller_server",
          "planner_server", "bt_navigator", "behavior_server", "velocity_smoother", "collision_monitor", "ekf_node",
-         "scan_prep", "tag_slam", "face_node", "supervisor", "smoother_server", "map_server", "costmap")
+         "scan_prep", "tag_slam", "face_node", "supervisor", "smoother_server", "map_server", "costmap",
+         "component_container")          # compose:=true: Nav2 in one process
 LEVEL = {10: "DEBUG", 20: "INFO", 30: "WARN", 40: "ERROR", 50: "FATAL"}
 
 

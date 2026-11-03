@@ -1,0 +1,197 @@
+{
+  "bearing_627": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_627.SLDPRT",
+    "title": "V10H_bearing_627",
+    "first_feature": "Ring Sketch"
+  },
+  "bearing_6804": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_6804.SLDPRT",
+    "title": "V10H_bearing_6804",
+    "first_feature": "Ring Sketch"
+  },
+  "bearing_687": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bearing_687.SLDPRT",
+    "title": "V10H_bearing_687",
+    "first_feature": "Ring Sketch"
+  },
+  "pivot_shim": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_shim.SLDPRT",
+    "title": "V10H_pivot_shim",
+    "first_feature": "Ring Sketch"
+  },
+  "pivot_outer_spacer": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_outer_spacer.SLDPRT",
+    "title": "V10H_pivot_outer_spacer",
+    "first_feature": "Ring Sketch"
+  },
+  "washer_M3": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_washer_M3.SLDPRT",
+    "title": "V10H_washer_M3",
+    "first_feature": "Ring Sketch"
+  },
+  "pivot_shaft": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pivot_shaft.SLDPRT",
+    "title": "V10H_pivot_shaft",
+    "first_feature": "Shaft Sketch"
+  },
+  "wheel_cartridge": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_cartridge.SLDPRT",
+    "title": "V10H_wheel_cartridge",
+    "first_feature": "Cartridge Section"
+  },
+  "roller_core": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_core.SLDPRT",
+    "title": "V10H_roller_core",
+    "first_feature": "Core Barrel Section"
+  },
+  "roller_tread": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_roller_tread.SLDPRT",
+    "title": "V10H_roller_tread",
+    "first_feature": "Sleeve Section"
+  },
+  "bolt_M2p5_10_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M2p5_10_PAN.SLDPRT",
+    "title": "V10H_bolt_M2p5_10_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_10_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_10_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_10_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_12_FLAT": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_FLAT.SLDPRT",
+    "title": "V10H_bolt_M3_12_FLAT",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_12_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_12_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_12_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_14_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_14_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_14_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_16_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_16_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_16_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_18_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_18_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_18_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_20_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_20_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_20_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_25_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_25_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_25_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_50_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_50_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_50_PAN",
+    "first_feature": "Screw Section"
+  },
+  "bolt_M3_8_PAN": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bolt_M3_8_PAN.SLDPRT",
+    "title": "V10H_bolt_M3_8_PAN",
+    "first_feature": "Screw Section"
+  },
+  "nut_M3_hex": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_hex.SLDPRT",
+    "title": "V10H_nut_M3_hex",
+    "first_feature": "Nut Hex Sketch"
+  },
+  "nut_M3_nyloc": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_nut_M3_nyloc.SLDPRT",
+    "title": "V10H_nut_M3_nyloc",
+    "first_feature": "Nut Hex Sketch"
+  },
+  "fork_bar": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_fork_bar.SLDPRT",
+    "title": "V10H_fork_bar",
+    "first_feature": "Bar Outline Sketch"
+  },
+  "shock_case": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_case.SLDPRT",
+    "title": "V10H_shock_case",
+    "first_feature": "Cylinder Section"
+  },
+  "shock_rod": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_shock_rod.SLDPRT",
+    "title": "V10H_shock_rod",
+    "first_feature": "Shaft Section"
+  },
+  "wheel_hub_A": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_A.SLDPRT",
+    "title": "V10H_wheel_hub_A",
+    "first_feature": "Hub Section"
+  },
+  "wheel_hub_B": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_B.SLDPRT",
+    "title": "V10H_wheel_hub_B",
+    "first_feature": "Hub Section"
+  },
+  "wheel_hub_C": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_hub_C.SLDPRT",
+    "title": "V10H_wheel_hub_C",
+    "first_feature": "Hub Section"
+  },
+  "motor_cup": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_motor_cup.SLDPRT",
+    "title": "V10H_motor_cup",
+    "first_feature": "Cradle Section"
+  },
+  "pod_mount": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_pod_mount.SLDPRT",
+    "title": "V10H_pod_mount",
+    "first_feature": "Deck Top Plane"
+  },
+  "inner_fork_6804": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_inner_fork_6804.SLDPRT",
+    "title": "V10H_inner_fork_6804",
+    "first_feature": "Plate Face Plane"
+  },
+  "outer_fork_6804": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_outer_fork_6804.SLDPRT",
+    "title": "V10H_outer_fork_6804",
+    "first_feature": "Plate Face Plane"
+  },
+  "wheel_guard": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_wheel_guard.SLDPRT",
+    "title": "V10H_wheel_guard",
+    "first_feature": "Panel Base Plane"
+  },
+  "bench_plate": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_bench_plate.SLDPRT",
+    "title": "V10H_bench_plate",
+    "first_feature": "Bench Frame Sketch"
+  },
+  "master_layout": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+    "title": "V10H_master_layout",
+    "first_feature": "Control Measures"
+  },
+  "washer_M3_large": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_washer_M3_large.SLDPRT",
+    "title": "V10H_washer_M3_large",
+    "first_feature": "Ring Sketch"
+  },
+  "dummy_motor_stator": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_stator.SLDPRT",
+    "title": "V10H_dummy_motor_stator",
+    "first_feature": "Stator Section"
+  },
+  "dummy_motor_rotor": {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_dummy_motor_rotor.SLDPRT",
+    "title": "V10H_dummy_motor_rotor",
+    "first_feature": "Rotor Section"
+  }
+}

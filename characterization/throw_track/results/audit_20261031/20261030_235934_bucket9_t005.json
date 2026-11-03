@@ -1,0 +1,164 @@
+{
+  "session": "20261030_235934_bucket9",
+  "clip": "t005",
+  "review": {
+    "call": "no_throw",
+    "notes": "walking away after the last throw (not a throw)",
+    "clicks": [],
+    "wrong": [],
+    "at": "2026-10-31T00:31:39"
+  },
+  "detector": {
+    "hue_deg": [
+      3.0,
+      29.0
+    ],
+    "min_sat": 0.807,
+    "min_val": 0.073,
+    "min_blob_px": 8,
+    "coarse_stride": 4,
+    "window_px": 25.0,
+    "window_scale": 2.5,
+    "max_candidates": 3,
+    "acquire_candidates": 40,
+    "size_gain": 1.323,
+    "backend": "native"
+  },
+  "ball_metadata": {
+    "mass": 0.073,
+    "radius": 0.08034539414636606,
+    "drag_cd": 0.5,
+    "diameter_m": 0.16069078829273212,
+    "circumference_in": 19.875,
+    "material": "foam",
+    "colour": "orange",
+    "source": "Fernando, Oct 30 2026; drag_cd is the robot config's estimate"
+  },
+  "held_out": false,
+  "sources": {
+    "depth": {
+      "source": "depth",
+      "frames": 176,
+      "candidates": 7773,
+      "ok": false
+    },
+    "ir_stereo": {
+      "source": "ir_stereo",
+      "frames": 176,
+      "candidates": 158,
+      "ok": false
+    },
+    "colour": {
+      "source": "colour",
+      "frames": 119,
+      "candidates": 119,
+      "ok": false,
+      "frames_with_a_blob": 119,
+      "reason": "the blob sits on a nearer object in 8/8 frames (depth much nearer than its size: a hand or an arm, not a free ball)"
+    }
+  },
+  "prediction": {},
+  "analysis_seconds": 3.469832200091332,
+  "trigger_s": 0.7895257600000001,
+  "health": {
+    "color": {
+      "n": 119,
+      "fps": 59.52925219829622,
+      "dt_median_ms": 16.798464,
+      "dt_max_ms": 16.798976,
+      "lost": 0,
+      "first_s": 0.0,
+      "last_s": 1.982218752,
+      "stamp_to_host_ms_p10_50_90": [
+        18.0587558,
+        18.308196,
+        20.0316902
+      ],
+      "gain_p10_50_90": [
+        128.0,
+        128.0,
+        128.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        50.0,
+        50.0,
+        50.0
+      ]
+    },
+    "depth": {
+      "n": 176,
+      "fps": 87.86210997979255,
+      "dt_median_ms": 11.12704,
+      "dt_max_ms": 22.254848,
+      "lost": 4,
+      "first_s": -0.008041984,
+      "last_s": 1.9837153280000002,
+      "stamp_to_host_ms_p10_50_90": [
+        10.1233375,
+        10.584804499999999,
+        12.0330035
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir1": {
+      "n": 176,
+      "fps": 87.86210997979255,
+      "dt_median_ms": 11.12704,
+      "dt_max_ms": 22.254848,
+      "lost": 4,
+      "first_s": -0.008041984,
+      "last_s": 1.9837153280000002,
+      "stamp_to_host_ms_p10_50_90": [
+        10.1233375,
+        10.584804499999999,
+        12.0330035
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir2": {
+      "n": 176,
+      "fps": 87.86210997979255,
+      "dt_median_ms": 11.12704,
+      "dt_max_ms": 22.254848,
+      "lost": 4,
+      "first_s": -0.008041984,
+      "last_s": 1.9837153280000002,
+      "stamp_to_host_ms_p10_50_90": [
+        10.1233375,
+        10.584804499999999,
+        12.0330035
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    }
+  },
+  "photo": [],
+  "picks": [],
+  "configured_color_exposure_us": 5000
+}

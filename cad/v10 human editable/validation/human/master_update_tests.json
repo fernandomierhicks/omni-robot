@@ -1,0 +1,396 @@
+{
+  "tests": [
+    {
+      "control": "cradle_radius",
+      "nominal": 6.5,
+      "test": 6.4,
+      "parts": {
+        "motor_cup": {
+          "circles": {
+            "Fork Pilot Sketch": [
+              [
+                -6.4000000000000155,
+                0.0
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": [
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155
+          ],
+          "volume_mm3": 27682.946909122,
+          "pass": true
+        },
+        "inner_fork_6804": {
+          "circles": {
+            "Cradle Clearance Sketch": [
+              [
+                -6.4000000000000155,
+                0.0
+              ]
+            ],
+            "Cradle Counterbore Sketch": [
+              [
+                -6.4000000000000155,
+                0.0
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": [
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155,
+            6.4000000000000155
+          ],
+          "volume_mm3": 69441.70680588862,
+          "pass": true
+        }
+      },
+      "restored": true
+    },
+    {
+      "control": "cover_radius",
+      "nominal": 23.3,
+      "test": 23.2,
+      "parts": {
+        "dummy_motor_case": {
+          "circles": {
+            "Cover Boss Sketch": [
+              [
+                -16.404877323527913,
+                16.4048773235279
+              ]
+            ],
+            "Cover Pilot Sketch": [
+              [
+                -16.404877323527913,
+                16.4048773235279
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 32398.657648425582,
+          "pass": true
+        },
+        "dummy_motor_rear_cap": {
+          "circles": {
+            "Cover Clearance Sketch": [
+              [
+                -16.404877323527913,
+                16.4048773235279
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 9147.380691108872,
+          "pass": true
+        }
+      },
+      "restored": true
+    },
+    {
+      "control": "joint_radius",
+      "nominal": 38,
+      "test": 37.9,
+      "parts": {
+        "wheel_hub_A": {
+          "circles": {
+            "Outer Joint Hole Sketch": [
+              [
+                -18.950000000000014,
+                32.8223628034302
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 49935.240718290996,
+          "pass": true
+        },
+        "wheel_hub_B": {
+          "circles": {
+            "Outer Joint Hole Sketch": [
+              [
+                -18.950000000000014,
+                32.8223628034302
+              ]
+            ],
+            "Inner Joint Hole Sketch": [
+              [
+                -32.82236280343023,
+                18.949999999999996
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 56840.09166936113,
+          "pass": true
+        },
+        "wheel_hub_C": {
+          "circles": {
+            "Inner Joint Hole Sketch": [
+              [
+                -32.82236280343023,
+                18.949999999999996
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 52140.9237719289,
+          "pass": true
+        }
+      },
+      "restored": true
+    },
+    {
+      "control": "outer_ear_foot_x",
+      "nominal": 31.5,
+      "test": 31.6,
+      "parts": {
+        "bench_plate": {
+          "circles": {
+            "Pod Foot Clearance Sketch": [
+              [
+                -14.0,
+                -87.50000000000001
+              ],
+              [
+                16.0,
+                -87.50000000000001
+              ],
+              [
+                -14.0,
+                87.50000000000001
+              ],
+              [
+                16.0,
+                87.50000000000001
+              ],
+              [
+                40.25,
+                87.50000000000001
+              ],
+              [
+                -31.600000000000016,
+                87.5
+              ],
+              [
+                86.0,
+                22.0
+              ],
+              [
+                86.0,
+                46.0
+              ],
+              [
+                90.0,
+                30.0
+              ],
+              [
+                97.0,
+                26.000000000000004
+              ],
+              [
+                100.0,
+                33.5
+              ]
+            ],
+            "Foot Counterbore Sketch": [
+              [
+                -14.0,
+                -87.50000000000001
+              ],
+              [
+                16.0,
+                -87.50000000000001
+              ],
+              [
+                -14.0,
+                87.50000000000001
+              ],
+              [
+                16.0,
+                87.50000000000001
+              ],
+              [
+                40.25,
+                87.50000000000001
+              ],
+              [
+                -31.600000000000016,
+                87.5
+              ],
+              [
+                86.0,
+                22.0
+              ],
+              [
+                86.0,
+                46.0
+              ],
+              [
+                90.0,
+                30.0
+              ],
+              [
+                97.0,
+                26.000000000000004
+              ],
+              [
+                100.0,
+                33.5
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 87417.07700077615,
+          "pass": true
+        },
+        "wheel_guard": {
+          "circles": {
+            "Deck Foot Pilot Sketch": [
+              [
+                -14.0,
+                -87.50000000000001
+              ],
+              [
+                16.0,
+                -87.50000000000001
+              ],
+              [
+                -14.0,
+                87.50000000000001
+              ],
+              [
+                16.0,
+                87.50000000000001
+              ],
+              [
+                40.25,
+                87.50000000000001
+              ],
+              [
+                -31.600000000000016,
+                87.5
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 157890.61120074126,
+          "pass": true
+        }
+      },
+      "restored": true
+    },
+    {
+      "control": "roller_axis_radius",
+      "nominal": 52,
+      "test": 52.1,
+      "parts": {
+        "wheel_hub_A": {
+          "circles": {
+            "Outer Axle Hole Sketch": [
+              [
+                -18.00000000000001,
+                52.09999999999998
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 50499.844204219604,
+          "pass": true
+        },
+        "wheel_hub_B": {
+          "circles": {
+            "Outer Axle Hole Sketch": [
+              [
+                -18.00000000000001,
+                52.09999999999998
+              ]
+            ],
+            "Inner Axle Hole Sketch": [
+              [
+                17.999999999999996,
+                52.09999999999998
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 57969.452955968576,
+          "pass": true
+        },
+        "wheel_hub_C": {
+          "circles": {
+            "Inner Axle Hole Sketch": [
+              [
+                17.999999999999996,
+                52.09999999999998
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 52705.659585102054,
+          "pass": true
+        },
+        "roller_core": {
+          "circles": {},
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 24785.396588596457,
+          "pass": true
+        },
+        "roller_tread": {
+          "circles": {},
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 9596.575312569601,
+          "pass": true
+        }
+      },
+      "restored": true
+    },
+    {
+      "control": "inner_roller_phase",
+      "nominal": 30,
+      "test": 30.1,
+      "parts": {
+        "wheel_hub_B": {
+          "circles": {
+            "Inner Axle Hole Sketch": [
+              [
+                17.999999999999996,
+                51.99999999999999
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 56839.94718574678,
+          "pass": true
+        },
+        "wheel_hub_C": {
+          "circles": {
+            "Inner Axle Hole Sketch": [
+              [
+                17.999999999999996,
+                51.99999999999999
+              ]
+            ]
+          },
+          "actual_cut_axis_radii_mm": null,
+          "volume_mm3": 52140.531953957776,
+          "pass": true
+        }
+      },
+      "restored": true
+    }
+  ],
+  "peak_open_documents": 2,
+  "pass": true
+}

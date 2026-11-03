@@ -28,6 +28,20 @@ from collections import deque
 import numpy as np
 
 
+def floor_mask(a: np.ndarray, r: np.ndarray, cal: tuple, rp: tuple, margin: float) -> np.ndarray:
+    """Returns at or beyond the range where each ray meets the floor, less margin (scan_prep's floor filter).
+    cal = (tan tilt, azimuth, height): the unit's measured plane tilt; rp = the base's (roll, pitch)."""
+    tz, psi, h = cal
+    d = np.vstack([np.cos(a), np.sin(a), tz * np.cos(a - psi)])          # laser frame (= base frame axes)
+    roll, pitch = rp
+    cr, sr, cp, sp = math.cos(roll), math.sin(roll), math.cos(pitch), math.sin(pitch)
+    Rrp = np.array([[cp, sp * sr, sp * cr], [0.0, cr, -sr], [-sp, cp * sr, cp * cr]])   # Ry(pitch) Rx(roll)
+    w = Rrp @ d
+    slope = w[2] / np.hypot(w[0], w[1])
+    r_floor = np.where(slope < -1e-4, h / np.maximum(-slope, 1e-4), np.inf)
+    return np.isfinite(r) & (r >= r_floor - margin)
+
+
 def sample_times(n: int, stamp: float, time_increment: float, order: int = 1) -> np.ndarray:
     """Each index's time. order = -1: the array runs against time (the last index was measured first)."""
     k = np.arange(n, dtype=float)
@@ -70,6 +84,13 @@ def deskew(a: np.ndarray, r: np.ndarray, ts: np.ndarray, pose_at, laser_xy=(0.0,
     return out
 
 
+def _line(k: np.ndarray, t: np.ndarray) -> tuple[float, float]:
+    """Least-squares t = t0 + T k about the means: np.polyfit on raw stamps (~1.7e9 s) loses ~1e-8 s of T."""
+    km, tm = k.mean(), t.mean()
+    T = float(np.sum((k - km) * (t - tm)) / np.sum((k - km) ** 2))
+    return T, float(tm - T * km)
+
+
 class ScanClock:
     """Turn-start times from the driver's stamps: the lower envelope of the stamps on a line t_k = t0 + k T, minus
     the fixed delivery delay latency_s. update(stamp, scan_time) -> the corrected stamp."""
@@ -85,12 +106,12 @@ class ScanClock:
         self.jitter = math.nan
 
     def update(self, stamp: float, scan_time: float) -> float:
-        if self.t_last is None or scan_time <= 0:
+        if self.t_last is None:
             self.k = 0
         else:
-            T = self.T or scan_time
-            dk = int(round((stamp - self.t_last) / T))
-            if dk < 1 or dk > 50:                      # out of order or a long gap: start a new line
+            T = self.T or (scan_time if scan_time > 0 else None)
+            dk = int(round((stamp - self.t_last) / T)) if T else 0
+            if dk < 1 or dk > 50:                      # out of order, a long gap or no period: start a new line
                 self.hist.clear()
                 self.k = 0
                 self.line = None
@@ -101,12 +122,12 @@ class ScanClock:
         if len(self.hist) >= 5:
             k = np.array([h[0] for h in self.hist], dtype=float)
             t = np.array([h[1] for h in self.hist])
-            T, t0 = np.polyfit(k, t, 1)
+            T, t0 = _line(k, t)
             for _ in range(2):                         # the line under the stamps: shift down to their low quantile
                 res = t - (t0 + T * k)
                 lo = res <= np.quantile(res, 0.5)
                 if lo.sum() >= 3:
-                    T, t0 = np.polyfit(k[lo], t[lo], 1)
+                    T, t0 = _line(k[lo], t[lo])
             res = t - (t0 + T * k)
             t0 += float(np.quantile(res, self.q))
             self.line, self.T = (float(t0), float(T)), float(T)

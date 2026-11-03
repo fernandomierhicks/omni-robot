@@ -1,0 +1,69 @@
+{
+  "part": "inner_fork_6804",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Pivot Through Bore Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Pivot Bearing Seat Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Fork Bar Pilot Sketch",
+      "pattern": "Fork Bar",
+      "circles": 2,
+      "status": 3
+    },
+    {
+      "sketch": "Lower Shock Boss Sketch",
+      "pattern": "Inner Lower Shock",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Lower Shock Pilot Sketch",
+      "pattern": "Inner Lower Shock",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Cradle Clearance Sketch",
+      "pattern": "Cradle",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Cradle Counterbore Sketch",
+      "pattern": "Cradle",
+      "circles": 1,
+      "status": 3
+    },
+    {
+      "sketch": "Standoff Relief Sketch",
+      "pattern": "Pivot",
+      "circles": 1,
+      "status": 3
+    }
+  ],
+  "aliases": {
+    "pivot_y": "\"D32@Control Measures-Shared Layout\"",
+    "pivot_seat_diameter": "\"D82@Control Measures-Shared Layout\"",
+    "journal_radius": "\"D76@Control Measures-Shared Layout\" * 0.5",
+    "journal_shoulder_radius": "\"D76@Control Measures-Shared Layout\" / 2 + 1.5mm",
+    "pivot_bore": "\"D82@Control Measures-Shared Layout\" - 6mm",
+    "shock_y": "\"D52@Control Measures-Shared Layout\"",
+    "shock_z": "\"D54@Control Measures-Shared Layout\"",
+    "bar_screw_x": "\"D38@Control Measures-Shared Layout\"",
+    "bar_screw_top_z": "\"D42@Control Measures-Shared Layout\" - \"D44@Control Measures-Shared Layout\"",
+    "bar_screw_bottom_z": "\"D42@Control Measures-Shared Layout\" + \"D44@Control Measures-Shared Layout\"",
+    "cup_screw_radius": "\"D22@Control Measures-Shared Layout\"",
+    "cup_first_angle": "\"D2@Angle cradle phase-Shared Layout\"",
+    "cup_screw_count": "(\"D110@Control Measures-Shared Layout\" / 1mm)"
+  }
+}

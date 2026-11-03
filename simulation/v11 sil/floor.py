@@ -83,6 +83,34 @@ class Carpet:
 
 
 @dataclass(frozen=True)
+class Incline:
+    """Nov 1 (motor study): a ramp up to a flat top and a ramp back down (a wheelchair ramp, a garage or patio slope),
+    as one convex prism. The up-ramp's foot is at x (before the yaw), rising at angle_up to height; the top is `top`
+    long; the down-ramp falls at angle_down. `length` across, its long axis at yaw_deg like Threshold's. For steady
+    slopes the motor study tilts gravity instead (exact, any length); this is for the foot and the crest."""
+    x: float
+    y: float
+    angle_up: float = 10.0       # deg
+    height: float = 0.10         # m
+    top: float = 1.2             # m
+    angle_down: float = 10.0     # deg
+    yaw_deg: float = 0.0
+    length: float = 2.0
+    mu: float = 0.85             # rollers on a painted / sealed ramp (est)
+
+    @property
+    def runs(self) -> tuple[float, float]:
+        return (self.height / math.tan(math.radians(self.angle_up)),
+                self.height / math.tan(math.radians(self.angle_down)))
+
+    def profile(self) -> list:
+        """(x, z) from the up-ramp's foot, convex, counter-clockwise."""
+        up, dn = self.runs
+        L = up + self.top + dn
+        return [(0.0, -0.001), (L, -0.001), (up + self.top, self.height), (up, self.height)]
+
+
+@dataclass(frozen=True)
 class Wall:
     """v7, the house scene: a partition wall from (x0, y0) to (x1, y1) (the robot's deck and bumper hit it)."""
     x0: float
@@ -122,6 +150,10 @@ def edges(p) -> list:
             c, s = math.cos(math.radians(f.yaw_deg)), math.sin(math.radians(f.yaw_deg))
             h = f.length / 2
             out.append((f.x + s * h, f.y - c * h, f.x - s * h, f.y + c * h, f.height, f.ramp < 0.002))
+        elif isinstance(f, Incline):
+            c, s = math.cos(math.radians(f.yaw_deg)), math.sin(math.radians(f.yaw_deg))
+            h = f.length / 2
+            out.append((f.x + s * h, f.y - c * h, f.x - s * h, f.y + c * h, f.height, False))
         elif isinstance(f, Carpet):
             sx, sy = f.bevel < 0.002, f.bevel_y < 0.002
             for a, b, sq in (((f.x0, f.y0), (f.x0, f.y1), sx), ((f.x1, f.y0), (f.x1, f.y1), sx),
@@ -146,6 +178,8 @@ def assets_xml(p) -> str:
         if isinstance(f, Threshold):
             a, b = f.top / 2, f.top / 2 + f.ramp
             out.append(_prism(f"floorfeat{k}", [(-b, -0.001), (b, -0.001), (a, f.height), (-a, f.height)], f.length))
+        elif isinstance(f, Incline):
+            out.append(_prism(f"floorfeat{k}", f.profile(), f.length))
         elif isinstance(f, Carpet):
             w, ln, t = abs(f.x1 - f.x0) / 2, abs(f.y1 - f.y0) / 2, f.thickness
             bx, by = max(f.bevel, 1e-4), max(f.bevel_y, 1e-4)
@@ -159,7 +193,7 @@ def world_xml(p) -> str:
     wheels only through their pairs."""
     out = []
     for k, f in enumerate(features(p)):
-        if isinstance(f, Threshold):
+        if isinstance(f, (Threshold, Incline)):
             q = (math.cos(math.radians(f.yaw_deg) / 2), 0, 0, math.sin(math.radians(f.yaw_deg) / 2))
             out.append(f'<geom name="floorfeat{k}" type="mesh" mesh="floorfeat{k}" pos="{_f(f.x, f.y, 0)}" quat="{_f(*q)}" '
                        f'contype="1" conaffinity="5" material="post" friction="{f.mu} 0.005 0.0001"/>')
@@ -183,7 +217,7 @@ def wheel_pairs_xml(p, wheel_geoms) -> str:
     for k, f in enumerate(features(p)):
         if isinstance(f, Wall):
             continue
-        if isinstance(f, Threshold):
+        if isinstance(f, (Threshold, Incline)):
             sol = 'solref="0.004 1" solreffriction="0.002 1" solimp="0.95 0.99 0.001"'
         else:
             sol = f'solref="{_f(f.softness)} 1" solreffriction="0.002 1" solimp="0.9 0.99 0.003"'
@@ -294,8 +328,9 @@ class RollingResistance:
             self._crr = crr
         f = self._crr * load
         m.dof_frictionloss[self.drive] = self.drive0 + f * self.R
+        pin = self.p.roller_pin_mu * self.p.roller_pin_radius * load     # plain rollers: friction on the pin
         for k, ix in enumerate(self.roller_dofs):
-            m.dof_frictionloss[ix] = self.roller0[k] + f[k] * self.r
+            m.dof_frictionloss[ix] = self.roller0[k] + f[k] * self.r + pin[k]
 
 
 def attach(m, d, p) -> list:
@@ -303,6 +338,6 @@ def attach(m, d, p) -> list:
     hooks = []
     if p.floor_mu_field is not None or len(p.floor_patches):
         hooks.append(FloorFriction(m, d, p))
-    if p.wheel_crr > 0 or any(isinstance(f, Carpet) for f in features(p)):
+    if p.wheel_crr > 0 or p.roller_pin_mu > 0 or any(isinstance(f, Carpet) for f in features(p)):
         hooks.append(RollingResistance(m, d, p))
     return hooks

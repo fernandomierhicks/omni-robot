@@ -16,6 +16,7 @@ procedure; VERIFY). Frames are rendered when the task asks (sim time: rendering 
 
     python sil_pick.py                       4 toys around the robot, verbose
     python sil_pick.py --n 6 --set clutter --seed 3
+    python sil_pick.py --camera d435         the RealSense D435 on the nose gives the depth (design.md 4.11)
     python sil_pick.py --view                MuJoCo's window, real time (slower while it renders a look)
 """
 
@@ -38,7 +39,7 @@ from sil_robot import SilRobot
 from omni_arm.driver import ArmDriver  # noqa: E402
 from omni_arm.feetech import Bus  # noqa: E402
 from omni_arm.floor_vision import DepthFrame  # noqa: E402
-from omni_arm.kinematics import ArmKinematics  # noqa: E402
+from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path  # noqa: E402
 from omni_arm.pick import Inputs, PickParams, TidyTask, wrist_frame  # noqa: E402
 from omni_catch.modes import ModeMux  # noqa: E402
 from omni_mcu.protocol import State  # noqa: E402
@@ -59,17 +60,27 @@ def _mat_quat(R) -> np.ndarray:
 
 
 class PickCameras:
-    """Renders on request: the left nose camera as a stereo matcher's depth, the wrist camera in colour."""
+    """Renders on request: the left nose camera as a stereo matcher's depth (or the D435's, design.md 4.11), the wrist
+    camera in colour.
+
+    The D435 (p.depth_camera "d435"): its own matcher on the streamed mode (p.d435_wh, 480 x 270), 49.85 mm baseline,
+    disparity noise 0.1 px (est: Intel's typical subpixel 0.08; the datasheet's <= 2% at 2 m bounds it at ~0.22; set
+    it from characterization/realsense rs_depth_plane.py once run), nothing nearer than its min-Z (the datasheet's
+    0.195 m at 848 px, scaled with the width: 0.11 m at 480; VERIFY) or past 10 m, 2% of pixels unmatched, 1 mm steps
+    (its 16-bit millimetres)."""
 
     DEPTH_WH, WRIST_WH = (640, 400), (320, 240)
 
-    def __init__(self, m, d, p, seed: int = 0, cam_err_deg: float = 0.3, disp_sigma: float = 0.25,
-                 dropout: float = 0.03):
+    def __init__(self, m, d, p, seed: int = 0, cam_err_deg: float = 0.3, disp_sigma: float | None = None,
+                 dropout: float | None = None):
         self.m, self.d, self.p = m, d, p
         self.rng = np.random.default_rng(seed + 31)
         self.mr = mr = copy.deepcopy(m)
         self.dr = mujoco.MjData(mr)
-        self.cl = m.camera("stereo_left").id
+        self.d435 = p.depth_camera == "d435"
+        self.cl = m.camera("d435_depth" if self.d435 else "stereo_left").id
+        if self.d435:
+            self.DEPTH_WH = tuple(p.d435_wh)
         self.cw = m.camera("arm_wrist").id
         # the left camera off its calibration (a small rotation about a random axis)
         ax = self.rng.normal(size=3)
@@ -90,8 +101,15 @@ class PickCameras:
         self.Kd = (fy, fy, W / 2, H / 2)
         fyw = (Hw / 2) / math.tan(math.radians(m.cam_fovy[self.cw]) / 2)
         self.Kw = (fyw, fyw, Ww / 2, Hw / 2)
-        self.f_match = 2 * fy                           # the matcher runs on the full 1280 x 800 pair
-        self.b = p.camera_baseline
+        if self.d435:
+            from robot_model import D435
+            self.f_match, self.b = fy, D435["baseline"]     # it matches at the mode it streams
+            self.z_min, self.z_max = D435["min_z_848"] * W / 848, 10.0
+            disp_sigma, dropout = 0.1 if disp_sigma is None else disp_sigma, 0.02 if dropout is None else dropout
+        else:
+            self.f_match = 2 * fy                       # the matcher runs on the full 1280 x 800 pair
+            self.b = p.camera_baseline
+            disp_sigma, dropout = 0.25 if disp_sigma is None else disp_sigma, 0.03 if dropout is None else dropout
         self.disp_sigma, self.dropout = disp_sigma, dropout
         self.n_depth = self.n_wrist = 0
         self.ms: list = []
@@ -108,7 +126,11 @@ class PickCameras:
         z = self.ren_d.render().astype(np.float64)
         fb = self.f_match * self.b
         disp = fb / np.maximum(z, 1e-3) + self.rng.normal(0, self.disp_sigma, z.shape)
-        z = np.where(disp > 2.0, fb / np.maximum(disp, 1e-3), np.nan)
+        if self.d435:
+            z = fb / np.maximum(disp, 1e-3)
+            z = np.where((z >= self.z_min) & (z <= self.z_max), np.round(z * 1000.0) / 1000.0, np.nan)
+        else:
+            z = np.where(disp > 2.0, fb / np.maximum(disp, 1e-3), np.nan)
         z[self.rng.random(z.shape) < self.dropout] = np.nan
         self.n_depth += 1
         self.ms.append(1000 * (time.perf_counter() - w0))
@@ -142,9 +164,10 @@ class SilPick:
             # things in the hallway and the living room ahead (rugs, a runner, the floors' edges)
             import house
             from bridge_core import ARM_AREA
-            from robot_export import ARM
+            from robot_export import arm_robot
             objs = arm_objects.scatter(names, ARM_AREA[0], ARM_AREA[1], seed=seed, keep_out=(house.START[:2], 0.5))
-            self.p = p = house.house_params("v7", **{**ARM, **param_kw}, floor_objects=objs)
+            self.p = p = house.house_params("v7", **{**arm_robot("d435" if param_kw.get("depth_camera") == "d435" else "stereo"),
+                                                      **param_kw}, floor_objects=objs)
             start = house.START
         else:
             # the robot at HOME facing -x (thrower_xy sets its heading); the things scattered ahead and around it
@@ -166,7 +189,8 @@ class SilPick:
         self.names = names
         self.link = SimLink(r, seed=seed)
         self.bus_sim = ServoBusSim(r.arm, joint_err_deg=joint_err_deg, seed=seed)
-        self.kin = ArmKinematics()
+        # the robot's own config for its depth camera (robot_export: robot_arm.json, or robot_arm_d435.json)
+        self.kin = ArmKinematics(ArmConfig(config_path("d435" if p.depth_camera == "d435" else "")))
         self.driver = ArmDriver(Bus(self.bus_sim, timeout=0.0, clock=lambda: 0.0), self.kin.cfg)
         self.cams = PickCameras(self.m, self.d, p, seed=seed, cam_err_deg=cam_err_deg)
         self.task = TidyTask(self.kin, params, log=self._log)
@@ -273,8 +297,11 @@ def main():
     ap.add_argument("--view", action="store_true")
     ap.add_argument("--t-max", type=float, default=400.0)
     ap.add_argument("--world", default="arena", choices=("arena", "house"))
+    ap.add_argument("--camera", default="stereo", choices=("stereo", "d435"),
+                    help="the depth camera: the head's stereo pair, or the RealSense D435 on the nose (design.md 4.11)")
     a = ap.parse_args()
-    g = SilPick(a.n, a.set, a.seed, verbose=True, world=a.world)
+    kw = dict(depth_camera="d435") if a.camera == "d435" else {}
+    g = SilPick(a.n, a.set, a.seed, verbose=True, world=a.world, **kw)
     s = g.run(a.t_max, a.view)
     print({k: v for k, v in s.items() if k != "events"})
 

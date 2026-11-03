@@ -38,6 +38,13 @@ class TfLite:
     def __init__(self):
         self.tf = {}                      # child -> (parent, t, x, y, yaw)
         self.n = 0
+        self.invalid_before = {}
+
+    def invalidate(self, parent: str, child: str, after: float):
+        """A restarted localizer must supply a new transform; queued messages from the old one cannot restore it."""
+        if self.tf.get(child, (None,))[0] == parent:
+            self.tf.pop(child)
+        self.invalid_before[parent, child] = after
 
     def add(self, data: bytes, static: bool = False):
         """One /tf (or, static, /tf_static) message's bytes."""
@@ -47,6 +54,8 @@ class TfLite:
             return
         self.n += 1
         for parent, child, t, x, y, _, qx, qy, qz, qw in items:
+            if not static and t <= self.invalid_before.get((parent, child), -math.inf):
+                continue
             self.tf[child] = (parent, 0.0 if static else t, x, y, yaw_of(qx, qy, qz, qw))
 
     def lookup(self, fixed: str, child: str):
@@ -73,5 +82,8 @@ class TfLite:
         for fr in fixed:
             p = self.lookup(fr, child)
             if p is not None:
+                odom = self.lookup("odom", child) if fr == "map" else None
+                if odom is not None and odom[3] - p[3] > 2.0:
+                    continue                     # cached map TF must not hide an inactive/dead localizer
                 return (fr, p[0], p[1], math.atan2(math.sin(p[2]), math.cos(p[2])), p[3])
         return None

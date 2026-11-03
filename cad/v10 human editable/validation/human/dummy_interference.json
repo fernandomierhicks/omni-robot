@@ -1,0 +1,35 @@
+{
+  "interferences": [
+    {
+      "float_mm": 0,
+      "angle_deg": 90,
+      "interferences": []
+    },
+    {
+      "float_mm": 0,
+      "angle_deg": 150,
+      "interferences": []
+    },
+    {
+      "float_mm": 0.15,
+      "angle_deg": 90,
+      "interferences": []
+    },
+    {
+      "float_mm": 0.15,
+      "angle_deg": 150,
+      "interferences": []
+    },
+    {
+      "float_mm": 0.3,
+      "angle_deg": 90,
+      "interferences": []
+    },
+    {
+      "float_mm": 0.3,
+      "angle_deg": 150,
+      "interferences": []
+    }
+  ],
+  "pass": true
+}

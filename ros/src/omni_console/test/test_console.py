@@ -9,6 +9,7 @@ import sys
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
 from omni_console import status as st                     # noqa: E402
 from omni_console.missions import (MANUAL_TIMEOUT, SETTINGS, ZERO_TAIL, Console, load_json,   # noqa: E402
@@ -176,14 +177,26 @@ def test_unknown_verb_and_bad_args():
 
 
 def test_battery_estimate():
-    assert st.battery_pct(29.4) == pytest.approx(100.0)
-    assert st.battery_pct(21.0) == 0.0
-    assert 40 < st.battery_pct(7 * 3.7) < 60
+    assert st.battery_pct(25.2) == pytest.approx(100.0)          # the 6S pack full
+    assert st.battery_pct(19.5) == 0.0
+    assert 40 < st.battery_pct(6 * 3.8) < 60
+    assert st.battery_pct(21.0) < 10                             # the firmware's stop
     assert st.battery_pct(0) is None
 
 
+def test_battery_low_matches_the_firmware():
+    """The console's low line and cell count are the firmware's BATT_LOW (both robots' fw_params)."""
+    import re
+    for name in ("fw_params.h", "fw_params_arm.h"):
+        firmware = os.environ.get("OMNI_FIRMWARE_DIR", os.path.join(REPO, "firmware"))
+        text = open(os.path.join(firmware, "lib", "omni_fw", name), encoding="utf-8").read()
+        v_low, per_cell = map(float, re.search(r"BATT_LOW = ([\d.]+)f;\s*// V: ([\d.]+) V per cell", text).groups())
+        assert v_low == pytest.approx(st.BATT_LOW_V), name
+        assert round(v_low / per_cell) == st.CELLS, name
+
+
 def test_mcu_summary_explains_faults():
-    m = dict(mode="AUTO", profile="adult", faults=["LOW_BATT"], v_bus=22.0, dm_err=[1, 1, 1, 1], fly_rpm=[0.0, 0.0],
+    m = dict(mode="AUTO", profile="adult", faults=["LOW_BATT"], v_bus=20.8, dm_err=[1, 1, 1, 1], fly_rpm=[0.0, 0.0],
              tilt=0.0, ball_held=False, drive_mode=1)
     s = st.mcu_summary(m, 0.01)
     assert s["battery_low"] and s["faults"][0]["hint"] and s["mode_hint"]

@@ -109,7 +109,7 @@ function battery(mcu) {
   if (!mcu) return null;
   const pct = mcu.battery_pct;
   const col = mcu.battery_low || (pct != null && pct < 15) ? "var(--red)" : pct != null && pct < 35 ? "var(--orange)" : "var(--green)";
-  return html`<span class="sb" title="Estimated from the pack voltage (7S): reads low while the motors pull hard. Charge below 22.4 V.">
+  return html`<span class="sb" title="Estimated from the pack voltage (6S): reads low while the motors pull hard. The base stops below 21 V.">
     <span class="batt"><div style=${`width: ${pct ?? 0}%; background: ${col}`}></div></span>
     ${mcu.v_bus.toFixed(1)} V <span class="dim">${pct != null ? `${pct}%` : ""}</span></span>`;
 }

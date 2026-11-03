@@ -27,7 +27,7 @@ namespace fw {
 enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82, MSG_INFO = 0x83, MSG_TIME = 0x84 };
 enum TimeKind : uint8_t { TE_SYNC = 1, TE_CAM_TRIGGER = 2, TE_CAM_STROBE = 3 };
 
-constexpr uint16_t PROTOCOL_VERSION = 4;       // bump with any change to the bodies below (and in protocol.py)
+constexpr uint16_t PROTOCOL_VERSION = 5;      // bump with any change to the bodies below (and in protocol.py)
 constexpr uint32_t INFO_PERIOD_US = 100000;
 
 enum ReqMode : uint8_t { REQ_DISARM = 0, REQ_AUTO = 1 };

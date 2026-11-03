@@ -1,0 +1,76 @@
+{
+  "sketches": [
+    {
+      "name": "Cylinder Section",
+      "status": 3
+    },
+    {
+      "name": "Eye Sketch",
+      "status": 3
+    },
+    {
+      "name": "Eye Bore Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 2643.780566190274,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"eye_diameter\"= 8mm 'Mock shock eye outside diameter",
+    "\"eye_width\"= 6mm 'Eye width along hinge axis X",
+    "\"eye_bore\"= 3.2mm 'M3 hinge clearance",
+    "\"rod_diameter\"= 4mm 'Sliding rod diameter",
+    "\"neck_start\"= 3mm 'Neck junction inside eye",
+    "\"cylinder_diameter\"= 11mm 'Mock shock cylinder outside diameter",
+    "\"cylinder_start\"= 7mm 'Cylinder lower shoulder",
+    "\"cylinder_end\"= 35.5mm 'Cylinder open end",
+    "\"bore_start\"= 12mm 'Bottom of sliding bore",
+    "\"bore_diameter\"= 4.4mm 'Sliding bore diameter",
+    "\"axis_reference_halfspan\"= 10.123mm 'Half display length of the construction axis; avoids sharing a profile endpoint",
+    "\"D1@Cylinder Section\"= \"rod_diameter\" / 2",
+    "\"D2@Cylinder Section\"= \"cylinder_diameter\" / 2",
+    "\"D3@Cylinder Section\"= \"bore_diameter\" / 2",
+    "\"D4@Cylinder Section\"= \"neck_start\"",
+    "\"D5@Cylinder Section\"= \"cylinder_start\"",
+    "\"D6@Cylinder Section\"= \"cylinder_end\"",
+    "\"D7@Cylinder Section\"= \"bore_start\"",
+    "\"D8@Cylinder Section\"= \"axis_reference_halfspan\"",
+    "\"D9@Cylinder Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Cylinder Revolve\"= \"full_turn\"",
+    "\"D1@Eye Sketch\"= \"eye_diameter\"",
+    "\"D1@Eye Extrude\"= \"eye_width\"",
+    "\"D1@Eye Bore Sketch\"= \"eye_bore\"",
+    "\"D1@Eye Bore Cut\"= \"eye_width\""
+  ],
+  "design_features": [
+    {
+      "name": "Cylinder Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Cylinder Revolve"
+      ]
+    },
+    {
+      "name": "Eye Extrude",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Eye Extrude"
+      ]
+    },
+    {
+      "name": "Eye Bore Cut",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Eye Bore Cut"
+      ]
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "assembly": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10H_robot_floor_reach.SLDASM",
+    "mate_errors": [],
+    "components": 858,
+    "camera_transform": [
+      [
+        0.0,
+        0.6427876096865394,
+        0.7660444431189782,
+        208.5661127912069
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.7660444431189782,
+        -0.6427876096865394,
+        175.9392111426142
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  {
+    "assembly": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\V10H_robot.SLDASM",
+    "mate_errors": [],
+    "components": 858,
+    "camera_transform": [
+      [
+        0.0,
+        0.6427876096865394,
+        0.7660444431189782,
+        208.5661127912069
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.7660444431189782,
+        -0.6427876096865394,
+        175.9392111426142
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+]

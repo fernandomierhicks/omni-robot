@@ -42,7 +42,12 @@ from omni_sim.mcu_port import McuPort
 LATCHED = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
 
 
+WALL_OFFSET = [None]        # clock_mode "wall": system time minus sim time, set when the loop starts (rtf 1: the same pace)
+
+
 def stamp(t: float) -> Time:
+    if WALL_OFFSET[0] is not None:       # the robot's nodes run on the system clock, as on the real robot (no /clock)
+        t = t + WALL_OFFSET[0]
     ns = int(round(t * 1e9))
     return Time(sec=ns // 1_000_000_000, nanosec=ns % 1_000_000_000)
 
@@ -59,15 +64,18 @@ class CatchBridge(Node):
         cfg = WorldConfig(dist=self.dist, apex_range=(P("apex_min", 0.75).value, P("apex_max", 2.0).value),
                           seed=P("seed", 9000).value, return_throws=P("returns", True).value,
                           floor=GAME_FLOORS[self.floor], throwers=2 if P("pass_game", False).value else 1)
+        if P("ghost", False).value:                         # a real ball (ghost_ball.py) is the thrower: the sim throws nothing
+            cfg.first_toss = 1e9
         self.tosses = P("tosses", 0).value
         self.rtf = P("rtf", 1.0).value
         self.clock_period = P("clock_period", 0.001).value
+        self.wall_clock = P("clock_mode", "sim").value == "wall"   # stamps = system time, no /clock (design.md 4.9, Pi in the loop)
         self.want_viewer = P("viewer", False).value
         self.get_logger().info(f"building the catch field: thrower {self.dist} m out, {self.floor} floor, "
                                f"seed {cfg.seed}, returns {cfg.return_throws}")
         self.w = CatchWorld(cfg)
         self.r = self.w.robot
-        self.port = McuPort(P("port", 5761).value, log=self.get_logger().info)
+        self.port = McuPort(P("port", 5761).value, log=self.get_logger().info, bind=P("mcu_bind", "127.0.0.1").value)
         from omni_sim.bridge_node import FaultTopic
         self.faults = FaultTopic(self, self.r)              # /sim/fault: the console's fault injection
         self.p_clock = self.create_publisher(Clock, "/clock", 10)
@@ -160,6 +168,8 @@ class CatchBridge(Node):
         k = 0
         w0, s0 = time.perf_counter(), d.time
         w_rep, s_rep = w0, s0
+        if self.wall_clock:
+            WALL_OFFSET[0] = time.time() - d.time
         n_res = 0
         t_truth = 0.0
         w_view = 0.0
@@ -171,7 +181,8 @@ class CatchBridge(Node):
                 self.port.exchange(self.r.fw, self.faults.inj.link_down())
             if t >= next_clock - 1e-9:
                 next_clock += self.clock_period
-                self.p_clock.publish(Clock(clock=stamp(t)))
+                if not self.wall_clock:
+                    self.p_clock.publish(Clock(clock=stamp(t)))
             self._pub_frames(t)
             if t >= t_truth:
                 t_truth = t + 0.02
@@ -196,6 +207,8 @@ class CatchBridge(Node):
                     time.sleep(ahead)
                 elif ahead < -0.25:
                     w0, s0 = time.perf_counter(), t
+                    if self.wall_clock:
+                        WALL_OFFSET[0] = time.time() - t
             now = time.perf_counter()
             if now - w_rep > 5.0:
                 rtf = (t - s_rep) / (now - w_rep)

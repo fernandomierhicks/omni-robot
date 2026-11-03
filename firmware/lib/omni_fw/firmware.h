@@ -12,6 +12,10 @@
 //   ESTOP      the e-stop chain is open: motor power is already off in hardware; everything is reset
 // Rules (design.md 14): every stop is ramped; no CMD for CMD_TIMEOUT -> ramped stop, flywheels off; a bumper ->
 // ramped stop; firing needs AUTO, the flywheels at speed and no bumper.
+// The fault stop: in AUTO, a low pack (under BATT_LOW for BATT_LOW_HOLD_US), a motor error or a silent motor -> a
+// ramped stop, then DISARMED. It latches (FAULT_STOP) until the Jetson asks for DISARM (its mode ended) with the pack at
+// BATT_LOW + BATT_RESUME or more; only then does a request for AUTO re-arm (which clears the motors' errors). MANUAL is
+// not stopped: the RC operator keeps the sticks to move the robot off.
 #pragma once
 
 #include <stddef.h>
@@ -37,7 +41,13 @@ enum Fault : uint16_t {
     F_LOW_BATT = 1 << 5,
     F_IMU_SILENT = 1 << 6,
     F_FLY_TELEM = 1 << 7,        // no eRPM telemetry while the flywheels run
+    F_FAULT_STOP = 1 << 8,       // the fault stop is latched (LOW_BATT, MOTOR_ERR or MOTOR_SILENT in AUTO)
 };
+
+constexpr float BATT_RESUME = 1.2f;              // V over BATT_LOW to re-arm (0.2 V a cell on 6S): a resting low pack
+                                                 // recovers less (est)
+constexpr uint64_t BATT_LOW_HOLD_US = 1000000;   // under BATT_LOW this long: a low pack, not a current spike's sag (est)
+constexpr uint64_t ARM_GRACE_US = 200000;        // after arming, the motors' enable and error clear before they count
 
 enum BasePhase : uint8_t { PH_TRACK = 0, PH_COAST = 1, PH_BRAKE = 2, PH_HOLD = 3 };
 
@@ -110,6 +120,9 @@ private:
     uint64_t brake_key_ = 0;
     Pose hold_pose_;
     uint64_t t_stopped_us_ = 0;
+    uint64_t t_armed_us_ = 0;
+    uint64_t t_batt_low_us_ = 0;     // since when the pack reads under BATT_LOW (0: it doesn't)
+    bool fault_stop_ = false;
 
     // module
     FlywheelLoop fly_[2];

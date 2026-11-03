@@ -1,0 +1,68 @@
+[
+  {
+    "part": "wheel_cartridge",
+    "quantity": 1,
+    "material": "PLA",
+    "infill_pct": 80,
+    "size_mm": [
+      66.0,
+      66.0,
+      10.0
+    ]
+  },
+  {
+    "part": "wheel_hub_A",
+    "quantity": 1,
+    "material": "PLA",
+    "infill_pct": 60,
+    "size_mm": [
+      123.24,
+      116.0,
+      23.0
+    ]
+  },
+  {
+    "part": "wheel_hub_B",
+    "quantity": 1,
+    "material": "PLA",
+    "infill_pct": 60,
+    "size_mm": [
+      123.24,
+      123.24,
+      36.0
+    ]
+  },
+  {
+    "part": "wheel_hub_C",
+    "quantity": 1,
+    "material": "PLA",
+    "infill_pct": 60,
+    "size_mm": [
+      116.0,
+      123.24,
+      26.0
+    ]
+  },
+  {
+    "part": "roller_core",
+    "quantity": 12,
+    "material": "PLA",
+    "infill_pct": 20,
+    "size_mm": [
+      30.95,
+      31.0,
+      42.0
+    ]
+  },
+  {
+    "part": "roller_tread",
+    "quantity": 12,
+    "material": "TPU medium",
+    "infill_pct": 100,
+    "size_mm": [
+      36.0,
+      36.0,
+      37.0
+    ]
+  }
+]

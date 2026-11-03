@@ -1,0 +1,142 @@
+{
+  "status": "Provisional visual classifications; Fernando cannot recall the individual clips. No meta.json rewritten.",
+  "clear_free_flight": 8,
+  "handling_or_rig_motion": 7,
+  "clips": [
+    {
+      "session": "loc1",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc1",
+      "clip": "t002",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Ball carried/repositioned beside the person; accepted picks bridge hand motion, not a clear free-flight throw.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc1",
+      "clip": "t003",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc1",
+      "clip": "t004",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc1",
+      "clip": "t005",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Dense bottom-half frames 35..57 show ball carried downward beside leg; no clear detached flight.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc2",
+      "clip": "t001",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Person/legs dominate while rig moves; colour fit follows yellow/orange patches on painting, not ball.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc2",
+      "clip": "t002",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc2",
+      "clip": "t003",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc2",
+      "clip": "t004",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Ball stays with the hand through the fitted segment; preparation/handling.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc2",
+      "clip": "t005",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": false
+    },
+    {
+      "session": "loc3",
+      "clip": "t001",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": true
+    },
+    {
+      "session": "loc3",
+      "clip": "t002",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Ball carried near counter; accepted segment follows ball with hand, no clear free flight.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": true
+    },
+    {
+      "session": "loc3",
+      "clip": "t003",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Ball held/repositioned in front of body, no clear free flight.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": true
+    },
+    {
+      "session": "loc3",
+      "clip": "t004",
+      "visual_class": "handling_or_rig_motion",
+      "note": "Ball moved with hand beside body, no clear free flight.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": true
+    },
+    {
+      "session": "loc3",
+      "clip": "t005",
+      "visual_class": "clear_free_flight",
+      "note": "Ball visibly separates from hand and travels across room image.",
+      "observer": "Codex contact-sheet inspection, including full clips and ball crops; not Fernando outcome labels",
+      "independent_frame_labels": false,
+      "held_out": true
+    }
+  ]
+}

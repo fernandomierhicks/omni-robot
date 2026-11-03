@@ -1,0 +1,28 @@
+{
+  "part": "wheel_cartridge",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+  "links": [
+    {
+      "feature": "0046_cylinder",
+      "sketch": "0046_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 0,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0050_cylinder",
+      "sketch": "0050_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 1,
+      "method": "native_concentric_to_derived_master"
+    },
+    {
+      "feature": "0054_cylinder",
+      "sketch": "0054_cylinder_Sketch",
+      "pattern": "Bearing_cartridge",
+      "point_index": 2,
+      "method": "native_concentric_to_derived_master"
+    }
+  ],
+  "equation_count": 0
+}

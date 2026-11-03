@@ -1,0 +1,149 @@
+{
+  "session": "20261030_145545_realtest",
+  "clip": "t001",
+  "review": null,
+  "detector": {
+    "hue_deg": [
+      45.0,
+      100.0
+    ],
+    "min_sat": 0.45,
+    "min_val": 0.35,
+    "min_blob_px": 8,
+    "coarse_stride": 4,
+    "window_px": 25.0,
+    "window_scale": 2.5,
+    "max_candidates": 3,
+    "acquire_candidates": 40,
+    "size_gain": 1.0,
+    "backend": "native"
+  },
+  "ball_metadata": null,
+  "held_out": false,
+  "sources": {
+    "depth": {
+      "source": "depth",
+      "frames": 179,
+      "candidates": 3577,
+      "ok": false
+    },
+    "ir_stereo": {
+      "source": "ir_stereo",
+      "frames": 179,
+      "candidates": 375,
+      "ok": false
+    },
+    "colour": {
+      "source": "colour",
+      "frames": 119,
+      "candidates": 0,
+      "ok": false,
+      "frames_with_a_blob": 0,
+      "reason": "no blob track follows an arc"
+    }
+  },
+  "prediction": {},
+  "analysis_seconds": 3.1952844001352787,
+  "trigger_s": 0.6886730240000001,
+  "health": {
+    "color": {
+      "n": 119,
+      "fps": 59.5348035214251,
+      "dt_median_ms": 16.796927999999998,
+      "dt_max_ms": 16.797696,
+      "lost": 0,
+      "first_s": 0.0,
+      "last_s": 1.9820339200000001,
+      "stamp_to_host_ms_p10_50_90": [
+        17.8524042,
+        18.02517,
+        18.864375199999998
+      ],
+      "gain_p10_50_90": [
+        64.0,
+        64.0,
+        64.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        30.0,
+        30.0,
+        30.0
+      ]
+    },
+    "depth": {
+      "n": 179,
+      "fps": 89.87354206938092,
+      "dt_median_ms": 11.126527999999999,
+      "dt_max_ms": 11.128064,
+      "lost": 0,
+      "first_s": -0.000932864,
+      "last_s": 1.979627776,
+      "stamp_to_host_ms_p10_50_90": [
+        10.0212874,
+        10.119093999999999,
+        10.890156999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir1": {
+      "n": 179,
+      "fps": 89.87354206938092,
+      "dt_median_ms": 11.126527999999999,
+      "dt_max_ms": 11.128064,
+      "lost": 0,
+      "first_s": -0.000932864,
+      "last_s": 1.979627776,
+      "stamp_to_host_ms_p10_50_90": [
+        10.0212874,
+        10.119093999999999,
+        10.890156999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    "ir2": {
+      "n": 179,
+      "fps": 89.87354206938092,
+      "dt_median_ms": 11.126527999999999,
+      "dt_max_ms": 11.128064,
+      "lost": 0,
+      "first_s": -0.000932864,
+      "last_s": 1.979627776,
+      "stamp_to_host_ms_p10_50_90": [
+        10.0212874,
+        10.119093999999999,
+        10.890156999999999
+      ],
+      "gain_p10_50_90": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "stored_exposure_field_raw_p10_50_90": [
+        1000.0,
+        1000.0,
+        1000.0
+      ]
+    }
+  },
+  "photo": [],
+  "picks": [],
+  "configured_color_exposure_us": 3000
+}

@@ -1,0 +1,42 @@
+{
+  "part": "bench_plate",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [
+    {
+      "sketch": "Pod Foot Clearance Sketch",
+      "pattern": [
+        "Guard Feet",
+        "Tower Feet"
+      ],
+      "circles": 11,
+      "status": 3
+    },
+    {
+      "sketch": "Foot Counterbore Sketch",
+      "pattern": [
+        "Guard Feet",
+        "Tower Feet"
+      ],
+      "circles": 11,
+      "status": 3
+    }
+  ],
+  "aliases": {
+    "guard_front_foot_x": "\"D68@Control Measures-Shared Layout\"",
+    "guard_rear_foot_x": "\"D70@Control Measures-Shared Layout\"",
+    "guard_foot_y": "\"D72@Control Measures-Shared Layout\"",
+    "outer_ear_foot_x": "\"D74@Control Measures-Shared Layout\"",
+    "inner_ear_foot_x": "\"D120@Control Measures-Shared Layout\"",
+    "pivot_foot_y": "\"D34@Control Measures-Shared Layout\"",
+    "tower_foot_1_x": "\"D88@Control Measures-Shared Layout\"",
+    "tower_foot_1_y": "\"D90@Control Measures-Shared Layout\"",
+    "tower_foot_2_x": "\"D92@Control Measures-Shared Layout\"",
+    "tower_foot_2_y": "\"D94@Control Measures-Shared Layout\"",
+    "tower_foot_3_x": "\"D96@Control Measures-Shared Layout\"",
+    "tower_foot_3_y": "\"D98@Control Measures-Shared Layout\"",
+    "tower_foot_4_x": "\"D100@Control Measures-Shared Layout\"",
+    "tower_foot_4_y": "\"D102@Control Measures-Shared Layout\"",
+    "tower_foot_5_x": "\"D104@Control Measures-Shared Layout\"",
+    "tower_foot_5_y": "\"D106@Control Measures-Shared Layout\""
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "camera_center_mm": [
+    190.0,
+    0.0,
+    111.5
+  ],
+  "tilt_down_deg": 30.0,
+  "camera_source_to_robot": [
+    [
+      0.0,
+      0.49999999999999994,
+      0.8660254037844387,
+      200.82531754730547
+    ],
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.8660254037844387,
+      -0.49999999999999994,
+      105.25
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "camera_box": {
+    "min": [
+      174.20793644812056,
+      -45.00060099792629,
+      96.58974586215561
+    ],
+    "max": [
+      205.82531764730547,
+      45.00060099792628,
+      127.13683112267246
+    ]
+  },
+  "wedge_box": {
+    "min": [
+      172.92468235269453,
+      -25.0000001,
+      72.9999999
+    ],
+    "max": [
+      197.80736845487436,
+      25.000000100000012,
+      106.9246825526945
+    ]
+  },
+  "deck_screw_xy_mm": [
+    [
+      184.61602540378445,
+      -18
+    ],
+    [
+      184.61602540378445,
+      18
+    ]
+  ],
+  "checks": [
+    {
+      "part": "camera",
+      "obstacle": "deck_front#1",
+      "clearance_mm": 23.589745962155604,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "camera",
+      "obstacle": "lidar_riser#1",
+      "clearance_mm": 3.384566871756988,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "camera",
+      "obstacle": "bumper_lobe#1",
+      "clearance_mm": 15.491771644224265,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "camera",
+      "obstacle": "RPLIDAR A2M12",
+      "clearance_mm": 8.927349870711366,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wedge",
+      "obstacle": "deck_front#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wedge",
+      "obstacle": "lidar_riser#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wedge",
+      "obstacle": "bumper_lobe#1",
+      "clearance_mm": 5.107142952515008,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wedge",
+      "obstacle": "RPLIDAR A2M12",
+      "clearance_mm": 25.575317547305488,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw0",
+      "obstacle": "deck_front#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw0",
+      "obstacle": "lidar_riser#1",
+      "clearance_mm": 11.332306287034642,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw0",
+      "obstacle": "bumper_lobe#1",
+      "clearance_mm": 15.469529383996733,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw0",
+      "obstacle": "RPLIDAR A2M12",
+      "clearance_mm": 54.18842361515292,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw1",
+      "obstacle": "deck_front#1",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw1",
+      "obstacle": "lidar_riser#1",
+      "clearance_mm": 11.332306287035756,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw1",
+      "obstacle": "bumper_lobe#1",
+      "clearance_mm": 15.46952938399676,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw1",
+      "obstacle": "RPLIDAR A2M12",
+      "clearance_mm": 54.18842361515292,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw2",
+      "obstacle": "deck_front#1",
+      "clearance_mm": 19.158979222418992,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw2",
+      "obstacle": "lidar_riser#1",
+      "clearance_mm": 6.000369342984413,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw2",
+      "obstacle": "bumper_lobe#1",
+      "clearance_mm": 26.103213455613947,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "screw2",
+      "obstacle": "RPLIDAR A2M12",
+      "clearance_mm": 26.70888263315049,
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "camera",
+      "obstacle": "wedge",
+      "clearance_mm": 0.0,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "camera_solids": 8,
+  "wedge_solids": 1,
+  "pass": true
+}

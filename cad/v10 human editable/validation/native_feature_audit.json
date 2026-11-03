@@ -1,0 +1,6596 @@
+[
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_ak40_reference.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 10,
+      "Extrusion": 1,
+      "MoveCopyBody": 10,
+      "ICE": 9,
+      "CombineBodies": 9
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0004_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0009_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0012_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0015_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0018_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0021_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0024_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bearing_627.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "MoveCopyBody": 2,
+      "ICE": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0323_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0324_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bearing_6804.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "MoveCopyBody": 2,
+      "ICE": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0326_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0327_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bearing_687.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "MoveCopyBody": 2,
+      "ICE": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0329_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0330_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bench_plate.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 50,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 27,
+      "ICE": 26,
+      "CombineBodies": 26
+    },
+    "sketches": [
+      {
+        "name": "0000_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0009_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0012_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0015_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0018_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0021_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0024_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0027_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0030_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0033_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0036_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0039_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0042_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0045_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0048_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0051_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0054_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0057_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0060_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0063_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0066_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0069_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0072_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0075_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M2p5_10_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M2p5_6_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0135_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0137_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0140_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0141_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M2p5_8_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0150_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0152_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0155_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0156_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_10_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0015_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0017_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0020_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0021_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_12_FLAT.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Revolution": 2,
+      "MoveCopyBody": 7,
+      "ICE": 2,
+      "CombineBodies": 3
+    },
+    "sketches": [
+      {
+        "name": "0165_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0166_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0167_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0172_extrude_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_12_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0030_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0032_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0035_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0036_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_14_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0045_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0047_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0050_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0051_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_16_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0060_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0062_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0065_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0066_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_18_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0075_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0077_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0080_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0081_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_20_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0090_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0092_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0095_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0096_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_25_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0105_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0107_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0110_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0111_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_50_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0120_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0122_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0125_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0126_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_bolt_M3_8_PAN.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "Fillet": 1,
+      "ICE": 2,
+      "MoveCopyBody": 5,
+      "CombineBodies": 3,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_dummy_motor_case.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 41,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 18,
+      "ICE": 17,
+      "CombineBodies": 17
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0008_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0010_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0014_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0017_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0020_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0023_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0026_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0029_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0032_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0035_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0038_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0041_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0044_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0047_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0050_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_dummy_motor_rear_cap.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 43,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 28,
+      "ICE": 15,
+      "CombineBodies": 19,
+      "Revolution": 4
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0008_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0011_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0014_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0017_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0020_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0023_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0026_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0029_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0032_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0035_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0038_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0041_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0044_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0047_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0050_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0053_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0056_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_dummy_motor_retainer.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "MoveCopyBody": 2,
+      "ICE": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0102_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0104_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_dummy_motor_rotor.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 33,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 10,
+      "ICE": 9,
+      "CombineBodies": 9
+    },
+    "sketches": [
+      {
+        "name": "0041_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0043_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0046_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0049_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0052_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0055_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0058_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0061_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0064_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0067_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_fork_bar.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 28,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 9,
+      "ICE": 4,
+      "CombineBodies": 4
+    },
+    "sketches": [
+      {
+        "name": "0000_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0001_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0004_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0007_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0010_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_inner_fork_6804.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 52,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 59,
+      "ICE": 23,
+      "CombineBodies": 28,
+      "Revolution": 5
+    },
+    "sketches": [
+      {
+        "name": "0051_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0052_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0055_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0057_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0059_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0063_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0068_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0070_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0074_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0076_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0080_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0082_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0086_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0088_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0092_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0094_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0099_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0102_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0106_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0111_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0115_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0119_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0122_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0124_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0128_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0131_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0133_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0138_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0140_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_master_layout.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 23
+    },
+    "sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Bearing_cartridge",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Motor_output",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Motor_rear",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Motor_cover",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Guard_feet",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Tower_feet",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Fork_bar",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Roller_axles",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Pivot",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Shaft_pin",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower",
+        "status": 3
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper",
+        "status": 3
+      },
+      {
+        "name": "VIEW_001_Motor_cover",
+        "status": 3
+      },
+      {
+        "name": "VIEW_002_Motor_rear",
+        "status": 3
+      },
+      {
+        "name": "VIEW_003_Motor_output",
+        "status": 3
+      },
+      {
+        "name": "VIEW_004_Fork_bar",
+        "status": 3
+      },
+      {
+        "name": "VIEW_005_Fork_bar",
+        "status": 3
+      },
+      {
+        "name": "VIEW_006_Shaft_pin",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 0,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_motor_cup.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 37,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 28,
+      "ICE": 12,
+      "CombineBodies": 13,
+      "Revolution": 1
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0008_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0011_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0015_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0019_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0023_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0027_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0031_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0035_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0039_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0043_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0047_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_nut_M3_hex.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 3,
+      "Extrusion": 1,
+      "MoveCopyBody": 4,
+      "Revolution": 1,
+      "CombineBodies": 2,
+      "ICE": 1
+    },
+    "sketches": [
+      {
+        "name": "0181_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0180_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0183_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_nut_M3_nyloc.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 4,
+      "Extrusion": 1,
+      "MoveCopyBody": 6,
+      "Revolution": 2,
+      "CombineBodies": 3,
+      "ICE": 1
+    },
+    "sketches": [
+      {
+        "name": "0186_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0185_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0188_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0191_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_outer_fork_6804.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 46,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 47,
+      "ICE": 17,
+      "CombineBodies": 22,
+      "Revolution": 5
+    },
+    "sketches": [
+      {
+        "name": "0145_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0146_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0149_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0151_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0154_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0157_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0159_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0163_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0165_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0169_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0172_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0176_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0178_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0183_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0186_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0190_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0195_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0199_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0203_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0206_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0208_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0213_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0215_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pivot_outer_spacer.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "ICE": 1,
+      "MoveCopyBody": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0172_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0173_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pivot_shaft.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 25,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 3,
+      "ICE": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0220_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0222_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pivot_shim.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "ICE": 1,
+      "MoveCopyBody": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0169_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0170_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_pod_mount.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 43,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 38,
+      "ICE": 13,
+      "CombineBodies": 19,
+      "Revolution": 6
+    },
+    "sketches": [
+      {
+        "name": "0058_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0060_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0063_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0066_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0070_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0073_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0075_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0080_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0082_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0087_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0091_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0093_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0098_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0100_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0105_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0107_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0112_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0114_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0119_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0121_cone_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_roller_core.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 7,
+      "Revolution": 1,
+      "MoveCopyBody": 10,
+      "ICE": 6,
+      "CombineBodies": 6
+    },
+    "sketches": [
+      {
+        "name": "0000_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0004_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0011_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0014_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0017_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_roller_tread.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 7,
+      "Revolution": 4,
+      "MoveCopyBody": 9,
+      "ICE": 3,
+      "CombineBodies": 6
+    },
+    "sketches": [
+      {
+        "name": "0019_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0020_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0026_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0022_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0029_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0024_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0032_revolve_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_shock_case.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 5,
+      "Extrusion": 1,
+      "MoveCopyBody": 7,
+      "ICE": 4,
+      "CombineBodies": 4
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0008_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0010_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_shock_rod.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 3,
+      "Extrusion": 1,
+      "MoveCopyBody": 5,
+      "ICE": 2,
+      "CombineBodies": 2
+    },
+    "sketches": [
+      {
+        "name": "0012_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0014_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0016_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_washer_M3.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 2,
+      "Extrusion": 1,
+      "ICE": 1,
+      "MoveCopyBody": 1,
+      "CombineBodies": 1
+    },
+    "sketches": [
+      {
+        "name": "0193_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0194_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_cartridge.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 30,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 14,
+      "ICE": 6,
+      "CombineBodies": 6
+    },
+    "sketches": [
+      {
+        "name": "0035_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0037_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0040_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0043_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0046_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0050_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0054_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_guard.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 68,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 82,
+      "ICE": 40,
+      "CombineBodies": 42,
+      "DeleteBody": 8,
+      "Revolution": 4
+    },
+    "sketches": [
+      {
+        "name": "0002_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0004_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0007_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0010_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0013_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0016_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0019_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0023_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0027_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0031_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0033_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0037_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0041_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0045_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0049_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0053_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0057_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0059_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0064_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0066_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0071_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0073_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0077_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0081_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0085_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0088_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0091_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0094_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0097_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0100_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0103_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0106_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0109_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0112_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0115_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0118_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0121_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0124_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0127_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0131_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0135_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0139_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0143_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0147_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_hub_A.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 124,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 280,
+      "ICE": 82,
+      "CombineBodies": 112,
+      "Chamfer": 6,
+      "Revolution": 18,
+      "DeleteBody": 32,
+      "Fillet": 7
+    },
+    "sketches": [
+      {
+        "name": "0000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0002_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0005_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0006_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0010_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0011_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0016_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0017_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0022_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0023_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0028_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0029_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0034_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0035_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0040_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0044_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0047_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0051_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0054_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0058_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0061_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0065_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0068_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0072_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0075_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0079_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0082_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0086_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0090_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0094_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0098_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0102_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0106_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0110_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0114_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0118_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0122_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0126_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0130_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0133_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0136_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0139_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0142_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch44",
+        "status": 3
+      },
+      {
+        "name": "0147_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0150_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0153_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0156_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch49",
+        "status": 3
+      },
+      {
+        "name": "0161_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0164_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0167_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0170_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch54",
+        "status": 3
+      },
+      {
+        "name": "0175_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0178_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0181_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0184_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch59",
+        "status": 3
+      },
+      {
+        "name": "0189_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0192_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0195_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0198_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch64",
+        "status": 3
+      },
+      {
+        "name": "0203_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0206_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0209_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0212_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0215_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0219_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0222_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0224_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0228_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0231_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0234_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0238_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0242_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0246_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0250_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0254_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0258_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0262_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0266_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0270_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0272_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0276_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0278_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0283_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0285_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0290_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0292_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0297_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0299_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0304_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0306_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0313_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch97",
+        "status": 3
+      },
+      {
+        "name": "Sketch98",
+        "status": 3
+      },
+      {
+        "name": "Sketch99",
+        "status": 3
+      },
+      {
+        "name": "Sketch100",
+        "status": 3
+      },
+      {
+        "name": "Sketch101",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_hub_B.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 183,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 478,
+      "ICE": 123,
+      "CombineBodies": 183,
+      "Chamfer": 12,
+      "Revolution": 36,
+      "DeleteBody": 64,
+      "Fillet": 13
+    },
+    "sketches": [
+      {
+        "name": "0333_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0335_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0338_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0339_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0343_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0344_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0349_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0350_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0355_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0356_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0361_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0362_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0367_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0368_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0373_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0377_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0380_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0384_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0387_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0391_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0394_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0398_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0401_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0405_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0408_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0412_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0415_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0419_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0423_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0427_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0431_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0435_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0439_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0443_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0447_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0451_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0455_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0459_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0130_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0465_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0468_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0471_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0474_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch44",
+        "status": 3
+      },
+      {
+        "name": "0479_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0482_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0485_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0488_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch49",
+        "status": 3
+      },
+      {
+        "name": "0493_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0496_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0499_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0502_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch54",
+        "status": 3
+      },
+      {
+        "name": "0507_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0510_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0513_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0516_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch59",
+        "status": 3
+      },
+      {
+        "name": "0521_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0524_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0527_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0530_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch64",
+        "status": 3
+      },
+      {
+        "name": "0535_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0538_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0541_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0544_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0547_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0551_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0552_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0556_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0557_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0562_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0563_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0568_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0569_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0574_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0575_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0580_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0581_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0586_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0590_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0593_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0597_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0600_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0604_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0607_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0611_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0614_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0618_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0621_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0625_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0628_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0632_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0636_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0640_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0644_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0648_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0652_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0656_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0660_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0664_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0668_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0672_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch106",
+        "status": 3
+      },
+      {
+        "name": "0678_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0681_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0684_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0687_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch111",
+        "status": 3
+      },
+      {
+        "name": "0692_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0695_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0698_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0701_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch116",
+        "status": 3
+      },
+      {
+        "name": "0706_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0709_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0712_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0715_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch121",
+        "status": 3
+      },
+      {
+        "name": "0720_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0723_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0726_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0729_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch126",
+        "status": 3
+      },
+      {
+        "name": "0734_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0737_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0740_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0743_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch131",
+        "status": 3
+      },
+      {
+        "name": "0748_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0751_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0754_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0757_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0760_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0764_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0767_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0771_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0775_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0779_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0783_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0788_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0791_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0795_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0799_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0803_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0807_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0313_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch150",
+        "status": 3
+      },
+      {
+        "name": "Sketch151",
+        "status": 3
+      },
+      {
+        "name": "Sketch152",
+        "status": 3
+      },
+      {
+        "name": "Sketch153",
+        "status": 3
+      },
+      {
+        "name": "Sketch154",
+        "status": 3
+      },
+      {
+        "name": "Sketch155",
+        "status": 3
+      },
+      {
+        "name": "Sketch156",
+        "status": 3
+      },
+      {
+        "name": "Sketch157",
+        "status": 3
+      },
+      {
+        "name": "Sketch158",
+        "status": 3
+      },
+      {
+        "name": "Sketch159",
+        "status": 3
+      },
+      {
+        "name": "Sketch160",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  },
+  {
+    "path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\V10_wheel_hub_C.SLDPRT",
+    "feature_types": {
+      "CommentsFolder": 1,
+      "FavoriteFolder": 1,
+      "HistoryFolder": 1,
+      "SelectionSetFolder": 1,
+      "SensorFolder": 1,
+      "DocsFolder": 1,
+      "DetailCabinet": 1,
+      "NotesAreaFtrFolder": 2,
+      "SurfaceBodyFolder": 1,
+      "SolidBodyFolder": 1,
+      "EnvFolder": 1,
+      "AmbientLight": 1,
+      "DirectionLight": 3,
+      "InkMarkupFolder": 1,
+      "EqnFolder": 1,
+      "MaterialFolder": 1,
+      "RefPlane": 3,
+      "OriginProfileFeature": 1,
+      "ProfileFeature": 114,
+      "Stock": 1,
+      "FeatSurfaceBodyFolder": 1,
+      "FeatSolidBodyFolder": 1,
+      "RefAxisFtrFolder": 1,
+      "FtrFolder": 4,
+      "RefPlaneFtrFolder": 1,
+      "ProfileFtrFolder": 1,
+      "RefPointFtrFolder": 1,
+      "Extrusion": 1,
+      "MoveCopyBody": 262,
+      "ICE": 71,
+      "CombineBodies": 102,
+      "Chamfer": 6,
+      "Revolution": 19,
+      "DeleteBody": 32,
+      "Fillet": 7
+    },
+    "sketches": [
+      {
+        "name": "0837_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0839_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0842_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0843_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0847_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0848_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0853_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0854_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0859_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0860_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0865_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0866_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0871_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0872_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0877_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0881_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0884_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0888_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0891_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0895_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0898_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0902_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0905_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0909_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0912_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0916_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0919_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0923_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0927_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0931_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0935_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0939_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0943_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0947_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0951_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0955_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0959_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0963_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0130_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0969_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0972_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0975_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0978_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch44",
+        "status": 3
+      },
+      {
+        "name": "0983_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0986_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0989_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0992_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch49",
+        "status": 3
+      },
+      {
+        "name": "0997_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1000_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1003_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1006_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch54",
+        "status": 3
+      },
+      {
+        "name": "1011_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1014_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1017_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1020_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch59",
+        "status": 3
+      },
+      {
+        "name": "1025_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1028_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1031_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1034_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch64",
+        "status": 3
+      },
+      {
+        "name": "1039_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1042_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1045_extrude_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1048_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1051_box_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1055_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1057_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1061_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1064_cone_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1070_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1072_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1076_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1078_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1083_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1085_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1090_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1092_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1097_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1099_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1104_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "1106_cylinder_Sketch",
+        "status": 3
+      },
+      {
+        "name": "0313_revolve_Sketch",
+        "status": 3
+      },
+      {
+        "name": "Sketch87",
+        "status": 3
+      },
+      {
+        "name": "Sketch88",
+        "status": 3
+      },
+      {
+        "name": "Sketch89",
+        "status": 3
+      },
+      {
+        "name": "Sketch90",
+        "status": 3
+      },
+      {
+        "name": "Sketch91",
+        "status": 3
+      }
+    ],
+    "reference_sketches": [
+      {
+        "name": "MASTER_Cradle_to_fork-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_1-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Hub_joint_row_2-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Bearing_cartridge-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Guard_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Tower_feet-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Roller_axles-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Pivot-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Inner_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_lower-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "MASTER_Shock_Outer_upper-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_001_Motor_cover-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_002_Motor_rear-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_003_Motor_output-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_004_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_005_Fork_bar-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      },
+      {
+        "name": "VIEW_006_Shaft_pin-LINK_Master_layout",
+        "status": 2,
+        "source_status": 3,
+        "definition": "read_only_Stock_reference_to_master"
+      }
+    ],
+    "feature_errors": [],
+    "body_errors": [],
+    "solid_count": 1,
+    "imported_brep_count": 0,
+    "pass": true
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "part": "pivot_outer_spacer",
+  "master": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\cad\\v10 human editable\\parts\\human\\V10H_master_layout.SLDPRT",
+  "links": [],
+  "aliases": {
+    "bore_diameter": "\"D80@Control Measures-Shared Layout\" + 0.2mm"
+  }
+}

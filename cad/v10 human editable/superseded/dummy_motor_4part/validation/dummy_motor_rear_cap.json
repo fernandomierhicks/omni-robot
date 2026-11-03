@@ -1,0 +1,288 @@
+{
+  "sketches": [
+    {
+      "name": "Cover Section",
+      "status": 3
+    },
+    {
+      "name": "Rear Mount Boss Sketch",
+      "status": 3
+    },
+    {
+      "name": "Rear Mount Pilot Sketch",
+      "status": 3
+    },
+    {
+      "name": "Cover Clearance Sketch",
+      "status": 3
+    }
+  ],
+  "derived_reference_sketches": [
+    {
+      "name": "Control Measures-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle outer spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner spoke phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle inner roller phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cradle phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cartridge phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle output phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle rear phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Angle cover phase-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cradle-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Joint-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cartridge-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Output Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Rear Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Cover Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Guard Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Tower Feet-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pivot-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Pin Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Lower Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Outer Upper Shock-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Fork Bar Local-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    },
+    {
+      "name": "Layout Inner Roller Axles-Shared Layout",
+      "read_only": true,
+      "constraint_source": "V10H_master_layout.SLDPRT"
+    }
+  ],
+  "feature_errors": [],
+  "body_checks": [
+    0
+  ],
+  "volume_mm3": 9147.380691108874,
+  "dead_equations": [],
+  "unlinked_dimensions": [],
+  "equations": [
+    "\"outside_radius\"= 26.5mm 'Motor envelope radius",
+    "\"rear_face_distance\"= 40.2mm 'Exterior rear face toward negative motor Z",
+    "\"front_face_distance\"= 36.7mm 'Case seating face",
+    "\"carrier_radius\"= 10.5mm 'Rear bearing carrier outside radius",
+    "\"carrier_end_distance\"= 30.2mm 'Forward end of rear bearing carrier",
+    "\"bearing_seat_radius\"= \"D86@Control Measures-Shared Layout\" * 0.5 'Driven by the shared master layout",
+    "\"bearing_shoulder_distance\"= 35.2mm 'Rear bearing outer-race shoulder",
+    "\"retainer_access_radius\"= 5mm 'Tool and retaining-washer access radius",
+    "\"rear_mount_boss_diameter\"= 6mm 'Printed rear-mount boss diameter",
+    "\"rear_mount_boss_length\"= 5.5mm 'Boss length forward of the case seating face",
+    "\"rear_mount_pilot\"= 2.1mm 'M2.5 thread-forming pilot",
+    "\"cover_clearance_diameter\"= 3.4mm 'M3 screw clearance",
+    "\"countersink_mouth_diameter\"= 5.6mm 'Countersink mouth clearance for a shallow M3 flat head",
+    "\"countersink_depth\"= 1.171mm 'Axial countersink depth down to the clearance bore",
+    "\"rear_screw_count\"= (\"D116@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"cover_screw_count\"= (\"D118@Control Measures-Shared Layout\" / 1mm) 'Driven by the shared master layout",
+    "\"axis_reference_halfspan\"= 10mm 'Half display length of the construction axis; no physical effect",
+    "\"D1@Cover Section\"= \"retainer_access_radius\"",
+    "\"D2@Cover Section\"= \"outside_radius\"",
+    "\"D3@Cover Section\"= \"carrier_radius\"",
+    "\"D4@Cover Section\"= \"bearing_seat_radius\"",
+    "\"D5@Cover Section\"= \"rear_face_distance\"",
+    "\"D6@Cover Section\"= \"front_face_distance\"",
+    "\"D7@Cover Section\"= \"carrier_end_distance\"",
+    "\"D8@Cover Section\"= \"bearing_shoulder_distance\"",
+    "\"D9@Cover Section\"= \"axis_reference_halfspan\"",
+    "\"D10@Cover Section\"= \"axis_reference_halfspan\"",
+    "\"full_turn\"= 360deg 'Full circular extent for revolves and patterns",
+    "\"D1@Cover Revolve\"= \"full_turn\"",
+    "\"D1@Case Seat Plane\"= \"front_face_distance\"",
+    "\"D1@Exterior Face Plane\"= \"rear_face_distance\"",
+    "\"D3@Rear Mount Boss Sketch\"= \"rear_mount_boss_diameter\"",
+    "\"D1@Rear Mount Boss\"= \"rear_mount_boss_length\"",
+    "\"D3@Rear Mount Boss Pattern\"= \"full_turn\"",
+    "\"D1@Rear Mount Boss Pattern\"= \"rear_screw_count\"",
+    "\"D3@Rear Mount Pilot Sketch\"= \"rear_mount_pilot\"",
+    "\"D3@Rear Mount Pilot Pattern\"= \"full_turn\"",
+    "\"D1@Rear Mount Pilot Pattern\"= \"rear_screw_count\"",
+    "\"D3@Cover Clearance Sketch\"= \"cover_clearance_diameter\"",
+    "\"D3@Cover Clearance Pattern\"= \"full_turn\"",
+    "\"D1@Cover Clearance Pattern\"= \"cover_screw_count\"",
+    "\"D1@Cover Countersinks\"= \"countersink_depth\"",
+    "\"D3@Cover Countersinks\"= (\"countersink_mouth_diameter\" - \"cover_clearance_diameter\") / 2"
+  ],
+  "design_features": [
+    {
+      "name": "Cover Revolve",
+      "type": "Revolution",
+      "dimensions": [
+        "D1@Cover Revolve"
+      ]
+    },
+    {
+      "name": "Rear Mount Boss",
+      "type": "ICE",
+      "dimensions": [
+        "D1@Rear Mount Boss"
+      ]
+    },
+    {
+      "name": "Rear Mount Boss Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Rear Mount Boss Pattern",
+        "D1@Rear Mount Boss Pattern"
+      ]
+    },
+    {
+      "name": "Rear Mount Pilot Cut",
+      "type": "ICE",
+      "dimensions": []
+    },
+    {
+      "name": "Rear Mount Pilot Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Rear Mount Pilot Pattern",
+        "D1@Rear Mount Pilot Pattern"
+      ]
+    },
+    {
+      "name": "Cover Clearance Cut",
+      "type": "ICE",
+      "dimensions": []
+    },
+    {
+      "name": "Cover Clearance Pattern",
+      "type": "CirPattern",
+      "dimensions": [
+        "D3@Cover Clearance Pattern",
+        "D1@Cover Clearance Pattern"
+      ]
+    },
+    {
+      "name": "Cover Countersinks",
+      "type": "Chamfer",
+      "dimensions": [
+        "D1@Cover Countersinks",
+        "D3@Cover Countersinks"
+      ]
+    }
+  ],
+  "pass": true
+}
