@@ -1,0 +1,13 @@
+{
+ "pod_frame_inner": "V11R_pod_frame_inner_m-1",
+ "pod_keel_outer": "V11R_pod_keel_outer_m-1",
+ "pod_sleeve": "V11R_pod_sleeve_m-1",
+ "dowel_inner": "V11R_dowel_inner_m-1",
+ "washer_pivot_outer": "V11R_washer_pivot_outer_m-1",
+ "die_spring_inner_a1": "V11R_die_spring_inner_a1_m-1",
+ "die_spring_inner_b1": "V11R_die_spring_inner_b1_m-1",
+ "die_spring_inner_a2": "V11R_die_spring_inner_a2_m-1",
+ "die_spring_inner_b2": "V11R_die_spring_inner_b2_m-1",
+ "bolt_pivot_outer_0": "V11R_fst_M3x20_pan-1",
+ "bolt_frame_1": "V11R_fst_M3x60_pan-1"
+}

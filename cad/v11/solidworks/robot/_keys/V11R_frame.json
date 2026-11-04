@@ -1,0 +1,11 @@
+{
+ "edge_FL": "V11R_edge_FL-1",
+ "edge_FR": "V11R_edge_FR-1",
+ "edge_RL": "V11R_edge_RL-1",
+ "edge_RR": "V11R_edge_RR-1",
+ "hub": "V11R_hub-1",
+ "node_back": "V11R_node_back-1",
+ "node_front": "V11R_node_front-1",
+ "node_left": "V11R_node_left-1",
+ "node_right": "V11R_node_right-1"
+}

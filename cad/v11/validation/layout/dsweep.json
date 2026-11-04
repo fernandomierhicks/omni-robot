@@ -1,0 +1,147 @@
+[
+ {
+  "D": 146,
+  "slide": -32,
+  "dia": 440,
+  "free_cm2": 653,
+  "left_cm2": 614,
+  "fitted": [
+   "servo_adapter"
+  ],
+  "missing": [
+   "computer",
+   "battery",
+   "power",
+   "mcu"
+  ],
+  "at": {
+   "servo_adapter": [
+    0.0,
+    0.0,
+    0
+   ]
+  }
+ },
+ {
+  "D": 156,
+  "slide": -24,
+  "dia": 464,
+  "free_cm2": 818,
+  "left_cm2": 629,
+  "fitted": [
+   "battery",
+   "servo_adapter"
+  ],
+  "missing": [
+   "computer",
+   "power",
+   "mcu"
+  ],
+  "at": {
+   "battery": [
+    5.0,
+    -10.0,
+    90
+   ],
+   "servo_adapter": [
+    -155.0,
+    -20.0,
+    45
+   ]
+  }
+ },
+ {
+  "D": 166,
+  "slide": -8,
+  "dia": 493,
+  "free_cm2": 1035,
+  "left_cm2": 847,
+  "fitted": [
+   "battery",
+   "servo_adapter"
+  ],
+  "missing": [
+   "computer",
+   "power",
+   "mcu"
+  ],
+  "at": {
+   "battery": [
+    0.0,
+    0.0,
+    90
+   ],
+   "servo_adapter": [
+    45.0,
+    0.0,
+    90
+   ]
+  }
+ },
+ {
+  "D": 176,
+  "slide": 0,
+  "dia": 518,
+  "free_cm2": 1224,
+  "left_cm2": 860,
+  "fitted": [
+   "computer",
+   "mcu",
+   "servo_adapter"
+  ],
+  "missing": [
+   "battery",
+   "power"
+  ],
+  "at": {
+   "computer": [
+    0.0,
+    0.0,
+    90
+   ],
+   "mcu": [
+    10.0,
+    165.0,
+    45
+   ],
+   "servo_adapter": [
+    0.0,
+    -110.0,
+    90
+   ]
+  }
+ },
+ {
+  "D": 186,
+  "slide": 0,
+  "dia": 536,
+  "free_cm2": 1375,
+  "left_cm2": 1010,
+  "fitted": [
+   "computer",
+   "mcu",
+   "servo_adapter"
+  ],
+  "missing": [
+   "battery",
+   "power"
+  ],
+  "at": {
+   "computer": [
+    0.0,
+    0.0,
+    90
+   ],
+   "mcu": [
+    10.0,
+    160.0,
+    45
+   ],
+   "servo_adapter": [
+    0.0,
+    -110.0,
+    90
+   ]
+  }
+ }
+]

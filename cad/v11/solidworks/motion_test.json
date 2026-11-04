@@ -6,10 +6,17 @@
     -3.0
    ],
    "plunger_lift": {
-    "outer": -1.1,
-    "inner": -1.1
+    "outer_a": -1.15,
+    "outer_b": -0.75,
+    "inner_a": -1.15,
+    "inner_b": -0.75
    },
-   "expected_lift": -1.1,
+   "expected_lift": {
+    "outer_a": -1.15,
+    "outer_b": -0.75,
+    "inner_a": -1.15,
+    "inner_b": -0.75
+   },
    "mate_errors": []
   },
   "nominal": {
@@ -18,10 +25,17 @@
     0.0
    ],
    "plunger_lift": {
-    "outer": 0.0,
-    "inner": 0.0
+    "outer_a": 0.0,
+    "outer_b": 0.0,
+    "inner_a": 0.0,
+    "inner_b": 0.0
    },
-   "expected_lift": 0.0,
+   "expected_lift": {
+    "outer_a": 0.0,
+    "outer_b": 0.0,
+    "inner_a": 0.0,
+    "inner_b": 0.0
+   },
    "mate_errors": []
   },
   "bump": {
@@ -30,10 +44,17 @@
     15.0
    ],
    "plunger_lift": {
-    "outer": 6.21,
-    "inner": 6.21
+    "outer_a": 6.43,
+    "outer_b": 4.43,
+    "inner_a": 6.43,
+    "inner_b": 4.43
    },
-   "expected_lift": 6.21,
+   "expected_lift": {
+    "outer_a": 6.43,
+    "outer_b": 4.43,
+    "inner_a": 6.43,
+    "inner_b": 4.43
+   },
    "mate_errors": []
   }
  },
@@ -44,8 +65,10 @@
     12.77
    ],
    "plunger_lift": {
-    "outer": 5.51,
-    "inner": 5.51
+    "outer_a": 5.72,
+    "outer_b": 3.92,
+    "inner_a": 5.72,
+    "inner_b": 3.92
    },
    "mate_errors": []
   },
@@ -55,8 +78,10 @@
     0.71
    ],
    "plunger_lift": {
-    "outer": 0.28,
-    "inner": 0.28
+    "outer_a": 0.3,
+    "outer_b": 0.2,
+    "inner_a": 0.3,
+    "inner_b": 0.2
    },
    "mate_errors": []
   }

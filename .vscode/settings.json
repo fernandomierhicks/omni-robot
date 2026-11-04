@@ -1,19 +1,19 @@
 {
     "cmake.sourceDirectory": "C:/Dropbox/Personal Projects/Robotics/omni-robot/ros/src/omni_interfaces",
     "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#1e7a34",
-        "titleBar.inactiveBackground": "#1e632f",
+        "titleBar.activeBackground": "#1f4e8c",
+        "titleBar.inactiveBackground": "#1f4271",
         "titleBar.activeForeground": "#ffffff",
         "titleBar.inactiveForeground": "#ffffffcc",
-        "statusBar.background": "#1e7a34",
+        "statusBar.background": "#1f4e8c",
         "statusBar.foreground": "#ffffff",
-        "statusBar.noFolderBackground": "#1e7a34",
-        "activityBar.background": "#1e7a34",
+        "statusBar.noFolderBackground": "#1f4e8c",
+        "activityBar.background": "#1f4e8c",
         "activityBar.foreground": "#ffffff",
         "activityBar.inactiveForeground": "#ffffff99",
         "sideBarTitle.foreground": "#ffffff",
-        "sideBarSectionHeader.background": "#1e5a2c",
-        "window.activeBorder": "#1e7a34",
-        "window.inactiveBorder": "#1e7a34"
+        "sideBarSectionHeader.background": "#1f3d66",
+        "window.activeBorder": "#1f4e8c",
+        "window.inactiveBorder": "#1f4e8c"
     }
 }

@@ -1,10 +1,15 @@
-# SolidWorks: building human-editable parts through the API
+# SolidWorks and CAD: the main working reference for agents
 
-The single reference for a Claude session that has to make SolidWorks parts (and, with less certainty, assemblies) for Fernando.
-It is part-agnostic. Everything here was verified on SolidWorks 2023 SP5 (API revision 31.5) by building a 40-feature part whose
+The single reference for a Claude session doing CAD for Fernando: native SolidWorks parts through the API (sections 1-14), STEP exports and
+purchased-part rules (15-16), and the build123d → STEP → SolidWorks assembly pipeline plus printed-part design rules (17-18, from cad/v11).
+Read this first, then `cad/AGENTS.md` and the active version's README (which holds that version's geometry, rounds and open items, not general rules).
+It is part-agnostic. Sections 1-14 were verified on SolidWorks 2023 SP5 (API revision 31.5) by building a 40-feature part whose
 geometry matched an independently built Fusion 360 twin exactly (boolean difference 0.0 mm³ both ways) and its reference STEP.
 Section 12 carries older, less-tested notes about assemblies and shared coordinates. **Section 13 is a working helper library:
 copy it to a scratch folder as `swhelpers.py` before you start.**
+
+**Which route?** Native, human-editable features (sections 1-14) when Fernando will open and edit the part. Imported STEP bodies from build123d (section 17)
+when the goal is review, fit, clearance or motion of a proposed assembly; those bodies are not editable features, so say which one you made.
 
 ## 1. What "human editable" means (the contract)
 
@@ -739,3 +744,49 @@ Expected: volumes 12,440.7 (one hole) → 12,063.7 (four holes) → 11,435.4 mm�
 - Keep about **4 mm clearance all round** the plug and leads to anything that moves, and route the leads to where they leave the assembly. Report the outermost radius/extent of plug + leads and the clearance in the version's checks; an overlap or a missing clearance is a clash, not an open item.
 - Why: cad/v11 drew a compact hub around the AK40-10 assuming a tangential XT30 plug of guessed size. The real XT30(2+2) mates radially and with its leads reaches r 36 against a hub bore of r 30, which broke the motor-in-hub packaging after the hub had been designed around it.
 - This applies to build123d STEP stages as well as native SolidWorks work, and also to sensors, cameras, servos, boards and batteries.
+
+## 17. Assemblies from build123d STEPs (the cad/v11 pipeline)
+
+Lessons from building the v11 pod and the whole proposed robot (660 components) in SolidWorks from imported STEPs. The bodies are imported, not native features.
+
+- **Pipeline:** build123d scripts (`omni-robot-sim` venv, every dimension through `dims.py`) write STEPs and checks → `sw_parts.py` / `sw_robot_parts.py` write per-part STEPs and a `manifest.json`
+  → cadenv `sw_build.py` / `sw_robot.py` run named stages (`import`, then component groups, then `test`). Reuse cad/v10's helpers (`subasm`, `mate_api`, `sw_native`) unchanged.
+  After a geometry change regenerate the STEPs, then re-run the SolidWorks stages for the changed parts: the SolidWorks parts do not follow the STEPs on their own, so record in the README which were rebuilt.
+- **Run a few stages per call, one big group per call.** SolidWorks leaks memory and died (RPC server unavailable) building several big groups in one call. Each stage first closes the robot documents
+  (SolidWorks threw internal errors without that). Build the groups one per call (frame, mounts, bumper, reference, upper, electronics, arm, fasteners), then the top assembly and its test.
+- **Saves** can fail with error 1 while Dropbox is still uploading the previous save; the scripts retry. (This is for the pipeline's own generated files; the rule of never saving over Fernando's documents in section 2 stands.)
+- **Names and colours:** component names are SolidWorks' file names (`V11_motor-1`); scripts map them by file, not by display name. STEP colours are written per face, in sRGB (`tools/step_colour.py`); face-only colours are what survives.
+- **Structure:** one sub-assembly per group (frame, mounts, upper, electronics, fasteners, each pod...). Make flexible only what must move (the wheel, motor and pods in v11); the rest stays fixed where build123d put it.
+  Orient the top assembly (robot z = SolidWorks Y so the standard views are upright, front facing the Front view) and leave the sub-assemblies in their build123d frames.
+- **Mates only where something moves.** Hinge: concentric on the pin + a coincident/Right plane to locate it axially. Rotating part: concentric with a small thrust gap. Sliding follower (a spring plunger): concentric in its guide + dome **tangent** to the pad it rides on.
+  Do not mate the rest.
+- **Put a travel limit on a driven follower, not on an angle.** An angle limit between fork and frame planes left the fork fully defined (it would not drag). A distance limit on the plunger worked (`Suspension_travel`).
+  API `Transform2` cannot move a part held by a limit mate; a GUI-style drag (`IDragOperator`) can. Springs stay at their nominal length (they do not compress in SolidWorks).
+- **Motion test, always written to a JSON next to the assembly:** set each end pose and the nominal with the limit suppressed, read the component transforms back, compare with the build123d numbers (v11: to 0.01 mm, no mate errors);
+  then turn the limit on and drag past each end and check it stays inside the travel. Do this for both hands and every flexible instance. `EditRebuild3() == True` proves nothing (section 12).
+- **Vendor parts** (D435, RPLIDAR, the SO-101's official STEP/STL): copy them into `parts/` when the source is newer and record their poses in `manifest.json`. Check which end of the model faces your plug or cable and mark it VERIFY if the vendor model lacks the port.
+  Check that the vendor model actually has the holes your design assumed (the SO-101 base has none where v9 assumed four M3) and take positions from its official geometry, not from a guess.
+- **Mirrored hands:** a pod built from mirrored STEPs is a reflection, not the real opposite-hand part. If a connector or lead position differs on the other hand (motor plug), say so as an open item and build the real one.
+- **Print bed planes:** every printed part gets a `PRINT_BED (±X/Y/Z up)` reference plane at its bed face, and the README lists each part's orientation, supports and why (the table in `v11/README.md`, generated by `tools/print_beds.py`).
+- **Fasteners are records**, not hand-placed geometry (`tools/hardware.py`: type, length, position, axis). The assembly instances magenta library parts (`fst_*`) from them, so counts per length can be listed (and checked against the BOM) from one source.
+  A screw without a record, or a record that does not land, is a finding.
+- **Not modelled means said so:** cables and the harness, strength, printing. A viewing assembly inherits the status of the proposals it shows; do not present it as an adopted or validated design.
+
+## 18. Designing printed parts (rules and lessons from cad/v11)
+
+- **Choose the print orientation first** and write it down with the part. Load in the layer planes, not across them: pivots, arms, spring seats and side-loaded walls lie so the bending is in-plane
+  (print the part on its outer face, an L with its plane in the layer plane, a bar standing upright with bolts pre-compressing its layers across it). Compression members can print on end. Walls that bend across layers only locate; screws must hold.
+  Never lift or load a part along its weak (layer) direction without saying so.
+- **Avoid supports.** Overhang beyond 45° is the metric: report the overhang area as printed (mm², per part, with the hole roofs listed) in the checks, and fix large ones with 45° cones, gables and chamfered roofs.
+  Fernando prefers plain round holes over teardrop points; small round-hole roofs are accepted bridges. Split big parts on a plane so each half prints flat on a big face without support.
+- **Fit the 256 mm bed:** every printed part one valid solid that fits the bed (the chassis is nine parts with half-laps; the second floor is four quadrants). Check in the script, not by eye.
+- **Fasteners:** M3 thread-forming into a Ø2.8 pilot, ≥ 6 mm engagement (count it per screw, between the pilot and clearance radii, in the check), Ø3.4 through, flush counterbores for pan or flat heads, and ≥ 2.2 mm of wall between a counterbore and a bearing seat.
+  A long bolt that must clamp two parts passes the first in Ø3.4 and threads the second; a bolt that holds a layered part pre-compressed threads into a Ø2.9 pilot its whole length. Drive screws from where a driver reaches: check the access from the assembled side, not just the fit.
+- **Service access is a requirement:** ask whether each module (a pod, battery, computer) can be removed without taking the robot apart, and sweep the part out along its path. v11's pods could not, because every vertical screw was under the second floor; that is a finding to fix, not a note to leave.
+  Members and pocket walls are clipped about 1 mm off the path a pod's parts sweep going out.
+- **Clearance to moving parts is checked in every pose** (droop / nominal / bump, both hands, the arm's planned moves): ≥ 3 mm for the chassis to anything that moves, about 4 mm for plugs and leads (section 16).
+  Quote the number (2.86 mm is under a 3 mm rule: say so, do not round it). Use the official meshes swept through the planned motion for arm clearance; the planner's capsules missed the SO-101's shoulder bracket.
+- **Hard stops and locating features:** a stop that acts near the pivot turns 0.2 mm of print error into a larger error at the end of travel (0.2 mm at a 23-26 mm lever moved the axle by about 0.6 mm). Put clearances (0.1-0.2 mm) where the fit matters, a seat 0.1 mm under the bearing OD, and note what was never tested (snap fits, TPU walking, how hard a part is to press on).
+- **Fillets in OCC:** the kernel often refuses fillets on a finished solid (tangent seams, joins). Fillet each feature before it joins the body, exclude the print and mating faces, and report how many edges took (R0.8 on 15 of 29, R1 on 36 of 48). Do not claim all edges rounded.
+- **Mark the status honestly:** nominal CAD, not printed; estimates and assumed rates (a spring rate, a thread depth in a vendor part) are VERIFY items, not measured. Proposals stay proposals until Fernando adopts them ("go with F"), and the parts that follow a changed part (the chassis follows the pod) must be regenerated and re-checked.
+- **Every round gets a `check`** in its build script: no interference at every pose, one valid solid per part, fits the bed, every screw lands (count landed/total), clearances, overhang area. Rerun the full check after any change to a part another part depends on.

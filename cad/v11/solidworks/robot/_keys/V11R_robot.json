@@ -1,0 +1,14 @@
+{
+ "frame": "V11R_frame-1",
+ "mounts": "V11R_mounts-1",
+ "bumper": "V11R_bumper-1",
+ "reference": "V11R_reference-1",
+ "upper": "V11R_upper-1",
+ "electronics": "V11R_electronics-1",
+ "arm": "V11R_arm-1",
+ "fasteners": "V11R_fasteners-1",
+ "pod_FL": "V11R_pod_m-1",
+ "pod_RL": "V11R_pod-1",
+ "pod_RR": "V11R_pod_m-2",
+ "pod_FR": "V11R_pod-2"
+}

@@ -2,27 +2,14 @@
  "hub": {
   "solids": 1,
   "valid": true,
-  "volume_mm3": 165176,
+  "volume_mm3": 233878,
   "x_range": [
    -39.5,
    29.0
   ],
   "diameter_over_rollers": 140.0
  },
- "hub_overlaps_mm3 (axle threads in their pilots by design)": {
-  "bolt_1_1": 2.02,
-  "bolt_1_2": 2.02,
-  "bolt_1_3": 2.02,
-  "bolt_1_4": 2.02,
-  "bolt_1_5": 2.02,
-  "bolt_1_6": 2.02,
-  "bolt_2_1": 2.02,
-  "bolt_2_2": 2.02,
-  "bolt_2_3": 2.02,
-  "bolt_2_4": 2.02,
-  "bolt_2_5": 2.02,
-  "bolt_2_6": 2.02
- },
+ "hub_overlaps_mm3 (axle threads in their pilots by design)": {},
  "hub_to_roller_min_gap_mm": {
   "roller_core_1_1": 0.3,
   "roller_core_1_2": 0.3,
@@ -58,63 +45,51 @@
  ],
  "axle_insertion_tunnel_hits_mm3": {
   "1_1": {
-   "roller_core_1_2": 0.35,
-   "roller_tread_1_2": 9.19,
+   "roller_tread_1_2": 8.95,
    "bolt_1_2": 1.22
   },
   "1_2": {
-   "roller_core_1_1": 0.35,
-   "roller_tread_1_1": 9.19,
+   "roller_tread_1_1": 8.95,
    "bolt_1_1": 1.22
   },
   "1_3": {
-   "roller_core_1_4": 0.35,
-   "roller_tread_1_4": 9.19,
+   "roller_tread_1_4": 8.95,
    "bolt_1_4": 1.22
   },
   "1_4": {
-   "roller_core_1_3": 0.35,
-   "roller_tread_1_3": 9.19,
+   "roller_tread_1_3": 8.95,
    "bolt_1_3": 1.22
   },
   "1_5": {
-   "roller_core_1_6": 0.35,
-   "roller_tread_1_6": 9.19,
+   "roller_tread_1_6": 8.95,
    "bolt_1_6": 1.22
   },
   "1_6": {
-   "roller_core_1_5": 0.35,
-   "roller_tread_1_5": 9.19,
+   "roller_tread_1_5": 8.95,
    "bolt_1_5": 1.22
   },
   "2_1": {
-   "roller_core_2_2": 0.35,
-   "roller_tread_2_2": 9.19,
+   "roller_tread_2_2": 8.95,
    "bolt_2_2": 1.22
   },
   "2_2": {
-   "roller_core_2_1": 0.35,
-   "roller_tread_2_1": 9.19,
+   "roller_tread_2_1": 8.95,
    "bolt_2_1": 1.22
   },
   "2_3": {
-   "roller_core_2_4": 0.35,
-   "roller_tread_2_4": 9.19,
+   "roller_tread_2_4": 8.95,
    "bolt_2_4": 1.22
   },
   "2_4": {
-   "roller_core_2_3": 0.35,
-   "roller_tread_2_3": 9.19,
+   "roller_tread_2_3": 8.95,
    "bolt_2_3": 1.22
   },
   "2_5": {
-   "roller_core_2_6": 0.35,
-   "roller_tread_2_6": 9.19,
+   "roller_tread_2_6": 8.95,
    "bolt_2_6": 1.22
   },
   "2_6": {
-   "roller_core_2_5": 0.35,
-   "roller_tread_2_5": 9.19,
+   "roller_tread_2_5": 8.95,
    "bolt_2_5": 1.22
   }
  },
@@ -139,51 +114,52 @@
  "spoke_neck_row2_az0_mm": {
   "34": {
    "tangential": 17.1,
-   "x": 17.5
+   "x": 26.5
   },
   "36": {
    "tangential": 12.1,
-   "x": 15.9
+   "x": 26.0
   },
   "38": {
    "tangential": 7.7,
-   "x": 15.9
+   "x": 26.0
   },
   "40": {
    "tangential": 3.5,
-   "x": 15.9
+   "x": 26.0
   },
   "42": {
    "tangential": 1.9,
-   "x": 15.9
+   "x": 26.0
   },
   "44": {
    "tangential": 3.3,
-   "x": 15.9
+   "x": 26.0
   },
   "46": {
    "tangential": 5.7,
-   "x": 15.9
+   "x": 26.0
   },
   "50": {
    "tangential": 10.3,
-   "x": 15.9
+   "x": 26.0
   },
   "54": {
    "tangential": 14.9,
-   "x": 15.9
+   "x": 26.0
   },
   "58": {
    "tangential": 2.7,
-   "x": 15.9
+   "x": 26.0
   }
  },
  "roller_angular_overlap_deg": 2.35,
  "roller_bore_d": 3.4,
  "hub_build": {
+  "edge_round_failed": 0,
   "root_fillet": {
-   "edges": 4,
-   "radius": 3.0
+   "edges": 3,
+   "radius": 2.5
   },
   "slivers_dropped_mm3": []
  }

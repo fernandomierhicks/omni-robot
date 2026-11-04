@@ -4,11 +4,12 @@
 
 A module that drops into a cutout in the flat robot plate (designed later) and is held by 6 vertical M3 screws from the top:
  * two side frames (printed, each lying on its flat outer face): a foot on the plate, a spring tower over the fork arm, a keel down through a
-   plate notch that carries the Ø7 pivot shaft at plate height, level with the axle (80.6 mm arm, design.md 2), and the droop / bump ledges.
+   plate notch with a printed pivot pin at plate height, level with the axle (80.6 mm arm, design.md 2), and the hard stops at the
+   springs: bump rails under the tower onto the fork pad, a droop hook under the fork arm.
  * fork (one printed part): outer arm with a bolt-in axle stub into the wheel's left 6804, inner arm bolted straight to the AK40-10's rear
-   face, beam behind the wheel, 2 x 627, a pad under each spring plunger.
- * springs: one ISO 10243 die spring per side (Ø10 x 38, green or blue by robot mass) on an M5 x 50 button-head plunger that presses on the
-   fork's pad; no damper. The ledges stop the tail at -3 / +15 mm.
+   face, beam behind the wheel, a pad under each spring pair, a 627 in each arm. Each 627 turns on its frame's pin (an M3 x 16 core).
+ * springs: two yellow 8 x 25 mm 3D-printer bed springs per side, side by side, each on an M4 button-head plunger that presses on the
+   fork's pad; no damper. The stops hold the axle to -3 / +15 mm.
 Mirror-hand pods (opposite diagonals) are not generated yet. Everything is nominal CAD; nothing has been printed.
 """
 import json
@@ -31,7 +32,7 @@ OUT = ROOT / 'step_export' / 'pod'
 VAL = ROOT / 'validation' / 'pod'
 PIVOT_AXIS = b.Axis((0, PIVOT_Y, PIVOT_Z), (1, 0, 0))
 EXTRA_COLOURS = {'pod_frame': (0.25, 0.68, 0.74), 'pod_fork': (0.95, 0.75, 0.15), 'axle_stub': (0.66, 0.46, 0.86), 'die_spring': (0.15, 0.65, 0.25),
-                 'spring_plunger': (1.0, 0.0, 1.0), 'pivot_shaft': (0.75, 0.75, 0.78), 'bearing': (0.30, 0.30, 0.32)}
+                 'spring_plunger': (1.0, 0.0, 1.0), 'bearing': (0.30, 0.30, 0.32)}
 
 
 def colour(name):
@@ -85,14 +86,16 @@ A_DROOP, A_NOM, A_BUMP = angle_for(-DROOP), 0.0, angle_for(BUMP)
 POSES = {'droop': A_DROOP, 'nominal': A_NOM, 'bump': A_BUMP}
 
 # ---- springs and plungers ------------------------------------------------------------------------------------------------
-Y_S = PIVOT_Y - SPRING_ARM
+Y_S = PIVOT_Y - SPRING_ARM                               # centre of each side's spring pair
 X_T = ((OUTER_ARM_X[0] + OUTER_ARM_X[1]) / 2, (INNER_ARM_X[0] + INNER_ARM_X[1]) / 2)     # spring axes, outer / inner
+Y_PAIR = tuple(Y_S + (i - (SPRINGS_PER_SIDE - 1) / 2) * SPRING_PITCH for i in range(SPRINGS_PER_SIDE))   # 'a' toward the axle, 'b' the pivot
+PLUNGERS = {f'{side}_{"ab"[i]}': (xt, y) for side, xt in zip(('outer', 'inner'), X_T) for i, y in enumerate(Y_PAIR)}
 DOME_R = ((BOLT_HEAD_D / 2) ** 2 + BOLT_HEAD_K ** 2) / (2 * BOLT_HEAD_K)
 
 
 def spring_force(mass):
-    """per spring at nominal: the wheel's share of the robot's weight through the lever, two springs"""
-    return mass * 9.81 / 4 * PIVOT_Y / SPRING_ARM / 2
+    """per spring at nominal: the wheel's share of the robot's weight through the lever, shared by all the pod's springs"""
+    return mass * 9.81 / 4 * PIVOT_Y / SPRING_ARM / (2 * SPRINGS_PER_SIDE)
 
 
 K_DESIGN, MAXW_DESIGN = SPRINGS[SPRING_DESIGN]
@@ -104,13 +107,14 @@ Z_TBOT = PAD_Z + TOWER_CLEAR                            # tower underside
 BOLT_L = math.ceil((Z_TT + NUT_GAP + NUT_T + 1.0 - (PAD_Z + BOLT_HEAD_K)) / 5.0) * 5.0
 
 
-def plunger_lift(a):
-    """how far the plunger rises at fork angle a: its dome (a sphere on the vertical axis) stays tangent to the turned pad plane"""
-    p0 = rot_pt((Y_S, PAD_Z), a)
-    n = rot_pt((Y_S, PAD_Z + 1.0), a) - p0
+def plunger_lift(a, y=Y_S):
+    """how far the plunger on axis y rises at fork angle a: its dome (a sphere on the vertical axis) stays tangent to the turned pad plane;
+    also where it touches, from the point of the pad that was under it at nominal"""
+    p0 = rot_pt((y, PAD_Z), a)
+    n = rot_pt((y, PAD_Z + 1.0), a) - p0
     zc0 = PAD_Z + DOME_R
-    zc = p0[1] + (DOME_R - n[0] * (Y_S - p0[0])) / n[1]             # n . ((Y_S, zc) - p0) = DOME_R
-    contact = np.array([Y_S, zc]) - DOME_R * n
+    zc = p0[1] + (DOME_R - n[0] * (y - p0[0])) / n[1]               # n . ((y, zc) - p0) = DOME_R
+    contact = np.array([y, zc]) - DOME_R * n
     along = float((contact - p0) @ np.array([n[1], -n[0]]))      # contact point from the pad centre, along the pad
     return zc - zc0, along
 
@@ -129,13 +133,14 @@ def build_fork():
     f = f + prism(hull2c((0, 0), INNER_PLATE_R, piv, LOBE_R), *INNER_ARM_X)
     y, z = W.at_angle(LEAD_NOTCH_R + 12.0, lead_azimuth())             # notch where the leads pass (they move with the fork)
     f = f - along_x(12.0, INNER_ARM_X[0] - 0.1, INNER_ARM_X[1] + 0.1, y, z)
-    beam = prism(hull2c(piv, LOBE_R, (BEAM_TAIL[0], PIVOT_Z), BEAM_TAIL[1]), OUTER_ARM_X[0], INNER_ARM_X[1])
+    beam = along_x(LOBE_R, OUTER_ARM_X[0], INNER_ARM_X[1], *piv)
     f = f + (beam - along_x(WHEEL_CLEAR_R, OUTER_ARM_X[1], INNER_ARM_X[0]))
     for ax in (OUTER_ARM_X, INNER_ARM_X):                              # spring pads
         f = f + box(ax[0], ax[1], Y_S - PAD_HALF, Y_S + PAD_HALF, 5.0, PAD_Z)
-    f = f - along_x(SHAFT_CLR / 2, OUTER_ARM_X[0] - 1, INNER_ARM_X[1] + 1, PIVOT_Y, PIVOT_Z)
-    f = f - along_x(B627_OD / 2, OUTER_ARM_X[0] - 0.1, OUTER_ARM_X[0] + B627_W, PIVOT_Y, PIVOT_Z)
-    f = f - along_x(B627_OD / 2, INNER_ARM_X[1] - B627_W, INNER_ARM_X[1] + 0.1, PIVOT_Y, PIVOT_Z)
+    for xa, s in ((OUTER_ARM_X[0], 1), (INNER_ARM_X[1], -1)):           # 627 seats in the arms' outer faces; the relief keeps the seat
+        xs = xa + s * (BRG_RECESS + B627_W)                             # bottom off the inner race
+        f = f - along_x(B627_OD / 2, *sorted((xa - s * 0.1, xs)), PIVOT_Y, PIVOT_Z)
+        f = f - along_x(SEAT_RELIEF_D / 2, *sorted((xs - s * 0.1, xs + s * SEAT_RELIEF_T)), PIVOT_Y, PIVOT_Z)
     head_x = INNER_ARM_X[0] + REAR_SCREW_L - REAR_ENGAGE                # motor rear face: 4 x M3 x 12 in counterbores
     for a in REAR_HOLES_AZ:
         y, z = W.at_angle(REAR_HOLES_R, a)
@@ -169,69 +174,112 @@ def ledge_x(fr):
     return (x1, x1 + LEDGE_W) if fr['inward'] > 0 else (x0 - LEDGE_W, x0)
 
 
+def tower_x(fr):
+    x0, x1 = fr['x']
+    return (x1, fr['xt'] + TOWER_REACH) if fr['inward'] > 0 else (fr['xt'] - TOWER_REACH, x0)
+
+
+def rails_x(fr):
+    """the two bump rails under a tower: its x span less the spring washers' band"""
+    lo, hi = tower_x(fr)
+    w = WASHER_OD / 2 + RAIL_CLEAR
+    return (lo, fr['xt'] - w), (fr['xt'] + w, hi)
+
+
 def stops(fork):
-    """droop ledge underside = the fork's highest point under it at droop; bump ledge top = its lowest point at bump"""
+    """the stop faces, as straight y-z lines z = z0 + m (y - y0), from the fork itself: the droop hook's top is the arm's underside at droop
+    (min z in thin slices at the hook's ends); the bump rails' underside is the pad's top at bump, from the pad's front edge at bump back
+    to the tower's back (the pad's top is a plane, so its line at bump lies above it at every other pose there)"""
     out = {}
+    ya, yb = Y_S - STOP_HALF, Y_S + STOP_HALF
+    pad_front = rot_pt((Y_S - PAD_HALF, PAD_Z), A_BUMP)
+    pad_back = rot_pt((Y_S + PAD_HALF, PAD_Z), A_BUMP)
+    m_b = (pad_back[1] - pad_front[1]) / (pad_back[0] - pad_front[0])
     for name, fr in FRAMES.items():
         lx = ledge_x(fr)
-        probe = box(lx[0], lx[1], STOP_Y[0], STOP_Y[1], -60, 60)
-        hi = (fork.rotate(PIVOT_AXIS, A_DROOP) & probe).bounding_box().max.Z
-        lo = (fork.rotate(PIVOT_AXIS, A_BUMP) & probe).bounding_box().min.Z
-        out[name] = (float(lo), float(hi))
+        down = fork.rotate(PIVOT_AXIS, A_DROOP)
+        za, zb = ((down & box(lx[0], lx[1], y - 0.1, y + 0.1, -60, PLATE_TOP_Z)).bounding_box().min.Z for y in (ya, yb))
+        out[name] = dict(hook=((ya, float(za)), (yb, float(zb))),
+                         rail=((float(pad_front[0]) + 0.5, float(pad_front[1] + m_b * 0.5)), (Y_S + TOWER_HALF, float(pad_front[1] + m_b * (Y_S + TOWER_HALF - pad_front[0])))))
     return out
 
 
-def build_frame(name, z_bump, z_droop):
+def yz_poly(pts, x0, x1):
+    """closed y-z polygon extruded over x0..x1"""
+    return prism([line(V(*p), V(*q)) for p, q in zip(pts, pts[1:] + pts[:1])], x0, x1)
+
+
+def yz_quad(p0, p1, dz, x0, x1):
+    """prism between the y-z segment p0-p1 and the same segment shifted dz (up if dz > 0), over x0..x1"""
+    return yz_poly([p0, p1, (p1[0], p1[1] + dz), (p0[0], p0[1] + dz)], x0, x1)
+
+
+def build_frame(name, st):
     fr = FRAMES[name]
     x0, x1 = fr['x']
     s, xt = fr['inward'], fr['xt']
     xc = (x0 + x1) / 2
     top_foot = PLATE_TOP_Z + FOOT_T
-    z_bot = z_bump - 6.0
-    f = box(x0, x1, FOOT_Y[0], FOOT_Y[1], PLATE_TOP_Z, top_foot)                          # foot on the plate
-    f = f + box(x0, x1, Y_S - 9.0, Y_S + 9.0, PLATE_TOP_Z, Z_TT)                            # spring column
-    tx = (x1, xt + 8.0) if s > 0 else (xt - 8.0, x0)
-    f = f + box(tx[0], tx[1], Y_S - 9.0, Y_S + 9.0, Z_TBOT, Z_TT)                         # tower over the fork arm
-    f = f + box(x0, x1, KEEL_Y[0], KEEL_Y[1], z_bot, max(top_foot, z_droop + 6.0))         # keel (through the plate notch)
+    (ha, hb), (ra, rb) = st['hook'], st['rail']
+    z_bot = min(ha[1], hb[1]) - HOOK_T                                                     # keel bottom = the droop hook's bottom
+    yc0, yc1 = Y_S - TOWER_HALF, Y_S + TOWER_HALF
+    # side plate (y-z profile through the frame's thickness): foot on the plate, spring column, web + gusset, keel through the plate notch
+    pts = [(FOOT_Y[0], PLATE_TOP_Z), (KEEL_Y[0], PLATE_TOP_Z), (KEEL_Y[0], z_bot), (KEEL_Y[1], z_bot), (KEEL_Y[1], PLATE_TOP_Z),
+           (FOOT_Y[1], PLATE_TOP_Z), (FOOT_Y[1], top_foot), (GUSSET_END_Y, top_foot),
+           (yc1, GUSSET_TOP_Z), (yc1, Z_TT), (yc0, Z_TT), (yc0, top_foot), (FOOT_Y[0], top_foot)]
+    f = prism([line(V(*p), V(*q)) for p, q in zip(pts, pts[1:] + pts[:1])], x0, x1)
+    for r, at in ((FILLET_COL, [(yc0, top_foot)]), (FILLET_GUSSET, [(yc1, GUSSET_TOP_Z), (GUSSET_END_Y, top_foot)])):
+        f = f.fillet(r, [e for e in f.edges() if abs(e.length - FRAME_T) < 1e-3 and any(abs(e.center().Y - y) < 1e-3 and abs(e.center().Z - z) < 1e-3 for y, z in at)])
+    tx = tower_x(fr)
+    f = f + box(tx[0], tx[1], yc0, yc1, Z_TBOT, Z_TT)                                       # tower over the fork arm
+    for rx in rails_x(fr):                                                                   # bump rails: land on the pad at bump
+        f = f + yz_poly([ra, rb, (rb[0], Z_TBOT + 0.5), (ra[0], Z_TBOT + 0.5)], *rx)
     lx = ledge_x(fr)
-    f = f + box(lx[0], lx[1], STOP_Y[0], STOP_Y[1], z_droop, z_droop + 6.0)               # droop ledge over the tail
-    f = f + box(lx[0], lx[1], STOP_Y[0], STOP_Y[1], z_bot, z_bump)                        # bump ledge under the tail
-    f = f - cyl((SPRING_HOLE_D + 0.6) / 2, Z_CEIL - Z_TBOT + 0.1, (xt, Y_S, (Z_CEIL + Z_TBOT) / 2 - 0.05))
-    f = f - cyl(2.7, GUIDE_LEN + 0.2, (xt, Y_S, Z_CEIL + GUIDE_LEN / 2))
-    f = f - along_x(SHAFT_D / 2 + 0.05, x0 - 1, x1 + 1, PIVOT_Y, PIVOT_Z)
-    if name == 'inner':                                                                       # cross pin through the keel and the shaft
-        top = PIVOT_Z + SHAFT_D / 2
-        f = f - cyl(M3_CLR / 2, top - z_bot + 0.1, (xc, PIVOT_Y, (top + z_bot) / 2)) - cyl(M3_PILOT / 2, 7.0, (xc, PIVOT_Y, top + 3.5))
+    f = f + yz_quad(ha, hb, -HOOK_T, *lx)                                                    # droop hook under the arm
+    for y in Y_PAIR:
+        f = f - cyl((SPRING_HOLE_D + 0.6) / 2, Z_CEIL - Z_TBOT + 0.1, (xt, y, (Z_CEIL + Z_TBOT) / 2 - 0.05))
+        f = f - cyl(GUIDE_R, GUIDE_LEN + 0.2, (xt, y, Z_CEIL + GUIDE_LEN / 2))
+    xi, xo = (x1, x0) if s > 0 else (x0, x1)                                                 # keel's inner (fork side) and outer faces
+    xa = xi + s * FRAME_GAP                                                                   # fork arm's outer face
+    x_tip = xa + s * (BRG_RECESS + B627_W - 0.2)                                              # pin end, 0.2 short of the 627's far face
+    f = f + along_x(PIVOT_BOSS_D / 2, *sorted((xi - s * 0.5, xa)), PIVOT_Y, PIVOT_Z)        # boss onto the 627's inner race
+    f = f + along_x(B627_BORE / 2 - 0.02, *sorted((xa - s * 0.1, x_tip)), PIVOT_Y, PIVOT_Z) # pin in the inner race
+    f = f - along_x(PIVOT_HEAD_D / 2, *sorted((xo - s * 0.1, xo + s * PIVOT_HEAD_RECESS)), PIVOT_Y, PIVOT_Z)   # M3 head counterbore
+    f = f - along_x(M3_PILOT / 2, *sorted((xo, x_tip + s * 0.1)), PIVOT_Y, PIVOT_Z)       # M3 pilot through the keel, boss and pin
+    plastic = abs(x_tip - xo) - PIVOT_HEAD_RECESS
     for y in MOUNT_Y:
         f = f - cyl(M3_CLR / 2, FOOT_T + 0.2, (xc, y, PLATE_TOP_Z + FOOT_T / 2))
-    return f, dict(x=[round(x0, 2), round(x1, 2)], z_bottom=round(z_bot, 2), z_top=round(Z_TT, 2), ledges=dict(bump_top=round(z_bump, 2), droop_underside=round(z_droop, 2)))
+    r2 = lambda p: [round(v, 2) for v in p]                                                  # noqa: E731
+    return f, dict(x=[round(x0, 2), round(x1, 2)], z_bottom=round(z_bot, 2), z_top=round(Z_TT, 2),
+                   droop_hook_top=[r2(ha), r2(hb)], bump_rail_underside=[r2(ra), r2(rb)],
+                   pivot=f'Ø7 x {abs(x_tip - xa):.1f} pin on a Ø10 x {FRAME_GAP:g} boss; M3 x {PIVOT_SCREW_L:g} all threaded, its tip '
+                         f'{plastic - PIVOT_SCREW_L:.1f} mm short of the pin end; head {PIVOT_HEAD_RECESS - 2.5:.1f} mm under the outer face')
 
 
-def build_shaft():
-    x0, x1 = FRAMES['outer']['x'][0], FRAMES['inner']['x'][1]
-    xc = sum(FRAMES['inner']['x']) / 2
-    return along_x(SHAFT_D / 2, x0, x1, PIVOT_Y, PIVOT_Z) - cyl(M3_CLR / 2, SHAFT_D + 1, (xc, PIVOT_Y, PIVOT_Z))
+def bearing_627(name):
+    """the 627 (one ring body) in the fork arm next to this frame"""
+    fr = FRAMES[name]
+    s = fr['inward']
+    a = (fr['x'][1] if s > 0 else fr['x'][0]) + s * (FRAME_GAP + BRG_RECESS)
+    c = a + s * B627_W
+    return along_x(B627_OD / 2, *sorted((a, c)), PIVOT_Y, PIVOT_Z) - along_x(B627_BORE / 2, min(a, c) - 1, max(a, c) + 1, PIVOT_Y, PIVOT_Z)
 
 
-def bearings_627():
-    ring = lambda x0: along_x(B627_OD / 2, x0, x0 + B627_W, PIVOT_Y, PIVOT_Z) - along_x(SHAFT_D / 2, x0 - 1, x0 + B627_W + 1, PIVOT_Y, PIVOT_Z)  # noqa: E731
-    return ring(OUTER_ARM_X[0]), ring(INNER_ARM_X[1] - B627_W)
-
-
-def plunger(xt):
-    """M5 x BOLT_L button head + washer + nyloc as one body, at nominal (dome apex on the pad)"""
+def plunger(xt, y):
+    """M4 x BOLT_L button head + washer + nyloc as one body, at nominal (dome apex on the pad)"""
     cap = b.Sphere(DOME_R).moved(b.Location((0, 0, DOME_R))) & b.Cylinder(BOLT_HEAD_D / 2, BOLT_HEAD_K).moved(b.Location((0, 0, BOLT_HEAD_K / 2)))
     z_head = BOLT_HEAD_K
-    p = cap + cyl(2.5, BOLT_L, (0, 0, z_head + BOLT_L / 2))
-    p = p + (cyl(WASHER_OD / 2, WASHER_T, (0, 0, z_head + WASHER_T / 2)) - cyl(2.7, WASHER_T + 1, (0, 0, z_head + WASHER_T / 2)))
+    p = cap + cyl(SHANK_R, BOLT_L, (0, 0, z_head + BOLT_L / 2))
+    p = p + (cyl(WASHER_OD / 2, WASHER_T, (0, 0, z_head + WASHER_T / 2)) - cyl(GUIDE_R, WASHER_T + 1, (0, 0, z_head + WASHER_T / 2)))
     zn = Z_TT + NUT_GAP - PAD_Z
-    p = p + (b.extrude(b.RegularPolygon(4.0, 6), NUT_T).moved(b.Location((0, 0, zn))) - cyl(2.5, NUT_T + 1, (0, 0, zn + NUT_T / 2)))
-    return p.moved(b.Location((xt, Y_S, PAD_Z)))
+    nut = b.extrude(b.RegularPolygon(NUT_AF / math.sqrt(3), 6), NUT_T).moved(b.Location((0, 0, zn)))
+    p = p + (nut - cyl(SHANK_R, NUT_T + 1, (0, 0, zn + NUT_T / 2)))
+    return p.moved(b.Location((xt, y, PAD_Z)))
 
 
-def die_spring(xt, length):
+def die_spring(xt, y, length):
     z0 = Z_SB
-    return cyl(SPRING_OD / 2, length, (xt, Y_S, z0 + length / 2)) - cyl(SPRING_ID / 2, length + 1, (xt, Y_S, z0 + length / 2))
+    return cyl(SPRING_OD / 2, length, (xt, y, z0 + length / 2)) - cyl(SPRING_ID / 2, length + 1, (xt, y, z0 + length / 2))
 
 
 # ---- assembly at a pose ----------------------------------------------------------------------------------------------------------
@@ -248,35 +296,37 @@ def wheel_unit():
 def build_static():
     fork = build_fork()
     st = stops(fork)
-    parts = dict(fork=fork, stub=build_stub(), shaft=build_shaft(), b627=bearings_627())
+    parts = dict(fork=fork, stub=build_stub())
     info = {}
     for name in FRAMES:
-        parts['frame_' + name], info[name] = build_frame(name, *st[name])
+        parts['b627_' + name] = bearing_627(name)
+        parts['frame_' + name], info[name] = build_frame(name, st[name])
     return parts, info
 
 
 def posed(parts, unit, a):
-    moving = dict(unit, pod_fork=parts['fork'], axle_stub=parts['stub'], bearing_627_outer=parts['b627'][0], bearing_627_inner=parts['b627'][1])
+    moving = dict(unit, pod_fork=parts['fork'], axle_stub=parts['stub'], bearing_627_outer=parts['b627_outer'], bearing_627_inner=parts['b627_inner'])
     out = {k: (v.rotate(PIVOT_AXIS, a) if a else v) for k, v in moving.items()}
     out['pod_frame_outer'], out['pod_frame_inner'] = parts['frame_outer'], parts['frame_inner']
-    out['pivot_shaft'] = parts['shaft']
-    lift, _ = plunger_lift(a)
-    for side, xt in zip(('outer', 'inner'), X_T):
-        out[f'spring_plunger_{side}'] = plunger(xt).moved(b.Location((0, 0, lift)))
-        out[f'die_spring_{side}'] = die_spring(xt, Z_CEIL - Z_SB - lift).moved(b.Location((0, 0, lift)))
-    return out, lift
+    lifts = {}
+    for k, (xt, y) in PLUNGERS.items():
+        lifts[k] = lift = plunger_lift(a, y)[0]
+        out[f'spring_plunger_{k}'] = plunger(xt, y).moved(b.Location((0, 0, lift)))
+        out[f'die_spring_{k}'] = die_spring(xt, y, Z_CEIL - Z_SB - lift).moved(b.Location((0, 0, lift)))
+    return out, lifts
 
 
 # ---- checks ------------------------------------------------------------------------------------------------------------------
 def spring_table():
     rows = {}
-    lift_b, lift_d = plunger_lift(A_BUMP)[0], plunger_lift(A_DROOP)[0]
+    lift_b = max(plunger_lift(A_BUMP, y)[0] for y in Y_PAIR)           # the plunger farther from the pivot moves most
+    lift_d = min(plunger_lift(A_DROOP, y)[0] for y in Y_PAIR)
     for kg in (10, 12.5, 15, 20):
         F = spring_force(kg)
         r = dict(force_nominal_N=round(F, 1))
         for colour_, (k, maxw) in SPRINGS.items():
             c = F / k
-            r[colour_] = dict(wheel_rate_N_per_mm=round(2 * k * (SPRING_ARM / PIVOT_Y) ** 2, 2), compression_nominal=round(c, 1),
+            r[colour_] = dict(wheel_rate_N_per_mm=round(2 * sum(k * ((PIVOT_Y - y) / PIVOT_Y) ** 2 for y in Y_PAIR), 2), compression_nominal=round(c, 1),
                               compression_bump=round(c + lift_b, 1), max_working=maxw, ok=bool(c + lift_b <= maxw and c + lift_d > 0.5),
                               shim_mm=round(c - C_NOM, 1))
         rows[f'{kg} kg'] = r
@@ -285,34 +335,35 @@ def spring_table():
 
 def check(parts, unit):
     rep = dict(poses_deg={k: round(v, 3) for k, v in POSES.items()},
-               springs=dict(part='ISO 10243 Ø10 x 38 (HPC R203106 green / R204106 blue)', design=f'{SPRING_DESIGN} at {DESIGN_MASS} kg', arm_mm=SPRING_ARM,
-                            plunger=f'M5 x {BOLT_L:g} button head, M5 washer, M5 nyloc', table=spring_table(),
+               springs=dict(part=f'{2 * SPRINGS_PER_SIDE} x yellow 8 x 25 mm 3D-printer bed spring (JIS extra-light Ø8 / Ø4 x 25; rate {K_DESIGN} N/mm ASSUMED, VERIFY)',
+                            design=f'{SPRING_DESIGN} at {DESIGN_MASS} kg', arm_mm=SPRING_ARM, pair_y=[round(y, 2) for y in Y_PAIR],
+                            plunger=f'M4 x {BOLT_L:g} button head (ISO 7380), M4 washer, M4 nyloc', table=spring_table(),
                             note='shim_mm: spacer under the spring seat to keep the nominal ride height with that spring and mass (negative: the pod rides higher)'))
-    static = ('pod_frame_outer', 'pod_frame_inner', 'pivot_shaft')
+    static = ('pod_frame_outer', 'pod_frame_inner')
     rotating = [k for k in unit if k.startswith(('wheel_', 'roller_', 'bolt_', 'bearing_6804'))]
     harness = ('xt30_housing', 'lead_pos', 'lead_neg')
     for name, a in POSES.items():
-        sh, lift = posed(parts, unit, a)
-        _, along = plunger_lift(a)
-        r = dict(axle=[round(float(v), 2) for v in rot_pt((0, 0), a)], plunger_lift=round(lift, 2), contact_from_pad_centre=round(along, 2),
-                 spring_length=round(Z_CEIL - Z_SB - lift, 2))
+        sh, lifts = posed(parts, unit, a)
+        r = dict(axle=[round(float(v), 2) for v in rot_pt((0, 0), a)], plunger_lift={k: round(v, 2) for k, v in lifts.items()},
+                 contact_from_pad_point={k: round(plunger_lift(a, y)[1], 2) for k, (_, y) in PLUNGERS.items()},
+                 spring_length={k: round(Z_CEIL - Z_SB - v, 2) for k, v in lifts.items()},
+                 nut_gap_to_tower={k: round(NUT_GAP + v, 2) for k, v in lifts.items()},
+                 pad_margin=round(PAD_HALF - max(abs(y - Y_S + plunger_lift(a, y)[1]) for _, y in PLUNGERS.values()), 2))
         ov = {}
         moving = [k for k in sh if k not in static and not k.startswith(('spring_plunger', 'die_spring'))]
         for st in static:
             for k in moving:
-                if st == 'pivot_shaft' and k.startswith('bearing_627'):
-                    continue
                 if near(sh[st], sh[k]):
                     v = overlap(sh[st], sh[k])
                     if v > 0.01:
                         ov[f'{st} / {k}'] = round(v, 2)
-        for side in ('outer', 'inner'):
+        for pk in PLUNGERS:
             for k in sh:
-                if k.startswith(('spring_plunger', 'die_spring')) or not near(sh[f'spring_plunger_{side}'], sh[k]):
+                if k.endswith(pk) or not near(sh[f'spring_plunger_{pk}'], sh[k]):
                     continue
-                v = overlap(sh[f'spring_plunger_{side}'], sh[k])
+                v = overlap(sh[f'spring_plunger_{pk}'], sh[k])
                 if v > 0.05:
-                    ov[f'spring_plunger_{side} / {k}'] = round(v, 2)
+                    ov[f'spring_plunger_{pk} / {k}'] = round(v, 2)
         r['interference_mm3'] = ov
         gaps = dict(frames_to_fork=round(min(min_dist(sh[f], sh['pod_fork']) for f in static[:2]), 2),
                     frames_to_rotating=round(min(min_dist(sh[f], sh[k]) for f in static[:2] for k in rotating if near(sh[f], sh[k], 8)), 2),
@@ -329,7 +380,7 @@ def check(parts, unit):
     for a in POSES.values():
         sh, _ = posed(parts, unit, a)
         for k, s in sh.items():
-            if k.startswith(('pod_frame', 'pivot_shaft', 'spring_', 'die_')) or not near(s, slab, 0):
+            if k.startswith(('pod_frame', 'spring_', 'die_')) or not near(s, slab, 0):
                 continue
             x = s & slab
             if x is None or not x.solids():
@@ -341,14 +392,14 @@ def check(parts, unit):
                         keel_notches={n: dict(x=FRAMES[n]['x'], y=list(KEEL_Y)) for n in FRAMES},
                         mount_screws={n: [[round(sum(FRAMES[n]['x']) / 2, 2), y] for y in MOUNT_Y] for n in FRAMES},
                         note=f'plate thickness assumed {PLATE_T_ASSUMED} mm for the cutout; frames stand on the plate top; M3 from the top into Ø2.8 pilots in the plate (or nuts under it)')
-    rep['printed_parts'] = {k: dict(solids=len(parts[p].solids()), valid=bool(parts[p].is_valid), volume_cm3=round(parts[p].volume / 1000, 1),
+    rep['printed_parts'] = {k: dict(solids=len(parts[p].solids()), valid=bool(parts[p].is_valid), volume_cm3=round(parts[p].volume / 1000, 2),
                                     bbox=[round(v, 1) for v in tuple(parts[p].bounding_box().size)])
-                            for k, p in (('pod_frame_outer', 'frame_outer'), ('pod_frame_inner', 'frame_inner'), ('pod_fork', 'fork'), ('axle_stub', 'stub'))}
+                            for k, p in PRINTED}
     return rep
 
 
 # ---- export / render -------------------------------------------------------------------------------------------------------------
-STEP_SKIP = ('bolt_', 'bearing_', 'pivot_shaft', 'spring_plunger')
+STEP_SKIP = ('bolt_', 'bearing_', 'spring_plunger')
 PRINTED = (('pod_frame_outer', 'frame_outer'), ('pod_frame_inner', 'frame_inner'), ('pod_fork', 'fork'), ('axle_stub', 'stub'))
 
 
@@ -420,13 +471,15 @@ def render(parts, unit):
     keep = {k: v for k, v in sh.items() if not k.startswith(('bolt_', 'roller_core'))}
     iso(keep, VAL / 'iso_pod_motor_side.png', 235, 22, 'pod, motor side (nominal)')
     iso(keep, VAL / 'iso_pod_outer_side.png', 55, 22, 'pod, outer side (nominal)')
-    iso({k: sh[k] for k in sh if k.startswith(('pod_fork', 'axle_stub', 'pod_frame', 'pivot_shaft', 'spring_plunger', 'die_spring'))},
-        VAL / 'iso_frames_fork.png', 215, 30, 'side frames, fork, shaft, spring plungers (wheel hidden)')
-    for xs, nm in ((X_T[0], 'outer_spring_plane'), (0.0, 'mid_plane'), (FRAMES['outer']['x'][0] + 0.5, 'outer_frame')):
+    iso({k: sh[k] for k in sh if k.startswith(('pod_fork', 'axle_stub', 'pod_frame', 'bearing_627', 'spring_plunger', 'die_spring'))},
+        VAL / 'iso_frames_fork.png', 215, 30, 'side frames, fork, pivot 627s, spring plungers (wheel hidden)')
+    for xs, nm in ((X_T[0], 'outer_spring_plane'), (FRAMES['outer']['x'][1] + 2.5, 'outer_stops'), (0.0, 'mid_plane'),
+                   (FRAMES['outer']['x'][0] + 0.5, 'outer_frame')):
         fig, axs = plt.subplots(1, 3, figsize=(18, 6))
         for ax, (pname, a) in zip(axs, POSES.items()):
-            sh, lift = posed(parts, unit, a)
-            section(sh, xs, ax, f'{pname}: x = {xs:g}, plunger lift {lift:+.1f} (y toward the pivot, z up; dashed: plate top)')
+            sh, lifts = posed(parts, unit, a)
+            la, lb = lifts['outer_a'], lifts['outer_b']
+            section(sh, xs, ax, f'{pname}: x = {xs:g}, plunger lifts {la:+.1f} / {lb:+.1f} (y toward the pivot, z up; dashed: plate top)')
         fig.tight_layout()
         fig.savefig(VAL / f'section_{nm}.png', dpi=90)
         plt.close(fig)

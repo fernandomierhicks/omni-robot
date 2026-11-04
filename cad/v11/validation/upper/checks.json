@@ -1,0 +1,519 @@
+{
+ "info": {
+  "floor": {
+   "FL": {
+    "bbox": [
+     217.9,
+     217.9,
+     11.0
+    ]
+   },
+   "RL": {
+    "bbox": [
+     217.9,
+     217.9,
+     11.0
+    ]
+   },
+   "RR": {
+    "bbox": [
+     217.9,
+     217.9,
+     11.0
+    ]
+   },
+   "FR": {
+    "bbox": [
+     217.9,
+     217.9,
+     11.0
+    ]
+   }
+  },
+  "arm_pose": [
+   1.571,
+   -1.745,
+   1.449,
+   1.421,
+   0.0,
+   -0.17
+  ],
+  "fin_screws": 13
+ },
+ "printed": {
+  "floor2_FL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 205.3,
+   "bbox": [
+    217.9,
+    217.9,
+    11.0
+   ],
+   "bed_fit": true
+  },
+  "floor2_RL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 217.7,
+   "bbox": [
+    217.9,
+    217.9,
+    11.0
+   ],
+   "bed_fit": true
+  },
+  "floor2_RR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 217.3,
+   "bbox": [
+    217.9,
+    217.9,
+    11.0
+   ],
+   "bed_fit": true
+  },
+  "floor2_FR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 203.6,
+   "bbox": [
+    217.9,
+    217.9,
+    11.0
+   ],
+   "bed_fit": true
+  },
+  "riser_adapter": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 133.4,
+   "bbox": [
+    143.0,
+    112.0,
+    10.1
+   ],
+   "bed_fit": true
+  },
+  "riser_arm": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 63.8,
+   "bbox": [
+    68.0,
+    100.0,
+    30.5
+   ],
+   "bed_fit": true
+  },
+  "clamp_so101_l": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.7,
+   "bbox": [
+    10.0,
+    12.5,
+    21.6
+   ],
+   "bed_fit": true
+  },
+  "clamp_so101_r": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.7,
+   "bbox": [
+    10.0,
+    12.5,
+    21.6
+   ],
+   "bed_fit": true
+  },
+  "bracket_computer_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "bed_fit": true
+  },
+  "bracket_computer_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "bed_fit": true
+  },
+  "bracket_computer_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "bed_fit": true
+  },
+  "bracket_computer_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "bed_fit": true
+  },
+  "bracket_battery_tray": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 38.1,
+   "bbox": [
+    75.0,
+    162.0,
+    30.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_power_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.2,
+   "bbox": [
+    7.0,
+    7.0,
+    6.0
+   ],
+   "bed_fit": true
+  },
+  "post_mcu_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.2,
+   "bbox": [
+    7.0,
+    7.0,
+    40.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_power_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.2,
+   "bbox": [
+    7.0,
+    7.0,
+    6.0
+   ],
+   "bed_fit": true
+  },
+  "post_mcu_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.2,
+   "bbox": [
+    7.0,
+    7.0,
+    40.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_power_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.2,
+   "bbox": [
+    7.0,
+    7.0,
+    6.0
+   ],
+   "bed_fit": true
+  },
+  "post_mcu_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.2,
+   "bbox": [
+    7.0,
+    7.0,
+    40.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_power_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.2,
+   "bbox": [
+    7.0,
+    7.0,
+    6.0
+   ],
+   "bed_fit": true
+  },
+  "post_mcu_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.2,
+   "bbox": [
+    7.0,
+    7.0,
+    40.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_servo_adapter_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    7.0,
+    7.0,
+    5.0
+   ],
+   "bed_fit": true
+  },
+  "post_spacer_servo_adapter_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    7.0,
+    7.0,
+    5.0
+   ],
+   "bed_fit": true
+  },
+  "post_deck_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.2,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "bed_fit": true
+  },
+  "post_deck_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.2,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "bed_fit": true
+  },
+  "post_deck_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.2,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "bed_fit": true
+  },
+  "post_deck_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.2,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "bed_fit": true
+  },
+  "housing_estop": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 8.2,
+   "bbox": [
+    30.0,
+    42.0,
+    36.0
+   ],
+   "bed_fit": true
+  },
+  "housing_switch": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 8.2,
+   "bbox": [
+    30.0,
+    42.0,
+    36.0
+   ],
+   "bed_fit": true
+  },
+  "deck_bin": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 257.4,
+   "bbox": [
+    216.0,
+    200.0,
+    6.0
+   ],
+   "bed_fit": true
+  },
+  "housing_face": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 66.4,
+   "bbox": [
+    31.0,
+    135.4,
+    153.5
+   ],
+   "bed_fit": true
+  },
+  "housing_face_crown": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 36.0,
+   "bbox": [
+    57.0,
+    138.7,
+    16.0
+   ],
+   "bed_fit": true
+  },
+  "housing_speaker_cover": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 3.5,
+   "bbox": [
+    48.0,
+    44.0,
+    2.0
+   ],
+   "bed_fit": true
+  }
+ },
+ "overlaps_mm3": {},
+ "overlaps_with_chassis_mm3": {},
+ "battery_slide_out_+y": {
+  "contacts": {},
+  "clear": true,
+  "note": "strap opened and the XT90 unplugged first (reached under the deck from the right side)"
+ },
+ "lidar_top_to_floor_mm": 3.8,
+ "thread_engagement_mm": {
+  "bolt_seam_RL_30#0": 6.0,
+  "bolt_seam_RL_75#1": 6.0,
+  "bolt_seam_RL_150#2": 6.0,
+  "bolt_seam_RL_190#3": 6.0,
+  "bolt_seam_RR_30#4": 6.0,
+  "bolt_seam_RR_75#5": 6.0,
+  "bolt_seam_RR_150#6": 6.0,
+  "bolt_seam_RR_190#7": 6.0,
+  "bolt_floor_fin#8": 7.0,
+  "bolt_floor_fin#9": 7.0,
+  "bolt_floor_fin#10": 7.0,
+  "bolt_floor_fin#11": 7.0,
+  "bolt_floor_fin#12": 7.0,
+  "bolt_floor_fin#13": 7.0,
+  "bolt_floor_fin#14": 7.0,
+  "bolt_floor_fin#15": 7.0,
+  "bolt_floor_fin#16": 7.0,
+  "bolt_floor_fin#17": 7.0,
+  "bolt_floor_fin#18": 7.0,
+  "bolt_floor_fin#19": 7.0,
+  "bolt_floor_fin#20": 7.0,
+  "bolt_clamp_so101#21": 8.4,
+  "bolt_clamp_so101#22": 8.4,
+  "bolt_so101_base#23": 1.9,
+  "bolt_so101_base#24": 1.9,
+  "bolt_so101_base#25": 2.0,
+  "bolt_so101_base#26": 2.0,
+  "bolt_arm_kit_M3x10#27": 6.0,
+  "bolt_arm_kit_M3x10#28": 6.0,
+  "bolt_arm_kit_M3x12#29": 8.0,
+  "bolt_arm_kit_M3x12#30": 8.0,
+  "bolt_arm_kit_M3x45#31": 7.3,
+  "bolt_arm_kit_M3x45#32": 7.3,
+  "bolt_arm_kit_M3x35#33": 10.0,
+  "bolt_arm_kit_M3x35#34": 10.0,
+  "bolt_arm_kit_M3x10#35": 6.0,
+  "bolt_arm_kit_M3x10#36": 6.0,
+  "bolt_arm_kit_M3x10#37": 6.0,
+  "bolt_arm_kit_M3x10#38": 6.0,
+  "bolt_arm_kit_M3x10#39": 8.5,
+  "bolt_arm_kit_M3x10#40": 8.8,
+  "bolt_clip_computer#41": 9.0,
+  "bolt_clip_computer#42": 9.0,
+  "bolt_clip_computer#43": 9.0,
+  "bolt_clip_computer#44": 9.0,
+  "bolt_tray_battery#45": 9.0,
+  "bolt_tray_battery#46": 9.0,
+  "bolt_tray_battery#47": 9.0,
+  "bolt_tray_battery#48": 9.0,
+  "bolt_mcu_stack#49": 9.0,
+  "bolt_mcu_stack#50": 9.0,
+  "bolt_mcu_stack#51": 9.0,
+  "bolt_mcu_stack#52": 9.0,
+  "bolt_servo_adapter#53": 7.4,
+  "bolt_servo_adapter#54": 7.4,
+  "bolt_post_floor#55": 7.0,
+  "bolt_post_deck#56": 6.0,
+  "bolt_post_floor#57": 7.0,
+  "bolt_post_deck#58": 6.0,
+  "bolt_post_floor#59": 7.0,
+  "bolt_post_deck#60": 6.0,
+  "bolt_post_floor#61": 7.0,
+  "bolt_post_deck#62": 6.0,
+  "bolt_bin#63": 6.0,
+  "bolt_bin#64": 6.0,
+  "bolt_bin#65": 6.0,
+  "bolt_bin#66": 6.0,
+  "bolt_estop_pod#67": 6.0,
+  "bolt_estop_pod#68": 6.0,
+  "bolt_switch_pod#69": 6.0,
+  "bolt_switch_pod#70": 6.0,
+  "bolt_face_deck#71": 6.0,
+  "bolt_face_deck#72": 6.0,
+  "bolt_face_deck#73": 6.0,
+  "bolt_face_deck#74": 6.0,
+  "bolt_face_crown#75": 6.0,
+  "bolt_face_crown#76": 6.0,
+  "bolt_mic#77": 8.1,
+  "bolt_mic#78": 9.4,
+  "bolt_mic#79": 8.1,
+  "bolt_mic#80": 9.5,
+  "bolt_speaker_cover#81": 8.0,
+  "bolt_speaker_cover#82": 8.0
+ },
+ "screws_short_of_6mm": {},
+ "screws_into_vendor_parts": {
+  "bolt_so101_base#23": 1.9,
+  "bolt_so101_base#24": 1.9,
+  "bolt_so101_base#25": 2.0,
+  "bolt_so101_base#26": 2.0
+ },
+ "fastener_count": {
+  "M3x14_pan": 10,
+  "M3x12_pan": 27,
+  "M3x30_pan": 2,
+  "M2p5x14_pan": 4,
+  "M3x10_pan": 28,
+  "M3x45_pan": 2,
+  "M3x35_pan": 2,
+  "M3x60_pan": 4,
+  "M3x16_pan": 4
+ }
+}

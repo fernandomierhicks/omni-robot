@@ -1,0 +1,363 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "robot_diameter": 450.3
+ },
+ "frame": {
+  "member": "solid square section, 22 mm deep (print with few walls, low infill)",
+  "ring_band": [
+   100.0,
+   121.0
+  ],
+  "cross_w": 16.0
+ },
+ "printed_parts": {
+  "hub": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 153.9,
+   "footprint_on_bed": [
+    161.1,
+    161.1
+   ],
+   "height": 22.0,
+   "bed_fit": true
+  },
+  "edge_FL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 27.7,
+   "footprint_on_bed": [
+    91.6,
+    89.7
+   ],
+   "height": 36.0,
+   "bed_fit": true
+  },
+  "edge_RL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 27.6,
+   "footprint_on_bed": [
+    91.6,
+    89.7
+   ],
+   "height": 36.0,
+   "bed_fit": true
+  },
+  "edge_RR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 27.6,
+   "footprint_on_bed": [
+    91.6,
+    89.7
+   ],
+   "height": 36.0,
+   "bed_fit": true
+  },
+  "edge_FR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 27.7,
+   "footprint_on_bed": [
+    91.6,
+    89.7
+   ],
+   "height": 36.0,
+   "bed_fit": true
+  },
+  "node_front": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 210.2,
+   "footprint_on_bed": [
+    159.6,
+    157.6
+   ],
+   "height": 22.0,
+   "bed_fit": true
+  },
+  "node_left": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 221.3,
+   "footprint_on_bed": [
+    179.7,
+    178.4
+   ],
+   "height": 46.0,
+   "bed_fit": true
+  },
+  "node_back": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 156.3,
+   "footprint_on_bed": [
+    159.6,
+    157.6
+   ],
+   "height": 22.0,
+   "bed_fit": true
+  },
+  "node_right": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 221.3,
+   "footprint_on_bed": [
+    179.7,
+    178.4
+   ],
+   "height": 46.0,
+   "bed_fit": true
+  },
+  "pedestal": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 47.8,
+   "footprint_on_bed": [
+    80.0,
+    79.9
+   ],
+   "height": 69.7,
+   "bed_fit": true
+  },
+  "bracket_d435": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 27.3,
+   "footprint_on_bed": [
+    70.7,
+    69.2
+   ],
+   "height": 71.2,
+   "bed_fit": true
+  },
+  "bumper_q0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 43.9,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 54.3,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 54.3,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 43.9,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "support_spine": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 124.9,
+   "footprint_on_bed": [
+    152.1,
+    147.7
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_side_L": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 50.2,
+   "footprint_on_bed": [
+    115.7,
+    114.8
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_side_R": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 50.2,
+   "footprint_on_bed": [
+    115.7,
+    114.8
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  }
+ },
+ "all_fit_256_bed": true,
+ "frame_volume_cm3": 1073.7,
+ "supports_static": {
+  "overlap_mm3": {
+   "support_spine / hub": 0,
+   "support_spine / node_back": 0,
+   "support_side_L / node_left": 0,
+   "support_side_R / node_right": 0
+  },
+  "gaps_mm": {
+   "support_spine / hub": 0.0,
+   "support_spine / edge_RL": 23.02,
+   "support_spine / node_back": 0.0,
+   "support_spine / bumper_q1": 6.02,
+   "support_spine / bumper_q2": 6.02,
+   "support_side_L / FL/pod_frame_inner": 0.02,
+   "support_side_L / FL/pod_keel_outer": 79.17,
+   "support_side_L / FL/dowel_inner": 15.64,
+   "support_side_L / RL/pod_frame_inner": 5.43,
+   "support_side_L / RL/dowel_inner": 13.21,
+   "support_side_L / hub": 11.14,
+   "support_side_L / edge_FL": 27.13,
+   "support_side_L / edge_RL": 24.75,
+   "support_side_L / node_front": 73.19,
+   "support_side_L / node_left": 0.0,
+   "support_side_L / bumper_q0": 89.67,
+   "support_side_L / bumper_q1": 89.03,
+   "support_side_R / RR/pod_frame_inner": 5.43,
+   "support_side_R / RR/dowel_inner": 13.21,
+   "support_side_R / FR/pod_frame_inner": 0.02,
+   "support_side_R / FR/pod_keel_outer": 79.17,
+   "support_side_R / FR/dowel_inner": 15.64,
+   "support_side_R / hub": 11.14,
+   "support_side_R / edge_RR": 24.75,
+   "support_side_R / edge_FR": 27.13,
+   "support_side_R / node_front": 73.19,
+   "support_side_R / node_right": 0.0,
+   "support_side_R / bumper_q2": 89.03,
+   "support_side_R / bumper_q3": 89.67
+  },
+  "note": "0 overlap everywhere; the side fins sit 0.02 above the column top (bearing there), the feet stand on the members"
+ },
+ "clearance_to_moving_mm": {
+  "frame_to_moving_z40_56": 3.0,
+  "frame_to_moving_z56_62": 2.89,
+  "bumper_to_moving": 3.0,
+  "walls_to_moving": 3.2,
+  "camera_to_moving": 10.85,
+  "plug_to_moving": 5.39,
+  "bracket_to_moving": 10.03,
+  "lidar_to_moving": 5.89,
+  "pedestal_to_moving": 2.0,
+  "supports_to_moving": 3.22
+ },
+ "lidar_to_d435_cradle_mm": 12.53,
+ "lidar_to_camera_mm": 25.31,
+ "pedestal_to_cradle_mm": 9.95,
+ "fasteners_landing": {
+  "pod": "12/12",
+  "keel": "8/8",
+  "pedestal": "4/4",
+  "bracket": "2/2",
+  "fin": "6/6",
+  "bumper": "16/16",
+  "laps": "18 screws in 12 laps"
+ },
+ "per_pod": {
+  "inner_frame": "3 x M3 x 25 up from under the member into its foot; pocket walls on its centre-side face and front end (0.2 clearance, 14 tall)",
+  "keel": "2 x M3 x 30 up from under the member; pocket walls behind it and at its inboard end (clipped off the pod's way out)",
+  "pivot_block": "bears on the ring",
+  "supports": "front pods: the side fin bears on the column top, located by 2 dowels in its 2 pilots (slots in the fin open toward the pod's way out); rear pods: pilots unused",
+  "removal": "screws out from below, bumper quarter off, unplug the motor; the pod slides out radially (its -x) under the second floor"
+ },
+ "inner_frame_foot_supported": [
+  0.73,
+  0.73,
+  0.73,
+  0.73
+ ],
+ "keel_foot_supported": [
+  0.72,
+  0.72,
+  0.72,
+  0.72
+ ],
+ "lidar": {
+  "at": [
+   120.0,
+   0
+  ],
+  "scan_z": 163.0,
+  "supports": [
+   {
+    "support": "support_spine",
+    "nearest": 143.2,
+    "bearing": -180.0,
+    "shadow_deg": 2.0
+   },
+   {
+    "support": "support_side_L",
+    "nearest": 78.1,
+    "bearing": 136.7,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_side_R",
+    "nearest": 78.1,
+    "bearing": -136.7,
+    "shadow_deg": 3.7
+   }
+  ],
+  "blind_total_deg": 9.4,
+  "note": "only the fins' 5 mm webs cross z 148..172, each in the plane of a ray; plus the arm while it reaches down in front"
+ },
+ "supports": {
+  "spine": {
+   "bearing": 180.0,
+   "length": 196.0,
+   "feet": "cross by the hub + back node, 2 x M3 x 30 up through each",
+   "arch_apex_z": 125.0
+  },
+  "side": {
+   "bearing": [
+    136.7,
+    -136.7
+   ],
+   "length": 147.0,
+   "feet": "front pod's column top (bears, 2 dowels) + the ring by the side stem (1 x M3 x 30 up through it)",
+   "nose_xy": [
+    63.2,
+    53.5
+   ],
+   "arm_riser_rear_corner": [
+    62.0,
+    56.0
+   ]
+  },
+  "floor": "M3 x 12 down through the 5 mm floor into \u00d82.8 x 7 pilots in the flanges (13)",
+  "section": "web 5 through z 148..172, flange 16 under the floor, legs flaring toward the deck",
+  "printing": "upside down on the top flange: arches, coves and leg flares all lean inward, no supports"
+ },
+ "section_I_mm4": {
+  "plate_neck_19x6": 342,
+  "plate_neck_25x6": 450,
+  "ring_21x22_solid": 18634,
+  "cross_16x22_solid": 14197,
+  "note": "printed with 3-4 walls and low infill a solid square section is a box section: close to these numbers, stiffer than the U-channel"
+ }
+}

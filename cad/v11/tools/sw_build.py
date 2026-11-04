@@ -5,9 +5,9 @@
 Uses cad/v10's SolidWorks helpers (subasm / mate_api / sw_native: geometric face finding, mates refused if they move anything) without
 changing them. Files go to cad/v11/solidworks/: parts/V11_*.SLDPRT, V11_*.SLDASM; top = V11_pod.SLDASM.
 
-    V11_pod            chassis fixed; fork hinges on the shaft; stator locked to the fork, hub locked to the rotor; each spring plunger
-    |                  slides in its tower guide with its dome tangent to the fork's pad (Suspension_travel: outer plunger lift, droop .. bump)
-    |- V11_chassis     two side frames + pivot shaft + two die springs (shown at their nominal length)
+    V11_pod            chassis fixed; the fork's 627s hinge on the frames' pivot pins; stator locked to the fork, hub locked to the rotor; each spring plunger
+    |                  slides in its tower guide with its dome tangent to the fork's pad (Suspension_travel: outer_a plunger lift, droop .. bump)
+    |- V11_chassis     two side frames (each with its pivot pin) + four springs (two per side, shown at their nominal length)
     |- V11_fork        fork + axle stub + 2 x 627
     |- V11_wheel       hub + cartridge + 6804 + 12 x V11_roller (each turns on its axle)
     |  `- V11_roller   core + tread
@@ -31,6 +31,23 @@ STEPS, PARTS = SW / 'step_parts', SW / 'parts'
 S.KEYS = SW / '_keys'                    # keep the key maps with v11, not in v10's folder
 MAN = json.loads((SW / 'manifest.json').read_text(encoding='utf-8'))
 X = np.array([1.0, 0, 0])
+_save = Asm.save
+
+
+def _save_retry(self, check=True):
+    """SaveAs3 returns error 1 (and writing the key map fails with OSError 22) while Dropbox still holds the file it is uploading from the
+    previous save (Nov 3): wait and retry"""
+    import time
+    for i in range(8):
+        try:
+            return _save(self, check)
+        except (RuntimeError, OSError) as e:
+            if (isinstance(e, RuntimeError) and not str(e).startswith('assembly save')) or i == 7:
+                raise
+            time.sleep(5)
+
+
+Asm.save = _save_retry
 DROOP_MM, BUMP_MM = 3.0, 15.0
 
 
@@ -69,7 +86,12 @@ def stage_import(sw):
             sw.CloseDoc(m.GetTitle())
             raise RuntimeError(f'{step.name} imported as an assembly')
         n = len(S.bodies(m))
-        ok, e, w = m.Extension.SaveAs3(str(out), 0, 1, None, None, 0, 0)
+        for i in range(8):                                 # Dropbox may still hold the previous version (see _save_retry)
+            ok, e, w = m.Extension.SaveAs3(str(out), 0, 1, None, None, 0, 0)
+            if ok and not e:
+                break
+            import time
+            time.sleep(5)
         sw.CloseDoc(m.GetTitle())
         if not ok or e:
             raise RuntimeError(f'save {out} {(e, w)}')
@@ -150,13 +172,13 @@ def stage_fork(sw):
 def stage_chassis(sw):
     a = Asm(sw, asm_path('chassis'))
     a.add('pod_frame_outer', part('pod_frame_outer'), np.eye(4), fixed=True)
-    for k in ('pod_frame_inner', 'pivot_shaft', 'die_spring_outer', 'die_spring_inner'):
+    springs = {'die_spring_' + pk: 'pod_frame_' + pk.split('_')[0] for pk in MAN['plungers']['axes']}
+    for k in ['pod_frame_inner', *springs]:
         a.add(k, part(k), np.eye(4))
     a.refresh()
-    a.lock('Frames_on_shaft', 'pod_frame_inner', 'pod_frame_outer')
-    a.lock('Shaft_in_frames', 'pivot_shaft', 'pod_frame_outer')
-    a.lock('Spring_outer_in_tower', 'die_spring_outer', 'pod_frame_outer')
-    a.lock('Spring_inner_in_tower', 'die_spring_inner', 'pod_frame_inner')
+    a.lock('Frames_on_plate', 'pod_frame_inner', 'pod_frame_outer')        # the robot plate holds them (no shaft since round 6)
+    for k, frame in springs.items():
+        a.lock(f'Spring_{k[len("die_spring_"):]}_in_tower', k, frame)
     finish(a)
 
 
@@ -208,8 +230,8 @@ def stage_pod(sw):
     a.add('fork', asm_path('fork'), np.eye(4))
     a.add('wheel', asm_path('wheel'), np.eye(4))
     a.add('motor', asm_path('motor'), np.eye(4))
-    for side in ('outer', 'inner'):
-        a.add('spring_plunger_' + side, part('spring_plunger_' + side), np.eye(4))
+    for pk in pl['axes']:
+        a.add('spring_plunger_' + pk, part('spring_plunger_' + pk), np.eye(4))
     for k in ('wheel', 'motor'):
         a.flexible(k)
     a.save(check=False)
@@ -217,25 +239,24 @@ def stage_pod(sw):
     aliases(a)
     piv = [0.0, *MAN['pivot']]
     m = a.mater
-    # fork on the shaft
+    # fork: its 627s on the frames' pivot pins
     m.mate('Fork_axial_location', 'coincident', a.plane('pod_fork', 'Right Plane'), a.plane('pod_frame_outer', 'Right Plane'))
-    a.concentric('Suspension_pivot', 'fork', X, piv, MAN['b627_bore_r'], 'pivot_shaft', MAN['shaft_r'])
+    a.concentric('Suspension_pivot', 'fork', X, piv, MAN['b627_bore_r'], 'pod_frame_outer', MAN['pin_r'])
     a.save(check=False)
     # motor: stator on the fork (bolted to its inner arm), rotor carries the wheel
     a.lock('Stator_on_fork', 'ak40_stator', 'pod_fork')
     a.lock('Hub_on_rotor', 'wheel_hub', 'ak40_rotor')
     a.save(check=False)
     # spring plungers: slide in the tower guide, dome on the fork pad
-    for side in ('outer', 'inner'):
-        k = 'spring_plunger_' + side
-        xy = pl['axes'][side]
-        a.concentric(k + '_guide', k, [0, 0, 1], [xy[0], xy[1], 0], pl['shank_r'], 'pod_frame_' + side, pl['guide_r'])
+    for pk, xy in pl['axes'].items():
+        k = 'spring_plunger_' + pk
+        a.concentric(k + '_guide', k, [0, 0, 1], [xy[0], xy[1], 0], pl['shank_r'], 'pod_frame_' + pk.split('_')[0], pl['guide_r'])
         tangent(a, k + '_on_pad', k, 'pod_fork', xy, pl['pad_z'])
-    # travel: a distance limit between the outer plunger (its part origin rides with it) and the outer frame's foot top. An angle limit
+    # travel: a distance limit between the outer_a plunger (its part origin rides with it) and the outer frame's foot top. An angle limit
     # between fork and frame planes left the fork fully defined here (Nov 3), so the stop sits on the plunger, which the fork drives
     foot = m.plane(a.name_of('pod_frame_outer'), [0, 0, 1], pl['foot_top_z'])
-    zf, lift = pl['foot_top_z'], pl['lift']
-    a.limit('Suspension_travel', a.plane('spring_plunger_outer', 'Front Plane'), foot, 'distance', zf, zf - lift['bump'], zf - lift['droop'])
+    zf, lift = pl['foot_top_z'], {k: v['outer_a'] for k, v in pl['lift'].items()}
+    a.limit('Suspension_travel', a.plane('spring_plunger_outer_a', 'Front Plane'), foot, 'distance', zf, zf - lift['bump'], zf - lift['droop'])
     finish(a)
 
 
@@ -265,7 +286,7 @@ def stage_test(sw):
 
     def read():
         ax = placement(a.mater.comp(a.name_of('ak40_stator')))[:3, 3]
-        lift = {sd: round(float(placement(a.mater.comp(a.name_of('spring_plunger_' + sd)))[2, 3]), 2) for sd in ('outer', 'inner')}
+        lift = {pk: round(float(placement(a.mater.comp(a.name_of('spring_plunger_' + pk)))[2, 3]), 2) for pk in pl['axes']}
         return [round(float(ax[1]), 2), round(float(ax[2]), 2)], lift
 
     def suppress(on):
@@ -286,7 +307,8 @@ def stage_test(sw):
             a.model.EditRebuild3()
         now = deg
         axle, lift = read()
-        rep['geometry'][name] = dict(axle_yz=axle, plunger_lift=lift, expected_lift=round(pl['lift'][name], 2), mate_errors=M.mate_errors(a.model))
+        rep['geometry'][name] = dict(axle_yz=axle, plunger_lift=lift, expected_lift={k: round(v, 2) for k, v in pl['lift'][name].items()},
+                                     mate_errors=M.mate_errors(a.model))
         print(' ', name, rep['geometry'][name], flush=True)
     suppress(False)
     for name, deg in (('past bump', p['bump'] - 6.0), ('past droop', p['droop'] + 6.0)):
@@ -307,11 +329,11 @@ def stage_test(sw):
         print(' ', name, rep['limit'][name], flush=True)
     g, lim = rep['geometry'], rep['limit']
     ok = abs(g['droop']['axle_yz'][1] + DROOP_MM) < 0.1 and abs(g['bump']['axle_yz'][1] - BUMP_MM) < 0.1 and abs(g['nominal']['axle_yz'][1]) < 0.05
-    ok &= all(abs(r['plunger_lift'][sd] - r['expected_lift']) < 0.05 for r in g.values() for sd in ('outer', 'inner'))
+    ok &= all(abs(r['plunger_lift'][pk] - r['expected_lift'][pk]) < 0.05 for r in g.values() for pk in pl['axes'])
     ok &= not any(r['mate_errors'] for r in g.values())
-    lo, hi = pl['lift']['droop'] - 0.05, pl['lift']['bump'] + 0.05
-    ok &= all(lo <= r['plunger_lift']['outer'] <= hi for r in lim.values()) and lim['past bump']['plunger_lift']['outer'] > 3.0 \
-        and lim['past droop']['plunger_lift']['outer'] < lim['past bump']['plunger_lift']['outer'] - 3.0
+    lo, hi = pl['lift']['droop']['outer_a'] - 0.05, pl['lift']['bump']['outer_a'] + 0.05
+    ok &= all(lo <= r['plunger_lift']['outer_a'] <= hi for r in lim.values()) and lim['past bump']['plunger_lift']['outer_a'] > 3.0 \
+        and lim['past droop']['plunger_lift']['outer_a'] < lim['past bump']['plunger_lift']['outer_a'] - 3.0
     rep['pass'] = bool(ok)
     print('  pass' if ok else '  FAIL', flush=True)
     (SW / 'motion_test.json').write_text(json.dumps(rep, indent=1))

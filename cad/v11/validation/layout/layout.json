@@ -1,0 +1,988 @@
+{
+ "A": {
+  "config": "A",
+  "title": "A: sim hand pattern (pivots toward the sides), everything on the deck between the pods",
+  "pattern": "sides",
+  "wheels": {
+   "FL": [
+    125.9,
+    80.6
+   ],
+   "RL": [
+    -125.9,
+    80.6
+   ],
+   "RR": [
+    -125.9,
+    -80.6
+   ],
+   "FR": [
+    125.9,
+    -80.6
+   ]
+  },
+  "robot_dia": 440,
+  "free_deck_cm2": 653,
+  "free_top_cm2": 1111,
+  "d435_nose": {
+   "clear_of_wheels_mm": 0.0,
+   "overlap_mm2": 129.2
+  },
+  "lidar_clear_of_pods_mm": 26.8,
+  "placed": {
+   "computer": null,
+   "battery": null,
+   "power": null,
+   "mcu": null,
+   "servo_adapter": {
+    "surface": "deck",
+    "xy": [
+     1.0,
+     1.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 80.0,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [
+   "computer",
+   "battery",
+   "power",
+   "mcu"
+  ],
+  "top_block_top_z": null,
+  "posts": [
+   [
+    74.9,
+    185.4
+   ],
+   [
+    -74.9,
+    185.4
+   ],
+   [
+    -74.9,
+    -185.4
+   ],
+   [
+    74.9,
+    -185.4
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    0.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 68.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 112.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -112.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -68.0,
+     "width_deg": 4.6
+    }
+   ],
+   "blind_deg": 18.4,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 8.18,
+   "cg": [
+    16.2,
+    0.0,
+    103.7
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 125.9,
+   "half_track": 80.6,
+   "tip_fwd_g": 1.06,
+   "tip_back_g": 1.37,
+   "tip_side_g": 0.78,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "B": {
+  "config": "B",
+  "title": "B: pivots toward the front / back (sim turned 90 deg), everything on the deck between the pods",
+  "pattern": "front",
+  "wheels": {
+   "FL": [
+    80.6,
+    125.9
+   ],
+   "RL": [
+    -80.6,
+    125.9
+   ],
+   "RR": [
+    -80.6,
+    -125.9
+   ],
+   "FR": [
+    80.6,
+    -125.9
+   ]
+  },
+  "robot_dia": 440,
+  "free_deck_cm2": 653,
+  "free_top_cm2": 1111,
+  "d435_nose": {
+   "clear_of_wheels_mm": 57.5,
+   "overlap_mm2": 0.0
+  },
+  "lidar_clear_of_pods_mm": 15.7,
+  "placed": {
+   "computer": null,
+   "battery": null,
+   "power": null,
+   "mcu": null,
+   "servo_adapter": {
+    "surface": "deck",
+    "xy": [
+     1.0,
+     1.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 80.0,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [
+   "computer",
+   "battery",
+   "power",
+   "mcu"
+  ],
+  "top_block_top_z": null,
+  "posts": [
+   [
+    0.0,
+    200.0
+   ],
+   [
+    -185.4,
+    74.9
+   ],
+   [
+    -185.4,
+    -74.9
+   ],
+   [
+    -0.0,
+    -200.0
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    140.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 125.0,
+     "width_deg": 3.8
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 167.0,
+     "width_deg": 2.7
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -167.0,
+     "width_deg": 2.7
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -125.0,
+     "width_deg": 3.8
+    }
+   ],
+   "blind_deg": 13.0,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 8.18,
+   "cg": [
+    19.5,
+    0.0,
+    103.7
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 80.6,
+   "half_track": 125.9,
+   "tip_fwd_g": 0.59,
+   "tip_back_g": 0.96,
+   "tip_side_g": 1.21,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "C": {
+  "config": "C",
+  "title": "C: pivots toward the front / back; battery + electronics in one block on the second floor rear; lidar and D435 in the front lobe",
+  "pattern": "front",
+  "wheels": {
+   "FL": [
+    80.6,
+    125.9
+   ],
+   "RL": [
+    -80.6,
+    125.9
+   ],
+   "RR": [
+    -80.6,
+    -125.9
+   ],
+   "FR": [
+    80.6,
+    -125.9
+   ]
+  },
+  "robot_dia": 440,
+  "free_deck_cm2": 653,
+  "free_top_cm2": 1111,
+  "d435_nose": {
+   "clear_of_wheels_mm": 57.5,
+   "overlap_mm2": 0.0
+  },
+  "lidar_clear_of_pods_mm": 15.7,
+  "placed": {
+   "computer": {
+    "surface": "top",
+    "xy": [
+     -131.0,
+     5.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 236.5,
+    "keep_out_area_cm2": 178.5
+   },
+   "battery": {
+    "surface": "top",
+    "xy": [
+     -39.0,
+     1.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 230.5,
+    "keep_out_area_cm2": 101.0
+   },
+   "power": {
+    "surface": "top",
+    "xy": [
+     13.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 216.5,
+    "keep_out_area_cm2": 166.0
+   },
+   "mcu": {
+    "surface": "top",
+    "xy": [
+     13.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": "power",
+    "top_z": 251.5,
+    "keep_out_area_cm2": 105.7
+   },
+   "servo_adapter": {
+    "surface": "top",
+    "xy": [
+     21.0,
+     -7.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 199.5,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [],
+  "top_block_top_z": 272.5,
+  "posts": [
+   [
+    0.0,
+    200.0
+   ],
+   [
+    -185.4,
+    74.9
+   ],
+   [
+    -185.4,
+    -74.9
+   ],
+   [
+    -0.0,
+    -200.0
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    140.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 125.0,
+     "width_deg": 3.8
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 167.0,
+     "width_deg": 2.7
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -167.0,
+     "width_deg": 2.7
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -125.0,
+     "width_deg": 3.8
+    }
+   ],
+   "blind_deg": 13.0,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 10.0,
+   "cg": [
+    5.1,
+    -5.5,
+    123.4
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 80.6,
+   "half_track": 125.9,
+   "tip_fwd_g": 0.61,
+   "tip_back_g": 0.69,
+   "tip_side_g": 1.02,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "D": {
+  "config": "D",
+  "title": "D: sim hand pattern; battery + electronics block on the second floor rear; lidar on a pedestal at the deck centre",
+  "pattern": "sides",
+  "wheels": {
+   "FL": [
+    125.9,
+    80.6
+   ],
+   "RL": [
+    -125.9,
+    80.6
+   ],
+   "RR": [
+    -125.9,
+    -80.6
+   ],
+   "FR": [
+    125.9,
+    -80.6
+   ]
+  },
+  "robot_dia": 440,
+  "free_deck_cm2": 653,
+  "free_top_cm2": 1111,
+  "d435_nose": {
+   "clear_of_wheels_mm": 0.0,
+   "overlap_mm2": 129.2
+  },
+  "lidar_clear_of_pods_mm": 26.8,
+  "placed": {
+   "computer": {
+    "surface": "top",
+    "xy": [
+     -131.0,
+     5.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 236.5,
+    "keep_out_area_cm2": 178.5
+   },
+   "battery": {
+    "surface": "top",
+    "xy": [
+     -39.0,
+     1.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 230.5,
+    "keep_out_area_cm2": 101.0
+   },
+   "power": {
+    "surface": "top",
+    "xy": [
+     13.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 216.5,
+    "keep_out_area_cm2": 166.0
+   },
+   "mcu": {
+    "surface": "top",
+    "xy": [
+     13.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": "power",
+    "top_z": 251.5,
+    "keep_out_area_cm2": 105.7
+   },
+   "servo_adapter": {
+    "surface": "top",
+    "xy": [
+     21.0,
+     -7.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 199.5,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [],
+  "top_block_top_z": 272.5,
+  "posts": [
+   [
+    74.9,
+    185.4
+   ],
+   [
+    -74.9,
+    185.4
+   ],
+   [
+    -74.9,
+    -185.4
+   ],
+   [
+    74.9,
+    -185.4
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    0.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 68.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 112.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -112.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -68.0,
+     "width_deg": 4.6
+    }
+   ],
+   "blind_deg": 18.4,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 10.0,
+   "cg": [
+    2.5,
+    -5.5,
+    123.4
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 125.9,
+   "half_track": 80.6,
+   "tip_fwd_g": 1.0,
+   "tip_back_g": 1.04,
+   "tip_side_g": 0.65,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "E": {
+  "config": "E",
+  "title": "E: as C on the smallest base (pods bolted into a ring, D 134)",
+  "pattern": "front",
+  "wheels": {
+   "FL": [
+    70.7,
+    118.8
+   ],
+   "RL": [
+    -70.7,
+    118.8
+   ],
+   "RR": [
+    -70.7,
+    -118.8
+   ],
+   "FR": [
+    70.7,
+    -118.8
+   ]
+  },
+  "robot_dia": 416,
+  "free_deck_cm2": 502,
+  "free_top_cm2": 982,
+  "d435_nose": {
+   "clear_of_wheels_mm": 59.9,
+   "overlap_mm2": 0.0
+  },
+  "lidar_clear_of_pods_mm": 18.6,
+  "placed": {
+   "computer": {
+    "surface": "top",
+    "xy": [
+     -119.0,
+     9.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 236.5,
+    "keep_out_area_cm2": 178.5
+   },
+   "battery": {
+    "surface": "top",
+    "xy": [
+     -39.0,
+     -127.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 230.5,
+    "keep_out_area_cm2": 101.0
+   },
+   "power": {
+    "surface": "top",
+    "xy": [
+     -7.0,
+     97.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 216.5,
+    "keep_out_area_cm2": 166.0
+   },
+   "mcu": {
+    "surface": "top",
+    "xy": [
+     -7.0,
+     97.0
+    ],
+    "yaw": 90,
+    "on": "power",
+    "top_z": 251.5,
+    "keep_out_area_cm2": 105.7
+   },
+   "servo_adapter": {
+    "surface": "top",
+    "xy": [
+     1.0,
+     -175.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 199.5,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [],
+  "top_block_top_z": 272.5,
+  "posts": [
+   [
+    0.0,
+    190.0
+   ],
+   [
+    -177.4,
+    68.1
+   ],
+   [
+    -177.4,
+    -68.1
+   ],
+   [
+    -0.0,
+    -190.0
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    140.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 126.4,
+     "width_deg": 3.9
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 167.9,
+     "width_deg": 2.8
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -167.9,
+     "width_deg": 2.8
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -126.4,
+     "width_deg": 3.9
+    }
+   ],
+   "blind_deg": 13.4,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 10.0,
+   "cg": [
+    4.8,
+    -4.8,
+    123.4
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 70.7,
+   "half_track": 118.8,
+   "tip_fwd_g": 0.53,
+   "tip_back_g": 0.61,
+   "tip_side_g": 0.96,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "F": {
+  "config": "F",
+  "title": "F: sim hand pattern, base grown until the D435 nose clears; electronics block on the second floor; lidar on a pedestal at the centre",
+  "pattern": "sides",
+  "wheels": {
+   "FL": [
+    123.0,
+    94.8
+   ],
+   "RL": [
+    -123.0,
+    94.8
+   ],
+   "RR": [
+    -123.0,
+    -94.8
+   ],
+   "FR": [
+    123.0,
+    -94.8
+   ]
+  },
+  "robot_dia": 462,
+  "free_deck_cm2": 810,
+  "free_top_cm2": 1247,
+  "d435_nose": {
+   "clear_of_wheels_mm": 6.6,
+   "overlap_mm2": 0.0
+  },
+  "lidar_clear_of_pods_mm": 36.9,
+  "placed": {
+   "computer": {
+    "surface": "top",
+    "xy": [
+     -135.0,
+     1.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 236.5,
+    "keep_out_area_cm2": 178.5
+   },
+   "battery": {
+    "surface": "top",
+    "xy": [
+     -39.0,
+     1.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 230.5,
+    "keep_out_area_cm2": 101.0
+   },
+   "power": {
+    "surface": "top",
+    "xy": [
+     9.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": null,
+    "top_z": 216.5,
+    "keep_out_area_cm2": 166.0
+   },
+   "mcu": {
+    "surface": "top",
+    "xy": [
+     9.0,
+     -135.0
+    ],
+    "yaw": 0,
+    "on": "power",
+    "top_z": 251.5,
+    "keep_out_area_cm2": 105.7
+   },
+   "servo_adapter": {
+    "surface": "top",
+    "xy": [
+     21.0,
+     -7.0
+    ],
+    "yaw": 90,
+    "on": null,
+    "top_z": 199.5,
+    "keep_out_area_cm2": 30.0
+   }
+  },
+  "missing": [],
+  "top_block_top_z": 272.5,
+  "posts": [
+   [
+    61.8,
+    190.2
+   ],
+   [
+    -61.8,
+    190.2
+   ],
+   [
+    -61.8,
+    -190.2
+   ],
+   [
+    61.8,
+    -190.2
+   ]
+  ],
+  "lidar": {
+   "xy": [
+    0.0,
+    0.0
+   ],
+   "scan_z": 163.0,
+   "shadows": [
+    {
+     "what": "post \u00d816",
+     "bearing": 72.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": 108.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -108.0,
+     "width_deg": 4.6
+    },
+    {
+     "what": "post \u00d816",
+     "bearing": -72.0,
+     "width_deg": 4.6
+    }
+   ],
+   "blind_deg": 18.4,
+   "note": "no pod part reaches the plane (wheel top 154.8 at bump); the arm crosses it only while reaching down in front"
+  },
+  "mass_cg": {
+   "kg": 10.0,
+   "cg": [
+    2.1,
+    -5.7,
+    123.4
+   ],
+   "note": "rough: pods 1.45 kg each (est), arm 0.85 kg at its stow, bin / face / head / wiring NOT included"
+  },
+  "stability": {
+   "half_wheelbase": 123.0,
+   "half_track": 94.8,
+   "tip_fwd_g": 0.98,
+   "tip_back_g": 1.01,
+   "tip_side_g": 0.77,
+   "note": "static rigid-body tipping about the wheel contacts at this CG (sim to confirm with pods and the full robot)"
+  }
+ },
+ "devices": {
+  "computer": {
+   "size": [
+    112.0,
+    126.0,
+    52.0
+   ],
+   "mass_kg": 0.43,
+   "ports": [
+    "D435 (USB 3)",
+    "Teensy",
+    "SO-101 bus adapter",
+    "A2M12 adapter",
+    "19 V in"
+   ],
+   "note": "BMAX B8A Pro 126 x 112 x 52, 430 g (maker); port layout ASSUMED: front 2 USB-A 3 / C / jack / power button, rear DC / HDMI / DP / LAN / 2 USB-A 2 (VERIFY)"
+  },
+  "battery": {
+   "size": [
+    157.0,
+    47.0,
+    46.0
+   ],
+   "mass_kg": 0.706,
+   "ports": [],
+   "note": "OVONIC Roam 6S 5200 157 x 47 x 46, 706 g (maker); keep-outs: XT90-S pigtail bend + the mated pair + balance lead in line at one end (50)"
+  },
+  "power": {
+   "size": [
+    130.0,
+    70.0,
+    32.0
+   ],
+   "mass_kg": 0.35,
+   "ports": [],
+   "note": "est (keep-outs: 6S lead in 40, motor XT30 leads out 30): fuse, e-stop contactor, current sensor, 19 V / 100 W buck (PC), 12 V / 8 A buck (arm), 5 V buck, motor distribution"
+  },
+  "mcu": {
+   "size": [
+    100.0,
+    65.0,
+    25.0
+   ],
+   "mass_kg": 0.08,
+   "ports": [
+    "Teensy USB"
+   ],
+   "note": "est: Teensy 4.1 carrier: CAN transceivers, BNO085, ELRS receiver, buzzer, bumper / e-stop inputs; CAN + 12 V headers"
+  },
+  "servo_adapter": {
+   "size": [
+    45.0,
+    35.0,
+    15.0
+   ],
+   "mass_kg": 0.02,
+   "ports": [
+    "USB"
+   ],
+   "note": "Waveshare Bus Servo Adapter (A) est; SO-101 bus + 12 V in"
+  }
+ },
+ "plugs": {
+  "usb_a3": {
+   "w": 16.0,
+   "h": 8.5,
+   "depth": 30.0,
+   "lead_od": 4.6,
+   "bend_r": 23.0
+  },
+  "usb_a2": {
+   "w": 15.0,
+   "h": 8.0,
+   "depth": 28.0,
+   "lead_od": 3.8,
+   "bend_r": 19.0
+  },
+  "usb_c": {
+   "w": 12.0,
+   "h": 7.0,
+   "depth": 25.0,
+   "lead_od": 5.0,
+   "bend_r": 25.0
+  },
+  "micro_b": {
+   "w": 11.0,
+   "h": 7.0,
+   "depth": 25.0,
+   "lead_od": 3.8,
+   "bend_r": 19.0
+  },
+  "dc_barrel": {
+   "w": 10.0,
+   "h": 10.0,
+   "depth": 32.0,
+   "lead_od": 4.5,
+   "bend_r": 15.0
+  },
+  "hdmi": {
+   "w": 21.0,
+   "h": 11.0,
+   "depth": 38.0,
+   "lead_od": 7.0,
+   "bend_r": 35.0
+  },
+  "xt90": {
+   "w": 21.0,
+   "h": 16.0,
+   "depth": 30.0,
+   "lead_od": 10.0,
+   "bend_r": 30.0
+  },
+  "xt30": {
+   "w": 10.0,
+   "h": 6.0,
+   "depth": 20.0,
+   "lead_od": 5.0,
+   "bend_r": 15.0
+  }
+ }
+}

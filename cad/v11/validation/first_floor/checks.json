@@ -1,0 +1,373 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "wheels": {
+   "FL": [
+    123.0,
+    94.8
+   ],
+   "RL": [
+    -123.0,
+    94.8
+   ],
+   "RR": [
+    -123.0,
+    -94.8
+   ],
+   "FR": [
+    123.0,
+    -94.8
+   ]
+  },
+  "wheel_circle_r": 155.3,
+  "wheel_angles_deg": [
+   37.6,
+   142.4,
+   -142.4,
+   -37.6
+  ]
+ },
+ "info": {
+  "r_bumper_inside": 225.2,
+  "r_plate": 224.7,
+  "robot_diameter": 462.5,
+  "spider_reach": {
+   "45.0": 77.5,
+   "135.0": 77.5,
+   "225.0": 77.5,
+   "315.0": 77.5
+  },
+  "posts": [
+   [
+    7.0,
+    125.0
+   ],
+   [
+    353.0,
+    125.0
+   ],
+   [
+    76.0,
+    206.0
+   ],
+   [
+    104.0,
+    206.0
+   ],
+   [
+    256.0,
+    206.0
+   ],
+   [
+    284.0,
+    206.0
+   ],
+   [
+    170.0,
+    206.0
+   ],
+   [
+    190.0,
+    206.0
+   ]
+  ],
+  "bumper_mounts_deg": [
+   10.0,
+   28.0,
+   72.0,
+   84.0,
+   96.0,
+   108.0,
+   152.0,
+   170.0,
+   190.0,
+   208.0,
+   252.0,
+   264.0,
+   276.0,
+   288.0,
+   332.0,
+   350.0
+  ],
+  "holes": {
+   "pod": 16,
+   "spider": 16,
+   "pedestal": 4,
+   "bracket": 2,
+   "post": 16
+  },
+  "plate_area_cm2": 880.9
+ },
+ "printed_parts": {
+  "plate_front": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 149.0,
+   "mass_g_petg": 114,
+   "footprint_on_bed": [
+    237.4,
+    232.2
+   ],
+   "height": 20.0,
+   "bed_fit": true
+  },
+  "plate_left": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 140.4,
+   "mass_g_petg": 107,
+   "footprint_on_bed": [
+    225.7,
+    224.7
+   ],
+   "height": 20.0,
+   "bed_fit": true
+  },
+  "plate_back": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 149.1,
+   "mass_g_petg": 114,
+   "footprint_on_bed": [
+    237.4,
+    232.2
+   ],
+   "height": 20.0,
+   "bed_fit": true
+  },
+  "plate_right": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 140.4,
+   "mass_g_petg": 107,
+   "footprint_on_bed": [
+    225.7,
+    224.7
+   ],
+   "height": 20.0,
+   "bed_fit": true
+  },
+  "spider": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 66.3,
+   "mass_g_petg": 51,
+   "footprint_on_bed": [
+    123.7,
+    123.7
+   ],
+   "height": 8.0,
+   "bed_fit": true
+  },
+  "pedestal": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 57.2,
+   "mass_g_petg": 44,
+   "footprint_on_bed": [
+    80.0,
+    79.9
+   ],
+   "height": 71.0,
+   "bed_fit": true
+  },
+  "bracket_d435": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 30.7,
+   "mass_g_petg": 23,
+   "footprint_on_bed": [
+    70.7,
+    69.2
+   ],
+   "height": 71.2,
+   "bed_fit": true
+  },
+  "bumper_q0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 88.8,
+   "mass_g_petg": 68,
+   "footprint_on_bed": [
+    231.2,
+    231.2
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 109.4,
+   "mass_g_petg": 83,
+   "footprint_on_bed": [
+    231.2,
+    231.2
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 109.4,
+   "mass_g_petg": 83,
+   "footprint_on_bed": [
+    231.2,
+    231.2
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 88.8,
+   "mass_g_petg": 68,
+   "footprint_on_bed": [
+    231.2,
+    231.2
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  }
+ },
+ "clearance_to_moving_mm": {
+  "plate_to_moving": 2.83,
+  "bosses_spider_to_moving": 11.86,
+  "lips_to_moving": 13.73,
+  "bracket_to_moving_plan": 5.05,
+  "bumper_to_moving": 3.0
+ },
+ "static_pod_parts_below_deck_hit_plate_mm2": 0.0,
+ "d435_to_front_pods_mm": {
+  "camera": 10.85,
+  "plug": 5.39,
+  "bracket": 9.04
+ },
+ "d435_floor_view": {
+  "lowest_ray_deg_below_horizontal": 55.3,
+  "nearest_floor_x": 267.3,
+  "camera_own_limit_deg": 59.0,
+  "note": "arm floor reach 260..360 mm from the centre (sim)"
+ },
+ "lidar": {
+  "at": [
+   0,
+   0
+  ],
+  "scan_z": 163.0,
+  "base_z": 133.0,
+  "blade_shadows": [
+   {
+    "bearing": 7.0,
+    "r": 125.0,
+    "width_deg": 3.1
+   },
+   {
+    "bearing": 353.0,
+    "r": 125.0,
+    "width_deg": 3.1
+   },
+   {
+    "bearing": 76.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   },
+   {
+    "bearing": 104.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   },
+   {
+    "bearing": 256.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   },
+   {
+    "bearing": 284.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   },
+   {
+    "bearing": 170.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   },
+   {
+    "bearing": 190.0,
+    "r": 206.0,
+    "width_deg": 1.8
+   }
+  ],
+  "blind_total_deg": 17.0,
+  "note": "radial blades 5 mm across (+0.5 mm a side for the beam); round \u00d816 posts at r 200 would be ~4.6 deg each"
+ },
+ "screws": [
+  {
+   "where": "pod inner frame foot -> plate",
+   "n": 8,
+   "size": "M3 x 14 pan",
+   "grip": 8.0,
+   "engagement": 6.0,
+   "into": "plate \u00d82.8 pilot (through)"
+  },
+  {
+   "where": "pod outer keel foot -> plate",
+   "n": 8,
+   "size": "M3 x 14 pan",
+   "grip": 7.0,
+   "engagement": 6.0,
+   "into": "plate \u00d82.8 pilot (through; 1 mm proud below)"
+  },
+  {
+   "where": "plate -> spider",
+   "n": 16,
+   "size": "M3 x 14 pan",
+   "grip": 6.0,
+   "engagement": 8.0,
+   "into": "spider \u00d82.8"
+  },
+  {
+   "where": "lidar pedestal -> plate -> spider",
+   "n": 4,
+   "size": "M3 x 18 pan",
+   "grip": 10.0,
+   "engagement": 8.0,
+   "into": "spider \u00d82.8"
+  },
+  {
+   "where": "bumper -> rim boss (radial, from outside)",
+   "n": 16,
+   "size": "M3 x 12 pan",
+   "grip": 3.6,
+   "engagement": 8.4,
+   "into": "rim boss \u00d82.8 x 10.5"
+  },
+  {
+   "where": "D435 bracket -> plate",
+   "n": 2,
+   "size": "M3 x 10 pan",
+   "grip": 4.0,
+   "engagement": 6.0,
+   "into": "plate \u00d82.8"
+  },
+  {
+   "where": "D435 -> bracket",
+   "n": 2,
+   "size": "M3 x 8 pan",
+   "grip": 4.0,
+   "engagement": 4.0,
+   "into": "camera's rear M3 (vendor thread, depth VERIFY)"
+  },
+  {
+   "where": "lidar -> pedestal top",
+   "n": 4,
+   "size": "M2.5 x 8",
+   "grip": 5.0,
+   "engagement": 3.0,
+   "into": "lidar base (pattern PLACEHOLDER, VERIFY)"
+  }
+ ]
+}

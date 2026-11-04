@@ -10,6 +10,7 @@ import { StatusBar } from "./statusbar.js";
 import "./system.js";
 import { BaseTab } from "./tabs/base.js";
 import { CalibrateTab } from "./tabs/calibrate.js";
+import { CamerasTab } from "./tabs/cameras.js";
 import { CatchTab } from "./tabs/catch.js";
 import { ExploreTab } from "./tabs/explore.js";
 import { FaceTab } from "./tabs/face.js";
@@ -42,7 +43,7 @@ const MODES = [
 ];
 const TOOLS = [
   ["base", "Base", null, BaseTab], ["thrower", "Thrower", "THROWER", ThrowerTab], ["face", "Face", null, FaceTab],
-  ["vision", "Vision", null, VisionTab],
+  ["vision", "Vision", null, VisionTab], ["cameras", "Cameras", null, CamerasTab],
   ["slam", "SLAM", null, SlamTab], ["mapedit", "Map edit", null, MapEditTab],
   ["calibrate", "Calibrate", "CALIBRATE", CalibrateTab], ["health", "Health", null, HealthTab],
   ["logbook", "Logbook", null, LogbookTab], ["rc", "RC", null, RcTab],

@@ -579,7 +579,7 @@ def main():
 
         # every tab renders; the ROS tab lists topics
         for tab in ("home", "manual", "goto", "explore", "patrol", "catch", "follow", "program", "base", "thrower",
-                    "face", "vision", "slam", "mapedit", "calibrate", "health", "logbook", "system", "rc", "version", "ros"):
+                    "face", "vision", "cameras", "slam", "mapedit", "calibrate", "health", "logbook", "system", "rc", "version", "ros"):
             page.goto(f"{a.url}/#{tab}")
             time.sleep(1.0 if tab != "ros" else 2.5)
             if a.shots:

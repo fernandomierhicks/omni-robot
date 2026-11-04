@@ -3,6 +3,8 @@
  "fork": "V11_fork-1",
  "wheel": "V11_wheel-1",
  "motor": "V11_motor-1",
- "spring_plunger_outer": "V11_spring_plunger_outer-1",
- "spring_plunger_inner": "V11_spring_plunger_inner-1"
+ "spring_plunger_outer_a": "V11_spring_plunger_outer_a-1",
+ "spring_plunger_outer_b": "V11_spring_plunger_outer_b-1",
+ "spring_plunger_inner_a": "V11_spring_plunger_inner_a-1",
+ "spring_plunger_inner_b": "V11_spring_plunger_inner_b-1"
 }

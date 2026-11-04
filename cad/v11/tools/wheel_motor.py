@@ -1,6 +1,19 @@
-"""cad/v11 compact wheel + motor, round 5 (Nov 3 2026), build123d, STEP review only. Dimensions in dims.py. The suspension pod is pod.py.
+"""cad/v11 compact wheel + motor, round 8 (Nov 3 2026), build123d, STEP review only. Dimensions in dims.py. The suspension pod is pod.py.
 
     python -B wheel_motor.py [build|check|export|render|all]        (omni-robot-sim interpreter)
+
+Round 8, Fernando's sketch: each axle head pocket is a round shank hole, a round head counterbore and a 45 deg cone opening outward along the
+axle (pocket_tool), instead of the double-teardrop tunnel that left cantilevered slivers of web; the cone stops at 5 mm because the two axles
+in a spoke cross just past their heads and a longer cone cuts into the neighbour's head seat.
+
+Round 7, after Fernando's review of the round-6 hub: the Ø3.4 shank hole between each thrust face and head seat is a teardrop like the tunnel
+(its round roof was the last overhang at the pockets, including where it breaks into the neighbouring roller's driver tunnel); R0.8 on the
+spoke webs' x-end edges and the drum's left end; the TPU tread snaps into a V groove round the core's middle (a 0.4 mm rib in its bore), so it
+cannot walk along the core but still pulls off by hand.
+
+Round 6, after Fernando's first prints: Ø8 double-teardrop head pockets / driver tunnels (no support inside, bigger driver); spoke webs 26 mm deep
+and the roller cut is the roller's revolved envelope + drop-in channel, so the webs wrap the roller ends at the thin neck; straight roller core
+with open-ended keys so the TPU tread slides off.
 
 Round 5: no motor mount: the pod's fork bolts straight to the motor's rear face. Motor turned MOTOR_ROT about the axis so the XT30 points back and
 slightly up (az ~160), away from the pod's pivot and shocks; the hub's flange holes follow. Second 45 deg cone in the hub cavity (left wall), so the
@@ -46,6 +59,7 @@ COLOURS = {                         # STEP colours (SolidWorks shows them per co
 
 
 def colour(name):
+    name = name.lstrip('_')
     for k, v in COLOURS.items():
         if name.startswith(k):
             return v
@@ -114,29 +128,42 @@ def points(shape, tol=0.05):
 
 
 # ---- rollers --------------------------------------------------------------------------------------------------------------
+def end_circles(s, r):
+    return [e for e in s.edges() if e.geom_type.name == 'CIRCLE' and abs(abs(e.center().Z) - HT) < 1e-3 and abs(e.radius - r) < 1e-3]
+
+
 def core_solid():
+    """straight PLA core (round 6): the tread slides on and off along the axis; three keyways open at both ends"""
     H, br = HT, BORE_D / 2
-    edges = [line(b.Vector(br, -H, 0), b.Vector(rc(H), -H, 0)), arc(b.Vector(rc(H), -H, 0), b.Vector(rc(0), 0, 0), b.Vector(rc(H), H, 0)),
-             line(b.Vector(rc(H), H, 0), b.Vector(br, H, 0)), line(b.Vector(br, H, 0), b.Vector(br, -H, 0))]
-    core = b.revolve(b.Plane.XZ * b.Face(b.Wire(edges)), axis=b.Axis.Z)
+    core = cyl(CORE_R, 2 * H, (0, 0, 0))
+    core = b.chamfer(end_circles(core, CORE_R), CORE_CHAMFER) - cyl(br, 2 * H + 1, (0, 0, 0))
     for sgn in (-1, 1):
         zc = sgn * (H + JOURNAL / 2)
         core = core + (cyl(JOURNAL_R, JOURNAL, (0, 0, zc)) - cyl(br, JOURNAL + 1, (0, 0, zc)))
-    for a in (0, 120, 240):                              # keyways for the tread's keys
-        core = core - b.Box(8.0, KEY_W, 2 * KEY_HALF).moved(b.Location((17.0, 0, 0))).rotate(b.Axis.Z, a)
-    return core
+    for a in (0, 120, 240):
+        core = core - b.Box(KEY_DEPTH + 1, KEY_W, 2 * H + 2).moved(b.Location((CORE_R - KEY_DEPTH + (KEY_DEPTH + 1) / 2, 0, 0))).rotate(b.Axis.Z, a)
+    return core - detent_ring(CORE_R + 0.5, CORE_R - DETENT_DEPTH)
+
+
+def detent_ring(r_base, r_tip):
+    """45 deg V ring round the roller axis at its middle, from radius r_base (the base, 2 x its depth wide) to r_tip"""
+    h = abs(r_base - r_tip)
+    edges = [line(b.Vector(r_base, -h, 0), b.Vector(r_tip, 0, 0)), line(b.Vector(r_tip, 0, 0), b.Vector(r_base, h, 0)),
+             line(b.Vector(r_base, h, 0), b.Vector(r_base, -h, 0))]
+    return b.revolve(b.Plane.XZ * b.Face(b.Wire(edges)), axis=b.Axis.Z)
 
 
 def tread_solid():
+    """TPU tread: outside the R_WHEEL profile, straight bore on the core, keys along its whole length"""
     H = HT
-    edges = [arc(b.Vector(rt(H), -H, 0), b.Vector(rt(0), 0, 0), b.Vector(rt(H), H, 0)), line(b.Vector(rt(H), H, 0), b.Vector(rc(H), H, 0)),
-             arc(b.Vector(rc(H), H, 0), b.Vector(rc(0), 0, 0), b.Vector(rc(H), -H, 0)), line(b.Vector(rc(H), -H, 0), b.Vector(rt(H), -H, 0))]
+    edges = [arc(b.Vector(rt(H), -H, 0), b.Vector(rt(0), 0, 0), b.Vector(rt(H), H, 0)), line(b.Vector(rt(H), H, 0), b.Vector(CORE_R, H, 0)),
+             line(b.Vector(CORE_R, H, 0), b.Vector(CORE_R, -H, 0)), line(b.Vector(CORE_R, -H, 0), b.Vector(rt(H), -H, 0))]
     t = b.revolve(b.Plane.XZ * b.Face(b.Wire(edges)), axis=b.Axis.Z)
-    ends = [e for e in t.edges() if e.geom_type.name == 'CIRCLE' and abs(abs(e.center().Z) - H) < 1e-3 and abs(e.radius - rt(H)) < 1e-3]
-    t = b.fillet(ends, FILLET_TREAD)
+    t = b.fillet(end_circles(t, rt(H)), FILLET_TREAD)
+    t = b.chamfer(end_circles(t, CORE_R), CORE_CHAMFER)
     for a in (0, 120, 240):
-        t = t + b.Box(15.7 - 13.0, KEY_W, 2 * KEY_HALF).moved(b.Location((14.35, 0, 0))).rotate(b.Axis.Z, a)
-    return t
+        t = t + b.Box(KEY_DEPTH + 0.5, KEY_W, 2 * H).moved(b.Location((CORE_R - KEY_DEPTH + (KEY_DEPTH + 0.5) / 2, 0, 0))).rotate(b.Axis.Z, a)
+    return t + detent_ring(CORE_R + 0.01, CORE_R - DETENT_RIB)          # snaps into the core's groove
 
 
 def roller_frames():
@@ -157,9 +184,10 @@ def roller_frames():
 
 # ---- hub ---------------------------------------------------------------------------------------------------------------------
 def band_tool():
-    """the cut each roller makes in the spokes, in its local y-z plane, prismed through x. Above the axis an open channel (radial drop-in) between the
-    thrust faces z = +-ZF; the thrust faces run straight down past the whole roller end and blend (BLEND_R) into the tread clearance arc
-    (R_WHEEL + BAND_C about the wheel axis, mirrored: centre at local y = +R_AXIS)."""
+    """the cut each roller makes in the spokes. Its profile in the local y-z plane: the thrust faces z = +-ZF run across the whole roller end and
+    blend (BLEND_R) into the tread clearance arc (R_WHEEL + BAND_C about the wheel axis, mirrored: centre at local y = +R_AXIS). Round 6: that
+    profile is revolved about the roller axis (the roller's clearance envelope), plus an open channel above the axis (radial drop-in) as wide as
+    the envelope, so the spoke outside the roller end is kept and wraps it; before, the profile was prismed through x."""
     big = R_WHEEL + BAND_C
     zc = ZF - BLEND_R
     yc = R_AXIS - math.sqrt((big - BLEND_R) ** 2 - zc ** 2)
@@ -171,14 +199,36 @@ def band_tool():
         tb = c + BLEND_R * o
         mid = c + BLEND_R * (o + np.array([0, s])) / np.linalg.norm(o + np.array([0, s]))
         pts[s] = (V(yc, s * ZF), V(*mid), V(*tb))
+    edges = [line(V(0, -ZF), V(0, ZF)), line(V(0, ZF), pts[1][0]), arc(*pts[1]),
+             arc(pts[1][2], V(R_AXIS - big, 0), pts[-1][2]), arc(pts[-1][2], pts[-1][1], pts[-1][0]), line(pts[-1][0], V(0, -ZF))]
+    env = b.revolve(b.Face(b.Wire(edges)), axis=b.Axis.Z)
+    half = big - R_AXIS
     top = 200.0
-    edges = [line(V(top, -ZF), V(top, ZF)), line(V(top, ZF), pts[1][0]), arc(*pts[1]),
-             arc(pts[1][2], V(R_AXIS - big, 0), pts[-1][2]), arc(pts[-1][2], pts[-1][1], pts[-1][0]), line(pts[-1][0], V(top, -ZF))]
-    return prism_x(edges, 25.0)
+    return env + b.Box(2 * half, top, 2 * ZF).moved(b.Location((0, top / 2, 0)))
+
+
+def tunnel_tool(z0, z1, d=TUNNEL_D):
+    """axle head pocket + driver tunnel (or the shank hole, d = CLR_D) along local z from z0 to z1: Ø d with 45 deg points toward local +-x
+    (pod x, the print axis)"""
+    r = d / 2
+    q = r / math.sqrt(2)
+    sec = b.Circle(r) + b.Polygon((r * math.sqrt(2), 0), (q, q), (-q, q), (-r * math.sqrt(2), 0), (-q, -q), (q, -q), align=None)
+    return b.extrude(b.Plane.XY.offset(z0) * sec, amount=z1 - z0)
+
+
+def pocket_tool():
+    """round 8 (Fernando's sketch): round Ø3.4 shank hole from the thrust face to the seat, round head counterbore, then a 45 deg cone
+    opening outward along the axle, so every face beyond the head slopes at 45 deg or less whichever way the hub prints (the round-6
+    double-teardrop tunnel left cantilevered slivers of web either side of it); then the driver / head path on along the axle"""
+    r = HEAD_POCKET_D / 2
+    p = cyl(CLR_D / 2, SEAT - ZF + 1.0, (0, 0, (ZF - 1.0 + SEAT) / 2)) + cyl(r, B_OUT - SEAT + 0.01, (0, 0, (SEAT + B_OUT) / 2))
+    p = p + b.Cone(r, r + FLARE_L, FLARE_L).moved(b.Location((0, 0, B_OUT + FLARE_L / 2)))
+    return p + cyl(r, 60.0, (0, 0, B_OUT + FLARE_L + 30.0 - 0.01))
 
 
 def web(zc):
-    """spoke web under one block: convex hull of the block circle (local y 0, z zc) and two feet 1 mm inside the drum, prismed WEB_T"""
+    """spoke web under one block: convex hull of the block circle (local y 0, z zc) and two feet 1 mm inside the drum, prismed through x
+    (build_hub clips it to the row's x range)"""
     P = np.array([0.0, zc])
     feet = []
     for dz in (-WEB_REACH, WEB_REACH):
@@ -192,7 +242,12 @@ def web(zc):
     if t_lo[1] > t_hi[1]:
         t_lo, t_hi = tangent(feet[0], 1), tangent(feet[1], -1)
     edges = [line(V(*feet[0]), V(*feet[1])), line(V(*feet[1]), V(*t_hi)), arc(V(*t_hi), V(BLOCK_R, zc), V(*t_lo)), line(V(*t_lo), V(*feet[0]))]
-    return prism_x(edges, WEB_T / 2)
+    return prism_x(edges, D_ROW + WEB_OUT)
+
+
+def web_x(row):
+    """pod x range of a row's spokes"""
+    return (-(D_ROW + WEB_OUT), -WEB_GAP / 2) if row == 1 else (WEB_GAP / 2, min(D_ROW + WEB_OUT, X_RIGHT))
 
 
 def build_hub():
@@ -206,9 +261,18 @@ def build_hub():
     unit = cyl(BLOCK_R, B_OUT - ZF, (0, 0, zb)) + cyl(BLOCK_R, A_OUT - ZF, (0, 0, za)) + web(zb) + web(za)
     keepout = b.Cylinder(DRUM_OUT - 0.5, 120.0).rotate(b.Axis.Y, 90)   # nothing of the spokes inside r 32.5 (the drum wall is r 30..33)
     frames = roller_frames()
+    info = dict(edge_round_failed=0)
     for row, k, M in frames:
-        hub = hub + (unit.moved(loc(M)) - keepout)
-    info = {}
+        x0, x1 = web_x(row)
+        spoke = (unit.moved(loc(M)) - keepout) & b.Box(x1 - x0, 200, 200).moved(b.Location(((x0 + x1) / 2, 0, 0)))
+        # round 7: round the spoke's x-end edges before it joins the drum (OCC will not fillet them on the finished hub); not the edges buried in the drum
+        ends = [e for e in spoke.edges() if any(all(abs(e.position_at(t).X - p) < 1e-3 for t in (0, 0.5, 1)) for p in (x0, x1))
+                and math.hypot(e.position_at(0.5).Y, e.position_at(0.5).Z) > DRUM_OUT]
+        try:
+            spoke = b.fillet(ends, HUB_EDGE_R)
+        except Exception:                   # noqa: BLE001
+            info['edge_round_failed'] += 1
+        hub = hub + spoke
     hub, info['root_fillet'] = fillet_roots(hub)
     band = band_tool()
     for row, k, M in frames:
@@ -216,12 +280,13 @@ def build_hub():
     solids = sorted(hub.solids(), key=lambda s: -s.volume)
     hub = solids[0]
     info['slivers_dropped_mm3'] = [round(s.volume, 2) for s in solids[1:]]
+    try:                                                                    # drum's left end (outside and inside edges)
+        hub = b.fillet([e for e in hub.edges() if e.geom_type.name == 'CIRCLE' and abs(e.center().X - X_LEFT) < 1e-3 and e.radius > DRUM_IN], HUB_EDGE_R)
+    except Exception:                       # noqa: BLE001
+        info['edge_round_failed'] += 1
     for row, k, M in frames:
-        thru = cyl(CLR_D / 2, B_OUT - ZF + 1.0, (0, 0, (ZF + B_OUT) / 2))
-        head = cyl(HEAD_POCKET_D / 2, HEAD_DEPTH + 0.01, (0, 0, B_OUT - HEAD_DEPTH / 2 + 0.005))
-        tunnel = cyl(TUNNEL_D / 2, 60.0, (0, 0, B_OUT + 30.0))
         pilot = cyl(PILOT_D / 2, PILOT_DEPTH, (0, 0, -(ZF + PILOT_DEPTH / 2)))
-        hub = hub - (thru + head + tunnel + pilot).moved(loc(M))
+        hub = hub - (pocket_tool() + pilot).moved(loc(M))
     for a in FLANGE_ANGLES:
         y, z = at_angle(FLANGE_R, a)
         hub = hub - along_x(M25_CLEAR / 2, FLANGE_FRONT - 0.1, FLANGE_BACK + 0.1, y, z)
@@ -233,7 +298,7 @@ def build_hub():
 
 def fillet_roots(hub, radii=(3.0, 2.5, 2.0, 1.5)):
     """fillet where the spoke webs' x faces meet the drum's outside cylinder"""
-    planes = [s * D_ROW + t * WEB_T / 2 for s in (-1, 1) for t in (-1, 1)]
+    planes = [x for row in (1, 2) for x in web_x(row) if abs(x - X_RIGHT) > 0.05]       # a web face flush with the drum end has no root edge
     arcs = [e for e in hub.edges() if e.geom_type.name == 'CIRCLE' and abs(e.radius - DRUM_OUT) < 0.02
             and any(abs(e.position_at(0.5).X - p) < 0.05 for p in planes)]
     err = None
@@ -427,7 +492,7 @@ def check(shapes):
     rep['motor_x_output_rear'] = list(MOTOR_X)
     tun = {}
     for row, k, M in roller_frames():
-        tool = cyl(TUNNEL_D / 2 - 0.05, 70.0, (0, 0, SEAT + 35.0)).moved(loc(M))
+        tool = cyl(AXLE_HEAD_D / 2 - 0.05, 70.0, (0, 0, SEAT + 35.0)).moved(loc(M))
         hits = {}
         for kk in shapes:
             if kk.startswith(('roller_', 'bolt_', 'wheel_cartridge')) and not kk.endswith(f'_{row}_{k}') and near(tool, shapes[kk], 0):
@@ -502,6 +567,16 @@ def render(shapes):
         'axis plane z = 0 (x along the wheel axis)')
     cut(lambda k: k == 'wheel_hub' or k.startswith(('roller_core', 'roller_tread')), lambda s: s.rotate(b.Axis.Y, 90).moved(b.Location((0, 0, D_ROW))),
         'section_row2_plane', (-75, 75), (-75, 75), (10, 10), 'across the row-2 spokes at x = +17.25 (hub orange, cores green, treads dark)')
+    # across roller 2_1's axis through its head pocket, local x (pod x, the print axis) up the page: the double-teardrop driver tunnel
+    M21 = {(r, k): M for r, k, M in roller_frames()}[(2, 1)]
+    to_local = b.Location((0, 0, -(SEAT + HEAD_DEPTH / 2))) * loc(M21).inverse()
+    cut(lambda k: k == 'wheel_hub', lambda s: s.moved(to_local).rotate(b.Axis.Z, 90), 'section_head_pocket', (-25, 25), (-20, 20), (8, 6.5),
+        'across a roller axle at the head pocket (pod x = print axis vertical): Ø8 tunnel, 45 deg points')
+    # round 7: one roller cut along its axis (axis up the page): the tread's rib in the core's V groove at the middle
+    roller = lambda k: k in ('_roller_core', '_roller_tread')                                   # noqa: E731
+    along = lambda s: s.rotate(b.Axis.Z, 30).rotate(b.Axis.X, -90)                             # noqa: E731  (cut between the keys)
+    cut(roller, along, 'section_roller_detent', (-18, 18), (-23, 23), (7, 8.5), 'roller along its axis: TPU tread (dark) on the core (green)')
+    cut(roller, along, 'section_roller_detent_zoom', (9, 17), (-3, 3), (8, 6.5), 'tread rib in the core groove (0.5 deep, 45 deg; rib 0.4)')
     # plane along x and the pin axis, through the first pin's centre (the pins are parallel, not radial)
     P = points(shapes['xt30_pin_1'], 0.02)
     d = np.linalg.svd(P - P.mean(0))[2][0]

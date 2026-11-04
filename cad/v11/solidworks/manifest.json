@@ -6,16 +6,19 @@
   "bearing_627_inner",
   "bearing_627_outer",
   "bearing_6804_left",
-  "die_spring_inner",
-  "die_spring_outer",
+  "die_spring_inner_a",
+  "die_spring_inner_b",
+  "die_spring_outer_a",
+  "die_spring_outer_b",
   "lead_neg",
   "lead_pos",
-  "pivot_shaft",
   "pod_fork",
   "pod_frame_inner",
   "pod_frame_outer",
-  "spring_plunger_inner",
-  "spring_plunger_outer",
+  "spring_plunger_inner_a",
+  "spring_plunger_inner_b",
+  "spring_plunger_outer_a",
+  "spring_plunger_outer_b",
   "wheel_cartridge",
   "wheel_hub",
   "xt30_housing",
@@ -355,8 +358,8 @@
   80.6,
   0.0
  ],
- "shaft_r": 3.5,
  "b627_bore_r": 3.5,
+ "pin_r": 3.48,
  "poses_deg": {
   "droop": 2.1330899731638837,
   "nominal": 0.0,
@@ -364,25 +367,48 @@
  },
  "plungers": {
   "axes": {
-   "outer": [
+   "outer_a": [
     -52.0,
-    50.599999999999994
+    49.3
    ],
-   "inner": [
+   "outer_b": [
+    -52.0,
+    59.89999999999999
+   ],
+   "inner_a": [
     51.2,
-    50.599999999999994
+    49.3
+   ],
+   "inner_b": [
+    51.2,
+    59.89999999999999
    ]
   },
-  "shank_r": 2.5,
-  "guide_r": 2.7,
+  "shank_r": 2.0,
+  "guide_r": 2.2,
   "pad_z": 24.0,
-  "dome_r": 5.4772727272727275,
-  "pad_half": 9.0,
+  "dome_r": 4.381818181818182,
+  "pad_half": 13.0,
   "foot_top_z": 11.0,
   "lift": {
-   "droop": -1.096959578533017,
-   "nominal": 0.0,
-   "bump": 6.2065221013601
+   "droop": {
+    "outer_a": -1.146139833603094,
+    "outer_b": -0.7513253096036934,
+    "inner_a": -1.146139833603094,
+    "inner_b": -0.7513253096036934
+   },
+   "nominal": {
+    "outer_a": 0.0,
+    "outer_b": 0.0,
+    "inner_a": 0.0,
+    "inner_b": 0.0
+   },
+   "bump": {
+    "outer_a": 6.433281489230872,
+    "outer_b": 4.4255008665331275,
+    "inner_a": 6.433281489230872,
+    "inner_b": 4.4255008665331275
+   }
   }
  }
 }

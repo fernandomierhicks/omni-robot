@@ -4445,3 +4445,7 @@ The tidy stalled before its first look under `clock:=wall` with either implement
 The earlier multi-switch diagnostic was later found to have an orphan localizer publishing concurrently. Retain this statement as superseded debugging context, not qualified evidence:
 
 **PC regression, Nov 3:** current ARM/Python/D435/wall clock reached 8/8 house goals (0.113 m mean true arrival error). SLAM restart now rejects cached/old map transforms and recovers an inactive lifecycle node; console takeover targets launch descendants instead of a broad stop that could kill itself. Three map switches with explicit return-map initial poses were followed by a goal 0.052 m from truth. Loading a map still assumes its start unless the operator supplies a pose. The installed composed Nav2 can crash or require forced termination during shutdown; this remains open, separate from completed driving/picking results. See the PC regression report.
+
+## Nov 3, 2026 — superseded wording, design.md 4.4 (second-floor supports replaced by fins)
+
+> **Second floor:** stands on the pods' spring columns plus two back supports. At the scan plane they are ray-aligned 6 mm blades (13.6° blind).

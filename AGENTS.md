@@ -16,7 +16,7 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | --- | --- |
 | Robot design / build priorities | Relevant sections of [design.md](design.md) |
 | Simulation / model / picking | [v11 README](simulation/v11%20sil/README.md), `params.py`, `catalog.py`, `robot_export.py` |
-| CAD | [cad/AGENTS.md](cad/AGENTS.md), then the active version's README |
+| CAD | [cad/solidworks.md](cad/solidworks.md) (main CAD reference), [cad/AGENTS.md](cad/AGENTS.md), then the active version's README |
 | ROS launch / navigation / bridges | [ros/README.md](ros/README.md), `ros/omni.sh`, affected package/config; use design.md for current hardware assumptions |
 | Arm / face / calibration | READMEs in `ros/src/omni_arm`, `omni_face`, `omni_calib` |
 | Console / supervisor / web UI | [console instructions](ros/src/omni_console/AGENTS.md) and affected source |
