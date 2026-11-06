@@ -38,7 +38,9 @@ from sil_pick import SilPick  # noqa: E402
 OUT = Path(__file__).resolve().parent / "results"
 # (label, body centre m, tilt deg down, roll deg (90 portrait), the close look's step back m)
 MOUNTS = [
-    ("nose", (0.19, 0.0, 0.1115), 7.5, 0.0, 0.10),        # the baseline (robot_arm_d435.json)
+    ("nose", (0.19, 0.0, 0.1115), 7.5, 0.0, 0.10),        # the baseline to Nov 5 (ARM_D435_NOSE)
+    ("riser_cad", (0.1908, 0.0, 0.193), 30.0, 0.0, 0.10), # cad/v13, baselined Nov 5 (robot_arm_d435.json)
+    ("riser_cad35", (0.1908, 0.0, 0.193), 35.0, 0.0, 0.025),
     ("riser30", (0.20, 0.0, 0.215), 30.0, 0.0, 0.10),
     ("riser35", (0.20, 0.0, 0.215), 35.0, 0.0, 0.05),
     ("riser_p25", (0.20, 0.0, 0.20), 25.0, 90.0, 0.05),

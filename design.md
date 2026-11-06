@@ -204,6 +204,7 @@ SO-101 servo torque limits payload before base tipping: earlier estimates 0.03�
 - **Result** (current ARM_D435 nose mount, 5 seeds; the truth is the solver's own model with 3° zeros, 1 mm / 0.5° links, a 5 mm / 1.5° camera and 0.4–0.6°/N·m sag **(est)**):
   - the drawing's model misses fingers-down floor grasps by 7–33 mm;
   - calibrated, the miss is p95 0.28 mm with a block keyed to the gripper's faces (60 poses, 0.3 px), or ~1–2 mm with a block only gripped, which leaves the fingers past the wrist at the drawing.
+  - **Rerun at the riser D435 (Nov 6, `--out arm_calib_riser.json`):** the same: keyed p95 0.27 mm, gripped 0.95 mm (60 poses, 0.3 px). A third more random poses keep the tag in view, and the drawing's miss is 11.0 mm median (nose 12.4).
 - **The sag terms matter:** without them the floor error grows 3–4×, while the fit's RMS barely changes.
 - **Pinned only together:** pan's zero with the camera, and roll's with a gripped block. Pick accuracy needs only the tool relative to the camera.
 - **Reach at the limit:** the floor grasps put the shoulder lift at its 1.745 rad limit, so a few degrees of zero decide reach. 23% of targets were not reachable within the IK's 2° of vertical after calibration; one seed reached none.
@@ -274,6 +275,8 @@ No new simulations, benchmarks or camera benches ran. Qualify Ubuntu drivers, re
   - **Tidy (`sil_pick.py --camera d435`, arena, 4 toys, seeds 0 / 1, single runs):** 2/4 and 3/4 binned, no failed grasp. Both lost the 9 mm crayon: seen from afar, then "not there on the close look".
   - **`d435_mount.py` at this pose (`riser_cad`, arm stowed, realistic noise; `results/d435_mount_riser_cad.json`):** at 30°, blind zone 0.31 m, floor valid 63/46% at 1.5/2 m (nose 32/18%), shoe seen 0.4–2.5 m, no tags. The close look finds 25/40, and no stand-off makes it reliable (nose 10/40, but its 10 cm step back works).
   - **Other tilts:** 35° gives a close look of 35/40 (2.5 cm stand-off) but no floor at 2 m and the shoe only to 1.4 m. 40° gives 40/40 but the shoe only to 0.9 m. 25° gives 13/40.
+  - **Whole tidy (`d435_mount_pick.py`, arena, 6 toys, seeds 0–3; `results/d435_mount_pick/d435_mount_pick_riser_cad.json`):** 18/24 binned at 30°, 20/24 at 35° (2.5 cm stand-off); nose 22/24. No failed grasps: the losses are toys never found. The arm fills at most a quarter of the image while it picks.
+  - **Arm calibration** at this camera: as at the nose (keyed block p95 0.27 mm; above).
   - **So the tilt trades the close look against far obstacle sight;** re-choosing it is open (Fernando's call).
 - **The nose mount** ((190, 0, 111.5), 7.5° down, cad/v12 round 14) is kept as `ARM_D435_NOSE` for earlier results.
 - **Tags: none at 30°.** The field tops out 1° below the horizon. At the nose's old −30°, no pose of 2,432 in the house saw a tag, so wall tags now need the proposed dedicated tag camera (not chosen) or another tilt. Until then tag_slam has no D435 tags. No single tilt of the landscape D435 serves both the close look and tags 0.9–1.3 m away (Nov 4 tilt study, `studies/d435_tilt.py`).
@@ -302,7 +305,7 @@ No new simulations, benchmarks or camera benches ran. Qualify Ubuntu drivers, re
     - Mounting: a straight USB-C plug through the riser's right wall, the lead back along the riser.
     - The lens 0 / 1 / 3 cm back were compared. At 0 and 1 cm it is 4.3 mm into, or 3.8 mm from, the grasp moves; 3 cm sees 1 cm nearer for a third more notch.
   - **Cost against the sim's portrait:** lower (lens 0.189 m vs 0.211) and a 58° tall field. At 30° the field tops out 1° below the horizon, so overhangs are lost again.
-- **Open:** the study reruns at the baselined pose (`d435_mount.py`, `d435_mount_pick.py` over 4 seeds, `arm_calib.py`, the house obstacle and tag studies); re-choosing the tilt and the tag camera; the adapter spanning the camera's pocket (no strength check); the real plug and lead; grazing returns on the house's floors.
+- **Open:** the house obstacle and tag studies at the baselined pose (`d435_mount.py`, `d435_mount_pick.py` and `arm_calib.py` were rerun Nov 6, above); re-choosing the tilt and the tag camera; the adapter spanning the camera's pocket (no strength check); the real plug and lead; grazing returns on the house's floors.
 
 `arm_camera:=d435` (the default since Nov 5) selects `robot_arm_d435.json`; the bridge supplies depth/cloud and Nav2 gets a separate depth layer so lidar clearing does not erase camera-only obstacles. That layer (`depth_layer:=raw`, the default) marks only above 4 cm out to 1.2 m and lost a shoe in the Nov 5 obstacle study; the proposed `depth_layer:=height` (4.5) fuses frames into a height map, measures against the seen floor (pitch drops out), skips frames while the arm is out, and sets speed by certainty. Navigation through furniture and props is unscored. Physical mounting, lidar/bumper clearance, USB 3, real depth noise and pitch-aware frames need verification. Source/mount concept: `cad/other/d435_nose`, `omni_bringup/config/d435.yaml`, `sil_pick.py --camera d435`.
 

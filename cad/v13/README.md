@@ -91,8 +91,12 @@ model and its plug + lead**, for review; drop it if only printed parts are wante
 
 `robot_export.ARM` (and so `ARM_D435`) carries **body centre (0.1908, 0, 0.1930) m, 30 deg down, roll 0 (landscape)**, depth origin
 (0.1980, 0.0175, 0.1888) m, and cuts the sim's riser block back 10 mm for it (`arm_riser_pocket`); the generated `robot_arm*.json` and
-frames follow. Alternative 25 deg down: centre (0.1905, 0, 0.1930). Still to rerun there: `studies/d435_mount.py`,
-`studies/d435_mount_pick.py`, `studies/arm_calib.py`.
+frames follow. Alternative 25 deg down: centre (0.1905, 0, 0.1930). Rerun there (Nov 6; design.md 4.11):
+
+- `studies/d435_mount.py` (`riser_cad`): close look 25/40 at 30 deg, 35/40 at 35; floor valid 63/46 % at 1.5/2 m; no tags.
+- `studies/d435_mount_pick.py` (`riser_cad`, `riser_cad35`; 6 toys, 4 seeds): 18/24 binned at 30 deg, 20/24 at 35 (nose 22/24),
+  no failed grasps.
+- `studies/arm_calib.py --out arm_calib_riser.json`: keyed block p95 0.27 mm, gripped 0.95 mm, as at the nose.
 
 Expect against the portrait proposal: lower (z 0.193 instead of 0.200, lens 0.189 instead of 0.211), so less far floor; a 58 deg tall
 field, so the 0.27 m blind zone becomes ~0.31 m; at 30 deg the field's top is 1 deg below the horizon, so no table or chair overhang (the

@@ -1,4 +1,5 @@
-"""The SO-101 calibrated against the nose D435 in the sim (omni_calib.arm_calib; design.md 4.5): how well a held tag
+"""The SO-101 calibrated against the D435 in the sim (robot_arm_d435.json: the nose until Nov 5, the riser since;
+arm_calib.json is the nose's, arm_calib_riser.json the riser's) (omni_calib.arm_calib; design.md 4.5): how well a held tag
 block seen by the D435's colour camera pins the arm and the camera, and what that buys at the floor, where the tidy
 grasps and the camera cannot see the tool.
 
@@ -325,6 +326,7 @@ def main():
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--quick", action="store_true", help="15 / 30 poses, one noise")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--out", default="", help="result file name (default arm_calib[_quick].json)")
     a = ap.parse_args()
     ns, noises = ((15, 30), (0.3,)) if a.quick else ((15, 30, 60, 120), (0.1, 0.3, 1.0))
     sag_off_n = 30 if a.quick else 60
@@ -335,7 +337,7 @@ def main():
         for r in ex.map(run_seed, jobs):
             rows.extend(r)
     OUT.mkdir(exist_ok=True)
-    f = OUT / ("arm_calib_quick.json" if a.quick else "arm_calib.json")
+    f = OUT / (a.out or ("arm_calib_quick.json" if a.quick else "arm_calib.json"))
     f.write_text(json.dumps(dict(rows=rows, seconds=round(time.time() - t0, 1)), indent=1))
     report(rows)
     print(f"{f} ({time.time() - t0:.0f} s)")
