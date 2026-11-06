@@ -228,6 +228,22 @@ def test_detect_leaves_out_a_rugs_edge(kin):
         assert len(dets) == n, dets
 
 
+def test_a_bare_floors_depth_noise_is_no_rug():
+    """The riser D435 (30 deg down) sees ~100k floor points: the noise's high tail made rugs 5-10 mm up that flattened
+    a crayon and a brick on them, on some RANSAC seeds (Nov 6). Both are found on every seed."""
+    T = np.eye(4)
+    T[:3, :3] = [[0.0, -0.5, 0.866], [-1.0, 0.0, 0.0], [0.0, -0.866, -0.5]]
+    T[:3, 3] = (0.198, 0.018, 0.189)
+    K, wh = (244.0, 244.0, 240.0, 135.0), (480, 270)                      # 89 x 58 deg
+    crayon, brick = (0.80, 0.89, -0.38, -0.37, 0.011), (0.62, 0.67, -0.35, -0.33, 0.025)
+    rng = np.random.default_rng(3)
+    z = _depth_of(T, K, wh, [crayon, brick])
+    z = z * (1 + rng.normal(0, 0.01, z.shape)).astype(np.float32)         # the floor's heights: sd 2 mm
+    for seed in range(10):
+        dets = fv.detect(fv.DepthFrame(0.0, z, K, T), rng=np.random.default_rng(seed))
+        assert len(dets) == 2, (seed, dets)
+
+
 def test_floor_map_merges_and_keeps_picked_ones_out():
     m = fv.FloorMap()
     d = fv.Detection(1.0, 0.5, 0.03, 0.04, 0.03, 0.0, 50)

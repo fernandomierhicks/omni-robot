@@ -2031,12 +2031,15 @@ def test_the_gripper_picks_up_a_block():
 
 def test_the_tidy_picks_up_a_toy_through_the_whole_stack():
     """sil_pick: the robot's own code (driver, vision, the tidy task, the mode mux, the C++ firmware) finds one cube
-    near the robot, picks it up and drops it in the bin; then finds nothing more."""
+    near the robot, picks it up and drops it in the bin; then looks over the rest of its region (1 m round where it
+    started) and finds nothing more."""
     from sil_pick import SilPick
     g = SilPick(1, "toys", seed=2, spread=0.4)
-    s = g.run(t_max=150.0)
+    g.task.p.area_radius = 1.0
+    s = g.run(t_max=200.0)
     g.cams.close()
-    assert s["in_bin"] == 1 and s["task_picked"] == 1 and s["reason"] == "nothing in sight", s["events"]
+    assert s["in_bin"] == 1 and s["task_picked"] == 1 and s["reason"] == "region covered", s["events"]
+    assert g.task.status()["coverage"]["share"] > 0.9, g.task.status()["coverage"]
     assert s["bus_errors"] == 0 and s["max_tilt_deg"] < 5.0
 
 

@@ -8,9 +8,12 @@ TidyTask.step(t, Inputs) -> Outputs every cycle (arm_node: 50 Hz):
        wants now, arm_out (the base's "arm out" caps), and a status for the console
 
 One object, start to end:
-  LOOK       the base stands still; a depth frame -> floor_vision.detect -> FloorMap (odom). Nothing there: turn 60 deg
-             and look again, a full turn at most; then back to where the tidy started for a full turn there (unless
-             done since the last pick), then toward the nearest far sighting (beyond max_range: a hint), else done
+  LOOK       the base stands still; a depth frame -> floor_vision.detect -> FloorMap (odom), and the floor it saw ->
+             coverage.Coverage (the region's floor checked, what blocks the base). Nothing there: turn 60 deg and look
+             again, a full turn at most while the ring round the base has floor still to check; then
+  GO         to the reachable spot whose look round checks the most of the region's unchecked floor per second, through
+             floor seen free (coverage.Coverage.plan); a look round there. Done when no reachable look checks more: the
+             whole region seen, or what is left hidden or out of reach (status: coverage)
   APPROACH   drive (holonomic, on odometry) until the object sits at the reach's sweet spot, facing it; a closer look
              there (the stereo error shrinks with range) and once more if it moved more than 2 cm. A camera that can't
              see the sweet spot (the nose D435 tilted for the room, design.md 4.11) looks from look_back m short of it,
@@ -40,6 +43,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from omni_arm import coverage as cv
 from omni_arm import floor_vision as fv
 from omni_arm import motion as mo
 from omni_arm.kinematics import DOWN, ArmKinematics, gap_at, q_for_gap
@@ -159,11 +163,13 @@ class TidyTask:
         self.pose_goal = None
         self.stopping = False
         self.fresh = False
-        self.hints: list = []                             # far sightings (odom xy) to go and look at
         self.recheck = False                              # after a failed grasp: a close look again once stowed
         self.close_looks = 0
         self.checked = None                               # the close look's detection, for the grasp after CREEP
-        self.swept_origin = False                        # a full turn at the start since the last pick
+        self.cover: cv.Coverage | None = None             # the region's floor checked (made at the first look)
+        self.cover_p = cv.CoverParams()
+        self.path: list = []                              # GO's waypoints (odom xy)
+        self.at_spot = False                              # GO arrived: a whole look round here
         self.only = None                                  # one object's id (an AI's pick), or None: everything
         self.outcome = ""                                 # how it ended for that object
         self.stages = dict(attempted=False, grasped=False, released=False)
@@ -293,6 +299,7 @@ class TidyTask:
         self.outcome = ""
         self.stages = dict(attempted=False, grasped=False, released=False)
         self.origin = self.history[-1][1] if self.history else None      # set on the first step otherwise
+        self.cover = None                                 # a fresh region round where this tidy starts
         self.looks = self.turned = 0
         self.stopping = False
         self.done_reason = ""
@@ -314,7 +321,7 @@ class TidyTask:
                     known=len(self.map.candidates()), target=None if o is None else dict(
                         id=o.id, x=round(o.det.x, 3), y=round(o.det.y, 3), size=[round(o.det.length, 3), round(o.det.width, 3)]),
                     tries=self.tries, reason=self.done_reason, only=self.only, outcome=self.outcome,
-                    stages=dict(self.stages))
+                    stages=dict(self.stages), coverage=None if self.cover is None else self.cover.coverage())
 
     def _only_outcome(self) -> str:
         """For an only-pick: how it ended for its object ('' while it is still to do)."""
@@ -333,6 +340,8 @@ class TidyTask:
         self.history.append((t, tuple(inp.pose)))
         if getattr(self, "origin", None) is None:
             self.origin = tuple(inp.pose)
+        if self.cover is not None:
+            self.cover.occupy(inp.pose[0], inp.pose[1])
         out = Outputs()
         q = np.asarray(inp.arm.q, float)
         if self.goal is None:
@@ -403,13 +412,16 @@ class TidyTask:
         if f is None or f.t < self.t_req:
             return
         pose = self._pose_at(f.t)
-        all_dets = fv.detect(f, rng=np.random.default_rng(int(t * 1000) % 2 ** 31))
+        P = fv.points(f)
+        P = P[np.hypot(P[:, 0], P[:, 1]) > 0.23]                  # as fv.detect: the robot's own bumper out
+        cam_xy = f.T_base_cam[:2, 3]
+        all_dets, h, _ = fv.detect_points(P, cam_xy, np.random.default_rng(int(t * 1000) % 2 ** 31))
         dets = [d for d in all_dets if math.hypot(d.x, d.y) < self.p.max_range]
         ox, oy = self.origin[:2]
-        for d in fv.to_frame([d for d in all_dets if math.hypot(d.x, d.y) >= self.p.max_range and not d.big], pose):
-            if math.hypot(d.x - ox, d.y - oy) < self.p.area_radius and \
-                    all(math.hypot(d.x - h[0], d.y - h[1]) > 0.3 for h in self.hints):
-                self.hints.append((d.x, d.y))
+        if self.cover is None:
+            self.cover = cv.Coverage((ox, oy), self.p.area_radius, self.cover_p)
+            self.cover.occupy(ox, oy, self.p.view_near + 0.05)     # where it starts: it got there, so it is clear
+        self.cover.update(pose, P, h, cam_xy, all_dets)
         self.map.update(t, fv.to_frame(dets, pose), in_view=lambda x, y: self._in_view(pose, x, y))
         self.t_req = math.inf
         cands = [o for o in self.map.candidates() if o.det.width <= self.p.max_width
@@ -423,34 +435,31 @@ class TidyTask:
                 self._end_only(t, why)
                 return
         if not cands:
-            if self.turned * self.p.look_turn < 2 * math.pi - 1e-6:
+            x, y = inp.pose[0], inp.pose[1]
+            near, far = self._look_ring()
+            # a whole look round at a spot GO came to (it was planned for it), else while the ring has floor to check
+            if self.turned * self.p.look_turn < 2 * math.pi - 1e-6 and (self.at_spot or self.cover.todo_near(x, y, near, far)):
                 self.turned += 1
-                self.pose_goal = (inp.pose[0], inp.pose[1], math.remainder(inp.pose[2] + self.p.look_turn, 2 * math.pi))
+                self.pose_goal = (x, y, math.remainder(inp.pose[2] + self.p.look_turn, 2 * math.pi))
                 self._set("TURN", t, f"nothing in view: turn {math.degrees(self.p.look_turn):.0f} deg")
                 return
+            if self.turned:
+                self.cover.end_look(x, y, near, far)
             self.turned = 0
-            at_origin = math.hypot(inp.pose[0] - ox, inp.pose[1] - oy) < 0.3
-            if at_origin:
-                self.swept_origin = True
-            if not self.swept_origin:
-                self.swept_origin = True                  # once (until the next pick), whatever that look finds
-                self.pose_goal = (ox, oy, inp.pose[2])
-                self._set("TURN", t, "nothing here: back to the start for a look round")
+            self.at_spot = False
+            plan = self.cover.plan(inp.pose, near, far)
+            c = self.cover.coverage()
+            if plan is not None:
+                self.path = list(plan.path)
+                self._set("GO", t, f"to look from ({plan.goal[0]:.2f}, {plan.goal[1]:.2f}), {plan.dist:.1f} m: "
+                                   f"{plan.gain:.2f} m^2 to check there ({100 * c['share']:.0f}% checked)")
                 return
-            # the nearest far sighting: drive to 0.9 m of it, facing it
-            hints = [h for h in self.hints if math.hypot(h[0] - inp.pose[0], h[1] - inp.pose[1]) > 0.9]
-            if hints:
-                h = min(hints, key=lambda h: math.hypot(h[0] - inp.pose[0], h[1] - inp.pose[1]))
-                self.hints.remove(h)
-                a = math.atan2(h[1] - inp.pose[1], h[0] - inp.pose[0])
-                self.turned = 6                       # look there once, no turn
-                self.pose_goal = (h[0] - 0.9 * math.cos(a), h[1] - 0.9 * math.sin(a), a)
-                self._set("TURN", t, f"something far off at ({h[0]:.2f}, {h[1]:.2f}): going closer")
-                return
-            self._set("DONE", t, f"nothing more in sight ({self.picked} picked, {self.failed} failed)")
-            self.done_reason = "nothing in sight"
+            self._set("DONE", t, f"region covered: {100 * c['share']:.0f}% of its floor checked, {c['unchecked']:.2f} m^2 "
+                                 f"hidden or out of reach ({self.picked} picked, {self.failed} failed)")
+            self.done_reason = "region covered"
             return
         self.turned = 0
+        self.at_spot = False
         px, py = inp.pose[0], inp.pose[1]
         self.target = min(cands, key=lambda o: math.hypot(o.det.x - px, o.det.y - py))
         self.tries = 0
@@ -458,6 +467,24 @@ class TidyTask:
         self._set("APPROACH", t, f"object {self.target.id} at ({self.target.det.x:.2f}, {self.target.det.y:.2f}), "
                                  f"{1000 * self.target.det.length:.0f} x {1000 * self.target.det.width:.0f} mm")
         self.close_looks = 0
+
+    def _look_ring(self) -> tuple:
+        """The ring round the base (m from its centre) a look round checks: from the camera's nearest floor out to the
+        coverage's check range from the camera."""
+        return self.p.view_near, self.cover_p.check_range + math.hypot(*self.T_base_cam[:2, 3])
+
+    def _s_go(self, t, inp, out, q):
+        """To the next look's spot, leg by leg, facing the way (the camera sees the floor ahead), through floor the
+        coverage saw free when it planned (looks are taken stopped: nothing new is seen on the way)."""
+        if not self.path:
+            self.at_spot = True
+            self._begin_look(t)
+            return
+        wx, wy = self.path[0]
+        d = math.hypot(wx - inp.pose[0], wy - inp.pose[1])
+        heading = math.atan2(wy - inp.pose[1], wx - inp.pose[0]) if d > 0.05 else inp.pose[2]
+        if self._drive(inp.pose, (wx, wy, heading), out):
+            self.path.pop(0)
 
     def _in_view(self, pose, x, y) -> bool:
         bx, by = self._base_from_odom(pose, x, y)
@@ -701,7 +728,6 @@ class TidyTask:
         o.status = "picked"
         self.picked += 1
         self.stages["released"] = True
-        self.swept_origin = False
         self._set("STOW", t, f"object {o.id} in the bin ({self.picked} so far)")
         self.target = None
         self.motion = None

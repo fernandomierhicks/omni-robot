@@ -37,6 +37,9 @@ RING_NEAR, RING_SEEN_FAR = 1.0, 0.15          # m: beyond this the floor is samp
                                               # thing's ring is seen less (its sighting only brings the robot closer)
 RUGS, RUG_POINTS, RUG_CELLS = 2, 400, 300     # up to two raised floor levels (rugs, mats): this many points over at
                                               # least this many cells (0.03 m^2)
+RUG_SHARE, RUG_BOX = 0.5, 2                   # a rug's level holds at least this share of the points within RUG_BOX
+                                              # cells of each of its cells: the depth noise's high tail over a bare floor
+                                              # (~1/5 of them) made rugs that flattened the toys on them (Nov 6)
 
 
 @dataclass
@@ -183,6 +186,13 @@ def _dilate(m: np.ndarray, r: int) -> np.ndarray:
     return out
 
 
+def _box(m: np.ndarray, r: int) -> np.ndarray:
+    """Each cell's sum over the (2r + 1)^2 cells round it."""
+    c = np.pad(m, ((r + 1, r), (r + 1, r))).cumsum(0).cumsum(1)
+    k = 2 * r + 1
+    return c[k:, k:] - c[:-k, k:] - c[k:, :-k] + c[:-k, :-k]
+
+
 def detect(frame: DepthFrame, robot_radius: float = 0.23, rng: np.random.Generator | None = None,
            stride: int = 1, why: list | None = None) -> list:
     """Objects on the floor in base_link (see the module notes). why: a list that collects each candidate turned
@@ -215,6 +225,7 @@ def detect_points(P: np.ndarray, cam_xy, rng: np.random.Generator | None = None,
     h = P @ n + d
     on_floor = np.abs(h) < 0.003
     # rugs, mats: big flat patches 4-25 mm over the floor are floor too (a thing on a rug stands on the rug)
+    near_all = _box(grid_of(np.ones(len(P), bool)), RUG_BOX)
     for _ in range(RUGS):
         cand = (h > 0.004) & (h < 0.025)
         if cand.sum() < RUG_POINTS:
@@ -223,7 +234,8 @@ def detect_points(P: np.ndarray, cam_xy, rng: np.random.Generator | None = None,
         if k < RUG_POINTS:
             break
         hb = P @ nb + db
-        rug_cells = grid_of(cand & (np.abs(hb) < 0.003)) > 0
+        g_rug = grid_of(cand & (np.abs(hb) < 0.003))
+        rug_cells = (g_rug > 0) & (_box(g_rug, RUG_BOX) >= RUG_SHARE * near_all)
         if rug_cells.sum() < RUG_CELLS:              # a toy's top face isn't a rug: a rug covers ground
             break
         in_rug = _dilate(rug_cells, 2)[cx_, cy_] & (hb > -0.004)

@@ -54,6 +54,7 @@
    0.1115
   ],
   "d435_tilt_deg": -7.5,
+  "arm_riser_pocket": 0.01,
   "depth_camera": "d435",
   "d435_roll_deg": 0.0
  },
@@ -911,7 +912,7 @@
     0.05,
     0.1305246339
    ],
-   "note": "the D435 on the deck's nose"
+   "note": "the D435"
   }
  ],
  "cameras": [
