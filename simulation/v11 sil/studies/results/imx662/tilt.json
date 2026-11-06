@@ -1,0 +1,248 @@
+{
+ "poses": 2432,
+ "rows": [
+  {
+   "tilt_up": 0.0,
+   "pupil": [
+    0.21,
+    0.0,
+    0.105
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.757,
+     "mean": 1.56
+    },
+    "imx662@1.3": {
+     "any": 0.661,
+     "mean": 1.36
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     1.57,
+     7.0
+    ],
+    "1.3": [
+     2.28,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 3.03,
+   "face_in_view_from_m": 2.94,
+   "floor_from_m": 0.4,
+   "field_top_deg": 29.2
+  },
+  {
+   "tilt_up": 5.0,
+   "pupil": [
+    0.21,
+    0.0,
+    0.1047
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.796,
+     "mean": 1.62
+    },
+    "imx662@1.3": {
+     "any": 0.713,
+     "mean": 1.46
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     1.29,
+     7.0
+    ],
+    "1.3": [
+     1.88,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 2.49,
+   "face_in_view_from_m": 2.42,
+   "floor_from_m": 0.44,
+   "field_top_deg": 34.2
+  },
+  {
+   "tilt_up": 10.0,
+   "pupil": [
+    0.2101,
+    0.0,
+    0.1043
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.831,
+     "mean": 1.68
+    },
+    "imx662@1.3": {
+     "any": 0.756,
+     "mean": 1.55
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     1.07,
+     7.0
+    ],
+    "1.3": [
+     1.56,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 2.08,
+   "face_in_view_from_m": 2.02,
+   "floor_from_m": 0.51,
+   "field_top_deg": 39.2
+  },
+  {
+   "tilt_up": 15.0,
+   "pupil": [
+    0.2101,
+    0.0,
+    0.104
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.852,
+     "mean": 1.73
+    },
+    "imx662@1.3": {
+     "any": 0.795,
+     "mean": 1.63
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     0.9,
+     7.0
+    ],
+    "1.3": [
+     1.31,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 1.74,
+   "face_in_view_from_m": 1.69,
+   "floor_from_m": 0.62,
+   "field_top_deg": 44.2
+  },
+  {
+   "tilt_up": 20.0,
+   "pupil": [
+    0.2102,
+    0.0,
+    0.1036
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.881,
+     "mean": 1.78
+    },
+    "imx662@1.3": {
+     "any": 0.832,
+     "mean": 1.71
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     0.76,
+     7.0
+    ],
+    "1.3": [
+     1.1,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 1.46,
+   "face_in_view_from_m": 1.42,
+   "floor_from_m": 0.85,
+   "field_top_deg": 49.2
+  },
+  {
+   "tilt_up": 25.0,
+   "pupil": [
+    0.2104,
+    0.0,
+    0.1033
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.893,
+     "mean": 1.82
+    },
+    "imx662@1.3": {
+     "any": 0.851,
+     "mean": 1.78
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     0.63,
+     7.0
+    ],
+    "1.3": [
+     0.92,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": 1.41,
+   "face_in_view_from_m": 1.41,
+   "floor_from_m": 1.62,
+   "field_top_deg": 54.2
+  },
+  {
+   "tilt_up": 30.0,
+   "pupil": [
+    0.2105,
+    0.0,
+    0.103
+   ],
+   "tags": {
+    "imx662@0.9": {
+     "any": 0.9,
+     "mean": 1.84
+    },
+    "imx662@1.3": {
+     "any": 0.885,
+     "mean": 1.85
+    }
+   },
+   "tag_ahead_band": {
+    "0.9": [
+     0.52,
+     7.0
+    ],
+    "1.3": [
+     0.76,
+     7.0
+    ]
+   },
+   "adult_whole_from_m": Infinity,
+   "face_in_view_from_m": Infinity,
+   "floor_from_m": null,
+   "field_top_deg": 59.2
+  }
+ ],
+ "d435_riser": {
+  "camera": "D435 colour (riser, robot_export.D435_RISER)",
+  "pos": [
+   0.198,
+   0.0325,
+   0.1889
+  ],
+  "tags": {
+   "d435_rgb@0.9": {
+    "any": 0.0,
+    "mean": 0.0
+   },
+   "d435_rgb@1.3": {
+    "any": 0.0,
+    "mean": 0.0
+   }
+  },
+  "adult_whole_from_m": null
+ }
+}

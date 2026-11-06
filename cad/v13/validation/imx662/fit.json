@@ -1,0 +1,870 @@
+{
+ "note": "generic IMX662 USB 2 module (VERIFY), placeholder stand; nominal CAD; front pods at droop / nominal / bump; arm: the SO-101 swept through d435_riser's poses and moves (validation/d435/arm_motion.json), kept round the nose",
+ "module": {
+  "board": 38.0,
+  "pcb": 1.6,
+  "back": [
+   30.0,
+   3.5
+  ],
+  "holder": [
+   16.0,
+   7.0
+  ],
+  "lens": [
+   14.0,
+   16.0
+  ],
+  "plug": [
+   21.0,
+   12.4,
+   6.5
+  ],
+  "lead_d": 4.5,
+  "fov_deg": [
+   89.6,
+   58.4
+  ]
+ },
+ "rules": {
+  "arm": ">= 5 mm",
+  "lidar": "top <= scan 163.0 - 3.0",
+  "bumper": "r <= 222.15",
+  "d435": "nothing in its depth or RGB field (500 mm)",
+  "own_field": "no robot part in the IMX662 field (500 mm)"
+ },
+ "candidates": {
+  "z95_up10": {
+   "lens_front": [
+    214.0,
+    0.0,
+    95.0
+   ],
+   "tilt_up_deg": 10.0,
+   "pupil": [
+    210.06,
+    0.0,
+    94.31
+   ],
+   "axis": [
+    0.9848,
+    0.0,
+    0.1736
+   ],
+   "pcb_centre": [
+    191.35,
+    0.0,
+    91.01
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 215.2,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.9,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 35.0,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z95_up15": {
+   "lens_front": [
+    214.0,
+    0.0,
+    95.0
+   ],
+   "tilt_up_deg": 15.0,
+   "pupil": [
+    210.14,
+    0.0,
+    93.96
+   ],
+   "axis": [
+    0.9659,
+    0.0,
+    0.2588
+   ],
+   "pcb_centre": [
+    191.78,
+    0.0,
+    89.05
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 215.8,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.4,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 33.9,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z95_up20": {
+   "lens_front": [
+    214.0,
+    0.0,
+    95.0
+   ],
+   "tilt_up_deg": 20.0,
+   "pupil": [
+    210.24,
+    0.0,
+    93.63
+   ],
+   "axis": [
+    0.9397,
+    0.0,
+    0.342
+   ],
+   "pcb_centre": [
+    192.39,
+    0.0,
+    87.13
+   ],
+   "gaps_under_8mm": {
+    "imx662": {
+     "node_front": 6.73
+    },
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 216.4,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.8,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 32.7,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z95_up25": {
+   "lens_front": [
+    214.0,
+    0.0,
+    95.0
+   ],
+   "tilt_up_deg": 25.0,
+   "pupil": [
+    210.37,
+    0.0,
+    93.31
+   ],
+   "axis": [
+    0.9063,
+    0.0,
+    0.4226
+   ],
+   "pcb_centre": [
+    193.15,
+    0.0,
+    85.28
+   ],
+   "gaps_under_8mm": {
+    "imx662": {
+     "node_front": 5.38
+    },
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.4,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 217.0,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.2,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 31.2,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z95_up30": {
+   "lens_front": [
+    214.0,
+    0.0,
+    95.0
+   ],
+   "tilt_up_deg": 30.0,
+   "pupil": [
+    210.54,
+    0.0,
+    93.0
+   ],
+   "axis": [
+    0.866,
+    0.0,
+    0.5
+   ],
+   "pcb_centre": [
+    194.08,
+    0.0,
+    83.5
+   ],
+   "gaps_under_8mm": {
+    "imx662": {
+     "node_front": 4.25
+    },
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 217.5,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 15.7,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 29.8,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z105_up10": {
+   "lens_front": [
+    214.0,
+    0.0,
+    105.0
+   ],
+   "tilt_up_deg": 10.0,
+   "pupil": [
+    210.06,
+    0.0,
+    104.31
+   ],
+   "axis": [
+    0.9848,
+    0.0,
+    0.1736
+   ],
+   "pcb_centre": [
+    191.35,
+    0.0,
+    101.01
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 120.6,
+   "lidar_margin_mm": 42.4,
+   "r_max": 215.2,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.8,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 34.2,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z105_up15": {
+   "lens_front": [
+    214.0,
+    0.0,
+    105.0
+   ],
+   "tilt_up_deg": 15.0,
+   "pupil": [
+    210.14,
+    0.0,
+    103.96
+   ],
+   "axis": [
+    0.9659,
+    0.0,
+    0.2588
+   ],
+   "pcb_centre": [
+    191.78,
+    0.0,
+    99.05
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 117.8,
+   "lidar_margin_mm": 45.2,
+   "r_max": 215.8,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.2,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 32.6,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z105_up20": {
+   "lens_front": [
+    214.0,
+    0.0,
+    105.0
+   ],
+   "tilt_up_deg": 20.0,
+   "pupil": [
+    210.24,
+    0.0,
+    103.63
+   ],
+   "axis": [
+    0.9397,
+    0.0,
+    0.342
+   ],
+   "pcb_centre": [
+    192.39,
+    0.0,
+    97.13
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 115.0,
+   "lidar_margin_mm": 48.0,
+   "r_max": 216.4,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.6,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 30.9,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z105_up25": {
+   "lens_front": [
+    214.0,
+    0.0,
+    105.0
+   ],
+   "tilt_up_deg": 25.0,
+   "pupil": [
+    210.37,
+    0.0,
+    103.31
+   ],
+   "axis": [
+    0.9063,
+    0.0,
+    0.4226
+   ],
+   "pcb_centre": [
+    193.15,
+    0.0,
+    95.28
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.5,
+   "lidar_margin_mm": 50.5,
+   "r_max": 217.0,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.0,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 29.2,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z105_up30": {
+   "lens_front": [
+    214.0,
+    0.0,
+    105.0
+   ],
+   "tilt_up_deg": 30.0,
+   "pupil": [
+    210.54,
+    0.0,
+    103.0
+   ],
+   "axis": [
+    0.866,
+    0.0,
+    0.5
+   ],
+   "pcb_centre": [
+    194.08,
+    0.0,
+    93.5
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 112.2,
+   "lidar_margin_mm": 50.8,
+   "r_max": 217.5,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 15.5,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 27.6,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z115_up10": {
+   "lens_front": [
+    214.0,
+    0.0,
+    115.0
+   ],
+   "tilt_up_deg": 10.0,
+   "pupil": [
+    210.06,
+    0.0,
+    114.31
+   ],
+   "axis": [
+    0.9848,
+    0.0,
+    0.1736
+   ],
+   "pcb_centre": [
+    191.35,
+    0.0,
+    111.01
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 130.6,
+   "lidar_margin_mm": 32.4,
+   "r_max": 215.2,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 18.3,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 34.6,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z115_up15": {
+   "lens_front": [
+    214.0,
+    0.0,
+    115.0
+   ],
+   "tilt_up_deg": 15.0,
+   "pupil": [
+    210.14,
+    0.0,
+    113.96
+   ],
+   "axis": [
+    0.9659,
+    0.0,
+    0.2588
+   ],
+   "pcb_centre": [
+    191.78,
+    0.0,
+    109.05
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 127.8,
+   "lidar_margin_mm": 35.2,
+   "r_max": 215.8,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.7,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 32.7,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z115_up20": {
+   "lens_front": [
+    214.0,
+    0.0,
+    115.0
+   ],
+   "tilt_up_deg": 20.0,
+   "pupil": [
+    210.24,
+    0.0,
+    113.63
+   ],
+   "axis": [
+    0.9397,
+    0.0,
+    0.342
+   ],
+   "pcb_centre": [
+    192.39,
+    0.0,
+    107.13
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 125.0,
+   "lidar_margin_mm": 38.0,
+   "r_max": 216.4,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 17.2,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 30.9,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z115_up25": {
+   "lens_front": [
+    214.0,
+    0.0,
+    115.0
+   ],
+   "tilt_up_deg": 25.0,
+   "pupil": [
+    210.37,
+    0.0,
+    113.31
+   ],
+   "axis": [
+    0.9063,
+    0.0,
+    0.4226
+   ],
+   "pcb_centre": [
+    193.15,
+    0.0,
+    105.28
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 122.5,
+   "lidar_margin_mm": 40.5,
+   "r_max": 217.0,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.7,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 29.1,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  },
+  "z115_up30": {
+   "lens_front": [
+    214.0,
+    0.0,
+    115.0
+   ],
+   "tilt_up_deg": 30.0,
+   "pupil": [
+    210.54,
+    0.0,
+    113.0
+   ],
+   "axis": [
+    0.866,
+    0.0,
+    0.5
+   ],
+   "pcb_centre": [
+    194.08,
+    0.0,
+    103.5
+   ],
+   "gaps_under_8mm": {
+    "imx662": {},
+    "plug_imx662": {},
+    "lead_imx662": {
+     "pedestal": 3.75,
+     "FR_bump/roller_tread_2_3": 5.24,
+     "FR_bump/wheel_hub": 5.32,
+     "FR_bump/roller_core_2_3": 7.41
+    },
+    "stand_imx662": {}
+   },
+   "stand_on_node": 0.0,
+   "top_z": 121.1,
+   "lidar_margin_mm": 41.9,
+   "r_max": 217.5,
+   "inside_bumper": true,
+   "arm_mm": {
+    "imx662": {
+     "min": 16.3,
+     "by": "pose grasp 0.26,+0.00,y0"
+    },
+    "stand_imx662": {
+     "min": 27.2,
+     "by": "pose grasp 0.26,-0.06,y0"
+    }
+   },
+   "in_d435_fields_mm3": {
+    "env_d435_fov_depth": 0.0,
+    "env_d435_fov_rgb": 0.0
+   },
+   "robot_in_its_field_mm3": {},
+   "fits": true
+  }
+ },
+ "default": "z105_up20"
+}
