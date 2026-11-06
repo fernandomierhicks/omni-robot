@@ -58,6 +58,8 @@ MOUNTS = [
     ("riser", (0.20, 0.0, 0.215), (5.0, 10.0, 20.0, 30.0, 35.0, 40.0), 0.0),   # the arm riser's front, under the arm's base
     # the same, on its side (portrait), 15 mm lower: its 90 mm body at 0.215 meets the arm (omni_arm keep-outs)
     ("riser_p", (0.20, 0.0, 0.20), (20.0, 25.0, 30.0, 35.0), 90.0),
+    # Nov 5, baselined (cad/v13): landscape in a pocket in the riser's front under the adapter (robot_export.D435_RISER)
+    ("riser_cad", (0.1908, 0.0, 0.193), (25.0, 30.0, 35.0, 40.0), 0.0),
     ("head", (0.08, 0.0, 0.42), (20.0, 30.0, 40.0), 0.0),        # head height, looking over the stowed arm
     ("head_fwd", (0.16, 0.0, 0.40), (20.0, 30.0, 40.0), 0.0),    # head height, further forward
 ]

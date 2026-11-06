@@ -390,8 +390,8 @@ def test_the_depth_cloud_is_decimated_like_the_drivers_filter():
 
 def test_the_d435_robot_has_its_own_config():
     """robot_arm_d435.json (robot_export.ARM_D435): the same arm, the D435's depth camera first (the tidy's looks),
-    7.5 deg down (design.md 4.11: the room as well as the floor) so the close look steps back, its body a keep-out
-    for the arm, its frames realsense2_camera's names (the colour camera's for the wall tags)."""
+    on the arm riser's front 30 deg down (design.md 4.11, Nov 5; the nose's 7.5 before) so the close look steps back,
+    its body a keep-out for the arm, its frames realsense2_camera's names (the colour camera's for the wall tags)."""
     from omni_arm.kinematics import config_path
     stereo, d435 = ArmConfig(), ArmConfig(config_path("d435"))
     assert config_path("") == config_path() and config_path("d435").name == "robot_arm_d435.json"
@@ -399,11 +399,12 @@ def test_the_d435_robot_has_its_own_config():
     c = d435.cameras[0]
     assert c["name"] == "d435" and (c["width"], c["height"]) == (480, 270) and 0.09 < c["min_z"] < 0.13
     view = -np.array(c["R"])[:, 2]                                   # a MuJoCo camera looks along its -z
-    assert math.degrees(math.asin(-view[2])) == pytest.approx(7.5, abs=0.5) and 0.17 < c["pos"][0] < 0.217
+    assert math.degrees(math.asin(-view[2])) == pytest.approx(30.0, abs=0.5) and 0.17 < c["pos"][0] < 0.217
+    assert c["pos"][2] > 0.163 + 0.01                                # over the lidar's scan plane
     assert d435.chain == stereo.chain and d435.poses.keys() == stereo.poses.keys()
     assert any("D435" in k.get("note", "") for k in d435.keep_out)
     assert {"d435_link", "d435_depth_optical_frame", "d435_color_optical_frame"} <= {f["child"] for f in d435.frames}
     t = TidyTask(ArmKinematics(d435))
-    assert t.T_base_cam[:3, 3] == pytest.approx(c["pos"]) and -0.2 < t.T_base_cam[2, 2] < -0.1   # optical z: a little down
+    assert t.T_base_cam[:3, 3] == pytest.approx(c["pos"]) and -0.55 < t.T_base_cam[2, 2] < -0.45  # optical z: 30 deg down
     assert t.p.look_back == pytest.approx(0.10) and 0.36 < t.p.view_near < 0.42
     assert TidyTask(ArmKinematics(stereo)).p.look_back == 0.0

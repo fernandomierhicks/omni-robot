@@ -98,10 +98,12 @@ def test_a_things_shadow_and_the_views_edge_are_not_seen_floor():
     cell holding a seen-floor point (up to 3.75 cm past it) stays inside the seen floor."""
     T = t_cam()
     marks, clears, _ = run([(1.0, 1.04, -0.02, 0.02, 0.04)])                # a 40 mm cube 1 m ahead
-    sh = (clears[:, 0] > 1.04) & (clears[:, 0] < 1.45) & (np.abs(clears[:, 1]) < 0.03)
+    cx, cz = T[0, 3], T[2, 3]                                               # its shadow ends where the camera's ray over the
+    end = cx + (1.04 - cx) * cz / (cz - 0.04)                               # cube's back top edge meets the floor (1.27 m on
+    sh = (clears[:, 0] > 1.04) & (clears[:, 0] < end - 0.04) & (np.abs(clears[:, 1]) < 0.03)   # the riser, 1.53 on the nose)
     assert not sh.any()                                                       # its shadow on the floor
     P = fv.points(fv.DepthFrame(0.0, depth(T, []), K, T))
-    near_edge = np.min(np.hypot(P[:, 0], P[:, 1]))                         # ~0.34 m: the view's near edge
+    near_edge = np.min(np.hypot(P[:, 0], P[:, 1]))                         # ~0.31 m (riser; nose 0.34): the view's near edge
     assert np.min(np.hypot(clears[:, 0], clears[:, 1])) > near_edge + 0.035
     ang = np.arctan2(P[:, 1] - T[1, 3], P[:, 0] - T[0, 3])                 # the field's sides
     ca = np.arctan2(clears[:, 1] - T[1, 3], clears[:, 0] - T[0, 3])

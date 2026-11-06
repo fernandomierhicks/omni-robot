@@ -341,9 +341,10 @@ def body_xml(p, plate_top: float) -> str:
     extra.append(ET.Element("inertial", {"pos": "0 0 0", "mass": f"{M_BASE_EXTRA}", "diaginertia": "5e-5 5e-5 5e-5"}))
     q = (math.cos(math.radians(myaw) / 2), 0.0, 0.0, math.sin(math.radians(myaw) / 2))
     adapter = (f'<geom class="decor" type="box" size="0.055 0.045 0.003" pos="0.005 0 0.003" material="petg_orange"/>')
-    if p.arm_mount_z is None and p.arm_riser > 0:
-        adapter += (f'<geom class="decor" type="box" size="{_f(0.045, 0.045, p.arm_riser / 2)}" '
-                    f'pos="{_f(-0.005, 0, -p.arm_riser / 2)}" material="petg_orange"/>')
+    if p.arm_mount_z is None and p.arm_riser > 0:                     # its front cut back by arm_riser_pocket (the D435's)
+        hx = 0.045 - p.arm_riser_pocket / 2
+        adapter += (f'<geom class="decor" type="box" size="{_f(hx, 0.045, p.arm_riser / 2)}" '
+                    f'pos="{_f(-0.005 - p.arm_riser_pocket / 2, 0, -p.arm_riser / 2)}" material="petg_orange"/>')
     return (f'<body name="arm_mount" pos="{_f(mx, my, mount_z(p, plate_top))}" quat="{_f(*q)}">'
             f'<site name="arm_mount" pos="0 0 0" group="5"/>{adapter}'
             f'{ET.tostring(root, encoding="unicode")}</body>')
