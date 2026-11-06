@@ -8,7 +8,49 @@ files with them.
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
+
+# s: a pose record younger than this is a restarted console's (the robot where it was, mcu_link's odom continuous),
+# older is a reboot's: then localization starts at the map's start pose, as before
+RESUME_S = 120.0
+
+
+def _compose(a, b):
+    """Planar pose b (in a's frame) in a's parent frame: (x, y, yaw)."""
+    c, s = math.cos(a[2]), math.sin(a[2])
+    return a[0] + c * b[0] - s * b[1], a[1] + s * b[0] + c * b[1], a[2] + b[2]
+
+
+def _inverse(a):
+    c, s = math.cos(a[2]), math.sin(a[2])
+    return -c * a[0] - s * a[1], s * a[0] - c * a[1], -a[2]
+
+
+def pose_record(map_name: str, map_pose, odom_pose, now: float, t_mcu_us: int) -> dict:
+    """What the console keeps (<state_dir>/slam_pose.json) while localized: base_link in map and in odom, at once, and
+    the MCU's clock (its odometry's: a new boot starts both again)."""
+    return dict(map=map_name, t=now, t_mcu_us=int(t_mcu_us), map_pose=[round(float(v), 4) for v in map_pose[:3]],
+                odom_pose=[round(float(v), 4) for v in odom_pose[:3]])
+
+
+def resume_pose(rec: dict, map_name: str, odom_now, now: float, t_mcu_us):
+    """Where a restarted console starts localizing: the recorded map pose moved on by what the odometry drove since
+    (map -> odom as recorded, applied to base_link in odom now), when the record is this map's, younger than RESUME_S
+    and from the same odometry: the MCU's clock has run on since it, by no more than the wall clock (an MCU reset or a
+    new sim session starts its clock and its odometry again). Else None: the map's start pose. Without it a console
+    killed mid-session (a crash) relocalized at the map's origin, 1.9 m and 87 deg from the robot (Nov 5)."""
+    try:
+        if rec.get("map") != map_name or not 0.0 <= now - float(rec["t"]) <= RESUME_S or odom_now is None:
+            return None
+        ran = (int(t_mcu_us) - int(rec["t_mcu_us"])) * 1e-6
+        if not 0.0 <= ran <= now - float(rec["t"]) + 2.0:
+            return None
+        map_odom = _compose(rec["map_pose"], _inverse(rec["odom_pose"]))
+        x, y, yaw = _compose(map_odom, odom_now[:3])
+    except (KeyError, TypeError, ValueError, IndexError):
+        return None
+    return x, y, math.atan2(math.sin(yaw), math.cos(yaw))
 
 
 def saved_maps(maps_dir) -> list:

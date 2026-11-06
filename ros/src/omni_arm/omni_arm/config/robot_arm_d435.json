@@ -53,6 +53,7 @@
    0.0,
    0.1115
   ],
+  "d435_tilt_deg": -7.5,
   "depth_camera": "d435"
  },
  "base": {
@@ -712,7 +713,9 @@
    0.31,
    0.0
   ],
-  "note": "where the base brings a thing before the reach: the middle of the fingers-down reach (0.26-0.36 m ahead on the arm kit)"
+  "look_back": 0.1,
+  "view_near": 0.397,
+  "note": "sweet: where the base brings a thing before the reach, the middle of the fingers-down reach (0.26-0.36 m ahead on the arm kit); look_back: the close look this far short of it (a depth camera that can't see it), then a creep in; view_near: the depth camera's floor + 5 cm"
  },
  "keep_out": [
   {
@@ -898,14 +901,14 @@
   {
    "kind": "box",
    "min": [
-    0.1679246839,
+    0.1709753661,
     -0.05,
-    0.0894246839
+    0.09247536612
    ],
    "max": [
-    0.2120753161,
+    0.2090246339,
     0.05,
-    0.1335753161
+    0.1305246339
    ],
    "note": "the D435 on the deck's nose"
   }
@@ -914,15 +917,15 @@
   {
    "name": "d435",
    "pos": [
-    0.19719,
+    0.19823,
     0.0175,
-    0.10735
+    0.11042
    ],
    "R": [
     [
      0.0,
-     0.4999980098,
-     -0.8660265528
+     0.1305305643,
+     -0.9914442858
     ],
     [
      -1.0,
@@ -931,8 +934,8 @@
     ],
     [
      0.0,
-     0.8660265528,
-     0.4999980098
+     0.9914442858,
+     0.1305305643
     ]
    ],
    "fovy_deg": 58.0,
@@ -1103,15 +1106,15 @@
    "parent": "base_link",
    "child": "d435_link",
    "xyz": [
-    0.19719,
+    0.19823,
     0.0175,
-    0.10735
+    0.11042
    ],
    "quat": [
     0.0,
-    0.2588179352,
+    0.06540532939,
     0.0,
-    0.9659261237
+    0.997858779
    ],
    "note": "RealSense D435 (design.md 4.11): the depth origin (left imager), x along the view"
   },
@@ -1130,6 +1133,22 @@
     0.5
    ],
    "note": "its depth image's optical frame (z forward, x right, y down)"
+  },
+  {
+   "parent": "d435_link",
+   "child": "d435_color_optical_frame",
+   "xyz": [
+    0.0,
+    0.015,
+    0.0
+   ],
+   "quat": [
+    -0.5,
+    0.5,
+    -0.5,
+    0.5
+   ],
+   "note": "its colour image's optical frame (the RGB imager, 15 mm left of the depth origin): the wall tags' camera"
   },
   {
    "parent": "base_link",

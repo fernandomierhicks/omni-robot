@@ -4,7 +4,7 @@ the display's microphones heard -> a voice command (commands.py) -> the console 
 Subscribes /console/status      std_msgs/String JSON (the operator console, 10 Hz): mode, faults, battery, mission,
                                 the catch game, the followed person, the localization's health
            /console/schema      std_msgs/String JSON: the map's places (for "go to the kitchen") and the Face tab's
-                                settings (face.antics, face.voice)
+                                settings (face.antics, face.humor, face.preset: the voice, face.voice: its commands)
            /console/events      std_msgs/String JSON: warnings become a short note on the face
            /mcu/state_10hz      omni_interfaces/McuState: the odometry pose (where the ball's track is, for the eyes)
                                 and the body twist (the driving antics)
@@ -16,7 +16,7 @@ Publishes  /face/state          std_msgs/String JSON, 2 Hz: what the face shows 
            /console/events      std_msgs/String JSON: what it heard and what it did about it (source "voice")
 Calls      /console/command     omni_interfaces/ConsoleCommand: a voice command's verb, as if clicked on the page
 Serves     TCP port (9881): one JSON line per tick, {"face": {...}, "out": [{"kind": "say"|"sound", ...}], "listen":
-           bool}, plus {"grammar": [...]} when the phrases change, to every display connected (the panel's on the
+           bool, "voice": the voice preset (voice.PRESETS)}, plus {"grammar": [...]} when the phrases change, to every display connected (the panel's on the
            robot; the window on Windows in the sim); a display sends back {"heard": text, "conf": 0-1, "echo": bool}
 Parameters port, bind (127.0.0.1; the sim: 0.0.0.0 so Windows reaches it through WSL), facing_deg (0: the screen
            faces forward, design.md 12.2), start_display ("auto": in the sim, start the Windows window through WSL's
@@ -62,6 +62,7 @@ class FaceNode(Node):
         self.events, self.say = [], []
         self.places: dict = {}
         self.voice = "on"
+        self.preset = ""                            # who it sounds like (the console's face.preset; "": the display's)
         self.grammar: list = phrases()
         self.n_tick = 0
         self.srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -119,6 +120,10 @@ class FaceNode(Node):
         vals = {s["key"]: s.get("value") for s in sc.get("settings") or [] if isinstance(s, dict) and "key" in s}
         if vals.get("face.antics") and vals["face.antics"] != self.brain.c.antics:
             self.brain.c = replace(self.brain.c, antics=str(vals["face.antics"]))
+        if isinstance(vals.get("face.humor"), (int, float)) and vals["face.humor"] != self.brain.c.humor:
+            self.brain.c = replace(self.brain.c, humor=float(vals["face.humor"]))
+        if vals.get("face.preset"):
+            self.preset = str(vals["face.preset"])
         if vals.get("face.voice") in VOICE_LEVELS:
             self.voice = vals["face.voice"]
         g = phrases(self.places)
@@ -204,7 +209,7 @@ class FaceNode(Node):
         self.accept()
         self.read_displays()
         self.send_all(dict(face=d, out=[o.as_dict() for o in outs],
-                           listen=self.voice != "off" and status is not None))
+                           listen=self.voice != "off" and status is not None, voice=self.preset))
         self.n_tick += 1
         if self.n_tick % 5 == 0:
             self.p_state.publish(String(data=json.dumps(d)))

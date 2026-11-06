@@ -270,6 +270,26 @@ def test_slam_files(tmp_path):
     assert text.endswith("    map_file_name: /m/house\n    map_start_pose: [1.000, 2.000, 0.5000]\n")
 
 
+def test_a_restarted_console_resumes_where_the_robot_is():
+    import math
+    from omni_console.slam import RESUME_S, pose_record, resume_pose
+    # map -> odom: odom's origin at map (1, 2), turned 90 deg. base_link at odom (1, 0, 0) = map (1, 3, 90 deg)
+    rec = pose_record("house", (1.0, 3.0, math.pi / 2), (1.0, 0.0, 0.0), 100.0, 50_000_000)
+    mcu = 56_000_000                                                          # the MCU's clock 6 s on: the same boot
+    p = resume_pose(rec, "house", (1.0, 0.0, 0.0, 99.0), 110.0, mcu)          # it hasn't moved
+    assert p == pytest.approx((1.0, 3.0, math.pi / 2), abs=1e-3)
+    p = resume_pose(rec, "house", (2.0, 0.0, 0.5), 110.0, mcu)                # odom says 1 m on, turned 0.5 rad
+    assert p == pytest.approx((1.0, 4.0, math.pi / 2 + 0.5), abs=1e-3)
+    assert resume_pose(rec, "flat", (1.0, 0.0, 0.0), 110.0, mcu) is None      # another map
+    assert resume_pose(rec, "house", (1.0, 0.0, 0.0), 100.0 + RESUME_S + 1, mcu) is None   # a reboot, not a restart
+    assert resume_pose(rec, "house", None, 110.0, mcu) is None                # no odometry yet
+    assert resume_pose({}, "house", (1.0, 0.0, 0.0), 110.0, mcu) is None
+    # the MCU booted again (or a new sim session): its clock, and its odometry, started over
+    assert resume_pose(rec, "house", (0.0, 0.0, 0.0), 110.0, 3_000_000) is None
+    assert resume_pose(rec, "house", (0.0, 0.0, 0.0), 110.0, None) is None
+    assert resume_pose(rec, "house", (0.0, 0.0, 0.0), 110.0, 70_000_000) is None   # 20 s on in 10 s: not this boot
+
+
 def test_map_image(tmp_path):
     from omni_console.slam import write_map_image
     data = [-1, 0, 100, 0, 0, 0]                                     # 3 x 2, row 0 at the origin

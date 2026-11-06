@@ -1,10 +1,10 @@
 # ros/: the robot's ROS 2 software (monorepo)
 
-This folder is the robot's software, the code that will run on the Jetson, kept in the same repo as the design, the CAD and the MuJoCo sims. Today it runs in WSL2 against the MuJoCo sim; `omni_sim` stands in for the robot's drivers. Numbers and decisions: [../design.md](../design.md) sections 28 (the navigation stack) and 30 (v11: the catch code, the MCU link, the firmware in the loop).
+This folder is the robot's software, the code that will run on the robot computer, kept in the same repo as the design, the CAD and the MuJoCo sims. Today it runs in WSL2 against the MuJoCo sim; `omni_sim` stands in for the robot's drivers. The robot computer is still open (design.md 4.9: a compact x86 mini PC on Ubuntu 24.04 is proposed; a Pi 4 runs the stack with `nav_profile:=pi`, design.md 4.10). Older comments and READMEs say "the Jetson" for the robot computer; read that as whichever computer is chosen. Numbers and decisions: [../design.md](../design.md) sections 2.1 (software), 4.6 (localization and ROS) and 4.10 (the Pi). Old "design.md 28 / 30" references mean `design full history.md` §28 (the navigation stack) and §30 (v11: the catch code, the MCU link, the firmware in the loop).
 
-**v11:** the sim runs the robot's real MCU firmware (`../firmware`, C++, software in the loop). The ROS side talks to it exactly as it will to the Teensy: `mcu_link` connects to the firmware's USB port (TCP from the bridge in the sim, `/dev/ttyACM0` on the robot). The catch game runs on the robot's own code: `catch_perception` (camera frames → ball track), `catch_behavior` and `mode_manager`.
+**v11:** the sim runs the robot's real MCU firmware (`../firmware`, C++, software in the loop). The ROS side talks to it exactly as it will to the Teensy: `mcu_link` connects to the firmware's USB port (TCP from the bridge in the sim, `/dev/ttyACM0` on the robot). The arm robot (`omni.sh arm`, design.md 2) is the current build; the parked catch game runs on the robot's own code: `catch_perception` (camera frames → ball track), `catch_behavior` and `mode_manager`.
 
-> **⚠ Jetson caveat (VERIFY before buying or flashing):** the Jetson Orin's JetPack 6 is Ubuntu 22.04, and ROS 2 Jazzy needs Ubuntu 24.04. So on the Orin, Jazzy either runs in Docker (design.md section 5 already plans Docker for identical PC and Jetson images), or waits for a JetPack 7 release for the Orin, if NVIDIA ships one by then. Check NVIDIA's JetPack release notes for Orin support of Ubuntu 24.04 before relying on a native install.
+> **Jetson caveat (only if a Jetson is chosen later):** JetPack 6 is Ubuntu 22.04 and ROS 2 Jazzy needs 24.04, so Jazzy would run in Docker there. Check NVIDIA's release notes first.
 
 ## Layout
 
@@ -38,7 +38,7 @@ ros/
 │   ├── omni_calib/        ← the calibration workflow's solvers and checks (README.md: the procedure)  → robot
 │   ├── omni_slam/         ← tag_slam (AprilTag landmarks in a factor graph next to slam_toolbox, the
 │   │                        localization health), tag_detector                                          → robot
-│   ├── omni_face/         ← the face on the 7 in display and the voice: face_node + display.py (a window
+│   ├── omni_face/         ← the face on the 5 in display and the voice: face_node + display.py (a window
 │   │                        with sound on Windows in the sim: tools/face_view.py)                       → robot
 │   ├── omni_catch/        ← catch_perception, catch_behavior, mode_manager + their ROS-free cores      → robot
 │   │                        (flight, tracker, detector, frames, perception, intercept, game, modes, robot_config;
@@ -83,9 +83,13 @@ shows each job's log.
 **The operator console** (`omni_console`; design.md section 2) is served by the robot itself.
 - **Connection.** In the sim the page is at `http://localhost:8080`; on the robot it is `http://omni.local:8080`, on the PC or an iPad. It talks to ROS through rosbridge on port 9090 and to the supervisor over plain HTTP (`/api/*`, `/logs/`). One-time install: `sudo apt install ros-jazzy-rosbridge-suite`.
 - **Topics.** The page uses `/console/*` (a status at 10 Hz, the path, settings, events, the last throw) and reads three topics as the publisher's raw bytes (rosbridge `cbor-raw`, decoded in the browser): `/map`, the scan (`/scan_filtered`) and `/mcu/samples` (the Base tab). It sends commands through `/console/command` and drives through `/console/cmd_vel`. The sim's fault injection goes on `/sim/fault`.
-- **Cameras tab** (Robot ▸ Cameras): single JPEGs from the cameras, on demand or one every 1–10 s, from `omni_console/camera_snap.py` (plain HTTP on :8086, no ROS) on the computer the cameras are plugged into. Today that is the Pi's Arducam plus the D435's colour, left-IR and colourized depth images; click the depth image for a range. Start it with `bash ros/tools/cam_snap.sh start` (Git Bash; `stop`, `status`, `fake` for test patterns on the PC). A camera opens at its first picture and closes 20 s after the last. The server address is set in the tab: by default the page's own host, or `omni-cam.local` when the page is on localhost.
+- **Cameras tab** (Robot ▸ Cameras): the cameras on the robot computer, from `omni_console/camera_snap.py` there (plain HTTP on :8086, no ROS, never rosbridge). Today that is the Pi's Arducam plus the D435's colour, left-IR and colourized depth images; click the depth image for a range. **Snapshots** fetch single JPEGs, on demand or one every 1–10 s. **Live video** streams each picture whose *Live* is on (`/stream`: multipart JPEGs, each with its info). Stream one picture for the fastest rate: on the Pi 4 at 640 px, the Arducam runs 30 / 56 / 99 fps in its modes and the D435 30 fps. Each camera's capture mode (resolution and rate), the Arducam's focus and the D435's IR projector are set from the tab (`/set`). **AprilTags** (`omni_console/apriltag_view.py`: the C apriltag library, else OpenCV) are found on the robot computer; the overlay and table show the pose, `omni_slam.tags`' verdict (usable, ambiguous or refused) and the lock's scatter over 5 s. Results: `characterization/apriltag/README.md`. Start it with `bash ros/tools/cam_snap.sh start` (Git Bash; `OMNI_PI=omni-cam-eth` over the cable, then Server `http://192.168.0.101:8086`; `stop`, `status`, `fake` for test patterns with two tags on the PC). A camera opens at its first request and closes 20 s after the last, or after its last live stream ends. The server address is set in the tab: by default the page's own host, or `omni-cam.local` when the page is on localhost.
 - **Safety.** The robot stops 0.3 s after the page stops sending, for example when the dead man is released, the tab is closed or the Wi-Fi drops.
-- **Saved data** (`~/.omni` on the robot): settings `console.json`, programs `programs.json`, calibration results `calibration.json`, health counters `health.json`, throws `throws.jsonl`, session logs `logs/sessions/*.jsonl`, the steps' logs `logs/steps/`. Per map in `maps/<map>.places.json`: places, routes, no-go zones and floor edges.
+- **Saved data** (`~/.omni` on the robot): settings `console.json`, programs `programs.json`, calibration results `calibration.json`, health counters `health.json`, throws `throws.jsonl`, session logs `logs/sessions/*.jsonl`, the steps' logs `logs/steps/`; `slam_pose.json` (the last localized pose, its
+odometry and the MCU's clock: a console restarted within 2 min on the same MCU boot localizes from there, not the map's
+start) and `slam_toolbox.pgid`
+(its slam_toolbox's process group: a console that died without stopping it leaves it running in its own session, and the
+next console stops it first). Per map in `maps/<map>.places.json`: places, routes, no-go zones and floor edges.
 - **On the Jetson:** `omni_console/systemd/README.md` (the supervisor at boot, `omni.local`, shutdown from the page).
 
 **With a terminal** (WSL, or PowerShell with `wsl -d Ubuntu-24.04 -- bash`):
@@ -98,6 +102,12 @@ bash "$O" localize     # slam_toolbox localization on it
 bash "$O" nav          # + Nav2: goals from the console's Go To tab (or Foxglove's 3D panel / RViz)
 bash "$O" robot        # everything at once for the console: Nav2 + slam_toolbox run by the console (new map,
                        # save, load), Manual, Go To, Explore, Patrol, Thrower; web_video_server on :8081
+bash "$O" arm          # the arm robot (the current build): 'robot' plus the SO-101, its nose D435 (the default and
+                       # only arm camera; arm_camera:=stereo reproduces earlier runs) and the Tidy tab;
+                       # objects:=toys|clutter|colours, props:=true map:=house_furnished; depth_layer:=raw
+                       # (default) | height (proposed: omni_arm's fused height map, speed by certainty, the
+                       # AI's floor catalog) | floor (Nov 5's per-frame grid) | off
+                       # (the sim's D435 has realistic depth errors; d435_noise:=ideal is the Nov 4 model)
 bash "$O" catch        # v11: the catch game (thrower, cameras, the robot's catch code and firmware)
 bash "$O" catch-score tosses:=24   # the same, scored: studies/results/ros_catch.json
 bash "$O" sim          # just the bridge; also: auto-map, tour, goals, score-map, build, test, stop, status

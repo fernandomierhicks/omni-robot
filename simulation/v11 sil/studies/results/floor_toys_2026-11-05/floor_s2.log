@@ -1,0 +1,31 @@
+toys: 6 of 6 toys placed: cube40 on (-4.241, -1.091), brick on (1.725, 1.118), block on (3.278, 1.299), cube30 on (-3.877, -0.079), block beside (2.777, -0.253), cube40 beside (-0.449, -1.817)
+ROUTE ...
+  lap 1 spot 1: ok   13.9 s, err 0.08 m, loc 0.079, vmax 0.48  (Arrived at spot 1)
+  lap 1 spot 2: ok   27.5 s, err 0.07 m, loc 0.024, vmax 0.91  (Arrived at spot 2)
+  lap 1 spot 3: NO   57.3 s, err 3.70 m, loc 0.032, vmax 0.83  (Could not reach spot 3: Nav2 gave up (blocked or no path))
+  lap 1 spot 4: NO   44.6 s, err 3.38 m, loc 0.031, vmax 0.01  (Could not reach spot 4: Nav2 gave up (blocked or no path))
+  lap 1 spot 5: NO   44.5 s, err 5.86 m, loc 0.029, vmax 0.01  (Could not reach spot 5: Nav2 gave up (blocked or no path))
+  lap 1 spot 6: NO   43.3 s, err 2.82 m, loc 0.027, vmax 0.01  (Could not reach spot 6: Nav2 gave up (blocked or no path))
+  lap 1 spot 7: NO   40.6 s, err 6.64 m, loc 0.026, vmax 0.01  (Could not reach spot 7: Nav2 gave up (blocked or no path))
+  lap 1 spot 8: NO   44.0 s, err 4.50 m, loc 0.025, vmax 0.00  (Could not reach spot 8: Nav2 gave up (blocked or no path))
+  lap 2 spot 1: NO   43.8 s, err 4.95 m, loc 0.022, vmax 0.01  (Could not reach spot 1: Nav2 gave up (blocked or no path))
+  lap 2 spot 2: ok   30.8 s, err 0.08 m, loc 0.088, vmax 0.51  (Arrived at spot 2)
+  lap 2 spot 3: ok   48.3 s, err 0.11 m, loc 0.089, vmax 0.81  (Arrived at spot 3)
+  lap 2 spot 4: ok   29.4 s, err 0.09 m, loc 0.085, vmax 0.97  (Arrived at spot 4)
+  lap 2 spot 5: ok   19.1 s, err 0.10 m, loc 0.11, vmax 1.29  (Arrived at spot 5)
+  lap 2 spot 6: ok   13.0 s, err 0.13 m, loc 0.119, vmax 0.93  (Arrived at spot 6)
+  lap 2 spot 7: ok   26.2 s, err 0.12 m, loc 0.13, vmax 1.06  (Arrived at spot 7)
+  lap 2 spot 8: ok   21.1 s, err 0.03 m, loc 0.009, vmax 0.58  (Arrived at spot 8)
+  cube40   on     closest 0.51 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  brick    on     closest 0.25 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  block    on     closest 0.34 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  cube30   on     closest 0.40 m, over it 0x, moved 0.000 m, cost 0 -> 99
+  block    beside closest 0.69 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  cube40   beside closest 0.56 m, over it 0x, moved 0.000 m, cost 0 -> 0
+TIDY ...
+  toy 3: drive ok 7.5 s; tidy 2 picked 2 failed (nothing in sight) in 465.8 s; bin 0 -> 2; costs where binned ones lay {0: 0, 3: 0}
+  toy 5: drive ok 19.4 s; tidy 1 picked 1 failed (nothing in sight) in 343.8 s; bin 2 -> 3; costs where binned ones lay {5: 0}
+  toy 1: drive ok 12.4 s; tidy 1 picked 0 failed (nothing in sight) in 123.1 s; bin 3 -> 4; costs where binned ones lay {1: 0}
+  toy 4: drive ok 7.1 s; tidy 2 picked 0 failed (nothing in sight) in 164.6 s; bin 4 -> 6; costs where binned ones lay {2: 0, 4: 0}
+summary {"goals": "9/16", "route_s": 547.4, "loc_err_max_m": 0.13, "err_mean_m": 0.089, "toys": 6, "overrun": 0, "overrun_on": 0, "moved": 0, "marked_after_route": 3, "false_marks_max": 124, "in_bin": 6, "tidy_legs": 4, "stale_marks": 0, "binned_checked": 6, "stale_grid_marks": 0}
+wrote /home/fernando/toy_study/floor_s2.json

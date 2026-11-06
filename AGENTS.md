@@ -10,7 +10,7 @@ Keep this file for actionable working rules and pointers, not subsystem descript
 
 ## Current entry points
 
-The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. Active editable CAD is **`cad/v10 human editable`**. Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
+The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. **The arm robot's only camera is the nose RealSense D435** (`arm_camera:=d435`, the default; `ARM_D435`): run and test the arm robot with it only. The stereo pair belongs to the parked catch robot; use `arm_camera:=stereo` only to reproduce earlier results. Active editable CAD is **`cad/v10 human editable`**. Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
 
 | Task | Start with |
 | --- | --- |
@@ -20,6 +20,7 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | ROS launch / navigation / bridges | [ros/README.md](ros/README.md), `ros/omni.sh`, affected package/config; use design.md for current hardware assumptions |
 | Arm / face / calibration | READMEs in `ros/src/omni_arm`, `omni_face`, `omni_calib` |
 | Console / supervisor / web UI | [console instructions](ros/src/omni_console/AGENTS.md) and affected source |
+| AI control (Claude / Codex via MCP) | [omni_mcp README](ros/tools/omni_mcp/README.md), [ai_robot_architecture.md](ai_robot_architecture.md); its own venv `C:\Users\ferna\.venvs\omni-mcp` |
 | Firmware / SIL | [firmware README](firmware/README.md), [pin map](firmware/PINS.md) |
 | Parts database | [database README](database/README.md) |
 | Pi / split-computer experiments | [rpi.md](rpi.md), [Pi README](characterization/pi_camera/README.md) |
@@ -54,6 +55,7 @@ Run checks relevant to the changed subsystem, using the correct interpreter/envi
 | v11 model / SIL / exports | From `simulation/v11 sil`: `python -m pytest -q test_v11.py`, plus affected study/tests |
 | ROS-free package cores | `python -m pytest -q ros/src/<package>/test`; `omni_cpp/test` checks Python/C++ parity |
 | ROS-dependent launch / nodes | Relevant package tests in WSL; affected step through `ros/omni.sh` |
+| AI control / omni_mcp | `C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pytest -q ros/tools/omni_mcp/test`, console `test_ai.py`, arm `test_color_vision.py`; end to end `ros/tools/ai_smoke.py` against the arm step |
 | Firmware | `pio run` in `firmware/`, affected SIL/parity checks and pin checks |
 | Database | From `database`: `python actuator_db.py validate` and `python -m pytest -q` |
 | CAD | Follow `cad/AGENTS.md` and the active version's validation procedure |

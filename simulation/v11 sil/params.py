@@ -357,6 +357,7 @@ class SimParams:
     d435_pos: tuple = (0.19, 0.0, 0.105)   # m, robot frame: the middle of its 90 x 25 x 25 mm body
     d435_tilt_deg: float = -30.0       # its view below the horizontal (the 58 deg vertical field: 1-59 deg down)
     d435_wh: tuple = (480, 270)        # the depth mode it streams (min-Z ~0.11 m here; 0.195 m at 848 x 480, VERIFY)
+    d435_roll_deg: float = 0.0         # about its view axis: 0 landscape; 90 portrait (the wide field tall: a study, Nov 5)
 
     # --- payload (design.md 15): what rides on the payload plate ------------------
     payload: str = "catch"             # "catch": the tilting catch / launch module; "arm": an SO-101 arm in its place
@@ -428,6 +429,8 @@ class SimParams:
     floor_mu_field: tuple | None = None     # (sigma, correlation length m, seed): wheel friction varies around the mean
     floor_patches: tuple = ()          # ((x0, y0, x1, y1, mu), ...): areas of a different wheel friction
     floor_features: tuple = ()         # floor.Threshold / floor.Carpet objects
+    props: bool = False                # the v7 house furnished (house_props.py): furniture, full-height walls, signs,
+                                       # pictures, the tags' faces, a person; decoration the cameras and lidar see
     slow_zones: tuple = ()             # firmware ((x0, y0, x1, y1, v), ...): mapped areas (a threshold) crossed at <= v m/s;
                                        # the speed cap drops before the base's braking distance reaches them
     timestep: float = 0.0005

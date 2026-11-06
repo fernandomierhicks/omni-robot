@@ -1,0 +1,655 @@
+{
+ "started": "2026-11-05 13:18:27",
+ "seed": 0,
+ "ready": true,
+ "ready_after_s": 9.1,
+ "placement_attempts": 1,
+ "path_len_m": 45.5,
+ "placements": [
+  [
+   -0.205,
+   -2.124,
+   30.4,
+   "on"
+  ],
+  [
+   -3.57,
+   -0.242,
+   138.7,
+   "on"
+  ],
+  [
+   3.021,
+   -1.072,
+   138.7,
+   "on"
+  ],
+  [
+   2.903,
+   1.267,
+   123.8,
+   "on"
+  ],
+  [
+   -0.614,
+   1.444,
+   7.5,
+   "beside"
+  ],
+  [
+   0.864,
+   -1.763,
+   39.3,
+   "beside"
+  ]
+ ],
+ "toys": [
+  {
+   "name": "cube30",
+   "kind": "on",
+   "at": [
+    -0.205,
+    -2.124
+   ],
+   "min_d": 0.469,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  },
+  {
+   "name": "crayon",
+   "kind": "on",
+   "at": [
+    -3.57,
+    -0.242
+   ],
+   "min_d": 0.414,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  },
+  {
+   "name": "ball40",
+   "kind": "on",
+   "at": [
+    3.021,
+    -1.072
+   ],
+   "min_d": 0.519,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 100
+  },
+  {
+   "name": "brick",
+   "kind": "on",
+   "at": [
+    2.903,
+    1.267
+   ],
+   "min_d": 0.039,
+   "overruns": 2,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 100
+  },
+  {
+   "name": "cube30",
+   "kind": "beside",
+   "at": [
+    -0.614,
+    1.444
+   ],
+   "min_d": 0.536,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 100
+  },
+  {
+   "name": "cube40",
+   "kind": "beside",
+   "at": [
+    0.864,
+    -1.763
+   ],
+   "min_d": 0.684,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  }
+ ],
+ "goals": [
+  {
+   "name": "spot 1",
+   "goal": [
+    -3.0,
+    3.3
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 1",
+   "time_s": 12.4,
+   "err_m": 0.098,
+   "loc_err_m": 0.08,
+   "dist_m": 2.01,
+   "vmax": 0.42,
+   "end_wall": 1793913528.2712579,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 2",
+   "goal": [
+    0.45,
+    3.2
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 2",
+   "time_s": 20.0,
+   "err_m": 0.077,
+   "loc_err_m": 0.028,
+   "dist_m": 7.09,
+   "vmax": 1.04,
+   "end_wall": 1793913548.2711997,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 3",
+   "goal": [
+    4.6,
+    3.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 3",
+   "time_s": 30.5,
+   "err_m": 0.11,
+   "loc_err_m": 0.09,
+   "dist_m": 7.09,
+   "vmax": 1.13,
+   "end_wall": 1793913578.7475457,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 4",
+   "goal": [
+    2.5,
+    -2.0
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 4",
+   "time_s": 26.5,
+   "err_m": 0.073,
+   "loc_err_m": 0.071,
+   "dist_m": 6.21,
+   "vmax": 0.95,
+   "end_wall": 1793913605.2567456,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 5",
+   "goal": [
+    -3.1,
+    -2.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 5",
+   "time_s": 19.0,
+   "err_m": 0.102,
+   "loc_err_m": 0.114,
+   "dist_m": 5.7,
+   "vmax": 1.39,
+   "end_wall": 1793913624.2219534,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 6",
+   "goal": [
+    -0.8,
+    -0.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 6",
+   "time_s": 16.3,
+   "err_m": 0.111,
+   "loc_err_m": 0.123,
+   "dist_m": 3.1,
+   "vmax": 0.72,
+   "end_wall": 1793913640.5215378,
+   "lap": 1,
+   "false_marks": 160
+  },
+  {
+   "name": "spot 7",
+   "goal": [
+    -5.0,
+    -0.1
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 7",
+   "time_s": 20.7,
+   "err_m": 0.129,
+   "loc_err_m": 0.133,
+   "dist_m": 5.1,
+   "vmax": 0.95,
+   "end_wall": 1793913661.2652564,
+   "lap": 1,
+   "false_marks": 30
+  },
+  {
+   "name": "spot 8",
+   "goal": [
+    -3.0,
+    1.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 8",
+   "time_s": 13.8,
+   "err_m": 0.012,
+   "loc_err_m": 0.022,
+   "dist_m": 2.75,
+   "vmax": 0.75,
+   "end_wall": 1793913675.0695972,
+   "lap": 1,
+   "false_marks": 7
+  },
+  {
+   "name": "spot 1",
+   "goal": [
+    -3.0,
+    3.3
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 1",
+   "time_s": 14.8,
+   "err_m": 0.051,
+   "loc_err_m": 0.033,
+   "dist_m": 2.02,
+   "vmax": 0.49,
+   "end_wall": 1793913689.9213092,
+   "lap": 2,
+   "false_marks": 7
+  },
+  {
+   "name": "spot 2",
+   "goal": [
+    0.45,
+    3.2
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 2",
+   "time_s": 31.2,
+   "err_m": 0.059,
+   "loc_err_m": 0.043,
+   "dist_m": 7.15,
+   "vmax": 0.91,
+   "end_wall": 1793913721.1001902,
+   "lap": 2,
+   "false_marks": 5
+  },
+  {
+   "name": "spot 3",
+   "goal": [
+    4.6,
+    3.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 3",
+   "time_s": 36.6,
+   "err_m": 0.1,
+   "loc_err_m": 0.093,
+   "dist_m": 7.1,
+   "vmax": 0.81,
+   "end_wall": 1793913757.721741,
+   "lap": 2,
+   "false_marks": 5
+  },
+  {
+   "name": "spot 4",
+   "goal": [
+    2.5,
+    -2.0
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 4",
+   "time_s": 28.3,
+   "err_m": 0.091,
+   "loc_err_m": 0.084,
+   "dist_m": 6.19,
+   "vmax": 1.11,
+   "end_wall": 1793913786.0221024,
+   "lap": 2,
+   "false_marks": 5
+  },
+  {
+   "name": "spot 5",
+   "goal": [
+    -3.1,
+    -2.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 5",
+   "time_s": 20.9,
+   "err_m": 0.11,
+   "loc_err_m": 0.113,
+   "dist_m": 5.73,
+   "vmax": 1.53,
+   "end_wall": 1793913806.9213443,
+   "lap": 2,
+   "false_marks": 5
+  },
+  {
+   "name": "spot 6",
+   "goal": [
+    -0.8,
+    -0.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 6",
+   "time_s": 17.9,
+   "err_m": 0.06,
+   "loc_err_m": 0.097,
+   "dist_m": 3.04,
+   "vmax": 0.73,
+   "end_wall": 1793913824.8636925,
+   "lap": 2,
+   "false_marks": 404
+  },
+  {
+   "name": "spot 7",
+   "goal": [
+    -5.0,
+    -0.1
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 7",
+   "time_s": 21.3,
+   "err_m": 0.131,
+   "loc_err_m": 0.131,
+   "dist_m": 5.02,
+   "vmax": 1.02,
+   "end_wall": 1793913846.2022595,
+   "lap": 2,
+   "false_marks": 33
+  },
+  {
+   "name": "spot 8",
+   "goal": [
+    -3.0,
+    1.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 8",
+   "time_s": 15.4,
+   "err_m": 0.022,
+   "loc_err_m": 0.024,
+   "dist_m": 2.66,
+   "vmax": 0.63,
+   "end_wall": 1793913861.587879,
+   "lap": 2,
+   "false_marks": 8
+  }
+ ],
+ "route_s": 345.7,
+ "tidy": [
+  {
+   "toy": 1,
+   "object": [
+    -3.57,
+    -0.242
+   ],
+   "drive": {
+    "name": "toy 1",
+    "goal": [
+     -3.2755022306910346,
+     0.5018219302172016
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 1",
+    "time_s": 6.8,
+    "err_m": 0.102,
+    "loc_err_m": 0.025,
+    "dist_m": 0.75,
+    "vmax": 0.35,
+    "end_wall": 1793913873.4455183
+   },
+   "bin_before": 0,
+   "tidy_s": 192.8,
+   "picked": 1,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 1,
+   "binned": [
+    1
+   ],
+   "stale": {
+    "1": 0
+   },
+   "stale_grid": {
+    "1": -1
+   }
+  },
+  {
+   "toy": 4,
+   "object": [
+    -0.614,
+    1.444
+   ],
+   "drive": {
+    "name": "toy 4",
+    "goal": [
+     -1.374909850016264,
+     1.1969854252311682
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 4",
+    "time_s": 14.7,
+    "err_m": 0.065,
+    "loc_err_m": 0.03,
+    "dist_m": 2.89,
+    "vmax": 0.74,
+    "end_wall": 1793914082.9987025
+   },
+   "bin_before": 1,
+   "tidy_s": 125.4,
+   "picked": 1,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 2,
+   "binned": [
+    4
+   ],
+   "stale": {
+    "4": 38
+   },
+   "stale_grid": {
+    "4": -1
+   }
+  },
+  {
+   "toy": 0,
+   "object": [
+    -0.205,
+    -2.124
+   ],
+   "drive": {
+    "name": "toy 0",
+    "goal": [
+     -0.47678803474563447,
+     -1.3715830516468244
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 0",
+    "time_s": 15.2,
+    "err_m": 0.095,
+    "loc_err_m": 0.051,
+    "dist_m": 2.61,
+    "vmax": 0.66,
+    "end_wall": 1793914225.6244035
+   },
+   "bin_before": 2,
+   "tidy_s": 205.1,
+   "picked": 2,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 4,
+   "binned": [
+    0,
+    5
+   ],
+   "stale": {
+    "0": 0,
+    "5": 0
+   },
+   "stale_grid": {
+    "0": -1,
+    "5": -1
+   }
+  },
+  {
+   "toy": 2,
+   "object": [
+    3.021,
+    -1.072
+   ],
+   "drive": {
+    "name": "toy 2",
+    "goal": [
+     2.2225152681136455,
+     -1.1212151698602884
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 2",
+    "time_s": 14.9,
+    "err_m": 0.041,
+    "loc_err_m": 0.068,
+    "dist_m": 2.71,
+    "vmax": 0.75,
+    "end_wall": 1793914447.9727404
+   },
+   "bin_before": 4,
+   "tidy_s": 141.5,
+   "picked": 1,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 5,
+   "binned": [
+    2
+   ],
+   "stale": {
+    "2": 0
+   },
+   "stale_grid": {
+    "2": -1
+   }
+  },
+  {
+   "toy": 3,
+   "object": [
+    2.903,
+    1.267
+   ],
+   "drive": {
+    "name": "toy 3",
+    "goal": [
+     2.685707381661222,
+     0.497075381601888
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 3",
+    "time_s": 14.1,
+    "err_m": 0.062,
+    "loc_err_m": 0.085,
+    "dist_m": 1.68,
+    "vmax": 0.44,
+    "end_wall": 1793914605.551572
+   },
+   "bin_before": 5,
+   "tidy_s": 143.0,
+   "picked": 1,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 5,
+   "binned": [],
+   "stale": {},
+   "stale_grid": {}
+  },
+  {
+   "toy": 3,
+   "object": [
+    2.667,
+    0.374
+   ],
+   "drive": {
+    "name": "toy 3",
+    "goal": [
+     3.3395849535169346,
+     0.8071621870646407
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 3",
+    "time_s": 15.3,
+    "err_m": 0.077,
+    "loc_err_m": 0.077,
+    "dist_m": 0.77,
+    "vmax": 0.38,
+    "end_wall": 1793914765.874054
+   },
+   "bin_before": 5,
+   "tidy_s": 36.8,
+   "picked": 0,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 5,
+   "binned": [],
+   "stale": {},
+   "stale_grid": {}
+  }
+ ],
+ "summary": {
+  "goals": "16/16",
+  "route_s": 345.7,
+  "loc_err_max_m": 0.133,
+  "err_mean_m": 0.084,
+  "toys": 6,
+  "overrun": 1,
+  "overrun_on": 1,
+  "moved": 0,
+  "marked_after_route": 3,
+  "false_marks_max": 404,
+  "in_bin": 5,
+  "tidy_legs": 6,
+  "stale_marks": 0,
+  "binned_checked": 5,
+  "stale_grid_marks": 0
+ }
+}

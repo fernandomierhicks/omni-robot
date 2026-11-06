@@ -4449,3 +4449,30 @@ The earlier multi-switch diagnostic was later found to have an orphan localizer 
 ## Nov 3, 2026 — superseded wording, design.md 4.4 (second-floor supports replaced by fins)
 
 > **Second floor:** stands on the pods' spring columns plus two back supports. At the scan plane they are ray-aligned 6 mm blades (13.6° blind).
+
+## Nov 4, 2026 — superseded wording, design.md 4.4 and 7 (v12 round 13 review)
+
+> - The missing screws are added: SO-101 base M2.5 from below with vendor-thread engagement VERIFY, lidar M2.5, mic and speaker M3. Short screws are fixed.
+
+> - **Serviceability (v11 layout F, after round 12):** face location (rear frame vs small front eyes); battery drawer vs a charge port; motor-lead service loop at the grommet; SO-101 base screw engagement in the vendor bosses; no strength analysis of the fins, riser or keel.
+
+## Nov 5, 2026 — superseded wording, design.md 4.11 and 7 (D435 mount: portrait and whole tidies)
+
+> - **Height buys floor sight.** On the arm riser's front (body centre (0.20, 0, 0.215)) the D435 sees about twice the valid floor at 1.5–2 m of the nose mount (71/51% against 32/18%), at any tilt: the nose's floor is lost to grazing angles.
+> - **At head height over the stowed arm** the arm fills 27–45% of the image and nothing nearer than 1.2 m is seen.
+> - **The riser's tilt trades tags and range against picking:**
+>   - 5°: tags seen from 55/32% of house poses (nose 40/7%), blind zone 0.51 m, no close look;
+>   - 30°: obstacles to 2.5 m, no tags, close look 12/40;
+>   - 35°: obstacles to 1.5 m, close look 30/40;
+>   - 40°: obstacles to 1.0 m, close look 40/40.
+> - **Proposed (Fernando's suggestion):** a dedicated global-shutter tag camera, and the D435 on the riser front at 30–35° for depth. Without a tag camera, the riser front at 5°.
+> - **Open:** the arm's sweep past a camera in front of its base (CAD keep-out), the lead, the real unit's grazing returns.
+
+> (section 7) The D435's mount: riser front at 30–35° with a dedicated global-shutter tag camera, or at 5° without one (4.11); the arm's sweep past it in CAD.
+
+## Nov 5, 2026 — superseded wording, design.md 4.11 (D435 riser mount after the cad/v13 check)
+
+> - **Proposed:** the D435 on its side on the riser front, centre ~0.20 m, 25–30° down, with a dedicated global-shutter tag camera (Fernando's suggestion). Without a tag camera: portrait at 20°. The landscape riser is dropped (it sees no overhangs; 30° binned fewest).
+> - **Open:** CAD for the body, its lead under the arm's base and the arm's sweep past it; the real D435 on its side (the driver streams landscape: the code must turn images and intrinsics); grazing returns on the house's floors; the arm calibration's visible poses (4.5, `studies/arm_calib.py`, run at the nose only).
+
+> (section 7, Nov 5, before cad/v13) The D435's mount: on its side on the riser front at 25–30° with a dedicated global-shutter tag camera, or at 20° without one (4.11); CAD for the body and lead under the arm's base; the real unit streaming on its side.

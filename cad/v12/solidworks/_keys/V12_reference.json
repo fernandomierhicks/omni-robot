@@ -1,0 +1,7 @@
+{
+ "env_d435_fov_depth": "V12_env_d435_fov_depth-1",
+ "env_d435_fov_rgb": "V12_env_d435_fov_rgb-1",
+ "env_d435_plug": "V12_env_d435_plug-1",
+ "d435": "V12_d435-1",
+ "rplidar": "V12_rplidar-1"
+}

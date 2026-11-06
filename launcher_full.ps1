@@ -39,7 +39,7 @@ function Start-Omni([string]$Name, [string]$Step, [string]$Extra = "") {
             "map:=$($tbMap.Text) firmware:=$(($cbFw.Checked).ToString().ToLower()) kid:=$(($cbKid.Checked).ToString().ToLower()) " +
             "console:=$(($cbConsole.Checked).ToString().ToLower())"
     if ($Step -in "sim", "map", "localize") { $opts += " joy:=$(($cbJoy.Checked).ToString().ToLower())" }
-    if ($Step -in "robot", "arm") { $opts += " person:=$(($cbPerson.Checked).ToString().ToLower())" }
+    if ($Step -in "robot", "arm") { $opts += " person:=$(($cbPerson.Checked).ToString().ToLower()) props:=$(($cbProps.Checked).ToString().ToLower())" }
     Start-Job2 $Name "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" $Step $opts $Extra"
 }
 
@@ -168,6 +168,7 @@ $cbFast = Add-Check $p1 "Fast (~real time)" $true "firmware at 1 kHz, lidar in 2
 $cbFw = Add-Check $p1 "Firmware in the loop" $true "v11: the Teensy's C++ firmware runs inside the sim; the ROS side talks to it through mcu_link (off: v10's Python firmware)"
 $cbKid = Add-Check $p1 "Kid mode" $false "The firmware's kid profile: 0.8 m/s, gentle accelerations, lobs only"
 $cbPerson = Add-Check $p1 "Person walking" $false "A person walks round the house, for the console's Follow tab (Console, 'Robot (all modes)' and 'Arm robot')"
+$cbProps = Add-Check $p1 "Furnished" $false "The house furnished: furniture, signs, pictures, tag faces, a person in the office (simulation/v11 sil/house_props.py; 'Robot (all modes)' and 'Arm robot')"
 $lm = New-Object System.Windows.Forms.Label; $lm.Text = "map:"; $lm.AutoSize = $true; $lm.Margin = New-Object System.Windows.Forms.Padding(12, 9, 0, 0); $p1.Controls.Add($lm)
 $tbMap = New-Object System.Windows.Forms.TextBox; $tbMap.Text = "house"; $tbMap.Width = 90; $tbMap.Margin = New-Object System.Windows.Forms.Padding(3, 6, 3, 3); $p1.Controls.Add($tbMap)
 $p1.SetFlowBreak($tbMap, $true)

@@ -1,0 +1,29 @@
+toys: 6 of 6 toys, 2 of 2 obstacles placed: ball40 on (-4.063, 0.1), cube40 on (-2.142, -1.898), brick on (-1.599, -0.301), cube30 on (-2.68, -0.199), cube40 beside (3.607, 0.772), block beside (2.288, 0.779)
+shoes: (1.56, -2.115), (-2.152, 1.039)
+ROUTE ...
+  lap 1 spot 1: ok   17.1 s, err 0.09 m, loc 0.071, vmax 0.40  (Arrived at spot 1)
+  lap 1 spot 2: ok   41.4 s, err 0.06 m, loc 0.039, vmax 0.81  (Arrived at spot 2)
+  lap 1 spot 3: ok   53.5 s, err 0.07 m, loc 0.066, vmax 0.77  (Arrived at spot 3)
+  lap 1 spot 4: ok   42.2 s, err 0.03 m, loc 0.023, vmax 0.87  (Arrived at spot 4)
+  lap 1 spot 5: ok   40.5 s, err 0.02 m, loc 0.026, vmax 0.95  (Arrived at spot 5)
+  lap 1 spot 6: ok   29.1 s, err 0.05 m, loc 0.049, vmax 0.64  (Arrived at spot 6)
+  lap 1 spot 7: ok   47.8 s, err 0.14 m, loc 0.139, vmax 0.60  (Arrived at spot 7)
+  lap 1 spot 8: ok   23.5 s, err 0.03 m, loc 0.024, vmax 0.66  (Arrived at spot 8)
+  lap 2 spot 1: ok   21.6 s, err 0.07 m, loc 0.027, vmax 0.53  (Arrived at spot 1)
+  lap 2 spot 2: ok   51.9 s, err 0.07 m, loc 0.032, vmax 0.71  (Arrived at spot 2)
+  lap 2 spot 3: ok   76.2 s, err 0.10 m, loc 0.092, vmax 0.64  (Arrived at spot 3)
+  lap 2 spot 4: ok   76.4 s, err 0.07 m, loc 0.067, vmax 0.90  (Arrived at spot 4)
+  lap 2 spot 5: ok   59.0 s, err 0.11 m, loc 0.111, vmax 1.04  (Arrived at spot 5)
+  lap 2 spot 6: ok   21.6 s, err 0.11 m, loc 0.134, vmax 0.66  (Arrived at spot 6)
+  lap 2 spot 7: ok   29.8 s, err 0.13 m, loc 0.132, vmax 0.97  (Arrived at spot 7)
+  lap 2 spot 8: ok   19.2 s, err 0.06 m, loc 0.037, vmax 0.47  (Arrived at spot 8)
+  ball40   on     closest 0.28 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  cube40   on     closest 0.43 m, over it 0x, moved 0.000 m, cost 0 -> 99
+  brick    on     closest 0.04 m, over it 2x, moved 0.000 m, cost 0 -> 0
+  cube30   on     closest 0.06 m, over it 2x, moved 0.000 m, cost 0 -> 0
+  cube40   beside closest 0.39 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  block    beside closest 0.56 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  shoe     on     closest 0.57 m, moved 0.000 m, cost after 100
+  shoe     on     closest 0.44 m, moved 0.000 m, cost after 100
+summary {"goals": "16/16", "route_s": 650.8, "loc_err_max_m": 0.139, "err_mean_m": 0.074, "toys": 6, "overrun": 2, "overrun_on": 2, "moved": 0, "marked_after_route": 2, "false_marks_max": 10, "shoes": 2, "shoes_moved": 0, "shoes_closest_m": 0.44, "limited_share": 0.85, "slow_share": 0.42, "in_bin": 0, "tidy_legs": 0, "stale_marks": 0, "binned_checked": 0, "stale_grid_marks": 0}
+wrote /home/fernando/toy_study/obst_height_s1.json

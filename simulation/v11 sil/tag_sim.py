@@ -47,6 +47,8 @@ def _walls(m, d, min_top: float = 0.4):
     for g in range(m.ngeom):
         if not static[g] or m.geom_type[g] != mujoco.mjtGeom.mjGEOM_BOX:
             continue
+        if m.geom(g).name.startswith("prop_"):          # house_props' furniture and wall faces: not tag walls
+            continue
         if d.geom_xpos[g][2] + m.geom_size[g][2] < min_top or m.geom_group[g] not in (0, 1, 3):
             continue
         R = d.geom_xmat[g].reshape(3, 3)

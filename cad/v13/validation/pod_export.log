@@ -1,0 +1,7 @@
+fork_outer 1 True 69716
+fork_inner 1 True 78629
+sleeve 1 True 271
+frame_inner 1 True 44822
+keel 1 True 11884
+{"inner_frame": {"x": [66.6, 78.6], "edge_round": "36/47", "z_bottom": -9.66, "z_top": 56.88, "droop_hook_top": [[46.6, 3.73], [62.6, -3.66]], "bump_rail_underside": [[45.28, 31.12], [69.6, 26.51]]}, "keel": {"top": 16.0, "edge_round": "16/25", "l_cove_r": 3.0, "pivot_screw_engagement": 11.1, "pivot_screw_tip_to_boss_end": 1.6, "foot_screw": "M3 x 35 up from under the chassis into a \u00d82.9 pilot through the whole keel"}, "fork_rounds": {"outer_arm_edges": 2.0, "bar_long_edges": 2.5, "bar_root": "0/1", "stub_root": 1.5, "motor_plate_edges": 2.0, "wide_arm_edges": 2.0, "motor_plate_root": 1.0}}
+exported C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\step_export\pod_lean

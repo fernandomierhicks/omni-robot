@@ -1,0 +1,594 @@
+{
+ "started": "2026-11-05 13:20:29",
+ "seed": 2,
+ "ready": true,
+ "ready_after_s": 9.3,
+ "placement_attempts": 1,
+ "path_len_m": 45.5,
+ "placements": [
+  [
+   -4.241,
+   -1.091,
+   149.7,
+   "on"
+  ],
+  [
+   1.725,
+   1.118,
+   28.4,
+   "on"
+  ],
+  [
+   3.278,
+   1.299,
+   146.5,
+   "on"
+  ],
+  [
+   -3.877,
+   -0.079,
+   20.5,
+   "on"
+  ],
+  [
+   2.777,
+   -0.253,
+   136.1,
+   "beside"
+  ],
+  [
+   -0.449,
+   -1.817,
+   132.5,
+   "beside"
+  ]
+ ],
+ "toys": [
+  {
+   "name": "cube40",
+   "kind": "on",
+   "at": [
+    -4.241,
+    -1.091
+   ],
+   "min_d": 0.508,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 100
+  },
+  {
+   "name": "brick",
+   "kind": "on",
+   "at": [
+    1.725,
+    1.118
+   ],
+   "min_d": 0.25,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  },
+  {
+   "name": "block",
+   "kind": "on",
+   "at": [
+    3.278,
+    1.299
+   ],
+   "min_d": 0.34,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 100
+  },
+  {
+   "name": "cube30",
+   "kind": "on",
+   "at": [
+    -3.877,
+    -0.079
+   ],
+   "min_d": 0.401,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 99
+  },
+  {
+   "name": "block",
+   "kind": "beside",
+   "at": [
+    2.777,
+    -0.253
+   ],
+   "min_d": 0.687,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  },
+  {
+   "name": "cube40",
+   "kind": "beside",
+   "at": [
+    -0.449,
+    -1.817
+   ],
+   "min_d": 0.558,
+   "overruns": 0,
+   "moved_m": 0.0,
+   "cost_before": 0,
+   "cost_after_route": 0
+  }
+ ],
+ "goals": [
+  {
+   "name": "spot 1",
+   "goal": [
+    -3.0,
+    3.3
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 1",
+   "time_s": 13.9,
+   "err_m": 0.082,
+   "loc_err_m": 0.079,
+   "dist_m": 2.0,
+   "vmax": 0.48,
+   "end_wall": 1793913651.5100799,
+   "lap": 1,
+   "false_marks": 1
+  },
+  {
+   "name": "spot 2",
+   "goal": [
+    0.45,
+    3.2
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 2",
+   "time_s": 27.5,
+   "err_m": 0.071,
+   "loc_err_m": 0.024,
+   "dist_m": 6.77,
+   "vmax": 0.91,
+   "end_wall": 1793913678.9642456,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 3",
+   "goal": [
+    4.6,
+    3.25
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 3: Nav2 gave up (blocked or no path)",
+   "time_s": 57.3,
+   "err_m": 3.696,
+   "loc_err_m": 0.032,
+   "dist_m": 2.76,
+   "vmax": 0.83,
+   "end_wall": 1793913736.288019,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 4",
+   "goal": [
+    2.5,
+    -2.0
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 4: Nav2 gave up (blocked or no path)",
+   "time_s": 44.6,
+   "err_m": 3.384,
+   "loc_err_m": 0.031,
+   "dist_m": 0.0,
+   "vmax": 0.01,
+   "end_wall": 1793913780.8686113,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 5",
+   "goal": [
+    -3.1,
+    -2.4
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 5: Nav2 gave up (blocked or no path)",
+   "time_s": 44.5,
+   "err_m": 5.864,
+   "loc_err_m": 0.029,
+   "dist_m": 0.0,
+   "vmax": 0.01,
+   "end_wall": 1793913825.3890142,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 6",
+   "goal": [
+    -0.8,
+    -0.4
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 6: Nav2 gave up (blocked or no path)",
+   "time_s": 43.3,
+   "err_m": 2.823,
+   "loc_err_m": 0.027,
+   "dist_m": 0.0,
+   "vmax": 0.01,
+   "end_wall": 1793913868.6757078,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 7",
+   "goal": [
+    -5.0,
+    -0.1
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 7: Nav2 gave up (blocked or no path)",
+   "time_s": 40.6,
+   "err_m": 6.638,
+   "loc_err_m": 0.026,
+   "dist_m": 0.0,
+   "vmax": 0.01,
+   "end_wall": 1793913909.2717054,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 8",
+   "goal": [
+    -3.0,
+    1.25
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 8: Nav2 gave up (blocked or no path)",
+   "time_s": 44.0,
+   "err_m": 4.503,
+   "loc_err_m": 0.025,
+   "dist_m": 0.0,
+   "vmax": 0.0,
+   "end_wall": 1793913953.2402477,
+   "lap": 1,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 1",
+   "goal": [
+    -3.0,
+    3.3
+   ],
+   "reached": false,
+   "timed_out": false,
+   "task": "Could not reach spot 1: Nav2 gave up (blocked or no path)",
+   "time_s": 43.8,
+   "err_m": 4.954,
+   "loc_err_m": 0.022,
+   "dist_m": 0.0,
+   "vmax": 0.01,
+   "end_wall": 1793913997.0605516,
+   "lap": 2,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 2",
+   "goal": [
+    0.45,
+    3.2
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 2",
+   "time_s": 30.8,
+   "err_m": 0.077,
+   "loc_err_m": 0.088,
+   "dist_m": 2.6,
+   "vmax": 0.51,
+   "end_wall": 1793914027.888963,
+   "lap": 2,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 3",
+   "goal": [
+    4.6,
+    3.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 3",
+   "time_s": 48.3,
+   "err_m": 0.106,
+   "loc_err_m": 0.089,
+   "dist_m": 8.32,
+   "vmax": 0.81,
+   "end_wall": 1793914076.2106242,
+   "lap": 2,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 4",
+   "goal": [
+    2.5,
+    -2.0
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 4",
+   "time_s": 29.4,
+   "err_m": 0.085,
+   "loc_err_m": 0.085,
+   "dist_m": 6.34,
+   "vmax": 0.97,
+   "end_wall": 1793914105.5861564,
+   "lap": 2,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 5",
+   "goal": [
+    -3.1,
+    -2.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 5",
+   "time_s": 19.1,
+   "err_m": 0.1,
+   "loc_err_m": 0.11,
+   "dist_m": 5.64,
+   "vmax": 1.29,
+   "end_wall": 1793914124.7105389,
+   "lap": 2,
+   "false_marks": 0
+  },
+  {
+   "name": "spot 6",
+   "goal": [
+    -0.8,
+    -0.4
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 6",
+   "time_s": 13.0,
+   "err_m": 0.128,
+   "loc_err_m": 0.119,
+   "dist_m": 3.09,
+   "vmax": 0.93,
+   "end_wall": 1793914137.7343543,
+   "lap": 2,
+   "false_marks": 124
+  },
+  {
+   "name": "spot 7",
+   "goal": [
+    -5.0,
+    -0.1
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 7",
+   "time_s": 26.2,
+   "err_m": 0.118,
+   "loc_err_m": 0.13,
+   "dist_m": 4.74,
+   "vmax": 1.06,
+   "end_wall": 1793914163.9101539,
+   "lap": 2,
+   "false_marks": 92
+  },
+  {
+   "name": "spot 8",
+   "goal": [
+    -3.0,
+    1.25
+   ],
+   "reached": true,
+   "timed_out": false,
+   "task": "Arrived at spot 8",
+   "time_s": 21.1,
+   "err_m": 0.033,
+   "loc_err_m": 0.009,
+   "dist_m": 2.71,
+   "vmax": 0.58,
+   "end_wall": 1793914185.003762,
+   "lap": 2,
+   "false_marks": 27
+  }
+ ],
+ "route_s": 547.4,
+ "tidy": [
+  {
+   "toy": 3,
+   "object": [
+    -3.877,
+    -0.079
+   ],
+   "drive": {
+    "name": "toy 3",
+    "goal": [
+     -3.429585742120416,
+     0.5841896273661564
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 3",
+    "time_s": 7.5,
+    "err_m": 0.113,
+    "loc_err_m": 0.032,
+    "dist_m": 0.73,
+    "vmax": 0.35,
+    "end_wall": 1793914198.0100489
+   },
+   "bin_before": 0,
+   "tidy_s": 465.8,
+   "picked": 2,
+   "failed": 2,
+   "reason": "nothing in sight",
+   "bin_after": 2,
+   "binned": [
+    0,
+    3
+   ],
+   "stale": {
+    "0": 0,
+    "3": 0
+   },
+   "stale_grid": {
+    "0": -1,
+    "3": -1
+   }
+  },
+  {
+   "toy": 5,
+   "object": [
+    -0.449,
+    -1.817
+   ],
+   "drive": {
+    "name": "toy 5",
+    "goal": [
+     -1.195281972841163,
+     -1.5287931003388329
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 5",
+    "time_s": 19.4,
+    "err_m": 0.079,
+    "loc_err_m": 0.125,
+    "dist_m": 3.33,
+    "vmax": 0.85,
+    "end_wall": 1793914685.2236238
+   },
+   "bin_before": 2,
+   "tidy_s": 343.8,
+   "picked": 1,
+   "failed": 1,
+   "reason": "nothing in sight",
+   "bin_after": 3,
+   "binned": [
+    5
+   ],
+   "stale": {
+    "5": 0
+   },
+   "stale_grid": {
+    "5": -1
+   }
+  },
+  {
+   "toy": 1,
+   "object": [
+    1.725,
+    1.118
+   ],
+   "drive": {
+    "name": "toy 1",
+    "goal": [
+     1.090584632552444,
+     0.6306426962213634
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 1",
+    "time_s": 12.4,
+    "err_m": 0.081,
+    "loc_err_m": 0.105,
+    "dist_m": 3.34,
+    "vmax": 0.91,
+    "end_wall": 1793915043.4103243
+   },
+   "bin_before": 3,
+   "tidy_s": 123.1,
+   "picked": 1,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 4,
+   "binned": [
+    1
+   ],
+   "stale": {
+    "1": 0
+   },
+   "stale_grid": {
+    "1": -1
+   }
+  },
+  {
+   "toy": 4,
+   "object": [
+    2.777,
+    -0.253
+   ],
+   "drive": {
+    "name": "toy 4",
+    "goal": [
+     2.07287420378467,
+     0.1267457874738413
+    ],
+    "reached": true,
+    "timed_out": false,
+    "task": "Arrived at toy 4",
+    "time_s": 7.1,
+    "err_m": 0.073,
+    "loc_err_m": 0.076,
+    "dist_m": 0.98,
+    "vmax": 0.35,
+    "end_wall": 1793915175.6599271
+   },
+   "bin_before": 4,
+   "tidy_s": 164.6,
+   "picked": 2,
+   "failed": 0,
+   "reason": "nothing in sight",
+   "bin_after": 6,
+   "binned": [
+    2,
+    4
+   ],
+   "stale": {
+    "2": 0,
+    "4": 0
+   },
+   "stale_grid": {
+    "2": -1,
+    "4": -1
+   }
+  }
+ ],
+ "summary": {
+  "goals": "9/16",
+  "route_s": 547.4,
+  "loc_err_max_m": 0.13,
+  "err_mean_m": 0.089,
+  "toys": 6,
+  "overrun": 0,
+  "overrun_on": 0,
+  "moved": 0,
+  "marked_after_route": 3,
+  "false_marks_max": 124,
+  "in_bin": 6,
+  "tidy_legs": 4,
+  "stale_marks": 0,
+  "binned_checked": 6,
+  "stale_grid_marks": 0
+ }
+}

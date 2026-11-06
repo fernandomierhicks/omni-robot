@@ -20,6 +20,20 @@ Limits below are (est) until the bench shows what the parts can do (`results.LIM
 | 6 | **LiDAR timing** | a spin with changing rate (as 4) | `temporal.time_offset` of scan-matched yaw rates against the gyro → `scan_prep latency`; `ScanClock` on the driver's stamps | offset σ < 1 ms; ScanClock's jitter |
 | 7 | **Sensors on base_link** | drive 10 short legs with turns in a mapped room | `extrinsics.hand_eye_se2` (lidar moves from scan matching vs wheel odometry) | residual < 1 cm, yaw mismatch < 1°; the IMU's level is the console's Calibrate › IMU level |
 | 8 | **Dock tag ↔ contacts** | dock 8 times (each: the contacts close, the camera sees the tag) | `extrinsics.dock_tag` | spread < 5 mm, < 1°; the result is `tag_slam`'s `dock_tag_to_contacts` |
+| 9 | **SO-101 ↔ D435** (arm robot) | a printed 40 mm cube with tag36h11 30 mm on three faces (`arm_calib.held_cube`), keyed to the gripper if possible; 60+ still arm poses in the D435 colour image, each approached from the same side | `arm_calib.calibrate_arm`: joint zeros (lift, elbow, wrist; + roll with a keyed block), each link's pose, sag past the encoders (with a gravity model), the camera on the arm and the block in the gripper, all at once on corner reprojection, held near the drawing by priors | rms < 1 px; **`tool_sigma_mm` < 1** (the fit's own uncertainty of the tool at the tidy's floor grasps, in the camera's frame); `apply_to_config` writes a robot_arm json `omni_arm` uses as it is (`config:=<path>`) |
+
+**Item 9, what the views can and can't pin** (synthetic and sim: `test/test_arm_calib.py`,
+`simulation/v11 sil/studies/arm_calib.py`):
+- **Seen only together:** pan's zero and the camera turned about the pan axis; roll's zero and the block turned about
+  the roll axis. The calibration places the tool relative to the camera (what a pick uses), not the arm's heading on
+  base_link (the lidar's job). So the solver leaves the pan zero at the drawing, and the roll zero too unless the block
+  is keyed.
+- **Effective zeros:** the lift, elbow and wrist zeros trade exactly against a link shifted across the arm, so their
+  numbers are effective zeros in the drawing's links; judge the fit by `tool_sigma_mm` and a floor touch test.
+- **A gripped block** leaves the fingers' place past the wrist at the drawing (tool sigma ~2 mm). A block keyed to the
+  gripper's faces pins it (~0.3 mm).
+- **Not covered:** the base's creep between the look and the grasp, depth error, servo droop and deadband (settle and
+  correct on the measured angle first), encoder nonlinearity.
 
 **Validation in use** (not a calibration step, but what keeps the results honest): the tag graph's corner residuals
 (`/localization/health`, `tag_rms_px`), the online camera-rotation refinement (`omni_slam.graph`, below) and its

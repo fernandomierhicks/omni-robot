@@ -1,8 +1,9 @@
 # The arm robot's RealSense D435 on the real robot (design.md 4.11, proposed): realsense2_camera's parameters, set
 # so it publishes what the sim's bridge publishes with arm_camera:=d435 (omni_sim bridge_node ArmSide):
-#   /d435/depth/image_rect_raw  16UC1 mm, 480 x 270  -> omni_arm's arm_node (config:=d435), the tidy's looks
+#   /d435/depth/image_rect_raw  16UC1 mm, 480 x 270  -> omni_arm's arm_node (config:=d435), the tidy's looks, and
+#                               with depth_layer:=floor (proposed) omni_arm's floor_obstacles (stack.FLOOR_LAYER)
 #   /d435/depth/camera_info
-#   /d435/depth/color/points    PointCloud2, the depth decimated 4 x -> Nav2's depth layer (stack.DEPTH_LAYER)
+#   /d435/depth/color/points    PointCloud2 -> Nav2's depth layer with depth_layer:=raw (the default, stack.RAW_LAYER)
 # Launch: ros2 launch realsense2_camera rs_launch.py camera_namespace:="" camera_name:=d435 \
 #           config_file:=$(ros2 pkg prefix omni_bringup)/share/omni_bringup/config/d435.yaml
 # base_link -> d435_link comes from robot_arm_d435.json's frames (simulation/v11 sil/robot_export.py); the driver adds
@@ -24,7 +25,8 @@ d435:
     pointcloud.stream_filter: 0              # no texture: xyz only
     # VERIFY: the driver's filters act on the depth frame itself, so this may shrink image_rect_raw to 120 x 68 too
     # (the sim keeps it 480 x 270 for the tidy). If so: the filter off here and the cloud decimated by a small node
-    # (omni_arm.floor_vision.cloud_points, what the sim uses) or depth_image_proc
+    # (omni_arm.floor_vision.cloud_points, what the sim uses) or depth_image_proc. depth_layer:=floor needs the full
+    # 480 x 270 (at 2 x fewer pixels floor_obstacles already loses a 15 mm brick)
     decimation_filter.enable: true
     decimation_filter.filter_magnitude: 4
     align_depth.enable: false

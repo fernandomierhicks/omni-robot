@@ -32,12 +32,12 @@ $script:Busy = $false           # a poll is running (a slow answer never stacks 
 $script:Quiet = $false          # the controls are being set from the settings (no events)
 
 # -- the settings (remembered) ----------------------------------------------------------------------------------
-$S = @{ robot = "catch"; map = "house"; kid = $false; person = $false; thrower = $true; terrain = $true
+$S = @{ robot = "catch"; map = "house"; kid = $false; person = $false; thrower = $true; terrain = $true; props = $false
         clutter = @{ catch = "off"; arm = "toys" }; view = "follow"; face = @{ size = "normal"; mute = $false; hidden = $false } }
 if (Test-Path $SettingsFile) {
     try {
         $j = Get-Content -Raw $SettingsFile | ConvertFrom-Json
-        foreach ($k in "robot", "map", "kid", "person", "thrower", "terrain", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
+        foreach ($k in "robot", "map", "kid", "person", "thrower", "terrain", "props", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
         if ($j.clutter) { foreach ($k in "catch", "arm") { if ($j.clutter.$k) { $S.clutter[$k] = $j.clutter.$k } } }
         if ($j.face) { foreach ($k in "size", "mute", "hidden") { if ($null -ne $j.face.$k) { $S.face[$k] = $j.face.$k } } }
     } catch { }
@@ -131,7 +131,8 @@ function Step-Id { if ($S.robot -eq "arm") { return "arm" } else { return "robot
 function Step-Args {
     # the step's options (supervisor.SIM_STEPS): always the 3D view, real time (fast), the firmware in the loop
     $a = [ordered]@{ map = $S.map; kid = [bool]$S.kid; person = [bool]$S.person; clutter = (Clutter)
-                     terrain = [bool]$S.terrain; viewer = $true; foxglove = $false; fast = $true; firmware = $true }
+                     terrain = [bool]$S.terrain; props = [bool]$S.props; viewer = $true; foxglove = $false; fast = $true
+                     firmware = $true }
     if ($S.robot -ne "arm") { $a.thrower = [bool]$S.thrower }
     return $a
 }
@@ -271,6 +272,8 @@ $cbKid = Add-Check $p2 "Kid mode" ([bool]$S.kid) "The firmware's kid profile: 0.
 $cbKid.Add_CheckedChanged({ if (-not $script:Quiet) { $S.kid = $cbKid.Checked; Restart-IfRunning "kid mode" } })
 $cbTerrain = Add-Check $p2 "Terrain course" ([bool]$S.terrain) "Square steps and triangular bumps in the kitchen's east end to drive over (design.md 16): from the hallway start, the kitchen is ahead and to the right"
 $cbTerrain.Add_CheckedChanged({ if (-not $script:Quiet) { $S.terrain = $cbTerrain.Checked; Restart-IfRunning "the terrain course" } })
+$cbProps = Add-Check $p2 "Furnished house" ([bool]$S.props) "Furniture, signs (HELLO in the bedroom), pictures, the AprilTags drawn on the walls and a person standing in the office: things for the cameras and the lidar (no physics). The saved map was made without them"
+$cbProps.Add_CheckedChanged({ if (-not $script:Quiet) { $S.props = $cbProps.Checked; Restart-IfRunning "the furnished house" } })
 
 # 3. the world (live)
 $p3 = Add-Group "World (changes live)"

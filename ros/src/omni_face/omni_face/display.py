@@ -632,12 +632,13 @@ class FaceView:
 
 class Link:
     """The face node's stream (JSON lines): the latest face, what to say / play since the last line, whether to
-    listen and for which phrases. send() puts a line back (what was heard)."""
+    listen and for which phrases, which voice preset. send() puts a line back (what was heard)."""
 
     def __init__(self, host, port):
         self.host, self.port = host, port
         self.face, self.t_face = None, 0.0
         self.listen, self.grammar = False, []
+        self.voice = ""                               # the console's voice preset ("": the display's own)
         self.outs: queue.Queue = queue.Queue()
         self.sock = None
         threading.Thread(target=self._run, daemon=True).start()
@@ -661,6 +662,8 @@ class Link:
                                 self.face, self.t_face = m["face"], time.monotonic()
                             if "listen" in m:
                                 self.listen = bool(m["listen"])
+                            if m.get("voice"):
+                                self.voice = str(m["voice"])
                             if "grammar" in m:
                                 self.grammar = list(m["grammar"])
                             for o in m.get("out", []):
@@ -852,7 +855,7 @@ def main():
     ear = None if a.demo else choose_listener(a.listen)
     mic_on = True                                       # L: the microphone off here, whatever the node says
     grammar = None
-    print(f"voice: {voice.name}; listening: {ear.name if ear else 'no'}; the face node at {a.host}:{a.port}"
+    print(f"voice: {voice.name} ({voice.preset}); listening: {ear.name if ear else 'no'}; the face node at {a.host}:{a.port}"
           + (" (demo)" if a.demo else ""))
     clock = pygame.time.Clock()
     t0, t_shot = time.monotonic(), 0.0
@@ -895,6 +898,8 @@ def main():
                 outs.append(link.outs.get())
             if link.connected():
                 st = FaceState(**{k: v for k, v in link.face.items() if k in FaceState.__dataclass_fields__})
+                if voice.set_preset(link.voice):
+                    print(f"voice preset: {voice.preset}")
             else:
                 st = FaceState(connected=False, mood="sleepy")
                 note = sup.text

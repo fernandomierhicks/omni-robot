@@ -141,7 +141,13 @@ def tag_pose(cam: Pinhole, det: TagDetection, gate: TagGate = TagGate()) -> TagP
     R0 = np.column_stack([s * h1, s * h2, np.cross(s * h1, s * h2)])
     U, _, Vt = np.linalg.svd(R0)
     R0 = U @ np.diag([1, 1, np.linalg.det(U @ Vt)]) @ Vt
-    R, t, rms = _refine(cam, obj, uv, R0, s * h3)
+    side = float(np.mean([np.linalg.norm(uv[k] - uv[(k + 1) % 4]) for k in range(4)]))
+    try:
+        R, t, rms = _refine(cam, obj, uv, R0, s * h3)
+    except ValueError:
+        # no pose to start from: a corner behind the camera (a self-crossing quad, as real misreads can be; Nov 4
+        # bench). Refused, never raised: tag_slam takes every detection of a frame in one call
+        return TagPose(R0, s * h3, math.inf, math.inf, side, 90.0, ok=False, reasons=["bad fit"])
     # the mirror solution: the tag tipped the other way about the view ray, refined from there. The homography can
     # start in either basin, so the better of the two is the pose and the other says how ambiguous it is
     v = t / np.linalg.norm(t)
@@ -150,12 +156,14 @@ def tag_pose(cam: Pinhole, det: TagDetection, gate: TagGate = TagGate()) -> TagP
     ax = np.cross(n, n_alt)
     ang = math.atan2(np.linalg.norm(ax), float(n @ n_alt))
     R_flip = rodrigues(ax / max(np.linalg.norm(ax), 1e-12) * ang) @ R if np.linalg.norm(ax) > 1e-9 else R
-    R_alt, t_alt, rms_alt = _refine(cam, obj, uv, R_flip, t)
+    try:
+        R_alt, t_alt, rms_alt = _refine(cam, obj, uv, R_flip, t)
+    except ValueError:                              # the mirror starts behind the camera: there is no second one
+        R_alt, t_alt, rms_alt = R, t, math.inf
     if np.linalg.norm(log_rot(R.T @ R_alt)) < math.radians(2.0):
         rms_alt = math.inf                          # it fell back into the same minimum: there is no second one
     elif rms_alt < rms:
         R, t, rms, R_alt, t_alt, rms_alt = R_alt, t_alt, rms_alt, R, t, rms
-    side = float(np.mean([np.linalg.norm(uv[k] - uv[(k + 1) % 4]) for k in range(4)]))
     angle = math.degrees(math.acos(min(1.0, abs(float(R[:, 2] @ v)))))
     p = TagPose(R, t, rms, rms_alt, side, angle)
     if side < gate.min_side_px:

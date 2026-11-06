@@ -28,6 +28,7 @@ LIMITS = {
     "base_extrinsics": dict(rms_m=0.01, yaw_mismatch_deg=1.0),
     "dock": dict(spread_mm=5.0, spread_deg=1.0),
     "timing": dict(sync_rms_us=50.0),
+    "arm": dict(rms_px=1.0, tool_sigma_mm=1.0),
 }
 
 

@@ -114,6 +114,6 @@ case "$cmd" in
                 catch)     ros2 launch omni_bringup catch.launch.py "$@" ;;
                 catch-score) ros2 launch omni_bringup catch_score.launch.py "$@" ;;
                 help|*)    sed -n '2,13p' "$0"; echo
-                           echo "steps: sim map save-map localize nav robot arm catch | auto-map tour goals score-map catch-score | console stop-console | soak [--hours 2] (with robot running: patrol the house, watch it) | build test py stop status" ;;
+                           echo "steps: sim map save-map localize nav robot arm catch catch-score | auto-map tour goals score-map catch-score | console stop-console | soak [--hours 2] (with robot running: patrol the house, watch it) | build test py stop status" ;;
             esac ;;
 esac

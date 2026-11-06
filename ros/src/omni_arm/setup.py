@@ -23,5 +23,7 @@ setup(
     entry_points={"console_scripts": [
         "arm_node = omni_arm.arm_node:main",
         "arm_brain = omni_arm.arm_brain:main",
+        "floor_obstacles = omni_arm.floor_obstacles_node:main",
+        "height_map = omni_arm.height_map_node:main",
     ]},
 )

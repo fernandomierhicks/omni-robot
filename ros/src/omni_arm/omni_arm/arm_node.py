@@ -4,7 +4,11 @@ Every cycle (rate, 50 Hz): read the six servos (one SYNC_READ), publish the join
 the goals (one SYNC_WRITE): the tidy task, a joint trajectory (the action), a named pose, or holding still.
 
 Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the console's mission node (or by hand):
-                                      tidy {max_objects, radius}   start the tidy task (the mode manager must be in PICK)
+                                      tidy {max_objects, radius, only}   start the tidy task (the mode manager must be
+                                                                    in PICK); only: one object of the last find
+                                      find {id, color, shape, max_range}   the floor's candidates by colour and shape
+                                                                    (color_vision.py): the answer is /arm/state's
+                                                                    "found", the picture /arm/find_image
                                       stop                          stop the task or motion; the arm stows
                                       pose {name: stow | ready | high | drop}   move there
                                       gripper {gap: m}              open / close to a gap
@@ -17,9 +21,13 @@ Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the 
                                     32FC1 (the stereo pair's left camera), or with config:=d435 the RealSense D435's
                                     /d435/depth/image_rect_raw 16UC1 mm (design.md 4.11)
            /arm_cam/image_raw       sensor_msgs/Image rgb8, the wrist camera (+ /arm_cam/camera_info)
+           color_topic              sensor_msgs/Image rgb8 registered to the depth (the same K and pixels), only while a
+                                    find runs: /stereo/left/image_color, or /d435/color/image_raw with config:=d435
 Publishes  /arm/joint_states        sensor_msgs/JointState (rad; effort = load, fraction of the torque limit)
            /arm/state               std_msgs/String JSON at 5 Hz: connected, torque, joints (deg), loads, temperatures,
-                                    volts, out, who drives, the task's status and its last events
+                                    volts, out, who drives, the task's status and its last events, the last find
+           /arm/find_image          sensor_msgs/Image rgb8: the last find's annotated picture, sent again (2 Hz) while
+                                    anyone subscribes (web_video_server's snapshot), for a minute after the find
            /arm/out                 std_msgs/Bool at 10 Hz: the tool is out (the mode manager caps the base)
            /pick/cmd_vel            geometry_msgs/Twist: the task's base command (the mode manager forwards it in PICK)
            /arm/camera_request      std_msgs/String "depth" | "wrist" when the task wants a frame (the sim renders on
@@ -29,7 +37,7 @@ Publishes  /arm/joint_states        sensor_msgs/JointState (rad; effort = load, 
 Action     /arm/follow_joint_trajectory   control_msgs/FollowJointTrajectory (MoveIt's or LeRobot's driver can use it)
 Parameters port (tcp:127.0.0.1:5763 in the sim, /dev/ttyACM0 or the bus board's device on the robot), calibration
            (a LeRobot calibration json; "" = the sim's nominal one), rate, odom_topic, config ("" | d435 | a json path:
-           the robot it runs on), depth_topic, depth_info_topic.
+           the robot it runs on), depth_topic, depth_info_topic, color_topic.
 """
 
 from __future__ import annotations
@@ -53,11 +61,12 @@ from std_msgs.msg import Bool, String
 from tf2_ros import TransformBroadcaster
 
 from omni_arm import motion as mo
+from omni_arm.color_vision import ColorFrame, Finder
 from omni_arm.driver import ArmDriver
 from omni_arm.feetech import Bus, load_calibration
 from omni_arm.floor_vision import DepthFrame, decode_depth
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, q_for_gap, rot_quat as _quat
-from omni_arm.pick import MJ_TO_OPTICAL, Inputs, TidyTask, wrist_frame
+from omni_arm.pick import MJ_TO_OPTICAL, Inputs, TidyTask, camera_view, wrist_frame
 from omni_arm.transport import open_port
 
 LINKS = ("arm_shoulder", "arm_upper_arm", "arm_lower_arm", "arm_wrist", "arm_gripper", "arm_jaw", "tool")
@@ -83,6 +92,9 @@ class ArmNode(Node):
         # beside it ("" = the image topic's namespace + /camera_info)
         depth_topic = P("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth").value
         info_topic = P("depth_info_topic", "").value or depth_topic.rsplit("/", 1)[0] + "/camera_info"
+        # the depth camera's colour, registered to its depth (ai_robot_architecture.md 5.2: find)
+        self.color_topic = P("color_topic", "/d435/color/image_raw" if config == "d435"
+                             else "/stereo/left/image_color").value
         self.kin = ArmKinematics(ArmConfig(config_path(config)))
         self.cfg = self.kin.cfg
         self.cal = load_calibration(cal, self.cfg.joints) if cal else None
@@ -103,12 +115,17 @@ class ArmNode(Node):
         self.traj_goal = None
         self.t_healthy = -math.inf
         self.n_task_ev = 0
+        self.finder = Finder()               # the AI's finds; its floor map keeps the ids for a pick of one
+        self.color = None
+        self.color_sub = None                # only while a find waits for its frames
+        self.n_found, self.t_find_pub, self.t_found = 0, -math.inf, -math.inf
         cb = ReentrantCallbackGroup()
         self.p_js = self.create_publisher(JointState, "/arm/joint_states", 10)
         self.p_state = self.create_publisher(String, "/arm/state", 10)
         self.p_out = self.create_publisher(Bool, "/arm/out", 10)
         self.p_twist = self.create_publisher(Twist, "/pick/cmd_vel", 10)
         self.p_camreq = self.create_publisher(String, "/arm/camera_request", 10)
+        self.p_find = self.create_publisher(Image, "/arm/find_image", 2)
         self.tf = TransformBroadcaster(self)
         self.create_subscription(String, "/arm/request", self.on_request, 10)
         self.create_subscription(Odometry, odom_topic, self.on_odom, 20)
@@ -259,12 +276,61 @@ class ArmNode(Node):
         t = m.header.stamp.sec + m.header.stamp.nanosec * 1e-9
         self.wrist = wrist_frame(self.kin, t, img.copy(), self.K_wrist, self.q_at(t))
 
+    def on_color(self, m: Image):
+        if m.encoding not in ("rgb8", "bgr8"):
+            return
+        img = np.frombuffer(bytes(m.data), np.uint8).reshape(m.height, m.width, 3)
+        self.color = ColorFrame(m.header.stamp.sec + m.header.stamp.nanosec * 1e-9,
+                                (img[..., ::-1] if m.encoding == "bgr8" else img).copy())
+
+    def _find(self, a: dict):
+        """An AI's find: the depth and colour frames are asked for; publish_state answers when they are in."""
+        if self.color_sub is None:
+            self.color_sub = self.create_subscription(Image, self.color_topic, self.on_color, 2)
+        why = self.finder.request(a, self.now())
+        if why:
+            self.event(f"find: {why}")
+            return
+        self.event(f"find: looking for {a.get('color') or 'anything'} {a.get('shape') or ''}".rstrip())
+
+    def _find_step(self):
+        t = self.now()
+        if self.finder.due(t):                   # frames from after the robot settled (the sim renders on request)
+            for kind in ("depth", "color"):
+                self.p_camreq.publish(String(data=kind))
+        if self.finder.req is not None and self.finder.step(t, self.depth, self.color, self.pose):
+            r = self.finder.result
+            self.event(f"find: {r['error']}" if r.get("error") else
+                       f"find: {len(r['candidates'])} candidates, {len(r['image_only'])} image-only")
+            if self.color_sub is not None:
+                self.destroy_subscription(self.color_sub)
+                self.color_sub, self.color = None, None
+            self.t_found, self.t_find_pub = time.monotonic(), -math.inf
+        img = self.finder.image
+        now = time.monotonic()
+        if img is not None and now - self.t_found < 60.0 and now - self.t_find_pub > 0.5 and \
+                (self.p_find.get_subscription_count() > 0 or self.t_find_pub == -math.inf):
+            self.t_find_pub = now
+            self.p_find.publish(self._rgb_msg(img))
+
+    def _rgb_msg(self, img) -> Image:
+        m = Image()
+        m.header.stamp = self.get_clock().now().to_msg()
+        m.header.frame_id = "arm_find"
+        m.height, m.width = img.shape[:2]
+        m.encoding, m.step = "rgb8", img.shape[1] * 3
+        m.data = np.ascontiguousarray(img).tobytes()
+        return m
+
     def on_request(self, m: String):
         try:
             a = json.loads(m.data)
             verb = str(a.get("verb", ""))
         except (ValueError, AttributeError):
             self.get_logger().warn(f"/arm/request: not JSON: {m.data!r}")
+            return
+        if verb == "find":                   # the cameras alone: no servo bus needed
+            self._find(a)
             return
         d = self.driver
         t = self.now()
@@ -281,9 +347,12 @@ class ArmNode(Node):
             self.task = TidyTask(self.kin)
             self.n_task_ev = 0
             self.task.history.append((t, self.pose or (0.0, 0.0, 0.0)))
-            self.task.start(t, int(a.get("max_objects", 0)) or None, float(a.get("radius", 0.0)) or None)
+            only = a.get("only")
+            self.task.start(t, int(a.get("max_objects", 0)) or None, float(a.get("radius", 0.0)) or None,
+                            only=None if only is None else int(only),
+                            fmap=None if only is None else self.finder.map)
             self.tidy_on, self.source = True, "tidy"
-            self.event("tidy: started")
+            self.event("tidy: started" if only is None else f"tidy: started, object {only} only")
         elif verb == "stop":
             if self.tidy_on:
                 self.task.stop(t)           # the task stows (and finishes a drop in progress), then ends
@@ -421,16 +490,17 @@ class ArmNode(Node):
         self.tf.sendTransform(out)
 
     def publish_state(self):
+        self._find_step()
         d = self.driver
         st = d.state if d is not None else None
         s = dict(connected=d is not None, torque=bool(d and d.enabled), source=self.source,
                  port=self.port_spec, tidy=self.task.status() if (self.tidy_on or self.task.state != "IDLE") else None,
-                 tidy_on=self.tidy_on, events=list(self.events))
+                 tidy_on=self.tidy_on, events=list(self.events), found=self.finder.result)
         if st is not None:
             s.update(ok=st.ok, missing=list(st.missing), errors=list(st.errors), joints=[round(math.degrees(v), 1) for v in st.q],
                      loads=[round(float(v), 3) for v in st.load], temps=[int(v) for v in st.temp_c],
                      volts=round(float(st.volts), 1), out=bool(self.kin.tool_out(st.q)),
-                     names=list(self.cfg.joints))
+                     names=list(self.cfg.joints), wrist_cam=camera_view(self.kin, st.q))
         self.p_state.publish(String(data=json.dumps(s)))
 
 

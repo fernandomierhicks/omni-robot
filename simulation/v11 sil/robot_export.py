@@ -144,8 +144,13 @@ V10 = dict(wheel="Printed-140-2x6-36-cad", drive_motor="AK40-10", wheel_base_rad
            # and a smooth roller hull: 14 flats around hammered the floor (wheel loads 0-120 N, base 7% slow at 1 m/s)
            roller_mesh=(13, 64))
 HEAD_LIFT = 0.005                # m: the camera bar and cheeks over the v7 robot's (cad/v9 has 0.013; see above)
+# design.md 4.11 (Nov 4, Fernando): the D435 7.5 deg down, not 30, so it sees the room ahead (wall tags at 0.9-1.3 m,
+# furniture, people) as well as the floor; its depth then sees no floor nearer than ~0.34 m, so the tidy's close look
+# is taken D435_LOOK_BACK short of the sweet spot and the base creeps in (studies/d435_tilt.py: 7.5 cm needed, + 2.5)
+D435_TILT = -7.5
+D435_LOOK_BACK = 0.10
 ARM = dict(ARM_V7, **V10, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
-           d435_box=True, d435_pos=(0.19, 0.0, 0.1115))
+           d435_box=True, d435_pos=(0.19, 0.0, 0.1115), d435_tilt_deg=D435_TILT)
 # cad/v9/out/ARM_KIT.md (the arm robot's CAD estimate, the SO-101 stowed; v10 keeps v9's base) plus the D435's 72 g
 CAD_ARM_MASS_KG = 9.56 + 0.072
 CAD_ARM_CG = (0.0066, 0.0, 0.1264)
@@ -422,6 +427,10 @@ def frames(m, d, p) -> list:
             "RealSense D435 (design.md 4.11): the depth origin (left imager), x along the view")
         add("d435_link", "d435_depth_optical_frame", (0.0, 0.0, 0.0), BODY_TO_OPTICAL,
             "its depth image's optical frame (z forward, x right, y down)")
+        cc = m.camera("d435_color").id                 # (parallel to the depth's: the factory extrinsic replaces it)
+        add("d435_link", "d435_color_optical_frame", R_body.T @ Rb.T @ (d.cam_xpos[cc] - d.cam_xpos[cid]),
+            BODY_TO_OPTICAL, "its colour image's optical frame (the RGB imager, 15 mm left of the depth origin): "
+                             "the wall tags' camera")
     jid = m.joint("tilt").id if any(m.joint(i).name == "tilt" for i in range(m.njnt)) else None
     if jid is not None:
         add("base_link", "module_pivot", Rb.T @ (d.xanchor[jid] - pb), np.eye(3),
@@ -530,13 +539,13 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
                          R=[[float(v) for v in r] for r in d.cam_xmat[c].reshape(3, 3)], fovy_deg=p.camera_fovy_deg,
                          width=1280, height=800, baseline=p.camera_baseline))
     if p.depth_camera == "d435":
-        from robot_model import D435
+        from robot_model import D435, d435_view
         c = m.camera("d435_depth").id
-        w, h = p.d435_wh
+        w, h, fovy, _ = d435_view(p)
         cams.insert(0, dict(name="d435", pos=[float(v) for v in d.cam_xpos[c] - d.xpos[base]],
                             R=[[float(v) for v in r] for r in d.cam_xmat[c].reshape(3, 3)],
-                            fovy_deg=D435["depth_fovy_deg"], width=w, height=h, baseline=D435["baseline"],
-                            min_z=round(D435["min_z_848"] * w / 848, 4), frame="d435_depth_optical_frame",
+                            fovy_deg=fovy, width=w, height=h, baseline=D435["baseline"],
+                            min_z=round(D435["min_z_848"] * max(w, h) / 848, 4), frame="d435_depth_optical_frame",
                             note="RealSense D435 depth (design.md 4.11); min_z scaled from the datasheet's 848 px (VERIFY)"))
     mx, my, _ = p.arm_mount
     mz = A.mount_z(p, g.plate_top)
@@ -573,6 +582,12 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
         corners = c0 + (signs * hs) @ R.T
         keep_out.append(dict(kind="box", min=[float(v) for v in corners.min(axis=0) - 0.005],
                              max=[float(v) for v in corners.max(axis=0) + 0.005], note="the D435 on the deck's nose"))
+    # the depth camera's nearest floor straight ahead (its field's lower edge), + 5 cm for a thing's ring of floor: the
+    # tidy expects to see a known thing only beyond it (and never nearer than the old 0.32 m)
+    c0 = cams[0]
+    fwd = -np.array(c0["R"])[:, 2]
+    low = math.asin(-fwd[2]) + math.radians(c0["fovy_deg"]) / 2
+    floor_near = c0["pos"][0] + (c0["pos"][2] + float(d.xpos[base][2])) / math.tan(low)
     tbl = p.accel_table
     a_ahead = float(tbl[1][0]) if tbl else float(p.base_max_accel)
     return dict(
@@ -603,8 +618,11 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
         ),
         bin=dict(centre=[bx, by, float(g.plate_top)], size=[L, W, H]),
         poses={k: list(v) for k, v in ARM_POSES.items()},
-        reach=dict(sweet=list(ARM_SWEET), note="where the base brings a thing before the reach: the middle of the "
-                                               "fingers-down reach (0.26-0.36 m ahead on the arm kit)"),
+        reach=dict(sweet=list(ARM_SWEET), look_back=D435_LOOK_BACK if p.depth_camera == "d435" else 0.0,
+                   view_near=max(0.32, round(floor_near + 0.05, 3)),
+                   note="sweet: where the base brings a thing before the reach, the middle of the fingers-down reach "
+                        "(0.26-0.36 m ahead on the arm kit); look_back: the close look this far short of it (a depth "
+                        "camera that can't see it), then a creep in; view_near: the depth camera's floor + 5 cm"),
         keep_out=keep_out,
         cameras=cams,
         frames=frames(m, d, p),

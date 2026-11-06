@@ -31,13 +31,18 @@ the bus board's USB port) and renders its cameras on sim time (MuJoCo, EGL in WS
            /stereo/depth (+ /stereo/camera_info)      the left nose camera's depth, 32FC1, as a stereo matcher gives it
                                                       (sil_pick.PickCameras), when /arm/camera_request asks "depth"
            /arm_cam/image_raw (+ /arm_cam/camera_info)  the wrist camera, rgb8: on request ("wrist") and at wrist_hz
-           /sim/objects                               std_msgs/String JSON, 1 Hz: the things' true positions (world) and
-                                                      how many are in the bin, for scoring
+           /stereo/left/image_color                   the depth camera in colour, rgb8, registered to its depth (the same
+                                                      camera_info): on request ("color") and at color_hz (2) while
+                                                      anything subscribes (an AI's find, web_video_server's snapshot)
+           /sim/objects                               std_msgs/String JSON, 1 Hz: the things' true positions (world), their
+                                                      catalog names, which are in the bin and how many, for scoring
 With arm_camera:=d435 (design.md 4.11) the depth comes from the RealSense D435 on the deck's nose instead, under the
 names realsense2_camera gives it on the robot (camera_name d435), at d435_hz (5) and on request:
            /d435/depth/image_rect_raw (+ /d435/depth/camera_info)   16UC1 mm, 480 x 270 (sil_pick.PickCameras' D435 model)
            /d435/depth/color/points                   sensor_msgs/PointCloud2 xyz, the depth decimated 4 x (the driver's
                                                       decimation filter): Nav2's depth layer
+           /d435/color/image_raw                      its colour, rgb8, registered to the depth (as the driver's
+                                                      align_depth would give it): as /stereo/left/image_color
 """
 
 from __future__ import annotations
@@ -137,11 +142,12 @@ class Bridge(Node):
                               timing=P("timing", "ideal").value,    # design.md 10: "real" = drifting MCU clock
                               payload=P("payload", "catch").value,  # design.md 11: "arm" = the arm robot
                               objects=P("objects", "toys").value, n_objects=P("n_objects", 6).value,
-                              arm_camera=P("arm_camera", "stereo").value,   # design.md 4.11: "d435" on the nose
+                              arm_camera=P("arm_camera", "d435").value,     # design.md 4.11: the nose D435 (stereo: earlier runs)
                               # the Launcher's live world (sim_world.py): person, clutter, thrower on and off
                               live_world=P("live_world", False).value, clutter=P("clutter", "off").value,
                               thrower=P("thrower", True).value,
                               terrain=P("terrain", False).value,    # design.md 16: the kitchen's terrain course
+                              props=P("props", False).value,        # the house furnished (house_props.py)
                               **(dict(firmware=True) if sil else {}))
         # design.md 10: the Jetson's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
         # (/sim/sync_edge; mcu_link's sync_source:=topic)
@@ -227,7 +233,8 @@ class Bridge(Node):
         if self.core.bus_sim is not None:
             bind = self.port.bind if self.port else "127.0.0.1"   # the MCU port's: the LAN when side:=sim
             self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value, P("d435_hz", 5.0).value,
-                               bind=bind)
+                               bind=bind, color_hz=P("color_hz", 2.0).value,
+                               d435_noise=P("d435_noise", "realistic").value)    # | ideal: the Nov 4 model
         self.catch = None
         if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
             self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
@@ -248,6 +255,15 @@ class Bridge(Node):
         """The Launcher (sim_world.ControlPort): {"get": 1} or the live world's changes; the reply is the sim's state."""
         w = getattr(self.core, "world", None)
         msg = ""
+        if "toys" in req:                       # {"toys": [[x, y, yaw deg], ...]}: a study's scene (sim_world.place_toys)
+            if w is None:
+                return dict(ok=False, message="this step has no live world (the Robot and Arm robot steps have one)")
+            placed = w.place_toys(req["toys"])
+            obst = w.place_obstacles(req.get("obstacles", []))     # [[k, x, y, yaw], ...]: sim_world.place_obstacles
+            self.get_logger().info(f"world: {sum(placed)} of {len(placed)} toys, {sum(obst)} of {len(obst)} "
+                                   f"obstacles placed")
+            return dict(ok=True, message=f"{sum(placed)} of {len(placed)} toys, {sum(obst)} of {len(obst)} obstacles "
+                        f"placed", placed=placed, placed_obstacles=obst, t=round(self.core.d.time, 1))
         if any(k in req for k in ("person", "clutter", "thrower")):
             if w is None:
                 return dict(ok=False, message="this step has no live world (the Robot and Arm robot steps have one)")
@@ -399,10 +415,14 @@ class Bridge(Node):
         self._frames = {f["child"]: f for f in frames(self.core.m, self.core.d, self.core.p)}
 
     def _tag_sim(self):
-        """design.md 10: AprilTags on the house's walls, seen by the left camera (tag_sim.py) -> /tags/detections."""
+        """design.md 10: AprilTags on the house's walls, seen by the left camera (tag_sim.py) -> /tags/detections; on
+        the D435 arm robot by the D435's colour camera, 1280 x 720 (design.md 4.11: the stereo head looks at the floor)."""
         from tag_sim import TagCamera, TagWorld                      # (it puts omni_slam's source on the path)
         from omni_slam.tags import Pinhole
-        c, f = self._frames["cam_left"], self._frames["cam_left_optical"]
+        d435 = self.core.p.depth_camera == "d435"
+        c, f = (self._frames["d435_link"], self._frames["d435_color_optical_frame"]) if d435 else \
+            (self._frames["cam_left"], self._frames["cam_left_optical"])
+        self.tag_frame = "d435_color_optical_frame" if d435 else "cam_left_optical"
 
         def mat(fr):
             x, y, z, w = fr["quat"]
@@ -412,10 +432,10 @@ class Bridge(Node):
                          [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]]
             M[:3, 3] = fr["xyz"]
             return M
-        cid = self.core.m.camera("stereo_left").id
+        cid = self.core.m.camera("d435_color" if d435 else "stereo_left").id
         self.tag_world = TagWorld(self.core.m, self.core.d)
-        self.tag_cam = TagCamera(self.tag_world, Pinhole.from_fovy(float(self.core.m.cam_fovy[cid])), mat(c) @ mat(f),
-                                 seed=self.cfg.seed)
+        cam = Pinhole.from_fovy(float(self.core.m.cam_fovy[cid]), *((1280, 720) if d435 else (1280, 800)))
+        self.tag_cam = TagCamera(self.tag_world, cam, mat(c) @ mat(f), seed=self.cfg.seed)
         self.p_tags = self.create_publisher(TagDetections, "/tags/detections", 10)
         self.get_logger().info(f"{len(self.tag_world.tags)} AprilTags on the house's walls (/tags/detections, 10 Hz)")
 
@@ -430,7 +450,7 @@ class Bridge(Node):
         T[:3, 3] = d.xpos[b]
         dets = self.tag_cam.observe(d.time, T, float(d.sensor("imu_gyro").data[2]))
         m = TagDetections()
-        m.header.stamp, m.header.frame_id = stamp(d.time), "cam_left_optical"
+        m.header.stamp, m.header.frame_id = stamp(d.time), self.tag_frame
         for k in dets:
             td = TagDetection()
             td.id, td.size, td.margin = int(k.tag_id), float(k.size), float(k.margin)
@@ -696,16 +716,18 @@ class ArmSide:
     """design.md 11: the arm robot's servo bus (arm_bus.ServoPort) and cameras (sil_pick.PickCameras) for the ROS
     side, run once per firmware tick from the bridge's loop."""
 
-    def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1"):
+    def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1",
+                 color_hz: float = 2.0, d435_noise: str = "realistic"):
         from arm_bus import ServoPort
         from sil_pick import PickCameras
         import arm_objects
         self.node, self.core = node, node.core
         c = self.core
         self.objects = arm_objects
+        self.names = [arm_objects.name_of(o) for o in c.p.floor_objects]
         self.port = ServoPort(c.bus_sim, port, log=node.get_logger().info,
                               bind=bind)
-        self.cams = PickCameras(c.m, c.d, c.p, seed=c.cfg.seed)
+        self.cams = PickCameras(c.m, c.d, c.p, seed=c.cfg.seed, noise=d435_noise)   # sil_pick / depth_noise
         self.wrist_dt = 1.0 / wrist_hz if wrist_hz > 0 else math.inf
         self.t_wrist = 0.0
         self.t_obj = 0.0
@@ -721,6 +743,12 @@ class ArmSide:
         self.p_cloud = node.create_publisher(PointCloud2, "/d435/depth/color/points", 2) if self.d435 else None
         self.p_wrist = node.create_publisher(Image, "/arm_cam/image_raw", 2)
         self.p_winfo = node.create_publisher(CameraInfo, "/arm_cam/camera_info", LATCHED)
+        # the depth camera in colour (an AI's find, ai_robot_architecture.md 5.2): rendered on request, and while
+        # anything subscribes at color_hz (a snapshot of a streaming camera)
+        self.p_color = node.create_publisher(Image, "/d435/color/image_raw" if self.d435 else "/stereo/left/image_color",
+                                             2)
+        self.color_dt = 1.0 / color_hz if color_hz > 0 else math.inf
+        self.t_color = -math.inf
         self.p_obj = node.create_publisher(String, "/sim/objects", 5)
         node.create_subscription(String, "/arm/camera_request", lambda m: self.pending.add(m.data), 10)
         self.dinfo = self._info(self.cams.Kd, self.cams.DEPTH_WH, self.dframe)
@@ -783,6 +811,10 @@ class ArmSide:
             self.t_wrist = t
             self.p_wrist.publish(self._image(self.cams.wrist(), "rgb8", "arm_wrist_cam_optical", t))
             self.p_winfo.publish(self.winfo)
+        if "color" in self.pending or (t - self.t_color >= self.color_dt and self.p_color.get_subscription_count() > 0):
+            self.pending.discard("color")
+            self.t_color = t
+            self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
         if t - self.t_obj >= 1.0:
             self.t_obj = t
             self.p_obj.publish(String(data=json.dumps(self.objects_state(t))))
@@ -791,7 +823,9 @@ class ArmSide:
         """The things' true positions (world) and which are in the bin (robot frame, the truth)."""
         c = self.core
         P = self.objects.positions(c.m, c.d)
-        P = P[np.hypot(P[:, 0], P[:, 1]) < 20.0]              # not the ones parked outside (sim_world.World)
+        here = np.hypot(P[:, 0], P[:, 1]) < 20.0
+        names = [n for n, h in zip(self.names, here) if h]
+        P = P[here]                                           # not the ones parked outside (sim_world.World)
         b = c.m.body("base").id
         R, pb = c.d.xmat[b].reshape(3, 3), c.d.xpos[b]
         bx, by, L, W, H = c.p.arm_bin
@@ -801,7 +835,7 @@ class ArmSide:
             x, y, z = R.T @ (q - pb)
             inb.append(bool(abs(x - bx) < L / 2 and abs(y - by) < W / 2 and z > 0.15 + z0))
         return dict(t=round(t, 2), positions=[[round(float(v), 3) for v in q] for q in P], in_bin=inb,
-                    n_in_bin=int(sum(inb)), n=len(P))
+                    n_in_bin=int(sum(inb)), n=len(P), names=names)
 
     def close(self):
         self.port.close()

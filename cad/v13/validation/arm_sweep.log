@@ -1,0 +1,65 @@
+61 legs planned, 4 failed [['grasp 0.36 -0.12 1.57', 'ik'], ['grasp 0.36 -0.12 0.00', 'ik'], ['grasp 0.36 0.12 1.57', 'ik'], ['grasp 0.36 0.12 0.00', 'ik']]
+static surface points 2378413
+  stow-high: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  high-ready: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,-0.12: {'min_mm': 17.1, 'arm_body': 'arm_jaw', 'nearest': 'bumper_q3'}
+  grasp-hover 0.26,-0.12: {'min_mm': 17.1, 'arm_body': 'arm_jaw', 'nearest': 'bumper_q3'}
+  hover-high 0.26,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,+0.00: {'min_mm': 12.2, 'arm_body': 'arm_gripper', 'nearest': 'bumper_q0'}
+  grasp-hover 0.26,+0.00: {'min_mm': 12.2, 'arm_body': 'arm_gripper', 'nearest': 'bumper_q0'}
+  hover-high 0.26,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.26,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,-0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.31,+0.12: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  ready-hover 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-grasp 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  grasp-hover 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  hover-high 0.36,+0.00: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  high-drop: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  drop-high: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+  high-stow: {'min_mm': 18.6, 'arm_body': 'arm_shoulder', 'nearest': 'riser_adapter'}
+{}
+min per leg type: {'drop-high': 18.6, 'high-ready': 18.6, 'stow-high': 18.6, 'hover-grasp': 12.2, 'ready-hover': 18.6, 'high-stow': 18.6, 'hover-high': 18.6, 'high-drop': 18.6, 'grasp-hover': 12.2}

@@ -61,18 +61,20 @@ def _mat_quat(R) -> np.ndarray:
 
 class PickCameras:
     """Renders on request: the left nose camera as a stereo matcher's depth (or the D435's, design.md 4.11), the wrist
-    camera in colour.
+    camera in colour, and the depth camera in colour (color(): the same camera, calibration error and pixels as its
+    depth, as a D435's depth aligned to its colour; ai_robot_architecture.md 5.2).
 
     The D435 (p.depth_camera "d435"): its own matcher on the streamed mode (p.d435_wh, 480 x 270), 49.85 mm baseline,
-    disparity noise 0.1 px (est: Intel's typical subpixel 0.08; the datasheet's <= 2% at 2 m bounds it at ~0.22; set
-    it from characterization/realsense rs_depth_plane.py once run), nothing nearer than its min-Z (the datasheet's
-    0.195 m at 848 px, scaled with the width: 0.11 m at 480; VERIFY) or past 10 m, 2% of pixels unmatched, 1 mm steps
-    (its 16-bit millimetres)."""
+    with depth_noise.d435's errors (noise "realistic", the default since Nov 5: smooth and iid disparity noise, a range
+    scale error, grazing-angle noise and dropout, flying pixels at depth steps, stereo occlusion, IR-dark dropout; all
+    est until rs_depth_plane.py measures the unit) or the Nov 4 model (noise "ideal": iid disparity noise 0.1 px, 2%
+    dropout), nothing nearer than its min-Z (the datasheet's 0.195 m at 848 px, scaled with the width: 0.11 m at 480;
+    VERIFY) or past 10 m, 1 mm steps (its 16-bit millimetres)."""
 
     DEPTH_WH, WRIST_WH = (640, 400), (320, 240)
 
     def __init__(self, m, d, p, seed: int = 0, cam_err_deg: float = 0.3, disp_sigma: float | None = None,
-                 dropout: float | None = None):
+                 dropout: float | None = None, noise: str = "realistic"):
         self.m, self.d, self.p = m, d, p
         self.rng = np.random.default_rng(seed + 31)
         self.mr = mr = copy.deepcopy(m)
@@ -80,7 +82,8 @@ class PickCameras:
         self.d435 = p.depth_camera == "d435"
         self.cl = m.camera("d435_depth" if self.d435 else "stereo_left").id
         if self.d435:
-            self.DEPTH_WH = tuple(p.d435_wh)
+            from robot_model import d435_view
+            self.DEPTH_WH = d435_view(p)[:2]            # portrait (p.d435_roll_deg 90): on its side
         self.cw = m.camera("arm_wrist").id
         # the left camera off its calibration (a small rotation about a random axis)
         ax = self.rng.normal(size=3)
@@ -97,15 +100,31 @@ class PickCameras:
         self.ren_d = mujoco.Renderer(mr, H, W)
         self.ren_d.enable_depth_rendering()
         self.ren_w = mujoco.Renderer(mr, Hw, Ww)
+        self.ren_c = None                               # the depth camera in colour: made on first use
         fy = (H / 2) / math.tan(math.radians(m.cam_fovy[self.cl]) / 2)
         self.Kd = (fy, fy, W / 2, H / 2)
         fyw = (Hw / 2) / math.tan(math.radians(m.cam_fovy[self.cw]) / 2)
         self.Kw = (fyw, fyw, Ww / 2, Hw / 2)
+        self.noise = None                               # depth_noise.D435Noise for the D435
         if self.d435:
+            from dataclasses import replace
+            import depth_noise
             from robot_model import D435
             self.f_match, self.b = fy, D435["baseline"]     # it matches at the mode it streams
-            self.z_min, self.z_max = D435["min_z_848"] * W / 848, 10.0
+            self.z_min, self.z_max = D435["min_z_848"] * max(W, H) / 848, 10.0
             disp_sigma, dropout = 0.1 if disp_sigma is None else disp_sigma, 0.02 if dropout is None else dropout
+            if noise not in ("realistic", "ideal"):
+                raise ValueError(f"noise: realistic or ideal, not {noise!r}")
+            base = depth_noise.D435Noise() if noise == "realistic" else depth_noise.IDEAL
+            self.noise = replace(base, disp_sigma=disp_sigma, dropout=dropout, z_min=self.z_min, z_max=self.z_max)
+            self.scale = self.rng.normal(0.0, self.noise.scale_sd) if self.noise.scale_sd > 0 else 0.0
+            # the dark-surface term: each geom's albedo (its material's colour, else its own), by a segmentation render
+            self.ren_s = None
+            if self.noise.dark_p > 0:
+                self.ren_s = mujoco.Renderer(mr, H, W)
+                self.ren_s.enable_segmentation_rendering()
+                rgba = np.where((mr.geom_matid >= 0)[:, None], mr.mat_rgba[np.maximum(mr.geom_matid, 0)], mr.geom_rgba)
+                self.albedo = np.r_[rgba[:, :3].mean(axis=1), 1.0]     # the last: no geom (background)
         else:
             self.f_match = 2 * fy                       # the matcher runs on the full 1280 x 800 pair
             self.b = p.camera_baseline
@@ -125,13 +144,20 @@ class PickCameras:
         self.ren_d.update_scene(self.dr, camera=self.cl)
         z = self.ren_d.render().astype(np.float64)
         fb = self.f_match * self.b
-        disp = fb / np.maximum(z, 1e-3) + self.rng.normal(0, self.disp_sigma, z.shape)
         if self.d435:
-            z = fb / np.maximum(disp, 1e-3)
-            z = np.where((z >= self.z_min) & (z <= self.z_max), np.round(z * 1000.0) / 1000.0, np.nan)
+            import depth_noise
+            albedo = None
+            if self.ren_s is not None:
+                self.ren_s.update_scene(self.dr, camera=self.cl)
+                seg = self.ren_s.render()
+                gid = np.where((seg[..., 1] == mujoco.mjtObj.mjOBJ_GEOM) & (seg[..., 0] >= 0), seg[..., 0], -1)
+                albedo = self.albedo[gid]
+            z = depth_noise.d435(z, self.Kd, self.f_match, self.b, self.rng, self.noise, albedo, self.scale,
+                                 portrait=self.DEPTH_WH[0] < self.DEPTH_WH[1])
         else:
+            disp = fb / np.maximum(z, 1e-3) + self.rng.normal(0, self.disp_sigma, z.shape)
             z = np.where(disp > 2.0, fb / np.maximum(disp, 1e-3), np.nan)
-        z[self.rng.random(z.shape) < self.dropout] = np.nan
+            z[self.rng.random(z.shape) < self.dropout] = np.nan
         self.n_depth += 1
         self.ms.append(1000 * (time.perf_counter() - w0))
         return z.astype(np.float32)
@@ -146,19 +172,36 @@ class PickCameras:
         self.ms.append(1000 * (time.perf_counter() - w0))
         return np.clip(img, 0, 255).astype(np.uint8)
 
+    def color(self) -> np.ndarray:
+        """The depth camera's view in colour (rgb8 at DEPTH_WH, 2 levels of noise): pixel for pixel its depth's."""
+        w0 = time.perf_counter()
+        if self.ren_c is None:
+            W, H = self.DEPTH_WH
+            self.ren_c = mujoco.Renderer(self.mr, H, W)
+        self._sync()
+        self.ren_c.update_scene(self.dr, camera=self.cl)
+        img = self.ren_c.render().astype(np.float32)
+        img += self.rng.normal(0, 2.0, img.shape)
+        self.ms.append(1000 * (time.perf_counter() - w0))
+        return np.clip(img, 0, 255).astype(np.uint8)
+
     def close(self):
         self.ren_d.close()
         self.ren_w.close()
+        if getattr(self, "ren_s", None) is not None:
+            self.ren_s.close()
+        if self.ren_c is not None:
+            self.ren_c.close()
 
 
 class SilPick:
     def __init__(self, n: int = 4, objects: str = "toys", seed: int = 0, cam_err_deg: float = 0.3,
                  joint_err_deg: float = 1.0, verbose: bool = False, params: PickParams | None = None,
-                 spread: float = 1.2, world: str = "arena", **param_kw):
+                 spread: float = 1.2, world: str = "arena", arm_config: str | None = None, **param_kw):
         self.verbose = verbose
         names = list(arm_objects.SETS[objects]) * 3
         rng = np.random.default_rng(seed)
-        names = [names[k] for k in rng.permutation(len(names))[:n]]
+        names = names[:n] if objects in arm_objects.EXACT else [names[k] for k in rng.permutation(len(names))[:n]]
         if world == "house":
             # the ROS bridge's arm world (bridge_core.ARM_AREA): the v7 house, the robot at its start facing +x, the
             # things in the hallway and the living room ahead (rugs, a runner, the floors' edges)
@@ -189,8 +232,9 @@ class SilPick:
         self.names = names
         self.link = SimLink(r, seed=seed)
         self.bus_sim = ServoBusSim(r.arm, joint_err_deg=joint_err_deg, seed=seed)
-        # the robot's own config for its depth camera (robot_export: robot_arm.json, or robot_arm_d435.json)
-        self.kin = ArmKinematics(ArmConfig(config_path("d435" if p.depth_camera == "d435" else "")))
+        # the robot's own config for its depth camera (robot_export: robot_arm.json, or robot_arm_d435.json; a study's
+        # arm_config for a camera elsewhere, robot_export.arm_json of its params)
+        self.kin = ArmKinematics(ArmConfig(arm_config or config_path("d435" if p.depth_camera == "d435" else "")))
         self.driver = ArmDriver(Bus(self.bus_sim, timeout=0.0, clock=lambda: 0.0), self.kin.cfg)
         self.cams = PickCameras(self.m, self.d, p, seed=seed, cam_err_deg=cam_err_deg)
         self.task = TidyTask(self.kin, params, log=self._log)
@@ -297,8 +341,9 @@ def main():
     ap.add_argument("--view", action="store_true")
     ap.add_argument("--t-max", type=float, default=400.0)
     ap.add_argument("--world", default="arena", choices=("arena", "house"))
-    ap.add_argument("--camera", default="stereo", choices=("stereo", "d435"),
-                    help="the depth camera: the head's stereo pair, or the RealSense D435 on the nose (design.md 4.11)")
+    ap.add_argument("--camera", default="d435", choices=("stereo", "d435"),
+                    help="the depth camera: the RealSense D435 on the nose (the arm robot's, design.md 4.11), or the "
+                         "head's stereo pair (the parked catch robot's; earlier arm results)")
     a = ap.parse_args()
     kw = dict(depth_camera="d435") if a.camera == "d435" else {}
     g = SilPick(a.n, a.set, a.seed, verbose=True, world=a.world, **kw)

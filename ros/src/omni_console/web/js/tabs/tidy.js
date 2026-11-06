@@ -10,7 +10,7 @@ import { streamUrl } from "./vision.js";
 const WRIST = "/arm_cam/image_raw";
 const STATES = {
   STOW: "folding the arm", LOOK: "looking at the floor", TURN: "turning to look", APPROACH: "driving to it",
-  CHECK: "a closer look", HOVER: "over it", REFINE: "wrist camera look", DESCEND: "reaching down",
+  CHECK: "a closer look", CREEP: "edging in", HOVER: "over it", REFINE: "wrist camera look", DESCEND: "reaching down",
   CLOSE: "closing the gripper", LIFT: "lifting", TO_BIN: "to the bin", RELEASE: "dropping it in", DONE: "done",
   IDLE: "idle",
 };
@@ -30,7 +30,7 @@ export function TidyTab() {
   return html`<div class="cols">
     <div class="side">
       <${HelpBox} tab="tidy">
-        The arm robot tidies up: it looks at the floor with its stereo cameras, drives to each small thing it sees,
+        The arm robot tidies up: it looks at the floor with its depth camera (the RealSense on its nose), drives to each small thing it sees,
         picks it up (a last look through the wrist camera first) and drops it in the bin on its back.
         <ol>
           <li>Clear a path: the tidy drives straight to each thing, slowly, and stops on its bumper (no Nav2 yet).</li>

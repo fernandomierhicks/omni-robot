@@ -1,6 +1,8 @@
 # The operator console's one command (omni_console): a verb and its JSON arguments, a JSON reply. New robot features
 # add verbs (omni_console/missions.py VERBS), not new service types.
-string verb                   # ping, schema, stop, mission, goto, cancel, set, place_save, place_delete
+# An AI client (ros/tools/omni_mcp) adds its session as args "ai" and has its own verbs: ai_lease, move, find, pick,
+# task, look (ai_robot_architecture.md 3.2).
+string verb                   # ping, schema, stop, mission, goto, cancel, set, place_save, place_delete, ...
 string args                   # JSON object ("" = {})
 ---
 bool ok

@@ -1,0 +1,6899 @@
+{
+ "poses": 2432,
+ "rows": [
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1985,
+     0.0175,
+     0.1014
+    ],
+    "pitch_deg": 35.91,
+    "depth_floor_near": 0.246,
+    "depth_top_deg": -6.9,
+    "rgb_floor_near": 0.265,
+    "rgb_top_deg": -14.9
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": null,
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -35.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1987,
+     0.0175,
+     0.1017
+    ],
+    "pitch_deg": 33.41,
+    "depth_floor_near": 0.252,
+    "depth_top_deg": -4.4,
+    "rgb_floor_near": 0.271,
+    "rgb_top_deg": -12.4
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": null,
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -32.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1989,
+     0.0175,
+     0.102
+    ],
+    "pitch_deg": 30.91,
+    "depth_floor_near": 0.258,
+    "depth_top_deg": -1.9,
+    "rgb_floor_near": 0.279,
+    "rgb_top_deg": -9.9
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": null,
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -30.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.199,
+     0.0175,
+     0.1023
+    ],
+    "pitch_deg": 28.41,
+    "depth_floor_near": 0.264,
+    "depth_top_deg": 0.6,
+    "rgb_floor_near": 0.287,
+    "rgb_top_deg": -7.4
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": null,
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -27.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1992,
+     0.0175,
+     0.1027
+    ],
+    "pitch_deg": 25.91,
+    "depth_floor_near": 0.271,
+    "depth_top_deg": 3.1,
+    "rgb_floor_near": 0.295,
+    "rgb_top_deg": -4.9
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.002,
+     "mean": 0.0
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": null,
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -25.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1994,
+     0.0175,
+     0.103
+    ],
+    "pitch_deg": 23.41,
+    "depth_floor_near": 0.279,
+    "depth_top_deg": 5.6,
+    "rgb_floor_near": 0.304,
+    "rgb_top_deg": -2.4
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.469,
+     "mean": 0.75
+    },
+    "ir@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     2.83,
+     4.72
+    ],
+    "ir@0.6": null,
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -22.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    }
+   ],
+   "standoff": 0.025,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1995,
+     0.0175,
+     0.1033
+    ],
+    "pitch_deg": 20.91,
+    "depth_floor_near": 0.286,
+    "depth_top_deg": 8.1,
+    "rgb_floor_near": 0.315,
+    "rgb_top_deg": 0.1
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.605,
+     "mean": 0.95
+    },
+    "ir@0.6": {
+     "any": 0.249,
+     "mean": 0.38
+    },
+    "ir@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     1.95,
+     4.72
+    ],
+    "ir@0.6": [
+     4.06,
+     4.72
+    ],
+    "ir@0.9": null,
+    "ir@1.3": null,
+    "rgb@0.3": null,
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -20.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.05,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1996,
+     0.0175,
+     0.1037
+    ],
+    "pitch_deg": 18.41,
+    "depth_floor_near": 0.295,
+    "depth_top_deg": 10.6,
+    "rgb_floor_near": 0.326,
+    "rgb_top_deg": 2.6
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.665,
+     "mean": 1.04
+    },
+    "ir@0.6": {
+     "any": 0.432,
+     "mean": 0.67
+    },
+    "ir@0.9": {
+     "any": 0.107,
+     "mean": 0.16
+    },
+    "ir@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.001,
+     "mean": 0.0
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     1.48,
+     4.72
+    ],
+    "ir@0.6": [
+     3.08,
+     4.72
+    ],
+    "ir@0.9": [
+     4.69,
+     4.72
+    ],
+    "ir@1.3": null,
+    "rgb@0.3": [
+     6.1,
+     6.82
+    ],
+    "rgb@0.6": null,
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -17.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.05,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1997,
+     0.0175,
+     0.104
+    ],
+    "pitch_deg": 15.91,
+    "depth_floor_near": 0.304,
+    "depth_top_deg": 13.1,
+    "rgb_floor_near": 0.338,
+    "rgb_top_deg": 5.1
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.716,
+     "mean": 1.12
+    },
+    "ir@0.6": {
+     "any": 0.513,
+     "mean": 0.79
+    },
+    "ir@0.9": {
+     "any": 0.282,
+     "mean": 0.4
+    },
+    "ir@1.3": {
+     "any": 0.001,
+     "mean": 0.0
+    },
+    "rgb@0.3": {
+     "any": 0.525,
+     "mean": 0.83
+    },
+    "rgb@0.6": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     1.19,
+     4.72
+    ],
+    "ir@0.6": [
+     2.48,
+     4.72
+    ],
+    "ir@0.9": [
+     3.77,
+     4.72
+    ],
+    "ir@1.3": null,
+    "rgb@0.3": [
+     3.1,
+     6.82
+    ],
+    "rgb@0.6": [
+     6.46,
+     6.82
+    ],
+    "rgb@0.9": null,
+    "rgb@1.3": null
+   },
+   "tilt": -15.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.05,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1998,
+     0.0175,
+     0.1044
+    ],
+    "pitch_deg": 13.41,
+    "depth_floor_near": 0.314,
+    "depth_top_deg": 15.6,
+    "rgb_floor_near": 0.352,
+    "rgb_top_deg": 7.6
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.734,
+     "mean": 1.13
+    },
+    "ir@0.6": {
+     "any": 0.577,
+     "mean": 0.91
+    },
+    "ir@0.9": {
+     "any": 0.405,
+     "mean": 0.61
+    },
+    "ir@1.3": {
+     "any": 0.122,
+     "mean": 0.17
+    },
+    "rgb@0.3": {
+     "any": 0.652,
+     "mean": 1.06
+    },
+    "rgb@0.6": {
+     "any": 0.331,
+     "mean": 0.49
+    },
+    "rgb@0.9": {
+     "any": 0.0,
+     "mean": 0.0
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.99,
+     4.72
+    ],
+    "ir@0.6": [
+     2.06,
+     4.72
+    ],
+    "ir@0.9": [
+     3.14,
+     4.72
+    ],
+    "ir@1.3": [
+     4.57,
+     4.72
+    ],
+    "rgb@0.3": [
+     2.07,
+     6.82
+    ],
+    "rgb@0.6": [
+     4.32,
+     6.82
+    ],
+    "rgb@0.9": [
+     6.57,
+     6.82
+    ],
+    "rgb@1.3": null
+   },
+   "tilt": -12.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.075,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.1999,
+     0.0175,
+     0.1047
+    ],
+    "pitch_deg": 10.91,
+    "depth_floor_near": 0.325,
+    "depth_top_deg": 18.1,
+    "rgb_floor_near": 0.368,
+    "rgb_top_deg": 10.1
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.752,
+     "mean": 1.15
+    },
+    "ir@0.6": {
+     "any": 0.611,
+     "mean": 0.96
+    },
+    "ir@0.9": {
+     "any": 0.482,
+     "mean": 0.74
+    },
+    "ir@1.3": {
+     "any": 0.243,
+     "mean": 0.35
+    },
+    "rgb@0.3": {
+     "any": 0.712,
+     "mean": 1.15
+    },
+    "rgb@0.6": {
+     "any": 0.502,
+     "mean": 0.79
+    },
+    "rgb@0.9": {
+     "any": 0.224,
+     "mean": 0.32
+    },
+    "rgb@1.3": {
+     "any": 0.0,
+     "mean": 0.0
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.84,
+     4.72
+    ],
+    "ir@0.6": [
+     1.76,
+     4.72
+    ],
+    "ir@0.9": [
+     2.68,
+     4.72
+    ],
+    "ir@1.3": [
+     3.9,
+     4.72
+    ],
+    "rgb@0.3": [
+     1.55,
+     6.82
+    ],
+    "rgb@0.6": [
+     3.23,
+     6.82
+    ],
+    "rgb@0.9": [
+     4.92,
+     6.82
+    ],
+    "rgb@1.3": null
+   },
+   "tilt": -10.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.075,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.2,
+     0.0175,
+     0.1051
+    ],
+    "pitch_deg": 8.41,
+    "depth_floor_near": 0.337,
+    "depth_top_deg": 20.6,
+    "rgb_floor_near": 0.386,
+    "rgb_top_deg": 12.6
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.761,
+     "mean": 1.13
+    },
+    "ir@0.6": {
+     "any": 0.653,
+     "mean": 1.02
+    },
+    "ir@0.9": {
+     "any": 0.517,
+     "mean": 0.8
+    },
+    "ir@1.3": {
+     "any": 0.34,
+     "mean": 0.5
+    },
+    "rgb@0.3": {
+     "any": 0.756,
+     "mean": 1.21
+    },
+    "rgb@0.6": {
+     "any": 0.593,
+     "mean": 0.96
+    },
+    "rgb@0.9": {
+     "any": 0.403,
+     "mean": 0.61
+    },
+    "rgb@1.3": {
+     "any": 0.08,
+     "mean": 0.1
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.73,
+     4.72
+    ],
+    "ir@0.6": [
+     1.53,
+     4.72
+    ],
+    "ir@0.9": [
+     2.33,
+     4.72
+    ],
+    "ir@1.3": [
+     3.39,
+     4.72
+    ],
+    "rgb@0.3": [
+     1.23,
+     6.82
+    ],
+    "rgb@0.6": [
+     2.57,
+     6.82
+    ],
+    "rgb@0.9": [
+     3.92,
+     6.82
+    ],
+    "rgb@1.3": [
+     5.71,
+     6.82
+    ]
+   },
+   "tilt": -7.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.1,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.2,
+     0.0175,
+     0.1054
+    ],
+    "pitch_deg": 5.91,
+    "depth_floor_near": 0.351,
+    "depth_top_deg": 23.1,
+    "rgb_floor_near": 0.408,
+    "rgb_top_deg": 15.1
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.76,
+     "mean": 1.12
+    },
+    "ir@0.6": {
+     "any": 0.663,
+     "mean": 1.0
+    },
+    "ir@0.9": {
+     "any": 0.563,
+     "mean": 0.88
+    },
+    "ir@1.3": {
+     "any": 0.405,
+     "mean": 0.61
+    },
+    "rgb@0.3": {
+     "any": 0.771,
+     "mean": 1.23
+    },
+    "rgb@0.6": {
+     "any": 0.644,
+     "mean": 1.04
+    },
+    "rgb@0.9": {
+     "any": 0.5,
+     "mean": 0.78
+    },
+    "rgb@1.3": {
+     "any": 0.259,
+     "mean": 0.37
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.64,
+     4.72
+    ],
+    "ir@0.6": [
+     1.35,
+     4.72
+    ],
+    "ir@0.9": [
+     2.05,
+     4.72
+    ],
+    "ir@1.3": [
+     2.99,
+     4.72
+    ],
+    "rgb@0.3": [
+     1.02,
+     6.82
+    ],
+    "rgb@0.6": [
+     2.13,
+     6.82
+    ],
+    "rgb@0.9": [
+     3.24,
+     6.82
+    ],
+    "rgb@1.3": [
+     4.73,
+     6.82
+    ]
+   },
+   "tilt": -5.0
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.1,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.2,
+     0.0175,
+     0.1058
+    ],
+    "pitch_deg": 3.41,
+    "depth_floor_near": 0.367,
+    "depth_top_deg": 25.6,
+    "rgb_floor_near": 0.433,
+    "rgb_top_deg": 17.6
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.764,
+     "mean": 1.13
+    },
+    "ir@0.6": {
+     "any": 0.695,
+     "mean": 1.04
+    },
+    "ir@0.9": {
+     "any": 0.581,
+     "mean": 0.88
+    },
+    "ir@1.3": {
+     "any": 0.449,
+     "mean": 0.66
+    },
+    "rgb@0.3": {
+     "any": 0.78,
+     "mean": 1.24
+    },
+    "rgb@0.6": {
+     "any": 0.677,
+     "mean": 1.1
+    },
+    "rgb@0.9": {
+     "any": 0.562,
+     "mean": 0.9
+    },
+    "rgb@1.3": {
+     "any": 0.387,
+     "mean": 0.58
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.57,
+     4.72
+    ],
+    "ir@0.6": [
+     1.2,
+     4.72
+    ],
+    "ir@0.9": [
+     1.83,
+     4.72
+    ],
+    "ir@1.3": [
+     2.66,
+     4.72
+    ],
+    "rgb@0.3": [
+     0.86,
+     6.82
+    ],
+    "rgb@0.6": [
+     1.81,
+     6.82
+    ],
+    "rgb@0.9": [
+     2.76,
+     6.82
+    ],
+    "rgb@1.3": [
+     4.02,
+     6.82
+    ]
+   },
+   "tilt": -2.5
+  },
+  {
+   "close": [
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube30",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.285,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.335,
+     "y": 0.0,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": 0.025,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.31,
+     "y": -0.025,
+     "found": false
+    }
+   ],
+   "standoff": 0.125,
+   "far": [
+    {
+     "thing": "cube30",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube30",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cube40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cube40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "brick",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "brick",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "crayon",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "crayon",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "marker",
+     "x": 1.0,
+     "y": 0.25,
+     "found": false
+    },
+    {
+     "thing": "marker",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "ball40",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "ball40",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "cap",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "cap",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    },
+    {
+     "thing": "block",
+     "x": 0.6,
+     "y": 0.0,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.0,
+     "y": 0.25,
+     "found": true
+    },
+    {
+     "thing": "block",
+     "x": 1.5,
+     "y": -0.3,
+     "found": false
+    }
+   ],
+   "field": {
+    "cam_xyz": [
+     0.2,
+     0.0175,
+     0.1061
+    ],
+    "pitch_deg": 0.91,
+    "depth_floor_near": 0.385,
+    "depth_top_deg": 28.1,
+    "rgb_floor_near": 0.464,
+    "rgb_top_deg": 20.1
+   },
+   "tags": {
+    "ir@0.3": {
+     "any": 0.766,
+     "mean": 1.13
+    },
+    "ir@0.6": {
+     "any": 0.705,
+     "mean": 1.06
+    },
+    "ir@0.9": {
+     "any": 0.616,
+     "mean": 0.94
+    },
+    "ir@1.3": {
+     "any": 0.489,
+     "mean": 0.73
+    },
+    "rgb@0.3": {
+     "any": 0.8,
+     "mean": 1.26
+    },
+    "rgb@0.6": {
+     "any": 0.706,
+     "mean": 1.14
+    },
+    "rgb@0.9": {
+     "any": 0.604,
+     "mean": 0.98
+    },
+    "rgb@1.3": {
+     "any": 0.464,
+     "mean": 0.71
+    }
+   },
+   "ahead": {
+    "ir@0.3": [
+     0.51,
+     4.72
+    ],
+    "ir@0.6": [
+     1.08,
+     4.72
+    ],
+    "ir@0.9": [
+     1.64,
+     4.72
+    ],
+    "ir@1.3": [
+     2.39,
+     4.72
+    ],
+    "rgb@0.3": [
+     0.75,
+     6.82
+    ],
+    "rgb@0.6": [
+     1.57,
+     6.82
+    ],
+    "rgb@0.9": [
+     2.39,
+     6.82
+    ],
+    "rgb@1.3": [
+     3.48,
+     6.82
+    ]
+   },
+   "tilt": 0.0
+  }
+ ]
+}

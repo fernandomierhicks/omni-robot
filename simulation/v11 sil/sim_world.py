@@ -99,6 +99,64 @@ class World:
         return dict(person=self.person, clutter=self.clutter, thrower=self.thrower, obstacles=len(self.placed),
                     toys=len(self.toys))
 
+    def place_toys(self, spots) -> list:
+        """The toys at chosen spots (a study's scene: ros/tools/toy_route.py): toy k at spots[k] = (x, y, yaw deg),
+        world, resting on the floor or a rug; the toys past the list parked. Per spot True, or False where furniture,
+        a wall or the robot is (that toy parked)."""
+        mujoco.mj_fwdPosition(self.m, self.d)
+        gid = np.array([-1], dtype=np.int32)
+        ok = []
+        for k in range(len(self.toys)):
+            if k >= len(spots):
+                self._park(k)
+                continue
+            x, y, yaw = (float(v) for v in spots[k])
+            hit = mujoco.mj_ray(self.m, self.d, np.array([x, y, 2.0]), np.array([0.0, 0.0, -1.0]), None, 1, -1, gid)
+            ground = 2.0 - hit if hit >= 0 else 0.0
+            if ground > 0.03:
+                self._park(k)
+                ok.append(False)
+                continue
+            self._put(k, x, y, ground + arm_objects.height(self.toys[k]) / 2 + 0.003, yaw)
+            mujoco.mj_fwdPosition(self.m, self.d)
+            if self._touching(k):
+                self._park(k)
+                ok.append(False)
+            else:
+                ok.append(True)
+        mujoco.mj_fwdPosition(self.m, self.d)
+        self.clutter = "toys"
+        return ok
+
+    def place_obstacles(self, spots) -> list:
+        """Larger things at chosen spots (a study's scene): spots[i] = (k, x, y, yaw deg), k an index into
+        arm_objects.SETS["obstacles"] (3 and 4 are the shoes, under the lidar's plane). The others stay parked. Per
+        spot True, or False where it can't rest (that one parked)."""
+        first = len(self.toys)
+        for k in range(first, len(self.objs)):
+            self._park(k)
+        mujoco.mj_fwdPosition(self.m, self.d)
+        gid = np.array([-1], dtype=np.int32)
+        ok, self.placed = [], []
+        for k, x, y, yaw in spots:
+            o = first + int(k)
+            hit = mujoco.mj_ray(self.m, self.d, np.array([float(x), float(y), 2.0]), np.array([0.0, 0.0, -1.0]),
+                                None, 1, -1, gid)
+            ground = 2.0 - hit if hit >= 0 else 0.0
+            if ground > 0.03:
+                ok.append(False)
+                continue
+            self._put(o, float(x), float(y), ground + arm_objects.height(self.objs[o]) / 2 + 0.003, float(yaw))
+            mujoco.mj_fwdPosition(self.m, self.d)
+            if self._touching(o):
+                self._park(o)
+                ok.append(False)
+            else:
+                ok.append(True)
+                self.placed.append(o)
+        mujoco.mj_fwdPosition(self.m, self.d)
+        return ok
+
     # -- the things --------------------------------------------------------------------------------------------------
     def _put(self, k: int, x: float, y: float, z: float, yaw_deg: float, live: bool = True):
         """Object k at (x, y, z) turned yaw; live: it touches things and has weight, else it floats there touching

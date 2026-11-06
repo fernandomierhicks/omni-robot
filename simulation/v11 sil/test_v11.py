@@ -1389,6 +1389,51 @@ def test_a_walking_person_is_seen_by_the_lidar_as_legs():
     assert people and abs(math.hypot(*people[0]) - 1.6) < 0.25 and abs(people[0][1]) < 0.3
 
 
+def _d435_scene():
+    W, H = 480, 270
+    fy = (H / 2) / math.tan(math.radians(58.0) / 2)
+    return W, H, (fy, fy, W / 2, H / 2), fy, 0.04985
+
+
+def test_d435_depth_noise_grows_with_range_squared_and_drops_grazing_floor():
+    """depth_noise.d435 (design.md 4.11): the axial noise of a wall follows sigma_d z^2 / (f b); a floor seen from the
+    nose (0.11 m, 7.5 deg down) loses more pixels the more edge-on it is; the ideal model (Nov 4) doesn't."""
+    import depth_noise as dn
+    W, H, K, fy, b = _d435_scene()
+    rng = np.random.default_rng(0)
+    for z0 in (1.0, 2.0):
+        o = dn.d435(np.full((H, W), z0), K, fy, b, rng, scale=0.0)
+        assert np.nanstd(o) == pytest.approx(z0 ** 2 * 0.1 / (fy * b), rel=0.1)
+    t, h = math.radians(7.5), 0.11
+    v = np.mgrid[0:H, 0:W][0]
+    ry = (v - K[3]) / fy
+    down = ry * math.cos(t) + math.sin(t)
+    z = np.where(down > 1e-6, h / np.maximum(down, 1e-9), np.inf)
+    ahead = z * (math.cos(t) - ry * math.sin(t))
+    real = dn.d435(z, K, fy, b, rng, scale=0.0)
+    ideal = dn.d435(z, K, fy, b, rng, dn.IDEAL, scale=0.0)
+    near, far = (ahead > 0.3) & (ahead < 0.6), (ahead > 1.5) & (ahead < 2.0)
+    assert np.isfinite(real[near]).mean() > 0.85 > 0.5 > np.isfinite(real[far]).mean()
+    assert np.isfinite(ideal[far]).mean() > 0.95
+
+
+def test_d435_depth_noise_flying_pixels_occlusion_and_dark_surfaces():
+    import depth_noise as dn
+    W, H, K, fy, b = _d435_scene()
+    rng = np.random.default_rng(1)
+    z = np.full((H, W), 2.0)
+    z[100:170, 200:280] = 1.0                                      # a box 1 m in front of a wall 2 m away
+    o = dn.d435(z, K, fy, b, rng, scale=0.0)
+    assert np.sum((o > 1.1) & (o < 1.9)) > 20                      # flying pixels between the two
+    band = int(round(fy * b * (1 / 1.0 - 1 / 2.0)))                # the right imager can't see this much of the wall
+    assert np.isnan(o[110:160, 200 - band:198]).mean() > 0.9       # left of the box
+    assert np.isnan(o[110:160, 290:300]).mean() < 0.1              # right of it: seen
+    albedo = np.full((H, W), 0.5)
+    albedo[:, :W // 2] = 0.02                                      # black on the left half
+    o = dn.d435(np.full((H, W), 2.0), K, fy, b, rng, albedo=albedo, scale=0.0)
+    assert np.isnan(o[:, :W // 2]).mean() > 0.4 > 0.1 > np.isnan(o[:, W // 2:]).mean()
+
+
 def test_the_launchers_live_world_person_clutter_and_thrower():
     """design.md 2, the Launcher as the sim's controller (sim_world.World): the model holds the person and every piece
     of clutter, parked outside the house while off; switched on they come in where they touch nothing (obstacles in
@@ -1431,6 +1476,13 @@ def test_the_launchers_live_world_person_clutter_and_thrower():
     # the arm robot: its toys are on at the start, it has no thrower
     arm = SimCore(CoreConfig(base="drawn", payload="arm", seed=0, shadow=(), live_world=True, clutter="toys")).world
     assert arm.state()["thrower"] is None and arm.state()["toys"] == 6
+    # a study's scene (ros/tools/toy_route.py): toys at chosen spots, one in a wall refused (parked), the rest parked
+    placed = arm.place_toys([(-1.0, 0.8, 30.0), (0.0, -0.6, 0.0), (-5.0, 2.0, 0.0)])      # the last in a partition
+    assert placed == [True, True, False]
+    q = arm.d.qpos
+    assert abs(q[arm.adr[0]] + 1.0) < 1e-9 and abs(q[arm.adr[0] + 1] - 0.8) < 1e-9
+    assert all(abs(q[arm.adr[k]]) > 30 for k in range(2, 6))
+    assert arm.place_toys([]) == [] and all(abs(q[arm.adr[k]]) > 30 for k in range(6))
     # the Launcher's port: one JSON line each way
     import socket
     import threading
@@ -1794,7 +1846,8 @@ def test_omni_arm_kinematics_are_the_sims():
 def test_the_d435_on_the_nose_clears_the_robot():
     """design.md 4.11: the D435 (robot_export.ARM_D435) on the deck's nose: >= 3 mm from every part of the robot (the
     lidar, the bumper, the wheels' rollers and guards), its top >= 3 mm under the lidar's scan plane (no shadow), inside
-    the bumper's 217 mm, looking 30 deg down; the stereo arm robot has its box but not its cameras, the catch robot none."""
+    the bumper's 217 mm, looking 7.5 deg down (Nov 4: the room as well as the floor); the stereo arm robot has its box
+    but not its cameras, the catch robot none."""
     from robot_export import arm_d435_params
     p, m, d, r = make(arm_d435_params(home_xy=(0.0, 0.0)))
     adr = m.joint("base").qposadr[0]
@@ -1810,17 +1863,45 @@ def test_the_d435_on_the_nose_clears_the_robot():
     assert corners[:, 2].max() < d.site_xpos[m.site("lidar").id][2] - 0.003
     assert np.hypot(corners[:, 0], corners[:, 1]).max() < 0.217
     view = -d.cam_xmat[m.camera("d435_depth").id].reshape(3, 3)[:, 2]
-    assert math.degrees(math.asin(-view[2])) == pytest.approx(30.0, abs=0.1)
+    assert math.degrees(math.asin(-view[2])) == pytest.approx(7.5, abs=0.1)
     pa, ma, da, ra = _pick_robot()
     assert "d435" in {ma.geom(k).name for k in range(ma.ngeom)} and pa.depth_camera == "none"     # the box only
     assert mujoco.mj_name2id(ma, mujoco.mjtObj.mjOBJ_CAMERA, "d435_depth") == -1
     assert not any(ma.geom(k).name == "d435" for k in range(ma.ngeom) if ma.geom_contype[k])       # no collision
 
 
+def test_the_d435_on_its_side_for_studies():
+    """d435_roll_deg 90 (studies/d435_mount.py, Nov 5): the body stands 90 mm tall with the imagers above one another,
+    the images stay upright and turn tall (270 x 480, the 87-89 deg field tall), the view axis doesn't move; the
+    robot's config (robot_export.arm_json) carries the size and field; landscape (roll 0) is the baseline's."""
+    from robot_export import arm_d435_params, arm_json
+    from robot_model import d435_view
+    kw = dict(home_xy=(0.0, 0.0), d435_pos=(0.20, 0.0, 0.20), d435_tilt_deg=-30.0)
+    views = {}
+    for roll in (0.0, 90.0):
+        p = arm_d435_params(**kw, d435_roll_deg=roll)
+        m = build_model(p)
+        d = mujoco.MjData(m)
+        mujoco.mj_forward(m, d)
+        c = m.camera("d435_depth").id
+        R = d.cam_xmat[c].reshape(3, 3)
+        g = m.geom("d435").id
+        ext = np.abs(d.geom_xmat[g].reshape(3, 3)) @ m.geom_size[g]       # half extents along the world's axes
+        views[roll] = (d.cam_xpos[c] - d.xpos[m.body("base").id], -R[:, 2], R[:, 0], m.cam_fovy[c], d435_view(p), ext)
+    (p0, f0, r0, fov0, v0, e0), (p1, f1, r1, fov1, v1, e1) = views[0.0], views[90.0]
+    assert v0[:2] == (480, 270) and fov0 == pytest.approx(58.0) and e0[2] < 0.03
+    assert v1[:2] == (270, 480) and fov1 == pytest.approx(89.2, abs=0.1) and e1[2] > 0.04
+    assert np.allclose(f0, f1) and np.allclose(r0, r1)                    # the same view axis, upright images
+    assert abs(p1[2] - p0[2]) == pytest.approx(0.0175 * math.cos(math.radians(30)), abs=1e-3)   # left imager now on top
+    cam = arm_json(arm_d435_params(**kw, d435_roll_deg=90.0))["cameras"][0]
+    assert (cam["width"], cam["height"]) == (270, 480) and cam["fovy_deg"] == pytest.approx(89.2, abs=0.1)
+
+
 def test_the_d435_sees_the_floor_the_arm_reaches():
     """The D435's depth model (sil_pick.PickCameras) through the robot's own code (robot_arm_d435.json, floor_vision):
-    nothing nearer than its min-Z, millimetre steps; the floor seen from the arm's reach (0.26-0.42 m) out past 1 m;
-    floor points within 3 cm of z = 0 out to 1.2 m (the noise plus the arm robot's ~0.9 deg pitch on its pods)."""
+    nothing nearer than its min-Z, millimetre steps; the floor seen from the tidy's close look (look_back short of the
+    sweet spot, design.md 4.11) out past 1 m; floor points within 3 cm of z = 0 out to 1.2 m (the noise plus the arm
+    robot's ~0.9 deg pitch on its pods)."""
     from robot_export import arm_d435_params
     from sil_pick import PickCameras
     _omni_arm()
@@ -1840,7 +1921,10 @@ def test_the_d435_sees_the_floor_the_arm_reaches():
     floor = P[(np.abs(P[:, 1]) < 0.15) & (np.hypot(P[:, 0], P[:, 1]) < 1.2)]
     assert np.abs(floor[:, 2]).max() < 0.03
     x = P[np.abs(P[:, 2]) < 0.03, 0]
-    assert x.min() < 0.28 and np.percentile(x, 99) > 1.0
+    t = TidyTask(ArmKinematics(ArmConfig(config_path("d435"))))
+    look = t.p.sweet[0] + t.p.look_back                     # where the close look puts a thing
+    assert x.min() < look - 0.05 and np.percentile(x, 99) > 1.0          # its ring of floor in view
+    assert x.min() + 0.05 <= t.p.view_near + 0.01                        # the tidy's "in view" agrees
     cams.close()
 
 

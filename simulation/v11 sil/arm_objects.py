@@ -31,6 +31,9 @@ CATALOG = {
     "ball40": ("sphere", (0.04, 0.04, 0.04), (0.95, 0.45, 0.1, 1), 0.025),
     "cap": ("puck", (0.03, 0.03, 0.012), (0.9, 0.9, 0.95, 1), 0.004),          # a bottle cap
     "block": ("box", (0.06, 0.03, 0.03), (0.55, 0.2, 0.7, 1), 0.040),
+    # ai_robot_architecture.md 5.2: "go get the purple square object" (block is the same purple, the wrong shape;
+    # cube30 the right shape, red)
+    "cube40_purple": ("box", (0.04, 0.04, 0.04), (0.55, 0.2, 0.75, 1), 0.035),
     # larger things left on a floor (the Launcher's clutter, sim_world.py; est sizes and masses): the boxes, bag,
     # basket and stool reach the lidar's 15 cm plane, the shoes don't (the bumper finds them), the play ball rolls
     "box_big": ("box", (0.55, 0.40, 0.40), (0.72, 0.56, 0.38, 1), 3.0),       # a moving box
@@ -45,7 +48,19 @@ SETS = {
     "toys": ("cube30", "cube40", "brick", "crayon", "ball40", "block"),
     "clutter": ("marker", "cap", "brick", "cube30", "crayon", "cube40"),
     "obstacles": ("box_big", "box_small", "bag", "shoe", "shoe", "basket", "stool", "ball_big"),
+    # the AI's find-by-colour-and-shape scene: one purple cube among a purple block, a red cube, a blue cube, an orange
+    # ball and a green crayon (n_objects 6 takes each once; more repeat them)
+    "colours": ("cube40_purple", "block", "cube30", "cube40", "ball40", "crayon"),
 }
+EXACT = ("colours",)               # sets taken in order (each thing once), not drawn at random
+
+
+def name_of(o) -> str | None:
+    """The catalog name of a params.floor_objects entry (kind, size, x, y, yaw, rgba, kg), or None."""
+    for n, (kind, size, rgba, kg) in CATALOG.items():
+        if kind == o[0] and tuple(size) == tuple(o[1]) and tuple(rgba) == tuple(o[5]):
+            return n
+    return None
 
 
 def objects_for(names, xy, yaw_deg) -> tuple:

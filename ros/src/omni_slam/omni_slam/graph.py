@@ -90,7 +90,12 @@ class TagGraph:
         self.obs_i, self.obs_j, self.obs_uv, self.obs_t = [], [], [], []
         self.obs_w = np.zeros(0)
         self.stats = Stats()
-        self._lu = None
+        self._J = self._lu = None
+
+    def changed(self):
+        """Variables or factors were added or removed: the marginals relinearize (the last solve's Jacobian has no
+        columns for a newer keyframe; read from it, a new pose's covariance was a tag's block: 894 m, Nov 4)."""
+        self._J = self._lu = None
 
     # -- building ------------------------------------------------------------------------------------------------
     def add_pose(self, t: float, guess, roll_pitch=(0.0, 0.0)) -> int:
@@ -102,15 +107,17 @@ class TagGraph:
         cr, sr, cp, sp = math.cos(r), math.sin(r), math.cos(p), math.sin(p)
         A = np.array([[cp, sp * sr, sp * cr], [0.0, cr, -sr], [-sp, cp * sr, cp * cr]])     # Ry(pitch) Rx(roll)
         self.att = np.concatenate([getattr(self, "att", np.zeros((0, 3, 3))), A[None]])
-        self._lu = None
+        self.changed()
         return len(self.X) - 1
 
     def add_prior(self, i: int, z, cov):
         self.priors.append((i, np.asarray(z, float), np.linalg.cholesky(np.linalg.inv(np.asarray(cov, float))).T))
+        self.changed()
 
     def add_between(self, i: int, k: int, z, cov):
         self.betweens.append((i, k, np.asarray(z, float),
                               np.linalg.cholesky(np.linalg.inv(np.asarray(cov, float))).T))
+        self.changed()
 
     def has_tag(self, tag_id: int) -> bool:
         return tag_id in self.lm_index
@@ -127,6 +134,7 @@ class TagGraph:
         self.lm_size.append(size)
         if prior_cov is not None:
             self.lm_priors.append((j, self.L[j].copy(), np.linalg.cholesky(np.linalg.inv(prior_cov)).T))
+        self.changed()
         return j
 
     def add_obs(self, i: int, tag_id: int, uv, t: float):
@@ -134,6 +142,7 @@ class TagGraph:
         self.obs_j.append(self.lm_index[tag_id])
         self.obs_uv.append(np.asarray(uv, float))
         self.obs_t.append(t)
+        self.changed()
 
     def base_cam(self, C=None) -> np.ndarray:
         """T_base_cam with the refined rotation."""
@@ -317,6 +326,9 @@ class TagGraph:
         return st
 
     def _factor(self):
+        if self._J is None:                     # the graph changed since the solve: linearize it as it is now
+            self.UV = np.array(self.obs_uv).reshape(-1, 4, 2) if self.obs_uv else np.zeros((0, 4, 2))
+            self._J = self._assemble(self.X, self.L)[1]
         if self._lu is None:
             # a weak floor on every variable (1e-6 in whitened units: a sigma of 1000): a tag whose only views were
             # dropped has no factor left, and its block would make the information singular (NaN marginals)

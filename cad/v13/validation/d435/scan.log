@@ -1,0 +1,39 @@
+0 8141
+1000 8141
+2000 8141
+3000 8141
+4000 8141
+5000 8141
+6000 8141
+7000 8141
+8000 8141
+roll 90 tilt 25: 0 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    sim-like: {'roll': 90.0, 'tilt': 25.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': -4.1, 'arm_by': 'pose high', 'low_z': 153.9, 'top_z': 246.1, 'r_max': 230.7, 'x_back': 169.7, 'lens': [214.9, 0.0, 212.4], 'bumper_out': 5.5}
+    sim-like: {'roll': 90.0, 'tilt': 25.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -12.5, 'arm_by': 'path hover-high 0.26,+0.06,y90', 'low_z': 168.9, 'top_z': 261.1, 'r_max': 230.7, 'x_back': 169.7, 'lens': [214.9, 0.0, 227.4], 'bumper_out': 5.5}
+roll 90 tilt 30: 0 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    sim-like: {'roll': 90.0, 'tilt': 30.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': -3.4, 'arm_by': 'path stow-high', 'low_z': 154.8, 'top_z': 245.2, 'r_max': 233.7, 'x_back': 166.7, 'lens': [215.9, 0.0, 211.0], 'bumper_out': 8.5}
+    sim-like: {'roll': 90.0, 'tilt': 30.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -12.5, 'arm_by': 'path stow-high', 'low_z': 169.8, 'top_z': 260.2, 'r_max': 233.7, 'x_back': 166.7, 'lens': [215.9, 0.0, 226.0], 'bumper_out': 8.5}
+roll 90 tilt 35: 0 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    sim-like: {'roll': 90.0, 'tilt': 35.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': -2.4, 'arm_by': 'path stow-high', 'low_z': 156.0, 'top_z': 244.0, 'r_max': 236.4, 'x_back': 163.9, 'lens': [216.8, 0.0, 209.6], 'bumper_out': 11.2}
+    sim-like: {'roll': 90.0, 'tilt': 35.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -11.9, 'arm_by': 'path stow-high', 'low_z': 171.0, 'top_z': 259.0, 'r_max': 236.4, 'x_back': 163.9, 'lens': [216.8, 0.0, 224.6], 'bumper_out': 11.2}
+roll 0 tilt 25: 91 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(170.0), 'z': np.float64(185.0), 'arm_mm': 20.4, 'arm_by': 'SO-101 base (fixed)', 'low_z': 168.4, 'top_z': 201.6, 'r_max': 192.0, 'x_back': 153.4, 'lens': [177.5, 17.5, 181.5], 'bumper_out': -33.2}
+    {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(170.0), 'z': np.float64(187.5), 'arm_mm': 17.9, 'arm_by': 'SO-101 base (fixed)', 'low_z': 170.9, 'top_z': 204.1, 'r_max': 192.0, 'x_back': 153.4, 'lens': [177.5, 17.5, 184.0], 'bumper_out': -33.2}
+    {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(170.0), 'z': np.float64(190.0), 'arm_mm': 15.4, 'arm_by': 'SO-101 base (fixed)', 'low_z': 173.4, 'top_z': 206.6, 'r_max': 192.0, 'x_back': 153.4, 'lens': [177.5, 17.5, 186.5], 'bumper_out': -33.2}
+    {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(170.0), 'z': np.float64(192.5), 'arm_mm': 12.9, 'arm_by': 'SO-101 base (fixed)', 'low_z': 175.9, 'top_z': 209.1, 'r_max': 192.0, 'x_back': 153.4, 'lens': [177.5, 17.5, 189.0], 'bumper_out': -33.2}
+    sim-like: {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': 5.0, 'arm_by': 'path ready-hover 0.26,-0.06,y0', 'low_z': 183.4, 'top_z': 216.6, 'r_max': 221.2, 'x_back': 183.4, 'lens': [207.5, 17.5, 196.5], 'bumper_out': -3.9}
+    sim-like: {'roll': 0.0, 'tilt': 25.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -7.2, 'arm_by': 'SO-101 base (fixed)', 'low_z': 198.4, 'top_z': 231.6, 'r_max': 221.2, 'x_back': 183.4, 'lens': [207.5, 17.5, 211.5], 'bumper_out': -3.9}
+roll 0 tilt 30: 72 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(170.0), 'z': np.float64(185.0), 'arm_mm': 19.9, 'arm_by': 'SO-101 base (fixed)', 'low_z': 167.9, 'top_z': 202.1, 'r_max': 192.4, 'x_back': 152.9, 'lens': [177.2, 17.5, 180.8], 'bumper_out': -32.7}
+    {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(170.0), 'z': np.float64(187.5), 'arm_mm': 17.4, 'arm_by': 'SO-101 base (fixed)', 'low_z': 170.4, 'top_z': 204.6, 'r_max': 192.4, 'x_back': 152.9, 'lens': [177.2, 17.5, 183.3], 'bumper_out': -32.7}
+    {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(170.0), 'z': np.float64(190.0), 'arm_mm': 14.9, 'arm_by': 'SO-101 base (fixed)', 'low_z': 172.9, 'top_z': 207.1, 'r_max': 192.4, 'x_back': 152.9, 'lens': [177.2, 17.5, 185.8], 'bumper_out': -32.7}
+    {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(170.0), 'z': np.float64(192.5), 'arm_mm': 12.4, 'arm_by': 'SO-101 base (fixed)', 'low_z': 175.4, 'top_z': 209.6, 'r_max': 192.4, 'x_back': 152.9, 'lens': [177.2, 17.5, 188.3], 'bumper_out': -32.7}
+    sim-like: {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': 4.5, 'arm_by': 'path ready-hover 0.26,-0.06,y0', 'low_z': 182.9, 'top_z': 217.1, 'r_max': 221.7, 'x_back': 182.9, 'lens': [207.2, 17.5, 195.8], 'bumper_out': -3.5}
+    sim-like: {'roll': 0.0, 'tilt': 30.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -7.3, 'arm_by': 'SO-101 base (fixed)', 'low_z': 197.9, 'top_z': 232.1, 'r_max': 221.7, 'x_back': 182.9, 'lens': [207.2, 17.5, 210.8], 'bumper_out': -3.5}
+roll 0 tilt 35: 72 poses clear of the arm (5 mm) and the scan plane (+3); best by bumper:
+    {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(170.0), 'z': np.float64(185.0), 'arm_mm': 19.6, 'arm_by': 'SO-101 base (fixed)', 'low_z': 167.6, 'top_z': 202.4, 'r_max': 192.7, 'x_back': 152.6, 'lens': [176.8, 17.5, 180.2], 'bumper_out': -32.4}
+    {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(170.0), 'z': np.float64(187.5), 'arm_mm': 17.1, 'arm_by': 'SO-101 base (fixed)', 'low_z': 170.1, 'top_z': 204.9, 'r_max': 192.7, 'x_back': 152.6, 'lens': [176.8, 17.5, 182.7], 'bumper_out': -32.4}
+    {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(170.0), 'z': np.float64(190.0), 'arm_mm': 14.6, 'arm_by': 'SO-101 base (fixed)', 'low_z': 172.6, 'top_z': 207.4, 'r_max': 192.7, 'x_back': 152.6, 'lens': [176.8, 17.5, 185.2], 'bumper_out': -32.4}
+    {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(170.0), 'z': np.float64(192.5), 'arm_mm': 12.1, 'arm_by': 'SO-101 base (fixed)', 'low_z': 175.1, 'top_z': 209.9, 'r_max': 192.7, 'x_back': 152.6, 'lens': [176.8, 17.5, 187.7], 'bumper_out': -32.4}
+    sim-like: {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(200.0), 'z': np.float64(200.0), 'arm_mm': 4.2, 'arm_by': 'path ready-hover 0.26,-0.06,y0', 'low_z': 182.6, 'top_z': 217.4, 'r_max': 222.0, 'x_back': 182.6, 'lens': [206.8, 17.5, 195.2], 'bumper_out': -3.1}
+    sim-like: {'roll': 0.0, 'tilt': 35.0, 'x': np.float64(200.0), 'z': np.float64(215.0), 'arm_mm': -7.3, 'arm_by': 'SO-101 base (fixed)', 'low_z': 197.6, 'top_z': 232.4, 'r_max': 222.0, 'x_back': 182.6, 'lens': [206.8, 17.5, 210.2], 'bumper_out': -3.1}

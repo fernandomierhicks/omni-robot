@@ -1,0 +1,8 @@
+{
+ "static": "V12_pod_static_m-1",
+ "unsprung": "V12_unsprung_m-1",
+ "spring_plunger_inner_a1": "V12_spring_plunger_inner_a1_m-1",
+ "spring_plunger_inner_b1": "V12_spring_plunger_inner_b1_m-1",
+ "spring_plunger_inner_a2": "V12_spring_plunger_inner_a2_m-1",
+ "spring_plunger_inner_b2": "V12_spring_plunger_inner_b2_m-1"
+}

@@ -119,6 +119,13 @@ def test_a_tag_pose_and_why_one_is_refused():
     assert far and tag_pose(CAM, far[0]).ambiguous                # 4 m: its mirror pose fits within the noise
     tiny = TagDetection(1, np.array([(600, 400), (610, 400), (610, 390), (600, 390.0)]), 0.0, 0.16)
     assert "small" in tag_pose(CAM, tiny).reasons and "far" in tag_pose(CAM, tiny).reasons
+    # a self-crossing quad (a real misread, Nov 4 bench) has no pose to start from: refused, not an exception, and a
+    # frame with it in still goes through the SLAM
+    bowtie = TagDetection(3, np.array([(600, 400), (700, 300), (700, 400), (600, 300.0)]), 0.0, 0.16, margin=1.0)
+    bp = tag_pose(CAM, bowtie)
+    assert not bp.ok and "bad fit" in bp.reasons
+    ts = TagSlam(CAM, TBC, anchor="first")
+    ts.on_tags(0.0, [bowtie])
 
 
 def test_unknown_tags_and_robot_poses_together_beat_the_odometry():
@@ -202,6 +209,55 @@ def test_a_saved_tag_map_relocalizes_a_kidnapped_robot(tmp_path):
     (est, pose) = got
     assert math.hypot(*(est[:2] - pose[:2])) < 0.06 and abs(math.degrees(est[2] - pose[2]) % 360) < 2.0 or \
         abs(math.degrees(est[2] - pose[2]) % 360) > 358.0
+
+
+def test_a_robot_standing_on_the_lidar_stays_ok_without_tags(tmp_path):
+    """Seen in the sim (Nov 4): LOST at sigma 894.4 m whenever no tag was in view. Keyframes made since the last solve
+    had no columns in the marginals' Jacobian, so the newest pose's covariance was read from a tag's block (a loaded
+    tag with a 1e6 prior: sqrt(1 / (1 / 4e6 + 1e-6)) = 894.4). Standing still, no keyframe and no solve came to fix it."""
+    rng = np.random.default_rng(5)
+    tags = room_tags()
+    ts = TagSlam(CAM, TBC, anchor="lidar", refine_cam_deg=0.5)
+    # a tag map from an earlier session, one tag in it never well seen (its covariance the information floor's)
+    raw = dict(format="omni-tags/1", tags=[dict(id=int(tid), size=size, rvec=[float(c) for c in np.zeros(3)],
+                                                t=[float(c) for c in p], cov=(np.eye(6) * 1e6).tolist(), views=0)
+                                           for tid, R, p, size in tags[:1]])
+    import json
+    (tmp_path / "old.tags.json").write_text(json.dumps(raw))
+    ts.load_map(tmp_path / "old.tags.json")
+    h = HealthMonitor()
+    t, yaw, sigmas = 0.0, 0.0, []
+
+    def step(dyaw=0.0, see=False):
+        nonlocal t, yaw
+        t += 0.05
+        yaw += dyaw
+        truth = np.array([0.0, 0.0, yaw])
+        ts.on_odom(t, truth)
+        if round(t / 0.05) % 2 == 0:                                       # the lidar's fix at 10 Hz
+            ts.on_lidar(t, truth + rng.normal(0, [0.01, 0.01, 0.003]), np.diag([0.03 ** 2, 0.03 ** 2, 0.017 ** 2]))
+            h.on_fix(t)
+        if see:
+            dets = observe(tags, truth, t, rng)
+            if dets:
+                ts.on_tags(t, dets)
+        if round(t / 0.05) % 10 == 0:                                      # the health at 2 Hz
+            hh = h.assess(t, ts.pose_cov())
+            sigmas.append(hh.sigma_xy)
+            assert hh.level == "OK", (t, hh.as_dict())
+
+    for _ in range(1200):                                                  # 60 s standing, no tag in view
+        step()
+    for _ in range(int(2 * math.pi / 0.025)):                             # a turn in place past the walls' tags
+        step(0.025, see=True)
+    assert len(ts.g.lm_index) >= 6
+    for _ in range(1200):                                                  # stopped, looking at a blank stretch
+        step()
+    assert max(sigmas) < 0.05
+    # the saved map's covariances are each tag's own: every tag well seen now has a position sigma of millimetres
+    ts.save_map(tmp_path / "new.tags.json")
+    for tg in json.loads((tmp_path / "new.tags.json").read_text())["tags"]:
+        assert math.sqrt(max(tg["cov"][k][k] for k in (3, 4, 5))) < 0.05, tg
 
 
 def test_health_slows_the_robot_then_stops_it_and_asks_to_relocalize():

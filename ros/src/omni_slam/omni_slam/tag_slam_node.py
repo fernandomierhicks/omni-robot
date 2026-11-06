@@ -162,7 +162,9 @@ class TagSlamNode(Node):
         # a lagging fix reads as a heading bias the camera refinement would soak up (seen in the sim: 0.7 deg)
         try:
             tr = self.tf_buf.lookup_transform("map", "base_link", Time(seconds=self.t_last))
-        except Exception:
+        except Exception as e:
+            # no fix this tick (slam_toolbox not up yet, or behind the odometry): said, not hidden
+            self.get_logger().warn(f"no lidar fix at the odometry's time: {e}", throttle_duration_sec=10.0)
             return
         t = t_of(tr.header.stamp)
         R = tf_matrix(tr)
@@ -238,8 +240,9 @@ class TagSlamNode(Node):
         with self.lock:
             try:
                 C = self.slam.pose_cov()
-            except Exception:
+            except Exception as e:
                 C = None
+                self.get_logger().warn(f"no pose covariance: {e}", throttle_duration_sec=10.0)
         h = self.health.assess(self.t_last, C)
         d = h.as_dict()
         d["tags"] = len(self.slam.g.lm_index)

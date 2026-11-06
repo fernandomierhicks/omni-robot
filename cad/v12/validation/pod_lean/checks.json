@@ -1,0 +1,268 @@
+{
+ "poses_deg": {
+  "droop": 2.133,
+  "nominal": 0.0,
+  "bump": -10.726
+ },
+ "droop": {
+  "axle": [
+   0.06,
+   -3.0
+  ],
+  "plunger_lift": {
+   "inner_a1": -1.15,
+   "inner_b1": -0.75,
+   "inner_a2": -1.15,
+   "inner_b2": -0.75
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 8.24,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.0,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 45.14
+  },
+  "fork_base_z": [
+   -29.67,
+   0.15
+  ]
+ },
+ "nominal": {
+  "axle": [
+   0.0,
+   0.0
+  ],
+  "plunger_lift": {
+   "inner_a1": 0.0,
+   "inner_b1": 0.0,
+   "inner_a2": 0.0,
+   "inner_b2": 0.0
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 8.04,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.51,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 45.65
+  },
+  "fork_to_rotating (stub: not its 6804)": {
+   "pod_fork_outer": 1.5,
+   "pod_fork_inner": 9.74
+  },
+  "fork_to_harness": 3.78,
+  "fork_halves_overlap_mm3": 0.0,
+  "fork_halves_gap_mm": 0.0,
+  "fork_base_z": [
+   -29.5,
+   0.0
+  ]
+ },
+ "bump": {
+  "axle": [
+   1.41,
+   15.0
+  ],
+  "plunger_lift": {
+   "inner_a1": 6.43,
+   "inner_b1": 4.43,
+   "inner_a2": 6.43,
+   "inner_b2": 4.43
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 7.57,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.0,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 50.47
+  },
+  "fork_base_z": [
+   -29.75,
+   0.99
+  ]
+ },
+ "printed_parts": {
+  "pod_frame_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 44.82,
+   "bbox": [
+    35.8,
+    76.0,
+    66.0
+   ],
+   "overhang_mm2_as_printed": 749.8
+  },
+  "pod_keel_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.88,
+   "bbox": [
+    28.7,
+    29.4,
+    24.0
+   ],
+   "overhang_mm2_as_printed": 111.0
+  },
+  "pod_fork_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 69.72,
+   "bbox": [
+    104.7,
+    111.1,
+    46.5
+   ],
+   "overhang_mm2_as_printed": 78.6
+  },
+  "pod_fork_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 78.63,
+   "bbox": [
+    20.9,
+    123.6,
+    59.0
+   ],
+   "overhang_mm2_as_printed": 1.2
+  },
+  "pod_sleeve": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.27,
+   "bbox": [
+    8.0,
+    10.0,
+    10.0
+   ]
+  }
+ },
+ "tie_bolts": {
+  "lines_yz": [
+   [
+    78.5,
+    -16.5
+   ],
+   [
+    82.0,
+    -24.5
+   ]
+  ],
+  "bolt": "4 x M3 x 50 pan head, \u00d82.9 pilot their whole length",
+  "seats_x_outer_inner": [
+   [
+    -49.0,
+    55.5
+   ],
+   [
+    -42.0,
+    62.0
+   ]
+  ],
+  "threaded_x": [
+   [
+    [
+     -49.0,
+     1.0
+    ],
+    [
+     5.5,
+     44.7
+    ]
+   ],
+   [
+    [
+     -42.0,
+     8.0
+    ],
+    [
+     12.0,
+     44.7
+    ]
+   ]
+  ],
+  "bar_x_without_a_bolt": [
+   -52.5,
+   -52.0,
+   -51.5,
+   -51.0,
+   -50.5,
+   -50.0,
+   -49.5
+  ],
+  "bolt_overlap_with_fork_mm3": {
+   "bolt_tie_outer_1": 23.2,
+   "bolt_tie_outer_2": 23.2,
+   "bolt_tie_inner_1": 20.9,
+   "bolt_tie_inner_2": 17.7
+  },
+  "min_wall_to_627_seats_mm": 2.23
+ },
+ "envelope_nominal": {
+  "x": [
+   -52.5,
+   78.7
+  ],
+  "y": [
+   -70.0,
+   103.0
+  ],
+  "z": [
+   -70.0,
+   70.0
+  ]
+ },
+ "static": {
+  "inner_frame": {
+   "x": [
+    66.6,
+    78.6
+   ],
+   "edge_round": "36/47",
+   "z_bottom": -9.66,
+   "z_top": 56.88,
+   "droop_hook_top": [
+    [
+     46.6,
+     3.73
+    ],
+    [
+     62.6,
+     -3.66
+    ]
+   ],
+   "bump_rail_underside": [
+    [
+     45.28,
+     31.12
+    ],
+    [
+     69.6,
+     26.51
+    ]
+   ]
+  },
+  "keel": {
+   "top": 16.0,
+   "edge_round": "16/25",
+   "l_cove_r": 3.0,
+   "pivot_screw_engagement": 11.1,
+   "pivot_screw_tip_to_boss_end": 1.6,
+   "foot_screw": "M3 x 35 up from under the chassis into a \u00d82.9 pilot through the whole keel"
+  },
+  "fork_rounds": {
+   "outer_arm_edges": 2.0,
+   "bar_long_edges": 2.5,
+   "bar_root": "0/1",
+   "stub_root": 1.5,
+   "motor_plate_edges": 2.0,
+   "wide_arm_edges": 2.0,
+   "motor_plate_root": 1.0
+  }
+ }
+}

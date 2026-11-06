@@ -1,0 +1,986 @@
+{
+ "when": "20261104_2110",
+ "light": "dim: room at night (Arducam at its maximum gain 16, 33 ms exposures)",
+ "family": "tag25h9",
+ "tag_id": 0,
+ "size_m": 0.14,
+ "tape_m": 1.346,
+ "seconds": 6.0,
+ "detector_default": "apriltag",
+ "configs": {
+  "arducam_2304_d2": {
+   "frames": 26,
+   "found": 26,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 155.2,
+   "detect_ms_p95": 166.8,
+   "misreads": 1,
+   "side_px": 176.7,
+   "corner_rms_px": 0.084,
+   "sim_corner_sigma_px": 0.273,
+   "margin_median": 43.2,
+   "range_mean_m": 1.3432,
+   "range_std_mm": 0.41,
+   "xyz_std_mm": [
+    0.07,
+    0.07,
+    0.41
+   ],
+   "normal_std_deg": 0.219,
+   "angle_deg": 8.2,
+   "fit_rms_px": 0.158,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    -0.0836,
+    -0.0907,
+    1.3375
+   ],
+   "camera": "arducam",
+   "profile": "wide_full",
+   "stream": "color",
+   "settings": {},
+   "decimate": 2.0,
+   "backend": "apriltag",
+   "width": 2304,
+   "height": 1296,
+   "camera_frames": 130,
+   "processed_fps": 4.3,
+   "focal_px": 1692.9,
+   "exposure": {
+    "exposure_us": 32680,
+    "gain": 16.0,
+    "lens_dioptres": 1.0
+   }
+  },
+  "arducam_1152_d2": {
+   "frames": 89,
+   "found": 89,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 34.7,
+   "detect_ms_p95": 37.8,
+   "misreads": 2,
+   "side_px": 88.4,
+   "corner_rms_px": 0.081,
+   "sim_corner_sigma_px": 0.295,
+   "margin_median": 38.6,
+   "range_mean_m": 1.3425,
+   "range_std_mm": 0.53,
+   "xyz_std_mm": [
+    0.1,
+    0.11,
+    0.53
+   ],
+   "normal_std_deg": 0.569,
+   "angle_deg": 8.19,
+   "fit_rms_px": 0.092,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    -0.0836,
+    -0.0907,
+    1.3368
+   ],
+   "camera": "arducam",
+   "profile": "wide30",
+   "stream": "color",
+   "settings": {},
+   "decimate": 2.0,
+   "backend": "apriltag",
+   "width": 1152,
+   "height": 648,
+   "camera_frames": 172,
+   "processed_fps": 14.8,
+   "focal_px": 846.4,
+   "exposure": {
+    "exposure_us": 32680,
+    "gain": 16.0,
+    "lens_dioptres": 1.0
+   }
+  },
+  "arducam_1152_d1": {
+   "frames": 36,
+   "found": 36,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 132.6,
+   "detect_ms_p95": 141.0,
+   "misreads": 0,
+   "side_px": 88.4,
+   "corner_rms_px": 0.08,
+   "sim_corner_sigma_px": 0.295,
+   "margin_median": 43.3,
+   "range_mean_m": 1.3422,
+   "range_std_mm": 0.48,
+   "xyz_std_mm": [
+    0.13,
+    0.11,
+    0.48
+   ],
+   "normal_std_deg": 0.322,
+   "angle_deg": 8.19,
+   "fit_rms_px": 0.088,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    -0.0836,
+    -0.0906,
+    1.3366
+   ],
+   "camera": "arducam",
+   "profile": "wide30",
+   "stream": "color",
+   "settings": {},
+   "decimate": 1.0,
+   "backend": "apriltag",
+   "width": 1152,
+   "height": 648,
+   "camera_frames": 168,
+   "processed_fps": 6.0,
+   "focal_px": 846.4,
+   "exposure": {
+    "exposure_us": 32680,
+    "gain": 16.0,
+    "lens_dioptres": 1.0
+   },
+   "reach": [
+    {
+     "shrink": 1.0,
+     "rate": 1.0,
+     "side_px": 88.4,
+     "corner_rms_px": 0.071,
+     "sim_sigma_px": 0.295,
+     "range_014_m": 1.34,
+     "range_020_m": 1.91
+    },
+    {
+     "shrink": 0.7,
+     "rate": 1.0,
+     "side_px": 61.9,
+     "corner_rms_px": 0.046,
+     "sim_sigma_px": 0.315,
+     "range_014_m": 1.91,
+     "range_020_m": 2.73
+    },
+    {
+     "shrink": 0.5,
+     "rate": 1.0,
+     "side_px": 44.2,
+     "corner_rms_px": 0.045,
+     "sim_sigma_px": 0.34,
+     "range_014_m": 2.68,
+     "range_020_m": 3.83
+    },
+    {
+     "shrink": 0.35,
+     "rate": 1.0,
+     "side_px": 31.0,
+     "corner_rms_px": 0.028,
+     "sim_sigma_px": 0.379,
+     "range_014_m": 3.83,
+     "range_020_m": 5.47
+    },
+    {
+     "shrink": 0.25,
+     "rate": 1.0,
+     "side_px": 22.1,
+     "corner_rms_px": 0.024,
+     "sim_sigma_px": 0.431,
+     "range_014_m": 5.36,
+     "range_020_m": 7.66
+    },
+    {
+     "shrink": 0.18,
+     "rate": 1.0,
+     "side_px": 15.9,
+     "corner_rms_px": 0.045,
+     "sim_sigma_px": 0.501,
+     "range_014_m": 7.44,
+     "range_020_m": 10.63
+    },
+    {
+     "shrink": 0.13,
+     "rate": 1.0,
+     "side_px": 11.7,
+     "corner_rms_px": 0.031,
+     "sim_sigma_px": 0.593,
+     "range_014_m": 10.15,
+     "range_020_m": 14.5
+    },
+    {
+     "shrink": 0.1,
+     "rate": 1.0,
+     "side_px": 9.2,
+     "corner_rms_px": 0.03,
+     "sim_sigma_px": 0.686,
+     "range_014_m": 12.91,
+     "range_020_m": 18.45
+    },
+    {
+     "shrink": 0.08,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.065,
+     "rate": 0.0
+    }
+   ]
+  },
+  "arducam_1152_cv": {
+   "frames": 42,
+   "found": 42,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 109.2,
+   "detect_ms_p95": 114.2,
+   "misreads": 0,
+   "side_px": 88.3,
+   "corner_rms_px": 0.107,
+   "sim_corner_sigma_px": 0.295,
+   "margin_median": null,
+   "range_mean_m": 1.3438,
+   "range_std_mm": 1.11,
+   "xyz_std_mm": [
+    0.1,
+    0.11,
+    1.11
+   ],
+   "normal_std_deg": 0.868,
+   "angle_deg": 8.12,
+   "fit_rms_px": 0.109,
+   "ambiguous": 0.024,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    -0.0839,
+    -0.0907,
+    1.3381
+   ],
+   "camera": "arducam",
+   "profile": "wide30",
+   "stream": "color",
+   "settings": {},
+   "decimate": 2.0,
+   "backend": "opencv",
+   "width": 1152,
+   "height": 648,
+   "camera_frames": 169,
+   "processed_fps": 7.0,
+   "focal_px": 846.4,
+   "exposure": {
+    "exposure_us": 32680,
+    "gain": 16.0,
+    "lens_dioptres": 1.0
+   }
+  },
+  "arducam_crop768_d1": {
+   "frames": 64,
+   "found": 64,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 58.6,
+   "detect_ms_p95": 62.3,
+   "misreads": 0,
+   "side_px": 88.4,
+   "corner_rms_px": 0.068,
+   "sim_corner_sigma_px": 0.295,
+   "margin_median": 18.5,
+   "range_mean_m": 1.3419,
+   "range_std_mm": 0.68,
+   "xyz_std_mm": [
+    0.09,
+    0.08,
+    0.68
+   ],
+   "normal_std_deg": 0.476,
+   "angle_deg": 8.31,
+   "fit_rms_px": 0.087,
+   "ambiguous": 0.0,
+   "gate_ok": 0.0,
+   "gate_reasons": {
+    "low margin": 64
+   },
+   "xyz_mean_m": [
+    -0.0835,
+    -0.0906,
+    1.3362
+   ],
+   "camera": "arducam",
+   "profile": "crop100",
+   "stream": "color",
+   "settings": {},
+   "decimate": 1.0,
+   "backend": "apriltag",
+   "width": 768,
+   "height": 432,
+   "camera_frames": 319,
+   "processed_fps": 10.7,
+   "focal_px": 846.4,
+   "exposure": {
+    "exposure_us": 9540,
+    "gain": 16.0,
+    "lens_dioptres": 1.0
+   },
+   "reach": [
+    {
+     "shrink": 1.0,
+     "rate": 1.0,
+     "side_px": 88.4,
+     "corner_rms_px": 0.072,
+     "sim_sigma_px": 0.295,
+     "range_014_m": 1.34,
+     "range_020_m": 1.91
+    },
+    {
+     "shrink": 0.7,
+     "rate": 1.0,
+     "side_px": 61.9,
+     "corner_rms_px": 0.047,
+     "sim_sigma_px": 0.315,
+     "range_014_m": 1.91,
+     "range_020_m": 2.73
+    },
+    {
+     "shrink": 0.5,
+     "rate": 1.0,
+     "side_px": 44.2,
+     "corner_rms_px": 0.043,
+     "sim_sigma_px": 0.34,
+     "range_014_m": 2.68,
+     "range_020_m": 3.83
+    },
+    {
+     "shrink": 0.35,
+     "rate": 1.0,
+     "side_px": 31.0,
+     "corner_rms_px": 0.048,
+     "sim_sigma_px": 0.379,
+     "range_014_m": 3.83,
+     "range_020_m": 5.47
+    },
+    {
+     "shrink": 0.25,
+     "rate": 1.0,
+     "side_px": 22.1,
+     "corner_rms_px": 0.03,
+     "sim_sigma_px": 0.431,
+     "range_014_m": 5.36,
+     "range_020_m": 7.66
+    },
+    {
+     "shrink": 0.18,
+     "rate": 1.0,
+     "side_px": 15.9,
+     "corner_rms_px": 0.025,
+     "sim_sigma_px": 0.501,
+     "range_014_m": 7.44,
+     "range_020_m": 10.63
+    },
+    {
+     "shrink": 0.13,
+     "rate": 1.0,
+     "side_px": 11.6,
+     "corner_rms_px": 0.038,
+     "sim_sigma_px": 0.594,
+     "range_014_m": 10.2,
+     "range_020_m": 14.57
+    },
+    {
+     "shrink": 0.1,
+     "rate": 1.0,
+     "side_px": 9.0,
+     "corner_rms_px": 0.051,
+     "sim_sigma_px": 0.694,
+     "range_014_m": 13.16,
+     "range_020_m": 18.79
+    },
+    {
+     "shrink": 0.08,
+     "rate": 0.952,
+     "side_px": 7.3,
+     "corner_rms_px": 0.016,
+     "sim_sigma_px": 0.797,
+     "range_014_m": 16.22,
+     "range_020_m": 23.17
+    },
+    {
+     "shrink": 0.065,
+     "rate": 0.0
+    }
+   ]
+  },
+  "d435_ir1280_d2": {
+   "frames": 82,
+   "found": 82,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 35.5,
+   "detect_ms_p95": 39.6,
+   "misreads": 0,
+   "side_px": 66.4,
+   "corner_rms_px": 0.056,
+   "sim_corner_sigma_px": 0.31,
+   "margin_median": 74.3,
+   "range_mean_m": 1.3452,
+   "range_std_mm": 0.68,
+   "xyz_std_mm": [
+    0.11,
+    0.09,
+    0.68
+   ],
+   "normal_std_deg": 0.586,
+   "angle_deg": 7.31,
+   "fit_rms_px": 0.069,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0539,
+    -0.0277,
+    1.3439
+   ],
+   "range_vs_tape": 0.9994,
+   "depth_z_m": 1.374,
+   "depth_valid": 0.913,
+   "pose_vs_depth": 0.9786,
+   "camera": "realsense",
+   "profile": "hd30",
+   "stream": "ir",
+   "settings": {
+    "emitter": 0
+   },
+   "decimate": 2.0,
+   "backend": "apriltag",
+   "width": 1280,
+   "height": 720,
+   "camera_frames": 180,
+   "processed_fps": 13.7,
+   "focal_px": 639.8,
+   "exposure": {
+    "ir_exposure_us": 32783
+   },
+   "depth_emitter_on": {
+    "depth_z": 1.364,
+    "pose_z": 1.3439,
+    "ratio": 1.015,
+    "valid": 0.976
+   }
+  },
+  "d435_ir1280_d1": {
+   "frames": 44,
+   "found": 44,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 101.1,
+   "detect_ms_p95": 110.1,
+   "misreads": 0,
+   "side_px": 66.4,
+   "corner_rms_px": 0.048,
+   "sim_corner_sigma_px": 0.31,
+   "margin_median": 70.5,
+   "range_mean_m": 1.3449,
+   "range_std_mm": 0.45,
+   "xyz_std_mm": [
+    0.09,
+    0.08,
+    0.45
+   ],
+   "normal_std_deg": 0.407,
+   "angle_deg": 7.53,
+   "fit_rms_px": 0.04,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0538,
+    -0.0277,
+    1.3436
+   ],
+   "range_vs_tape": 0.9992,
+   "depth_z_m": 1.372,
+   "depth_valid": 0.927,
+   "pose_vs_depth": 0.9793,
+   "camera": "realsense",
+   "profile": "hd30",
+   "stream": "ir",
+   "settings": {
+    "emitter": 0
+   },
+   "decimate": 1.0,
+   "backend": "apriltag",
+   "width": 1280,
+   "height": 720,
+   "camera_frames": 178,
+   "processed_fps": 7.3,
+   "focal_px": 639.8,
+   "exposure": {
+    "ir_exposure_us": 32783
+   },
+   "depth_emitter_on": {
+    "depth_z": 1.368,
+    "pose_z": 1.3436,
+    "ratio": 1.0182,
+    "valid": 0.993
+   },
+   "reach": [
+    {
+     "shrink": 1.0,
+     "rate": 1.0,
+     "side_px": 66.4,
+     "corner_rms_px": 0.039,
+     "sim_sigma_px": 0.31,
+     "range_014_m": 1.35,
+     "range_020_m": 1.93
+    },
+    {
+     "shrink": 0.7,
+     "rate": 1.0,
+     "side_px": 46.5,
+     "corner_rms_px": 0.029,
+     "sim_sigma_px": 0.336,
+     "range_014_m": 1.93,
+     "range_020_m": 2.75
+    },
+    {
+     "shrink": 0.5,
+     "rate": 1.0,
+     "side_px": 33.2,
+     "corner_rms_px": 0.027,
+     "sim_sigma_px": 0.37,
+     "range_014_m": 2.7,
+     "range_020_m": 3.85
+    },
+    {
+     "shrink": 0.35,
+     "rate": 1.0,
+     "side_px": 23.2,
+     "corner_rms_px": 0.034,
+     "sim_sigma_px": 0.422,
+     "range_014_m": 3.86,
+     "range_020_m": 5.51
+    },
+    {
+     "shrink": 0.25,
+     "rate": 1.0,
+     "side_px": 16.6,
+     "corner_rms_px": 0.027,
+     "sim_sigma_px": 0.49,
+     "range_014_m": 5.38,
+     "range_020_m": 7.69
+    },
+    {
+     "shrink": 0.18,
+     "rate": 1.0,
+     "side_px": 12.1,
+     "corner_rms_px": 0.01,
+     "sim_sigma_px": 0.581,
+     "range_014_m": 7.41,
+     "range_020_m": 10.59
+    },
+    {
+     "shrink": 0.13,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.1,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.08,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.065,
+     "rate": 0.0
+    }
+   ]
+  },
+  "d435_ir1280_cv": {
+   "frames": 42,
+   "found": 42,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 99.0,
+   "detect_ms_p95": 106.2,
+   "misreads": 0,
+   "side_px": 66.5,
+   "corner_rms_px": 0.09,
+   "sim_corner_sigma_px": 0.31,
+   "margin_median": null,
+   "range_mean_m": 1.3409,
+   "range_std_mm": 1.35,
+   "xyz_std_mm": [
+    0.08,
+    0.11,
+    1.35
+   ],
+   "normal_std_deg": 0.787,
+   "angle_deg": 8.96,
+   "fit_rms_px": 0.179,
+   "ambiguous": 0.69,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0536,
+    -0.0276,
+    1.3395
+   ],
+   "range_vs_tape": 0.9962,
+   "depth_z_m": 1.375,
+   "depth_valid": 0.916,
+   "pose_vs_depth": 0.9736,
+   "camera": "realsense",
+   "profile": "hd30",
+   "stream": "ir",
+   "settings": {
+    "emitter": 0
+   },
+   "decimate": 2.0,
+   "backend": "opencv",
+   "width": 1280,
+   "height": 720,
+   "camera_frames": 179,
+   "processed_fps": 7.0,
+   "focal_px": 639.8,
+   "exposure": {
+    "ir_exposure_us": 32783
+   },
+   "depth_emitter_on": {
+    "depth_z": 1.374,
+    "pose_z": 1.3395,
+    "ratio": 1.0257,
+    "valid": 1.0
+   }
+  },
+  "d435_ir848_d1": {
+   "frames": 70,
+   "found": 70,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 47.1,
+   "detect_ms_p95": 50.5,
+   "misreads": 0,
+   "side_px": 44.0,
+   "corner_rms_px": 0.045,
+   "sim_corner_sigma_px": 0.341,
+   "margin_median": 44.2,
+   "range_mean_m": 1.3446,
+   "range_std_mm": 0.65,
+   "xyz_std_mm": [
+    0.1,
+    0.11,
+    0.65
+   ],
+   "normal_std_deg": 0.596,
+   "angle_deg": 7.75,
+   "fit_rms_px": 0.051,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0543,
+    -0.0271,
+    1.3432
+   ],
+   "range_vs_tape": 0.999,
+   "depth_z_m": 1.374,
+   "depth_valid": 0.994,
+   "pose_vs_depth": 0.9773,
+   "camera": "realsense",
+   "profile": "wvga60",
+   "stream": "ir",
+   "settings": {
+    "emitter": 0
+   },
+   "decimate": 1.0,
+   "backend": "apriltag",
+   "width": 848,
+   "height": 480,
+   "camera_frames": 358,
+   "processed_fps": 11.7,
+   "focal_px": 423.9,
+   "exposure": {
+    "ir_exposure_us": 15366
+   },
+   "depth_emitter_on": {
+    "depth_z": 1.366,
+    "pose_z": 1.3432,
+    "ratio": 1.017,
+    "valid": 1.0
+   },
+   "reach": [
+    {
+     "shrink": 1.0,
+     "rate": 1.0,
+     "side_px": 44.0,
+     "corner_rms_px": 0.045,
+     "sim_sigma_px": 0.341,
+     "range_014_m": 1.35,
+     "range_020_m": 1.93
+    },
+    {
+     "shrink": 0.7,
+     "rate": 1.0,
+     "side_px": 30.8,
+     "corner_rms_px": 0.042,
+     "sim_sigma_px": 0.38,
+     "range_014_m": 1.93,
+     "range_020_m": 2.75
+    },
+    {
+     "shrink": 0.5,
+     "rate": 1.0,
+     "side_px": 22.0,
+     "corner_rms_px": 0.035,
+     "sim_sigma_px": 0.432,
+     "range_014_m": 2.7,
+     "range_020_m": 3.86
+    },
+    {
+     "shrink": 0.35,
+     "rate": 1.0,
+     "side_px": 15.4,
+     "corner_rms_px": 0.028,
+     "sim_sigma_px": 0.509,
+     "range_014_m": 3.84,
+     "range_020_m": 5.49
+    },
+    {
+     "shrink": 0.25,
+     "rate": 1.0,
+     "side_px": 11.2,
+     "corner_rms_px": 0.051,
+     "sim_sigma_px": 0.608,
+     "range_014_m": 5.31,
+     "range_020_m": 7.59
+    },
+    {
+     "shrink": 0.18,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.13,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.1,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.08,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.065,
+     "rate": 0.0
+    }
+   ]
+  },
+  "d435_ir640_d1": {
+   "frames": 87,
+   "found": 87,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 35.4,
+   "detect_ms_p95": 38.8,
+   "misreads": 1,
+   "side_px": 39.9,
+   "corner_rms_px": 0.047,
+   "sim_corner_sigma_px": 0.35,
+   "margin_median": 66.8,
+   "range_mean_m": 1.3444,
+   "range_std_mm": 0.57,
+   "xyz_std_mm": [
+    0.14,
+    0.14,
+    0.57
+   ],
+   "normal_std_deg": 0.504,
+   "angle_deg": 7.83,
+   "fit_rms_px": 0.035,
+   "ambiguous": 0.0,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0545,
+    -0.0269,
+    1.343
+   ],
+   "range_vs_tape": 0.9988,
+   "depth_z_m": 1.37,
+   "depth_valid": 1.0,
+   "pose_vs_depth": 0.98,
+   "camera": "realsense",
+   "profile": "vga30",
+   "stream": "ir",
+   "settings": {
+    "emitter": 0
+   },
+   "decimate": 1.0,
+   "backend": "apriltag",
+   "width": 640,
+   "height": 480,
+   "camera_frames": 179,
+   "processed_fps": 14.5,
+   "focal_px": 383.9,
+   "exposure": {
+    "ir_exposure_us": 32783
+   },
+   "depth_emitter_on": {
+    "depth_z": 1.364,
+    "pose_z": 1.343,
+    "ratio": 1.0156,
+    "valid": 1.0
+   },
+   "reach": [
+    {
+     "shrink": 1.0,
+     "rate": 1.0,
+     "side_px": 39.9,
+     "corner_rms_px": 0.048,
+     "sim_sigma_px": 0.35,
+     "range_014_m": 1.35,
+     "range_020_m": 1.93
+    },
+    {
+     "shrink": 0.7,
+     "rate": 1.0,
+     "side_px": 27.9,
+     "corner_rms_px": 0.039,
+     "sim_sigma_px": 0.393,
+     "range_014_m": 1.93,
+     "range_020_m": 2.75
+    },
+    {
+     "shrink": 0.5,
+     "rate": 1.0,
+     "side_px": 19.9,
+     "corner_rms_px": 0.029,
+     "sim_sigma_px": 0.451,
+     "range_014_m": 2.7,
+     "range_020_m": 3.85
+    },
+    {
+     "shrink": 0.35,
+     "rate": 1.0,
+     "side_px": 14.0,
+     "corner_rms_px": 0.02,
+     "sim_sigma_px": 0.535,
+     "range_014_m": 3.83,
+     "range_020_m": 5.47
+    },
+    {
+     "shrink": 0.25,
+     "rate": 1.0,
+     "side_px": 10.2,
+     "corner_rms_px": 0.026,
+     "sim_sigma_px": 0.642,
+     "range_014_m": 5.27,
+     "range_020_m": 7.52
+    },
+    {
+     "shrink": 0.18,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.13,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.1,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.08,
+     "rate": 0.0
+    },
+    {
+     "shrink": 0.065,
+     "rate": 0.0
+    }
+   ]
+  },
+  "d435_ir1280_emitter_on": {
+   "frames": 182,
+   "found": 0,
+   "rate": 0.0,
+   "longest_gap_frames": 182,
+   "detect_ms_median": 14.4,
+   "detect_ms_p95": 15.5,
+   "misreads": 0,
+   "camera": "realsense",
+   "profile": "hd30",
+   "stream": "ir",
+   "settings": {
+    "emitter": 1
+   },
+   "decimate": 2.0,
+   "backend": "apriltag",
+   "width": 1280,
+   "height": 720,
+   "camera_frames": 182,
+   "processed_fps": 30.3,
+   "focal_px": 639.8,
+   "exposure": {
+    "ir_exposure_us": 32783
+   }
+  },
+  "d435_color1280_d2": {
+   "frames": 87,
+   "found": 87,
+   "rate": 1.0,
+   "longest_gap_frames": 0,
+   "detect_ms_median": 30.4,
+   "detect_ms_p95": 32.9,
+   "misreads": 1,
+   "side_px": 95.3,
+   "corner_rms_px": 0.198,
+   "sim_corner_sigma_px": 0.292,
+   "margin_median": 32.2,
+   "range_mean_m": 1.3541,
+   "range_std_mm": 0.88,
+   "xyz_std_mm": [
+    0.26,
+    0.28,
+    0.88
+   ],
+   "normal_std_deg": 0.728,
+   "angle_deg": 7.85,
+   "fit_rms_px": 0.095,
+   "ambiguous": 0.011,
+   "gate_ok": 1.0,
+   "gate_reasons": {},
+   "xyz_mean_m": [
+    0.0717,
+    -0.0247,
+    1.352
+   ],
+   "range_vs_tape": 1.006,
+   "depth_z_m": 1.37,
+   "depth_valid": 0.999,
+   "pose_vs_depth": 0.9869,
+   "camera": "realsense",
+   "profile": "hd30",
+   "stream": "color",
+   "settings": {
+    "emitter": 1
+   },
+   "decimate": 2.0,
+   "backend": "apriltag",
+   "width": 1280,
+   "height": 720,
+   "camera_frames": 180,
+   "processed_fps": 14.5,
+   "focal_px": 924.3,
+   "exposure": {
+    "ir_exposure_us": 32783
+   }
+  }
+ },
+ "note": "Pi clock was wrong (said 2026-10-12 01:55); run on 2026-11-04 ~21:10 PST. Tag 0 tag25h9, black square 0.14 m from the D435's depth and Fernando's tape (1.346 m = 4 ft 5 in from the D435); dim room at night"
+}

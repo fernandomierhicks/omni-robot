@@ -3,6 +3,7 @@
 
 import math
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -33,6 +34,11 @@ def says(outs, prio=None):
 
 def plays(outs):
     return [o.value for o in outs if o.kind == "sound"]
+
+
+def said_one(lines, s):
+    """s is one of these lines, its fields filled in with anything."""
+    return any(re.fullmatch(re.sub(r"\\\{\w+\\\}", ".+", re.escape(x)), s) for x in moments.all_lines(lines))
 
 
 def test_no_status_is_a_sleepy_face_waiting_for_its_software():
@@ -85,11 +91,11 @@ def test_catch_game_catches_misses_streaks_and_prompts():
         last = dict(toss=n, caught=True, speed=6.0)
         st, outs = b.update(11.0 + 10 * k, cat("aim", n, n, last=last))
         assert any(o.value == "catch" for o in outs) and st.mood == "happy"
-    assert "Three in a row!" in says(outs, 2) and st.score["streak"] == 3
+    assert moments.STREAK_SAY[3] in says(outs, 2) and st.score["streak"] == 3
     b.update(49.0, cat("flight", n + 1, n, last=last))
     st, outs = b.update(50.0, cat("wait", n + 1, n, last=dict(toss=n + 1, caught=False, predicted=[2.5, 0.0])))
     assert any(o.value == "miss" for o in outs) and st.mood == "sad" and st.score["streak"] == 0
-    assert says(outs, 2)[0] in ("That one was too far for me!", "Too far! Throw it closer.")
+    assert says(outs, 2)[0] in moments.all_lines(moments.SAY["far"])
     # the next run beats the record of 3 once (at 4), not at every catch after it
     said = []
     for k in range(6):
@@ -97,7 +103,7 @@ def test_catch_game_catches_misses_streaks_and_prompts():
         b.update(60.0 + 10 * k, cat("flight", n, n - 1, last=last))
         last = dict(toss=n, caught=True)
         said += says(b.update(61.0 + 10 * k, cat("aim", n, n, last=last))[1], 2)
-    assert said.count("New record: 4 in a row!") == 1 and not any("New record: 6" in s for s in said)
+    assert said.count("New record. 4 in a row.") == 1 and not any("New record. 6" in s for s in said)
     _, outs = b.update(55.0, cat("launch", n + 1, n))
     assert any(o.value == "launch" for o in outs)
 
@@ -109,7 +115,7 @@ def test_it_asks_for_a_throw_three_times_at_most_then_waits_quietly():
     asked = []
     for k in range(0, 6000):
         _, outs = b.update(k * 0.1, cat("wait"))
-        asked += [(k * 0.1, s) for s in says(outs, 1) if s != "Hi! I'm ready."]     # (its hello at start-up)
+        asked += [(k * 0.1, s) for s in says(outs, 1) if k > 0]                     # (its hello at start-up)
     assert [round(t) for t, _ in asked] == [8, 38, 98]                 # 10 minutes: three times
     assert all(s != "Ready when you are!" for _, s in asked)
     st, _ = b.update(600.0, cat("wait"))
@@ -122,7 +128,7 @@ def test_it_asks_for_a_throw_three_times_at_most_then_waits_quietly():
 def test_a_spoken_quip_at_most_every_five_minutes():
     b = Brain(BrainConfig(antics="lively", antic_first=1.0), seed=2)
     acts, outs = run_rest(b, 0.0, 1800.0, lambda t: status())
-    quips = [s for s in says(outs, 1) if s in moments.QUIPS]
+    quips = [s for s in says(outs, 1) if said_one(moments.QUIPS + sum(moments.QUIPS_WHEN.values(), []), s)]
     assert len(acts) > 40 and 1 <= len(quips) <= 7
 
 
@@ -132,7 +138,8 @@ def test_personas_patrol_is_stern_explore_eager_tidy_cheerful():
     st, outs = b.update(1.0, status(mission="PATROL", patrol=dict(lap=1)))
     assert st.persona == "patrol" and st.mood == "stern" and st.label == "Patrolling"
     hello = [o for o in outs if o.kind == "say"]
-    assert hello and hello[0].value in moments.MISSION_HELLO["PATROL"] and hello[0].style == "patrol"
+    assert hello and hello[0].value in moments.all_lines(moments.MISSION_HELLO["PATROL"])
+    assert hello[0].style == "patrol"
     _, outs = b.update(30.0, status(mission="PATROL", patrol=dict(lap=2)))
     assert says(outs, 1)                                               # a lap: "all secure"
     # a fault is said plainly, not in the persona's voice
@@ -161,9 +168,9 @@ def test_every_mode_says_how_it_is_going():
         return says(b.update(t, status(**kw))[1])
 
     def said_in(lines, out, **fields):              # out holds one of these lines (its fields filled in)
-        return any(s.format(**{k: fields.get(k, "") for k in re.findall(r"{(\w+)}", s)}) in out for s in lines)
+        return any(s.format(**{k: fields.get(k, "") for k in re.findall(r"{(\w+)}", s)}) in out
+                   for s in moments.all_lines(lines))
 
-    import re
     G = moments.MISSION_SAY["GOTO"]
     b = Brain(QUIET)
     b.update(0.0, status())
@@ -227,27 +234,41 @@ def test_every_mode_says_how_it_is_going():
     assert not run(b, 310.0, mission="MANUAL", task="Arrived at kitchen")
 
 
-def test_the_voice_is_raised_for_cuteness_and_styled_per_persona(tmp_path, monkeypatch):
+def test_the_voice_presets_pitch_pace_and_effect_and_each_persona_style(tmp_path, monkeypatch):
     from omni_face import voice
     monkeypatch.setattr(voice, "CACHE", tmp_path)
+    monkeypatch.delenv("OMNI_VOICE_PITCH", raising=False)
+    monkeypatch.delenv("OMNI_VOICE_FX", raising=False)
 
     class Tone(voice.Backend):                         # a stand-in voice: one second of 200 Hz at 24 kHz
         name = key = "tone"
-        rates = []
+        calls = []
 
-        def synth(self, text, out, rate=1.0):
-            self.rates.append(rate)
+        def synth(self, text, out, rate=1.0, preset=None):
+            self.calls.append((rate, preset))
             voice.write_wav(out, 0.5 * np.sin(2 * np.pi * 200 * np.arange(24000) / 24000), 24000)
             return True
 
-    v = voice.Voice(Tone(), pitch=1.12)
+    v = voice.Voice(Tone(), preset="deadpan")
+    dp = voice.PRESETS["deadpan"]
     plain, patrol = v.wav("Hello"), v.wav("Hello", "patrol")
     assert plain != patrol and v.wav("Hello") == plain                 # one WAV per style, cached
     a, r = voice.read_wav(plain)
-    assert r == voice.OUT_RATE and len(a) / r == pytest.approx(1 / 1.12, rel=0.01)   # higher, so shorter
+    assert r == voice.OUT_RATE and len(a) / r == pytest.approx(1 / dp["pitch"], rel=0.01)   # lower, so longer
+    assert np.abs(a).max() == pytest.approx(0.5, abs=0.02)            # the effect keeps the loudness
     a, _ = voice.read_wav(patrol)
-    assert len(a) / r == pytest.approx(1 / (1.12 * voice.STYLES["patrol"][0]), rel=0.01)
-    assert Tone.rates == [1.0, voice.STYLES["patrol"][1]]
+    assert len(a) / r == pytest.approx(1 / (dp["pitch"] * voice.STYLES["patrol"][0]), rel=0.01)
+    assert [c[0] for c in Tone.calls] == pytest.approx([dp["pace"], dp["pace"] * voice.STYLES["patrol"][1]])
+    assert Tone.calls[0][1] is dp                                      # the backend is told whose voice
+    # another preset (the console's setting): another WAV, its own pitch; an unknown one changes nothing
+    assert v.set_preset("cute") and not v.set_preset("nope") and v.preset == "cute"
+    a, _ = voice.read_wav(v.wav("Hello"))
+    assert len(a) / r == pytest.approx(1 / voice.PRESETS["cute"]["pitch"], rel=0.01)
+    # the effects: same length, no clipping, and not the same as the input
+    x = 0.5 * np.sin(2 * np.pi * 300 * np.arange(22050) / 22050)
+    for fx in ("box", "shimmer"):
+        y = voice.effect(x, 22050, fx)
+        assert len(y) == len(x) and np.abs(y).max() == pytest.approx(0.5, abs=1e-3) and not np.allclose(x, y)
 
 
 @pytest.mark.skipif(__import__("omni_face.voice", fromlist=["x"]).kokoro_files() is None or
@@ -261,6 +282,77 @@ def test_kokoro_speaks_a_line(tmp_path, monkeypatch):
     assert v.name == "kokoro" and p is not None
     a, r = voice.read_wav(p)
     assert 0.6 < len(a) / r < 3.0 and np.abs(a).max() > 0.1
+
+
+def test_the_humor_setting_picks_plain_or_wry_lines_and_none_repeat_back_to_back():
+    """Fernando (Nov 5): less hardcoded and annoying, more real and funny (TARS / EVE). Humor 0: plain only;
+    100: wry wherever there is one; a set never says the same line twice in a row."""
+    lines = moments.MISSION_SAY["TIDY"]["picked"]
+    for humor, want in ((0.0, "plain"), (100.0, "wry")):
+        b = Brain(BrainConfig(antics="off", humor=humor))
+        said = [b.choose("t", lines, picked=3) for _ in range(40)]
+        assert all(said_one(lines[want], s) for s in said), humor
+        assert all(a != c for a, c in zip(said, said[1:]))
+        assert len(set(said)) >= min(4, len(lines[want]))              # it goes round them, not two of them
+    b = Brain(BrainConfig(antics="off", humor=50.0), seed=1)
+    said = [b.choose("t", lines, picked=3) for _ in range(200)]
+    n_wry = sum(said_one(lines["wry"], s) for s in said)
+    assert 60 < n_wry < 140
+    # a line whose fact isn't known is skipped; with none known there's nothing to say
+    assert b.choose("x", ["{picked} in the bin.", "Into the bin."]) == "Into the bin."
+    assert b.choose("y", ["{picked} in the bin."]) is None
+    # humor 0: it never volunteers a quip, and a joke on request is declined
+    b = Brain(BrainConfig(antics="lively", antic_first=1.0, humor=0.0), seed=2)
+    acts, outs = run_rest(b, 0.0, 1800.0, lambda t: status())
+    assert acts and not [s for s in says(outs, 1) if said_one(moments.QUIPS, s)]
+    b.answer(1800.0, commands.parse("tell me a joke", woke=True))
+    assert says(b.update(1800.1, status())[1]) == moments.all_lines(moments.CHAT["no_jokes"])
+
+
+def test_the_humor_setting_by_voice():
+    p = lambda t: commands.parse(t)                    # noqa: E731
+    for text, v in (("omni humor seventy five percent", 75), ("omni set humor to sixty percent", 60),
+                    ("omni humour 40%", 40), ("omni humor setting one hundred percent", 100),
+                    ("omni set your humor to zero percent", 0), ("omni humor 150", 100)):
+        i = p(text)
+        assert i.name == "humor" and i.verb == "set" and i.args == dict(key="face.humor", value=v), text
+    assert p("omni what's your humor setting").name == "humor_ask" and p("omni humor banana") is None
+    assert "humor seventy five percent" in commands.phrases() and "set humor to zero percent" in commands.phrases()
+    assert commands.decide("omni humor ten percent", 0.9, False, False, level="chat only")[0] == "console"
+    b = Brain(QUIET)
+    b.update(0.0, status())
+    b.answer(1.0, p("omni humor sixty percent"), True, "Humor: 60 %")      # the console said yes
+    assert b.c.humor == 60.0 and "Humor at 60 percent. Sensible." in says(b.update(1.1, status())[1])
+    b.answer(2.0, p("omni humor zero percent"), True)
+    assert says(b.update(2.1, status())[1]) == ["Humor setting, zero percent. I am now extremely professional."]
+    b.answer(3.0, p("omni what's your humor setting"))
+    assert says(b.update(3.1, status())[1]) == ["Humor setting, 0 percent."]
+
+
+def test_the_tidy_says_its_picks_its_misses_and_how_it_ended():
+    tidy = lambda **t: status(mission="TIDY", arm=dict(tidy_on=True, tidy=dict(state="PICK", **t)))  # noqa: E731
+    T = moments.MISSION_SAY["TIDY"]
+    b = Brain(QUIET)
+    b.update(0.0, status())
+    b.update(1.0, tidy(picked=0, failed=0, skipped=0))
+    st, outs = b.update(30.0, tidy(picked=0, failed=1, skipped=0))      # a grab failed
+    assert "miss" in plays(outs) and said_one(T["failed"], says(outs)[0]) and st.mood == "sad"
+    _, outs = b.update(100.0, tidy(picked=0, failed=1, skipped=1))      # one too big
+    assert said_one(T["skipped"], says(outs)[0])
+    _, outs = b.update(130.0, tidy(picked=1, failed=1, skipped=1))      # the first one in the bin: always a word
+    assert "tada" in plays(outs) and said_one(T["picked"], says(outs)[0])
+    picks = [says(b.update(160.0 + 30 * k, tidy(picked=2 + k, failed=1, skipped=1))[1]) for k in range(20)]
+    assert 3 <= sum(bool(s) for s in picks) <= 17                      # about half of the rest
+    _, outs = b.update(900.0, status(mission="MANUAL", task="Tidy done: 21 in the bin, 1 not picked up"))
+    assert said_one(T["done_missed"], says(outs, 2)[0]) and "21" in says(outs, 2)[0]
+    assert b.picked_today == 21
+    b.update(910.0, tidy(picked=0, failed=0, skipped=0))
+    _, outs = b.update(920.0, status(mission="MANUAL", task="Tidy done: 0 in the bin, 0 not picked up"))
+    assert said_one(T["empty"], says(outs, 2)[0])
+    # what it knows of the day goes into its lines: things tidied, metres driven (odometry)
+    for k in range(30):
+        b.update(1000.0 + k, status(), pose=(0.9 * k, 0.0, 0.0))
+    assert b.facts()["picked_today"] == 21 and b.facts()["metres"] == 26
 
 
 def test_the_eyes_look_where_the_ball_is_as_the_screen_sees_it():
@@ -283,9 +375,9 @@ def test_lost_low_battery_missions_and_say_requests():
     st, outs = b.update(1.0, status(localization=dict(level="LOST")))
     assert st.mood == "worried" and says(outs, 2)
     _, outs = b.update(2.0, status(localization=dict(level="OK")))
-    assert "Found my way again." in says(outs)
+    assert set(says(outs)) & set(moments.all_lines(moments.SAY["found"]))
     _, outs = b.update(3.0, status(mcu=dict(mode="AUTO", faults=[], battery_pct=12, battery_low=True, age=0.05)))
-    assert "My battery is getting low." in says(outs)
+    assert set(says(outs)) & set(moments.all_lines(moments.SAY["batt_low"]))
     _, outs = b.update(4.0, status(mission="FOLLOW", follow=dict(text="Following", person=[1.5, 0.0])))
     assert says(outs, 1)
     _, outs = b.update(5.0, status(), say=["Hello Ana!"])
@@ -367,7 +459,7 @@ def test_fast_driving_says_wheee_and_a_spin_makes_it_dizzy():
     drive = lambda t: (1.7, 0.0, 0.0) if t < 3 else (0.0, 0.0, 4.0) if 10 <= t < 14 else (0.0, 0.0, 0.0)  # noqa: E731
     acts, outs = run_rest(b, 0.0, 20.0, lambda t: status(mission="MANUAL", manual=dict(active=True)), drive, dt=0.1)
     assert [a for a, _, _ in acts] == ["wheee", "dizzy"]
-    assert any(s in ("Wheee!", "Woohoo!", "Zoom zoom!") for s in says(outs))
+    assert set(says(outs)) & set(moments.all_lines(moments.SAY["wheee"]))
     assert "woozy" in plays(outs)
     # a nap ends when the robot starts to move
     b = Brain(BrainConfig(antics="normal", antic_first=1000.0))
@@ -416,11 +508,11 @@ def test_voice_answers_wake_and_listen():
     st, outs = b.update(9.1, status())
     assert st.heard == "what's your battery" and "My battery is at 80 percent." in says(outs, 2)
     b.answer(10.0, commands.parse("tell me a joke", woke=True))
-    assert any("?" in s for s in says(b.update(10.1, status())[1]))
+    assert set(says(b.update(10.1, status())[1])) & set(moments.JOKES)
     i = commands.parse("follow me", woke=True)
     b.answer(11.0, i, True, "Following")
     _, outs = b.update(11.1, status())
-    assert "heard" in plays(outs) and "Okay, I'll follow you!" in says(outs)
+    assert "heard" in plays(outs) and set(says(outs)) & set(moments.all_lines(moments.REPLIES["follow"]))
     b.answer(12.0, i, False, "Follow needs the lidar.")
     _, outs = b.update(12.1, status())
     assert "huh" in plays(outs) and any("Follow needs the lidar." in s for s in says(outs))

@@ -10,8 +10,11 @@ The arm robot is the v7 base with an SO-101 on a low nose bracket where the catc
 | `feetech.py`, `transport.py` | STS3215 protocol (PING / READ / WRITE / SYNC_READ / SYNC_WRITE), LeRobot's calibration file, the serial port or the sim's TCP bus |
 | `driver.py`, `motion.py` | Joint angles in and out at 50 Hz; quintic joint moves timed by the slowest joint, planned through `high` / `ready` when a straight move isn't clear |
 | `floor_vision.py` | Floor objects from the stereo depth: floor plane plus rug levels, a top-down grid, the ring of floor round each thing, `FloorMap` in odom |
+| `height_map.py`, `height_map_node.py` | What the D435 adds to the lidar for Nav2 (`depth_layer:=height`, proposed; design.md 4.5): a 2.5D height map fused over the frames on the map's cells. Classes floor, step (rug, sill: drivable), low (slowed for), obstacle (3 cm to the robot's top, incl. overhangs), drop (stairs; its shadow too), unknown. Obstacles and drops go to Nav2's StaticLayer; `/speed_limit` slows the robot by how sure it is of the way ahead (unknown floor, a low thing, a silent camera), merged with the console's floor-edge zones. A catalog of small things with colour crops for an AI to name (`omni_mcp` `robot_floor_unknowns` / `robot_floor_label`) |
+| `floor_obstacles.py`, `floor_obstacles_node.py` | Nav2's view of the floor (design.md 4.5): each D435 frame measured against the floor it sees (floor_vision), things 8 mm and up within 1.5 m (marked after 2 sightings) and anything over 25 mm, kept on the map's cells until the camera plainly sees floor there; `/floor_obstacles/grid` for the costmaps' StaticLayer (`depth_layer:=floor`, proposed, not the default: false marks where the floor's level steps still block goals in the sim). Skips frames while the arm is out, forgets a picked thing's spot, clears under the robot. ~60 ms a frame on the PC (Python, 5 Hz) |
 | `wrist_vision.py` | The last look before a grasp: the gripper's own pixels masked, the object segmented by colour against the floor around it, back onto the mid-height plane |
-| `pick.py` | `TidyTask`: look, approach, close look, hover, wrist look, descend, close, lift, drop; retries after a fresh look |
+| `pick.py` | `TidyTask`: look, approach, close look, hover, wrist look, descend, close, lift, drop; retries after a fresh look. With the D435 (7.5° down, design.md 4.11) the close look is taken `reach.look_back` (10 cm) short of the sweet spot and the base creeps in (CREEP). With `only` it picks one object an AI's find chose, ending `picked`, `failed`, `lost`, `too_big` or `not_found`, and reports its stages (attempted, grasped, released) |
+| `color_vision.py` | The AI's `find` (ai_robot_architecture.md 5.2): floor_vision's candidates labelled with colour from a registered colour image, and with shape (square, round, long, or a guess when far). Also image-only blobs and an annotated image. `Finder` runs one find at a time for both nodes |
 | `arm_node.py` | The ROS node, all in one Python process (`arm_impl:=py`; topics in its docstring) |
 | `arm_brain.py` | The same node's planning and tidy for `arm_impl:=cpp`: it sends whole motions to `omni_cpp`'s `arm_driver` and sleeps between requests |
 
@@ -40,4 +43,21 @@ Its cores are `omni_cpp`'s `feetech`, `arm_kin` (forward kinematics, `tool_out`)
 4. The e-stop cuts the arm's 12 V rail and the arm drops (no brakes). Decide on a brake-by-shorting circuit, or a stow before the e-stop (open item in design.md 11).
 5. The wrist camera is a 32 × 32 mm UVC module on a printed bracket beside the fixed jaw (`arm_so101.WRIST_CAM`). Measure its pose and lens, then update the sim and re-export.
 
-**Tests:** `python -m pytest -q ros/src/omni_arm/test` (no sim, no ROS); the sim's checks against MuJoCo and a whole tidy are in `simulation/v11 sil/test_v11.py`.
+**The AI's find and pick (implemented and simulated Nov 4; no real camera yet).** `/arm/request` `find {id, color, shape,
+max_range}` asks the sim for a depth frame and a colour frame. Both come from the same camera: `/stereo/left/image_color`,
+or `/d435/color/image_raw` with `config:=d435` (`color_topic`). The node then answers in `/arm/state`'s `found` and
+publishes `/arm/find_image`, again at 2 Hz while subscribed, for web_video_server snapshots. `tidy {only: id}` then uses
+the find's floor map, so the ids agree.
+
+- **Thresholds:** all are estimates, tuned on the sim's `colours` set (`simulation/v11 sil/studies/colour_scene.py
+  --seeds 10`; stereo and D435 each run 70 queries over 10 layouts):
+  - stereo: 61 right, 9 "move closer", 0 wrong
+  - D435: 47 right, 23 "move closer", 0 wrong
+- **"Move closer":** a shape seen from too far (under 300 px, roughly 0.85 m for a 40 mm cube with the D435) is reported
+  as a guess, and its match scores under 0.5.
+- **On hardware:** align the D435's depth to its colour stream (`d435.yaml`) and VERIFY the colour ranges under the
+  house's lighting.
+
+**Tests:** `python -m pytest -q ros/src/omni_arm/test` (no sim, no ROS; `test_color_vision.py` uses synthetic scenes and
+`test/data/colours_stereo.npz`, a saved sim render). The sim's checks against MuJoCo and a whole tidy are in
+`simulation/v11 sil/test_v11.py`.

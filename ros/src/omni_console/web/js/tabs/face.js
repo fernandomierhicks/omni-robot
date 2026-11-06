@@ -9,9 +9,10 @@ import { HelpBox, SettingsForm, clock } from "../ui.js";
 const TRICKS = [["sing", "Sing"], ["hum", "Hum"], ["whistle", "Whistle"], ["dance", "Dance"], ["giggle", "Giggle"],
   ["smile", "Smile"], ["wink", "Wink"], ["love", "Love"], ["yawn", "Yawn"], ["nap", "Nap"], ["sneeze", "Sneeze"],
   ["hiccup", "Hiccup"], ["babble", "Beep-boop"], ["look", "Look around"], ["dizzy", "Dizzy"], ["sigh", "Sigh"],
-  ["quip", "Say something silly"]];
+  ["quip", "Say something"]];
 const EXAMPLES = ["omni follow me", "omni stop", "hey omni tell me a joke", "omni sing a song",
-  "omni what's your battery", "omni go to the kitchen", "omni let's play catch", "omni be quiet"];
+  "omni what's your battery", "omni go to the kitchen", "omni let's play catch", "omni be quiet",
+  "omni humor sixty percent"];
 
 export function FaceTab() {
   const s = useStore("events");
@@ -35,6 +36,9 @@ export function FaceTab() {
             command). It stops, follows, plays catch, goes to a saved place, explores, tells jokes, sings, says its
             battery. Stop always works unless voice commands are off. In the sim it listens through this PC's
             microphone (Windows' recognizer, the mic icon on the face window; <kbd>L</kbd> there switches it off).</li>
+          <li><b>Humor</b> is how often it picks the dry, funny version of a line over the plain one (0: strictly
+            business, no jokes). "Omni, humor sixty percent" sets it too. <b>Voice</b> is who it sounds like:
+            deadpan (low and dry), bright (light and clean) or cute (the earlier one).</li>
         </ul>
       <//>
       <h3>Say</h3>

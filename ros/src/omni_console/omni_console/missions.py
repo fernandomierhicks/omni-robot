@@ -22,6 +22,15 @@ blocks and never touches ROS. The MCU stays the safety authority: every speed he
 profile (adult 2 m/s, kid 0.8 m/s), and its interlocks decide whether a ball is fired.
 Also kept here: the map's no-go zones and edges, the kids' programs, the calibration results, the throw log and
 leaderboard (throws.py) and the health counters (health.py); the node saves them.
+
+An AI client (ai_robot_architecture.md: omni_mcp, for Claude or Codex) uses the same verbs and a few of its own
+(AI_VERBS), always with its session id in args["ai"]. It chooses tasks, never wheel or servo commands: move runs a
+program (PROGRAM) under its own speed ceilings (ai.max_speed, ai.max_turn, then the firmware's profile), goto drives
+with Nav2, find asks omni_arm for the floor's candidates by colour and shape, pick has the tidy fetch one of them, arm
+moves the arm to a named pose. Each becomes a task (ai_tasks.py) that ends with its mission. Motion needs a lease the
+client renews every second (ai_lease); when it lapses, the AI's task is cancelled and the robot stops. A person
+always wins: any of HUMAN_VERBS from the page or the voice, or the RC's manual switch, cancels the AI's task, and the
+AI may not start motion for HUMAN_HOLD seconds after. stop and cancel need no lease.
 """
 
 from __future__ import annotations
@@ -40,7 +49,7 @@ MISSIONS = ("IDLE", "MANUAL", "GOTO", "EXPLORE", "PATROL", "CATCH", "THROWER", "
 MODE_OF = {"IDLE": "IDLE", "MANUAL": "TELEOP", "GOTO": "TELEOP", "EXPLORE": "TELEOP", "PATROL": "TELEOP",
            "CATCH": "CATCH", "THROWER": "THROWER", "FOLLOW": "TELEOP", "PROGRAM": "TELEOP",
            "CALIBRATE": "TELEOP", "TIDY": "PICK"}            # mission -> mode_manager mode
-ARM_POSES = ("stow", "ready", "high", "drop")
+ARM_POSES = ("stow", "ready", "high", "drop", "look")   # look: the wrist camera ahead, 24 deg up (omni_arm pick.py)
 ARM_JOG_MAX = 30.0                 # deg: one jog of one joint (omni_arm's motion.JOG_MAX)
 ARM_STALE = 2.0                    # s without /arm/state: the arm node isn't running
 NAV_MISSIONS = ("GOTO", "EXPLORE", "PATROL")
@@ -57,7 +66,21 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "patrol", "route_save", "route_delete", "thrower", "fire", "slam_new", "slam_save", "slam_load",
          "initial_pose", "follow", "program_save", "program_delete", "program_run", "zone_save", "zone_delete",
          "edge_save", "edge_delete", "calib", "calib_start", "calib_measure", "calib_shot", "calib_fit",
-         "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear")
+         "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
+         "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames")
+AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames")   # the AI client's own (its plan 4)
+# what a person's command (the page, the voice) takes the robot back from the AI with
+HUMAN_VERBS = ("stop", "mission", "goto", "cancel", "explore", "patrol", "thrower", "fire", "follow", "program_run",
+               "calib_start", "tidy", "arm", "slam_new", "slam_load")
+HUMAN_HOLD = 10.0                  # s after a person takes over that the AI may not start motion
+# the firmware's profile limits, fw_params_arm.h ADULT_LIMITS / KID_LIMITS: m/s, yaw rad/s, yaw rad/s^2
+FW_LIMITS = {"adult": (2.0, 4.0, 15.0), "kid": (0.8, 2.0, 7.5)}
+AI_TTL = (1.0, 10.0)               # s: the AI lease's time to live, its range (omni_mcp renews a 3 s lease every 1 s)
+AI_TIMEOUT = {"goto": (120.0, 300.0), "pick": (180.0, 180.0), "arm_pose": (30.0, 60.0), "find": (15.0, 15.0)}
+AI_MOVE_MAX = 300.0                # s: the longest move (its default deadline: 1.5 x the estimate + 10 s)
+FIND_SHAPES = ("square", "round", "long", "any")
+FIND_STALE = 30.0                  # s: a find older than this can't be picked from (find again)
+FAULTS_STOP_AI = ("ESTOP", "FAULT_STOP", "LOW_BATT", "LINK_LOST", "MOTOR_ERR", "MOTOR_SILENT")
 NAME = re.compile(r"^[^\x00-\x1f]{1,40}$")
 SAY_MAX = 200                      # characters the Say box sends at once
 # the Say box's expressions: what the face shows while it says the line (omni_face moments: mood, antic)
@@ -175,9 +198,15 @@ SETTINGS = (
     Setting("tidy.max_objects", ("tidy",), "How many", 20.0, "", 1.0, 50.0, 1.0,
             "Stops after picking up this many things (the bin holds about a dozen small toys)."),
     Setting("face.antics", ("face",), "Antics", "normal", options=("off", "quiet", "normal", "lively"),
-            hint="How often the robot yawns, hums, sings, giggles, naps or says something silly when nothing else "
-                 "is going on (quiet: every few minutes, normal: every minute or two, lively: often). Never during a "
-                 "throw or a fault."),
+            hint="How often the robot looks around, hums, sings, yawns, naps or says something dry when nothing "
+                 "else is going on (quiet: every few minutes, normal: every two to five minutes, lively: often). "
+                 "Never during a throw or a fault."),
+    Setting("face.humor", ("face",), "Humor", 75.0, "%", 0.0, 100.0, 5.0,
+            hint="How funny it tries to be: 0 is plain and businesslike, 100 is a wisecrack whenever it can. Also "
+                 "by voice: \"Omni, humor sixty percent\". Faults are always said plainly."),
+    Setting("face.preset", ("face",), "Voice", "deadpan", options=("deadpan", "bright", "cute"),
+            hint="Who it sounds like. Deadpan: a calm, low, dry voice from a small speaker box (TARS-like). Bright: "
+                 "clean and light (EVE-like). Cute: the earlier high voice."),
     Setting("face.voice", ("face",), "Voice commands", "on", options=("off", "chat only", "on"),
             hint="Talk to the robot: its name first (\"Omni, follow me\"). Chat only: it answers and stops but "
                  "nothing else drives it. On: also follow, play catch, go to a saved place, explore. Off: the "
@@ -185,6 +214,12 @@ SETTINGS = (
     Setting("tidy.radius", ("tidy",), "How far", 2.0, "m", 0.5, 5.0, 0.25,
             "Only things within this distance of where the tidy started. Clear the way: the tidy drives straight to "
             "each thing (no Nav2), slowly, and stops with its bumper."),
+    Setting("ai.max_speed", ("ai",), "AI top speed", 0.5, "m/s", 0.1, 1.0, 0.05,
+            "The fastest an AI client (Claude or Codex through omni_mcp) may drive the robot in its moves. The "
+            "firmware's profile still caps it (kid 0.8 m/s)."),
+    Setting("ai.max_turn", ("ai",), "AI turn rate", 180.0, "deg/s", 20.0, 229.0, 1.0,
+            "The fastest an AI client may turn the robot ('as fast as you can'). The firmware caps turning at "
+            "229 deg/s (adult) or 115 deg/s (kid)."),
 )
 SETTING = {s.key: s for s in SETTINGS}
 
@@ -240,7 +275,9 @@ def _name(a: dict, what: str) -> str:
 
 class Console:
     def __init__(self, settings: dict | None = None, places: dict | None = None, routes: dict | None = None,
-                 programs: dict | None = None, calib: dict | None = None, throws=None, health=None):
+                 programs: dict | None = None, calib: dict | None = None, throws=None, health=None,
+                 ai_tasks: dict | None = None):
+        from omni_console.ai_tasks import TaskBook
         from omni_console.health import Health
         from omni_console.throws import ThrowLog
         self.values = {s.key: s.default for s in SETTINGS}
@@ -251,7 +288,8 @@ class Console:
                 except (TypeError, ValueError):
                     pass
         self.places, self.routes = {}, {}
-        self.zones, self.edges = {}, {}
+        self.zones, self.edges, self.rooms = {}, {}, {}
+        self.tf = None                     # the node's TfLite (lookup, frames): the tf verb's read-only answers
         self.set_map(None, places, routes)
         self.programs = {}
         for n, b in (programs or {}).items():
@@ -298,13 +336,26 @@ class Console:
         self.now = 0.0
         self.events = deque(maxlen=200)
         self.settings_changed = self.places_changed = False
+        self.ai = None                     # the AI client's lease: dict(session, until, ttl)
+        self.ai_book = TaskBook(ai_tasks)  # its tasks (the node saves them: ai_tasks.json)
+        self.human_t = -math.inf           # when a person last took the robot back (the AI waits HUMAN_HOLD)
+        self.rc_manual = False             # the RC transmitter's manual switch (the node, from /mcu/info)
+        self.zero_until = -math.inf        # zero twist until then, after a driving mission stops (a clean stop)
+        self.found, self.t_found = None, -math.inf     # omni_arm's last find, and when it came
+        self.loc_epoch = self.found_epoch = 0          # SLAM changes since start; the find's (older: stale)
 
     def set_map(self, name, places: dict | None, routes: dict | None, zones: dict | None = None,
-                edges: dict | None = None):
-        """The map changed (another map loaded, or a new one named): its own places, routes, no-go zones and edges."""
+                edges: dict | None = None, rooms: dict | None = None):
+        """The map changed (another map loaded, or a new one named): its own places, routes, no-go zones, edges and
+        rooms (named outlines, map frame: what "the kitchen" means; the AI reads them, nothing drives by them)."""
         from omni_console.zones import check_edge, check_zone
         self.map_name = name
-        self.places, self.routes, self.zones, self.edges = {}, {}, {}, {}
+        self.places, self.routes, self.zones, self.edges, self.rooms = {}, {}, {}, {}, {}
+        for n, z in (rooms or {}).items():
+            try:
+                self.rooms[str(n)] = check_zone(z)
+            except (TypeError, ValueError, IndexError):
+                pass
         for n, p in (places or {}).items():
             try:
                 self.places[str(n)] = [float(p[0]), float(p[1]), float(p[2])]
@@ -330,7 +381,7 @@ class Console:
 
     def extras(self) -> dict:
         """What <map>.places.json keeps."""
-        return dict(places=self.places, routes=self.routes, zones=self.zones, edges=self.edges)
+        return dict(places=self.places, routes=self.routes, zones=self.zones, edges=self.edges, rooms=self.rooms)
 
     # -- events ---------------------------------------------------------------------------------------------------
     def event(self, level: str, text: str):
@@ -343,19 +394,47 @@ class Console:
 
     # -- commands ---------------------------------------------------------------------------------------------
     def command(self, verb: str, args: dict | None = None) -> Reply:
+        """A verb from the page, the voice (omni_face) or an AI client (args["ai"]: its session). A person's verb that
+        moves the robot takes it back from the AI first (its task cancelled, its mission stopped)."""
         a = args or {}
+        pre = ()
+        if not a.get("ai") and verb in HUMAN_VERBS:
+            pre = self._ai_takeover(f"a person took over ({verb} from the console)")
+        r = self._command(verb, a)
+        return Reply(r.ok, r.message, r.data, pre + r.effects) if pre else r
+
+    def _command(self, verb: str, a: dict) -> Reply:
+        ai = str(a.get("ai") or "")
         try:
             if verb == "ping":
                 return Reply(True, "pong", {"version": VERSION})
             if verb == "schema":
                 return Reply(True, "", self.schema())
             if verb == "stop":
-                return self._enter("IDLE", "Stopped from the console", "warn")
+                if ai:
+                    self._ai_end_running("CANCELLED", "stopped by the AI client (robot_stop)")
+                return self._enter("IDLE", "Stopped by the AI client" if ai else "Stopped from the console", "warn")
             if verb == "mission":
                 return self._mission(str(a.get("name", "")).upper())
             if verb == "goto":
+                if ai:
+                    return self._ai_goto(a)
                 return self._goto(float(a["x"]), float(a["y"]), float(a.get("yaw", 0.0)), str(a.get("name", "")))
+            if verb == "ai_lease":
+                return self._ai_lease(a)
+            if verb == "move":
+                return self._ai_move(a)
+            if verb == "find":
+                return self._ai_find(a)
+            if verb == "pick":
+                return self._ai_pick(a)
+            if verb == "task":
+                return self._ai_task(a)
+            if verb == "look":
+                return self._look(a)
             if verb == "cancel":
+                if ai or "task_id" in a:
+                    return self._ai_cancel(a)
                 if self.mission not in NAV_MISSIONS:
                     return Reply(True, "Nothing to cancel")
                 return self._enter("MANUAL", f"{self.mission.title()} cancelled", "info")
@@ -413,6 +492,10 @@ class Console:
                 return self._program(verb, a)
             if verb in ("zone_save", "zone_delete", "edge_save", "edge_delete"):
                 return self._zones(verb, a)
+            if verb in ("room_save", "room_delete"):
+                return self._rooms(verb, a)
+            if verb in ("tf", "frames"):
+                return self._tf(verb, a)
             if verb.startswith("calib"):
                 return self._calib(verb, a)
             if verb == "player_set":
@@ -435,10 +518,11 @@ class Console:
             if verb == "tidy":
                 return self._tidy()
             if verb == "arm":
-                return self._arm(a)
+                return self._ai_arm(a) if ai else self._arm(a)
         except (KeyError, TypeError, ValueError, IndexError) as e:
-            return Reply(False, f"{verb}: {e}" if isinstance(e, ValueError) else f"{verb}: bad arguments ({e})")
-        return Reply(False, f"Unknown command '{verb}' (one of {', '.join(VERBS)})")
+            return Reply(False, f"{verb}: {e}" if isinstance(e, ValueError) else f"{verb}: bad arguments ({e})",
+                         {"error": "bad_request"})
+        return Reply(False, f"Unknown command '{verb}' (one of {', '.join(VERBS)})", {"error": "bad_request"})
 
     # -- the face and the voice (omni_face) --------------------------------------------------------------------
     def _say(self, a: dict) -> Reply:
@@ -502,20 +586,448 @@ class Console:
             return Reply(True, text, None, (("arm", dict(verb=what)),))
         return Reply(False, "arm: do = pose | gripper | jog | hold | relax")
 
+    # -- the AI client (ai_robot_architecture.md) -----------------------------------------------------------------
+    @staticmethod
+    def _err(code: str, message: str, **data) -> Reply:
+        return Reply(False, message, dict(error=code, **data))
+
+    def owner(self, now: float):
+        """Who has the robot: "ai" (its task runs), "rc", "page" (a person: the page or the voice), or None (free)."""
+        if self.ai_book.running() is not None:
+            return "ai"
+        if self.rc_manual:
+            return "rc"
+        if self.manual_active(now) or now - self.human_t < HUMAN_HOLD or self.mission not in ("IDLE", "MANUAL"):
+            return "page"
+        return None
+
+    def _human_owner(self, now: float) -> str:
+        if self.rc_manual:
+            return "The RC transmitter has manual control"
+        if now - self.human_t < HUMAN_HOLD:
+            return (f"A person took control {now - self.human_t:.0f} s ago: the AI waits {HUMAN_HOLD:g} s before "
+                    f"moving the robot again")
+        if self.manual_active(now):
+            return "Someone is driving with the console's stick"
+        if self.mission not in ("IDLE", "MANUAL"):
+            return f"The robot is busy ({self.mission.lower()}, from the console: {self.task}). Stop it there first"
+        return ""
+
+    def _fault(self) -> str:
+        m = self.mcu or {}
+        names = sorted({f["name"] for f in m.get("faults", [])} & set(FAULTS_STOP_AI))
+        if m.get("mode") == "ESTOP" and "ESTOP" not in names:
+            names.append("ESTOP")
+        return f"The MCU reports {', '.join(names)}: a person has to clear it" if names else ""
+
+    def _arm_out(self) -> bool:
+        return self._arm_up() and bool(self.arm.get("out"))
+
+    def _ai_gate(self, a: dict, motion: bool = True) -> Reply | None:
+        """None when the AI may do this now, else the refusal: no_lease, busy, owner_conflict, fault."""
+        now, sess = self.now, str(a.get("ai") or "")
+        if not sess:
+            return self._err("no_lease", "AI commands carry the AI session (args 'ai')")
+        if self.ai is None or self.ai["session"] != sess or now > self.ai["until"]:
+            return self._err("no_lease", "No valid AI lease: omni_mcp renews it every second (is it running?)")
+        if motion:
+            t = self.ai_book.running()
+            if t is not None:
+                return self._err("busy", f"Task {t.id} ({t.kind}) is still {t.state.lower()}: wait for it "
+                                         f"(robot_task) or cancel it", task_id=t.id)
+            who = self._human_owner(now)
+            if who:
+                return self._err("owner_conflict", who)
+            bad = self._fault()
+            if bad:
+                return self._err("fault", bad)
+        return None
+
+    def _ai_dup(self, a: dict) -> Reply | None:
+        """A retry with a request_id already seen: the same task back, nothing new started."""
+        t = self.ai_book.by_req(str(a.get("request_id") or ""))
+        if t is None:
+            return None
+        return Reply(True, f"Already accepted as {t.id} (same request_id): {t.state.lower()}", t.public(self.now))
+
+    def _ai_new(self, kind: str, a: dict, args: dict, timeout: float, mission: str = ""):
+        t = self.ai_book.new(kind, args, str(a.get("ai") or "page"), str(a.get("request_id") or ""), self.now,
+                             self.wall_time(), self.now + timeout, mission)
+        self.ai_book.start(t)
+        return t
+
+    @staticmethod
+    def _timeout(a: dict, kind: str) -> float:
+        default, most = AI_TIMEOUT[kind]
+        v = float(a.get("timeout_s") or default)
+        if not math.isfinite(v) or v <= 0:
+            raise ValueError("timeout_s: a positive number")
+        return min(v, most)
+
+    def _ai_evidence(self, t) -> dict:
+        if t.kind == "move" and self.runner is not None:
+            return self.runner.measured()
+        return {}
+
+    def _ai_end_running(self, state: str, why: str):
+        t = self.ai_book.running()
+        if t is not None:
+            self.ai_book.finish(t, state, self.wall_time(), why, evidence=self._ai_evidence(t),
+                                result={"error": "timeout"} if state == "TIMED_OUT" else None)
+            self.event("warn" if state != "SUCCEEDED" else "info", f"AI task {t.id} ({t.kind}): {why}")
+
+    def _ai_stop(self, state: str, why: str) -> list:
+        """End the AI's running task and stop what it was doing (the robot holds still, armed: MANUAL)."""
+        self._ai_end_running(state, why)
+        return list(self._enter("MANUAL", f"AI stopped: {why}", "warn").effects)
+
+    def _ai_takeover(self, why: str) -> tuple:
+        """A person took the robot (the page, the voice, the RC): the AI's task ends, its mission stops."""
+        self.human_t = self.now
+        if self.ai_book.running() is None:
+            return ()
+        return tuple(self._ai_stop("CANCELLED", why))
+
+    def on_rc(self, manual: bool):
+        """The RC transmitter's manual switch (/mcu/info), from the node."""
+        if manual and not self.rc_manual:
+            self.fx_queue += list(self._ai_takeover("the RC transmitter took manual control"))
+        self.rc_manual = manual
+
+    def _ai_tick(self, now: float) -> list:
+        """The lease, the deadlines and the mission under each AI task: what ended them, and the stop."""
+        fx = []
+        if self.ai is not None and now > self.ai["until"]:
+            self.ai = None
+            self.event("warn", "The AI client's lease ran out (its connection or its process is gone)")
+            if self.ai_book.running() is not None:
+                fx += self._ai_stop("CANCELLED", "the AI client's lease ran out")
+        t = self.ai_book.running()
+        if t is not None and now > t.deadline:
+            fx += self._ai_stop("TIMED_OUT", f"no result in {t.deadline - t.t0:.0f} s")
+        t = self.ai_book.running()
+        if t is not None and t.mission and self.mission != t.mission:
+            self._ai_end_running("CANCELLED", f"the robot left {t.mission}: {self.task}")
+        f = self.ai_book.running(("find",))
+        if f is not None and now > f.deadline:
+            self.ai_book.finish(f, "TIMED_OUT", self.wall_time(), "no answer from omni_arm's find",
+                                result={"error": "timeout"})
+        return fx
+
+    def _ai_lease(self, a: dict) -> Reply:
+        sess = str(a.get("session") or a.get("ai") or "")
+        if not sess or len(sess) > 64:
+            return self._err("bad_request", "ai_lease: a session id (up to 64 characters)")
+        ttl = float(a.get("ttl_s", 3.0))
+        if not AI_TTL[0] <= ttl <= AI_TTL[1]:
+            return self._err("out_of_limits", f"ai_lease: ttl_s {AI_TTL[0]:g} to {AI_TTL[1]:g}")
+        now = self.now
+        if self.ai is not None and self.ai["session"] != sess and now <= self.ai["until"]:
+            return self._err("owner_conflict", f"Another AI session ({self.ai['session'][:8]}) holds the lease")
+        if self.ai is None or self.ai["session"] != sess:
+            self.event("info", f"AI client connected (session {sess[:8]})")
+        self.ai = dict(session=sess, until=now + ttl, ttl=ttl)
+        return Reply(True, "lease", dict(session=sess, ttl_s=ttl, owner=self.owner(now)))
+
+    @staticmethod
+    def _ceiling(value, cap: float, default: float, what: str):
+        """(used, capped): "max" -> the cap; a number -> itself, at most the cap; None -> the default."""
+        if value is None:
+            return min(default, cap), False
+        if value == "max":
+            return cap, False
+        v = float(value)
+        if not math.isfinite(v) or v <= 0:
+            raise ValueError(f"{what}: a positive number or \"max\"")
+        return min(v, cap), v > cap
+
+    def _ai_move(self, a: dict) -> Reply:
+        from omni_console.program import ProgramRunner, check
+        dup = self._ai_dup(a)
+        if dup:
+            return dup
+        bad = self._ai_gate(a)
+        if bad:
+            return bad
+        try:
+            blocks = check(a.get("steps"))
+            runner_check = ProgramRunner("AI move", blocks, 0.1, 0.1)
+        except ValueError as e:
+            return self._err("bad_request", f"move: {e}")
+        kinds = {s[0] for s in runner_check.steps}
+        if not runner_check.steps:
+            return self._err("bad_request", "move: no steps")
+        if "goto" in kinds:
+            return self._err("bad_request", "move has no goto blocks: use goto (robot_goto) for places")
+        if "move" in kinds and not self.caps["nav"]:
+            return self._err("not_localized", "Driving (forward, back, left, right) needs navigation running: its "
+                                              "collision monitor guards the moves. Turns and spins in place work "
+                                              "without it")
+        if self._arm_out():
+            return self._err("arm_out", "The arm is out: stow it first (robot_arm_pose stow); turning with it out "
+                                        "hits things")
+        prof = "kid" if self.values["profile.kid"] else "adult"
+        v_fw, w_fw, a_fw = FW_LIMITS[prof]
+        v_cap = min(self.values["ai.max_speed"], v_fw)
+        w_cap = min(self.values["ai.max_turn"], math.degrees(w_fw))
+        v, v_capped = self._ceiling(a.get("speed"), v_cap, self.values["program.speed"], "speed")
+        w, w_capped = self._ceiling(a.get("turn_rate"), w_cap, self.values["program.turn"], "turn_rate")
+        runner = ProgramRunner("AI move", blocks, v, math.radians(w))
+        est = runner.estimate(a_fw, 2.0)
+        timeout = float(a.get("timeout_s") or 1.5 * est + 10.0)
+        if not math.isfinite(timeout) or timeout <= 0:
+            return self._err("bad_request", "timeout_s: a positive number")
+        timeout = min(timeout, AI_MOVE_MAX)
+        if est > timeout:
+            return self._err("out_of_limits", f"move: about {est:.0f} s, longer than its time limit "
+                                              f"({timeout:.0f} s, at most {AI_MOVE_MAX:g})")
+        r = self._enter("PROGRAM", f"AI move: {len(runner.steps)} steps, about {est:.0f} s", "info")
+        self.runner = runner
+        t = self._ai_new("move", a, dict(steps=blocks, speed=a.get("speed"), turn_rate=a.get("turn_rate")), timeout,
+                         "PROGRAM")
+        t.result.update(estimated_s=round(est, 1), limits=dict(
+            speed_m_s=round(v, 3), turn_rate_deg_s=round(w, 1), speed_capped=v_capped, turn_rate_capped=w_capped,
+            ai_max_speed=self.values["ai.max_speed"], ai_max_turn=self.values["ai.max_turn"], profile=prof,
+            firmware_max_speed=v_fw, firmware_max_turn_deg_s=round(math.degrees(w_fw), 1)))
+        t.message = f"moving: {len(runner.steps)} steps at {v:g} m/s, {w:.0f} deg/s; about {est:.1f} s"
+        return Reply(True, t.message, t.public(self.now), r.effects)
+
+    def _ai_goto(self, a: dict) -> Reply:
+        dup = self._ai_dup(a)
+        if dup:
+            return dup
+        bad = self._ai_gate(a)
+        if bad:
+            return bad
+        if not self.caps["nav"]:
+            return self._err("not_localized", "Navigation isn't running (Nav2): goto needs it")
+        place = str(a.get("place") or "")
+        if place:
+            if place not in self.places:
+                room = next((k for k in self.rooms if k.lower() == place.lower()), None)
+                if room is not None:      # a room is an outline, not a pose: the caller picks a free point in it
+                    pts = self.rooms[room]
+                    cx, cy = sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+                    return self._err("unknown_place", f"'{room}' is a room, not a saved place: goto x, y inside its "
+                                                      f"outline (its centre is ({cx:.2f}, {cy:.2f}); check it is free "
+                                                      f"on the map first)")
+                return self._err("unknown_place", f"No place called '{place}' on this map (places: "
+                                                  f"{', '.join(sorted(self.places)) or 'none'}; rooms: "
+                                                  f"{', '.join(sorted(self.rooms)) or 'none'})")
+            x, y, yaw = self.places[place]
+        else:
+            x, y, yaw = float(a["x"]), float(a["y"]), math.radians(float(a.get("yaw_deg", 0.0)))
+        if self.pose is None or self.pose[0] != "map":
+            return self._err("not_localized", "The robot isn't localized on a map")
+        h = self.loc_health_now()
+        if h is not None and h.get("level") == "LOST":
+            return self._err("not_localized", f"Localization is LOST: {'; '.join(h.get('reasons') or [])}")
+        if self._arm_out():
+            return self._err("arm_out", "The arm is out: stow it first (robot_arm_pose stow)")
+        timeout = self._timeout(a, "goto")
+        r = self._goto(x, y, yaw, place)
+        if not r.ok:
+            return r
+        t = self._ai_new("goto", a, dict(place=place) if place else dict(x=x, y=y, yaw_deg=math.degrees(yaw)), timeout,
+                         "GOTO")
+        t.result["goal"] = dict(frame="map", x=round(x, 3), y=round(y, 3), yaw_deg=round(math.degrees(yaw), 1),
+                                place=place or None)
+        t.message = r.message
+        return Reply(True, r.message, t.public(self.now), r.effects)
+
+    def _ai_cancel(self, a: dict) -> Reply:
+        """Cancel the AI's task (no lease needed: stopping is always allowed)."""
+        t = self.ai_book.get(str(a.get("task_id", "")))
+        if t is None:
+            return self._err("unknown_task", f"No task '{a.get('task_id')}' (the robot's console may have restarted)")
+        if t.done:
+            return Reply(True, f"Task {t.id} had already ended: {t.state}", t.public(self.now))
+        if t.kind == "find":
+            self.ai_book.finish(t, "CANCELLED", self.wall_time(), "cancelled by the AI client")
+            return Reply(True, f"Task {t.id} cancelled", t.public(self.now))
+        fx = self._ai_stop("CANCELLED", "cancelled by the AI client")
+        return Reply(True, f"Task {t.id} cancelled: the robot stopped", t.public(self.now), tuple(fx))
+
+    def _ai_task(self, a: dict) -> Reply:
+        t = self.ai_book.get(str(a.get("task_id", "")))
+        if t is None:
+            return self._err("unknown_task", f"No task '{a.get('task_id')}' (the robot's console may have restarted)")
+        return Reply(True, t.message, t.public(self.now))
+
+    def _ai_arm(self, a: dict) -> Reply:
+        """The AI's arm: named poses only, on the arm's checked paths (never jog, relax or the gripper alone)."""
+        if str(a.get("do", "")) != "pose":
+            return self._err("bad_request", "The AI moves the arm to named poses only: do = pose")
+        name = str(a.get("name", ""))
+        if name not in ARM_POSES:
+            return self._err("bad_request", f"arm pose: one of {', '.join(ARM_POSES)}")
+        dup = self._ai_dup(a)
+        if dup:
+            return dup
+        bad = self._ai_gate(a)
+        if bad:
+            return bad
+        if not self._arm_up():
+            return self._err("no_arm", "The arm isn't connected")
+        t = self._ai_new("arm_pose", a, dict(name=name), self._timeout(a, "arm_pose"))
+        t.result.update(pose=name, arm_ev=self.arm_ev)
+        t.message = f"arm to {name}"
+        return Reply(True, f"Arm to {name}", t.public(self.now), (("arm", dict(verb="pose", name=name)),))
+
+    def _ai_find(self, a: dict) -> Reply:
+        """Candidates on the floor by colour and shape (omni_arm: floor_vision's detections, colour_vision's labels).
+        Read-only: no lease, no owner. The result comes with /arm/state (on_arm_state)."""
+        if self.ai_book.running(("find",)) is not None:
+            return self._err("busy", "A find is already running")
+        if not self._arm_up():
+            return self._err("no_arm", "find needs the arm robot running (omni_arm's arm_node)")
+        color = a.get("color")
+        if isinstance(color, dict):
+            h = color.get("h")
+            if not (isinstance(h, list) and len(h) == 2 and all(0 <= float(v) <= 179 for v in h)):
+                return self._err("bad_request", "color: {h: [lo, hi] (0-179, OpenCV), s_min, v_min} or a name")
+            color = dict(h=[float(h[0]), float(h[1])], s_min=float(color.get("s_min", 80)),
+                         v_min=float(color.get("v_min", 50)))
+        elif color is not None:
+            color = str(color).strip().lower()[:20] or None
+        shape = str(a.get("shape") or "any").lower()
+        if shape not in FIND_SHAPES:
+            return self._err("bad_request", f"shape: one of {', '.join(FIND_SHAPES)}")
+        rng = float(a.get("max_range_m", 1.6))
+        if not 0.3 <= rng <= 2.0:
+            return self._err("out_of_limits", "max_range_m: 0.3 to 2.0 m (the depth camera's useful range)")
+        t = self._ai_new("find", a, dict(color=color, shape=shape, max_range_m=rng), self._timeout(a, "find"))
+        t.message = "looking"
+        req = dict(verb="find", id=t.id, color=color, shape=shape, max_range=rng)
+        return Reply(True, "Looking", t.public(self.now), (("arm", req),))
+
+    def _ai_pick(self, a: dict) -> Reply:
+        """The tidy, for one object of the last find (its id in omni_arm's floor map): approach, wrist look, grasp,
+        the bin."""
+        dup = self._ai_dup(a)
+        if dup:
+            return dup
+        bad = self._ai_gate(a)
+        if bad:
+            return bad
+        if not self._arm_up():
+            return self._err("no_arm", "pick needs the arm robot running (omni_arm's arm_node)")
+        if self._arm_out():
+            return self._err("arm_out", "The arm isn't stowed: robot_arm_pose stow first")
+        oid = int(a["object_id"])
+        f = self.found
+        if f is None:
+            return self._err("stale_object", "No find yet: robot_find first")
+        if self.found_epoch != self.loc_epoch:
+            return self._err("stale_object", "The map or the localization changed since the find: find again")
+        age = self.now - self.t_found
+        if age > FIND_STALE:
+            return self._err("stale_object", f"The last find is {age:.0f} s old (at most {FIND_STALE:g}): find again")
+        cands = {int(c["id"]): c for c in f.get("candidates", [])}
+        if oid not in cands:
+            return self._err("not_found", f"No object {oid} in the last find (ids: "
+                                          f"{', '.join(str(i) for i in sorted(cands)) or 'none'})")
+        timeout = self._timeout(a, "pick")
+        r = self._enter("TIDY", f"AI pick: object {oid}", "info")
+        radius = max(float(self.values["tidy.radius"]), float(cands[oid].get("range_m", 1.0)) + 0.5)
+        req = dict(verb="tidy", only=oid, max_objects=1, radius=radius)
+        t = self._ai_new("pick", a, dict(object_id=oid), timeout, "TIDY")
+        t.result["object"] = cands[oid]
+        t.message = f"picking object {oid}"
+        return Reply(True, f"Picking object {oid}", t.public(self.now), r.effects + (("arm", req),))
+
+    def _look(self, a: dict) -> Reply:
+        """A fresh frame from a camera the sim renders on request (front: the depth camera's colour, wrist). On the
+        robot the cameras stream and the request is ignored."""
+        cam = str(a.get("camera", "front"))
+        what = {"front": "color", "d435_color": "color", "wrist": "wrist", "depth": "depth"}.get(cam)
+        if what is None:
+            return self._err("bad_request", "look: camera front | wrist | d435_color | depth")
+        return Reply(True, f"{cam} frame requested", dict(camera=cam), (("camera_request", what),))
+
+    def _ai_on_arm(self, s: dict, new_events: list):
+        """/arm/state for the AI's tasks: a find's answer, an arm pose's end."""
+        f = s.get("found")
+        if isinstance(f, dict) and f.get("id"):
+            t = self.ai_book.get(str(f["id"]))
+            if t is not None and t.kind == "find" and not t.done:
+                if f.get("error"):
+                    self.ai_book.finish(t, "FAILED", self.wall_time(), f["error"], result=dict(error="not_found"))
+                else:
+                    self.found, self.t_found, self.found_epoch = f, self.now, self.loc_epoch
+                    n = len(f.get("candidates", []))
+                    self.ai_book.finish(t, "SUCCEEDED", self.wall_time(), f"{n} candidate{'s' * (n != 1)}",
+                                        result={k: f.get(k) for k in ("candidates", "image_only", "query", "image",
+                                                                       "frame", "t", "dropped", "hint", "pose")})
+        t = self.ai_book.running(("arm_pose",))
+        if t is None:
+            return
+        name = t.result["pose"]
+        for text in new_events:
+            if text.startswith(f"{name}: refused") or text.startswith(f"pose {name}:") or "isn't connected" in text:
+                self.ai_book.finish(t, "FAILED", self.wall_time(), text, result=dict(error="arm_out"))
+                return
+            if text == f"moving to {name}":
+                t.result["moving"] = True
+        if t.result.get("moving") and s.get("source") == "hold":
+            self.ai_book.finish(t, "SUCCEEDED", self.wall_time(), f"the arm is at {name}",
+                                evidence=dict(joints_deg=s.get("joints"), out=s.get("out")))
+
+    def _ai_pick_end(self, tidy: dict):
+        """The tidy ended under an AI pick: its stages are the evidence (the robot has no bin check yet)."""
+        t = self.ai_book.running(("pick",))
+        if t is None:
+            return
+        stages = tidy.get("stages") or {}
+        outcome = tidy.get("outcome") or tidy.get("reason") or ""
+        ok = bool(stages.get("released"))
+        err = None if ok else {"not_found": "not_found", "lost": "lost", "too_big": "out_of_limits"}.get(outcome,
+                                                                                                         "failed")
+        ev = dict(attempted=bool(stages.get("attempted")), grasped=bool(stages.get("grasped")), released=ok,
+                  in_bin="uncertain", in_bin_reason="the robot has no bin check yet (released over the bin is what "
+                                                    "it knows; the sim's truth comes from omni_mcp)",
+                  outcome=outcome, tries=tidy.get("tries"))
+        msg = f"object {t.args['object_id']}: " + ("released over the bin" if ok else (outcome or "not picked"))
+        self.ai_book.finish(t, "SUCCEEDED" if ok else "FAILED", self.wall_time(), msg,
+                            result=dict(error=err, in_bin="uncertain"), evidence=ev)
+
+    def ai_cleanup(self) -> set:
+        """What a restarted console must stop, for the AI tasks it found interrupted: "nav" (Nav2 keeps driving a goal
+        whose client died), "arm" (omni_arm keeps running a tidy). Nothing resumes; the robot stops."""
+        kinds = {t.kind for t in self.ai_book.tasks.values() if t.state == "INTERRUPTED" and t.t_end is None}
+        return ({"nav"} if "goto" in kinds else set()) | ({"arm"} if "pick" in kinds else set())
+
+    def ai_summary(self) -> dict:
+        now = self.now
+        last = next(reversed(self.ai_book.tasks.values()), None)
+        live = self.ai is not None and now <= self.ai["until"]
+        return dict(lease=live, session=self.ai["session"][:8] if live else None, owner=self.owner(now),
+                    task=None if last is None else dict(task_id=last.id, kind=last.kind, state=last.state,
+                                                        message=last.message),
+                    found=None if self.found is None else dict(id=self.found.get("id"),
+                                                                n=len(self.found.get("candidates", [])),
+                                                                age_s=round(now - self.t_found, 1)),
+                    limits=dict(max_speed=self.values["ai.max_speed"], max_turn=self.values["ai.max_turn"]))
+
     def on_arm_state(self, s: dict, now: float):
         """omni_arm's /arm/state (5 Hz). A tidy that ended by itself ends the mission; its events become ours."""
         was = self.arm
         self.arm, self.t_arm = s, now
+        self.now = now
+        new = []
         for ev in s.get("events", []):
             if ev.get("n", 0) > self.arm_ev:
                 self.arm_ev = ev["n"]
                 if was is not None:                       # not the backlog of a node that was already running
                     self.event("info", f"Arm: {ev['text']}")
+                    new.append(str(ev.get("text", "")))
+        self._ai_on_arm(s, new)
         t = s.get("tidy") or {}
         if self.mission == "TIDY":
             st = t.get("state", "")
             self.task = f"Tidying: {st.lower().replace('_', ' ')} ({t.get('picked', 0)} in the bin)" if st else self.task
             if was is not None and was.get("tidy_on") and not s.get("tidy_on"):
+                self._ai_pick_end(t)
                 self.mission, self.progress = "MANUAL", None
                 self.task = (f"Tidy done: {t.get('picked', 0)} in the bin, {t.get('failed', 0)} not picked up"
                              + (f" ({t['reason']})" if t.get("reason") else ""))
@@ -710,6 +1222,38 @@ class Console:
         self.places_changed = self.zones_changed = True
         return Reply(True, msg, self.schema(), (("masks",),))
 
+    def _rooms(self, verb: str, a: dict) -> Reply:
+        """A room's outline on the map (map frame), by name: labels for "drive to the kitchen"; not a no-go zone."""
+        from omni_console.zones import check_zone
+        if verb == "room_save":
+            name = _name(a, "A room")
+            self.rooms[name] = check_zone(a["points"])
+            msg = f"Room '{name}' saved ({len(self.rooms[name])} corners)"
+        else:
+            name = str(a["name"])
+            if self.rooms.pop(name, None) is None:
+                return Reply(False, f"No room called '{name}'")
+            msg = f"Deleted room '{name}'"
+        self.places_changed = True
+        return Reply(True, msg, self.schema())
+
+    def _tf(self, verb: str, a: dict) -> Reply:
+        """Read-only: a frame's planar pose in another (x, y m, yaw deg), or the frames the console knows. The console
+        keeps the newest transform of each frame in 2D (TfLite): enough to place things on the map."""
+        tf = self.tf
+        if tf is None:
+            return self._err("no_robot", "No transforms yet")
+        if verb == "frames":
+            return Reply(True, "", dict(frames={c: e[0] for c, e in sorted(tf.tf.items())}))
+        parent, child = str(a.get("parent", "map")), str(a["child"])
+        p = tf.lookup(parent, child)
+        if p is None:
+            return self._err("not_found", f"No transform from '{parent}' to '{child}' (the frames: verb frames; "
+                                          f"the child must lie under the parent in the tree)")
+        return Reply(True, "", dict(parent=parent, child=child, x=round(p[0], 4), y=round(p[1], 4),
+                                    yaw_deg=round(math.degrees(math.remainder(p[2], 2 * math.pi)), 2),
+                                    stamp=round(p[3], 3), planar=True))
+
     def calib_state(self) -> dict:
         c = self.calib_run
         return dict(results=self.calib_results, shots=self.calib_shots, rpms=list(LAUNCHER_RPMS),
@@ -792,6 +1336,7 @@ class Console:
         capped in an edge's slow band (zones.py)."""
         from omni_console.zones import speed_cap
         self.now = now
+        self.fx_queue += self._ai_tick(now)
         tw = None
         if self.mission == "MANUAL":
             tw = self.manual_output(now)
@@ -806,8 +1351,17 @@ class Console:
                 self.fx_queue += self._nav_goal(x, y, yaw, place, self.values["goto.speed"], self.values["goto.turn"])
             if tw == "done":
                 name, err = p.name, p.error
+                t = self.ai_book.running(("move",))
+                if t is not None:
+                    m = p.measured()
+                    self.ai_book.finish(t, "FAILED" if err else "SUCCEEDED", self.wall_time(),
+                                        f"stopped: {err}" if err else
+                                        f"done: turned {m['turned_deg']:.0f} deg, drove {m['distance_m']:.2f} m in "
+                                        f"{m['duration_s']:.1f} s", result=dict(error="timeout") if err else None,
+                                        evidence=m)
                 self.runner = None
                 self.mission, self.progress = "MANUAL", None
+                self.zero_until = now + ZERO_TAIL
                 self.task = f"Program '{name}' stopped: {err}" if err else f"Program '{name}' finished"
                 self.event("warn" if err else "info", self.task)
                 tw = (0.0, 0.0, 0.0)
@@ -821,6 +1375,8 @@ class Console:
             if c.phase == "done" and c.result is not None and c.proc == "imu_level" and not getattr(c, "saved", False):
                 c.saved = True
                 self._calib_save(c.proc, c.result)
+        if tw is None and self.mission in ("MANUAL", "IDLE") and now < self.zero_until:
+            tw = (0.0, 0.0, 0.0)                         # a driving mission just stopped: hold zero a moment
         self.slow = None
         if tw is not None and self.pose is not None and self.pose[0] == "map" and self.edges:
             cap, e = speed_cap(self.edges.values(), self.pose[1], self.pose[2])
@@ -881,6 +1437,8 @@ class Console:
 
     def _slam(self, verb: str, a: dict) -> Reply:
         s = self.slam
+        if verb in ("slam_new", "slam_load", "initial_pose"):
+            self.loc_epoch += 1                           # the AI's last find no longer counts (odom may jump)
         if verb == "initial_pose":
             x, y, yaw = float(a["x"]), float(a["y"]), float(a.get("yaw", 0.0))
             if s["mode"] != "localization":
@@ -956,6 +1514,11 @@ class Console:
 
     def _enter(self, mission: str, task: str, level: str, cancel_nav: bool = True) -> Reply:
         fx = []
+        t = self.ai_book.running()
+        if t is not None:                                # the robot switched away under the AI's task: it ends
+            self._ai_end_running("CANCELLED", f"the robot was switched to {mission}: {task}")
+        if self.mission in ("FOLLOW", "PROGRAM", "CALIBRATE") and mission in ("MANUAL", "IDLE"):
+            self.zero_until = self.now + ZERO_TAIL       # a program stopped mid-turn: zeros, not silence
         if cancel_nav and self.goal is not None:
             fx.append(("nav_cancel",))
             self.goal = None
@@ -986,6 +1549,9 @@ class Console:
     def tick(self, now: float, grid=None) -> tuple:
         """Every ~0.5 s from the node (grid: explore.Grid of the current map while exploring). Returns effects."""
         self.now = now
+        fx = self._ai_tick(now)
+        if fx:
+            return tuple(fx)
         if self.mission == "EXPLORE" and self.explore is not None:
             return tuple(self._explore_tick(now, grid))
         if self.mission == "PATROL" and self.patrol is not None:
@@ -1142,6 +1708,16 @@ class Console:
             self.mission, self.progress = "MANUAL", None
             self.task = f"Arrived at {name}" if ok else f"Could not reach {name}: {why}"
             self.event("info" if ok else "warn", self.task)
+            t = self.ai_book.running(("goto",))
+            if t is not None:
+                ev = dict(nav2=outcome)
+                if self.pose is not None:
+                    fr, x, y, yaw = self.pose
+                    ev.update(pose=dict(frame=fr, x=round(x, 3), y=round(y, 3), yaw_deg=round(math.degrees(yaw), 1)),
+                              distance_to_goal_m=round(math.hypot(x - g["x"], y - g["y"]), 3),
+                              heading_error_deg=round(math.degrees(math.remainder(yaw - g["yaw"], 2 * math.pi)), 1))
+                self.ai_book.finish(t, "SUCCEEDED" if ok else "FAILED", self.wall_time(), self.task,
+                                    result=None if ok else dict(error=f"nav2_{outcome}"), evidence=ev)
         elif self.mission == "EXPLORE":
             e = self.explore
             if e is None:
@@ -1222,8 +1798,13 @@ class Console:
                     places={k: v for k, v in sorted(self.places.items())},
                     routes={k: v for k, v in sorted(self.routes.items())}, map=self.map_name,
                     zones={k: v for k, v in sorted(self.zones.items())},
+                    rooms={k: v for k, v in sorted(self.rooms.items())},
                     edges={k: v for k, v in sorted(self.edges.items())},
-                    programs={k: v for k, v in sorted(self.programs.items())}, player=self.throws.player)
+                    programs={k: v for k, v in sorted(self.programs.items())}, player=self.throws.player,
+                    ai=dict(verbs=list(AI_VERBS), poses=list(ARM_POSES), shapes=list(FIND_SHAPES),
+                            human_hold_s=HUMAN_HOLD, lease_ttl_s=list(AI_TTL),
+                            firmware={k: dict(max_speed=v[0], max_turn_deg_s=round(math.degrees(v[1]), 1))
+                                      for k, v in FW_LIMITS.items()}))
 
     def summary(self) -> dict:
         g = None if self.goal is None else {k: self.goal[k] for k in ("x", "y", "yaw", "name")}
@@ -1247,14 +1828,14 @@ class Console:
                                                                    text=self.calib_run.text()),
                     slow=None if self.slow is None else dict(speed=self.slow[0], edge=self.slow[1]),
                     player=self.throws.player, localization=self.loc_health_now(),
-                    arm=self._arm_summary())
+                    arm=self._arm_summary(), ai=self.ai_summary())
 
     def _arm_summary(self):
         if not self._arm_up():
             return None
         s = self.arm
         return {k: s.get(k) for k in ("torque", "source", "ok", "joints", "names", "loads", "temps", "volts", "out",
-                                      "tidy", "tidy_on")}
+                                      "tidy", "tidy_on", "wrist_cam")}
 
     # -- localization health (design.md 10: omni_slam's /localization/health) ----------------------------------------
     def on_loc_health(self, h: dict, now: float):

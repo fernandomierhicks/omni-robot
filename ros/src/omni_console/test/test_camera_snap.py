@@ -89,7 +89,7 @@ def test_opens_on_demand_and_closes_when_idle(server):
 def test_busy_camera_answers_503_and_backs_off():
     n = []
 
-    def opener():
+    def opener(*_):
         n.append(1)
         raise RuntimeError("Device or resource busy")
 
@@ -108,12 +108,80 @@ def test_busy_camera_answers_503_and_backs_off():
 
 
 def test_missing_driver_is_said_plainly():
-    def opener():
+    def opener(*_):
         raise ModuleNotFoundError("No module named 'picamera2'", name="picamera2")
 
     cam = cs.Camera("arducam", "Arducam", ("color",), opener)
     with pytest.raises(cs.CameraError, match="picamera2 isn't installed"):
         cam.grab("color")
+
+
+def read_parts(url, n):
+    """The first n parts of a multipart stream: [(headers dict, body)]."""
+    parts = []
+    with urllib.request.urlopen(url, timeout=5) as r:
+        assert r.headers["Content-Type"].startswith("multipart/x-mixed-replace; boundary=")
+        while len(parts) < n:
+            line = r.readline()
+            if not line.startswith(b"--"):
+                continue
+            head = {}
+            while (line := r.readline().strip()):
+                k, v = line.decode().split(":", 1)
+                head[k.strip()] = v.strip()
+            parts.append((head, r.read(int(head["Content-Length"]))))
+    return parts
+
+
+def test_cameras_list_profiles_and_the_detector(server):
+    base, _ = server
+    j = json.loads(get(base + "/cameras")[2])
+    cams = {c["name"]: c for c in j["cameras"]}
+    assert [p["name"] for p in cams["arducam"]["profiles"]] == list(cs.PI_PROFILES)
+    assert cams["realsense"]["profile"] == "vga15" and cams["realsense"]["settings"]["emitter"] == 1
+    assert "tag25h9" in j["tags"]["families"]
+
+
+def test_stream_sends_newer_frames_each_with_its_info(server):
+    base, cams = server
+    parts = read_parts(f"{base}/stream?cam=realsense&stream=ir&w=320&q=50", 4)
+    seqs = []
+    for head, body in parts:
+        assert head["Content-Type"] == "image/jpeg"
+        assert Image.open(io.BytesIO(body)).size == (320, 240)
+        seqs.append(json.loads(head["X-Frame-Info"])["seq"])
+    assert seqs == sorted(seqs) and len(set(seqs)) == 4
+    t_end = time.time() + 3                                        # the page went away: no longer streaming
+    while cams["realsense"].streaming and time.time() < t_end:
+        time.sleep(0.05)
+    assert cams["realsense"].streaming == 0
+
+
+def test_fps_cap_and_profile_switch(server):
+    base, cams = server
+    t0 = time.time()
+    parts = read_parts(f"{base}/stream?cam=arducam&stream=color&fps=5&profile=crop100", 3)
+    assert time.time() - t0 > 0.35                                 # 3 frames at 5 fps: at least 2 periods
+    assert all(json.loads(h["X-Frame-Info"])["profile"] == "crop100" for h, _ in parts)
+    j = json.loads(get(f"{base}/set?cam=arducam&profile=wide30&focus=1.5")[2])
+    assert j["profile"] == "wide30" and j["settings"]["focus"] == 1.5
+
+
+def test_finds_the_fake_tags_and_their_pose(server):
+    pytest.importorskip("scipy")
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "omni_console"))
+    from omni_console import apriltag_view as av
+    if av.backend() is None:
+        pytest.skip("no AprilTag detector here (pupil_apriltags or OpenCV aruco)")
+    base, _ = server
+    for fam, side, rng in (("tag25h9", 70, 0.2 * 600 / 70), ("tag36h11", 80, 0.2 * 600 / 80)):
+        _, h, _ = get(f"{base}/snap?cam=realsense&stream=color&tags={fam}&size=0.2&dec=1")
+        info = json.loads(h["X-Frame-Info"])
+        assert [t["id"] for t in info["tags"]] == [0], info
+        t = info["tags"][0]
+        assert t["side_px"] == pytest.approx(side, abs=2)
+        assert t["range"] == pytest.approx(rng, rel=0.04) and t["angle_deg"] < 15
+        assert all(0 < u < 1 and 0 < v < 1 for u, v in t["corners"])
 
 
 def test_depth_colormap_and_range():

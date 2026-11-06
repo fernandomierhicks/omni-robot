@@ -1,0 +1,352 @@
+floor2_FL 1 True 209.3
+floor2_RL 1 True 210.0
+floor2_RR 1 True 209.6
+floor2_FR 1 True 205.3
+riser_adapter 1 True 133.4
+riser_arm 1 True 109.9
+bracket_computer_0 1 True 2.5
+bracket_computer_1 1 True 2.5
+bracket_computer_2 1 True 2.5
+bracket_computer_3 1 True 2.5
+bracket_battery_tray 1 True 38.1
+post_spacer_power_0 1 True 0.2
+post_mcu_0 1 True 1.2
+post_spacer_power_1 1 True 0.2
+post_mcu_1 1 True 1.2
+post_spacer_power_2 1 True 0.2
+post_mcu_2 1 True 1.2
+post_spacer_power_3 1 True 0.2
+post_mcu_3 1 True 1.2
+spacer_servo_adapter_0 1 True 0.1
+spacer_servo_adapter_1 1 True 0.1
+spacer_servo_adapter_2 1 True 0.1
+spacer_servo_adapter_3 1 True 0.1
+bracket_servo_adapter 1 True 15.5
+bracket_imu 1 True 3.6
+post_deck_0 1 True 11.2
+post_deck_1 1 True 11.2
+post_deck_2 1 True 11.2
+post_deck_3 1 True 11.2
+housing_estop 1 True 8.8
+housing_switch 1 True 8.8
+deck_bin 1 True 259.8
+housing_face 1 True 66.4
+housing_face_crown 1 True 36.0
+housing_speaker_cover 1 True 3.5
+bracket_d435_riser 1 True 16.1
+100 fasteners {"floor": {"notch_removed_mm3": {"FL": 12486.0, "FR": 9011.0}, "FL": {"bbox": [219.3, 225.0, 13.0], "tabs": 3, "sockets": 2}, "RL": {"bbox": [225.0, 225.0, 11.0], "tabs": 3, "sockets": 4}, "RR": {"bbox": [225.0, 225.0, 11.0], "tabs": 3, "sockets": 4}, "FR": {"bbox": [220.1, 225.0, 13.0], "tabs": 3, "sockets": 2}}, "arm_pose": [1.571, -1.745, 1.449, 1.421, 0.0, -0.17], "fin_screws": 15, "d435": {"pose": {"centre": [190.81198914858916, 0.0, 193.0], "tilt_down_deg": 30.0, "roll_deg": 0.0}, "notch_bounds": [183.4, -46.0, 248.0, 49.6], "pocket_x0": 153.2, "cradle_edges_rounded": "65/95"}}
+{
+ "info": {
+  "floor": {
+   "notch_removed_mm3": {
+    "FL": 12486.0,
+    "FR": 9011.0
+   },
+   "FL": {
+    "bbox": [
+     219.3,
+     225.0,
+     13.0
+    ],
+    "tabs": 3,
+    "sockets": 2
+   },
+   "RL": {
+    "bbox": [
+     225.0,
+     225.0,
+     11.0
+    ],
+    "tabs": 3,
+    "sockets": 4
+   },
+   "RR": {
+    "bbox": [
+     225.0,
+     225.0,
+     11.0
+    ],
+    "tabs": 3,
+    "sockets": 4
+   },
+   "FR": {
+    "bbox": [
+     220.1,
+     225.0,
+     13.0
+    ],
+    "tabs": 3,
+    "sockets": 2
+   }
+  },
+  "arm_pose": [
+   1.571,
+   -1.745,
+   1.449,
+   1.421,
+   0.0,
+   -0.17
+  ],
+  "fin_screws": 15,
+  "d435": {
+   "pose": {
+    "centre": [
+     190.81198914858916,
+     0.0,
+     193.0
+    ],
+    "tilt_down_deg": 30.0,
+    "roll_deg": 0.0
+   },
+   "notch_bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "pocket_x0": 153.2,
+   "cradle_edges_rounded": "65/95"
+  }
+ },
+ "overlaps_mm3": {},
+ "overlaps_with_chassis_mm3": {},
+ "battery_slide_out_+y": {
+  "contacts": {},
+  "clear": true,
+  "note": "strap opened and the XT90 unplugged first (reached under the deck from the right side)"
+ },
+ "lidar_top_to_floor_mm": 3.8,
+ "thread_engagement_mm": {
+  "bolt_seam_RL#0": 7.9,
+  "bolt_seam_RL#1": 7.9,
+  "bolt_seam_RL#2": 7.9,
+  "bolt_seam_RL#3": 7.9,
+  "bolt_seam_RR#4": 7.9,
+  "bolt_seam_RR#5": 7.9,
+  "bolt_seam_RR#6": 7.9,
+  "bolt_seam_RR#7": 7.9,
+  "bolt_seam_FR#8": 7.9,
+  "bolt_floor_fin#9": 7.0,
+  "bolt_floor_fin#10": 7.0,
+  "bolt_floor_fin#11": 7.0,
+  "bolt_floor_fin#12": 7.0,
+  "bolt_floor_fin#13": 7.0,
+  "bolt_floor_fin#14": 7.0,
+  "bolt_floor_fin#15": 7.0,
+  "bolt_floor_fin#16": 7.0,
+  "bolt_floor_fin#17": 7.0,
+  "bolt_floor_fin#18": 7.0,
+  "bolt_floor_fin#19": 7.0,
+  "bolt_floor_fin#20": 7.0,
+  "bolt_floor_fin#21": 7.0,
+  "bolt_floor_fin#22": 7.0,
+  "bolt_floor_fin#23": 7.0,
+  "bolt_so101_base#24": 7.9,
+  "bolt_so101_base#25": 7.9,
+  "bolt_so101_base#26": 8.1,
+  "bolt_so101_base#27": 8.1,
+  "bolt_arm_kit_M3x10#28": 6.0,
+  "bolt_arm_kit_M3x10#29": 6.0,
+  "bolt_arm_kit_M3x12#30": 8.0,
+  "bolt_arm_kit_M3x12#31": 8.0,
+  "bolt_arm_kit_M3x45#32": 7.3,
+  "bolt_arm_kit_M3x45#33": 7.3,
+  "bolt_arm_kit_M3x35#34": 10.0,
+  "bolt_arm_kit_M3x35#35": 10.0,
+  "bolt_buck_12v_arm#36": 0.5,
+  "bolt_buck_12v_arm#38": 0.5,
+  "bolt_riser_ext#40": 8.0,
+  "bolt_riser_ext#41": 8.0,
+  "bolt_clip_computer#42": 9.0,
+  "bolt_clip_computer#43": 9.0,
+  "bolt_clip_computer#44": 9.0,
+  "bolt_clip_computer#45": 9.0,
+  "bolt_tray_battery#46": 9.0,
+  "bolt_tray_battery#47": 9.0,
+  "bolt_tray_battery#48": 9.0,
+  "bolt_tray_battery#49": 9.0,
+  "bolt_mcu_stack#50": 9.0,
+  "bolt_mcu_stack#51": 9.0,
+  "bolt_mcu_stack#52": 9.0,
+  "bolt_mcu_stack#53": 9.0,
+  "bolt_servo_adapter#54": 7.4,
+  "bolt_servo_adapter#55": 7.4,
+  "bolt_servo_adapter#56": 7.4,
+  "bolt_servo_adapter#57": 7.4,
+  "bolt_servo_bracket#58": 0.0,
+  "bolt_servo_bracket#60": 0.0,
+  "bolt_imu#62": 8.1,
+  "bolt_imu#63": 8.1,
+  "bolt_imu_base#64": 9.0,
+  "bolt_imu_base#65": 9.0,
+  "bolt_post_floor#66": 7.0,
+  "bolt_post_deck#67": 6.0,
+  "bolt_post_floor#68": 7.0,
+  "bolt_post_deck#69": 6.0,
+  "bolt_post_floor#70": 7.0,
+  "bolt_post_deck#71": 6.0,
+  "bolt_post_floor#72": 7.0,
+  "bolt_post_deck#73": 6.0,
+  "bolt_bin#74": 6.0,
+  "bolt_bin#75": 6.0,
+  "bolt_bin#76": 6.0,
+  "bolt_bin#77": 6.0,
+  "bolt_estop_pod#78": 6.0,
+  "bolt_estop_pod#79": 6.0,
+  "bolt_switch_pod#80": 6.0,
+  "bolt_switch_pod#81": 6.0,
+  "bolt_face_deck#82": 6.0,
+  "bolt_face_deck#83": 6.0,
+  "bolt_face_deck#84": 6.0,
+  "bolt_face_deck#85": 6.0,
+  "bolt_face_crown#86": 6.0,
+  "bolt_face_crown#87": 6.0,
+  "bolt_mic#88": 7.5,
+  "bolt_mic#89": 7.5,
+  "bolt_mic#90": 7.5,
+  "bolt_mic#91": 7.5,
+  "bolt_speaker_cover#92": 8.0,
+  "bolt_speaker_cover#93": 8.0,
+  "bolt_d435_camera#94": 0.0,
+  "bolt_d435_camera#95": 0.0,
+  "bolt_d435_cradle#96": 0.0,
+  "bolt_d435_cradle#98": 0.0
+ },
+ "screws_short_of_6mm": {},
+ "hole_audit": {
+  "screws": 94,
+  "partial_holes": {},
+  "threads_across_layers": {
+   "bolt_face_crown#86 / housing_face": 90.0,
+   "bolt_face_crown#87 / housing_face": 90.0
+  },
+  "heads_in_parts": {},
+  "no_hole": {
+   "bolt_mic#88 / mic_array": 3.5,
+   "bolt_mic#89 / mic_array": 3.5,
+   "bolt_mic#90 / mic_array": 3.5,
+   "bolt_mic#91 / mic_array": 3.5
+  },
+  "note": "partial: a hole that is not a full circle in a part (straddles a seam or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the printed part's print-up axis"
+ },
+ "fastener_count": {
+  "M3x10_pan": 29,
+  "M3x12_pan": 35,
+  "M4x25_flat": 4,
+  "M3x45_pan": 2,
+  "M3x35_pan": 2,
+  "M3x14_pan": 6,
+  "M3_hexnut": 6,
+  "M3x60_pan": 4,
+  "M3x16_pan": 6,
+  "M3x8_pan": 6
+ },
+ "d435_riser": {
+  "pose": {
+   "centre": [
+    190.81198914858916,
+    0.0,
+    193.0
+   ],
+   "tilt_down_deg": 30.0,
+   "roll_deg": 0.0
+  },
+  "note": "nominal CAD; the camera is Intel's model, the plug a straight USB-C envelope (VERIFY on the cable)",
+  "arm_mm": {
+   "d435": {
+    "min": 13.3,
+    "by": "SO-101 base (fixed)"
+   },
+   "bracket_d435_riser": {
+    "min": 11.0,
+    "by": "SO-101 base (fixed)"
+   },
+   "plug_d435": {
+    "min": 17.8,
+    "by": "SO-101 base (fixed)"
+   }
+  },
+  "arm_rule": ">= 5 mm (camera, cradle), >= 4 mm (plug, lead) over every pose and move in validation/d435/arm_motion.json",
+  "lidar": {
+   "scan_z": 163.0,
+   "lowest_z": {
+    "d435": 178.09,
+    "bracket_d435_riser": 185.5,
+    "plug_d435": 190.63
+   },
+   "margin_mm": 15.09,
+   "added_blind_deg": 0.0,
+   "note": "nothing of the mount comes within 3 mm of the scan plane, so the lidar's blind angle stays the chassis' (chassis.py check: lidar.blind_total_deg)"
+  },
+  "bumper": {
+   "r_outer": 225.15,
+   "r_max": {
+    "d435": 209.4,
+    "bracket_d435_riser": 191.2,
+    "plug_d435": 199.9
+   },
+   "inside": true
+  },
+  "fov_overlaps_mm3": {
+   "env_d435_fov_depth": {},
+   "env_d435_fov_rgb": {},
+   "note": "frustums 500 mm from each lens (depth 89 x 58 deg from the left imager, RGB 69 x 42; lens positions VERIFY); arm at stow, front pods at bump"
+  },
+  "camera_static_gaps_mm": {
+   "floor2_FL": 1.17,
+   "floor2_FR": 1.17,
+   "riser_adapter": 3.21,
+   "riser_arm": 0.9,
+   "support_front_L": 6.45,
+   "support_front_R": 6.45
+  },
+  "plug_d435_static_gaps_mm": {
+   "riser_arm": 0.6
+  },
+  "view": {
+   "lens": [
+    198.0,
+    17.5,
+    188.8
+   ],
+   "notch_area_mm2": 5920.0,
+   "notch_bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "nearest_floor_ahead_mm": 311.5,
+   "nearest_floor_any_mm": 311.5,
+   "robot_in_view_pct": 0.0,
+   "in_view_by_pct": {
+    "chassis": 0.0,
+    "pods_bump": 0.0,
+    "floor": 0.0
+   },
+   "without_floor": {
+    "nearest_floor_ahead_mm": 311.5,
+    "nearest_floor_any_mm": 311.5
+   },
+   "note": "ray cast of the depth image (61 x 41 rays) against the chassis, the pods at bump and the notched floor"
+  },
+  "view_25deg": {
+   "nearest_floor_ahead_mm": 336.0,
+   "robot_in_view_pct": 0.0
+  },
+  "floor_notch": {
+   "bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "area_in_floor_mm2": 3052.0,
+   "removed_mm3": {
+    "FL": 12486.0,
+    "FR": 9011.0
+   },
+   "note": "plate and rim lip cut over |y| <= 46 from x 183.4 to the edge; the front seam lost its tab at x 190 (now 120) and its screws at 172 / 205 (one at 167): no fin, fin screw, boss or dovetail cut"
+  }
+ }
+}

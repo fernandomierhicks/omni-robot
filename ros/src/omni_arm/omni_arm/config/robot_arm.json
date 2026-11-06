@@ -52,7 +52,8 @@
    0.19,
    0.0,
    0.1115
-  ]
+  ],
+  "d435_tilt_deg": -7.5
  },
  "base": {
   "base_link_height": 0.0,
@@ -711,7 +712,9 @@
    0.31,
    0.0
   ],
-  "note": "where the base brings a thing before the reach: the middle of the fingers-down reach (0.26-0.36 m ahead on the arm kit)"
+  "look_back": 0.0,
+  "view_near": 0.32,
+  "note": "sweet: where the base brings a thing before the reach, the middle of the fingers-down reach (0.26-0.36 m ahead on the arm kit); look_back: the close look this far short of it (a depth camera that can't see it), then a creep in; view_near: the depth camera's floor + 5 cm"
  },
  "keep_out": [
   {

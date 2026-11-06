@@ -1,0 +1,654 @@
+[
+ {
+  "mount": "riser30",
+  "pos": [
+   0.2,
+   0.0,
+   0.215
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "look_back": 0.1,
+  "seed": 0,
+  "objects": 6,
+  "in_bin": 4,
+  "task_picked": 4,
+  "task_failed": 0,
+  "task_skipped": 0,
+  "reason": "nothing in sight",
+  "t": 145.6,
+  "wall": 215.3,
+  "depth_frames": 51,
+  "wrist_frames": 16,
+  "render_ms": 118.4,
+  "max_tilt_deg": 1.98,
+  "bus_errors": 0,
+  "imaging": {
+   "LOOK": {
+    "n": 41,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.05,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "APPROACH": {
+    "n": 63,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 63,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CHECK": {
+    "n": 6,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 6,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CREEP": {
+    "n": 20,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 20,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "HOVER": {
+    "n": 43,
+    "arm_mean": 0.092,
+    "arm_max": 0.205,
+    "want_depth": 0.0,
+    "target_n": 43,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.63
+   },
+   "REFINE": {
+    "n": 10,
+    "arm_mean": 0.168,
+    "arm_max": 0.204,
+    "want_depth": 0.0,
+    "target_n": 10,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 1.0
+   },
+   "DESCEND": {
+    "n": 82,
+    "arm_mean": 0.214,
+    "arm_max": 0.26,
+    "want_depth": 0.0,
+    "target_n": 82,
+    "in_field": 1.0,
+    "hidden": 0.02,
+    "wrist": 0.85
+   },
+   "CLOSE": {
+    "n": 16,
+    "arm_mean": 0.234,
+    "arm_max": 0.26,
+    "want_depth": 0.0,
+    "target_n": 16,
+    "in_field": 1.0,
+    "hidden": 0.25,
+    "wrist": 0.25
+   },
+   "LIFT": {
+    "n": 48,
+    "arm_mean": 0.207,
+    "arm_max": 0.258,
+    "want_depth": 0.0,
+    "target_n": 48,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.25
+   },
+   "TO_BIN": {
+    "n": 50,
+    "arm_mean": 0.011,
+    "arm_max": 0.164,
+    "want_depth": 0.0,
+    "target_n": 50,
+    "in_field": 0.1,
+    "hidden": 0.0,
+    "wrist": 0.64
+   },
+   "RELEASE": {
+    "n": 13,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 13,
+    "in_field": 0.0,
+    "hidden": null,
+    "wrist": 1.0
+   },
+   "STOW": {
+    "n": 67,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "TURN": {
+    "n": 124,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.01,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   }
+  },
+  "worst_arm": {
+   "share": 0.26,
+   "state": "DESCEND"
+  },
+  "seg_errors": 0,
+  "wall_s": 218.2
+ },
+ {
+  "mount": "riser30",
+  "pos": [
+   0.2,
+   0.0,
+   0.215
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "look_back": 0.1,
+  "seed": 1,
+  "objects": 6,
+  "in_bin": 4,
+  "task_picked": 5,
+  "task_failed": 0,
+  "task_skipped": 0,
+  "reason": "nothing in sight",
+  "t": 185.8,
+  "wall": 278.4,
+  "depth_frames": 51,
+  "wrist_frames": 20,
+  "render_ms": 108.6,
+  "max_tilt_deg": 2.97,
+  "bus_errors": 0,
+  "imaging": {
+   "STOW": {
+    "n": 85,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "LOOK": {
+    "n": 36,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.03,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "APPROACH": {
+    "n": 66,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 66,
+    "in_field": 0.97,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CHECK": {
+    "n": 9,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 9,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CREEP": {
+    "n": 26,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.04,
+    "target_n": 26,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "HOVER": {
+    "n": 54,
+    "arm_mean": 0.099,
+    "arm_max": 0.234,
+    "want_depth": 0.0,
+    "target_n": 54,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.65
+   },
+   "REFINE": {
+    "n": 11,
+    "arm_mean": 0.18,
+    "arm_max": 0.234,
+    "want_depth": 0.0,
+    "target_n": 11,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 1.0
+   },
+   "DESCEND": {
+    "n": 110,
+    "arm_mean": 0.223,
+    "arm_max": 0.264,
+    "want_depth": 0.0,
+    "target_n": 110,
+    "in_field": 1.0,
+    "hidden": 0.01,
+    "wrist": 0.82
+   },
+   "CLOSE": {
+    "n": 20,
+    "arm_mean": 0.238,
+    "arm_max": 0.261,
+    "want_depth": 0.0,
+    "target_n": 20,
+    "in_field": 1.0,
+    "hidden": 0.2,
+    "wrist": 0.0
+   },
+   "LIFT": {
+    "n": 60,
+    "arm_mean": 0.22,
+    "arm_max": 0.264,
+    "want_depth": 0.0,
+    "target_n": 60,
+    "in_field": 1.0,
+    "hidden": 0.02,
+    "wrist": 0.0
+   },
+   "TO_BIN": {
+    "n": 131,
+    "arm_mean": 0.006,
+    "arm_max": 0.176,
+    "want_depth": 0.0,
+    "target_n": 131,
+    "in_field": 0.04,
+    "hidden": 0.0,
+    "wrist": 0.72
+   },
+   "RELEASE": {
+    "n": 18,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 18,
+    "in_field": 0.0,
+    "hidden": null,
+    "wrist": 0.89
+   },
+   "TURN": {
+    "n": 118,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.01,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   }
+  },
+  "worst_arm": {
+   "share": 0.264,
+   "state": "DESCEND"
+  },
+  "seg_errors": 0,
+  "wall_s": 281.6
+ },
+ {
+  "mount": "riser30",
+  "pos": [
+   0.2,
+   0.0,
+   0.215
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "look_back": 0.1,
+  "seed": 2,
+  "objects": 6,
+  "in_bin": 5,
+  "task_picked": 6,
+  "task_failed": 0,
+  "task_skipped": 0,
+  "reason": "nothing in sight",
+  "t": 235.0,
+  "wall": 347.4,
+  "depth_frames": 85,
+  "wrist_frames": 28,
+  "render_ms": 116.8,
+  "max_tilt_deg": 2.58,
+  "bus_errors": 0,
+  "imaging": {
+   "STOW": {
+    "n": 111,
+    "arm_mean": 0.003,
+    "arm_max": 0.188,
+    "want_depth": 0.0,
+    "target_n": 7,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.29
+   },
+   "LOOK": {
+    "n": 62,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.11,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "APPROACH": {
+    "n": 72,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 72,
+    "in_field": 0.92,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CHECK": {
+    "n": 17,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 17,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CREEP": {
+    "n": 35,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.03,
+    "target_n": 35,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "HOVER": {
+    "n": 74,
+    "arm_mean": 0.103,
+    "arm_max": 0.225,
+    "want_depth": 0.0,
+    "target_n": 74,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.62
+   },
+   "REFINE": {
+    "n": 15,
+    "arm_mean": 0.182,
+    "arm_max": 0.225,
+    "want_depth": 0.0,
+    "target_n": 15,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 1.0
+   },
+   "DESCEND": {
+    "n": 145,
+    "arm_mean": 0.238,
+    "arm_max": 0.283,
+    "want_depth": 0.0,
+    "target_n": 145,
+    "in_field": 1.0,
+    "hidden": 0.06,
+    "wrist": 0.77
+   },
+   "CLOSE": {
+    "n": 28,
+    "arm_mean": 0.254,
+    "arm_max": 0.283,
+    "want_depth": 0.0,
+    "target_n": 28,
+    "in_field": 0.89,
+    "hidden": 0.32,
+    "wrist": 0.11
+   },
+   "LIFT": {
+    "n": 85,
+    "arm_mean": 0.233,
+    "arm_max": 0.282,
+    "want_depth": 0.0,
+    "target_n": 85,
+    "in_field": 0.98,
+    "hidden": 0.06,
+    "wrist": 0.27
+   },
+   "TO_BIN": {
+    "n": 67,
+    "arm_mean": 0.014,
+    "arm_max": 0.189,
+    "want_depth": 0.0,
+    "target_n": 67,
+    "in_field": 0.12,
+    "hidden": 0.0,
+    "wrist": 0.61
+   },
+   "RELEASE": {
+    "n": 18,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 18,
+    "in_field": 0.0,
+    "hidden": null,
+    "wrist": 1.0
+   },
+   "TURN": {
+    "n": 211,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   }
+  },
+  "worst_arm": {
+   "share": 0.283,
+   "state": "DESCEND"
+  },
+  "seg_errors": 0,
+  "wall_s": 348.3
+ },
+ {
+  "mount": "riser30",
+  "pos": [
+   0.2,
+   0.0,
+   0.215
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "look_back": 0.1,
+  "seed": 3,
+  "objects": 6,
+  "in_bin": 3,
+  "task_picked": 3,
+  "task_failed": 0,
+  "task_skipped": 0,
+  "reason": "nothing in sight",
+  "t": 117.4,
+  "wall": 176.1,
+  "depth_frames": 41,
+  "wrist_frames": 12,
+  "render_ms": 122.5,
+  "max_tilt_deg": 1.86,
+  "bus_errors": 0,
+  "imaging": {
+   "LOOK": {
+    "n": 29,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.1,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "APPROACH": {
+    "n": 43,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 43,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CHECK": {
+    "n": 4,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.25,
+    "target_n": 4,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "CREEP": {
+    "n": 16,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 16,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "HOVER": {
+    "n": 30,
+    "arm_mean": 0.1,
+    "arm_max": 0.246,
+    "want_depth": 0.0,
+    "target_n": 30,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.67
+   },
+   "REFINE": {
+    "n": 6,
+    "arm_mean": 0.176,
+    "arm_max": 0.246,
+    "want_depth": 0.0,
+    "target_n": 6,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 1.0
+   },
+   "DESCEND": {
+    "n": 67,
+    "arm_mean": 0.216,
+    "arm_max": 0.26,
+    "want_depth": 0.0,
+    "target_n": 67,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.85
+   },
+   "CLOSE": {
+    "n": 12,
+    "arm_mean": 0.238,
+    "arm_max": 0.261,
+    "want_depth": 0.0,
+    "target_n": 12,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "LIFT": {
+    "n": 36,
+    "arm_mean": 0.216,
+    "arm_max": 0.262,
+    "want_depth": 0.0,
+    "target_n": 36,
+    "in_field": 1.0,
+    "hidden": 0.0,
+    "wrist": 0.0
+   },
+   "TO_BIN": {
+    "n": 37,
+    "arm_mean": 0.015,
+    "arm_max": 0.175,
+    "want_depth": 0.0,
+    "target_n": 37,
+    "in_field": 0.14,
+    "hidden": 0.0,
+    "wrist": 0.46
+   },
+   "RELEASE": {
+    "n": 10,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 10,
+    "in_field": 0.0,
+    "hidden": null,
+    "wrist": 0.8
+   },
+   "STOW": {
+    "n": 51,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.0,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   },
+   "TURN": {
+    "n": 129,
+    "arm_mean": 0.0,
+    "arm_max": 0.0,
+    "want_depth": 0.02,
+    "target_n": 0,
+    "in_field": null,
+    "hidden": null,
+    "wrist": null
+   }
+  },
+  "worst_arm": {
+   "share": 0.262,
+   "state": "LIFT"
+  },
+  "seg_errors": 0,
+  "wall_s": 177.2
+ }
+]

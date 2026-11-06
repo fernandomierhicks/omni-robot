@@ -187,15 +187,21 @@ def detect(frame: DepthFrame, robot_radius: float = 0.23, rng: np.random.Generat
            stride: int = 1, why: list | None = None) -> list:
     """Objects on the floor in base_link (see the module notes). why: a list that collects each candidate turned
     down, (x, y, n points, reason)."""
+    P = points(frame, stride)
+    return detect_points(P[np.hypot(P[:, 0], P[:, 1]) > robot_radius], frame.T_base_cam[:2, 3], rng, why)[0]
+
+
+def detect_points(P: np.ndarray, cam_xy, rng: np.random.Generator | None = None, why: list | None = None):
+    """detect() on base_link points already cut to the view (cam_xy: the camera's x, y in base_link): (detections,
+    each point's height above the floor level it stands on, which points are seen floor). The heights and floor are
+    None with too few points. floor_obstacles.py builds Nav2's view of the floor from the same pass."""
     def reject(sel, reason):
         if why is not None and sel.any():
             q = obj[sel]
             why.append((round(float(q[:, 0].mean()), 3), round(float(q[:, 1].mean()), 3), int(sel.sum()), reason))
     rng = rng or np.random.default_rng(0)
-    P = points(frame, stride)
-    P = P[np.hypot(P[:, 0], P[:, 1]) > robot_radius]
     if len(P) < 50:
-        return []
+        return [], None, None
     # every point's cell on a top-down grid over the view
     x0, y0 = P[:, 0].min() - 3 * CELL, P[:, 1].min() - 3 * CELL
     cx_, cy_ = ((P[:, 0] - x0) / CELL).astype(int), ((P[:, 1] - y0) / CELL).astype(int)
@@ -226,7 +232,7 @@ def detect(frame: DepthFrame, robot_radius: float = 0.23, rng: np.random.Generat
     sel_obj = (h > H_MIN) & (h < H_MAX)
     obj, hob = P[sel_obj], h[sel_obj]
     if len(obj) < MIN_POINTS:
-        return []
+        return [], h, on_floor
     ix, iy = cx_[sel_obj], cy_[sel_obj]
     cnt = grid_of(sel_obj)
     occ = cnt >= 2
@@ -246,7 +252,7 @@ def detect(frame: DepthFrame, robot_radius: float = 0.23, rng: np.random.Generat
             continue
         ring = _dilate(comp, 2) & ~comp
         seen = seen_g[ring] > 0                       # the floor right behind a thing is hidden from the camera
-        far = math.dist(obj[sel][:, :2].mean(axis=0), frame.T_base_cam[:2, 3]) > RING_NEAR
+        far = math.dist(obj[sel][:, :2].mean(axis=0), cam_xy) > RING_NEAR
         if seen.mean() < (RING_SEEN_FAR if far else RING_SEEN):
             reject(sel, f"ring {seen.mean():.2f} seen")         # cut off by the image's edge or the range
             continue
@@ -269,7 +275,7 @@ def detect(frame: DepthFrame, robot_radius: float = 0.23, rng: np.random.Generat
             continue
         out.append(Detection(float(ctr[0]), float(ctr[1]), float(np.percentile(hq, 95)), L, W,
                              float(math.atan2(ax[1], ax[0])), int(sel.sum()), big=max(L, W) > MAX_SIZE))
-    return out
+    return out, h, on_floor
 
 
 def to_frame(dets, pose) -> list:

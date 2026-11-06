@@ -77,6 +77,23 @@ STEP-only exploration. Round 7 below, its STEPs and the SolidWorks files are unc
     plate level (unchanged, under the 3 mm rule); every part fits the bed (side nodes now 46 tall).
   - **Lidar pedestal 1.3 mm lower:** the vendor RPLIDAR model puts its scan plane 31.3 mm over its base (`first_floor.LIDAR`, was 30 assumed),
     so the scan is at z 163 as in the sim; 3.8 mm from the lidar's top to the second floor.
+- **Round 12 (Nov 4, fixes from the review below; pod, chassis, upper robot and SolidWorks regenerated): a pod comes out with the robot assembled.**
+  - **Pod screws from below** (`pod_lean.py`, `chassis.py`): the inner frame's foot takes three M3 (`FOOT_SCREW_Y` 23 / 34.5 / 88) and the keel's
+    foot two (`KEEL_SCREWS`, foot lengthened to y 103), all driven up from under the chassis members (heads in 3.9 mm counterbores) into pilots in
+    the pod. The three horizontal side screws are gone. The column through-bolt (M3 × 60) now stops in the frame's own foot (pilot −7..2): it
+    clamps the column and foot, not the pod to the chassis. Landing: pod 12/12, keel 8/8.
+  - **Slide-out path:** `chassis.slide_path()` sweeps each pod's plan outward along its −x for 260 mm (+1 mm) in two bands (members z 40–62,
+    walls 62–92), and the chassis is clipped to it; the bumper mounts at 25° moved (`MOUNTS_Q0` 8 / 17 / 72 / 84°) to keep their landing; the
+    front pods' side-fin dowels sit in slots 15 mm long toward the way out, so the dowels leave with the pod.
+  - **Procedure:** robot on a stand (wheels at droop) or on its side; take off the pod's bumper quarter; undo the 5 screws from below; slide the
+    pod straight out ~100 mm, unplug its XT30 (96 mm in from the bumper line), finish the slide. The motor lead needs ~120 mm of service loop
+    at its grommet (not drawn).
+  - **`pod_service.py`** (`validation/upper/pod_service.json`): per pod, a Ø6 driver along every screw from its head for 300 mm hits nothing
+    (20/20); each pod's 60–62 parts slide 250 mm out against the other 424–428 parts of the robot with no contact. Continuous, not stepped: surface
+    samples (~1 / mm²) cast along the path into the other part's triangles both ways, counting only crossings into a solid (sliding on the members
+    is not a contact). Controls: bumper left on, the fork hits it at 3.2 mm; slid inward, the frame and keel hit the chassis at 1.0 mm.
+  - **Upper fixes:** battery drawer, rear ribs, SO-101 base clamps and screws, riser screws, lidar screws, stacked power / MCU boards, mic and
+    speaker fixings (below). Arm sweep rerun with the clamps and crown as keep-outs: 61 legs, nearest 12.3 mm, no contact.
 - **Upper robot (`tools/upper.py` → `step_export/upper/`, `validation/upper/`; Nov 4, proposal):** layout F's second floor and everything on it.
   - **Second floor:** 5 mm plate, r 218, top z 181.5, in four quadrants (218 × 218, bed fits). Under it 6 × 6 lips round the rim and along the two
     side seams (x = 0), bolted on the bench by 8 horizontal M3 × 14; the rear seam lies on the spine's flange, whose five floor screws straddle it;
@@ -114,7 +131,7 @@ STEP-only exploration. Round 7 below, its STEPs and the SolidWorks files are unc
   The planner's capsules alone had said it fits (15 mm): they miss the shoulder bracket (design.md 4.4's warning). Fits there: a strip display or
   two round eye displays up to ~45 mm tall.
 - **Arm sweep** (`tools/arm_sweep.py`, `validation/upper/arm_sweep.json`): the official meshes through 61 planned tidy moves (stow, high, ready,
-  floor grasps x 0.26..0.36 / y −0.12..0.12 both yaws, drop into the raised bin and back) against every static surface: no contact; nearest 12.2 mm
+  floor grasps x 0.26..0.36 / y −0.12..0.12 both yaws, drop into the raised bin and back) against every static surface: no contact; nearest 12.3 mm (round 12)
   (gripper over the front node at the nearest grasp). The four corner targets at x 0.36, y ±0.12 have no IK. Sampling about one point per 3 mm² and
   every third planned step, so ±3 mm.
 - **Print beds** (`tools/print_beds.py`; in SolidWorks each printed part has a `PRINT_BED (±X/Y/Z up)` plane at its bed face):
@@ -143,26 +160,17 @@ STEP-only exploration. Round 7 below, its STEPs and the SolidWorks files are unc
   14 × M3 × 14, 43 × M3 × 12, 30 × M3 × 10, 2 × M3 × 8 (pan); 16 × M3 × 10 and 12 × M3 × 12 flat; 12 × M2.5 × 5 (hub to rotor, 2 mm thread in our
   rotor model: VERIFY); 4 × M2.5 × 14 (SO-101 base, VERIFY) and 4 × M2.5 × 8 (lidar); 4 dowels Ø3 × 10; plus the 16 spring plungers
   (M4 × 40 + washer + nyloc), 4 Ø7 × 20 pivot dowels and 4 M4 washers.
-- **Review (Nov 4): what is still wrong or unchecked.**
-  - **A pod cannot come out without taking the robot apart** (`tools/pod_service.py`, `validation/upper/pod_service.json`).
-    - Every vertical screw that holds a pod (2 foot, 2 keel, the through-bolt) is under the second floor. On the front pods the side fin also sits
-      on top of them; on the rear pods so do the battery, its tray, the bin deck and the bin. The 3 horizontal side screws are driven from the robot's
-      centre, under the floor. There is room to lift a pod (40 mm over it; 22–24 mm clears the fork bar and the pockets), and it could then slide out
-      along its own −x (outward: the pocket walls are all inboard) once the bumper quarter is off, but the screws are the problem.
-    - Front pods also carry the side fin's seat (two dowels into the column top): the pod cannot lift while the fin is there, and the fin is trapped
-      between the floor and the column.
-    - Proposed fix: drive all pod screws from below (heads under the chassis members, threads in the frame foot, keel block and column top), drop the
-      3 side screws or reach them from below, seat the side fins on the chassis instead of the pods, and give each motor lead a connector at the
-      grommet. Then: robot on a stand, bumper quarter off, screws out from below, lift 25, slide out. Not drawn: it changes the chassis and the pod.
-  - **Battery and computer are under the bin deck**, which also carries the bin and the face: charging or swapping the pack means taking the deck off.
-    Needs a decision: a side drawer for the pack, charge leads to a panel, or a different block.
-  - **Strength (no analysis or print):** the second floor's rear corners hang up to ~150 mm off the spine and side fins with only the 6 × 6 rim lip
-    (battery, computer, deck and bin on them): add rear supports. The bin deck stands on four 14 × 14 × 58 posts with one screw at each end; the face
-    frame on two 14 × 7 legs. The riser now clamped full height; pocket walls, bumper and fins load across layers as listed above.
-  - **Still missing:** the SO-101 base's screws into the adapter (not in v10's table either), the lidar's 4 × M2.5 into the pedestal, the mic array's
-    and speaker's fixings, cables and the harness (only plugs and short leads are modelled).
-  - **Collisions:** none found statically (pods, chassis, upper robot, the arm at stow) or in the arm's planned moves; the fork-to-side-node gap at
-    bump and the 2.86 mm plate-level clearance stay as above.
+- **Review (Nov 4) and what round 12 left open.** The review found: a pod could not come out without lifting the second floor (all its screws
+  under the floor, the front pods carrying the side fin's seat); the battery under the bin deck; the floor's rear corners hanging ~150 mm on the
+  rim lip; no screws for the SO-101 base, the lidar, the mics or the speaker. Round 12 fixed all four (above). Still open:
+  - **Strength (no analysis or print):** fins, riser box, keel block and the bin deck's four 14 × 14 × 58 posts (one screw at each end); the face
+    frame on two 14 × 7 legs; pocket walls, bumper and fins load across layers as in the print-bed table. Never lift the robot by the second floor.
+  - **Service details not drawn:** the motor leads' service loop (~120 mm each), a charge port (charging in place needs the balance lead brought
+    out; today the pack slides out to charge), cables and the harness (only plugs and short leads are modelled).
+  - **VERIFY:** M2.5 engagement in the SO-101 base's own holes (1.9–2.0 mm in our model of them) and in the lidar's base; the rear deck posts'
+    floor screws are still driven from below the floor (reachable with the floor off only).
+  - **Collisions:** none found statically (pods, chassis, upper robot, the arm at stow), in the arm's planned moves, or along any pod's way out;
+    the fork-to-side-node gap at bump and the 2.86 mm plate-level clearance stay as above.
 - **Base** (`tools/base.py` → `step_export/base/`, `validation/base/`):
   - The four pods use the sim's hands, with each wheel slid along its own rolling line (kinematics unchanged).
   - A printed plate in four petals, a spider under the centre and a slim bumper.

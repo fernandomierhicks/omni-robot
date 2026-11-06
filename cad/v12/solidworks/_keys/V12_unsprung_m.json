@@ -1,0 +1,16 @@
+{
+ "pod_fork_outer": "V12_pod_fork_outer_m-1",
+ "pod_fork_inner": "V12_pod_fork_inner_m-1",
+ "bearing_627_outer": "V12_bearing_627_outer_m-1",
+ "bearing_627_inner": "V12_bearing_627_inner_m-1",
+ "wheel": "V12_wheel_m-1",
+ "motor": "V12_motor_m-1",
+ "bolt_tie_outer_1_0": "V12_fst_M3x50_pan-1",
+ "bolt_tie_outer_2_1": "V12_fst_M3x50_pan-2",
+ "bolt_tie_inner_1_2": "V12_fst_M3x50_pan-3",
+ "bolt_tie_inner_2_3": "V12_fst_M3x50_pan-4",
+ "bolt_motor_rear_4": "V12_fst_M3x12_pan-1",
+ "bolt_motor_rear_5": "V12_fst_M3x12_pan-2",
+ "bolt_motor_rear_6": "V12_fst_M3x12_pan-3",
+ "bolt_motor_rear_7": "V12_fst_M3x12_pan-4"
+}

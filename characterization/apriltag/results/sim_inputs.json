@@ -1,0 +1,1272 @@
+{
+ "note": "The tag bench's numbers per camera solution, in the terms of the sim's tag camera (simulation/v11 sil/tag_sim.py",
+ "solutions": {
+  "arducam_full_field_1152": {
+   "source": "tag_lock_20261104_214348.json: arducam_1152_d2",
+   "light": "better, representative room light (Fernando, Nov 4 evening)",
+   "camera": "arducam",
+   "stream": "color",
+   "width": 1152,
+   "height": 648,
+   "focal_px": 846.4,
+   "hfov_deg": 68.5,
+   "vfov_deg": 41.9,
+   "camera_fps": 26.9,
+   "exposure_ms": 32.7,
+   "gain": 3.17,
+   "detector": "apriltag, decimate 2, 2 threads, Pi 4",
+   "detect_ms": 31.0,
+   "tag_rate_hz": 15.8,
+   "found": 1.0,
+   "side_px": 88.8,
+   "range_m": 1.3404,
+   "off_axis_deg": 8.42,
+   "margin": 68.3,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.045,
+   "sim_corner_sigma_px": 0.295,
+   "corner_sigma_vs_sim": 0.15,
+   "range_sigma_mm": 0.4,
+   "normal_sigma_deg": 0.251,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0178,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": 9.3,
+   "min_side_from": "arducam_1152_d1 (frames shrunk, decimate 1: optimistic)",
+   "blur_px_per_rad_s_est": 27.7,
+   "cov": {
+    "samples": 394,
+    "dt_ms": 66.6,
+    "corner_sigma_px": 0.0446,
+    "corner_sigma_u_px": 0.0391,
+    "corner_sigma_v_px": 0.0495,
+    "corner_common_share": 0.52,
+    "corner_own_sigma_px": 0.0308,
+    "corner_corr_same_axis": 0.44,
+    "corner_lag1": 0.29,
+    "range_lag1": 0.092,
+    "independent_share": 0.55,
+    "pose_sigma": {
+     "x_mm": 0.0679,
+     "y_mm": 0.0681,
+     "z_mm": 0.395,
+     "rx_deg": 0.187,
+     "ry_deg": 0.168,
+     "rz_deg": 0.032
+    },
+    "along_ray_mm": 0.399,
+    "across_ray_mm": 0.0577,
+    "pose_cov_m_rad": [
+     [
+      4.61e-09,
+      6.25e-10,
+      -1.3e-08,
+      -1.12e-07,
+      -1.07e-07,
+      -1.36e-08
+     ],
+     [
+      6.25e-10,
+      4.63e-09,
+      -1.61e-08,
+      -8.41e-08,
+      -9.79e-08,
+      -1.17e-08
+     ],
+     [
+      -1.3e-08,
+      -1.61e-08,
+      1.56e-07,
+      8.94e-07,
+      9.53e-07,
+      1.23e-07
+     ],
+     [
+      -1.12e-07,
+      -8.41e-08,
+      8.94e-07,
+      1.07e-05,
+      6.2e-06,
+      1.51e-06
+     ],
+     [
+      -1.07e-07,
+      -9.79e-08,
+      9.53e-07,
+      6.2e-06,
+      8.55e-06,
+      7.05e-07
+     ],
+     [
+      -1.36e-08,
+      -1.17e-08,
+      1.23e-07,
+      1.51e-06,
+      7.05e-07,
+      3.13e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      0.14,
+      -0.48,
+      -0.5,
+      -0.54,
+      -0.36
+     ],
+     [
+      0.14,
+      1.0,
+      -0.6,
+      -0.38,
+      -0.49,
+      -0.31
+     ],
+     [
+      -0.48,
+      -0.6,
+      1.0,
+      0.69,
+      0.82,
+      0.56
+     ],
+     [
+      -0.5,
+      -0.38,
+      0.69,
+      1.0,
+      0.65,
+      0.83
+     ],
+     [
+      -0.54,
+      -0.49,
+      0.82,
+      0.65,
+      1.0,
+      0.43
+     ],
+     [
+      -0.36,
+      -0.31,
+      0.56,
+      0.83,
+      0.43,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.074,
+     "y_mm": 0.0553,
+     "z_mm": 0.625,
+     "rx_deg": 0.247,
+     "ry_deg": 0.244,
+     "rz_deg": 0.0451
+    },
+    "measured_over_predicted": [
+     0.92,
+     1.2,
+     0.63,
+     0.76,
+     0.69,
+     0.71
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 1.16,
+     "y_mm": 0.868,
+     "z_mm": 9.81,
+     "rx_deg": 3.88,
+     "ry_deg": 3.84,
+     "rz_deg": 0.709
+    }
+   }
+  },
+  "arducam_full_field_2304": {
+   "source": "tag_lock_20261104_214348.json: arducam_2304_d2",
+   "light": "better, representative room light (Fernando, Nov 4 evening)",
+   "camera": "arducam",
+   "stream": "color",
+   "width": 2304,
+   "height": 1296,
+   "focal_px": 1692.9,
+   "hfov_deg": 68.5,
+   "vfov_deg": 41.9,
+   "camera_fps": 24.6,
+   "exposure_ms": 32.7,
+   "gain": 3.08,
+   "detector": "apriltag, decimate 2, 2 threads, Pi 4",
+   "detect_ms": 141.5,
+   "tag_rate_hz": 5.3,
+   "found": 1.0,
+   "side_px": 177.3,
+   "range_m": 1.3424,
+   "off_axis_deg": 8.04,
+   "margin": 68.5,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.046,
+   "sim_corner_sigma_px": 0.273,
+   "corner_sigma_vs_sim": 0.17,
+   "range_sigma_mm": 0.17,
+   "normal_sigma_deg": 0.099,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0376,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": null,
+   "min_side_from": null,
+   "blur_px_per_rad_s_est": 55.3,
+   "cov": {
+    "samples": 133,
+    "dt_ms": 167.0,
+    "corner_sigma_px": 0.0461,
+    "corner_sigma_u_px": 0.0457,
+    "corner_sigma_v_px": 0.0466,
+    "corner_common_share": 0.7,
+    "corner_own_sigma_px": 0.0254,
+    "corner_corr_same_axis": 0.6,
+    "corner_lag1": 0.24,
+    "range_lag1": 0.23,
+    "independent_share": 0.61,
+    "pose_sigma": {
+     "x_mm": 0.0336,
+     "y_mm": 0.0313,
+     "z_mm": 0.17,
+     "rx_deg": 0.0768,
+     "ry_deg": 0.0636,
+     "rz_deg": 0.0145
+    },
+    "along_ray_mm": 0.169,
+    "across_ray_mm": 0.0348,
+    "pose_cov_m_rad": [
+     [
+      1.13e-09,
+      -1.58e-10,
+      4.56e-12,
+      1.45e-08,
+      -2.22e-09,
+      2.7e-09
+     ],
+     [
+      -1.58e-10,
+      9.79e-10,
+      -2.23e-10,
+      6.04e-09,
+      -1.06e-08,
+      -5.77e-12
+     ],
+     [
+      4.56e-12,
+      -2.23e-10,
+      2.88e-08,
+      1.02e-07,
+      9.71e-08,
+      2.26e-08
+     ],
+     [
+      1.45e-08,
+      6.04e-09,
+      1.02e-07,
+      1.8e-06,
+      2.49e-07,
+      2.83e-07
+     ],
+     [
+      -2.22e-09,
+      -1.06e-08,
+      9.71e-08,
+      2.49e-07,
+      1.23e-06,
+      9.81e-08
+     ],
+     [
+      2.7e-09,
+      -5.77e-12,
+      2.26e-08,
+      2.83e-07,
+      9.81e-08,
+      6.4e-08
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      -0.15,
+      0.0008,
+      0.32,
+      -0.06,
+      0.32
+     ],
+     [
+      -0.15,
+      1.0,
+      -0.042,
+      0.14,
+      -0.3,
+      -0.00073
+     ],
+     [
+      0.0008,
+      -0.042,
+      1.0,
+      0.45,
+      0.52,
+      0.53
+     ],
+     [
+      0.32,
+      0.14,
+      0.45,
+      1.0,
+      0.17,
+      0.83
+     ],
+     [
+      -0.06,
+      -0.3,
+      0.52,
+      0.17,
+      1.0,
+      0.35
+     ],
+     [
+      0.32,
+      -0.00073,
+      0.53,
+      0.83,
+      0.35,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0385,
+     "y_mm": 0.0287,
+     "z_mm": 0.323,
+     "rx_deg": 0.133,
+     "ry_deg": 0.131,
+     "rz_deg": 0.0238
+    },
+    "measured_over_predicted": [
+     0.87,
+     1.1,
+     0.53,
+     0.58,
+     0.48,
+     0.61
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 0.584,
+     "y_mm": 0.435,
+     "z_mm": 4.9,
+     "rx_deg": 2.02,
+     "ry_deg": 1.99,
+     "rz_deg": 0.362
+    }
+   }
+  },
+  "arducam_crop_768_100fps": {
+   "source": "tag_lock_20261104_214348.json: arducam_crop768_d1",
+   "light": "better, representative room light (Fernando, Nov 4 evening)",
+   "camera": "arducam",
+   "stream": "color",
+   "width": 768,
+   "height": 432,
+   "focal_px": 846.4,
+   "hfov_deg": 48.8,
+   "vfov_deg": 28.6,
+   "camera_fps": 48.2,
+   "exposure_ms": 9.5,
+   "gain": 9.85,
+   "detector": "apriltag, decimate 1, 2 threads, Pi 4",
+   "detect_ms": 50.0,
+   "tag_rate_hz": 11.6,
+   "found": 1.0,
+   "side_px": 88.8,
+   "range_m": 1.3403,
+   "off_axis_deg": 8.11,
+   "margin": 65.7,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.039,
+   "sim_corner_sigma_px": 0.295,
+   "corner_sigma_vs_sim": 0.13,
+   "range_sigma_mm": 0.33,
+   "normal_sigma_deg": 0.184,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0103,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": 9.1,
+   "min_side_from": "this run (frames shrunk, decimate 1: optimistic)",
+   "blur_px_per_rad_s_est": 8.1,
+   "cov": {
+    "samples": 290,
+    "dt_ms": 89.8,
+    "corner_sigma_px": 0.0395,
+    "corner_sigma_u_px": 0.0391,
+    "corner_sigma_v_px": 0.0398,
+    "corner_common_share": 0.69,
+    "corner_own_sigma_px": 0.0219,
+    "corner_corr_same_axis": 0.59,
+    "corner_lag1": 0.2,
+    "range_lag1": 0.26,
+    "independent_share": 0.67,
+    "pose_sigma": {
+     "x_mm": 0.0702,
+     "y_mm": 0.0642,
+     "z_mm": 0.325,
+     "rx_deg": 0.141,
+     "ry_deg": 0.117,
+     "rz_deg": 0.0269
+    },
+    "along_ray_mm": 0.327,
+    "across_ray_mm": 0.0616,
+    "pose_cov_m_rad": [
+     [
+      4.93e-09,
+      -1.29e-09,
+      -1.41e-08,
+      -2.8e-08,
+      -5.79e-08,
+      -9.75e-09
+     ],
+     [
+      -1.29e-09,
+      4.12e-09,
+      -2.06e-09,
+      2.22e-08,
+      -2.32e-08,
+      2.59e-09
+     ],
+     [
+      -1.41e-08,
+      -2.06e-09,
+      1.06e-07,
+      3.55e-07,
+      4.84e-07,
+      8.71e-08
+     ],
+     [
+      -2.8e-08,
+      2.22e-08,
+      3.55e-07,
+      6.05e-06,
+      1.24e-06,
+      9.67e-07
+     ],
+     [
+      -5.79e-08,
+      -2.32e-08,
+      4.84e-07,
+      1.24e-06,
+      4.2e-06,
+      4.19e-07
+     ],
+     [
+      -9.75e-09,
+      2.59e-09,
+      8.71e-08,
+      9.67e-07,
+      4.19e-07,
+      2.2e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      -0.29,
+      -0.62,
+      -0.16,
+      -0.4,
+      -0.3
+     ],
+     [
+      -0.29,
+      1.0,
+      -0.099,
+      0.14,
+      -0.18,
+      0.086
+     ],
+     [
+      -0.62,
+      -0.099,
+      1.0,
+      0.44,
+      0.73,
+      0.57
+     ],
+     [
+      -0.16,
+      0.14,
+      0.44,
+      1.0,
+      0.25,
+      0.84
+     ],
+     [
+      -0.4,
+      -0.18,
+      0.73,
+      0.25,
+      1.0,
+      0.44
+     ],
+     [
+      -0.3,
+      0.086,
+      0.57,
+      0.84,
+      0.44,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0656,
+     "y_mm": 0.0489,
+     "z_mm": 0.551,
+     "rx_deg": 0.226,
+     "ry_deg": 0.223,
+     "rz_deg": 0.0406
+    },
+    "measured_over_predicted": [
+     1.1,
+     1.3,
+     0.59,
+     0.62,
+     0.53,
+     0.66
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 1.16,
+     "y_mm": 0.868,
+     "z_mm": 9.78,
+     "rx_deg": 4.0,
+     "ry_deg": 3.95,
+     "rz_deg": 0.719
+    }
+   }
+  },
+  "d435_ir_1280_projector_off": {
+   "source": "tag_lock_20261104_215027.json: d435_ir1280_d2",
+   "light": "better, representative room light (Fernando, Nov 4 evening): D435 drift check",
+   "camera": "realsense",
+   "stream": "ir",
+   "width": 1280,
+   "height": 720,
+   "focal_px": 639.8,
+   "hfov_deg": 90.0,
+   "vfov_deg": 58.7,
+   "camera_fps": 30.0,
+   "exposure_ms": 32.8,
+   "gain": null,
+   "detector": "apriltag, decimate 2, 2 threads, Pi 4",
+   "detect_ms": 26.1,
+   "tag_rate_hz": 16.1,
+   "found": 1.0,
+   "side_px": 66.6,
+   "range_m": 1.3413,
+   "off_axis_deg": 7.86,
+   "margin": 61.9,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.031,
+   "sim_corner_sigma_px": 0.31,
+   "corner_sigma_vs_sim": 0.1,
+   "range_sigma_mm": 0.28,
+   "normal_sigma_deg": 0.247,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": 12.1,
+   "min_side_from": "d435_ir1280_d1 (frames shrunk, decimate 1: optimistic)",
+   "blur_px_per_rad_s_est": 21.0,
+   "cov": {
+    "samples": 402,
+    "dt_ms": 65.1,
+    "corner_sigma_px": 0.031,
+    "corner_sigma_u_px": 0.0325,
+    "corner_sigma_v_px": 0.0294,
+    "corner_common_share": 0.61,
+    "corner_own_sigma_px": 0.0193,
+    "corner_corr_same_axis": 0.51,
+    "corner_lag1": 0.46,
+    "range_lag1": -0.041,
+    "independent_share": 0.37,
+    "pose_sigma": {
+     "x_mm": 0.0608,
+     "y_mm": 0.0561,
+     "z_mm": 0.276,
+     "rx_deg": 0.12,
+     "ry_deg": 0.216,
+     "rz_deg": 0.0193
+    },
+    "along_ray_mm": 0.276,
+    "across_ray_mm": 0.0582,
+    "pose_cov_m_rad": [
+     [
+      3.69e-09,
+      1.35e-09,
+      1.82e-09,
+      1.34e-08,
+      1.8e-08,
+      -6.95e-10
+     ],
+     [
+      1.35e-09,
+      3.14e-09,
+      1.34e-09,
+      1.61e-08,
+      5.7e-08,
+      -4.6e-09
+     ],
+     [
+      1.82e-09,
+      1.34e-09,
+      7.63e-08,
+      4.27e-07,
+      -3.16e-07,
+      -1.1e-08
+     ],
+     [
+      1.34e-08,
+      1.61e-08,
+      4.27e-07,
+      4.37e-06,
+      -2.91e-06,
+      -1.15e-07
+     ],
+     [
+      1.8e-08,
+      5.7e-08,
+      -3.16e-07,
+      -2.91e-06,
+      1.42e-05,
+      -8.72e-07
+     ],
+     [
+      -6.95e-10,
+      -4.6e-09,
+      -1.1e-08,
+      -1.15e-07,
+      -8.72e-07,
+      1.14e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      0.4,
+      0.11,
+      0.11,
+      0.079,
+      -0.034
+     ],
+     [
+      0.4,
+      1.0,
+      0.087,
+      0.14,
+      0.27,
+      -0.24
+     ],
+     [
+      0.11,
+      0.087,
+      1.0,
+      0.74,
+      -0.3,
+      -0.12
+     ],
+     [
+      0.11,
+      0.14,
+      0.74,
+      1.0,
+      -0.37,
+      -0.16
+     ],
+     [
+      0.079,
+      0.27,
+      -0.3,
+      -0.37,
+      1.0,
+      -0.69
+     ],
+     [
+      -0.034,
+      -0.24,
+      -0.12,
+      -0.16,
+      -0.69,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0434,
+     "y_mm": 0.0385,
+     "z_mm": 0.58,
+     "rx_deg": 0.239,
+     "ry_deg": 0.243,
+     "rz_deg": 0.0292
+    },
+    "measured_over_predicted": [
+     1.4,
+     1.5,
+     0.48,
+     0.5,
+     0.89,
+     0.66
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 0.98,
+     "y_mm": 0.869,
+     "z_mm": 13.1,
+     "rx_deg": 5.41,
+     "ry_deg": 5.5,
+     "rz_deg": 0.659
+    }
+   }
+  },
+  "d435_ir_848_60fps_projector_off": {
+   "source": "tag_lock_20261104_215027.json: d435_ir848_d1",
+   "light": "better, representative room light (Fernando, Nov 4 evening): D435 drift check",
+   "camera": "realsense",
+   "stream": "ir",
+   "width": 848,
+   "height": 480,
+   "focal_px": 423.9,
+   "hfov_deg": 90.0,
+   "vfov_deg": 59.0,
+   "camera_fps": 59.6,
+   "exposure_ms": 15.4,
+   "gain": null,
+   "detector": "apriltag, decimate 1, 2 threads, Pi 4",
+   "detect_ms": 39.7,
+   "tag_rate_hz": 12.4,
+   "found": 1.0,
+   "side_px": 44.1,
+   "range_m": 1.3404,
+   "off_axis_deg": 8.35,
+   "margin": 60.0,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.027,
+   "sim_corner_sigma_px": 0.341,
+   "corner_sigma_vs_sim": 0.08,
+   "range_sigma_mm": 0.59,
+   "normal_sigma_deg": 0.43,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0032,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": 11.3,
+   "min_side_from": "this run (frames shrunk, decimate 1: optimistic)",
+   "blur_px_per_rad_s_est": 6.5,
+   "cov": {
+    "samples": 310,
+    "dt_ms": 81.8,
+    "corner_sigma_px": 0.0272,
+    "corner_sigma_u_px": 0.0256,
+    "corner_sigma_v_px": 0.0287,
+    "corner_common_share": 0.19,
+    "corner_own_sigma_px": 0.0245,
+    "corner_corr_same_axis": -0.097,
+    "corner_lag1": 0.044,
+    "range_lag1": 0.094,
+    "independent_share": 0.92,
+    "pose_sigma": {
+     "x_mm": 0.0557,
+     "y_mm": 0.0524,
+     "z_mm": 0.589,
+     "rx_deg": 0.257,
+     "ry_deg": 0.344,
+     "rz_deg": 0.0468
+    },
+    "along_ray_mm": 0.59,
+    "across_ray_mm": 0.0468,
+    "pose_cov_m_rad": [
+     [
+      3.1e-09,
+      7.2e-10,
+      2.37e-08,
+      1.02e-07,
+      -2.01e-08,
+      -2.45e-09
+     ],
+     [
+      7.2e-10,
+      2.75e-09,
+      5.44e-09,
+      1.01e-07,
+      -3.8e-08,
+      4.29e-09
+     ],
+     [
+      2.37e-08,
+      5.44e-09,
+      3.46e-07,
+      1.73e-06,
+      9.4e-07,
+      -1.6e-07
+     ],
+     [
+      1.02e-07,
+      1.01e-07,
+      1.73e-06,
+      2.01e-05,
+      1.12e-05,
+      -1.99e-06
+     ],
+     [
+      -2.01e-08,
+      -3.8e-08,
+      9.4e-07,
+      1.12e-05,
+      3.61e-05,
+      -3.82e-06
+     ],
+     [
+      -2.45e-09,
+      4.29e-09,
+      -1.6e-07,
+      -1.99e-06,
+      -3.82e-06,
+      6.69e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      0.25,
+      0.72,
+      0.41,
+      -0.06,
+      -0.054
+     ],
+     [
+      0.25,
+      1.0,
+      0.18,
+      0.43,
+      -0.12,
+      0.1
+     ],
+     [
+      0.72,
+      0.18,
+      1.0,
+      0.66,
+      0.27,
+      -0.33
+     ],
+     [
+      0.41,
+      0.43,
+      0.66,
+      1.0,
+      0.42,
+      -0.54
+     ],
+     [
+      -0.06,
+      -0.12,
+      0.27,
+      0.42,
+      1.0,
+      -0.78
+     ],
+     [
+      -0.054,
+      0.1,
+      -0.33,
+      -0.54,
+      -0.78,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0571,
+     "y_mm": 0.0506,
+     "z_mm": 0.772,
+     "rx_deg": 0.302,
+     "ry_deg": 0.307,
+     "rz_deg": 0.0384
+    },
+    "measured_over_predicted": [
+     0.98,
+     1.0,
+     0.76,
+     0.85,
+     1.1,
+     1.2
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 1.47,
+     "y_mm": 1.3,
+     "z_mm": 19.9,
+     "rx_deg": 7.78,
+     "ry_deg": 7.91,
+     "rz_deg": 0.987
+    }
+   }
+  },
+  "d435_ir_640_projector_off": {
+   "source": "tag_lock_20261104_215027.json: d435_ir640_d1",
+   "light": "better, representative room light (Fernando, Nov 4 evening): D435 drift check",
+   "camera": "realsense",
+   "stream": "ir",
+   "width": 640,
+   "height": 480,
+   "focal_px": 383.9,
+   "hfov_deg": 79.6,
+   "vfov_deg": 64.0,
+   "camera_fps": 29.9,
+   "exposure_ms": 32.0,
+   "gain": null,
+   "detector": "apriltag, decimate 1, 2 threads, Pi 4",
+   "detect_ms": 27.3,
+   "tag_rate_hz": 16.4,
+   "found": 1.0,
+   "side_px": 40.0,
+   "range_m": 1.3407,
+   "off_axis_deg": 7.95,
+   "margin": 59.4,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.021,
+   "sim_corner_sigma_px": 0.35,
+   "corner_sigma_vs_sim": 0.06,
+   "range_sigma_mm": 0.58,
+   "normal_sigma_deg": 0.395,
+   "range_vs_tape": null,
+   "misread_per_frame": 0.0024,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": 10.2,
+   "min_side_from": "this run (frames shrunk, decimate 1: optimistic)",
+   "blur_px_per_rad_s_est": 12.3,
+   "cov": {
+    "samples": 411,
+    "dt_ms": 62.5,
+    "corner_sigma_px": 0.0211,
+    "corner_sigma_u_px": 0.0208,
+    "corner_sigma_v_px": 0.0214,
+    "corner_common_share": 0.23,
+    "corner_own_sigma_px": 0.0185,
+    "corner_corr_same_axis": -0.037,
+    "corner_lag1": 0.082,
+    "range_lag1": 0.11,
+    "independent_share": 0.85,
+    "pose_sigma": {
+     "x_mm": 0.0702,
+     "y_mm": 0.0296,
+     "z_mm": 0.575,
+     "rx_deg": 0.232,
+     "ry_deg": 0.32,
+     "rz_deg": 0.0378
+    },
+    "along_ray_mm": 0.577,
+    "across_ray_mm": 0.045,
+    "pose_cov_m_rad": [
+     [
+      4.93e-09,
+      2.29e-10,
+      2.82e-08,
+      1.97e-07,
+      -2.25e-07,
+      2.02e-08
+     ],
+     [
+      2.29e-10,
+      8.77e-10,
+      9.7e-10,
+      1.41e-08,
+      1.88e-08,
+      -3.11e-09
+     ],
+     [
+      2.82e-08,
+      9.7e-10,
+      3.31e-07,
+      2.13e-06,
+      -1.36e-06,
+      5.96e-08
+     ],
+     [
+      1.97e-07,
+      1.41e-08,
+      2.13e-06,
+      1.63e-05,
+      -9.59e-06,
+      4.01e-07
+     ],
+     [
+      -2.25e-07,
+      1.88e-08,
+      -1.36e-06,
+      -9.59e-06,
+      3.12e-05,
+      -2.72e-06
+     ],
+     [
+      2.02e-08,
+      -3.11e-09,
+      5.96e-08,
+      4.01e-07,
+      -2.72e-06,
+      4.35e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      0.11,
+      0.7,
+      0.69,
+      -0.57,
+      0.44
+     ],
+     [
+      0.11,
+      1.0,
+      0.057,
+      0.12,
+      0.11,
+      -0.16
+     ],
+     [
+      0.7,
+      0.057,
+      1.0,
+      0.92,
+      -0.42,
+      0.16
+     ],
+     [
+      0.69,
+      0.12,
+      0.92,
+      1.0,
+      -0.43,
+      0.15
+     ],
+     [
+      -0.57,
+      0.11,
+      -0.42,
+      -0.43,
+      1.0,
+      -0.74
+     ],
+     [
+      0.44,
+      -0.16,
+      0.16,
+      0.15,
+      -0.74,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0495,
+     "y_mm": 0.0437,
+     "z_mm": 0.658,
+     "rx_deg": 0.269,
+     "ry_deg": 0.273,
+     "rz_deg": 0.0334
+    },
+    "measured_over_predicted": [
+     1.4,
+     0.68,
+     0.87,
+     0.86,
+     1.2,
+     1.1
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 1.64,
+     "y_mm": 1.45,
+     "z_mm": 21.8,
+     "rx_deg": 8.93,
+     "ry_deg": 9.08,
+     "rz_deg": 1.11
+    }
+   }
+  },
+  "d435_colour_1280": {
+   "source": "tag_lock_20261104_214348.json: d435_color1280_d2",
+   "light": "better, representative room light (Fernando, Nov 4 evening)",
+   "camera": "realsense",
+   "stream": "color",
+   "width": 1280,
+   "height": 720,
+   "focal_px": 924.3,
+   "hfov_deg": 69.4,
+   "vfov_deg": 42.6,
+   "camera_fps": 30.0,
+   "exposure_ms": null,
+   "gain": null,
+   "detector": "apriltag, decimate 2, 2 threads, Pi 4",
+   "detect_ms": 43.2,
+   "tag_rate_hz": 12.3,
+   "found": 1.0,
+   "side_px": 95.3,
+   "range_m": 1.3538,
+   "off_axis_deg": 7.84,
+   "margin": 53.3,
+   "gate_ok": 1.0,
+   "corner_sigma_px": 0.056,
+   "sim_corner_sigma_px": 0.292,
+   "corner_sigma_vs_sim": 0.19,
+   "range_sigma_mm": 0.39,
+   "normal_sigma_deg": 0.379,
+   "range_vs_tape": 1.0058,
+   "misread_per_frame": 0.0195,
+   "misreads_passing_gates": 0,
+   "min_side_px_emulated": null,
+   "min_side_from": null,
+   "blur_px_per_rad_s_est": null,
+   "cov": {
+    "samples": 308,
+    "dt_ms": 78.5,
+    "corner_sigma_px": 0.0562,
+    "corner_sigma_u_px": 0.0544,
+    "corner_sigma_v_px": 0.0579,
+    "corner_common_share": 0.52,
+    "corner_own_sigma_px": 0.0387,
+    "corner_corr_same_axis": 0.4,
+    "corner_lag1": 0.38,
+    "range_lag1": 0.014,
+    "independent_share": 0.45,
+    "pose_sigma": {
+     "x_mm": 0.0759,
+     "y_mm": 0.0644,
+     "z_mm": 0.388,
+     "rx_deg": 0.185,
+     "ry_deg": 0.329,
+     "rz_deg": 0.0442
+    },
+    "along_ray_mm": 0.388,
+    "across_ray_mm": 0.0702,
+    "pose_cov_m_rad": [
+     [
+      5.77e-09,
+      2.76e-09,
+      3.05e-09,
+      -1.31e-08,
+      -1.1e-07,
+      1.84e-08
+     ],
+     [
+      2.76e-09,
+      4.15e-09,
+      6.4e-09,
+      3.76e-08,
+      2.56e-08,
+      2.09e-09
+     ],
+     [
+      3.05e-09,
+      6.4e-09,
+      1.51e-07,
+      9.49e-07,
+      1.13e-06,
+      -1.29e-07
+     ],
+     [
+      -1.31e-08,
+      3.76e-08,
+      9.49e-07,
+      1.04e-05,
+      6.47e-06,
+      -9.07e-07
+     ],
+     [
+      -1.1e-07,
+      2.56e-08,
+      1.13e-06,
+      6.47e-06,
+      3.3e-05,
+      -3.85e-06
+     ],
+     [
+      1.84e-08,
+      2.09e-09,
+      -1.29e-07,
+      -9.07e-07,
+      -3.85e-06,
+      5.96e-07
+     ]
+    ],
+    "pose_corr": [
+     [
+      1.0,
+      0.56,
+      0.1,
+      -0.053,
+      -0.25,
+      0.31
+     ],
+     [
+      0.56,
+      1.0,
+      0.26,
+      0.18,
+      0.069,
+      0.042
+     ],
+     [
+      0.1,
+      0.26,
+      1.0,
+      0.76,
+      0.51,
+      -0.43
+     ],
+     [
+      -0.053,
+      0.18,
+      0.76,
+      1.0,
+      0.35,
+      -0.36
+     ],
+     [
+      -0.25,
+      0.069,
+      0.51,
+      0.35,
+      1.0,
+      -0.87
+     ],
+     [
+      0.31,
+      0.042,
+      -0.43,
+      -0.36,
+      -0.87,
+      1.0
+     ]
+    ],
+    "predicted_sigma": {
+     "x_mm": 0.0597,
+     "y_mm": 0.0494,
+     "z_mm": 0.742,
+     "rx_deg": 0.304,
+     "ry_deg": 0.309,
+     "rz_deg": 0.0376
+    },
+    "measured_over_predicted": [
+     1.3,
+     1.3,
+     0.52,
+     0.61,
+     1.1,
+     1.2
+    ],
+    "predicted_sigma_graph": {
+     "x_mm": 0.744,
+     "y_mm": 0.615,
+     "z_mm": 9.24,
+     "rx_deg": 3.79,
+     "ry_deg": 3.85,
+     "rz_deg": 0.469
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,387 @@
+{
+ "sim_portrait": {
+  "centre": [
+   200.0,
+   0.0,
+   200.0
+  ],
+  "tilt": 30.0,
+  "roll": 90.0,
+  "arm_mm": -3.4,
+  "arm_by": "path stow-high",
+  "low_z": 154.8,
+  "above_scan_mm": -8.2,
+  "top_z": 245.2,
+  "bumper_out_mm": 8.5,
+  "lens": [
+   215.9,
+   0.0,
+   211.0
+  ],
+  "notch_area_mm2": 1738.0,
+  "notch_bounds": [
+   164.7,
+   -17.4,
+   218.0,
+   17.4
+  ],
+  "nearest_floor_ahead_mm": 274.5,
+  "nearest_floor_any_mm": 274.5,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 274.5,
+   "nearest_floor_any_mm": 274.5
+  }
+ },
+ "sim_landscape_215": {
+  "centre": [
+   200.0,
+   0.0,
+   215.0
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "arm_mm": -7.3,
+  "arm_by": "SO-101 base (fixed)",
+  "low_z": 197.9,
+  "above_scan_mm": 34.9,
+  "top_z": 232.1,
+  "bumper_out_mm": -3.5,
+  "lens": [
+   207.2,
+   17.5,
+   210.8
+  ],
+  "notch_area_mm2": 0.0,
+  "notch_bounds": null,
+  "nearest_floor_ahead_mm": 333.9,
+  "nearest_floor_any_mm": 333.9,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 333.9,
+   "nearest_floor_any_mm": 333.9
+  }
+ },
+ "edge_t30": {
+  "centre": [
+   210.8,
+   0.0,
+   193.0
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "arm_mm": -4.3,
+  "arm_by": "path ready-hover 0.26,-0.06,y0",
+  "low_z": 175.9,
+  "above_scan_mm": 12.9,
+  "top_z": 210.1,
+  "bumper_out_mm": 7.1,
+  "lens": [
+   218.0,
+   17.5,
+   188.8
+  ],
+  "notch_area_mm2": 2393.0,
+  "notch_bounds": [
+   191.7,
+   -51.5,
+   218.0,
+   51.5
+  ],
+  "nearest_floor_ahead_mm": 331.5,
+  "nearest_floor_any_mm": 331.5,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 331.5,
+   "nearest_floor_any_mm": 331.5
+  }
+ },
+ "edge_t25": {
+  "centre": [
+   210.5,
+   0.0,
+   193.0
+  ],
+  "tilt": 25.0,
+  "roll": 0.0,
+  "arm_mm": -3.7,
+  "arm_by": "path ready-hover 0.26,-0.06,y0",
+  "low_z": 176.4,
+  "above_scan_mm": 13.4,
+  "top_z": 209.6,
+  "bumper_out_mm": 6.4,
+  "lens": [
+   218.0,
+   17.5,
+   189.5
+  ],
+  "notch_area_mm2": 2380.0,
+  "notch_bounds": [
+   191.9,
+   -51.4,
+   218.0,
+   51.4
+  ],
+  "nearest_floor_ahead_mm": 355.7,
+  "nearest_floor_any_mm": 355.7,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 355.7,
+   "nearest_floor_any_mm": 355.7
+  }
+ },
+ "back_1cm_t30": {
+  "centre": [
+   200.8,
+   0.0,
+   193.0
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "arm_mm": 3.8,
+  "arm_by": "path ready-hover 0.26,-0.06,y0",
+  "low_z": 175.9,
+  "above_scan_mm": 12.9,
+  "top_z": 210.1,
+  "bumper_out_mm": -2.7,
+  "lens": [
+   208.0,
+   17.5,
+   188.8
+  ],
+  "notch_area_mm2": 3456.0,
+  "notch_bounds": [
+   181.7,
+   -54.1,
+   218.0,
+   54.1
+  ],
+  "nearest_floor_ahead_mm": 321.5,
+  "nearest_floor_any_mm": 321.5,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 321.5,
+   "nearest_floor_any_mm": 321.5
+  }
+ },
+ "back_1cm_t25": {
+  "centre": [
+   200.5,
+   0.0,
+   193.0
+  ],
+  "tilt": 25.0,
+  "roll": 0.0,
+  "arm_mm": 4.7,
+  "arm_by": "path ready-hover 0.26,-0.06,y0",
+  "low_z": 176.4,
+  "above_scan_mm": 13.4,
+  "top_z": 209.6,
+  "bumper_out_mm": -3.4,
+  "lens": [
+   208.0,
+   17.5,
+   189.5
+  ],
+  "notch_area_mm2": 3442.0,
+  "notch_bounds": [
+   181.9,
+   -54.1,
+   218.0,
+   54.1
+  ],
+  "nearest_floor_ahead_mm": 345.7,
+  "nearest_floor_any_mm": 345.7,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 345.7,
+   "nearest_floor_any_mm": 345.7
+  }
+ },
+ "back_2cm_t30": {
+  "centre": [
+   190.8,
+   0.0,
+   193.0
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "arm_mm": 11.9,
+  "arm_by": "SO-101 base (fixed)",
+  "low_z": 175.9,
+  "above_scan_mm": 12.9,
+  "top_z": 210.1,
+  "bumper_out_mm": -12.4,
+  "lens": [
+   198.0,
+   17.5,
+   188.8
+  ],
+  "notch_area_mm2": 4581.0,
+  "notch_bounds": [
+   171.7,
+   -56.4,
+   218.0,
+   56.4
+  ],
+  "nearest_floor_ahead_mm": 311.5,
+  "nearest_floor_any_mm": 311.5,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 311.5,
+   "nearest_floor_any_mm": 311.5
+  }
+ },
+ "back_2cm_t25": {
+  "centre": [
+   190.5,
+   0.0,
+   193.0
+  ],
+  "tilt": 25.0,
+  "roll": 0.0,
+  "arm_mm": 12.4,
+  "arm_by": "SO-101 base (fixed)",
+  "low_z": 176.4,
+  "above_scan_mm": 13.4,
+  "top_z": 209.6,
+  "bumper_out_mm": -13.2,
+  "lens": [
+   198.0,
+   17.5,
+   189.5
+  ],
+  "notch_area_mm2": 4566.0,
+  "notch_bounds": [
+   171.9,
+   -56.4,
+   218.0,
+   56.4
+  ],
+  "nearest_floor_ahead_mm": 335.7,
+  "nearest_floor_any_mm": 335.7,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 335.7,
+   "nearest_floor_any_mm": 335.7
+  }
+ },
+ "back_3cm_t30": {
+  "centre": [
+   180.8,
+   0.0,
+   193.0
+  ],
+  "tilt": 30.0,
+  "roll": 0.0,
+  "arm_mm": 11.9,
+  "arm_by": "SO-101 base (fixed)",
+  "low_z": 175.9,
+  "above_scan_mm": 12.9,
+  "top_z": 210.1,
+  "bumper_out_mm": -22.2,
+  "lens": [
+   188.0,
+   17.5,
+   188.8
+  ],
+  "notch_area_mm2": 5733.0,
+  "notch_bounds": [
+   161.7,
+   -56.4,
+   218.0,
+   57.2
+  ],
+  "nearest_floor_ahead_mm": 301.5,
+  "nearest_floor_any_mm": 301.5,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 301.5,
+   "nearest_floor_any_mm": 301.5
+  }
+ },
+ "back_3cm_t25": {
+  "centre": [
+   180.5,
+   0.0,
+   193.0
+  ],
+  "tilt": 25.0,
+  "roll": 0.0,
+  "arm_mm": 12.4,
+  "arm_by": "SO-101 base (fixed)",
+  "low_z": 176.4,
+  "above_scan_mm": 13.4,
+  "top_z": 209.6,
+  "bumper_out_mm": -23.0,
+  "lens": [
+   188.0,
+   17.5,
+   189.5
+  ],
+  "notch_area_mm2": 5718.0,
+  "notch_bounds": [
+   161.9,
+   -56.4,
+   218.0,
+   57.1
+  ],
+  "nearest_floor_ahead_mm": 325.7,
+  "nearest_floor_any_mm": 325.7,
+  "robot_in_view_pct": 0.0,
+  "in_view_by_pct": {
+   "chassis": 0.0,
+   "pods_bump": 0.0,
+   "floor": 0.0
+  },
+  "without_floor": {
+   "nearest_floor_ahead_mm": 325.7,
+   "nearest_floor_any_mm": 325.7
+  }
+ }
+}

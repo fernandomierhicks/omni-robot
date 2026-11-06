@@ -16,6 +16,8 @@ face's own (a joke, a song, the battery):
   wake up                                     wake
   be quiet, shh, quiet please                 quiet                    fewer antics, no chatter (the face)
   you can talk, talk to me                    chatty
+  humor sixty percent, set humor to sixty     humor                    the console: set face.humor (0-100)
+  what's your humor setting                   humor_ask                the face answers
   tell me a joke, sing a song, sing, dance, what's your battery, what's your name, how are you, hello, thank you,
   good robot, i love you, what are you doing, what time is it      the face answers
 phrases(places) lists them for a recognizer's grammar (Windows' System.Speech, Vosk); parse() takes a grammar's
@@ -66,12 +68,34 @@ PHRASES = (
     ("love", ("i love you", "you're cute", "you are cute")),
     ("doing", ("what are you doing", "what's up", "what is happening")),
     ("time", ("what time is it", "what's the time")),
+    ("humor_ask", ("what's your humor setting", "what is your humor setting", "humor setting", "how funny are you")),
 )
 HOME_PLACES = ("home", "dock", "start", "base")
-REPLY = {"stop": "Stopping.", "follow": "Okay, I'll follow you!", "tag": "Tag! Here I come!",
-         "catch": "Yay, let's play catch!", "explore": "Off I go exploring!", "sleep": "Goodnight! Zzz.",
-         "goto": "On my way to the {place}!"}
+# the plain replies; moments.REPLIES has the ones said in character (by its humor)
+REPLY = {"stop": "Stopping.", "follow": "Following you.", "tag": "Tag. Here I come.",
+         "catch": "Let's play catch.", "explore": "Going exploring.", "sleep": "Going to sleep.",
+         "goto": "On my way to the {place}."}
 _FILL = re.compile(r"\b(please|now|okay|ok|um|uh|hey|so|can you|could you|would you)\b")
+# the humor setting by voice: recognizers give the number in words ("humor seventy five percent")
+_ONES = dict(zero=0, one=1, two=2, three=3, four=4, five=5, six=6, seven=7, eight=8, nine=9)
+_TENS = dict(ten=10, twenty=20, thirty=30, forty=40, fifty=50, sixty=60, seventy=70, eighty=80, ninety=90)
+HUMOR_SAY = {v: w for w, v in {**_ONES, **_TENS}.items()} | {25: "twenty five", 75: "seventy five", 100: "one hundred"}
+_HUMOR = re.compile(r"^(?:set )?(?:your )?humou?r(?: setting)?(?: to| at)? (.+?)(?: percent| per cent|%)?$")
+
+
+def number(words: str) -> int | None:
+    """'seventy five' / '75' / 'one hundred' -> 75 / 75 / 100; None if it isn't a number."""
+    w = words.strip().replace("-", " ")
+    if w.isdigit():
+        return int(w)
+    if w in ("hundred", "one hundred", "a hundred"):
+        return 100
+    parts = w.split()
+    if len(parts) == 1 and parts[0] in _ONES | _TENS:
+        return (_ONES | _TENS)[parts[0]]
+    if len(parts) == 2 and parts[0] in _TENS and parts[1] in _ONES:
+        return _TENS[parts[0]] + _ONES[parts[1]]
+    return None
 
 
 def _clean(text: str) -> str:
@@ -93,6 +117,9 @@ def phrases(places=()) -> list:
     """Every command, with and without "the" before a place: the grammar a recognizer listens for (the wake word
     goes in front, see listen.py)."""
     out = [p for _, ps in PHRASES for p in ps]
+    for w in (HUMOR_SAY[v] for v in sorted(HUMOR_SAY) if v % 10 == 0 or v in (25, 75)):
+        out += [f"humor {w} percent", f"humor setting {w} percent", f"set humor to {w} percent",
+                f"set your humor to {w} percent"]
     for name in places:
         n = _clean(name)
         if n:
@@ -111,6 +138,10 @@ def parse(text: str, places=(), woke: bool | None = None) -> Intent | None:
     for name, ps in PHRASES:                    # whole phrases first ("go to sleep" is no place)
         if t in ps:
             return _intent(name, by)
+    m = _HUMOR.match(t)
+    if m and number(m.group(1)) is not None:
+        v = max(0, min(100, number(m.group(1))))
+        return Intent("humor", "set", dict(key="face.humor", value=v), f"Humor at {v} percent.")
     m = re.match(r"^(?:go|drive|take me|head|come) (?:over )?(?:to|into) (?:the |my |your )?(.+)$", t)
     if m:
         want = m.group(1).strip()

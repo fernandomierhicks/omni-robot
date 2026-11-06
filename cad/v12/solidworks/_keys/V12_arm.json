@@ -1,0 +1,19 @@
+{
+ "arm_00_Base_motor_holder_SO101": "V12_arm_Base_motor_holder_SO101-1",
+ "arm_01_Base_SO101": "V12_arm_Base_SO101-1",
+ "arm_02_STS3215_03a": "V12_arm_STS3215_03a-1",
+ "arm_03_WaveShare_Mounting_Plate_SO101": "V12_arm_WaveShare_Mounting_Plate_SO101-1",
+ "arm_04_STS3215_03a": "V12_arm_STS3215_03a-2",
+ "arm_05_Motor_holder_SO101_Base": "V12_arm_Motor_holder_SO101_Base-1",
+ "arm_06_Rotation_Pitch_SO101": "V12_arm_Rotation_Pitch_SO101-1",
+ "arm_07_STS3215_03a": "V12_arm_STS3215_03a-3",
+ "arm_08_Upper_arm_SO101": "V12_arm_Upper_arm_SO101-1",
+ "arm_09_Under_arm_SO101": "V12_arm_Under_arm_SO101-1",
+ "arm_10_Motor_holder_SO101_Wrist": "V12_arm_Motor_holder_SO101_Wrist-1",
+ "arm_11_STS3215_03a": "V12_arm_STS3215_03a-4",
+ "arm_12_STS3215_03a__2": "V12_arm_STS3215_03a__2-1",
+ "arm_13_Wrist_Roll_Pitch_SO101": "V12_arm_Wrist_Roll_Pitch_SO101-1",
+ "arm_14_STS3215_03a": "V12_arm_STS3215_03a-5",
+ "arm_15_Wrist_Roll_Follower_SO101": "V12_arm_Wrist_Roll_Follower_SO101-1",
+ "arm_16_Moving_Jaw_SO101": "V12_arm_Moving_Jaw_SO101-1"
+}

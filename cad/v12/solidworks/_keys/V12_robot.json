@@ -1,0 +1,14 @@
+{
+ "frame": "V12_frame-1",
+ "mounts": "V12_mounts-1",
+ "bumper": "V12_bumper-1",
+ "reference": "V12_reference-1",
+ "upper": "V12_upper-1",
+ "electronics": "V12_electronics-1",
+ "arm": "V12_arm-1",
+ "fasteners": "V12_fasteners-1",
+ "pod_FL": "V12_pod_m-1",
+ "pod_RL": "V12_pod-1",
+ "pod_RR": "V12_pod_m-2",
+ "pod_FR": "V12_pod-2"
+}

@@ -39,12 +39,17 @@ timing (ideal | real) and sync_gpio (none | hte | irq), house steps with the fir
 drifts and its CAN replies arrive as on the real bus; the Jetson stamps the firmware's 1 Hz SYNC_OUT on a modelled
 GPIO and mcu_link maps the MCU's clock from those pulses (/mcu/clock says how well). tags (false; house steps):
 AprilTags on the walls, the camera's detections simulated by the bridge, omni_slam's tag_slam alongside slam_toolbox
-(/tag_slam/*, /localization/health: the console slows with it). arm step: objects (toys | clutter), n_objects (6),
-servo_port (5763: the arm's servo bus on localhost TCP), arm_camera (stereo | d435: the RealSense D435 on the deck's
-nose gives the tidy's depth and Nav2's depth layer, design.md 4.11). robot (house steps): drawn (the interactive steps: the
+(/tag_slam/*, /localization/health: the console slows with it). arm step: objects (toys | clutter | colours: the AI's
+find scene, ai_robot_architecture.md 5.2), n_objects (6),
+servo_port (5763: the arm's servo bus on localhost TCP), arm_camera (d435, the default and the arm robot's camera: the
+RealSense D435 on the deck's nose gives the tidy's depth and Nav2's depth layer, design.md 4.11 | stereo: the parked
+catch robot's pair, for reproducing earlier arm runs), depth_layer (raw: the default, RAW_LAYER | height: proposed,
+omni_arm's fused height map, its speed limits | floor: Nov 5's per-frame grid | off). robot (house steps): drawn (the interactive steps: the
 robot as cad/v7 draws it, robot_export.drawn_params: the CAD's masses, its scan plane and lidar shadows; lidar_mask:=false
 drops the shadows) | v7 (the scored steps tour / auto_map / goals, as published). catch (robot step, true): the catch game in the house.
 terrain (false; house steps, design.md 16): a terrain course in the kitchen's east end (square steps, triangular bumps).
+props (false; house steps): the house furnished (simulation/v11 sil/house_props.py: furniture, signs, pictures, tag faces, a
+person standing in the office) for the cameras and the lidar; no physics.
 arm_impl (py): the arm robot's arm as one Python process (arm_node), or cpp: omni_cpp's arm_driver (the servo bus,
 joint states and TF at 50 Hz) beside omni_arm's arm_brain (planning and the tidy, design.md 4.10). glue (cpp): mcu_link, mode_manager, scan_prep and heading_node from omni_cpp (C++, design.md 4.9); py: their Python
 originals (omni_mcu, omni_catch, omni_perception, omni_bringup). nav_profile (default = full, pi on a Raspberry Pi | lean | pi): lean sets Nav2 and
@@ -142,9 +147,17 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("objects", default_value="toys"),
             DeclareLaunchArgument("n_objects", default_value="6"),
             DeclareLaunchArgument("servo_port", default_value="5763"),
-            # arm step (design.md 4.11): the depth camera, stereo (the head's pair) | d435 (the RealSense on the nose:
-            # the tidy's looks and Nav2's depth layer)
-            DeclareLaunchArgument("arm_camera", default_value="stereo"),
+            # arm step (design.md 4.11): the depth camera, d435 (the RealSense on the nose: the tidy's looks and Nav2's
+            # depth layer; the arm robot's only camera since Nov 5, Fernando) | stereo (the head's pair: the parked
+            # catch robot's, kept to reproduce earlier arm runs)
+            DeclareLaunchArgument("arm_camera", default_value="d435"),
+            # the D435's layer in Nav2's costmaps (design.md 4.5, 4.11): raw (the default: the raw cloud in an
+            # ObstacleLayer, marking above 4 cm, RAW_LAYER; it sees no toy under 4 cm) | height (proposed: omni_arm's
+            # height_map, fused over the frames, obstacles and drops to Nav2, speed by certainty) | floor (Nov 5's
+            # per-frame grid: false marks on raised floor edges blocked goals) | off
+            DeclareLaunchArgument("depth_layer", default_value="raw"),
+            # the sim's D435 depth errors (simulation/v11 sil/depth_noise.py): realistic (since Nov 5) | ideal (Nov 4's)
+            DeclareLaunchArgument("d435_noise", default_value="realistic"),
             DeclareLaunchArgument("robot", default_value="v7" if kind in ("tour", "auto_map", "goals") else "drawn"),
             DeclareLaunchArgument("catch", default_value="true" if kind == "robot" else "false"),
             # the Launcher's live world (simulation/v11 sil/sim_world.py) in the robot and arm steps: clutter off |
@@ -153,6 +166,7 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("thrower", default_value="true"),
             # design.md 16: square steps and triangular bumps in the kitchen's east end (house.TERRAIN_COURSE)
             DeclareLaunchArgument("terrain", default_value="false"),
+            DeclareLaunchArgument("props", default_value="false"),
             DeclareLaunchArgument("lidar_mask", default_value="true"),
             # goals step: the console's Go To settings (0 / "" = nav2.yaml's own)
             DeclareLaunchArgument("speed", default_value="0.0"),
@@ -284,9 +298,10 @@ def console_nodes(a: dict, scan: str, slam: tuple | None = None):
     if slam:
         mission.update(slam_mapping_params=slam[0], slam_localization_params=slam[1], slam_sim_time=SIM_TIME[0],
                        slam_start="localization")
+    # OMNI_ROSBRIDGE_PORT / OMNI_VIDEO_PORT: a second stack beside Fernando's (AGENTS.md); omni_mcp reads the same names
     nodes = [
         Node(package="rosbridge_server", executable="rosbridge_websocket", name="rosbridge_websocket", output="log",
-             parameters=[{"port": 9090, "address": ""}]),
+             parameters=[{"port": int(os.environ.get("OMNI_ROSBRIDGE_PORT", 9090)), "address": ""}]),
         Node(package="rosapi", executable="rosapi_node", name="rosapi", output="log"),
         Node(package="omni_console", executable="mission_node", name="omni_console", output="screen",
              parameters=[mission]),
@@ -303,7 +318,8 @@ def console_nodes(a: dict, scan: str, slam: tuple | None = None):
     try:
         get_package_share_directory("web_video_server")
         nodes.append(Node(package="web_video_server", executable="web_video_server", name="web_video_server",
-                          output="log", parameters=[{"port": 8081, "address": "0.0.0.0"}]))
+                          output="log", parameters=[{"port": int(os.environ.get("OMNI_VIDEO_PORT", 8081)),
+                                                     "address": "0.0.0.0"}]))
     except Exception:                                # not installed: the Vision tab says so
         pass
     return nodes
@@ -315,10 +331,10 @@ def build(ctx, kind: str):
                                                    "dist", "floor", "returns", "tosses", "kid", "mcu_port", "web",
                                                    "person", "pass_game", "timing", "sync_gpio", "tags", "objects",
                                                    "n_objects", "servo_port", "arm_camera", "robot", "catch", "lidar_mask", "clutter",
-                                                   "thrower", "speed", "heading", "spin_rate", "route", "terrain",
+                                                   "thrower", "speed", "heading", "spin_rate", "route", "terrain", "props",
                                                    "glue", "nav_profile", "catch_sleep", "compose", "catch_impl",
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
-                                                   "face", "ekf_hz", "arm_hz", "arm_impl", "nav")}
+                                                   "face", "ekf_hz", "arm_hz", "arm_impl", "nav", "depth_layer", "d435_noise")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     a["nav_profile"] = resolved_profile(a["nav_profile"], a["side"])
     if a["clock"] not in ("sim", "wall"):
@@ -343,6 +359,8 @@ def build(ctx, kind: str):
     if a["arm_camera"] not in ("stereo", "d435"):
         raise RuntimeError(f"arm_camera: stereo or d435, not {a['arm_camera']!r}")
     d435 = arm and a["arm_camera"] == "d435"
+    if a["depth_layer"] not in DEPTH_LAYERS:
+        raise RuntimeError(f"depth_layer: {', '.join(DEPTH_LAYERS)}, not {a['depth_layer']!r}")
     arm_kw = dict(payload="arm", objects=a["objects"], n_objects=int(a["n_objects"]),
                   servo_port=int(a["servo_port"]), arm_camera=a["arm_camera"]) if arm else {}
     acts.append(Node(package=SIM, executable="bridge", name="mujoco_bridge", output="screen",
@@ -359,8 +377,11 @@ def build(ctx, kind: str):
                                   "tags": on("tags"), "base": a["robot"], "lidar_mask": on("lidar_mask"),
                                   "catch": on("catch") and fw and not arm, "catch_dist": float(a["dist"]),
                                   "catch_returns": on("returns"), "live_world": robot, "clutter": a["clutter"],
-                                  "thrower": on("thrower"), "terrain": on("terrain"),
-                                  "control_port": 9873 if robot else 0, **arm_kw}]))
+                                  "thrower": on("thrower"), "terrain": on("terrain"), "props": on("props"),
+                                  # OMNI_CONTROL_PORT: a second stack beside Fernando's (AGENTS.md), as rosbridge's
+                                  "control_port": int(os.environ.get("OMNI_CONTROL_PORT", 9873)) if robot else 0,
+                                  "d435_noise": a["d435_noise"],
+                                  **arm_kw}]))
     sim_side = [acts[-1]]                                          # what side:=sim keeps (stack.split_sides)
     if arm:
         # design.md 11: the arm's own code, on the sim's servo bus (the bus board's USB port on the robot)
@@ -379,6 +400,10 @@ def build(ctx, kind: str):
                                           **({"rate": arm_hz} if arm_hz > 0 else {})}]))
         else:
             raise RuntimeError(f"arm_impl: py or cpp, not {a['arm_impl']!r}")
+        if d435 and a["depth_layer"] == "floor" and a["nav"].lower() in ("1", "true", "yes"):
+            # design.md 4.5: the D435's floor for Nav2's depth layer (FLOOR_LAYER)
+            acts.append(Node(package="omni_arm", executable="floor_obstacles", name="floor_obstacles", output="screen",
+                             parameters=[{"config": arm_cfg, **sim_t}]))
     # compose (design.md 4.9): true puts Nav2 and heading_node into one process, all adds omni_cpp's glue nodes
     comps, nav_yaml = [], None
     glue_comp = a["compose"] == "all" and a["glue"] == "cpp"
@@ -456,9 +481,14 @@ def build(ctx, kind: str):
                               "use_sim_time": str(SIM_TIME[0]).lower()}.items()))
     if kind in ("navigation", "goals", "robot", "arm") and nav_on:
         nav = open(cfg("nav2.yaml")).read().replace("topic: /scan\n", f"topic: {scan}\n")
-        if d435:
-            nav = with_depth_layer(nav)
-        nav_yaml = tmp_yaml(profiled(nav, "nav2.yaml", a["nav_profile"]), "nav2.yaml")
+        if d435 and a["depth_layer"] != "off":
+            nav = with_depth_layer(nav, a["depth_layer"])
+        nav = profiled(nav, "nav2.yaml", a["nav_profile"])
+        nav_yaml = tmp_yaml(nav, "nav2.yaml")
+        if d435 and a["depth_layer"] == "height":
+            # design.md 4.5: the D435's fused height map for Nav2 and the speed limit (DEPTH_LAYERS)
+            acts.append(Node(package="omni_arm", executable="height_map", name="height_map", output="screen",
+                             parameters=[{"config": "d435", "vx_max": vx_max(nav), **sim_t}]))
         if a["compose"] in ("true", "all"):
             comps += nav2_components(nav_yaml, glue(a, PKG))
             if glue(a, PKG) != "omni_cpp":                  # the Python heading_node is no component
@@ -473,9 +503,12 @@ def build(ctx, kind: str):
         # next to slam_toolbox (it keeps map -> odom); the localization health for the console
         # one map -> odom publisher only (REP-105): slam_toolbox's wherever it runs, tag_slam's only without it
         slam_running = kind in ("mapping", "localization", "navigation", "robot", "arm", "goals")
+        # the D435 arm robot sees the tags with the D435's colour camera (design.md 4.11; the bridge's tag camera)
+        tag_cam = dict(camera_frame="d435_color_optical_frame", fovy_deg=42.0, width=1280, height=720) if d435 else {}
         acts.append(Node(package="omni_slam", executable="tag_slam", name="tag_slam", output="screen",
                          parameters=[{"map": a["map"], "odom_topic": "/odometry/filtered" if ekf else "/odom",
-                                      "lidar": slam_running, "publish_map_odom": not slam_running, **sim_t}]))
+                                      "lidar": slam_running, "publish_map_odom": not slam_running, **tag_cam,
+                                      **sim_t}]))
     if on("rviz"):
         acts.append(Node(package="rviz2", executable="rviz2", name="rviz2", output="log",
                          arguments=["-d", cfg("omni.rviz")], parameters=[sim_t]))
@@ -639,12 +672,38 @@ def profiled(text: str, name: str, profile: str) -> str:
     return text
 
 
-# design.md 4.11: the D435's depth in both costmaps, a layer of its own so the lidar's clearing (its plane is 13-15 cm
-# up) doesn't wipe the low things only the camera sees. Two sources on the one cloud: marking above 4 cm (the floor's
-# noise, plus the base's ~0.9 deg static pitch on its pods: ~1.6 cm at 1 m; odom -> base_link carries no pitch) out
-# to 1.2 m, and clearing along every ray to the floor (min height below the floor) out to 2.0 m. The camera's own
-# shadows and the arm reaching into view aren't filtered (est: fine while Nav2 waits in PICK; VERIFY on the robot)
-DEPTH_LAYER = """      depth_layer:
+# design.md 4.5, 4.11: the D435 in both costmaps, a layer of its own so the lidar's clearing (its plane is 163 mm up)
+# doesn't wipe the low things only the camera sees.
+#
+# FLOOR_LAYER (depth_layer:=floor; proposed, not the default: simulation/v11 sil/studies/results/
+# floor_toys_2026-11-05.md): omni_arm's floor_obstacles node measures each frame
+# against the floor that frame sees (the base's pitch and the camera's calibration drop out), so toys 12-40 mm tall are
+# marked (floor_vision's objects) besides anything taller than 2.5 cm, and rugs and thresholds aren't. It keeps them on
+# the map's own cells (/floor_obstacles/grid, latched, map frame): a mark stays until the camera plainly sees floor
+# there, so a toy stays marked when it passes under the camera's view (no floor seen nearer than ~0.34 m from the
+# centre) or out of the field, and tall marks lapse after 20 s unseen. Here a StaticLayer reads that grid in both
+# costmaps; use_maximum so it adds its marks over the other layers (its -1 is no information in the global costmap,
+# free in the local one, which tracks no unknown space). A StaticLayer isn't clearable: Nav2's recoveries keep the
+# marks. While the arm is out the node skips frames (its links are in view); back in, it forgets the marks within
+# 0.5 m of the robot (a picked thing's). Picking happens outside Nav2 (the tidy's creep). Tried first: the marks in a
+# VoxelLayer, cleared by Nav2's ray tracing; a toy's cell was erased by the rays to the floor beside it (floor_obstacles.py).
+# Nov 5, sim, 3 seeds: on-route toys driven over 7/12 -> 1/12, but false marks where the floor's level steps (a carpet's
+# edge, a 16 mm rug's, the kitchen's tile) closed passages: 41/48 route goals against 48/48 with RAW_LAYER
+# RAW_LAYER (depth_layer:=raw, the default; the layer of Nov 4-5): the driver's cloud in an
+FLOOR_LAYER = """      use_maximum: True
+      depth_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        enabled: True
+        map_topic: /floor_obstacles/grid
+        map_subscribe_transient_local: True
+        subscribe_to_updates: False
+        footprint_clearing_enabled: False
+        transform_tolerance: 1.0
+"""
+# ObstacleLayer. Marking above 4 cm (the floor's noise, plus the base's ~0.9 deg static pitch on its pods: ~1.6 cm at
+# 1 m; odom -> base_link carries no pitch) out to 1.2 m, and clearing along every ray to the floor out to 2.0 m. It sees
+# none of the toys under 4 cm, and its flat rays to the floor beyond erase what it marked once that leaves the view
+RAW_LAYER = """      depth_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
         footprint_clearing_enabled: True
@@ -676,13 +735,34 @@ DEPTH_PLUGINS = [('      plugins: ["obstacle_layer", "inflation_layer"]\n',
                   '      plugins: ["static_layer", "obstacle_layer", "depth_layer", "inflation_layer"]\n')]
 
 
-def with_depth_layer(nav: str) -> str:
-    """nav2.yaml with DEPTH_LAYER in the local and the global costmap (each plugins line must be there once)."""
+# depth_layer:=height (proposed): omni_arm's height_map node, a height map fused over the frames (floor, level steps,
+# low things, obstacles, drops, unknown), its obstacles and drops on the same grid and StaticLayer as FLOOR_LAYER. It
+# also sets the speed by how sure it is of the way ahead (height_map.speed_limit), so the console's floor-edge zones
+# (Nav2's SpeedFilter) publish to /speed_limit_zones and the node passes on the lower of the two on /speed_limit
+DEPTH_LAYERS = {"height": FLOOR_LAYER, "floor": FLOOR_LAYER, "raw": RAW_LAYER, "off": None}
+SPEED_ZONES = ('        speed_limit_topic: "/speed_limit"\n', '        speed_limit_topic: "/speed_limit_zones"\n')
+
+
+def with_depth_layer(nav: str, layer: str = "floor") -> str:
+    """nav2.yaml with the D435's layer (DEPTH_LAYERS: height | floor | raw) in the local and the global costmap (each
+    plugins line must be there once); with height, the speed filter's limit to /speed_limit_zones."""
+    if not DEPTH_LAYERS.get(layer):
+        raise RuntimeError(f"depth layer: height, floor or raw, not {layer!r}")
     for old, new in DEPTH_PLUGINS:
         if nav.count(old) != 1:
             raise RuntimeError(f"depth layer: '{old.strip()}' is not in nav2.yaml once")
-        nav = nav.replace(old, new + DEPTH_LAYER)
+        nav = nav.replace(old, new + DEPTH_LAYERS[layer])
+    if layer == "height":
+        if nav.count(SPEED_ZONES[0]) != 1:
+            raise RuntimeError("depth layer: the speed filter's speed_limit_topic is not in nav2.yaml once")
+        nav = nav.replace(*SPEED_ZONES)
     return nav
+
+
+def vx_max(nav: str) -> float:
+    """MPPI's top speed in a (profiled) nav2.yaml."""
+    import re
+    return float(re.search(r"\n      vx_max: ([0-9.]+)\n", nav).group(1))
 
 
 def tmp_yaml(text: str, name: str) -> str:

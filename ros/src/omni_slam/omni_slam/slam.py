@@ -221,7 +221,7 @@ class TagSlam:
         g.priors = [(remap[i], z, W) for i, z, W in g.priors]
         g.betweens = betweens
         g.obs_i = [remap[i] for i in g.obs_i]
-        g._lu = None
+        g.changed()
 
     # -- outputs ---------------------------------------------------------------------------------------------------
     def pose(self, t: float | None = None):
@@ -232,7 +232,8 @@ class TagSlam:
         return se2_compose(g.X[-1], se2_between(self.kf_odom[-1], o))
 
     def pose_cov(self) -> np.ndarray | None:
-        if not len(self.g.X) or self.last_solve is None:
+        """The newest keyframe's marginal, at the graph's current state (keyframes since the last solve included)."""
+        if not len(self.g.X):
             return None
         return self.g.pose_cov(len(self.g.X) - 1)
 

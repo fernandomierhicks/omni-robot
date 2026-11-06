@@ -91,6 +91,9 @@ class CoreConfig:
     thrower: bool = True
     # design.md 16: the terrain course in the kitchen's east end (house.TERRAIN_COURSE: square steps and triangular bumps)
     terrain: bool = False
+    # the house furnished (house_props.py): furniture, full-height walls, signs, pictures, tag faces, a person; seen by the
+    # cameras and the lidar, no physics (ai_robot_architecture.md: things for the AI to find)
+    props: bool = False
 
 
 @dataclass
@@ -114,7 +117,10 @@ def toy_objects(c: CoreConfig) -> tuple:
     import arm_objects
     names = list(arm_objects.SETS[c.objects]) * 3
     rng = np.random.default_rng(c.seed + 900)
-    names = [names[k] for k in rng.permutation(len(names))[:c.n_objects]]
+    if c.objects in arm_objects.EXACT:                  # each thing once (then again): a scene with known answers
+        names = names[:c.n_objects]
+    else:
+        names = [names[k] for k in rng.permutation(len(names))[:c.n_objects]]
     return arm_objects.scatter(names, ARM_AREA[0], ARM_AREA[1], seed=c.seed, keep_out=(house.START[:2], 0.5))
 
 
@@ -127,7 +133,7 @@ def arm_kw(c: CoreConfig) -> dict:
 
 
 MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world",
-                "terrain", "arm_camera")
+                "terrain", "arm_camera", "props")
 
 
 def model_params(c: CoreConfig):
@@ -149,6 +155,8 @@ def model_params(c: CoreConfig):
     if c.live_world:
         import sim_world
         kw["floor_objects"] = sim_world.parked_objects(c)
+    if c.props:
+        kw["props"] = True
     p = house.house_params(base, assist=c.assist, wheel_model=c.wheel_model, course=c.terrain, **kw)
     if c.payload == "arm":
         from robot_export import study_from_env      # OMNI_SIM_STUDY (the Nov 1 motor study); unset: p as is

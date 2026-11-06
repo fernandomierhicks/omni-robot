@@ -65,7 +65,8 @@ SIM_STEPS = {
                   {"key": "person", "label": "A person walking (Follow)", "kind": "bool", "default": "false"},
                   {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "off"},
                   {"key": "thrower", "label": "A thrower (Catch)", "kind": "bool", "default": "true"},
-                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"}]
+                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"},
+                  {"key": "props", "label": "Furnished house (signs, a person)", "kind": "bool", "default": "false"}]
          + VIEW_ARGS},
         {"id": "arm", "label": "Arm robot: tidy up", "group": "robot", "cmd": ["bash", "{omni_sh}", "arm", "web:=false"],
          "hint": "The arm robot (an SO-101 on the nose instead of the catch module) in the house with toys on the "
@@ -77,7 +78,8 @@ SIM_STEPS = {
                   {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"},
                   {"key": "person", "label": "A person walking (Follow)", "kind": "bool", "default": "false"},
                   {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "toys"},
-                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"}]
+                  {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"},
+                  {"key": "props", "label": "Furnished house (signs, a person)", "kind": "bool", "default": "false"}]
          + VIEW_ARGS},
         {"id": "catch", "label": "Play catch", "group": "robot", "cmd": ["bash", "{omni_sh}", "catch", "web:=false"],
          "hint": "The open field: a thrower 6-7 m away, the stereo cameras, the robot's own catch code; return throws "

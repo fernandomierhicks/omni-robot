@@ -30,6 +30,10 @@ Publishes  /console/status    std_msgs/String JSON, 10 Hz (wall clock): mission,
            /initialpose       geometry_msgs/PoseWithCovarianceStamped: where the robot is on a loaded map
            /face/say /face/hear std_msgs/String: the Say box's lines (JSON: text, mood, act) and typed voice
                               commands, for omni_face's face_node
+           /arm/request /arm/camera_request  std_msgs/String: omni_arm's tidy, find and poses; a frame from a camera
+                              the sim renders on request (look)
+Also the AI client's tasks (ai_tasks.json: ai_robot_architecture.md, missions.py): kept over restarts, the ones that
+were running marked INTERRUPTED; each one that ends goes into the session log.
 Subscribes /console/cmd_vel   geometry_msgs/Twist from the page, normalized -1..1 (linear.z > 0.5 = boost), 20 Hz while
                               the dead man is held; older than 0.3 s -> zero, then silence
            /console/heartbeat std_msgs/String JSON {"id": ...} from each open page (counts consoles)
@@ -59,6 +63,7 @@ from pathlib import Path
 
 import numpy as np
 import rclpy
+from action_msgs.srv import CancelGoal
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped, Twist
 from nav2_msgs.action import NavigateToPose
 from nav2_msgs.msg import CostmapFilterInfo
@@ -83,12 +88,13 @@ from visualization_msgs.msg import Marker
 
 from omni_console import session_log
 from omni_console import status as st
+from omni_console.ai_tasks import log_fields
 from omni_console.cdr import parse_ball_track, parse_laser_scan
 from omni_console.explore import Grid
 from omni_console.health import Health
 from omni_console.missions import NEW_MAP, VERSION, Console, load_json, save_json
 from omni_console.people import detect as detect_people
-from omni_console.slam import localization_params, saved_maps, write_map_image
+from omni_console.slam import localization_params, pose_record, resume_pose, saved_maps, write_map_image
 from omni_console.tflite import TfLite
 from omni_console.throws import ThrowLog, kmh
 from omni_console.zones import covers, masks as zone_masks
@@ -100,7 +106,8 @@ PLAN_POINTS = 150
 CLUTTER_POINTS = 150
 NAV_OUTCOME = {4: "succeeded", 5: "canceled", 6: "aborted"}    # action_msgs/GoalStatus
 IMAGE_TYPES = ("sensor_msgs/msg/Image", "sensor_msgs/msg/CompressedImage")
-VIDEO_PORT = 8081                  # web_video_server (camera streams as MJPEG, never through rosbridge)
+VIDEO_PORT = int(os.environ.get("OMNI_VIDEO_PORT", 8081))   # web_video_server (camera streams as MJPEG, never rosbridge)
+QUIET_VERBS = ("ping", "schema", "fire", "thrower", "ai_lease", "task", "look", "tf", "frames")    # no schema publish after these
 
 
 def yaw_of(q) -> float:
@@ -149,11 +156,11 @@ class LoadMeter:
 
 
 def load_map_extras(path) -> dict:
-    """<map>.places.json: {"places", "routes", "zones", "edges"}; phase 1 wrote the places alone."""
+    """<map>.places.json: {"places", "routes", "zones", "edges", "rooms"}; phase 1 wrote the places alone."""
     d = load_json(path)
-    if not any(k in d for k in ("places", "routes", "zones", "edges")):
+    if not any(k in d for k in ("places", "routes", "zones", "edges", "rooms")):
         d = dict(places=d)
-    return {k: d.get(k) or {} for k in ("places", "routes", "zones", "edges")}
+    return {k: d.get(k) or {} for k in ("places", "routes", "zones", "edges", "rooms")}
 
 
 class Feed(Node):
@@ -267,14 +274,51 @@ class SlamSupervisor:
         self.mode = self.map = None
         self.busy = False
         self.lock = threading.Lock()
+        # at once, not at the first start: under the sim's clock a slam_toolbox left from an earlier session stamps
+        # map -> odom in that session's future, and the TF buffers then refuse the new one's as old data until the
+        # new clock passes it (Nav2's for 690 s, Nov 5)
+        self._reap_orphan()
 
     def start(self, mode: str, map_name: str | None, pose, done):
         self.busy = True
         threading.Thread(target=self._switch, args=(mode, map_name, pose, done), daemon=True).start()
 
+    def _pgid_file(self) -> Path:
+        return self.log_path.parent / "slam_toolbox.pgid"
+
+    def _reap_orphan(self):
+        """A slam_toolbox left by an earlier console that died without stopping it (SIGKILL, a crash: its own session
+        keeps it out of the launch's reach). Left running, its stale map -> odom fights the new one's and its node
+        name takes the new one's lifecycle transitions: 0.9 m and 156 deg off after a restart (Nov 5)."""
+        f = self._pgid_file()
+        try:
+            pgid = int(f.read_text())
+        except (OSError, ValueError):
+            return
+        f.unlink(missing_ok=True)
+        members = []
+        for d in Path("/proc").glob("[0-9]*"):
+            try:
+                if os.getpgid(int(d.name)) == pgid and b"slam_toolbox" in (d / "cmdline").read_bytes():
+                    members.append(int(d.name))
+            except (OSError, ValueError):
+                pass
+        if not members:
+            return
+        self.log(f"stopping a slam_toolbox an earlier console left running (process group {pgid})")
+        try:
+            os.killpg(pgid, signal.SIGINT)
+            t_end = time.monotonic() + 8.0
+            while time.monotonic() < t_end and any(Path(f"/proc/{p}").exists() for p in members):
+                time.sleep(0.2)
+            os.killpg(pgid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+
     def _switch(self, mode, map_name, pose, done):
         with self.lock:
             self._stop()
+            self._reap_orphan()
             if mode == "mapping":
                 params, launch = self.mapping_params, "online_async_launch.py"
             else:
@@ -288,12 +332,15 @@ class SlamSupervisor:
                 ["ros2", "launch", "slam_toolbox", launch, f"slam_params_file:={params}",
                  f"use_sim_time:={'true' if self.sim_time else 'false'}"],
                 stdout=out, stderr=subprocess.STDOUT, start_new_session=True, cwd=str(self.log_path.parent))
+            self._pgid_file().write_text(str(self.proc.pid))
             self.mode, self.map = mode, map_name
             self.log(f"slam_toolbox {mode}{' on ' + map_name if map_name else ''} (log {self.log_path})")
         done(mode, map_name)
 
     def _stop(self):
         p, self.proc = self.proc, None
+        if p is not None:
+            self._pgid_file().unlink(missing_ok=True)
         if p is None or p.poll() is not None:
             return
         try:
@@ -342,16 +389,25 @@ class MissionNode(Node):
         self.programs_path = state_dir / "programs.json"
         self.calib_path = state_dir / "calibration.json"
         self.health_path = state_dir / "health.json"
+        self.slam_pose_path = state_dir / "slam_pose.json"     # where it was localized: a restart resumes there
+        self.ai_path = state_dir / "ai_tasks.json"
         self.sessions_dir = state_dir / "logs" / "sessions"
         self.core = Console(load_json(self.settings_path).get("settings"),
                             programs=load_json(self.programs_path).get("programs"),
                             calib=load_json(self.calib_path).get("results"),
-                            throws=ThrowLog(state_dir / "throws.jsonl"), health=Health(load_json(self.health_path)))
+                            throws=ThrowLog(state_dir / "throws.jsonl"), health=Health(load_json(self.health_path)),
+                            ai_tasks=load_json(self.ai_path))
+        self.ai_cleanup = self.core.ai_cleanup()      # what the interrupted tasks left moving: stopped in check_caps
+        for t in self.core.ai_book.tasks.values():
+            if t.state == "INTERRUPTED" and t.t_end is None:
+                t.t_end = time.time()
+                self.get_logger().warn(f"AI task {t.id} ({t.kind}) was running when the console stopped: INTERRUPTED")
         self.wall = Clock(clock_type=ClockType.STEADY_TIME)
         self.slam = (SlamSupervisor(mapping_params, loc_params, self.maps_dir, sim_time, state_dir,
                                     self.get_logger().info) if mapping_params and loc_params else None)
 
         self.mcu = self.mcu_t = None
+        self.mcu_us = None                 # the MCU's clock (t_mcu_us): which boot its odometry belongs to
         self.info = self.info_t = None
         self.link = None
         self.catch = None
@@ -393,6 +449,7 @@ class MissionNode(Node):
         self.p_initial = self.create_publisher(PoseWithCovarianceStamped, "/initialpose", 1)
         self.p_throw = self.create_publisher(String, "/console/throw", LATCHED)      # the last throw, with its path
         self.p_arm = self.create_publisher(String, "/arm/request", 10)              # omni_arm (design.md 11)
+        self.p_camreq = self.create_publisher(String, "/arm/camera_request", 10)    # the sim renders on request
         self.p_face_say = self.create_publisher(String, "/face/say", 10)            # omni_face: the Say box
         self.p_face_hear = self.create_publisher(String, "/face/hear", 10)          # a voice command, typed
         # Nav2's costmap filters (nav2.yaml): the Map edit tab's no-go zones and floor edges
@@ -421,13 +478,14 @@ class MissionNode(Node):
         self.set_mode_cli = self.create_client(SetMode, "/set_mode")
         self.nav = ActionClient(self, NavigateToPose, "navigate_to_pose")
         self.c_nav_active = self.create_client(Trigger, "/lifecycle_manager_navigation/is_active")
+        self.c_nav_cancel = self.create_client(CancelGoal, "/navigate_to_pose/_action/cancel_goal")
         self.c_nav_manage = self.create_client(ManageLifecycleNodes, "/lifecycle_manager_navigation/manage_nodes")
         self.params = {n: AsyncParameterClient(self, n) for n in ("velocity_smoother", "heading_node",
                                                                     "catch_behavior", "slam_toolbox")}
         from slam_toolbox.srv import SerializePoseGraph
         self.SerializePoseGraph = SerializePoseGraph
         self.c_serialize = self.create_client(SerializePoseGraph, "/slam_toolbox/serialize_map")
-        self.tf = self.feed.tf
+        self.tf = self.core.tf = self.feed.tf
         self.c_slam_state = self.create_client(GetState, "/slam_toolbox/get_state")
         self.c_slam_change = self.create_client(ChangeState, "/slam_toolbox/change_state")
         self.slam_state_pending = None
@@ -440,7 +498,10 @@ class MissionNode(Node):
             if slam_start == "localization" and not have:
                 self.get_logger().warn(f"no saved map '{map_name}': starting a new map")
             self.core.set_slam(managed=True, busy=True, maps=saved_maps(self.maps_dir))
-            self.slam.start(mode, map_name if mode == "localization" else None, (0.0, 0.0, 0.0), self.on_slam_started)
+            if mode == "localization":
+                self._start_resumed(map_name, time.monotonic() + 3.0)
+            else:
+                self.slam.start(mode, None, (0.0, 0.0, 0.0), self.on_slam_started)
 
         # wall-clock timers: the page sees the robot even while the sim's clock is paused
         self.n_fast = 0
@@ -490,6 +551,25 @@ class MissionNode(Node):
         self.mask_geom = (i.width, i.height, i.resolution, i.origin.position.x, i.origin.position.y)
         self.core.zones_changed = False
 
+    def _start_resumed(self, map_name, t_give_up):
+        """Localization at boot: where a restarted console's robot is (slam.resume_pose: the last record and the
+        odometry since, once odom -> base_link and the MCU's clock have come, 3 s at most), else the map's start pose."""
+        odom = self.tf.lookup("odom", "base_link")
+        if (odom is None or self.mcu_us is None) and time.monotonic() < t_give_up:
+            timer = []
+
+            def again():
+                timer[0].cancel()
+                self.destroy_timer(timer[0])
+                self._start_resumed(map_name, t_give_up)
+            timer.append(self.create_timer(0.2, again, clock=self.wall))
+            return
+        pose = resume_pose(load_json(self.slam_pose_path), map_name, odom, time.time(), self.mcu_us)
+        if pose is not None:
+            self.get_logger().info(f"localizing from the last pose (a restart): ({pose[0]:.2f}, {pose[1]:.2f}, "
+                                   f"{math.degrees(pose[2]):.0f} deg)")
+        self.slam.start("localization", map_name, pose or (0.0, 0.0, 0.0), self.on_slam_started)
+
     def on_slam_started(self, mode, map_name):
         """In the supervisor's thread: the new slam_toolbox is starting (check_caps sees it come up)."""
         self.use_map(map_name if mode == "localization" else NEW_MAP)
@@ -518,6 +598,7 @@ class MissionNode(Node):
                         vy=float(m.vy), wz=float(m.wz), slip=float(m.slip), roll=float(m.roll), pitch=float(m.pitch),
                         sync_rtt_ms=float(m.sync_rtt_ms))
         self.mcu_t = time.monotonic()
+        self.mcu_us = int(m.t_mcu_us)
 
     def on_info(self, m: McuInfo):
         self.info = dict(protocol=int(m.protocol), build=m.build, rc_ok=bool(m.rc_ok), rc_manual=bool(m.rc_manual),
@@ -706,7 +787,7 @@ class MissionNode(Node):
         r = self.core.command(req.verb, args)
         self.run_effects(r.effects)
         self.save()
-        if req.verb not in ("ping", "schema", "fire", "thrower"):
+        if req.verb not in QUIET_VERBS:
             self.publish_schema()
         self.flush_events()
         resp.ok, resp.message, resp.data = r.ok, r.message, json.dumps(r.data if r.data is not None else {})
@@ -744,6 +825,8 @@ class MissionNode(Node):
                 self.publish_masks()
             elif kind == "arm":
                 self.p_arm.publish(String(data=json.dumps(fx[1])))
+            elif kind == "camera_request":
+                self.p_camreq.publish(String(data=fx[1]))
             elif kind in ("face", "face_hear"):          # omni_face: a line to say (the Say box), a typed "heard"
                 pub = self.p_face_say if kind == "face" else self.p_face_hear
                 if pub.get_subscription_count() == 0:
@@ -899,6 +982,9 @@ class MissionNode(Node):
         in_map = (self.frame_pose("base_link") or ("",))[0] == "map"
         if in_map:
             self.t_slam_up = now                  # time without fresh map TF, not the process's total uptime
+            mp, op = self.tf.lookup("map", "base_link"), self.tf.lookup("odom", "base_link")
+            if self.slam.mode == "localization" and mp is not None and op is not None and self.mcu_us is not None:
+                save_json(self.slam_pose_path, pose_record(self.slam.map, mp, op, time.time(), self.mcu_us))
         # slam_toolbox's launch can lose the configure response and leave the node inactive indefinitely.
         # Query the actual state after the normal startup grace, then complete its lifecycle without restarting it.
         if not in_map and now - self.t_slam_up > 8.0 and now - self.t_slam_change > 5.0 and self.c_slam_state.service_is_ready():
@@ -937,7 +1023,20 @@ class MissionNode(Node):
             self.core.set_slam(busy=True)
             self.slam.start(self.slam.mode, self.slam.map, pose, self.on_slam_started)
 
+    def stop_interrupted(self):
+        """After a restart: the goal or the tidy an interrupted AI task left running is stopped, never resumed."""
+        if "nav" in self.ai_cleanup and self.c_nav_cancel.service_is_ready():
+            self.c_nav_cancel.call_async(CancelGoal.Request())        # a zero goal id and stamp: every goal
+            self.ai_cleanup.discard("nav")
+            self.emit("warn", "Cancelled Nav2's goals left by an AI task the restart interrupted")
+        if "arm" in self.ai_cleanup and self.p_arm.get_subscription_count() > 0:
+            self.p_arm.publish(String(data=json.dumps(dict(verb="stop"))))
+            self.ai_cleanup.discard("arm")
+            self.emit("warn", "Stopped the arm's tidy left by an AI task the restart interrupted")
+
     def check_caps(self):
+        if self.ai_cleanup:
+            self.stop_interrupted()
         names = set(self.get_node_names())
         self.check_nav()
         nav = self.nav_active and self.nav.server_is_ready()
@@ -1058,6 +1157,8 @@ class MissionNode(Node):
         self.core.odom_pose = None if odom is None else odom[:3]
         if self.mcu is not None:
             self.core.on_mcu(st.mcu_summary(self.mcu, time.monotonic() - self.mcu_t))
+        i = self.info                                 # the RC's manual switch takes the robot back from the AI
+        self.core.on_rc(bool(i is not None and i["rc_manual"] and now - self.info_t < 1.0))
         follow = self.core.mission == "FOLLOW"
         if follow != (self.feed.scan_sub is not None):
             self.feed.set_scan(self.scan_topic if follow else None, self.on_scan_raw)
@@ -1135,6 +1236,14 @@ class MissionNode(Node):
         if self.core.calib_changed:
             self.core.calib_changed = False
             save_json(self.calib_path, dict(results=self.core.calib_results))
+        book = self.core.ai_book
+        if book.changed:
+            book.changed = False
+            save_json(self.ai_path, book.saved())
+        for rec in book.pop_finished():
+            if self.session is not None:
+                self.session.write("ai_task", **log_fields(rec))
+            self.get_logger().info(f"AI task {rec['task_id']} ({rec['kind']}): {rec['state']}, {rec['message']}")
 
     def read_wifi(self):
         now = time.monotonic()
@@ -1159,6 +1268,7 @@ class MissionNode(Node):
         self.core.pose = None if fp is None else fp[:4]
         s = self.core.summary()
         s["t"] = time.time()
+        s["source"] = self.log_source                 # "sim" when the sim stands in for the robot
         s["map"] = self.core.map_name
         s["mcu"] = None if self.mcu is None else st.mcu_summary(self.mcu, now - self.mcu_t)
         s["link"] = self.link

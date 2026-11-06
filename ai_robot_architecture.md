@@ -1,7 +1,20 @@
 # AI control of the robot: Claude / Codex as the high-level commander
 
-**Status:** proposal with an execution plan. Nothing in this document is implemented yet. Simulation first; physical
-motion stays behind the existing build gates (design.md 8).
+**Status (Nov 5, 2026):** phases 1–4 are implemented in the simulator only and were run end to end on both arm
+cameras (stereo with the Python arm, nose D435 with the C++ arm), including open requests ("go to the kitchen and spin
+3 times", a tour of every room) worked out by a model through `call.py` (results in the omni_mcp README). Phase 5
+(hardware) and phase 6 (voice) haven't been started; physical motion stays behind the build gates (design.md 8). Where
+this plan has been executed, its text is unchanged; the departures are:
+
+- **`mcp` 2.x:** `MCPServer` (the renamed `FastMCP`).
+- **Connection:** `OMNI_HOST` 127.0.0.1, because Windows resolves `localhost` to ::1 and that path to WSL2 hangs.
+- **Shape classes:** retuned on rendered scenes (`color_vision.py`). They now use length over height and a flat top,
+  and mark far shapes as guesses.
+- **`.mcp.json`:** not checked in. The snippet is in the README.
+- **Rooms are not places:** `robot_goto("kitchen")` is refused (`unknown_place`), but the refusal names the room and
+  its centre so the model can check a point on the map and send x, y (Nov 5). No room-goto mission was added.
+
+Usage and tests: `ros/tools/omni_mcp/README.md`. The design summary is in design.md 2.1.
 
 **Prepared:** Nov 2, 2026; rewritten Nov 3, 2026 into an execution plan (the Nov 2 draft is in git, commit `ef5761a`).
 

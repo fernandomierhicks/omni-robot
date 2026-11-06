@@ -1,0 +1,456 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "robot_diameter": 450.3
+ },
+ "frame": {
+  "member": "solid square section, 22 mm deep (print with few walls, low infill)",
+  "ring_band": [
+   100.0,
+   121.0
+  ],
+  "cross_w": 24.0
+ },
+ "printed_parts": {
+  "hub": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 498.6,
+   "footprint_on_bed": [
+    233.3,
+    231.7
+   ],
+   "height": 36.0,
+   "bed_fit": true
+  },
+  "node_front": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 161.7,
+   "footprint_on_bed": [
+    141.2,
+    137.4
+   ],
+   "height": 22.0,
+   "bed_fit": true
+  },
+  "node_left": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 188.7,
+   "footprint_on_bed": [
+    137.1,
+    136.8
+   ],
+   "height": 46.0,
+   "bed_fit": true
+  },
+  "node_back": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 117.5,
+   "footprint_on_bed": [
+    128.6,
+    127.4
+   ],
+   "height": 22.0,
+   "bed_fit": true
+  },
+  "node_right": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 188.7,
+   "footprint_on_bed": [
+    137.1,
+    136.8
+   ],
+   "height": 46.0,
+   "bed_fit": true
+  },
+  "pedestal": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 48.3,
+   "footprint_on_bed": [
+    73.0,
+    72.9
+   ],
+   "height": 69.7,
+   "bed_fit": true
+  },
+  "bracket_d435": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 17.9,
+   "footprint_on_bed": [
+    50.6,
+    50.0
+   ],
+   "height": 64.0,
+   "bed_fit": true
+  },
+  "bumper_q0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 45.7,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 55.5,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 55.5,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "bumper_q3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 45.7,
+   "footprint_on_bed": [
+    225.1,
+    225.1
+   ],
+   "height": 50.0,
+   "bed_fit": true
+  },
+  "support_spine": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 261.0,
+   "footprint_on_bed": [
+    216.8,
+    210.2
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_side_L": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 96.9,
+   "footprint_on_bed": [
+    125.2,
+    123.9
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_side_R": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 96.9,
+   "footprint_on_bed": [
+    125.2,
+    123.9
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_front_L": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 16.8,
+   "footprint_on_bed": [
+    25.0,
+    16.0
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  },
+  "support_front_R": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 16.8,
+   "footprint_on_bed": [
+    25.0,
+    16.0
+   ],
+   "height": 114.5,
+   "bed_fit": true
+  }
+ },
+ "all_fit_256_bed": true,
+ "part_overlaps_mm3": {},
+ "laps": {
+  "n": 4,
+  "dovetail": {
+   "ring": [
+    2.5,
+    3.4,
+    5.0
+   ],
+   "cross": [
+    4.0,
+    6.5,
+    7.0
+   ]
+  },
+  "socket_clearance_mm": 0.1,
+  "screws": 6,
+  "zones_meet": false
+ },
+ "thin_mm2": {
+  "min_feature_mm": 4.0,
+  "found": {}
+ },
+ "d435_cradle": {
+  "camera_centre": [
+   190.0,
+   0.0,
+   111.5
+  ],
+  "edges_rounded": "40/102",
+  "usb": {
+   "l": 8.0,
+   "across": 12.4,
+   "deep": 6.5,
+   "from_back": 3.25,
+   "lead_d": 4.5,
+   "lead_in": 3.5,
+   "rise": 30.0
+  }
+ },
+ "frame_volume_cm3": 1155.3,
+ "supports_static": {
+  "overlap_mm3": {
+   "support_spine / hub": 0,
+   "support_spine / node_back": 0,
+   "support_side_L / node_left": 0,
+   "support_side_R / node_right": 0
+  },
+  "gaps_mm": {
+   "support_spine / hub": 0.0,
+   "support_spine / node_back": 0.0,
+   "support_spine / bumper_q0": 162.17,
+   "support_spine / bumper_q1": 6.02,
+   "support_spine / bumper_q2": 6.02,
+   "support_spine / bumper_q3": 162.17,
+   "support_side_L / FL/pod_frame_inner": 0.02,
+   "support_side_L / FL/pod_keel_outer": 77.72,
+   "support_side_L / FL/dowel_inner": 15.68,
+   "support_side_L / RL/pod_frame_inner": 4.68,
+   "support_side_L / RL/pod_keel_outer": 12.82,
+   "support_side_L / RL/dowel_inner": 14.44,
+   "support_side_L / hub": 1.63,
+   "support_side_L / node_left": 0.0,
+   "support_side_L / bumper_q0": 71.06,
+   "support_side_L / bumper_q1": 40.11,
+   "support_side_R / RR/pod_frame_inner": 4.68,
+   "support_side_R / RR/pod_keel_outer": 12.82,
+   "support_side_R / RR/dowel_inner": 14.44,
+   "support_side_R / FR/pod_frame_inner": 0.02,
+   "support_side_R / FR/pod_keel_outer": 77.72,
+   "support_side_R / FR/dowel_inner": 15.68,
+   "support_side_R / hub": 1.63,
+   "support_side_R / node_right": 0.0,
+   "support_side_R / bumper_q2": 40.11,
+   "support_side_R / bumper_q3": 71.06,
+   "support_front_L / node_front": 0.0,
+   "support_front_L / bumper_q0": 10.64,
+   "support_front_L / d435": 6.28,
+   "support_front_R / node_front": 0.0,
+   "support_front_R / bumper_q3": 10.63,
+   "support_front_R / d435": 6.28,
+   "support_front_R / d435_plug": 4.36
+  },
+  "note": "0 overlap everywhere; the side fins sit 0.02 above the column top (bearing there), the feet stand on the members"
+ },
+ "clearance_to_moving_mm": {
+  "frame_to_moving_z40_56": 3.0,
+  "frame_to_moving_z56_62": 3.09,
+  "bumper_to_moving": 3.0,
+  "walls_to_moving": 5.65,
+  "camera_to_moving": 10.03,
+  "plug_to_moving": 4.2,
+  "bracket_to_moving": 10.02,
+  "lidar_to_moving": 5.89,
+  "pedestal_to_moving": 5.26,
+  "supports_to_moving": 3.39
+ },
+ "d435_fov": {
+  "env_d435_fov_depth": {
+   "overlaps_mm3": {},
+   "front_fins_mm": {
+    "support_front_L": 21.1,
+    "support_front_R": 45.3
+   }
+  },
+  "env_d435_fov_rgb": {
+   "overlaps_mm3": {},
+   "front_fins_mm": {
+    "support_front_L": 15.4,
+    "support_front_R": 67.8
+   }
+  },
+  "note": "frustums 500 mm long from each lens (depth: left imager; lens positions VERIFY)"
+ },
+ "lidar_to_d435_cradle_mm": 18.17,
+ "lidar_to_camera_mm": 22.12,
+ "pedestal_to_cradle_mm": 4.0,
+ "fasteners_landing": {
+  "pod": "16/16",
+  "keel": "8/8",
+  "pedestal": "4/4",
+  "bracket": "2/2",
+  "fin": "12/12",
+  "fin_long": "2/2",
+  "bumper": "16/16",
+  "laps": "6 screws in 4 laps"
+ },
+ "hole_audit": {
+  "screws": 72,
+  "partial_holes": {},
+  "threads_across_layers": {},
+  "soft_pilots_across_layers": {
+   "bolt_keel_0#16 / FL/pod_keel_outer": 90.0,
+   "bolt_keel_1#17 / FL/pod_keel_outer": 90.0,
+   "bolt_keel_2#18 / RL/pod_keel_outer": 90.0,
+   "bolt_keel_3#19 / RL/pod_keel_outer": 90.0,
+   "bolt_keel_4#20 / RR/pod_keel_outer": 90.0,
+   "bolt_keel_5#21 / RR/pod_keel_outer": 90.0,
+   "bolt_keel_6#22 / FR/pod_keel_outer": 90.0,
+   "bolt_keel_7#23 / FR/pod_keel_outer": 90.0
+  },
+  "heads_in_parts": {},
+  "no_hole": {},
+  "short_of_6mm": {},
+  "note": "partial: a hole that is not a full circle in a part (straddles a split or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the part's print-up axis. The D435 / lidar screws thread into the devices"
+ },
+ "per_pod": {
+  "inner_frame": "3 x M3 x 25 + the column bolt M3 x 60, up from under the member into hex nuts in the frame; pocket walls on its centre-side face and front end (0.2 clearance, 14 tall)",
+  "keel": "2 x M3 x 35 up from under the member into \u00d82.9 pilots through the keel; pocket walls behind it and at its inboard end (clipped off the pod's way out)",
+  "pivot_block": "bears on the ring",
+  "supports": "front pods: the side fin bears on the column top, located by 2 dowels in its 2 pilots (slots in the fin open toward the pod's way out); rear pods: pilots unused",
+  "removal": "screws out from below, bumper quarter off, unplug the motor; the pod slides out radially (its -x) under the second floor"
+ },
+ "inner_frame_foot_supported": [
+  0.94,
+  0.94,
+  0.94,
+  0.94
+ ],
+ "keel_foot_supported": [
+  0.69,
+  0.69,
+  0.69,
+  0.69
+ ],
+ "lidar": {
+  "at": [
+   120.0,
+   0
+  ],
+  "scan_z": 163.0,
+  "supports": [
+   {
+    "support": "support_spine",
+    "nearest": 54.3,
+    "bearing": -180.0,
+    "shadow_deg": 5.3
+   },
+   {
+    "support": "support_side_L",
+    "nearest": 78.1,
+    "bearing": 136.7,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_side_R",
+    "nearest": 78.1,
+    "bearing": -136.7,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_front_L",
+    "nearest": 84.0,
+    "bearing": 36.0,
+    "shadow_deg": 4.1
+   },
+   {
+    "support": "support_front_R",
+    "nearest": 84.0,
+    "bearing": -36.0,
+    "shadow_deg": 4.1
+   }
+  ],
+  "blind_total_deg": 20.9,
+  "note": "only the fins' webs cross z 148..170, each a wedge along a ray filling its own shadow (round 15); plus the arm while it reaches down in front"
+ },
+ "supports": {
+  "spine": {
+   "bearing": 180.0,
+   "length": 286.0,
+   "nose_x": 70.0,
+   "feet": "hub's front cross arm + the cross by the hub + back node, 2 x M3 x 30 up through each",
+   "arch_apex_z": [
+    120.0,
+    125.0
+   ]
+  },
+  "side": {
+   "bearing": [
+    136.7,
+    -136.7
+   ],
+   "length": 160.0,
+   "feet": "front pod's column top (bears, 2 dowels) + the ring by the side stem + the tail leg on the side node (1 x M3 x 30 up through each)",
+   "nose_xy": [
+    63.2,
+    53.5
+   ],
+   "arm_riser_rear_corner": [
+    62.0,
+    56.0
+   ]
+  },
+  "front": {
+   "bearing": [
+    36.0,
+    -36.0
+   ],
+   "length": 25.0,
+   "foot_L": [
+    [
+     195.2,
+     54.7
+    ],
+    [
+     208.2,
+     64.1
+    ]
+   ],
+   "fixing": "1 x M3 x 30 up into the foot; 1 x M3 x 130 from the floor top down through the fin into a pilot in the node"
+  },
+  "floor": "M3 x 12 down through the 5 mm floor into \u00d82.8 x 7 pilots in the flanges (15)",
+  "section": "scan band z 148..170: a wedge as wide as its own lidar shadow (5 at its near end, front fins 6), flange 16 under the floor, legs flaring toward the deck",
+  "printing": "upside down on the top flange: arches, coves and leg flares all lean inward, no supports"
+ },
+ "section_I_mm4": {
+  "plate_neck_19x6": 342,
+  "plate_neck_25x6": 450,
+  "ring_21x22_solid": 18634,
+  "cross_16x22_solid": 14197,
+  "note": "printed with 3-4 walls and low infill a solid square section is a box section: close to these numbers, stiffer than the U-channel"
+ }
+}

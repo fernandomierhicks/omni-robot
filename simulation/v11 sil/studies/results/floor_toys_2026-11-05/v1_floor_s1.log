@@ -1,0 +1,62 @@
+toys: 6 of 6 toys placed: ball40 on (-4.063, 0.1), cube40 on (-2.142, -1.898), brick on (-1.599, -0.301), cube30 on (-2.68, -0.199), cube40 beside (3.607, 0.772), block beside (2.288, 0.779)
+ROUTE ...
+  lap 1 spot 1: ok   13.1 s, err 0.08 m, loc 0.071, vmax 0.45  (Arrived at spot 1)
+  lap 1 spot 2: ok   23.2 s, err 0.06 m, loc 0.03, vmax 0.90  (Arrived at spot 2)
+  lap 1 spot 3: ok   26.6 s, err 0.09 m, loc 0.072, vmax 1.16  (Arrived at spot 3)
+  lap 1 spot 4: ok   23.7 s, err 0.01 m, loc 0.017, vmax 1.17  (Arrived at spot 4)
+  lap 1 spot 5: ok   20.0 s, err 0.03 m, loc 0.018, vmax 1.37  (Arrived at spot 5)
+  lap 1 spot 6: ok   16.3 s, err 0.13 m, loc 0.119, vmax 0.91  (Arrived at spot 6)
+  lap 1 spot 7: ok   40.5 s, err 0.12 m, loc 0.119, vmax 1.25  (Arrived at spot 7)
+  lap 1 spot 8: ok   19.7 s, err 0.03 m, loc 0.024, vmax 0.60  (Arrived at spot 8)
+  lap 2 spot 1: ok   15.0 s, err 0.06 m, loc 0.03, vmax 0.47  (Arrived at spot 1)
+  lap 2 spot 2: NO   43.8 s, err 3.68 m, loc 0.031, vmax 0.53  (Could not reach spot 2: Nav2 gave up (blocked or no path))
+  lap 2 spot 3: NO   36.0 s, err 7.76 m, loc 0.033, vmax 0.00  (Could not reach spot 3: Nav2 gave up (blocked or no path))
+  lap 2 spot 4: NO   38.0 s, err 7.00 m, loc 0.03, vmax 0.00  (Could not reach spot 4: Nav2 gave up (blocked or no path))
+  lap 2 spot 5: NO   39.1 s, err 4.60 m, loc 0.033, vmax 0.02  (Could not reach spot 5: Nav2 gave up (blocked or no path))
+  lap 2 spot 6: NO   39.0 s, err 3.47 m, loc 0.035, vmax 0.01  (Could not reach spot 6: Nav2 gave up (blocked or no path))
+  lap 2 spot 7: NO   36.9 s, err 2.99 m, loc 0.035, vmax 0.01  (Could not reach spot 7: Nav2 gave up (blocked or no path))
+  lap 2 spot 8: NO   38.1 s, err 0.96 m, loc 0.036, vmax 0.01  (Could not reach spot 8: Nav2 gave up (blocked or no path))
+  ball40   on     closest 0.54 m, over it 0x, moved 0.000 m, cost 0 -> 99
+  cube40   on     closest 0.69 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  brick    on     closest 0.34 m, over it 0x, moved 0.000 m, cost 0 -> 99
+  cube30   on     closest 0.65 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  cube40   beside closest 0.48 m, over it 0x, moved 0.000 m, cost 0 -> 100
+  block    beside closest 0.40 m, over it 0x, moved 0.000 m, cost 0 -> 100
+TIDY ...
+  toy 0: drive NO 36.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 0: drive NO 38.0 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 3: drive NO 36.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 3: drive NO 37.0 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 2: drive NO 36.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 2: drive NO 37.1 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 1: drive NO 36.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 1: drive NO 37.0 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 5: drive NO 37.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+  toy 5: drive NO 37.9 s; tidy None picked None failed (None) in None s; bin 0 -> 0; costs where binned ones lay {}
+Traceback (most recent call last):
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/tools/toy_route.py", line 348, in <module>
+    n.destroy_node()
+    ^^^^^^
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/tools/toy_route.py", line 319, in main
+    placements=spots, toys=toys, goals=goals, route_s=route_s)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/tools/toy_route.py", line 210, in tidy
+    before = [list(p) for p in objs.get("positions", [])]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/tools/arm_load.py", line 90, in goto
+    self.spin_for(0.1)
+  File "/mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/tools/mode_load.py", line 61, in spin_for
+    rclpy.spin_once(self, timeout_sec=0.05)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 226, in spin_once
+    executor.spin_once(timeout_sec=timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 926, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 907, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 781, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt

@@ -1,0 +1,32 @@
+toys: 6 of 6 toys placed: cube40 on (-4.241, -1.091), brick on (1.725, 1.118), block on (3.278, 1.299), cube30 on (-3.877, -0.079), block beside (2.777, -0.253), cube40 beside (-0.449, -1.817)
+ROUTE ...
+  lap 1 spot 1: ok   11.0 s, err 0.09 m, loc 0.083, vmax 0.52  (Arrived at spot 1)
+  lap 1 spot 2: ok   96.1 s, err 0.08 m, loc 0.042, vmax 0.98  (Arrived at spot 2)
+  lap 1 spot 3: ok   34.2 s, err 0.11 m, loc 0.096, vmax 1.06  (Arrived at spot 3)
+  lap 1 spot 4: ok   22.1 s, err 0.09 m, loc 0.089, vmax 1.02  (Arrived at spot 4)
+  lap 1 spot 5: ok   17.9 s, err 0.09 m, loc 0.123, vmax 1.27  (Arrived at spot 5)
+  lap 1 spot 6: ok   14.2 s, err 0.09 m, loc 0.102, vmax 0.97  (Arrived at spot 6)
+  lap 1 spot 7: ok   20.6 s, err 0.11 m, loc 0.121, vmax 0.99  (Arrived at spot 7)
+  lap 1 spot 8: ok   15.6 s, err 0.04 m, loc 0.03, vmax 0.59  (Arrived at spot 8)
+  lap 2 spot 1: ok   10.5 s, err 0.05 m, loc 0.03, vmax 0.54  (Arrived at spot 1)
+  lap 2 spot 2: ok   25.7 s, err 0.06 m, loc 0.03, vmax 0.89  (Arrived at spot 2)
+  lap 2 spot 3: ok   27.7 s, err 0.12 m, loc 0.085, vmax 1.14  (Arrived at spot 3)
+  lap 2 spot 4: ok   24.7 s, err 0.07 m, loc 0.068, vmax 1.18  (Arrived at spot 4)
+  lap 2 spot 5: ok   23.0 s, err 0.09 m, loc 0.106, vmax 1.27  (Arrived at spot 5)
+  lap 2 spot 6: ok   19.0 s, err 0.13 m, loc 0.108, vmax 0.81  (Arrived at spot 6)
+  lap 2 spot 7: ok   19.5 s, err 0.04 m, loc 0.05, vmax 1.12  (Arrived at spot 7)
+  lap 2 spot 8: ok   34.4 s, err 0.04 m, loc 0.057, vmax 0.55  (Arrived at spot 8)
+  cube40   on     closest 0.66 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  brick    on     closest 0.07 m, over it 2x, moved 0.000 m, cost 0 -> 0
+  block    on     closest 0.08 m, over it 3x, moved 0.000 m, cost 0 -> 0
+  cube30   on     closest 0.25 m, over it 0x, moved 0.000 m, cost 0 -> 0
+  block    beside closest 0.18 m, over it 1x, moved 0.000 m, cost 0 -> 0
+  cube40   beside closest 0.40 m, over it 0x, moved 0.000 m, cost 0 -> 0
+TIDY ...
+  toy 3: drive ok 5.3 s; tidy 2 picked 0 failed (nothing in sight) in 198.1 s; bin 0 -> 2; costs where binned ones lay {0: 0, 3: 0}
+  toy 5: drive ok 12.6 s; tidy 1 picked 0 failed (nothing in sight) in 146.5 s; bin 2 -> 3; costs where binned ones lay {5: 0}
+  toy 1: drive ok 14.5 s; tidy 1 picked 0 failed (nothing in sight) in 108.0 s; bin 3 -> 3; costs where binned ones lay {}
+  toy 1: drive ok 13.1 s; tidy 1 picked 1 failed (nothing in sight) in 255.5 s; bin 3 -> 4; costs where binned ones lay {4: 0}
+  toy 2: drive ok 7.2 s; tidy 1 picked 0 failed (nothing in sight) in 188.0 s; bin 4 -> 5; costs where binned ones lay {2: 0}
+summary {"goals": "16/16", "route_s": 416.2, "loc_err_max_m": 0.123, "err_mean_m": 0.081, "toys": 6, "overrun": 3, "overrun_on": 2, "moved": 0, "marked_after_route": 0, "in_bin": 5, "tidy_legs": 5, "stale_marks": 0, "binned_checked": 5, "stale_grid_marks": 0}
+wrote /home/fernando/toy_study/raw_s2.json

@@ -1,0 +1,254 @@
+hub 1 True 498.6
+node_front 1 True 161.9
+node_left 1 True 188.7
+node_back 1 True 117.5
+node_right 1 True 188.7
+pedestal 1 True 48.3
+bumper_q0 1 True 45.7
+bumper_q1 1 True 55.5
+bumper_q2 1 True 55.5
+bumper_q3 1 True 45.7
+support_spine 1 True 261.0
+support_side_L 1 True 96.9
+support_side_R 1 True 96.9
+support_front_L 1 True 16.8
+support_front_R 1 True 16.8
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "robot_diameter": 450.3
+ },
+ "frame": {
+  "member": "solid square section, 22 mm deep (print with few walls, low infill)",
+  "ring_band": [
+   100.0,
+   121.0
+  ],
+  "cross_w": 24.0
+ },
+ "all_fit_256_bed": true,
+ "part_overlaps_mm3": {},
+ "laps": {
+  "n": 4,
+  "dovetail": {
+   "ring": [
+    2.5,
+    3.4,
+    5.0
+   ],
+   "cross": [
+    4.0,
+    6.5,
+    7.0
+   ]
+  },
+  "socket_clearance_mm": 0.1,
+  "screws": 6,
+  "zones_meet": false
+ },
+ "thin_mm2": {
+  "min_feature_mm": 4.0,
+  "found": {}
+ },
+ "d435_cradle": "none: v13 has the D435 on the arm riser (upper.py / d435_riser.py)",
+ "frame_volume_cm3": 1155.5,
+ "supports_static": {
+  "overlap_mm3": {
+   "support_spine / hub": 0,
+   "support_spine / node_back": 0,
+   "support_side_L / node_left": 0,
+   "support_side_R / node_right": 0
+  },
+  "gaps_mm": {
+   "support_spine / hub": 0.0,
+   "support_spine / node_back": 0.0,
+   "support_spine / bumper_q0": 162.17,
+   "support_spine / bumper_q1": 6.02,
+   "support_spine / bumper_q2": 6.02,
+   "support_spine / bumper_q3": 162.17,
+   "support_side_L / FL/pod_frame_inner": 0.02,
+   "support_side_L / FL/pod_keel_outer": 77.72,
+   "support_side_L / FL/dowel_inner": 15.68,
+   "support_side_L / RL/pod_frame_inner": 4.68,
+   "support_side_L / RL/pod_keel_outer": 12.82,
+   "support_side_L / RL/dowel_inner": 14.44,
+   "support_side_L / hub": 1.63,
+   "support_side_L / node_left": 0.0,
+   "support_side_L / bumper_q0": 71.06,
+   "support_side_L / bumper_q1": 40.11,
+   "support_side_R / RR/pod_frame_inner": 4.68,
+   "support_side_R / RR/pod_keel_outer": 12.82,
+   "support_side_R / RR/dowel_inner": 14.44,
+   "support_side_R / FR/pod_frame_inner": 0.02,
+   "support_side_R / FR/pod_keel_outer": 77.72,
+   "support_side_R / FR/dowel_inner": 15.68,
+   "support_side_R / hub": 1.63,
+   "support_side_R / node_right": 0.0,
+   "support_side_R / bumper_q2": 40.11,
+   "support_side_R / bumper_q3": 71.06,
+   "support_front_L / node_front": 0.0,
+   "support_front_L / bumper_q0": 10.64,
+   "support_front_R / node_front": 0.0,
+   "support_front_R / bumper_q3": 10.63
+  },
+  "note": "0 overlap everywhere; the side fins sit 0.02 above the column top (bearing there), the feet stand on the members"
+ },
+ "clearance_to_moving_mm": {
+  "frame_to_moving_z40_56": 3.0,
+  "frame_to_moving_z56_62": 3.09,
+  "bumper_to_moving": 3.0,
+  "walls_to_moving": 5.65,
+  "lidar_to_moving": 5.89,
+  "pedestal_to_moving": 5.26,
+  "supports_to_moving": 3.39
+ },
+ "d435_fov": "v13: the riser D435, checked in upper.py against the whole robot",
+ "fasteners_landing": {
+  "pod": "16/16",
+  "keel": "8/8",
+  "pedestal": "4/4",
+  "bracket": "0/0",
+  "fin": "12/12",
+  "fin_long": "2/2",
+  "bumper": "16/16",
+  "laps": "6 screws in 4 laps"
+ },
+ "hole_audit": {
+  "screws": 68,
+  "partial_holes": {},
+  "threads_across_layers": {},
+  "soft_pilots_across_layers": {
+   "bolt_keel_0#16 / FL/pod_keel_outer": 90.0,
+   "bolt_keel_1#17 / FL/pod_keel_outer": 90.0,
+   "bolt_keel_2#18 / RL/pod_keel_outer": 90.0,
+   "bolt_keel_3#19 / RL/pod_keel_outer": 90.0,
+   "bolt_keel_4#20 / RR/pod_keel_outer": 90.0,
+   "bolt_keel_5#21 / RR/pod_keel_outer": 90.0,
+   "bolt_keel_6#22 / FR/pod_keel_outer": 90.0,
+   "bolt_keel_7#23 / FR/pod_keel_outer": 90.0
+  },
+  "heads_in_parts": {},
+  "no_hole": {},
+  "short_of_6mm": {},
+  "note": "partial: a hole that is not a full circle in a part (straddles a split or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the part's print-up axis. The D435 / lidar screws thread into the devices"
+ },
+ "per_pod": {
+  "inner_frame": "3 x M3 x 25 + the column bolt M3 x 60, up from under the member into hex nuts in the frame; pocket walls on its centre-side face and front end (0.2 clearance, 14 tall)",
+  "keel": "2 x M3 x 35 up from under the member into \u00d82.9 pilots through the keel; pocket walls behind it and at its inboard end (clipped off the pod's way out)",
+  "pivot_block": "bears on the ring",
+  "supports": "front pods: the side fin bears on the column top, located by 2 dowels in its 2 pilots (slots in the fin open toward the pod's way out); rear pods: pilots unused",
+  "removal": "screws out from below, bumper quarter off, unplug the motor; the pod slides out radially (its -x) under the second floor"
+ },
+ "inner_frame_foot_supported": [
+  0.94,
+  0.94,
+  0.94,
+  0.94
+ ],
+ "keel_foot_supported": [
+  0.69,
+  0.69,
+  0.69,
+  0.69
+ ],
+ "lidar": {
+  "at": [
+   120.0,
+   0
+  ],
+  "scan_z": 163.0,
+  "supports": [
+   {
+    "support": "support_spine",
+    "nearest": 54.3,
+    "bearing": -180.0,
+    "shadow_deg": 5.3
+   },
+   {
+    "support": "support_side_L",
+    "nearest": 78.1,
+    "bearing": 136.7,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_side_R",
+    "nearest": 78.1,
+    "bearing": -136.7,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_front_L",
+    "nearest": 84.0,
+    "bearing": 36.0,
+    "shadow_deg": 4.1
+   },
+   {
+    "support": "support_front_R",
+    "nearest": 84.0,
+    "bearing": -36.0,
+    "shadow_deg": 4.1
+   }
+  ],
+  "blind_total_deg": 20.9,
+  "note": "only the fins' webs cross z 148..170, each a wedge along a ray filling its own shadow (round 15); plus the arm while it reaches down in front"
+ },
+ "supports": {
+  "spine": {
+   "bearing": 180.0,
+   "length": 286.0,
+   "nose_x": 70.0,
+   "feet": "hub's front cross arm + the cross by the hub + back node, 2 x M3 x 30 up through each",
+   "arch_apex_z": [
+    120.0,
+    125.0
+   ]
+  },
+  "side": {
+   "bearing": [
+    136.7,
+    -136.7
+   ],
+   "length": 160.0,
+   "feet": "front pod's column top (bears, 2 dowels) + the ring by the side stem + the tail leg on the side node (1 x M3 x 30 up through each)",
+   "nose_xy": [
+    63.2,
+    53.5
+   ],
+   "arm_riser_rear_corner": [
+    62.0,
+    56.0
+   ]
+  },
+  "front": {
+   "bearing": [
+    36.0,
+    -36.0
+   ],
+   "length": 25.0,
+   "foot_L": [
+    [
+     195.2,
+     54.7
+    ],
+    [
+     208.2,
+     64.1
+    ]
+   ],
+   "fixing": "1 x M3 x 30 up into the foot; 1 x M3 x 130 from the floor top down through the fin into a pilot in the node"
+  },
+  "floor": "M3 x 12 down through the 5 mm floor into \u00d82.8 x 7 pilots in the flanges (15)",
+  "section": "scan band z 148..170: a wedge as wide as its own lidar shadow (5 at its near end, front fins 6), flange 16 under the floor, legs flaring toward the deck",
+  "printing": "upside down on the top flange: arches, coves and leg flares all lean inward, no supports"
+ },
+ "section_I_mm4": {
+  "plate_neck_19x6": 342,
+  "plate_neck_25x6": 450,
+  "ring_21x22_solid": 18634,
+  "cross_16x22_solid": 14197,
+  "note": "printed with 3-4 walls and low infill a solid square section is a box section: close to these numbers, stiffer than the U-channel"
+ }
+}
+exported C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\step_export\chassis
+rendered C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\validation\chassis

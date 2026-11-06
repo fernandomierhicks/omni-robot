@@ -1,0 +1,7 @@
+image: house_furnished.pgm
+mode: trinary
+resolution: 0.0500
+origin: [-3.2674, -6.0298, 0.0000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25
