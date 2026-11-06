@@ -93,7 +93,8 @@ model and its plug + lead**, for review; drop it if only printed parts are wante
 (0.1980, 0.0175, 0.1888) m, and cuts the sim's riser block back 10 mm for it (`arm_riser_pocket`); the generated `robot_arm*.json` and
 frames follow. Alternative 25 deg down: centre (0.1905, 0, 0.1930). Rerun there (Nov 6; design.md 4.11):
 
-- `studies/d435_mount.py` (`riser_cad`): close look 25/40 at 30 deg, 35/40 at 35; floor valid 63/46 % at 1.5/2 m; no tags.
+- `studies/d435_mount.py` (`riser_cad`): close look 25/40 at 30 deg, 35/40 at 35; floor valid 63/46 % at 1.5/2 m; no tags; no table
+  or chair overhang at 25-35 deg (`--overhang`, `d435_mount_riser_cad_overhang.json`).
 - `studies/d435_mount_pick.py` (`riser_cad`, `riser_cad35`; 6 toys, 4 seeds): 18/24 binned at 30 deg, 20/24 at 35 (nose 22/24),
   no failed grasps.
 - `studies/arm_calib.py --out arm_calib_riser.json`: keyed block p95 0.27 mm, gripped 0.95 mm, as at the nose.
