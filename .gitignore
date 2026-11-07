@@ -31,3 +31,9 @@ cad/v9/out/wheel_render_stl/
 cad/v9/*.log
 cad/v9/out/assembly*.step
 cad/v9/out/wheel_assembly*.step
+
+# scratch files from sessions (never commit)
+tmp/
+
+# rendered videos: regenerate with the sims (deleted from git Nov 7, 2026)
+*.mp4

@@ -1,5 +1,0 @@
-[supervisor 07:53:20] operator console: http://FernandoDesktop:8080 (page from /home/fernando/omni_ws/install/omni_console/share/omni_console/web); steps: sim
-[supervisor 07:53:20] started robot (pid 52589): bash /mnt/c/Dropbox/Personal Projects/Robotics/omni-robot/ros/omni.sh robot web:=false map:=house kid:=false person:=true clutter:=off thrower:=true terrain:=false viewer:=false foxglove:=false fast:=true firmware:=true
-[supervisor 07:53:20] Started 'Robot (all modes)'
-[supervisor 07:58:55] robot ended (exit 0)
-[supervisor 08:15:22] a step started outside the console is running: stopping it
