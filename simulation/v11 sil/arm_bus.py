@@ -1,5 +1,5 @@
 """The SO-101's six STS3215s as their serial bus behaves (design.md 11), driving arm_so101.ArmServos: the servos' side
-of the protocol, written independently of the Jetson's (ros/src/omni_arm/omni_arm/feetech.py), like sil_robot's DmMotor.
+of the protocol, written independently of the robot's (omni_cpp's feetech.cpp, which the tidy harness drives it with), like sil_robot's DmMotor.
 
 Each servo keeps the registers the Jetson uses (feetech.REG): torque enable, acceleration, goal position / time /
 speed, torque limit, and answers PING, READ, WRITE, SYNC_WRITE and SYNC_READ with status packets. Present position,

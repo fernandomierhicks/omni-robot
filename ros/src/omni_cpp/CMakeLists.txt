@@ -46,7 +46,7 @@ message(STATUS "omni_cpp: the MCU protocol from ${FW_DIR}")
 add_library(omni_cpp_cores STATIC src/clock_sync.cpp src/host_link.cpp src/mode_mux.cpp src/heading.cpp
             src/scan.cpp src/gpio_edges.cpp ${FW_DIR}/protocol.cpp
             src/json_value.cpp src/flight.cpp src/robot_config.cpp src/tracker.cpp src/detector.cpp src/perception.cpp
-            src/intercept.cpp src/game.cpp src/feetech.cpp src/arm_kin.cpp src/arm_motion.cpp)
+            src/intercept.cpp src/game.cpp src/feetech.cpp src/arm_kin.cpp src/arm_motion.cpp src/arm_driver_core.cpp)
 target_include_directories(omni_cpp_cores PUBLIC include ${FW_DIR})
 set_target_properties(omni_cpp_cores PROPERTIES POSITION_INDEPENDENT_CODE ON)
 

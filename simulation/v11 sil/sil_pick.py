@@ -5,7 +5,7 @@ mux in PICK with the arm-out caps; omni_mcu's link):
 
   physics 0.5 ms -- CAN / sensors --> firmware (C++, 1 kHz) -- USB bytes --> mode mux (PICK) <-- twist --+
        |                                                                                                  |
-       +-- servo bus bytes (STS3215 x 6) <---------------------- driver (50 Hz) <-- goals ---- tidy task --+
+       +-- servo bus bytes (STS3215 x 6) <-- the robot's C++ arm driver (50 Hz) <-- motions -- tidy task --+
        +-- renders: the left camera's depth (a stereo matcher's error), the wrist camera's colour -------->+
 
 The cameras (PickCameras): the nose pods' left camera rendered as depth at 640 x 400 with a stereo matcher's error
@@ -25,7 +25,9 @@ from __future__ import annotations
 import argparse
 import copy
 import math
+import sys
 import time
+from pathlib import Path
 
 import mujoco
 import numpy as np
@@ -36,13 +38,15 @@ from robot_export import arm_params
 from robot_model import build_model
 from sil_link import SimLink  # noqa: F401  (puts ros/src on the path)
 from sil_robot import SilRobot
-from omni_arm.driver import ArmDriver  # noqa: E402
-from omni_arm.feetech import Bus  # noqa: E402
+from omni_arm.brain_core import HEALTH_GRACE, HOLD, MotionSync, state_from_joints  # noqa: E402
 from omni_arm.floor_vision import DepthFrame  # noqa: E402
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path  # noqa: E402
 from omni_arm.pick import Inputs, PickParams, TidyTask, wrist_frame  # noqa: E402
 from omni_catch.modes import ModeMux  # noqa: E402
 from omni_mcu.protocol import State  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "ros" / "src" / "omni_cpp" / "sil"))
+from arm_sil import CppArmDriver  # noqa: E402  (the robot's C++ arm driver, omni_cpp's ArmDriverCore)
 
 HOME = (1.0, 0.0)
 
@@ -235,7 +239,14 @@ class SilPick:
         # the robot's own config for its depth camera (robot_export: robot_arm.json, or robot_arm_d435.json; a study's
         # arm_config for a camera elsewhere, robot_export.arm_json of its params)
         self.kin = ArmKinematics(ArmConfig(arm_config or config_path("d435" if p.depth_camera == "d435" else "")))
-        self.driver = ArmDriver(Bus(self.bus_sim, timeout=0.0, clock=lambda: 0.0), self.kin.cfg)
+        # the arm as on the robot (design.md 11): omni_cpp's C++ driver on the servo bus plays whole motions;
+        # the task's wants reach it as arm_brain sends them (brain_core.MotionSync)
+        self.driver = CppArmDriver(self.bus_sim, self.kin.cfg.path)
+        missing = self.driver.connect()
+        if missing:
+            raise RuntimeError(f"arm servos {missing} didn't answer")
+        self.sync = MotionSync()
+        self.t_healthy = 0.0
         self.cams = PickCameras(self.m, self.d, p, seed=seed, cam_err_deg=cam_err_deg)
         self.task = TidyTask(self.kin, params, log=self._log)
         ao = self.kin.cfg.arm_out
@@ -260,14 +271,22 @@ class SilPick:
                 self.pose = (msg.x, msg.y, msg.yaw)
         if t >= self.t_task - 1e-9:
             self.t_task = t + 0.02
-            st = self.driver.read(t)
+            # the driver's cycle (read, play, write), then the brain's step on its joint states, as on the robot
+            hw = self.driver.cycle(t)
+            st = state_from_joints(t, hw.q, hw.dq, hw.load)
+            if hw.ok:
+                self.t_healthy = t
+            elif t - self.t_healthy > HEALTH_GRACE and self.task.state != "DONE":
+                self.task.state, self.task.done_reason = "DONE", "servo feedback"   # arm_brain: stop, hold
+                self.driver.command(HOLD)
             if self.out is not None and self.out.want_depth:
                 self.depth = DepthFrame(t, self.cams.depth(), self.cams.Kd, self.task.T_base_cam)
             if self.out is not None and self.out.want_wrist:
                 self.wrist = wrist_frame(self.kin, t, self.cams.wrist(), self.cams.Kw, st.q)
             self.out = self.task.step(t, Inputs(self.pose, st, self.depth, self.wrist))
-            self.driver.send(self.out.arm_goal)
-            self.mux.arm_out = self.out.arm_out
+            for cmd, times, wps, linear in self.sync.commands(self.task, t):
+                self.driver.command(cmd, times, wps, linear)
+            self.mux.arm_out = hw.tool_out                   # the driver's /arm/out
         if t >= self.t_cmd - 1e-9:
             self.t_cmd = t + 0.01
             self.link.send(self.mux.command(self.link.host.sync, pick=self.out.twist if self.out else None), t)

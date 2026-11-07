@@ -2,7 +2,7 @@
 arm_node runs it on the robot, simulation/v11 sil/sil_pick.py in the sim.
 
 TidyTask.step(t, Inputs) -> Outputs every cycle (arm_node: 50 Hz):
-  in   the base's pose (odom frame, from the MCU's odometry), the arm's state (driver.ArmState), the newest depth frame
+  in   the base's pose (odom frame, from the MCU's odometry), the arm's state (brain_core.ArmState), the newest depth frame
        and wrist frame (each with its capture time: a look uses only frames taken after it asked)
   out  the base's body twist (None = stop: the mode manager ramps it down), the arm's goal (6 rad), which frames it
        wants now, arm_out (the base's "arm out" caps), and a status for the console
@@ -102,7 +102,7 @@ class PickParams:
 @dataclass
 class Inputs:
     pose: tuple                         # (x, y, yaw) odom
-    arm: object                         # driver.ArmState
+    arm: object                         # brain_core.ArmState
     depth: fv.DepthFrame | None = None
     wrist: WristFrame | None = None
 

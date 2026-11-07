@@ -1,7 +1,8 @@
-// arm_driver: the SO-101's servo bus and joints in C++ (design.md 11, 4.10): the every-cycle half of omni_arm's arm_node,
-// so the tidy task and the planning can sleep in Python between requests. It owns the bus (SYNC_READ then SYNC_WRITE
-// each cycle), the calibration, the joint states and TF from the joints, and /arm/out; it plays the motions the arm
-// brain (omni_arm's arm_node, launch arm_impl:=cpp) sends, one at a time. Nothing else writes /arm/motion.
+// arm_driver: the SO-101's servo bus and joints in C++ (design.md 11, 4.10): the every-cycle half of the arm, so the tidy
+// task and the planning (omni_arm's arm_brain) can sleep in Python between requests. The driving itself is ArmDriverCore
+// (arm_driver_core.hpp: the bus, SYNC_READ then SYNC_WRITE each cycle, the calibration, the motion player), the code the
+// v11 sim runs too; this node adds the port, the joint states, TF and /arm/out. It plays the motions the arm brain
+// sends, one at a time. Nothing else writes /arm/motion.
 //
 // Subscribes /arm/motion (omni_interfaces/ArmMotion: MOVE waypoints with quintic or linear segments, HOLD, RELAX).
 // Publishes /arm/joint_states (every cycle), /tf base_link -> arm_shoulder .. arm_gripper, arm_jaw, arm_tool,
@@ -29,6 +30,7 @@
 
 #include "ament_index_cpp/get_package_share_directory.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
+#include "omni_cpp/arm_driver_core.hpp"
 #include "omni_cpp/arm_kin.hpp"
 #include "omni_cpp/arm_motion.hpp"
 #include "omni_cpp/feetech.hpp"
@@ -47,10 +49,6 @@ using omni_interfaces::msg::ArmMotion;
 
 namespace {
 
-constexpr double kPi = 3.14159265358979323846;
-
-constexpr int ARM_TORQUE = 1000;      // torque limit, 0.1% of stall: the arm's joints at full torque
-constexpr int GRIP_TORQUE = 500;      // the gripper at half (driver.py)
 constexpr double RETRY_S = 2.0;       // between attempts to open the bus
 constexpr double BUS_TIMEOUT = 0.02;  // s per reply
 
@@ -187,9 +185,7 @@ public:
         rate_ = declare_parameter<double>("rate", 50.0);
         double tf_hz = declare_parameter<double>("tf_hz", 0.0);
         std::string config = declare_parameter<std::string>("config", "");
-        fk_ = std::make_unique<ArmFk>(config_file(config));
-        for (int i = 0; i < 6; ++i) cal_[i] = sts::nominal_calibration(fk_->servo_ids.at(i), fk_->lo[i], fk_->hi[i]);
-        if (!cal.empty()) load_calibration(cal);
+        core_ = std::make_unique<ArmDriverCore>(config_file(config), cal);
         tf_every_ = tf_hz > 0 ? std::max(1, (int)std::lround(rate_ / tf_hz)) : 1;
         out_every_ = std::max(1, (int)(rate_ / 10));
         hw_every_ = std::max(1, (int)(rate_ / 5));
@@ -206,27 +202,9 @@ public:
 private:
     double now_s() { return now().seconds(); }
 
-    void load_calibration(const std::string& path) {
-        std::ifstream f(path);
-        if (!f) throw std::runtime_error("calibration: can't read " + path);
-        std::stringstream ss;
-        ss << f.rdbuf();
-        Json raw = Json::parse(ss.str());
-        for (int i = 0; i < 6; ++i) {
-            const Json& j = raw[fk_->joints.at(i)];
-            sts::JointCal c;
-            c.id = (int)j["id"].integer();
-            c.drive_mode = j.has("drive_mode") ? (int)j["drive_mode"].integer() : 0;
-            c.homing_offset = j.has("homing_offset") ? (int)j["homing_offset"].integer() : 0;
-            c.range_min = (int)j["range_min"].integer();
-            c.range_max = (int)j["range_max"].integer();
-            cal_[i] = c;
-        }
-    }
-
-    // -- the bus --------------------------------------------------------------------------------------------------
+    // -- the bus (the driving itself is ArmDriverCore's, the code the sim runs too) ---------------------------------
     void connect() {
-        if (bus_ || steady_s() - t_connect_ < RETRY_S) return;
+        if (core_->connected() || steady_s() - t_connect_ < RETRY_S) return;
         t_connect_ = steady_s();
         auto port = std::make_unique<Transport>();
         std::string err;
@@ -234,11 +212,8 @@ private:
             RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 10000, "servo bus %s: %s (retrying)", port_spec_.c_str(), err.c_str());
             return;
         }
-        auto bus = std::make_unique<sts::Bus>(*port, BUS_TIMEOUT);
         try {
-            std::vector<int> missing;
-            for (int id : fk_->servo_ids)
-                if (!bus->ping(id)) missing.push_back(id);
+            std::vector<int> missing = core_->connect(*port, BUS_TIMEOUT);
             if (!missing.empty()) {
                 std::string s;
                 for (int id : missing) s += " " + std::to_string(id);
@@ -246,107 +221,28 @@ private:
                 return;
             }
             port_ = std::move(port);
-            bus_ = std::move(bus);
-            enable(true);
-            read();
-            goal_ = q_, have_goal_ = true;
-            play_.reset();
-            moving_ = false;
             RCLCPP_INFO(get_logger(), "arm connected on %s: holding where it is", port_spec_.c_str());
             publish_hw();
         } catch (const std::exception& e) {
             RCLCPP_WARN(get_logger(), "servo bus %s: %s (retrying)", port_spec_.c_str(), e.what());
-            bus_.reset();
-            port_.reset();
+            core_->disconnect();
         }
     }
 
     void lost(const std::exception& e) {
         RCLCPP_ERROR(get_logger(), "servo bus lost: %s", e.what());
-        bus_.reset();
+        core_->disconnect();
         port_.reset();
-        moving_ = false;
-        play_.reset();
         publish_hw();
-    }
-
-    // torque on (each servo's limit first) or off (the arm goes limp: hold it, it has no brakes)
-    void enable(bool on) {
-        for (int i = 0; i < 6; ++i) {
-            int id = cal_[i].id;
-            if (on) {
-                bus_->write(id, "torque_limit", i == 5 ? GRIP_TORQUE : ARM_TORQUE);
-                bus_->write(id, "acceleration", 0);
-            }
-            bus_->write(id, "torque_enable", on ? 1 : 0);
-        }
-        torque_ = on;
-    }
-
-    void read() {
-        auto st = bus_->sync_read_status(fk_->servo_ids);
-        std::vector<int> miss;
-        bool errors = false;
-        for (int i = 0; i < 6; ++i) {
-            auto it = st.find(cal_[i].id);
-            if (it == st.end()) {
-                miss.push_back(cal_[i].id);
-                continue;
-            }
-            const sts::ServoStatus& r = it->second;
-            errors = errors || !r.ok;              // an error reply (overload, heat, voltage): not ok (driver.py)
-            q_[i] = cal_[i].to_rad(r.position);
-            dq_[i] = cal_[i].sign() * r.speed * 2 * kPi / sts::TICKS;
-            load_[i] = cal_[i].sign() * r.load;
-            temp_[i] = r.temp_c;
-            volts_ = r.volts;
-        }
-        missing_ = miss;
-        servo_errors_ = errors;
-    }
-
-    void send(const Joints& g) {
-        Joints q;
-        std::vector<std::pair<int, int>> goals;
-        for (int i = 0; i < 6; ++i) {
-            q[i] = std::min(std::max(g[i], fk_->lo[i]), fk_->hi[i]);
-            goals.push_back({cal_[i].id, cal_[i].to_ticks(q[i])});
-        }
-        goal_ = q;
-        bus_->sync_write_goals(goals);
     }
 
     // -- commands -------------------------------------------------------------------------------------------------
     void on_motion(const ArmMotion& m) {
         motion_id_ = m.id;
-        if (!bus_) {
-            RCLCPP_WARN(get_logger(), "arm motion %u: the arm isn't connected", m.id);
-            return;
-        }
+        std::string why;
         try {
-            if (m.command == ArmMotion::RELAX) {
-                play_.reset(), moving_ = false;
-                enable(false);
-                have_goal_ = false;
-            } else if (m.command == ArmMotion::HOLD) {
-                play_.reset(), moving_ = false;
-                if (!torque_) enable(true);
-                goal_ = q_, have_goal_ = true;
-            } else if (m.command == ArmMotion::MOVE) {
-                size_t n = m.times.size();
-                if (n == 0 || m.waypoints.size() != 6 * n) {
-                    RCLCPP_WARN(get_logger(), "arm motion %u: %zu times, %zu waypoint values", m.id, n, m.waypoints.size());
-                    return;
-                }
-                if (!torque_) enable(true), goal_ = q_, have_goal_ = true;
-                std::vector<Joints> wp(n);
-                for (size_t k = 0; k < n; ++k)
-                    for (int i = 0; i < 6; ++i) wp[k][i] = m.waypoints[6 * k + i];
-                wp[0] = goal_;                                          // from where the arm is commanded now
-                play_ = ArmPlay(m.interpolation == ArmMotion::LINEAR ? ArmPlay::LINEAR : ArmPlay::QUINTIC, m.times, std::move(wp));
-                moving_ = true;
-            } else {
-                RCLCPP_WARN(get_logger(), "arm motion %u: unknown command %u", m.id, m.command);
+            if (!core_->command(m.command, m.interpolation == ArmMotion::LINEAR, m.times, m.waypoints, why)) {
+                RCLCPP_WARN(get_logger(), "arm motion %u: %s", m.id, why.c_str());
                 return;
             }
             publish_hw();
@@ -358,25 +254,20 @@ private:
     // -- the cycle ------------------------------------------------------------------------------------------------
     void tick() {
         connect();
-        if (!bus_) {
+        if (!core_->connected()) {
             if (++k_ % hw_every_ == 0) publish_hw();
             return;
         }
         try {
-            read();
+            core_->read();
         } catch (const std::exception& e) {
             lost(e);
             return;
         }
-        double t = now_s();
         publish_joints();
-        bool was_moving = moving_;
-        if (play_ && !play_->empty()) {
-            goal_ = play_->sample(t);
-            if (play_->done(t)) moving_ = false;
-        }
+        bool was_moving = core_->moving;
         try {
-            if (have_goal_ && torque_) send(goal_);
+            core_->drive(now_s());
         } catch (const std::exception& e) {
             lost(e);
             return;
@@ -384,26 +275,27 @@ private:
         ++k_;
         if (k_ % out_every_ == 0) {
             std_msgs::msg::Bool b;
-            b.data = fk_->tool_out(q_) || (have_goal_ && fk_->tool_out(goal_));
+            b.data = core_->tool_out();
             p_out_->publish(b);
         }
         if (k_ % tf_every_ == 0) publish_tf();
-        if (k_ % hw_every_ == 0 || was_moving != moving_) publish_hw();
+        if (k_ % hw_every_ == 0 || was_moving != core_->moving) publish_hw();
     }
 
     // -- outputs --------------------------------------------------------------------------------------------------
     void publish_joints() {
+        const ArmDriverCore& c = *core_;
         sensor_msgs::msg::JointState m;
         m.header.stamp = now();
-        m.name = fk_->joints;
-        m.position.assign(q_.begin(), q_.end());
-        m.velocity.assign(dq_.begin(), dq_.end());
-        m.effort.assign(load_.begin(), load_.end());
+        m.name = c.fk().joints;
+        m.position.assign(c.q.begin(), c.q.end());
+        m.velocity.assign(c.dq.begin(), c.dq.end());
+        m.effort.assign(c.load.begin(), c.load.end());
         p_js_->publish(m);
     }
 
     void publish_tf() {
-        auto fk = fk_->fk(q_);
+        auto fk = core_->fk().fk(core_->q);
         tf2_msgs::msg::TFMessage msg;
         auto stamp = now();
         auto add = [&](const std::string& child, const Mat4& T) {
@@ -421,22 +313,24 @@ private:
     }
 
     void publish_hw() {
+        const ArmDriverCore& c = *core_;
+        bool on = c.connected();
         ArmHardware m;
         m.header.stamp = now();
-        m.connected = bus_ != nullptr;
-        m.torque = bus_ && torque_;
-        m.ok = bus_ && missing_.empty() && !servo_errors_;
+        m.connected = on;
+        m.torque = on && c.torque;
+        m.ok = c.ok();
         m.port = port_spec_;
-        m.joint_names = fk_->joints;
-        for (int id : missing_) m.missing.push_back((uint8_t)id);
-        m.position.assign(q_.begin(), q_.end());
-        if (have_goal_ && torque_) m.goal.assign(goal_.begin(), goal_.end());
-        m.load.assign(load_.begin(), load_.end());
-        for (int i = 0; i < 6; ++i) m.temp_c.push_back((uint8_t)temp_[i]);
-        m.volts = volts_;
-        m.tool_out = bus_ && fk_->tool_out(q_);
+        m.joint_names = c.fk().joints;
+        for (int id : c.missing) m.missing.push_back((uint8_t)id);
+        m.position.assign(c.q.begin(), c.q.end());
+        if (c.have_goal && c.torque) m.goal.assign(c.goal.begin(), c.goal.end());
+        m.load.assign(c.load.begin(), c.load.end());
+        for (int i = 0; i < 6; ++i) m.temp_c.push_back((uint8_t)c.temp_c[i]);
+        m.volts = c.volts;
+        m.tool_out = on && c.fk().tool_out(c.q);
         m.motion_id = motion_id_;
-        m.moving = moving_;
+        m.moving = c.moving;
         p_hw_->publish(m);
     }
 
@@ -444,18 +338,9 @@ private:
     double rate_ = 50;
     int tf_every_ = 1, out_every_ = 5, hw_every_ = 10;
     long k_ = 0;
-    std::unique_ptr<ArmFk> fk_;
-    std::array<sts::JointCal, 6> cal_;
+    std::unique_ptr<ArmDriverCore> core_;
     std::unique_ptr<Transport> port_;
-    std::unique_ptr<sts::Bus> bus_;
     double t_connect_ = -1e9;
-    bool torque_ = false, have_goal_ = false, moving_ = false;
-    Joints q_{}, dq_{}, load_{}, goal_{};
-    std::array<int, 6> temp_{};
-    double volts_ = 0;
-    std::vector<int> missing_;
-    bool servo_errors_ = false;
-    std::optional<ArmPlay> play_;
     uint32_t motion_id_ = 0;
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr p_js_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr p_out_;

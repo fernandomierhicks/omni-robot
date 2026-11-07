@@ -82,7 +82,8 @@ def tf(R=None, p=None) -> np.ndarray:
 
 class ArmConfig:
     def __init__(self, path: str | Path | None = None):
-        self.raw = raw = json.loads(Path(path or CONFIG).read_text())
+        self.path = Path(path or CONFIG)                 # the json (omni_cpp's arm driver reads the same file)
+        self.raw = raw = json.loads(self.path.read_text())
         a = raw["arm"]
         self.joints = tuple(a["joints"])
         self.chain = a["chain"]

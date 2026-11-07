@@ -11,6 +11,7 @@ small world the Python's own commands drive).
 from __future__ import annotations
 
 import hashlib
+import json
 import math
 import os
 import random
@@ -27,10 +28,8 @@ SRC = PKG.parent
 for p in ("omni_mcu", "omni_catch", "omni_bringup", "omni_perception", "omni_arm"):
     sys.path.insert(0, str(SRC / p))
 
-from omni_arm import feetech as STS                                              # noqa: E402
 from omni_arm import motion as arm_motion                                        # noqa: E402
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, rot_quat   # noqa: E402
-from omni_arm import feetech as STS                                              # noqa: E402
 from omni_arm import motion as arm_motion                                        # noqa: E402
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, rot_quat   # noqa: E402
 from omni_bringup.heading import HeadingConfig, HeadingShaper                    # noqa: E402
@@ -844,111 +843,31 @@ def _floats(v) -> str:
     return " ".join(repr(float(x)) for x in np.asarray(v).reshape(-1))
 
 
-def test_sts3215_packets_and_parser_like_the_python():
-    rnd = random.Random(11)
-    lines, py = [], []
-    for _ in range(40):
-        sid, instr = rnd.randrange(0, 255), rnd.choice([1, 2, 3, 0x82, 0x83, 0])
-        params = bytes([rnd.randrange(256) for _ in range(rnd.randrange(1, 12))])
-        lines.append(f"pkt {sid} {instr} {params.hex()}")
-        py.append(STS.packet(sid, instr, params).hex())
-        lines.append(f"spkt {sid} {instr} {params.hex()}")
-        py.append(STS.status_packet(sid, instr, params).hex())
-    assert run("arm", lines) == py
-    # a noisy stream cut into chunks: stray bytes, a bad checksum, a third FF, split packets
-    stream = bytearray()
-    for i in range(60):
-        p = bytearray(STS.status_packet(rnd.randrange(1, 7), 0, bytes([rnd.randrange(256) for _ in range(rnd.randrange(0, 9))])))
-        if i % 7 == 3:
-            p[-1] ^= 0x55
-        if i % 11 == 5:
-            stream += b"\xff"
-        stream += bytes([rnd.randrange(256) for _ in range(rnd.randrange(0, 3))]) + p
-    par, lines, py = STS.Parser(), [], []
-    k = 0
-    while k < len(stream):
-        n = rnd.randrange(1, 14)
-        chunk = bytes(stream[k:k + n])
-        k += n
-        got = par.feed(chunk)
-        lines.append(f"feed {chunk.hex()}")
-        py.append("".join(f"{s} {ln} {c} {p.hex()};" for s, ln, c, p in got) + f" {par.errors}")
-    assert run("arm", lines) == py
-    assert par.errors > 0
+# The STS3215 bus: omni_arm's Python feetech.py was deleted Nov 7 (the robot and the sim run omni_cpp's), so these check
+# the C++ against what the Python gave for the same inputs, recorded in test/data/sts3215_golden.json.
+GOLDEN = json.loads((PKG / "test" / "data" / "sts3215_golden.json").read_text())
 
 
-def test_sts3215_calibration_like_the_python():
-    rnd = random.Random(12)
-    lines, py = [], []
-    for case in range(30):
-        lo = rnd.randrange(0, 2000)
-        hi = lo + rnd.randrange(300, 2000) + case % 2            # odd and even ranges: the middle at x.5 too
-        cal = STS.JointCal(rnd.randrange(1, 7), rnd.randrange(2), 0, lo, hi)
-        lines.append(f"cal {cal.id} {cal.drive_mode} {lo} {hi}")
-        for t in (lo, hi, (lo + hi) // 2, rnd.randrange(0, 4096)):
-            lines.append(f"rad {t}")
-            py.append(repr(cal.to_rad(t)))
-        for r in (0.0, 0.7, -1.9, 5.0, -5.0, rnd.uniform(-3, 3), (hi - cal.mid) * 2 * math.pi / 4096 * cal.sign * 0.5):
-            lines.append(f"ticks {r!r}")
-            py.append(str(cal.to_ticks(r)))
-    for v, bit in ((0, 10), (5, 10), (-5, 10), (1023, 10), (-1023, 10), (-50, 15), (32767, 15), (-32767, 15)):
-        lines += [f"sm {v} {bit}", f"fsm {STS.to_sm(v, bit)} {bit}"]
-        py += [str(STS.to_sm(v, bit)), str(v)]
-    for lo_, hi_ in ((-1.92, 1.92), (-1.745, 1.745), (-0.1745, 1.7453), (-2.74, 2.84)):
-        lines.append(f"nominal 3 {lo_!r} {hi_!r}")
-        n = STS.nominal_calibration(["j"], [3], [(lo_, hi_)])["j"]
-        py.append(f"{n.range_min} {n.range_max}")
-    out = run("arm", lines)
-    assert len(out) == len(py)
-    for a, b in zip(out, py):
+def test_sts3215_packets_and_parser_match_the_recorded_python():
+    packets, parser = GOLDEN["test_sts3215_packets_and_parser_like_the_python"]
+    assert run("arm", packets["lines"]) == packets["expect"]
+    assert run("arm", parser["lines"]) == parser["expect"]
+    assert parser["expect"][-1].split()[-1] != "0"                 # the noisy stream had bad packets
+
+
+def test_sts3215_calibration_matches_the_recorded_python():
+    (case,) = GOLDEN["test_sts3215_calibration_like_the_python"]
+    out = run("arm", case["lines"])
+    assert len(out) == len(case["expect"])
+    for a, b in zip(out, case["expect"]):
         assert same_nums(a, b, 1e-15, 1e-15), (a, b)
 
 
-class _SimServos:
-    """test_arm.py's stand-in for the servo bus: SYNC_READ answered with fixed numbers, SYNC_WRITE goals kept."""
-
-    def __init__(self):
-        self.tx = bytearray()
-        self.parser = STS.Parser()
-        self.goals = {}
-
-    def write(self, data):
-        for sid, _, instr, p in self.parser.feed(data):
-            if instr == STS.INST_SYNC_READ:
-                for s in p[2:]:
-                    body = STS.u16(2048 + 100 * s) + STS.u16(STS.to_sm(-50, 15)) + STS.u16(STS.to_sm(-200, 10)) + bytes([120, 31])
-                    self.tx += STS.status_packet(s, 0, body)
-            elif instr == STS.INST_SYNC_WRITE:
-                for i in range(2, len(p), 7):
-                    self.goals[p[i]] = p[i + 1] | p[i + 2] << 8
-            elif instr in (STS.INST_PING, STS.INST_WRITE):
-                self.tx += STS.status_packet(sid, 0)
-
-    def read(self, n=256):
-        out = bytes(self.tx[:n])
-        del self.tx[:n]
-        return out
-
-
-def test_sts3215_bus_like_the_python():
-    s = _SimServos()
-    bus = STS.Bus(s, timeout=0.0, clock=lambda: 0.0)
-    lines, py = [], []
-    for sid in (1, 4, 6):
-        lines.append(f"bus ping {sid}")
-        py.append("1" if bus.ping(sid) else "0")
-    for sid, reg, v in ((2, "torque_limit", 1000), (6, "torque_limit", 500), (3, "acceleration", 0), (5, "torque_enable", 1)):
-        lines.append(f"bus write {sid} {reg} {v}")
-        py.append("1" if bus.write(sid, reg, v) else "0")
-    lines.append("bus read 1 2 3 4 5 6")
-    st = bus.sync_read_status([1, 2, 3, 4, 5, 6])
-    py.append("".join(f"{i} {r.position} {r.speed} {r.load!r} {r.volts!r} {r.temp_c} {int(r.ok)};" for i, r in sorted(st.items())))
-    lines.append("bus goals 1:2048 2:100 3:4000 4:0 5:2047 6:1")
-    bus.sync_write_goals({1: 2048, 2: 100, 3: 4000, 4: 0, 5: 2047, 6: 1})
-    py.append("".join(f"{k}={v} " for k, v in sorted(s.goals.items())))
-    out = run("arm", lines)
-    assert len(out) == len(py)
-    for k, (a, b) in enumerate(zip(out, py)):
+def test_sts3215_bus_matches_the_recorded_python():
+    (case,) = GOLDEN["test_sts3215_bus_like_the_python"]
+    out = run("arm", case["lines"])
+    assert len(out) == len(case["expect"])
+    for k, (a, b) in enumerate(zip(out, case["expect"])):
         ta, tb = a.replace(";", " ").replace("=", " ").split(), b.replace(";", " ").replace("=", " ").split()
         assert len(ta) == len(tb) and all(close(float(x), float(y), 1e-12) for x, y in zip(ta, tb)), (k, a, b)
 

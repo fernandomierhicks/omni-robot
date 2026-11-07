@@ -2015,32 +2015,38 @@ def test_the_bridge_builds_the_d435_arm_robot():
 
 
 def test_the_driver_runs_the_arm_through_the_servo_bus():
-    """omni_arm's driver over the STS3215s as their bus behaves (arm_bus): it reads the joints, its goals move them,
-    torque off leaves the arm limp, a calibration error shows as an offset between what it reads and the joint."""
+    """The robot's C++ arm driver (omni_cpp's ArmDriverCore, via sil_pick's library) over the STS3215s as their bus
+    behaves (arm_bus): it reads the joints, its motion moves them, RELAX leaves the arm limp, a calibration error shows
+    as an offset between what it reads and the joint."""
     import arm_so101 as A
     from arm_bus import ServoBusSim
     _omni_arm()
-    from omni_arm.driver import ArmDriver
-    from omni_arm.feetech import Bus
-    from omni_arm.kinematics import ArmConfig
+    import sil_pick  # noqa: F401  (puts omni_cpp/sil on the path)
+    from arm_sil import MOVE, RELAX, CppArmDriver
+    from omni_arm.kinematics import CONFIG
     p, m, d, r = _pick_robot()
     bus = ServoBusSim(r.arm)
-    drv = ArmDriver(Bus(bus, timeout=0.0, clock=lambda: 0.0), ArmConfig())
-    assert drv.ping() == []
-    drv.enable(True)
+    drv = CppArmDriver(bus, CONFIG)
+    assert drv.connect() == []
     st = drv.read(0.0)
-    assert st.ok and st.q == pytest.approx(r.arm.q(), abs=2 * 2 * math.pi / 4096)
+    assert st.ok and np.array(st.q) == pytest.approx(r.arm.q(), abs=2 * 2 * math.pi / 4096)
     goal = np.array([0.4, -1.0, 0.6, 0.8, 0.5, 0.3])
-    drv.send(goal)
-    for _ in range(int(1.5 / m.opt.timestep)):
+    assert drv.command(MOVE, [0.0, 1.0], [st.q, goal])
+    every = int(round(0.02 / m.opt.timestep))
+    for k in range(int(1.5 / m.opt.timestep)):
+        if k % every == 0:
+            drv.cycle(d.time)
         r.step()
-    assert drv.read(1.5).q == pytest.approx(goal, abs=0.03) and bus.n_errors == 0
-    drv.enable(False)
+    assert np.array(drv.read(1.5).q) == pytest.approx(goal, abs=0.03) and bus.n_errors == 0
+    assert drv.command(RELAX)
+    drv.cycle(1.6)
     assert np.all(m.actuator_forcerange[r.arm.a] == 0.0) or np.all(r.arm.torque_scale == 0.0)
     off = ServoBusSim(r.arm, joint_err_deg=1.0, seed=5)
-    drv2 = ArmDriver(Bus(off, timeout=0.0, clock=lambda: 0.0), ArmConfig())
+    drv2 = CppArmDriver(off, CONFIG)
+    drv2.connect()
     q_true = r.arm.q()
-    assert np.abs(drv2.read(0.0).q[:5] - (q_true[:5] - off.err[:5])).max() < 2e-3 and np.abs(off.err[:5]).max() > 1e-3
+    assert np.abs(np.array(drv2.read(0.0).q[:5]) - (q_true[:5] - off.err[:5])).max() < 2e-3
+    assert np.abs(off.err[:5]).max() > 1e-3
     del A
 
 

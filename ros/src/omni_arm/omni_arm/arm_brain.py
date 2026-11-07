@@ -60,13 +60,12 @@ from std_msgs.msg import String
 
 from omni_arm import motion as mo
 from omni_arm.color_vision import ColorFrame, Finder
-from omni_arm.driver import ArmState
+from omni_arm.brain_core import HEALTH_GRACE, MotionSync, state_from_joints
 from omni_arm.floor_vision import DepthFrame, decode_depth
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, q_for_gap
 from omni_arm.pick import MJ_TO_OPTICAL, Inputs, TidyTask, camera_view, wrist_frame
 
 HW_STALE = 2.0            # s without /arm/hw: the driver isn't running
-HEALTH_GRACE = 0.5        # s of unhealthy /arm/hw (5 Hz: two or three in a row) a tidy rides through
 ODOM_WAIT = 1.0           # s a starting tidy waits for the first odometry
 
 
@@ -105,7 +104,7 @@ class ArmBrain(Node):
         self.t_healthy = -math.inf
         self.connected = False
         self.motion_id = 0
-        self._sent, self._sent_t = None, ()    # what the task's motion last sent to the driver
+        self.sync = MotionSync()               # what the task's motion last sent to the driver (brain_core)
         self._args: dict = {}
         self._end_timer = None
         self._start_timer = None
@@ -158,7 +157,8 @@ class ArmBrain(Node):
         self.hw, self.t_hw, self.connected = m, self.now(), bool(m.connected)
         if self.connected and not was:
             self.goal = np.array(m.position)
-            self.motion, self.source, self._sent = None, "hold", None
+            self.motion, self.source = None, "hold"
+            self.sync.reset()
             self.event(f"arm connected on {m.port}: holding where it is")
         elif was and not self.connected:
             self.event("servo bus lost")
@@ -237,7 +237,7 @@ class ArmBrain(Node):
         self.motion = None
         self.task = TidyTask(self.kin)
         self.n_task_ev = 0
-        self._sent = None
+        self.sync.reset()
         self.starting = True
         self._args = args
         self._listen()
@@ -317,7 +317,7 @@ class ArmBrain(Node):
             return
         q = np.array(m.position)
         self.q_hist.append((t, q.copy()))
-        st = ArmState(t=t, q=q, dq=np.array(m.velocity), load=np.array(m.effort), ok=True)
+        st = state_from_joints(t, q, m.velocity, m.effort)
         out = self.task.step(t, Inputs(self.pose or (0.0, 0.0, 0.0), st, self.depth, self.wrist))
         self._sync_goal(t)
         for kind, want in (("depth", out.want_depth), ("wrist", out.want_wrist)):
@@ -341,18 +341,9 @@ class ArmBrain(Node):
             self.publish_state()
 
     def _sync_goal(self, t: float):
-        """Tell the driver what the task now wants: a new motion whole, or a goal set without one (a held pose)."""
-        task = self.task
-        m = task.motion
-        if m is not None:
-            if self._sent is not m or self._sent_t != tuple(m.t):
-                self._sent, self._sent_t = m, tuple(m.t)
-                self.send(ArmMotion.MOVE, m.t, m.q)
-        elif task.goal is not None:
-            key = tuple(np.round(task.goal, 9))
-            if self._sent != key:
-                self._sent = key
-                self.send(ArmMotion.MOVE, [t, t], [task.goal, task.goal], ArmMotion.LINEAR)
+        """Tell the driver what the task now wants (brain_core.MotionSync: the sim's harness does the same)."""
+        for cmd, times, wps, linear in self.sync.commands(self.task, t):
+            self.send(cmd, times, wps, ArmMotion.LINEAR if linear else ArmMotion.QUINTIC)
 
     # -- the AI's finds (color_vision.py) ---------------------------------------------------------------------------
     def on_color(self, m: Image):

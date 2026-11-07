@@ -16,7 +16,6 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from omni_arm import feetech as F  # noqa: E402
 from omni_arm import floor_vision as fv  # noqa: E402
 from omni_arm import motion as mo  # noqa: E402
 from omni_arm.kinematics import DOWN, ArmConfig, ArmKinematics, gap_at, q_for_gap  # noqa: E402
@@ -82,87 +81,8 @@ def test_arm_out(kin):
 
 
 # -- the bus ---------------------------------------------------------------------------------------------------------
-def test_packets_round_trip_through_the_parser():
-    p = F.packet(3, F.INST_WRITE, bytes([42, 0x10, 0x08]))
-    assert p[:2] == b"\xff\xff" and p[3] == 5 and F.checksum(p[2:-1]) == p[-1]
-    got = F.Parser().feed(b"\x00\x13" + p + F.status_packet(3, 0, b"\x01\x02") + p[:4])
-    assert got[0] == (3, 5, F.INST_WRITE, bytes([42, 0x10, 0x08])) and got[1] == (3, 4, 0, b"\x01\x02")
-    bad = bytearray(p)
-    bad[-1] ^= 0xFF
-    par = F.Parser()
-    assert par.feed(bytes(bad)) == [] and par.errors == 1
-
-
-def test_sign_magnitude_and_calibration():
-    for v in (0, 5, -5, 1023, -1023):
-        assert F.from_sm(F.to_sm(v, 10), 10) == v
-    c = F.JointCal(1, 0, 0, 1024, 3072)
-    assert c.to_ticks(0.0) == 2048 and c.to_rad(2048) == 0.0
-    assert abs(c.to_rad(c.to_ticks(0.7)) - 0.7) < 2 * math.pi / 4096
-    assert c.to_ticks(5.0) == 3072                                   # clipped to the range
-    assert F.JointCal(1, 1, 0, 1024, 3072).to_rad(2148) < 0          # drive_mode 1 turns the sign
-
-
-class _Servos:
-    """Six servos answering SYNC_READ with fixed positions (a stand-in for the bus)."""
-
-    def __init__(self):
-        self.tx = bytearray()
-        self.parser = F.Parser()
-        self.goals = {}
-
-    def write(self, data):
-        for sid, _, instr, p in self.parser.feed(data):
-            if instr == F.INST_SYNC_READ:
-                for s in p[2:]:
-                    body = F.u16(2048 + 100 * s) + F.u16(F.to_sm(-50, 15)) + F.u16(F.to_sm(-200, 10)) + bytes([120, 31])
-                    self.tx += F.status_packet(s, 0, body)
-            elif instr == F.INST_SYNC_WRITE:
-                for i in range(2, len(p), 7):
-                    self.goals[p[i]] = p[i + 1] | p[i + 2] << 8
-            elif instr in (F.INST_PING, F.INST_WRITE):
-                self.tx += F.status_packet(sid, 0)
-
-    def read(self, n=256):
-        out = bytes(self.tx[:n])
-        del self.tx[:n]
-        return out
-
-
-def test_the_driver_reads_and_writes_in_radians():
-    from omni_arm.driver import ArmDriver
-    s = _Servos()
-    d = ArmDriver(F.Bus(s, timeout=0.0, clock=lambda: 0.0), ArmConfig())
-    assert d.ping() == []
-    d.enable(True)
-    st = d.read(0.0)
-    assert st.ok and abs(st.q[0] - 100 * 2 * math.pi / 4096) < 1e-9 and abs(st.load[0] + 0.2) < 1e-9
-    assert st.temp_c[0] == 31 and abs(st.volts - 12.0) < 1e-9
-    d.send(np.zeros(6))
-    assert set(s.goals) == {1, 2, 3, 4, 5, 6} and all(v == 2048 for v in s.goals.values())
-
-
-def test_a_servo_error_or_silence_is_not_ok():
-    """Every reply with an error byte (overload, heat, voltage) and one missing: the state says so, not ok."""
-    from omni_arm.driver import ArmDriver
-
-    class Faulty(_Servos):
-        def __init__(self, err=0, silent=()):
-            super().__init__()
-            self.err, self.silent = err, silent
-
-        def write(self, data):
-            super().write(data)
-            out, self.tx = bytes(self.tx), bytearray()
-            for sid, _, err, p in F.Parser().feed(out):
-                if sid not in self.silent:
-                    self.tx += F.status_packet(sid, self.err, p)
-
-    for bus, missing, errors in ((Faulty(err=0x20), (), (1, 2, 3, 4, 5, 6)), (Faulty(silent=(3,)), (3,), ())):
-        tick = iter(range(10 ** 6))                       # a clock that moves: the silent servo's wait times out
-        d = ArmDriver(F.Bus(bus, timeout=0.0, clock=lambda: next(tick)), ArmConfig())
-        st = d.read(0.0)
-        assert not st.ok and st.missing == missing and st.errors == errors
+# The STS3215 bus and the driver are omni_cpp's (C++, since Nov 7): ros/src/omni_cpp/test (test_arm_driver.py,
+# the recorded-packet checks in test_cores.py).
 
 
 # -- motions ---------------------------------------------------------------------------------------------------------
