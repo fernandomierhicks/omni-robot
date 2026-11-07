@@ -29,7 +29,7 @@
     },
     "RawMessages!status": { "topicPath": "/sim/status.data", "diffEnabled": false, "expansion": "all" },
     "Teleop!drive": {
-      "topic": "/cmd_vel", "publishRate": 10,
+      "topic": "/cmd_vel/manual", "publishRate": 10,
       "upButton": { "field": "linear-x", "value": 0.6 },
       "downButton": { "field": "linear-x", "value": -0.6 },
       "leftButton": { "field": "angular-z", "value": 1.2 },

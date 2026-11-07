@@ -374,6 +374,9 @@ class MissionNode(Node):
         self.settings_path = state_dir / "console.json"
         self.maps_dir = Path(os.path.expanduser(P("places_dir", str(state_dir)).value))
         self.scan_topic = P("scan_topic", "/scan_filtered").value
+        # where the console's driving goes when it bypasses Nav2's collision monitor: the mode manager's "manual"
+        # input (priority 90, above Nav2's /cmd_vel); stack.py passes /cmd_vel without the firmware (v10's bridge)
+        cmd_vel_topic = P("cmd_vel_topic", "/cmd_vel/manual").value
         # a slower computer's top navigation speed, m/s (stack.py nav_profile:=pi); 0 = the console's settings only
         self.speed_cap = float(P("speed_cap", 0.0).value)
         map_name = P("map", "").value or None
@@ -443,7 +446,7 @@ class MissionNode(Node):
         self.p_events = self.create_publisher(String, "/console/events", 50)
         self.p_plan = self.create_publisher(String, "/console/plan", 5)
         self.p_camera = self.create_publisher(String, "/console/camera", 5)
-        self.p_cmd = self.create_publisher(Twist, "/cmd_vel", 10)
+        self.p_cmd = self.create_publisher(Twist, cmd_vel_topic, 10)
         self.p_cmd_safe = self.create_publisher(Twist, "/cmd_vel_smoothed", 10)
         self.p_thrower = self.create_publisher(McuCommand, "/thrower/cmd", 10)
         self.p_initial = self.create_publisher(PoseWithCovarianceStamped, "/initialpose", 1)
@@ -835,8 +838,8 @@ class MissionNode(Node):
         self.flush_events()
 
     def on_arm_state(self, m: String):
-        """omni_arm's /arm/state: the Tidy tab's arm, and the end of a tidy (design.md 11). arm_node.py publishes it all;
-        with arm_impl:=cpp the servo fields come from arm_driver's /arm/hw (on_arm_hw) and merge here."""
+        """omni_arm's /arm/state: the Tidy tab's arm, and the end of a tidy (design.md 11). arm_brain publishes it;
+        the servo fields come from arm_driver's /arm/hw (on_arm_hw) and merge here."""
         try:
             s = json.loads(m.data)
         except ValueError:
