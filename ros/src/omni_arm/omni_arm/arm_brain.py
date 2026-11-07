@@ -1,31 +1,42 @@
-"""arm_brain: the arm's planner and tidy task (design.md 11, 4.10), the other half of omni_cpp's arm_driver. Launch
-arm_impl:=cpp runs this beside the C++ driver, which owns the servo bus and does everything that repeats every cycle (the
-reads and writes, the joint states, TF, /arm/out); this node sleeps between requests and wakes only to plan a motion,
-and to run the tidy task while it runs. arm_node.py is the same behaviour in one Python process (arm_impl:=py).
+"""arm_brain: the arm's planner and tidy task (design.md 11, 4.10), the other half of omni_cpp's arm_driver, which owns
+the servo bus and does everything that repeats every cycle (the reads and writes, the joint states, TF, /arm/out). This
+node sleeps between requests and wakes only to plan a motion, and to run the tidy task while it runs. (A one-process
+Python arm_node did both until Nov 7, 2026; it was deleted with the other Python twins of C++ nodes.)
 
 The brain is the one writer of /arm/motion. Each motion goes out whole (waypoints and times; the driver plays the
 quintic segments itself), so nothing streams from here at 50 Hz and a brain that dies mid-move leaves the arm finishing
 the move and holding. Odom, depth, wrist and joint-state subscriptions exist only while the tidy runs.
 
 Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the console's mission node (or by hand):
-                                      tidy {max_objects, radius, only} | stop | pose {name: stow | ready | high | drop}
-                                      | gripper {gap: m} | jog {joint: name, delta: rad} | hold | relax
-                                      | find {id, color, shape, max_range}
-                                    (as arm_node.py: see its docstring)
+                                      tidy {max_objects, radius, only}   start the tidy task (the mode manager must be
+                                                                    in PICK); only: one object of the last find
+                                      find {id, color, shape, max_range}   the floor's candidates by colour and shape
+                                                                    (color_vision.py): the answer is /arm/state's
+                                                                    "found", the picture /arm/find_image
+                                      stop                          stop the task or motion; the arm stows
+                                      pose {name: stow | ready | high | drop}   move there
+                                      gripper {gap: m}              open / close to a gap
+                                      jog {joint: name, delta: rad} one joint by delta (kept in range, refused if
+                                                                    it would hit the robot, the bumper or the floor)
+                                      hold | relax                  torque on, hold here | torque off (the arm drops:
+                                                                    hold it; the SO-101 has no brakes)
            /arm/hw                  omni_interfaces/ArmHardware (5 Hz): connected, the measured joints
-           the tidy's inputs, only while it runs: odom_topic (/odom), depth_topic (+ camera_info), /arm_cam/image_raw
-           (+ camera_info), /arm/joint_states (the task steps on each message); a find's, only while it waits:
-           odom, depth (+ camera_info), color_topic
+           the tidy's inputs, only while it runs: odom_topic (/odom), depth_topic (+ camera_info): /stereo/depth 32FC1,
+           or with config:=d435 the D435's /d435/depth/image_rect_raw 16UC1 mm (design.md 4.11); /arm_cam/image_raw
+           (+ camera_info), /arm/joint_states (the task steps on each message); a find's, only while it waits: odom,
+           depth (+ camera_info), color_topic (rgb8 registered to the depth: /stereo/left/image_color or
+           /d435/color/image_raw)
 Publishes  /arm/motion              omni_interfaces/ArmMotion: the driver plays it
            /arm/state               std_msgs/String JSON: connected, source (who sets the goals: hold | pose | trajectory
                                     | tidy | relaxed), the task's status and its last events; at 1 Hz, and 5 Hz while
                                     tidying, and at once when a find answers ("found"). The servo fields (joints,
                                     loads, temperatures) are /arm/hw's: the console reads both
-           /arm/find_image          sensor_msgs/Image rgb8: the last find's annotated picture (as arm_node.py)
+           /arm/find_image          sensor_msgs/Image rgb8: the last find's annotated picture, sent again (2 Hz) while
+                                    anyone subscribes, for a minute after the find
            /pick/cmd_vel            geometry_msgs/Twist: the task's base command (the mode manager forwards it in PICK)
            /arm/camera_request      std_msgs/String "depth" | "wrist" when the task wants a frame
 Action     /arm/follow_joint_trajectory   control_msgs/FollowJointTrajectory (played by the driver in straight lines)
-Parameters odom_topic, config ("" | d435 | a json path), depth_topic, depth_info_topic, color_topic (as arm_node.py).
+Parameters odom_topic, config ("" | d435 | a json path), depth_topic, depth_info_topic, color_topic.
 """
 
 from __future__ import annotations
@@ -55,7 +66,7 @@ from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, q_for_gap
 from omni_arm.pick import MJ_TO_OPTICAL, Inputs, TidyTask, camera_view, wrist_frame
 
 HW_STALE = 2.0            # s without /arm/hw: the driver isn't running
-HEALTH_GRACE = 0.5        # s of unhealthy /arm/hw (5 Hz: two or three in a row) a tidy rides through (arm_node: 0.25)
+HEALTH_GRACE = 0.5        # s of unhealthy /arm/hw (5 Hz: two or three in a row) a tidy rides through
 ODOM_WAIT = 1.0           # s a starting tidy waits for the first odometry
 
 

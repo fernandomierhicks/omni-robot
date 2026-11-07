@@ -15,5 +15,6 @@ setup(
     maintainer="Fernando",
     description="omni-robot: the Jetson's end of the MCU link (design.md 30)",
     license="Proprietary",
-    entry_points={"console_scripts": ["mcu_link = omni_mcu.link_node:main"]},
+    # mcu_link is omni_cpp's (C++); this package keeps the protocol and clock map the sim and the console use
+    entry_points={"console_scripts": []},
 )

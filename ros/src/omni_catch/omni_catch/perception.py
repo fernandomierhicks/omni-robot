@@ -5,7 +5,7 @@ frames were exposed (the MCU's odometry for x, y, yaw, the BNO085 for roll and p
 the robot config), and update the filter (tracker.ImageTracker) at the exposure time. The behavior reads the track
 as a TrackView (tracker.py).
 
-No ROS here: omni_catch.perception_node wraps it on the robot, the sim's in-process harness calls it directly.
+No ROS here: omni_cpp's catch_perception is its C++ twin on the robot, the sim's in-process harness calls it directly.
 """
 
 from __future__ import annotations

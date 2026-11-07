@@ -12,7 +12,7 @@ arm's weight out front (robot_arm.json "arm_out"; test_v11 checks the two agree)
 The MCU stays the safety authority: it caps everything by its own profile (kid / adult), stops on a lost link, a
 bumper or the e-stop, and the RC switch takes over regardless of this (design.md 15). This only chooses whose request
 goes out. A Request carries times on the Jetson's clock; to_command() turns it into the MCU's Command with the link's
-time sync (the link node does that on the robot). mode_node.py is the ROS node around ModeMux.
+time sync (the link node does that on the robot). omni_cpp's mode_manager is the ROS node (C++ ModeMux).
 
 Firing: the MCU fires one ball whenever the fire_seq it receives changes. Each source (the catch behavior, the console)
 counts its own requests, so ModeMux sends one counter of its own that moves by one per new request of the source in

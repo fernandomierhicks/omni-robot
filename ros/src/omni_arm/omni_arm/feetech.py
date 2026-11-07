@@ -1,6 +1,6 @@
 """Feetech STS3215 serial bus servos, the Jetson's side (design.md 11): the SO-101's six servos on a USB bus board
 (Waveshare's bus servo adapter, 1 Mbaud, half duplex). No ROS; the transport is anything with write(bytes) and
-read(n) (pyserial on the robot, a TCP socket to the sim's bus: transport.open_port).
+read(n) (the sim's harness passes its bus; on the robot omni_cpp's arm_driver and feetech.cpp own the bus).
 
 Packets (Feetech's SCS / STS protocol, as LeRobot's feetech backend speaks it):
   instruction  FF FF id len instr params.. chk      len = len(params) + 2, chk = ~(id + len + instr + params) & 0xFF

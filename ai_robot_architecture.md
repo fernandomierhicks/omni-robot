@@ -146,7 +146,7 @@ running alongside Fernando's, point these at that session's ports (AGENTS.md: se
 | `omni_console/program.py` | `ProgramRunner` accepts a per-run speed and turn-rate override, bounded by the `ai.*` ceilings; it reports the turn it measured (unwrapped odom yaw) at the end of each block |
 | `omni_console/mission_node.py` | Pass `/arm/state`'s `found` list and the pick result through to the status; nothing else new |
 | `omni_arm/color_vision.py` (new, ROS-free) | Named colours as HSV ranges, mask, per-candidate colour statistics, shape class, an annotated image (section 5) |
-| `omni_arm/arm_node.py` **and** `arm_brain.py` (`arm_impl:=py` runs `arm_node`; `arm_impl:=cpp` runs `arm_brain` beside omni_cpp's `arm_driver`, `stack.py`) | Requests `{"verb": "find", ...}` and `{"verb": "tidy", "only": <id>, "max_objects": 1}`; publishes `/arm/find_image` (sensor_msgs/Image, only after a `find`); adds `found` to `/arm/state` |
+| `omni_arm/arm_brain.py` (beside omni_cpp's `arm_driver`, `stack.py`; the Python `arm_node` was deleted Nov 7) | Requests `{"verb": "find", ...}` and `{"verb": "tidy", "only": <id>, "max_objects": 1}`; publishes `/arm/find_image` (sensor_msgs/Image, only after a `find`); adds `found` to `/arm/state` |
 | `omni_arm/pick.py` | `TidyTask` target selection (`pick.py:377`, nearest candidate today) honours `only`: choose that tracked object or fail with `not_found` / `lost`. Report `attempted`, `grasped`, `released` and `in_bin` separately |
 | `omni_sim/bridge_node.py` | Render the depth camera's RGB on request ("color" in `/arm/camera_request`). Publish it as `/stereo/left/image_color` or, with `arm_camera:=d435`, `/d435/color/image_raw`, with the depth camera's intrinsics and pose so pixels line up with depth |
 | `omni_bringup/config/d435.yaml` | Hardware, phase 5: enable the colour stream at a low rate with depth aligned to colour |
@@ -402,7 +402,7 @@ new   ros/src/omni_console/omni_console/ai_tasks.py
 new   ros/src/omni_arm/omni_arm/color_vision.py
 edit  ros/src/omni_console/omni_console/{missions.py, program.py, mission_node.py}
 edit  ros/src/omni_console/test/  (new tests for the ai verbs)
-edit  ros/src/omni_arm/omni_arm/{arm_node.py, arm_brain.py, pick.py};  ros/src/omni_arm/test/
+edit  ros/src/omni_arm/omni_arm/{arm_brain.py, pick.py};  ros/src/omni_arm/test/
 edit  ros/src/omni_sim/omni_sim/bridge_node.py  (colour on request)
 edit  simulation/v11 sil/arm_objects.py  (cube40_purple, SETS["colours"])
 edit  ros/src/omni_interfaces/srv/ConsoleCommand.srv  (comment: the new verbs)

@@ -12,7 +12,7 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
-        # the robot config for omni_cpp's arm_driver (arm_impl:=cpp) too
+        # the robot config for omni_cpp's arm_driver too
         ("share/" + package_name + "/config", glob("omni_arm/config/*.json")),
     ],
     install_requires=["setuptools"],
@@ -21,7 +21,6 @@ setup(
     description="omni-robot: the SO-101 arm, its servo bus and the tidy task (design.md 11)",
     license="Proprietary",
     entry_points={"console_scripts": [
-        "arm_node = omni_arm.arm_node:main",
         "arm_brain = omni_arm.arm_brain:main",
         "floor_obstacles = omni_arm.floor_obstacles_node:main",
         "height_map = omni_arm.height_map_node:main",

@@ -50,15 +50,13 @@ drops the shadows) | v7 (the scored steps tour / auto_map / goals, as published)
 terrain (false; house steps, design.md 16): a terrain course in the kitchen's east end (square steps, triangular bumps).
 props (false; house steps): the house furnished (simulation/v11 sil/house_props.py: furniture, signs, pictures, tag faces, a
 person standing in the office) for the cameras and the lidar; no physics.
-arm_impl (py): the arm robot's arm as one Python process (arm_node), or cpp: omni_cpp's arm_driver (the servo bus,
-joint states and TF at 50 Hz) beside omni_arm's arm_brain (planning and the tidy, design.md 4.10). glue (cpp): mcu_link, mode_manager, scan_prep and heading_node from omni_cpp (C++, design.md 4.9); py: their Python
-originals (omni_mcu, omni_catch, omni_perception, omni_bringup). nav_profile (default = full, pi on a Raspberry Pi | lean | pi): lean sets Nav2 and
+The arm robot's arm: omni_cpp's arm_driver (the servo bus, joint states and TF at 50 Hz) beside omni_arm's arm_brain
+(planning and the tidy, design.md 4.10). mcu_link, mode_manager, scan_prep, heading_node, catch_perception and
+catch_behavior are omni_cpp's C++ (design.md 4.9; their Python twins were deleted Nov 7, 2026). nav_profile (default = full, pi on a Raspberry Pi | lean | pi): lean sets Nav2 and
 slam_toolbox for a smaller computer (LEAN below), pi for a Pi 4 (PI below). catch_sleep (true): catch_perception and catch_behavior asleep
 outside CATCH (they wake on /robot_mode; the catch steps start in CATCH). compose (true): Nav2's servers and omni_cpp's
-heading_node in one component_container_isolated (nav2_container); all adds mcu_link, mode_manager and scan_prep (with
-glue:=cpp); false: a process each. catch_impl (cpp): catch_perception and catch_behavior from omni_cpp (C++ ports of
-omni_catch's, the same topics and parameters; test_cores.py checks the cores against the Python); py: omni_catch's
-Python, the reference. side (both | sim | robot) and mcu_host / mcu_bind: the robot's computer in the loop: sim runs only the world (the
+heading_node in one component_container_isolated (nav2_container); all adds mcu_link, mode_manager and scan_prep;
+false: a process each. side (both | sim | robot) and mcu_host / mcu_bind: the robot's computer in the loop: sim runs only the world (the
 bridge, a step's scorer) with its MCU port open to the LAN, robot everything else, mcu_link on mcu_host:mcu_port
 (ros/src/omni_bringup README; characterization/pi_camera/pi.sh robot). localizer (slam; localization, navigation, tour, goals): slam_toolbox's localization on
 maps/<map>.posegraph | amcl: Nav2's AMCL (omni motion model) on maps/<map>.yaml, served by map_server (config/amcl.yaml).
@@ -173,44 +171,28 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("heading", default_value=""),
             DeclareLaunchArgument("spin_rate", default_value="120.0"),
             DeclareLaunchArgument("route", default_value="house"),      # goals step: house | sprint (nav_goals.py)
-            # the always-on glue nodes (mcu_link, mode_manager, scan_prep, heading_node): omni_cpp's C++ (design.md
-            # 4.9: a fraction of the CPU) or their Python originals
-            DeclareLaunchArgument("glue", default_value="cpp"),
             DeclareLaunchArgument("nav_profile", default_value="default"),   # | full (= default: a PC, an Orin) | lean | pi (a Pi 4: 0.6 m/s, see PI; the default on a Pi)
             # the catch nodes asleep outside CATCH (design.md 4.9); false: awake in every mode, as before Oct 28
             DeclareLaunchArgument("catch_sleep", default_value="true"),
             # Nav2 in one process (design.md 4.9): true (Nav2 + heading_node) | all (+ omni_cpp's glue: ~0.06 cores less,
             # but a Nav2 crash would take the MCU link and mode_manager with it) | false (a process per server)
             DeclareLaunchArgument("compose", default_value="true"),
-            # the catch nodes (catch_perception, catch_behavior): omni_catch's Python | omni_cpp's C++ (design.md 4.9)
-            DeclareLaunchArgument("catch_impl", default_value="cpp"),
             # localization on a saved map (localization, navigation, tour, goals; design.md 4.9): slam_toolbox's
             # localization mode on the pose graph | amcl (Nav2's particle filter on the occupancy grid)
             DeclareLaunchArgument("localizer", default_value="slam"),
             # scaling the robot down for a smaller computer (a Pi 4 in the loop, rpi.md): face (false: no face_node),
-            # ekf_hz (the EKF's rate, 0 = ekf.yaml's 100 Hz), arm_hz (arm_node's cycle, 0 = its 50 Hz)
+            # ekf_hz (the EKF's rate, 0 = ekf.yaml's 100 Hz), arm_hz (arm_driver's cycle, 0 = its 50 Hz)
             DeclareLaunchArgument("face", default_value="true"),
             DeclareLaunchArgument("nav", default_value="true"),      # false: robot / arm steps without Nav2 and slam_toolbox
             DeclareLaunchArgument("ekf_hz", default_value="0"),
             DeclareLaunchArgument("arm_hz", default_value="0"),
-            # the arm robot's arm (design.md 4.10): py = arm_node, one Python process; cpp = omni_cpp's arm_driver (the servo bus,
-            # joints, TF, 50 Hz) with omni_arm's arm_brain (planning and the tidy, asleep between requests)
-            DeclareLaunchArgument("arm_impl", default_value="py"),
             DeclareLaunchArgument("out", default_value={"tour": "ros_tour", "goals": "ros_nav_goals",
                                                         "catch_score": "ros_catch"}.get(kind, ""))]
     return LaunchDescription(args + [OpaqueFunction(function=lambda ctx: build(ctx, kind))])
 
 
-def glue(a: dict, py_package: str) -> str:
-    """The package a glue node comes from: omni_cpp (C++, the default) or its Python original's."""
-    return "omni_cpp" if a["glue"] == "cpp" else py_package
-
-
-def catch_pkg(a: dict) -> str:
-    """The package the catch nodes come from: omni_catch (Python) or omni_cpp (catch_impl:=cpp, the same topics)."""
-    if a["catch_impl"] not in ("py", "cpp"):
-        raise RuntimeError(f"catch_impl: py or cpp, not {a['catch_impl']!r}")
-    return "omni_cpp" if a["catch_impl"] == "cpp" else "omni_catch"
+# the robot's always-on nodes and the catch nodes are omni_cpp's (their Python twins were deleted Nov 7, 2026)
+CPP = "omni_cpp"
 
 
 def catch_nodes(a: dict, on, kind: str):
@@ -226,17 +208,17 @@ def catch_nodes(a: dict, on, kind: str):
     # the robot starts at home facing the thrower: its odom frame has the thrower dist m ahead and the field's centre
     # CATCH_HOME_X ahead (what a person detector and the map would give it)
     robot = [
-        Node(package=glue(a, "omni_mcu"), executable="mcu_link", name="mcu_link", output="screen",
+        Node(package=CPP, executable="mcu_link", name="mcu_link", output="screen",
              parameters=[{"port": f"tcp:{a['mcu_host']}:{int(a['mcu_port'])}", "publish_tf": True, **sim_t}]),
-        Node(package=glue(a, "omni_catch"), executable="mode_manager", name="mode_manager", output="screen",
-             parameters=[{"mode": "CATCH", "kid": on("kid"), **sim_t}]),
+        Node(package=CPP, executable="mode_manager", name="mode_manager", output="screen",
+             parameters=[{"mode": "CATCH", "kid": on("kid"), "arm": False, **sim_t}]),
         *([] if on("ghost") else [
-            Node(package=catch_pkg(a), executable="catch_perception", name="catch_perception", output="screen",
+            Node(package=CPP, executable="catch_perception", name="catch_perception", output="screen",
                  parameters=[{"source": "sparse", "arena_cx": CATCH_HOME_X, "arena_cy": 0.0, "arena_hx": CATCH_AREA[0] / 2,
                               "arena_hy": CATCH_AREA[1] / 2, **sim_t}])]),
         *([Node(package=SIM, executable="ghost_ball", name="ghost_ball", output="screen",
                 parameters=[{"clock_mode": a["clock"], **sim_t}])] if on("ghost") else []),
-        Node(package=catch_pkg(a), executable="catch_behavior", name="catch_behavior", output="screen",
+        Node(package=CPP, executable="catch_behavior", name="catch_behavior", output="screen",
              parameters=[{"thrower_x": dist, "thrower_y": 0.0, "arena_cx": CATCH_HOME_X, "arena_cy": 0.0,
                           "arena_hx": CATCH_AREA[0] / 2, "arena_hy": CATCH_AREA[1] / 2, "return_throws": on("returns"),
                           "kid": on("kid"), "return_to": "other" if on("pass_game") else "thrower", **sim_t}]),
@@ -278,7 +260,7 @@ def split_sides(a: dict, acts: list, sim_side: list) -> list:
     return keep
 
 
-def console_nodes(a: dict, scan: str, slam: tuple | None = None):
+def console_nodes(a: dict, scan: str, slam: tuple | None = None, fw: bool = True):
     """The operator console (omni_console): http://localhost:8080. rosbridge carries the page's topics and its one
     command service, rosapi lists nodes and topics for its ROS tab, the mission node switches modes (and runs
     slam_toolbox when given its parameter files: slam = (mapping, localization template)), web_video_server streams
@@ -286,7 +268,9 @@ def console_nodes(a: dict, scan: str, slam: tuple | None = None):
     sim's 1 kHz /clock (in Python: ~60% of a core for the mission node alone). They need no stamps of their own (TF
     lookups take the latest, Nav2 goals carry none); slam_toolbox, their child, does run on sim time."""
     mission = {"map": a["map"], "places_dir": str(maps_dir()), "scan_topic": scan,
-               "log_source": "sim"}                          # session logs say the sim stood in for the robot
+               "log_source": "sim",                          # session logs say the sim stood in for the robot
+               # its Nav2-bypass driving: the mode manager's manual input, or /cmd_vel itself without the firmware
+               "cmd_vel_topic": "/cmd_vel/manual" if fw else "/cmd_vel"}
     if os.environ.get("OMNI_STATE_DIR"):                     # a parallel test run: its own settings, logs, slam log
         mission["state_dir"] = os.environ["OMNI_STATE_DIR"]
     cap =PROFILE_EXTRAS.get(a["nav_profile"], {}).get("speed_cap", 0.0)
@@ -332,9 +316,9 @@ def build(ctx, kind: str):
                                                    "person", "pass_game", "timing", "sync_gpio", "tags", "objects",
                                                    "n_objects", "servo_port", "arm_camera", "robot", "catch", "lidar_mask", "clutter",
                                                    "thrower", "speed", "heading", "spin_rate", "route", "terrain", "props",
-                                                   "glue", "nav_profile", "catch_sleep", "compose", "catch_impl",
+                                                   "nav_profile", "catch_sleep", "compose",
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
-                                                   "face", "ekf_hz", "arm_hz", "arm_impl", "nav", "depth_layer", "d435_noise")}
+                                                   "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     a["nav_profile"] = resolved_profile(a["nav_profile"], a["side"])
     if a["clock"] not in ("sim", "wall"):
@@ -351,7 +335,6 @@ def build(ctx, kind: str):
     # the EKF's rate: ekf_hz if given, else the profile's, else ekf.yaml's 100 Hz
     ekf_hz = float(a["ekf_hz"]) or PROFILE_EXTRAS.get(a["nav_profile"], {}).get("ekf_hz", 0.0)
     BOND_TIMEOUT[0] = PROFILE_EXTRAS.get(a["nav_profile"], {}).get("bond_timeout", 4.0)
-    arm_hz = float(a["arm_hz"]) or PROFILE_EXTRAS.get(a["nav_profile"], {}).get("arm_hz", 0.0)     # 0: arm_node's 50 Hz
     arm = kind == "arm"
     robot = kind in ("robot", "arm")
     fast = on("fast")
@@ -387,47 +370,42 @@ def build(ctx, kind: str):
         # design.md 11: the arm's own code, on the sim's servo bus (the bus board's USB port on the robot)
         arm_port = f"tcp:{a['mcu_host']}:{int(a['servo_port'])}"
         arm_cfg = "d435" if d435 else ""
-        if a["arm_impl"] == "cpp":
-            # the C++ driver owns the bus at 50 Hz; arm_hz only when asked (the pi profile's 20 Hz was the Python executor's)
-            acts.append(Node(package="omni_cpp", executable="arm_driver", name="arm_driver", output="screen",
-                             parameters=[{"port": arm_port, "config": arm_cfg, **sim_t,
-                                          **({"rate": float(a["arm_hz"])} if float(a["arm_hz"]) > 0 else {})}]))
-            acts.append(Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
-                             parameters=[{"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
-        elif a["arm_impl"] == "py":
-            acts.append(Node(package="omni_arm", executable="arm_node", name="arm_node", output="screen",
-                             parameters=[{"port": arm_port, "odom_topic": "/odom", "config": arm_cfg, **sim_t,
-                                          **({"rate": arm_hz} if arm_hz > 0 else {})}]))
-        else:
-            raise RuntimeError(f"arm_impl: py or cpp, not {a['arm_impl']!r}")
+        # the C++ driver owns the bus at 50 Hz; arm_hz only when asked (the pi profile's 20 Hz was the deleted Python
+        # arm_node's executor's)
+        acts.append(Node(package=CPP, executable="arm_driver", name="arm_driver", output="screen",
+                         parameters=[{"port": arm_port, "config": arm_cfg, **sim_t,
+                                      **({"rate": float(a["arm_hz"])} if float(a["arm_hz"]) > 0 else {})}]))
+        acts.append(Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
+                         parameters=[{"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
         if d435 and a["depth_layer"] == "floor" and a["nav"].lower() in ("1", "true", "yes"):
             # design.md 4.5: the D435's floor for Nav2's depth layer (FLOOR_LAYER)
             acts.append(Node(package="omni_arm", executable="floor_obstacles", name="floor_obstacles", output="screen",
                              parameters=[{"config": arm_cfg, **sim_t}]))
     # compose (design.md 4.9): true puts Nav2 and heading_node into one process, all adds omni_cpp's glue nodes
     comps, nav_yaml = [], None
-    glue_comp = a["compose"] == "all" and a["glue"] == "cpp"
+    glue_comp = a["compose"] == "all"
 
-    def glue_node(py_pkg: str, exe: str, plugin: str, params: dict):
+    def glue_node(exe: str, plugin: str, params: dict):
         if glue_comp:
-            comps.append(ComposableNode(package="omni_cpp", plugin=plugin, name=exe, parameters=[params]))
+            comps.append(ComposableNode(package=CPP, plugin=plugin, name=exe, parameters=[params]))
         else:
-            acts.append(Node(package=glue(a, py_pkg), executable=exe, name=exe, output="screen", parameters=[params]))
+            acts.append(Node(package=CPP, executable=exe, name=exe, output="screen", parameters=[params]))
 
     if fw:
         # the robot's own MCU link and mode manager: /odom, /imu and odom -> base_link from the firmware (the EKF
         # takes the TF over when it runs), /cmd_vel to the firmware
         sync = {"sync_source": "topic"} if a["sync_gpio"] != "none" else {}
-        glue_node("omni_mcu", "mcu_link", "omni::McuLink",
+        glue_node("mcu_link", "omni::McuLink",
                   {"port": f"tcp:{a['mcu_host']}:{int(a['mcu_port'])}", "publish_tf": not ekf, **sync, **sim_t})
-        glue_node("omni_catch", "mode_manager", "omni::ModeManager", {"mode": "TELEOP", "kid": on("kid"), **sim_t})
+        # arm: a missing or stale /arm/out caps the base as if the arm were out (only the arm robot has one)
+        glue_node("mode_manager", "omni::ModeManager", {"mode": "TELEOP", "kid": on("kid"), "arm": arm, **sim_t})
         if on("catch") and not arm:
             # the catch game in the house: the robot's catch code on the bridge's camera frames; the field comes on
             # /catch/setup when the mode turns CATCH (the parameters are the open field's, until then)
             # asleep outside CATCH (catch_sleep): they wake on /robot_mode
-            acts.append(Node(package=catch_pkg(a), executable="catch_perception", name="catch_perception",
+            acts.append(Node(package=CPP, executable="catch_perception", name="catch_perception",
                              output="screen", parameters=[{"source": "sparse", "sleep": on("catch_sleep"), **sim_t}]))
-            acts.append(Node(package=catch_pkg(a), executable="catch_behavior", name="catch_behavior",
+            acts.append(Node(package=CPP, executable="catch_behavior", name="catch_behavior",
                              output="screen", parameters=[{"return_throws": on("returns"), "kid": on("kid"),
                                                            "sleep": on("catch_sleep"), **sim_t}]))
     if ekf:
@@ -438,7 +416,7 @@ def build(ctx, kind: str):
     prep = (on("floor_filter") or on("deskew")) and kind != "sim"
     scan = "/scan_filtered" if prep else "/scan"
     if prep:
-        glue_node("omni_perception", "scan_prep", "omni::ScanPrep",
+        glue_node("scan_prep", "omni::ScanPrep",
                   {"floor": on("floor_filter"), "deskew": on("deskew"), **sim_t})
 
     def slam_yaml(name, extra=""):
@@ -490,12 +468,9 @@ def build(ctx, kind: str):
             acts.append(Node(package="omni_arm", executable="height_map", name="height_map", output="screen",
                              parameters=[{"config": "d435", "vx_max": vx_max(nav), **sim_t}]))
         if a["compose"] in ("true", "all"):
-            comps += nav2_components(nav_yaml, glue(a, PKG))
-            if glue(a, PKG) != "omni_cpp":                  # the Python heading_node is no component
-                acts.append(Node(package=PKG, executable="heading_node", name="heading_node", output="log",
-                                 parameters=[{"heading": "forward"}]))
+            comps += nav2_components(nav_yaml)
         else:
-            acts += nav2_nodes(nav_yaml, glue(a, PKG))
+            acts += nav2_nodes(nav_yaml)
     if comps:
         acts.append(composed(nav_yaml, comps))
     if on("tags") and not tour:
@@ -517,11 +492,14 @@ def build(ctx, kind: str):
                          output="log", parameters=[{"port": 8765, "address": "0.0.0.0", **sim_t}]))
     if on("console") or robot:
         acts += console_nodes(a, scan, (slam_yaml("slam_mapping.yaml"), slam_yaml("slam_localization.yaml"))
-                              if robot and nav_on and not amcl else None)
+                              if robot and nav_on and not amcl else None, fw=fw)
     if on("joy"):
         acts.append(Node(package=SIM, executable="joy_relay", name="joy_relay", output="screen"))
+        # the stick on its own topic: the mode manager gives it the top priority (a person at the stick wins); with
+        # firmware:=false (v10's bridge, no mode manager) straight to /cmd_vel as before
         acts.append(Node(package="teleop_twist_joy", executable="teleop_node", name="teleop_twist_joy_node",
-                         output="log", parameters=[cfg("teleop_extreme3d.yaml")]))
+                         output="log", parameters=[cfg("teleop_extreme3d.yaml")],
+                         remappings=[("cmd_vel", "/cmd_vel/joy")] if fw else []))
     # steps that end by themselves: when their last node exits, shut the launch down
     end = None
     if kind == "auto_map":
@@ -789,8 +767,8 @@ def composed(params_file: str | None, comps: list) -> ComposableNodeContainer:
                                    composable_node_descriptions=comps, sigterm_timeout="3", sigkill_timeout="2")
 
 
-def nav2_components(params_file: str, heading_pkg: str = PKG) -> list:
-    """nav2_nodes as components (compose:=true); heading_node is omni_cpp's (the Python one is no component)."""
+def nav2_components(params_file: str) -> list:
+    """nav2_nodes as components (compose:=true), with omni_cpp's heading_node."""
     p = [params_file, {"use_sim_time": SIM_TIME[0], "autostart": True}]
     nav = "cmd_vel_nav"
     C = ComposableNode
@@ -811,13 +789,12 @@ def nav2_components(params_file: str, heading_pkg: str = PKG) -> list:
           parameters=[{"use_sim_time": SIM_TIME[0], "autostart": True, "node_names": NAV2_LIFECYCLE,
                        "bond_timeout": BOND_TIMEOUT[0]}]),
     ]
-    if heading_pkg == "omni_cpp":
-        comps.append(C(package="omni_cpp", plugin="omni::HeadingNode", name="heading_node",
-                       parameters=[{"heading": "forward", "use_sim_time": False}]))
+    comps.append(C(package=CPP, plugin="omni::HeadingNode", name="heading_node",
+                   parameters=[{"heading": "forward", "use_sim_time": False}]))
     return comps
 
 
-def nav2_nodes(params_file: str, heading_pkg: str = PKG):
+def nav2_nodes(params_file: str):
     p = [params_file, {"use_sim_time": SIM_TIME[0], "autostart": True}]
     nav = "cmd_vel_nav"
     nodes = [
@@ -831,7 +808,7 @@ def nav2_nodes(params_file: str, heading_pkg: str = PKG):
         Node(package="nav2_velocity_smoother", executable="velocity_smoother", name="velocity_smoother",
              output="log", parameters=p, remappings=[("cmd_vel", nav), ("cmd_vel_smoothed", "cmd_vel_shape")]),
         # which way the robot faces on the way (the console's "Driving" choice, whose default it starts with)
-        Node(package=heading_pkg, executable="heading_node", name="heading_node", output="log",
+        Node(package=CPP, executable="heading_node", name="heading_node", output="log",
              parameters=[{"heading": "forward"}]),
         Node(package="nav2_collision_monitor", executable="collision_monitor", name="collision_monitor",
              output="log", parameters=p),

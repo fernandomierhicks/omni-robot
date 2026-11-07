@@ -30,7 +30,7 @@ as image_only blobs with their bearing: somewhere to turn to or drive closer to,
 depth shows lying flat on the floor (flat: true, under FLAT_H) is a rug, a mat or a marking, not an object to seek.
 The annotated image: the colour image, the asked colour's pixels tinted cyan, each candidate boxed (green: the best
 match, yellow: the rest) with its id and score, the image-only blobs boxed red with "?".
-Finder keeps one find at a time for arm_node / arm_brain: request(), then step() with the newest frames.
+Finder keeps one find at a time for arm_brain: request(), then step() with the newest frames.
 """
 
 from __future__ import annotations
@@ -374,7 +374,7 @@ def _blobs(mask: np.ndarray, frame: fv.DepthFrame, P, ok, hgt) -> list:
 
 
 class Finder:
-    """One find at a time, for arm_node / arm_brain: request() with the console's args, then step() with the newest
+    """One find at a time, for arm_brain: request() with the console's args, then step() with the newest
     depth and colour frames (taken after the request) until it answers; result (for /arm/state's "found") and image
     (for /arm/find_image). The floor map keeps the ids for the pick that follows (pick.TidyTask's only)."""
     SETTLE = 0.3                    # s: frames from at least this long after the request

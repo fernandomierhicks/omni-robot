@@ -28,10 +28,10 @@ ros/
 │   │                        image_preview: a small, slow JPEG copy of a camera for the console            → robot
 │   ├── omni_mcu/          ← mcu_link + protocol.py (no ROS): the MCU link, odometry, IMU; clock_sync.py: the
 │   │                        MCU clock map from the SYNC_OUT pulses (gpio_edges.py) or the echo         → robot
-│   ├── omni_cpp/          ← the glue nodes in C++ (launch default `glue:=cpp`; `glue:=py` runs the Python ones):
-│   │                        mcu_link (frames from the firmware's own protocol.h), mode_manager, scan_prep,
-│   │                        heading_node; the catch nodes in C++ (`catch_impl:=cpp`): catch_perception,
-│   │                        catch_behavior; test/test_cores.py checks the C++ cores against the Python    → robot
+│   ├── omni_cpp/          ← the robot's always-on nodes in C++ (the only implementation since Nov 7): mcu_link
+│   │                        (frames from the firmware's own protocol.h), mode_manager, scan_prep, heading_node;
+│   │                        the catch nodes catch_perception, catch_behavior; arm_driver (the SO-101's servo bus);
+│   │                        test/test_cores.py checks the C++ cores against the Python cores the sim still uses → robot
 │   ├── omni_camera/       ← the camera head (design.md 4.9): libcamera_capture (a CSI camera as
 │   │                        /cam/<side>/image_raw, sensor-stamped; needs Raspberry Pi's libcamera, skipped
 │   │                        without it), camera_head.launch.py (+ catch_perception, intra-process)  → camera head
@@ -114,7 +114,14 @@ bash "$O" sim          # just the bridge; also: auto-map, tour, goals, score-map
 bash "$O" console --autostart robot person:=true   # the page server + launcher (Launcher's "Console"); stop-console
 ```
 
-With `firmware:=true` (the default) every step but `tour` and `auto-map` runs the robot's C++ firmware inside the sim. `mcu_link` then publishes `/odom`, `/imu` and odom → base_link from the MCU, and `mode_manager` (TELEOP) forwards `/cmd_vel` to it, ramped and capped by the firmware. `firmware:=false` is v10's bridge.
+With `firmware:=true` (the default) every step but `tour` and `auto-map` runs the robot's C++ firmware inside the sim. `mcu_link` then publishes `/odom`, `/imu` and odom → base_link from the MCU, and `mode_manager` (TELEOP) forwards a twist to it, ramped and capped by the firmware. `firmware:=false` is v10's bridge.
+
+**Who drives (TELEOP).** Each source has its own topic and the mode manager takes the highest-priority one that is
+fresh (0.5 s): `/cmd_vel/joy` (100, the joystick), `/cmd_vel/manual` (90: Foxglove's Teleop panel, the console's stick
+when it bypasses Nav2's collision monitor), `/cmd_vel` (50: Nav2's collision monitor; the console's guarded driving
+goes through it). `/cmd_vel/lock` (Bool) true stops TELEOP; `/cmd_vel/active` names the source in charge. Publish to
+the right topic: two writers never share one. With the arm robot a missing or stale `/arm/out` caps the base as if the
+arm were out (`mode_manager` parameter `arm`, true in the arm step).
 
 Arguments are `name:=value` after the step:
 
@@ -129,9 +136,8 @@ Arguments are `name:=value` after the step:
 | `dist`, `floor`, `returns`, `tosses`, `pass_game` | the catch steps: thrower distance (m), `flat` / `home`, return throws, throws before `catch-score` ends, two throwers taking turns (the robot returns to the other one) |
 | `person` | the house steps: a person walking ahead of the robot's start, for Follow / Tag |
 | `web` | `false` when the supervisor serves the page (it passes it) |
-| `arm_impl` | arm step: `py` (default): `arm_node`, one Python process; `cpp`: omni_cpp's `arm_driver` (servo bus, joint states, TF at 50 Hz) with omni_arm's `arm_brain` (planning and the tidy, asleep between requests): about a sixth of the CPU holding still on the PC (design.md 4.10, omni_arm README). `arm_hz` sets the driver's rate only when given |
-| `glue`, `nav_profile` | `cpp` (default): mcu_link, mode_manager, scan_prep, heading_node from omni_cpp; `py` their Python originals. `lean`: Nav2 and slam_toolbox set for a smaller computer (design.md 4.9); `pi`: a Pi 4 robot computer at 0.6 m/s, slam_toolbox corrected less often, the EKF at 30 Hz, arm_node at 20 Hz, the collision monitor without its odom shift (design.md 4.10); the default when a Raspberry Pi runs the robot's nodes (`full` elsewhere) |
-| `catch_impl` | `cpp` (default): catch_perception and catch_behavior from omni_cpp (C++ ports, same topics and parameters); `py`: omni_catch's Python originals, the reference |
+| `arm_hz` | arm step: omni_cpp's `arm_driver` rate (servo bus, joint states, TF; default 50 Hz) beside omni_arm's `arm_brain` (planning and the tidy). The Python `arm_node` and the `arm_impl`, `glue` and `catch_impl` switches were deleted Nov 7: every robot node runs its C++ version |
+| `nav_profile` | `lean`: Nav2 and slam_toolbox set for a smaller computer (design.md 4.9); `pi`: a Pi 4 robot computer at 0.6 m/s, slam_toolbox corrected less often, the EKF at 30 Hz, arm_node at 20 Hz, the collision monitor without its odom shift (design.md 4.10); the default when a Raspberry Pi runs the robot's nodes (`full` elsewhere) |
 | `localizer` | localization, navigation, tour, goals: `slam` (default): slam_toolbox's localization on `maps/<map>.posegraph`; `amcl`: Nav2's AMCL (omni motion model, `config/amcl.yaml`) on `maps/<map>.yaml` via map_server. In the robot and arm steps `amcl` replaces the console's slam_toolbox (no Explore or map switching); it localized worse than slam_toolbox in the house (design.md 4.10) |
 | `catch_sleep` | `true` (default): the catch nodes sleep outside CATCH (no `/mcu/state`, cameras or fast timers) and wake on `/robot_mode` |
 | `compose` | `true` (default): Nav2's servers and heading_node in one `component_container_isolated` (`nav2_container`); `all`: + mcu_link, mode_manager, scan_prep; `false`: a process each |
@@ -147,7 +153,7 @@ Arguments are `name:=value` after the step:
 | `/catch/status`, `/catch/ball`, `/catch/target`, `/catch/perception` | | state, markers, processing times |
 | `/set_mode` (service) | → mode_manager | `IDLE`, `TELEOP`, `CATCH` or `THROWER`, kid on / off |
 | `/thrower/cmd` | omni_console → mode_manager | the Thrower tab's tilt, flywheel rpm, fire (`McuCommand`), in THROWER |
-| `/mcu/info` | mcu_link → omni_console | the MCU's INFO (`McuInfo`, 10 Hz): protocol version (5), firmware build id, RC channels, motor temperatures |
+| `/mcu/info` | mcu_link → omni_console | the MCU's INFO (`McuInfo`, 10 Hz): protocol version (6), firmware build id, RC channels, motor temperatures |
 | `/mcu/clock`, `/mcu/time_ref` | mcu_link | the clock map's state (JSON, 1 Hz); camera triggers and strobes (`TimeReference`) on the Jetson's clock (design.md 10) |
 | `/tags/detections`, `/tag_slam/*`, `/localization/health` | tag_detector (the bridge in the sim) → tag_slam → omni_console | AprilTags, the tag map and pose, the localization's level and speed scale |
 | `/mcu/state_10hz`, `/mcu/samples` | mcu_link → omni_console, the page | the STATE every 20th; the 200 Hz samples batched (`Float32MultiArray`, only while someone listens) |

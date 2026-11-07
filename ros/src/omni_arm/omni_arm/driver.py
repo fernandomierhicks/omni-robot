@@ -1,4 +1,4 @@
-"""The arm through its bus, in joint angles (design.md 11). No ROS: arm_node runs it on the robot, the sim's harness on
+"""The arm through its bus, in joint angles (design.md 11). No ROS: omni_cpp's arm_driver is its C++ twin on the robot (arm_brain plans with it), the sim's harness on
 the sim's bus. One read and one write per cycle (50 Hz on the robot): a SYNC_READ of every servo's position, speed,
 load, volts and temperature, then a SYNC_WRITE of the six goal positions.
 
