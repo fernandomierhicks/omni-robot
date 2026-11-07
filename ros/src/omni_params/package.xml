@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>omni_params</name>
+  <version>0.11.0</version>
+  <description>omni-robot (design.md 2.1): the robot's tunable values as described ROS 2 parameters in the Python nodes
+    (a description, a range, read-only or live), as omni_cpp/params.hpp does in C++. Values: omni_bringup/config/robot.yaml.</description>
+  <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
+  <license>Proprietary</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>rcl_interfaces</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

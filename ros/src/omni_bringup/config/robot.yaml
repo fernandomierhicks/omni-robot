@@ -59,3 +59,40 @@ catch_perception:
   ros__parameters:
     calib_rot_deg: 0.1             # deg: the stereo calibration's rotation uncertainty (read-only)
     ball_size_rel: 0.015           # the ball's apparent-size noise, relative (read-only)
+
+floor_obstacles:                   # omni_arm (depth_layer:=floor)
+  ros__parameters:
+    rate: 5.0                      # Hz: depth frames used at most (live)
+    stride: 1                      # every n-th depth pixel: CPU against detail (live)
+    forget_radius: 0.5             # m: marks this near the robot forgotten after a pick (live)
+    publish_rate: 2.0              # Hz: the grid to Nav2 at most (live)
+
+height_map:                        # omni_arm (depth_layer:=height)
+  ros__parameters:
+    rate: 5.0                      # Hz (live)
+    stride: 1                      # (live)
+    forget_radius: 0.5             # m (live)
+    publish_rate: 2.0              # Hz (live)
+
+tag_slam:                          # omni_slam
+  ros__parameters:
+    lidar_sigma_m: 0.03            # m: a lidar pose fix's position sigma (live)
+    lidar_sigma_deg: 1.0           # deg: its heading sigma (live)
+    refine_camera_deg: 0.5         # deg: the camera mount prior for online refinement, 0 = off (read-only)
+    tag_size: 0.16                 # m: the tags' black square (read-only)
+    dock_tag_id: -1                # the dock's tag id, -1 = none (read-only)
+
+tag_detector:                      # omni_slam (on the robot; the sim's bridge detects its own)
+  ros__parameters:
+    rate: 10.0                     # Hz: frames searched at most (live)
+    tag_size: 0.16                 # m (read-only)
+
+omni_face:
+  ros__parameters:
+    facing_deg: 0.0                # deg: which way the face looks on the body (read-only)
+
+image_preview:                     # omni_perception: the console's camera previews
+  ros__parameters:
+    rate: 5.0                      # Hz per camera at most (live)
+    width: 320                     # px (live)
+    quality: 60                    # JPEG quality (live)

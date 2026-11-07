@@ -41,6 +41,7 @@ from dataclasses import replace
 import rclpy
 from omni_interfaces.msg import McuState
 from omni_interfaces.srv import ConsoleCommand
+from omni_params import Params
 from rclpy.node import Node
 from std_msgs.msg import String
 
@@ -53,10 +54,11 @@ VOICE_LEVELS = ("off", "chat only", "on")
 class FaceNode(Node):
     def __init__(self):
         super().__init__("omni_face")
-        P = self.declare_parameter
-        self.port = P("port", 9881).value
-        bind = P("bind", "127.0.0.1").value
-        self.brain = Brain(BrainConfig(facing_deg=P("facing_deg", 0.0).value))
+        p = Params(self)                                   # described parameters (omni_params; robot.yaml)
+        self.port = p.number("port", 9881, "the display's TCP port", (1024, 65535))
+        bind = p.text("bind", "127.0.0.1", "the address the display server listens on")
+        self.brain = Brain(BrainConfig(facing_deg=p.number("facing_deg", 0.0, "deg: which way the face looks on the body",
+                                                           (-180.0, 180.0))))
         self.status, self.t_status = None, 0.0
         self.pose, self.vel = None, None
         self.events, self.say = [], []
@@ -87,7 +89,8 @@ class FaceNode(Node):
         self.create_subscription(String, "/face/hear", lambda m: self.on_heard(m.data, 1.0, False, "typed"), 10)
         self.create_timer(0.1, self.tick)
         self.proc = None
-        if P("start_display", "auto").value == "auto" and self.srv is not None:
+        if p.text("start_display", "auto", "auto: open the display window (Windows, the sim) | off") == "auto" \
+                and self.srv is not None:
             self.start_windows_display()
         self.get_logger().info(f"face on tcp {bind}:{self.port}")
 

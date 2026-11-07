@@ -17,6 +17,7 @@ from pathlib import Path
 import numpy as np
 import rclpy
 from omni_interfaces.msg import TagDetection, TagDetections
+from omni_params import Params
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 
@@ -24,11 +25,11 @@ from sensor_msgs.msg import Image
 class TagDetector(Node):
     def __init__(self):
         super().__init__("tag_detector")
-        P = self.declare_parameter
-        self.rate = P("rate", 10.0).value
-        self.size = P("tag_size", 0.16).value
-        self.sizes = {int(k): float(v) for k, v in json.loads(P("tag_sizes", "{}").value).items()}   # id -> m
-        intr = P("intrinsics", "").value
+        p = Params(self)                                   # described parameters (omni_params; robot.yaml)
+        self.rate = p.number("rate", 10.0, "Hz: frames searched for tags at most", (0.1, 60.0), live=self)
+        self.size = p.number("tag_size", 0.16, "m: the tags' black square", (0.01, 1.0))
+        self.sizes = {int(k): float(v) for k, v in json.loads(p.text("tag_sizes", "{}", "per-id sizes, JSON {id: m}")).items()}
+        intr = p.text("intrinsics", "", "the camera's intrinsics json (omni_calib Camera; \"\" = already rectified)")
         self.cam = None
         if intr and Path(intr).exists():
             from omni_calib.geometry import Camera
@@ -38,7 +39,7 @@ class TagDetector(Node):
         self.n = self.n_tags = 0
         self.ms = []
         self.pub = self.create_publisher(TagDetections, "/tags/detections", 10)
-        self.create_subscription(Image, P("image", "/cam/left/image_raw").value, self.on_image, 2)
+        self.create_subscription(Image, p.text("image", "/cam/left/image_raw", "the camera image"), self.on_image, 2)
         self.create_timer(10.0, self.report)
 
     def on_image(self, m: Image):

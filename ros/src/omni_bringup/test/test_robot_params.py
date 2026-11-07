@@ -24,6 +24,12 @@ NODES = {
     "catch_perception": SRC / "omni_cpp" / "src" / "catch_perception_node.cpp",
     "catch_behavior": SRC / "omni_cpp" / "src" / "catch_behavior_node.cpp",
     "arm_node": SRC / "omni_arm" / "omni_arm" / "arm_brain.py",
+    "floor_obstacles": SRC / "omni_arm" / "omni_arm" / "floor_obstacles_node.py",
+    "height_map": SRC / "omni_arm" / "omni_arm" / "height_map_node.py",
+    "tag_slam": SRC / "omni_slam" / "omni_slam" / "tag_slam_node.py",
+    "tag_detector": SRC / "omni_slam" / "omni_slam" / "tag_detector.py",
+    "omni_face": SRC / "omni_face" / "omni_face" / "face_node.py",
+    "image_preview": SRC / "omni_perception" / "omni_perception" / "image_preview.py",
 }
 NUM = r"(-?[0-9.eE+-]+|[A-Z_]+|c\.[a-z_]+)"
 
@@ -38,9 +44,13 @@ def declarations(path: Path) -> dict:
         out[name] = (kind, lo, hi)
     for name in re.findall(r"declare_parameter<std::vector<[^>]+>>\( ?\"(\w+)\"", s):
         out[name] = ("array", None, None)
-    for name, default, rest in re.findall(r"\bP\(\"(\w+)\", ([^,]+), \"[^\"]*\"(, \([^)]*\))?", s):   # arm_brain
-        rng = re.findall(r"-?[0-9.]+", rest)
-        out[name] = ("number" if rest else "text", float(rng[0]) if rng else None, float(rng[1]) if rng else None)
+    # the Python nodes: omni_params' p.number(name, default, text, (lo, hi), ...) / p.flag / p.text / p.array
+    for kind, name, default, rest in re.findall(r"\bp\.(number|flag|text|array)\(\"(\w+)\", ([^,]+), ([^;]*?)\)\s*(?:[#\n]|$|\w)", s):
+        m = re.search(r"\((-?[0-9.]+), (-?[0-9.]+)\)", rest) if kind == "number" else None
+        if kind == "number":
+            is_int = re.fullmatch(r"-?[0-9]+", default.strip()) is not None
+            kind = "integer" if is_int else "number"
+        out[name] = (kind, float(m.group(1)) if m else None, float(m.group(2)) if m else None)
     return out
 
 
@@ -64,4 +74,4 @@ def test_every_robot_parameter_is_declared_with_its_type_and_range():
 
 def test_the_launch_loads_robot_yaml_into_each_robot_node():
     stack = (SRC / "omni_bringup" / "omni_bringup" / "stack.py").read_text()
-    assert stack.count("robot_params()") >= 10
+    assert stack.count("robot_params()") >= 15

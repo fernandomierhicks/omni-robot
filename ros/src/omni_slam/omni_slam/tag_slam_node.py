@@ -34,6 +34,7 @@ import rclpy
 from geometry_msgs.msg import PoseWithCovarianceStamped, TransformStamped
 from nav_msgs.msg import Odometry
 from omni_interfaces.msg import TagDetections
+from omni_params import Params
 from rclpy.node import Node
 from rclpy.time import Time
 from sensor_msgs.msg import Imu
@@ -72,24 +73,42 @@ def tf_matrix(tr) -> np.ndarray:
 
 
 class TagSlamNode(Node):
+    def _set_sig(self, m=None, deg=None):
+        if m is not None:
+            self._sig_m = float(m)
+        if deg is not None:
+            self._sig_deg = float(deg)
+        self.lidar_sig = (self._sig_m, math.radians(self._sig_deg))
+
     def __init__(self):
         super().__init__("tag_slam")
-        P = self.declare_parameter
-        self.map = P("map", "house").value
-        self.maps_dir = Path(P("maps_dir", os.environ.get("OMNI_MAPS_DIR", str(Path.home() / "omni_ws" / "maps"))).value)
-        self.odom_topic = P("odom_topic", "/odometry/filtered").value
-        self.use_lidar = P("lidar", True).value
-        self.lidar_sig = (P("lidar_sigma_m", 0.03).value, math.radians(P("lidar_sigma_deg", 1.0).value))
-        refine = P("refine_camera_deg", 0.5).value
-        self.own_map_odom = P("publish_map_odom", False).value
-        self.dock_id = P("dock_tag_id", -1).value
+        p = Params(self)                                   # described parameters (omni_params; robot.yaml)
+        self.map = p.text("map", "house", "the map whose tag map (maps/<map>.tags.json) is loaded and saved")
+        self.maps_dir = Path(p.text("maps_dir", os.environ.get("OMNI_MAPS_DIR", str(Path.home() / "omni_ws" / "maps")),
+                                    "where the maps are"))
+        self.odom_topic = p.text("odom_topic", "/odometry/filtered", "the odometry the graph's poses chain on")
+        self.use_lidar = p.flag("lidar", True, "anchor the graph to slam_toolbox's poses (else to the first tag)")
+        sig_m = p.number("lidar_sigma_m", 0.03, "m: a lidar pose fix's position sigma", (0.001, 1.0), live=self,
+                         attr="_sig_m")
+        sig_deg = p.number("lidar_sigma_deg", 1.0, "deg: its heading sigma", (0.01, 30.0), live=self, attr="_sig_deg")
+        self._sig_m, self._sig_deg = sig_m, sig_deg
+        p.on_set("lidar_sigma_m", lambda v: self._set_sig(m=v))
+        p.on_set("lidar_sigma_deg", lambda v: self._set_sig(deg=v))
+        self.lidar_sig = (sig_m, math.radians(sig_deg))
+        refine = p.number("refine_camera_deg", 0.5, "deg: the camera mount's prior for online refinement (0 = off)",
+                          (0.0, 10.0))
+        self.own_map_odom = p.flag("publish_map_odom", False, "publish map -> odom itself (no slam_toolbox)")
+        self.dock_id = p.number("dock_tag_id", -1, "the dock's tag id (-1 = none)", (-1, 1000))
         # the dock tag -> its charging contacts (omni_calib.extrinsics.dock_tag): x y z qx qy qz qw
-        self.dock_tc = list(P("dock_tag_to_contacts", [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]).value)
-        self.tag_size = P("tag_size", 0.16).value
-        self.want_speed_limit = P("nav2_speed_limit", False).value
-        fovy = P("fovy_deg", 70.0).value
-        self.cam = Pinhole.from_fovy(fovy, P("width", 1280).value, P("height", 800).value)
-        self.cam_frame = P("camera_frame", "cam_left_optical").value
+        self.dock_tc = list(p.array("dock_tag_to_contacts", [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+                                    "the dock tag -> its charging contacts: x y z qx qy qz qw"))
+        self.tag_size = p.number("tag_size", 0.16, "m: the tags' black square", (0.01, 1.0))
+        self.want_speed_limit = p.flag("nav2_speed_limit", False, "send Nav2 /speed_limit from the localization's health",
+                                       live=self, attr="want_speed_limit")
+        fovy = p.number("fovy_deg", 70.0, "deg: the tag camera's vertical field of view", (10.0, 170.0))
+        self.cam = Pinhole.from_fovy(fovy, p.number("width", 1280, "px: its image width", (16, 8192)),
+                                     p.number("height", 800, "px: its image height", (16, 8192)))
+        self.cam_frame = p.text("camera_frame", "cam_left_optical", "the tag camera's optical frame")
         self.refine = refine if refine > 0 else None
         self.tf_buf = Buffer()
         self.tfl = TransformListener(self.tf_buf, self)

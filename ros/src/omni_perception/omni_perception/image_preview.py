@@ -18,6 +18,7 @@ import time
 
 import numpy as np
 import rclpy
+from omni_params import Params
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import CompressedImage, Image
@@ -66,10 +67,12 @@ def to_jpeg(img: np.ndarray, enc: str, quality: int) -> bytes:
 class Preview(Node):
     def __init__(self):
         super().__init__("image_preview")
-        P = self.declare_parameter
-        inputs = P("inputs", ["/cam/left/image_raw"]).value
-        self.period = 1.0 / max(0.2, P("rate", 5.0).value)
-        self.width, self.quality = P("width", 320).value, P("quality", 60).value
+        p = Params(self)                                   # described parameters (omni_params; robot.yaml)
+        inputs = p.array("inputs", ["/cam/left/image_raw"], "the camera topics previewed")
+        self.period = p.number("rate", 5.0, "Hz: previews per camera at most", (0.2, 30.0), live=self, attr="period",
+                               convert=lambda hz: 1.0 / max(0.2, float(hz)))
+        self.width = p.number("width", 320, "px: the preview's width", (32, 1920), live=self)
+        self.quality = p.number("quality", 60, "JPEG quality", (1, 100), live=self)
         self.pubs = {}
         self.t_last = {}
         for topic in inputs:

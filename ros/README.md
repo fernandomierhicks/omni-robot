@@ -36,6 +36,7 @@ ros/
 │   │                        /cam/<side>/image_raw, sensor-stamped; needs Raspberry Pi's libcamera, skipped
 │   │                        without it), camera_head.launch.py (+ catch_perception, intra-process)  → camera head
 │   ├── omni_calib/        ← the calibration workflow's solvers and checks (README.md: the procedure)  → robot
+│   ├── omni_params/       ← described ROS 2 parameters for the Python nodes (omni_cpp/params.hpp's twin)  → robot
 │   ├── omni_slam/         ← tag_slam (AprilTag landmarks in a factor graph next to slam_toolbox, the
 │   │                        localization health), tag_detector                                          → robot
 │   ├── omni_face/         ← the face on the 5 in display and the voice: face_node + display.py (a window
@@ -127,7 +128,8 @@ ros2 param set /arm_driver grip_torque 400         # live ones only; ROS refuses
 ros2 param dump /arm_driver                        # copy tuned values back into robot.yaml
 ```
 Foxglove's Parameters panel shows and sets the same. In C++ declare new ones with `omni_cpp/params.hpp`
-(`params::number / integer / flag / text`, `params::Live` for live ones), add the value to `robot.yaml`;
+(`params::number / integer / flag / text`, `params::Live` for live ones), in Python with `omni_params`
+(`Params(node).number / flag / text / array`, `live=` for live ones), add the value to `robot.yaml`;
 `omni_bringup/test/test_robot_params.py` checks the file against the declarations. Not parameters: Nav2 / SLAM / EKF
 (their own yaml), the console's operator settings (the page), the firmware's limits (compiled in: the ceiling a host
 can only ask under).

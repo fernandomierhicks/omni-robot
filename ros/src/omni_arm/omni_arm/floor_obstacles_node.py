@@ -27,6 +27,7 @@ import time
 import numpy as np
 import rclpy
 from nav_msgs.msg import OccupancyGrid
+from omni_params import Params
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
@@ -47,15 +48,21 @@ def _yaw(q) -> float:
 class FloorObstacles(Node):
     def __init__(self):
         super().__init__("floor_obstacles")
-        P = self.declare_parameter
-        config = P("config", "d435").value
-        depth_topic = P("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth").value
-        info_topic = P("depth_info_topic", "").value or depth_topic.rsplit("/", 1)[0] + "/camera_info"
-        self.dt = 1.0 / max(float(P("rate", 5.0).value), 0.1)
-        self.stride = int(P("stride", 1).value)
-        self.forget_r = float(P("forget_radius", 0.5).value)
-        self.pub_dt = 1.0 / max(float(P("publish_rate", 2.0).value), 0.1)
-        self.map_frame = P("map_frame", "map").value
+        p = Params(self)                                   # described parameters (omni_params; robot.yaml)
+        config = p.text("config", "d435", "the robot_arm*.json: d435 | \"\" (stereo) | a path")
+        depth_topic = p.text("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth",
+                             "the depth image")
+        info_topic = p.text("depth_info_topic", "", "its camera_info (\"\" = beside depth_topic)") or \
+            depth_topic.rsplit("/", 1)[0] + "/camera_info"
+        hz_to_dt = lambda hz: 1.0 / max(float(hz), 0.1)   # noqa: E731
+        self.dt = p.number("rate", 5.0, "Hz: depth frames used at most", (0.1, 30.0), live=self, attr="dt",
+                           convert=hz_to_dt)
+        self.stride = p.number("stride", 1, "use every n-th depth pixel (CPU against detail)", (1, 16), live=self)
+        self.forget_r = p.number("forget_radius", 0.5, "m: marks this near the robot forgotten after a pick",
+                                 (0.0, 3.0), live=self, attr="forget_r")
+        self.pub_dt = p.number("publish_rate", 2.0, "Hz: the grid to Nav2 at most", (0.1, 10.0), live=self,
+                               attr="pub_dt", convert=hz_to_dt)
+        self.map_frame = p.text("map_frame", "map", "the grid's frame")
         c = ArmConfig(config_path(config)).cameras[0]
         T = np.eye(4)
         T[:3, :3], T[:3, 3] = np.array(c["R"]), c["pos"]

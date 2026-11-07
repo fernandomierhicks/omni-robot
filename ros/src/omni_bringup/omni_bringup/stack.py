@@ -297,12 +297,12 @@ def console_nodes(a: dict, scan: str, slam: tuple | None = None, fw: bool = True
              parameters=[mission]),
         # the cameras' small previews for the Vision tab (idle while nobody watches; no camera topics in the sim yet)
         Node(package="omni_perception", executable="image_preview", name="image_preview", output="log",
-             parameters=[{"inputs": ["/cam/left/image_raw", "/cam/right/image_raw"]}]),
+             parameters=[robot_params(), {"inputs": ["/cam/left/image_raw", "/cam/right/image_raw"]}]),
     ]
     if a.get("face", "true").lower() in ("1", "true", "yes"):
         # the robot's face and voice (omni_face): in the sim its window opens on Windows, with sound
         nodes.append(Node(package="omni_face", executable="face_node", name="omni_face", output="screen",
-                          parameters=[{"bind": "0.0.0.0", "start_display": "auto"}]))
+                          parameters=[robot_params(), {"bind": "0.0.0.0", "start_display": "auto"}]))
     if a["web"].lower() in ("1", "true", "yes"):     # web:=false when the supervisor serves the page (omni.sh console)
         nodes.append(Node(package="omni_console", executable="console_web", name="console_web", output="screen"))
     try:
@@ -386,7 +386,7 @@ def build(ctx, kind: str):
         if d435 and a["depth_layer"] == "floor" and a["nav"].lower() in ("1", "true", "yes"):
             # design.md 4.5: the D435's floor for Nav2's depth layer (FLOOR_LAYER)
             acts.append(Node(package="omni_arm", executable="floor_obstacles", name="floor_obstacles", output="screen",
-                             parameters=[{"config": arm_cfg, **sim_t}]))
+                             parameters=[robot_params(), {"config": arm_cfg, **sim_t}]))
     # compose (design.md 4.9): true puts Nav2 and heading_node into one process, all adds omni_cpp's glue nodes
     comps, nav_yaml = [], None
     glue_comp = a["compose"] == "all"
@@ -474,7 +474,7 @@ def build(ctx, kind: str):
         if d435 and a["depth_layer"] == "height":
             # design.md 4.5: the D435's fused height map for Nav2 and the speed limit (DEPTH_LAYERS)
             acts.append(Node(package="omni_arm", executable="height_map", name="height_map", output="screen",
-                             parameters=[{"config": "d435", "vx_max": vx_max(nav), **sim_t}]))
+                             parameters=[robot_params(), {"config": "d435", "vx_max": vx_max(nav), **sim_t}]))
         if a["compose"] in ("true", "all"):
             comps += nav2_components(nav_yaml)
         else:
@@ -489,7 +489,7 @@ def build(ctx, kind: str):
         # the D435 arm robot sees the tags with the D435's colour camera (design.md 4.11; the bridge's tag camera)
         tag_cam = dict(camera_frame="d435_color_optical_frame", fovy_deg=42.0, width=1280, height=720) if d435 else {}
         acts.append(Node(package="omni_slam", executable="tag_slam", name="tag_slam", output="screen",
-                         parameters=[{"map": a["map"], "odom_topic": "/odometry/filtered" if ekf else "/odom",
+                         parameters=[robot_params(), {"map": a["map"], "odom_topic": "/odometry/filtered" if ekf else "/odom",
                                       "lidar": slam_running, "publish_map_odom": not slam_running, **tag_cam,
                                       **sim_t}]))
     if on("rviz"):
