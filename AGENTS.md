@@ -30,7 +30,7 @@ Old `§1–31` references generally mean `design full history.md`; legacy `desig
 
 ## Environment and running processes
 
-- Windows Python: `C:\Users\ferna\.venvs\omni-robot-sim\Scripts\python.exe`. PATH `python` is PlatformIO's interpreter; never install into it. RealSense bench tools use `C:\Users\ferna\.venvs\realsense` separately.
+- Windows Python: `C:\Users\ferna\.venvs\omni-robot-sim\Scripts\python.exe`. Each venv has a requirements file: `simulation/requirements.txt` (sim), `ros/requirements-robot.txt` (robot nodes' pip-only packages, WSL / robot computer), `ros/tools/omni_mcp/requirements.txt`, `characterization/realsense/requirements.txt`. PATH `python` is PlatformIO's interpreter; never install into it. RealSense bench tools use `C:\Users\ferna\.venvs\realsense` separately.
 - ROS 2 Jazzy runs in `Ubuntu-24.04` WSL. Use `ros/omni.sh <step>` to mirror/build in `~/omni_ws` on ext4; never build on `/mnt/c`. WSL Python is `~/.venvs/omni-ros`. Render MuJoCo on Windows (`ros/tools/mujoco_view.py`), not WSL.
 - Alongside Fernando's stack, use another `ROS_DOMAIN_ID` and separate ports (e.g. `mcu_port:=5771`). Stop only your own launch/processes by PID; do not use `omni.sh stop`, `stop-console` or broad `pkill` against shared sessions. His console may own 8080/9090.
 - Pi deployment/network details live in `rpi.md`. On the 4 GB Pi, keep package builds sequential with `-j2`; do not start an unrestricted parallel ROS build. Use Ethernet and synchronized clocks for meaningful split-computer timing/load measurements.
@@ -40,8 +40,8 @@ Old `§1–31` references generally mean `design full history.md`; legacy `desig
 ## Code and model invariants
 
 - Robot packages must not import `omni_sim`; keep reusable robot cores ROS-free. Keep `firmware/lib/omni_fw` free of Arduino includes.
-- Change protocol definitions in `firmware/lib/omni_fw/protocol.h` and `ros/src/omni_mcu/omni_mcu/protocol.py` together; bump both `PROTOCOL_VERSION`s for body changes. Preserve event timestamps and frame conventions.
-- Python reference cores and their `omni_cpp` twins change together, including catch and glue cores. Run their parity tests. `ModeMux` owns the fire counter for the controlling source; never pass a source's `fire_seq` straight to the MCU.
+- Change protocol definitions in `firmware/lib/omni_fw/protocol.h` and `ros/src/omni_mcu/omni_mcu/protocol.py` together; bump both `PROTOCOL_VERSION`s for body changes (the MCU drops CMDs of another version). `pio run` builds the arm variant and stops until the AK40-10 driver exists; check compiles with `pio run -e catch`. Preserve event timestamps and frame conventions.
+- One implementation per robot node: where an `omni_cpp` node exists, there is no Python twin node (deleted Nov 7). Python cores the v11 sim still imports (protocol, modes, catch cores, arm driver/kinematics) and their `omni_cpp` twins change together; run their parity tests. Drive TELEOP through the mode manager's prioritized inputs (`/cmd_vel/joy`, `/cmd_vel/manual`, `/cmd_vel`), never a new writer on an existing one. `ModeMux` owns the fire counter for the controlling source; never pass a source's `fire_seq` straight to the MCU.
 - After simulation params/catalog/model changes, rerun v11 `robot_export.py` and check generated JSON/header files. Arm SIL uses `fw_params_arm.h`; catch SIL uses `fw_params.h`. Preserve earlier variants/results for reproduction; changed geometry is not validated by old scores. Terrain crossings must use `wheel_model="rollers"`.
 - Keep the shared `database/` free of omni-robot imports; values need provenance/sources. Mark estimates and VERIFY items as unconfirmed, never measured.
 - If launch steps/options change, keep `ros/omni.sh`, console `supervisor.SIM_STEPS`, `launcher.ps1` and `launcher_full.ps1` consistent. Avoid `clients` as an rclpy Node attribute (it is a Node property).
@@ -53,10 +53,10 @@ Run checks relevant to the changed subsystem, using the correct interpreter/envi
 | Change | Checks |
 | --- | --- |
 | v11 model / SIL / exports | From `simulation/v11 sil`: `python -m pytest -q test_v11.py`, plus affected study/tests |
-| ROS-free package cores | `python -m pytest -q ros/src/<package>/test`; `omni_cpp/test` checks Python/C++ parity |
+| ROS-free package cores | `python -m pytest -q ros/src/<package>/test`; `omni_cpp/test` checks Python/C++ parity; `omni_mcu/test` the protocol |
 | ROS-dependent launch / nodes | Relevant package tests in WSL; affected step through `ros/omni.sh` |
 | AI control / omni_mcp | `C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pytest -q ros/tools/omni_mcp/test`, console `test_ai.py`, arm `test_color_vision.py`; end to end `ros/tools/ai_smoke.py` against the arm step |
-| Firmware | `pio run` in `firmware/`, affected SIL/parity checks and pin checks |
+| Firmware | `pio run -e catch` in `firmware/`, affected SIL/parity checks and pin checks |
 | Database | From `database`: `python actuator_db.py validate` and `python -m pytest -q` |
 | CAD | Follow `cad/AGENTS.md` and the active version's validation procedure |
 | Characterization | Bench-local tests/README and its specified venv; synthetic checks do not authorize restarting paused live work |

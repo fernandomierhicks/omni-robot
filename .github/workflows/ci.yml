@@ -1,0 +1,76 @@
+# omni-robot checks on every push and pull request (AGENTS.md, Verification). Nothing here flashes or drives hardware.
+#   firmware   the Teensy build of the catch variant (the arm variant stops on purpose until its motor driver exists)
+#   robot      the robot packages' ROS-free tests, omni_mcu's protocol, the C++ cores against the Python (g++)
+#   sim        simulation/v11 sil test_v11.py: the firmware in the loop, the arm, the exports are current
+#   database   the parts database's validation
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  firmware:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install platformio
+      - name: Teensy build (catch variant)
+        working-directory: firmware
+        run: pio run -e catch
+      - name: The arm variant refuses to build without its motor driver
+        working-directory: firmware
+        run: |
+          if pio run -e arm > arm.log 2>&1; then echo "env arm built: remove this step once the AK40-10 driver exists"; exit 1; fi
+          grep -q "no CAN driver yet" arm.log
+
+  robot:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r simulation/requirements.txt opencv-python-headless
+      - name: omni_mcu (protocol, clock map)
+        run: python -m pytest -q ros/src/omni_mcu/test
+      - name: omni_cpp (C++ cores against the Python)
+        run: python -m pytest -q ros/src/omni_cpp/test
+      - name: ROS-free package tests
+        run: |
+          for p in omni_arm omni_bringup omni_calib omni_slam omni_console omni_face; do
+            echo "== $p"; python -m pytest -q ros/src/$p/test || exit 1
+          done
+
+  sim:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      MUJOCO_GL: osmesa
+      PYOPENGL_PLATFORM: osmesa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y libosmesa6
+      - run: pip install -r simulation/requirements.txt opencv-python-headless
+      - name: test_v11.py
+        working-directory: simulation/v11 sil
+        run: python -m pytest -q test_v11.py
+
+  database:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest
+      - working-directory: database
+        run: |
+          python actuator_db.py validate
+          python -m pytest -q
