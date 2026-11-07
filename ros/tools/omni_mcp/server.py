@@ -395,11 +395,35 @@ class Robot:
         lt = self.call("tf", dict(parent="base_link", child=msg["header"]["frame_id"] or "laser"))
         laser = (lt["data"]["x"], lt["data"]["y"], lt["data"]["yaw_deg"] * 0.017453292519943295) if lt["ok"] \
             else (0.0, 0.0, 0.0)
+        from views import scan_summary
+        pts = scan_summary(msg, laser)["points"]
+        tracks = self._people_tracks()
+        pose, frame = self.pose()
+        out = []
+        if tracks is not None:
+            # omni_perception's people node (front_cam:=imx662, design.md 4.12): the lidar and the forward camera
+            for t in tracks:
+                if t["status"] == "not_person" or t["seen_s"] > 1.0:
+                    continue
+                x, y = t["base_x"], t["base_y"]
+                d = dict(id=t["id"], status=t["status"], p=t["p"], camera=t["camera"], x_base=round(float(x), 2),
+                         y_base=round(float(y), 2), range_m=t["range"], bearing_deg=t["bearing_deg"],
+                         speed_m_s=round(float(np.hypot(t["vx"], t["vy"])), 2))
+                if pose is not None:
+                    c, s = np.cos(pose[2]), np.sin(pose[2])
+                    d.update(frame=frame, x=round(float(pose[0] + c * x - s * y), 2),
+                             y=round(float(pose[1] + s * x + c * y), 2))
+                out.append(d)
+            n = sum(d["status"] == "person" for d in out)
+            return dict(ok=True, message=f"{n} people seen by the camera, {len(out) - n} lidar candidates",
+                        data=dict(people=out, note=(
+                            "status person: the forward camera saw a person there (with the lidar's range when it has "
+                            "one); candidate: lidar legs the camera hasn't confirmed (outside its view, or not yet). "
+                            "Tracks keep their id while they move. Not identities"))), \
+                scan_picture(pts, [(p["x_base"], p["y_base"]) for p in out])
         r = np.array([np.inf if v is None else v for v in msg["ranges"]], dtype=float)
         r = np.where((r > msg["range_min"]) & (r < msg["range_max"]), r, np.inf)
         ppl = detect(r, msg["angle_min"], msg["angle_increment"], laser)
-        pose, frame = self.pose()
-        out = []
         for x, y in ppl:
             d = dict(x_base=round(float(x), 2), y_base=round(float(y), 2), range_m=round(float(np.hypot(x, y)), 2),
                      bearing_deg=round(float(np.degrees(np.arctan2(y, x))), 1))
@@ -407,11 +431,17 @@ class Robot:
                 c, s = np.cos(pose[2]), np.sin(pose[2])
                 d.update(frame=frame, x=round(float(pose[0] + c * x - s * y), 2), y=round(float(pose[1] + s * x + c * y), 2))
             out.append(d)
-        from views import scan_summary
-        pts = scan_summary(msg, laser)["points"]
         return dict(ok=True, message=f"{len(out)} people (lidar)", data=dict(people=out, note=(
             "lidar shapes, not identities: legs and bodies at 15 cm; look with a camera to be sure"))), \
             scan_picture(pts, [(p["x_base"], p["y_base"]) for p in out])
+
+    def _people_tracks(self):
+        """/people's tracks (omni_perception's people node), or None when it isn't running"""
+        try:
+            m = self.rb.once("/people", "std_msgs/msg/String", 0.6)
+            return json.loads(m["data"]).get("people", [])
+        except (RosbridgeError, ValueError, KeyError, TypeError):
+            return None
 
     def tags(self) -> dict:
         """AprilTags tag_slam has placed on the map (/tag_slam/tags; tags:=true in the sim)."""
@@ -709,9 +739,11 @@ def build_server(robot: Robot):
 
     @mcp.tool()
     def robot_people():
-        """People the lidar sees (the Follow mode's detector: legs and bodies by shape), in the robot's frame (range,
-        bearing) and on the map, with the scan's picture (orange circles). Shapes, not identities: confirm with
-        robot_look facing them. Read-only."""
+        """People around the robot, in its frame (range, bearing) and on the map, with the scan's picture (orange
+        circles). With the forward camera (the people node running) each has an id kept while they move and a status:
+        "person" (the camera saw a person there) or "candidate" (lidar legs only, e.g. outside the camera's view: turn
+        towards them to check). Without it, lidar shapes only (legs and bodies; chair legs too): confirm with
+        robot_look facing them. Not identities. Read-only."""
         r, png = robot.people()
         return with_png(r, png)
 

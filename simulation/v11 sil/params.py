@@ -358,6 +358,10 @@ class SimParams:
     d435_tilt_deg: float = -30.0       # its view below the horizontal (the 58 deg vertical field: 1-59 deg down)
     d435_wh: tuple = (480, 270)        # the depth mode it streams (min-Z ~0.11 m here; 0.195 m at 848 x 480, VERIFY)
     d435_roll_deg: float = 0.0         # about its view axis: 0 landscape; 90 portrait (the wide field tall: a study, Nov 5)
+    # design.md 4.12 (Nov 6, proposal): a forward colour camera besides the D435: "imx662" = a generic IMX662 USB 2 module
+    # on the nose under the lidar, 20 deg up, 90 x 58 deg (imx662_cam.py: tags, people, the room; the bridge's
+    # front_cam:=imx662 renders it for omni_perception's people node); "none" = every earlier result
+    front_camera: str = "none"
 
     # --- payload (design.md 15): what rides on the payload plate ------------------
     payload: str = "catch"             # "catch": the tilting catch / launch module; "arm": an SO-101 arm in its place
@@ -455,6 +459,10 @@ class SimParams:
             raise ValueError(f"lidar_mount {self.lidar_mount!r}: 'front' or 'rear'")
         if self.depth_camera not in ("none", "d435"):
             raise ValueError(f"depth_camera {self.depth_camera!r}: 'none' or 'd435'")
+        if self.front_camera not in ("none", "imx662"):
+            raise ValueError(f"front_camera {self.front_camera!r}: 'none' or 'imx662'")
+        if self.front_camera != "none" and self.depth_camera != "d435" and not self.d435_box:
+            raise ValueError("front_camera sits beside the D435: the arm robot (depth_camera='d435' or d435_box)")
         if self.pod_pivot is not None and (self.suspension != "pod" or self.swing != "none" or self.is_swerve
                                            or self.n_wheels != 4):
             raise ValueError("pod_pivot needs suspension='pod' on the four-wheel X base (no swing, no swerve)")

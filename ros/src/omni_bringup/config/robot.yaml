@@ -96,3 +96,11 @@ image_preview:                     # omni_perception: the console's camera previ
     rate: 5.0                      # Hz per camera at most (live)
     width: 320                     # px (live)
     quality: 60                    # JPEG quality (live)
+
+people:                            # omni_perception: people from the lidar and the forward camera (design.md 4.12)
+  ros__parameters:
+    model: yolox_nano              # the person detector (read-only): yolox_tiny | yolox_s (design.md 4.12)
+    threads: 2                     # onnxruntime threads (read-only)
+    rate: 5.0                      # Hz: camera frames searched at most (live)
+    min_score: 0.35                # a person box's least score (live)
+    floating_score: 0.5            # ... of a box with no feet on the floor in view: behind furniture, or a sign (live)

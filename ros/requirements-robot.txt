@@ -13,6 +13,8 @@ sounddevice
 # omni_console camera_snap.py (the Cameras tab's server on the robot computer): JPEG encoding, AprilTags
 simplejpeg
 pupil-apriltags
+# omni_perception people_node: the person detector (YOLOX ONNX models: ros/tools/fetch_models.py)
+onnxruntime
 # the D435 (x86_64 wheels on PyPI; on a Pi it is built from source: characterization/realsense/README.md)
 pyrealsense2>=2.56; platform_machine == "x86_64"
 

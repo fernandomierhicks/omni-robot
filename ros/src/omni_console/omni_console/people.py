@@ -154,3 +154,12 @@ class Follower:
             v *= 0.3
         ux, uy = (bx / dist, by / dist) if dist > 1e-6 else (1.0, 0.0)
         return (v * ux, v * uy, wz)
+
+
+def from_tracks(people: list, max_age: float = 0.5) -> list:
+    """omni_perception's /people tracks (people_node: the lidar and the forward camera together) as (x, y) in the
+    base frame for Follower: camera-confirmed people first (Follower takes the first one ahead), then lidar
+    candidates, nearest first; never "not_person" (a chair leg the camera has looked at); fresh tracks only."""
+    good = [p for p in people if p.get("status") != "not_person" and p.get("seen_s", 0.0) < max_age]
+    good.sort(key=lambda p: (p.get("status") != "person", p.get("range", 0.0)))
+    return [(float(p["base_x"]), float(p["base_y"])) for p in good]

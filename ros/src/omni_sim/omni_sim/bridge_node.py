@@ -43,6 +43,11 @@ names realsense2_camera gives it on the robot (camera_name d435), at d435_hz (5)
                                                       decimation filter): Nav2's depth layer
            /d435/color/image_raw                      its colour, rgb8, registered to the depth (as the driver's
                                                       align_depth would give it): as /stereo/left/image_color
+With front_cam:=imx662 (design.md 4.12, proposal) the arm robot also has the forward IMX662 on its nose, under the
+lidar, 20 deg up (imx662_cam.py; a plain pinhole render, no rolling shutter or MJPEG):
+           /front_cam/image_raw (+ /front_cam/camera_info)   rgb8, front_wh (960 x 540: the 1920 x 1080 sensor's
+                                                      field), frame front_cam_optical, at front_hz (5) while anything
+                                                      subscribes (omni_perception's people node)
 """
 
 from __future__ import annotations
@@ -142,7 +147,8 @@ class Bridge(Node):
                               timing=P("timing", "ideal").value,    # design.md 10: "real" = drifting MCU clock
                               payload=P("payload", "catch").value,  # design.md 11: "arm" = the arm robot
                               objects=P("objects", "toys").value, n_objects=P("n_objects", 6).value,
-                              arm_camera=P("arm_camera", "d435").value,     # design.md 4.11: the nose D435 (stereo: earlier runs)
+                              arm_camera=P("arm_camera", "d435").value,     # design.md 4.11: the riser D435 (stereo: earlier runs)
+                              front_cam=P("front_cam", "none").value,       # design.md 4.12: | imx662, the forward camera
                               # the Launcher's live world (sim_world.py): person, clutter, thrower on and off
                               live_world=P("live_world", False).value, clutter=P("clutter", "off").value,
                               thrower=P("thrower", True).value,
@@ -234,7 +240,8 @@ class Bridge(Node):
             bind = self.port.bind if self.port else "127.0.0.1"   # the MCU port's: the LAN when side:=sim
             self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value, P("d435_hz", 5.0).value,
                                bind=bind, color_hz=P("color_hz", 2.0).value,
-                               d435_noise=P("d435_noise", "realistic").value)    # | ideal: the Nov 4 model
+                               d435_noise=P("d435_noise", "realistic").value,    # | ideal: the Nov 4 model
+                               front_hz=P("front_hz", 5.0).value, front_wh=tuple(P("front_wh", [960, 540]).value))
         self.catch = None
         if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
             self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
@@ -717,7 +724,8 @@ class ArmSide:
     side, run once per firmware tick from the bridge's loop."""
 
     def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1",
-                 color_hz: float = 2.0, d435_noise: str = "realistic"):
+                 color_hz: float = 2.0, d435_noise: str = "realistic", front_hz: float = 5.0,
+                 front_wh: tuple = (960, 540)):
         from arm_bus import ServoPort
         from sil_pick import PickCameras
         import arm_objects
@@ -750,6 +758,20 @@ class ArmSide:
         self.color_dt = 1.0 / color_hz if color_hz > 0 else math.inf
         self.t_color = -math.inf
         self.p_obj = node.create_publisher(String, "/sim/objects", 5)
+        # design.md 4.12: the forward IMX662 (front_cam:=imx662), rendered while anything subscribes
+        self.front = None
+        if getattr(c.p, "front_camera", "none") == "imx662":
+            import mujoco
+            w, h = int(front_wh[0]), int(front_wh[1])
+            cid = c.m.camera("imx662").id
+            c.m.vis.global_.offwidth = max(w, c.m.vis.global_.offwidth)
+            c.m.vis.global_.offheight = max(h, c.m.vis.global_.offheight)
+            fy = h / 2 / math.tan(math.radians(float(c.m.cam_fovy[cid])) / 2)
+            self.front = dict(ren=mujoco.Renderer(c.m, h, w), cam=cid, dt=1.0 / front_hz if front_hz > 0 else math.inf,
+                              t=-math.inf, pub=node.create_publisher(Image, "/front_cam/image_raw", 2),
+                              ipub=node.create_publisher(CameraInfo, "/front_cam/camera_info", LATCHED),
+                              info=self._info((fy, fy, w / 2, h / 2), (w, h), "front_cam_optical"))
+            self.front["ipub"].publish(self.front["info"])
         node.create_subscription(String, "/arm/camera_request", lambda m: self.pending.add(m.data), 10)
         self.dinfo = self._info(self.cams.Kd, self.cams.DEPTH_WH, self.dframe)
         self.winfo = self._info(self.cams.Kw, self.cams.WRIST_WH, "arm_wrist_cam_optical")
@@ -815,6 +837,12 @@ class ArmSide:
             self.pending.discard("color")
             self.t_color = t
             self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
+        f = self.front
+        if f is not None and t - f["t"] >= f["dt"] and f["pub"].get_subscription_count() > 0:
+            f["t"] = t
+            f["ren"].update_scene(self.core.d, camera=f["cam"])
+            f["pub"].publish(self._image(f["ren"].render(), "rgb8", "front_cam_optical", t))
+            f["ipub"].publish(f["info"])
         if t - self.t_obj >= 1.0:
             self.t_obj = t
             self.p_obj.publish(String(data=json.dumps(self.objects_state(t))))

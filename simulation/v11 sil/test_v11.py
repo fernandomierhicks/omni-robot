@@ -2025,6 +2025,42 @@ def test_the_bridge_builds_the_d435_arm_robot():
         model_params(CoreConfig(payload="arm", arm_camera="kinect"))
 
 
+def test_the_forward_imx662_is_on_the_nose_looking_up_and_in_the_frames():
+    """front_camera "imx662" (design.md 4.12, proposal; the bridge's front_cam:=imx662): a 58.4 deg camera at the CAD
+    fit's pupil, 20 deg up; robot_export.frames gives base_link -> front_cam -> front_cam_optical (z along the view)
+    for omni_perception's people node; the baseline ARM has none; bridge_core passes it through."""
+    from bridge_core import CoreConfig, model_params
+    from robot_export import arm_d435_params, frames
+    import imx662_cam
+    p = arm_d435_params(home_xy=(0.0, 0.0), front_camera="imx662")
+    m = build_model(p)
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    c = m.camera("imx662").id
+    b = m.body("base").id
+    Rb = d.xmat[b].reshape(3, 3)
+    pos = Rb.T @ (d.cam_xpos[c] - d.xpos[b])
+    view = Rb.T @ -d.cam_xmat[c].reshape(3, 3)[:, 2]
+    assert m.cam_fovy[c] == pytest.approx(58.4)
+    pupil = np.array(imx662_cam.Mount().pupil)
+    assert pos[:2] == pytest.approx(pupil[:2], abs=1e-6)
+    assert math.degrees(math.asin(view[2])) == pytest.approx(20.0 + math.degrees(math.asin(Rb[2, 0])), abs=0.3)
+    fr = {f["child"]: f for f in frames(m, d, p)}
+    assert fr["front_cam"]["parent"] == "base_link" and fr["front_cam_optical"]["parent"] == "front_cam"
+    assert fr["front_cam"]["xyz"] == pytest.approx(list(pos), abs=1e-6)
+    assert "front_cam" not in {f["child"] for f in frames(*_frames_of(arm_d435_params(home_xy=(0.0, 0.0))))}
+    assert model_params(CoreConfig(payload="arm", arm_camera="d435", front_cam="imx662")).front_camera == "imx662"
+    with pytest.raises(ValueError):
+        model_params(CoreConfig(payload="arm", arm_camera="d435", front_cam="webcam"))
+
+
+def _frames_of(p):
+    m = build_model(p)
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    return m, d, p
+
+
 def test_the_driver_runs_the_arm_through_the_servo_bus():
     """The robot's C++ arm driver (omni_cpp's ArmDriverCore, via sil_pick's library) over the STS3215s as their bus
     behaves (arm_bus): it reads the joints, its motion moves them, RELAX leaves the arm limp, a calibration error shows

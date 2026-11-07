@@ -44,7 +44,9 @@ find scene, ai_robot_architecture.md 5.2), n_objects (6),
 servo_port (5763: the arm's servo bus on localhost TCP), arm_camera (d435, the default and the arm robot's camera: the
 RealSense D435 on the deck's nose gives the tidy's depth and Nav2's depth layer, design.md 4.11 | stereo: the parked
 catch robot's pair, for reproducing earlier arm runs), depth_layer (raw: the default, RAW_LAYER | height: proposed,
-omni_arm's fused height map, its speed limits | floor: Nov 5's per-frame grid | off). robot (house steps): drawn (the interactive steps: the
+omni_arm's fused height map, its speed limits | floor: Nov 5's per-frame grid | off), front_cam (none | imx662: the
+proposed forward IMX662 on the nose, design.md 4.12, rendered by the bridge, and omni_perception's people node: people
+from the lidar and the camera on /people, which the console's Follow then uses). robot (house steps): drawn (the interactive steps: the
 robot as cad/v7 draws it, robot_export.drawn_params: the CAD's masses, its scan plane and lidar shadows; lidar_mask:=false
 drops the shadows) | v7 (the scored steps tour / auto_map / goals, as published). catch (robot step, true): the catch game in the house.
 terrain (false; house steps, design.md 16): a terrain course in the kitchen's east end (square steps, triangular bumps).
@@ -162,6 +164,8 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("depth_layer", default_value="raw"),
             # the sim's D435 depth errors (simulation/v11 sil/depth_noise.py): realistic (since Nov 5) | ideal (Nov 4's)
             DeclareLaunchArgument("d435_noise", default_value="realistic"),
+            # design.md 4.12 (proposal): none | imx662, the forward camera on the nose, and the people node with it
+            DeclareLaunchArgument("front_cam", default_value="none"),
             DeclareLaunchArgument("robot", default_value="v7" if kind in ("tour", "auto_map", "goals") else "drawn"),
             DeclareLaunchArgument("catch", default_value="true" if kind == "robot" else "false"),
             # the Launcher's live world (simulation/v11 sil/sim_world.py) in the robot and arm steps: clutter off |
@@ -324,7 +328,7 @@ def build(ctx, kind: str):
                                                    "thrower", "speed", "heading", "spin_rate", "route", "terrain", "props",
                                                    "nav_profile", "catch_sleep", "compose",
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
-                                                   "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise")}
+                                                   "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise", "front_cam")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     a["nav_profile"] = resolved_profile(a["nav_profile"], a["side"])
     if a["clock"] not in ("sim", "wall"):
@@ -350,8 +354,12 @@ def build(ctx, kind: str):
     d435 = arm and a["arm_camera"] == "d435"
     if a["depth_layer"] not in DEPTH_LAYERS:
         raise RuntimeError(f"depth_layer: {', '.join(DEPTH_LAYERS)}, not {a['depth_layer']!r}")
+    if a["front_cam"] not in ("none", "imx662"):
+        raise RuntimeError(f"front_cam: none or imx662, not {a['front_cam']!r}")
+    front = arm and a["front_cam"] == "imx662"
     arm_kw = dict(payload="arm", objects=a["objects"], n_objects=int(a["n_objects"]),
-                  servo_port=int(a["servo_port"]), arm_camera=a["arm_camera"]) if arm else {}
+                  servo_port=int(a["servo_port"]), arm_camera=a["arm_camera"],
+                  front_cam=a["front_cam"] if arm else "none") if arm else {}
     acts.append(Node(package=SIM, executable="bridge", name="mujoco_bridge", output="screen",
                      additional_env={"MUJOCO_GL": "egl"} if arm else None,       # the arm's cameras render in WSL
                      parameters=[{"mode": "tour" if tour else "cmd_vel", "seed": int(a["seed"]),
@@ -426,6 +434,11 @@ def build(ctx, kind: str):
     if prep:
         glue_node("scan_prep", "omni::ScanPrep",
                   {"floor": on("floor_filter"), "deskew": on("deskew"), **sim_t})
+    if front:
+        # design.md 4.12: people from the lidar and the forward camera (/people; the console's Follow uses it)
+        acts.append(Node(package="omni_perception", executable="people", name="people", output="screen",
+                         parameters=[robot_params(), {"image_topic": "/front_cam/image_raw", "scan_topic": scan,
+                                                      **sim_t}]))
 
     def slam_yaml(name, extra=""):
         src = open(cfg(name)).read().replace("    max_laser_range: 12.0", f"    max_laser_range: {float(a['slam_range'])}")

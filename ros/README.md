@@ -25,7 +25,9 @@ ros/
 │   │                        robot_frames (the frame tree, calibrated within bounds), frame_check (REP-105) → robot
 │   ├── omni_perception/   ← scan_prep: drop the A2M12's floor returns, de-skew scans (scan_time.py: sample
 │   │                        times, ScanClock); camera_time.py: frames stamped from the MCU's trigger;
-│   │                        image_preview: a small, slow JPEG copy of a camera for the console            → robot
+│   │                        image_preview: a small, slow JPEG copy of a camera for the console; people:
+│   │                        people from the lidar + the forward camera (people_vision.py: YOLOX on onnxruntime,
+│   │                        fusion, tracks; front_cam:=imx662; models: tools/fetch_models.py) on /people   → robot
 │   ├── omni_mcu/          ← mcu_link + protocol.py (no ROS): the MCU link, odometry, IMU; clock_sync.py: the
 │   │                        MCU clock map from the SYNC_OUT pulses (gpio_edges.py) or the echo         → robot
 │   ├── omni_cpp/          ← the robot's always-on nodes in C++ (the only implementation since Nov 7): mcu_link

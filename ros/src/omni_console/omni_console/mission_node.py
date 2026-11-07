@@ -94,6 +94,7 @@ from omni_console.explore import Grid
 from omni_console.health import Health
 from omni_console.missions import NEW_MAP, VERSION, Console, load_json, save_json
 from omni_console.people import detect as detect_people
+from omni_console.people import from_tracks
 from omni_console.slam import localization_params, pose_record, resume_pose, saved_maps, write_map_image
 from omni_console.tflite import TfLite
 from omni_console.throws import ThrowLog, kmh
@@ -475,6 +476,10 @@ class MissionNode(Node):
         self.create_subscription(String, "/console/heartbeat", self.on_heartbeat, 10)
         self.arm_brain, self.t_arm_brain, self.arm_hw, self.t_arm_hw = {}, -math.inf, {}, -math.inf
         self.create_subscription(String, "/arm/state", lm.wrap("arm", self.on_arm_state), 5)       # omni_arm: the task
+        # omni_perception's people node (front_cam:=imx662, design.md 4.12): the lidar and the camera together; kept as
+        # it comes, decoded only while Follow runs
+        self.people_msg, self.people_t = None, -math.inf
+        self.create_subscription(String, "/people", self.on_people_tracks, 5)
         self.create_subscription(ArmHardware, "/arm/hw", lm.wrap("arm_hw", self.on_arm_hw), 5)     # arm_driver: the servos
 
         self.create_service(ConsoleCommand, "/console/command", lm.wrap("command", self.on_command))
@@ -692,9 +697,20 @@ class MissionNode(Node):
         if self.core.mission == "MANUAL":
             self.drive_tick()
 
+    def on_people_tracks(self, m: String):
+        self.people_msg, self.people_t = m.data, time.monotonic()
+
     def on_scan_raw(self, raw: bytes):
         """The newest lidar scan while Follow runs: people in the base frame (people.py), furniture on the map left
-        out."""
+        out. When omni_perception's people node runs (the camera too), its tracks instead: camera-confirmed people
+        first, never what the camera has looked at and called furniture."""
+        if self.people_msg is not None and time.monotonic() - self.people_t < 0.5:
+            try:
+                tracks = json.loads(self.people_msg).get("people", [])
+                self.core.on_people(from_tracks(tracks), time.monotonic())
+                return
+            except (ValueError, KeyError, TypeError):
+                pass                                  # a malformed message: the lidar alone
         try:
             t, frame, a0, inc, rmin, rmax, ranges = parse_laser_scan(raw)
         except Exception:                             # a malformed message

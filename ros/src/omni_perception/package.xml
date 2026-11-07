@@ -5,7 +5,8 @@
   <version>0.10.0</version>
   <description>omni-robot (design.md 28): sensor processing that runs on the robot. scan_prep: drops the A2M12's floor
     returns (bench-calibrated plane tilt + IMU attitude) and de-skews scans with the EKF's odometry. image_preview: a
-    small, slow JPEG copy of a camera for the operator console.</description>
+    small, slow JPEG copy of a camera for the operator console. people: people from the lidar and the forward colour
+    camera (a YOLOX person detector on onnxruntime), tracked.</description>
   <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
   <license>Proprietary</license>
 
@@ -16,6 +17,9 @@
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>python3-numpy</exec_depend>
   <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>omni_console</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>

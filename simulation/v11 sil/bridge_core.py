@@ -84,6 +84,9 @@ class CoreConfig:
     # the arm robot's depth camera (design.md 4.11): "stereo" (the head's pair, robot_export.ARM) or "d435" (the RealSense
     # D435 on the arm riser's front, robot_export.ARM_D435: the tidy's looks and Nav2's near-field depth)
     arm_camera: str = "stereo"
+    # design.md 4.12 (proposal): the forward IMX662 on the arm robot's nose ("imx662"; the bridge renders it on
+    # /front_cam/image_raw for omni_perception's people node) or none
+    front_cam: str = "none"
     # the Launcher's live world (sim_world.World): the person, the clutter ("off", "toys", "all" = toys and larger
     # obstacles) and the house's thrower switched on and off while the sim runs
     live_world: bool = False
@@ -129,11 +132,13 @@ def arm_kw(c: CoreConfig) -> dict:
     from robot_export import arm_robot
     if c.arm_camera not in ("stereo", "d435"):
         raise ValueError(f"arm_camera {c.arm_camera!r}: 'stereo' or 'd435'")
-    return dict(arm_robot(c.arm_camera), floor_objects=toy_objects(c))
+    if c.front_cam not in ("none", "imx662"):
+        raise ValueError(f"front_cam {c.front_cam!r}: 'none' or 'imx662'")
+    return dict(arm_robot(c.arm_camera), floor_objects=toy_objects(c), front_camera=c.front_cam)
 
 
 MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world",
-                "terrain", "arm_camera", "props")
+                "terrain", "arm_camera", "props", "front_cam")
 
 
 def model_params(c: CoreConfig):

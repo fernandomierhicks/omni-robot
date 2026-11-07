@@ -442,6 +442,13 @@ def frames(m, d, p) -> list:
         add("d435_link", "d435_color_optical_frame", R_body.T @ Rb.T @ (d.cam_xpos[cc] - d.cam_xpos[cid]),
             BODY_TO_OPTICAL, "its colour image's optical frame (the RGB imager, 15 mm left of the depth origin): "
                              "the wall tags' camera")
+    if getattr(p, "front_camera", "none") == "imx662":
+        cid = m.camera("imx662").id
+        R_body = Rb.T @ d.cam_xmat[cid].reshape(3, 3) @ MJCAM_TO_OPTICAL @ BODY_TO_OPTICAL.T
+        add("base_link", "front_cam", Rb.T @ (d.cam_xpos[cid] - pb), R_body,
+            "forward IMX662 (design.md 4.12, proposal): its entrance pupil, x along the view (20 deg up)")
+        add("front_cam", "front_cam_optical", (0.0, 0.0, 0.0), BODY_TO_OPTICAL,
+            "its image's optical frame (z forward, x right, y down): people, tags")
     jid = m.joint("tilt").id if any(m.joint(i).name == "tilt" for i in range(m.njnt)) else None
     if jid is not None:
         add("base_link", "module_pivot", Rb.T @ (d.xanchor[jid] - pb), np.eye(3),

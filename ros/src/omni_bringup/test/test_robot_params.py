@@ -30,6 +30,7 @@ NODES = {
     "tag_detector": SRC / "omni_slam" / "omni_slam" / "tag_detector.py",
     "omni_face": SRC / "omni_face" / "omni_face" / "face_node.py",
     "image_preview": SRC / "omni_perception" / "omni_perception" / "image_preview.py",
+    "people": SRC / "omni_perception" / "omni_perception" / "people_node.py",
 }
 NUM = r"(-?[0-9.eE+-]+|[A-Z_]+|c\.[a-z_]+)"
 

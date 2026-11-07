@@ -10,6 +10,13 @@
 
 -How can we give claude full control of robot? talking and understanding speech ( highes level commander, "go to kitchen and pickp up the red ball") ai_architecutre.md
 
+GIT:
+- Branch maintenance. Work has been landing on side branches that never merged: workspace-snapshot-2026-11-04 (Nov 6:
+  the riser D435 baseline, the IMX662 study) was merged into claude/cloud-environment-limits-6ch3vr on Nov 7, but main
+  is still at the Nov 5 snapshot (a68966c) and is missing everything since. Merge the current branch into main, delete
+  merged branches (local and origin), and from then on start each session from main and merge back when done, so no
+  design.md baseline lives only on a side branch.
+
 CAD:
 - Add bumper switches (front and rear) to the CAD. Wire them normally closed (a broken wire reads as pressed), then set
   HAS_BUMPERS = true for the arm robot in the firmware params (robot_export.py) and add a bumper latch: after a hit the
