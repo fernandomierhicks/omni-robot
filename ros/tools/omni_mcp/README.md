@@ -15,7 +15,7 @@ below.
 
 ```powershell
 C:\Users\ferna\.venvs\omni-robot-sim\Scripts\python.exe -m venv C:\Users\ferna\.venvs\omni-mcp
-C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pip install mcp websockets pillow pytest numpy
+C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pip install -r ros\tools\omni_mcp\requirements.txt
 ```
 
 Use this venv only. Don't install into PlatformIO's Python, and leave the sim venv unchanged. The server itself needs

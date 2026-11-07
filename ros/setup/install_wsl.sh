@@ -50,6 +50,8 @@ mkdir -p "$(dirname "$VENV")"
 [ -d "$VENV" ] || python3 -m venv --system-site-packages "$VENV"
 "$VENV/bin/pip" install -q --upgrade pip
 "$VENV/bin/pip" install -q "mujoco==${MUJOCO_VERSION}" scipy pillow pytest websockets
+# the robot nodes' pip-only packages (voice, camera server): ros/requirements-robot.txt
+"$VENV/bin/pip" install -q -r "$(dirname "$0")/../requirements-robot.txt"
 set +u; source /opt/ros/jazzy/setup.bash; set -u
 "$VENV/bin/python" -c "import mujoco, numpy, scipy, rclpy; print('mujoco', mujoco.__version__, 'numpy', numpy.__version__, 'rclpy ok')"
 

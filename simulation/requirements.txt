@@ -1,4 +1,7 @@
-mujoco>=3.3
+# The simulator's venv: C:\Users\ferna\.venvs\omni-robot-sim (AGENTS.md)
+#   python -m pip install -r simulation/requirements.txt
+# Other pins: record with pip freeze in the working venv.
+mujoco==3.16.0      # the same physics in the Windows venv and WSL's (ros/setup/install_wsl.sh)
 numpy
 scipy
 matplotlib
@@ -8,3 +11,4 @@ pillow
 imageio
 imageio-ffmpeg
 pygame>=2.6        # v7 house.py: keyboard / gamepad driving
+ziglang            # Windows: builds the firmware SIL library without Visual Studio (firmware/sil/build_sil.py)

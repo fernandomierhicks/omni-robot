@@ -3,19 +3,12 @@
 <package format="3">
   <name>omni_mcu</name>
   <version>0.11.0</version>
-  <description>omni-robot (design.md 30): the Jetson's end of the MCU link. protocol.py (COBS + CRC frames, CMD / STATE /
-    IMU, time sync; no ROS) mirrors firmware/lib/omni_fw/protocol.h; mcu_link publishes the MCU's odometry, IMU and
-    state and sends the mode manager's commands at 100 Hz (USB serial on the robot, TCP to the sim's SIL firmware).</description>
+  <description>omni-robot (design.md 30): the MCU link's Python side, no ROS: protocol.py (COBS + CRC frames, CMD / STATE /
+    IMU, time sync) mirrors firmware/lib/omni_fw/protocol.h, and clock_sync.py; the sim and the console use them. The
+    robot's mcu_link node is omni_cpp's (C++).</description>
   <maintainer email="fernandomierhicks@gmail.com">Fernando</maintainer>
   <license>Proprietary</license>
-
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>omni_interfaces</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>

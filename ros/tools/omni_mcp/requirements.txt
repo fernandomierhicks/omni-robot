@@ -1,0 +1,8 @@
+# The AI control server (omni_mcp/README.md): its own venv, C:\Users\ferna\.venvs\omni-mcp
+#   C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pip install -r ros\tools\omni_mcp\requirements.txt
+# Unpinned until recorded: pip freeze in the working venv, then replace these with == pins.
+mcp
+websockets
+pillow
+numpy
+pytest

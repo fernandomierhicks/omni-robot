@@ -1,0 +1,22 @@
+# Python packages the robot's ROS nodes import that rosdep / apt do not provide (package.xml declares the rest).
+# Install into the robot computer's venv, which sees ROS's system packages:
+#   python3 -m venv --system-site-packages ~/.venvs/omni-ros
+#   ~/.venvs/omni-ros/bin/pip install -r ros/requirements-robot.txt
+# Pins: the versions known to work are marked ==; the rest are unpinned until someone records them with
+#   ~/.venvs/omni-ros/bin/pip freeze  (on a machine where the stack works) and replaces >= with ==.
+
+# omni_face: voice (Kokoro TTS), offline speech recognition, audio I/O
+kokoro-onnx
+vosk
+sounddevice
+
+# omni_console camera_snap.py (the Cameras tab's server on the robot computer): JPEG encoding, AprilTags
+simplejpeg
+pupil-apriltags
+# the D435 (x86_64 wheels on PyPI; on a Pi it is built from source: characterization/realsense/README.md)
+pyrealsense2>=2.56; platform_machine == "x86_64"
+
+# On a Raspberry Pi only, from apt rather than pip: python3-picamera2 (Arducam), python3-libgpiod (SYNC_OUT pulse).
+
+# the sim's bridge in WSL (omni_sim): the same physics as the Windows sim venv (simulation/requirements.txt)
+mujoco==3.16.0
