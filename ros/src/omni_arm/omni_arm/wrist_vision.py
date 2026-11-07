@@ -224,3 +224,144 @@ def refine(frame: WristFrame, guess: Detection, min_contrast: float = 8.0, debug
         return None
     return Detection(float(ctr[0]), float(ctr[1]), guess.top, max(L, Wd), min(L, Wd),
                      float(math.atan2(ax[1], ax[0])) if L >= Wd else float(math.atan2(perp[1], perp[0])), int(sel.sum()))
+
+
+@dataclass
+class HeldBlock:
+    """Where a held block sits in the gripper, in the tool frame (x along the fingers, z toward the moving jaw, y
+    across the pads): its centre's z and y, its turn about x (skew: rad, + from z toward y), and its top face's x."""
+    zc: float
+    yc: float
+    skew: float
+    n: int
+    top_x: float = 0.0
+
+
+def _ray_box(o: np.ndarray, d: np.ndarray, lo, hi) -> np.ndarray:
+    """Which rays (origin o, directions d: N x 3) pass through the axis-aligned box lo-hi in front of their origin."""
+    with np.errstate(divide="ignore", invalid="ignore"):
+        t1, t2 = (np.asarray(lo) - o) / d, (np.asarray(hi) - o) / d
+    tn = np.nanmax(np.minimum(t1, t2), axis=1)
+    tf = np.nanmin(np.maximum(t1, t2), axis=1)
+    return (tn <= tf) & (tf > 0)
+
+
+def held(frame: WristFrame, T_base_tool: np.ndarray, side: float, gap: float, top_x: float,
+         min_contrast: float = 8.0, debug: dict | None = None) -> HeldBlock | None:
+    """The block the gripper holds, seen from its own wrist camera (the arm still, the block lifted clear of the floor).
+
+    The camera rides on the gripper, so what this measures doesn't depend on the joints' calibration. It sits beside the
+    fingers (tool +y), just above the block's top face (about 1 cm for a 40 mm cube): it sees the block's near side and
+    hardly its top, with the floor behind. Expected: the block (side x side, its top face at tool x = top_x) between the
+    fixed finger's face (z = 0) and the jaw (z = gap). Its pixels are those whose colour differs from the floor round it
+    (as refine). Back onto the plane of its bottom face, every ray that hit it lands in its bottom face or beyond it,
+    away from the camera: the edge nearest the camera there (tool +y) is the bottom face's own. A line through that edge
+    across the middle of the jaw's span (the fingers hide its ends) gives the skew and, with the side known, the centre
+    across the pads, for each height it may sit at in the fingers (from top_x, 6 mm up to 4 mm down): the one whose
+    block's silhouette best overlaps the pixels is taken; along the closing line the centre is half the side from the fixed finger (pressed against it; the
+    jaw's gap reads wider than the block by the pads' give). None: no floor round it to compare, the block the floor's
+    colour, or no clean edge. VERIFY on the robot: the real wrist camera (640 x 480, 60 deg), a block of each colour."""
+    img = _chroma(frame.rgb.astype(np.float32))
+    H, W = img.shape[:2]
+    T_cam = np.linalg.inv(T_base_tool) @ frame.T_base_cam               # the optical frame in the tool frame
+    own = frame.mask if frame.mask is not None else np.zeros((H, W), bool)
+    fx, fy, cx, cy = frame.K
+    vv, uu = np.mgrid[0:H, 0:W]
+    rays = np.stack([(uu - cx) / fx, (vv - cy) / fy, np.ones((H, W))], axis=-1).reshape(-1, 3) @ T_cam[:3, :3].T
+    o = T_cam[:3, 3]
+    # where the block should be: each pixel's ray through its box between the fingers (a little grown: it may sit off
+    # centre or turned), and the floor: the rays that miss a box grown well beyond it
+    lo, hi = np.array([top_x, -0.5 * side, 0.0]), np.array([top_x + side, 0.5 * side, gap])
+
+    def through(m):
+        return _ray_box(o, rays, lo - m, hi + m).reshape(H, W)
+    inner, near = through(np.zeros(3)), through(np.array([0.005, 0.012, 0.005]))
+    ring = ~through(np.array([0.02, 0.03, 0.02])) & ~own
+    if ring.sum() < 500 or inner.sum() < 150:
+        return None
+    floor = img[ring]
+    med = np.median(floor, axis=0)
+    spread = np.median(np.abs(floor - med), axis=0) * 1.4826 + 1.0
+    dc = np.abs(img[..., :2] - med[:2])
+    chroma = (np.max(dc / spread[:2], axis=2) > 4.0) & (np.max(dc, axis=2) > min_contrast)
+    brighter = (img[..., 2] - med[2]) > max(4.0 * spread[2], 25.0)
+    mask = _open((chroma | brighter) & near & ~own, 1)
+    lab, n = _label(mask)
+    if n == 0:
+        return None
+    k = max(range(1, n + 1), key=lambda j: int((inner & (lab == j)).sum()))
+    sel = lab == k
+    if sel.sum() < 150:
+        return None
+    r_sel = rays[sel.ravel()]
+    span = min(gap, side)
+    region = (near | sel) & ~own
+
+    def fit(tx):
+        """The near edge on the bottom face's plane for the top face at tool x = tx: (yc, skew, edges) or None."""
+        s_ = (tx + side - o[0]) / r_sel[:, 0]
+        P = o + r_sel * s_[:, None]                                    # on the bottom face's plane (tool frame)
+        zs, ys = P[s_ > 0, 2], P[s_ > 0, 1]
+        edges = []                                     # the highest y in each slice across the middle of the block
+        for z0 in np.linspace(0.15 * span, 0.85 * span, 15):
+            m = np.abs(zs - z0) < 0.025 * span
+            if m.sum() >= 4:
+                edges.append((z0, float(np.percentile(ys[m], 99))))
+        if len(edges) < 6:
+            return None
+        E = np.array(edges)
+        for _ in range(6):                # a line; the slices a finger cuts into (they fall short) out, one at a time
+            kk, b0 = np.polyfit(E[:, 0], E[:, 1], 1)
+            res = E[:, 1] - (kk * E[:, 0] + b0)
+            if len(E) <= 6 or np.abs(res).max() < 0.0005:
+                break
+            E = np.delete(E, int(np.argmax(np.abs(res))), axis=0)
+        kk, b0 = np.polyfit(E[:, 0], E[:, 1], 1)
+        sk = math.atan(kk)
+        if abs(sk) > math.radians(30) or np.abs(E[:, 1] - (kk * E[:, 0] + b0)).max() > 0.004:
+            return None
+        return b0 + kk * span / 2 - 0.5 * side / math.cos(sk), sk, E
+
+    def z_of(sk):
+        """Its centre along the closing line: pressed against the fixed finger (z = 0), a corner first when turned."""
+        return 0.5 * side * (math.cos(sk) + abs(math.sin(sk)))
+
+    def overlap(tx, yc, sk):
+        """How well a block there explains the pixels: intersection over union of its silhouette with them."""
+        c, s_ = math.cos(sk), math.sin(sk)
+        R = np.array([[1, 0, 0], [0, c, s_], [0, -s_, c]])            # its axes in the tool frame (z turned to y)
+        ctr = np.array([tx + side / 2, yc, z_of(sk)])
+        pred = _ray_box((o - ctr) @ R, rays @ R, -0.5 * side * np.ones(3), 0.5 * side * np.ones(3)).reshape(H, W)
+        a, b = pred & region, sel & region
+        return (a & b).sum() / max(1, (a | b).sum())
+
+    # how high it sits in the fingers: gripping can push it up a few mm (2.5 in the sim): each height's edge, the one
+    # whose block best explains the pixels
+    # whose block best explains the pixels. The edge is fitted once, at top_x: on another plane parallel to it, the
+    # camera's rays put the same edge at the same slope, its points scaled from the camera's foot
+    f = fit(top_x)
+    if f is None:
+        return None
+    E0 = f[2]
+    h0 = top_x + side - o[0]
+    def candidate(tx, dsk=0.0):
+        """The block whose near edge is the one seen, its top face at tx, turned dsk more than the edge's slope says
+        (the slope is the least sure: 1 deg is a third of a pixel over the edge): (score, tx, yc, skew, edge)."""
+        k = (tx + side - o[0]) / h0
+        E = np.column_stack([o[2] + (E0[:, 0] - o[2]) * k, o[1] + (E0[:, 1] - o[1]) * k])
+        kk, b0 = np.polyfit(E[:, 0], E[:, 1], 1)
+        sk = math.atan(kk) + dsk
+        yc_ = b0 + kk * z_of(sk) - 0.5 * side / math.cos(sk)           # through the edge's middle
+        return overlap(tx, yc_, sk), tx, yc_, sk, E
+
+    best = max((candidate(tx) for tx in top_x + np.arange(-0.006, 0.00405, 0.0005)), key=lambda c: c[0])
+    best = max([best] + [candidate(best[1] + dt, math.radians(dd)) for dt in (-0.0005, 0.0, 0.0005)
+                         for dd in (-3, -2, -1, 1, 2, 3)], key=lambda c: c[0])
+    if best[0] < 0.6:
+        return None
+    score, tx, yc, skew, E = best
+    if abs(yc) > side:                                                 # half off the pads: not what it measured
+        return None
+    if debug is not None:
+        debug.update(mask=sel, edges=E, iou=score)
+    return HeldBlock(float(z_of(skew)), float(yc), float(skew), int(sel.sum()), float(tx))

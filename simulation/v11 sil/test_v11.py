@@ -2496,8 +2496,10 @@ def test_the_arm_robot_runs_the_firmware_built_for_its_wheels():
     assert robot_export.firmware_variant(robot_export.arm_params()) == "arm"
     assert robot_export.firmware_variant(robot_export.v11_params()) == ""
     assert robot_export.firmware_variant(robot_export.arm_d435_params()) == "arm"
-    assert FW.param("MAX_WHEEL_SPEED", "arm") == pytest.approx(
-        robot_export.arm_params().wheel_speed_frac * robot_export.arm_params().motor.noload_rpm * 2 * math.pi / 60, rel=1e-5)
+    # the AK40-10's own 60000 ERPM limit, under wheel_speed_frac of its no-load speed
+    assert FW.param("MAX_WHEEL_SPEED", "arm") == pytest.approx(robot_export.wheel_speed_max(robot_export.arm_params()),
+                                                               rel=1e-5)
+    assert robot_export.wheel_speed_max(robot_export.arm_params()) == pytest.approx(60000 / 140 * 2 * math.pi / 60)
     assert FW.param("MAX_WHEEL_SPEED") != FW.param("MAX_WHEEL_SPEED", "arm")
     p, m, d, r = make(robot_export.arm_params(home_xy=(0.0, 0.0)))
     from sil_robot import SilRobot

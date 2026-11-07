@@ -1,0 +1,299 @@
+{
+ "runs": [
+  {
+   "case": "tower",
+   "seed": 0,
+   "blocks": 3,
+   "stacked": 3,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    7.2,
+    15.5
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 74.1,
+   "ok": true,
+   "blocks_odom": [
+    [
+     0.436,
+     0.272,
+     0.1
+    ],
+    [
+     0.433,
+     0.287,
+     0.06
+    ],
+    [
+     0.439,
+     0.282,
+     0.02
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 1 at (0.44, 0.28) is its base",
+    "to put object 2 down at (0.44, 0.28) on the tower (1 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 2 high (top 81 mm)",
+    "to put object 3 down at (0.44, 0.28) on the tower (2 high)",
+    "in 10 cm to the tower (top 80 mm)",
+    "tower: 3 high (top 121 mm)",
+    "tower: 3 blocks high"
+   ]
+  },
+  {
+   "case": "tower",
+   "seed": 1,
+   "blocks": 3,
+   "stacked": 3,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    8.3,
+    16.9
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 81.1,
+   "ok": true,
+   "blocks_odom": [
+    [
+     0.492,
+     0.132,
+     0.02
+    ],
+    [
+     0.485,
+     0.135,
+     0.06
+    ],
+    [
+     0.501,
+     0.13,
+     0.1
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 1 at (0.48, 0.13) is its base",
+    "to put object 2 down at (0.48, 0.13) on the tower (1 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 2 high (top 80 mm)",
+    "to put object 3 down at (0.49, 0.13) on the tower (2 high)",
+    "in 10 cm to the tower (top 80 mm)",
+    "tower: 3 high (top 120 mm)",
+    "tower: 3 blocks high"
+   ]
+  },
+  {
+   "case": "tower",
+   "seed": 2,
+   "blocks": 3,
+   "stacked": 3,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    5.0,
+    5.9
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 80.2,
+   "ok": true,
+   "blocks_odom": [
+    [
+     0.992,
+     -0.294,
+     0.02
+    ],
+    [
+     1.003,
+     -0.291,
+     0.1
+    ],
+    [
+     0.997,
+     -0.292,
+     0.06
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 3 at (0.98, -0.29) is its base",
+    "to put object 2 down at (0.98, -0.29) on the tower (1 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 2 high (top 80 mm)",
+    "to put object 1 down at (1.00, -0.30) on the tower (2 high)",
+    "in 10 cm to the tower (top 80 mm)",
+    "tower: 3 high (top 120 mm)",
+    "tower: 3 blocks high"
+   ]
+  },
+  {
+   "case": "tower",
+   "seed": 3,
+   "blocks": 3,
+   "stacked": 3,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    7.1,
+    13.6
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 73.8,
+   "ok": true,
+   "blocks_odom": [
+    [
+     0.671,
+     -0.35,
+     0.06
+    ],
+    [
+     0.678,
+     -0.339,
+     0.1
+    ],
+    [
+     0.678,
+     -0.35,
+     0.02
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 1 at (0.67, -0.34) is its base",
+    "to put object 2 down at (0.67, -0.34) on the tower (1 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 2 high (top 81 mm)",
+    "to put object 3 down at (0.68, -0.35) on the tower (2 high)",
+    "in 10 cm to the tower (top 80 mm)",
+    "tower: 3 high (top 121 mm)",
+    "tower: 3 blocks high"
+   ]
+  },
+  {
+   "case": "tower",
+   "seed": 4,
+   "blocks": 3,
+   "stacked": 2,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    3.4
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 78.5,
+   "ok": false,
+   "blocks_odom": [
+    [
+     1.366,
+     -0.338,
+     0.02
+    ],
+    [
+     1.276,
+     -0.346,
+     0.06
+    ],
+    [
+     1.275,
+     -0.343,
+     0.02
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 1 at (1.22, -0.32) is its base",
+    "to put object 2 down at (1.22, -0.32) on the tower (1 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 2 high (top 81 mm)",
+    "to put object 3 down at (1.23, -0.33) on the tower (2 high)",
+    "in 10 cm to the tower (top 40 mm)",
+    "tower: 3 high (top 81 mm)",
+    "tower: 3 blocks high"
+   ]
+  },
+  {
+   "case": "tower",
+   "seed": 5,
+   "blocks": 3,
+   "stacked": 3,
+   "task_n": 3,
+   "outcome": "tower done",
+   "reason": "tower done",
+   "offsets_mm": [
+    10.6,
+    15.9
+   ],
+   "upright": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "in_bin": 0,
+   "t": 71.8,
+   "ok": true,
+   "blocks_odom": [
+    [
+     0.709,
+     0.504,
+     0.02
+    ],
+    [
+     0.694,
+     0.507,
+     0.1
+    ],
+    [
+     0.704,
+     0.495,
+     0.06
+    ]
+   ],
+   "events": [
+    "start: arm to stow",
+    "tower: object 1 at (0.70, 0.50) is its base",
+    "to put object 3 down at (0.70, 0.50) on the tower (1 high)",
+    "in 10 cm to the tower (top 41 mm)",
+    "tower: 2 high (top 81 mm)",
+    "to put object 2 down at (0.70, 0.51) on the tower (2 high)",
+    "in 10 cm to the tower (top 80 mm)",
+    "tower: 3 high (top 121 mm)",
+    "tower: 3 blocks high"
+   ]
+  }
+ ],
+ "ok": 5,
+ "n": 6
+}

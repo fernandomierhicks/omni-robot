@@ -9,7 +9,8 @@ on the servo bus, the mode mux, the C++ firmware), the D435 on the riser.
 
   python studies/arm_carry.py                     both, seeds 0-1 (MUJOCO_GL=osmesa without a display)
   python studies/arm_carry.py --case tower --seeds 3 --blocks 3
-Writes results/<out>.json (--out; arm_carry by default): the Nov 7 runs are arm_carry_fetch.json and arm_carry_tower.json.
+Writes results/<out>.json (--out; arm_carry by default): the Nov 7 runs are arm_carry_fetch.json and arm_carry_tower.json;
+with the wrist camera's held-block measurement (HELD_LOOK), arm_carry_tower_held.json and arm_carry_fetch_held.json.
 """
 
 from __future__ import annotations

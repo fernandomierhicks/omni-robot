@@ -13,7 +13,7 @@ The arm robot is the v7 base with an SO-101 on a low nose bracket where the catc
 | `coverage.py` | Where the tidy has looked: its region (a circle round the start) on 5 cm cells, checked where a look saw the floor within 1.2 m of the camera, blocked by anything over 3 cm (toys too: the base doesn't push them); the next look from the reachable spot that checks the most unchecked floor in sight per second, the path only through floor seen free with the bumper 5 cm clear |
 | `height_map.py`, `height_map_node.py` | What the D435 adds to the lidar for Nav2 (`depth_layer:=height`, proposed; design.md 4.5): a 2.5D height map fused over the frames on the map's cells. Classes floor, step (rug, sill: drivable), low (slowed for), obstacle (3 cm to the robot's top, incl. overhangs), drop (stairs; its shadow too), unknown. Obstacles and drops go to Nav2's StaticLayer; `/speed_limit` slows the robot by how sure it is of the way ahead (unknown floor, a low thing, a silent camera), merged with the console's floor-edge zones. A catalog of small things with colour crops for an AI to name (`omni_mcp` `robot_floor_unknowns` / `robot_floor_label`) |
 | `floor_obstacles.py`, `floor_obstacles_node.py` | Nav2's view of the floor (design.md 4.5): each D435 frame measured against the floor it sees (floor_vision), things 8 mm and up within 1.5 m (marked after 2 sightings) and anything over 25 mm, kept on the map's cells until the camera plainly sees floor there; `/floor_obstacles/grid` for the costmaps' StaticLayer (`depth_layer:=floor`, proposed, not the default: false marks where the floor's level steps still block goals in the sim). Skips frames while the arm is out, forgets a picked thing's spot, clears under the robot. ~60 ms a frame on the PC (Python, 5 Hz) |
-| `wrist_vision.py` | The last look before a grasp: the gripper's own pixels masked, the object segmented by colour against the floor around it, back onto the mid-height plane |
+| `wrist_vision.py` | The last look before a grasp: the gripper's own pixels masked, the object segmented by colour against the floor around it, back onto the mid-height plane. `held`: where a lifted block sits in the fingers (offset across the pads, skew, how far it rode up), from its near bottom edge on the bottom face's plane and the height whose silhouette fits best |
 | `pick.py` | `TidyTask`: look, approach, close look, hover, wrist look, descend, close, lift, drop; retries after a fresh look. Nothing left in view: a look round while its ring has floor still to check, then GO to the next look (`coverage.py`); done (`region covered`) only when no reachable look checks more, with the share checked and the floor hidden or out of reach in `status().coverage`. The base drives itself on odometry between looks (not Nav2) and sees obstacles only with the depth camera. With the D435 on the riser (30° down, design.md 4.11) the close look is taken `reach.look_back` (10 cm) short of the sweet spot and the base creeps in (CREEP). With `only` it picks one object an AI's find chose, ending `picked`, `failed`, `lost`, `too_big` or `not_found`, and reports its stages (attempted, grasped, released). `keep` carries the object (CARRY, ends `held`) instead of the bin; `start_place` puts the held object down at a floor point or ahead (P_APPROACH, P_CHECK, P_HOVER, P_DESCEND, P_OPEN, P_RISE; ends `placed`); `tower` stacks blocks: the first block found is the base, each other one is put on top after a depth look at the tower, and the base keeps `tower_keep` from the tower while it drives (the console's Fetch and Block tower). Stopped while holding, the object goes in the bin |
 | `ball_track.py`, `ball_track_node.py` | The console's Goalie: a play ball from the D435's colour registered to its depth (colour pixels, their points within the ball's radius of their median, as wide as a ball and touching the floor), a constant-velocity Kalman filter in odom; `/goalie/ball` (JSON) while `/goalie/enable` is true, asleep (no camera subscription) otherwise. Thresholds est, VERIFY with a real ball |
 | `color_vision.py` | The AI's `find` (ai_robot_architecture.md 5.2): floor_vision's candidates labelled with colour from a registered colour image, and with shape (square, round, long, or a guess when far). Also image-only blobs and an annotated image. `Finder` runs one find at a time for `arm_brain` |
@@ -66,15 +66,22 @@ the find's floor map, so the ids agree.
 **Carry, put down, stack and the Goalie's ball (implemented, simulated Nov 7; no hardware).** `/arm/request` `tidy
 {keep: true, only: id}` picks and keeps (Fetch), `place {ahead | x, y, z}` puts it down, `tidy {tower: true,
 max_blocks}` builds a tower. In the MuJoCo pick harness with the robot's C++ arm driver and firmware
-(`simulation/v11 sil/studies/arm_carry.py`): a kept 40 mm cube put down ahead landed upright, 11.6 mm from the spot
-on 3/3 seeds, about 12 mm from the spot; a 3-cube tower stood 3 high on 1 of 3 seeds and 2 high on the others (design.md 3).
+(`simulation/v11 sil/studies/arm_carry.py`): a kept 40 mm cube put down ahead landed upright 1-5 mm from the spot on
+3/3 seeds; a 3-cube tower stood 3 high on 5 of 6 seeds (design.md 3).
 What the sim taught the tower (each a fix in `pick.py`): the base keeps `tower_keep` from the tower (it knocked it
 over driving past); after letting go the fixed finger slides off the block before rising (straight up dragged it off);
 the block is carried "high" while building (at "ready" it hid the tower's top from the depth look, which read 43 mm
 for 80 mm); a block is closed across its faces (`wrist_vision.square_axis`: a square's pixel covariance has no axis),
-and put down and gripped again once when held askew (the jaws wider than its height). The held object's offset in the
-gripper is the model's (half its width from the fixed finger), not measured: stacked blocks sit 5-21 mm off, and a
-block still held askew can slide off the top. Results by seed: design.md 3. `ball_track_node` follows
+and put down and gripped again once when held askew. **Where the block sits in the gripper is measured** (HELD_LOOK,
+Nov 7): after the lift the wrist camera, which rides on the gripper, sees the block's near side; `wrist_vision.held`
+gives its offset across the pads, its skew and how far it rode up the fingers, and the put-down uses them. In the
+sim the cubes sat 0-6 mm off centre and rode 2.5 mm up; the measurement read within about 1 mm (synthetic images:
+1 mm, 2.3 deg, 1.5 mm). The jaw's gap reads a 40 mm cube as 45.7 mm, so its centre is taken as half the block's side
+from the fixed finger, and regrips follow the measured skew (unseen: the gap, `regrip_gap` 9 mm): the old 4 mm gap
+rule had regripped every block. Tower, 6 seeds: 5 stood 3 high (was 4), layers 3-17 mm off (was 4-22), 72-81 s
+(was 119-139 s); the miss read the tower's top at 40 mm for 81 (`arm_carry_tower_held.json`). Fetch: 1-5 mm from the
+spot (was 5-10; `arm_carry_fetch_held.json`). VERIFY on the real
+wrist camera with a block of each colour. Results by seed: design.md 3. `ball_track_node` follows
 `simulation/v11 sil/studies/goalie.py`'s rendered-D435 runs.
 
 **Tests:** `python -m pytest -q ros/src/omni_arm/test` (no sim, no ROS; `test_color_vision.py` uses synthetic scenes and

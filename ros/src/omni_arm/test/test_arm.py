@@ -20,7 +20,7 @@ from omni_arm import floor_vision as fv  # noqa: E402
 from omni_arm import motion as mo  # noqa: E402
 from omni_arm.kinematics import DOWN, ArmConfig, ArmKinematics, gap_at, q_for_gap  # noqa: E402
 from omni_arm.pick import MJ_TO_OPTICAL, PickParams, TidyTask  # noqa: E402
-from omni_arm.wrist_vision import WristFrame, box_corners, refine, self_mask  # noqa: E402
+from omni_arm.wrist_vision import WristFrame, box_corners, held, refine, self_mask  # noqa: E402
 
 
 @pytest.fixture(scope="module")
@@ -207,6 +207,60 @@ def test_the_self_mask_covers_the_fingers(kin):
     assert 0.02 < m.mean() < 0.45                                    # the fingers at the image's edge, not all of it
     assert not m[120, 160]                                           # the middle (under the fingers) is clear
     del t
+
+
+def _held_image(kin, q, side, zc, yc, skew, shape=(240, 320), up=0.0):
+    """The wrist camera's view (ray-traced) of a purple cube held fingers down: its centre at (zc, yc) in the tool
+    frame, turned skew about the fingers, its top face top_x along them; a wooden floor at z = 0, the fingers black."""
+    K = (207.8, 207.8, shape[1] / 2, shape[0] / 2)
+    fk = kin.fk(q)
+    Tc = fk["wrist_cam"] @ MJ_TO_OPTICAL
+    Tt = kin.tool(q)
+    H, W = shape
+    vv, uu = np.mgrid[0:H, 0:W]
+    rays = np.stack([(uu - K[2]) / K[0], (vv - K[3]) / K[1], np.ones_like(uu, float)], -1).reshape(-1, 3)
+    d = rays @ Tc[:3, :3].T
+    o = Tc[:3, 3]
+    rng = np.random.default_rng(1)
+    img = np.clip(np.array([205, 175, 125]) + rng.normal(0, 4, (H * W, 3)), 0, 255)
+    top_x = -(side - 0.011)                                   # gripped 11 mm up (the tool's height at the grasp)
+    tx = top_x - up                                           # ... and pushed up the fingers this much
+    # the cube in its own frame: the tool frame, shifted to its centre and turned skew about the tool's x axis
+    c, s_ = math.cos(skew), math.sin(skew)
+    R = Tt[:3, :3] @ np.array([[1, 0, 0], [0, c, s_], [0, -s_, c]])      # z turned toward y
+    ctr = Tt[:3, :3] @ np.array([tx + side / 2, yc, zc]) + Tt[:3, 3]
+    ol, dl = (o - ctr) @ R, d @ R
+    with np.errstate(divide="ignore", invalid="ignore"):
+        t1, t2 = (-side / 2 - ol) / dl, (side / 2 - ol) / dl
+    tn, tf_ = np.nanmax(np.minimum(t1, t2), axis=1), np.nanmin(np.maximum(t1, t2), axis=1)
+    hit = (tn <= tf_) & (tf_ > 0)
+    img[hit] = (110, 40, 160)
+    img = img.reshape(H, W, 3)
+    boxes = [box_corners(fk["arm_gripper"], lo, hi) for lo, hi in kin.cfg.wrist_cam["self_gripper"]]
+    m = self_mask((H, W), K, Tc, boxes)
+    img[m] = (20, 20, 20)
+    return WristFrame(0.0, img.astype(np.uint8), K, Tc, m), Tt, top_x
+
+
+@pytest.mark.parametrize("yc, skew_deg, up", [(0.0, 0.0, 0.0), (0.006, 0.0, 0.0), (-0.005, 6.0, 0.0),
+                                               (0.003, -8.0, 0.0), (-0.002, 0.0, 0.003), (0.004, 4.0, 0.002)])
+def test_held_finds_where_the_block_sits_in_the_fingers(kin, yc, skew_deg, up):
+    """Across the pads, turned, and pushed up the fingers as it was gripped (the sim's cubes rode 2.5 mm up)."""
+    side = 0.04
+    q = kin.ik([0.33, 0.0, 0.011 + 0.12], DOWN, yaw=0.4)
+    gap = side * (abs(math.cos(math.radians(skew_deg))) + abs(math.sin(math.radians(skew_deg))))
+    frame, Tt, top_x = _held_image(kin, q, side, gap / 2, yc, math.radians(skew_deg), up=up)
+    r = held(frame, Tt, side, gap, top_x)
+    assert r is not None
+    assert abs(r.yc - yc) < 0.0015 and abs(math.degrees(r.skew) - skew_deg) < 2.5, (r, yc, skew_deg)
+    assert abs((top_x - r.top_x) - up) <= 0.002, (r.top_x, top_x, up)
+
+
+def test_held_says_none_for_a_block_the_floors_colour(kin):
+    q = kin.ik([0.33, 0.0, 0.131], DOWN, yaw=0.4)
+    frame, Tt, top_x = _held_image(kin, q, 0.04, 0.02, 0.0, 0.0)
+    frame.rgb[(frame.rgb == (110, 40, 160)).all(axis=2)] = (205, 175, 125)
+    assert held(frame, Tt, 0.04, 0.04, top_x) is None
 
 
 def test_a_jog_moves_one_joint_in_its_range_and_never_into_the_robot(kin):

@@ -1,0 +1,45 @@
+{
+ "runs": [
+  {
+   "case": "fetch",
+   "seed": 0,
+   "held": "held",
+   "t_pick": 21.5,
+   "outcome": "placed",
+   "in_bin": false,
+   "on_floor": true,
+   "upright": true,
+   "place_err_mm": 4.8,
+   "t": 11.4,
+   "ok": true
+  },
+  {
+   "case": "fetch",
+   "seed": 1,
+   "held": "held",
+   "t_pick": 17.6,
+   "outcome": "placed",
+   "in_bin": false,
+   "on_floor": true,
+   "upright": true,
+   "place_err_mm": 0.9,
+   "t": 10.9,
+   "ok": true
+  },
+  {
+   "case": "fetch",
+   "seed": 2,
+   "held": "held",
+   "t_pick": 21.3,
+   "outcome": "placed",
+   "in_bin": false,
+   "on_floor": true,
+   "upright": true,
+   "place_err_mm": 1.5,
+   "t": 10.7,
+   "ok": true
+  }
+ ],
+ "ok": 3,
+ "n": 3
+}

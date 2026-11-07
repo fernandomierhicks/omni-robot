@@ -35,12 +35,15 @@ or out of the area), with no turning round to look for others. stages say how fa
 for it), grasped (it lifted it held), released (opened over the bin).
 
 Carry and put down (the console's Fetch and Block tower): start(keep=True) keeps the object instead of binning it:
-  CARRY      after LIFT, the arm to "ready" still holding (the base is capped as arm-out); the task ends with outcome
+  HELD_LOOK  after LIFT, a wrist frame of the block in the fingers (wrist_vision.held): where it sits across the pads
+             and how askew, so it goes down where it should and lined up (none found: centred, square, as before)
+  CARRY      then the arm to "ready" still holding (the base is capped as arm-out); the task ends with outcome
              held, the arm holding there
 start_place(...) puts the held object down: at a floor point (odom), or "ahead" (the sweet spot where the base is):
   P_APPROACH drive so the spot sits at the sweet spot (for a tower: the close look's spot, then P_CHECK and P_CREEP)
   P_CHECK    a depth look finds the tower again (its place and its top's height); not there: put down on the floor
   P_HOVER    over the spot, the held object's bottom place_dz above where it goes, turned to line up with the top block
+             (the block's own faces: the grip's yaw less its measured skew; its centre where HELD_LOOK saw it)
   P_DESCEND  straight down until the object's bottom is place_gap over its place (the grasp's own fingertip offset)
   P_OPEN     open; P_RISE straight up; then stow (outcome placed)
 start(tower=True) builds a tower of blocks (cube-like things, block_size): the first block it finds is the tower's
@@ -60,7 +63,7 @@ from omni_arm import coverage as cv
 from omni_arm import floor_vision as fv
 from omni_arm import motion as mo
 from omni_arm.kinematics import DOWN, ArmKinematics, gap_at, q_for_gap
-from omni_arm.wrist_vision import WristFrame, box_corners, refine, self_mask
+from omni_arm.wrist_vision import WristFrame, box_corners, held as held_block, refine, self_mask
 
 MJ_TO_OPTICAL = np.diag([1.0, -1.0, -1.0, 1.0])     # MuJoCo camera (looks along -z, y up) -> optical (z fwd, y down)
 HELD_GAP = 0.006                                     # m: closed fingers this far apart hold something
@@ -125,7 +128,10 @@ class PickParams:
     max_blocks: int = 4                 # the tallest tower tried (the fingers-down reach tops out near 0.2 m)
     tower_find: float = 0.08            # m: the tower found again within this of where it was
     tower_keep: float = 0.32            # m: the base's centre keeps this far from the tower (its bumper ~9 cm off)
-    regrip_gap: float = 0.004           # m: a block held this much wider than it is was gripped askew: down, again
+    regrip_gap: float = 0.009           # m: unseen, a block held this much wider than it is was gripped askew: down,
+                                        #   again (square it reads ~5.7 mm wide in the sim: the pads; 10 deg adds ~6)
+    regrip_skew: float = math.radians(10)  # rad: seen, a block turned this much in the fingers: down, again
+    held_look: bool = True              # carrying (Fetch, the tower): a wrist frame of where it sits in the fingers
 
 
 @dataclass
@@ -363,7 +369,7 @@ class TidyTask:
         """Stow and end; an object already lifted goes into the bin first."""
         self.stopping = True
         self.outcome = self.outcome or "stopped"
-        if self.held is not None and self.state in ("DONE", "IDLE", "CARRY") or self.state.startswith("P_") \
+        if self.held is not None and self.state in ("DONE", "IDLE", "CARRY", "HELD_LOOK") or self.state.startswith("P_") \
                 and self.state not in ("P_OPEN", "P_RISE"):
             q = self.goal if self.goal is not None else np.zeros(6)
             self.place = None
@@ -831,30 +837,74 @@ class TidyTask:
             return
         self.stages["grasped"] = True
         gap = float(gap_at(self.kin.cfg, q[5]))
+        o = self.target
+        # zc, yc, skew: where it sits in the fingers (tool frame), until the wrist camera says otherwise: pressed
+        # against the fixed finger, centred across the pads, square. Its centre half its own width from that finger:
+        # the gap reads wider than what it holds (a 40 mm cube read 45.7 mm in the sim), half of it put a tower's
+        # block 3 mm off; a block's side is its height (the depth reads that well)
+        width = min(gap, self.grasp["det"].width, o.det.top if self.mode == "tower" else math.inf)
+        self.held = dict(id=o.id, width=round(gap, 4), height=round(o.det.top, 4), yaw=self.grasp["yaw"],
+                         tip=float(self.grasp["tool"][2] - self.kin.cfg.pads["fingertip_below_tool"]),
+                         zc=width / 2, yc=0.0, skew=0.0, seen=False)
+        if self.keep and self.p.held_look:
+            self.t_req = t + 0.25
+            self._set("HELD_LOOK", t)
+            return
+        self._after_lift(t, inp, q)
+
+    def _s_held_look(self, t, inp, out, q):
+        """The block in the fingers through the wrist camera (the arm still, lifted clear of the floor)."""
+        out.want_wrist = t >= self.t_req
+        f = inp.wrist
+        if f is None or f.t < self.t_req:
+            if t - self.t_req > 2.0:                      # no wrist frame: carry on as if square
+                self.log("HELD_LOOK: no wrist frame")
+                self._after_lift(t, inp, q)
+            return
+        self.t_req = math.inf
+        h, g = self.held, self.grasp
+        side = min(g["det"].width, h["height"])
+        top_x = -(h["height"] - float(g["tool"][2]))      # the top face's height over the tool point, along the fingers
+        r = held_block(f, self.kin.tool(q), side, h["width"], top_x)
+        if r is None:
+            self.log("HELD_LOOK: the wrist camera didn't find the block's edge: placing it as if centred")
+        else:
+            # its bottom along the fingers from the tool point: where it goes down to (it can ride up as it's gripped)
+            h.update(zc=r.zc, yc=r.yc, skew=r.skew, bottom_x=r.top_x + h["height"], seen=True)
+            self.log(f"HELD_LOOK: {1000 * r.yc:+.0f} mm across the pads, {math.degrees(r.skew):+.0f} deg in the fingers, "
+                     f"{1000 * (top_x - r.top_x):+.0f} mm up")
+        self._after_lift(t, inp, q)
+
+    def _after_lift(self, t, inp, q):
+        """Lifted and held: a tower's block gripped askew goes down again to be gripped square, a kept one is carried,
+        anything else goes to the bin."""
+        gap = self.held["width"]
         # a cube's side: its height (the depth reads it well; a footprint seen askew reads wide)
         side = min(self.grasp["det"].width, self.target.det.top)
-        if self.mode == "tower" and gap > side + self.p.regrip_gap and self.regrips.get(self.target.id, 0) < 1:
+        # askew: turned in the fingers, as the wrist camera saw it; unseen, the jaws closed wider than the block (a
+        # rougher sign: the gap reads a few mm wide even square, 5.7 mm for a 40 mm cube in the sim)
+        askew = (abs(self.held["skew"]) > self.p.regrip_skew if self.held["seen"] else
+                 gap > side + self.p.regrip_gap)
+        if self.mode == "tower" and askew and self.regrips.get(self.target.id, 0) < 1:
             # held askew (the jaws wider than the block): straight back down where it was, then picked again
             o = self.target
             self.regrips[o.id] = self.regrips.get(o.id, 0) + 1
             pose = inp.pose
-            self.held = dict(id=o.id, width=round(gap, 4), height=round(o.det.top, 4), yaw=self.grasp["yaw"],
-                             tip=float(self.grasp["tool"][2] - self.kin.cfg.pads["fingertip_below_tool"]))
             c, s_ = math.cos(pose[2]), math.sin(pose[2])
             gy = self.grasp["yaw"]                        # where it was: the tool's spot, the object beside it
             bx = self.grasp["tool"][0] + math.cos(gy) * gap / 2
             by = self.grasp["tool"][1] + math.sin(gy) * gap / 2
             self.place = dict(x=pose[0] + c * bx - s_ * by, y=pose[1] + s_ * bx + c * by, z=0.0, yaw=None,
                               tower=False, ahead=False, regrip=True)
-            self._set("P_HOVER", t, f"object {o.id} held askew ({1000 * gap:.0f} mm for "
-                                    f"{1000 * side:.0f}): down again to grip it square")
+            why = (f"{1000 * gap:.0f} mm for {1000 * side:.0f}" if gap > side + self.p.regrip_gap else
+                   f"turned {math.degrees(self.held['skew']):.0f} deg in the fingers")
+            self.held.update(zc=gap / 2, yc=0.0, skew=0.0)  # back where it was: the grip as it closed
+            self.held.pop("bottom_x", None)
+            self._set("P_HOVER", t, f"object {o.id} held askew ({why}): down again to grip it square")
             return
         if self.keep:                                    # Fetch, the tower: carry it instead of the bin
             o = self.target
             o.status = "picked"
-            self.held = dict(id=o.id, width=round(float(gap_at(self.kin.cfg, q[5])), 4), height=round(o.det.top, 4),
-                             yaw=self.grasp["yaw"], tip=float(self.grasp["tool"][2]
-                                                              - self.kin.cfg.pads["fingertip_below_tool"]))
             # building, the block is carried up high: at "ready" it hung in the D435's view and hid the tower's top
             # from the look before stacking (it read 43 mm for an 80 mm tower in the sim, and the next block went
             # down into it)
@@ -865,6 +915,7 @@ class TidyTask:
                 return
             self._set("CARRY", t, f"carrying object {o.id}")
             return
+        self.held = None                                 # a tidy's: straight to the bin
         drop = self.poses["drop"].copy()
         drop[5] = self.q_closed
         if not self._go(t, q, drop, gripper=self.q_closed, allow_bin=True):
@@ -982,13 +1033,15 @@ class TidyTask:
         """The tool point that puts the held object's bottom at z_bottom over the place (odom), the fingers turned to
         yaw (base frame). The tool point is the fixed finger's face (_grasp_for brings it side_clear from the object's
         side); closing, the moving jaw pushes the object against it: its centre is half its width from the tool point,
-        on the closing line."""
+        on the closing line (zc), and yc across the pads (HELD_LOOK; 0 unseen). Fingers down, the tool's z axis is the
+        closing line (yaw) and its y axis a quarter turn left of it."""
         pl, h = self.place, self.held
         bx, by = self._base_from_odom(pose, pl["x"], pl["y"])
         o = np.array([math.cos(yaw), math.sin(yaw), 0.0])
-        tool = np.array([bx, by, 0.0]) - o * (h["width"] / 2)
-        # the fingertips were h["tip"] over the floor at the grasp, the object's bottom on it
-        tool[2] = z_bottom + h["tip"] + self.kin.cfg.pads["fingertip_below_tool"]
+        across = np.array([-math.sin(yaw), math.cos(yaw), 0.0])
+        tool = np.array([bx, by, 0.0]) - o * h.get("zc", h["width"] / 2) - across * h.get("yc", 0.0)
+        # the fingertips were h["tip"] over the floor at the grasp, the object's bottom on it (or where HELD_LOOK saw it)
+        tool[2] = z_bottom + h.get("bottom_x", h["tip"] + self.kin.cfg.pads["fingertip_below_tool"])
         return tool
 
     def _s_p_hover(self, t, inp, out, q):
@@ -996,8 +1049,10 @@ class TidyTask:
             self.fresh = False
             pl, h = self.place, self.held
             pose = inp.pose
-            # line the held block up with the one below (a square block: any quarter turn), the least wrist roll
-            base_yaw = h["yaw"] if pl["yaw"] is None else math.remainder(pl["yaw"] - pose[2], 2 * math.pi)
+            # line the held block up with the one below (a square block: any quarter turn), the least wrist roll; its
+            # faces are turned skew from the grip's (HELD_LOOK), so the grip turns that much less
+            base_yaw = h["yaw"] if pl["yaw"] is None else math.remainder(pl["yaw"] - pose[2] - h.get("skew", 0.0),
+                                                                        2 * math.pi)
             best = None
             for k in range(4):
                 yaw = base_yaw + k * math.pi / 2 if pl["yaw"] is not None else h["yaw"] + k * math.pi
