@@ -26,7 +26,7 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | Pi / split-computer experiments | [rpi.md](rpi.md), [Pi README](characterization/pi_camera/README.md) |
 | Camera characterization | The relevant `characterization/<bench>/README.md`; observe the pause below |
 
-Old `§1–31` references generally mean `design full history.md`; legacy `design.md 10–16` means its Appendix A. Appendix B preserves the full design before the Nov 1 compression. Consult history only when needed to trace a decision or reproduce an old study.
+Old `§1–31` references generally mean `design full history.md`; legacy `design.md 10–16` means its Appendix A. Appendix B preserves the full design before the Nov 1 compression, and the dated Nov 7 entry the full design before the Nov 7 compression (detailed run tables, CAD rounds, the full decision log). Consult history only when needed to trace a decision or reproduce an old study.
 
 ## Environment and running processes
 
