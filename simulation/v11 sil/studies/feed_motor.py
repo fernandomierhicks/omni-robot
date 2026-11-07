@@ -26,7 +26,6 @@ import os
 import sys
 from concurrent.futures import ProcessPoolExecutor
 
-import mujoco
 import numpy as np
 
 from common import RESULTS, SimParams, save  # noqa: E402

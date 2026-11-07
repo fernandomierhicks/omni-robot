@@ -16,7 +16,6 @@ Writes results/precision.json.
 
 from __future__ import annotations
 
-import json
 import math
 import os
 import sys
@@ -24,7 +23,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
 
-from common import RESULTS, save, tilt_deg  # noqa: E402
+from common import save, tilt_deg  # noqa: E402
 from home_floor import FWP, params  # noqa: E402
 from launcher_bench import Bench  # noqa: E402
 from omni_control import wrap_angle  # noqa: E402

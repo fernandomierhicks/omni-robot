@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 from omni_console.console_defs import (AI_MOVE_MAX, AI_TIMEOUT, AI_TTL, ARM_POSES, FAULTS_STOP_AI, FIND_SHAPES,
-                                       FIND_STALE, FW_LIMITS, HUMAN_HOLD, Reply, shape)  # noqa: F401
+                                       FIND_STALE, FW_LIMITS, HUMAN_HOLD, Reply)  # noqa: F401
 
 
 class AiMixin:

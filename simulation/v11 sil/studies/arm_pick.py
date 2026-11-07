@@ -17,20 +17,30 @@ import argparse
 import os
 import sys
 from collections import Counter
-from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common import save  # noqa: E402
+from common import pool, retried, save  # noqa: E402
 
 
 def one(args):
+    r = retried(_one, args)
+    if "error" in r:                                 # the sim failed twice: no objects counted
+        n, objects, seed, t_max, world, camera = args
+        r.update(objects=n, in_bin=0, t=0.0, task_picked=0, task_failed=0, task_skipped=0, reason=r["error"],
+                 events=[], seed=seed, set=objects, world=world)
+    return r
+
+
+def _one(args):
     n, objects, seed, t_max, world, camera = args
     from sil_pick import SilPick
     g = SilPick(n, objects, seed, world=world, **(dict(depth_camera="d435") if camera == "d435" else {}))
-    s = g.run(t_max)
+    try:
+        s = g.run(t_max)
+    finally:
+        g.cams.close()
     s.update(seed=seed, set=objects, names=g.names, world=world)
-    g.cams.close()
     return s
 
 
@@ -52,7 +62,7 @@ def main():
     import sil_robot  # noqa: F401  (builds the firmware's SIL library here, once, before the workers load it)
     from omni_fw_sil import Firmware
     Firmware().close()
-    with ProcessPoolExecutor(max_workers=min(len(jobs), a.workers or max(1, (os.cpu_count() or 2) - 1))) as ex:
+    with pool(min(len(jobs), a.workers or max(1, (os.cpu_count() or 2) - 1))) as ex:
         runs = list(ex.map(one, jobs))
     total = sum(r["objects"] for r in runs)
     binned = sum(r["in_bin"] for r in runs)

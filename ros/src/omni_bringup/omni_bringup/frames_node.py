@@ -16,7 +16,6 @@ import json
 import math
 from pathlib import Path
 
-import numpy as np
 import rclpy
 from geometry_msgs.msg import TransformStamped
 from omni_interfaces.msg import McuState

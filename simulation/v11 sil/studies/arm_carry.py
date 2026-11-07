@@ -16,13 +16,12 @@ from __future__ import annotations
 
 import argparse
 import sys
-from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common import save  # noqa: E402
+from common import pool, retried, save  # noqa: E402
 
 
 def _run(g, until, t_max):
@@ -51,6 +50,7 @@ def fetch(seed: int, t_max: float = 300.0) -> dict:
     r = dict(case="fetch", seed=seed, held=held, t_pick=round(g.d.time, 1))
     if held != "held":
         r.update(ok=False, why=task.done_reason, events=task.events[-6:])
+        g.cams.close()
         return r
     # where the robot stands: the sweet spot ahead (world), to compare with where it ends
     b = g.m.body("base").id
@@ -67,6 +67,7 @@ def fetch(seed: int, t_max: float = 300.0) -> dict:
     r.update(outcome=task.outcome, in_bin=in_bin, on_floor=bool(P[0][2] < 0.03), upright=bool(up[0] > 0.95),
              place_err_mm=round(1000 * err, 1), t=round(g.d.time - t0, 1),
              ok=bool(task.outcome == "placed" and not in_bin and P[0][2] < 0.03 and err < 0.05))
+    g.cams.close()
     return r
 
 
@@ -94,6 +95,7 @@ def tower(seed: int, n: int = 3, t_max: float = 900.0) -> dict:
 
     stack = max((column(k) for k in range(len(P)) if P[k][2] < 0.03), key=len, default=[])
     offs = [round(1000 * float(np.hypot(*(P[stack[i + 1]][:2] - P[stack[i]][:2]))), 1) for i in range(len(stack) - 1)]
+    g.cams.close()
     return dict(case="tower", seed=seed, blocks=n, stacked=len(stack), task_n=None if task.tower is None else task.tower["n"],
                 outcome=task.outcome, reason=task.done_reason, offsets_mm=offs, upright=[round(u, 3) for u in up],
                 in_bin=int(sum(g.in_bin())), t=round(g.d.time, 1), ok=len(stack) == n,
@@ -105,13 +107,8 @@ def one(args):
     """One run; tried again once when the renderer fails (osmesa returned a garbage segmentation image once under
     memory pressure: a crash of the sim's camera, not of the robot's code), else its error as the result."""
     case, seed, n = args
-    err = None
-    for _ in range(2):
-        try:
-            return fetch(seed) if case == "fetch" else tower(seed, n)
-        except Exception as e:                       # noqa: BLE001
-            err = f"{type(e).__name__}: {e}"
-    return dict(case=case, seed=seed, ok=False, error=err)
+    r = retried(fetch, seed) if case == "fetch" else retried(tower, seed, n)
+    return {"case": case, "seed": seed, **r}
 
 
 def main():
@@ -125,7 +122,7 @@ def main():
     a = ap.parse_args()
     cases = ["fetch", "tower"] if a.case == "both" else [a.case]
     jobs = [(c, s, a.blocks) for c in cases for s in range(a.first, a.first + a.seeds)]
-    with ProcessPoolExecutor(a.workers) as ex:
+    with pool(a.workers) as ex:
         res = list(ex.map(one, jobs))
     for r in res:
         print({k: v for k, v in r.items() if k != "events"})

@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import arm_objects  # noqa: E402
 import house  # noqa: E402
-from robot_export import arm_d435_params, arm_robot  # noqa: E402
+from robot_export import arm_d435_params  # noqa: E402
 from robot_model import D435, build_model  # noqa: E402
 from sil_link import SimLink  # noqa: E402,F401  (puts ros/src on the path)
 from sil_pick import HOME, PickCameras  # noqa: E402

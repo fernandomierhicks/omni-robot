@@ -41,7 +41,6 @@ import os
 import re
 import tempfile
 from collections import deque
-from dataclasses import dataclass
 from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and the node import them from here)
     AI_MOVE_MAX,
     AI_TIMEOUT,

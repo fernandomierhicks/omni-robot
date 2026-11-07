@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import itertools
 import json
-import math
 import os
 import sys
 from concurrent.futures import ProcessPoolExecutor

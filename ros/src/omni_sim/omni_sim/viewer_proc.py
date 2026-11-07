@@ -11,7 +11,6 @@
 from __future__ import annotations
 
 import json
-import math
 import multiprocessing as mp
 import os
 import socket
@@ -44,7 +43,7 @@ class WinViewer:
             out = open("/tmp/mujoco_view.log", "w")
             self.proc = subprocess.Popen([py, "-u", script, "--sim", sim, "--port", str(port)], stdout=out,
                                          stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
-            self._log(f"MuJoCo view starting on Windows (log /tmp/mujoco_view.log)")
+            self._log("MuJoCo view starting on Windows (log /tmp/mujoco_view.log)")
         else:
             self._log(f"MuJoCo view: run ros/tools/mujoco_view.py on Windows (it connects to port {port})")
 

@@ -645,7 +645,6 @@ def test_lidar_scan_has_a_turn_of_samples_and_ranges_a_wall():
 
 
 def test_flow_drops_out_too_fast_or_too_close():
-    from sensors import Sensors, SensorConfig
     drv, sn = _house(seed=2)
     v = []
     for k in range(int(2.5 / drv.m.opt.timestep)):
@@ -1592,7 +1591,7 @@ def test_the_launchers_live_world_person_clutter_and_thrower():
     import arm_objects
     from bridge_core import CoreConfig, SimCore, model_hello, model_params
     from robot_model import build_model
-    from sim_world import DOORS, HALL_Y, ControlPort, World
+    from sim_world import DOORS, HALL_Y, ControlPort
     core = SimCore(CoreConfig(base="drawn", seed=0, shadow=(), live_world=True, clutter="off"))
     w = core.world
     m, d = core.m, core.d

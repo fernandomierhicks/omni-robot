@@ -32,7 +32,7 @@ import mujoco
 import numpy as np
 
 from common import RESULTS, SimParams, save  # noqa: E402
-from catalog import DRIVE_MOTORS, FEED_MOTORS, FLYWHEEL_MOTORS  # noqa: E402
+from catalog import DRIVE_MOTORS, FLYWHEEL_MOTORS  # noqa: E402
 from catch_game import GameConfig  # noqa: E402
 from launcher_bench import Bench  # noqa: E402
 from robot_model import build_model, mass_properties  # noqa: E402

@@ -43,7 +43,6 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "studies"))
 
 from floor import Carpet, Threshold, Wall  # noqa: E402
-from omni_control import wrap_angle  # noqa: E402
 from params import SimParams  # noqa: E402
 
 TILE = (0.86, 0.86, 0.83, 1)

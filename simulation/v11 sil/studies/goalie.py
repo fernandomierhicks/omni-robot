@@ -131,6 +131,7 @@ def run(shots: int = 10, seed: int = 0, speed: float | None = None, verbose: boo
                 g.link.send(g.mux.command(g.link.host.sync, pick=twist), t)
             g.robot.step()
         tracker = BallTracker(BallParams(color="red", diameter=0.22))
+    g.cams.close()
     shots_on = [r for r in results if r["result"] != "wide"]
     saves = sum(r["result"] == "save" for r in results)
     return dict(shots=len(results), on_target=len(shots_on), saves=saves,

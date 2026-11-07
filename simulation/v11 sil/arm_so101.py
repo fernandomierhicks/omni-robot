@@ -340,7 +340,7 @@ def body_xml(p, plate_top: float) -> str:
     extra = ET.SubElement(root, "body", {"name": "arm_base_extra", "pos": "-0.02 0 0.01"})
     extra.append(ET.Element("inertial", {"pos": "0 0 0", "mass": f"{M_BASE_EXTRA}", "diaginertia": "5e-5 5e-5 5e-5"}))
     q = (math.cos(math.radians(myaw) / 2), 0.0, 0.0, math.sin(math.radians(myaw) / 2))
-    adapter = (f'<geom class="decor" type="box" size="0.055 0.045 0.003" pos="0.005 0 0.003" material="petg_orange"/>')
+    adapter = ('<geom class="decor" type="box" size="0.055 0.045 0.003" pos="0.005 0 0.003" material="petg_orange"/>')
     if p.arm_mount_z is None and p.arm_riser > 0:                     # its front cut back by arm_riser_pocket (the D435's)
         hx = 0.045 - p.arm_riser_pocket / 2
         adapter += (f'<geom class="decor" type="box" size="{_f(hx, 0.045, p.arm_riser / 2)}" '

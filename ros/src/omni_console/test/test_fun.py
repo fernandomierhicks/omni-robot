@@ -142,7 +142,7 @@ def test_message_goes_room_to_room_and_tells_the_first_person():
     c.on_nav_done(c.goal["seq"], "succeeded")
     c.pose = ("map", 3.0, 1.0, 0.0)
     c.fun_people([(3.0, 0.0)], c.now)                               # someone 3 m ahead
-    fx = c.tick(c.now)
+    c.tick(c.now)
     assert c.fun["phase"] == "approach" and c.goal["name"] == "the person"
     c.on_nav_done(c.goal["seq"], "succeeded")
     said = [f for f in c.pop_fx() if f[0] == "face"]

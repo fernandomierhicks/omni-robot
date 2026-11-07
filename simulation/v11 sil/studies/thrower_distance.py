@@ -20,7 +20,6 @@ Writes results/thrower_distance.json.
 from __future__ import annotations
 
 import itertools
-import math
 import os
 from concurrent.futures import ProcessPoolExecutor
 

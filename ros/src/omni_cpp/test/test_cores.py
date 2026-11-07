@@ -15,7 +15,6 @@ import json
 import math
 import os
 import random
-import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -28,8 +27,6 @@ SRC = PKG.parent
 for p in ("omni_mcu", "omni_catch", "omni_bringup", "omni_perception", "omni_arm"):
     sys.path.insert(0, str(SRC / p))
 
-from omni_arm import motion as arm_motion                                        # noqa: E402
-from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, rot_quat   # noqa: E402
 from omni_arm import motion as arm_motion                                        # noqa: E402
 from omni_arm.kinematics import ArmConfig, ArmKinematics, config_path, rot_quat   # noqa: E402
 from omni_bringup.heading import HeadingConfig, HeadingShaper                    # noqa: E402

@@ -8,7 +8,6 @@ Costs: 4 drives + their controllers at the catalog's price.
 from __future__ import annotations
 
 import collections
-import json
 import math
 import sys
 

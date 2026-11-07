@@ -17,7 +17,7 @@ sys.path.insert(0, str(SRC / "omni_calib"))
 sys.path.insert(0, str(SRC / "omni_arm"))
 
 from omni_calib import arm_calib as ac  # noqa: E402
-from omni_calib.geometry import Camera, T, inv, rodrigues  # noqa: E402
+from omni_calib.geometry import Camera, T, inv  # noqa: E402
 from omni_calib.targets import tag_corners  # noqa: E402
 
 RAW = json.loads((SRC / "omni_arm" / "omni_arm" / "config" / "robot_arm_d435.json").read_text())

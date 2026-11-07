@@ -36,7 +36,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 sys.path.insert(0, str(HERE))
 
-from sil_catch import APEXES, DISTANCES, TOSSES, jobs  # noqa: E402
+from sil_catch import APEXES, TOSSES, jobs  # noqa: E402
 
 RESULTS = HERE / "results"
 OUT = RESULTS / "rendered_catch.json"

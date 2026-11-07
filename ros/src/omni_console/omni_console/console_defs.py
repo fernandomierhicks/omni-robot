@@ -3,12 +3,8 @@ settings, Reply and the small helpers. ROS-free."""
 
 from __future__ import annotations
 
-import json
 import math
-import os
 import re
-import tempfile
-from collections import deque
 from dataclasses import dataclass
 
 VERSION = "0.4.0"                 # the console protocol: the page warns when it differs from the robot's

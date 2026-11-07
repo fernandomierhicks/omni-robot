@@ -28,7 +28,7 @@ constexpr int N_WHEELS = 4;
 constexpr float WHEEL_RADIUS = 0.07f;
 constexpr float J[4][3] = {{-10.1015254f, 10.1015254f, 2.08571429f}, {-10.1015254f, -10.1015254f, 2.08571429f}, {10.1015254f, -10.1015254f, 2.08571429f}, {10.1015254f, 10.1015254f, 2.08571429f}};
 constexpr float J_PINV[3][4] = {{-0.0247487373f, -0.0247487373f, 0.0247487373f, 0.0247487373f}, {0.0247487373f, -0.0247487373f, -0.0247487373f, 0.0247487373f}, {0.119863014f, 0.119863014f, 0.119863014f, 0.119863014f}};
-constexpr float MAX_WHEEL_SPEED = 45.9107638f;   // rad/s: 0.95 x the AK40-10's no-load speed
+constexpr float MAX_WHEEL_SPEED = 44.8798951f;   // rad/s: 0.95 x the AK40-10's no-load speed, capped by its 60000 ERPM limit
 
 // limits by profile: max_speed, max_accel, max_jerk, max_yaw_rate, max_yaw_accel, brake_margin, accel_scale,
 // fly_rpm_max. The robot computer can only ask for less (CMD speed_cap)

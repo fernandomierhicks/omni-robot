@@ -12,7 +12,6 @@ height. Return planners:
 
 from __future__ import annotations
 
-import itertools
 import os
 from concurrent.futures import ProcessPoolExecutor
 

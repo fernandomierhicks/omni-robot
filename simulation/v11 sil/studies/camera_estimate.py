@@ -44,7 +44,7 @@ from dataclasses import replace
 import mujoco
 import numpy as np
 
-from common import RESULTS, SimParams, save  # noqa: E402
+from common import SimParams, save  # noqa: E402
 from catch_game import CatchGame, GameConfig  # noqa: E402
 from robot_model import build_model  # noqa: E402
 from vision import VisionConfig  # noqa: E402

@@ -1348,7 +1348,7 @@ def report():
             a = r.get("arm", {})
             td = a.get("floor_topdown")
             print(f"  arm: top-down floor {td[0]:.3f}-{td[1]:.3f}" if td else "  arm: no top-down floor grasp",
-                  f"(pan 30/60/90: " + ", ".join(f"{s['far'][0]:.3f}" for s in a.get("side", [])[1:]) + ")")
+                  "(pan 30/60/90: " + ", ".join(f"{s['far'][0]:.3f}" for s in a.get("side", [])[1:]) + ")")
             if "stow_choice" in r:
                 print(f"  stow: {r['stow_choice']}")
             elif a.get("stow"):

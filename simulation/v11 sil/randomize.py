@@ -19,7 +19,6 @@ import math
 from dataclasses import dataclass, replace
 
 import mujoco
-import numpy as np
 
 
 @dataclass(frozen=True)

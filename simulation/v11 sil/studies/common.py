@@ -16,7 +16,7 @@ sys.path.insert(0, str(HERE.parent))
 from omni_control import wrap_angle  # noqa: E402
 from params import SimParams  # noqa: E402
 from robot import Robot  # noqa: E402
-from robot_model import build_model, geometry, mass_properties  # noqa: E402
+from robot_model import build_model, mass_properties  # noqa: E402
 from traction import Base  # noqa: E402
 
 RESULTS = HERE / "results"
@@ -123,3 +123,24 @@ def traction_base(p: SimParams, tilt: float = 0.0, **kw) -> Base:
 
 def save(name: str, data):
     (RESULTS / f"{name}.json").write_text(json.dumps(data, indent=1, default=float))
+
+
+def pool(workers: int):
+    """A process pool for MuJoCo runs: a fresh process for every run (max_tasks_per_child=1). A reused worker kept
+    each run's model and off-screen renderers (osmesa) and grew to 4.4 GB before the session's memory limit killed it
+    (Nov 7); spawned workers re-import the study, so its run function must be at module level."""
+    from concurrent.futures import ProcessPoolExecutor
+    return ProcessPoolExecutor(max_workers=workers, max_tasks_per_child=1)
+
+
+def retried(fn, *args, tries: int = 2):
+    """fn(*args), tried again when the sim itself fails (osmesa returned a garbage segmentation image once under memory
+    pressure: a crash of the sim's camera, not of the robot's code); the last error as a result dict otherwise."""
+    err = None
+    for _ in range(tries):
+        try:
+            return fn(*args)
+        except Exception as e:                       # noqa: BLE001
+            err = f"{type(e).__name__}: {e}"
+    return dict(ok=False, error=err)
+

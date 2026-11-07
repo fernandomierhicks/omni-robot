@@ -50,7 +50,7 @@ from dataclasses import asdict, dataclass, replace
 import mujoco
 import numpy as np
 
-from common import RESULTS, body_velocity, tilt_deg  # noqa: E402
+from common import RESULTS, tilt_deg  # noqa: E402
 import robot_export as E  # noqa: E402
 from catalog import DRIVE_MOTORS, Thermal  # noqa: E402
 from floor import Carpet, Incline, Threshold  # noqa: E402

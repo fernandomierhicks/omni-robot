@@ -76,6 +76,15 @@ DM = dict(ids=(1, 2, 3, 4), dirs=(1, 1, 1, 1), master_base=0x10, p_max=12.5, v_m
 FLY_POLE_PAIRS = 7              # F90 2806.5: 12N14P (est from the stator class; VERIFY)
 # the arm robot's CubeMars AK40-10 V3.0 KV170 in servo mode (ak_motor.h): estimates and VERIFY items, see the header
 AK = dict(pole_pairs=14.0, gear=10.0, max_erpm=60000.0, kt_out=0.48, sample_to_rx_us=150)
+def wheel_speed_max(p) -> float:
+    """The firmware's wheel-speed ceiling (rad/s): wheel_speed_frac of the motor's no-load speed, and for a CubeMars
+    drive no more than its own ERPM limit allows (the motor clamps there: AK40-10, 60000 ERPM = 44.9 rad/s)."""
+    w = p.wheel_speed_frac * p.motor.noload_rpm * 2 * math.pi / 60
+    if p.drive_motor.startswith("AK"):
+        w = min(w, AK["max_erpm"] / (AK["gear"] * AK["pole_pairs"]) * 2 * math.pi / 60)
+    return w
+
+
 DM_SAMPLE_TO_RX_US = 140        # design.md 10: reply frame ~125 us + turnaround (est); sil_robot.DmBus models it
 
 
@@ -297,7 +306,7 @@ def study_from_env(p: SimParams, camera: str = "stereo") -> SimParams:
 
 def firmware_header(p: SimParams, robot: dict | None = None) -> str:
     kin = OmniKinematics(p.wheel_angles_deg, p.wheel_base_radius, p.wheel_radius)
-    w_max = p.wheel_speed_frac * p.motor.noload_rpm * 2 * math.pi / 60
+    w_max = wheel_speed_max(p)
     dirs, vals = p.accel_table if p.accel_table is not None else ((), ())
     adult = (p.base_max_speed, p.base_max_accel, p.base_max_jerk, p.base_max_yaw_rate, p.base_max_yaw_accel,
              p.brake_margin, 1.0, ADULT_FLY_RPM_MAX)
@@ -338,7 +347,8 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         f"constexpr float WHEEL_RADIUS = {_c(p.wheel_radius)};",
         f"constexpr float J[{p.n_wheels}][3] = {{{rows(kin.J)}}};",
         f"constexpr float J_PINV[3][{p.n_wheels}] = {{{rows(kin.J_inv)}}};",
-        f"constexpr float MAX_WHEEL_SPEED = {_c(w_max)};   // rad/s: {p.wheel_speed_frac} x the {p.drive_motor}'s no-load speed",
+        f"constexpr float MAX_WHEEL_SPEED = {_c(w_max)};   // rad/s: {p.wheel_speed_frac} x the {p.drive_motor}'s no-load speed"
+        + (f", capped by its {AK['max_erpm']:g} ERPM limit" if p.drive_motor.startswith("AK") else ""),
         "",
         "// limits by profile: max_speed, max_accel, max_jerk, max_yaw_rate, max_yaw_accel, brake_margin, accel_scale,",
         "// fly_rpm_max. The robot computer can only ask for less (CMD speed_cap)",
@@ -499,7 +509,7 @@ def robot_json(p: SimParams) -> dict:
     return dict(
         generated_by="simulation/v11 sil/robot_export.py", robot=V11,
         base=dict(base_link_height=float(d.xpos[base][2]), robot_radius=0.21, wheel_radius=p.wheel_radius,
-                  J=kin.J.tolist(), max_wheel_speed=p.wheel_speed_frac * p.motor.noload_rpm * 2 * math.pi / 60,
+                  J=kin.J.tolist(), max_wheel_speed=wheel_speed_max(p),
                   max_speed=p.base_max_speed, brake_margin=p.brake_margin,
                   accel_table=[list(p.accel_table[0]), list(p.accel_table[1])] if p.accel_table else None,
                   max_accel=p.base_max_accel, kid=KID),

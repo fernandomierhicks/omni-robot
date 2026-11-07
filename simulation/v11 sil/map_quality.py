@@ -22,7 +22,6 @@ import math
 import sys
 from pathlib import Path
 
-import mujoco
 import numpy as np
 from scipy import ndimage
 
