@@ -32,6 +32,10 @@ CPU_HOT_C = 85.0                   # the robot computer's hottest sensor (est)
 WIFI_WEAK_DBM = -72.0
 SYNC_SLOW_MS = 5.0                 # MCU clock-sync round trip (est): above it event times get worse
 NAV_FEATURES = ("goto", "patrol", "explore")
+LIDAR_FEATURES = NAV_FEATURES + ("follow", "message")      # what a silent lidar refuses (Nav2, the people)
+LIDAR_SILENT_S = 1.0               # s without a scan: the lidar is down
+LIDAR_SLOW_HZ = 5.0                # the A2M12 turns at ~10 Hz: slower, its motor or its USB link is struggling
+TILT_WARN_DEG = 15.0               # the base tilted this much while the IMU reports: a ramp, a step, or tipped
 ARM_FEATURES = ("tidy", "arm")
 
 
@@ -76,7 +80,7 @@ def preflight(s: dict, fw: dict | None = None) -> list:
                                                               f"{f.get('protocol')}"))
 
     if mcu is not None:
-        names = [x.get("name") for x in mcu.get("faults") or []]
+        names = [x.get("name") for x in mcu.get("faults") or [] if x.get("name") != "IMU_SILENT"]   # its own row
         hard = [n for n in names if n in FAULTS_BLOCK]
         if mcu.get("mode") == "ESTOP" and "ESTOP" not in hard:
             hard.append("ESTOP")
@@ -101,6 +105,31 @@ def preflight(s: dict, fw: dict | None = None) -> list:
         else:
             pct = mcu.get("battery_pct")
             out.append(_row("battery", "Battery", "ok", f"{v:.1f} V" + (f", about {pct}%" if pct is not None else "")))
+
+    if mcu is not None:
+        imu_silent = any(x.get("name") == "IMU_SILENT" for x in mcu.get("faults") or [])
+        roll, pitch = mcu.get("roll"), mcu.get("pitch")
+        if imu_silent:
+            out.append(_row("imu", "IMU", "warn", "The BNO085 stopped reporting: heading from the wheels only "
+                                                  "(odometry drifts in turns)"))
+        elif roll is None or pitch is None:
+            out.append(_row("imu", "IMU", "na", "No attitude in the MCU's state"))
+        else:
+            tilt = math.degrees(max(abs(roll), abs(pitch)))
+            out.append(_row("imu", "IMU", "warn" if tilt > TILT_WARN_DEG else "ok",
+                            f"tilted {tilt:.0f} deg: a ramp, a step, or tipped?" if tilt > TILT_WARN_DEG else
+                            f"roll {math.degrees(roll):+.1f} deg, pitch {math.degrees(pitch):+.1f} deg"))
+
+    lid = s.get("lidar")
+    if lid is None:
+        out.append(_row("lidar", "Lidar", "na", "No scan yet (the A2M12's driver not running, or still starting)"))
+    elif lid["age"] > LIDAR_SILENT_S:
+        out.append(_row("lidar", "Lidar", "fail", f"No scan for {lid['age']:.0f} s: no navigation, no people "
+                                                  "(USB cable, the motor, the driver)", LIDAR_FEATURES))
+    else:
+        slow = lid["hz"] < LIDAR_SLOW_HZ
+        out.append(_row("lidar", "Lidar", "warn" if slow else "ok",
+                        f"{lid['hz']:.1f} Hz" + (" (slow: ~10 Hz expected)" if slow else "")))
 
     rc = s.get("rc")
     if rc is None:

@@ -52,6 +52,7 @@ Parameters map, places_dir (maps and their places / routes), state_dir (settings
 from __future__ import annotations
 
 import array
+from collections import deque
 import json
 import math
 import os
@@ -190,7 +191,8 @@ class Feed(Node):
         self.never = never
 
     def set_scan(self, topic: str | None, handler=None):
-        """The lidar as raw bytes, only while a mode needs it (Follow): created and dropped as the mode changes."""
+        """The lidar as raw bytes: subscribed for good (the preflight counts its rate; a raw take parsed only when a mode
+        needs people costs next to nothing), or dropped with topic None."""
         if topic is None and self.scan_sub is not None:
             self.subs = [s for s in self.subs if s[0] is not self.scan_sub]
             self.destroy_subscription(self.scan_sub)
@@ -443,6 +445,7 @@ class MissionNode(Node):
         self.t_idle = None
         self.mask_geom = None              # the map geometry the filter masks were made for
         self.scan_laser = None             # the laser on the base (x, y, yaw), for people
+        self.scan_times = deque(maxlen=64)  # when each lidar scan arrived (the preflight's lidar rate)
         self.grid_np = None                # (the map message, its cells as numpy), for people's furniture test
         self.t_slam_up, self.t_slam_retry = None, -1e9    # SLAM's bring-up watch (check_slam_frame)
 
@@ -714,6 +717,23 @@ class MissionNode(Node):
 
     def on_people_tracks(self, m: String):
         self.people_msg, self.people_t = m.data, time.monotonic()
+
+    def on_scan_any(self, raw: bytes):
+        """Each lidar scan (Feed.drain): counted for the preflight's rate; people found in it while Follow, Messenger
+        or Fetch runs (on_scan_raw)."""
+        self.scan_times.append(time.monotonic())
+        if self.core.wants_people():
+            self.on_scan_raw(raw)
+        else:
+            self.scan_laser = None
+
+    def lidar_health(self):
+        """{hz, age} of the lidar over the last 2 s, or None before its first scan."""
+        if not self.scan_times:
+            return None
+        now = time.monotonic()
+        n = sum(1 for t in self.scan_times if now - t <= 2.0)
+        return dict(hz=round(n / 2.0, 1), age=round(now - self.scan_times[-1], 2))
 
     def on_scan_raw(self, raw: bytes):
         """The newest lidar scan while Follow, Messenger or Fetch runs: people in the base frame (people.py), furniture on the map left
@@ -1200,10 +1220,8 @@ class MissionNode(Node):
             self.core.on_mcu(st.mcu_summary(self.mcu, time.monotonic() - self.mcu_t))
         i = self.info                                 # the RC's manual switch takes the robot back from the AI
         self.core.on_rc(bool(i is not None and i["rc_manual"] and now - self.info_t < 1.0))
-        follow = self.core.wants_people()                # Follow, Messenger, Fetch: the people the lidar sees
-        if follow != (self.feed.scan_sub is not None):
-            self.feed.set_scan(self.scan_topic if follow else None, self.on_scan_raw)
-            self.scan_laser = None
+        if self.feed.scan_sub is None:                    # the lidar for good: its rate (preflight), its people
+            self.feed.set_scan(self.scan_topic, self.on_scan_any)
         if self.n_fast % 2 == 0:
             self._status()
         self._drive()
@@ -1348,6 +1366,7 @@ class MissionNode(Node):
         s["consoles"] = len(self.consoles)
         tw = self.core.last_cmd if self.core.manual_active(now) else None      # what was sent (slow bands applied)
         s["manual"] = dict(active=tw is not None, cmd=None if tw is None else [round(v, 2) for v in tw])
+        s["lidar"] = self.lidar_health()
         rows = checks.preflight(s, self.fw_expected)     # the Test workspace; failures refuse the starts they block
         self.core.preflight = rows
         s["preflight"] = checks.brief(rows)

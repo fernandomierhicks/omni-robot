@@ -29,7 +29,9 @@ def ready(**caps) -> Console:
 
 def good_status(**kw) -> dict:
     s = dict(source="robot", caps=dict(nav=True, arm=True),
-             mcu=dict(mode="TELEOP", profile="adult", faults=[], v_bus=24.1, battery_pct=80, age=0.1, sync_rtt_ms=1.2),
+             mcu=dict(mode="TELEOP", profile="adult", faults=[], v_bus=24.1, battery_pct=80, age=0.1, sync_rtt_ms=1.2,
+                      roll=0.01, pitch=-0.02),
+             lidar=dict(hz=10.0, age=0.05),
              fw=dict(build="abc", protocol=6), rc=dict(ok=True, manual=False, ch=[0] * 8),
              localization=dict(level="GOOD", reasons=[], sigma_xy=0.04),
              arm=dict(ok=True, torque=True, temps=[35, 36, 38, 34, 33, 30], volts=12.1),
@@ -109,6 +111,22 @@ def test_preflight_warns_and_never_fails_on_what_it_cannot_see():
     assert all(r["state"] != "fail" for r in rows.values())
     assert all(not r["blocks"] for r in rows.values())             # only failures block
     assert by_id(checks.preflight(dict(s, source="sim"), None))["rc"]["state"] == "na"
+
+
+def test_preflight_lidar_and_imu():
+    rows = by_id(checks.preflight(good_status(lidar=dict(hz=0.0, age=3.2)), FW))
+    assert rows["lidar"]["state"] == "fail" and set(rows["lidar"]["blocks"]) == set(checks.LIDAR_FEATURES)
+    assert by_id(checks.preflight(good_status(lidar=dict(hz=3.5, age=0.2)), FW))["lidar"]["state"] == "warn"
+    assert by_id(checks.preflight(good_status(lidar=None), FW))["lidar"]["state"] == "na"
+    s = good_status()
+    s["mcu"] = dict(s["mcu"], faults=[dict(name="IMU_SILENT", hint="")])
+    rows = by_id(checks.preflight(s, FW))
+    assert rows["imu"]["state"] == "warn" and rows["faults"]["state"] == "ok"        # its own row, not twice
+    s["mcu"] = dict(s["mcu"], faults=[], pitch=0.4)
+    assert by_id(checks.preflight(s, FW))["imu"]["state"] == "warn"                  # tilted 23 deg
+    c = ready()
+    c.preflight = checks.preflight(good_status(lidar=dict(hz=0.0, age=3.2)), FW)
+    assert not c.command("follow", {"mode": "follow"}).ok and c.command("mission", {"name": "MANUAL"}).ok
 
 
 def test_the_gate_refuses_blocked_starts_with_the_reason_but_never_stop_or_manual():
