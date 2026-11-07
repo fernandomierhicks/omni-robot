@@ -14,6 +14,8 @@ omni-log/1: JSON Lines, one record per line, t = seconds since the session start
   event    {t, level, text}
   ai_task  {t, task_id, request_id, task_kind, args, state, message, result, evidence, t_accepted, t_end}
            an AI client's task as it ended (omni_console/ai_tasks.py, ai_robot_architecture.md 6)
+  bringup  {t, check, result, measured, pre, notes, wall_t, config}
+           a bring-up check's outcome as the operator recorded it (omni_console/checks.py, the Test workspace)
   end      {t, summary}
 
 Throws are in the robot's odom frame, whose origin is where it waited at the start (catch_world puts the sim's at
@@ -28,7 +30,7 @@ import time
 from pathlib import Path
 
 FORMAT = "omni-log/1"
-KINDS = ("session", "pose", "status", "throw", "event", "ai_task", "end")
+KINDS = ("session", "pose", "status", "throw", "event", "ai_task", "bringup", "end")
 
 
 def _clean(v):

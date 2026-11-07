@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>omni_console</name>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <description>omni-robot: the operator console's robot side. mission_node (the missions over mode_manager and Nav2:
     Manual, Go To, Explore, Patrol, Catch, Thrower, Follow / Tag, Program, Calibrate; settings, places, zones, the throw
     log, health, session logs, one status topic), supervisor (serves web/, the page, and starts and stops the robot's

@@ -225,3 +225,39 @@ table.t tr.me td { background: color-mix(in srgb, var(--blue) 14%, transparent);
 .drawer { position: fixed; left: 0; right: 150px; bottom: 58px; max-height: 45vh; overflow-y: auto; background: var(--surface); border-top: 1px solid var(--border); box-shadow: 0 -6px 24px rgba(0,0,0,.4); padding: 8px 12px; z-index: 10; }
 .ev { display: grid; grid-template-columns: 70px 52px 140px 1fr; gap: 8px; font-size: 12px; padding: 2px 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent); }
 @media (max-width: 760px) { .stop { width: 96px; font-size: 15px; } .drawer { right: 96px; } .ev { grid-template-columns: 60px 1fr; } .ev .src, .ev .lvl { display: none; } }
+
+/* workspaces: the sub-tab strip under the bar (a workspace's pages) */
+.subbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px 10px; background: var(--bg); border-bottom: 1px solid var(--border); }
+.sub { background: none; border: 1px solid transparent; color: var(--dim); padding: 5px 12px; border-radius: 14px; cursor: pointer; position: relative; font-size: 13px; }
+.sub:hover { color: var(--text); border-color: var(--border); }
+.sub.sel { background: var(--surface-2); color: var(--white); border-color: var(--blue); }
+.sub.off { opacity: .5; }
+.sub .live { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-left: 6px; vertical-align: middle; }
+.badge.blue { border-color: var(--blue); color: var(--blue); }
+
+/* Home: mission control */
+.home .now h2 { font-size: 18px; }
+.bar.big { height: 10px; margin-top: 8px; max-width: 520px; }
+.home-views { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; }
+.home-views .card { margin-bottom: 0; }
+.view-map { position: relative; height: 360px; padding: 0; overflow: hidden; }
+.view-cam { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+.view-cam img { width: 100%; border-radius: 6px; background: var(--map-bg); }
+.activity .ev { grid-template-columns: 70px 76px 70px 1fr; align-items: center; }
+@media (max-width: 900px) { .home-views { grid-template-columns: 1fr; } .view-map { height: 300px; } }
+
+/* Test: preflight rows, bring-up list */
+table.checks, table.params { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.checks td, table.params td { padding: 6px 8px; border-top: 1px solid var(--border); vertical-align: top; }
+table.checks td.ic { width: 22px; font-weight: 700; text-align: center; }
+table.checks td.lbl { width: 150px; color: var(--white); }
+table.checks tr.st-fail { background: color-mix(in srgb, var(--red) 8%, transparent); }
+.listrow { display: flex; width: 100%; gap: 8px; align-items: center; background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; cursor: pointer; text-align: left; }
+.listrow:hover { border-color: var(--border); }
+.listrow.sel { background: var(--surface-2); border-color: var(--blue); }
+textarea { background: var(--bg); color: inherit; border: 1px solid var(--border); border-radius: 5px; padding: 5px 7px; font: inherit; box-sizing: border-box; }
+details.group { border-top: 1px solid var(--border); padding: 4px 0; }
+details.group > summary { cursor: pointer; padding: 6px 0; color: var(--white); font-weight: 600; }
+
+/* phones: the status bar keeps one line (control, mode, battery, STOP) */
+@media (max-width: 600px) { .statusbar .line.more { display: none; } .statusbar .task { display: none; } }

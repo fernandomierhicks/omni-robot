@@ -5,6 +5,7 @@ import { MapView } from "../mapview.js";
 import { SayBox } from "../say.js";
 import { act, useStore } from "../ros.js";
 import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { ArmPad } from "./arm.js";
 
 export function ManualTab() {
   const s = useStore("status", "schema");
@@ -46,6 +47,8 @@ export function ManualTab() {
         </div>
         ${inp.gamepads.map((g) => html`<${PadRow} key=${`${g.index}:${g.id}`} g=${g} />`)}
       </div>
+      ${st?.arm && html`<h3>Arm</h3><${ArmPad} a=${st.arm} busy=${st.mission === "TIDY"} />
+        <div class="dim" style="font-size: 12px; margin-top: 4px">Each joint by hand: the <a href="#arm">Arm</a> page.</div>`}
       <h3>Say</h3>
       <${SayBox} hotkey compact />
       <${SettingsForm} tab="manual" />

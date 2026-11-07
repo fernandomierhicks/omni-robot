@@ -11,7 +11,7 @@ import tempfile
 from collections import deque
 from dataclasses import dataclass
 
-VERSION = "0.3.0"                 # the console protocol: the page warns when it differs from the robot's
+VERSION = "0.4.0"                 # the console protocol: the page warns when it differs from the robot's
 MISSIONS = ("IDLE", "MANUAL", "GOTO", "EXPLORE", "PATROL", "CATCH", "THROWER", "FOLLOW", "PROGRAM", "CALIBRATE",
             "TIDY")
 MODE_OF = {"IDLE": "IDLE", "MANUAL": "TELEOP", "GOTO": "TELEOP", "EXPLORE": "TELEOP", "PATROL": "TELEOP",
@@ -35,7 +35,8 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "initial_pose", "follow", "program_save", "program_delete", "program_run", "zone_save", "zone_delete",
          "edge_save", "edge_delete", "calib", "calib_start", "calib_measure", "calib_shot", "calib_fit",
          "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
-         "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames")
+         "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames",
+         "preflight", "tests", "test_record", "activity")
 AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames")   # the AI client's own (its plan 4)
 # what a person's command (the page, the voice) takes the robot back from the AI with
 HUMAN_VERBS = ("stop", "mission", "goto", "cancel", "explore", "patrol", "thrower", "fire", "follow", "program_run",
@@ -59,6 +60,70 @@ EXPRESSIONS = {"auto": (None, None), "happy": ("happy", "smile"), "excited": ("s
 # the antics the console can ask for (the Face tab's tricks; omni_face moments.ANTICS)
 TRICKS = ("sing", "hum", "whistle", "dance", "giggle", "smile", "wink", "love", "yawn", "nap", "sneeze", "hiccup",
           "babble", "look", "dizzy", "sigh", "quip")
+
+
+# -- features: what the robot offers, for the page's workspaces (the page draws what the robot lists) ----------------
+# The page groups features into workspaces: home (tasks), drive, map, payload (the fitted payload's: arm or catch),
+# see, test and robot (the menu). needs: caps that must be up (summary()["caps"]: nav, arm, catch, collision, sim);
+# a feature that isn't available is shown greyed with the reason, or hidden if optional (the parked catch robot,
+# the sim's tools). card: a Home card's text (a task anyone can start); start: the verb its card's button sends
+# (None: it opens its page instead). moves: it drives the base or the arm (the preflight's motion failures refuse it).
+# A feature the page has no page for gets a generic one: its card text, its settings (Setting.tabs) and its start.
+WORKSPACES = (("home", "Home"), ("drive", "Drive"), ("map", "Map"), ("payload", "Payload"), ("see", "See"),
+              ("test", "Test"), ("robot", "Robot"))
+
+
+def _feature(id_, label, group, needs=(), optional=False, mission=None, card="", start=None, moves=False, hint=""):
+    return dict(id=id_, label=label, group=group, needs=list(needs), optional=optional, mission=mission, card=card,
+                start=start, moves=moves, hint=hint)
+
+
+FEATURES = (
+    _feature("home", "Overview", "home"),
+    _feature("tidy", "Tidy", "home", ("arm",), mission="TIDY", moves=True,
+             card="Picks up small things from the floor and drops them in its bin.", start=dict(verb="tidy")),
+    _feature("follow", "Follow", "home", mission="FOLLOW", moves=True,
+             card="Follows the nearest person, or plays tag at kid speed.",
+             start=dict(verb="follow", args=dict(mode="follow"))),
+    _feature("program", "Program", "home", mission="PROGRAM", moves=True,
+             card="Line up moves (forward, turn, spin, wait, go to a place) and press Run."),
+    _feature("manual", "Drive", "drive", mission="MANUAL", card="Gamepad, keyboard or the pads on the screen.",
+             start=dict(verb="mission", args=dict(name="MANUAL"))),
+    _feature("goto", "Go To", "map", ("nav",), mission="GOTO", moves=True, card="Click on the map, or pick a saved place."),
+    _feature("patrol", "Patrol", "map", ("nav",), mission="PATROL", moves=True,
+             card="Drives a saved route, once or in a loop."),
+    _feature("explore", "Explore", "map", ("nav",), mission="EXPLORE", moves=True,
+             card="Maps the house by itself, room by room.", start=dict(verb="explore", args=dict(new_map=False))),
+    _feature("slam", "SLAM", "map", hint="New map, save, load, where the robot is"),
+    _feature("mapedit", "Map edit", "map", hint="Places, routes, rooms, no-go zones, edges"),
+    _feature("arm", "Arm", "payload", ("arm",), hint="Joints, poses, gripper, wrist camera"),
+    _feature("catch", "Catch", "payload", ("catch",), optional=True, mission="CATCH", moves=True,
+             card="Throw the ball to the robot: it catches it and throws it back (parked catch robot).",
+             start=dict(verb="mission", args=dict(name="CATCH"))),
+    _feature("thrower", "Thrower", "payload", ("catch",), optional=True, mission="THROWER", moves=True,
+             hint="Flywheels, tilt and one ball, with the base parked"),
+    _feature("cameras", "Cameras", "see"),
+    _feature("vision", "Vision", "see"),
+    _feature("preflight", "Preflight", "test", hint="Automatic checks, nothing moves"),
+    _feature("bringup", "Bring-up", "test", hint="Guided checks on the real robot (design.md 8)"),
+    _feature("calibrate", "Calibrate", "test", mission="CALIBRATE", moves=True),
+    _feature("base", "Base", "test", hint="The MCU's 200 Hz samples"),
+    _feature("faults", "Faults", "test", ("sim",), optional=True, hint="Break the sim robot on purpose"),
+    _feature("face", "Face", "robot"),
+    _feature("health", "Health", "robot"),
+    _feature("logbook", "Logbook", "robot"),
+    _feature("rc", "RC", "robot"),
+    _feature("settings", "Settings", "robot", hint="Every console setting and the robot nodes' ROS parameters"),
+    _feature("system", "System", "robot"),
+    _feature("version", "Version", "robot"),
+    _feature("ros", "ROS", "robot"),
+)
+FEATURE = {f["id"]: f for f in FEATURES}
+# the verbs that start a feature (the preflight's gate): verb -> feature; "mission" by its name
+VERB_FEATURE = {"tidy": "tidy", "pick": "tidy", "goto": "goto", "explore": "explore", "patrol": "patrol",
+                "follow": "follow", "program_run": "program", "move": "program", "calib_start": "calibrate",
+                "thrower": "thrower", "fire": "thrower"}
+MISSION_FEATURE = {"CATCH": "catch", "THROWER": "thrower"}       # MANUAL is never refused: driving to the charger
 
 
 @dataclass(frozen=True)
@@ -180,8 +245,8 @@ SETTINGS = (
                  "nothing else drives it. On: also follow, play catch, go to a saved place, explore. Off: the "
                  "microphones stay off."),
     Setting("tidy.radius", ("tidy",), "How far", 2.0, "m", 0.5, 5.0, 0.25,
-            "Only things within this distance of where the tidy started. Clear the way: the tidy drives straight to "
-            "each thing (no Nav2), slowly, and stops with its bumper."),
+            "Only things within this distance of where the tidy started. The tidy drives itself (not Nav2), slowly, "
+            "and only through floor its camera has seen free; it checks the whole circle, then comes back."),
     Setting("ai.max_speed", ("ai",), "AI top speed", 0.5, "m/s", 0.1, 1.0, 0.05,
             "The fastest an AI client (Claude or Codex through omni_mcp) may drive the robot in its moves. The "
             "firmware's profile still caps it (kid 0.8 m/s)."),

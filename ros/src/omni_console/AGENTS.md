@@ -2,6 +2,8 @@
 
 For local console changes, start with the affected source/tests; read design.md only when changing the robot's design, architecture, operating limits or mission semantics. `web/` uses plain ES modules with no build step; vendored libraries are documented in `web/vendor/README.md`.
 
+- The page is arranged in workspaces by intent (Home, Drive, Map, payload, See, Test, Robot). A new feature is a `FEATURES` entry in `console_defs.py` (its workspace, needed caps, card and start verb), its verbs and settings, and, when it needs more than the generic page (`web/js/tabs/feature.js`), a page registered in `web/js/app.js` `PAGES` under the same id; `test_workspaces.py` checks the two lists agree. Keep page ids stable: they are the addresses (`#goto`) that links and `console_smoke.py` use.
+- Preflight checks and bring-up checks live in `checks.py`; a preflight failure may block only what would fail anyway (warn otherwise), and bring-up actions are ordinary console verbs.
 - Add features through verbs/settings in `missions.py` (the `Console` core; its AI client, calibration and map/program editing live in the mixins `console_ai.py`, `console_calib.py`, `console_edit.py`, shared names in `console_defs.py`) and the existing `/console/command` service, not new service types.
 - The robot sends data; the browser decodes and draws. Map, scan and MCU samples use raw rosbridge subscriptions (`cbor-raw`, `web/js/cdr.js`). Rosbridge shares a subscription per topic: subscribe raw everywhere or nowhere. Do not add images or other high-rate topics through rosbridge; use the separate camera preview path.
 - Drain busy inputs with `Feed.drain`, not a callback for every sample. Do not run console nodes on sim time: the high-rate clock creates substantial Python overhead.

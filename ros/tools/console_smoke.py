@@ -108,8 +108,14 @@ def run_tabs(page, a, st, cmd, wait, check):
     (the IMU level check), Follow (a person: the step's person:=true), the Logbook."""
     page.goto(a.url + "/#home")
     time.sleep(1.0)
-    check(page.get_by_text("Play catch").count() > 0 and page.get_by_text("Follow me / Tag").count() > 0,
-          "Home: a card per mode")
+    cards = page.locator(".mode-card .t").all_text_contents()
+    check(any(c.startswith("Drive") for c in cards) and any(c.startswith("Follow") for c in cards),
+          f"Home: a card per task ({', '.join(cards)})")
+    check(page.locator(".tabbar .tab").count() >= 6, "Home: the workspaces (Home, Drive, Map, payload, See, Test, Robot)")
+    pf = cmd("preflight")
+    fails = [f"{r['label']}: {r['detail']}" for r in (pf["data"] or {}).get("rows", []) if r["state"] == "fail"]
+    check(pf["ok"] and pf["data"]["assessed"] and not fails,
+          f"Preflight: assessed, {len(pf['data']['rows'])} checks, nothing failing ({'; '.join(fails) or 'ok'})")
     h = cmd("health")
     check(h["ok"] and len(h["data"]["history"]) >= 3, f"Health: {len(h['data']['history'])} s of history, counters "
           f"{h['data']['counters']}")
@@ -124,6 +130,9 @@ def run_tabs(page, a, st, cmd, wait, check):
     check(bool(s) and s["task"].endswith("finished") and math.hypot(p1["x"] - p0["x"], p1["y"] - p0["y"]) < 0.08,
           f"Program: finished back where it started ('{s and s['task']}', "
           f"{math.hypot(p1['x'] - p0['x'], p1['y'] - p0['y']):.3f} m off)")
+    act = (cmd("activity")["data"] or {}).get("items", [])
+    check(bool(act) and act[0]["mission"] == "PROGRAM" and act[0]["state"] == "done",
+          f"Activity: the program is recorded ({act[0]['state'] if act else 'nothing'})")
     # Map edit: a no-go zone around a free goal: Nav2 must refuse to go there; then gone, it can
     g = page.evaluate(FREE_GOAL_JS)
     if g is None:

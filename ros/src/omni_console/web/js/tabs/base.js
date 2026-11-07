@@ -40,8 +40,8 @@ export function BaseTab() {
   });
   return html`<div class="full">
     <${HelpBox} tab="base">
-      The drive: four DM-2325 motors (integrated FOC and encoder) commanded over CAN by the MCU, which turns the
-      robot computer's speed requests into wheel speeds within its limits. The charts show the last 10 s at the MCU's full
+      The drive: four CubeMars AK40-10 motors (integrated FOC and encoder) on the arm robot, commanded over CAN by the
+      MCU (until its AK40-10 driver exists, the firmware drives only the earlier DM-2325s), which turns the robot computer's speed requests into wheel speeds within its limits. The charts show the last 10 s at the MCU's full
       200 Hz: <b>solid</b> what the wheels measured, <b>dashed</b> what the controller asked for. A gap between them while
       driving is acceleration limiting or slip; <b>slip</b> is how much the four wheels disagree. A wheel that isn't
       "ok" while armed stops the robot (MOTOR_ERR in the status bar).

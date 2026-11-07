@@ -53,6 +53,8 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     DRIVE_MISSIONS,
     EXPRESSIONS,
     FAULTS_STOP_AI,
+    FEATURE,
+    FEATURES,
     FIND_SHAPES,
     FIND_STALE,
     FLY_RPM_MAX,
@@ -64,6 +66,7 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     MANUAL_TIMEOUT,
     MAP_NAME,
     MISSIONS,
+    MISSION_FEATURE,
     MODE_OF,
     NAME,
     NAV_MISSIONS,
@@ -75,8 +78,10 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     Setting,
     TILT_RANGE,
     TRICKS,
+    VERB_FEATURE,
     VERBS,
     VERSION,
+    WORKSPACES,
     ZERO_TAIL,
     _LAUNCH,
     _name,
@@ -93,7 +98,7 @@ from omni_console.console_edit import EditMixin
 class Console(AiMixin, CalibMixin, EditMixin):
     def __init__(self, settings: dict | None = None, places: dict | None = None, routes: dict | None = None,
                  programs: dict | None = None, calib: dict | None = None, throws=None, health=None,
-                 ai_tasks: dict | None = None):
+                 ai_tasks: dict | None = None, bringup: dict | None = None):
         from omni_console.ai_tasks import TaskBook
         from omni_console.health import Health
         from omni_console.throws import ThrowLog
@@ -140,7 +145,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
         self.goal = None                   # dict(x, y, yaw, name, seq): the Nav2 goal of GOTO / EXPLORE / PATROL
         self.goal_seq = 0
         self.d0 = None
-        self.caps = {"nav": False, "catch": False, "collision": False, "arm": False}
+        self.caps = {"nav": False, "catch": False, "collision": False, "arm": False, "sim": False}
         self.arm, self.t_arm = None, -math.inf     # omni_arm's last /arm/state, and when it came
         self.arm_ev = 0                            # the last arm event passed on
         self.slam = dict(mode=None, map=None, managed=False, maps=[], busy=False)
@@ -160,6 +165,18 @@ class Console(AiMixin, CalibMixin, EditMixin):
         self.zero_until = -math.inf        # zero twist until then, after a driving mission stops (a clean stop)
         self.found, self.t_found = None, -math.inf     # omni_arm's last find, and when it came
         self.loc_epoch = self.found_epoch = 0          # SLAM changes since start; the find's (older: stale)
+        # the Test workspace (checks.py): the node's latest preflight rows, the bring-up results, what a result records
+        self.preflight = None              # list of checks.preflight rows, or None (no status assessed yet)
+        self.bringup = {k: list(v) for k, v in (bringup or {}).items() if isinstance(v, list)}
+        self.bringup_changed = False
+        self.bringup_new = []              # records to log (the node writes them to the session log)
+        self.robot_config = {}             # from the node: source, firmware build, host (stored with each result)
+        # the activity history: every task that ran, whoever started it (a person on the page, the voice, the AI)
+        self.activity = deque(maxlen=50)
+        self.activity_n = 0                # bumped on every change: the page asks for the list again
+        self.act = None                    # the running activity record
+        self.who = "console"               # who sent the command being handled: console | voice | ai | ...
+        self.last_level = "info"           # the last event's level: how a task that ended by itself went
 
     def set_map(self, name, places: dict | None, routes: dict | None, zones: dict | None = None,
                 edges: dict | None = None, rooms: dict | None = None):
@@ -203,6 +220,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
     # -- events ---------------------------------------------------------------------------------------------------
     def event(self, level: str, text: str):
         self.events.append((level, text))
+        self.last_level = level
 
     def pop_events(self) -> list:
         out = list(self.events)
@@ -214,11 +232,122 @@ class Console(AiMixin, CalibMixin, EditMixin):
         """A verb from the page, the voice (omni_face) or an AI client (args["ai"]: its session). A person's verb that
         moves the robot takes it back from the AI first (its task cancelled, its mission stopped)."""
         a = args or {}
+        self.who = "ai" if a.get("ai") else re.sub(r"[^a-z_]", "", str(a.get("by") or "console").lower())[:16] or "console"
+        bad = self.gate(verb, a)
+        if bad is not None:
+            self.who = "console"
+            return bad
         pre = ()
         if not a.get("ai") and verb in HUMAN_VERBS:
-            pre = self._ai_takeover(f"a person took over ({verb} from the console)")
+            pre = self._ai_takeover(f"a person took over ({verb} from the {self.who})")
         r = self._command(verb, a)
+        self.activity_sync()
+        self.who = "console"
         return Reply(r.ok, r.message, r.data, pre + r.effects) if pre else r
+
+    # -- the preflight's gate (checks.py) --------------------------------------------------------------------------
+    def gate(self, verb: str, a: dict) -> Reply | None:
+        """A start refused by a failing preflight check: the check's own words. Stop, cancel and the arm's hold and
+        torque-off are never refused; neither is driving by hand (MANUAL)."""
+        from omni_console.checks import blocking
+        if not self.preflight:
+            return None
+        if verb == "mission":
+            fid = MISSION_FEATURE.get(str(a.get("name", "")).upper())
+        elif verb == "arm":
+            fid = "arm" if str(a.get("do", "")) in ("pose", "gripper", "jog") else None
+        else:
+            fid = VERB_FEATURE.get(verb)
+        if fid is None:
+            return None
+        rows = blocking(self.preflight, fid, bool(FEATURE.get(fid, {}).get("moves")))
+        if not rows:
+            return None
+        why = "; ".join(f"{r['label']}: {r['detail']}" for r in rows)
+        return Reply(False, f"Preflight refuses {FEATURE[fid]['label']}: {why}",
+                     dict(error="fault", preflight=[r["id"] for r in rows]))
+
+    # -- the activity history: what ran, who started it, how it ended --------------------------------------------
+    def _act_open(self):
+        if self.mission in ("IDLE", "MANUAL"):
+            return
+        t = self.ai_book.running()
+        self.act = dict(n=self.activity_n + 1, mission=self.mission, label=self.task, who=self.who if t is None else "ai",
+                        task_id=None if t is None else t.id, t0=round(self.wall_time(), 1), t1=None, state="running",
+                        result="")
+        self.activity.append(self.act)
+        self.activity_n += 1
+
+    def _act_close(self, state: str, result: str):
+        if self.act is None:
+            return
+        self.act.update(t1=round(self.wall_time(), 1), state=state, result=result)
+        self.act = None
+        self.activity_n += 1
+
+    def activity_sync(self):
+        """A task that ended by itself (Nav2 arrived, the tidy finished, the robot was switched elsewhere): closed with
+        how its last message went; a task that started outside a command (the robot came up in CATCH): opened."""
+        if self.act is not None and self.act["mission"] != self.mission:
+            self._act_close("done" if self.last_level == "info" else "failed", self.task)
+        if self.act is None and self.mission not in ("IDLE", "MANUAL"):
+            self._act_open()
+
+    # -- who has the robot, and how fast it may go ---------------------------------------------------------------
+    CONTROL_LADDER = (("estop", "E-stop"), ("rc", "RC switch"), ("stick", "Stick / gamepad"),
+                      ("task", "Task (Nav2, Tidy, Follow ...)"), ("ai", "AI"))
+
+    def control(self, now: float) -> dict:
+        """Who drives the robot now, highest first: the hardware/firmware e-stop, the RC's MANUAL switch, a person's
+        stick, a task (a mission), the AI (its own task, the lowest: any person's command takes it back)."""
+        m = self.mcu or {}
+        t = self.ai_book.running()
+        if m.get("mode") == "ESTOP":
+            who, text = "estop", "E-stop: motors off"
+        elif self.rc_manual:
+            who, text = "rc", "RC transmitter (MANUAL switch)"
+        elif self.manual_active(now):
+            who, text = "stick", "Stick / gamepad on the console"
+        elif t is not None:
+            who, text = "ai", f"AI: {t.kind.replace('_', ' ')}"
+        elif self.mission in NAV_MISSIONS:
+            who, text = "task", f"Nav2 ({self.mission.title().replace('Goto', 'Go To')})"
+        elif self.mission not in ("IDLE", "MANUAL"):
+            who, text = "task", self.mission.title()
+        elif self.mission == "MANUAL":
+            who, text = "ready", "Console: ready to drive"
+        else:
+            who, text = "idle", "Nobody: motors off"
+        lease = self.ai is not None and now <= self.ai["until"]
+        hold = max(0.0, HUMAN_HOLD - (now - self.human_t)) if lease else 0.0     # only news while an AI is connected
+        return dict(who=who, text=text, ladder=[dict(id=k, label=lbl) for k, lbl in self.CONTROL_LADDER],
+                    ai_hold_s=round(hold, 1) if hold > 0 else None, ai_lease=lease)
+
+    def speed_cap(self) -> dict | None:
+        """The top speed the robot may drive at now, and why (the lowest of the firmware's profile, the task's own
+        top speed, the arm being out, a slow band on the map)."""
+        if self.mission == "IDLE":
+            return None
+        v = self.values
+        kid = bool(v["profile.kid"])
+        caps = [(FW_LIMITS["kid" if kid else "adult"][0], "kid profile" if kid else "firmware limit")]
+        own = {"MANUAL": ("manual.max_speed", "Drive's top speed"), "GOTO": ("goto.speed", "Go To's speed"),
+               "EXPLORE": ("explore.speed", "Explore's speed"), "PATROL": ("patrol.speed", "Patrol's speed"),
+               "PROGRAM": ("program.speed", "Program's speed")}
+        if self.ai_book.running() is not None:
+            caps.append((v["ai.max_speed"], "AI top speed"))
+        elif self.mission == "FOLLOW":
+            tag = self.follower is not None and self.follower.mode == "tag"
+            caps.append((v["tag.speed" if tag else "follow.speed"], "Tag speed" if tag else "Follow's speed"))
+        elif self.mission in own:
+            k, why = own[self.mission]
+            caps.append((v[k], why))
+        if self._arm_up() and self.arm.get("out"):
+            caps.append((1.0, "arm out"))
+        if self.slow is not None:
+            caps.append((float(self.slow[0]), f"slow band: {self.slow[1]}"))
+        speed, why = min(caps, key=lambda c: c[0])
+        return dict(speed=round(float(speed), 2), reason=why)
 
     def _command(self, verb: str, a: dict) -> Reply:
         ai = str(a.get("ai") or "")
@@ -332,6 +461,22 @@ class Console(AiMixin, CalibMixin, EditMixin):
                 if not text:
                     return Reply(False, "Type what the robot should take as heard")
                 return Reply(True, f"Heard (typed): {text}", None, (("face_hear", text),))
+            if verb == "preflight":
+                return Reply(True, "", dict(rows=self.preflight or [], assessed=self.preflight is not None))
+            if verb == "tests":
+                from omni_console.checks import BRINGUP
+                return Reply(True, "", dict(checks=list(BRINGUP), results=self.bringup))
+            if verb == "test_record":
+                from omni_console.checks import BRINGUP, BRINGUP_IDS, record
+                cfg = dict(self.robot_config, console=VERSION, map=self.map_name, kid=bool(self.values["profile.kid"]))
+                rec = record(self.bringup, a, self.wall_time(), cfg)
+                self.bringup_changed = True
+                self.bringup_new.append(rec)
+                title = BRINGUP[BRINGUP_IDS.index(rec["id"])]["title"]
+                self.event("info" if rec["result"] != "fail" else "warn", f"Bring-up '{title}': {rec['result']}")
+                return Reply(True, f"Recorded: {title} {rec['result']}", dict(results=self.bringup))
+            if verb == "activity":
+                return Reply(True, "", dict(n=self.activity_n, items=list(reversed(self.activity))))
             if verb == "tidy":
                 return self._tidy()
             if verb == "arm":
@@ -430,6 +575,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
                 self.task = (f"Tidy done: {t.get('picked', 0)} in the bin, {t.get('failed', 0)} not picked up"
                              + (f" ({t['reason']})" if t.get("reason") else ""))
                 self.event("info", self.task)
+                self.activity_sync()
                 return (("set_mode", "TELEOP", self.values["profile.kid"]),)
         return ()
 
@@ -775,9 +921,12 @@ class Console(AiMixin, CalibMixin, EditMixin):
             self.pending_mode = mode
         if mission != "MANUAL":
             self.manual_in = None
+        if self.act is not None:                         # a person (or the AI) moved the robot on: the task is over
+            self._act_close("stopped" if mission in ("IDLE", "MANUAL") else "replaced", task)
         self.mission, self.task = mission, task
         self.progress = 0.0 if mission == "GOTO" else None
         self.event(level, task)
+        self._act_open()
         return Reply(True, task, None, tuple(fx))
 
     # -- Explore and Patrol: what to do next ---------------------------------------------------------------------
@@ -785,13 +934,12 @@ class Console(AiMixin, CalibMixin, EditMixin):
         """Every ~0.5 s from the node (grid: explore.Grid of the current map while exploring). Returns effects."""
         self.now = now
         fx = self._ai_tick(now)
-        if fx:
-            return tuple(fx)
-        if self.mission == "EXPLORE" and self.explore is not None:
-            return tuple(self._explore_tick(now, grid))
-        if self.mission == "PATROL" and self.patrol is not None:
-            return tuple(self._patrol_tick(now))
-        return ()
+        if not fx and self.mission == "EXPLORE" and self.explore is not None:
+            fx = self._explore_tick(now, grid)
+        elif not fx and self.mission == "PATROL" and self.patrol is not None:
+            fx = self._patrol_tick(now)
+        self.activity_sync()
+        return tuple(fx)
 
     def _explore_tick(self, now: float, grid) -> list:
         from omni_console.explore import ExploreParams, frontier_goal, still_open
@@ -876,6 +1024,11 @@ class Console(AiMixin, CalibMixin, EditMixin):
 
     # -- what the robot reports ----------------------------------------------------------------------------------
     def on_robot_mode(self, text: str) -> tuple:
+        fx = self._on_robot_mode(text)
+        self.activity_sync()
+        return fx
+
+    def _on_robot_mode(self, text: str) -> tuple:
         """/robot_mode, e.g. "CATCH adult". Adopts the first one; afterwards a change nobody here asked for (another
         client of /set_mode) moves the mission along. Returns effects (a nav cancel when a Nav2 mission loses its
         mode)."""
@@ -927,6 +1080,10 @@ class Console(AiMixin, CalibMixin, EditMixin):
 
     def on_nav_done(self, seq: int, outcome: str, now: float | None = None):
         """outcome: succeeded | aborted | canceled | rejected. A goal replaced or cancelled here reports nothing."""
+        self._on_nav_done(seq, outcome, now)
+        self.activity_sync()
+
+    def _on_nav_done(self, seq: int, outcome: str, now: float | None = None):
         if self.goal is None or seq != self.goal["seq"] or self.mission not in NAV_MISSIONS + ("PROGRAM",):
             return
         now = self.now if now is None else now
@@ -992,6 +1149,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
             self.mission, self.progress = "MANUAL", None
             self.task = "Navigation stopped: goal dropped"
             self.event("warn", self.task)
+        self.activity_sync()
 
     # -- the console's stick -----------------------------------------------------------------------------------
     def manual_input(self, vx: float, vy: float, wz: float, boost: bool, now: float):
@@ -1028,7 +1186,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
 
     # -- what the page shows ------------------------------------------------------------------------------------
     def schema(self) -> dict:
-        return dict(version=VERSION, missions=list(MISSIONS),
+        return dict(version=VERSION, missions=list(MISSIONS), features=list(FEATURES),
+                    workspaces=[dict(id=k, label=lbl) for k, lbl in WORKSPACES],
                     settings=[s.describe(self.values[s.key]) for s in SETTINGS],
                     places={k: v for k, v in sorted(self.places.items())},
                     routes={k: v for k, v in sorted(self.routes.items())}, map=self.map_name,
@@ -1046,7 +1205,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
         e = self.explore
         p = self.patrol
         return dict(mission=self.mission, task=self.task, progress=self.progress, goal=g, robot_mode=self.robot_mode,
-                    kid=self.values["profile.kid"], caps=dict(self.caps), version=VERSION,
+                    kid=self.values["profile.kid"], caps=dict(self.caps, arm=self._arm_up()), version=VERSION,
+                    control=self.control(self.now), cap=self.speed_cap(), activity_n=self.activity_n,
                     slam=dict(self.slam),
                     explore=None if e is None else dict(phase=e["phase"], start=e["start"], info=e["info"],
                                                          failed=e["blacklist"]),

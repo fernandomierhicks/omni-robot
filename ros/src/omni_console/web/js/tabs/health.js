@@ -38,7 +38,7 @@ export function HealthTab() {
   return html`<div class="full">
     <${HelpBox} tab="health">
       How the robot has been: the last half hour of its battery, its computer and each drive motor's winding and driver
-      temperature (the DM-2325s report them), its lifetime counters, and a maintenance list. A reminder turns orange
+      temperature (the AK40-10 drives report them over CAN), its lifetime counters, and a maintenance list. A reminder turns orange
       when it's due; <b>Done</b> resets it. The intervals are guesses until the real robot has worn something.
     <//>
     <div class="row" style="align-items: stretch; gap: 10px">

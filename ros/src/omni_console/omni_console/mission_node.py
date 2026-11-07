@@ -86,7 +86,7 @@ from std_srvs.srv import Trigger
 from tf2_msgs.msg import TFMessage
 from visualization_msgs.msg import Marker
 
-from omni_console import session_log
+from omni_console import checks, session_log
 from omni_console import status as st
 from omni_console.ai_tasks import log_fields
 from omni_console.cdr import parse_ball_track, parse_laser_scan
@@ -395,12 +395,15 @@ class MissionNode(Node):
         self.health_path = state_dir / "health.json"
         self.slam_pose_path = state_dir / "slam_pose.json"     # where it was localized: a restart resumes there
         self.ai_path = state_dir / "ai_tasks.json"
+        self.bringup_path = state_dir / "bringup.json"          # the Test workspace's bring-up results (checks.py)
         self.sessions_dir = state_dir / "logs" / "sessions"
         self.core = Console(load_json(self.settings_path).get("settings"),
                             programs=load_json(self.programs_path).get("programs"),
                             calib=load_json(self.calib_path).get("results"),
                             throws=ThrowLog(state_dir / "throws.jsonl"), health=Health(load_json(self.health_path)),
-                            ai_tasks=load_json(self.ai_path))
+                            ai_tasks=load_json(self.ai_path), bringup=load_json(self.bringup_path).get("results"))
+        self.core.caps["sim"] = self.log_source == "sim"
+        self.fw_expected = None                       # dict(expected, protocol_host): publish_version, for preflight
         self.ai_cleanup = self.core.ai_cleanup()      # what the interrupted tasks left moving: stopped in check_caps
         for t in self.core.ai_book.tasks.values():
             if t.state == "INTERRUPTED" and t.t_end is None:
@@ -1238,6 +1241,9 @@ class MissionNode(Node):
                  slam_log=str(self.slam.log_path) if self.slam else None, video=self.video,
                  topics=dict(scan=self.scan_topic, map="/map", samples="/mcu/samples"),
                  load=self.load.last)                     # the node's own callbacks, % of a core (LoadMeter)
+        self.fw_expected = dict(expected=expected, protocol_host=PROTOCOL_VERSION)
+        self.core.robot_config = dict(source=self.log_source, host=platform.node(), firmware=i["build"] if i else None,
+                                      protocol=i["protocol"] if i else None)
         lp = self.tf.lookup("base_link", "laser")         # where the page puts the raw scan's origin
         v["frames"] = dict(laser=None if lp is None else [round(lp[0], 4), round(lp[1], 4), round(lp[2], 5)])
         self.p_version.publish(String(data=json.dumps(v)))
@@ -1259,6 +1265,13 @@ class MissionNode(Node):
         if book.changed:
             book.changed = False
             save_json(self.ai_path, book.saved())
+        if self.core.bringup_changed:
+            self.core.bringup_changed = False
+            save_json(self.bringup_path, dict(results=self.core.bringup))
+        for rec in self.core.bringup_new:
+            if self.session is not None:
+                self.session.write("bringup", **{{"id": "check", "t": "wall_t"}.get(k, k): v for k, v in rec.items()})
+        self.core.bringup_new = []
         for rec in book.pop_finished():
             if self.session is not None:
                 self.session.write("ai_task", **log_fields(rec))
@@ -1316,6 +1329,9 @@ class MissionNode(Node):
         s["consoles"] = len(self.consoles)
         tw = self.core.last_cmd if self.core.manual_active(now) else None      # what was sent (slow bands applied)
         s["manual"] = dict(active=tw is not None, cmd=None if tw is None else [round(v, 2) for v in tw])
+        rows = checks.preflight(s, self.fw_expected)     # the Test workspace; failures refuse the starts they block
+        self.core.preflight = rows
+        s["preflight"] = checks.brief(rows)
         self.p_status.publish(String(data=json.dumps(s)))
         self.save()
         self.flush_events()

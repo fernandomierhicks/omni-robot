@@ -1,6 +1,8 @@
 // @ts-check
-/* The status bar: always there, whatever the tab. Connection, mode, current task, the MCU, battery, Wi-Fi, faults,
-   the latest message (click for the list) and STOP (also the space bar). */
+/* The status bar: always there, whatever the tab. Who has control (the whole ladder in its tooltip: e-stop, RC switch,
+   stick, task, AI), the mode and current task, how fast it may go and why, localization, the MCU, battery, Wi-Fi,
+   preflight, faults, the latest message (click for the list) and STOP (also the space bar). On a phone the second
+   line folds away. */
 import { html, useEffect, useState } from "../vendor/htm-preact-standalone.mjs";
 import { act, update, useStore } from "./ros.js";
 import { clock } from "./ui.js";
@@ -58,16 +60,20 @@ export function StatusBar() {
       <div class="cells">
         <div class="line">
           ${conn}
+          ${control(st)}
           <span class="sb"><span class="k">Mode</span><span class="badge mission">${st ? missionName(st.mission) : "?"}</span></span>
           <span class="sb task" title=${st?.task || ""}>${st?.task || ""}
             ${st?.progress != null && html`<span class="bar"><div style=${`width: ${Math.round(st.progress * 100)}%`}></div></span>`}</span>
           ${mcu && html`<span class="sb" title=${mcu.mode_hint}><span class="k">MCU</span>
             <span class=${`badge ${mcuClass(mcu.mode)}`}>${mcu.mode}</span>
             <span class="dim">${mcu.profile}</span></span>`}
+          ${speedCap(st)}
           ${battery(mcu)}
-          ${wifi(st)}
         </div>
-        <div class="line">
+        <div class="line more">
+          ${localization(st)}
+          ${preflight(st)}
+          ${wifi(st)}
           ${mcu && mcu.age > 1 && html`<span class="badge red" title="No state from the MCU: the link (USB) is down. The MCU stops the robot by itself after 0.5 s without commands.">MCU SILENT ${mcu.age.toFixed(0)} s</span>`}
           ${(mcu?.faults || []).map((/** @type {any} */ f) => html`<span class="badge red" title=${f.hint}>${f.name}</span>`)}
           ${st?.sys && st.sys.load != null && html`<span class="sb dim" title="The robot computer's load (1 min) and its hottest sensor">
@@ -122,4 +128,46 @@ function wifi(st) {
   const col = w.dbm > -60 ? "ok" : w.dbm > -72 ? "warn" : "err";
   return html`<span class="sb" title=${`${w.iface}, link quality ${w.quality}`}><span class="k">Wi-Fi</span>
     <span class=${col}>${w.dbm} dBm</span></span>`;
+}
+
+const WHO_CLS = { estop: "red", rc: "orange", stick: "green", ai: "blue", task: "green", ready: "", idle: "" };
+
+/** Who has the robot, and the override ladder (the highest first) in the tooltip. @param {any} st */
+function control(st) {
+  const c = st?.control;
+  if (!c) return null;
+  const ladder = c.ladder.map((/** @type {any} */ x, /** @type {number} */ i) =>
+    `${i + 1}. ${x.label}${x.id === c.who ? "  ◀ now" : ""}`).join("\n");
+  const tip = `Who drives the robot, highest first (each one beats those below it):\n${ladder}` +
+    (c.ai_hold_s ? `\n\nA person took over: the AI waits ${c.ai_hold_s} s more.` : "") +
+    (c.ai_lease ? "\nAn AI client holds a lease." : "");
+  return html`<span class="sb" title=${tip}><span class="k">Control</span>
+    <span class=${`badge ${WHO_CLS[/** @type {keyof typeof WHO_CLS} */ (c.who)] ?? ""}`}>${c.text}</span>
+    ${c.ai_hold_s && html`<span class="dim">AI held ${Math.ceil(c.ai_hold_s)} s</span>`}</span>`;
+}
+
+/** @param {any} st */
+function speedCap(st) {
+  const c = st?.cap;
+  if (!c) return null;
+  return html`<span class="sb" title="The fastest the robot may drive now: the lowest of the firmware's profile, the task's own speed, the arm being out and the map's slow bands">
+    <span class="k">Max</span><span class="mono">${c.speed} m/s</span> <span class="dim">${c.reason}</span></span>`;
+}
+
+/** @param {any} st */
+function localization(st) {
+  const l = st?.localization;
+  if (!st || !l) return null;
+  const col = l.level === "LOST" ? "red" : l.level === "POOR" ? "orange" : "green";
+  return html`<span class="sb" title=${(l.reasons || []).join("; ") || "omni_slam's localization health"}><span class="k">Loc</span>
+    <span class=${`badge ${col}`}>${l.level}</span>${l.sigma_xy != null && html`<span class="dim">±${Math.round(l.sigma_xy * 100)} cm</span>`}</span>`;
+}
+
+/** @param {any} st */
+function preflight(st) {
+  const p = st?.preflight;
+  if (!p) return null;
+  const col = p.fail ? "red" : p.warn ? "orange" : "green";
+  return html`<a class="sb" href="#preflight" style="text-decoration: none" title=${p.worst?.length ? p.worst.join(", ") : "All checks pass"}>
+    <span class="k">Preflight</span><span class=${`badge ${col}`}>${p.fail ? `${p.fail} failing` : p.warn ? `${p.warn} !` : "ok"}</span></a>`;
 }

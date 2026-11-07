@@ -23,7 +23,7 @@ export function SettingsForm({ tab, title = "Settings" }) {
   const s = useStore("schema");
   const rows = (s.schema?.settings || []).filter((/** @type {any} */ x) => x.tabs.includes(tab) && !OWN_CONTROL.has(x.key));
   if (!rows.length) return s.schema ? null : html`<p class="dim">Settings appear when the robot answers.</p>`;
-  return html`<h3>${title}</h3>${rows.map((/** @type {any} */ r) => html`<${SettingRow} key=${r.key} s=${r} />`)}`;
+  return html`${title && html`<h3>${title}</h3>`}${rows.map((/** @type {any} */ r) => html`<${SettingRow} key=${r.key} s=${r} />`)}`;
 }
 
 /** One setting: dashed while it's on its way, a green flash when the robot echoes it, the reason when refused.

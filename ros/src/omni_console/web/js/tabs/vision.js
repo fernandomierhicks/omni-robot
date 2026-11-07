@@ -29,12 +29,12 @@ export function VisionTab() {
   const host = location.hostname || "localhost";
   return html`<div class="full">
     <${HelpBox} tab="vision">
-      The stereo cameras find the ball by colour, the filter turns two views into a 3D track (with air drag), and the
-      catch code predicts where it will cross the catch height. <b>Track</b> shows that filter. The camera picture
-      comes as a video stream from the robot (web_video_server), never through the data link: a small preview, a few
-      frames a second (the robot encodes it once, whoever watches). In the sim the cameras
-      send only the ball-coloured pixels, drawn here as blobs: the ball (yellow) and clutter that has the ball's colour
-      (grey).
+      Any camera topic on the robot (the arm robot's D435 colour and depth, the wrist camera) as a video stream
+      (web_video_server), never through the data link: a small preview, a few frames a second (the robot encodes it
+      once, whoever watches). On the parked catch robot the stereo cameras also find the ball by colour, the filter
+      turns two views into a 3D track (with air drag) and the catch code predicts where it will cross the catch height:
+      <b>Track</b> shows that filter. In the catch sim the cameras send only the ball-coloured pixels, drawn here as
+      blobs: the ball (yellow) and clutter that has the ball's colour (grey).
     <//>
     <div class="row" style="align-items: flex-start; gap: 10px">
       <div class="card grow" style="min-width: 320px">

@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from "../vendor/htm-preact-standalone.mjs";
 import { decodeLaserScan, decodeOccupancyGrid, rawBytes } from "./cdr.js";
 
-export const PAGE_VERSION = "0.3.0";       // omni_console/missions.py VERSION
+export const PAGE_VERSION = "0.4.0";       // omni_console/missions.py VERSION
 const ROSLIB = /** @type {any} */ (window).ROSLIB;
 const SCAN_PERIOD_MS = 200;                // the lidar on the map at 5 Hz (it turns at 10)
 

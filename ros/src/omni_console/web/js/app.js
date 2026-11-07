@@ -1,19 +1,32 @@
 // @ts-check
-/* omni console: one page to watch and command the robot. Home and the mode tabs on the left of the bar, the robot's
-   subsystems and tools under "Robot" on the right, the status bar always at the bottom. The robot serves this page
-   (omni_console's supervisor, or console_web) and the page talks to it through rosbridge (ros.js) and, for starting
-   and stopping its software, to the supervisor (system.js). */
+/* omni console: one page to watch and command the robot, arranged by what the operator wants to do:
+     Home   have it do something: what it's doing now, the map and its camera, the tasks, what ran (and each task's page)
+     Drive  drive it by hand (the gamepad also drives from every page)
+     Map    places, routes, rooms, SLAM, and the tasks that use them (Go To, Patrol, Explore)
+     Arm    the fitted payload (Catch on the catch robot)
+     See    cameras and vision
+     Test   check it works: preflight, bring-up, calibration, the base's samples, the sim's faults
+     Robot  look inside or tune it (a menu): health, logbook, face, settings, RC, system, version, ROS
+   The robot lists its features and their workspaces (features.js); each page's address is its feature id (#goto,
+   #tidy, ...), the same as before the workspaces, so links and ros/tools/console_smoke.py keep working. The status bar
+   is always at the bottom. The robot serves this page (omni_console's supervisor, or console_web) and the page talks
+   to it through rosbridge (ros.js) and, for starting and stopping its software, to the supervisor (system.js). */
 import { html, render, useEffect, useState } from "../vendor/htm-preact-standalone.mjs";
 import { useDriveLoop } from "./drive.js";
+import { availability, features, payloadLabel, visible, WORKSPACES } from "./features.js";
 import { PAGE_VERSION, command, connect, useStore } from "./ros.js";
 import { StatusBar } from "./statusbar.js";
 import "./system.js";
+import { ArmTab } from "./tabs/arm.js";
 import { BaseTab } from "./tabs/base.js";
+import { BringupTab } from "./tabs/bringup.js";
 import { CalibrateTab } from "./tabs/calibrate.js";
 import { CamerasTab } from "./tabs/cameras.js";
 import { CatchTab } from "./tabs/catch.js";
 import { ExploreTab } from "./tabs/explore.js";
 import { FaceTab } from "./tabs/face.js";
+import { FaultsTab } from "./tabs/faults.js";
+import { FeatureTab } from "./tabs/feature.js";
 import { FollowTab } from "./tabs/follow.js";
 import { GotoTab } from "./tabs/goto.js";
 import { HealthTab } from "./tabs/health.js";
@@ -22,9 +35,11 @@ import { LogbookTab } from "./tabs/logbook.js";
 import { ManualTab } from "./tabs/manual.js";
 import { MapEditTab } from "./tabs/mapedit.js";
 import { PatrolTab } from "./tabs/patrol.js";
+import { PreflightTab } from "./tabs/preflight.js";
 import { ProgramTab } from "./tabs/program.js";
 import { RcTab } from "./tabs/rc.js";
 import { RosTab } from "./tabs/rostab.js";
+import { SettingsTab } from "./tabs/settings.js";
 import { SlamTab } from "./tabs/slam.js";
 import { SystemTab } from "./tabs/system.js";
 import { ThrowerTab } from "./tabs/thrower.js";
@@ -33,32 +48,52 @@ import { VersionTab, mismatch } from "./tabs/version.js";
 import { VisionTab } from "./tabs/vision.js";
 import { Banner } from "./ui.js";
 
-/** [id, label, mission (the live dot), component] */
-const MODES = [
-  ["home", "Home", null, HomeTab],
-  ["manual", "Manual", "MANUAL", ManualTab], ["goto", "Go To", "GOTO", GotoTab],
-  ["explore", "Explore", "EXPLORE", ExploreTab], ["patrol", "Patrol", "PATROL", PatrolTab],
-  ["catch", "Catch", "CATCH", CatchTab], ["follow", "Follow", "FOLLOW", FollowTab],
-  ["program", "Program", "PROGRAM", ProgramTab], ["tidy", "Tidy", "TIDY", TidyTab],
-];
-const TOOLS = [
-  ["base", "Base", null, BaseTab], ["thrower", "Thrower", "THROWER", ThrowerTab], ["face", "Face", null, FaceTab],
-  ["vision", "Vision", null, VisionTab], ["cameras", "Cameras", null, CamerasTab],
-  ["slam", "SLAM", null, SlamTab], ["mapedit", "Map edit", null, MapEditTab],
-  ["calibrate", "Calibrate", "CALIBRATE", CalibrateTab], ["health", "Health", null, HealthTab],
-  ["logbook", "Logbook", null, LogbookTab], ["rc", "RC", null, RcTab],
-  ["system", "System", null, SystemTab], ["version", "Version", null, VersionTab], ["ros", "ROS", null, RosTab],
-];
-const PAGES = Object.fromEntries([...MODES, ...TOOLS].map(([id, , , C]) => [id, C]));
+/** Each feature's page (feature id -> component). A feature the robot lists without one here: FeatureTab. */
+const PAGES = /** @type {Record<string, any>} */ ({
+  home: HomeTab,
+  tidy: TidyTab,
+  follow: FollowTab,
+  program: ProgramTab,
+  manual: ManualTab,
+  goto: GotoTab,
+  patrol: PatrolTab,
+  explore: ExploreTab,
+  slam: SlamTab,
+  mapedit: MapEditTab,
+  arm: ArmTab,
+  catch: CatchTab,
+  thrower: ThrowerTab,
+  cameras: CamerasTab,
+  vision: VisionTab,
+  preflight: PreflightTab,
+  bringup: BringupTab,
+  calibrate: CalibrateTab,
+  base: BaseTab,
+  faults: FaultsTab,
+  face: FaceTab,
+  health: HealthTab,
+  logbook: LogbookTab,
+  rc: RcTab,
+  settings: SettingsTab,
+  system: SystemTab,
+  version: VersionTab,
+  ros: RosTab,
+});
 
 /* The Launcher opens the page with ?drive=1: once the robot's software answers (it starts in Idle) it goes to Manual,
    so the gamepad drives straight away. Tried every few seconds for two minutes (the step may still be starting). */
 const drive = { want: new URLSearchParams(location.search).has("drive"), until: Date.now() + 120000, last: 0 };
 
+/** The page last opened in each workspace (a workspace's button goes back there). */
+const lastIn = /** @type {Record<string, string>} */ ((() => {
+  try { return JSON.parse(sessionStorage.getItem("console.last") || "{}"); } catch { return {}; }
+})());
+
 function App() {
-  const s = useStore("status", "conn", "version");
+  const s = useStore("status", "conn", "version", "schema");
   const [tab, setTab] = useState(() => location.hash.slice(1) || "home");
   const [menu, setMenu] = useState(false);
+  const list = features();
   useDriveLoop(s.status?.mission, tab === "manual");     // the gamepad / flight stick drives on every tab
   useEffect(() => {
     const st = s.status;
@@ -77,31 +112,54 @@ function App() {
     return () => window.removeEventListener("hashchange", f);
   }, []);
   const st = s.status;
+  const cur = list.find((x) => x.id === tab);
+  const group = cur?.group || (tab === "home" ? "home" : "");
+  useEffect(() => {
+    if (!group) return;
+    lastIn[group] = tab;
+    try { sessionStorage.setItem("console.last", JSON.stringify(lastIn)); } catch { /* */ }
+  }, [tab, group]);
   const pageMismatch = st && st.version && st.version !== PAGE_VERSION;
   const fw = mismatch(s.version);
-  /** @param {any} t */
-  const tabBtn = ([id, label, mission]) => html`<button key=${id} class=${`tab${tab === id ? " sel" : ""}`}
-    onClick=${() => { location.hash = id; }}>
-    ${label}${mission && st?.mission === mission && html`<span class="live" title="This mode is running"></span>`}</button>`;
-  const tool = TOOLS.find(([id]) => id === tab);
-  const toolLive = TOOLS.some(([, , m]) => m && st?.mission === m);
-  const Page = PAGES[tab] || HomeTab;
+  const shown = list.filter((x) => visible(x, st));
+  const inGroup = (/** @type {string} */ g) => shown.filter((x) => x.group === g);
+  const live = (/** @type {any} */ x) => !!x.mission && st?.mission === x.mission;
+  /** @param {string} g */
+  const open = (g) => {
+    const pages = inGroup(g);
+    const back = pages.find((x) => x.id === lastIn[g]);
+    const first = back || pages.find((x) => availability(x, st).ok) || pages[0];
+    if (first) location.hash = first.id;
+  };
+  const labels = /** @type {Record<string, string>} */ (Object.fromEntries(WORKSPACES));
+  labels.payload = payloadLabel(list, st);
+  const bar = WORKSPACES.filter(([g]) => g !== "robot" && inGroup(g).length);
+  const robotPages = inGroup("robot");
+  const sub = group && group !== "robot" ? inGroup(group) : [];
+  const Page = PAGES[tab] || (cur ? FeatureTab : HomeTab);
   return html`
     <nav class="tabbar">
       <span class="brand">omni console</span>
-      ${MODES.map(tabBtn)}
+      ${bar.map(([g]) => html`<button key=${g} class=${`tab${group === g ? " sel" : ""}`} onClick=${() => open(g)}>
+        ${labels[g]}${inGroup(g).some(live) && html`<span class="live" title="A task here is running"></span>`}</button>`)}
       <span class="sep"></span>
       <span class="menu-wrap">
-        <button class=${`tab${tool ? " sel" : ""}`} onClick=${() => setMenu(!menu)} aria-haspopup="true" aria-expanded=${menu}>
-          ${tool ? `Robot: ${tool[1]}` : "Robot"} ▾${toolLive && html`<span class="live"></span>`}</button>
+        <button class=${`tab${group === "robot" ? " sel" : ""}`} onClick=${() => setMenu(!menu)} aria-haspopup="true" aria-expanded=${menu}>
+          ${group === "robot" && cur ? `Robot: ${cur.label}` : "Robot"} ▾</button>
         ${menu && html`<div class="menu" onMouseLeave=${() => setMenu(false)}>
-          ${TOOLS.map(([id, label, m]) => html`<button class=${`item${tab === id ? " sel" : ""}`} onClick=${() => { location.hash = id; }}>
-            ${label}${m && st?.mission === m ? " •" : ""}</button>`)}</div>`}
+          ${robotPages.map((x) => html`<button class=${`item${tab === x.id ? " sel" : ""}`} title=${x.hint}
+            onClick=${() => { location.hash = x.id; }}>${x.label}</button>`)}</div>`}
       </span>
     </nav>
+    ${sub.length > 1 && html`<nav class="subbar">${sub.map((x) => {
+      const a = availability(x, st);
+      return html`<button key=${x.id} class=${`sub${tab === x.id ? " sel" : ""}${a.ok ? "" : " off"}`}
+        title=${a.ok ? x.hint : a.why} onClick=${() => { location.hash = x.id; }}>
+        ${x.label}${live(x) && html`<span class="live"></span>`}</button>`;
+    })}</nav>`}
     ${pageMismatch && html`<${Banner} red=${true} title="Version mismatch.">The robot's console is ${st.version}, this page ${PAGE_VERSION}: reload the page (Ctrl+F5).<//>`}
     ${fw && html`<${Banner} red=${true} title="Firmware mismatch.">${fw} (Version tab)<//>`}
-    <main class="page" onClick=${() => menu && setMenu(false)}><${Page} /></main>
+    <main class="page" onClick=${() => menu && setMenu(false)}><${Page} feature=${cur} /></main>
     <${StatusBar} />`;
 }
 

@@ -1,11 +1,10 @@
 // @ts-check
-/* System: the robot's software as the supervisor runs it (start, stop, restart, the log), the robot computer, power,
-   and in the sim the fault injection (FaultsCard). This is what the Launcher's ROS buttons did. */
+/* System: the robot's software as the supervisor runs it (start, stop, restart, the log), the robot computer and
+   power. This is what the Launcher's ROS buttons did. The sim's fault injection is in Test › Faults. */
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
 import { useStore } from "../ros.js";
 import { runningStep, saveStepArgs, startStep, stepArgs, stopStep, sysCall } from "../system.js";
 import { Banner, HelpBox } from "../ui.js";
-import { FaultsCard } from "./faults.js";
 import { fmtUp } from "./home.js";
 
 export function SystemTab() {
@@ -18,7 +17,6 @@ export function SystemTab() {
         a terminal) serves the page itself, so starting and stopping the robot's software from here isn't available.
         Use the Launcher's <b>Console</b> button (<span class="mono">omni.sh console</span>); on the robot the
         supervisor starts at boot.<//>
-      <${FaultsCard} />
     </div>`;
   }
   const cur = sup.current;
@@ -53,7 +51,7 @@ export function SystemTab() {
       return steps.length ? html`<h3>${title}</h3><div class="steps">${steps.map((/** @type {any} */ step) => html`<${Step} key=${step.id} step=${step} running=${run?.step === step.id} />`)}</div>` : null;
     })}
     <${Log} />
-    ${sup.sim && html`<${FaultsCard} />`}
+    ${sup.sim && html`<p class="dim">Fault injection (break the sim robot on purpose): <a href="#faults">Test › Faults</a>.</p>`}
   </div>`;
 }
 

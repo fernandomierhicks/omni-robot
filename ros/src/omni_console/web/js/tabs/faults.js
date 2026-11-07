@@ -6,6 +6,11 @@ import { note, publishJson, useStore, useTopic } from "../ros.js";
 
 const TIMED = ["link", "motor", "imu", "flywheel"];        // cut-offs that end by themselves after a few seconds
 
+/** Test › Faults: the card on its own page. */
+export function FaultsTab() {
+  return html`<div class="full" style="max-width: 760px"><${FaultsCard} /></div>`;
+}
+
 export function FaultsCard() {
   const s = useStore("conn");
   const [st, setSt] = useState(/** @type {any} */ (null));

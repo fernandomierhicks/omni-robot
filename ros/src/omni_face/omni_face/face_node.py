@@ -186,6 +186,7 @@ class FaceNode(Node):
         if not self.console_cli.service_is_ready():
             self.brain.answer(now, intent, False, "My console isn't running.")
             return
+        args["by"] = "voice"                       # the console's activity history: who started it
         fut = self.console_cli.call_async(ConsoleCommand.Request(verb=intent.verb, args=json.dumps(args)))
 
         def done(f):
