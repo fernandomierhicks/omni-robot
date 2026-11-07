@@ -886,6 +886,79 @@ def test_dm2325_feedback_codec_round_trip():
         assert v == pytest.approx(vel, abs=0.03) and q == pytest.approx(tau, abs=0.003)
 
 
+def test_ak40_status_codec_round_trip():
+    """The sim's CubeMars motor (sil_robot.AkMotor) and the firmware's decoder (ak_motor.h) agree on servo mode's
+    status broadcast: 0.1 deg, 10 ERPM, 0.01 A, degC, error; position wraps at +/-3276.8 deg."""
+    FW, PR = _sil()
+    from sil_robot import AkMotor
+    mot = AkMotor(3, 14.0, 10.0, 0.48, status_hz=500.0)
+    for k, (pos, vel, tau) in enumerate(((0.3, 12.5, -1.2), (-40.0, -45.0, 2.0), (70.0, 0.01, 0.0))):
+        f = mot.status(k * 0.01, pos, vel, tau, 41.0)
+        mid, deg, erpm, amps, temp, err = FW.ak_decode_status(f, "arm")
+        assert (mid, temp, err, f.ext, f.id) == (3, 41, 0, 1, 0x2903)
+        assert deg == pytest.approx((math.degrees(pos) + 3276.8) % 6553.6 - 3276.8, abs=0.06)
+        assert erpm / (60 / (2 * math.pi) * 140) == pytest.approx(vel, abs=0.01)
+        assert amps == pytest.approx(tau / 0.48, abs=0.006)
+    assert mot.status(0.0201, 0, 0, 0, 0) is None                       # 500 Hz: not due yet
+
+
+def test_ak40_motor_side_timeout_coasts():
+    from sil_robot import AkMotor, CanFrame
+    import struct as _s
+    mot = AkMotor(1, 14.0, 10.0, 0.48, timeout=0.1)
+    f = CanFrame()
+    f.id, f.ext, f.len = (3 << 8) | 1, 1, 4
+    for i, b in enumerate(_s.pack(">i", 14000)):
+        f.data[i] = b
+    mot.on_frame(f, 0.0)
+    assert mot.enabled and mot.setpoint == pytest.approx(14000 / (60 / (2 * math.pi) * 140))
+    f.ext = 0
+    mot.on_frame(f, 0.05)                                                # a standard frame: servo mode ignores it
+    mot.step(0.15)
+    assert not mot.enabled                                               # its own timeout: the brake current, 0 A
+
+
+def arm_rig(**kw):
+    from robot_export import arm_params
+    from sil_link import SimLink
+    from sil_robot import SilRobot
+    p = arm_params(area_size=(8.0, 6.0), home_xy=(0.0, 0.0), thrower_xy=(-3.0, 0.0), **kw)
+    m = build_model(p)
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    r = SilRobot(m, d, p, seed=1)
+    return p, m, d, r, SimLink(r)
+
+
+def test_arm_firmware_drives_the_ak40s_in_servo_mode():
+    """The arm robot's firmware (fw_params_arm.h) speaks CubeMars servo mode: velocity in ERPM to each motor in turn
+    (one frame a tick), its odometry from their status broadcasts; the link lost, a ramped stop, then zero current."""
+    FW, PR = _sil()
+    rig = arm_rig()
+    p, m, d, r, link = rig
+    assert r.cubemars
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.8, flags=PR.CMD_HOLD_YAW)
+    s = sil_run(rig, 2.0, lambda t: fwd)
+    assert r.fw.mode == 2 and s[-1, 1] == pytest.approx(0.8, abs=0.05)
+    assert all(3 in mot.modes and mot.enabled for mot in r.dm)
+    assert all(abs(mot.n_frames - 500) < 30 for mot in r.dm)            # 2 s at a frame per motor every 4 ms
+    s = sil_run(rig, 2.5, lambda t: None)                                # the robot computer goes silent
+    assert s[-1, 1] < 0.03 and r.fw.mode != 2
+    assert all(1 in mot.modes and not mot.enabled for mot in r.dm)       # disarmed: zero current, coasting
+
+
+def test_arm_firmware_faults_on_a_silent_ak40():
+    FW, PR = _sil()
+    rig = arm_rig()
+    p, m, d, r, link = rig
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.5, flags=PR.CMD_HOLD_YAW)
+    sil_run(rig, 1.0, lambda t: fwd)
+    assert r.fw.mode == 2
+    r.motor_cut_until[2] = d.time + 3.0                                  # motor 3 stops broadcasting
+    s = sil_run(rig, 2.0, lambda t: fwd)
+    assert r.fw.mode != 2 and s[-1, 1] < 0.05                            # MOTOR_SILENT: the fault stop, ramped
+
+
 def test_firmware_drives_then_ramps_to_a_stop_and_disarms_when_the_link_dies():
     FW, PR = _sil()
     rig = sil_rig()

@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "board_teensy41.h"
+#include "ak_motor.h"
 #include "dm_motor.h"
 #include "firmware.h"
 #include "protocol.h"
@@ -87,6 +88,28 @@ FW_API int fw_dm_decode(const FwCanFrame* f, float* out5) {
     return 1;
 }
 
+// CubeMars servo mode (ak_motor.h): the status decoder, and the command decoder the sim's motor model can cross-check
+FW_API int fw_ak_decode_status(const FwCanFrame* f, float* out6) {
+    fw::AkStatus st;
+    if (!fw::ak_decode_status(*f, st)) return 0;
+    out6[0] = st.id;
+    out6[1] = st.pos_deg;
+    out6[2] = st.erpm;
+    out6[3] = st.current;
+    out6[4] = st.temp_c;
+    out6[5] = st.err;
+    return 1;
+}
+FW_API int fw_ak_decode_command(const FwCanFrame* f, int32_t* out3) {
+    uint8_t id = 0, mode = 0;
+    int32_t v = 0;
+    if (!fw::ak_decode_command(*f, id, mode, v)) return 0;
+    out3[0] = id;
+    out3[1] = mode;
+    out3[2] = v;
+    return 1;
+}
+
 FW_API uint32_t fw_board_report(char* out, uint32_t cap) { return (uint32_t)board::board_report(out, cap); }
 
 // a few constants the sim's models must agree with (fw_params.h): name -> value
@@ -99,7 +122,9 @@ FW_API double fw_param(const char* name) {
              {"FLY_POLE_PAIRS", FLY_POLE_PAIRS}, {"MAX_WHEEL_SPEED", MAX_WHEEL_SPEED}, {"CMD_TIMEOUT", CMD_TIMEOUT},
              {"TILT_MIN", TILT_MIN}, {"TILT_MAX", TILT_MAX}, {"FEED_SPEED", FEED_SPEED},
              {"SYNC_PERIOD_US", (double)SYNC_PERIOD_US}, {"CAM_TRIGGER_HZ", CAM_TRIGGER_HZ},
-             {"DM_SAMPLE_TO_RX_US", (double)DM_SAMPLE_TO_RX_US}};
+             {"DM_SAMPLE_TO_RX_US", (double)DM_SAMPLE_TO_RX_US}, {"DRIVE_DAMIAO", DRIVE_DAMIAO ? 1.0 : 0.0},
+             {"AK_POLE_PAIRS", AK_POLE_PAIRS}, {"AK_GEAR", AK_GEAR}, {"AK_MAX_ERPM", AK_MAX_ERPM}, {"AK_KT", AK_KT},
+             {"AK_SAMPLE_TO_RX_US", (double)AK_SAMPLE_TO_RX_US}};
     for (auto& e : t)
         if (strcmp(e.n, name) == 0) return e.v;
     return -1e300;

@@ -6,6 +6,8 @@ firmware/sil/omni_fw_sil.py), ticked every 1 ms of sim time like the Teensy's lo
 
   sim -> firmware (FwHwInputs)                         firmware -> sim (FwHwOutputs)
   CAN frames from the four DM-2325s (DmMotor below)    CAN frames to them: enable / disable / clear, speed setpoints
+  (or the arm robot's AK40-10s' status broadcasts:      (servo mode, extended ids: velocity in ERPM, zero current)
+   AkMotor below)
   BNO085 reports (sensors.py, 400 Hz)                  ESC throttles (bidirectional DShot)
   ESC eRPM telemetry, quantized as DShot's period      feed-wheel speed commands (RoboClaw), 0 = position hold
   feed-wheel speeds (RoboClaw, 100 Hz est)             tilt servo goal (STS3250)
@@ -112,6 +114,65 @@ class DmMotor:
         return f
 
 
+class AkMotor:
+    """A CubeMars AK40-10 in servo mode as its CAN port behaves (firmware/lib/omni_fw/ak_motor.h has the protocol; this is
+    an independent implementation of the motor's side). Extended frames only, id = mode << 8 | controller id: velocity
+    (int32 ERPM: its own speed loop, clamped at max_erpm), current (0 A: free, it coasts; other currents are not modelled
+    and coast too), current brake (held: modelled as a zero speed). It broadcasts its status (0x29 << 8 | id: int16
+    0.1 deg, int16 10 ERPM, int16 0.01 A, int8 degC, error) at status_hz whatever it is sent (the CubeMars tool's
+    send_can_status rate: 500 Hz on the robot, VERIFY; off at the factory). No command for timeout s (the tool's
+    timeout_msec: 1000 ms at the factory) applies the timeout brake current, 0 A at the factory: it coasts."""
+
+    def __init__(self, motor_id: int, pole_pairs: float, gear: float, kt: float, max_erpm: float = 60000.0,
+                 timeout: float = 1.0, status_hz: float = 500.0):
+        self.id = motor_id
+        self.k = 60.0 / (2 * math.pi) * gear * pole_pairs          # ERPM per rad/s at the output
+        self.kt, self.max_erpm = kt, max_erpm
+        self.timeout, self.period = timeout, 1.0 / status_hz
+        self.enabled = False
+        self.err = 0
+        self.setpoint = 0.0
+        self.t_rx = -math.inf
+        self.t_status = -math.inf
+        self.n_frames = 0
+        self.modes = set()
+
+    def on_frame(self, f: CanFrame, t: float):
+        if not f.ext or f.id >> 16 or (f.id & 0xFF) != self.id or f.len < 4:
+            return
+        mode = (f.id >> 8) & 0xFF
+        v = struct.unpack(">i", bytes(f.data[:4]))[0]
+        self.t_rx = t
+        self.n_frames += 1
+        self.modes.add(mode)
+        if mode == 3:
+            self.enabled, self.setpoint = True, max(-self.max_erpm, min(self.max_erpm, v)) / self.k
+        elif mode == 2:
+            self.enabled, self.setpoint = True, 0.0
+        elif mode == 1:
+            self.enabled = False
+
+    def step(self, t: float):
+        if self.enabled and self.timeout > 0 and t - self.t_rx > self.timeout:
+            self.enabled = False
+
+    def status(self, t: float, pos: float, vel: float, tau: float, t_coil: float) -> CanFrame | None:
+        """The status frame if one is due at t (sampled then), else None."""
+        if t - self.t_status < self.period - 1e-9:
+            return None
+        self.t_status = t
+        deg = (math.degrees(pos) + 3276.8) % 6553.6 - 3276.8
+        f = CanFrame()
+        f.id, f.ext, f.len = (0x29 << 8) | self.id, 1, 8
+        data = struct.pack(">hhhbB", int(round(max(-32768, min(32767, deg * 10)))),
+                           int(round(max(-32768, min(32767, vel * self.k / 10)))),
+                           int(round(max(-32768, min(32767, tau / self.kt * 100)))),
+                           int(max(-128, min(127, t_coil))), self.err)
+        for i, b in enumerate(data):
+            f.data[i] = b
+        return f
+
+
 CAN_BIT = 1e-6                     # s at 1 Mbit/s
 
 
@@ -181,6 +242,7 @@ class SilRobot(Robot):
 
     def __init__(self, model: mujoco.MjModel, data: mujoco.MjData, p, *, seed: int = 0, lidar: bool = False,
                  boot_offset: float = 12.345, dm_comm_timeout: float = 0.1, sensor_kw: dict | None = None,
+                 ak_timeout: float = 0.1,
                  timing: str = "ideal", clock_ppm: float = 20.0, exposure: float = 0.003, trig_to_exp: float = 20e-6):
         super().__init__(model, data, p)
         if p.n_wheels != 4 or p.is_swerve:
@@ -209,7 +271,13 @@ class SilRobot(Robot):
         sc.lidar = lidar                          # the catch scene needs no scans
         self.sn = Sensors(self, sc)
         rng = (param("DM_PMAX"), param("DM_VMAX"), param("DM_TMAX"))
-        self.dm = [DmMotor(i + 1, int(param("DM_MASTER_BASE")), rng, dm_comm_timeout) for i in range(self.nw)]
+        v = self.fw.variant
+        self.cubemars = param("DRIVE_DAMIAO", v) < 0.5          # the arm robot's AK40-10s (servo mode)
+        if self.cubemars:
+            self.dm = [AkMotor(i + 1, param("AK_POLE_PAIRS", v), param("AK_GEAR", v), param("AK_KT", v),
+                               param("AK_MAX_ERPM", v), ak_timeout) for i in range(self.nw)]
+        else:
+            self.dm = [DmMotor(i + 1, int(param("DM_MASTER_BASE")), rng, dm_comm_timeout) for i in range(self.nw)]
         self.j_drive_q = [model.jnt_qposadr[model.joint(f"drive{i}").id] for i in range(1, self.nw + 1)]
         self.fly = [EscMotor(p.fly_motor, p.esc_spec) for _ in range(2)]
         self.pole_pairs = int(param("FLY_POLE_PAIRS"))
@@ -335,6 +403,10 @@ class SilRobot(Robot):
         for i in range(n_tx):
             f = out.can_tx[i]
             for k, mot in enumerate(self.dm):
+                if self.cubemars:
+                    if t >= self.motor_cut_until[k]:
+                        mot.on_frame(f, t)
+                    continue
                 if f.id == 0x200 + mot.id and t >= self.motor_cut_until[k]:
                     a = self.a_wheel[k]
                     q, w = float(d.qpos[self.j_drive_q[k]]), float(d.qvel[self.j_drive_v[k]])
@@ -345,6 +417,17 @@ class SilRobot(Robot):
                         if sched is not None:
                             r.t_rx_us = self.mcu_time_us(sched[i][2])
                         self.can_rx.append(r)
+        if self.cubemars and t >= self.can_cut_until:            # the status broadcasts, at their own rate
+            for k, mot in enumerate(self.dm):
+                if t < self.motor_cut_until[k]:
+                    continue
+                a = self.a_wheel[k]
+                q, w = float(d.qpos[self.j_drive_q[k]]), float(d.qvel[self.j_drive_v[k]])
+                r = mot.status(t, q, w, float(d.actuator_force[a]), self.drives[k].thermal.t_w)
+                if r is not None:
+                    if self.real:                                # its end on the wire: ~150 us after the sample
+                        r.t_rx_us = self.mcu_time_us(t + can_frame_time(8) + 20e-6)
+                    self.can_rx.append(r)
         self.throttle = [out.fly_throttle[0], out.fly_throttle[1]]
         self.fly_brake_cmd = bool(out.fly_brake)
         self.feed_cmd = float(out.feed_speed_cmd[0])

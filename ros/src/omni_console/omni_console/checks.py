@@ -193,6 +193,27 @@ def _c(id_, step, title, why, pre, steps, expect, measure=(), watch=(), actions=
 
 
 BRINGUP = (
+    _c("ak_setup", "3 Drive bench", "AK40-10 setup (CubeMars tool)",
+       "The firmware drives the AK40-10s in servo mode (firmware/lib/omni_fw/ak_motor.h). The motor keeps these settings; "
+       "none of them can be set over CAN by the firmware.",
+       ["Each motor on its own, on the CubeMars tool (R-Link / USB-CAN)", "Current-limited supply"],
+       ["Set servo mode and the controller id: 1 front-left ... 4, as fw_params_arm.h DM_IDS.",
+        "Turn send_can_status on at 500 Hz (it is off at the factory: then the firmware sees nothing, MOTOR_SILENT).",
+        "Set timeout_msec to 100 and timeout_brake_current to a few amps (the factory's 1000 ms and 0 A coast for a "
+        "second after the MCU goes quiet).",
+        "Wire a common ground to the motor (its UART connector's GND): without it no frame arrives (wheeled-leg robot).",
+        "Never 'set origin permanent' at start-up: it writes the motor's flash."],
+       "Each motor's status reaches the console (no MOTOR_SILENT) with the bus at 1 Mbit/s.",
+       [("status_hz", "status rate seen", "Hz")], ["mcu.dm_err", "mcu.age"], []),
+    _c("ak_scale", "3 Drive bench", "AK40-10 speed scale and direction",
+       "ERPM = output rpm x 10 (gear) x 14 (pole pairs, from listings: VERIFY). A wrong pole-pair count scales every "
+       "wheel speed and the odometry with no error anywhere.",
+       ["Wheels off the floor", "A mark on one wheel"],
+       ["Take control and drive forward at 0.2 m/s for 30 s.",
+        "Count that wheel's turns: expect 0.2 / (2 pi x 0.07) x 30 = 13.6 turns."],
+       "Within 2% of the expected turns, and every wheel turns the way the kinematics expect.",
+       [("turns", "turns counted", "")], ["mcu.vx"],
+       [("Take control", "mission", {"name": "MANUAL"}), ("Stop", "stop", {})]),
     _c("link", "3 Drive bench", "MCU link and watchdog",
        "The MCU stops the robot by itself when the computer goes quiet (0.5 s link watchdog, then disarm).",
        ["Wheels off the floor", "Current-limited supply (or the pack with the hardware e-stop in reach)"],

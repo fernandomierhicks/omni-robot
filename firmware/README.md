@@ -1,6 +1,6 @@
 # firmware/: the MCU (Teensy 4.1)
 
-The robot's real-time microcontroller (design.md sections 4, 14, 30). It is the safety authority under the Jetson: it drives the four DM-2325 wheels, the flywheels, the feed and the tilt, and it enforces every limit. The Jetson only asks.
+The robot's real-time microcontroller (design.md sections 4, 14, 30). It is the safety authority under the Jetson: it drives the four wheels (the arm robot's CubeMars AK40-10s; the parked catch robot's DM-2325s), the flywheels, the feed and the tilt, and it enforces every limit. The Jetson only asks.
 
 **The same code runs in two places.** `lib/omni_fw/` (the core) has no Arduino in it:
 
@@ -17,7 +17,8 @@ So the sim, the ROS stack and the tests exercise the firmware that will be flash
 | `lib/omni_fw/base.h/.cpp` | X4 kinematics, the jerk-limited, direction-aware velocity controller, the braking-curve goto with an end speed (the moving catch), and wheel + BNO085 odometry. A port of the sim's `omni_control.py` |
 | `lib/omni_fw/module.h/.cpp` | Flywheel rpm loops (PI + back-EMF feed-forward on DShot eRPM) and the chute feed's one-ball-per-trigger sequence |
 | `lib/omni_fw/sh2.h/.cpp` | The BNO085's SH-2 sensor reports: a batch's samples, each with its own time (INT stamp, base delta, rebase, delay) |
-| `lib/omni_fw/dm_motor.h/.cpp` | Damiao DM-2325 CAN protocol, velocity mode: enable, disable, clear, speed frames, feedback decode |
+| `lib/omni_fw/dm_motor.h/.cpp` | Damiao DM-2325 CAN protocol, velocity mode: enable, disable, clear, speed frames, feedback decode (the catch variant) |
+| `lib/omni_fw/ak_motor.h/.cpp` | CubeMars AK-series CAN protocol, **servo mode** (the arm variant's AK40-10s): extended frames, velocity in ERPM, zero current to coast, the 500 Hz status broadcast. Why not MIT mode, and the wheeled-leg robot's lessons, are in the header. One frame a tick, the motors in turn; odometry from the motors' reported speed |
 | `lib/omni_fw/protocol.h/.cpp` | Jetson link: COBS + CRC-16 frames; CMD (100 Hz, also the heartbeat), STATE (200 Hz), IMU (400 Hz), INFO (10 Hz: `PROTOCOL_VERSION` 6, the build id, the RC channels, each drive motor's winding and driver temperature from its CAN feedback), TIME (each sync pulse, camera trigger and strobe, at its MCU time: design.md 10). Python mirror: `ros/src/omni_mcu/omni_mcu/protocol.py` |
 | `fw_build_id.py` | The build id (a hash of `lib/omni_fw`): compiled in as `FW_BUILD` by PlatformIO (`extra_scripts`) and the SIL build; the console compares it with its own copy's |
 | `lib/omni_fw/hw_io.h` | The hardware boundary: `FwHwInputs` / `FwHwOutputs`, the only things that cross between the core and a board |
@@ -43,8 +44,7 @@ Today 34 of the 42 header pins are used and 8 are spare. Both the Teensy build a
 ```powershell
 cd firmware
 & "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" run -e catch   # Teensy 4.1, the catch variant: builds today
-& "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" run            # env arm (the default): stops with an error until
-                                                                      # the CubeMars AK40-10 driver exists (todo.md)
+& "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" run            # env arm (the default): the AK40-10s
 & "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" run -t upload  # attended sessions only (design.md 5)
 & $py sil\build_sil.py --pins                                  # the SIL library + PINS.md
 ```
@@ -57,7 +57,7 @@ Or click **Build firmware** in `Launcher.cmd`. The firmware tests are in `simula
 | --- | --- |
 | Core: modes, watchdog, ramped stops, bumper, e-stop, kid / adult profiles, base control, odometry, flywheel loop, feed, tilt, link, DM-2325 CAN | Written and tested in SIL against the sim (design.md 30) |
 | Teensy: CAN1 (FlexCAN_T4), USB link, beams, e-stop, bumpers (normally closed: a broken wire reads as pressed; none fitted on the arm robot yet), battery ADC, buzzer, LED, WDOG1 watchdog (0.5 s) | Written; not yet on hardware. The Nov 7 changes (watchdog, USB write fix, NC bumpers) are not yet compiled for the Teensy: run `pio run -e catch` |
-| Teensy: CubeMars AK40-10 CAN (the arm robot's drives) | **Missing** (todo.md): the arm variant refuses to build |
+| CubeMars AK40-10 CAN, servo mode (the arm robot's drives) | Written Nov 7 from the protocol as the wheeled-leg robot's AK45-10 scripts use it (the CubeMars manual was out of reach); builds for the Teensy; the v11 SIL's `AkMotor` speaks it. **VERIFY on the bench**: the CubeMars tool settings, pole pairs, the position wrap, error clearing (console Test > Bring-up) |
 | Teensy: RoboClaw packet serial (feed speeds), STS3250 bus (tilt goal and position) | Written from the protocols, builds; **VERIFY on the bench** |
 | Teensy: BNO085 (SHTP over SPI: INT stamped in its interrupt, Set Feature for gyro / accelerometer / game RV at 400 Hz, each sample's time from the SH-2 timestamps in `lib/omni_fw/sh2.cpp`) | Written, builds; **VERIFY on the bench** (the parser is tested in SIL on built packets) |
 | Teensy: time references (design.md 10): SYNC_OUT (pin 25) and CAM_TRIG (pin 24) on one-shot PIT timers at the core's scheduled times, CAM_STROBE (pin 26) on both edges, CAN replies stamped by FlexCAN's timer, USB bytes stamped on read | Written, builds; **VERIFY** (FlexCAN's capture point, the PIT edges on a scope) |

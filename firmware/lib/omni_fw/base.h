@@ -47,7 +47,10 @@ public:
     // wheel angles from the motors' feedback (rad, wrapping at +/-p_max); valid[i] = a new reply this tick.
     // t_us[i] (design.md 10): when motor i measured it, MCU clock; the speed is the angle step over the real interval
     // between two samples, not over the ticks (null, or an unusable interval: the ticks')
-    void on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us = nullptr);
+    // vel: the motors' own speed (rad/s) when they report one finer than the position's differences (the AK40-10's
+    // status: 0.0075 rad/s against 0.1 deg positions); nullptr: speed from the position differences (the DM-2325)
+    void on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us = nullptr,
+                   const float* vel = nullptr);
     void on_imu(const float* quat_wxyz, const float* gyro);
     void integrate(float dt);
 

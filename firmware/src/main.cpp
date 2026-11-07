@@ -20,9 +20,11 @@
 //   watchdog (WDOG1)          written, VERIFY on the bench: a loop that stops feeding it for 0.5 s resets the MCU,
 //                             which boots DISARMED
 //
-// Build variants (platformio.ini): env arm (the default, fw_params_arm.h) and env catch (fw_params.h). The drive
-// motor driver here is Damiao's only: a variant whose motor is anything else (the arm robot's AK40-10) stops the build
-// below until its driver exists (todo.md).
+// Build variants (platformio.ini): env arm (the default, fw_params_arm.h: CubeMars AK40-10 drives in servo mode,
+// ak_motor.h) and env catch (fw_params.h: Damiao DM-2325, dm_motor.h). The core picks the protocol (DRIVE_DAMIAO); this
+// layer only carries each frame's id kind (CubeMars servo mode answers extended frames only). CubeMars bench notes from
+// the wheeled-leg robot: CAN needs a common ground with the motor (its UART connector's GND), and servo mode, the
+// status broadcast (send_can_status, off at the factory) and the command timeout are set in the CubeMars tool.
 #include <Arduino.h>
 #include <FlexCAN_T4.h>
 #include <SPI.h>
@@ -32,10 +34,6 @@
 #include "sh2.h"
 
 using namespace board;
-
-static_assert(fw::prm::DRIVE_DAMIAO,
-              "this robot's drive motor has no CAN driver yet (the arm robot's CubeMars AK40-10: todo.md); the only "
-              "driver is Damiao's (dm_motor.h). `pio run -e catch` builds the catch variant to check the code compiles");
 
 static fw::Firmware g_fw;
 static FwHwInputs g_in;
@@ -86,6 +84,7 @@ static uint64_t extend_us(uint32_t t32, uint64_t now64) { return now64 - (uint32
 // the identifier field) and that the timer runs at the bit rate. The core wants the end of the frame: + its length.
 static constexpr uint32_t CAN1_BASE = 0x401D0000;               // FlexCAN1 (FlexCAN_T4's CAN1)
 static constexpr uint32_t DM_REPLY_US = 124;                    // an 8-byte reply on the wire (est, with stuffing)
+static constexpr uint32_t EXT_REPLY_US = 150;                   // ... an extended one (29-bit id: CubeMars, est)
 static inline uint16_t can1_timer() { return (uint16_t)(*(volatile uint32_t*)(CAN1_BASE + 0x8)); }
 
 // -- RoboClaw packet serial (Serial3) -----------------------------------------------------------------------------
@@ -391,9 +390,10 @@ static void read_inputs(uint64_t t_us) {
     while (in.n_can_rx < FW_CAN_MAX && can1.read(msg)) {
         FwCanFrame& f = in.can_rx[in.n_can_rx++];
         f.id = msg.id;
+        f.ext = msg.flags.extended ? 1 : 0;
         f.len = msg.len;
         memcpy(f.data, msg.buf, 8);
-        f.t_rx_us = now64 - (uint16_t)(timer_now - msg.timestamp) + DM_REPLY_US;     // the frame's end
+        f.t_rx_us = now64 - (uint16_t)(timer_now - msg.timestamp) + (f.ext ? EXT_REPLY_US : DM_REPLY_US);   // its end
     }
     in.imu_n = g_bno.poll(in.imu, FW_IMU_MAX, now64);
     in.sync_fired_us = g_sync.take(now64);
@@ -438,6 +438,7 @@ static void write_outputs(uint32_t tick) {
     for (uint32_t i = 0; i < out.n_can_tx; ++i) {
         CAN_message_t msg;
         msg.id = out.can_tx[i].id;
+        msg.flags.extended = out.can_tx[i].ext ? 1 : 0;
         msg.len = out.can_tx[i].len;
         memcpy(msg.buf, out.can_tx[i].data, 8);
         can1.write(msg);

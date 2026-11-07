@@ -74,6 +74,8 @@ ADULT_FLY_RPM_MAX = 6000.0      # est: above every calibrated shot (design.md 9:
 # Damiao DM-2325 on CAN (dm_motor.h). VERIFY all of these against the units flashed with Damiao's tool
 DM = dict(ids=(1, 2, 3, 4), dirs=(1, 1, 1, 1), master_base=0x10, p_max=12.5, v_max=60.0, t_max=5.0)
 FLY_POLE_PAIRS = 7              # F90 2806.5: 12N14P (est from the stator class; VERIFY)
+# the arm robot's CubeMars AK40-10 V3.0 KV170 in servo mode (ak_motor.h): estimates and VERIFY items, see the header
+AK = dict(pole_pairs=14.0, gear=10.0, max_erpm=60000.0, kt_out=0.48, sample_to_rx_us=150)
 DM_SAMPLE_TO_RX_US = 140        # design.md 10: reply frame ~125 us + turnaround (est); sil_robot.DmBus models it
 
 
@@ -322,7 +324,7 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         f"constexpr float BATT_LOW = {_c(p.pack.v_low_cell * p.pack.series)};          // V: {p.pack.v_low_cell:g} V per cell (catalog pack setting)",
         "constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)",
         f"constexpr bool HAS_BUMPERS = {'false' if p.payload == 'arm' else 'true'};{' ' * (19 if p.payload == 'arm' else 20)}// bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored",
-        f"constexpr bool DRIVE_DAMIAO = {'true' if p.drive_motor.startswith('DM') else 'false'};{' ' * (18 if p.drive_motor.startswith('DM') else 17)}// {p.drive_motor}: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else",
+        f"constexpr bool DRIVE_DAMIAO = {'true' if p.drive_motor.startswith('DM') else 'false'};{' ' * (18 if p.drive_motor.startswith('DM') else 17)}// {p.drive_motor}: {'Damiao velocity mode (dm_motor.h)' if p.drive_motor.startswith('DM') else 'CubeMars servo mode (ak_motor.h)'}",
         "",
         "// time references (design.md 10): SYNC_OUT to the robot computer's GPIO, CAM_TRIG to both cameras' FSIN",
         "constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time",
@@ -383,6 +385,16 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         f"constexpr float DM_PMAX = {_c(DM['p_max'])};",
         f"constexpr float DM_VMAX = {_c(DM['v_max'])};",
         f"constexpr float DM_TMAX = {_c(DM['t_max'])};",
+        "// CubeMars drive motors (ak_motor.h, servo mode; the ids and directions above): ERPM = output rpm x gear x pole",
+        "// pairs (14 pole pairs: third-party listings of the AK40-10 V3.0, as the AK45-10's 14 measured on the wheeled-leg",
+        "// robot: VERIFY), the motor's own ERPM limit (l_max_erpm, 60000 at the factory: VERIFY), output torque per amp",
+        "// (rated 1.3 N m at 2.7 A, est) and a status frame's interrupt less when it was sampled (an extended 8-byte frame",
+        "// ~150 us at 1 Mbit/s, est)",
+        f"constexpr float AK_POLE_PAIRS = {_c(AK['pole_pairs'])};",
+        f"constexpr float AK_GEAR = {_c(AK['gear'])};",
+        f"constexpr float AK_MAX_ERPM = {_c(AK['max_erpm'])};",
+        f"constexpr float AK_KT = {_c(AK['kt_out'])};",
+        f"constexpr uint64_t AK_SAMPLE_TO_RX_US = {AK['sample_to_rx_us']};",
         "",
         "}  // namespace prm",
         "}  // namespace fw",

@@ -154,7 +154,8 @@ void Odometry::reset() {
     imu_ok = false;
 }
 
-void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us) {
+void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_max, const uint64_t* t_us,
+                         const float* vel) {
     float span = 2.0f * p_max;
     for (int i = 0; i < prm::N_WHEELS; ++i) {
         if (!valid[i]) {
@@ -171,7 +172,9 @@ void Odometry::on_wheels(float dt, const float* pos, const bool* valid, float p_
                 // (design.md 10), so tick spacing would add that jitter to every wheel speed
                 h = (float)(t_us[i] - last_t_[i]) * 1e-6f;
             }
-            w_[i] = dp / h;
+            w_[i] = vel ? vel[i] : dp / h;
+        } else if (vel) {
+            w_[i] = vel[i];
         }
         last_pos_[i] = pos[i];
         last_dt_[i] = 0.0f;

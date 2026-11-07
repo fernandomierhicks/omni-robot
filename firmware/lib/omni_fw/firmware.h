@@ -27,6 +27,7 @@
 #include <stdint.h>
 
 #include "base.h"
+#include "ak_motor.h"
 #include "dm_motor.h"
 #include "fw_params_select.h"
 #include "hw_io.h"
@@ -120,6 +121,9 @@ private:
     uint64_t t_fb_us_[prm::N_WHEELS]{};      // the tick that got each motor's last reply (the silent-motor fault)
     uint64_t t_enable_us_[prm::N_WHEELS]{};
     float wheel_cmd_[prm::N_WHEELS]{};
+    bool wheel_enabled_ = false;               // CubeMars: armed (velocity commands) or coasting
+    uint32_t ak_next_ = 0;                     // CubeMars: the motor whose turn it is (one frame per tick)
+    uint8_t ak_err_[prm::N_WHEELS]{};          // ... each one's last status error (AkErr)
 
     // base
     BaseController ctl_;

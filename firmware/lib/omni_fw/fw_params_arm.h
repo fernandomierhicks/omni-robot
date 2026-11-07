@@ -14,7 +14,7 @@ constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor repl
 constexpr float BATT_LOW = 21.0f;          // V: 3.5 V per cell (catalog pack setting)
 constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)
 constexpr bool HAS_BUMPERS = false;                   // bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored
-constexpr bool DRIVE_DAMIAO = false;                 // AK40-10: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else
+constexpr bool DRIVE_DAMIAO = false;                 // AK40-10: CubeMars servo mode (ak_motor.h)
 
 // time references (design.md 10): SYNC_OUT to the robot computer's GPIO, CAM_TRIG to both cameras' FSIN
 constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time
@@ -74,6 +74,16 @@ constexpr uint32_t DM_MASTER_BASE = 0x10;
 constexpr float DM_PMAX = 12.5f;
 constexpr float DM_VMAX = 60.0f;
 constexpr float DM_TMAX = 5.0f;
+// CubeMars drive motors (ak_motor.h, servo mode; the ids and directions above): ERPM = output rpm x gear x pole
+// pairs (14 pole pairs: third-party listings of the AK40-10 V3.0, as the AK45-10's 14 measured on the wheeled-leg
+// robot: VERIFY), the motor's own ERPM limit (l_max_erpm, 60000 at the factory: VERIFY), output torque per amp
+// (rated 1.3 N m at 2.7 A, est) and a status frame's interrupt less when it was sampled (an extended 8-byte frame
+// ~150 us at 1 Mbit/s, est)
+constexpr float AK_POLE_PAIRS = 14.0f;
+constexpr float AK_GEAR = 10.0f;
+constexpr float AK_MAX_ERPM = 60000.0f;
+constexpr float AK_KT = 0.48f;
+constexpr uint64_t AK_SAMPLE_TO_RX_US = 150;
 
 }  // namespace prm
 }  // namespace fw

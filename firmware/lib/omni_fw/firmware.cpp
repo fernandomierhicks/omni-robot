@@ -189,55 +189,118 @@ void Firmware::send_state(const FwHwInputs& in) {
 
 // -- drive motors ---------------------------------------------------------------------------------------------------
 
+// CubeMars status errors as the Damiao codes the rest of the firmware and the STATE's dm_err use (>= 8: a fault)
+static uint8_t ak_as_dm_err(uint8_t e) {
+    switch (e) {
+        case AK_OK: return DM_ENABLED;
+        case AK_MOTOR_HOT: return DM_COIL_HOT;
+        case AK_OVERCURRENT: return DM_OVERCURRENT;
+        case AK_OVERVOLT: return DM_OVERVOLT;
+        case AK_UNDERVOLT: return DM_UNDERVOLT;
+        case AK_MOS_HOT: return DM_MOS_HOT;
+        default: return DM_OVERLOAD;                       // encoder fault, stall, anything newer
+    }
+}
+
 void Firmware::handle_can(const FwHwInputs& in, float dt) {
-    static const DmRange rng{prm::DM_PMAX, prm::DM_VMAX, prm::DM_TMAX};
     bool valid[prm::N_WHEELS] = {};
     float pos[prm::N_WHEELS] = {};
+    float vel[prm::N_WHEELS] = {};
     uint64_t t_pos[prm::N_WHEELS] = {};
     uint32_t n = in.n_can_rx < FW_CAN_MAX ? in.n_can_rx : FW_CAN_MAX;
-    for (uint32_t k = 0; k < n; ++k) {
-        const FwCanFrame& f = in.can_rx[k];
-        if (f.id < prm::DM_MASTER_BASE || f.id >= prm::DM_MASTER_BASE + 16) continue;
-        DmFeedback fb;
-        if (!dm_decode_feedback(f, rng, fb)) continue;
-        for (int i = 0; i < prm::N_WHEELS; ++i) {
-            if (prm::DM_IDS[i] != fb.id) continue;
-            fb.pos *= prm::DM_DIR[i];
-            fb.vel *= prm::DM_DIR[i];
-            fb.torque *= prm::DM_DIR[i];
-            fb_[i] = fb;
-            valid[i] = true;
-            pos[i] = fb.pos;
-            // when the motor measured it: the reply's interrupt less the reply itself on the wire and the motor's
-            // turnaround (DM_SAMPLE_TO_RX_US, est; VERIFY with a scope on CAN H)
-            t_pos[i] = f.t_rx_us > prm::DM_SAMPLE_TO_RX_US ? f.t_rx_us - prm::DM_SAMPLE_TO_RX_US : t_us_;
-            t_fb_us_[i] = t_us_;
+    if constexpr (prm::DRIVE_DAMIAO) {
+        static const DmRange rng{prm::DM_PMAX, prm::DM_VMAX, prm::DM_TMAX};
+        for (uint32_t k = 0; k < n; ++k) {
+            const FwCanFrame& f = in.can_rx[k];
+            if (f.ext || f.id < prm::DM_MASTER_BASE || f.id >= prm::DM_MASTER_BASE + 16) continue;
+            DmFeedback fb;
+            if (!dm_decode_feedback(f, rng, fb)) continue;
+            for (int i = 0; i < prm::N_WHEELS; ++i) {
+                if (prm::DM_IDS[i] != fb.id) continue;
+                fb.pos *= prm::DM_DIR[i];
+                fb.vel *= prm::DM_DIR[i];
+                fb.torque *= prm::DM_DIR[i];
+                fb_[i] = fb;
+                valid[i] = true;
+                pos[i] = fb.pos;
+                // when the motor measured it: the reply's interrupt less the reply itself on the wire and the motor's
+                // turnaround (DM_SAMPLE_TO_RX_US, est; VERIFY with a scope on CAN H)
+                t_pos[i] = f.t_rx_us > prm::DM_SAMPLE_TO_RX_US ? f.t_rx_us - prm::DM_SAMPLE_TO_RX_US : t_us_;
+                t_fb_us_[i] = t_us_;
+            }
         }
+        for (int i = 0; i < prm::N_WHEELS; ++i) fb_valid_[i] = valid[i];
+        odom_.on_wheels(dt, pos, valid, prm::DM_PMAX, t_pos);
+    } else {
+        // CubeMars servo mode (ak_motor.h): each motor broadcasts its status at its own rate; position in 0.1 deg
+        // steps (wrapping at the int16's +/-3276.8 deg), speed in 10 ERPM steps: the odometry takes the speed
+        for (uint32_t k = 0; k < n; ++k) {
+            AkStatus st;
+            if (!ak_decode_status(in.can_rx[k], st)) continue;
+            for (int i = 0; i < prm::N_WHEELS; ++i) {
+                if (prm::DM_IDS[i] != st.id) continue;
+                float d = prm::DM_DIR[i];
+                DmFeedback& fb = fb_[i];
+                ak_err_[i] = st.err;
+                fb.id = st.id;
+                fb.err = st.err != AK_OK ? ak_as_dm_err(st.err) : (uint8_t)(wheel_enabled_ ? DM_ENABLED : DM_DISABLED);
+                fb.pos = d * st.pos_deg * 0.017453293f;
+                fb.vel = d * ak_rad_s(st.erpm, prm::AK_GEAR, prm::AK_POLE_PAIRS);
+                fb.torque = d * st.current * prm::AK_KT;
+                fb.t_mos = fb.t_rotor = st.temp_c < 0 ? 0 : (uint8_t)st.temp_c;
+                valid[i] = true;
+                pos[i] = fb.pos;
+                vel[i] = fb.vel;
+                t_pos[i] = in.can_rx[k].t_rx_us > prm::AK_SAMPLE_TO_RX_US ? in.can_rx[k].t_rx_us - prm::AK_SAMPLE_TO_RX_US
+                                                                          : t_us_;
+                t_fb_us_[i] = t_us_;
+            }
+        }
+        for (int i = 0; i < prm::N_WHEELS; ++i) fb_valid_[i] = valid[i];
+        odom_.on_wheels(dt, pos, valid, AK_POS_WRAP_DEG * 0.017453293f, t_pos, vel);
     }
-    for (int i = 0; i < prm::N_WHEELS; ++i) fb_valid_[i] = valid[i];
-    odom_.on_wheels(dt, pos, valid, prm::DM_PMAX, t_pos);
 }
 
 void Firmware::drive_motors(bool enable, const float* wheel_cmd, FwHwOutputs& out) {
-    for (int i = 0; i < prm::N_WHEELS; ++i) {
-        uint8_t id = prm::DM_IDS[i];
-        uint8_t e = fb_[i].err;
-        bool retry = t_us_ - t_enable_us_[i] > 50 * MS;
-        if (out.n_can_tx + 2 > FW_CAN_MAX) break;
-        if (enable && e != DM_ENABLED && retry) {
-            if (e >= DM_OVERVOLT) out.can_tx[out.n_can_tx++] = dm_clear(id);     // clear a latched error first
-            out.can_tx[out.n_can_tx++] = dm_enable(id);
-            t_enable_us_[i] = t_us_;
-        } else if (!enable && e == DM_ENABLED && retry) {
-            out.can_tx[out.n_can_tx++] = dm_disable(id);
-            t_enable_us_[i] = t_us_;
-        } else {
-            // the speed frame is also the poll: each one gets a feedback reply, so the wheels are read every tick
-            // even when disarmed (a disabled motor ignores the setpoint)
-            float w = enable ? wheel_cmd[i] : 0.0f;
-            out.can_tx[out.n_can_tx++] = dm_speed_cmd(id, w * prm::DM_DIR[i]);
+    if constexpr (prm::DRIVE_DAMIAO) {
+        for (int i = 0; i < prm::N_WHEELS; ++i) {
+            uint8_t id = prm::DM_IDS[i];
+            uint8_t e = fb_[i].err;
+            bool retry = t_us_ - t_enable_us_[i] > 50 * MS;
+            if (out.n_can_tx + 2 > FW_CAN_MAX) break;
+            if (enable && e != DM_ENABLED && retry) {
+                if (e >= DM_OVERVOLT) out.can_tx[out.n_can_tx++] = dm_clear(id);     // clear a latched error first
+                out.can_tx[out.n_can_tx++] = dm_enable(id);
+                t_enable_us_[i] = t_us_;
+            } else if (!enable && e == DM_ENABLED && retry) {
+                out.can_tx[out.n_can_tx++] = dm_disable(id);
+                t_enable_us_[i] = t_us_;
+            } else {
+                // the speed frame is also the poll: each one gets a feedback reply, so the wheels are read every tick
+                // even when disarmed (a disabled motor ignores the setpoint)
+                float w = enable ? wheel_cmd[i] : 0.0f;
+                out.can_tx[out.n_can_tx++] = dm_speed_cmd(id, w * prm::DM_DIR[i]);
+            }
+            wheel_cmd_[i] = enable ? wheel_cmd[i] : 0.0f;
         }
-        wheel_cmd_[i] = enable ? wheel_cmd[i] : 0.0f;
+    } else {
+        // CubeMars servo mode: one frame a tick, the motors in turn (each commanded every N_WHEELS ms). The wheeled-leg
+        // robot found an AK motor misses a frame that follows another on the bus too closely (500 us apart was
+        // needed); a tick apart is ~840 us of silence between frames. No enable: armed is a velocity command (the
+        // motor's speed loop, clamped to its ERPM limit), disarmed a zero current (it coasts, as a disabled DM-2325)
+        wheel_enabled_ = enable;
+        for (int i = 0; i < prm::N_WHEELS; ++i) wheel_cmd_[i] = enable ? wheel_cmd[i] : 0.0f;
+        if (out.n_can_tx >= FW_CAN_MAX) return;
+        int i = (int)(ak_next_++ % (uint32_t)prm::N_WHEELS);
+        uint8_t id = prm::DM_IDS[i];
+        if (enable && ak_err_[i] == AK_OK) {
+            float erpm = ak_erpm(wheel_cmd[i] * prm::DM_DIR[i], prm::AK_GEAR, prm::AK_POLE_PAIRS);
+            if (erpm > prm::AK_MAX_ERPM) erpm = prm::AK_MAX_ERPM;
+            if (erpm < -prm::AK_MAX_ERPM) erpm = -prm::AK_MAX_ERPM;
+            out.can_tx[out.n_can_tx++] = ak_velocity_cmd(id, erpm);
+        } else {
+            out.can_tx[out.n_can_tx++] = ak_current_cmd(id, 0.0f);
+        }
     }
 }
 

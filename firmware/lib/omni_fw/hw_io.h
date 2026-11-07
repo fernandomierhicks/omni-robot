@@ -16,10 +16,11 @@ extern "C" {
 #endif
 
 typedef struct {
-    uint32_t id;        // 11-bit standard id
+    uint32_t id;        // 11-bit standard id, or 29-bit when ext (CubeMars servo mode answers extended frames only)
     uint8_t len;
     uint8_t data[8];
-    uint8_t _pad[3];
+    uint8_t ext;        // 1: extended (29-bit) id
+    uint8_t _pad[2];
     // design.md 10: when the frame finished arriving, MCU clock (the board stamps it in the CAN RX interrupt);
     // 0 = not stamped (the core uses the tick's time). Unused on frames to send
     uint64_t t_rx_us;

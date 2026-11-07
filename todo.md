@@ -1,10 +1,10 @@
 
 
 ---HARDWAREW
--CubeMars AK40-10 CAN driver for the firmware (the adopted drive motor). The firmware only speaks Damiao (dm_motor.h),
- so the arm robot's hardware build stops with an #error until this exists. Write it from CubeMars's published CAN
- protocol behind the same motor interface, mark it VERIFY, and make the v11 sim emulate the AK motor so SIL runs the
- code that will be flashed.
+-CubeMars AK40-10 driver: written (Nov 7, servo mode, firmware/lib/omni_fw/ak_motor.h), the arm build compiles and the
+ v11 SIL emulates the motor. On the bench (console Test > Bring-up "AK40-10 setup" and "speed scale"): servo mode, ids
+ 1-4, send_can_status 500 Hz, timeout 100 ms + brake current in the CubeMars tool; common ground; 14 pole pairs;
+ the status position's wrap; the error codes' clearing; the 60000 ERPM limit. Check against the AK40-10 V3.0 manual.
 -Computer + global shutter camera? super deep trade study. 
 
 

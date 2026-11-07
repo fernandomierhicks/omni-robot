@@ -23,8 +23,8 @@ IMU_MAX = 4
 
 
 class CanFrame(C.Structure):
-    _fields_ = [("id", C.c_uint32), ("len", C.c_uint8), ("data", C.c_uint8 * 8), ("_pad", C.c_uint8 * 3),
-                ("t_rx_us", C.c_uint64)]
+    _fields_ = [("id", C.c_uint32), ("len", C.c_uint8), ("data", C.c_uint8 * 8), ("ext", C.c_uint8),
+                ("_pad", C.c_uint8 * 2), ("t_rx_us", C.c_uint64)]
 
 
 class ImuSample(C.Structure):
@@ -84,6 +84,8 @@ def lib(variant: str = ""):
         L.fw_crc16.argtypes = [C.c_char_p, C.c_uint32]
         L.fw_crc16.restype = C.c_uint32
         L.fw_dm_decode.argtypes = [C.POINTER(CanFrame), C.POINTER(C.c_float)]
+        L.fw_ak_decode_status.argtypes = [C.POINTER(CanFrame), C.POINTER(C.c_float)]
+        L.fw_ak_decode_command.argtypes = [C.POINTER(CanFrame), C.POINTER(C.c_int32)]
         L.fw_board_report.argtypes = [C.c_char_p, C.c_uint32]
         L.fw_board_report.restype = C.c_uint32
         L.fw_param.argtypes = [C.c_char_p]
@@ -135,6 +137,22 @@ def dm_decode(frame: CanFrame):
     if not lib().fw_dm_decode(C.byref(frame), o):
         return None
     return int(o[0]), int(o[1]), o[2], o[3], o[4]
+
+
+def ak_decode_status(frame: CanFrame, variant: str = "arm"):
+    """The firmware's CubeMars status decoder: (id, pos_deg, erpm, current, temp_c, err) or None."""
+    o = (C.c_float * 6)()
+    if not lib(variant).fw_ak_decode_status(C.byref(frame), o):
+        return None
+    return int(o[0]), o[1], o[2], o[3], int(o[4]), int(o[5])
+
+
+def ak_decode_command(frame: CanFrame, variant: str = "arm"):
+    """The firmware's CubeMars command decoder: (id, mode, value) or None."""
+    o = (C.c_int32 * 3)()
+    if not lib(variant).fw_ak_decode_command(C.byref(frame), o):
+        return None
+    return int(o[0]), int(o[1]), int(o[2])
 
 
 class Firmware:
