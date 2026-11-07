@@ -611,3 +611,13 @@ def test_windows_hears_a_spoken_command_from_a_wav(tmp_path):
     text, conf = heard[0]
     action, rest, intent = commands.decide(text, conf, False, False, {"kitchen": [0, 0, 0]})
     assert action == "console" and intent.verb == "follow", (text, conf)
+
+
+def test_voice_starts_the_fun_missions():
+    from omni_face.commands import parse, phrases
+    i = parse("omni, bring me the red block")
+    assert (i.verb, i.args, i.moves) == ("fetch", dict(color="red", shape="square"), True)
+    assert parse("omni fetch the ball").args == dict(color=None, shape="round")
+    assert parse("omni dance party").verb == "dance" and parse("omni dance").verb is None   # the jig stays the face's
+    assert parse("omni build a tower").verb == "tower" and parse("omni play goalie").verb == "goalie"
+    assert "bring me the purple block" in phrases()

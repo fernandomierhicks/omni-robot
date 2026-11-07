@@ -8,12 +8,18 @@ quintic segments itself), so nothing streams from here at 50 Hz and a brain that
 the move and holding. Odom, depth, wrist and joint-state subscriptions exist only while the tidy runs.
 
 Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the console's mission node (or by hand):
-                                      tidy {max_objects, radius, only}   start the tidy task (the mode manager must be
-                                                                    in PICK); only: one object of the last find
+                                      tidy {max_objects, radius, only, keep, tower, max_blocks}   start the tidy
+                                                                    task (the mode manager must be in PICK); only: one
+                                                                    object of the last find; keep: carry it instead of
+                                                                    the bin (ends holding it: Fetch); tower: stack the
+                                                                    blocks it finds (Block tower)
+                                      place {x, y, z | ahead}       put the held object down: at (x, y) odom, its
+                                                                    bottom at z, or ahead of the base (PICK)
                                       find {id, color, shape, max_range}   the floor's candidates by colour and shape
                                                                     (color_vision.py): the answer is /arm/state's
                                                                     "found", the picture /arm/find_image
-                                      stop                          stop the task or motion; the arm stows
+                                      stop                          stop the task or motion; the arm stows (a held
+                                                                    object goes in the bin first)
                                       pose {name: stow | ready | high | drop}   move there
                                       gripper {gap: m}              open / close to a gap
                                       jog {joint: name, delta: rad} one joint by delta (kept in range, refused if
@@ -242,6 +248,9 @@ class ArmBrain(Node):
             self.pose = self.depth = None
 
     def _begin_tidy(self, args: dict):
+        if self.task.held is not None:
+            self.event("tidy: the arm holds something: put it down (place) or stop (into the bin) first")
+            return
         self.motion = None
         self.task = TidyTask(self.kin)
         self.n_task_ev = 0
@@ -261,10 +270,22 @@ class ArmBrain(Node):
         a, t = self._args, self.now()
         self.task.history.append((t, self.pose or (0.0, 0.0, 0.0)))
         only = a.get("only")
+        keep, tower = bool(a.get("keep")), bool(a.get("tower"))
         self.task.start(t, int(a.get("max_objects", 0)) or None, float(a.get("radius", 0.0)) or None,
-                        only=None if only is None else int(only), fmap=None if only is None else self.finder.map)
+                        only=None if only is None else int(only), fmap=None if only is None else self.finder.map,
+                        keep=keep, tower=tower, max_blocks=int(a.get("max_blocks", 0)) or None)
         self.tidy_on, self.source = True, "tidy"
-        self.event("tidy: started" if only is None else f"tidy: started, object {only} only")
+        what = "tower" if tower else "fetch" if keep else "tidy"
+        self.event(f"{what}: started" if only is None else f"{what}: started, object {only} only")
+
+    def _resume_task(self, why: str):
+        """The same task again (it holds something): listen, and step it (place, or the stop's way to the bin)."""
+        self.motion = None
+        self.sync.reset()
+        self._listen()
+        self.task.history.append((self.now(), self.pose or (0.0, 0.0, 0.0)))
+        self.tidy_on, self.source = True, "tidy"
+        self.event(why)
 
     def _end_tidy(self):
         self.tidy_on = self.starting = False
@@ -341,7 +362,10 @@ class ArmBrain(Node):
         self.n_task_ev = len(self.task.events)
         if self.task.state == "DONE":
             self._end_tidy()
-            self.event(f"tidy done: {self.task.picked} picked, {self.task.failed} not ({self.task.done_reason})")
+            tk = self.task
+            self.event(f"tidy done: {tk.picked} picked, {tk.failed} not ({tk.done_reason})" if tk.mode == "tidy" else
+                       f"{tk.mode} done: {tk.outcome or tk.done_reason}"
+                       + (f", holding object {tk.held['id']}" if tk.held is not None else ""))
             self.publish_state()
             return
         self.k += 1
@@ -439,6 +463,22 @@ class ArmBrain(Node):
             if self.tidy_on or self.starting:
                 return
             self._begin_tidy(a)
+        elif verb == "place":
+            if self.tidy_on or self.starting or self.task.held is None:
+                self.event("place: " + ("the task runs" if self.tidy_on or self.starting else "nothing held"))
+                return
+            try:
+                self._resume_task(f"place: putting object {self.task.held['id']} down")
+                if a.get("ahead") or "x" not in a:
+                    self.task.start_place(t, ahead=True)
+                else:
+                    self.task.start_place(t, float(a["x"]), float(a["y"]), float(a.get("z", 0.0)))
+            except (ValueError, TypeError, KeyError) as e:
+                self._end_tidy()
+                self.event(f"place: {e}")
+        elif verb == "stop" and not self.tidy_on and not self.starting and self.task.held is not None:
+            self._resume_task(f"stop: object {self.task.held['id']} goes in the bin, then stow")
+            self.task.stop(t)
         elif verb == "stop":
             if self.tidy_on:
                 self.task.stop(t)           # the task stows (and finishes a drop in progress), then ends
@@ -459,6 +499,8 @@ class ArmBrain(Node):
                 return
             g = here.copy()
             g[5] = q_for_gap(self.cfg, float(a.get("gap", 0.0)))
+            if self.task.held is not None and float(a.get("gap", 0.0)) > self.task.held["width"]:
+                self.task.held = None                    # opened by hand: let go
             self.play(mo.Motion([here, g], mo.speeds(self.kin), t))
         elif verb == "jog":
             name = str(a.get("joint", ""))
@@ -479,6 +521,7 @@ class ArmBrain(Node):
             self.event("holding")
         elif verb == "relax":
             self._halt()
+            self.task.held = None                        # whatever it held drops with the arm
             self.send(ArmMotion.RELAX)
             self.goal, self.motion, self.source = None, None, "relaxed"
             self.event("torque off: the arm is limp")

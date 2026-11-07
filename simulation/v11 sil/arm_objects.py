@@ -51,8 +51,10 @@ SETS = {
     # the AI's find-by-colour-and-shape scene: one purple cube among a purple block, a red cube, a blue cube, an orange
     # ball and a green crayon (n_objects 6 takes each once; more repeat them)
     "colours": ("cube40_purple", "block", "cube30", "cube40", "ball40", "crayon"),
+    # building blocks for the Block tower (studies/arm_carry.py): 40 mm cubes in two colours
+    "blocks": ("cube40", "cube40_purple", "cube40", "cube40_purple"),
 }
-EXACT = ("colours",)               # sets taken in order (each thing once), not drawn at random
+EXACT = ("colours", "blocks")               # sets taken in order (each thing once), not drawn at random
 
 
 def name_of(o) -> str | None:

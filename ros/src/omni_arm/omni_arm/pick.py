@@ -33,6 +33,19 @@ so the ids agree; only that object is a candidate, and the task ends when it is 
 picked | failed | lost (not there on the close look, or dropped from the map) | too_big | not_found (not in the map,
 or out of the area), with no turning round to look for others. stages say how far it got: attempted (it went down
 for it), grasped (it lifted it held), released (opened over the bin).
+
+Carry and put down (the console's Fetch and Block tower): start(keep=True) keeps the object instead of binning it:
+  CARRY      after LIFT, the arm to "ready" still holding (the base is capped as arm-out); the task ends with outcome
+             held, the arm holding there
+start_place(...) puts the held object down: at a floor point (odom), or "ahead" (the sweet spot where the base is):
+  P_APPROACH drive so the spot sits at the sweet spot (for a tower: the close look's spot, then P_CHECK and P_CREEP)
+  P_CHECK    a depth look finds the tower again (its place and its top's height); not there: put down on the floor
+  P_HOVER    over the spot, the held object's bottom place_dz above where it goes, turned to line up with the top block
+  P_DESCEND  straight down until the object's bottom is place_gap over its place (the grasp's own fingertip offset)
+  P_OPEN     open; P_RISE straight up; then stow (outcome placed)
+start(tower=True) builds a tower of blocks (cube-like things, block_size): the first block it finds is the tower's
+base and stays where it is; each other block is picked (kept) and put on top, until max_blocks or none is left in the
+region. stop() while holding puts the object in the bin first, as a tidy does.
 """
 
 from __future__ import annotations
@@ -101,6 +114,17 @@ class PickParams:
     refine_moves: int = 1
     refine_tol: float = 0.004           # m: the refined spot this close to the hover's: go down
     arm_speed: float = mo.SPEED_FRAC
+    # carrying and putting down (Fetch, Block tower)
+    place_dz: float = 0.04              # m: the held object's bottom this far over its place before going down
+    place_gap: float = 0.004            # m: ... and this far over it when the gripper opens (it drops the rest)
+    rise: float = 0.07                  # m: straight up after letting go
+    release_slide: float = 0.012        # m: the fixed finger slid off the object's side before going up
+    block_size: tuple = (0.025, 0.06)   # m: a block for the tower: its top and its short side within this
+    block_long: float = 0.10            # m: its long side at most (the depth smears a 40 mm cube's footprint along
+                                        #   the view to 1.1-1.85 x its width: color_vision's notes)
+    max_blocks: int = 4                 # the tallest tower tried (the fingers-down reach tops out near 0.2 m)
+    tower_find: float = 0.08            # m: the tower found again within this of where it was
+    tower_keep: float = 0.32            # m: the base's centre keeps this far from the tower (its bumper ~9 cm off)
 
 
 @dataclass
@@ -173,6 +197,11 @@ class TidyTask:
         self.only = None                                  # one object's id (an AI's pick), or None: everything
         self.outcome = ""                                 # how it ended for that object
         self.stages = dict(attempted=False, grasped=False, released=False)
+        self.keep = False                                 # keep what it lifts (CARRY) instead of the bin
+        self.held = None                                  # dict(id, width, height, gripper yaw) while it holds a thing
+        self.place = None                                 # dict(x, y, z (its bottom's height), yaw, tower) to put it
+        self.tower = None                                 # dict(id, x, y, top, n, yaw) while building a tower
+        self.mode = "tidy"                                # tidy | keep | place | tower
 
     # -- fixed poses -----------------------------------------------------------------------------------------------
     def _poses(self) -> dict:
@@ -285,7 +314,15 @@ class TidyTask:
 
     # -- the public side ---------------------------------------------------------------------------------------------
     def start(self, t: float, max_objects: int | None = None, area_radius: float | None = None,
-              only: int | None = None, fmap: fv.FloorMap | None = None):
+              only: int | None = None, fmap: fv.FloorMap | None = None, keep: bool = False, tower: bool = False,
+              max_blocks: int | None = None):
+        if self.held is not None:
+            raise ValueError("the arm holds something: put it down (start_place) or stop first")
+        self.keep, self.tower = keep or tower, None
+        self.mode = "tower" if tower else "keep" if keep else "tidy"
+        self.place = None
+        if max_blocks:
+            self.p.max_blocks = max_blocks
         if max_objects:
             self.p.max_objects = max_objects
         if area_radius:
@@ -305,10 +342,31 @@ class TidyTask:
         self.done_reason = ""
         self._set("STOW", t, "start: arm to stow")
 
+    def start_place(self, t: float, x: float | None = None, y: float | None = None, z: float = 0.0,
+                    ahead: bool = False):
+        """Put the held object down: at (x, y) odom with its bottom at height z, or ahead (the sweet spot where the base
+        stands now, on the floor)."""
+        if self.held is None:
+            raise ValueError("nothing held")
+        pose = self.history[-1][1] if self.history else (0.0, 0.0, 0.0)
+        if ahead or x is None or y is None:
+            sx, sy = self.p.sweet
+            c, s_ = math.cos(pose[2]), math.sin(pose[2])
+            x, y, z = pose[0] + c * sx - s_ * sy, pose[1] + s_ * sx + c * sy, 0.0
+        self.mode, self.stopping, self.done_reason, self.outcome = "place", False, "", ""
+        self.place = dict(x=float(x), y=float(y), z=float(z), yaw=None, tower=False, ahead=bool(ahead))
+        self._begin_place(t, pose)
+
     def stop(self, t: float):
         """Stow and end; an object already lifted goes into the bin first."""
         self.stopping = True
         self.outcome = self.outcome or "stopped"
+        if self.held is not None and self.state in ("DONE", "IDLE", "CARRY") or self.state.startswith("P_") \
+                and self.state not in ("P_OPEN", "P_RISE"):
+            q = self.goal if self.goal is not None else np.zeros(6)
+            self.place = None
+            self._to_bin(t, q)                           # what it holds goes in the bin, as a tidy's would
+            return
         if self.state not in ("IDLE", "DONE", "LIFT", "TO_BIN", "RELEASE", "STOW"):
             if self.target is not None and self.target.status == "new":
                 self.target.status = "new"                # still on the floor: a later tidy finds it again
@@ -321,7 +379,10 @@ class TidyTask:
                     known=len(self.map.candidates()), target=None if o is None else dict(
                         id=o.id, x=round(o.det.x, 3), y=round(o.det.y, 3), size=[round(o.det.length, 3), round(o.det.width, 3)]),
                     tries=self.tries, reason=self.done_reason, only=self.only, outcome=self.outcome,
-                    stages=dict(self.stages), coverage=None if self.cover is None else self.cover.coverage())
+                    stages=dict(self.stages), coverage=None if self.cover is None else self.cover.coverage(),
+                    mode=self.mode, held=None if self.held is None else dict(self.held),
+                    tower=None if self.tower is None else dict(n=self.tower["n"], top=round(self.tower["top"], 3),
+                                                               x=round(self.tower["x"], 3), y=round(self.tower["y"], 3)))
 
     def _only_outcome(self) -> str:
         """For an only-pick: how it ended for its object ('' while it is still to do)."""
@@ -392,8 +453,8 @@ class TidyTask:
                 return
             self.recheck = False
             if self.stopping:
-                self._set("DONE", t, "stopped")
-                self.done_reason = "stopped"
+                self._set("DONE", t, self.done_reason or "stopped")
+                self.done_reason = self.done_reason or "stopped"
             elif self.only is not None and self._only_outcome():
                 self._end_only(t, self._only_outcome())
             elif self.picked + self.failed >= self.p.max_objects:
@@ -426,6 +487,20 @@ class TidyTask:
         self.t_req = math.inf
         cands = [o for o in self.map.candidates() if o.det.width <= self.p.max_width
                  and math.hypot(o.det.x - ox, o.det.y - oy) < self.p.area_radius]
+        if self.mode == "tower":
+            cands = [o for o in cands if self.is_block(o.det)]
+            if self.tower is None and cands:             # the first block is the tower's base: it stays where it is
+                px, py = inp.pose[0], inp.pose[1]
+                base = min(cands, key=lambda o: math.hypot(o.det.x - px, o.det.y - py))
+                base.status = "tower"
+                self.tower = dict(id=base.id, x=base.det.x, y=base.det.y, top=base.det.top, n=1, yaw=base.det.yaw,
+                                  size=base.det.top)
+                self._set("LOOK", t, f"tower: object {base.id} at ({base.det.x:.2f}, {base.det.y:.2f}) is its base")
+                cands = [o for o in cands if o is not base]
+            if self.tower is not None and self.tower["n"] >= self.p.max_blocks:
+                self._set("DONE", t, f"tower: {self.tower['n']} blocks high")
+                self.done_reason = self.outcome = "tower done"
+                return
         if self.only is not None:
             cands = [o for o in cands if o.id == self.only]
             if not cands:                                 # gone, too big, out of the area: no looking round for it
@@ -457,6 +532,8 @@ class TidyTask:
             self._set("DONE", t, f"region covered: {100 * c['share']:.0f}% of its floor checked, {c['unchecked']:.2f} m^2 "
                                  f"hidden or out of reach ({self.picked} picked, {self.failed} failed)")
             self.done_reason = "region covered"
+            if self.mode == "tower":
+                self.outcome = "tower done" if self.tower is not None else "no blocks"
             return
         self.turned = 0
         self.at_spot = False
@@ -506,8 +583,44 @@ class TidyTask:
         c, s = math.cos(heading), math.sin(heading)
         self.pose_goal = (o.x - (c * sx - s * sy), o.y - (s * sx + c * sy), heading)
 
+    def _tower_detour(self, pose, goal):
+        """While building, the base never drives through the tower (it would knock it over). When the straight way to
+        goal passes within tower_keep of it: straight away from it out to a ring tower_keep + 0.12 round it, then round
+        the ring in 40 deg chords (a chord never cuts inside the keep), toward the goal's side, until the way is clear.
+        The approach to the tower to stack on it is the one way in."""
+        tw = self.tower
+        if self.mode != "tower" or tw is None or self.state in ("P_APPROACH", "P_CREEP"):
+            return goal
+        R = self.p.tower_keep
+        px, py, gx, gy, cx, cy = pose[0], pose[1], goal[0], goal[1], tw["x"], tw["y"]
+        if math.hypot(gx - cx, gy - cy) < R or not self._seg_near(px, py, gx, gy, cx, cy, R):
+            return goal
+        ring = R + 0.12
+        rr = math.hypot(px - cx, py - cy)
+        ar = math.atan2(py - cy, px - cx)
+        if rr < ring - 0.03:                              # out first, straight away from it
+            return cx + ring * math.cos(ar), cy + ring * math.sin(ar), goal[2]
+        side = math.remainder(math.atan2(gy - cy, gx - cx) - ar, 2 * math.pi)
+        a = ar + math.copysign(math.radians(40), side)
+        return cx + ring * math.cos(a), cy + ring * math.sin(a), goal[2]
+
+    @staticmethod
+    def _seg_near(px, py, gx, gy, cx, cy, R) -> bool:
+        dx, dy = gx - px, gy - py
+        L2 = dx * dx + dy * dy
+        k = 0.0 if L2 < 1e-9 else max(0.0, min(1.0, ((cx - px) * dx + (cy - py) * dy) / L2))
+        return math.hypot(px + k * dx - cx, py + k * dy - cy) < R
+
     def _drive(self, pose, goal, out) -> bool:
         """A holonomic P step toward goal (odom); True when there."""
+        real = goal
+        goal = self._tower_detour(pose, goal)
+        if goal is not real:                              # round the tower first: never "there" on the way
+            bx, by = self._base_from_odom(pose, goal[0], goal[1])
+            d = math.hypot(bx, by)
+            v = min(self.p.v_max, 1.2 * d + 0.05)
+            out.twist = (bx / d * v, by / d * v, 0.0) if d > 1e-4 else (0.0, 0.0, 0.0)
+            return False
         bx, by = self._base_from_odom(pose, goal[0], goal[1])
         e_yaw = math.remainder(goal[2] - pose[2], 2 * math.pi)
         d = math.hypot(bx, by)
@@ -707,6 +820,19 @@ class TidyTask:
             self._fail(t, q, "dropped it on the way up")
             return
         self.stages["grasped"] = True
+        if self.keep:                                    # Fetch, the tower: carry it instead of the bin
+            o = self.target
+            o.status = "picked"
+            self.held = dict(id=o.id, width=round(float(gap_at(self.kin.cfg, q[5])), 4), height=round(o.det.top, 4),
+                             yaw=self.grasp["yaw"], tip=float(self.grasp["tool"][2]
+                                                              - self.kin.cfg.pads["fingertip_below_tool"]))
+            carry = self.poses["ready"].copy()
+            carry[5] = self.q_closed
+            if not self._go(t, q, carry, gripper=self.q_closed):
+                self._halt(t, q, f"no checked way to carry object {o.id} ({self.no_path})")
+                return
+            self._set("CARRY", t, f"carrying object {o.id}")
+            return
         drop = self.poses["drop"].copy()
         drop[5] = self.q_closed
         if not self._go(t, q, drop, gripper=self.q_closed, allow_bin=True):
@@ -725,9 +851,203 @@ class TidyTask:
         if t - self.t_state < 0.8:
             return
         o = self.target
-        o.status = "picked"
+        if o is not None:
+            o.status = "picked"
         self.picked += 1
         self.stages["released"] = True
-        self._set("STOW", t, f"object {o.id} in the bin ({self.picked} so far)")
+        oid = o.id if o is not None else (self.held or {}).get("id", "?")
+        self.held = None
+        self._set("STOW", t, f"object {oid} in the bin ({self.picked} so far)")
         self.target = None
         self.motion = None
+
+    # -- carrying and putting down (Fetch, Block tower) ---------------------------------------------------------------
+    def is_block(self, d: fv.Detection) -> bool:
+        lo, hi = self.p.block_size
+        return lo <= d.top <= hi and lo <= d.width <= hi and d.length <= self.p.block_long and not d.big
+
+    def _to_bin(self, t: float, q):
+        drop = self.poses["drop"].copy()
+        drop[5] = self.q_closed
+        if not self._go(t, q, drop, gripper=self.q_closed, allow_bin=True):
+            self._halt(t, q, f"no checked way to the bin ({self.no_path})")
+            return
+        self._set("TO_BIN", t, "what it holds goes in the bin")
+
+    def _s_carry(self, t, inp, out, q):
+        if not self._arrived(t, q, 0.05):
+            return
+        self.motion = None
+        if self.mode == "tower" and self.tower is not None:
+            tw = self.tower
+            self.place = dict(x=tw["x"], y=tw["y"], z=tw["top"], yaw=tw["yaw"], tower=True, ahead=False)
+            self._begin_place(t, inp.pose)
+            return
+        self.outcome = self.done_reason = "held"
+        self._set("DONE", t, f"holding object {self.held['id']}")
+
+    def _begin_place(self, t, pose):
+        pl = self.place
+        if pl["ahead"]:                                   # where it stands: no driving
+            self.pose_goal = None
+            self._set("P_HOVER", t, "putting it down ahead")
+            self.fresh = True
+            return
+        heading = math.atan2(pl["y"] - pose[1], pl["x"] - pose[0])
+        if math.hypot(pl["x"] - pose[0], pl["y"] - pose[1]) < 0.45 + self.p.look_back:
+            heading = pose[2]
+        sx, sy = (self._look_spot() if pl["tower"] else self.p.sweet)
+        c, s_ = math.cos(heading), math.sin(heading)
+        self.pose_goal = (pl["x"] - (c * sx - s_ * sy), pl["y"] - (s_ * sx + c * sy), heading)
+        self._set("P_APPROACH", t, f"to put object {self.held['id']} down at ({pl['x']:.2f}, {pl['y']:.2f})"
+                                    + (f" on the tower ({self.tower['n']} high)" if pl["tower"] else ""))
+
+    def _s_p_approach(self, t, inp, out, q):
+        if not self._drive(inp.pose, self.pose_goal, out):
+            return
+        if self.place["tower"]:
+            self.t_req = t + self.p.settle
+            self._set("P_CHECK", t)
+            return
+        self._set("P_HOVER", t)
+
+    def _s_p_check(self, t, inp, out, q):
+        """The close look at the tower: where it is and how high (a depth frame from after the base settled)."""
+        out.want_depth = t >= self.t_req
+        f = inp.depth
+        if f is None or f.t < self.t_req:
+            return
+        self.t_req = math.inf
+        pose = self._pose_at(f.t)
+        dets = fv.to_frame(fv.detect(f, rng=np.random.default_rng(11)), pose)
+        tw, pl = self.tower, self.place
+        near = [d for d in dets if math.hypot(d.x - tw["x"], d.y - tw["y"]) < self.p.tower_find]
+        if not near:                                      # knocked over, or out of sight: a new base where it was
+            self.log(f"P_CHECK: the tower isn't there: object {self.held['id']} starts a new one")
+            pl["z"], pl["yaw"] = 0.0, None
+            tw.update(n=0, top=0.0)
+        else:
+            d = min(near, key=lambda d: math.hypot(d.x - tw["x"], d.y - tw["y"]))
+            # the top seen (the highest points) rather than the count: a block not quite flat says so
+            tw.update(x=d.x, y=d.y, top=max(d.top, 0.5 * tw["top"]), yaw=d.yaw)
+            pl.update(x=d.x, y=d.y, z=tw["top"], yaw=d.yaw)
+        if self.p.look_back > 0:                          # seen: slide in to the sweet spot, the heading kept
+            sx, sy = self.p.sweet
+            c, s_ = math.cos(inp.pose[2]), math.sin(inp.pose[2])
+            self.pose_goal = (pl["x"] - (c * sx - s_ * sy), pl["y"] - (s_ * sx + c * sy), inp.pose[2])
+            self._set("P_CREEP", t, f"in {100 * self.p.look_back:.0f} cm to the tower (top {1000 * tw['top']:.0f} mm)")
+            return
+        self._set("P_HOVER", t)
+
+    def _s_p_creep(self, t, inp, out, q):
+        if self._drive(inp.pose, self.pose_goal, out):
+            self._set("P_HOVER", t)
+
+    def _place_tool(self, pose, z_bottom: float, yaw: float):
+        """The tool point that puts the held object's bottom at z_bottom over the place (odom), the fingers turned to
+        yaw (base frame). The tool point is the fixed finger's face (_grasp_for brings it side_clear from the object's
+        side); closing, the moving jaw pushes the object against it: its centre is half its width from the tool point,
+        on the closing line."""
+        pl, h = self.place, self.held
+        bx, by = self._base_from_odom(pose, pl["x"], pl["y"])
+        o = np.array([math.cos(yaw), math.sin(yaw), 0.0])
+        tool = np.array([bx, by, 0.0]) - o * (h["width"] / 2)
+        # the fingertips were h["tip"] over the floor at the grasp, the object's bottom on it
+        tool[2] = z_bottom + h["tip"] + self.kin.cfg.pads["fingertip_below_tool"]
+        return tool
+
+    def _s_p_hover(self, t, inp, out, q):
+        if self.fresh:
+            self.fresh = False
+            pl, h = self.place, self.held
+            pose = inp.pose
+            # line the held block up with the one below (a square block: any quarter turn), the least wrist roll
+            base_yaw = h["yaw"] if pl["yaw"] is None else math.remainder(pl["yaw"] - pose[2], 2 * math.pi)
+            best = None
+            for k in range(4):
+                yaw = base_yaw + k * math.pi / 2 if pl["yaw"] is not None else h["yaw"] + k * math.pi
+                if pl["yaw"] is None and k > 1:
+                    break
+                tool = self._place_tool(pose, pl["z"] + self.p.place_dz, yaw)
+                qh = self.kin.ik(tool, DOWN, yaw=yaw, seed=q, flip_ok=False)
+                if qh is None or not self.kin.clear(qh)[0]:
+                    continue
+                if best is None or abs(qh[4]) < abs(best[1][4]):
+                    best = (yaw, qh)
+            if best is None:
+                self._place_failed(t, q, "no reach over the spot" + (" (the tower is too high)" if pl["tower"] else ""))
+                return
+            yaw, qh = best
+            qh[5] = self.q_closed
+            if not self._go(t, q, qh, gripper=self.q_closed):
+                self._place_failed(t, q, f"no checked way over the spot ({self.no_path})")
+                return
+            self.place["grip_yaw"] = yaw
+            return
+        if self._arrived(t, q):
+            pl = self.place
+            tool = self._place_tool(inp.pose, pl["z"] + self.p.place_gap, pl["grip_yaw"])
+            wps = mo.line(self.kin, self.goal, tool, DOWN, pl["grip_yaw"])
+            if wps is None:
+                self._place_failed(t, q, "no straight way down")
+                return
+            self._move(t, self.goal, wps, gripper=self.q_closed)
+            self._set("P_DESCEND", t)
+
+    def _s_p_descend(self, t, inp, out, q):
+        if self._arrived(t, q, 0.04):
+            g = self.goal.copy()
+            g[5] = q_for_gap(self.kin.cfg, min(gap_at(self.kin.cfg, 1.5), self.held["width"] + self.p.open_margin))
+            self._move(t, self.goal, [g])
+            self.motion.t[-1] = t + 0.6
+            self._set("P_OPEN", t)
+
+    def _s_p_open(self, t, inp, out, q):
+        """Opened: only the moving jaw let go; the object still leans on the fixed finger (the tool point), and straight
+        up dragged a block off the tower in the sim. So first slide the fixed finger off its side (away from the
+        object, release_slide), then up."""
+        if t - self.t_state < 0.9:
+            return
+        yaw = self.place["grip_yaw"]
+        p0 = self.kin.tool(self.goal)[:3, 3]
+        side = p0 - self.p.release_slide * np.array([math.cos(yaw), math.sin(yaw), 0.0])
+        wps = mo.line(self.kin, self.goal, side, DOWN, yaw, step=0.004)
+        up = None
+        if wps:
+            up = mo.line(self.kin, wps[-1], side + np.array([0.0, 0.0, self.p.rise]), DOWN, yaw, step=0.01)
+        if wps and up:
+            wps = wps + up
+        else:
+            wps = mo.line(self.kin, self.goal, p0 + np.array([0.0, 0.0, self.p.rise]), DOWN, yaw, step=0.01)
+        self._move(t, self.goal, wps if wps else [self.poses["ready"]])
+        self._set("P_RISE", t)
+
+    def _s_p_rise(self, t, inp, out, q):
+        if not self._arrived(t, q, 0.05):
+            return
+        held, pl = self.held, self.place
+        self.held, self.place = None, None
+        self.stages["released"] = True
+        self.picked += 1
+        if self.mode == "tower" and self.tower is not None:
+            tw = self.tower
+            tw["n"] += 1
+            tw["top"] = pl["z"] + held["height"]
+            if tw["n"] == 1:                              # it started a new tower: it is the base now
+                tw.update(x=pl["x"], y=pl["y"])
+            self._set("STOW", t, f"tower: {tw['n']} high (top {1000 * tw['top']:.0f} mm)")
+            return
+        self.outcome = "placed"
+        self.done_reason = "placed"
+        self.stopping = True                              # STOW ends the task
+        self._set("STOW", t, f"object {held['id']} put down")
+
+    def _place_failed(self, t, q, why: str):
+        """It can't put it down there: into the bin instead (it never lets go somewhere it hasn't checked)."""
+        self.outcome = self.done_reason = f"place failed: {why}"
+        if self.mode == "tower":
+            self.mode = "keep"                            # the tower is over
+        self.stopping = True
+        self.place = None
+        self.log(f"P: {why}: into the bin")
+        self._to_bin(t, q)

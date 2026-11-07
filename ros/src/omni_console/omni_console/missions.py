@@ -93,9 +93,10 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
 from omni_console.console_ai import AiMixin
 from omni_console.console_calib import CalibMixin
 from omni_console.console_edit import EditMixin
+from omni_console.console_fun import FUN_MISSIONS, FunMixin
 
 
-class Console(AiMixin, CalibMixin, EditMixin):
+class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
     def __init__(self, settings: dict | None = None, places: dict | None = None, routes: dict | None = None,
                  programs: dict | None = None, calib: dict | None = None, throws=None, health=None,
                  ai_tasks: dict | None = None, bringup: dict | None = None):
@@ -172,6 +173,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
         self.bringup_new = []              # records to log (the node writes them to the session log)
         self.robot_config = {}             # from the node: source, firmware build, host (stored with each result)
         # the activity history: every task that ran, whoever started it (a person on the page, the voice, the AI)
+        self._fun_init()                   # Fetch, Messenger, Block tower, Dance party, Goalie (console_fun.py)
         self.activity = deque(maxlen=50)
         self.activity_n = 0                # bumped on every change: the page asks for the list again
         self.act = None                    # the running activity record
@@ -333,7 +335,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
         caps = [(FW_LIMITS["kid" if kid else "adult"][0], "kid profile" if kid else "firmware limit")]
         own = {"MANUAL": ("manual.max_speed", "Drive's top speed"), "GOTO": ("goto.speed", "Go To's speed"),
                "EXPLORE": ("explore.speed", "Explore's speed"), "PATROL": ("patrol.speed", "Patrol's speed"),
-               "PROGRAM": ("program.speed", "Program's speed")}
+               "PROGRAM": ("program.speed", "Program's speed"), "DANCE": ("dance.speed", "the dance's moves"),
+               "GOALIE": ("goalie.speed", "Goalie's dive speed")}
         if self.ai_book.running() is not None:
             caps.append((v["ai.max_speed"], "AI top speed"))
         elif self.mission == "FOLLOW":
@@ -479,6 +482,24 @@ class Console(AiMixin, CalibMixin, EditMixin):
                 return Reply(True, "", dict(n=self.activity_n, items=list(reversed(self.activity))))
             if verb == "tidy":
                 return self._tidy()
+            if verb == "fetch":
+                return self._fetch(a)
+            if verb == "message":
+                return self._message(a)
+            if verb == "tower":
+                return self._tower(a)
+            if verb == "dance":
+                return self._dance(a)
+            if verb == "goalie":
+                return self._goalie(a)
+            if verb == "clip":
+                from omni_console.console_defs import CLIP_NAME
+                name = str(a.get("name", ""))
+                if not CLIP_NAME.match(name):
+                    return Reply(False, "clip: a name the page server gave (/api/clip)")
+                caption = re.sub(r"[\x00-\x1f]+", " ", str(a.get("caption") or "(caller)"))[:80]
+                self.event("info", f"Playing a clip: {caption}")
+                return Reply(True, "Playing it on the robot", None, (("face_clip", name, caption),))
             if verb == "arm":
                 return self._ai_arm(a) if ai else self._arm(a)
         except (KeyError, TypeError, ValueError, IndexError) as e:
@@ -565,6 +586,9 @@ class Console(AiMixin, CalibMixin, EditMixin):
                     self.event("info", f"Arm: {ev['text']}")
                     new.append(str(ev.get("text", "")))
         self._ai_on_arm(s, new)
+        fun = self.fun_on_arm(s, was)
+        if fun:
+            return tuple(fun)
         t = s.get("tidy") or {}
         if self.mission == "TIDY":
             st = t.get("state", "")
@@ -699,7 +723,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
         return Reply(True, r.message, None, r.effects)
 
     def on_people(self, people, now: float):
-        """The node's people (base frame, people.detect) from each lidar scan while FOLLOW runs."""
+        """The node's people (base frame, people.detect) from each lidar scan while FOLLOW, MESSAGE or FETCH runs."""
+        self.fun_people(people, now)
         if self.mission != "FOLLOW" or self.follower is None:
             return
         f = self.follower
@@ -723,6 +748,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
             tw = self.manual_output(now)
         elif self.mission == "FOLLOW" and self.follower is not None:
             tw = self.follow_cmd if now - self.t_follow < 0.5 else (0.0, 0.0, 0.0)      # no scan: stop
+        elif self.mission in FUN_MISSIONS:
+            tw = self.fun_twist(now)
         elif self.mission == "PROGRAM" and self.runner is not None:
             p = self.runner
             tw = p.tick(now, self.odom_pose)
@@ -903,8 +930,12 @@ class Console(AiMixin, CalibMixin, EditMixin):
         if cancel_nav and self.goal is not None:
             fx.append(("nav_cancel",))
             self.goal = None
-        if self.mission == "TIDY" and mission != "TIDY":
-            fx.append(("arm", dict(verb="stop")))       # the arm stows (a drop under way finishes first)
+        if self.mission in ("TIDY", "FETCH", "TOWER") and mission != self.mission:
+            fx.append(("arm", dict(verb="stop")))       # the arm stows (a drop under way finishes first; held: the bin)
+        if self.mission == "GOALIE" and mission != "GOALIE":
+            fx.append(("goalie", False))                # the ball tracker sleeps again
+        if self.fun is not None:
+            self.fun, self.dance, self.goalie = None, None, None
         if mission != "EXPLORE":
             self.explore = None
         if mission != "PATROL":
@@ -934,6 +965,8 @@ class Console(AiMixin, CalibMixin, EditMixin):
         """Every ~0.5 s from the node (grid: explore.Grid of the current map while exploring). Returns effects."""
         self.now = now
         fx = self._ai_tick(now)
+        if not fx and self.mission in FUN_MISSIONS:
+            fx = self.fun_tick(now)
         if not fx and self.mission == "EXPLORE" and self.explore is not None:
             fx = self._explore_tick(now, grid)
         elif not fx and self.mission == "PATROL" and self.patrol is not None:
@@ -1052,7 +1085,7 @@ class Console(AiMixin, CalibMixin, EditMixin):
                          "THROWER": "Thrower bench test"}[self.mission]
             self.event("info", f"Robot is in {mode} ({'kid' if kid else 'adult'} profile)")
             return ()
-        if MODE_OF[self.mission] != mode:
+        if not self.mode_ok(self.mission, mode):
             fx = (("nav_cancel",),) if self.goal is not None else ()
             self.goal = self.explore = self.patrol = None
             self.follower = self.runner = self.calib_run = None
@@ -1084,6 +1117,12 @@ class Console(AiMixin, CalibMixin, EditMixin):
         self.activity_sync()
 
     def _on_nav_done(self, seq: int, outcome: str, now: float | None = None):
+        if self.goal is not None and seq == self.goal["seq"] and self.mission in ("FETCH", "MESSAGE"):
+            self.goal = None
+            why = {"aborted": "Nav2 gave up", "rejected": "Nav2 refused the goal", "canceled": "cancelled"}.get(outcome,
+                                                                                                         outcome)
+            self.fx_queue += self.fun_nav_done(outcome == "succeeded", why)
+            return
         if self.goal is None or seq != self.goal["seq"] or self.mission not in NAV_MISSIONS + ("PROGRAM",):
             return
         now = self.now if now is None else now
@@ -1223,7 +1262,16 @@ class Console(AiMixin, CalibMixin, EditMixin):
                                                                    text=self.calib_run.text()),
                     slow=None if self.slow is None else dict(speed=self.slow[0], edge=self.slow[1]),
                     player=self.throws.player, localization=self.loc_health_now(),
-                    arm=self._arm_summary(), ai=self.ai_summary())
+                    arm=self._arm_summary(), ai=self.ai_summary(),
+                    goalie=None if self.goalie is None else dict(self.goalie.summary(),
+                                                                  ball=self.now - self.t_ball < 0.5),
+                    fun=None if self.fun is None else {k: v for k, v in self.fun.items()
+                                                       if k in ("kind", "phase", "what", "text", "i")},
+                    dance=None if self.dance is None else dict(routine=self.dance.routine, bpm=self.dance.bpm))
+
+    @staticmethod
+    def mode_of(mission: str) -> str:
+        return MODE_OF[mission]
 
     def _arm_summary(self):
         if not self._arm_up():

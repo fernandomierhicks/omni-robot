@@ -17,6 +17,8 @@ HTTP (plain, on the robot's own address: the page's ws:// to rosbridge works in 
   POST /api/start            {"step": "robot", "args": {"map": "house"}}
   POST /api/stop             {}
   POST /api/power            {"action": "shutdown" | "reboot"}  (when the steps file allows it: the robot computer)
+  POST /api/clip?pin=        a WAV (the Call page's push-to-talk, at most CLIP_MAX bytes): saved in <state>/clips (the
+                             newest CLIP_KEEP), answers {"name"}; the console's "clip" verb has the face play it
   GET  /logs/, /logs/<file>  the session logs (session_log.py), for download
 POST bodies carry "pin" when the supervisor has one (kid-proofing, not security: it's the home network).
 """
@@ -451,6 +453,10 @@ def serve_logs(h, u, logs_dir) -> bool:
     return True
 
 
+CLIP_MAX = 2_000_000                # bytes: a push-to-talk WAV (16 kHz mono 16-bit: about a minute)
+CLIP_KEEP = 20
+
+
 class Handler(SimpleHTTPRequestHandler):
     sup: Supervisor = None
     config = b"{}"
@@ -495,8 +501,28 @@ class Handler(SimpleHTTPRequestHandler):
             return
         super().do_GET()
 
+    def _clip(self, u):
+        """A push-to-talk WAV from the Call page, kept for the face to play (the console's clip verb)."""
+        if self.pin and parse_qs(u.query).get("pin", [""])[0] != self.pin:
+            return self._json(403, dict(ok=False, message="Wrong PIN", need_pin=True))
+        n = int(self.headers.get("Content-Length") or 0)
+        if not 44 < n <= CLIP_MAX:
+            return self._json(400, dict(ok=False, message=f"a WAV of at most {CLIP_MAX // 1000} kB, please"))
+        data = self.rfile.read(n)
+        if data[:4] != b"RIFF" or data[8:12] != b"WAVE":
+            return self._json(400, dict(ok=False, message="not a WAV"))
+        d = self.sup.state_dir / "clips"
+        d.mkdir(parents=True, exist_ok=True)
+        name = f"clip-{int(time.time() * 1000)}.wav"
+        (d / name).write_bytes(data)
+        for old in sorted(d.glob("clip-*.wav"))[:-CLIP_KEEP]:
+            old.unlink(missing_ok=True)
+        return self._json(200, dict(ok=True, name=name))
+
     def do_POST(self):
         u = urlparse(self.path)
+        if u.path == "/api/clip":
+            return self._clip(u)
         try:
             n = int(self.headers.get("Content-Length") or 0)
             body = json.loads(self.rfile.read(n) or b"{}") if n else {}

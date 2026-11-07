@@ -261,3 +261,8 @@ details.group > summary { cursor: pointer; padding: 6px 0; color: var(--white); 
 
 /* phones: the status bar keeps one line (control, mode, battery, STOP) */
 @media (max-width: 600px) { .statusbar .line.more { display: none; } .statusbar .task { display: none; } }
+
+/* the fun pages and Call */
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; border: 1px solid var(--border); vertical-align: middle; }
+.call-view { display: flex; align-items: center; justify-content: center; background: var(--map-bg); overflow: hidden; }
+.call-view img { width: 100%; height: 100%; object-fit: contain; }

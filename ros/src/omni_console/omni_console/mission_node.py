@@ -30,6 +30,7 @@ Publishes  /console/status    std_msgs/String JSON, 10 Hz (wall clock): mission,
            /initialpose       geometry_msgs/PoseWithCovarianceStamped: where the robot is on a loaded map
            /face/say /face/hear std_msgs/String: the Say box's lines (JSON: text, mood, act) and typed voice
                               commands, for omni_face's face_node
+           /goalie/enable     std_msgs/Bool: omni_arm's ball tracker runs while Goalie plays
            /arm/request /arm/camera_request  std_msgs/String: omni_arm's tidy, find and poses; a frame from a camera
                               the sim renders on request (look)
 Also the AI client's tasks (ai_tasks.json: ai_robot_architecture.md, missions.py): kept over restarts, the ones that
@@ -38,6 +39,7 @@ Subscribes /console/cmd_vel   geometry_msgs/Twist from the page, normalized -1..
                               the dead man is held; older than 0.3 s -> zero, then silence
            /console/heartbeat std_msgs/String JSON {"id": ...} from each open page (counts consoles)
            /mcu/state_10hz /mcu/info /mcu/link /robot_mode /catch/status /catch/target /catch/perception /plan /map
+           /goalie/ball (omni_arm's ball tracker: the ball in odom, JSON) /people
            /rosout; raw: /tf /tf_static /catch/track; /cam/left/sparse (only while the Vision tab is open)
 Calls      /set_mode, Nav2's navigate_to_pose, parameters of velocity_smoother and catch_behavior, slam_toolbox's
            serialize_map (the pose graph; the map image it writes itself), Nav2's lifecycle manager (is it active? and, when its bring-up failed because the
@@ -81,7 +83,7 @@ from rclpy.parameter import Parameter
 from rclpy.parameter_client import AsyncParameterClient
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy, qos_profile_sensor_data
 from sensor_msgs.msg import LaserScan
-from std_msgs.msg import String
+from std_msgs.msg import Bool, String
 from std_srvs.srv import Trigger
 from tf2_msgs.msg import TFMessage
 from visualization_msgs.msg import Marker
@@ -459,6 +461,10 @@ class MissionNode(Node):
         self.p_camreq = self.create_publisher(String, "/arm/camera_request", 10)    # the sim renders on request
         self.p_face_say = self.create_publisher(String, "/face/say", 10)            # omni_face: the Say box
         self.p_face_hear = self.create_publisher(String, "/face/hear", 10)          # a voice command, typed
+        # Goalie: omni_arm's ball tracker wakes while it plays (/goalie/enable) and sends the ball (odom, JSON)
+        self.p_goalie = self.create_publisher(Bool, "/goalie/enable", LATCHED)        # the tracker reads it latched
+        self.p_face_clip = self.create_publisher(String, "/face/clip", 5)
+        self.create_subscription(String, "/goalie/ball", self.on_ball, 5)
         # Nav2's costmap filters (nav2.yaml): the Map edit tab's no-go zones and floor edges
         self.p_keep_mask = self.create_publisher(OccupancyGrid, "/keepout_filter_mask", MAP_QOS)
         self.p_speed_mask = self.create_publisher(OccupancyGrid, "/speed_filter_mask", MAP_QOS)
@@ -700,11 +706,17 @@ class MissionNode(Node):
         if self.core.mission == "MANUAL":
             self.drive_tick()
 
+    def on_ball(self, m: String):
+        try:
+            self.core.on_ball(json.loads(m.data), time.monotonic())
+        except (ValueError, AttributeError):
+            pass
+
     def on_people_tracks(self, m: String):
         self.people_msg, self.people_t = m.data, time.monotonic()
 
     def on_scan_raw(self, raw: bytes):
-        """The newest lidar scan while Follow runs: people in the base frame (people.py), furniture on the map left
+        """The newest lidar scan while Follow, Messenger or Fetch runs: people in the base frame (people.py), furniture on the map left
         out. When omni_perception's people node runs (the camera too), its tracks instead: camera-confirmed people
         first, never what the camera has looked at and called furniture."""
         if self.people_msg is not None and time.monotonic() - self.people_t < 0.5:
@@ -847,6 +859,11 @@ class MissionNode(Node):
                 self.publish_masks()
             elif kind == "arm":
                 self.p_arm.publish(String(data=json.dumps(fx[1])))
+            elif kind == "face_clip":                   # the Call page's push-to-talk (the supervisor saved it)
+                self.p_face_clip.publish(String(data=json.dumps(dict(path=str(self.state_dir / "clips" / fx[1]),
+                                                                     caption=fx[2]))))
+            elif kind == "goalie":
+                self.p_goalie.publish(Bool(data=bool(fx[1])))
             elif kind == "camera_request":
                 self.p_camreq.publish(String(data=fx[1]))
             elif kind in ("face", "face_hear"):          # omni_face: a line to say (the Say box), a typed "heard"
@@ -1159,7 +1176,9 @@ class MissionNode(Node):
             return
         m = Twist()
         m.linear.x, m.linear.y, m.angular.z = tw
-        guard = self.core.values["manual.obstacle_stop"] if self.core.mission == "MANUAL" else True
+        # Manual: as its setting says; Goalie never (the ball it must meet is an obstacle to the collision monitor)
+        guard = (self.core.values["manual.obstacle_stop"] if self.core.mission == "MANUAL" else
+                 self.core.mission != "GOALIE")
         (self.p_cmd_safe if guard and self.core.caps["collision"] else self.p_cmd).publish(m)
 
     def fast_tick(self):
@@ -1181,7 +1200,7 @@ class MissionNode(Node):
             self.core.on_mcu(st.mcu_summary(self.mcu, time.monotonic() - self.mcu_t))
         i = self.info                                 # the RC's manual switch takes the robot back from the AI
         self.core.on_rc(bool(i is not None and i["rc_manual"] and now - self.info_t < 1.0))
-        follow = self.core.mission == "FOLLOW"
+        follow = self.core.wants_people()                # Follow, Messenger, Fetch: the people the lidar sees
         if follow != (self.feed.scan_sub is not None):
             self.feed.set_scan(self.scan_topic if follow else None, self.on_scan_raw)
             self.scan_laser = None

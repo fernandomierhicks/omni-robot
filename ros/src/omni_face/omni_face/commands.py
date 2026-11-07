@@ -12,6 +12,10 @@ face's own (a joke, a song, the battery):
   go to the <place>, go to <place>            goto                     the console: goto, a saved place of the map
   go home, go back home                       goto "home"              (a place called home, dock or start)
   explore, explore the house                  explore                  the console: explore
+  bring me the red block, fetch the ball      fetch                    the console: fetch {color, shape}
+  build a tower, stack the blocks             tower                    the console: tower
+  dance party, let's have a dance party       party                    the console: dance
+  play goalie, let's play goalie              goalie                   the console: goalie
   go to sleep, take a nap, sleep              sleep                    the console: stop; the face naps
   wake up                                     wake
   be quiet, shh, quiet please                 quiet                    fewer antics, no chatter (the face)
@@ -51,6 +55,9 @@ PHRASES = (
     ("tag", ("let's play tag", "play tag", "tag")),
     ("catch", ("let's play catch", "play catch", "catch", "let's play ball", "play ball")),
     ("explore", ("explore", "explore the house", "go explore", "go exploring")),
+    ("tower", ("build a tower", "build a block tower", "stack the blocks", "make a tower")),
+    ("party", ("dance party", "let's have a dance party", "dance for me", "show me your moves")),
+    ("goalie", ("play goalie", "let's play goalie", "be the goalie", "goalie")),
     ("home", ("go home", "go back home", "go to your home", "go back")),
     ("sleep", ("go to sleep", "take a nap", "sleep", "nap time", "good night")),
     ("wake", ("wake up", "good morning", "rise and shine")),
@@ -74,7 +81,15 @@ HOME_PLACES = ("home", "dock", "start", "base")
 # the plain replies; moments.REPLIES has the ones said in character (by its humor)
 REPLY = {"stop": "Stopping.", "follow": "Following you.", "tag": "Tag. Here I come.",
          "catch": "Let's play catch.", "explore": "Going exploring.", "sleep": "Going to sleep.",
-         "goto": "On my way to the {place}."}
+         "goto": "On my way to the {place}.", "tower": "Building a tower.", "party": "Dance party. Stand back.",
+         "goalie": "In goal. Do your worst."}
+# Fetch by voice: "bring me the red block": a colour (the console's find's names) and a thing's shape word
+FETCH_COLOURS = ("red", "orange", "yellow", "green", "blue", "purple", "pink", "white", "black")
+FETCH_SHAPES = {"block": "square", "cube": "square", "box": "square", "square": "square", "ball": "round",
+                "round": "round", "crayon": "long", "stick": "long", "pen": "long", "marker": "long",
+                "thing": "any", "toy": "any", "one": "any"}
+_FETCH = re.compile(r"^(?:bring me|fetch|get me|go get|grab|find) (?:the |a |an |my |me the )?"
+                    rf"(?:({'|'.join(FETCH_COLOURS)}) )?({'|'.join(FETCH_SHAPES)})$")
 _FILL = re.compile(r"\b(please|now|okay|ok|um|uh|hey|so|can you|could you|would you)\b")
 # the humor setting by voice: recognizers give the number in words ("humor seventy five percent")
 _ONES = dict(zero=0, one=1, two=2, three=3, four=4, five=5, six=6, seven=7, eight=8, nine=9)
@@ -120,6 +135,10 @@ def phrases(places=()) -> list:
     for w in (HUMOR_SAY[v] for v in sorted(HUMOR_SAY) if v % 10 == 0 or v in (25, 75)):
         out += [f"humor {w} percent", f"humor setting {w} percent", f"set humor to {w} percent",
                 f"set your humor to {w} percent"]
+    for c in ("",) + FETCH_COLOURS:                # Fetch: "bring me the red block" (a grammar needs them all)
+        for w in ("block", "ball", "cube", "crayon", "toy"):
+            thing = f"{c} {w}".strip()
+            out += [f"bring me the {thing}", f"fetch the {thing}"]
     for name in places:
         n = _clean(name)
         if n:
@@ -138,6 +157,12 @@ def parse(text: str, places=(), woke: bool | None = None) -> Intent | None:
     for name, ps in PHRASES:                    # whole phrases first ("go to sleep" is no place)
         if t in ps:
             return _intent(name, by)
+    m = _FETCH.match(t)
+    if m:
+        color, word = m.group(1), m.group(2)
+        what = " ".join(x for x in (color, word) if x)
+        return Intent("fetch", "fetch", dict(color=color, shape=FETCH_SHAPES[word]), f"Fetching the {what}.", "",
+                      True)
     m = _HUMOR.match(t)
     if m and number(m.group(1)) is not None:
         v = max(0, min(100, number(m.group(1))))
@@ -205,4 +230,10 @@ def _intent(name: str, by: dict) -> Intent:
         return Intent("goto", "goto", dict(place=place), "Going home!", moves=True)
     if name == "sleep":
         return Intent("sleep", "stop", {}, REPLY["sleep"], "nap")
+    if name == "tower":
+        return Intent("tower", "tower", {}, REPLY["tower"], "", True)
+    if name == "party":
+        return Intent("party", "dance", {}, REPLY["party"], "", True)
+    if name == "goalie":
+        return Intent("goalie", "goalie", {}, REPLY["goalie"], "", True)
     return Intent(name)

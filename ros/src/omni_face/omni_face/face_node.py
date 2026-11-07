@@ -12,10 +12,12 @@ Subscribes /console/status      std_msgs/String JSON (the operator console, 10 H
                                 (the console's Say box: missions.py "say")
            /face/hear           std_msgs/String: text taken as heard by the microphones (the console's "hear": test a
                                 voice command without a microphone)
+           /face/clip           std_msgs/String JSON {path, caption}: a short WAV to play as it is (the console's Call
+                                page: a caller's push-to-talk, saved by the supervisor); sent to the displays whole
 Publishes  /face/state          std_msgs/String JSON, 2 Hz: what the face shows (for the console and logs)
            /console/events      std_msgs/String JSON: what it heard and what it did about it (source "voice")
 Calls      /console/command     omni_interfaces/ConsoleCommand: a voice command's verb, as if clicked on the page
-Serves     TCP port (9881): one JSON line per tick, {"face": {...}, "out": [{"kind": "say"|"sound", ...}], "listen":
+Serves     TCP port (9881): one JSON line per tick, {"face": {...}, "out": [{"kind": "say"|"sound"|"clip", ...}], "listen":
            bool, "voice": the voice preset (voice.PRESETS)}, plus {"grammar": [...]} when the phrases change, to every display connected (the panel's on the
            robot; the window on Windows in the sim); a display sends back {"heard": text, "conf": 0-1, "echo": bool}
 Parameters port, bind (127.0.0.1; the sim: 0.0.0.0 so Windows reaches it through WSL), facing_deg (0: the screen
@@ -37,6 +39,8 @@ import socket
 import subprocess
 import time
 from dataclasses import replace
+
+CLIP_MAX = 2_000_000                # bytes: a push-to-talk WAV (16 kHz mono: about a minute)
 
 import rclpy
 from omni_interfaces.msg import McuState
@@ -62,6 +66,7 @@ class FaceNode(Node):
         self.status, self.t_status = None, 0.0
         self.pose, self.vel = None, None
         self.events, self.say = [], []
+        self.clips: list = []                       # {"kind": "clip", "wav": base64, "caption"} for the next tick
         self.places: dict = {}
         self.voice = "on"
         self.preset = ""                            # who it sounds like (the console's face.preset; "": the display's)
@@ -86,6 +91,7 @@ class FaceNode(Node):
         self.create_subscription(String, "/console/events", self.on_event, 20)
         self.create_subscription(McuState, "/mcu/state_10hz", self.on_mcu, 5)
         self.create_subscription(String, "/face/say", self.on_say, 10)
+        self.create_subscription(String, "/face/clip", self.on_clip, 5)
         self.create_subscription(String, "/face/hear", lambda m: self.on_heard(m.data, 1.0, False, "typed"), 10)
         self.create_timer(0.1, self.tick)
         self.proc = None
@@ -156,6 +162,22 @@ class FaceNode(Node):
                 pass
         self.say.append(d)
 
+    def on_clip(self, m: String):
+        """A caller's push-to-talk: the WAV file's bytes go to the displays (which may be another machine: the sim's
+        window on Windows), played as they are, at a caller's priority."""
+        import base64
+        try:
+            d = json.loads(m.data)
+            path = str(d["path"])
+            if not path.endswith(".wav") or os.path.getsize(path) > CLIP_MAX:
+                raise ValueError("not a WAV, or too long")
+            with open(path, "rb") as f:
+                wav = base64.b64encode(f.read()).decode()
+        except (ValueError, KeyError, OSError, TypeError) as e:
+            self.get_logger().warn(f"/face/clip: {e}")
+            return
+        self.clips.append(dict(kind="clip", wav=wav, caption=str(d.get("caption", ""))[:80], prio=3))
+
     # -- what it heard ------------------------------------------------------------------------------------------
     def on_heard(self, text: str, conf: float, echo: bool, source: str = "mic"):
         now = time.monotonic()
@@ -212,8 +234,9 @@ class FaceNode(Node):
                 self.get_logger().info(f"says: {o.value}")
         self.accept()
         self.read_displays()
-        self.send_all(dict(face=d, out=[o.as_dict() for o in outs],
+        self.send_all(dict(face=d, out=[o.as_dict() for o in outs] + self.clips,
                            listen=self.voice != "off" and status is not None, voice=self.preset))
+        self.clips = []
         self.n_tick += 1
         if self.n_tick % 5 == 0:
             self.p_state.publish(String(data=json.dumps(d)))

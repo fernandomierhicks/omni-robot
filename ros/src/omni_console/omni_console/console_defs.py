@@ -13,10 +13,11 @@ from dataclasses import dataclass
 
 VERSION = "0.4.0"                 # the console protocol: the page warns when it differs from the robot's
 MISSIONS = ("IDLE", "MANUAL", "GOTO", "EXPLORE", "PATROL", "CATCH", "THROWER", "FOLLOW", "PROGRAM", "CALIBRATE",
-            "TIDY")
+            "TIDY", "FETCH", "MESSAGE", "TOWER", "DANCE", "GOALIE")
 MODE_OF = {"IDLE": "IDLE", "MANUAL": "TELEOP", "GOTO": "TELEOP", "EXPLORE": "TELEOP", "PATROL": "TELEOP",
            "CATCH": "CATCH", "THROWER": "THROWER", "FOLLOW": "TELEOP", "PROGRAM": "TELEOP",
-           "CALIBRATE": "TELEOP", "TIDY": "PICK"}            # mission -> mode_manager mode
+           "CALIBRATE": "TELEOP", "TIDY": "PICK", "FETCH": "PICK", "MESSAGE": "TELEOP", "TOWER": "PICK",
+           "DANCE": "TELEOP", "GOALIE": "TELEOP"}            # mission -> mode_manager mode (FETCH switches as it goes)
 ARM_POSES = ("stow", "ready", "high", "drop", "look")   # look: the wrist camera ahead, 24 deg up (omni_arm pick.py)
 ARM_JOG_MAX = 30.0                 # deg: one jog of one joint (omni_arm's motion.JOG_MAX)
 ARM_STALE = 2.0                    # s without /arm/state: the arm node isn't running
@@ -36,11 +37,12 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "edge_save", "edge_delete", "calib", "calib_start", "calib_measure", "calib_shot", "calib_fit",
          "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
          "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames",
-         "preflight", "tests", "test_record", "activity")
+         "preflight", "tests", "test_record", "activity", "fetch", "message", "tower", "dance", "goalie", "clip")
+CLIP_NAME = re.compile(r"^clip-[0-9]{10,16}\.wav$")   # the supervisor's /api/clip names
 AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames")   # the AI client's own (its plan 4)
 # what a person's command (the page, the voice) takes the robot back from the AI with
 HUMAN_VERBS = ("stop", "mission", "goto", "cancel", "explore", "patrol", "thrower", "fire", "follow", "program_run",
-               "calib_start", "tidy", "arm", "slam_new", "slam_load")
+               "calib_start", "tidy", "arm", "slam_new", "slam_load", "fetch", "message", "tower", "dance", "goalie")
 HUMAN_HOLD = 10.0                  # s after a person takes over that the AI may not start motion
 # the firmware's profile limits, fw_params_arm.h ADULT_LIMITS / KID_LIMITS: m/s, yaw rad/s, yaw rad/s^2
 FW_LIMITS = {"adult": (2.0, 4.0, 15.0), "kid": (0.8, 2.0, 7.5)}
@@ -85,10 +87,21 @@ FEATURES = (
     _feature("follow", "Follow", "home", mission="FOLLOW", moves=True,
              card="Follows the nearest person, or plays tag at kid speed.",
              start=dict(verb="follow", args=dict(mode="follow"))),
+    _feature("fetch", "Fetch", "home", ("arm",), mission="FETCH", moves=True,
+             card="\"Bring me the red block\": finds it, picks it up and brings it to you."),
+    _feature("tower", "Block tower", "home", ("arm",), mission="TOWER", moves=True,
+             card="Stacks the blocks it finds on the floor into a tower.", start=dict(verb="tower")),
+    _feature("message", "Messenger", "home", ("nav",), mission="MESSAGE", moves=True,
+             card="Goes room to room until it finds someone, then tells them your message."),
+    _feature("dance", "Dance party", "home", mission="DANCE", moves=True,
+             card="Slides, spins and shimmies on the beat, and sings along.", start=dict(verb="dance")),
+    _feature("goalie", "Goalie", "home", mission="GOALIE", moves=True,
+             card="Roll a ball at it: it slides sideways to block, and keeps score.", start=dict(verb="goalie")),
     _feature("program", "Program", "home", mission="PROGRAM", moves=True,
              card="Line up moves (forward, turn, spin, wait, go to a place) and press Run."),
     _feature("manual", "Drive", "drive", mission="MANUAL", card="Gamepad, keyboard or the pads on the screen.",
              start=dict(verb="mission", args=dict(name="MANUAL"))),
+    _feature("call", "Call", "drive", hint="Telepresence: the camera big, drive and talk through the robot"),
     _feature("goto", "Go To", "map", ("nav",), mission="GOTO", moves=True, card="Click on the map, or pick a saved place."),
     _feature("patrol", "Patrol", "map", ("nav",), mission="PATROL", moves=True,
              card="Drives a saved route, once or in a loop."),
@@ -122,7 +135,8 @@ FEATURE = {f["id"]: f for f in FEATURES}
 # the verbs that start a feature (the preflight's gate): verb -> feature; "mission" by its name
 VERB_FEATURE = {"tidy": "tidy", "pick": "tidy", "goto": "goto", "explore": "explore", "patrol": "patrol",
                 "follow": "follow", "program_run": "program", "move": "program", "calib_start": "calibrate",
-                "thrower": "thrower", "fire": "thrower"}
+                "thrower": "thrower", "fire": "thrower", "fetch": "fetch", "message": "message", "tower": "tower",
+                "dance": "dance", "goalie": "goalie"}
 MISSION_FEATURE = {"CATCH": "catch", "THROWER": "thrower"}       # MANUAL is never refused: driving to the charger
 
 
@@ -247,6 +261,21 @@ SETTINGS = (
     Setting("tidy.radius", ("tidy",), "How far", 2.0, "m", 0.5, 5.0, 0.25,
             "Only things within this distance of where the tidy started. The tidy drives itself (not Nav2), slowly, "
             "and only through floor its camera has seen free; it checks the whole circle, then comes back."),
+    Setting("fetch.to", ("fetch",), "Bring it to", "me", options=("me", "here"),
+            hint="me: the nearest person it sees (it looks round for you if nobody is in view). here: back where the "
+                 "fetch started."),
+    Setting("tower.max_blocks", ("tower",), "How high", 4.0, "blocks", 2.0, 5.0, 1.0,
+            "The tallest tower it builds (the arm reaches about 20 cm over the floor fingers-down)."),
+    Setting("dance.routine", ("dance",), "Routine", "groove", options=("groove", "party", "robot"),
+            hint="groove: slides, shimmies and a spin. party: circles and spins. robot: stiff square steps and poses."),
+    Setting("dance.bpm", ("dance",), "Tempo", 110.0, "bpm", 60.0, 160.0, 5.0, "Beats per minute: match the music."),
+    Setting("dance.speed", ("dance",), "Moves", 0.4, "m/s", 0.1, 0.6, 0.05,
+            "How big and fast the moves are (it never strays more than 0.6 m from where it started)."),
+    Setting("dance.seconds", ("dance",), "Length", 60.0, "s", 15.0, 300.0, 15.0, "How long the dance lasts."),
+    Setting("goalie.width", ("goalie",), "Goal width", 1.2, "m", 0.6, 2.0, 0.1,
+            "The goal it keeps, centred where it stood when the game started (mark the posts)."),
+    Setting("goalie.speed", ("goalie",), "Dive speed", 1.2, "m/s", 0.3, 2.0, 0.1,
+            "How fast it slides to block (the firmware's profile caps it: kid 0.8 m/s)."),
     Setting("ai.max_speed", ("ai",), "AI top speed", 0.5, "m/s", 0.1, 1.0, 0.05,
             "The fastest an AI client (Claude or Codex through omni_mcp) may drive the robot in its moves. The "
             "firmware's profile still caps it (kid 0.8 m/s)."),

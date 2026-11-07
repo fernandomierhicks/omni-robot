@@ -81,6 +81,10 @@ it.
 priority) with an expression (happy, excited, silly, love, wink, thinking, sad, worried, sleepy), the face showing it
 while it speaks. `/face/say` takes plain text or JSON `{"text", "mood", "act"}`.
 
+**A caller's clips** (the console's Drive › Call): `/face/clip` `{"path", "caption"}` names a WAV the page server kept
+(the visitor's push-to-talk); face_node sends its bytes to the displays (`"kind": "clip"`, base64, at most 2 MB) and the
+display plays it as it is, at a caller's priority, its caption on the face.
+
 **Antics** (`moments.ANTICS`; the Face tab's "Antics": off / quiet / normal / lively, and its Tricks buttons): now
 and then (normal: every 2–5 min), when nothing else is going on, mostly quiet ones: it looks around, thinks, smiles,
 hums, whistles, yawns, naps (Zzz, snores, "I wasn't sleeping. I was thinking."), sings a tune on "la" (Twinkle

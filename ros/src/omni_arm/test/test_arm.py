@@ -344,3 +344,40 @@ def test_the_d435_robot_has_its_own_config():
     assert t.T_base_cam[:3, 3] == pytest.approx(c["pos"]) and -0.55 < t.T_base_cam[2, 2] < -0.45  # optical z: 30 deg down
     assert t.p.look_back == pytest.approx(0.10) and 0.36 < t.p.view_near < 0.42
     assert TidyTask(ArmKinematics(stereo)).p.look_back == 0.0
+
+
+# -- carry, put down, the tower (the console's Fetch and Block tower; MuJoCo: studies/arm_carry.py) ------------------
+def test_blocks_are_cube_like_things_of_a_blocks_size(kin):
+    from omni_arm.floor_vision import Detection
+    t = TidyTask(kin)
+    assert t.is_block(Detection(1, 0, 0.04, 0.065, 0.042, 0, 200))           # a 40 mm cube, its footprint smeared
+    assert not t.is_block(Detection(1, 0, 0.012, 0.03, 0.03, 0, 200))        # a cap: too flat
+    assert not t.is_block(Detection(1, 0, 0.012, 0.09, 0.012, 0, 200))       # a crayon
+    assert not t.is_block(Detection(1, 0, 0.04, 0.2, 0.15, 0, 200, True))    # too big
+
+
+def test_the_base_drives_round_the_tower_never_through_it(kin):
+    t = TidyTask(kin)
+    t.mode, t.state = "tower", "APPROACH"
+    t.tower = dict(x=1.0, y=0.0, top=0.08, n=2, yaw=0.0)
+    g = t._tower_detour((0.0, 0.05, 0.0), (2.0, 0.0, 0.0))               # straight through it: a point beside it
+    assert g != (2.0, 0.0, 0.0) and math.hypot(g[0] - 1.0, g[1]) > t.p.tower_keep and g[1] > 0
+    assert t._tower_detour((0.0, 1.0, 0.0), (2.0, 1.0, 0.0)) == (2.0, 1.0, 0.0)     # clear of it: as asked
+    t.state = "P_APPROACH"                                                  # to stack on it: the one way in
+    assert t._tower_detour((0.0, 0.05, 0.0), (0.69, 0.0, 0.0)) == (0.69, 0.0, 0.0)
+
+
+def test_start_and_place_check_what_the_arm_holds(kin):
+    t = TidyTask(kin)
+    with pytest.raises(ValueError):
+        t.start_place(0.0, ahead=True)                                      # nothing held
+    t.history.append((0.0, (1.0, 2.0, 0.5)))
+    t.held = dict(id=4, width=0.04, height=0.04, yaw=0.0, tip=0.005)
+    with pytest.raises(ValueError):
+        t.start(0.0)                                                        # holding: put it down first
+    t.start_place(0.0, ahead=True)
+    sx = t.p.sweet[0]
+    assert t.state == "P_HOVER" and t.place["x"] == pytest.approx(1.0 + sx * math.cos(0.5))
+    assert t.status()["held"]["id"] == 4 and t.status()["mode"] == "place"
+    t.stop(0.1)                                                             # stopped while holding: into the bin
+    assert t.state == "TO_BIN" and t.place is None

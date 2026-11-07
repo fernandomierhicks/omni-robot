@@ -76,11 +76,19 @@ Fast, Kid, map), then **Console (start here)**. The page opens at `http://localh
 the robot's software starts by itself (the *Robot (all modes)* step), as it will on the robot at boot.
 - **The page is arranged by what you want to do** (workspaces, each with its pages under the bar): **Home** (what
   the robot is doing, the map and its camera, a card per task with Start, the activity history; and the task pages
-  Tidy, Follow, Program), **Drive** (by hand, with the arm's poses), **Map** (Go To, Patrol, Explore, SLAM, Map edit),
+  Tidy, Follow, Fetch, Block tower, Messenger, Dance party, Goalie, Program), **Drive** (by hand, with the arm's poses;
+  Call: telepresence), **Map** (Go To, Patrol, Explore, SLAM, Map edit),
   **Arm** (the fitted payload: Catch and Thrower on the catch robot), **See** (Cameras, Vision), **Test** (Preflight,
   Bring-up, Calibrate, Base, the sim's Faults) and the **Robot** menu (Face, Health, Logbook, RC, Settings, System,
   Version, ROS). The robot lists the features and their workspaces (`console_defs.py` FEATURES); each page keeps its
   address (`#goto`, `#tidy`, ...). Catch in the sim plays in its own world: Home's *Switch to the catch world*.
+- **The fun missions** (`omni_console/console_fun.py`; sim only, no hardware): *Fetch* (find by colour and shape, pick
+  and keep it, Nav2 to the nearest person, put it down), *Block tower* (omni_arm stacks the blocks it finds), *Messenger*
+  (room by room until someone is seen, then the message is said), *Dance party* (`dance.py`: moves on the beat that end
+  where they began), *Goalie* (`goalie.py` against omni_arm's `ball_track` on the D435, asleep until `/goalie/enable`).
+  *Call* (telepresence): the camera, the drive pads, typed lines, and push-to-talk (the supervisor's `/api/clip`, the
+  console's `clip`, omni_face's `/face/clip`); the robot's microphone to the visitor and access from outside the home
+  are not done, and browsers allow the microphone only on https or localhost.
 - **The status bar** is on every page: who has control (its tooltip lists the override order: e-stop, RC switch,
   stick, task, AI), the mode and task, the speed cap and why, localization, the MCU, battery, preflight, Wi-Fi, faults
   and STOP (the space bar).
@@ -99,7 +107,7 @@ shows each job's log.
 - **Topics.** The page uses `/console/*` (a status at 10 Hz, the path, settings, events, the last throw) and reads three topics as the publisher's raw bytes (rosbridge `cbor-raw`, decoded in the browser): `/map`, the scan (`/scan_filtered`) and `/mcu/samples` (the Base tab). It sends commands through `/console/command` and drives through `/console/cmd_vel`. The sim's fault injection goes on `/sim/fault`.
 - **Cameras tab** (See ▸ Cameras): the cameras on the robot computer, from `omni_console/camera_snap.py` there (plain HTTP on :8086, no ROS, never rosbridge). Today that is the Pi's Arducam plus the D435's colour, left-IR and colourized depth images; click the depth image for a range. **Snapshots** fetch single JPEGs, on demand or one every 1–10 s. **Live video** streams each picture whose *Live* is on (`/stream`: multipart JPEGs, each with its info). Stream one picture for the fastest rate: on the Pi 4 at 640 px, the Arducam runs 30 / 56 / 99 fps in its modes and the D435 30 fps. Each camera's capture mode (resolution and rate), the Arducam's focus and the D435's IR projector are set from the tab (`/set`). **AprilTags** (`omni_console/apriltag_view.py`: the C apriltag library, else OpenCV) are found on the robot computer; the overlay and table show the pose, `omni_slam.tags`' verdict (usable, ambiguous or refused) and the lock's scatter over 5 s. Results: `characterization/apriltag/README.md`. Start it with `bash ros/tools/cam_snap.sh start` (Git Bash; `OMNI_PI=omni-cam-eth` over the cable, then Server `http://192.168.0.101:8086`; `stop`, `status`, `fake` for test patterns with two tags on the PC). A camera opens at its first request and closes 20 s after the last, or after its last live stream ends. The server address is set in the tab: by default the page's own host, or `omni-cam.local` when the page is on localhost.
 - **Safety.** The robot stops 0.3 s after the page stops sending, for example when the dead man is released, the tab is closed or the Wi-Fi drops.
-- **Saved data** (`~/.omni` on the robot): settings `console.json`, programs `programs.json`, calibration results `calibration.json`, bring-up results `bringup.json`, health counters `health.json`, throws `throws.jsonl`, session logs `logs/sessions/*.jsonl`, the steps' logs `logs/steps/`; `slam_pose.json` (the last localized pose, its
+- **Saved data** (`~/.omni` on the robot): settings `console.json`, programs `programs.json`, calibration results `calibration.json`, bring-up results `bringup.json`, the Call page's push-to-talk clips `clips/` (the newest 20), health counters `health.json`, throws `throws.jsonl`, session logs `logs/sessions/*.jsonl`, the steps' logs `logs/steps/`; `slam_pose.json` (the last localized pose, its
 odometry and the MCU's clock: a console restarted within 2 min on the same MCU boot localizes from there, not the map's
 start) and `slam_toolbox.pgid`
 (its slam_toolbox's process group: a console that died without stopping it leaves it running in its own session, and the

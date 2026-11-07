@@ -26,6 +26,7 @@ NODES = {
     "arm_node": SRC / "omni_arm" / "omni_arm" / "arm_brain.py",
     "floor_obstacles": SRC / "omni_arm" / "omni_arm" / "floor_obstacles_node.py",
     "height_map": SRC / "omni_arm" / "omni_arm" / "height_map_node.py",
+    "ball_track": SRC / "omni_arm" / "omni_arm" / "ball_track_node.py",
     "tag_slam": SRC / "omni_slam" / "omni_slam" / "tag_slam_node.py",
     "tag_detector": SRC / "omni_slam" / "omni_slam" / "tag_detector.py",
     "omni_face": SRC / "omni_face" / "omni_face" / "face_node.py",

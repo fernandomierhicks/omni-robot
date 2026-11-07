@@ -21,6 +21,7 @@ import { ArmTab } from "./tabs/arm.js";
 import { BaseTab } from "./tabs/base.js";
 import { BringupTab } from "./tabs/bringup.js";
 import { CalibrateTab } from "./tabs/calibrate.js";
+import { CallTab } from "./tabs/call.js";
 import { CamerasTab } from "./tabs/cameras.js";
 import { CatchTab } from "./tabs/catch.js";
 import { ExploreTab } from "./tabs/explore.js";
@@ -28,6 +29,7 @@ import { FaceTab } from "./tabs/face.js";
 import { FaultsTab } from "./tabs/faults.js";
 import { FeatureTab } from "./tabs/feature.js";
 import { FollowTab } from "./tabs/follow.js";
+import { DanceTab, FetchTab, GoalieTab, MessageTab, TowerTab } from "./tabs/fun.js";
 import { GotoTab } from "./tabs/goto.js";
 import { HealthTab } from "./tabs/health.js";
 import { HomeTab } from "./tabs/home.js";
@@ -52,9 +54,15 @@ import { Banner } from "./ui.js";
 const PAGES = /** @type {Record<string, any>} */ ({
   home: HomeTab,
   tidy: TidyTab,
+  fetch: FetchTab,
+  tower: TowerTab,
+  message: MessageTab,
+  dance: DanceTab,
+  goalie: GoalieTab,
   follow: FollowTab,
   program: ProgramTab,
   manual: ManualTab,
+  call: CallTab,
   goto: GotoTab,
   patrol: PatrolTab,
   explore: ExploreTab,
@@ -94,7 +102,7 @@ function App() {
   const [tab, setTab] = useState(() => location.hash.slice(1) || "home");
   const [menu, setMenu] = useState(false);
   const list = features();
-  useDriveLoop(s.status?.mission, tab === "manual");     // the gamepad / flight stick drives on every tab
+  useDriveLoop(s.status?.mission, tab === "manual" || tab === "call");   // the gamepad drives on every tab
   useEffect(() => {
     const st = s.status;
     if (!drive.want || !st || Date.now() - drive.last < 3000) return;

@@ -67,6 +67,14 @@ floor_obstacles:                   # omni_arm (depth_layer:=floor)
     forget_radius: 0.5             # m: marks this near the robot forgotten after a pick (live)
     publish_rate: 2.0              # Hz: the grid to Nav2 at most (live)
 
+ball_track:                        # omni_arm: the Goalie's ball (asleep until the console's Goalie plays)
+  ros__parameters:
+    color: red                     # the ball's colour (read-only)
+    diameter_m: 0.22               # m: a play ball (est; set it to the ball you use) (live)
+    min_pixels: 40                 # fewer ball-coloured pixels with depth: not seen (live)
+    max_range_m: 4.5               # m (live)
+    stride: 2                      # every n-th pixel: CPU against range (live)
+
 height_map:                        # omni_arm (depth_layer:=height)
   ros__parameters:
     rate: 5.0                      # Hz (live)

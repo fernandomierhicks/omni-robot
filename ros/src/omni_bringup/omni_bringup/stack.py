@@ -391,6 +391,9 @@ def build(ctx, kind: str):
                                       **({"rate": float(a["arm_hz"])} if float(a["arm_hz"]) > 0 else {})}]))
         acts.append(Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
                          parameters=[robot_params(), {"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
+        if d435:                                                   # Goalie's ball: asleep until /goalie/enable
+            acts.append(Node(package="omni_arm", executable="ball_track", name="ball_track", output="screen",
+                             parameters=[robot_params(), {"config": arm_cfg, **sim_t}]))
         if d435 and a["depth_layer"] == "floor" and a["nav"].lower() in ("1", "true", "yes"):
             # design.md 4.5: the D435's floor for Nav2's depth layer (FLOOR_LAYER)
             acts.append(Node(package="omni_arm", executable="floor_obstacles", name="floor_obstacles", output="screen",

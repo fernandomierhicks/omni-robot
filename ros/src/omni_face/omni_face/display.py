@@ -167,6 +167,19 @@ class Audio:
     def say(self, text, prio=1, style=""):
         self.todo.put((prio, next(self.seq), text, style, time.monotonic()))
 
+    def clip(self, wav_b64: str, caption: str = "", prio: int = 3):
+        """A caller's recorded words (the console's Call page): played as they are, in turn with its own voice."""
+        import base64
+        import tempfile
+        try:
+            fd, path = tempfile.mkstemp(suffix=".wav", prefix="omni_clip_")
+            with os.fdopen(fd, "wb") as f:
+                f.write(base64.b64decode(wav_b64))
+        except (ValueError, OSError):
+            return
+        with self.lock:
+            heapq.heappush(self.ready, (-prio, next(self.seq), caption or "(caller)", path, time.monotonic()))
+
     def busy(self) -> bool:
         """Something is playing (its own voice or a sound): what the microphones hear now is mostly itself."""
         return self.cur is not None or (self.ok and pygame.mixer.get_busy())
@@ -202,6 +215,11 @@ class Audio:
         if path is not None and self.ok and not self.mute:
             try:
                 s = pygame.mixer.Sound(str(path))
+                if "omni_clip_" in str(path):                    # a caller's clip: loaded, its temp file not needed
+                    try:
+                        os.remove(path)
+                    except OSError:
+                        pass
                 s.set_volume(self.volume)
                 self.chan.stop()
                 self.chan.play(s)
@@ -920,6 +938,8 @@ def main():
                 audio.play(o["value"])
             elif o.get("kind") == "say":
                 audio.say(o["value"], int(o.get("prio", 1)), str(o.get("style") or ""))
+            elif o.get("kind") == "clip":
+                audio.clip(str(o.get("wav", "")), str(o.get("caption") or ""), int(o.get("prio", 3)))
         audio.tick()
         view.draw(canvas, st, dt, audio.level(), audio.caption_now(), note, mic)
         if canvas.get_size() == win.get_size():

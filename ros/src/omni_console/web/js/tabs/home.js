@@ -22,7 +22,7 @@ const DOING = /** @type {Record<string, string>} */ ({ IDLE: "idle (motors off)"
 const STATE_CLS = { running: "green", done: "", failed: "red", stopped: "orange", replaced: "" };
 
 /** The camera Home shows: the floor camera's colour first. @param {string[]} imgs */
-function mainCamera(imgs) {
+export function mainCamera(imgs) {
   const score = (/** @type {string} */ t) => (/depth|ir|infra/i.test(t) ? 0 : /d435.*colou?r|color|front/i.test(t) ? 3
     : /arm_cam|wrist/i.test(t) ? 1 : 2);
   return imgs.slice().sort((a, b) => score(b) - score(a))[0];
