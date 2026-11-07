@@ -1,0 +1,6309 @@
+[
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 27.5,
+   "score": 0.435,
+   "how": "foot",
+   "range": 1.328,
+   "sigma": 0.399,
+   "range_err": -0.082
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 88.6,
+   "score": 0.607,
+   "how": "foot",
+   "range": 1.314,
+   "sigma": 0.389,
+   "range_err": -0.096
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 27.2
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.2,
+   "score": 0.379,
+   "how": "foot",
+   "range": 1.272,
+   "sigma": 0.363,
+   "range_err": -0.138
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.1,
+   "score": 0.513,
+   "how": "foot",
+   "range": 1.439,
+   "sigma": 0.474,
+   "range_err": 0.029
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.0,
+   "score": 0.572,
+   "how": "foot",
+   "range": 1.483,
+   "sigma": 0.503,
+   "range_err": 0.073
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 21.5
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.2
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 12.2
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 43.1
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 21.5
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 48.8
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.1,
+   "score": 0.779,
+   "how": "foot",
+   "range": 1.585,
+   "sigma": 0.25,
+   "range_err": 0.175
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.1,
+   "score": 0.726,
+   "how": "foot",
+   "range": 1.612,
+   "sigma": 0.255,
+   "range_err": 0.202
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 22.9,
+   "score": 0.741,
+   "how": "foot",
+   "range": 1.589,
+   "sigma": 0.251,
+   "range_err": 0.179
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.8
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.1,
+   "score": 0.795,
+   "how": "foot",
+   "range": 1.608,
+   "sigma": 0.254,
+   "range_err": 0.198
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.9,
+   "score": 0.704,
+   "how": "foot",
+   "range": 1.611,
+   "sigma": 0.255,
+   "range_err": 0.201
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 24.1,
+   "score": 0.781,
+   "how": "foot",
+   "range": 1.609,
+   "sigma": 0.254,
+   "range_err": 0.199
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 50.3
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.41,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.3,
+   "score": 0.677,
+   "how": "foot",
+   "range": 1.595,
+   "sigma": 0.252,
+   "range_err": 0.185
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 47.1
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 24.6,
+   "score": 0.595,
+   "how": "foot",
+   "range": 1.616,
+   "sigma": 0.255,
+   "range_err": 0.206
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.0
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 33.5
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 73.9
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 22.9
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 81.5
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.3,
+   "score": 0.476,
+   "how": "foot",
+   "range": 1.841,
+   "sigma": 0.816,
+   "range_err": 0.448
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.0
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 18.8
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 48.6
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.7
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.8
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 24.5
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 50.8
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 12.1
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 55.3
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 20.7
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.9
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.7
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 48.2
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 23.0
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 39.7
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.298,
+  "y": 0.507,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 17.1
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 54.9
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 21.4
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 50.7
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.6
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 62.1
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 16.6
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.8
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 11.4
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.2
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 19.7
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.0
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.1
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 54.3
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 22.4
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.7
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.6,
+   "score": 0.404,
+   "how": "both",
+   "range": 1.693,
+   "sigma": 0.251,
+   "range_err": 0.321
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.0
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 17.0
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 41.5
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.7,
+   "score": 0.511,
+   "how": "both",
+   "range": 1.678,
+   "sigma": 0.249,
+   "range_err": 0.307
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.1
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.8
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 53.4
+  }
+ },
+ {
+  "dist": 1.2,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.156,
+  "y": -0.739,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.5
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 54.5
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 23.6
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 47.7
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.0,
+   "score": 0.831,
+   "how": "foot",
+   "range": 1.54,
+   "sigma": 0.558,
+   "range_err": -0.17
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.6,
+   "score": 0.892,
+   "how": "foot",
+   "range": 1.992,
+   "sigma": 0.952,
+   "range_err": 0.282
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 21.2,
+   "score": 0.835,
+   "how": "foot",
+   "range": 1.519,
+   "sigma": 0.541,
+   "range_err": -0.191
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.5,
+   "score": 0.767,
+   "how": "foot",
+   "range": 1.81,
+   "sigma": 0.779,
+   "range_err": 0.1
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.84,
+   "how": "foot",
+   "range": 1.857,
+   "sigma": 0.833,
+   "range_err": 0.147
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 60.4,
+   "score": 0.887,
+   "how": "foot",
+   "range": 2.282,
+   "sigma": 1.261,
+   "range_err": 0.572
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 25.3,
+   "score": 0.827,
+   "how": "foot",
+   "range": 1.84,
+   "sigma": 0.822,
+   "range_err": 0.13
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.5,
+   "score": 0.645,
+   "how": "foot",
+   "range": 1.834,
+   "sigma": 0.795,
+   "range_err": 0.124
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.7,
+   "score": 0.824,
+   "how": "foot",
+   "range": 1.572,
+   "sigma": 0.578,
+   "range_err": -0.138
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 64.5,
+   "score": 0.9,
+   "how": "foot",
+   "range": 2.138,
+   "sigma": 1.102,
+   "range_err": 0.428
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.2,
+   "score": 0.802,
+   "how": "foot",
+   "range": 1.483,
+   "sigma": 0.505,
+   "range_err": -0.227
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.1,
+   "score": 0.821,
+   "how": "foot",
+   "range": 2.036,
+   "sigma": 0.994,
+   "range_err": 0.326
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.754,
+   "how": "foot",
+   "range": 1.981,
+   "sigma": 0.322,
+   "range_err": 0.271
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.9,
+   "score": 0.768,
+   "how": "foot",
+   "range": 1.988,
+   "sigma": 0.323,
+   "range_err": 0.278
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 22.3,
+   "score": 0.702,
+   "how": "foot",
+   "range": 1.979,
+   "sigma": 0.322,
+   "range_err": 0.269
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 58.0,
+   "score": 0.791,
+   "how": "foot",
+   "range": 1.982,
+   "sigma": 0.322,
+   "range_err": 0.272
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.3,
+   "score": 0.713,
+   "how": "foot",
+   "range": 1.98,
+   "sigma": 0.322,
+   "range_err": 0.27
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.3,
+   "score": 0.79,
+   "how": "foot",
+   "range": 1.983,
+   "sigma": 0.322,
+   "range_err": 0.273
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.2,
+   "score": 0.646,
+   "how": "foot",
+   "range": 1.982,
+   "sigma": 0.322,
+   "range_err": 0.272
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 82.4,
+   "score": 0.799,
+   "how": "foot",
+   "range": 1.982,
+   "sigma": 0.322,
+   "range_err": 0.272
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.71,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.4,
+   "score": 0.677,
+   "how": "foot",
+   "range": 1.983,
+   "sigma": 0.322,
+   "range_err": 0.273
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.0,
+   "score": 0.521,
+   "how": "both",
+   "range": 1.893,
+   "sigma": 0.275,
+   "range_err": 0.183
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.1,
+   "score": 0.664,
+   "how": "foot",
+   "range": 1.972,
+   "sigma": 0.32,
+   "range_err": 0.262
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.5
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.7,
+   "score": 0.36,
+   "how": "both",
+   "range": 1.814,
+   "sigma": 0.284,
+   "range_err": 0.121
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.3
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.9
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.8
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.3,
+   "score": 0.786,
+   "how": "foot",
+   "range": 1.87,
+   "sigma": 0.854,
+   "range_err": 0.178
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 54.3
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.5,
+   "score": 0.706,
+   "how": "foot",
+   "range": 1.788,
+   "sigma": 0.775,
+   "range_err": 0.096
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 46.7
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.4,
+   "score": 0.821,
+   "how": "foot",
+   "range": 2.69,
+   "sigma": 1.82,
+   "range_err": 0.997
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.1
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 21.2,
+   "score": 0.776,
+   "how": "foot",
+   "range": 1.779,
+   "sigma": 0.759,
+   "range_err": 0.086
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.5
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.703,
+   "how": "foot",
+   "range": 1.946,
+   "sigma": 0.319,
+   "range_err": 0.253
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.1,
+   "score": 0.544,
+   "how": "foot",
+   "range": 1.989,
+   "sigma": 0.326,
+   "range_err": 0.297
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.4,
+   "score": 0.509,
+   "how": "foot",
+   "range": 1.953,
+   "sigma": 0.32,
+   "range_err": 0.26
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 41.1
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.2,
+   "score": 0.732,
+   "how": "foot",
+   "range": 1.943,
+   "sigma": 0.318,
+   "range_err": 0.25
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.4,
+   "score": 0.55,
+   "how": "foot",
+   "range": 1.99,
+   "sigma": 0.327,
+   "range_err": 0.298
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.4,
+   "score": 0.655,
+   "how": "foot",
+   "range": 1.942,
+   "sigma": 0.318,
+   "range_err": 0.25
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.0
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.569,
+  "y": 0.634,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.6
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.0,
+   "score": 0.794,
+   "how": "both",
+   "range": 1.631,
+   "sigma": 0.232,
+   "range_err": -0.062
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 31.5
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.0,
+   "score": 0.533,
+   "how": "both",
+   "range": 1.717,
+   "sigma": 0.247,
+   "range_err": 0.024
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.5
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.6
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.6
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.1
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 8.6
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.5
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 16.9
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.2
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.7
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 55.2
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 23.7
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.3
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.2,
+   "score": 0.704,
+   "how": "foot",
+   "range": 2.01,
+   "sigma": 0.334,
+   "range_err": 0.339
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 55.3
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.0,
+   "score": 0.619,
+   "how": "foot",
+   "range": 2.019,
+   "sigma": 0.336,
+   "range_err": 0.348
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.6
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.816,
+   "how": "foot",
+   "range": 2.021,
+   "sigma": 0.336,
+   "range_err": 0.351
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.3
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.4,
+   "score": 0.756,
+   "how": "foot",
+   "range": 2.028,
+   "sigma": 0.338,
+   "range_err": 0.358
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 40.4
+  }
+ },
+ {
+  "dist": 1.5,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.392,
+  "y": -0.923,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.804,
+   "how": "foot",
+   "range": 2.013,
+   "sigma": 0.335,
+   "range_err": 0.343
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.6
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 22.1,
+   "score": 0.756,
+   "how": "foot",
+   "range": 2.02,
+   "sigma": 0.336,
+   "range_err": 0.35
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.2
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.889,
+   "how": "both",
+   "range": 1.907,
+   "sigma": 0.28,
+   "range_err": -0.303
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.9,
+   "score": 0.887,
+   "how": "both",
+   "range": 2.019,
+   "sigma": 0.31,
+   "range_err": -0.191
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.9,
+   "score": 0.889,
+   "how": "both",
+   "range": 1.906,
+   "sigma": 0.28,
+   "range_err": -0.304
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.3,
+   "score": 0.888,
+   "how": "both",
+   "range": 2.014,
+   "sigma": 0.313,
+   "range_err": -0.196
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.884,
+   "how": "both",
+   "range": 1.908,
+   "sigma": 0.281,
+   "range_err": -0.302
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.4,
+   "score": 0.881,
+   "how": "both",
+   "range": 2.014,
+   "sigma": 0.314,
+   "range_err": -0.196
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.0,
+   "score": 0.88,
+   "how": "both",
+   "range": 1.902,
+   "sigma": 0.279,
+   "range_err": -0.308
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.4,
+   "score": 0.881,
+   "how": "both",
+   "range": 2.017,
+   "sigma": 0.313,
+   "range_err": -0.193
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.3,
+   "score": 0.886,
+   "how": "both",
+   "range": 1.89,
+   "sigma": 0.276,
+   "range_err": -0.32
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.8,
+   "score": 0.895,
+   "how": "both",
+   "range": 2.013,
+   "sigma": 0.316,
+   "range_err": -0.197
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.0,
+   "score": 0.879,
+   "how": "both",
+   "range": 1.89,
+   "sigma": 0.276,
+   "range_err": -0.32
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.1,
+   "score": 0.884,
+   "how": "both",
+   "range": 2.016,
+   "sigma": 0.314,
+   "range_err": -0.194
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.4,
+   "score": 0.645,
+   "how": "foot",
+   "range": 2.561,
+   "sigma": 0.427,
+   "range_err": 0.351
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.9,
+   "score": 0.654,
+   "how": "foot",
+   "range": 2.591,
+   "sigma": 0.433,
+   "range_err": 0.381
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.2,
+   "score": 0.56,
+   "how": "foot",
+   "range": 2.562,
+   "sigma": 0.427,
+   "range_err": 0.352
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.9,
+   "score": 0.586,
+   "how": "foot",
+   "range": 2.589,
+   "sigma": 0.432,
+   "range_err": 0.379
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.3,
+   "score": 0.742,
+   "how": "foot",
+   "range": 2.58,
+   "sigma": 0.431,
+   "range_err": 0.37
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.9,
+   "score": 0.804,
+   "how": "foot",
+   "range": 2.585,
+   "sigma": 0.432,
+   "range_err": 0.375
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.2,
+   "score": 0.597,
+   "how": "foot",
+   "range": 2.559,
+   "sigma": 0.427,
+   "range_err": 0.349
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.4,
+   "score": 0.807,
+   "how": "foot",
+   "range": 2.585,
+   "sigma": 0.432,
+   "range_err": 0.375
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 2.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.9,
+   "score": 0.761,
+   "how": "foot",
+   "range": 2.58,
+   "sigma": 0.431,
+   "range_err": 0.37
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.1,
+   "score": 0.592,
+   "how": "foot",
+   "range": 2.591,
+   "sigma": 0.433,
+   "range_err": 0.381
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.0,
+   "score": 0.682,
+   "how": "foot",
+   "range": 2.576,
+   "sigma": 0.43,
+   "range_err": 0.366
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.9,
+   "score": 0.534,
+   "how": "foot",
+   "range": 2.591,
+   "sigma": 0.433,
+   "range_err": 0.381
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.3,
+   "score": 0.855,
+   "how": "both",
+   "range": 2.026,
+   "sigma": 0.327,
+   "range_err": -0.166
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.0,
+   "score": 0.88,
+   "how": "both",
+   "range": 2.027,
+   "sigma": 0.329,
+   "range_err": -0.165
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.3,
+   "score": 0.858,
+   "how": "both",
+   "range": 2.021,
+   "sigma": 0.329,
+   "range_err": -0.171
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.3,
+   "score": 0.88,
+   "how": "both",
+   "range": 2.021,
+   "sigma": 0.33,
+   "range_err": -0.171
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.7,
+   "score": 0.859,
+   "how": "both",
+   "range": 2.022,
+   "sigma": 0.326,
+   "range_err": -0.17
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.1,
+   "score": 0.892,
+   "how": "both",
+   "range": 2.03,
+   "sigma": 0.329,
+   "range_err": -0.162
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 24.9,
+   "score": 0.867,
+   "how": "both",
+   "range": 2.019,
+   "sigma": 0.328,
+   "range_err": -0.173
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.8,
+   "score": 0.893,
+   "how": "both",
+   "range": 2.013,
+   "sigma": 0.329,
+   "range_err": -0.179
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.1,
+   "score": 0.864,
+   "how": "both",
+   "range": 2.02,
+   "sigma": 0.329,
+   "range_err": -0.173
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.4,
+   "score": 0.896,
+   "how": "both",
+   "range": 2.031,
+   "sigma": 0.328,
+   "range_err": -0.161
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.6,
+   "score": 0.863,
+   "how": "both",
+   "range": 2.016,
+   "sigma": 0.329,
+   "range_err": -0.176
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.7,
+   "score": 0.892,
+   "how": "both",
+   "range": 2.03,
+   "sigma": 0.33,
+   "range_err": -0.162
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.6,
+   "score": 0.821,
+   "how": "both",
+   "range": 2.618,
+   "sigma": 0.416,
+   "range_err": 0.425
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 65.0,
+   "score": 0.816,
+   "how": "foot",
+   "range": 2.604,
+   "sigma": 0.438,
+   "range_err": 0.412
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.6,
+   "score": 0.803,
+   "how": "foot",
+   "range": 2.608,
+   "sigma": 0.439,
+   "range_err": 0.416
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.8,
+   "score": 0.744,
+   "how": "foot",
+   "range": 2.603,
+   "sigma": 0.438,
+   "range_err": 0.411
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.6,
+   "score": 0.858,
+   "how": "both",
+   "range": 2.251,
+   "sigma": 0.338,
+   "range_err": 0.059
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.9,
+   "score": 0.768,
+   "how": "foot",
+   "range": 2.601,
+   "sigma": 0.438,
+   "range_err": 0.409
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.9,
+   "score": 0.845,
+   "how": "both",
+   "range": 2.449,
+   "sigma": 0.375,
+   "range_err": 0.257
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.5,
+   "score": 0.712,
+   "how": "foot",
+   "range": 2.596,
+   "sigma": 0.437,
+   "range_err": 0.404
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 2.023,
+  "y": 0.845,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.739,
+   "how": "foot",
+   "range": 2.602,
+   "sigma": 0.438,
+   "range_err": 0.41
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.9,
+   "score": 0.7,
+   "how": "foot",
+   "range": 2.6,
+   "sigma": 0.437,
+   "range_err": 0.408
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.0,
+   "score": 0.706,
+   "how": "foot",
+   "range": 2.611,
+   "sigma": 0.439,
+   "range_err": 0.419
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.2,
+   "score": 0.619,
+   "how": "foot",
+   "range": 2.595,
+   "sigma": 0.436,
+   "range_err": 0.403
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.6,
+   "score": 0.82,
+   "how": "both",
+   "range": 2.089,
+   "sigma": 0.344,
+   "range_err": -0.081
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 47.9
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.779,
+   "how": "both",
+   "range": 2.095,
+   "sigma": 0.345,
+   "range_err": -0.074
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 48.5
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.764,
+   "how": "both",
+   "range": 2.091,
+   "sigma": 0.343,
+   "range_err": -0.078
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.5
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.4,
+   "score": 0.717,
+   "how": "both",
+   "range": 2.08,
+   "sigma": 0.339,
+   "range_err": -0.09
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.1
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.835,
+   "how": "both",
+   "range": 2.085,
+   "sigma": 0.344,
+   "range_err": -0.085
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.8
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 21.0,
+   "score": 0.82,
+   "how": "both",
+   "range": 2.091,
+   "sigma": 0.345,
+   "range_err": -0.078
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 47.8
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.5,
+   "score": 0.781,
+   "how": "foot",
+   "range": 2.621,
+   "sigma": 0.445,
+   "range_err": 0.452
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.4,
+   "score": 0.567,
+   "how": "foot",
+   "range": 2.624,
+   "sigma": 0.446,
+   "range_err": 0.455
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.6,
+   "score": 0.727,
+   "how": "foot",
+   "range": 2.626,
+   "sigma": 0.446,
+   "range_err": 0.457
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 44.3
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.7,
+   "score": 0.722,
+   "how": "foot",
+   "range": 2.64,
+   "sigma": 0.449,
+   "range_err": 0.47
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.1
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.4,
+   "score": 0.628,
+   "how": "foot",
+   "range": 2.643,
+   "sigma": 0.449,
+   "range_err": 0.474
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.6
+  }
+ },
+ {
+  "dist": 2.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 1.786,
+  "y": -1.231,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.1,
+   "score": 0.791,
+   "how": "foot",
+   "range": 2.64,
+   "sigma": 0.449,
+   "range_err": 0.471
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.5
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.0,
+   "score": 0.77,
+   "how": "foot",
+   "range": 2.642,
+   "sigma": 0.449,
+   "range_err": 0.472
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 48.6
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.5,
+   "score": 0.912,
+   "how": "both",
+   "range": 2.939,
+   "sigma": 0.471,
+   "range_err": -0.271
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.5,
+   "score": 0.885,
+   "how": "both",
+   "range": 2.89,
+   "sigma": 0.453,
+   "range_err": -0.32
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.0,
+   "score": 0.913,
+   "how": "both",
+   "range": 2.948,
+   "sigma": 0.477,
+   "range_err": -0.262
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.2,
+   "score": 0.883,
+   "how": "both",
+   "range": 2.923,
+   "sigma": 0.464,
+   "range_err": -0.287
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.2,
+   "score": 0.912,
+   "how": "both",
+   "range": 2.935,
+   "sigma": 0.468,
+   "range_err": -0.275
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.8,
+   "score": 0.87,
+   "how": "both",
+   "range": 2.901,
+   "sigma": 0.456,
+   "range_err": -0.309
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.3,
+   "score": 0.911,
+   "how": "both",
+   "range": 2.949,
+   "sigma": 0.474,
+   "range_err": -0.261
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.7,
+   "score": 0.872,
+   "how": "both",
+   "range": 2.927,
+   "sigma": 0.464,
+   "range_err": -0.283
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.5,
+   "score": 0.917,
+   "how": "both",
+   "range": 2.93,
+   "sigma": 0.468,
+   "range_err": -0.28
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.2,
+   "score": 0.861,
+   "how": "both",
+   "range": 2.891,
+   "sigma": 0.453,
+   "range_err": -0.319
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.7,
+   "score": 0.917,
+   "how": "both",
+   "range": 2.942,
+   "sigma": 0.473,
+   "range_err": -0.268
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.8,
+   "score": 0.86,
+   "how": "both",
+   "range": 2.9,
+   "sigma": 0.455,
+   "range_err": -0.31
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.762,
+   "how": "foot",
+   "range": 3.778,
+   "sigma": 0.648,
+   "range_err": 0.568
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 46.2
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.2,
+   "score": 0.745,
+   "how": "foot",
+   "range": 3.777,
+   "sigma": 0.648,
+   "range_err": 0.567
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.1
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.0,
+   "score": 0.798,
+   "how": "foot",
+   "range": 3.775,
+   "sigma": 0.648,
+   "range_err": 0.565
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.4,
+   "score": 0.727,
+   "how": "foot",
+   "range": 3.789,
+   "sigma": 0.65,
+   "range_err": 0.579
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.3,
+   "score": 0.791,
+   "how": "foot",
+   "range": 3.773,
+   "sigma": 0.647,
+   "range_err": 0.563
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.2,
+   "score": 0.714,
+   "how": "foot",
+   "range": 3.79,
+   "sigma": 0.65,
+   "range_err": 0.58
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 3.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.8,
+   "score": 0.704,
+   "how": "foot",
+   "range": 3.767,
+   "sigma": 0.646,
+   "range_err": 0.557
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 49.0
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.6,
+   "score": 0.644,
+   "how": "foot",
+   "range": 3.763,
+   "sigma": 0.646,
+   "range_err": 0.553
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.3
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.901,
+   "how": "both",
+   "range": 2.921,
+   "sigma": 0.473,
+   "range_err": -0.271
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.8,
+   "score": 0.901,
+   "how": "both",
+   "range": 2.963,
+   "sigma": 0.482,
+   "range_err": -0.228
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.6,
+   "score": 0.897,
+   "how": "both",
+   "range": 2.921,
+   "sigma": 0.474,
+   "range_err": -0.271
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 36.4,
+   "score": 0.902,
+   "how": "both",
+   "range": 2.954,
+   "sigma": 0.477,
+   "range_err": -0.237
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.1,
+   "score": 0.893,
+   "how": "both",
+   "range": 2.922,
+   "sigma": 0.474,
+   "range_err": -0.269
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.2,
+   "score": 0.901,
+   "how": "both",
+   "range": 2.956,
+   "sigma": 0.479,
+   "range_err": -0.235
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.7,
+   "score": 0.883,
+   "how": "both",
+   "range": 2.918,
+   "sigma": 0.474,
+   "range_err": -0.273
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 35.7,
+   "score": 0.902,
+   "how": "both",
+   "range": 2.95,
+   "sigma": 0.475,
+   "range_err": -0.242
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.7,
+   "score": 0.895,
+   "how": "both",
+   "range": 2.924,
+   "sigma": 0.475,
+   "range_err": -0.267
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.8,
+   "score": 0.891,
+   "how": "both",
+   "range": 2.964,
+   "sigma": 0.484,
+   "range_err": -0.227
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.6,
+   "score": 0.881,
+   "how": "both",
+   "range": 2.925,
+   "sigma": 0.477,
+   "range_err": -0.267
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.0,
+   "score": 0.892,
+   "how": "both",
+   "range": 2.956,
+   "sigma": 0.478,
+   "range_err": -0.236
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.8,
+   "score": 0.778,
+   "how": "foot",
+   "range": 3.778,
+   "sigma": 0.652,
+   "range_err": 0.586
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.4,
+   "score": 0.828,
+   "how": "foot",
+   "range": 3.826,
+   "sigma": 0.66,
+   "range_err": 0.634
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.8,
+   "score": 0.768,
+   "how": "foot",
+   "range": 3.776,
+   "sigma": 0.651,
+   "range_err": 0.585
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.8,
+   "score": 0.81,
+   "how": "foot",
+   "range": 3.792,
+   "sigma": 0.654,
+   "range_err": 0.6
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.8,
+   "score": 0.777,
+   "how": "foot",
+   "range": 3.787,
+   "sigma": 0.653,
+   "range_err": 0.596
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.3,
+   "score": 0.844,
+   "how": "foot",
+   "range": 3.837,
+   "sigma": 0.662,
+   "range_err": 0.645
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 27.6,
+   "score": 0.769,
+   "how": "foot",
+   "range": 3.778,
+   "sigma": 0.651,
+   "range_err": 0.586
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 39.0,
+   "score": 0.827,
+   "how": "foot",
+   "range": 3.831,
+   "sigma": 0.661,
+   "range_err": 0.64
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 2.929,
+  "y": 1.268,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.715,
+   "how": "foot",
+   "range": 3.76,
+   "sigma": 0.648,
+   "range_err": 0.569
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.3,
+   "score": 0.794,
+   "how": "foot",
+   "range": 3.808,
+   "sigma": 0.657,
+   "range_err": 0.617
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 24.1,
+   "score": 0.675,
+   "how": "foot",
+   "range": 3.754,
+   "sigma": 0.647,
+   "range_err": 0.562
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 28.5,
+   "score": 0.783,
+   "how": "foot",
+   "range": 3.804,
+   "sigma": 0.656,
+   "range_err": 0.613
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.5,
+   "score": 0.873,
+   "how": "both",
+   "range": 2.961,
+   "sigma": 0.495,
+   "range_err": -0.207
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.6,
+   "score": 0.48,
+   "how": "both",
+   "range": 3.0,
+   "sigma": 0.5,
+   "range_err": -0.168
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.7,
+   "score": 0.868,
+   "how": "both",
+   "range": 2.966,
+   "sigma": 0.497,
+   "range_err": -0.202
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.0,
+   "score": 0.609,
+   "how": "both",
+   "range": 3.014,
+   "sigma": 0.505,
+   "range_err": -0.154
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.8,
+   "score": 0.852,
+   "how": "both",
+   "range": 2.994,
+   "sigma": 0.496,
+   "range_err": -0.174
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 52.3
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.9,
+   "score": 0.848,
+   "how": "both",
+   "range": 2.999,
+   "sigma": 0.499,
+   "range_err": -0.169
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 45.4
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.8,
+   "score": 0.888,
+   "how": "both",
+   "range": 2.966,
+   "sigma": 0.493,
+   "range_err": -0.202
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.5,
+   "score": 0.633,
+   "how": "both",
+   "range": 2.981,
+   "sigma": 0.489,
+   "range_err": -0.187
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.4,
+   "score": 0.887,
+   "how": "both",
+   "range": 2.967,
+   "sigma": 0.493,
+   "range_err": -0.201
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 57.7,
+   "score": 0.725,
+   "how": "both",
+   "range": 2.994,
+   "sigma": 0.492,
+   "range_err": -0.174
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.801,
+   "how": "foot",
+   "range": 3.79,
+   "sigma": 0.658,
+   "range_err": 0.622
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.5,
+   "score": 0.869,
+   "how": "foot",
+   "range": 3.801,
+   "sigma": 0.66,
+   "range_err": 0.633
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.3,
+   "score": 0.802,
+   "how": "foot",
+   "range": 3.817,
+   "sigma": 0.663,
+   "range_err": 0.649
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.0,
+   "score": 0.86,
+   "how": "foot",
+   "range": 3.806,
+   "sigma": 0.661,
+   "range_err": 0.638
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.1,
+   "score": 0.804,
+   "how": "both",
+   "range": 3.826,
+   "sigma": 0.656,
+   "range_err": 0.658
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.1,
+   "score": 0.876,
+   "how": "foot",
+   "range": 3.817,
+   "sigma": 0.663,
+   "range_err": 0.649
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.4,
+   "score": 0.788,
+   "how": "foot",
+   "range": 3.812,
+   "sigma": 0.662,
+   "range_err": 0.643
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.0,
+   "score": 0.869,
+   "how": "foot",
+   "range": 3.812,
+   "sigma": 0.662,
+   "range_err": 0.644
+  }
+ },
+ {
+  "dist": 3.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 2.574,
+  "y": -1.847,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.6,
+   "score": 0.796,
+   "how": "foot",
+   "range": 3.788,
+   "sigma": 0.657,
+   "range_err": 0.62
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.9,
+   "score": 0.891,
+   "how": "foot",
+   "range": 3.833,
+   "sigma": 0.666,
+   "range_err": 0.665
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.2,
+   "score": 0.794,
+   "how": "foot",
+   "range": 3.816,
+   "sigma": 0.663,
+   "range_err": 0.648
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 76.0,
+   "score": 0.878,
+   "how": "foot",
+   "range": 3.83,
+   "sigma": 0.665,
+   "range_err": 0.662
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.6,
+   "score": 0.858,
+   "how": "both",
+   "range": 3.79,
+   "sigma": 0.611,
+   "range_err": -0.42
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 61.4,
+   "score": 0.881,
+   "how": "both",
+   "range": 3.859,
+   "sigma": 0.632,
+   "range_err": -0.351
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.3,
+   "score": 0.859,
+   "how": "both",
+   "range": 3.808,
+   "sigma": 0.618,
+   "range_err": -0.402
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.4,
+   "score": 0.886,
+   "how": "both",
+   "range": 3.874,
+   "sigma": 0.642,
+   "range_err": -0.336
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.85,
+   "how": "both",
+   "range": 3.799,
+   "sigma": 0.615,
+   "range_err": -0.411
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.5,
+   "score": 0.872,
+   "how": "both",
+   "range": 3.863,
+   "sigma": 0.635,
+   "range_err": -0.347
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.0,
+   "score": 0.85,
+   "how": "both",
+   "range": 3.815,
+   "sigma": 0.622,
+   "range_err": -0.395
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.5,
+   "score": 0.882,
+   "how": "both",
+   "range": 3.877,
+   "sigma": 0.641,
+   "range_err": -0.333
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.857,
+   "how": "both",
+   "range": 3.813,
+   "sigma": 0.62,
+   "range_err": -0.397
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.8,
+   "score": 0.889,
+   "how": "both",
+   "range": 3.867,
+   "sigma": 0.635,
+   "range_err": -0.343
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.3,
+   "score": 0.854,
+   "how": "both",
+   "range": 3.823,
+   "sigma": 0.625,
+   "range_err": -0.387
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.0,
+   "score": 0.892,
+   "how": "both",
+   "range": 3.878,
+   "sigma": 0.639,
+   "range_err": -0.332
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.5,
+   "score": 0.646,
+   "how": "foot",
+   "range": 4.944,
+   "sigma": 0.86,
+   "range_err": 0.734
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.2,
+   "score": 0.818,
+   "how": "both",
+   "range": 4.658,
+   "sigma": 0.737,
+   "range_err": 0.448
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.7,
+   "score": 0.639,
+   "how": "foot",
+   "range": 4.95,
+   "sigma": 0.861,
+   "range_err": 0.74
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.5,
+   "score": 0.818,
+   "how": "both",
+   "range": 4.746,
+   "sigma": 0.755,
+   "range_err": 0.536
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.3,
+   "score": 0.689,
+   "how": "foot",
+   "range": 4.951,
+   "sigma": 0.861,
+   "range_err": 0.741
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.4,
+   "score": 0.84,
+   "how": "both",
+   "range": 4.584,
+   "sigma": 0.723,
+   "range_err": 0.374
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.6,
+   "score": 0.673,
+   "how": "foot",
+   "range": 4.962,
+   "sigma": 0.864,
+   "range_err": 0.752
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.9,
+   "score": 0.848,
+   "how": "both",
+   "range": 4.666,
+   "sigma": 0.739,
+   "range_err": 0.456
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 4.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.2,
+   "score": 0.679,
+   "how": "foot",
+   "range": 4.958,
+   "sigma": 0.863,
+   "range_err": 0.748
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.5,
+   "score": 0.839,
+   "how": "both",
+   "range": 4.69,
+   "sigma": 0.743,
+   "range_err": 0.48
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.9,
+   "score": 0.671,
+   "how": "foot",
+   "range": 4.966,
+   "sigma": 0.864,
+   "range_err": 0.756
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.8,
+   "score": 0.85,
+   "how": "both",
+   "range": 4.806,
+   "sigma": 0.767,
+   "range_err": 0.596
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.2,
+   "score": 0.9,
+   "how": "both",
+   "range": 3.854,
+   "sigma": 0.636,
+   "range_err": -0.337
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.8,
+   "score": 0.875,
+   "how": "both",
+   "range": 3.877,
+   "sigma": 0.657,
+   "range_err": -0.314
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.0,
+   "score": 0.897,
+   "how": "both",
+   "range": 3.875,
+   "sigma": 0.647,
+   "range_err": -0.316
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 39.7,
+   "score": 0.853,
+   "how": "both",
+   "range": 3.864,
+   "sigma": 0.658,
+   "range_err": -0.327
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.7,
+   "score": 0.902,
+   "how": "both",
+   "range": 3.85,
+   "sigma": 0.635,
+   "range_err": -0.341
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.7,
+   "score": 0.867,
+   "how": "both",
+   "range": 3.873,
+   "sigma": 0.656,
+   "range_err": -0.319
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.0,
+   "score": 0.896,
+   "how": "both",
+   "range": 3.866,
+   "sigma": 0.645,
+   "range_err": -0.325
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 59.3,
+   "score": 0.848,
+   "how": "both",
+   "range": 3.855,
+   "sigma": 0.658,
+   "range_err": -0.336
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.0,
+   "score": 0.895,
+   "how": "both",
+   "range": 3.87,
+   "sigma": 0.64,
+   "range_err": -0.321
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.8,
+   "score": 0.879,
+   "how": "both",
+   "range": 3.88,
+   "sigma": 0.658,
+   "range_err": -0.311
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.9,
+   "score": 0.891,
+   "how": "both",
+   "range": 3.882,
+   "sigma": 0.648,
+   "range_err": -0.309
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.8,
+   "score": 0.865,
+   "how": "both",
+   "range": 3.875,
+   "sigma": 0.658,
+   "range_err": -0.316
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.3,
+   "score": 0.699,
+   "how": "foot",
+   "range": 4.966,
+   "sigma": 0.867,
+   "range_err": 0.775
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.2,
+   "score": 0.659,
+   "how": "foot",
+   "range": 5.037,
+   "sigma": 0.88,
+   "range_err": 0.845
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.8,
+   "score": 0.719,
+   "how": "foot",
+   "range": 4.972,
+   "sigma": 0.868,
+   "range_err": 0.78
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 42.4
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.71,
+   "how": "foot",
+   "range": 4.967,
+   "sigma": 0.867,
+   "range_err": 0.776
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.3,
+   "score": 0.708,
+   "how": "foot",
+   "range": 5.012,
+   "sigma": 0.876,
+   "range_err": 0.821
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.9,
+   "score": 0.73,
+   "how": "foot",
+   "range": 4.966,
+   "sigma": 0.867,
+   "range_err": 0.775
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 39.6,
+   "score": 0.617,
+   "how": "foot",
+   "range": 5.014,
+   "sigma": 0.876,
+   "range_err": 0.823
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 3.835,
+  "y": 1.69,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.2,
+   "score": 0.741,
+   "how": "foot",
+   "range": 4.978,
+   "sigma": 0.869,
+   "range_err": 0.787
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 59.1,
+   "score": 0.774,
+   "how": "foot",
+   "range": 5.001,
+   "sigma": 0.874,
+   "range_err": 0.81
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 26.9,
+   "score": 0.749,
+   "how": "foot",
+   "range": 4.979,
+   "sigma": 0.869,
+   "range_err": 0.787
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.2,
+   "score": 0.731,
+   "how": "foot",
+   "range": 4.971,
+   "sigma": 0.868,
+   "range_err": 0.78
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.5,
+   "score": 0.867,
+   "how": "both",
+   "range": 3.702,
+   "sigma": 0.603,
+   "range_err": -0.465
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.0,
+   "score": 0.889,
+   "how": "both",
+   "range": 3.684,
+   "sigma": 0.6,
+   "range_err": -0.484
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.4,
+   "score": 0.859,
+   "how": "both",
+   "range": 3.691,
+   "sigma": 0.601,
+   "range_err": -0.477
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.6,
+   "score": 0.905,
+   "how": "both",
+   "range": 3.664,
+   "sigma": 0.596,
+   "range_err": -0.504
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.0,
+   "score": 0.871,
+   "how": "both",
+   "range": 3.648,
+   "sigma": 0.593,
+   "range_err": -0.519
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.3,
+   "score": 0.887,
+   "how": "both",
+   "range": 3.7,
+   "sigma": 0.604,
+   "range_err": -0.467
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.2,
+   "score": 0.868,
+   "how": "both",
+   "range": 3.631,
+   "sigma": 0.59,
+   "range_err": -0.536
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 38.9,
+   "score": 0.894,
+   "how": "both",
+   "range": 3.641,
+   "sigma": 0.592,
+   "range_err": -0.526
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.88,
+   "how": "both",
+   "range": 3.621,
+   "sigma": 0.588,
+   "range_err": -0.547
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.3,
+   "score": 0.888,
+   "how": "both",
+   "range": 3.637,
+   "sigma": 0.591,
+   "range_err": -0.531
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.7,
+   "score": 0.879,
+   "how": "both",
+   "range": 3.582,
+   "sigma": 0.58,
+   "range_err": -0.585
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.0,
+   "score": 0.896,
+   "how": "both",
+   "range": 3.593,
+   "sigma": 0.583,
+   "range_err": -0.575
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.792,
+   "how": "both",
+   "range": 4.611,
+   "sigma": 0.756,
+   "range_err": 0.444
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 60.8,
+   "score": 0.789,
+   "how": "foot",
+   "range": 5.0,
+   "sigma": 0.878,
+   "range_err": 0.832
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.9,
+   "score": 0.749,
+   "how": "both",
+   "range": 4.913,
+   "sigma": 0.816,
+   "range_err": 0.746
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.7,
+   "score": 0.811,
+   "how": "foot",
+   "range": 5.005,
+   "sigma": 0.879,
+   "range_err": 0.838
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.775,
+   "how": "both",
+   "range": 4.798,
+   "sigma": 0.791,
+   "range_err": 0.631
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.2,
+   "score": 0.787,
+   "how": "foot",
+   "range": 4.986,
+   "sigma": 0.875,
+   "range_err": 0.819
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.8,
+   "score": 0.738,
+   "how": "both",
+   "range": 4.896,
+   "sigma": 0.811,
+   "range_err": 0.729
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 38.3,
+   "score": 0.802,
+   "how": "foot",
+   "range": 4.998,
+   "sigma": 0.877,
+   "range_err": 0.83
+  }
+ },
+ {
+  "dist": 4.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 3.362,
+  "y": -2.463,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.0,
+   "score": 0.79,
+   "how": "both",
+   "range": 4.808,
+   "sigma": 0.793,
+   "range_err": 0.64
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.9,
+   "score": 0.814,
+   "how": "foot",
+   "range": 5.029,
+   "sigma": 0.883,
+   "range_err": 0.861
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 25.4,
+   "score": 0.725,
+   "how": "both",
+   "range": 5.064,
+   "sigma": 0.852,
+   "range_err": 0.896
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.5,
+   "score": 0.806,
+   "how": "foot",
+   "range": 5.022,
+   "sigma": 0.882,
+   "range_err": 0.854
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.7,
+   "score": 0.803,
+   "how": "both",
+   "range": 4.767,
+   "sigma": 0.788,
+   "range_err": -0.443
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.6,
+   "score": 0.746,
+   "how": "both",
+   "range": 4.799,
+   "sigma": 0.786,
+   "range_err": -0.411
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.6,
+   "score": 0.806,
+   "how": "both",
+   "range": 4.655,
+   "sigma": 0.753,
+   "range_err": -0.555
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 30.0,
+   "score": 0.74,
+   "how": "both",
+   "range": 4.815,
+   "sigma": 0.79,
+   "range_err": -0.395
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.806,
+   "how": "both",
+   "range": 4.716,
+   "sigma": 0.768,
+   "range_err": -0.494
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.2,
+   "score": 0.854,
+   "how": "both",
+   "range": 4.816,
+   "sigma": 0.819,
+   "range_err": -0.394
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.8,
+   "score": 0.818,
+   "how": "both",
+   "range": 4.804,
+   "sigma": 0.805,
+   "range_err": -0.406
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.1,
+   "score": 0.851,
+   "how": "both",
+   "range": 4.822,
+   "sigma": 0.823,
+   "range_err": -0.388
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.7,
+   "score": 0.799,
+   "how": "both",
+   "range": 4.777,
+   "sigma": 0.79,
+   "range_err": -0.433
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.0,
+   "score": 0.692,
+   "how": "both",
+   "range": 4.803,
+   "sigma": 0.812,
+   "range_err": -0.407
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.1,
+   "score": 0.809,
+   "how": "both",
+   "range": 4.712,
+   "sigma": 0.77,
+   "range_err": -0.498
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.6,
+   "score": 0.661,
+   "how": "both",
+   "range": 4.803,
+   "sigma": 0.816,
+   "range_err": -0.407
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.9,
+   "score": 0.468,
+   "how": "both",
+   "range": 6.032,
+   "sigma": 0.978,
+   "range_err": 0.822
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.4,
+   "score": 0.876,
+   "how": "both",
+   "range": 5.933,
+   "sigma": 0.963,
+   "range_err": 0.723
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.7,
+   "score": 0.59,
+   "how": "foot",
+   "range": 6.229,
+   "sigma": 1.094,
+   "range_err": 1.019
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.5,
+   "score": 0.877,
+   "how": "both",
+   "range": 6.009,
+   "sigma": 0.981,
+   "range_err": 0.799
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.716,
+   "how": "foot",
+   "range": 6.274,
+   "sigma": 1.102,
+   "range_err": 1.064
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.1,
+   "score": 0.828,
+   "how": "both",
+   "range": 5.964,
+   "sigma": 0.97,
+   "range_err": 0.754
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.4,
+   "score": 0.716,
+   "how": "foot",
+   "range": 6.27,
+   "sigma": 1.101,
+   "range_err": 1.06
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.7,
+   "score": 0.83,
+   "how": "both",
+   "range": 5.994,
+   "sigma": 0.977,
+   "range_err": 0.784
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 5.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.2,
+   "score": 0.773,
+   "how": "both",
+   "range": 5.615,
+   "sigma": 0.895,
+   "range_err": 0.405
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.4,
+   "score": 0.875,
+   "how": "both",
+   "range": 5.987,
+   "sigma": 0.973,
+   "range_err": 0.777
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.8,
+   "score": 0.775,
+   "how": "both",
+   "range": 5.873,
+   "sigma": 0.946,
+   "range_err": 0.663
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.5,
+   "score": 0.876,
+   "how": "both",
+   "range": 6.063,
+   "sigma": 0.992,
+   "range_err": 0.853
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.858,
+   "how": "both",
+   "range": 4.761,
+   "sigma": 0.791,
+   "range_err": -0.43
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.9,
+   "score": 0.875,
+   "how": "both",
+   "range": 4.801,
+   "sigma": 0.821,
+   "range_err": -0.39
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.3,
+   "score": 0.853,
+   "how": "both",
+   "range": 4.779,
+   "sigma": 0.798,
+   "range_err": -0.412
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.6,
+   "score": 0.867,
+   "how": "both",
+   "range": 4.805,
+   "sigma": 0.822,
+   "range_err": -0.386
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.4,
+   "score": 0.847,
+   "how": "both",
+   "range": 4.72,
+   "sigma": 0.782,
+   "range_err": -0.471
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.7,
+   "score": 0.875,
+   "how": "both",
+   "range": 4.797,
+   "sigma": 0.819,
+   "range_err": -0.394
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.2,
+   "score": 0.842,
+   "how": "both",
+   "range": 4.748,
+   "sigma": 0.791,
+   "range_err": -0.443
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.4,
+   "score": 0.866,
+   "how": "both",
+   "range": 4.796,
+   "sigma": 0.821,
+   "range_err": -0.395
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.9,
+   "score": 0.859,
+   "how": "both",
+   "range": 4.768,
+   "sigma": 0.794,
+   "range_err": -0.424
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 53.1,
+   "score": 0.879,
+   "how": "both",
+   "range": 4.802,
+   "sigma": 0.817,
+   "range_err": -0.389
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.852,
+   "how": "both",
+   "range": 4.787,
+   "sigma": 0.803,
+   "range_err": -0.404
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.6,
+   "score": 0.868,
+   "how": "both",
+   "range": 4.8,
+   "sigma": 0.819,
+   "range_err": -0.391
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 11.1
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 47.9
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 16.8
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 51.1
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 12.0
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 59.5,
+   "score": 0.543,
+   "how": "foot",
+   "range": 6.254,
+   "sigma": 1.102,
+   "range_err": 1.063
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.6,
+   "score": 0.561,
+   "how": "foot",
+   "range": 6.343,
+   "sigma": 1.117,
+   "range_err": 1.152
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 58.1
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 4.742,
+  "y": 2.113,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 10.9
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.2,
+   "score": 0.453,
+   "how": "both",
+   "range": 6.261,
+   "sigma": 1.102,
+   "range_err": 1.07
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 13.0
+  },
+  "yolox_tiny_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 61.7
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.4,
+   "score": 0.907,
+   "how": "both",
+   "range": 4.575,
+   "sigma": 0.756,
+   "range_err": -0.592
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 68.6,
+   "score": 0.92,
+   "how": "both",
+   "range": 4.787,
+   "sigma": 0.801,
+   "range_err": -0.381
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.5,
+   "score": 0.907,
+   "how": "both",
+   "range": 4.596,
+   "sigma": 0.761,
+   "range_err": -0.572
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.9,
+   "score": 0.921,
+   "how": "both",
+   "range": 4.784,
+   "sigma": 0.8,
+   "range_err": -0.383
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.911,
+   "how": "both",
+   "range": 4.524,
+   "sigma": 0.746,
+   "range_err": -0.643
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.3,
+   "score": 0.921,
+   "how": "both",
+   "range": 4.775,
+   "sigma": 0.798,
+   "range_err": -0.392
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.9,
+   "score": 0.911,
+   "how": "both",
+   "range": 4.527,
+   "sigma": 0.746,
+   "range_err": -0.64
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.9,
+   "score": 0.922,
+   "how": "both",
+   "range": 4.783,
+   "sigma": 0.799,
+   "range_err": -0.384
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.8,
+   "score": 0.9,
+   "how": "both",
+   "range": 4.477,
+   "sigma": 0.736,
+   "range_err": -0.69
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 55.5,
+   "score": 0.919,
+   "how": "both",
+   "range": 4.755,
+   "sigma": 0.793,
+   "range_err": -0.412
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.4,
+   "score": 0.899,
+   "how": "both",
+   "range": 4.517,
+   "sigma": 0.744,
+   "range_err": -0.651
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.9,
+   "score": 0.921,
+   "how": "both",
+   "range": 4.758,
+   "sigma": 0.793,
+   "range_err": -0.409
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.3,
+   "score": 0.838,
+   "how": "both",
+   "range": 5.462,
+   "sigma": 0.902,
+   "range_err": 0.294
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 54.5,
+   "score": 0.797,
+   "how": "both",
+   "range": 6.234,
+   "sigma": 1.096,
+   "range_err": 1.067
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 32.3,
+   "score": 0.816,
+   "how": "both",
+   "range": 5.506,
+   "sigma": 0.91,
+   "range_err": 0.339
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 37.9,
+   "score": 0.764,
+   "how": "foot",
+   "range": 6.172,
+   "sigma": 1.091,
+   "range_err": 1.005
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.5,
+   "score": 0.855,
+   "how": "both",
+   "range": 5.535,
+   "sigma": 0.916,
+   "range_err": 0.368
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.4,
+   "score": 0.774,
+   "how": "both",
+   "range": 6.202,
+   "sigma": 1.095,
+   "range_err": 1.035
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.6,
+   "score": 0.844,
+   "how": "both",
+   "range": 5.693,
+   "sigma": 0.945,
+   "range_err": 0.526
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.2,
+   "score": 0.75,
+   "how": "foot",
+   "range": 6.212,
+   "sigma": 1.098,
+   "range_err": 1.045
+  }
+ },
+ {
+  "dist": 5.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 4.15,
+  "y": -3.078,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.2,
+   "score": 0.865,
+   "how": "both",
+   "range": 5.704,
+   "sigma": 0.946,
+   "range_err": 0.537
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 57.4,
+   "score": 0.872,
+   "how": "both",
+   "range": 5.761,
+   "sigma": 0.956,
+   "range_err": 0.594
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.9,
+   "score": 0.851,
+   "how": "both",
+   "range": 5.731,
+   "sigma": 0.952,
+   "range_err": 0.564
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.8,
+   "score": 0.858,
+   "how": "both",
+   "range": 5.799,
+   "sigma": 0.963,
+   "range_err": 0.632
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.4,
+   "score": 0.819,
+   "how": "both",
+   "range": 5.751,
+   "sigma": 0.973,
+   "range_err": -0.459
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 38.9,
+   "score": 0.797,
+   "how": "both",
+   "range": 5.606,
+   "sigma": 0.964,
+   "range_err": -0.604
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.3,
+   "score": 0.832,
+   "how": "both",
+   "range": 5.745,
+   "sigma": 0.968,
+   "range_err": -0.465
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.6,
+   "score": 0.851,
+   "how": "both",
+   "range": 5.619,
+   "sigma": 0.963,
+   "range_err": -0.591
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.6,
+   "score": 0.761,
+   "how": "both",
+   "range": 5.638,
+   "sigma": 0.976,
+   "range_err": -0.572
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.1,
+   "score": 0.699,
+   "how": "both",
+   "range": 5.73,
+   "sigma": 0.963,
+   "range_err": -0.48
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.0,
+   "score": 0.777,
+   "how": "both",
+   "range": 5.654,
+   "sigma": 0.975,
+   "range_err": -0.556
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.2,
+   "score": 0.823,
+   "how": "both",
+   "range": 5.7,
+   "sigma": 0.958,
+   "range_err": -0.51
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.82,
+   "how": "both",
+   "range": 5.625,
+   "sigma": 0.95,
+   "range_err": -0.585
+  },
+  "yolox_tiny_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 57.4
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 26.0,
+   "score": 0.828,
+   "how": "both",
+   "range": 5.624,
+   "sigma": 0.945,
+   "range_err": -0.586
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.4,
+   "score": 0.584,
+   "how": "both",
+   "range": 5.825,
+   "sigma": 0.972,
+   "range_err": -0.385
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.4,
+   "score": 0.723,
+   "how": "foot",
+   "range": 7.407,
+   "sigma": 1.308,
+   "range_err": 1.197
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.1,
+   "score": 0.847,
+   "how": "both",
+   "range": 6.926,
+   "sigma": 1.127,
+   "range_err": 0.716
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 28.5,
+   "score": 0.703,
+   "how": "foot",
+   "range": 7.42,
+   "sigma": 1.31,
+   "range_err": 1.21
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.3,
+   "score": 0.852,
+   "how": "both",
+   "range": 7.003,
+   "sigma": 1.143,
+   "range_err": 0.793
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.0,
+   "score": 0.769,
+   "how": "foot",
+   "range": 7.405,
+   "sigma": 1.307,
+   "range_err": 1.195
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.3,
+   "score": 0.79,
+   "how": "both",
+   "range": 7.007,
+   "sigma": 1.145,
+   "range_err": 0.797
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.8,
+   "score": 0.751,
+   "how": "foot",
+   "range": 7.411,
+   "sigma": 1.309,
+   "range_err": 1.201
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 39.8,
+   "score": 0.823,
+   "how": "both",
+   "range": 6.985,
+   "sigma": 1.139,
+   "range_err": 0.775
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 6.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.0,
+   "score": 0.774,
+   "how": "both",
+   "range": 6.671,
+   "sigma": 1.073,
+   "range_err": 0.461
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.6,
+   "score": 0.817,
+   "how": "both",
+   "range": 6.847,
+   "sigma": 1.11,
+   "range_err": 0.637
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.0,
+   "score": 0.769,
+   "how": "both",
+   "range": 6.938,
+   "sigma": 1.127,
+   "range_err": 0.728
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.3,
+   "score": 0.847,
+   "how": "both",
+   "range": 7.003,
+   "sigma": 1.142,
+   "range_err": 0.793
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.1,
+   "score": 0.803,
+   "how": "both",
+   "range": 5.698,
+   "sigma": 0.967,
+   "range_err": -0.493
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.5,
+   "score": 0.878,
+   "how": "both",
+   "range": 5.717,
+   "sigma": 0.984,
+   "range_err": -0.474
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.5,
+   "score": 0.792,
+   "how": "both",
+   "range": 5.684,
+   "sigma": 0.954,
+   "range_err": -0.507
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 38.4,
+   "score": 0.858,
+   "how": "both",
+   "range": 5.702,
+   "sigma": 0.986,
+   "range_err": -0.489
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.1,
+   "score": 0.806,
+   "how": "both",
+   "range": 5.703,
+   "sigma": 0.971,
+   "range_err": -0.488
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.5,
+   "score": 0.86,
+   "how": "both",
+   "range": 5.705,
+   "sigma": 0.985,
+   "range_err": -0.485
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 27.6,
+   "score": 0.798,
+   "how": "both",
+   "range": 5.641,
+   "sigma": 0.947,
+   "range_err": -0.55
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 45.8,
+   "score": 0.831,
+   "how": "both",
+   "range": 5.687,
+   "sigma": 0.987,
+   "range_err": -0.504
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.8,
+   "score": 0.802,
+   "how": "both",
+   "range": 5.659,
+   "sigma": 0.961,
+   "range_err": -0.532
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.6,
+   "score": 0.867,
+   "how": "both",
+   "range": 5.724,
+   "sigma": 0.986,
+   "range_err": -0.467
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.9,
+   "score": 0.789,
+   "how": "both",
+   "range": 5.704,
+   "sigma": 0.972,
+   "range_err": -0.486
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.0,
+   "score": 0.835,
+   "how": "both",
+   "range": 5.707,
+   "sigma": 0.987,
+   "range_err": -0.484
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.6,
+   "score": 0.652,
+   "how": "both",
+   "range": 6.85,
+   "sigma": 1.124,
+   "range_err": 0.659
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.2,
+   "score": 0.792,
+   "how": "both",
+   "range": 7.336,
+   "sigma": 1.241,
+   "range_err": 1.145
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.8,
+   "score": 0.656,
+   "how": "both",
+   "range": 6.785,
+   "sigma": 1.112,
+   "range_err": 0.594
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.3,
+   "score": 0.761,
+   "how": "both",
+   "range": 7.327,
+   "sigma": 1.238,
+   "range_err": 1.136
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.1,
+   "score": 0.689,
+   "how": "both",
+   "range": 6.961,
+   "sigma": 1.144,
+   "range_err": 0.77
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 58.6,
+   "score": 0.789,
+   "how": "both",
+   "range": 7.287,
+   "sigma": 1.228,
+   "range_err": 1.096
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 23.7,
+   "score": 0.689,
+   "how": "both",
+   "range": 7.173,
+   "sigma": 1.191,
+   "range_err": 0.982
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 56.8,
+   "score": 0.783,
+   "how": "both",
+   "range": 7.29,
+   "sigma": 1.226,
+   "range_err": 1.099
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 5.648,
+  "y": 2.536,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.8,
+   "score": 0.655,
+   "how": "both",
+   "range": 6.418,
+   "sigma": 1.043,
+   "range_err": 0.227
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 66.8,
+   "score": 0.698,
+   "how": "both",
+   "range": 7.345,
+   "sigma": 1.242,
+   "range_err": 1.154
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.1,
+   "score": 0.694,
+   "how": "both",
+   "range": 6.304,
+   "sigma": 1.022,
+   "range_err": 0.113
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 60.7,
+   "score": 0.716,
+   "how": "both",
+   "range": 7.316,
+   "sigma": 1.233,
+   "range_err": 1.125
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.6,
+   "score": 0.833,
+   "how": "both",
+   "range": 5.618,
+   "sigma": 0.937,
+   "range_err": -0.549
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.3,
+   "score": 0.908,
+   "how": "both",
+   "range": 5.544,
+   "sigma": 0.923,
+   "range_err": -0.623
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 18.5,
+   "score": 0.85,
+   "how": "both",
+   "range": 5.569,
+   "sigma": 0.927,
+   "range_err": -0.597
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.8,
+   "score": 0.909,
+   "how": "both",
+   "range": 5.555,
+   "sigma": 0.926,
+   "range_err": -0.611
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.4,
+   "score": 0.831,
+   "how": "both",
+   "range": 5.597,
+   "sigma": 0.934,
+   "range_err": -0.57
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.7,
+   "score": 0.908,
+   "how": "both",
+   "range": 5.527,
+   "sigma": 0.92,
+   "range_err": -0.64
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.3,
+   "score": 0.857,
+   "how": "both",
+   "range": 5.476,
+   "sigma": 0.91,
+   "range_err": -0.691
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.2,
+   "score": 0.908,
+   "how": "both",
+   "range": 5.516,
+   "sigma": 0.918,
+   "range_err": -0.651
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.7,
+   "score": 0.843,
+   "how": "both",
+   "range": 5.611,
+   "sigma": 0.936,
+   "range_err": -0.556
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.7,
+   "score": 0.902,
+   "how": "both",
+   "range": 5.543,
+   "sigma": 0.923,
+   "range_err": -0.623
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.1,
+   "score": 0.863,
+   "how": "both",
+   "range": 5.531,
+   "sigma": 0.92,
+   "range_err": -0.636
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.9,
+   "score": 0.9,
+   "how": "both",
+   "range": 5.55,
+   "sigma": 0.924,
+   "range_err": -0.616
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.7,
+   "score": 0.853,
+   "how": "both",
+   "range": 6.67,
+   "sigma": 1.11,
+   "range_err": 0.504
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 41.8,
+   "score": 0.862,
+   "how": "both",
+   "range": 7.022,
+   "sigma": 1.174,
+   "range_err": 0.855
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.3,
+   "score": 0.854,
+   "how": "both",
+   "range": 6.622,
+   "sigma": 1.101,
+   "range_err": 0.455
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.1,
+   "score": 0.861,
+   "how": "both",
+   "range": 7.157,
+   "sigma": 1.199,
+   "range_err": 0.99
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.844,
+   "how": "both",
+   "range": 6.967,
+   "sigma": 1.164,
+   "range_err": 0.8
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 65.6,
+   "score": 0.864,
+   "how": "both",
+   "range": 7.093,
+   "sigma": 1.186,
+   "range_err": 0.926
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 26.8,
+   "score": 0.84,
+   "how": "both",
+   "range": 6.937,
+   "sigma": 1.158,
+   "range_err": 0.77
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 58.3,
+   "score": 0.857,
+   "how": "both",
+   "range": 7.112,
+   "sigma": 1.19,
+   "range_err": 0.945
+  }
+ },
+ {
+  "dist": 6.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 4.938,
+  "y": -3.694,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.4,
+   "score": 0.848,
+   "how": "both",
+   "range": 6.747,
+   "sigma": 1.123,
+   "range_err": 0.581
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.5,
+   "score": 0.881,
+   "how": "both",
+   "range": 6.987,
+   "sigma": 1.168,
+   "range_err": 0.82
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.2,
+   "score": 0.845,
+   "how": "both",
+   "range": 6.723,
+   "sigma": 1.119,
+   "range_err": 0.556
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.9,
+   "score": 0.878,
+   "how": "both",
+   "range": 7.027,
+   "sigma": 1.175,
+   "range_err": 0.861
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 11.7,
+   "score": 0.842,
+   "how": "both",
+   "range": 6.618,
+   "sigma": 1.154,
+   "range_err": -0.592
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.3,
+   "score": 0.851,
+   "how": "both",
+   "range": 6.502,
+   "sigma": 1.098,
+   "range_err": -0.708
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 22.4,
+   "score": 0.842,
+   "how": "both",
+   "range": 6.599,
+   "sigma": 1.154,
+   "range_err": -0.611
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.2,
+   "score": 0.868,
+   "how": "both",
+   "range": 6.43,
+   "sigma": 1.067,
+   "range_err": -0.78
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.8,
+   "score": 0.832,
+   "how": "both",
+   "range": 6.63,
+   "sigma": 1.155,
+   "range_err": -0.58
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 57.3,
+   "score": 0.826,
+   "how": "both",
+   "range": 6.592,
+   "sigma": 1.121,
+   "range_err": -0.618
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 20.4,
+   "score": 0.83,
+   "how": "both",
+   "range": 6.589,
+   "sigma": 1.153,
+   "range_err": -0.621
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.3,
+   "score": 0.835,
+   "how": "both",
+   "range": 6.545,
+   "sigma": 1.096,
+   "range_err": -0.665
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.1,
+   "score": 0.836,
+   "how": "both",
+   "range": 6.707,
+   "sigma": 1.163,
+   "range_err": -0.503
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.5,
+   "score": 0.818,
+   "how": "both",
+   "range": 6.434,
+   "sigma": 1.063,
+   "range_err": -0.776
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 14.6,
+   "score": 0.827,
+   "how": "both",
+   "range": 6.678,
+   "sigma": 1.165,
+   "range_err": -0.532
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 39.4,
+   "score": 0.837,
+   "how": "both",
+   "range": 6.237,
+   "sigma": 1.014,
+   "range_err": -0.973
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.5,
+   "score": 0.495,
+   "how": "both",
+   "range": 8.755,
+   "sigma": 1.498,
+   "range_err": 1.545
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.1,
+   "score": 0.849,
+   "how": "both",
+   "range": 8.087,
+   "sigma": 1.335,
+   "range_err": 0.877
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 13.5
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.6,
+   "score": 0.855,
+   "how": "both",
+   "range": 8.136,
+   "sigma": 1.348,
+   "range_err": 0.926
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.4,
+   "score": 0.682,
+   "how": "both",
+   "range": 8.359,
+   "sigma": 1.378,
+   "range_err": 1.149
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 61.7,
+   "score": 0.832,
+   "how": "both",
+   "range": 8.075,
+   "sigma": 1.325,
+   "range_err": 0.865
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 19.4,
+   "score": 0.6,
+   "how": "both",
+   "range": 8.651,
+   "sigma": 1.459,
+   "range_err": 1.441
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 37.3,
+   "score": 0.843,
+   "how": "both",
+   "range": 8.057,
+   "sigma": 1.321,
+   "range_err": 0.847
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 0.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 7.21,
+  "y": 0.0,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.0,
+   "score": 0.508,
+   "how": "both",
+   "range": 7.858,
+   "sigma": 1.276,
+   "range_err": 0.648
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 67.3,
+   "score": 0.842,
+   "how": "both",
+   "range": 8.135,
+   "sigma": 1.341,
+   "range_err": 0.925
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 30.7,
+   "score": 0.411,
+   "how": "both",
+   "range": 8.274,
+   "sigma": 1.364,
+   "range_err": 1.064
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 44.0,
+   "score": 0.861,
+   "how": "both",
+   "range": 8.186,
+   "sigma": 1.355,
+   "range_err": 0.976
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.0,
+   "score": 0.685,
+   "how": "both",
+   "range": 6.707,
+   "sigma": 1.144,
+   "range_err": -0.484
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.2,
+   "score": 0.792,
+   "how": "both",
+   "range": 6.56,
+   "sigma": 1.107,
+   "range_err": -0.631
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 32.8,
+   "score": 0.619,
+   "how": "both",
+   "range": 6.654,
+   "sigma": 1.136,
+   "range_err": -0.537
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.9,
+   "score": 0.705,
+   "how": "both",
+   "range": 6.488,
+   "sigma": 1.083,
+   "range_err": -0.703
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.8,
+   "score": 0.731,
+   "how": "both",
+   "range": 6.607,
+   "sigma": 1.123,
+   "range_err": -0.584
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.4,
+   "score": 0.845,
+   "how": "both",
+   "range": 6.608,
+   "sigma": 1.142,
+   "range_err": -0.583
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 17.3,
+   "score": 0.719,
+   "how": "both",
+   "range": 6.471,
+   "sigma": 1.1,
+   "range_err": -0.72
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.0,
+   "score": 0.82,
+   "how": "both",
+   "range": 6.601,
+   "sigma": 1.141,
+   "range_err": -0.589
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.2,
+   "score": 0.54,
+   "how": "both",
+   "range": 6.462,
+   "sigma": 1.088,
+   "range_err": -0.729
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 47.0,
+   "score": 0.84,
+   "how": "both",
+   "range": 6.659,
+   "sigma": 1.156,
+   "range_err": -0.532
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 16.6,
+   "score": 0.613,
+   "how": "both",
+   "range": 6.43,
+   "sigma": 1.08,
+   "range_err": -0.761
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.1,
+   "score": 0.815,
+   "how": "both",
+   "range": 6.638,
+   "sigma": 1.149,
+   "range_err": -0.553
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.3
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 42.2,
+   "score": 0.469,
+   "how": "both",
+   "range": 8.427,
+   "sigma": 1.433,
+   "range_err": 1.236
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 19.6
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 49.9,
+   "score": 0.489,
+   "how": "both",
+   "range": 8.321,
+   "sigma": 1.406,
+   "range_err": 1.13
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 8.5
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.5,
+   "score": 0.395,
+   "how": "both",
+   "range": 8.328,
+   "sigma": 1.464,
+   "range_err": 1.137
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 9.2
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 46.2,
+   "score": 0.45,
+   "how": "both",
+   "range": 8.372,
+   "sigma": 1.458,
+   "range_err": 1.181
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": 25.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 6.554,
+  "y": 2.958,
+  "yolox_nano_1920": {
+   "found": false,
+   "extra": 0,
+   "ms": 8.4
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 40.4,
+   "score": 0.585,
+   "how": "both",
+   "range": 8.227,
+   "sigma": 1.388,
+   "range_err": 1.036
+  },
+  "yolox_nano_960": {
+   "found": false,
+   "extra": 0,
+   "ms": 16.5
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 29.6,
+   "score": 0.529,
+   "how": "both",
+   "range": 8.145,
+   "sigma": 1.37,
+   "range_err": 0.954
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "toward",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.714,
+   "how": "both",
+   "range": 6.281,
+   "sigma": 1.048,
+   "range_err": -0.886
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.7,
+   "score": 0.871,
+   "how": "both",
+   "range": 6.604,
+   "sigma": 1.119,
+   "range_err": -0.562
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.2,
+   "score": 0.737,
+   "how": "both",
+   "range": 5.74,
+   "sigma": 0.95,
+   "range_err": -1.426
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.8,
+   "score": 0.874,
+   "how": "both",
+   "range": 6.605,
+   "sigma": 1.119,
+   "range_err": -0.562
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "side",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.9,
+   "score": 0.709,
+   "how": "both",
+   "range": 6.69,
+   "sigma": 1.182,
+   "range_err": -0.476
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.7,
+   "score": 0.872,
+   "how": "both",
+   "range": 6.578,
+   "sigma": 1.113,
+   "range_err": -0.589
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 13.7,
+   "score": 0.732,
+   "how": "both",
+   "range": 6.222,
+   "sigma": 1.036,
+   "range_err": -0.945
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.8,
+   "score": 0.875,
+   "how": "both",
+   "range": 6.581,
+   "sigma": 1.113,
+   "range_err": -0.586
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "stand",
+  "facing": "away",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 8.6,
+   "score": 0.718,
+   "how": "both",
+   "range": 6.532,
+   "sigma": 1.101,
+   "range_err": -0.634
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.3,
+   "score": 0.871,
+   "how": "both",
+   "range": 6.598,
+   "sigma": 1.117,
+   "range_err": -0.569
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 12.6,
+   "score": 0.736,
+   "how": "both",
+   "range": 6.084,
+   "sigma": 1.011,
+   "range_err": -1.082
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 43.5,
+   "score": 0.871,
+   "how": "both",
+   "range": 6.609,
+   "sigma": 1.119,
+   "range_err": -0.558
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "toward",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 7.9,
+   "score": 0.753,
+   "how": "both",
+   "range": 7.656,
+   "sigma": 1.279,
+   "range_err": 0.489
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 48.3,
+   "score": 0.846,
+   "how": "both",
+   "range": 8.102,
+   "sigma": 1.363,
+   "range_err": 0.936
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.8,
+   "score": 0.762,
+   "how": "both",
+   "range": 7.69,
+   "sigma": 1.285,
+   "range_err": 0.524
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 33.8,
+   "score": 0.847,
+   "how": "both",
+   "range": 8.051,
+   "sigma": 1.354,
+   "range_err": 0.885
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "side",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 10.2,
+   "score": 0.765,
+   "how": "both",
+   "range": 7.638,
+   "sigma": 1.276,
+   "range_err": 0.471
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 58.9,
+   "score": 0.839,
+   "how": "both",
+   "range": 7.988,
+   "sigma": 1.342,
+   "range_err": 0.821
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 15.1,
+   "score": 0.783,
+   "how": "both",
+   "range": 7.62,
+   "sigma": 1.273,
+   "range_err": 0.453
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 50.1,
+   "score": 0.843,
+   "how": "both",
+   "range": 7.938,
+   "sigma": 1.332,
+   "range_err": 0.772
+  }
+ },
+ {
+  "dist": 7.0,
+  "bearing": -38.0,
+  "pose": "sit",
+  "facing": "away",
+  "x": 5.726,
+  "y": -4.31,
+  "yolox_nano_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 9.5,
+   "score": 0.77,
+   "how": "both",
+   "range": 7.669,
+   "sigma": 1.282,
+   "range_err": 0.503
+  },
+  "yolox_tiny_1920": {
+   "found": true,
+   "extra": 0,
+   "ms": 52.7,
+   "score": 0.861,
+   "how": "both",
+   "range": 8.149,
+   "sigma": 1.373,
+   "range_err": 0.982
+  },
+  "yolox_nano_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 32.1,
+   "score": 0.779,
+   "how": "both",
+   "range": 7.651,
+   "sigma": 1.279,
+   "range_err": 0.484
+  },
+  "yolox_tiny_960": {
+   "found": true,
+   "extra": 0,
+   "ms": 51.8,
+   "score": 0.864,
+   "how": "both",
+   "range": 8.135,
+   "sigma": 1.371,
+   "range_err": 0.968
+  }
+ }
+]

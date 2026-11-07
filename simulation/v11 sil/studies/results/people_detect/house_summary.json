@@ -1,0 +1,89 @@
+{
+ "frames": 200,
+ "people_in_view": 104,
+ "lidar_candidates_per_frame": 3.33,
+ "lidar_people": 210,
+ "yolox_nano_1920": {
+  "false_boxes": 2,
+  "frames_with_a_false_box": 2,
+  "people_found": "86/104",
+  "found_by_range": {
+   "2-4 m": "35/38",
+   "<2 m": "0/1",
+   ">=4 m": "51/65"
+  },
+  "lidar_people_confirmed": 38,
+  "false_lidar_candidates": 446,
+  "looked_at_once": 61,
+  "ms_median": 9.1
+ },
+ "yolox_tiny_1920": {
+  "false_boxes": 0,
+  "frames_with_a_false_box": 0,
+  "people_found": "77/104",
+  "found_by_range": {
+   "2-4 m": "26/38",
+   "<2 m": "0/1",
+   ">=4 m": "51/65"
+  },
+  "lidar_people_confirmed": 27,
+  "false_lidar_candidates": 450,
+  "looked_at_once": 63,
+  "ms_median": 47.5
+ },
+ "yolox_nano_960": {
+  "false_boxes": 1,
+  "frames_with_a_false_box": 1,
+  "people_found": "84/104",
+  "found_by_range": {
+   "2-4 m": "35/38",
+   "<2 m": "0/1",
+   ">=4 m": "49/65"
+  },
+  "lidar_people_confirmed": 37,
+  "false_lidar_candidates": 447,
+  "looked_at_once": 62,
+  "ms_median": 16.0
+ },
+ "yolox_tiny_960": {
+  "false_boxes": 0,
+  "frames_with_a_false_box": 0,
+  "people_found": "73/104",
+  "found_by_range": {
+   "2-4 m": "23/38",
+   "<2 m": "0/1",
+   ">=4 m": "50/65"
+  },
+  "lidar_people_confirmed": 24,
+  "false_lidar_candidates": 450,
+  "looked_at_once": 63,
+  "ms_median": 46.0
+ },
+ "people": [
+  {
+   "x": -3.1,
+   "y": -0.6,
+   "pose": "stand"
+  },
+  {
+   "x": 4.9,
+   "y": -3.6,
+   "pose": "stand"
+  },
+  {
+   "x": 4.9,
+   "y": 0.4,
+   "pose": "sit"
+  },
+  {
+   "x": 1.1,
+   "y": 3.0,
+   "pose": "house_props capsule figure, standing"
+  },
+  {
+   "x": -6.0,
+   "y": 1.25,
+   "pose": "the house's catch thrower, standing"
+  }
+ ]
+}

@@ -1,0 +1,10276 @@
+{
+ "spots": [
+  [
+   -3.0999999999999996,
+   -0.5999999999999996,
+   69.1315635174621,
+   "stand"
+  ],
+  [
+   4.9,
+   -3.5999999999999996,
+   -107.78157936468173,
+   "stand"
+  ],
+  [
+   4.9,
+   0.40000000000000036,
+   -46.966928183205596,
+   "sit"
+  ]
+ ],
+ "rows": [
+  {
+   "x": -5.1,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 66.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 27.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 61.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.95,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 2
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 55.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 27.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 2
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 60.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.7,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 3,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 40.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 15.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 3,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 41.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.99,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 41.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 13.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 50.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 32.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 57.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 13.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 48.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.06,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 11.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 53.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 21.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 46.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.8,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 55.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 24.5,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.4,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 3,
+    "false_boxes": 1,
+    "found": [
+     true
+    ],
+    "ms": 10.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 53.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 3,
+    "false_boxes": 1,
+    "found": [
+     true
+    ],
+    "ms": 20.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 58.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 55.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 28.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -5.1,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.9,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.1,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 53.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 22.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 58.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 54.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 6,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.9,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 39.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 3,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.3,
+    "false_candidates": 3,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.3,
+    "false_candidates": 3,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.0,
+    "false_candidates": 3,
+    "false_looked": 3,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.08,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 52.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 27.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 49.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 3,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.7,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 1.91,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 52.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 13.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 35.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -4.1,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 15.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 2.0,
+     "pose": "stand"
+    },
+    {
+     "range": 4.82,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 3,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 38.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 3,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 10.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 49.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 38.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 33.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.2,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.2,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 2,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 53.0,
+    "false_candidates": 2,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.0,
+    "false_candidates": 2,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.4,
+    "false_candidates": 2,
+    "false_looked": 2,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 3,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 3,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 2.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 21.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 2.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 31.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 58.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 2.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 54.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 2.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 39.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 34.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 3.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -3.1,
+   "y": 3.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 41.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.07,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 8.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 15.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 33.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 7.28,
+     "pose": "stand"
+    },
+    {
+     "range": 7.28,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 7.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 52.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 14.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 49.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.83,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.1,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 53.5,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.9,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 6,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.2,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.3,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.5,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 7.62,
+     "pose": "stand"
+    },
+    {
+     "range": 7.07,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 6,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 7.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 46.0,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 10.9,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 42.4,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 7,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.3,
+    "false_candidates": 6,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.7,
+    "false_candidates": 6,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.0,
+    "false_candidates": 6,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 39.7,
+    "false_candidates": 6,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.32,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 38.3,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.3,
+    "false_candidates": 4,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.0,
+    "false_candidates": 4,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.4,
+    "false_candidates": 4,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.3,
+    "false_candidates": 4,
+    "false_looked": 4,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 1,
+    "found": [
+     true
+    ],
+    "ms": 7.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 27.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.1,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.99,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.1,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 56.8,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 21.4,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 56.7,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.9,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 7.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 32.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 35.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 7.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 7.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 36.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 3.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 32.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 28.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 3.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -2.1,
+   "y": 3.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.7,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -3.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 7.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 16.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -3.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 7.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 40.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 30.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -3.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 27.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 28.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -3.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 28.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 6.32,
+     "pose": "stand"
+    },
+    {
+     "range": 6.32,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 9.3,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 38.8,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 11.6,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 36.2,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.2,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 36.0,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 39.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 17.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 43.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 6.71,
+     "pose": "stand"
+    },
+    {
+     "range": 6.08,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 8.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 45.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 15.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 43.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 36.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 7.21,
+     "pose": "stand"
+    },
+    {
+     "range": 6.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 8.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 39.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 16.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     false,
+     true
+    ],
+    "ms": 43.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    },
+    {
+     "range": 4.97,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 34.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 15.7,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 33.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 33.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.08,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.9,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 26.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 37.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -1.1,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -3.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 5.0,
+     "pose": "stand"
+    },
+    {
+     "range": 6.4,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 7.5,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 45.2,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 15.1,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 48.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -3.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -3.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -3.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 20.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 5.1,
+     "pose": "stand"
+    },
+    {
+     "range": 5.83,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 1,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 43.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 13.8,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 46.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "stand"
+    },
+    {
+     "range": 7.05,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 46.1,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 19.8,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 50.8,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 7.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 33.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 19.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 5.39,
+     "pose": "stand"
+    },
+    {
+     "range": 5.39,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 8.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 29.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 15.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false,
+     false
+    ],
+    "ms": 29.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 3.16,
+     "pose": "stand"
+    },
+    {
+     "range": 6.55,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 7.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 45.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 14.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 43.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.1,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 39.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 45.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 3.0,
+     "pose": "stand"
+    },
+    {
+     "range": 6.18,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 40.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 15.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 41.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -0.1,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 55.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 19.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 50.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 3.16,
+     "pose": "stand"
+    },
+    {
+     "range": 5.96,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 9.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 50.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 18.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 42.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 66.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 37.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.1,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.1,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 50.1,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 17.1,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 35.6,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.5,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 22.9,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.4,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": -0.1,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "stand"
+    },
+    {
+     "range": 5.9,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 9.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 52.6,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 13.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 54.6,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.12,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 14.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 53.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 4.47,
+     "pose": "stand"
+    },
+    {
+     "range": 7.9,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 9.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 52.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 20.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 53.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 57.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 4.47,
+     "pose": "stand"
+    },
+    {
+     "range": 4.47,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 10.3,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 40.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 12.8,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true,
+     false
+    ],
+    "ms": 53.3,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.4,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.4,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.8,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.5,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 53.4,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.6,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.7,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 7,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.4,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 4.0,
+     "pose": "stand"
+    },
+    {
+     "range": 7.14,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 51.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 9.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 52.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 0.9,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 6,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.6,
+    "false_candidates": 4,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.8,
+    "false_candidates": 4,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.9,
+    "false_candidates": 4,
+    "false_looked": 3,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.7,
+    "false_candidates": 4,
+    "false_looked": 3,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 40.1,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 21.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 4.12,
+     "pose": "stand"
+    },
+    {
+     "range": 6.95,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 8.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 50.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 11.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 47.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.6,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.2,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.4,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.9,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.12,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.8,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 40.5,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 17.7,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.5,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.1,
+    "false_candidates": 5,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.0,
+    "false_candidates": 5,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.7,
+    "false_candidates": 5,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.9,
+    "false_candidates": 5,
+    "false_looked": 4,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 2,
+   "seen": [
+    {
+     "range": 4.47,
+     "pose": "stand"
+    },
+    {
+     "range": 6.9,
+     "pose": "thrower"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 7.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 34.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 15.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true,
+     true
+    ],
+    "ms": 33.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 0.9,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.4,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.3,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.8,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 16.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 29.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 10,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 45.8,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.1,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 48.9,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 15,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.3,
+    "false_candidates": 14,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.8,
+    "false_candidates": 14,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.5,
+    "false_candidates": 14,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.1,
+    "false_candidates": 14,
+    "false_looked": 2,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.1,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 13,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.3,
+    "false_candidates": 12,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.9,
+    "false_candidates": 12,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 15.2,
+    "false_candidates": 12,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.7,
+    "false_candidates": 12,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 10,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.8,
+    "false_candidates": 9,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.1,
+    "false_candidates": 9,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.3,
+    "false_candidates": 9,
+    "false_looked": 4,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.4,
+    "false_candidates": 9,
+    "false_looked": 4,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.9,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 42.1,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.4,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 36.0,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 6,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.7,
+    "false_candidates": 6,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.8,
+    "false_candidates": 6,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.8,
+    "false_candidates": 6,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.0,
+    "false_candidates": 6,
+    "false_looked": 2,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.0,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.0,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 22.6,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.7,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 37.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 30.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.5,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 62.7,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 22.8,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 50.1,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.16,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.9,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 30.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 56.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 1.9,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 35.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 46.4,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.2,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 45.1,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 63.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 18.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 46.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.32,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 55.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 25.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 42.1,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.1,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 39.2,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.8,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.4,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 6,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 40.7,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 22.0,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.0,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.08,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 9,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.4,
+    "false_candidates": 8,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.2,
+    "false_candidates": 8,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 15.6,
+    "false_candidates": 8,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 64.2,
+    "false_candidates": 8,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 10,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.5,
+    "false_candidates": 9,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.5,
+    "false_candidates": 9,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 15.9,
+    "false_candidates": 9,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.4,
+    "false_candidates": 9,
+    "false_looked": 1,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 6,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.5,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 47.3,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 28.4,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 54.6,
+    "false_candidates": 5,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 7,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.6,
+    "false_candidates": 6,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.0,
+    "false_candidates": 6,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.0,
+    "false_candidates": 6,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 54.3,
+    "false_candidates": 6,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 10,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.1,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.7,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.6,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 53.3,
+    "false_candidates": 9,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.61,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 11,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.2,
+    "false_candidates": 10,
+    "false_looked": 5,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.0,
+    "false_candidates": 10,
+    "false_looked": 5,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 22.1,
+    "false_candidates": 10,
+    "false_looked": 5,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 35.6,
+    "false_candidates": 10,
+    "false_looked": 5,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.1,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.4,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 28.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 23.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 6.08,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 42.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.4,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.47,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.8,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 34.1,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 18.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 39.2,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 8.9,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 41.7,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 15.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 50.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 54.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 27.8,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 2.9,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.39,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 42.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 21.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -3.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.12,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.4,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.1,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 21.5,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.2,
+    "false_candidates": 1,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -3.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.62,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 49.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 22.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 55.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -3.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 24.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 61.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.16,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.28,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.7,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 47.8,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 14.4,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 38.1,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 16.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.3,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 29.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 62.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 13.0,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 42.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 41.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.07,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 9.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 55.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 25.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 60.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.24,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 21.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 42.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 6,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 8.7,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.1,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 17.3,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 58.4,
+    "false_candidates": 5,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.16,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 9.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.9,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 14.1,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.8,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 0.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 30.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 0.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 38.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.9,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 0.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.07,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 43.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 45.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 0.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 4.12,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 2,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 47.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 29.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 43.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.6,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.8,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 19.9,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.1,
+    "false_candidates": 3,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 38.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 7.28,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.9,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 48.9,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 18.4,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.4,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 5.1,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.0,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 41.2,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 23.7,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 49.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 3.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 30.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 3.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.5,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 53.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 47.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 3.9,
+   "y": 3.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.7,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 57.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 14.1,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -2.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.0,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -2.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 11.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 50.4,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 19.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.3,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -2.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.7,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.1,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 24.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 52.2,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -2.6,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.9,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.5,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.2,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 54.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -1.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.1,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 57.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 12.3,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.9,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -1.6,
+   "yaw_deg": 90,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.0,
+     "pose": "sit"
+    }
+   ],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 10.3,
+    "false_candidates": 3,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 51.2,
+    "false_candidates": 3,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 2,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 13.9,
+    "false_candidates": 3,
+    "false_looked": 2,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 44.0,
+    "false_candidates": 3,
+    "false_looked": 2,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -1.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 28.2,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 58.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -1.6,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 2.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 6,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.6,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 46.8,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 18.6,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [
+     false
+    ],
+    "ms": 36.8,
+    "false_candidates": 4,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -0.6,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.7,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 46.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 23.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 58.5,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -0.6,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.8,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 41.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -0.6,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 5,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.3,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 21.5,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 42.6,
+    "false_candidates": 4,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": -0.6,
+   "yaw_deg": 270,
+   "people_in_view": 1,
+   "seen": [
+    {
+     "range": 3.0,
+     "pose": "stand"
+    }
+   ],
+   "lidar_candidates": 4,
+   "lidar_people": 2,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 12.2,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 52.6,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 25.3,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [
+     true
+    ],
+    "ms": 43.6,
+    "false_candidates": 2,
+    "false_looked": 1,
+    "confirmed": 1
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 1.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 2,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.5,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 17.6,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 44.8,
+    "false_candidates": 2,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 1.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 4,
+   "lidar_people": 1,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.1,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 20.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 43.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 1.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 10.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 50.2,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 18.8,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 1,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 51.7,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 1.4,
+   "yaw_deg": 270,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 3,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.8,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.4,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 11.6,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 56.0,
+    "false_candidates": 3,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 3.4,
+   "yaw_deg": 0,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 1,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.9,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 55.6,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.5,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 49.1,
+    "false_candidates": 1,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 3.4,
+   "yaw_deg": 90,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 34.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 13.6,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 37.3,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  },
+  {
+   "x": 4.9,
+   "y": 3.4,
+   "yaw_deg": 180,
+   "people_in_view": 0,
+   "seen": [],
+   "lidar_candidates": 0,
+   "lidar_people": 0,
+   "yolox_nano_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 8.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_1920": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 48.2,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_nano_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 9.4,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   },
+   "yolox_tiny_960": {
+    "boxes": 0,
+    "false_boxes": 0,
+    "found": [],
+    "ms": 36.0,
+    "false_candidates": 0,
+    "false_looked": 0,
+    "confirmed": 0
+   }
+  }
+ ]
+}
