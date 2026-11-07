@@ -82,7 +82,7 @@ def test_fetch_looks_round_then_gives_up():
     fid = arm_req(r.effects, "find")[0]["id"]
     yaw = 0.0
     for look in range(4):
-        fx = arm(c, 101 + look, found=dict(id=fid, candidates=[]))
+        arm(c, 101 + look, found=dict(id=fid, candidates=[]))
         if look == 3:
             assert c.mission == "MANUAL" and "no green" in c.task
             break

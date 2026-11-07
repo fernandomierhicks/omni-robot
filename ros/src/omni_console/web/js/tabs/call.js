@@ -3,9 +3,10 @@
    the page with the drive pads over it (and the gamepad, as everywhere); the visitor's name is announced on the robot;
    they talk with push-to-talk (the browser records a WAV, the page server keeps it, the face plays it as it is: the
    supervisor's /api/clip, the console's "clip" verb, omni_face's /face/clip) or type a line the robot says in its own
-   voice. Not here yet: the robot's microphone to the visitor (one-way audio), and reaching the robot from outside the
-   home network (that needs a VPN such as Tailscale to the robot computer). Browsers allow the microphone only on https
-   or localhost: from a phone on http://omni.local, push-to-talk is off and typed lines still work. */
+   voice; Listen plays the robot's microphone (the supervisor's /api/mic: raw 16 kHz PCM, played with Web Audio), the
+   robot saying so first. Browsers allow the visitor's microphone only on a secure page: the supervisor's https port
+   (--https, a self-signed certificate) serves one, rosbridge and the camera streams tunnelled through it. Not here:
+   reaching the robot from outside the home network (a VPN such as Tailscale to the robot computer). */
 import { html, useEffect, useRef, useState } from "../../vendor/htm-preact-standalone.mjs";
 import { Pads } from "../drive.js";
 import { act, command, note, useStore } from "../ros.js";
@@ -43,14 +44,68 @@ export function resample(x, from, to) {
   return out;
 }
 
+/** The robot's microphone: /api/mic's raw s16le 16 kHz mono, scheduled a little ahead (a jitter buffer) on an
+ *  AudioContext at 16 kHz. Returns stop(). @param {(peak: number) => void} onLevel @param {(msg: string) => void} onEnd */
+export function listen(onLevel, onEnd) {
+  const ctl = new AbortController();
+  const ac = new AudioContext({ sampleRate: RATE });
+  let next = 0, carry = new Uint8Array(0);
+  let pin = "";
+  try { pin = sessionStorage.getItem("console.pin") || ""; } catch { /* */ }
+  (async () => {
+    try {
+      const res = await fetch(`api/mic?pin=${encodeURIComponent(pin)}`, { signal: ctl.signal });
+      if (!res.ok || !res.body) { onEnd((await res.json().catch(() => ({}))).message || `no audio (${res.status})`); return; }
+      const reader = res.body.getReader();
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const bytes = new Uint8Array(carry.length + value.length);
+        bytes.set(carry); bytes.set(value, carry.length);
+        const n = bytes.length >> 1;
+        carry = bytes.slice(n * 2);
+        const dv = new DataView(bytes.buffer, 0, n * 2);
+        const pcm = new Float32Array(n);
+        let peak = 0;
+        for (let i = 0; i < n; i++) { pcm[i] = dv.getInt16(2 * i, true) / 32768; peak = Math.max(peak, Math.abs(pcm[i])); }
+        onLevel(peak);
+        if (!n) continue;
+        const buf = ac.createBuffer(1, n, RATE);
+        buf.copyToChannel(pcm, 0);
+        const src = ac.createBufferSource();
+        src.buffer = buf;
+        src.connect(ac.destination);
+        next = Math.max(next, ac.currentTime + 0.2);      // 0.2 s ahead: Wi-Fi jitter, not a lag that grows
+        if (next - ac.currentTime > 1.0) next = ac.currentTime + 0.2;
+        src.start(next);
+        next += n / RATE;
+      }
+      onEnd("the robot stopped sending");
+    } catch (e) {
+      if (/** @type {Error} */ (e).name !== "AbortError") onEnd(`no audio: ${/** @type {Error} */ (e).message}`);
+    }
+  })();
+  return () => { ctl.abort(); ac.close(); };
+}
+
 export function CallTab() {
-  const s = useStore("status");
+  const s = useStore("status", "httpsPort");
   const st = s.status;
   const [name, setName] = useState(() => { try { return localStorage.getItem("console.caller") || ""; } catch { return ""; } });
   const [rec, setRec] = useState(false);
   const [level, setLevel] = useState(0);
   const [msg, setMsg] = useState("");
+  const [hear, setHear] = useState(0);
   const ctx = useRef(/** @type {any} */ (null));
+  const ear = useRef(/** @type {null | (() => void)} */ (null));
+  useEffect(() => () => { ear.current?.(); }, []);
+  const toggleListen = () => {
+    if (ear.current) { ear.current(); ear.current = null; setHear(0); return; }
+    act("say", { text: `${name || "Someone"} is listening through me.`, expression: "auto" }, true);
+    ear.current = listen((p) => setHear(p), (m) => { setMsg(m); ear.current = null; setHear(0); });
+    setHear(0.001);
+  };
+  const secureUrl = s.httpsPort ? `https://${location.hostname}:${s.httpsPort}${location.pathname}#call` : null;
   const driving = st?.mission === "MANUAL";
   const v = st?.vision;
   const cam = v?.video_port && v.images?.length ? mainCamera(v.images) : null;
@@ -118,8 +173,8 @@ export function CallTab() {
       <${HelpBox} tab="call">
         Visit through the robot. <b>Take control</b> to drive it (the pads on the picture, the gamepad, or W A S D), and
         press Ring to tell the room who's calling. <b>Hold to talk</b>: what you say plays on the robot's speaker when
-        you let go. Or type a line for the robot to say. You don't hear the room yet (no robot microphone to you), and from
-        outside the home you need a VPN to the robot.
+        you let go. Or type a line for the robot to say. <b>Listen to the room</b> plays the robot's microphone (the
+        robot says you're listening first). From outside the home you need a VPN to the robot.
       <//>
       <h3>Who's calling</h3>
       <div class="row"><input type="text" placeholder="Your name" value=${name} onInput=${(/** @type {any} */ e) => setName(e.currentTarget.value)} />
@@ -129,9 +184,15 @@ export function CallTab() {
           onPointerDown=${start} onPointerUp=${stop} onPointerLeave=${() => rec && stop()} onPointerCancel=${stop}
           disabled=${!st}>${rec ? "Recording... let go to send" : "Hold to talk"}</button>
           <div class="bar" style="margin-top: 6px"><div style=${`width: ${Math.round(Math.min(1, level * 2) * 100)}%`}></div></div>`
-        : html`<${Banner} title="Push-to-talk is off.">The browser allows the microphone only on https or localhost (this
-          page is ${location.protocol}//${location.host}). Typed lines below still work.<//>`}
+        : html`<${Banner} title="Push-to-talk is off.">The browser allows the microphone only on a secure page (this one
+          is ${location.protocol}//${location.host}). ${secureUrl
+            ? html`<a href=${secureUrl}>Open the secure page</a> (the robot's own certificate: accept the warning once).`
+            : "Start the supervisor with --https 8443 for one."} Typed lines below still work.<//>`}
       ${msg && html`<div class="dim" style="margin-top: 4px">${msg}</div>`}
+      <h3>Listen</h3>
+      <button class=${`btn${ear.current ? " danger" : ""}`} style="width: 100%" disabled=${!st} onClick=${toggleListen}>
+        ${ear.current ? "Stop listening" : "Listen to the room"}</button>
+      ${ear.current && html`<div class="bar" style="margin-top: 6px"><div style=${`width: ${Math.round(Math.min(1, hear * 2) * 100)}%`}></div></div>`}
       <h3>Say a line</h3>
       <${SayBox} compact />
       <div class="row" style="margin-top: 12px">

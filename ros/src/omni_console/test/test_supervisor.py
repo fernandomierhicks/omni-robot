@@ -190,3 +190,97 @@ def test_the_sim_and_robot_step_files_load():
     assert robot["cmd"][:3] == ["bash", "/repo/ros/omni.sh", "robot"] and "web:=false" in robot["cmd"]
     real = load_steps("robot", "")
     assert real["steps"][0]["keep_running"] and set(real["power"]) == {"shutdown", "reboot"}
+
+
+def _serve(handler, web):
+    srv = ThreadingHTTPServer(("127.0.0.1", 0), partial(handler, directory=str(web)))
+    srv.daemon_threads = True
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    return srv
+
+
+def test_the_microphone_stream(tmp_path, monkeypatch):
+    from omni_console import supervisor as module
+    fake = tmp_path / "mic.py"                 # 0.5 s of a ramp, as arecord's raw s16le would come
+    fake.write_text("import sys, struct\n"
+                    "sys.stdout.buffer.write(b''.join(struct.pack('<h', i % 1000) for i in range(8000)))\n")
+    monkeypatch.setenv("OMNI_MIC_CMD", f"{sys.executable} {fake}")
+    sup = module.Supervisor(config(tmp_path), tmp_path, {}, log=lambda m: None)
+    h = type("H", (module.Handler,), dict(sup=sup, config=b"{}", pin="42", logs_dir=tmp_path))
+    srv = _serve(h, tmp_path)
+    base = f"http://127.0.0.1:{srv.server_address[1]}"
+    try:
+        with pytest.raises(urllib.error.HTTPError) as e:
+            urllib.request.urlopen(base + "/api/mic?pin=1")
+        assert e.value.code == 403
+        with urllib.request.urlopen(base + "/api/mic?pin=42") as r:
+            assert r.headers["X-Audio-Format"].startswith("s16le;rate=16000")
+            body = r.read()
+        assert len(body) == 16000 and body[2:4] == b"\x01\x00"
+        assert wait(lambda: module.Handler.mic_n == 0)                    # its capture ended with the stream
+        monkeypatch.setenv("OMNI_MIC_CMD", "no-such-capture-tool -q")
+        with pytest.raises(urllib.error.HTTPError) as e:
+            urllib.request.urlopen(base + "/api/mic?pin=42")
+        assert e.value.code == 503
+    finally:
+        srv.shutdown()
+        sup.stop()
+
+
+def test_the_https_port_tunnels_rosbridge_and_video(tmp_path):
+    import socket
+    import ssl
+    from omni_console import supervisor as module
+    if not module.shutil.which("openssl"):
+        pytest.skip("no openssl")
+    web = tmp_path / "web"
+    web.mkdir()
+    (web / "index.html").write_text("<p>console</p>")
+
+    class Echo(module.SimpleHTTPRequestHandler):      # stands in for rosbridge / web_video_server: echoes its path
+        def do_GET(self):
+            body = f"{self.server.name}:{self.path}".encode()
+            self.send_response(200)
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *a):
+            pass
+
+    backs = {}
+    for name in ("ros", "video"):
+        b = ThreadingHTTPServer(("127.0.0.1", 0), Echo)
+        b.name = name
+        threading.Thread(target=b.serve_forever, daemon=True).start()
+        backs[name] = b
+    sup = module.Supervisor(config(tmp_path), tmp_path, {}, log=lambda m: None)
+    h = type("H", (module.Handler,), dict(sup=sup, config=b"{}", pin="", logs_dir=tmp_path, tunnels=True,
+                                          rosbridge_port=backs["ros"].server_address[1],
+                                          video_port=backs["video"].server_address[1]))
+    cert, key = module.ensure_cert(tmp_path / "tls")
+    assert module.ensure_cert(tmp_path / "tls") == (cert, key)             # made once
+    ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ctx.load_cert_chain(str(cert), str(key))
+    srv = ThreadingHTTPServer(("127.0.0.1", 0), partial(h, directory=str(web)))
+    srv.daemon_threads = True
+    srv.socket = ctx.wrap_socket(srv.socket, server_side=True, do_handshake_on_connect=False)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    port = srv.server_address[1]
+    client = ssl.create_default_context(cafile=str(cert))
+    client.check_hostname = False
+    stalled = socket.create_connection(("127.0.0.1", port))               # a client that never says hello
+
+    def get(path):
+        return urllib.request.urlopen(f"https://127.0.0.1:{port}{path}", context=client, timeout=10).read()
+
+    try:
+        assert b"console" in get("/")
+        assert get("/rosbridge") == b"ros:/"
+        assert get("/video/stream?topic=/arm/d435/color&type=mjpeg") == b"video:/stream?topic=/arm/d435/color&type=mjpeg"
+    finally:
+        stalled.close()
+        srv.shutdown()
+        for b in backs.values():
+            b.shutdown()
+        sup.stop()

@@ -8,12 +8,14 @@ import { HelpBox } from "../ui.js";
  *  topic is encoded by web_video_server for this viewer, so it's asked small.
  *  @param {string} host @param {number} port @param {string} topic */
 export function streamUrl(host, port, topic) {
+  // on the supervisor's https port, its /video tunnel: a secure page may not load http:// images
+  const base = location.protocol === "https:" ? `${location.origin}/video` : `http://${host}:${port}`;
   // web_video_server takes the topic as it is (an encoded "/" is an invalid name to it)
   if (topic.endsWith("/compressed")) {
-    const base = topic.slice(0, -"/compressed".length);
-    return `http://${host}:${port}/stream?topic=${encodeURI(base)}&type=ros_compressed`;
+    const base_t = topic.slice(0, -"/compressed".length);
+    return `${base}/stream?topic=${encodeURI(base_t)}&type=ros_compressed`;
   }
-  return `http://${host}:${port}/stream?topic=${encodeURI(topic)}&type=mjpeg&quality=50&width=320&height=200`;
+  return `${base}/stream?topic=${encodeURI(topic)}&type=mjpeg&quality=50&width=320&height=200`;
 }
 
 export function VisionTab() {

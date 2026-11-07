@@ -16,6 +16,7 @@ export const store = {
   conn: "connecting",      // connecting | open | closed
   url: "",
   foxglovePort: 8765,
+  httpsPort: null,         // the supervisor's https port (the Call page's push-to-talk needs a secure page)
   status: null, tStatus: 0, statusHz: 0,
   schema: null,
   version: null,             // /console/version: software, firmware (expected, running), packages
@@ -72,7 +73,8 @@ const pageId = (() => {
 
 export function getRos() { return ros; }
 
-/** rosbridge's URL: ?ros=ws://host:port, else the saved override, else this page's host on the robot's port. */
+/** rosbridge's URL: ?ros=ws://host:port, else the saved override, else this page's host on the robot's port; on the
+ *  supervisor's https port, its own /rosbridge tunnel (a secure page may not open ws://). */
 async function rosbridgeUrl() {
   const q = new URLSearchParams(location.search).get("ros");
   if (q) return q;
@@ -81,8 +83,9 @@ async function rosbridgeUrl() {
   try {
     const cfg = await (await fetch("config.json", { cache: "no-store" })).json();
     port = cfg.rosbridge_port || port;
-    update({ foxglovePort: cfg.foxglove_port || 8765 });
+    update({ foxglovePort: cfg.foxglove_port || 8765, httpsPort: cfg.https_port || null });
   } catch { /* opened without the robot's server: defaults */ }
+  if (location.protocol === "https:") return `wss://${location.host}/rosbridge`;
   return `ws://${location.hostname || "localhost"}:${port}`;
 }
 

@@ -30,6 +30,11 @@ Not tried on a Jetson yet (no hardware): the steps below are the plan. VERIFY ea
    unit.
 6. JetPack 6 is Ubuntu 22.04 and the stack is Jazzy (24.04): if Jazzy runs in Docker, the unit starts the container and
    the supervisor runs inside it (with `--network host`, so 8080 and rosbridge's 9090 are the Jetson's ports).
+7. The secure page, `https://omni.local:8443` (`OMNI_CONSOLE_HTTPS` in the unit; `openssl` makes a self-signed
+   certificate in `~/.omni/tls` on first start). Browsers let a page use the microphone only when it is secure, so the
+   Call page's push-to-talk works there; rosbridge and the camera streams go through the same port. Each phone or
+   tablet warns about the certificate once: accept it. The robot's own microphone (Listen on the Call page) is
+   `arecord` on the default ALSA capture device (`OMNI_MIC_CMD` to change it; VERIFY the device on the robot).
 
 No browser runs on the Jetson: drawing the page costs CPU and memory the robot needs, so the page always runs on the
 viewing device. For a screen on the robot, mount an old phone or tablet showing the page.

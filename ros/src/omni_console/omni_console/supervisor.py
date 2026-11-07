@@ -19,6 +19,11 @@ HTTP (plain, on the robot's own address: the page's ws:// to rosbridge works in 
   POST /api/power            {"action": "shutdown" | "reboot"}  (when the steps file allows it: the robot computer)
   POST /api/clip?pin=        a WAV (the Call page's push-to-talk, at most CLIP_MAX bytes): saved in <state>/clips (the
                              newest CLIP_KEEP), answers {"name"}; the console's "clip" verb has the face play it
+  GET  /api/mic?pin=         the robot's microphone as it hears, raw 16 kHz mono s16le, for the Call page to play (the
+                             capture: OMNI_MIC_CMD, default arecord; two listeners at most, 30 min each; 503 without one)
+  GET  /rosbridge, /video/*  only on the https port (--https): the page's rosbridge websocket and web_video_server's
+                             streams, tunnelled through this server, so a secure page reaches them same-origin
+                             (browsers block ws:// and http:// from an https page, and allow the microphone only there)
   GET  /logs/, /logs/<file>  the session logs (session_log.py), for download
 POST bodies carry "pin" when the supervisor has one (kid-proofing, not security: it's the home network).
 """
@@ -455,6 +460,24 @@ def serve_logs(h, u, logs_dir) -> bool:
 
 CLIP_MAX = 2_000_000                # bytes: a push-to-talk WAV (16 kHz mono 16-bit: about a minute)
 CLIP_KEEP = 20
+MIC_CMD = "arecord -q -t raw -f S16_LE -r 16000 -c 1"     # the robot computer's default capture device (ALSA)
+MIC_MAX_S = 1800.0                  # s: one listener's longest stream
+MIC_LISTENERS = 2
+
+
+def ensure_cert(d: Path) -> tuple:
+    """(cert, key) for the https port: a self-signed certificate for this host made once with openssl (browsers warn
+    once; accept it on each phone or tablet)."""
+    d.mkdir(parents=True, exist_ok=True)
+    cert, key = d / "cert.pem", d / "key.pem"
+    if not (cert.exists() and key.exists()):
+        host = socket.gethostname()
+        subprocess.run(["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-days", "3650",
+                        "-keyout", str(key), "-out", str(cert), "-subj", f"/CN={host}",
+                        "-addext", f"subjectAltName=DNS:{host},DNS:{host}.local,DNS:localhost,IP:127.0.0.1"],
+                       check=True, capture_output=True)
+        key.chmod(0o600)
+    return cert, key
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -465,6 +488,14 @@ class Handler(SimpleHTTPRequestHandler):
     extensions_map = {**SimpleHTTPRequestHandler.extensions_map, ".js": "text/javascript",
                       ".mjs": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml",
                       ".jsonl": "application/x-ndjson"}
+
+    def setup(self):
+        hs = getattr(self.request, "do_handshake", None)
+        if hs is not None:                               # the https port: its TLS handshake here, in this thread
+            self.request.settimeout(10.0)
+            hs()
+            self.request.settimeout(None)
+        super().setup()
 
     def end_headers(self):
         self.send_header("Cache-Control", "no-cache")
@@ -492,6 +523,12 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if u.path == "/api/state":
             return self._json(200, self.sup.state())
+        if u.path == "/api/mic":
+            return self._mic(u)
+        if self.tunnels and u.path == "/rosbridge":
+            return self._tunnel(self.rosbridge_port, "/" + (f"?{u.query}" if u.query else ""))
+        if self.tunnels and u.path.startswith("/video/"):
+            return self._tunnel(self.video_port, self.path[len("/video"):])
         if u.path == "/api/log":
             n = int(parse_qs(u.query).get("n", ["200"])[0])
             cur = self.sup.cur
@@ -500,6 +537,82 @@ class Handler(SimpleHTTPRequestHandler):
         if serve_logs(self, u, self.logs_dir):
             return
         super().do_GET()
+
+    # -- the Call page: the robot's microphone, and the https port's tunnels ------------------------------------------
+    mic_lock = threading.Lock()
+    mic_n = 0
+    rosbridge_port = 9090
+    video_port = 8081
+    tunnels = False                    # the https server: /rosbridge and /video/* go through to their servers
+
+    def _mic(self, u):
+        """The robot's microphone to the Call page, raw s16le 16 kHz mono, until the page stops reading."""
+        if self.pin and parse_qs(u.query).get("pin", [""])[0] != self.pin:
+            return self._json(403, dict(ok=False, message="Wrong PIN", need_pin=True))
+        cmd = (os.environ.get("OMNI_MIC_CMD") or MIC_CMD).split()
+        if shutil.which(cmd[0]) is None:
+            return self._json(503, dict(ok=False, message=f"No microphone capture here ({cmd[0]} not found)"))
+        with Handler.mic_lock:
+            if Handler.mic_n >= MIC_LISTENERS:
+                return self._json(503, dict(ok=False, message="Two listeners already"))
+            Handler.mic_n += 1
+        proc = None
+        try:
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/octet-stream")
+            self.send_header("X-Audio-Format", "s16le;rate=16000;channels=1")
+            self.end_headers()
+            t0 = time.monotonic()
+            while time.monotonic() - t0 < MIC_MAX_S:
+                chunk = proc.stdout.read(1600)          # 50 ms
+                if not chunk:
+                    break
+                self.wfile.write(chunk)
+                self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError, OSError):
+            pass                                        # the page stopped listening
+        finally:
+            if proc is not None:
+                proc.kill()
+                proc.wait()
+            with Handler.mic_lock:
+                Handler.mic_n -= 1
+        self.close_connection = True
+
+    def _tunnel(self, port: int, path: str):
+        """This request, as it came, to 127.0.0.1:port, then the bytes both ways until either side closes (rosbridge's
+        websocket upgrade, web_video_server's MJPEG stream)."""
+        try:
+            back = socket.create_connection(("127.0.0.1", port), timeout=5.0)
+        except OSError as e:
+            return self._json(502, dict(ok=False, message=f"nothing on port {port}: {e}"))
+        back.settimeout(None)
+        head = f"{self.command} {path} HTTP/1.1\r\n" + "".join(f"{k}: {v}\r\n" for k, v in self.headers.items())
+        back.sendall(head.encode("latin-1") + b"\r\n")
+        front = self.connection
+
+        def pipe(a, b):
+            try:
+                while True:
+                    data = a.recv(65536)
+                    if not data:
+                        break
+                    b.sendall(data)
+            except OSError:
+                pass
+            for s in (a, b):
+                try:
+                    s.shutdown(socket.SHUT_RDWR)
+                except OSError:
+                    pass
+
+        th = threading.Thread(target=pipe, args=(back, front), daemon=True)
+        th.start()
+        pipe(front, back)
+        th.join(5.0)
+        back.close()
+        self.close_connection = True
 
     def _clip(self, u):
         """A push-to-talk WAV from the Call page, kept for the face to play (the console's clip verb)."""
@@ -554,6 +667,11 @@ def main(argv=None):
     ap.add_argument("--state-dir", default="~/.omni")
     ap.add_argument("--omni-sh", default=os.environ.get("OMNI_SH", "omni.sh"))
     ap.add_argument("--pin", default=os.environ.get("OMNI_CONSOLE_PIN", ""))
+    ap.add_argument("--https", type=int, default=int(os.environ.get("OMNI_CONSOLE_HTTPS", "0")),
+                    help="also serve the page over https on this port (e.g. 8443; 0: off): a self-signed certificate "
+                         "in <state>/tls, rosbridge and the camera streams tunnelled through it (the Call page's "
+                         "push-to-talk needs a secure page)")
+    ap.add_argument("--video-port", type=int, default=int(os.environ.get("OMNI_VIDEO_PORT", "8081")))
     a, rest = ap.parse_known_args(argv)
     defaults = {}
     for kv in rest:
@@ -575,9 +693,23 @@ def main(argv=None):
         print(f"[supervisor {time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
     sup = Supervisor(load_steps(a.steps, a.omni_sh), state_dir, defaults, log)
-    cfg = dict(rosbridge_port=a.rosbridge_port, foxglove_port=a.foxglove_port, supervisor=True, pin=bool(a.pin))
+    cfg = dict(rosbridge_port=a.rosbridge_port, foxglove_port=a.foxglove_port, supervisor=True, pin=bool(a.pin),
+               https_port=a.https or None)
     handler = type("SupervisorHandler", (Handler,), dict(sup=sup, config=json.dumps(cfg).encode(), pin=a.pin,
-                                                          logs_dir=state_dir / "logs" / "sessions"))
+                                                          logs_dir=state_dir / "logs" / "sessions",
+                                                          rosbridge_port=a.rosbridge_port, video_port=a.video_port))
+    if a.https:
+        import ssl
+        cert, key = ensure_cert(state_dir / "tls")
+        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        ctx.load_cert_chain(str(cert), str(key))
+        secure = type("SecureHandler", (handler,), dict(tunnels=True))
+        httpsd = ThreadingHTTPServer(("0.0.0.0", a.https), functools.partial(secure, directory=web))
+        httpsd.daemon_threads = True
+        # the handshake in each request's own thread (do_handshake_on_connect=False): a stalled client can't hold accept
+        httpsd.socket = ctx.wrap_socket(httpsd.socket, server_side=True, do_handshake_on_connect=False)
+        threading.Thread(target=httpsd.serve_forever, daemon=True).start()
+        log(f"secure console: https://{socket.gethostname()}:{a.https} (self-signed: accept it once per device)")
     httpd = ThreadingHTTPServer(("0.0.0.0", a.port), functools.partial(handler, directory=web))
     httpd.daemon_threads = True
     log(f"operator console: http://{socket.gethostname()}:{a.port} (page from {web}); steps: {a.steps}")

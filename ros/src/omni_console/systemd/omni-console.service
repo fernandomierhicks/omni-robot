@@ -9,6 +9,8 @@ Wants=network-online.target
 Type=simple
 User=omni
 Environment=PYTHONUNBUFFERED=1
+# the secure page (the Call page's push-to-talk): https://omni.local:8443, a self-signed certificate in ~/.omni/tls
+Environment=OMNI_CONSOLE_HTTPS=8443
 # VERIFY: with Jazzy in Docker on JetPack 6 this runs inside the container (docker run ... the same command)
 ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash && source /home/omni/omni_ws/install/setup.bash && exec python3 -m omni_console.supervisor --steps robot --autostart robot'
 Restart=always
