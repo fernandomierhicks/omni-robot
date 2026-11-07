@@ -34,6 +34,7 @@ fw::CmdBody to_command(const Request& r, const ClockSync& sync) {
     c.t_tilt_us = r.t_tilt ? (uint64_t)std::max<int64_t>(0, sync.to_mcu_us(r.t_tilt)) : 0;
     c.tilt_after = (float)r.tilt_after, c.fly_rpm = (float)r.fly_rpm;
     c.fire_seq = r.fire_seq;
+    c.protocol = fw::PROTOCOL_VERSION;
     return c;
 }
 

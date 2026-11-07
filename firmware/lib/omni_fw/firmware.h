@@ -8,10 +8,15 @@
 //              the base has stopped, and after the e-stop is released (the Jetson must ask for AUTO again)
 //   AUTO       the Jetson's CMDs drive the base and the module, inside this firmware's limits (the profile's caps;
 //              the Jetson can only ask for less)
-//   MANUAL     the RC transmitter's switch: the sticks drive the base directly, Jetson or not (design.md 15)
+//   MANUAL     the RC transmitter's switch: the sticks drive the base directly, Jetson or not (design.md 15). Leaving
+//              it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest with the
+//              motors still enabled, then disables them: never a cut at speed
 //   ESTOP      the e-stop chain is open: motor power is already off in hardware; everything is reset
 // Rules (design.md 14): every stop is ramped; no CMD for CMD_TIMEOUT -> ramped stop, flywheels off; a bumper ->
-// ramped stop; firing needs AUTO, the flywheels at speed and no bumper.
+// ramped stop (only with HAS_BUMPERS: the arm robot has no switches yet); firing needs AUTO, the flywheels at speed and
+// no bumper. A CMD must pass cmd_ok() (this protocol version, known enums, finite numbers in range) or it is dropped
+// and counted (cmd_rejected): a dropped CMD is no heartbeat. The kid profile turns on at once and off only with the
+// base at rest.
 // The fault stop: in AUTO, a low pack (under BATT_LOW for BATT_LOW_HOLD_US), a motor error or a silent motor -> a
 // ramped stop, then DISARMED. It latches (FAULT_STOP) until the Jetson asks for DISARM (its mode ended) with the pack at
 // BATT_LOW + BATT_RESUME or more; only then does a request for AUTO re-arm (which clears the motors' errors). MANUAL is
@@ -23,7 +28,7 @@
 
 #include "base.h"
 #include "dm_motor.h"
-#include "fw_params.h"
+#include "fw_params_select.h"
 #include "hw_io.h"
 #include "module.h"
 #include "protocol.h"
@@ -79,6 +84,7 @@ private:
     void time_refs(const FwHwInputs& in, FwHwOutputs& out);
     void push_tx(const uint8_t* d, size_t n);
     Limits limits() const;
+    static bool cmd_ok(const CmdBody& c);
 
     McuMode mode_ = MODE_BOOT;
     uint16_t faults_ = 0;
@@ -95,6 +101,10 @@ private:
     uint64_t echo_host_ = 0, echo_rx_us_ = 0;
     uint16_t cmd_count_ = 0;
     uint8_t seq_state_ = 0, seq_imu_ = 0, seq_info_ = 0, seq_time_ = 0;
+    uint16_t cmd_rejected_ = 0;             // CMDs dropped by cmd_ok()
+    uint16_t tick_late_ = 0;                // ticks more than 1.5 ms after the last
+    uint32_t tick_max_us_ = 0;              // the longest gap between ticks since the last STATE
+    uint8_t profile_ = PROFILE_ADULT;       // the profile in force (kid on at once, off only at rest)
 
     // time references (design.md 10): the next scheduled edges and their counters
     uint64_t sync_next_ = 0, cam_next_ = 0, cam_first_ = 0;
@@ -123,6 +133,8 @@ private:
     uint64_t t_armed_us_ = 0;
     uint64_t t_batt_low_us_ = 0;     // since when the pack reads under BATT_LOW (0: it doesn't)
     bool fault_stop_ = false;
+    bool ramp_out_ = false;          // MANUAL just ended: ramping the base to rest before the motors are disabled
+    bool bumper_ = false;            // a bumper is pressed (always false without HAS_BUMPERS)
 
     // module
     FlywheelLoop fly_[2];

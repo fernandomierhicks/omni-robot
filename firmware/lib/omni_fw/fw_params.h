@@ -13,6 +13,8 @@ constexpr float CMD_TIMEOUT = 0.5f;              // s without a CMD -> ramped st
 constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault
 constexpr float BATT_LOW = 21.0f;          // V: 3.5 V per cell (catalog pack setting)
 constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)
+constexpr bool HAS_BUMPERS = true;                    // bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored
+constexpr bool DRIVE_DAMIAO = true;                  // DM-2325: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else
 
 // time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN
 constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time

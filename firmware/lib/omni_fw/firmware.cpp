@@ -2,6 +2,8 @@
 
 #include <string.h>
 
+#include <cmath>
+
 // the build id the INFO message reports: a hash of this folder (firmware/fw_build_id.py), set by the PlatformIO and SIL
 // builds, so the Jetson can tell when the MCU runs other firmware than its own copy
 #ifndef FW_BUILD
@@ -13,7 +15,7 @@ namespace fw {
 static constexpr uint64_t MS = 1000;
 
 Limits Firmware::limits() const {
-    const float* p = (have_cmd_ && cmd_.profile == PROFILE_KID) ? prm::KID_LIMITS : prm::ADULT_LIMITS;
+    const float* p = profile_ == PROFILE_KID ? prm::KID_LIMITS : prm::ADULT_LIMITS;
     return Limits{p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]};
 }
 
@@ -29,6 +31,18 @@ void Firmware::init() {
 
 // -- link -----------------------------------------------------------------------------------------------------------
 
+// A CMD the firmware acts on: this protocol's version, known enums, finite numbers of a sane size. Anything else is
+// dropped (and counted) before it can reach the controller: a NaN would pass every clamp and reach the wheels.
+bool Firmware::cmd_ok(const CmdBody& c) {
+    if (c.protocol != PROTOCOL_VERSION) return false;
+    if (c.req_mode > REQ_AUTO || c.profile > PROFILE_KID || c.drive_mode > DRIVE_GOTO) return false;
+    const float f[] = {c.a, c.b, c.c, c.v_end, c.a_cap, c.speed_cap, c.coast_s, c.a_brake, c.tilt, c.tilt_after,
+                       c.fly_rpm};
+    for (float x : f)
+        if (!std::isfinite(x) || fabsf(x) > 1e5f) return false;      // m, m/s, rad, rpm: nothing real comes near 1e5
+    return c.coast_s >= 0.0f;
+}
+
 void Firmware::rx(const uint8_t* data, size_t n, uint64_t t_rx_us) {
     uint8_t body[256];
     for (size_t i = 0; i < n; ++i) {
@@ -36,8 +50,14 @@ void Firmware::rx(const uint8_t* data, size_t n, uint64_t t_rx_us) {
         size_t len;
         if (!dec_.push(data[i], type, body, sizeof(body), len)) continue;
         if (type == MSG_CMD && len == sizeof(CmdBody)) {
+            CmdBody c;
+            memcpy(&c, body, sizeof(CmdBody));
+            if (!cmd_ok(c)) {
+                ++cmd_rejected_;
+                continue;
+            }
             bool first = !have_cmd_;
-            memcpy(&cmd_, body, sizeof(CmdBody));
+            cmd_ = c;
             have_cmd_ = true;
             cmd_new_ = true;
             t_cmd_rx_us_ = t_rx_us;
@@ -129,7 +149,7 @@ void Firmware::send_state(const FwHwInputs& in) {
     s.echo_t_host_ns = echo_host_;
     s.echo_rx_us = echo_rx_us_;
     s.mode = mode_;
-    s.profile = have_cmd_ ? cmd_.profile : (uint8_t)PROFILE_ADULT;
+    s.profile = profile_;
     s.drive_mode = (have_cmd_ && cmd_.drive_mode == DRIVE_GOTO && phase_ != PH_TRACK) ? (uint8_t)3
                    : (uint8_t)(have_cmd_ ? cmd_.drive_mode : 0);
     s.feed_state = feed_.state;
@@ -158,6 +178,10 @@ void Firmware::send_state(const FwHwInputs& in) {
     s.v_bus = last_v_bus_;
     s.cmd_count = cmd_count_;
     s.rx_errors = (uint16_t)dec_.errors;
+    s.cmd_rejected = cmd_rejected_;
+    s.tick_late = tick_late_;
+    s.tick_max_us = (uint16_t)(tick_max_us_ < 65535 ? tick_max_us_ : 65535);
+    tick_max_us_ = 0;
     uint8_t buf[192];
     size_t n = frame_encode(MSG_STATE, seq_state_++, &s, sizeof(s), buf, sizeof(buf));
     push_tx(buf, n);
@@ -222,7 +246,7 @@ void Firmware::drive_motors(bool enable, const float* wheel_cmd, FwHwOutputs& ou
 void Firmware::run_base(float dt, bool auto_ok, const FwHwInputs& in, float* wheel_cmd) {
     ctl_.set_limits(limits(), auto_ok ? cmd_.speed_cap : 0.0f);
     Pose pose = odom_.pose;
-    if (!auto_ok || in.bumper) {
+    if (!auto_ok || bumper_) {
         // link lost, disarm requested or a bumper: a ramped stop, never a step to zero (design.md 3)
         phase_ = PH_TRACK;
         hold_yaw_set_ = false;
@@ -319,7 +343,7 @@ void Firmware::run_module(float dt, bool auto_ok, const FwHwInputs& in, FwHwOutp
     fly_ready_ = ready;
     if (fire_init_ && cmd_.fire_seq != fire_seq_done_) {
         fire_seq_done_ = cmd_.fire_seq;
-        if (fly_ready_ && !in.bumper && tilt_meas_ <= prm::FIRE_TILT_MAX) {   // tilt: the face (design.md 12.2)
+        if (fly_ready_ && !bumper_ && tilt_meas_ <= prm::FIRE_TILT_MAX) {   // tilt: the face (design.md 12.2)
             feed_.trigger();
         } else {
             ++fire_rejected_;                     // interlock: the Jetson sees the count and may ask again
@@ -355,6 +379,12 @@ void Firmware::send_info(const FwHwInputs& in) {
 
 void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     memset(&out, 0, sizeof(out));
+    if (!first_) {                                  // the loop's health: late ticks and the longest gap (STATE)
+        uint64_t gap = in.t_us > t_us_ ? in.t_us - t_us_ : 0;
+        if (gap > (uint64_t)(1.5f * prm::TICK_S * 1e6f)) ++tick_late_;
+        if (gap > tick_max_us_) tick_max_us_ = (uint32_t)(gap < 0xFFFFFFFFu ? gap : 0xFFFFFFFFu);
+    }
+    bumper_ = prm::HAS_BUMPERS && in.bumper;
     float dt = first_ ? prm::TICK_S : (float)(in.t_us - t_us_) * 1e-6f;
     if (dt <= 0.0f) dt = prm::TICK_S;
     if (dt > 0.05f) dt = 0.05f;
@@ -395,7 +425,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     faults_ = 0;
     if (!link_ok) faults_ |= F_LINK_LOST;
     if (in.estop) faults_ |= F_ESTOP;
-    if (in.bumper) faults_ |= F_BUMPER;
+    if (bumper_) faults_ |= F_BUMPER;
     for (int i = 0; i < prm::N_WHEELS; ++i) {
         if (fb_[i].err >= DM_OVERVOLT) faults_ |= F_MOTOR_ERR;
         if (t_us_ - t_fb_us_[i] > (uint64_t)(prm::DM_FEEDBACK_TIMEOUT * 1e6f)) faults_ |= F_MOTOR_SILENT;
@@ -427,16 +457,20 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
             for (auto& f : fly_) f.reset();
         }
         mode_ = MODE_ESTOP;
+        ramp_out_ = false;                        // motor power is already off in hardware
     } else if (mode_ == MODE_ESTOP) {
         mode_ = MODE_DISARMED;                    // released: the Jetson must ask for AUTO again
         t_stopped_us_ = t_us_;
     } else if (manual) {
         mode_ = MODE_MANUAL;
+        ramp_out_ = false;
     } else if (mode_ == MODE_MANUAL) {
-        mode_ = MODE_DISARMED;
+        mode_ = MODE_DISARMED;                    // the switch or the RC link went: ramp to rest first (below)
+        ramp_out_ = true;
+        t_stopped_us_ = t_us_;
     } else if (mode_ == MODE_DISARMED || mode_ == MODE_BOOT) {
-        // re-arm only on a fresh request: a CMD that arrived after the stop
-        if (want_auto && t_cmd_us_ >= t_stopped_us_) {
+        // re-arm only on a fresh request: a CMD that arrived after the stop, and once a ramp out of MANUAL is done
+        if (want_auto && !ramp_out_ && t_cmd_us_ >= t_stopped_us_) {
             mode_ = MODE_AUTO;
             t_armed_us_ = t_us_;
             ctl_.reset();
@@ -452,6 +486,13 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         }
     }
 
+    // the profile in force: kid turns on at once, off only with the base at rest (never a jump in limits mid-drive)
+    if (have_cmd_ && link_ok) {
+        bool at_rest = ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f;
+        if (cmd_.profile == PROFILE_KID) profile_ = PROFILE_KID;
+        else if (at_rest) profile_ = PROFILE_ADULT;
+    }
+
     float wheel_cmd[prm::N_WHEELS] = {};
     bool enable = false;
     if (mode_ == MODE_AUTO) {
@@ -463,9 +504,19 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         Vec2 vb(in.rc[1] * prm::MANUAL_SPEED, -in.rc[0] * prm::MANUAL_SPEED);
         float w = -in.rc[3] * L.max_yaw_rate * 0.5f;
         float yaw = odom_.pose.yaw;
-        ctl_.velocity_step(dt, in.bumper ? Vec2() : body_to_world(vb, yaw), in.bumper ? 0.0f : w, yaw, 0.0f,
+        ctl_.velocity_step(dt, bumper_ ? Vec2() : body_to_world(vb, yaw), bumper_ ? 0.0f : w, yaw, 0.0f,
                            wheel_cmd);
         enable = true;
+    } else if (ramp_out_) {
+        // MANUAL ended: a ramped stop with the motors still enabled, then disarmed (never a cut at speed)
+        ctl_.set_limits(limits(), 0.0f);
+        ctl_.velocity_step(dt, Vec2(), 0.0f, odom_.pose.yaw, 0.0f, wheel_cmd);
+        enable = true;
+        if (ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f) {
+            ramp_out_ = false;
+            t_stopped_us_ = t_us_;
+            ctl_.reset();
+        }
     } else {
         ctl_.reset();
     }

@@ -171,7 +171,7 @@ def state_body(rnd, t_mcu, echo_t1, echo_rx):
          rnd.randint(0, 255), *[rnd.randint(0, 3) for _ in range(4)], *[rnd.uniform(-3, 3) for _ in range(12)],
          *[rnd.uniform(0, 9000) for _ in range(3)], rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.randint(0, 3),
          rnd.randint(0, 1), rnd.randint(0, 65535), rnd.randint(0, 9), rnd.uniform(20, 29), rnd.randint(0, 65535),
-         rnd.randint(0, 9)]
+         rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(900, 2000)]   # + protocol 6's counters
     return P.STATE_FMT.pack(*v)
 
 

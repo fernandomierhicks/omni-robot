@@ -3,7 +3,7 @@
 // 22.4, a port of robot.Robot.pre_step's feed logic).
 #pragma once
 
-#include "fw_params.h"
+#include "fw_params_select.h"
 #include "fw_types.h"
 
 namespace fw {

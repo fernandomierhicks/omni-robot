@@ -241,6 +241,13 @@ private:
         t_req_ = now_s();
     }
 
+    static bool finite(const Request& r) {
+        for (double x : {r.a, r.b, r.c, r.v_end, r.a_cap, r.speed_cap, r.t_brake, r.coast_s, r.a_brake, r.tilt, r.t_tilt,
+                         r.tilt_after, r.fly_rpm})
+            if (!std::isfinite(x)) return false;
+        return true;
+    }
+
     void send() {
         if (!connected_) return;
         double now = now_s();
@@ -252,6 +259,22 @@ private:
                 Request s;
                 s.req_mode = req_.req_mode == fw::REQ_AUTO ? fw::REQ_AUTO : fw::REQ_DISARM;
                 s.kid = req_.kid, s.fire_seq = req_.fire_seq;
+                r = s;
+            }
+            if (!finite(r)) {                   // the MCU would drop it (and time out): send a ramped stop instead
+                RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "/mcu/cmd with a non-finite value: stopping");
+                Request s;
+                s.req_mode = r.req_mode == fw::REQ_AUTO ? fw::REQ_AUTO : fw::REQ_DISARM;
+                s.kid = r.kid, s.fire_seq = r.fire_seq;
+                r = s;
+            }
+            if (link_->has_info && link_->info.protocol != fw::PROTOCOL_VERSION) {
+                // other firmware: never arm it (it drops our CMDs anyway; this says why in the log)
+                RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 5000,
+                                      "MCU protocol %u, this host speaks %u: not arming (flash matching firmware)",
+                                      (unsigned)link_->info.protocol, (unsigned)fw::PROTOCOL_VERSION);
+                Request s;
+                s.kid = r.kid;
                 r = s;
             }
             data = link_->encode(to_command(r, link_->sync), this->now().nanoseconds());
@@ -453,9 +476,13 @@ private:
                 .number("rtt_ms", link_->sync.rtt_ns.value_or(0) * 1e-6, 3);
             if (has_state_) {
                 d.string("mode", mode_name(last_state_.mode)).strings("faults", fault_names(last_state_.faults))
-                    .integer("mcu_rx_errors", last_state_.rx_errors);
+                    .integer("mcu_rx_errors", last_state_.rx_errors)
+                    .integer("mcu_cmd_rejected", last_state_.cmd_rejected)
+                    .integer("mcu_tick_late", last_state_.tick_late)
+                    .integer("mcu_tick_max_us", last_state_.tick_max_us);
             } else {
-                d.null("mode").null("faults").null("mcu_rx_errors");
+                d.null("mode").null("faults").null("mcu_rx_errors").null("mcu_cmd_rejected").null("mcu_tick_late")
+                    .null("mcu_tick_max_us");
             }
             d.integer("infos", st.infos);
             if (link_->has_info) d.integer("protocol", link_->info.protocol);

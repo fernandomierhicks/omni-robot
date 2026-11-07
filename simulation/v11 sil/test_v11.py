@@ -945,6 +945,82 @@ def test_bumper_stops_ramped_and_estop_disables_the_motors():
     assert r.fw.mode == 4 and all(not mt.enabled for mt in r.dm)
 
 
+def test_firmware_drops_a_non_finite_or_foreign_cmd():
+    """cmd_ok (firmware.h): a NaN, an infinity, an unknown enum or another protocol version never reaches the base; each
+    is counted and none is a heartbeat, so a host sending only those ramps to a stop on the link timeout."""
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=1.0, flags=PR.CMD_HOLD_YAW)
+    sil_run(rig, 1.5, lambda t: fwd)
+    assert r.fw.mode == 2
+    bad = [PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=math.nan, flags=PR.CMD_HOLD_YAW),
+           PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=1.0, c=math.inf),
+           PR.Command(drive_mode=7, a=1.0)]
+    s = sil_run(rig, 2.0, lambda t: bad[int(t * 100) % 3])
+    assert np.all(np.isfinite(s[:, 1:4]))
+    assert s[-1, 1] < 0.02 and r.fw.faults & 1                           # stopped on the link timeout
+    assert link.host.state.cmd_rejected >= 150
+    raw = bytearray(fwd.pack(0))
+    raw[-2:] = (PR.PROTOCOL_VERSION - 1).to_bytes(2, "little")         # the same CMD from other software
+    n0 = link.host.state.cmd_rejected
+    for k in range(50):
+        r.fw.rx(PR.frame(PR.MSG_CMD, k, bytes(raw)), 0)
+        sil_run(rig, 0.01)
+    assert link.host.state.cmd_rejected - n0 >= 45 and r.fw.mode == 1
+
+
+def test_leaving_manual_ramps_the_base_to_rest_before_disarming():
+    """The RC switch off (or its link lost) mid-drive: DISARMED at once, but the motors stay enabled through a ramped
+    stop, never a cut at speed (firmware.h, MANUAL)."""
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]                      # MANUAL, stick full forward
+    s = sil_run(rig, 2.0)
+    assert r.fw.mode == 3 and s[-1, 1] > 0.8
+    r.rc = None                                                          # the RC link drops
+    s = sil_run(rig, 0.05)
+    assert r.fw.mode == 1 and all(mt.enabled for mt in r.dm)             # disarmed, yet still braking
+    s = sil_run(rig, 1.5)
+    k = int(round(0.05 / m.opt.timestep))
+    assert s[-1, 1] < 0.02 and float(np.max(-np.diff(s[::k, 1]) / 0.05)) < 1.2 * max(p.accel_table[1])
+    assert all(not mt.enabled for mt in r.dm)                            # then off
+
+
+def test_kid_profile_turns_off_only_at_rest():
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    kid = PR.Command(profile=PR.PROFILE_KID, drive_mode=PR.DRIVE_VEL_BODY, a=2.0, flags=PR.CMD_HOLD_YAW)
+    s = sil_run(rig, 2.0, lambda t: kid)
+    v_kid = s[-1, 1]
+    assert link.host.state.profile == PR.PROFILE_KID
+    adult = PR.Command(profile=PR.PROFILE_ADULT, drive_mode=PR.DRIVE_VEL_BODY, a=2.0, flags=PR.CMD_HOLD_YAW)
+    s = sil_run(rig, 1.0, lambda t: adult)                               # asked mid-drive: refused
+    assert link.host.state.profile == PR.PROFILE_KID and s[-1, 1] == pytest.approx(v_kid, abs=0.05)
+    sil_run(rig, 2.0, lambda t: PR.Command(profile=PR.PROFILE_ADULT, drive_mode=PR.DRIVE_IDLE))
+    assert link.host.state.profile == PR.PROFILE_ADULT                   # at rest: granted
+
+
+def test_the_arm_robot_ignores_bumper_inputs_it_does_not_have():
+    """HAS_BUMPERS (fw_params_arm.h: false until switches are in the CAD, todo.md)."""
+    import robot_export
+    from sil_link import SimLink
+    from sil_robot import SilRobot
+    FW, PR = _sil()
+    p, m, d, _ = make(robot_export.arm_params(home_xy=(0.0, 0.0)))
+    r = SilRobot(m, d, p, seed=1)
+    assert r.fw.variant == "arm"
+    rig = (p, m, d, r, SimLink(r))
+    link = rig[4]
+    fwd = PR.Command(drive_mode=PR.DRIVE_VEL_BODY, a=0.5, flags=PR.CMD_HOLD_YAW)
+    sil_run(rig, 1.5, lambda t: fwd)
+    r.bumper = True
+    s = sil_run(rig, 0.5, lambda t: fwd)
+    assert s[-1, 1] == pytest.approx(0.5, abs=0.05) and not r.fw.faults & 4
+
+
 def test_fire_needs_the_flywheels_at_speed():
     FW, PR = _sil()
     rig = sil_rig()

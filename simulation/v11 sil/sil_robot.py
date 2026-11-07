@@ -221,6 +221,7 @@ class SilRobot(Robot):
         self.tilt_cmd = 0.0
         self.estop = False
         self.bumper = False
+        self.rc = None                   # the RC receiver: None = no link, else 8 channels in -1..1 (ch 5 > 0.5: MANUAL)
         self.imu_pending = None
         self.readings = None                      # the last Sensors.step() (scans for the bridge)
         self._k = 0
@@ -322,7 +323,9 @@ class SilRobot(Robot):
         inp.bumper = int(self.bumper)
         v = self.battery.v if self.v_bus_override is None else self.v_bus_override
         inp.v_bus = float(v + self.rng.normal(0, 0.02))                    # ADC through a divider (est)
-        inp.rc_ok = 0
+        inp.rc_ok = 0 if self.rc is None else 1
+        for i in range(8):
+            inp.rc[i] = 0.0 if self.rc is None else float(self.rc[i])
         out = self.fw.tick()
         self.fw_out = out
         self.n_ticks += 1

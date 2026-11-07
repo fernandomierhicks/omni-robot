@@ -312,6 +312,8 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         "constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault",
         f"constexpr float BATT_LOW = {_c(p.pack.v_low_cell * p.pack.series)};          // V: {p.pack.v_low_cell:g} V per cell (catalog pack setting)",
         "constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (est)",
+        f"constexpr bool HAS_BUMPERS = {'false' if p.payload == 'arm' else 'true'};{' ' * (19 if p.payload == 'arm' else 20)}// bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored",
+        f"constexpr bool DRIVE_DAMIAO = {'true' if p.drive_motor.startswith('DM') else 'false'};{' ' * (18 if p.drive_motor.startswith('DM') else 17)}// {p.drive_motor}: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else",
         "",
         "// time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN",
         "constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time",
@@ -630,9 +632,10 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
 
 
 def _rounded(x):
-    """10 significant digits: the same file from Windows and WSL (their numpy / MuJoCo builds differ in the last bit)."""
+    """10 significant digits: the same file from Windows and WSL (their numpy / MuJoCo builds differ in the last bit).
+    Anything under 1e-12 is rounding noise around zero (it differed between the two in its leading digits): 0."""
     if isinstance(x, float):
-        return float(f"{x:.10g}")
+        return 0.0 if abs(x) < 1e-12 else float(f"{x:.10g}")
     if isinstance(x, dict):
         return {k: _rounded(v) for k, v in x.items()}
     if isinstance(x, (list, tuple)):

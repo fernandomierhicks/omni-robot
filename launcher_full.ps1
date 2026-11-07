@@ -288,7 +288,7 @@ $p4 = Add-Group "5. Other MuJoCo sims on Windows (no ROS)" ""
 $p5 = Add-Group "6. Tools" ""
 [void](Add-Button $p5 "Build ROS" { Start-Job2 "ros_build" "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" build" })
 [void](Add-Button $p5 "Tests (v11)" { Start-Py "tests_v11" "simulation\v11 sil" "-m pytest -q -p no:cacheprovider" } "Windows; the same in WSL: omni.sh test")
-[void](Add-Button $p5 "Build firmware" { Start-Job2 "fw_build" "cd /d `"$Repo\firmware`" && `"$env:USERPROFILE\.platformio\penv\Scripts\pio.exe`" run" } "PlatformIO, Teensy 4.1: checks the pin map, prints flash / RAM (flashing: attended sessions only)")
+[void](Add-Button $p5 "Build firmware" { Start-Job2 "fw_build" "cd /d `"$Repo\firmware`" && `"$env:USERPROFILE\.platformio\penv\Scripts\pio.exe`" run -e catch" } "PlatformIO, Teensy 4.1, the catch variant (the arm variant waits for the AK40-10 driver): checks the pin map, prints flash / RAM (flashing: attended sessions only)")
 [void](Add-Button $p5 "Pin map" { Start-Process "$Repo\firmware\PINS.md" } "firmware\PINS.md, from the checked pin map")
 [void](Add-Button $p5 "ROS status" { Start-Job2 "ros_status" "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" status" })
 [void](Add-Button $p5 "WSL terminal" { Start-Process $Wsl -ArgumentList "-d", $Distro, "--cd", "~" } "A Linux terminal, for when you need one")

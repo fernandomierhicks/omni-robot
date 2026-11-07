@@ -339,7 +339,7 @@ $cad = Add-Item $menu "CAD (v9)" $null
 [void](Add-Item $cad "Outputs folder" { Start-Process explorer.exe "`"$Repo\cad\v9\out`"" })
 [void](Add-Item $cad "Open the v10 robot (SolidWorks; the sim's arm robot)" { Start-Process "$Repo\cad\v10 human editable\V10H_robot.SLDASM" })
 $fw = Add-Item $menu "Firmware" $null
-[void](Add-Item $fw "Build for the Teensy" { Start-Job2 "fw_build" "cd /d `"$Repo\firmware`" && `"$env:USERPROFILE\.platformio\penv\Scripts\pio.exe`" run" })
+[void](Add-Item $fw "Build for the Teensy" { Start-Job2 "fw_build" "cd /d `"$Repo\firmware`" && `"$env:USERPROFILE\.platformio\penv\Scripts\pio.exe`" run -e catch" })
 [void](Add-Item $fw "Pin map" { Start-Process "$Repo\firmware\PINS.md" })
 $setup = Add-Item $menu "Setup (once per PC)" $null
 [void](Add-Item $setup "Fetch the house's textures" { Start-Py "house_fetch" "simulation\v11 sil" "house_scene.py fetch" })

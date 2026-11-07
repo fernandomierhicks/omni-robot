@@ -2,7 +2,7 @@
 // (a port of the sim's omni_control.BaseController, design.md 3 and 20), and wheel + IMU odometry (design.md 7, 27).
 #pragma once
 
-#include "fw_params.h"
+#include "fw_params_select.h"
 #include "fw_types.h"
 
 namespace fw {

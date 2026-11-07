@@ -27,7 +27,7 @@ from omni_mcu.clock_sync import ClockSync
 MSG_CMD, MSG_STATE, MSG_IMU, MSG_INFO, MSG_TIME = 0x01, 0x81, 0x82, 0x83, 0x84
 TE_SYNC, TE_CAM_TRIGGER, TE_CAM_STROBE = 1, 2, 3
 TIME_KINDS = {TE_SYNC: "sync", TE_CAM_TRIGGER: "cam_trigger", TE_CAM_STROBE: "cam_strobe"}
-PROTOCOL_VERSION = 5           # protocol.h PROTOCOL_VERSION: bump both with any body change
+PROTOCOL_VERSION = 6           # protocol.h PROTOCOL_VERSION: bump both with any body change
 REQ_DISARM, REQ_AUTO = 0, 1
 PROFILE_ADULT, PROFILE_KID = 0, 1
 DRIVE_IDLE, DRIVE_VEL_BODY, DRIVE_GOTO = 0, 1, 2
@@ -37,12 +37,12 @@ FAULTS = {1: "LINK_LOST", 2: "ESTOP", 4: "BUMPER", 8: "MOTOR_ERR", 16: "MOTOR_SI
           64: "IMU_SILENT", 128: "FLY_TELEM", 256: "FAULT_STOP"}
 FEED_STATES = {0: "IDLE", 1: "SEAT", 2: "RUN", 3: "DONE"}
 
-CMD_FMT = struct.Struct("<Q4B6fQ3fQ2fH")
-STATE_FMT = struct.Struct("<3Q4BH4B9f3f2f3f2B2HfHH")
+CMD_FMT = struct.Struct("<Q4B6fQ3fQ2fHH")
+STATE_FMT = struct.Struct("<3Q4BH4B9f3f2f3f2B2HfHH3H")
 IMU_FMT = struct.Struct("<Q4f3f3f")
 INFO_FMT = struct.Struct("<QH12s2B8h4B4B")
 TIME_FMT = struct.Struct("<QB3xII")
-assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size, INFO_FMT.size, TIME_FMT.size) == (74, 116, 48, 48, 20), \
+assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size, INFO_FMT.size, TIME_FMT.size) == (76, 122, 48, 48, 20), \
     "protocol.h changed"
 
 
@@ -123,7 +123,7 @@ class Command:
         return CMD_FMT.pack(int(t_host_ns), self.req_mode, self.profile, self.drive_mode, self.flags,
                             self.a, self.b, self.c, self.v_end, self.a_cap, self.speed_cap, int(self.t_brake_us),
                             self.coast_s, self.a_brake, self.tilt, int(self.t_tilt_us), self.tilt_after, self.fly_rpm,
-                            self.fire_seq & 0xFFFF)
+                            self.fire_seq & 0xFFFF, PROTOCOL_VERSION)
 
 
 @dataclass
@@ -160,6 +160,9 @@ class State:
     v_bus: float
     cmd_count: int
     rx_errors: int
+    cmd_rejected: int = 0         # protocol 6: CMDs the MCU dropped (version, non-finite, out of range)
+    tick_late: int = 0            # protocol 6: MCU ticks more than 1.5 ms late (count)
+    tick_max_us: int = 0          # protocol 6: the longest gap between MCU ticks since the last STATE
     t_host: float = math.nan      # filled by HostLink: t_mcu_us on the Jetson's clock (s)
 
     @classmethod

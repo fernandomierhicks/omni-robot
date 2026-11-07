@@ -17,6 +17,12 @@
 //                             interrupt (both edges). CAN replies stamped by FlexCAN's own timer (design.md 10)
 //   bidirectional DShot       TODO: stub, no output or telemetry yet (the core's rpm loop is ready for it)
 //   ELRS / CRSF               TODO: stub, rc_ok = 0 (MANUAL mode unreachable until written)
+//   watchdog (WDOG1)          written, VERIFY on the bench: a loop that stops feeding it for 0.5 s resets the MCU,
+//                             which boots DISARMED
+//
+// Build variants (platformio.ini): env arm (the default, fw_params_arm.h) and env catch (fw_params.h). The drive
+// motor driver here is Damiao's only: a variant whose motor is anything else (the arm robot's AK40-10) stops the build
+// below until its driver exists (todo.md).
 #include <Arduino.h>
 #include <FlexCAN_T4.h>
 #include <SPI.h>
@@ -26,6 +32,10 @@
 #include "sh2.h"
 
 using namespace board;
+
+static_assert(fw::prm::DRIVE_DAMIAO,
+              "this robot's drive motor has no CAN driver yet (the arm robot's CubeMars AK40-10: todo.md); the only "
+              "driver is Damiao's (dm_motor.h). `pio run -e catch` builds the catch variant to check the code compiles");
 
 static fw::Firmware g_fw;
 static FwHwInputs g_in;
@@ -41,6 +51,20 @@ static constexpr uint8_t ROBOCLAW_ADDR = 0x80;
 static constexpr uint8_t SERVO_ID = 1;
 static constexpr int TILT_DIR = 1;                     // servo steps per +tilt
 static constexpr int TILT_ZERO = 2048;                 // servo position at a level module
+
+// -- watchdog ------------------------------------------------------------------------------------------------------
+// WDOG1, 0.5 s: (WT + 1) x 0.5 s. A hung loop resets the MCU; after the reset it boots DISARMED and the drive motors'
+// own CAN timeouts stop them (VERIFY both on the bench: the reset fires; the motors' comm-loss timeout is set).
+static void watchdog_start() {
+    CCM_CCGR3 |= CCM_CCGR3_WDOG1(CCM_CCGR_ON);
+    WDOG1_WMCR = 0;                                                         // no power-down counter
+    WDOG1_WCR = WDOG_WCR_WDA | WDOG_WCR_SRS | WDOG_WCR_WT(0) | WDOG_WCR_WDE;
+}
+
+static inline void watchdog_feed() {
+    WDOG1_WSR = 0x5555;
+    WDOG1_WSR = 0xAAAA;
+}
 
 // -- 64-bit microseconds ----------------------------------------------------------------------------------------
 // micros64() runs in the loop only; an interrupt keeps micros() (32 bits, wraps every 71 min) and the loop extends it
@@ -354,6 +378,7 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(pin::CAM_STROBE), strobe_isr, CHANGE);
     g_fw.init();
     g_servo.torque(true);
+    watchdog_start();                            // last: setup's own waits don't count
 }
 
 static void read_inputs(uint64_t t_us) {
@@ -398,7 +423,9 @@ static void read_inputs(uint64_t t_us) {
     in.beam_catch = digitalReadFast(pin::BEAM_CATCH) ? 1 : 0;      // the receiver idles low while it sees the IR
     in.beam_feed_exit = digitalReadFast(pin::BEAM_FEED_EXIT) ? 1 : 0;
     in.estop = digitalReadFast(pin::ESTOP) ? 1 : 0;                 // the chain's relay contact opens to 1
-    in.bumper = (!digitalReadFast(pin::BUMPER_FRONT) || !digitalReadFast(pin::BUMPER_REAR)) ? 1 : 0;
+    // normally-closed switches to ground: closed (low) = clear; pressed or a broken wire (high, the pull-up) = hit.
+    // The core ignores it without HAS_BUMPERS (the arm robot has none yet: todo.md)
+    in.bumper = (digitalReadFast(pin::BUMPER_FRONT) || digitalReadFast(pin::BUMPER_REAR)) ? 1 : 0;
     in.v_bus = analogRead(pin::V_BUS) * ADC_REF / 4095.0f * V_BUS_DIVIDER;
     in.rc_ok = crsf_poll(in) ? 1 : 0;
 }
@@ -442,6 +469,9 @@ void loop() {
     read_inputs(now);
     g_fw.tick(g_in, g_out);
     write_outputs(tick++);
-    size_t n = g_fw.tx(buf, sizeof(buf));
-    if (n && Serial.availableForWrite() >= (int)n) Serial.write(buf, n);
+    watchdog_feed();
+    // take out only what USB has room for: the rest stays queued in the core (it used to be taken and dropped)
+    int room = Serial.availableForWrite();
+    size_t n = room > 0 ? g_fw.tx(buf, min((size_t)room, sizeof(buf))) : 0;
+    if (n) Serial.write(buf, n);
 }

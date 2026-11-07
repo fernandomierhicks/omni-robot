@@ -27,7 +27,9 @@ namespace fw {
 enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82, MSG_INFO = 0x83, MSG_TIME = 0x84 };
 enum TimeKind : uint8_t { TE_SYNC = 1, TE_CAM_TRIGGER = 2, TE_CAM_STROBE = 3 };
 
-constexpr uint16_t PROTOCOL_VERSION = 5;      // bump with any change to the bodies below (and in protocol.py)
+constexpr uint16_t PROTOCOL_VERSION = 6;      // bump with any change to the bodies below (and in protocol.py)
+                                              // 6: CmdBody.protocol (the MCU drops a CMD of another version);
+                                              //    StateBody.cmd_rejected, tick_late, tick_max_us
 constexpr uint32_t INFO_PERIOD_US = 100000;
 
 enum ReqMode : uint8_t { REQ_DISARM = 0, REQ_AUTO = 1 };
@@ -56,6 +58,7 @@ struct CmdBody {
     float tilt_after;
     float fly_rpm;               // flywheel target, mechanical rpm (0 = off)
     uint16_t fire_seq;           // a new value fires one ball (if the interlocks pass)
+    uint16_t protocol;           // protocol 6: the sender's PROTOCOL_VERSION; the MCU drops a CMD of any other version
 };
 
 struct StateBody {
@@ -83,6 +86,10 @@ struct StateBody {
     float v_bus;
     uint16_t cmd_count;          // CMDs received (mod 2^16)
     uint16_t rx_errors;          // frames dropped (CRC, length)
+    uint16_t cmd_rejected;       // protocol 6: CMDs dropped by the checks (version, a non-finite number, a value out of
+                                 //   range), count: a dropped CMD is not a heartbeat
+    uint16_t tick_late;          // protocol 6: ticks that came more than 1.5 ms after the one before (count)
+    uint16_t tick_max_us;        // protocol 6: the longest gap between ticks since the last STATE, us
 };
 
 struct ImuBody {
@@ -112,8 +119,8 @@ struct TimeBody {
 };
 #pragma pack(pop)
 
-static_assert(sizeof(CmdBody) == 74, "CmdBody layout changed: update omni_mcu/protocol.py");
-static_assert(sizeof(StateBody) == 116, "StateBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(CmdBody) == 76, "CmdBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(StateBody) == 122, "StateBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(ImuBody) == 48, "ImuBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(InfoBody) == 48, "InfoBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(TimeBody) == 20, "TimeBody layout changed: update omni_mcu/protocol.py");
