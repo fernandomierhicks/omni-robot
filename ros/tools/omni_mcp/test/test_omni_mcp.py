@@ -377,3 +377,32 @@ def test_a_dead_server_lets_the_lease_lapse_and_the_robot_stops():
     finally:
         robot.close()
         f.close()
+
+
+def test_the_robots_own_missions_are_tasks_through_the_mcp_tools():
+    f = ConsoleFake(free_port())
+    robot = Robot("127.0.0.1", f.port, free_port(), free_port(), session="mcp-fun")
+    try:
+        assert wait(lambda: robot.lease.state()["held"], 5.0)
+        server = build_server(robot)
+
+        async def tools():
+            from mcp import Client
+            async with Client(server) as c:
+                return [t.name for t in (await c.list_tools()).tools]
+        assert {"robot_fetch", "robot_message", "robot_tower", "robot_dance", "robot_goalie"} <= set(asyncio.run(tools()))
+        r = text_of(call(server, "robot_dance", dict(routine="robot")))
+        assert r["ok"], r
+        tid = r["data"]["task_id"]
+        assert r["data"]["kind"] == "mission" and r["data"]["args"]["name"] == "dance"
+        assert f.calls[-1][0] == "ai_mission" and f.calls[-1][1]["request_id"].startswith("mcp-fun-")
+        busy = text_of(call(server, "robot_goalie", dict(seconds=10)))
+        assert not busy["ok"] and busy["data"]["error"] == "busy"           # one task at a time
+        assert text_of(call(server, "robot_cancel", dict(task_id=tid)))["ok"]
+        t = text_of(call(server, "robot_task", dict(task_id=tid, wait_s=0)))["data"]
+        assert t["state"] == "CANCELLED"
+        bad = text_of(call(server, "robot_message", dict(text="")))
+        assert not bad["ok"]
+    finally:
+        robot.close()
+        f.close()

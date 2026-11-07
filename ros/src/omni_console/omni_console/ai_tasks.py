@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 STATES = ("ACCEPTED", "RUNNING", "SUCCEEDED", "FAILED", "CANCELLED", "TIMED_OUT", "INTERRUPTED")
 TERMINAL = ("SUCCEEDED", "FAILED", "CANCELLED", "TIMED_OUT", "INTERRUPTED")
 KEEP = 50                          # records kept (the newest)
-MOTION = ("move", "goto", "pick", "arm_pose")      # kinds that drive the base or the arm: one at a time
+MOTION = ("move", "goto", "pick", "arm_pose", "mission")   # kinds that drive the base or the arm: one at a time
 # the reply's error codes (Reply.data["error"]): ai_robot_architecture.md 6
 ERRORS = ("no_lease", "busy", "owner_conflict", "arm_out", "not_localized", "unknown_place", "not_found", "lost",
           "out_of_limits", "fault", "stale_object", "timeout", "no_arm", "bad_request", "unknown_task")
@@ -29,7 +29,7 @@ ERRORS = ("no_lease", "busy", "owner_conflict", "arm_out", "not_localized", "unk
 class Task:
     id: str
     request_id: str
-    kind: str                       # move | goto | pick | arm_pose | find
+    kind: str                       # move | goto | pick | arm_pose | find | mission (a fun mission: console_fun)
     args: dict
     owner: str                      # the AI session that asked
     state: str = "ACCEPTED"

@@ -142,6 +142,20 @@ def _chroma(img: np.ndarray) -> np.ndarray:
     return np.stack([255 * img[..., 0] / s, 255 * img[..., 1] / s, s / 3], axis=2)
 
 
+def square_axis(xy: np.ndarray, step_deg: float = 1.0) -> np.ndarray:
+    """The unit axis (within 0-90 deg) whose box round the points has the least area: a square's or a rectangle's
+    face direction, where the covariance can't tell (a square's is round)."""
+    best, ba = np.array([1.0, 0.0]), math.inf
+    for th in np.radians(np.arange(0.0, 90.0, step_deg)):
+        a = np.array([math.cos(th), math.sin(th)])
+        b = np.array([-a[1], a[0]])
+        pa, pb = xy @ a, xy @ b
+        area = (np.percentile(pa, 98) - np.percentile(pa, 2)) * (np.percentile(pb, 98) - np.percentile(pb, 2))
+        if area < ba:
+            best, ba = a, area
+    return best
+
+
 def refine(frame: WristFrame, guess: Detection, min_contrast: float = 8.0, debug: dict | None = None):
     """A better Detection (base_link) of the object near guess, or None (see the module notes)."""
     img = _chroma(frame.rgb.astype(np.float32))
@@ -191,6 +205,15 @@ def refine(frame: WristFrame, guess: Detection, min_contrast: float = 8.0, debug
     a0, a1 = np.percentile(along, 2), np.percentile(along, 98)
     b0, b1 = np.percentile(across, 2), np.percentile(across, 98)
     L, Wd = float(a1 - a0), float(b1 - b0)
+    if L - Wd < 0.25 * max(L, Wd):
+        # near square: its covariance is round, so the eigenvectors say nothing about which way its faces point (a
+        # tower's block must be closed across its faces). The rotation whose box round the points is smallest does
+        ax = square_axis(xy - m)
+        perp = np.array([-ax[1], ax[0]])
+        along, across = (xy - m) @ ax, (xy - m) @ perp
+        a0, a1 = np.percentile(along, 2), np.percentile(along, 98)
+        b0, b1 = np.percentile(across, 2), np.percentile(across, 98)
+        L, Wd = float(a1 - a0), float(b1 - b0)
     ctr = m + ax * (a0 + a1) / 2 + perp * (b0 + b1) / 2
     if debug is not None:
         debug.update(mask=sel, centre_px=c[:2], r_px=r_obj)

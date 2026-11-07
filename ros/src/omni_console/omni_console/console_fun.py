@@ -91,8 +91,20 @@ class FunMixin:
             self.event("info", task)
 
     def _fun_end(self, ok: bool, text: str, fx: list | None = None) -> list:
-        """The fun mission is over: back to MANUAL (motors on, the stick ready), its message as the task."""
+        """The fun mission is over: back to MANUAL (motors on, the stick ready), its message as the task. An AI's
+        task for it ends here too, with what the robot knows as its evidence."""
         out = list(fx or [])
+        t = self.ai_book.running(("mission",))
+        if t is not None:
+            ev = dict(result=text, mission=self.mission)
+            if self.goalie is not None:
+                ev.update(self.goalie.summary())
+            if self.fun is not None:
+                ev.update({k: self.fun[k] for k in ("what", "text", "phase") if k in self.fun})
+                if self.fun.get("kind") == "tower":
+                    ev["tower"] = ((self.arm or {}).get("tidy") or {}).get("tower")
+            self.ai_book.finish(t, "SUCCEEDED" if ok else "FAILED", self.wall_time(), text,
+                                result=None if ok else dict(error="failed"), evidence=ev)
         if self.goal is not None:
             out.append(("nav_cancel",))
             self.goal = None
@@ -182,16 +194,46 @@ class FunMixin:
         self.fun = dict(kind="dance", phase="dance", t_phase=self.now)
         return Reply(True, r.message, None, r.effects + (self._say_fx("", "happy", "sing"),))
 
+    def _ai_mission(self, a: dict):
+        """An AI client starts a fun mission (ai_robot_architecture.md: a task like any other): the lease, nobody else
+        holding the robot, no fault; then a task that ends with the mission (its result as the evidence), or when
+        the lease lapses, a person takes over, it is cancelled or its deadline passes."""
+        from omni_console.console_defs import AI_MISSIONS, Reply
+        dup = self._ai_dup(a)
+        if dup:
+            return dup
+        bad = self._ai_gate(a)
+        if bad:
+            return bad
+        name = str(a.get("name", ""))
+        if name not in AI_MISSIONS:
+            return self._err("bad_request", f"mission: one of {', '.join(AI_MISSIONS)}")
+        if name in ("fetch", "tower") and self._arm_out():
+            return self._err("arm_out", "The arm is out: stow it first (robot_arm_pose stow)")
+        args = {k: v for k, v in (a.get("args") or {}).items() if k not in ("ai", "request_id", "by")}
+        timeout = self._timeout(a, "mission")
+        r = getattr(self, f"_{name}")(args)
+        if not r.ok:
+            return self._err("bad_request", r.message)
+        t = self._ai_new("mission", a, dict(name=name, args=args), timeout, self.mission)
+        t.message = r.message
+        if self.act is not None:
+            self.act["who"], self.act["task_id"] = "ai", t.id
+        return Reply(True, r.message, t.public(self.now), r.effects)
+
     def _goalie(self, a: dict):
         from omni_console.console_defs import Reply
         from omni_console.goalie import Goalie, GoalieParams
         if self.odom_pose is None:
             return Reply(False, "Goalie needs the robot's odometry (the MCU link)")
+        secs = float(a.get("seconds") or 0.0)
+        if not 0.0 <= secs <= 1800.0:
+            return Reply(False, "seconds: 0 (until stopped) to 1800")
         p = GoalieParams(half_width=float(self.values["goalie.width"]) / 2, max_speed=float(self.values["goalie.speed"]))
         r = self._enter("GOALIE", "Goalie: roll the ball at me", "info")
         self.goalie = Goalie(tuple(self.odom_pose), p)
         self.ball, self.t_ball = None, -math.inf
-        self.fun = dict(kind="goalie", phase="play", t_phase=self.now)
+        self.fun = dict(kind="goalie", phase="play", t_phase=self.now, until=self.now + secs if secs else None)
         return Reply(True, r.message, None, r.effects + (("goalie", True),
                                                          self._say_fx("Ready. Do your worst.", "focused")))
 
@@ -234,6 +276,10 @@ class FunMixin:
                 return self._fetch_deliver()
         if f["kind"] == "goalie" and self.goalie is not None:
             out = []
+            if f.get("until") is not None and now >= f["until"]:
+                g = self.goalie
+                return self._fun_end(True, f"Goalie over: {g.saves} saved, {g.goals} let in, {g.shots} shots",
+                                     [self._say_fx(f"Final score: {g.saves} saves.", "happy")])
             for e in self.goalie.events:
                 g = self.goalie
                 line = {"save": ("Saved!", "happy"), "goal": ("Goal. I'll allow it.", "sad"),

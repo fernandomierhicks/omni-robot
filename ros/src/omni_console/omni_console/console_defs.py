@@ -37,9 +37,11 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "edge_save", "edge_delete", "calib", "calib_start", "calib_measure", "calib_shot", "calib_fit",
          "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
          "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames",
-         "preflight", "tests", "test_record", "activity", "fetch", "message", "tower", "dance", "goalie", "clip")
+         "preflight", "tests", "test_record", "activity", "fetch", "message", "tower", "dance", "goalie", "clip",
+         "ai_mission")
 CLIP_NAME = re.compile(r"^clip-[0-9]{10,16}\.wav$")   # the supervisor's /api/clip names
-AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames")   # the AI client's own (its plan 4)
+AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames", "ai_mission")   # the AI client's own
+AI_MISSIONS = ("fetch", "message", "tower", "dance", "goalie")    # what ai_mission starts (console_fun.py), as a task
 # what a person's command (the page, the voice) takes the robot back from the AI with
 HUMAN_VERBS = ("stop", "mission", "goto", "cancel", "explore", "patrol", "thrower", "fire", "follow", "program_run",
                "calib_start", "tidy", "arm", "slam_new", "slam_load", "fetch", "message", "tower", "dance", "goalie")
@@ -47,7 +49,8 @@ HUMAN_HOLD = 10.0                  # s after a person takes over that the AI may
 # the firmware's profile limits, fw_params_arm.h ADULT_LIMITS / KID_LIMITS: m/s, yaw rad/s, yaw rad/s^2
 FW_LIMITS = {"adult": (2.0, 4.0, 15.0), "kid": (0.8, 2.0, 7.5)}
 AI_TTL = (1.0, 10.0)               # s: the AI lease's time to live, its range (omni_mcp renews a 3 s lease every 1 s)
-AI_TIMEOUT = {"goto": (120.0, 300.0), "pick": (180.0, 180.0), "arm_pose": (30.0, 60.0), "find": (15.0, 15.0)}
+AI_TIMEOUT = {"goto": (120.0, 300.0), "pick": (180.0, 180.0), "arm_pose": (30.0, 60.0), "find": (15.0, 15.0),
+              "mission": (600.0, 1800.0)}
 AI_MOVE_MAX = 300.0                # s: the longest move (its default deadline: 1.5 x the estimate + 10 s)
 FIND_SHAPES = ("square", "round", "long", "any")
 FIND_STALE = 30.0                  # s: a find older than this can't be picked from (find again)

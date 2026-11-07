@@ -31,6 +31,9 @@ class GoalieParams:
     k_yaw: float = 3.0              # 1/s: back to the heading
     save_r: float = 0.45            # m: a ball this near the robot's centre was reached
     stale: float = 0.4              # s: a track older than this is no ball
+    trust: float = 0.4              # s: the prediction followed in full only this close to the line; farther out it
+                                    #   is blended toward the shadow (its error grows with the time left), 0: always.
+                                    #   0.4 s: best of 0-0.9 s against noisy D435-like tracks offline (est)
 
 
 @dataclass
@@ -73,6 +76,10 @@ class Goalie:
             if du < -p.min_speed and bu > p.line_u - 0.05:
                 t_hit = (bu - p.line_u) / -du
                 cross = bv + dv * t_hit
+                if p.trust > 0.0:                  # far out, the lateral speed's noise x the time left: shade it
+                    w = min(1.0, p.trust / max(t_hit, 1e-3))
+                    shadow = p.shadow * bv
+                    cross = shadow + w * (cross - shadow)
                 target = max(-p.half_width, min(p.half_width, cross))
                 if self._shot is None:
                     self._shot = dict(cross=cross, closest=math.inf)

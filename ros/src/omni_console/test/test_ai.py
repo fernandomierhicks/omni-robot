@@ -420,3 +420,55 @@ def test_runner_measures_and_estimates():
     book = TaskBook()
     t = book.new("move", {}, S, "r1", 0.0, 0.0, 10.0)
     assert book.by_req("r1") is t and book.running() is t
+
+
+# -- the fun missions as AI tasks (console_fun.py _ai_mission) ------------------------------------------------------
+def test_ai_mission_needs_the_lease_and_becomes_a_task_that_ends_with_the_mission():
+    c = ready()
+    assert ai(c, "ai_mission", name="dance", args=dict(routine="robot")).ok
+    t = c.ai_book.running(("mission",))
+    assert t is not None and t.args["name"] == "dance" and c.mission == "DANCE"
+    c.command("set", dict(key="dance.seconds", value=15))             # a person's setting: no takeover
+    while c.mission == "DANCE":
+        c.now += 0.05
+        lease(c)
+        c.drive_output(c.now)
+    assert t.state == "SUCCEEDED" and t.evidence["result"].startswith("Dance over")
+    other = Console()
+    other.on_robot_mode("TELEOP adult")
+    assert other.command("ai_mission", dict(name="dance", ai=S)).data["error"] == "no_lease"
+
+
+def test_ai_mission_refused_while_a_person_drives_and_cancelled_when_one_takes_over():
+    c = ready()
+    c.command("mission", dict(name="MANUAL"))
+    c.manual_input(0.5, 0, 0, False, c.now)
+    assert ai(c, "ai_mission", name="goalie").data["error"] == "owner_conflict"
+    c = ready()
+    r = ai(c, "ai_mission", name="goalie", args=dict(seconds=0))
+    assert r.ok and c.mission == "GOALIE"
+    tid = r.data["task_id"]
+    c.command("stop")                                                    # a person: the AI's task ends
+    assert c.ai_book.get(tid).state == "CANCELLED" and c.mission == "IDLE"
+
+
+def test_ai_goalie_for_a_set_time_ends_with_the_score():
+    c = ready()
+    r = ai(c, "ai_mission", name="goalie", args=dict(seconds=2))
+    tid = r.data["task_id"]
+    c.goalie.saves, c.goalie.shots = 3, 4
+    for _ in range(6):
+        c.now += 0.5
+        lease(c)
+        c.tick(c.now)
+    t = c.ai_book.get(tid)
+    assert t.state == "SUCCEEDED" and t.evidence["saves"] == 3 and c.mission == "MANUAL"
+
+
+def test_ai_mission_stops_when_the_lease_lapses_and_checks_its_name():
+    c = ready()
+    assert ai(c, "ai_mission", name="tango").data["error"] == "bad_request"
+    r = ai(c, "ai_mission", name="goalie")
+    c.now += 4.0                                                          # no renewal: the 3 s lease is gone
+    c.tick(c.now)
+    assert c.ai_book.get(r.data["task_id"]).state == "CANCELLED" and c.mission == "MANUAL"

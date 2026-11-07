@@ -492,6 +492,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                 return self._dance(a)
             if verb == "goalie":
                 return self._goalie(a)
+            if verb == "ai_mission":
+                return self._ai_mission(a)
             if verb == "clip":
                 from omni_console.console_defs import CLIP_NAME
                 name = str(a.get("name", ""))

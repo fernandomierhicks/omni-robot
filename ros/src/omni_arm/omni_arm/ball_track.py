@@ -28,7 +28,9 @@ class BallParams:
     min_px: int = 40                    # fewer ball-coloured pixels with depth: not seen
     max_range: float = 4.5              # m from the robot
     robot_r: float = 0.25               # m: nearer the base's centre is the robot itself (its bumper)
-    accel: float = 4.0                  # m/s^2: the filter's process noise (a kick, a bounce off a wall)
+    accel: float = 1.5                  # m/s^2: the filter's process noise (a rolling ball barely changes speed;
+                                        #   a kick or a bounce starts a new track at the gate). 1.5 tracked better
+                                        #   than 4 against noisy D435-like tracks offline (est)
     meas: float = 0.03                  # m: a detection's error (est: the D435's depth noise at 2-3 m on a ball)
     gate: float = 0.6                   # m: farther from the prediction is a new ball (or a new throw)
     lost: float = 0.5                   # s

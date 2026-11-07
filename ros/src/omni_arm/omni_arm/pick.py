@@ -125,6 +125,7 @@ class PickParams:
     max_blocks: int = 4                 # the tallest tower tried (the fingers-down reach tops out near 0.2 m)
     tower_find: float = 0.08            # m: the tower found again within this of where it was
     tower_keep: float = 0.32            # m: the base's centre keeps this far from the tower (its bumper ~9 cm off)
+    regrip_gap: float = 0.004           # m: a block held this much wider than it is was gripped askew: down, again
 
 
 @dataclass
@@ -202,6 +203,7 @@ class TidyTask:
         self.place = None                                 # dict(x, y, z (its bottom's height), yaw, tower) to put it
         self.tower = None                                 # dict(id, x, y, top, n, yaw) while building a tower
         self.mode = "tidy"                                # tidy | keep | place | tower
+        self.regrips: dict = {}                           # object id -> times put down to grip it square
 
     # -- fixed poses -----------------------------------------------------------------------------------------------
     def _poses(self) -> dict:
@@ -694,10 +696,16 @@ class TidyTask:
         bx, by = self._base_from_odom(pose, d.x, d.y)
         yaw_b = math.remainder(d.yaw - pose[2], math.pi)
         close_dir = yaw_b + math.pi / 2                       # close across the short side
-        if d.length - d.width < 0.006:                        # round or square: whichever turns the wrist least
+        dirs = (close_dir, close_dir + math.pi)
+        if self.mode == "tower" and self.is_block(d):
+            # a tower's block is closed across its faces, whichever pair turns the wrist least: held askew it
+            # leans on the fixed finger and topples off the tower when let go (the sim, Nov 7)
+            dirs = tuple(yaw_b + k * math.pi / 2 for k in range(4))
+        elif d.length - d.width < 0.006:                      # round or square: whichever turns the wrist least
             close_dir = math.atan2(by - self.kin.mount[1], bx - self.kin.mount[0]) + math.pi / 2
+            dirs = (close_dir, close_dir + math.pi)
         best = None
-        for yaw in (close_dir, close_dir + math.pi):
+        for yaw in dirs:
             o = np.array([math.cos(yaw), math.sin(yaw), 0.0])
             ctr = np.array([bx, by, 0.0])
             tool = ctr - o * (d.width / 2 + self.p.side_clear)
@@ -754,7 +762,9 @@ class TidyTask:
             d = fv.Detection(pose[0] + c * r.x - s * r.y, pose[1] + s * r.x + c * r.y, guess.top, r.length,
                              min(r.width, g["det"].width + 0.01), math.remainder(r.yaw + pose[2], math.pi), r.n)
             shift = math.hypot(r.x - bx, r.y - by)
-            if shift > self.p.refine_tol and self.refines < self.p.refine_moves:
+            turn = abs(math.remainder(r.yaw - guess.yaw, math.pi / 2))
+            squaring = self.mode == "tower" and self.is_block(d) and turn > math.radians(4)
+            if (shift > self.p.refine_tol or squaring) and self.refines < self.p.refine_moves:
                 self.refines += 1
                 gg = self._grasp_for(inp.pose, d, q)
                 if gg is not None:
@@ -820,13 +830,34 @@ class TidyTask:
             self._fail(t, q, "dropped it on the way up")
             return
         self.stages["grasped"] = True
+        gap = float(gap_at(self.kin.cfg, q[5]))
+        if self.mode == "tower" and gap > self.grasp["det"].width + self.p.regrip_gap \
+                and self.regrips.get(self.target.id, 0) < 1:
+            # held askew (the jaws wider than the block): straight back down where it was, then picked again
+            o = self.target
+            self.regrips[o.id] = self.regrips.get(o.id, 0) + 1
+            pose = inp.pose
+            self.held = dict(id=o.id, width=round(gap, 4), height=round(o.det.top, 4), yaw=self.grasp["yaw"],
+                             tip=float(self.grasp["tool"][2] - self.kin.cfg.pads["fingertip_below_tool"]))
+            c, s_ = math.cos(pose[2]), math.sin(pose[2])
+            gy = self.grasp["yaw"]                        # where it was: the tool's spot, the object beside it
+            bx = self.grasp["tool"][0] + math.cos(gy) * gap / 2
+            by = self.grasp["tool"][1] + math.sin(gy) * gap / 2
+            self.place = dict(x=pose[0] + c * bx - s_ * by, y=pose[1] + s_ * bx + c * by, z=0.0, yaw=None,
+                              tower=False, ahead=False, regrip=True)
+            self._set("P_HOVER", t, f"object {o.id} held askew ({1000 * gap:.0f} mm for "
+                                    f"{1000 * self.grasp['det'].width:.0f}): down again to grip it square")
+            return
         if self.keep:                                    # Fetch, the tower: carry it instead of the bin
             o = self.target
             o.status = "picked"
             self.held = dict(id=o.id, width=round(float(gap_at(self.kin.cfg, q[5])), 4), height=round(o.det.top, 4),
                              yaw=self.grasp["yaw"], tip=float(self.grasp["tool"][2]
                                                               - self.kin.cfg.pads["fingertip_below_tool"]))
-            carry = self.poses["ready"].copy()
+            # building, the block is carried up high: at "ready" it hung in the D435's view and hid the tower's top
+            # from the look before stacking (it read 43 mm for an 80 mm tower in the sim, and the next block went
+            # down into it)
+            carry = self.poses["high" if self.mode == "tower" else "ready"].copy()
             carry[5] = self.q_closed
             if not self._go(t, q, carry, gripper=self.q_closed):
                 self._halt(t, q, f"no checked way to carry object {o.id} ({self.no_path})")
@@ -928,8 +959,11 @@ class TidyTask:
             tw.update(n=0, top=0.0)
         else:
             d = min(near, key=lambda d: math.hypot(d.x - tw["x"], d.y - tw["y"]))
+            if d.top < tw["top"] - 0.02:                  # lower than it was built: fallen, or the view is blocked
+                self.log(f"P_CHECK: the tower reads {1000 * d.top:.0f} mm, built to {1000 * tw['top']:.0f}: "
+                         "going by what is seen")
             # the top seen (the highest points) rather than the count: a block not quite flat says so
-            tw.update(x=d.x, y=d.y, top=max(d.top, 0.5 * tw["top"]), yaw=d.yaw)
+            tw.update(x=d.x, y=d.y, top=d.top, yaw=d.yaw)
             pl.update(x=d.x, y=d.y, z=tw["top"], yaw=d.yaw)
         if self.p.look_back > 0:                          # seen: slide in to the sweet spot, the heading kept
             sx, sy = self.p.sweet
@@ -1027,6 +1061,13 @@ class TidyTask:
             return
         held, pl = self.held, self.place
         self.held, self.place = None, None
+        if pl.get("regrip"):                              # put back to grip it square: a fresh look, then again
+            o = self.target
+            if o is not None:
+                o.status = "new"
+            self.target = None
+            self._set("STOW", t, f"object {held['id']} down again: a fresh look, then a square grip")
+            return
         self.stages["released"] = True
         self.picked += 1
         if self.mode == "tower" and self.tower is not None:

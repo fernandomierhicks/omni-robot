@@ -80,6 +80,7 @@ ports.
 | `robot_find(color, shape)` | omni_arm's floor candidates labelled by colour and shape (`color_vision.py`), with ids, scores, image-only blobs, a hint, and the annotated image (`/arm/find_image`) |
 | `robot_pick(object_id)` | The tidy for that one object (`TidyTask` `only`): approach, close look, wrist refine, grasp, bin |
 | `robot_task(task_id, wait_s)` | State and evidence. Picks get `sim_truth` in the sim (`/sim/objects`, scoring only) |
+| `robot_fetch`, `robot_message`, `robot_tower`, `robot_dance`, `robot_goalie` | The robot's own missions (the console's `console_fun.py`), each one task through the console's `ai_mission` verb: the lease, a person's take-over, one task at a time and the deadline apply; the evidence is the robot's account (what it fetched, who it told, the tower's height, the score). The model still plans everything else from the tools above |
 | `robot_cancel`, `robot_stop` | Need no lease. Cancel stops the task; the arm stows on checked paths and never goes limp |
 | `robot_say`, `robot_arm_pose(name)` | A line on the face; a named pose (`stow`, `ready`, `high`, `drop`) |
 | `robot_map(crop, marks)` | The SLAM map as a picture with a labelled metre grid (north up), rooms, places, AprilTags, the robot, and red marks to check goals against. The reply gives the pixel-to-map formula |
