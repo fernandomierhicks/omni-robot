@@ -36,7 +36,7 @@ throwers 2.5 m apart taking turns, the robot returning each ball to the other on
 person walking ahead of the robot, for the console's Follow / Tag. mcu_port (5761): the sim's
 firmware USB port on localhost TCP; another value lets a second run go alongside (with its own ROS_DOMAIN_ID).
 timing (ideal | real) and sync_gpio (none | hte | irq), house steps with the firmware (design.md 10): the MCU's clock
-drifts and its CAN replies arrive as on the real bus; the Jetson stamps the firmware's 1 Hz SYNC_OUT on a modelled
+drifts and its CAN replies arrive as on the real bus; the robot computer stamps the firmware's 1 Hz SYNC_OUT on a modelled
 GPIO and mcu_link maps the MCU's clock from those pulses (/mcu/clock says how well). tags (false; house steps):
 AprilTags on the walls, the camera's detections simulated by the bridge, omni_slam's tag_slam alongside slam_toolbox
 (/tag_slam/*, /localization/health: the console slows with it). arm step: objects (toys | clutter | colours: the AI's

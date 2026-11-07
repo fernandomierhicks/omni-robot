@@ -2,7 +2,7 @@
 switches missions, keeps the settings, runs SLAM in the 'robot' step, and boils the robot down to a few small topics
 that cross Wi-Fi cheaply.
 
-The Jetson only sends data; the page does the drawing and the arithmetic for it. Three topics go to the page raw,
+The robot computer only sends data; the page does the drawing and the arithmetic for it. Three topics go to the page raw,
 straight through rosbridge (cbor-raw: no conversion on the robot, web/js/cdr.js decodes them): the map, the lidar scan
 (the page places it with the status's pose and the laser's offset from /console/version) and /mcu/samples (mcu_link,
 the Base tab's 200 Hz samples). This node reads its own high-rate inputs as raw bytes too (/tf, /catch/track:
@@ -123,7 +123,7 @@ FILTER_KEEPOUT, FILTER_SPEED_ABS = 0, 2   # nav2_msgs CostmapFilterInfo types
 
 class LoadMeter:
     """What the node's own callbacks cost: time per callback name over 10 s windows, logged (and kept for the Version
-    tab) when they add up to more than 5% of a core. design.md 7: "profile the mission node on the Jetson"."""
+    tab) when they add up to more than 5% of a core. design.md 7: "profile the mission node on the robot computer"."""
 
     def __init__(self, log):
         self.log, self.acc, self.n, self.mx, self.t0, self.last = log, {}, {}, {}, time.monotonic(), {}

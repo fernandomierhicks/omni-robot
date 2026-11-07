@@ -149,7 +149,7 @@ class Bridge(Node):
                               terrain=P("terrain", False).value,    # design.md 16: the kitchen's terrain course
                               props=P("props", False).value,        # the house furnished (house_props.py)
                               **(dict(firmware=True) if sil else {}))
-        # design.md 10: the Jetson's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
+        # design.md 10: the robot computer's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
         # (/sim/sync_edge; mcu_link's sync_source:=topic)
         self.sync_gpio = P("sync_gpio", "none").value
         self.want_viewer = P("viewer", False).value
@@ -547,7 +547,7 @@ class Bridge(Node):
             self.p_shadow[k].publish(ps)
 
     def pub_sync_edges(self):
-        """The firmware's new SYNC_OUT edges as the Jetson's GPIO would stamp them (sim time + its latency)."""
+        """The firmware's new SYNC_OUT edges as the robot computer's GPIO would stamp them (sim time + its latency)."""
         r = self.core.r
         new = list(r.sync_edges)[-(r.n_sync - self.n_sync):]
         self.n_sync = r.n_sync

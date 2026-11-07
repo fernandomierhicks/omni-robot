@@ -1,6 +1,6 @@
 """The firmware's build id: the first 8 hex digits of a SHA-1 over lib/omni_fw (each file's name and its text, line
 endings normalized). The Teensy build (PlatformIO, `extra_scripts = pre:fw_build_id.py`) and the SIL build
-(sil/build_sil.py) compile it in as FW_BUILD; the MCU reports it in its INFO message. The Jetson computes the same id
+(sil/build_sil.py) compile it in as FW_BUILD; the MCU reports it in its INFO message. The robot computer computes the same id
 from its own copy of firmware/ (omni_console/status.py firmware_build_id) and warns when they differ: the robot runs
 firmware other than the software expects.
 

@@ -1,4 +1,4 @@
-"""The play-catch behavior on the Jetson (design.md 8, 9, 22, 30): the robot half of the sim's catch_game.CatchGame.
+"""The play-catch behavior on the robot computer (design.md 8, 9, 22, 30): the robot half of the sim's catch_game.CatchGame.
 
   wait     at home, facing the thrower; the perception's track starting on an incoming ball starts a catch
   flight   predict where the ball crosses the funnel rim (tracker), plan a stop or a moving catch under it

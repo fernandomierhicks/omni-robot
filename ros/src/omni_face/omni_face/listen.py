@@ -5,10 +5,10 @@ Backends, the first that works is used (choose()); each listens for a grammar: t
 "robot" ...) followed by one of the command phrases, the wake word alone, or a phrase alone (the face node takes a
 phrase alone only in the few seconds after the wake word). A closed grammar is what makes a small offline recognizer
 reliable: it can only answer with a phrase it was given, and its confidence says how sure it is.
-  vosk     the robot (Jetson): Vosk (Kaldi), offline, on the CPU, with a small English model (~40 MB:
+  vosk     the robot (its computer): Vosk (Kaldi), offline, on the CPU, with a small English model (~40 MB:
            vosk-model-small-en-us-0.15 from alphacephei.com/vosk/models; OMNI_VOSK_MODEL points at it, else
            ~/.local/share/vosk/<the first model>); `pip install vosk sounddevice`. Audio from the USB mic array
-           (echo cancelled; OMNI_MIC names the ALSA device, VERIFY its name on the Jetson)
+           (echo cancelled; OMNI_MIC names the ALSA device, VERIFY its name on the robot computer)
   sapi     Windows' own recognizer (System.Speech, one PowerShell process per grammar): the sim on the PC, from the
            PC's default microphone; recognize_wav() runs it on a file (the tests)
   none     no microphones

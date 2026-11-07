@@ -1,7 +1,7 @@
 """Serialized ROS 2 messages (CDR, as rmw writes them), read field by field, ROS-free.
 
 The console reads a few high-rate topics as raw bytes (rclpy raw=True) and decodes only the message it needs, when it
-needs it: building Python message objects for every /tf or /catch/track message cost the Jetson more than everything
+needs it: building Python message objects for every /tf or /catch/track message cost the robot computer more than everything
 else the console does. web/js/cdr.js is the page's twin (the map, the scan and the MCU samples come to it raw).
 """
 

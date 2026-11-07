@@ -8,7 +8,7 @@ namespace fw {
 namespace prm {
 
 constexpr float TICK_S = 0.001f;                 // the firmware's 1 kHz tick (design.md 4)
-constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the Jetson at 200 Hz
+constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the robot computer at 200 Hz
 constexpr float CMD_TIMEOUT = 0.5f;              // s without a CMD -> ramped stop (est)
 constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault
 constexpr float BATT_LOW = 21.0f;          // V: 3.5 V per cell (catalog pack setting)
@@ -16,7 +16,7 @@ constexpr float MANUAL_SPEED = 1.0f;             // m/s cap on the RC sticks (es
 constexpr bool HAS_BUMPERS = true;                    // bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored
 constexpr bool DRIVE_DAMIAO = true;                  // DM-2325: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else
 
-// time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN
+// time references (design.md 10): SYNC_OUT to the robot computer's GPIO, CAM_TRIG to both cameras' FSIN
 constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time
 constexpr float CAM_TRIGGER_HZ = 120.0f;        // the stereo pair's frame rate
 // a DM-2325 reply's interrupt minus this = when the motor sampled its position: the 8-byte reply on the wire
@@ -31,7 +31,7 @@ constexpr float J_PINV[3][4] = {{-0.0224506403f, -0.0224506403f, 0.0224506403f, 
 constexpr float MAX_WHEEL_SPEED = 55.7109097f;   // rad/s: 0.95 x the DM-2325's no-load speed
 
 // limits by profile: max_speed, max_accel, max_jerk, max_yaw_rate, max_yaw_accel, brake_margin, accel_scale,
-// fly_rpm_max. The Jetson can only ask for less (CMD speed_cap)
+// fly_rpm_max. The robot computer can only ask for less (CMD speed_cap)
 constexpr float ADULT_LIMITS[8] = {2.0f, 2.5f, 40.0f, 4.0f, 15.0f, 0.8f, 1.0f, 6000.0f};
 constexpr float KID_LIMITS[8] = {0.8f, 1.5f, 20.0f, 2.0f, 7.5f, 0.8f, 0.6f, 2600.0f};   // est (design.md 14)
 // direction-aware acceleration limit, body frame, 0 = forward, mirrored left / right (m/s^2)
@@ -49,7 +49,7 @@ constexpr float FLY_KP = 0.004f;
 constexpr float FLY_KI = 0.08f;
 constexpr int FLY_POLE_PAIRS = 7;             // VERIFY
 constexpr bool FLY_BRAKE = false;
-constexpr float FLY_READY_TOL = 0.03f;          // the fire interlock (the Jetson asks for 2%)
+constexpr float FLY_READY_TOL = 0.03f;          // the fire interlock (the robot computer asks for 2%)
 
 // feed: chute pocket, Pololu 9.7:1 25Dx63L HP 12V, 48 CPR encoder, on a RoboClaw 2x7A
 constexpr bool FEED_CHUTE = true;

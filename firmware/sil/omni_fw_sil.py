@@ -4,8 +4,8 @@ lib/omni_fw/hw_io.h (checked against the library's sizeof at load).
     fw = Firmware()                  # builds the library first if a source changed
     fw.inputs.t_us = ...             # fill the hardware inputs
     out = fw.tick()                  # one 1 ms tick -> FwHwOutputs
-    fw.rx(b"...")                    # bytes from the Jetson
-    data = fw.tx()                   # bytes to the Jetson
+    fw.rx(b"...")                    # bytes from the robot computer
+    data = fw.tx()                   # bytes to the robot computer
 """
 
 from __future__ import annotations
@@ -154,7 +154,7 @@ class Firmware:
         return self.outputs
 
     def rx(self, data: bytes, t_rx_us: int = 0):
-        """Bytes from the Jetson, read at MCU time t_rx_us (0 = unknown: the next tick's)."""
+        """Bytes from the robot computer, read at MCU time t_rx_us (0 = unknown: the next tick's)."""
         if data:
             self.L.fw_rx(self.h, data, len(data), int(t_rx_us))
 

@@ -1,7 +1,7 @@
 """catch_bridge: the catch game's world as a ROS 2 robot, with its firmware in the loop (design.md 30). PC only.
 
 The sim (simulation/v11 sil: catch_world.CatchWorld) runs the field, the thrower, the physics and the robot with the
-C++ firmware (SIL). The robot's software runs as on the Jetson: mcu_link connects to the firmware's USB port (TCP,
+C++ firmware (SIL). The robot's software runs as on the robot computer: mcu_link connects to the firmware's USB port (TCP,
 McuPort), catch_perception gets the cameras' frames, catch_behavior and mode_manager decide. This node is the clock.
 
 Publishes /clock                     every clock_period of sim time (1 ms: the link's time sync and the catch need it)

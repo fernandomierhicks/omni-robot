@@ -1,14 +1,14 @@
-// The MCU firmware's top level (design.md 4, 14, 30): the safety authority under the Jetson.
+// The MCU firmware's top level (design.md 4, 14, 30): the safety authority under the robot computer.
 //
 // Every 1 ms tick: read the hardware (HwInputs), update odometry, decide the mode, run the base controller and the
-// module, and write the hardware (HwOutputs). Between ticks, bytes from the Jetson arrive (rx) and leave (tx).
+// module, and write the hardware (HwOutputs). Between ticks, bytes from the robot computer arrive (rx) and leave (tx).
 //
 // Modes
 //   DISARMED   drive motors disabled, flywheels off, feed holding. Boot state; also after the link has been lost and
-//              the base has stopped, and after the e-stop is released (the Jetson must ask for AUTO again)
-//   AUTO       the Jetson's CMDs drive the base and the module, inside this firmware's limits (the profile's caps;
-//              the Jetson can only ask for less)
-//   MANUAL     the RC transmitter's switch: the sticks drive the base directly, Jetson or not (design.md 15). Leaving
+//              the base has stopped, and after the e-stop is released (the robot computer must ask for AUTO again)
+//   AUTO       the robot computer's CMDs drive the base and the module, inside this firmware's limits (the profile's caps;
+//              the robot computer can only ask for less)
+//   MANUAL     the RC transmitter's switch: the sticks drive the base directly, robot computer or not (design.md 15). Leaving
 //              it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest with the
 //              motors still enabled, then disables them: never a cut at speed
 //   ESTOP      the e-stop chain is open: motor power is already off in hardware; everything is reset
@@ -18,7 +18,7 @@
 // and counted (cmd_rejected): a dropped CMD is no heartbeat. The kid profile turns on at once and off only with the
 // base at rest.
 // The fault stop: in AUTO, a low pack (under BATT_LOW for BATT_LOW_HOLD_US), a motor error or a silent motor -> a
-// ramped stop, then DISARMED. It latches (FAULT_STOP) until the Jetson asks for DISARM (its mode ended) with the pack at
+// ramped stop, then DISARMED. It latches (FAULT_STOP) until the robot computer asks for DISARM (its mode ended) with the pack at
 // BATT_LOW + BATT_RESUME or more; only then does a request for AUTO re-arm (which clears the motors' errors). MANUAL is
 // not stopped: the RC operator keeps the sticks to move the robot off.
 #pragma once
@@ -60,7 +60,7 @@ class Firmware {
 public:
     void init();
     void tick(const FwHwInputs& in, FwHwOutputs& out);
-    // bytes from the Jetson; t_rx_us = when they were read (MCU clock), the CMD's arrival for the time sync's echo
+    // bytes from the robot computer; t_rx_us = when they were read (MCU clock), the CMD's arrival for the time sync's echo
     // (0 = unknown: the next tick's time)
     void rx(const uint8_t* data, size_t n, uint64_t t_rx_us = 0);
     size_t tx(uint8_t* out, size_t cap);

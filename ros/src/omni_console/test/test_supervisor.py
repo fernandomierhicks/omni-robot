@@ -17,7 +17,7 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-pytestmark = pytest.mark.skipif(sys.platform == "win32", reason="process groups and signals: Linux (WSL, the Jetson)")
+pytestmark = pytest.mark.skipif(sys.platform == "win32", reason="process groups and signals: Linux (WSL, the robot computer)")
 
 # a step that prints its arguments, then runs until SIGINT, which it answers like ros2 launch: a clean exit
 STEP = ("import signal, sys, time\n"

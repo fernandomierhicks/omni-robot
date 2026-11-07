@@ -1,4 +1,4 @@
-"""Feetech STS3215 serial bus servos, the Jetson's side (design.md 11): the SO-101's six servos on a USB bus board
+"""Feetech STS3215 serial bus servos, the robot computer's side (design.md 11): the SO-101's six servos on a USB bus board
 (Waveshare's bus servo adapter, 1 Mbaud, half duplex). No ROS; the transport is anything with write(bytes) and
 read(n) (the sim's harness passes its bus; on the robot omni_cpp's arm_driver and feetech.cpp own the bus).
 

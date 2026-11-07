@@ -81,7 +81,7 @@ constexpr Use PINS[] = {
     {pin::BNO_BOOTN, GPIO, "BNO085 BOOTN (low at reset: its bootloader, for firmware updates)"},
     {pin::BNO_PS1, GPIO, "BNO085 PS1 (high at reset with PS0: SPI mode)"},
     // time references (design.md 10): edges on hardware timers, reported in the MCU clock
-    {pin::SYNC_OUT, PWM, "SYNC_OUT: 1 Hz pulse to the Jetson's 40-pin GPIO (AON pin for HTE stamps, VERIFY)"},
+    {pin::SYNC_OUT, PWM, "SYNC_OUT: 1 Hz pulse to the robot computer's 40-pin GPIO (AON pin for HTE stamps, VERIFY)"},
     {pin::CAM_TRIG, PWM, "CAM_TRIG: both OV9782 FSIN (external trigger, 120 Hz; level shift to DOVDD, VERIFY)"},
     {pin::CAM_STROBE, GPIO, "CAM_STROBE: left OV9782 STROBE in (exposure active), interrupt on both edges"},
     // RC: ELRS receiver, CRSF at 420 kbaud (sticks + failsafe; design.md 15)

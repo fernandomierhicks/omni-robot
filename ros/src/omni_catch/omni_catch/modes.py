@@ -1,4 +1,4 @@
-"""Robot modes on the Jetson (design.md 14, 15, 30): who drives, and the profile the MCU enforces.
+"""Robot modes on the robot computer (design.md 14, 15, 30): who drives, and the profile the MCU enforces.
 
   IDLE      the MCU is asked to disarm (ramped stop first, then motors off)
   TELEOP    /cmd_vel (stick, Foxglove, Nav2, the console) drives the base; module parked
@@ -12,7 +12,7 @@ arm's weight out front. The caps come from the generated robot_arm.json's "arm_o
 pass them to ModeMux; without them it does not cap.
 The MCU stays the safety authority: it caps everything by its own profile (kid / adult), stops on a lost link, a
 bumper or the e-stop, and the RC switch takes over regardless of this (design.md 15). This only chooses whose request
-goes out. A Request carries times on the Jetson's clock; to_command() turns it into the MCU's Command with the link's
+goes out. A Request carries times on the host's clock; to_command() turns it into the MCU's Command with the link's
 time sync (the link node does that on the robot). omni_cpp's mode_manager is the ROS node (C++ ModeMux).
 
 Firing: the MCU fires one ball whenever the fire_seq it receives changes. Each source (the catch behavior, the console)

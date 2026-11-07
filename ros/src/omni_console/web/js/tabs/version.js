@@ -8,7 +8,7 @@ export function mismatch(v) {
   const f = v?.firmware;
   if (!f) return null;
   if (f.protocol != null && f.protocol !== f.protocol_host) {
-    return `The MCU speaks protocol ${f.protocol}, the Jetson ${f.protocol_host}: build and flash the firmware from this checkout.`;
+    return `The MCU speaks protocol ${f.protocol}, the robot computer ${f.protocol_host}: build and flash the firmware from this checkout.`;
   }
   if (f.running && f.expected && f.running !== f.expected) {
     return `The MCU runs firmware ${f.running}, this software is built for ${f.expected}: rebuild (and, on the robot, flash) the firmware.`;
@@ -26,7 +26,7 @@ export function VersionTab() {
   return html`<div class="full">
     <${HelpBox} tab="version">
       What runs where. The firmware's build id is a hash of its source (<span class="mono">firmware/fw_build_id.py</span>):
-      the MCU reports the one it was built from, and the Jetson computes the one its own copy of the source gives. If they
+      the MCU reports the one it was built from, and the robot computer computes the one its own copy of the source gives. If they
       differ, the MCU runs other firmware than this software expects (a red banner shows on every tab).
     <//>
     <div class="row" style="align-items: flex-start; gap: 10px">
@@ -35,12 +35,12 @@ export function VersionTab() {
         ${f ? html`<div class="kv">
           <span class="k">running</span><span class="mono">${f.running || "– (no INFO yet)"}</span>
           <span class="k">expected</span><span class="mono">${f.expected || "– (no firmware source here)"}</span>
-          <span class="k">protocol</span><span class="mono">MCU ${f.protocol ?? "–"}, Jetson ${f.protocol_host}</span>
+          <span class="k">protocol</span><span class="mono">MCU ${f.protocol ?? "–"}, host ${f.protocol_host}</span>
           <span class="k">match</span><span class=${bad ? "err" : f.running ? "ok" : "dim"}>${bad ? "NO" : f.running ? "yes" : "–"}</span>
         </div>${bad && html`<p class="err">${bad}</p>`}` : html`<p class="dim">Waiting for the robot...</p>`}
       </div>
       <div class="card grow" style="min-width: 320px">
-        <h2>Software (Jetson)</h2>
+        <h2>Software (robot computer)</h2>
         ${v ? html`<div class="kv">
           <span class="k">commit</span><span class="mono">${sw?.commit || "–"}</span>
           <span class="k">committed</span><span class="mono">${sw?.commit_time || "–"}</span>

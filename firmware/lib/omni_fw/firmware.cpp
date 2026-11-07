@@ -5,7 +5,7 @@
 #include <cmath>
 
 // the build id the INFO message reports: a hash of this folder (firmware/fw_build_id.py), set by the PlatformIO and SIL
-// builds, so the Jetson can tell when the MCU runs other firmware than its own copy
+// builds, so the robot computer can tell when the MCU runs other firmware than its own copy
 #ifndef FW_BUILD
 #define FW_BUILD "dev"
 #endif
@@ -75,7 +75,7 @@ void Firmware::rx(const uint8_t* data, size_t n, uint64_t t_rx_us) {
 void Firmware::push_tx(const uint8_t* d, size_t n) {
     for (size_t i = 0; i < n; ++i) {
         size_t next = (tx_head_ + 1) % sizeof(txbuf_);
-        if (next == tx_tail_) return;            // full: drop the rest (the Jetson stopped reading)
+        if (next == tx_tail_) return;            // full: drop the rest (the robot computer stopped reading)
         txbuf_[tx_head_] = d[i];
         tx_head_ = next;
     }
@@ -114,7 +114,7 @@ void Firmware::send_time(uint64_t t, uint8_t kind, uint32_t seq, uint32_t value)
 
 // The time references (design.md 10). The core schedules the edges and the board's hardware timers make them, so
 // each edge is exact in the MCU clock and reported as such:
-//   SYNC_OUT  rises on every whole SYNC_PERIOD_US of MCU time; the Jetson stamps it on a GPIO (clock_sync.py)
+//   SYNC_OUT  rises on every whole SYNC_PERIOD_US of MCU time; the robot computer stamps it on a GPIO (clock_sync.py)
 //   CAM_TRIG  pulses both cameras' FSIN at CAM_TRIGGER_HZ from the first whole second (one trigger = one stereo pair)
 //   STROBE    the left camera's exposure, captured: when it started and how long it lasted
 void Firmware::time_refs(const FwHwInputs& in, FwHwOutputs& out) {
@@ -346,7 +346,7 @@ void Firmware::run_module(float dt, bool auto_ok, const FwHwInputs& in, FwHwOutp
         if (fly_ready_ && !bumper_ && tilt_meas_ <= prm::FIRE_TILT_MAX) {   // tilt: the face (design.md 12.2)
             feed_.trigger();
         } else {
-            ++fire_rejected_;                     // interlock: the Jetson sees the count and may ask again
+            ++fire_rejected_;                     // interlock: the robot computer sees the count and may ask again
         }
     }
     float f = feed_.step(dt, in.beam_feed_exit != 0, in.beam_catch != 0);
@@ -420,7 +420,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     }
     last_v_bus_ = in.v_bus;
 
-    // faults (recomputed every tick; the Jetson logs the edges)
+    // faults (recomputed every tick; the robot computer logs the edges)
     bool link_ok = have_cmd_ && t_us_ - t_cmd_us_ < (uint64_t)(prm::CMD_TIMEOUT * 1e6f);
     faults_ = 0;
     if (!link_ok) faults_ |= F_LINK_LOST;
@@ -459,7 +459,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         mode_ = MODE_ESTOP;
         ramp_out_ = false;                        // motor power is already off in hardware
     } else if (mode_ == MODE_ESTOP) {
-        mode_ = MODE_DISARMED;                    // released: the Jetson must ask for AUTO again
+        mode_ = MODE_DISARMED;                    // released: the robot computer must ask for AUTO again
         t_stopped_us_ = t_us_;
     } else if (manual) {
         mode_ = MODE_MANUAL;

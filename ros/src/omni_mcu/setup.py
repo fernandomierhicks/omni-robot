@@ -13,7 +13,7 @@ setup(
     install_requires=["setuptools"],
     zip_safe=True,
     maintainer="Fernando",
-    description="omni-robot: the Jetson's end of the MCU link (design.md 30)",
+    description="omni-robot: the robot computer's end of the MCU link (design.md 30)",
     license="Proprietary",
     # mcu_link is omni_cpp's (C++); this package keeps the protocol and clock map the sim and the console use
     entry_points={"console_scripts": []},

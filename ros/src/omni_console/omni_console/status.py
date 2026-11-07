@@ -126,7 +126,7 @@ def firmware_build_id(core) -> str | None:
 
 
 def system() -> dict:
-    """The computer the robot code runs on (the Jetson; WSL in the sim): load and the hottest thermal zone."""
+    """The computer the robot code runs on (the robot computer; WSL in the sim): load and the hottest thermal zone."""
     try:
         load = os.getloadavg()[0]
     except (OSError, AttributeError):                    # AttributeError: Windows

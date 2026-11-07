@@ -1,6 +1,6 @@
 """The robot's front door (design.md 2): serves the operator page and starts and stops the robot's software, so the page
 is the launcher. Standard library only and no ROS: it runs before the stack, survives it crashing, and is what the
-page talks to while nothing else is up. On the Jetson systemd starts it at boot (systemd/omni-console.service) and it
+page talks to while nothing else is up. On the robot computer systemd starts it at boot (systemd/omni-console.service) and it
 starts the robot at once; in the sim `omni.sh console` starts it in WSL (the Launcher's "Console" button).
 
   python3 -m omni_console.supervisor --steps sim|robot|<steps.json> [--autostart robot] [--port 8080]
@@ -16,7 +16,7 @@ HTTP (plain, on the robot's own address: the page's ws:// to rosbridge works in 
   GET  /api/log?n=200        the running (or last) step's log, the last n lines
   POST /api/start            {"step": "robot", "args": {"map": "house"}}
   POST /api/stop             {}
-  POST /api/power            {"action": "shutdown" | "reboot"}  (when the steps file allows it: the Jetson)
+  POST /api/power            {"action": "shutdown" | "reboot"}  (when the steps file allows it: the robot computer)
   GET  /logs/, /logs/<file>  the session logs (session_log.py), for download
 POST bodies carry "pin" when the supervisor has one (kid-proofing, not security: it's the home network).
 """

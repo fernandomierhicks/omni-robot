@@ -1,6 +1,6 @@
 // The firmware core as a shared library for the MuJoCo sim (software in the loop, design.md 30). The sim fills
 // FwHwInputs from its physics every 1 ms, calls fw_tick, and applies FwHwOutputs to its motor and servo models; the
-// Jetson side's bytes go through fw_rx / fw_tx. Built by build_sil.py (g++ in WSL, zig c++ on Windows).
+// host side's bytes go through fw_rx / fw_tx. Built by build_sil.py (g++ in WSL, zig c++ on Windows).
 #include <string.h>
 
 #include "board_teensy41.h"

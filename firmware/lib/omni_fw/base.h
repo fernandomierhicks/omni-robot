@@ -11,7 +11,7 @@ struct Pose {
     float x = 0.0f, y = 0.0f, yaw = 0.0f;
 };
 
-// the limits a mode allows (fw_params.h: ADULT, KID); the Jetson may only ask for less (speed_cap)
+// the limits a mode allows (fw_params.h: ADULT, KID); the robot computer may only ask for less (speed_cap)
 struct Limits {
     float max_speed, max_accel, max_jerk, max_yaw_rate, max_yaw_accel, brake_margin, accel_scale, fly_rpm_max;
 };

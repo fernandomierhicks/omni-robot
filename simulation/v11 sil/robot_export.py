@@ -3,7 +3,7 @@
   firmware/lib/omni_fw/fw_params.h            the MCU firmware's constants (kinematics, limits, flywheel loop, feed,
                                                tilt range, drive-motor CAN ids and ranges)
   ros/src/omni_catch/omni_catch/config/robot_v11.json
-                                               what the Jetson needs: the funnel's rim and the launch exit against
+                                               what the robot computer needs: the funnel's rim and the launch exit against
                                                tilt, the launcher calibration, the ball, the cameras' extrinsics and
                                                intrinsics, the base's planning limits
   ros/src/omni_arm/omni_arm/config/robot_arm.json
@@ -66,7 +66,7 @@ V11 = dict(wheel="Printed-127-2x5-36", suspension="pod", drive_motor="DM-2325",
 # between the cameras (cad/v7 checks.json "head"). The game's flattest return is 30 deg; this binds the Thrower bench mode
 FIRE_MIN_ELEVATION_DEG = 25.0
 
-# kid mode (design.md 14): hard caps the firmware applies whatever the Jetson asks (est, to be set in an adult-only
+# kid mode (design.md 14): hard caps the firmware applies whatever the robot computer asks (est, to be set in an adult-only
 # session): 0.8 m/s, 60% of the acceleration table, half the jerk and yaw rate, gentle lobs only
 KID = dict(max_speed=0.8, accel_scale=0.6, jerk_scale=0.5, yaw_scale=0.5, fly_rpm_max=2600.0)
 ADULT_FLY_RPM_MAX = 6000.0      # est: above every calibrated shot (design.md 9: 10.1 m/s needs ~3950 rpm)
@@ -171,10 +171,10 @@ ARM_HEAD_KEEP_OUT = (("the camera bar", (0.1409, -0.114, 0.1809), (0.1691, 0.114
                      ("the left cheek", (0.084, 0.064, 0.158), (0.1957, 0.072, 0.2492)),
                      ("the right cheek", (0.084, -0.072, 0.158), (0.1957, -0.064, 0.2492)),
                      ("the arm's adapter", (0.062, -0.056, 0.1685), (0.205, 0.056, 0.2221)))
-# the Jetson's "arm out" request (design.md 11): while the tool is outside the bumper or above ARM_OUT_Z, the base runs
+# the robot computer's "arm out" request (design.md 11): while the tool is outside the bumper or above ARM_OUT_Z, the base runs
 # at half the acceleration table's straight-ahead value and at most 1 m/s (CMD a_cap / speed_cap)
 ARM_OUT = dict(speed_cap=1.0, a_cap_frac=0.5, out_radius=0.217, out_z=0.40)
-# the six STS3215s on the Jetson's USB bus board (Waveshare bus servo adapter, 1 Mbaud): ids as LeRobot's SO-101
+# the six STS3215s on the robot computer's USB bus board (Waveshare bus servo adapter, 1 Mbaud): ids as LeRobot's SO-101
 ARM_SERVO_IDS = (1, 2, 3, 4, 5, 6)
 
 
@@ -307,7 +307,7 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         "namespace prm {",
         "",
         "constexpr float TICK_S = 0.001f;                 // the firmware's 1 kHz tick (design.md 4)",
-        "constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the Jetson at 200 Hz",
+        "constexpr uint64_t STATE_PERIOD_US = 5000;       // STATE to the robot computer at 200 Hz",
         "constexpr float CMD_TIMEOUT = 0.5f;              // s without a CMD -> ramped stop (est)",
         "constexpr float DM_FEEDBACK_TIMEOUT = 0.05f;     // s without a drive motor reply -> fault",
         f"constexpr float BATT_LOW = {_c(p.pack.v_low_cell * p.pack.series)};          // V: {p.pack.v_low_cell:g} V per cell (catalog pack setting)",
@@ -315,7 +315,7 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         f"constexpr bool HAS_BUMPERS = {'false' if p.payload == 'arm' else 'true'};{' ' * (19 if p.payload == 'arm' else 20)}// bumper switches wired (the arm robot has none yet: todo.md); without them the inputs are ignored",
         f"constexpr bool DRIVE_DAMIAO = {'true' if p.drive_motor.startswith('DM') else 'false'};{' ' * (18 if p.drive_motor.startswith('DM') else 17)}// {p.drive_motor}: the firmware's only drive driver is Damiao's (dm_motor.h); the Teensy build refuses anything else",
         "",
-        "// time references (design.md 10): SYNC_OUT to the Jetson's GPIO, CAM_TRIG to both cameras' FSIN",
+        "// time references (design.md 10): SYNC_OUT to the robot computer's GPIO, CAM_TRIG to both cameras' FSIN",
         "constexpr uint64_t SYNC_PERIOD_US = 1000000;     // one pulse a second, on whole seconds of MCU time",
         f"constexpr float CAM_TRIGGER_HZ = {_c(VisionConfig().fps)};        // the stereo pair's frame rate",
         "// a DM-2325 reply's interrupt minus this = when the motor sampled its position: the 8-byte reply on the wire",
@@ -330,7 +330,7 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         f"constexpr float MAX_WHEEL_SPEED = {_c(w_max)};   // rad/s: {p.wheel_speed_frac} x the {p.drive_motor}'s no-load speed",
         "",
         "// limits by profile: max_speed, max_accel, max_jerk, max_yaw_rate, max_yaw_accel, brake_margin, accel_scale,",
-        "// fly_rpm_max. The Jetson can only ask for less (CMD speed_cap)",
+        "// fly_rpm_max. The robot computer can only ask for less (CMD speed_cap)",
         f"constexpr float ADULT_LIMITS[8] = {{{', '.join(_c(x) for x in adult)}}};",
         f"constexpr float KID_LIMITS[8] = {{{', '.join(_c(x) for x in kid)}}};   // est (design.md 14)",
         "// direction-aware acceleration limit, body frame, 0 = forward, mirrored left / right (m/s^2)",
@@ -348,7 +348,7 @@ def firmware_header(p: SimParams, robot: dict | None = None) -> str:
         "constexpr float FLY_KI = 0.08f;",
         f"constexpr int FLY_POLE_PAIRS = {FLY_POLE_PAIRS};             // VERIFY",
         f"constexpr bool FLY_BRAKE = {'true' if p.feed == 'kicker' else 'false'};",
-        "constexpr float FLY_READY_TOL = 0.03f;          // the fire interlock (the Jetson asks for 2%)",
+        "constexpr float FLY_READY_TOL = 0.03f;          // the fire interlock (the robot computer asks for 2%)",
         "",
         f"// feed: {p.feed} pocket, {p.feed_spec.name}",
         f"constexpr bool FEED_CHUTE = {'true' if p.feed == 'chute' else 'false'};",
@@ -497,7 +497,7 @@ def _wxyz(q) -> list:
 def arm_json(p: SimParams, robot: dict = ARM) -> dict:
     """The arm robot for omni_arm (kinematics.ArmConfig): every transform as the sim's model has it (MuJoCo's body
     frames: pos + quaternion w x y z in the parent body; each joint turns its body about its axis through the body's
-    origin), so the Jetson's kinematics are the sim's to the bit. cameras[0] is the depth image's camera (the tidy's
+    origin), so the robot computer's kinematics are the sim's to the bit. cameras[0] is the depth image's camera (the tidy's
     looks): the stereo pair's left, or the D435 when the robot has one (design.md 4.11)."""
     m = build_model(p)
     d = mujoco.MjData(m)

@@ -15,7 +15,7 @@ foreground. refine() finds the object again:
      in base_link
 A floor with strong patterns of its own, an object the floor's colour, or a blob that doesn't fit what the stereo pair
 saw (half to twice its size) returns None: the grasp then goes on the stereo estimate. A learned segmenter on the
-Jetson can replace step 2 (VERIFY on real floors: rugs, wood grain, shadows of the arm).
+robot computer can replace step 2 (VERIFY on real floors: rugs, wood grain, shadows of the arm).
 """
 
 from __future__ import annotations

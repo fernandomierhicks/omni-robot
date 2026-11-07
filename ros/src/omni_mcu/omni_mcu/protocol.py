@@ -1,17 +1,17 @@
-"""The Jetson side of the Jetson <-> MCU link (design.md 5, 30). Mirror of firmware/lib/omni_fw/protocol.h; no ROS here,
+"""The robot computer side of the robot computer <-> MCU link (design.md 5, 30). Mirror of firmware/lib/omni_fw/protocol.h; no ROS here,
 so the sim's in-process harness and the link node share it. test_v11.py checks it against the firmware's C++ through
 the SIL library.
 
 Frame:   COBS( type | seq | body | crc16 ) 0x00      crc16 = CRC-16/CCITT-FALSE over type | seq | body, little-endian
-  CMD   0x01  Jetson -> MCU (100 Hz; also the heartbeat)
-  STATE 0x81  MCU -> Jetson (200 Hz)
-  IMU   0x82  MCU -> Jetson (every BNO085 sample, 400 Hz; protocol 4: stamped with the sample's own time)
-  INFO  0x83  MCU -> Jetson (10 Hz): protocol version, firmware build id, the RC receiver
-  TIME  0x84  MCU -> Jetson (protocol 4): an edge of a time reference: the 1 Hz sync pulse, a camera trigger, the
+  CMD   0x01  host -> MCU (100 Hz; also the heartbeat)
+  STATE 0x81  MCU -> host (200 Hz)
+  IMU   0x82  MCU -> host (every BNO085 sample, 400 Hz; protocol 4: stamped with the sample's own time)
+  INFO  0x83  MCU -> host (10 Hz): protocol version, firmware build id, the RC receiver
+  TIME  0x84  MCU -> host (protocol 4): an edge of a time reference: the 1 Hz sync pulse, a camera trigger, the
               left camera's measured exposure (design.md 10)
 
 Time: the MCU stamps everything with its own clock (microseconds since boot), where it happened. TimeSync
-(clock_sync.ClockSync) maps it onto the Jetson's clock: a line t_host = a t_mcu + b from the sync pulses the Jetson
+(clock_sync.ClockSync) maps it onto the host's clock: a line t_host = a t_mcu + b from the sync pulses the robot computer
 also stamps on a GPIO (HostLink.add_sync_edge), else from the CMD / STATE echo (NTP-style: the fastest exchange of
 each second).
 """
@@ -99,7 +99,7 @@ def frame(msg_type: int, seq: int, body: bytes) -> bytes:
 
 @dataclass
 class Command:
-    """What the Jetson asks of the MCU (CmdBody). Angles rad, speeds m/s, times are MCU microseconds."""
+    """What the robot computer asks of the MCU (CmdBody). Angles rad, speeds m/s, times are MCU microseconds."""
     req_mode: int = REQ_AUTO
     profile: int = PROFILE_ADULT
     drive_mode: int = DRIVE_IDLE
@@ -163,7 +163,7 @@ class State:
     cmd_rejected: int = 0         # protocol 6: CMDs the MCU dropped (version, non-finite, out of range)
     tick_late: int = 0            # protocol 6: MCU ticks more than 1.5 ms late (count)
     tick_max_us: int = 0          # protocol 6: the longest gap between MCU ticks since the last STATE
-    t_host: float = math.nan      # filled by HostLink: t_mcu_us on the Jetson's clock (s)
+    t_host: float = math.nan      # filled by HostLink: t_mcu_us on the host's clock (s)
 
     @classmethod
     def unpack(cls, body: bytes) -> "State":
@@ -217,7 +217,7 @@ class Info:
 
 @dataclass
 class TimeEvent:
-    """A time reference's edge (TimeBody): kind TE_*, seq, the MCU time and, mapped, the Jetson's."""
+    """A time reference's edge (TimeBody): kind TE_*, seq, the MCU time and, mapped, the robot computer's."""
     t_mcu_us: int
     kind: int
     seq: int
@@ -248,8 +248,8 @@ class LinkStats:
 
 
 class HostLink:
-    """Bytes <-> messages for the Jetson side. feed() with what arrived (and when, on the Jetson's clock); encode()
-    the next CMD with the Jetson's send time."""
+    """Bytes <-> messages for the robot computer side. feed() with what arrived (and when, on the host's clock); encode()
+    the next CMD with the robot computer's send time."""
 
     def __init__(self, **sync_kw):
         self.buf = bytearray()
@@ -265,7 +265,7 @@ class HostLink:
         return frame(MSG_CMD, self.seq, cmd.pack(t_host_ns))
 
     def add_sync_edge(self, t_host_ns: int):
-        """The Jetson's GPIO stamped the MCU's SYNC_OUT edge (this clock)."""
+        """The robot computer's GPIO stamped the MCU's SYNC_OUT edge (this clock)."""
         self.sync.add_host_edge(t_host_ns)
 
     def feed(self, data: bytes, t_host_ns: int) -> list:
@@ -320,7 +320,7 @@ class HostLink:
 
 @dataclass
 class Request:
-    """A Command with its times on the Jetson's clock (omni_interfaces/McuCommand in Python): what the mode manager
+    """A Command with its times on the host's clock (omni_interfaces/McuCommand in Python): what the mode manager
     asks for; to_command() converts it with the link's time sync."""
     req_mode: int = REQ_DISARM
     kid: bool = False
@@ -332,11 +332,11 @@ class Request:
     v_end: float = 0.0
     a_cap: float = 0.0
     speed_cap: float = 0.0
-    t_brake: float = 0.0          # s, Jetson clock; 0 = none
+    t_brake: float = 0.0          # s, host clock; 0 = none
     coast_s: float = 0.0
     a_brake: float = 0.0
     tilt: float = 0.0
-    t_tilt: float = 0.0           # s, Jetson clock; 0 = none
+    t_tilt: float = 0.0           # s, host clock; 0 = none
     tilt_after: float = 0.0
     fly_rpm: float = 0.0
     fire_seq: int = 0

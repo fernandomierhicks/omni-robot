@@ -1,16 +1,16 @@
 """Camera frame timestamps from the MCU's trigger (design.md 10). No ROS here; the camera node and the tests use it.
 
 The two OV9782s run in external-trigger mode: the Teensy pulses both FSIN pins from one hardware timer (120 Hz) and
-reports each pulse as a TIME event (seq, MCU time), which the link maps onto the Jetson's clock (clock_sync). The
+reports each pulse as a TIME event (seq, MCU time), which the link maps onto the host's clock (clock_sync). The
 left camera's STROBE output (high while it exposes) goes back to a Teensy capture pin, so the exposure's real start
 and length are measured in the same clock (TIME events of kind STROBE).
 
-What a frame's stamp means here: the **middle of its exposure**, on the Jetson's clock = trigger time + the sensor's
+What a frame's stamp means here: the **middle of its exposure**, on the host's clock = trigger time + the sensor's
 trigger-to-exposure delay + half the exposure. Both cameras get the same stamp (one trigger), which is what makes them
 a stereo pair; their real skew (each sensor's own trigger response) is a calibration item measured on the bench with
 the strobes (VERIFY: OV9782 FSIN response; a few line times).
 
-What the Jetson's capture gives: V4L2 hands each buffer with a sequence number and a timestamp the VI took at the
+What the robot computer's capture gives: V4L2 hands each buffer with a sequence number and a timestamp the VI took at the
 frame's start of readout (SOF, CLOCK_MONOTONIC; turned into ROS time by the camera node). SOF comes a fixed d after
 the trigger (delay + exposure + the readout's start), plus capture jitter. FrameStamper pairs every frame with its
 trigger: first by finding the sequence offset whose SOF - trigger times agree (lock), then by sequence number, with
@@ -31,7 +31,7 @@ import numpy as np
 
 @dataclass
 class Stamp:
-    t: float                  # s, the middle of the exposure on the Jetson's clock
+    t: float                  # s, the middle of the exposure on the host's clock
     trig_seq: int | None      # the trigger it came from (None: not paired)
     source: str               # "trigger" | "sof" (fallback) | "free" (no triggers)
     d_residual: float = 0.0   # s, this frame's SOF - trigger against the running median (capture jitter)
@@ -64,7 +64,7 @@ class FrameStamper:
             self.trig_by_seq.pop(next(iter(self.trig_by_seq)))
 
     def on_strobe(self, rise_host: float, width_s: float, trig_t_host: float | None):
-        """The left camera's measured exposure: start (Jetson clock) and length; with its trigger's time, the delay."""
+        """The left camera's measured exposure: start (host clock) and length; with its trigger's time, the delay."""
         if width_s > 0:
             self.exposure = 0.9 * self.exposure + 0.1 * width_s
         if trig_t_host is not None and 0 <= rise_host - trig_t_host < 0.005:

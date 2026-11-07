@@ -1,12 +1,12 @@
 // omni-robot MCU, Teensy 4.1: the hardware layer around the firmware core (design.md 4, 30).
 //
 // Every 1 ms: read the peripherals into FwHwInputs, Firmware::tick(), drive the peripherals from FwHwOutputs. The
-// Jetson's bytes come and go on the native USB serial port between ticks. The core (lib/omni_fw) is the code the sim
+// robot computer's bytes come and go on the native USB serial port between ticks. The core (lib/omni_fw) is the code the sim
 // runs in the loop; only this file is Teensy-specific.
 //
 // Drivers here, and how far each is done:
 //   CAN1, DM-2325 x4          FlexCAN_T4, 1 Mbit/s: complete (the protocol is in the core: dm_motor.cpp)
-//   USB serial, Jetson link   complete (framing in the core: protocol.cpp)
+//   USB serial, host link   complete (framing in the core: protocol.cpp)
 //   RoboClaw, feed motors     packet serial, speed commands + speed reads: written, VERIFY on the bench
 //   STS3250, tilt servo       Feetech half-duplex bus, goal position + position reads: written, VERIFY on the bench
 //   break-beams, e-stop, bumpers, battery ADC, buzzer, LED       complete (thresholds and divider ratio VERIFY)
@@ -459,7 +459,7 @@ void loop() {
     static uint64_t next = 0;
     static uint32_t tick = 0;
     static uint8_t buf[512];
-    while (Serial.available()) {                 // the Jetson's bytes, as they come, stamped (the echo's t2)
+    while (Serial.available()) {                 // the robot computer's bytes, as they come, stamped (the echo's t2)
         int n = Serial.readBytes((char*)buf, min((int)sizeof(buf), Serial.available()));
         g_fw.rx(buf, (size_t)n, micros64());
     }

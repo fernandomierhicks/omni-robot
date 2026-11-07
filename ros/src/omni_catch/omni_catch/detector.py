@@ -26,7 +26,7 @@ import numpy as np
 
 try:
     from scipy.ndimage import find_objects as _find_objects, label as _label
-except ImportError:                       # pragma: no cover - the Jetson image has scipy; this keeps it optional
+except ImportError:                       # pragma: no cover - the robot computer image has scipy; this keeps it optional
     _label = _find_objects = None
 
 

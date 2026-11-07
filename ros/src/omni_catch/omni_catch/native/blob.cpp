@@ -2,7 +2,7 @@
 // numpy + scipy path: the colour test (ball_mask), 4-connected components labelled in raster order of their first
 // pixel (as scipy.ndimage.label numbers them), and each component's moments (Detector._measure). The tracking logic
 // stays in Python (fast_detector.py); only the per-pixel loops move here. Built on demand by native/build.py (g++ on
-// Linux and the Jetson, zig c++ on Windows), loaded with ctypes. No allocation per call beyond a small scratch buffer.
+// Linux and the robot computer, zig c++ on Windows), loaded with ctypes. No allocation per call beyond a small scratch buffer.
 #include <math.h>
 #include <stdint.h>
 #include <stdlib.h>

@@ -63,7 +63,7 @@ typedef struct {
     float rc[8];
     // time references (design.md 10): edges the board's timers made or captured since the last tick, MCU clock;
     // 0 = none
-    uint64_t sync_fired_us;        // SYNC_OUT rose (the Jetson's GPIO stamps the same edge)
+    uint64_t sync_fired_us;        // SYNC_OUT rose (the robot computer's GPIO stamps the same edge)
     uint64_t cam_fired_us;         // CAM_TRIG pulsed both cameras' FSIN (external-trigger mode)
     uint64_t strobe_rise_us;       // the left camera's STROBE rose: its exposure started ...
     uint32_t strobe_width_us;      // ... and lasted this long

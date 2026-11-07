@@ -1,7 +1,7 @@
 """The console's view of TF, ROS-free: just enough to say where the robot is on the map, read from /tf's raw bytes.
 
 tf2's Python listener turns every /tf message (~100 Hz on the robot: the EKF, slam_toolbox, mcu_link) into Python
-objects and then into its C++ buffer; on the Jetson that was most of the mission node's CPU. The console needs one
+objects and then into its C++ buffer; on the robot computer that was most of the mission node's CPU. The console needs one
 pose ten times a second, so it keeps the latest transform per child frame straight from the serialized message
 (CDR, a few struct reads) and composes the chain only when asked. 2D: x, y and yaw (roll and pitch dropped).
 """

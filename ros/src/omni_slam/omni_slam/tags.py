@@ -78,7 +78,7 @@ class Pinhole:
 class TagDetection:
     tag_id: int
     corners: np.ndarray            # (4, 2) undistorted pixels, counter-clockwise from the tag's bottom left
-    t: float                       # the frame's exposure time (camera_time.py), Jetson clock
+    t: float                       # the frame's exposure time (camera_time.py), host clock
     size: float = 0.16             # m, the tag's black square (from the tag map / a default per family)
     margin: float = 100.0          # the decoder's decision margin
     camera: str = "cam_left_optical"

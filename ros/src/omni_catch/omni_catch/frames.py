@@ -1,6 +1,6 @@
 """Camera frames as the ball detector sees them (design.md 30). Two kinds, one interface:
 
-  ArrayFrame   a real image (H x W x 3, uint8 RGB): from the cameras on the Jetson, a rosbag, or MuJoCo's renderer
+  ArrayFrame   a real image (H x W x 3, uint8 RGB): from the cameras on the robot computer, a rosbag, or MuJoCo's renderer
   SparseFrame  a synthetic image from the sim, sent as what differs from a plain background (the ball's pixels and
                any clutter blobs: a few hundred bytes instead of 3 MB per frame); the pixels are drawn on demand
 

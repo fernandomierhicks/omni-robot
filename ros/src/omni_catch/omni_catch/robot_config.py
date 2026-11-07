@@ -1,4 +1,4 @@
-"""The robot as the Jetson's code knows it (design.md 30): config/robot_v11.json, written from the sim by
+"""The robot as the robot computer's code knows it (design.md 30): config/robot_v11.json, written from the sim by
 simulation/v11 sil/robot_export.py. Geometry of the tilting module, the launcher calibration, the ball, the cameras,
 and the base's planning limits (the firmware enforces its own copy of those)."""
 

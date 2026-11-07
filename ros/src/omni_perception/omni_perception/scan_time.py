@@ -1,7 +1,7 @@
 """LiDAR sample times and de-skew (design.md 28, 32). No ROS here; scan_prep and the tests use it.
 
 What the RPLIDAR A2M12 gives: no clock. Its serial stream (256 kbaud through the USB adapter) carries each sample's
-angle and range and a start-of-turn flag; the driver (sllidar_ros2) stamps a turn with the Jetson's clock when it
+angle and range and a start-of-turn flag; the driver (sllidar_ros2) stamps a turn with the host's clock when it
 starts reading it, takes the turn's duration from its own clock, and sets time_increment = duration / (n - 1). So:
 
   * every sample's time is reconstructed, not measured: t_i = stamp + i * time_increment, assuming the head turns at

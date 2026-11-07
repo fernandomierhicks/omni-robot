@@ -38,7 +38,7 @@ class McuPort:
                 self.conn.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
                 self.conn.setblocking(False)
                 self.out.clear()
-                self.log(f"MCU port {self.port}: the Jetson side connected")
+                self.log(f"MCU port {self.port}: the robot computer side connected")
             except BlockingIOError:
                 fw.tx()                                    # no host: drop what the firmware sent
                 return
@@ -52,7 +52,7 @@ class McuPort:
         except BlockingIOError:
             pass
         except (ConnectionError, OSError):
-            self.log(f"MCU port {self.port}: the Jetson side disconnected")
+            self.log(f"MCU port {self.port}: the robot computer side disconnected")
             self.conn.close()
             self.conn = None
             return

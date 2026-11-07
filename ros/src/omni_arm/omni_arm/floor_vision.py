@@ -1,6 +1,6 @@
 """Small things on the floor, from the stereo pair's depth (design.md 11). No ROS.
 
-The nose pods look 35 deg down at the floor ahead; the Jetson's stereo matcher (VPI's SGM on the rectified pair, or
+The nose pods look 35 deg down at the floor ahead; the robot computer's stereo matcher (VPI's SGM on the rectified pair, or
 OpenCV's SGBM: VERIFY its rate on the Orin) gives a depth image in the left camera's optical frame. detect():
   1  every valid pixel to base_link (the camera's extrinsics from robot_arm.json, the base's roll and pitch from the IMU)
   2  the floor: a plane fitted (RANSAC) to the points within 3 cm of z = 0, so the base's tilt doesn't count as

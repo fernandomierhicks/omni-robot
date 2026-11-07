@@ -1,15 +1,15 @@
-"""The MCU's clock on the Jetson's clock (design.md 10): t_host = a * t_mcu + b, offset and drift. No ROS here; the
+"""The MCU's clock on the host's clock (design.md 10): t_host = a * t_mcu + b, offset and drift. No ROS here; the
 link node, the sim's in-process harness and the tests share it.
 
 Two kinds of evidence, used in this order:
 
   pulses  the Teensy raises SYNC_OUT on a hardware timer once a second and reports the edge's MCU time (a TIME event);
-          the Jetson timestamps the same edge on a GPIO (the kernel's GPIO event stamp: HTE on an Orin AON pin is ~1 us,
+          the robot computer timestamps the same edge on a GPIO (the kernel's GPIO event stamp: HTE on an Orin AON pin is ~1 us,
           a plain interrupt ~5-30 us with a late tail). Each pair is one point of the line. A least-squares line over
           the last pulse_window_s, late outliers rejected (an interrupt stamp is only ever late), gives the offset and
           the drift to a few microseconds.
-  echoes  the NTP-style exchange on the link itself: the CMD carries the Jetson's send time t1, STATE echoes it with
-          the MCU's receive time t2 and send time t3, the Jetson notes the arrival t4. The offset of an exchange is
+  echoes  the NTP-style exchange on the link itself: the CMD carries the robot computer's send time t1, STATE echoes it with
+          the MCU's receive time t2 and send time t3, the robot computer notes the arrival t4. The offset of an exchange is
           only known to +/- its round trip / 2, and any asymmetry of the USB path (host -> device and device -> host
           are scheduled differently) biases it by (d_up - d_down) / 2, unseen. The fastest exchange of each second
           over echo_window_s gives a line too: the fallback when no pulses come, and the coarse map that pairs a
@@ -86,7 +86,7 @@ class ClockSync:
         self._pair()
 
     def add_host_edge(self, t_host_ns: int):
-        """The Jetson's GPIO saw SYNC_OUT rise at t_host_ns (this clock)."""
+        """The robot computer's GPIO saw SYNC_OUT rise at t_host_ns (this clock)."""
         self.n_edges += 1
         self.edges.append(int(t_host_ns) - self.edge_latency_ns)
         self.t_last_host = max(self.t_last_host or 0, int(t_host_ns))
@@ -220,7 +220,7 @@ class ClockSync:
     def status(self) -> dict:
         """What the link node publishes (/mcu/clock) and the console shows."""
         mode, f = self.mode, self._active()
-        # drift_ppm: how fast the MCU's clock runs against the Jetson's (+ = it gains)
+        # drift_ppm: how fast the MCU's clock runs against the robot computer's (+ = it gains)
         d = dict(mode=mode, offset_us=None if self.offset_ns is None else round(self.offset_ns / 1000, 1),
                  drift_ppm=None if f is None else round(-f[1] / (1.0 + f[1]) * 1e6, 3),
                  rms_us=round((self.pulse_rms if mode == "pulse" else self.echo_rms) / 1000, 2) if f else None,

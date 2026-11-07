@@ -30,7 +30,7 @@ _GPU = []                          # the load file, found once ([None]: there is
 
 
 def gpu_load() -> float | None:
-    """The Jetson's GPU load, % (its devfreq 'load' file, 0..1000; VERIFY the path on the Orin), or None."""
+    """The robot computer's GPU load, % (its devfreq 'load' file, 0..1000; VERIFY the path on the Orin), or None."""
     if not _GPU:
         found = None
         for pattern in ("sys/devices/platform/*gpu*/load", "sys/devices/gpu.0/load", "sys/devices/platform/gpu.0/load"):

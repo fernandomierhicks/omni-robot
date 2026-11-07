@@ -1,17 +1,17 @@
-// The Jetson <-> MCU link (design.md 5: a small custom protocol, not micro-ROS; design.md 30). USB serial on the
+// The robot computer <-> MCU link (design.md 5: a small custom protocol, not micro-ROS; design.md 30). USB serial on the
 // Teensy (native USB, 480 Mbit/s), a TCP socket in the sim. Python mirror: ros/src/omni_mcu/omni_mcu/protocol.py
 // (test_v11.py checks the two against each other through the SIL library).
 //
 // Frame:   COBS( payload | crc16 ) 0x00         crc16 = CRC-16/CCITT-FALSE over the payload, little-endian
 // Payload: type u8 | seq u8 | body (packed, little-endian)
 //
-//   CMD   0x01  Jetson -> MCU, 100 Hz (it is also the heartbeat: none for CMD_TIMEOUT -> ramped stop)
-//   STATE 0x81  MCU -> Jetson, 200 Hz: odometry, module, beams, mode, faults, time-sync echo
-//   IMU   0x82  MCU -> Jetson, every BNO085 sample (400 Hz), stamped with its own sample time (protocol 4)
-//   INFO  0x83  MCU -> Jetson, 10 Hz: the protocol version, the firmware build, the RC receiver, the drive motors'
+//   CMD   0x01  host -> MCU, 100 Hz (it is also the heartbeat: none for CMD_TIMEOUT -> ramped stop)
+//   STATE 0x81  MCU -> host, 200 Hz: odometry, module, beams, mode, faults, time-sync echo
+//   IMU   0x82  MCU -> host, every BNO085 sample (400 Hz), stamped with its own sample time (protocol 4)
+//   INFO  0x83  MCU -> host, 10 Hz: the protocol version, the firmware build, the RC receiver, the drive motors'
 //               temperatures (the operator console)
-//   TIME  0x84  MCU -> Jetson, protocol 4 (design.md 10): an edge of a time reference, MCU clock: the 1 Hz SYNC_OUT
-//               pulse the Jetson also stamps on a GPIO (clock_sync.py), each camera trigger (120 Hz), the left
+//   TIME  0x84  MCU -> host, protocol 4 (design.md 10): an edge of a time reference, MCU clock: the 1 Hz SYNC_OUT
+//               pulse the robot computer also stamps on a GPIO (clock_sync.py), each camera trigger (120 Hz), the left
 //               camera's measured exposure (STROBE)
 //
 // Times: everything the MCU stamps is its own clock, microseconds since boot, taken where the event happened, not
@@ -41,7 +41,7 @@ enum CmdFlags : uint8_t {
 
 #pragma pack(push, 1)
 struct CmdBody {
-    uint64_t t_host_ns;          // the Jetson's clock when sent (time sync)
+    uint64_t t_host_ns;          // the host's clock when sent (time sync)
     uint8_t req_mode;            // ReqMode
     uint8_t profile;             // Profile
     uint8_t drive_mode;          // DriveMode

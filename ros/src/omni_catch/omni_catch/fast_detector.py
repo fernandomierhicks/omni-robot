@@ -5,7 +5,7 @@ with the components and their moments in a window, and the coarse view's compone
 window, the candidates, which blob wins) is the Python class's own code, and the C++ reproduces the numpy / scipy
 arithmetic (labels in the same order, the same float32 hue), so the two report the same blobs (test_v11 checks).
 
-The library is built on first use from the source next to this file: g++ on Linux (WSL, the Jetson), zig c++ on
+The library is built on first use from the source next to this file: g++ on Linux (WSL, the robot computer), zig c++ on
 Windows (the sim's venv has the ziglang package), into ~/.cache/omni_catch/<hash of the source>/, so a changed source
 builds a new library and nothing is written into the package. available() says whether it built; Perception falls
 back to the Python detector if not.

@@ -1,4 +1,4 @@
-# The MCU's STATE (firmware/lib/omni_fw/protocol.h StateBody), 200 Hz, stamped on the Jetson's clock (time sync)
+# The MCU's STATE (firmware/lib/omni_fw/protocol.h StateBody), 200 Hz, stamped on the host's clock (time sync)
 std_msgs/Header header        # frame_id "odom"
 uint64 t_mcu_us               # the MCU's own clock
 string mode                   # BOOT DISARMED AUTO MANUAL ESTOP

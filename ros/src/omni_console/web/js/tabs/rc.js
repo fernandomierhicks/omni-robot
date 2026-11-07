@@ -14,7 +14,7 @@ export function RcTab() {
   return html`<div class="full">
     <${HelpBox} tab="rc">
       The radio transmitter talks to an ELRS receiver on the MCU (CRSF). It is the safety override: with
-      its <b>MANUAL switch</b> (channel 5) up, the MCU drives from the sticks and ignores the Jetson and this console,
+      its <b>MANUAL switch</b> (channel 5) up, the MCU drives from the sticks and ignores the robot computer and this console,
       whatever mode they are in. Switch it back down to hand control back. If the receiver loses the transmitter,
       the MCU ignores the sticks (failsafe). Below: what the MCU receives, 10 times a second.
     <//>
