@@ -48,6 +48,7 @@ from collections import deque
 
 import numpy as np
 import rclpy
+from rcl_interfaces.msg import FloatingPointRange, ParameterDescriptor
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from omni_interfaces.msg import ArmHardware, ArmMotion
@@ -76,13 +77,26 @@ def _yaw(q) -> float:
 class ArmBrain(Node):
     def __init__(self):
         super().__init__("arm_node")
-        P = self.declare_parameter
-        self.odom_topic = P("odom_topic", "/odom").value
-        config = P("config", "").value
-        self.depth_topic = P("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth").value
-        self.info_topic = P("depth_info_topic", "").value or self.depth_topic.rsplit("/", 1)[0] + "/camera_info"
-        self.color_topic = P("color_topic", "/d435/color/image_raw" if config == "d435"
-                             else "/stereo/left/image_color").value
+        def P(name, default, text, rng=None, read_only=True):
+            """A described parameter (omni_cpp's params.hpp in Python): range for numbers, read-only unless live."""
+            d = ParameterDescriptor(description=text, read_only=read_only)
+            if rng is not None:
+                d.floating_point_range = [FloatingPointRange(from_value=float(rng[0]), to_value=float(rng[1]), step=0.0)]
+            return self.declare_parameter(name, default, d).value
+
+        self.odom_topic = P("odom_topic", "/odom", "the base's odometry for the tidy (the MCU's)")
+        config = P("config", "", "the robot_arm*.json: \"\" | d435 | a path")
+        self.depth_topic = P("depth_topic", "/d435/depth/image_rect_raw" if config == "d435" else "/stereo/depth",
+                             "the tidy's depth image")
+        self.info_topic = P("depth_info_topic", "", "its camera_info (\"\" = beside depth_topic)") or \
+            self.depth_topic.rsplit("/", 1)[0] + "/camera_info"
+        self.color_topic = P("color_topic", "/d435/color/image_raw" if config == "d435" else "/stereo/left/image_color",
+                             "colour registered to the depth, for finds")
+        self.health_grace = P("health_grace", HEALTH_GRACE, "s of unhealthy servo feedback a tidy rides through",
+                              (0.05, 5.0), read_only=False)
+        self.hw_stale = P("hw_stale", HW_STALE, "s without /arm/hw: the driver isn't running", (0.2, 30.0),
+                          read_only=False)
+        self.add_post_set_parameters_callback(self._on_params)
         self.kin = ArmKinematics(ArmConfig(config_path(config)))
         self.cfg = self.kin.cfg
         self.task = TidyTask(self.kin)
@@ -138,6 +152,11 @@ class ArmBrain(Node):
             self.get_logger().warn("control_msgs not installed: no /arm/follow_joint_trajectory action")
         self.get_logger().info(f"arm brain: poses stow / ready / high / drop from {config_path(config).name}; "
                                f"depth from {self.depth_topic} ({c['name']}); the driver plays what it sends")
+
+    def _on_params(self, params):
+        for p in params:                          # ranges and read-only already checked by ROS
+            if p.name in ("health_grace", "hw_stale"):
+                setattr(self, p.name, float(p.value))
 
     def now(self) -> float:
         return self.get_clock().now().nanoseconds * 1e-9
@@ -305,7 +324,7 @@ class ArmBrain(Node):
         hw = self.hw
         if hw is not None and hw.ok and t - self.t_hw < 0.5:            # /arm/hw's health, 5 Hz
             self.t_healthy = t
-        if t - self.t_healthy > HEALTH_GRACE:
+        if t - self.t_healthy > self.health_grace:
             # a servo silent or reporting an error (or no word from the driver): hold where commanded, stop the base
             self.task.state, self.task.done_reason = "DONE", "servo feedback"
             self._end_tidy()
@@ -418,7 +437,7 @@ class ArmBrain(Node):
             self._find(a)
             return
         t = self.now()
-        if not self.connected or t - self.t_hw > HW_STALE:
+        if not self.connected or t - self.t_hw > self.hw_stale:
             self.event(f"{verb}: the arm isn't connected")
             return
         q = self.q_now()
@@ -541,7 +560,7 @@ class ArmBrain(Node):
 
     # -- output ----------------------------------------------------------------------------------------------------
     def publish_state(self):
-        up = self.connected and self.now() - self.t_hw < HW_STALE
+        up = self.connected and self.now() - self.t_hw < self.hw_stale
         s = dict(connected=bool(up), source=self.source, port=self.hw.port if self.hw is not None else "",
                  tidy=self.task.status() if (self.tidy_on or self.task.state != "IDLE") else None,
                  tidy_on=self.tidy_on, events=list(self.events), found=self.finder.result)

@@ -55,6 +55,7 @@ public:
     const ArmFk& fk() const { return *fk_; }
     const sts::Bus* bus() const { return bus_.get(); }
     std::array<sts::JointCal, 6> cal;
+    int arm_torque = ARM_TORQUE, grip_torque = GRIP_TORQUE;   // torque limits written at each torque-on (0..1000)
 
 private:
     void enable(bool on);

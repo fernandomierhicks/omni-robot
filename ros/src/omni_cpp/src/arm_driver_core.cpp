@@ -64,7 +64,7 @@ void ArmDriverCore::enable(bool on) {
     for (int i = 0; i < 6; ++i) {
         int id = cal[i].id;
         if (on) {
-            bus_->write(id, "torque_limit", i == 5 ? GRIP_TORQUE : ARM_TORQUE);
+            bus_->write(id, "torque_limit", i == 5 ? grip_torque : arm_torque);
             bus_->write(id, "acceleration", 0);   // the servo's own (no ramp): the motions ramp
         }
         bus_->write(id, "torque_enable", on ? 1 : 0);

@@ -31,6 +31,7 @@
 #include "nav_msgs/msg/odometry.hpp"
 #include "omni_cpp/gpio_edges.hpp"
 #include "omni_cpp/host_link.hpp"
+#include "omni_cpp/params.hpp"
 #include "omni_cpp/json.hpp"
 #include "omni_interfaces/msg/mcu_command.hpp"
 #include "omni_interfaces/msg/mcu_info.hpp"
@@ -178,15 +179,21 @@ private:
 class McuLink : public rclcpp::Node {
 public:
     explicit McuLink(const rclcpp::NodeOptions& opt) : Node("mcu_link", opt) {
-        port_ = declare_parameter<std::string>("port", "tcp:127.0.0.1:5761");
-        publish_tf_ = declare_parameter<bool>("publish_tf", true);
-        double rate = declare_parameter<double>("rate", 100.0);
+        namespace P = params;
+        port_ = P::text(*this, "port", "tcp:127.0.0.1:5761", "the MCU: tcp:host:port (the sim's firmware) or a serial device");
+        publish_tf_ = P::flag(*this, "publish_tf", true, "publish odom -> base_link from the MCU (false when the EKF does)", true);
+        double rate = P::number(*this, "rate", 100.0, 20.0, 500.0, "Hz: CMDs to the MCU (its heartbeat)", true);
+        cmd_timeout_ = P::number(*this, "cmd_timeout", 0.3, 0.05, 0.45,
+                                 "s: no /mcu/cmd for this long -> send a ramped stop (below the MCU's own 0.5 s timeout)");
+        live_ = std::make_unique<P::Live>(*this);
+        live_->bind("cmd_timeout", &cmd_timeout_);
         ClockSyncConfig cc;
-        cc.edge_latency_ns = (int64_t)(declare_parameter<double>("edge_latency_us", 0.0) * 1000);
+        cc.edge_latency_ns = (int64_t)(P::number(*this, "edge_latency_us", 0.0, 0.0, 10000.0,
+                                                 "us: the GPIO edge's stamping latency, taken off each SYNC pulse", true) * 1000);
         link_ = std::make_unique<HostLink>(cc);
-        sync_source_ = declare_parameter<std::string>("sync_source", "none");
-        auto sync_gpio = declare_parameter<std::string>("sync_gpio", "");
-        auto sync_clock = declare_parameter<std::string>("sync_clock", "realtime");
+        sync_source_ = P::text(*this, "sync_source", "none", "the MCU clock map's pulses: none (USB echo only) | gpio | topic");
+        auto sync_gpio = P::text(*this, "sync_gpio", "", "the SYNC_OUT pin (gpiochip:line) with sync_source:=gpio");
+        auto sync_clock = P::text(*this, "sync_clock", "realtime", "the clock the GPIO edges are stamped on: realtime | monotonic | hte");
         tr_ = std::make_unique<Transport>(port_);
 
         p_state_ = create_publisher<omni_interfaces::msg::McuState>("/mcu/state", 50);
@@ -255,7 +262,7 @@ private:
         {
             std::lock_guard<std::mutex> g(mtx_);
             Request r = req_;
-            if (now - t_req_ > 0.3) {          // nobody is asking: a ramped stop, still armed
+            if (now - t_req_ > cmd_timeout_) {  // nobody is asking: a ramped stop, still armed
                 Request s;
                 s.req_mode = req_.req_mode == fw::REQ_AUTO ? fw::REQ_AUTO : fw::REQ_DISARM;
                 s.kid = req_.kid, s.fire_seq = req_.fire_seq;
@@ -502,6 +509,8 @@ private:
 
     std::string port_, sync_source_, last_mode_;
     bool publish_tf_ = true;
+    double cmd_timeout_ = 0.3;
+    std::unique_ptr<params::Live> live_;
     std::unique_ptr<HostLink> link_;
     std::unique_ptr<Transport> tr_;
     std::unique_ptr<EdgeReader> edges_;

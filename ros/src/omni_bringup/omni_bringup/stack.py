@@ -105,6 +105,12 @@ def cfg(name: str) -> str:
     return os.path.join(get_package_share_directory(PKG), "config", name)
 
 
+def robot_params() -> str:
+    """config/robot.yaml: the robot nodes' tunable parameters (one section per node), loaded before each node's
+    launch-specific values."""
+    return cfg("robot.yaml")
+
+
 def describe(kind: str) -> LaunchDescription:
     rv, fx, jy, vw, fa, co = DEFAULTS[kind]
     args = [DeclareLaunchArgument("map", default_value="house"), DeclareLaunchArgument("seed", default_value="0"),
@@ -209,17 +215,17 @@ def catch_nodes(a: dict, on, kind: str):
     # CATCH_HOME_X ahead (what a person detector and the map would give it)
     robot = [
         Node(package=CPP, executable="mcu_link", name="mcu_link", output="screen",
-             parameters=[{"port": f"tcp:{a['mcu_host']}:{int(a['mcu_port'])}", "publish_tf": True, **sim_t}]),
+             parameters=[robot_params(), {"port": f"tcp:{a['mcu_host']}:{int(a['mcu_port'])}", "publish_tf": True, **sim_t}]),
         Node(package=CPP, executable="mode_manager", name="mode_manager", output="screen",
-             parameters=[{"mode": "CATCH", "kid": on("kid"), "arm": False, **sim_t}]),
+             parameters=[robot_params(), {"mode": "CATCH", "kid": on("kid"), "arm": False, **sim_t}]),
         *([] if on("ghost") else [
             Node(package=CPP, executable="catch_perception", name="catch_perception", output="screen",
-                 parameters=[{"source": "sparse", "arena_cx": CATCH_HOME_X, "arena_cy": 0.0, "arena_hx": CATCH_AREA[0] / 2,
+                 parameters=[robot_params(), {"source": "sparse", "arena_cx": CATCH_HOME_X, "arena_cy": 0.0, "arena_hx": CATCH_AREA[0] / 2,
                               "arena_hy": CATCH_AREA[1] / 2, **sim_t}])]),
         *([Node(package=SIM, executable="ghost_ball", name="ghost_ball", output="screen",
                 parameters=[{"clock_mode": a["clock"], **sim_t}])] if on("ghost") else []),
         Node(package=CPP, executable="catch_behavior", name="catch_behavior", output="screen",
-             parameters=[{"thrower_x": dist, "thrower_y": 0.0, "arena_cx": CATCH_HOME_X, "arena_cy": 0.0,
+             parameters=[robot_params(), {"thrower_x": dist, "thrower_y": 0.0, "arena_cx": CATCH_HOME_X, "arena_cy": 0.0,
                           "arena_hx": CATCH_AREA[0] / 2, "arena_hy": CATCH_AREA[1] / 2, "return_throws": on("returns"),
                           "kid": on("kid"), "return_to": "other" if on("pass_game") else "thrower", **sim_t}]),
     ]
@@ -373,10 +379,10 @@ def build(ctx, kind: str):
         # the C++ driver owns the bus at 50 Hz; arm_hz only when asked (the pi profile's 20 Hz was the deleted Python
         # arm_node's executor's)
         acts.append(Node(package=CPP, executable="arm_driver", name="arm_driver", output="screen",
-                         parameters=[{"port": arm_port, "config": arm_cfg, **sim_t,
+                         parameters=[robot_params(), {"port": arm_port, "config": arm_cfg, **sim_t,
                                       **({"rate": float(a["arm_hz"])} if float(a["arm_hz"]) > 0 else {})}]))
         acts.append(Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
-                         parameters=[{"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
+                         parameters=[robot_params(), {"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
         if d435 and a["depth_layer"] == "floor" and a["nav"].lower() in ("1", "true", "yes"):
             # design.md 4.5: the D435's floor for Nav2's depth layer (FLOOR_LAYER)
             acts.append(Node(package="omni_arm", executable="floor_obstacles", name="floor_obstacles", output="screen",
@@ -387,9 +393,9 @@ def build(ctx, kind: str):
 
     def glue_node(exe: str, plugin: str, params: dict):
         if glue_comp:
-            comps.append(ComposableNode(package=CPP, plugin=plugin, name=exe, parameters=[params]))
+            comps.append(ComposableNode(package=CPP, plugin=plugin, name=exe, parameters=[robot_params(), params]))
         else:
-            acts.append(Node(package=CPP, executable=exe, name=exe, output="screen", parameters=[params]))
+            acts.append(Node(package=CPP, executable=exe, name=exe, output="screen", parameters=[robot_params(), params]))
 
     if fw:
         # the robot's own MCU link and mode manager: /odom, /imu and odom -> base_link from the firmware (the EKF
@@ -406,9 +412,9 @@ def build(ctx, kind: str):
             # /catch/setup when the mode turns CATCH (the parameters are the open field's, until then)
             # asleep outside CATCH (catch_sleep): they wake on /robot_mode
             acts.append(Node(package=CPP, executable="catch_perception", name="catch_perception",
-                             output="screen", parameters=[{"source": "sparse", "sleep": on("catch_sleep"), **sim_t}]))
+                             output="screen", parameters=[robot_params(), {"source": "sparse", "sleep": on("catch_sleep"), **sim_t}]))
             acts.append(Node(package=CPP, executable="catch_behavior", name="catch_behavior",
-                             output="screen", parameters=[{"return_throws": on("returns"), "kid": on("kid"),
+                             output="screen", parameters=[robot_params(), {"return_throws": on("returns"), "kid": on("kid"),
                                                            "sleep": on("catch_sleep"), **sim_t}]))
     if ekf:
         acts.append(Node(package="robot_localization", executable="ekf_node", name="ekf_filter_node", output="log",
@@ -792,7 +798,7 @@ def nav2_components(params_file: str) -> list:
                        "bond_timeout": BOND_TIMEOUT[0]}]),
     ]
     comps.append(C(package=CPP, plugin="omni::HeadingNode", name="heading_node",
-                   parameters=[{"heading": "forward", "use_sim_time": False}]))
+                   parameters=[robot_params(), {"heading": "forward", "use_sim_time": False}]))
     return comps
 
 
@@ -811,7 +817,7 @@ def nav2_nodes(params_file: str):
              output="log", parameters=p, remappings=[("cmd_vel", nav), ("cmd_vel_smoothed", "cmd_vel_shape")]),
         # which way the robot faces on the way (the console's "Driving" choice, whose default it starts with)
         Node(package=CPP, executable="heading_node", name="heading_node", output="log",
-             parameters=[{"heading": "forward"}]),
+             parameters=[robot_params(), {"heading": "forward"}]),
         Node(package="nav2_collision_monitor", executable="collision_monitor", name="collision_monitor",
              output="log", parameters=p),
         Node(package="nav2_lifecycle_manager", executable="lifecycle_manager", name="lifecycle_manager_navigation",

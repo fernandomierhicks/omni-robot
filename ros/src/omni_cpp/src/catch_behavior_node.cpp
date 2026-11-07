@@ -18,6 +18,7 @@
 #include "omni_interfaces/msg/mcu_command.hpp"
 #include "omni_interfaces/msg/mcu_state.hpp"
 #include "rcl_interfaces/msg/set_parameters_result.hpp"
+#include "omni_cpp/params.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -35,17 +36,17 @@ class CatchBehaviorNode : public rclcpp::Node {
 public:
     explicit CatchBehaviorNode(const rclcpp::NodeOptions& opt) : Node("catch_behavior", opt) {
         GameParams gp;
-        gp.thrower[0] = declare_parameter<double>("thrower_x", 6.8);
-        gp.thrower[1] = declare_parameter<double>("thrower_y", 0.0);
-        gp.arena_center[0] = declare_parameter<double>("arena_cx", 3.5);
-        gp.arena_center[1] = declare_parameter<double>("arena_cy", 0.0);
-        gp.arena_half[0] = declare_parameter<double>("arena_hx", 6.0);
-        gp.arena_half[1] = declare_parameter<double>("arena_hy", 3.0);
-        gp.return_throws = declare_parameter<bool>("return_throws", true);
-        gp.kid = declare_parameter<bool>("kid", false);
-        gp.return_to = declare_parameter<std::string>("return_to", "thrower");
-        sleep_outside_ = declare_parameter<bool>("sleep", true);
-        std::string path = declare_parameter<std::string>("robot_config", "");
+        gp.thrower[0] = params::number(*this, "thrower_x", 6.8, -20, 20, "m: the thrower in the robot's odom frame (the open field's; /catch/setup overrides)", true);
+        gp.thrower[1] = params::number(*this, "thrower_y", 0.0, -20, 20, "m: the thrower's y", true);
+        gp.arena_center[0] = params::number(*this, "arena_cx", 3.5, -50, 50, "m: the play area's centre x (odom)", true);
+        gp.arena_center[1] = params::number(*this, "arena_cy", 0.0, -50, 50, "m: the play area's centre y", true);
+        gp.arena_half[0] = params::number(*this, "arena_hx", 6.0, 0.5, 50, "m: the play area's half length", true);
+        gp.arena_half[1] = params::number(*this, "arena_hy", 3.0, 0.5, 50, "m: the play area's half width", true);
+        gp.return_throws = params::flag(*this, "return_throws", true, "throw each catch back", true);
+        gp.kid = params::flag(*this, "kid", false, "the kid profile's game (gentler returns)", true);
+        gp.return_to = params::text(*this, "return_to", "thrower", "where a return goes: thrower | other (two throwers taking turns)");
+        sleep_outside_ = params::flag(*this, "sleep", true, "asleep outside CATCH (no /mcu/state, cameras or fast timers)", true);
+        std::string path = params::text(*this, "robot_config", "", "the robot's generated json (\"\" = omni_catch's robot_v11.json)");
         if (path.empty()) path = ament_index_cpp::get_package_share_directory("omni_catch") + "/config/robot_v11.json";
         rc_ = std::make_unique<RobotConfig>(path);
         game_ = make_game(gp);

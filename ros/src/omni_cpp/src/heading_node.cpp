@@ -11,6 +11,7 @@
 #include "nav_msgs/msg/odometry.hpp"
 #include "nav_msgs/msg/path.hpp"
 #include "omni_cpp/heading.hpp"
+#include "omni_cpp/params.hpp"
 #include "rcl_interfaces/msg/set_parameters_result.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
@@ -21,11 +22,13 @@ class HeadingNode : public rclcpp::Node {
 public:
     explicit HeadingNode(const rclcpp::NodeOptions& opt) : Node("heading_node", opt) {
         HeadingConfig c;
-        c.mode = declare_parameter<std::string>("heading", c.mode);
-        c.spin_rate = declare_parameter<double>("spin_rate", c.spin_rate);
-        c.turn_max = declare_parameter<double>("turn_max", c.turn_max);
-        c.lead = declare_parameter<double>("lead", c.lead);
-        double rate = declare_parameter<double>("rate", 50.0);
+        namespace P = params;
+        c.mode = P::text(*this, "heading", c.mode, "which way the robot faces on Nav2's path: agnostic | forward | spinning",
+                         false);
+        c.spin_rate = P::number(*this, "spin_rate", c.spin_rate, -12.6, 12.6, "rad/s: spinning's turn rate (negative: clockwise)");
+        c.turn_max = P::number(*this, "turn_max", c.turn_max, 0.1, 12.6, "rad/s: forward's top turn rate");
+        c.lead = P::number(*this, "lead", c.lead, 0.0, 0.5, "s from here to the firmware acting on the command");
+        double rate = P::number(*this, "rate", 50.0, 5.0, 500.0, "Hz: the shaper's cycle", true);
         c.period = 1.0 / rate;
         if (!heading_mode_ok(c.mode)) throw std::invalid_argument("heading: one of agnostic, forward, spinning");
         core_ = HeadingShaper(c);

@@ -1,0 +1,61 @@
+# The robot's tunable values, one section per node (design.md 2.1). Each is a ROS 2 parameter its node declares with a
+# description, a range and whether it is read-only (set at start) or live (changes at once):
+#   ros2 param describe /mode_manager pick_timeout      what it is, its range, read-only or not
+#   ros2 param set /mode_manager pick_timeout 0.4       live ones only; ROS refuses values out of range
+#   ros2 param dump /mode_manager                       to copy tuned values back here
+# stack.py loads this file into each node, then its launch-specific values (ports, modes, sim time, the arm's config)
+# on top, so those are not here. omni_bringup/test/test_robot_params.py checks every name below is declared by its node.
+# Not here: Nav2 / slam_toolbox / EKF (nav2.yaml, slam_*.yaml, ekf.yaml), the console's operator settings (the page's
+# Settings: missions.SETTINGS, ~/.omni/console.json), the firmware's limits (compiled in: fw_params*.h, the safety
+# ceiling a host can only ask under).
+
+mode_manager:
+  ros__parameters:
+    rate: 100.0                    # Hz: /mcu/cmd, also the MCU's heartbeat (read-only)
+    arm_out_timeout: 0.5           # s: /arm/out older than this counts as arm out (live)
+    lock_timeout: 1.0              # s: a true /cmd_vel/lock holds this long (live)
+    catch_timeout: 0.3             # s: CATCH without a fresh /catch/cmd -> ramped stop (live)
+    thrower_timeout: 0.3           # s: THROWER without a fresh /thrower/cmd -> flywheels down (live)
+    pick_timeout: 0.3              # s: PICK without a fresh /pick/cmd_vel -> ramped stop (live)
+    twist_topics: ["/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"]    # TELEOP's sources (read-only)
+    twist_priorities: [100, 90, 50]                                   # the highest fresh one drives
+    twist_timeouts: [0.5, 0.5, 0.5]                                   # s each stays fresh
+
+mcu_link:
+  ros__parameters:
+    rate: 100.0                    # Hz: CMDs to the MCU (read-only)
+    cmd_timeout: 0.3               # s: no /mcu/cmd -> a ramped stop request; under the MCU's own 0.5 s (live)
+    edge_latency_us: 0.0           # us: the SYNC pulse's GPIO stamping latency (read-only; VERIFY on the robot)
+
+scan_prep:
+  ros__parameters:
+    margin: 0.3                    # m: returns this far short of the predicted floor hit are kept (live)
+    deskew_keys: 11                # odom poses per scan for the de-skew (live)
+    time_order: 1                  # 1: the A2M12's array runs with time, -1 against (read-only)
+    refine_stamps: false           # re-time scans from their spacing (read-only)
+    latency: 0.0                   # s: the lidar's stamp latency with refine_stamps (read-only)
+
+heading_node:
+  ros__parameters:
+    rate: 50.0                     # Hz (read-only)
+    spin_rate: 2.0943951           # rad/s (120 deg/s): spinning's turn rate; the console's Go To sets it (live)
+    turn_max: 1.5707963            # rad/s (90 deg/s): forward's top turn rate (live)
+    lead: 0.03                     # s from the shaper to the firmware acting (live)
+
+arm_driver:
+  ros__parameters:
+    tf_hz: 0.0                     # Hz: the arm's TF, 0 = every cycle (read-only)
+    arm_torque: 1000               # the arm joints' torque limit, 0.1 % of stall, at each torque-on (live)
+    grip_torque: 500               # the gripper's (est; LeRobot's SO-101 follower uses ~50 %) (live)
+    bus_timeout: 0.02              # s: the wait for each servo's reply (read-only)
+    retry_s: 2.0                   # s between attempts to open the bus (live)
+
+arm_node:                          # omni_arm's arm_brain
+  ros__parameters:
+    health_grace: 0.5              # s of unhealthy servo feedback a tidy rides through (live)
+    hw_stale: 2.0                  # s without /arm/hw: the driver isn't running (live)
+
+catch_perception:
+  ros__parameters:
+    calib_rot_deg: 0.1             # deg: the stereo calibration's rotation uncertainty (read-only)
+    ball_size_rel: 0.015           # the ball's apparent-size noise, relative (read-only)

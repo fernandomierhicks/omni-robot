@@ -19,6 +19,7 @@
 #include "omni_interfaces/msg/ball_track.hpp"
 #include "omni_interfaces/msg/mcu_state.hpp"
 #include "omni_interfaces/msg/sparse_image.hpp"
+#include "omni_cpp/params.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
 #include "sensor_msgs/msg/image.hpp"
@@ -33,7 +34,7 @@ using visualization_msgs::msg::Marker;
 namespace {
 
 std::string robot_config_path(rclcpp::Node& n) {
-    std::string p = n.declare_parameter<std::string>("robot_config", "");
+    std::string p = params::text(n, "robot_config", "", "the robot's generated json (\"\" = omni_catch's robot_v11.json)");
     return p.empty() ? ament_index_cpp::get_package_share_directory("omni_catch") + "/config/robot_v11.json" : p;
 }
 
@@ -51,17 +52,17 @@ double t_of(const builtin_interfaces::msg::Time& s) { return s.sec + s.nanosec *
 class CatchPerception : public rclcpp::Node {
 public:
     explicit CatchPerception(const rclcpp::NodeOptions& opt) : Node("catch_perception", opt) {
-        source_ = declare_parameter<std::string>("source", "sparse");
-        declare_parameter<std::string>("detector", "native");
+        source_ = params::text(*this, "source", "sparse", "camera input: sparse (SparseImage) | image (sensor_msgs/Image)");
+        params::text(*this, "detector", "native", "the ball detector (native: the C++ blob detector, the only one)");
         TrackerConfig tc;
-        tc.calib_rot_deg = declare_parameter<double>("calib_rot_deg", 0.10);
-        tc.ball_size_rel = declare_parameter<double>("ball_size_rel", 0.015);
+        tc.calib_rot_deg = params::number(*this, "calib_rot_deg", 0.10, 0.0, 5.0, "deg: the stereo calibration's rotation uncertainty (the filter's)", true);
+        tc.ball_size_rel = params::number(*this, "ball_size_rel", 0.015, 0.0, 0.5, "the ball's apparent-size measurement noise, relative", true);
         RobotConfig rc(robot_config_path(*this));
         perc_ = std::make_unique<Perception>(rc, tc, DetectorConfig());
-        perc_->set_play_area(declare_parameter<double>("arena_cx", 3.5), declare_parameter<double>("arena_cy", 0.0),
-                             declare_parameter<double>("arena_hx", 6.0), declare_parameter<double>("arena_hy", 3.0));
+        perc_->set_play_area(params::number(*this, "arena_cx", 3.5, -50, 50, "m: the play area's centre x (odom)", true), params::number(*this, "arena_cy", 0.0, -50, 50, "m: the play area's centre y", true),
+                             params::number(*this, "arena_hx", 6.0, 0.5, 50, "m: the play area's half length", true), params::number(*this, "arena_hy", 3.0, 0.5, 50, "m: the play area's half width", true));
         z_rim_ = perc_->robot.rim_center(0.0)[1];
-        sleep_outside_ = declare_parameter<bool>("sleep", true);
+        sleep_outside_ = params::flag(*this, "sleep", true, "asleep outside CATCH (no /mcu/state, cameras or fast timers)", true);
         p_track_ = create_publisher<BallTrack>("/catch/track", 20);
         p_ball_ = create_publisher<Marker>("/catch/ball", 10);
         p_stats_ = create_publisher<std_msgs::msg::String>("/catch/perception", 5);

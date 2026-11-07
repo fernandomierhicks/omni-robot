@@ -15,7 +15,8 @@
 // The arm-out caps come from the arm robot's generated config (config: "" = omni_arm's robot_arm.json, a variant's name
 // such as d435, or a json path): its arm_out speed_cap and a_cap.
 // Service /set_mode. Publishes /mcu/cmd and /robot_mode (latched, e.g. "CATCH adult"). Parameters: mode (initial), kid,
-// arm, config, arm_out_timeout, twist_topics, twist_priorities, twist_timeouts, lock_timeout.
+// arm, config, arm_out_timeout, twist_topics, twist_priorities, twist_timeouts, lock_timeout, catch_timeout,
+// thrower_timeout, pick_timeout, rate (params.hpp: ranges, read-only, live; values in omni_bringup/config/robot.yaml).
 #include <cctype>
 #include <fstream>
 #include <sstream>
@@ -27,6 +28,7 @@
 #include "geometry_msgs/msg/twist.hpp"
 #include "omni_cpp/mcu_msgs.hpp"
 #include "omni_cpp/mode_mux.hpp"
+#include "omni_cpp/params.hpp"
 #include "omni_interfaces/msg/mcu_command.hpp"
 #include "omni_interfaces/srv/set_mode.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -51,18 +53,33 @@ class ModeManager : public rclcpp::Node {
 public:
     explicit ModeManager(const rclcpp::NodeOptions& opt)
         : Node("mode_manager", opt),
-          mux_(upper(declare_parameter<std::string>("mode", "IDLE")), declare_parameter<bool>("kid", false)) {
+          mux_(upper(params::text(*this, "mode", "IDLE", "the mode at start (IDLE, TELEOP, CATCH, THROWER, PICK); /set_mode changes it")),
+               params::flag(*this, "kid", false, "the kid profile at start; /set_mode changes it", true)) {
+        namespace P = params;
+        live_ = std::make_unique<P::Live>(*this);
         p_cmd_ = create_publisher<McuCommand>("/mcu/cmd", 10);
         p_mode_ = create_publisher<std_msgs::msg::String>("/robot_mode", rclcpp::QoS(1).transient_local());
         p_active_ = create_publisher<std_msgs::msg::String>("/cmd_vel/active", rclcpp::QoS(1).transient_local());
-        has_arm_ = declare_parameter<bool>("arm", true);
-        if (has_arm_) load_arm_out(declare_parameter<std::string>("config", ""));
-        arm_out_timeout_ = declare_parameter<double>("arm_out_timeout", 0.5);
-        lock_timeout_ = declare_parameter<double>("lock_timeout", 1.0);
+        has_arm_ = P::flag(*this, "arm", true, "this robot has an arm: a missing or stale /arm/out caps the base", true);
+        if (has_arm_) load_arm_out(P::text(*this, "config", "", "the arm's robot_arm*.json (\"\" | d435 | a path): its arm_out caps"));
+        arm_out_timeout_ = P::number(*this, "arm_out_timeout", 0.5, 0.05, 5.0, "s: /arm/out older than this counts as arm out");
+        lock_timeout_ = P::number(*this, "lock_timeout", 1.0, 0.1, 10.0, "s: a true /cmd_vel/lock holds this long after its last message");
+        catch_timeout_ = P::number(*this, "catch_timeout", 0.3, 0.05, 2.0, "s: CATCH: a /catch/cmd older than this -> a ramped stop");
+        thrower_timeout_ = P::number(*this, "thrower_timeout", 0.3, 0.05, 2.0, "s: THROWER: a /thrower/cmd older than this -> flywheels down");
+        pick_timeout_ = P::number(*this, "pick_timeout", 0.3, 0.05, 2.0, "s: PICK: a /pick/cmd_vel older than this -> a ramped stop");
+        double rate = P::number(*this, "rate", 100.0, 20.0, 500.0, "Hz: /mcu/cmd (also the MCU's heartbeat)", true);
+        live_->bind("arm_out_timeout", &arm_out_timeout_);
+        live_->bind("lock_timeout", &lock_timeout_);
+        live_->bind("catch_timeout", &catch_timeout_);
+        live_->bind("thrower_timeout", &thrower_timeout_);
+        live_->bind("pick_timeout", &pick_timeout_);
         auto topics = declare_parameter<std::vector<std::string>>(
-            "twist_topics", std::vector<std::string>{"/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"});
-        auto prios = declare_parameter<std::vector<int64_t>>("twist_priorities", std::vector<int64_t>{100, 90, 50});
-        auto touts = declare_parameter<std::vector<double>>("twist_timeouts", std::vector<double>{0.5, 0.5, 0.5});
+            "twist_topics", std::vector<std::string>{"/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"},
+            P::desc("TELEOP's twist sources, one topic each", true));
+        auto prios = declare_parameter<std::vector<int64_t>>("twist_priorities", std::vector<int64_t>{100, 90, 50},
+                                                             P::desc("their priorities: the highest fresh one drives", true));
+        auto touts = declare_parameter<std::vector<double>>("twist_timeouts", std::vector<double>{0.5, 0.5, 0.5},
+                                                            P::desc("s: how long each source stays fresh", true));
         if (prios.size() != topics.size() || touts.size() != topics.size())
             throw std::invalid_argument("twist_topics, twist_priorities and twist_timeouts must have the same length");
         sources_.resize(topics.size());
@@ -96,7 +113,7 @@ public:
                 a->success = mux_.set_mode(q->mode, q->kid, a->message);
                 if (a->success) announce();
             });
-        timer_ = rclcpp::create_timer(this, get_clock(), rclcpp::Duration::from_seconds(0.01), [this] { tick(); });
+        timer_ = rclcpp::create_timer(this, get_clock(), rclcpp::Duration::from_seconds(1.0 / rate), [this] { tick(); });
         announce();
         announce_source("none");
     }
@@ -176,7 +193,7 @@ private:
         update_arm_out(t);
         Request r;
         if (mux_.mode == "CATCH") {
-            if (has_catch_ && t - t_catch_ < 0.3) {
+            if (has_catch_ && t - t_catch_ < catch_timeout_) {
                 r = catch_;                        // a copy: the stored request keeps the behavior's own fire_seq
                 r.kid = mux_.kid;
                 r.fire_seq = mux_.fire(catch_.fire_seq);
@@ -184,10 +201,10 @@ private:
                 r = mux_.request();                // the behavior is silent: a ramped stop
             }
         } else if (mux_.mode == "THROWER") {
-            bool fresh = has_thrower_ && t - t_thrower_ < 0.3;
+            bool fresh = has_thrower_ && t - t_thrower_ < thrower_timeout_;
             r = mux_.request(nullptr, fresh ? &thrower_ : nullptr);
         } else if (mux_.mode == "PICK") {
-            r = mux_.request(nullptr, nullptr, t - t_pick_ < 0.3 ? &pick_ : nullptr);
+            r = mux_.request(nullptr, nullptr, t - t_pick_ < pick_timeout_ ? &pick_ : nullptr);
         } else {
             r = mux_.request(teleop_twist(t));
         }
@@ -205,6 +222,8 @@ private:
     double t_catch_ = -1e9, t_thrower_ = -1e9, t_pick_ = -1e9;
     bool has_arm_ = true, arm_out_msg_ = false, lock_ = false;
     double arm_out_timeout_ = 0.5, lock_timeout_ = 1.0, t_arm_ = -1e9, t_lock_ = -1e9;
+    double catch_timeout_ = 0.3, thrower_timeout_ = 0.3, pick_timeout_ = 0.3;
+    std::unique_ptr<params::Live> live_;
     rclcpp::Publisher<McuCommand>::SharedPtr p_cmd_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr p_mode_, p_active_;
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr s_pick_;

@@ -116,6 +116,22 @@ bash "$O" console --autostart robot person:=true   # the page server + launcher 
 
 With `firmware:=true` (the default) every step but `tour` and `auto-map` runs the robot's C++ firmware inside the sim. `mcu_link` then publishes `/odom`, `/imu` and odom → base_link from the MCU, and `mode_manager` (TELEOP) forwards a twist to it, ramped and capped by the firmware. `firmware:=false` is v10's bridge.
 
+**Parameters: what can be tuned.** The robot nodes' tunable values are ROS 2 parameters, each declared with a
+description, a range for numbers, and read-only (set at start) or live (changes at once). Their values for the robot
+are in `src/omni_bringup/config/robot.yaml`, one section per node; the launch loads it into each node and puts its
+launch-specific values (ports, modes, sim time) on top.
+```bash
+ros2 param list /mode_manager                      # what a node has
+ros2 param describe /mode_manager pick_timeout     # what it means, its range, read-only or not
+ros2 param set /arm_driver grip_torque 400         # live ones only; ROS refuses values out of range
+ros2 param dump /arm_driver                        # copy tuned values back into robot.yaml
+```
+Foxglove's Parameters panel shows and sets the same. In C++ declare new ones with `omni_cpp/params.hpp`
+(`params::number / integer / flag / text`, `params::Live` for live ones), add the value to `robot.yaml`;
+`omni_bringup/test/test_robot_params.py` checks the file against the declarations. Not parameters: Nav2 / SLAM / EKF
+(their own yaml), the console's operator settings (the page), the firmware's limits (compiled in: the ceiling a host
+can only ask under).
+
 **Who drives (TELEOP).** Each source has its own topic and the mode manager takes the highest-priority one that is
 fresh (0.5 s): `/cmd_vel/joy` (100, the joystick), `/cmd_vel/manual` (90: Foxglove's Teleop panel, the console's stick
 when it bypasses Nav2's collision monitor), `/cmd_vel` (50: Nav2's collision monitor; the console's guarded driving

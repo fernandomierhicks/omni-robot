@@ -1,5 +1,5 @@
-// scan_prep: /scan -> /scan_filtered for slam_toolbox and Nav2 (design.md 28), in C++: omni_perception/scan_prep.py's
-// topics, parameters and behaviour (its notes say why). Drops the A2M12's floor returns (/lidar/tilt_cal, the BNO085's
+// scan_prep: /scan -> /scan_filtered for slam_toolbox and Nav2 (design.md 28), in C++ (its Python original,
+// omni_perception/scan_prep.py, was deleted Nov 7). Drops the A2M12's floor returns (/lidar/tilt_cal, the BNO085's
 // roll and pitch), then de-skews each scan with odom -> base_link at every sample's time and re-bins it by angle.
 // Scans wait for the EKF's transform up to their last sample (0.3 s at most), never blocking the executor.
 //
@@ -10,6 +10,7 @@
 #include <deque>
 
 #include "geometry_msgs/msg/vector3_stamped.hpp"
+#include "omni_cpp/params.hpp"
 #include "omni_cpp/scan.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
@@ -34,13 +35,20 @@ tf2::TimePoint tp(double t) { return tf2::TimePoint(std::chrono::nanoseconds((in
 class ScanPrep : public rclcpp::Node {
 public:
     explicit ScanPrep(const rclcpp::NodeOptions& opt) : Node("scan_prep", opt) {
-        margin_ = declare_parameter<double>("margin", 0.3);
-        floor_ = declare_parameter<bool>("floor", true);
-        deskew_ = declare_parameter<bool>("deskew", true);
-        n_key_ = (int)declare_parameter<int64_t>("deskew_keys", 11);
-        order_ = declare_parameter<int64_t>("time_order", 1) >= 0 ? 1 : -1;
-        double latency = declare_parameter<double>("latency", 0.0);
-        if (declare_parameter<bool>("refine_stamps", false)) clock_ = std::make_unique<ScanClock>(latency);
+        namespace P = params;
+        margin_ = P::number(*this, "margin", 0.3, 0.0, 2.0, "m: a return this far short of the predicted floor hit is kept");
+        floor_ = P::flag(*this, "floor", true, "drop the lidar's floor returns (needs /lidar/tilt_cal)");
+        deskew_ = P::flag(*this, "deskew", true, "de-skew each scan with odom at every sample's time");
+        n_key_ = (int)P::integer(*this, "deskew_keys", 11, 2, 100, "odom poses looked up per scan for the de-skew");
+        order_ = P::integer(*this, "time_order", 1, -1, 1, "1: the scan's array runs with time, -1: against it", true) >= 0 ? 1 : -1;
+        double latency = P::number(*this, "latency", 0.0, 0.0, 0.5, "s: the lidar's stamp latency (refine_stamps)", true);
+        if (P::flag(*this, "refine_stamps", false, "re-time scans from their spacing (scan_time ScanClock)", true))
+            clock_ = std::make_unique<ScanClock>(latency);
+        live_ = std::make_unique<P::Live>(*this);
+        live_->bind("margin", &margin_);
+        live_->bind("floor", &floor_);
+        live_->bind("deskew", &deskew_);
+        live_->bind("deskew_keys", &n_key_);
         buf_ = std::make_unique<tf2_ros::Buffer>(get_clock(), tf2::durationFromSec(5.0));
         tfl_ = std::make_unique<tf2_ros::TransformListener>(*buf_, this);
         pub_ = create_publisher<LaserScan>("/scan_filtered", 10);
@@ -154,6 +162,7 @@ private:
     bool floor_, deskew_;
     int n_key_, order_;
     std::unique_ptr<ScanClock> clock_;
+    std::unique_ptr<params::Live> live_;
     LidarCal cal_{};
     bool has_cal_ = false;
     double roll_ = 0, pitch_ = 0;

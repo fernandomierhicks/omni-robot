@@ -32,6 +32,7 @@
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "omni_cpp/arm_driver_core.hpp"
 #include "omni_cpp/arm_kin.hpp"
+#include "omni_cpp/params.hpp"
 #include "omni_cpp/arm_motion.hpp"
 #include "omni_cpp/feetech.hpp"
 #include "omni_interfaces/msg/arm_hardware.hpp"
@@ -49,8 +50,6 @@ using omni_interfaces::msg::ArmMotion;
 
 namespace {
 
-constexpr double RETRY_S = 2.0;       // between attempts to open the bus
-constexpr double BUS_TIMEOUT = 0.02;  // s per reply
 
 const char* const LINKS[] = {"arm_shoulder", "arm_upper_arm", "arm_lower_arm", "arm_wrist", "arm_gripper", "arm_jaw",
                              "tool"};
@@ -180,12 +179,23 @@ std::string config_file(const std::string& name) {
 class ArmDriver : public rclcpp::Node {
 public:
     explicit ArmDriver(const rclcpp::NodeOptions& opt) : Node("arm_driver", opt) {
-        port_spec_ = declare_parameter<std::string>("port", "tcp:127.0.0.1:5763");
-        std::string cal = declare_parameter<std::string>("calibration", "");
-        rate_ = declare_parameter<double>("rate", 50.0);
-        double tf_hz = declare_parameter<double>("tf_hz", 0.0);
-        std::string config = declare_parameter<std::string>("config", "");
+        namespace P = params;
+        port_spec_ = P::text(*this, "port", "tcp:127.0.0.1:5763", "the servo bus: tcp:host:port (the sim) | serial:/dev/... | a device");
+        std::string cal = P::text(*this, "calibration", "", "a LeRobot calibration json (\"\" = the sim's nominal one)");
+        rate_ = P::number(*this, "rate", 50.0, 5.0, 200.0, "Hz: the bus cycle (read, play, write)", true);
+        double tf_hz = P::number(*this, "tf_hz", 0.0, 0.0, 200.0, "Hz: the arm's TF (0 = every cycle)", true);
+        std::string config = P::text(*this, "config", "", "the robot_arm*.json: \"\" | d435 | a path");
         core_ = std::make_unique<ArmDriverCore>(config_file(config), cal);
+        core_->arm_torque = (int)P::integer(*this, "arm_torque", ARM_TORQUE, 0, 1000,
+                                            "the arm joints' torque limit, 0.1 % of stall (written at each torque-on)");
+        core_->grip_torque = (int)P::integer(*this, "grip_torque", GRIP_TORQUE, 0, 1000,
+                                             "the gripper's torque limit, 0.1 % of stall (a stalled STS3215 heats)");
+        bus_timeout_ = P::number(*this, "bus_timeout", 0.02, 0.002, 0.5, "s: the wait for each servo's reply", true);
+        retry_s_ = P::number(*this, "retry_s", 2.0, 0.2, 60.0, "s between attempts to open the bus");
+        live_ = std::make_unique<P::Live>(*this);
+        live_->bind("arm_torque", &core_->arm_torque);
+        live_->bind("grip_torque", &core_->grip_torque);
+        live_->bind("retry_s", &retry_s_);
         tf_every_ = tf_hz > 0 ? std::max(1, (int)std::lround(rate_ / tf_hz)) : 1;
         out_every_ = std::max(1, (int)(rate_ / 10));
         hw_every_ = std::max(1, (int)(rate_ / 5));
@@ -204,7 +214,7 @@ private:
 
     // -- the bus (the driving itself is ArmDriverCore's, the code the sim runs too) ---------------------------------
     void connect() {
-        if (core_->connected() || steady_s() - t_connect_ < RETRY_S) return;
+        if (core_->connected() || steady_s() - t_connect_ < retry_s_) return;
         t_connect_ = steady_s();
         auto port = std::make_unique<Transport>();
         std::string err;
@@ -213,7 +223,7 @@ private:
             return;
         }
         try {
-            std::vector<int> missing = core_->connect(*port, BUS_TIMEOUT);
+            std::vector<int> missing = core_->connect(*port, bus_timeout_);
             if (!missing.empty()) {
                 std::string s;
                 for (int id : missing) s += " " + std::to_string(id);
@@ -340,8 +350,9 @@ private:
     long k_ = 0;
     std::unique_ptr<ArmDriverCore> core_;
     std::unique_ptr<Transport> port_;
-    double t_connect_ = -1e9;
+    double t_connect_ = -1e9, bus_timeout_ = 0.02, retry_s_ = 2.0;
     uint32_t motion_id_ = 0;
+    std::unique_ptr<params::Live> live_;
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr p_js_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr p_out_;
     rclcpp::Publisher<ArmHardware>::SharedPtr p_hw_;
