@@ -2,7 +2,8 @@
 
 A copy of cad/v12 round 15's generating scripts (no SolidWorks assembly: STEP only, Fernando) with one change: the arm robot's RealSense D435
 moves from the nose to the front of the arm riser. Everything else is round 15 (`../v12/README.md` has the robot and its history). Status:
-**proposal**, nominal CAD, nothing printed; not adopted and not in the sim (`robot_export.ARM_D435` is still the nose mount).
+**the camera position is baselined (Fernando, Nov 5)** in design.md 4.11 and the sim (`robot_export.ARM` / `ARM_D435`, `D435_RISER`; the
+nose kept as `ARM_D435_NOSE`); the CAD itself is nominal, nothing printed.
 
 ## The brief and the answer
 
@@ -86,11 +87,17 @@ Renders: `validation/d435/side_stow.png`, `side_grasp_0.26.png` (from the right)
 `step_export/` (printed parts only, as v12) and `step_export/d435_mount_review.step` (the printed parts round the mount **plus the D435's
 model and its plug + lead**, for review; drop it if only printed parts are wanted).
 
-### For the sim session
+### In the sim (baselined Nov 5)
 
-Rerun `studies/d435_mount.py`, `studies/d435_mount_pick.py` and `studies/arm_calib.py` at: **body centre (0.1908, 0, 0.1930) m, 30 deg
-down, roll 0 (landscape)**; depth origin (0.1980, 0.0175, 0.1888) m. Alternative 25 deg down: centre (0.1905, 0, 0.1930). The sim's
-`ARM_D435` is not changed here.
+`robot_export.ARM` (and so `ARM_D435`) carries **body centre (0.1908, 0, 0.1930) m, 30 deg down, roll 0 (landscape)**, depth origin
+(0.1980, 0.0175, 0.1888) m, and cuts the sim's riser block back 10 mm for it (`arm_riser_pocket`); the generated `robot_arm*.json` and
+frames follow. Alternative 25 deg down: centre (0.1905, 0, 0.1930). Rerun there (Nov 6; design.md 4.11):
+
+- `studies/d435_mount.py` (`riser_cad`): close look 25/40 at 30 deg, 35/40 at 35; floor valid 63/46 % at 1.5/2 m; no tags; no table
+  or chair overhang at 25-35 deg (`--overhang`, `d435_mount_riser_cad_overhang.json`).
+- `studies/d435_mount_pick.py` (`riser_cad`, `riser_cad35`; 6 toys, 4 seeds): 18/24 binned at 30 deg, 20/24 at 35 (nose 22/24),
+  no failed grasps.
+- `studies/arm_calib.py --out arm_calib_riser.json`: keyed block p95 0.27 mm, gripped 0.95 mm, as at the nose.
 
 Expect against the portrait proposal: lower (z 0.193 instead of 0.200, lens 0.189 instead of 0.211), so less far floor; a 58 deg tall
 field, so the 0.27 m blind zone becomes ~0.31 m; at 30 deg the field's top is 1 deg below the horizon, so no table or chair overhang (the

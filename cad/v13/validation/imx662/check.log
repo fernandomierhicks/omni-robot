@@ -1,0 +1,19 @@
+building the robot ...
+73 parts near the nose
+z95_up10 fits arm {'imx662': 17.9, 'stand_imx662': 35.0} lidar 50.8 r 215.2 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z95_up15 fits arm {'imx662': 17.4, 'stand_imx662': 33.9} lidar 50.8 r 215.8 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z95_up20 fits arm {'imx662': 16.8, 'stand_imx662': 32.7} lidar 50.8 r 216.4 gaps {'imx662': 6.73, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z95_up25 fits arm {'imx662': 16.2, 'stand_imx662': 31.2} lidar 50.8 r 217.0 gaps {'imx662': 5.38, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z95_up30 fits arm {'imx662': 15.7, 'stand_imx662': 29.8} lidar 50.8 r 217.5 gaps {'imx662': 4.25, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z105_up10 fits arm {'imx662': 17.8, 'stand_imx662': 34.2} lidar 42.4 r 215.2 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z105_up15 fits arm {'imx662': 17.2, 'stand_imx662': 32.6} lidar 45.2 r 215.8 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z105_up20 fits arm {'imx662': 16.6, 'stand_imx662': 30.9} lidar 48.0 r 216.4 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z105_up25 fits arm {'imx662': 16.0, 'stand_imx662': 29.2} lidar 50.5 r 217.0 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z105_up30 fits arm {'imx662': 15.5, 'stand_imx662': 27.6} lidar 50.8 r 217.5 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z115_up10 fits arm {'imx662': 18.3, 'stand_imx662': 34.6} lidar 32.4 r 215.2 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z115_up15 fits arm {'imx662': 17.7, 'stand_imx662': 32.7} lidar 35.2 r 215.8 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z115_up20 fits arm {'imx662': 17.2, 'stand_imx662': 30.9} lidar 38.0 r 216.4 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z115_up25 fits arm {'imx662': 16.7, 'stand_imx662': 29.1} lidar 40.5 r 217.0 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+z115_up30 fits arm {'imx662': 16.3, 'stand_imx662': 27.2} lidar 41.9 r 217.5 gaps {'imx662': None, 'plug_imx662': None, 'lead_imx662': 3.75, 'stand_imx662': None} fov hits {}
+wrote C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\validation\imx662\fit.json
+wrote C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\validation\imx662\imx662_fit_review.step 69 parts

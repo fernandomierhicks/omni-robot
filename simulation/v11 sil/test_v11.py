@@ -1919,12 +1919,13 @@ def test_omni_arm_kinematics_are_the_sims():
         assert T["wrist_cam"][:3, :3] == pytest.approx(d.cam_xmat[c].reshape(3, 3), abs=1e-9)
 
 
-def test_the_d435_on_the_nose_clears_the_robot():
-    """design.md 4.11: the D435 (robot_export.ARM_D435) on the deck's nose: >= 3 mm from every part of the robot (the
-    lidar, the bumper, the wheels' rollers and guards), its top >= 3 mm under the lidar's scan plane (no shadow), inside
-    the bumper's 217 mm, looking 7.5 deg down (Nov 4: the room as well as the floor); the stereo arm robot has its box
-    but not its cameras, the catch robot none."""
-    from robot_export import arm_d435_params
+def test_the_d435_on_the_riser_clears_the_robot():
+    """design.md 4.11 (Nov 5, cad/v13): the D435 (robot_export.ARM_D435) in the arm riser's front pocket: >= 3 mm from
+    every part of the robot (the riser cut back for it, the adapter, the arm's base, the plate), its lowest corner >= 3 mm
+    over the lidar's scan plane (no shadow), inside the bumper's 217 mm, looking 30 deg down; the nose mount
+    (ARM_D435_NOSE: under the scan plane, 7.5 deg) still builds and clears; the stereo arm robot has its box but not its
+    cameras, the catch robot none."""
+    from robot_export import ARM_D435_NOSE, arm_d435_params
     p, m, d, r = make(arm_d435_params(home_xy=(0.0, 0.0)))
     adr = m.joint("base").qposadr[0]
     d.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
@@ -1936,10 +1937,20 @@ def test_the_d435_on_the_nose_clears_the_robot():
     assert near >= 0.003
     R, c, h = d.geom_xmat[g].reshape(3, 3), d.geom_xpos[g], m.geom_size[g]
     corners = c + (np.array([(a, b, e) for a in (-1, 1) for b in (-1, 1) for e in (-1, 1)]) * h) @ R.T
-    assert corners[:, 2].max() < d.site_xpos[m.site("lidar").id][2] - 0.003
+    assert corners[:, 2].min() > d.site_xpos[m.site("lidar").id][2] + 0.003
     assert np.hypot(corners[:, 0], corners[:, 1]).max() < 0.217
     view = -d.cam_xmat[m.camera("d435_depth").id].reshape(3, 3)[:, 2]
-    assert math.degrees(math.asin(-view[2])) == pytest.approx(7.5, abs=0.1)
+    assert math.degrees(math.asin(-view[2])) == pytest.approx(30.0, abs=0.1)
+    pn, mn, dn, rn = make(arm_d435_params(home_xy=(0.0, 0.0), **{k: v for k, v in ARM_D435_NOSE.items() if k.startswith(("d435_", "arm_riser_"))}))
+    adr = mn.joint("base").qposadr[0]
+    dn.qpos[adr:adr + 7] = [0, 0, 0, 1, 0, 0, 0]
+    mujoco.mj_forward(mn, dn)
+    gn = mn.geom("d435").id
+    assert min(mujoco.mj_geomDistance(mn, dn, gn, k, 0.05, ft) for k in range(mn.ngeom)
+               if k != gn and mn.body(mn.geom_bodyid[k]).name != "world") >= 0.003
+    Rn, cn, hn = dn.geom_xmat[gn].reshape(3, 3), dn.geom_xpos[gn], mn.geom_size[gn]
+    top = (cn + (np.array([(a, b, e) for a in (-1, 1) for b in (-1, 1) for e in (-1, 1)]) * hn) @ Rn.T)[:, 2].max()
+    assert top < dn.site_xpos[mn.site("lidar").id][2] - 0.003
     pa, ma, da, ra = _pick_robot()
     assert "d435" in {ma.geom(k).name for k in range(ma.ngeom)} and pa.depth_camera == "none"     # the box only
     assert mujoco.mj_name2id(ma, mujoco.mjtObj.mjOBJ_CAMERA, "d435_depth") == -1
@@ -2102,12 +2113,15 @@ def test_the_gripper_picks_up_a_block():
 
 def test_the_tidy_picks_up_a_toy_through_the_whole_stack():
     """sil_pick: the robot's own code (driver, vision, the tidy task, the mode mux, the C++ firmware) finds one cube
-    near the robot, picks it up and drops it in the bin; then finds nothing more."""
+    near the robot, picks it up and drops it in the bin; then looks over the rest of its region (1 m round where it
+    started) and finds nothing more."""
     from sil_pick import SilPick
     g = SilPick(1, "toys", seed=2, spread=0.4)
-    s = g.run(t_max=150.0)
+    g.task.p.area_radius = 1.0
+    s = g.run(t_max=200.0)
     g.cams.close()
-    assert s["in_bin"] == 1 and s["task_picked"] == 1 and s["reason"] == "nothing in sight", s["events"]
+    assert s["in_bin"] == 1 and s["task_picked"] == 1 and s["reason"] == "region covered", s["events"]
+    assert g.task.status()["coverage"]["share"] > 0.9, g.task.status()["coverage"]
     assert s["bus_errors"] == 0 and s["max_tilt_deg"] < 5.0
 
 

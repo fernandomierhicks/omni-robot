@@ -350,7 +350,7 @@ class SimParams:
     camera_tilt_deg: float = 30.0
     camera_fovy_deg: float = 70.0
     # a depth camera besides the stereo pair (design.md 4.11, Nov 1, proposed): "d435" = Fernando's Intel RealSense D435
-    # on the deck's nose, under the lidar's scan plane, looking down at the floor ahead (the arm robot's floor camera and
+    # (on the arm riser's front since Nov 5, robot_export.ARM; the deck's nose before), looking down at the floor ahead (the arm robot's floor camera and
     # a near-field obstacle sensor for Nav2); "none" = none (every earlier result)
     depth_camera: str = "none"
     d435_box: bool = False             # draw the D435's body on the nose without it being the depth camera (the stereo robot)
@@ -366,6 +366,7 @@ class SimParams:
     arm_mount_z: float | None = None   # m: the arm's adapter on a low nose bracket at this height (robot frame) instead
                                        # of on the plate (None); the plate then has a notch over it (design.md 11)
     arm_riser: float = 0.0             # m: on the plate, a printed riser under the adapter (cad/v7 arm_kit.py)
+    arm_riser_pocket: float = 0.0      # m cut off the riser's front (Nov 5, cad/v13): the D435's pocket under the adapter
     arm_display: str = "bin_back"      # "bin_back": Oct 24's 7 in on the bin's back facing the rear; "face": the arm kit
                                        # as drawn (cad/v7 arm_kit.py): the 5 in face over the bin, its uprights and the
                                        # audio box on a shelf above it

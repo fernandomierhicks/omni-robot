@@ -82,7 +82,7 @@ class CoreConfig:
     n_objects: int = 6
     joint_err_deg: float = 1.0           # the arm's servos off their calibration (arm_bus)
     # the arm robot's depth camera (design.md 4.11): "stereo" (the head's pair, robot_export.ARM) or "d435" (the RealSense
-    # D435 on the deck's nose, robot_export.ARM_D435: the tidy's looks and Nav2's near-field depth)
+    # D435 on the arm riser's front, robot_export.ARM_D435: the tidy's looks and Nav2's near-field depth)
     arm_camera: str = "stereo"
     # the Launcher's live world (sim_world.World): the person, the clutter ("off", "toys", "all" = toys and larger
     # obstacles) and the house's thrower switched on and off while the sim runs

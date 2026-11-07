@@ -11,8 +11,8 @@
                                                builds it, its servos, finger pads, wrist camera, the stereo pods, the
                                                bin, the robot's keep-out volumes for the arm, the arm-out base caps
   ros/src/omni_arm/omni_arm/config/robot_arm_d435.json
-                                               the same robot with a RealSense D435 on the deck's nose as its depth
-                                               camera (ARM_D435, design.md 4.11, proposed)
+                                               the same robot with a RealSense D435 on the arm riser's front as its
+                                               depth camera (ARM_D435, design.md 4.11; the nose: ARM_D435_NOSE)
 
 The robot is V11 below: the v7 base (design.md 25, adopted: 127 mm printed omni wheels, sprung pods), the v6 round 3
 catch / launch module (sections 22-23: chute feed, padded pocket, 35 deg catch tilt) and section 24's actuators
@@ -147,10 +147,18 @@ HEAD_LIFT = 0.005                # m: the camera bar and cheeks over the v7 robo
 # design.md 4.11 (Nov 4, Fernando): the D435 7.5 deg down, not 30, so it sees the room ahead (wall tags at 0.9-1.3 m,
 # furniture, people) as well as the floor; its depth then sees no floor nearer than ~0.34 m, so the tidy's close look
 # is taken D435_LOOK_BACK short of the sweet spot and the base creeps in (studies/d435_tilt.py: 7.5 cm needed, + 2.5)
-D435_TILT = -7.5
+D435_NOSE = dict(d435_pos=(0.19, 0.0, 0.1115), d435_tilt_deg=-7.5, arm_riser_pocket=0.0)
+# design.md 4.11 (Nov 5, Fernando baselined cad/v13's mount): the D435 moved from the nose to a pocket in the arm riser's
+# front, landscape, 30 deg down, under the adapter, its lower edge in a notch in the floor (portrait fits nowhere: clear of
+# the arm it reaches below the lidar's plane). cad/v13: 11-18 mm from the arm in every pose and move, 15 mm over the scan
+# plane, the floor seen from 0.31 m. The sim's riser block is cut back 10 mm at its front for it (3.7 mm behind the
+# camera; the CAD's pocket runs back to x 0.153). The close look still steps back D435_LOOK_BACK (its floor starts at
+# ~0.31 m, the sweet spot's distance)
+D435_RISER = dict(d435_pos=(0.1908, 0.0, 0.193), d435_tilt_deg=-30.0, arm_riser_pocket=0.010)
+D435_TILT = D435_RISER["d435_tilt_deg"]
 D435_LOOK_BACK = 0.10
 ARM = dict(ARM_V7, **V10, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
-           d435_box=True, d435_pos=(0.19, 0.0, 0.1115), d435_tilt_deg=D435_TILT)
+           d435_box=True, **D435_RISER)
 # cad/v9/out/ARM_KIT.md (the arm robot's CAD estimate, the SO-101 stowed; v10 keeps v9's base) plus the D435's 72 g
 CAD_ARM_MASS_KG = 9.56 + 0.072
 CAD_ARM_CG = (0.0066, 0.0, 0.1264)
@@ -198,7 +206,7 @@ def arm_ballast(depth_camera: str = "none", kg: float = CAD_ARM_MASS_KG, cg_dz: 
 
 def arm_robot(camera: str = "stereo", mass_kg: float | None = None, cg_dz: float = 0.0,
               drive_motor: str | None = None) -> dict:
-    """ARM (camera "stereo": the head's pair gives the depth) or ARM_D435 (the D435 on the nose does) as SimParams
+    """ARM (camera "stereo": the head's pair gives the depth) or ARM_D435 (the D435 on the riser does) as SimParams
     overrides, with the CAD's mass and CG (or mass_kg, CG cg_dz higher) and the pods' damping set for that mass.
     drive_motor swaps the AK40-10s (the ballast keeps the total)."""
     base = dict(ARM_D435 if camera == "d435" else ARM)
@@ -215,9 +223,10 @@ def arm_params(mass_kg: float | None = None, cg_dz: float = 0.0, **kw) -> SimPar
     return v11_params(**{**arm_robot("stereo", mass_kg, cg_dz, kw.get("drive_motor")), **kw})
 
 
-# design.md 4.11 (Nov 1, proposed): the arm robot with Fernando's RealSense D435 on the deck's nose as its floor camera
+# design.md 4.11 (Nov 1; the riser since Nov 5): the arm robot with Fernando's RealSense D435 as its floor camera
 # (and Nav2's near-field depth), the stereo pair not used: robot_arm_d435.json; ROS: omni.sh arm arm_camera:=d435
 ARM_D435 = dict(ARM, depth_camera="d435")
+ARM_D435_NOSE = dict(ARM, depth_camera="d435", **D435_NOSE)            # Nov 4-5: on the nose, 7.5 deg down (earlier results)
 ARM_D435_JSON = ARM_JSON.with_name("robot_arm_d435.json")
 
 
@@ -583,7 +592,7 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
         signs = np.array([(sx, sy, sz) for sx in (-1, 1) for sy in (-1, 1) for sz in (-1, 1)])
         corners = c0 + (signs * hs) @ R.T
         keep_out.append(dict(kind="box", min=[float(v) for v in corners.min(axis=0) - 0.005],
-                             max=[float(v) for v in corners.max(axis=0) + 0.005], note="the D435 on the deck's nose"))
+                             max=[float(v) for v in corners.max(axis=0) + 0.005], note="the D435"))
     # the depth camera's nearest floor straight ahead (its field's lower edge), + 5 cm for a thing's ring of floor: the
     # tidy expects to see a known thing only beyond it (and never nearer than the old 0.32 m)
     c0 = cams[0]

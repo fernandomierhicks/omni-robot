@@ -16,7 +16,7 @@ procedure; VERIFY). Frames are rendered when the task asks (sim time: rendering 
 
     python sil_pick.py                       4 toys around the robot, verbose
     python sil_pick.py --n 6 --set clutter --seed 3
-    python sil_pick.py --camera d435         the RealSense D435 on the nose gives the depth (design.md 4.11)
+    python sil_pick.py --camera d435         the RealSense D435 on the arm riser gives the depth (design.md 4.11)
     python sil_pick.py --view                MuJoCo's window, real time (slower while it renders a look)
 """
 
@@ -362,7 +362,7 @@ def main():
     ap.add_argument("--t-max", type=float, default=400.0)
     ap.add_argument("--world", default="arena", choices=("arena", "house"))
     ap.add_argument("--camera", default="d435", choices=("stereo", "d435"),
-                    help="the depth camera: the RealSense D435 on the nose (the arm robot's, design.md 4.11), or the "
+                    help="the depth camera: the RealSense D435 on the arm riser (the arm robot's, design.md 4.11), or the "
                          "head's stereo pair (the parked catch robot's; earlier arm results)")
     a = ap.parse_args()
     kw = dict(depth_camera="d435") if a.camera == "d435" else {}
