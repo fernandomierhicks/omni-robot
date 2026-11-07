@@ -398,7 +398,9 @@ def build(ctx, kind: str):
         glue_node("mcu_link", "omni::McuLink",
                   {"port": f"tcp:{a['mcu_host']}:{int(a['mcu_port'])}", "publish_tf": not ekf, **sync, **sim_t})
         # arm: a missing or stale /arm/out caps the base as if the arm were out (only the arm robot has one)
-        glue_node("mode_manager", "omni::ModeManager", {"mode": "TELEOP", "kid": on("kid"), "arm": arm, **sim_t})
+        # (its caps from the same robot_arm*.json as the arm)
+        glue_node("mode_manager", "omni::ModeManager", {"mode": "TELEOP", "kid": on("kid"), "arm": arm,
+                                                        **({"config": "d435" if d435 else ""} if arm else {}), **sim_t})
         if on("catch") and not arm:
             # the catch game in the house: the robot's catch code on the bridge's camera frames; the field comes on
             # /catch/setup when the mode turns CATCH (the parameters are the open field's, until then)

@@ -238,7 +238,8 @@ class SilPick:
         self.driver = ArmDriver(Bus(self.bus_sim, timeout=0.0, clock=lambda: 0.0), self.kin.cfg)
         self.cams = PickCameras(self.m, self.d, p, seed=seed, cam_err_deg=cam_err_deg)
         self.task = TidyTask(self.kin, params, log=self._log)
-        self.mux = ModeMux("PICK")
+        ao = self.kin.cfg.arm_out
+        self.mux = ModeMux("PICK", arm_out_caps=(ao["speed_cap"], ao["a_cap"]))
         self.pose = (0.0, 0.0, 0.0)
         self.out = None
         self.t_cmd = self.t_task = 0.0

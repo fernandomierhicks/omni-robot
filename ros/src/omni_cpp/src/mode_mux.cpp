@@ -47,8 +47,8 @@ Request ModeMux::request(const Twist2* twist, const Request* thrower, const Twis
 
 Request ModeMux::cap(Request r) const {
     if (arm_out) {
-        r.speed_cap = r.speed_cap > 0 ? std::min(r.speed_cap, ARM_OUT_SPEED) : ARM_OUT_SPEED;
-        r.a_cap = r.a_cap > 0 ? std::min(r.a_cap, ARM_OUT_ACCEL) : ARM_OUT_ACCEL;
+        if (arm_out_speed > 0) r.speed_cap = r.speed_cap > 0 ? std::min(r.speed_cap, arm_out_speed) : arm_out_speed;
+        if (arm_out_accel > 0) r.a_cap = r.a_cap > 0 ? std::min(r.a_cap, arm_out_accel) : arm_out_accel;
     }
     return r;
 }

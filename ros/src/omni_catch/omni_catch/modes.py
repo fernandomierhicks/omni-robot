@@ -7,8 +7,9 @@
             fire requests (the firmware's interlocks still decide whether a ball goes)
   PICK      the arm robot's tidy task (omni_arm, design.md 11) drives the base: its twist, as TELEOP's
 Arm out (design.md 11): while the arm robot's tool is outside the bumper or high (omni_arm says so), every request
-asks the MCU for at most ARM_OUT_CAPS (speed m/s, acceleration m/s^2), whoever drives: a gentler base with the
-arm's weight out front (robot_arm.json "arm_out"; test_v11 checks the two agree).
+asks the MCU for at most arm_out_caps (speed m/s, acceleration m/s^2), whoever drives: a gentler base with the
+arm's weight out front. The caps come from the generated robot_arm.json's "arm_out" (omni_arm's ArmConfig.arm_out):
+pass them to ModeMux; without them it does not cap.
 The MCU stays the safety authority: it caps everything by its own profile (kid / adult), stops on a lost link, a
 bumper or the e-stop, and the RC switch takes over regardless of this (design.md 15). This only chooses whose request
 goes out. A Request carries times on the Jetson's clock; to_command() turns it into the MCU's Command with the link's
@@ -25,16 +26,16 @@ from omni_mcu.protocol import (DRIVE_GOTO, DRIVE_IDLE, DRIVE_VEL_BODY, REQ_AUTO,
                                TimeSync, to_command)
 
 MODES = ("IDLE", "TELEOP", "CATCH", "THROWER", "PICK")
-ARM_OUT_CAPS = (1.0, 2.131578947)      # m/s, m/s^2: robot_arm.json arm_out (half the table's 4.26 straight ahead)
 
 
 class ModeMux:
-    def __init__(self, mode: str = "IDLE", kid: bool = False):
+    def __init__(self, mode: str = "IDLE", kid: bool = False, arm_out_caps: tuple | None = None):
         self.mode = mode
+        self.arm_out_caps = arm_out_caps   # (speed_cap, a_cap) from robot_arm.json's arm_out; None: no cap
         self.kid = kid
         self.fire_out = 0              # the fire_seq the MCU sees
         self._fire_src = None          # (mode, that source's last fire_seq)
-        self.arm_out = False           # the arm robot's tool is out: cap the base (ARM_OUT_CAPS)
+        self.arm_out = False           # the arm robot's tool is out: cap the base (arm_out_caps)
 
     def set_mode(self, mode: str, kid: bool | None = None) -> tuple[bool, str]:
         mode = mode.upper()
@@ -57,11 +58,12 @@ class ModeMux:
     def request(self, catch=None, twist=None, thrower=None, pick=None) -> Request:
         """This cycle's request: catch = a game.CatchCommand, twist = (vx, vy, wz) body frame, fresh (TELEOP),
         thrower = a Request with tilt, fly_rpm, fire_seq (THROWER), fresh, pick = the tidy task's twist (PICK), fresh.
-        With the arm out every request carries ARM_OUT_CAPS."""
+        With the arm out every request carries arm_out_caps."""
         r = self._request(catch, twist, thrower, pick)
-        if self.arm_out:
-            r.speed_cap = min(r.speed_cap, ARM_OUT_CAPS[0]) if r.speed_cap > 0 else ARM_OUT_CAPS[0]
-            r.a_cap = min(r.a_cap, ARM_OUT_CAPS[1]) if r.a_cap > 0 else ARM_OUT_CAPS[1]
+        if self.arm_out and self.arm_out_caps:
+            v, a = self.arm_out_caps
+            r.speed_cap = min(r.speed_cap, v) if r.speed_cap > 0 else v
+            r.a_cap = min(r.a_cap, a) if r.a_cap > 0 else a
         return r
 
     def _request(self, catch, twist, thrower, pick) -> Request:
@@ -93,4 +95,4 @@ class ModeMux:
         return to_command(self.request(catch, twist, thrower, pick), sync)
 
 
-__all__ = ["ARM_OUT_CAPS", "DRIVE_GOTO", "MODES", "ModeMux", "Request", "to_command"]
+__all__ = ["DRIVE_GOTO", "MODES", "ModeMux", "Request", "to_command"]

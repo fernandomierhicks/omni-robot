@@ -40,7 +40,7 @@ from omni_catch.flight import BallFlight                                        
 from omni_catch.frames import ArrayFrame, SparseFrame                            # noqa: E402
 from omni_catch.game import CatchBehavior, CatchCommand, GameParams, RobotView   # noqa: E402
 from omni_catch.intercept import SafetyZone, choose_intercept                    # noqa: E402
-from omni_catch.modes import ARM_OUT_CAPS, ModeMux                               # noqa: E402
+from omni_catch.modes import ModeMux                                             # noqa: E402
 from omni_catch.perception import Perception                                     # noqa: E402
 from omni_catch.robot_config import CONFIG, RobotConfig                          # noqa: E402
 from omni_catch.tracker import TrackView, sphere_image                           # noqa: E402
@@ -237,8 +237,9 @@ def test_link_decodes_and_encodes_like_the_python():
 # -- who drives -----------------------------------------------------------------------------------------------------
 def test_mode_mux_requests_like_the_python():
     rnd = random.Random(3)
-    lines, py = ["init TELEOP 0"], []
-    mux = ModeMux("TELEOP", False)
+    caps = (ArmConfig().arm_out["speed_cap"], ArmConfig().arm_out["a_cap"])     # robot_arm.json, as mode_manager
+    lines, py = ["init TELEOP 0", f"caps {caps[0]!r} {caps[1]!r}"], []
+    mux = ModeMux("TELEOP", False, arm_out_caps=caps)
     for _ in range(3000):
         x = rnd.random()
         if x < 0.05:
@@ -279,7 +280,6 @@ def test_mode_mux_requests_like_the_python():
         assert fa[:1] == fb[:1] and len(fa) == len(fb), (a, b)
         for u, v in zip(fa, fb):
             assert u == v or close(float(u), float(v), 1e-12), (a, b)
-    assert ARM_OUT_CAPS == (1.0, 2.131578947)                  # mode_mux.hpp's ARM_OUT_SPEED / ARM_OUT_ACCEL
 
 
 # -- which way it faces ---------------------------------------------------------------------------------------------
@@ -808,8 +808,9 @@ def test_game_like_the_python(name):
 
 def test_mode_mux_catch_like_the_python():
     rnd = random.Random(26)
-    lines, py = ["init CATCH 0"], []
-    mux = ModeMux("CATCH", False)
+    caps = (ArmConfig().arm_out["speed_cap"], ArmConfig().arm_out["a_cap"])
+    lines, py = ["init CATCH 0", f"caps {caps[0]!r} {caps[1]!r}"], []
+    mux = ModeMux("CATCH", False, arm_out_caps=caps)
     for i in range(400):
         if i % 50 == 25:
             m, k = rnd.choice(["CATCH", "TELEOP", "CATCH"]), rnd.choice([0, 1])

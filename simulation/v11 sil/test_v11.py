@@ -2048,10 +2048,10 @@ def test_mode_mux_caps_the_base_while_the_arm_is_out():
     import json
     _omni_arm()
     from omni_arm.kinematics import CONFIG
-    from omni_catch.modes import ARM_OUT_CAPS, ModeMux
+    from omni_catch.modes import ModeMux
     ao = json.loads(CONFIG.read_text())["arm_out"]
-    assert ARM_OUT_CAPS == pytest.approx((ao["speed_cap"], ao["a_cap"]))            # the mux and the export agree
-    mux = ModeMux("PICK")
+    ARM_OUT_CAPS = (ao["speed_cap"], ao["a_cap"])                                    # the one source: the export
+    mux = ModeMux("PICK", arm_out_caps=ARM_OUT_CAPS)
     r = mux.request(pick=(0.3, 0.0, 0.0))
     assert r.drive_mode == 1 and r.a == 0.3 and r.speed_cap == 0.0 and r.a_cap == 0.0
     mux.arm_out = True

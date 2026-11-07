@@ -2,7 +2,7 @@
 
 For local console changes, start with the affected source/tests; read design.md only when changing the robot's design, architecture, operating limits or mission semantics. `web/` uses plain ES modules with no build step; vendored libraries are documented in `web/vendor/README.md`.
 
-- Add features through verbs/settings in `missions.py` and the existing `/console/command` service, not new service types.
+- Add features through verbs/settings in `missions.py` (the `Console` core; its AI client, calibration and map/program editing live in the mixins `console_ai.py`, `console_calib.py`, `console_edit.py`, shared names in `console_defs.py`) and the existing `/console/command` service, not new service types.
 - The robot sends data; the browser decodes and draws. Map, scan and MCU samples use raw rosbridge subscriptions (`cbor-raw`, `web/js/cdr.js`). Rosbridge shares a subscription per topic: subscribe raw everywhere or nowhere. Do not add images or other high-rate topics through rosbridge; use the separate camera preview path.
 - Drain busy inputs with `Feed.drain`, not a callback for every sample. Do not run console nodes on sim time: the high-rate clock creates substantial Python overhead.
 - Keep the supervisor's `SIM_STEPS`, `ros/omni.sh` and both root Launchers consistent. Preserve the supervisor/page-as-launcher flow and runtime mode switching.

@@ -14,8 +14,6 @@
 namespace omni {
 
 extern const char* const ROBOT_MODES[5];       // IDLE TELEOP CATCH THROWER PICK
-constexpr double ARM_OUT_SPEED = 1.0;          // m/s: robot_arm.json arm_out (modes.ARM_OUT_CAPS)
-constexpr double ARM_OUT_ACCEL = 2.131578947;  // m/s^2
 
 struct Twist2 { double vx, vy, wz; };
 
@@ -44,6 +42,9 @@ public:
     std::string mode;
     bool kid;
     bool arm_out = false;
+    // the caps while the arm is out: the generated robot_arm.json's arm_out (speed_cap m/s, a_cap m/s^2), which the
+    // mode manager loads; 0 = no cap
+    double arm_out_speed = 0.0, arm_out_accel = 0.0;
     uint16_t fire_out = 0;       // the fire_seq the MCU sees
 
 private:

@@ -579,6 +579,8 @@ int main(int argc, char** argv) {
                 int a;
                 is >> a;
                 mux.arm_out = a;
+            } else if (op == "caps") {
+                is >> mux.arm_out_speed >> mux.arm_out_accel;
             } else if (op == "fire") {
                 int s;
                 is >> s;

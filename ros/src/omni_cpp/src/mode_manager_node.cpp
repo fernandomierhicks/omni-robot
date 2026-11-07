@@ -12,10 +12,17 @@
 // /arm/out: every request carries the arm-out caps while the arm is out. With arm:=true (the arm robot, the default)
 // a missing or stale /arm/out (older than arm_out_timeout, 0.5 s; the arm driver sends it at 10 Hz) counts as out: a
 // dead arm node caps the base instead of uncapping it. arm:=false (the catch robot) ignores it.
+// The arm-out caps come from the arm robot's generated config (config: "" = omni_arm's robot_arm.json, a variant's name
+// such as d435, or a json path): its arm_out speed_cap and a_cap.
 // Service /set_mode. Publishes /mcu/cmd and /robot_mode (latched, e.g. "CATCH adult"). Parameters: mode (initial), kid,
-// arm, arm_out_timeout, twist_topics, twist_priorities, twist_timeouts, lock_timeout.
+// arm, config, arm_out_timeout, twist_topics, twist_priorities, twist_timeouts, lock_timeout.
 #include <cctype>
+#include <fstream>
+#include <sstream>
 #include <vector>
+
+#include "ament_index_cpp/get_package_share_directory.hpp"
+#include "omni_cpp/json_value.hpp"
 
 #include "geometry_msgs/msg/twist.hpp"
 #include "omni_cpp/mcu_msgs.hpp"
@@ -49,6 +56,7 @@ public:
         p_mode_ = create_publisher<std_msgs::msg::String>("/robot_mode", rclcpp::QoS(1).transient_local());
         p_active_ = create_publisher<std_msgs::msg::String>("/cmd_vel/active", rclcpp::QoS(1).transient_local());
         has_arm_ = declare_parameter<bool>("arm", true);
+        if (has_arm_) load_arm_out(declare_parameter<std::string>("config", ""));
         arm_out_timeout_ = declare_parameter<double>("arm_out_timeout", 0.5);
         lock_timeout_ = declare_parameter<double>("lock_timeout", 1.0);
         auto topics = declare_parameter<std::vector<std::string>>(
@@ -123,6 +131,24 @@ private:
             if (t - src.t < src.timeout && (!best || src.priority > best->priority)) best = &src;
         announce_source(best ? best->topic : "none");
         return best ? &best->twist : nullptr;
+    }
+
+    // robot_arm.json's arm_out caps into the mux (the one source: simulation/v11 sil/robot_export.py writes it)
+    void load_arm_out(const std::string& name) {
+        std::string dir = ament_index_cpp::get_package_share_directory("omni_arm") + "/config/";
+        bool path = name.find('/') != std::string::npos || name.find('\\') != std::string::npos ||
+                    (name.size() > 5 && name.compare(name.size() - 5, 5, ".json") == 0);
+        std::string file = name.empty() ? dir + "robot_arm.json" : path ? name : dir + "robot_arm_" + name + ".json";
+        std::ifstream f(file);
+        if (!f) throw std::runtime_error("mode_manager: no arm config " + file);
+        std::stringstream ss;
+        ss << f.rdbuf();
+        const Json cfg = Json::parse(ss.str());
+        const Json& ao = cfg["arm_out"];
+        mux_.arm_out_speed = ao["speed_cap"].num();
+        mux_.arm_out_accel = ao["a_cap"].num();
+        RCLCPP_INFO(get_logger(), "arm out caps %.2f m/s, %.2f m/s^2 (%s)", mux_.arm_out_speed, mux_.arm_out_accel,
+                    file.c_str());
     }
 
     void update_arm_out(double t) {
