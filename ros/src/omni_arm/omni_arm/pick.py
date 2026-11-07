@@ -831,8 +831,9 @@ class TidyTask:
             return
         self.stages["grasped"] = True
         gap = float(gap_at(self.kin.cfg, q[5]))
-        if self.mode == "tower" and gap > self.grasp["det"].width + self.p.regrip_gap \
-                and self.regrips.get(self.target.id, 0) < 1:
+        # a cube's side: its height (the depth reads it well; a footprint seen askew reads wide)
+        side = min(self.grasp["det"].width, self.target.det.top)
+        if self.mode == "tower" and gap > side + self.p.regrip_gap and self.regrips.get(self.target.id, 0) < 1:
             # held askew (the jaws wider than the block): straight back down where it was, then picked again
             o = self.target
             self.regrips[o.id] = self.regrips.get(o.id, 0) + 1
@@ -846,7 +847,7 @@ class TidyTask:
             self.place = dict(x=pose[0] + c * bx - s_ * by, y=pose[1] + s_ * bx + c * by, z=0.0, yaw=None,
                               tower=False, ahead=False, regrip=True)
             self._set("P_HOVER", t, f"object {o.id} held askew ({1000 * gap:.0f} mm for "
-                                    f"{1000 * self.grasp['det'].width:.0f}): down again to grip it square")
+                                    f"{1000 * side:.0f}): down again to grip it square")
             return
         if self.keep:                                    # Fetch, the tower: carry it instead of the bin
             o = self.target

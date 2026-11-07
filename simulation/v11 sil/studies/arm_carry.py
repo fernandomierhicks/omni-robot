@@ -9,7 +9,7 @@ on the servo bus, the mode mux, the C++ firmware), the D435 on the riser.
 
   python studies/arm_carry.py                     both, seeds 0-1 (MUJOCO_GL=osmesa without a display)
   python studies/arm_carry.py --case tower --seeds 3 --blocks 3
-Writes results/arm_carry.json.
+Writes results/<out>.json (--out; arm_carry by default): the Nov 7 runs are arm_carry_fetch.json and arm_carry_tower.json.
 """
 
 from __future__ import annotations
@@ -102,8 +102,16 @@ def tower(seed: int, n: int = 3, t_max: float = 900.0) -> dict:
 
 
 def one(args):
+    """One run; tried again once when the renderer fails (osmesa returned a garbage segmentation image once under
+    memory pressure: a crash of the sim's camera, not of the robot's code), else its error as the result."""
     case, seed, n = args
-    return fetch(seed) if case == "fetch" else tower(seed, n)
+    err = None
+    for _ in range(2):
+        try:
+            return fetch(seed) if case == "fetch" else tower(seed, n)
+        except Exception as e:                       # noqa: BLE001
+            err = f"{type(e).__name__}: {e}"
+    return dict(case=case, seed=seed, ok=False, error=err)
 
 
 def main():
@@ -112,16 +120,18 @@ def main():
     ap.add_argument("--seeds", type=int, default=2)
     ap.add_argument("--blocks", type=int, default=3)
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--first", type=int, default=0, help="the first seed")
+    ap.add_argument("--out", default="arm_carry", help="the results' name (studies/results/<out>.json)")
     a = ap.parse_args()
     cases = ["fetch", "tower"] if a.case == "both" else [a.case]
-    jobs = [(c, s, a.blocks) for c in cases for s in range(a.seeds)]
+    jobs = [(c, s, a.blocks) for c in cases for s in range(a.first, a.first + a.seeds)]
     with ProcessPoolExecutor(a.workers) as ex:
         res = list(ex.map(one, jobs))
     for r in res:
         print({k: v for k, v in r.items() if k != "events"})
         if not r.get("ok") and r.get("events"):
             print("   ", r["events"])
-    save("arm_carry", dict(runs=res, ok=sum(r.get("ok", False) for r in res), n=len(res)))
+    save(a.out, dict(runs=res, ok=sum(r.get("ok", False) for r in res), n=len(res)))
 
 
 if __name__ == "__main__":

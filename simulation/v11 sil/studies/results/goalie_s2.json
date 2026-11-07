@@ -1,0 +1,132 @@
+{
+ "shots": 8,
+ "on_target": 7,
+ "saves": 7,
+ "goals": 0,
+ "wide": 1,
+ "save_rate": 1.0,
+ "runs": [
+  {
+   "shot": 0,
+   "speed": 2.72,
+   "aim": -0.222,
+   "start_side": -0.19,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "goal",
+   "tracked": 16,
+   "at_front": {
+    "robot": -0.159,
+    "ball": -0.218
+   },
+   "closest_m": 0.297
+  },
+  {
+   "shot": 1,
+   "speed": 2.59,
+   "aim": 0.11,
+   "start_side": -0.33,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "save",
+   "tracked": 17,
+   "at_front": {
+    "robot": 0.218,
+    "ball": 0.059
+   },
+   "closest_m": 0.3
+  },
+  {
+   "shot": 2,
+   "speed": 1.91,
+   "aim": -0.489,
+   "start_side": -0.25,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "save",
+   "tracked": 22,
+   "at_front": {
+    "robot": -0.357,
+    "ball": -0.461
+   },
+   "closest_m": 0.289
+  },
+  {
+   "shot": 3,
+   "speed": 1.73,
+   "aim": 0.068,
+   "start_side": 0.13,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "save",
+   "tracked": 26,
+   "at_front": {
+    "robot": -0.02,
+    "ball": 0.075
+   },
+   "closest_m": 0.297
+  },
+  {
+   "shot": 4,
+   "speed": 2.13,
+   "aim": 0.186,
+   "start_side": -0.05,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "save",
+   "tracked": 20,
+   "at_front": {
+    "robot": 0.29,
+    "ball": 0.158
+   },
+   "closest_m": 0.301
+  },
+  {
+   "shot": 5,
+   "speed": 2.52,
+   "aim": 0.514,
+   "start_side": 0.11,
+   "result": "wide",
+   "crossed_at": 1.438,
+   "goalie_said": "save",
+   "tracked": 17,
+   "at_front": {
+    "robot": 0.421,
+    "ball": 0.467
+   },
+   "closest_m": 0.257
+  },
+  {
+   "shot": 6,
+   "speed": 2.02,
+   "aim": -0.344,
+   "start_side": -0.09,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "shot",
+   "tracked": 21,
+   "at_front": {
+    "robot": -0.308,
+    "ball": -0.314
+   },
+   "closest_m": 0.282
+  },
+  {
+   "shot": 7,
+   "speed": 2.66,
+   "aim": 0.43,
+   "start_side": 0.01,
+   "result": "save",
+   "crossed_at": null,
+   "goalie_said": "save",
+   "tracked": 16,
+   "at_front": {
+    "robot": 0.417,
+    "ball": 0.381
+   },
+   "closest_m": 0.229
+  }
+ ],
+ "seed": 2,
+ "parked": false
+}

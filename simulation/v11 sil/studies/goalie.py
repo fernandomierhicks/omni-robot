@@ -144,10 +144,11 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--speed", type=float, default=None)
     ap.add_argument("--parked", action="store_true", help="the baseline: the robot stands still")
+    ap.add_argument("--out", default="", help="the results' name (default goalie / goalie_parked)")
     a = ap.parse_args()
     r = run(a.shots, a.seed, a.speed, verbose=True, parked=a.parked)
     print({k: v for k, v in r.items() if k != "runs"})
-    save("goalie_parked" if a.parked else "goalie", r)
+    save(a.out or ("goalie_parked" if a.parked else "goalie"), r)
 
 
 if __name__ == "__main__":

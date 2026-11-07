@@ -68,10 +68,13 @@ the find's floor map, so the ids agree.
 max_blocks}` builds a tower. In the MuJoCo pick harness with the robot's C++ arm driver and firmware
 (`simulation/v11 sil/studies/arm_carry.py`): a kept 40 mm cube put down ahead landed upright, 11.6 mm from the spot
 on 3/3 seeds, about 12 mm from the spot; a 3-cube tower stood 3 high on 1 of 3 seeds and 2 high on the others (design.md 3).
-While building, the base keeps `tower_keep` from the tower (it knocked it over driving past), and after letting go the
-fixed finger slides off the block before rising (rising straight up dragged it off). The held object's offset in the
-gripper is the model's (half its width from the fixed finger), not measured: stacked blocks sat 10-21 mm off. What
-still topples a block: one gripped ~9° off square (a 46 mm gap on a 40 mm cube) leans on the fixed finger. `ball_track_node` follows
+What the sim taught the tower (each a fix in `pick.py`): the base keeps `tower_keep` from the tower (it knocked it
+over driving past); after letting go the fixed finger slides off the block before rising (straight up dragged it off);
+the block is carried "high" while building (at "ready" it hid the tower's top from the depth look, which read 43 mm
+for 80 mm); a block is closed across its faces (`wrist_vision.square_axis`: a square's pixel covariance has no axis),
+and put down and gripped again once when held askew (the jaws wider than its height). The held object's offset in the
+gripper is the model's (half its width from the fixed finger), not measured: stacked blocks sit 5-21 mm off, and a
+block still held askew can slide off the top. Results by seed: design.md 3. `ball_track_node` follows
 `simulation/v11 sil/studies/goalie.py`'s rendered-D435 runs.
 
 **Tests:** `python -m pytest -q ros/src/omni_arm/test` (no sim, no ROS; `test_color_vision.py` uses synthetic scenes and
