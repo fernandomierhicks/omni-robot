@@ -40,7 +40,7 @@ Old `§1–31` references generally mean `design full history.md`; legacy `desig
 ## Code and model invariants
 
 - Robot packages must not import `omni_sim`; keep reusable robot cores ROS-free. Keep `firmware/lib/omni_fw` free of Arduino includes.
-- Change protocol definitions in `firmware/lib/omni_fw/protocol.h` and `ros/src/omni_mcu/omni_mcu/protocol.py` together; bump both `PROTOCOL_VERSION`s for body changes (the MCU drops CMDs of another version). `pio run` builds the arm variant and stops until the AK40-10 driver exists; check compiles with `pio run -e catch`. Preserve event timestamps and frame conventions.
+- Change protocol definitions in `firmware/lib/omni_fw/protocol.h` and `ros/src/omni_mcu/omni_mcu/protocol.py` together; bump both `PROTOCOL_VERSION`s for body changes (the MCU drops CMDs of another version). `pio run` builds the arm variant (the AK40-10 driver); check both with `pio run -e arm` and `pio run -e catch`. Preserve event timestamps and frame conventions.
 - One implementation per robot node: where an `omni_cpp` node exists, there is no Python twin node (deleted Nov 7). The v11 sim runs the robot's C++ arm driver (`omni_cpp/sil/arm_sil.py`, built on first use); Python cores it still imports (protocol, modes, catch cores, arm kinematics/motion planning) and their `omni_cpp` twins change together; run their parity tests. Drive TELEOP through the mode manager's prioritized inputs (`/cmd_vel/joy`, `/cmd_vel/manual`, `/cmd_vel`), never a new writer on an existing one. `ModeMux` owns the fire counter for the controlling source; never pass a source's `fire_seq` straight to the MCU.
 - After simulation params/catalog/model changes, rerun v11 `robot_export.py` and check generated JSON/header files. Arm SIL uses `fw_params_arm.h`; catch SIL uses `fw_params.h`. Preserve earlier variants/results for reproduction; changed geometry is not validated by old scores. Terrain crossings must use `wheel_model="rollers"`.
 - Keep the shared `database/` free of omni-robot imports; values need provenance/sources. Mark estimates and VERIFY items as unconfirmed, never measured.
@@ -57,7 +57,7 @@ Run checks relevant to the changed subsystem, using the correct interpreter/envi
 | ROS-free package cores | `python -m pytest -q ros/src/<package>/test`; `omni_cpp/test` checks Python/C++ parity; `omni_mcu/test` the protocol |
 | ROS-dependent launch / nodes | Relevant package tests in WSL; affected step through `ros/omni.sh` |
 | AI control / omni_mcp | `C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pytest -q ros/tools/omni_mcp/test`, console `test_ai.py`, arm `test_color_vision.py`; end to end `ros/tools/ai_smoke.py` against the arm step |
-| Firmware | `pio run -e catch` in `firmware/`, affected SIL/parity checks and pin checks |
+| Firmware | `pio run -e arm` and `pio run -e catch` in `firmware/`, affected SIL/parity checks and pin checks |
 | Database | From `database`: `python actuator_db.py validate` and `python -m pytest -q` |
 | CAD | Follow `cad/AGENTS.md` and the active version's validation procedure |
 | Characterization | Bench-local tests/README and its specified venv; synthetic checks do not authorize restarting paused live work |

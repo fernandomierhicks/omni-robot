@@ -21,11 +21,9 @@ jobs:
       - name: Teensy build (catch variant)
         working-directory: firmware
         run: pio run -e catch
-      - name: The arm variant refuses to build without its motor driver
+      - name: Teensy build (arm variant, the AK40-10 driver)
         working-directory: firmware
-        run: |
-          if pio run -e arm > arm.log 2>&1; then echo "env arm built: remove this step once the AK40-10 driver exists"; exit 1; fi
-          grep -q "no CAN driver yet" arm.log
+        run: pio run -e arm
 
   robot:
     runs-on: ubuntu-24.04
