@@ -1,0 +1,16 @@
+{
+ "pod_frame_inner": "V13_pod_frame_inner-1",
+ "pod_keel_outer": "V13_pod_keel_outer-1",
+ "pod_sleeve": "V13_pod_sleeve-1",
+ "dowel_inner": "V13_dowel_inner-1",
+ "washer_pivot_outer": "V13_washer_pivot_outer-1",
+ "die_spring_inner_a1": "V13_die_spring_inner_a1-1",
+ "die_spring_inner_b1": "V13_die_spring_inner_b1-1",
+ "die_spring_inner_a2": "V13_die_spring_inner_a2-1",
+ "die_spring_inner_b2": "V13_die_spring_inner_b2-1",
+ "bolt_pivot_outer_0": "V13_fst_M3x20_pan-1",
+ "nut_pod_1": "V13_fst_M3_hexnut-1",
+ "nut_pod_2": "V13_fst_M3_hexnut-2",
+ "nut_pod_3": "V13_fst_M3_hexnut-3",
+ "nut_pod_4": "V13_fst_M3_hexnut-4"
+}

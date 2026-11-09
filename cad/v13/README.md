@@ -1,7 +1,9 @@
 # cad/v13: the D435 on the arm riser (Nov 5 2026, PROPOSAL)
 
-A copy of cad/v12 round 15's generating scripts (no SolidWorks assembly: STEP only, Fernando) with one change: the arm robot's RealSense D435
-moves from the nose to the front of the arm riser. Everything else is round 15 (`../v12/README.md` has the robot and its history). Status:
+A copy of cad/v12 round 15's generating scripts with one change: the arm robot's RealSense D435
+moves from the nose to the front of the arm riser. Everything else is round 15 (`../v12/README.md` has the robot and its history). STEP first;
+**the SolidWorks viewing assembly of the whole robot was rebuilt here on Nov 9 (Fernando), see "The SolidWorks assembly"**, and **this folder
+reads no file from any other version's folder** (see "Files this version reads"). Status:
 **the camera position is baselined (Fernando, Nov 5)** in design.md 4.11 and the sim (`robot_export.ARM` / `ARM_D435`, `D435_RISER`; the
 nose kept as `ARM_D435_NOSE`); the CAD itself is nominal, nothing printed.
 
@@ -113,8 +115,65 @@ the notch is sized for 25 and 30 (35 would need 0.4 mm more on the left).
   module.
 - The camera's static gaps (0.9 mm to the riser, 1.2 to the notch) are nominal: print tolerance may want 0.5 mm more each side.
 - Lens positions in the field envelopes are assumed (17.5 / 32.5 mm left of the centre), as round 15.
-- The SolidWorks assembly was not rebuilt (STEP only, Fernando); `sw_robot.py` / `sw_robot_parts.py` are copied from v12 unchanged and
-  still expect the nose cradle.
+- The SolidWorks files follow the STEPs only when their stages are re-run (section below): after any geometry change regenerate the STEPs and rebuild
+  the changed parts and every assembly above them. The Nov 9 build is of the geometry as it stands in this README (nothing changed since).
+
+## The SolidWorks assembly (Nov 9, Fernando: "all parts in there")
+
+Open **`solidworks/V13_robot.SLDASM`** (the one file to open; its sub-assemblies are in `solidworks/assemblies/`, the parts in `solidworks/parts/`, 203 files in all).
+Imported STEP bodies in sub-assemblies, not native features (`../solidworks.md` section 17), and a viewing assembly of a **proposal**: it carries
+the status of the CAD above, nothing printed. 686 components at every depth, none suppressed or hidden (SolidWorks loads them lightweight; its API
+reports lightweight as "suppressed", which is why `sw_robot.py paths` counts both):
+
+| Sub-assembly | Components |
+| --- | --- |
+| `V13_frame` / `mounts` / `bumper` | hub + 4 nodes / lidar pedestal + 5 fins / 4 bumper quarters |
+| `V13_reference` | the vendor RPLIDAR and the D435's depth and RGB fields as see-through envelopes (blue / green, 500 mm) |
+| `V13_upper` (36) | 4 floor quadrants, arm riser + adapter, the D435 cradle, electronics holders, bin deck + posts, face frame, housings |
+| `V13_electronics` (39) | computer, battery, power board, Teensy carrier, servo adapter (envelopes, plugs, labels), 12 V buck, bin, 5 in display, mic array, speaker, e-stop, switch, **the D435 with its USB plug + lead** |
+| `V13_arm` (17) | the SO-101's official parts at the stow pose |
+| `V13_fasteners` (172) | every screw, nut and dowel outside the pods, magenta (`fst_*`) |
+| `V13_pod` (RL, FR) / `V13_pod_m` (FL, RR) (98 each) | static frame (keel, sleeve, dowel, springs), unsprung fork + 627s + wheel (hub, cartridge, 6804, 12 rollers = core + tread, axles) + AK40-10 (stator, rotor, XT30, leads), 4 spring plungers; the four pods are flexible |
+
+Only the suspension has mates (hinge on the inner dowel, each plunger in its guide with its dome tangent to the fork pad, `Suspension_travel` limit); everything
+else is fixed where build123d put it. Orientation: robot z = SolidWorks Y, front toward the Front view. Printed parts carry a `PRINT_BED (... up)` plane.
+Not modelled: cables and the harness beyond the D435's lead and the motor's, strength, printing. The FL / RR pods are mirror images, not a real opposite-hand motor plug (as v12).
+
+Checks (`validation/solidworks/`, logs `solidworks/sw_*.log`), Nov 9:
+
+| Check | Result |
+| --- | --- |
+| mates | 0 errors in every file; `Suspension_travel` and hinge mates in both pod hands |
+| `sw_robot.py test` (pod motion, both hands) | axle droop -3.0 / nominal 0 / bump +15.0 mm (lateral 0.06 / 0 / 1.41), plunger lifts within 0.05 mm of build123d's, dragged 6 deg past each end it stops at the limit; the top assembly opens with 4 flexible pods, axles 0.000 mm off their pod origins |
+| `sw_robot.py paths` (the one-folder rule) | all 686 components = 203 files, **every one inside `cad/v13`** |
+| `sw_robot.py interference` (whole robot, nominal; 393 rows) | **`pass: true`: no overlap between printed or purchased parts and anything else, 0 fasteners beyond the thread allowance** (357 thread-formed screws). Listed apart in `vendor_internal` (36 rows, identical to v12's, not counted): 20 inside the SO-101's own official parts at their joints (up to 1,994 mm3) and 16 where the motor model's pins meet their leads (<= 2.9 mm3). The field envelopes touch only each other and the camera (they start at its lens) |
+| self-containment | the generator re-run in a sandbox holding only `tools/`, `reference/` and the caches (no other cad folder) gave the identical manifest and the same 182 STEPs |
+
+Views: `validation/robot/solidworks_robot_iso.png`, `solidworks_robot_trimetric.png` (zoom to fit includes the 500 mm field frustums, so the robot is small),
+and `solidworks_robot_{iso,front,right,top}_close.png` from `sw_robot.py views_close` (the two field envelopes hidden for the picture only, nothing saved; an explicit
+zoom box, so they are previews: the wide window cuts the top of the arm and display in the front and right views; open the assembly for the real look).
+Not run here: the d435 / arm clearances are the build123d checks above; SolidWorks was not used to sweep the arm.
+
+## Files this version reads (Nov 9, Fernando: always pull from the current version's folder; `../solidworks.md`, top)
+
+Everything v13's scripts and SolidWorks files use is inside `cad/v13`. What other folders used to supply was copied into `reference/` (names kept):
+
+| Copied into `reference/` | From | Used by |
+| --- | --- | --- |
+| `parts/SO-101_*.step` (13 official parts), `12_V_buck_arm`, `label_12V_BUCK_ARM`, `bin`, `5_in_display_800x480`, `USB_mic_array`, `micro_speaker_4_ohm_3_W` (`.step`) | cad/v10 `step_parts/` | `upper.py` (arm, buck, bin, face) |
+| `parts/REC_arm_riser.step`, `REC_arm_adapter.step` | cad/v10 `step_export/sim_reconciliation/parts/` | `upper.arm_kit` |
+| `parts/d435_source.step` (Intel's D435) | cad/v10 `reference/` | `chassis.d435_real`, `d435_riser.build_mount` |
+| `parts/AK40-10 with connector.STEP` | `components/ak40-10/` | `wheel_motor.py` |
+| `parts/RPLIDAR.SLDPRT` (vendor lidar, Ø76 x 41) | the Roomba robot project, `CAD/v2/` | `sw_robot.py` (VENDOR) |
+| `so101_links.json`, `robot_sim_instances.json` | cad/v10 `reference/` | `screen_study.py` (arm part poses), `upper.py` (buck, bin and screw positions) |
+| `fov_meshes/SO-101_*.npz` (13) | cad/v10 `validation/fov_meshes/` | studies only (`arm_sweep.py`, `d435_riser.py`) |
+
+`tools/subasm.py` and `tools/sw_native.py` are trimmed copies of cad/v10's SolidWorks helpers, `tools/mate_api.py` an unchanged copy. Already here
+from before: `reference/bearing_6804.step`, `bolt_M3_12_FLAT.step`, `bolt_M3_50_PAN.step`, `imu_bno085.step`. **One import that is not CAD:** the arm's
+poses come from the robot's own kinematics, `ros/src/omni_arm` (`screen_study.py` puts it on the path), so the stow pose follows the robot code;
+`imx662_fit.py` (a study) reads the sim's `simulation/v11 sil` the same way. Neither feeds the SolidWorks files except the stow pose.
+Check after any change: `grep -rnE "v1[0-9] human|v1[0-2]/|components|Roomba|C:/" tools/*.py` shows only comments, and the SolidWorks check `sw_robot.py paths`
+(below) fails if any component file is outside this folder.
 
 ## Regenerate
 
@@ -122,3 +181,18 @@ the notch is sized for 25 and 30 (35 would need 0.4 mm more on the left).
 python -B tools/d435_riser.py motion | cloud | scan | candidates | render   (the study; caches in validation/d435/)
 python -B tools/chassis.py all      python -B tools/upper.py all     python -B tools/arm_sweep.py     python -B tools/robot_step.py
 ```
+
+The SolidWorks assembly (`C:/Users/ferna/cadenv/Scripts/python.exe` for `sw_robot.py`; one stage group per process, SolidWorks leaks memory; never with
+other people's documents open: it closes only files under `solidworks/`):
+
+```
+python -B tools/sw_robot_parts.py                      (omni-robot-sim venv: part STEPs + solidworks/manifest.json; minutes)
+sw_robot.py import                                     (STEP -> V13_*.SLDPRT, only the parts that changed; tens of minutes the first time)
+sw_robot.py roller wheel motor unsprung static         (the pod's sub-assemblies, both hands)
+sw_robot.py pod
+sw_robot.py group_frame | group_mounts | group_bumper | group_reference | group_upper | group_electronics | group_arm | group_fasteners
+sw_robot.py robot                                      (the top assembly)
+sw_robot.py test | paths | interference | views | views_close   (checks and pictures; -> validation/solidworks/, validation/robot/)
+```
+
+`solidworks/run_stages.sh <stage> <stage> ...` runs them one process each and stops at the first failure (log `solidworks/sw_stage2.log`).

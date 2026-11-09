@@ -1,0 +1,49 @@
+##### pod
+== pod
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_inner_a1_guide                  concentric
+    + spring_plunger_inner_a1_on_pad                 tangent
+    + spring_plunger_inner_b1_guide                  concentric
+    + spring_plunger_inner_b1_on_pad                 tangent
+    + spring_plunger_inner_a2_guide                  concentric
+    + spring_plunger_inner_a2_on_pad                 tangent
+    + spring_plunger_inner_b2_guide                  concentric
+    + spring_plunger_inner_b2_on_pad                 tangent
+   {"components": 98, "mates": 11, "mate_errors": []}
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_inner_a1_guide                  concentric
+    + spring_plunger_inner_a1_on_pad                 tangent
+    + spring_plunger_inner_b1_guide                  concentric
+    + spring_plunger_inner_b1_on_pad                 tangent
+    + spring_plunger_inner_a2_guide                  concentric
+    + spring_plunger_inner_a2_on_pad                 tangent
+    + spring_plunger_inner_b2_guide                  concentric
+    + spring_plunger_inner_b2_on_pad                 tangent
+   {"components": 98, "mates": 11, "mate_errors": []}
+##### group_frame
+== group_frame
+   {"components": 5, "mates": 0, "mate_errors": []}
+##### group_mounts
+== group_mounts
+   {"components": 6, "mates": 0, "mate_errors": []}
+##### group_bumper
+== group_bumper
+   {"components": 4, "mates": 0, "mate_errors": []}
+##### group_reference
+== group_reference
+   {"components": 3, "mates": 0, "mate_errors": []}
+##### group_upper
+== group_upper
+   {"components": 36, "mates": 0, "mate_errors": []}
+##### group_electronics
+== group_electronics
+   {"components": 39, "mates": 0, "mate_errors": []}
+##### group_arm
+== group_arm
+   {"components": 17, "mates": 0, "mate_errors": []}
+##### group_fasteners
+== group_fasteners
+   {"components": 172, "mates": 0, "mate_errors": []}
+exit 0

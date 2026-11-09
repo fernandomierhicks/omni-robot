@@ -1,9 +1,10 @@
-"""Part STEPs + manifest for the SolidWorks viewing assembly of the whole v12 robot (layout F: chassis.py + four lean pods, pod_lean.py,
-upper.py's second floor, arm, electronics, bin deck and face). omni-robot-sim interpreter; sw_robot.py builds the assemblies from them.
+"""Part STEPs + manifest for the SolidWorks viewing assembly of the whole v13 robot (layout F: chassis.py + four lean pods, pod_lean.py,
+upper.py's second floor, arm, electronics, bin deck and face, the D435 on the arm riser). omni-robot-sim interpreter; sw_robot.py builds the
+assemblies from them. Every input is read from cad/v13 (cad/solidworks.md section 17); nothing comes from another version's folder.
 
     python -B sw_robot_parts.py
 
-Writes cad/v12/solidworks/step_parts/<part>.step (one coloured solid each, purchased parts may be several) and solidworks/manifest.json.
+Writes cad/v13/solidworks/step_parts/<part>.step (one coloured solid each, purchased parts may be several) and solidworks/manifest.json.
 Nov 4: a part whose STEP comes out the same (all but the header's time stamp) keeps its file and mtime, so `sw_robot.py import` (which
 re-imports a part whose SLDPRT is older than its STEP) re-imports only the parts that changed; the run prints which those are.
 Chassis and upper parts are written in the robot frame (inserted at the origin), pod parts in the pod frame, once per hand: the 45 and
@@ -14,7 +15,9 @@ Fasteners (Nov 4): every screw, dowel and nut is a record (hardware.py), placed 
 length (fst_*.step): the pod's in its static / unsprung / wheel sub-assemblies, everything else in the top-level fasteners group. The
 spring plungers stay bodies (the suspension mates need them); the pivot dowel and washer are magenta too.
 Print beds (Nov 4): manifest['print_bed'][part] = (axis, sign, offset, supports, why): sw_robot.py adds the PRINT_BED plane there.
-The D435 and the lidar are the vendor SolidWorks parts (sw_robot.VENDOR), not STEPs: the manifest gives their poses in the robot frame.
+The lidar is the vendor SolidWorks part (sw_robot.VENDOR, reference/parts/RPLIDAR.SLDPRT), not a STEP: the manifest gives its pose in the robot
+frame. The D435 (d435_source.step in the riser's pocket), its plug + lead and the arm's parts are STEP parts like the rest; the D435's depth / RGB
+fields of view are the see-through envelopes of d435_riser.fov_envelopes() in the reference group.
 """
 import json
 import math
@@ -43,12 +46,10 @@ S_POD = np.diag([1.0, -1.0, 1.0, 1.0])                                 # the mir
 POD_KEEP = ('wheel_hub', 'wheel_cartridge', 'bearing_6804_left', 'ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2',
             'lead_pos', 'lead_neg', 'pod_fork_outer', 'pod_fork_inner', 'bearing_627_outer', 'bearing_627_inner', 'pod_frame_inner',
             'pod_keel_outer', 'pod_sleeve', 'dowel_inner', 'washer_pivot_outer')
-ENV_VENDOR = ('env_d435', 'env_lidar', 'env_arm_riser')                # replaced by the vendor parts; round 13: the riser envelope too
+ENV_VENDOR = ('env_lidar', 'env_arm_riser')                            # replaced by the vendor lidar; round 13: the riser envelope too
                                                                        # (the real riser and adapter are in the upper group: they overlapped)
-# vendor part frame -> robot frame: part Z -> robot x, X -> y, Y -> z (both parts are Y-up; the D435 looks along +Z, the lidar's
-# Laser_link has its x along part +Z)
+# vendor part frame -> robot frame: part Z -> robot x, X -> y, Y -> z (the RPLIDAR is Y-up; its Laser_link has its x along part +Z)
 PERM = np.array([[0, 0, 1.0, 0], [1.0, 0, 0, 0], [0, 1.0, 0, 0], [0, 0, 0, 1.0]])
-D435_BACK_Z = -25.28                                                   # vendor D435: front glass Z 0, back face (2 x M3, 45 apart) Z -25.28
 LIDAR_FOOT_Y = -9.3                                                    # vendor RPLIDAR: base Y -9.3, Laser_link (scan plane) Y 22
 
 
@@ -99,17 +100,11 @@ def pod_fasteners():
 
 
 def vendor_poses():
-    """robot-frame poses of the vendor parts: the D435's back face on the cradle's back plate, centred on the camera envelope
-    (first_floor.bracket_geometry); the lidar's base on the pedestal top at chassis.LIDAR_X"""
-    t = math.radians(FF.D435_TILT)
-    cam = np.eye(4)                                                    # camera frame: x along the view (forward-down), z its up
-    cam[:3, :3] = [[math.cos(t), 0, math.sin(t)], [0, 1, 0], [-math.sin(t), 0, math.cos(t)]]
-    cam[:3, 3] = FF.D435_C
-    off = np.eye(4)
-    off[0, 3] = -FF.D435_SIZE[0] / 2 - D435_BACK_Z
+    """robot-frame pose of the vendor lidar: its base on the pedestal top at chassis.LIDAR_X (v13: the D435 is a STEP part placed by
+    d435_riser.build_mount, so it needs no pose here)"""
     lid = PERM.copy()
     lid[:3, 3] = (C.LIDAR_X, 0.0, FF.LIDAR_BASE_Z - LIDAR_FOOT_Y)
-    return dict(d435=(cam @ off @ PERM).tolist(), lidar=lid.tolist())
+    return dict(lidar=lid.tolist())
 
 
 def bed_of(stem, s):
@@ -154,6 +149,8 @@ def main():
     for k, s in cparts.items():
         out(k, s, C.colour(k))
     env = {k: s for k, s in env.items() if k not in ENV_VENDOR}
+    import d435_riser as D                                             # v13: the riser camera's fields of view (500 mm frustums, see-through)
+    env.update(D.fov_envelopes())
     for k, s in env.items():
         out(k, s, C.colour(k))                                         # round 15: the D435's FOV frustums blue / green
     # the upper robot

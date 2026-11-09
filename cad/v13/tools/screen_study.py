@@ -104,14 +104,14 @@ def ceiling(kin, qs, xs, ys):
     return zc
 
 
-V10 = ROOT / 'cad' / 'v10 human editable'
+REF = HERE.parent / 'reference'                                        # this version's copy of the SO-101 link table and meshes
 
 
 def arm_parts():
     """the SO-101's official parts per kinematic body: [(body, product, 4 x 4 part-in-body (mm))] from cad/v10's link table (its body frames
     are the planner's: the same joint offsets; only the whole arm sits 13 mm lower in the sim, which this relative form removes)"""
     out = []
-    for bd in json.loads((V10 / 'reference' / 'so101_links.json').read_text()):
+    for bd in json.loads((REF / 'so101_links.json').read_text()):
         Fi = np.linalg.inv(np.array(bd['frame'], float))
         for p in bd['parts']:
             out.append((bd['body'], p['product'], Fi @ np.array(p['matrix'], float)))
@@ -135,7 +135,7 @@ def mesh_points():
     for _, prod, _ in arm_parts():
         if prod in pts:
             continue
-        tri = np.load(V10 / 'validation' / 'fov_meshes' / f'{prod}.npz')['tri']
+        tri = np.load(REF / 'fov_meshes' / f'{prod}.npz')['tri']
         pts[prod] = np.vstack([tri.reshape(-1, 3), tri.mean(axis=1)])
     return pts
 

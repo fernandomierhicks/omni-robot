@@ -11,6 +11,16 @@ copy it to a scratch folder as `swhelpers.py` before you start.**
 **Which route?** Native, human-editable features (sections 1-14) when Fernando will open and edit the part. Imported STEP bodies from build123d (section 17)
 when the goal is review, fit, clearance or motion of a proposed assembly; those bodies are not editable features, so say which one you made.
 
+**One folder per version: always pull files from the current version's folder (Fernando, Nov 9).** A CAD version (`cad/vNN`) reads and writes only
+inside its own folder: its scripts and helper libraries, every STEP / SLDPRT / JSON / mesh it uses, vendor and purchased-part models, and the SolidWorks
+parts and assemblies it builds. If the version needs a file that lives elsewhere (an older `cad/vNN`, `components/`, `cad/other`, another project),
+**copy it into the current version's `reference/` first** (keep the file name; the README says where it came from) and point the script at the copy.
+Never a `../v10/...`, `components/...` or absolute path in a script. Start a new version by copying the previous one's tools, then re-point and check:
+`grep -rnE "v1[0-9]|components|Dropbox|C:/" tools/` must show no path that leaves the folder (comments naming where something came from are fine).
+Why: a SolidWorks assembly stores its components' paths, so a version that pulls from an older folder breaks, or silently changes, when that folder is
+edited, moved or archived. The one exception is live robot code that is not CAD (e.g. `ros/src/omni_arm`'s kinematics, which gives the arm's pose): it may
+be imported, and the README names it.
+
 ## 1. What "human editable" means (the contract)
 
 Fernando opens the part and edits it like a part he drew himself. So:
@@ -748,6 +758,9 @@ Expected: volumes 12,440.7 (one hole) → 12,063.7 (four holes) → 11,435.4 mm�
 ## 17. Assemblies from build123d STEPs (the cad/v11 pipeline)
 
 Lessons from building the v11 pod and the whole proposed robot (660 components) in SolidWorks from imported STEPs. The bodies are imported, not native features.
+
+- **Everything comes from the version's own folder** (the rule at the top of this file). v13's assembly reads `cad/v13/reference/` (vendor and reused STEPs in `parts/`, the SO-101 link table,
+  meshes) and its own `tools/` (`subasm.py`, `mate_api.py`, `sw_native.py` are copies of cad/v10's, trimmed), and writes `cad/v13/solidworks/`. v11 and v12 still import cad/v10's helpers; do not copy that into a new version.
 
 - **Pipeline:** build123d scripts (`omni-robot-sim` venv, every dimension through `dims.py`) write STEPs and checks → `sw_parts.py` / `sw_robot_parts.py` write per-part STEPs and a `manifest.json`
   → cadenv `sw_build.py` / `sw_robot.py` run named stages (`import`, then component groups, then `test`). Reuse cad/v10's helpers (`subasm`, `mate_api`, `sw_native`) unchanged.

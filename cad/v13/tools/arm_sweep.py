@@ -48,7 +48,7 @@ def arm_surface(density=0.5):
     for _, prod, _ in SS.arm_parts():
         if prod in out:
             continue
-        tri = np.load(SS.V10 / 'validation' / 'fov_meshes' / f'{prod}.npz')['tri']
+        tri = np.load(SS.REF / 'fov_meshes' / f'{prod}.npz')['tri']
         A, B, C = tri[:, 0], tri[:, 1], tri[:, 2]
         area = 0.5 * np.linalg.norm(np.cross(B - A, C - A), axis=1)
         n = np.maximum(0, np.round(area * density).astype(int))

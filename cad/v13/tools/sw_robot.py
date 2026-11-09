@@ -1,5 +1,7 @@
-"""SolidWorks viewing assembly of the whole v12 robot (layout F chassis + four lean pods + upper robot; cad/v11 round 12), built from
+"""SolidWorks viewing assembly of the whole v13 robot (layout F chassis + four lean pods + upper robot, the D435 on the arm riser), built from
 sw_robot_parts.py's STEPs (imported parts: not native features). Only the suspension has real mates; everything else is fixed where build123d put it.
+Every file it reads or writes is inside cad/v13 (cad/solidworks.md section 17): the SolidWorks helpers are this folder's own subasm.py /
+mate_api.py / sw_native.py, the vendor RPLIDAR part is reference/parts/RPLIDAR.SLDPRT, and the D435 is a STEP part (reference/parts/d435_source.step).
 
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py import
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py roller wheel motor unsprung static
@@ -7,27 +9,27 @@ sw_robot_parts.py's STEPs (imported parts: not native features). Only the suspen
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py interference           (round 13: SolidWorks interference detection, whole robot)
     (or one group per call: group_upper, group_electronics, group_arm, group_fasteners ... when SolidWorks runs out of memory)
 
-Files go to cad/v12/solidworks/: the top V12_robot.SLDASM alone (the one to open), assemblies/V12_*.SLDASM, parts/V12_*.SLDPRT. Every pod file exists in both hands
+Files go to cad/v13/solidworks/: the top V13_robot.SLDASM alone (the one to open), assemblies/V13_*.SLDASM, parts/V13_*.SLDPRT. Every pod file exists in both hands
 (suffix _m: the FL and RR pods are the mirror image, as in chassis.py).
 
-    V12_robot             robot z up = SolidWorks Y, front toward the Front view; everything fixed; the four pods are flexible, so their forks can be dragged here
-    |- V12_frame          first floor: hub (ring + cross; round 15, was hub + 4 edges), 4 nodes
-    |- V12_mounts         lidar pedestal, D435 cradle, 5 second-floor fins
-    |- V12_bumper         4 quarters
-    |- V12_reference      vendor D435 and RPLIDAR parts (VENDOR, copied in by `import`); envelopes: the D435's plug and its depth / RGB
-    |                      fields of view (see-through)
-    |- V12_upper          second floor (4 quadrants), arm riser + adapter (v10), electronics holders, bin deck + posts, face frame, pods
-    |- V12_electronics    computer, battery, power board, Teensy carrier, servo adapter (envelopes + plugs + labels), 12 V buck, bin,
-    |                      5 in display, mic array, speaker, e-stop, switch
-    |- V12_arm            the SO-101's official parts at the stow pose (fixed)
-    |- V12_fasteners      every screw / dowel outside the pods: magenta library parts (fst_*)
-    `- V12_pod (RL, FR) / V12_pod_m (FL, RR)
+    V13_robot             robot z up = SolidWorks Y, front toward the Front view; everything fixed; the four pods are flexible, so their forks can be dragged here
+    |- V13_frame          first floor: hub (ring + cross; round 15, was hub + 4 edges), 4 nodes
+    |- V13_mounts         lidar pedestal, 5 second-floor fins (the D435's cradle is in V13_upper, on the riser)
+    |- V13_bumper         4 quarters
+    |- V13_reference      the vendor RPLIDAR part (VENDOR, copied in by `import`) and the lidar / arm-riser envelopes; the D435's depth / RGB
+    |                      fields of view from the riser (see-through)
+    |- V13_upper          second floor (4 quadrants), arm riser + adapter, D435 cradle, electronics holders, bin deck + posts, face frame
+    |- V13_electronics    computer, battery, power board, Teensy carrier, servo adapter (envelopes + plugs + labels), 12 V buck, bin,
+    |                      5 in display, mic array, speaker, e-stop, switch, the D435 and its plug + lead
+    |- V13_arm            the SO-101's official parts at the stow pose (fixed)
+    |- V13_fasteners      every screw / dowel outside the pods: magenta library parts (fst_*)
+    `- V13_pod (RL, FR) / V13_pod_m (FL, RR)
        |                   static fixed; unsprung hinged on the inner dowel (concentric + Right Plane); each spring plunger slides in its
        |                   guide with its dome tangent to the fork pad; Suspension_travel: inner_a1 plunger lift, droop .. bump
-       |- V12_pod_static  inner frame, outer keel, sleeve, dowel, outer pivot washer, 4 springs (nominal length), pivot screw
-       |- V12_unsprung    fork halves (outer with the axle stub, inner), 2 x 627, wheel, motor, tie bolts, motor screws (rigid)
-       |  |- V12_wheel    hub, cartridge, 6804, 12 x V12_roller (core + tread), 12 axles, 3 cartridge + 3 rotor screws
-       |  `- V12_motor    stator, rotor, XT30 plug, pins, leads
+       |- V13_pod_static  inner frame, outer keel, sleeve, dowel, outer pivot washer, 4 springs (nominal length), pivot screw
+       |- V13_unsprung    fork halves (outer with the axle stub, inner), 2 x 627, wheel, motor, tie bolts, motor screws (rigid)
+       |  |- V13_wheel    hub, cartridge, 6804, 12 x V13_roller (core + tread), 12 axles, 3 cartridge + 3 rotor screws
+       |  `- V13_motor    stator, rotor, XT30 plug, pins, leads
        `- 4 spring plungers
 Every printed part carries a PRINT_BED reference plane at its bed face (print_beds.py; named with the axis that points up).
 SolidWorks leaks memory over many opens: run a few stages per call.
@@ -41,10 +43,9 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-V10_TOOLS = HERE.parents[1] / 'v10 human editable' / 'tools'
-sys.path[:0] = [str(V10_TOOLS / 'human'), str(V10_TOOLS)]
-import subasm as S                                                     # noqa: E402  (cad/v10's SolidWorks helpers, unchanged)
-from subasm import Asm, M, connect, wrap, sld, c, placement           # noqa: E402,F401
+sys.path.insert(0, str(HERE))
+import subasm as S                                                     # noqa: E402  (this folder's copy of cad/v10's SolidWorks helpers)
+from subasm import Asm, M, connect, release, wrap, sld, c, placement  # noqa: E402,F401
 
 RSW = HERE.parent / 'solidworks'
 VAL = HERE.parent / 'validation' / 'solidworks'
@@ -55,11 +56,10 @@ X = np.array([1.0, 0, 0])
 HANDS = ('', '_m')
 STATIC = ('pod_frame_inner', 'pod_keel_outer', 'pod_sleeve', 'dowel_inner', 'washer_pivot_outer')
 FORK = ('pod_fork_outer', 'pod_fork_inner', 'bearing_627_outer', 'bearing_627_inner')
-# vendor SolidWorks parts, copied into parts/ as V12_<key>.SLDPRT and placed in V12_reference at the manifest's pose
+# vendor SolidWorks parts, copied into parts/ as V13_<key>.SLDPRT and placed in V13_reference at the manifest's pose
 # (the lidar is the A2-size RPLIDAR from the Roomba project: Ø76 x 41, as chassis.py's A2M12 envelope)
-VENDOR = dict(d435=HERE.parents[1] / 'other' / 'Realsense to bucket' / 'IntelRealsense_D435_Multibody.SLDPRT',
-              rplidar=Path(r'C:/Dropbox/Personal Projects/Robotics/Roomba robot/CAD/v2/RPLIDAR.SLDPRT'))
-VENDOR_POSE = dict(d435='d435', rplidar='lidar')                        # vendor key -> manifest['vendor'] key
+VENDOR = dict(rplidar=HERE.parent / 'reference' / 'parts' / 'RPLIDAR.SLDPRT')   # v13: the D435 on the riser is a STEP part (upper.py), not a vendor SLDPRT
+VENDOR_POSE = dict(rplidar='lidar')                                     # vendor key -> manifest['vendor'] key
 WHEEL = ('wheel_hub', 'wheel_cartridge', 'bearing_6804_left')
 MOTOR = ('ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg')
 PLUNGERS = MAN['plungers']['axes']
@@ -95,19 +95,19 @@ def finish(a):
 
 
 def part(name):
-    return PARTS / f'V12_{name}.SLDPRT'
+    return PARTS / f'V13_{name}.SLDPRT'
 
 
 def asm_path(name):
     """the top assembly alone in solidworks/ (the file to open); every sub-assembly in solidworks/assemblies/"""
     if name == 'robot':
-        return RSW / 'V12_robot.SLDASM'
+        return RSW / 'V13_robot.SLDASM'
     ASMS.mkdir(parents=True, exist_ok=True)
-    return ASMS / f'V12_{name}.SLDASM'
+    return ASMS / f'V13_{name}.SLDASM'
 
 
 def close_robot(sw):
-    """close every open document from cad/v12/solidworks (they would block re-imports and rebuilds)"""
+    """close every open document from cad/v13/solidworks (they would block re-imports and rebuilds)"""
     for raw in sw.GetDocuments() or []:
         d = wrap(raw, sld.IModelDoc2)
         try:
@@ -222,8 +222,8 @@ def hand(h):
 
 
 def aliases(a, h):
-    a.alias_nested('static', S.keys_of_file('V12_pod_static' + h))
-    a.alias_nested('unsprung', S.keys_of_file('V12_unsprung' + h))
+    a.alias_nested('static', S.keys_of_file('V13_pod_static' + h))
+    a.alias_nested('unsprung', S.keys_of_file('V13_unsprung' + h))
 
 
 def tangent(a, name, plunger_key, fork_key, axis_xy, pad_z):
@@ -318,12 +318,12 @@ def test_pod(sw, h):
     from win32com.client import VARIANT
     p, pl = MAN['poses_deg'], MAN['plungers']
     sy, piv, _ = hand(h)
-    fname = f'V12_pod{h}.SLDASM'
+    fname = f'V13_pod{h}.SLDASM'
     S.discard(sw, fname)
     a = Asm(sw, asm_path('pod' + h), fresh=False)
     a.refresh()
     tops = M.comps(a.model, True)
-    a.parts = {Path(cp.GetPathName()).stem.replace('V12_', '').removesuffix(h): cp for cp in tops.values()}   # file names -> keys
+    a.parts = {Path(cp.GetPathName()).stem.replace('V13_', '').removesuffix(h): cp for cp in tops.values()}   # file names -> keys
     a.parts['static'] = a.parts.pop('pod_static')
     aliases(a, h)
     a.mater = M.Mater(sw, a.model, prefix='')
@@ -394,16 +394,16 @@ def test_pod(sw, h):
 
 def test_robot(sw):
     """the top assembly opens with every pod flexible, at its pose, at nominal and without mate errors"""
-    S.discard(sw, 'V12_robot.SLDASM')
+    S.discard(sw, 'V13_robot.SLDASM')
     a = Asm(sw, asm_path('robot'), fresh=False)
     a.model.EditRebuild3()
     tops = M.comps(a.model, True)
-    pods = sorted((n, cp) for n, cp in tops.items() if Path(cp.GetPathName()).stem.startswith('V12_pod'))
+    pods = sorted((n, cp) for n, cp in tops.items() if Path(cp.GetPathName()).stem.startswith('V13_pod'))
     want = sorted(tuple(np.round((TO_SW @ np.array(p['pose']))[:3, 3], 2)) for p in MAN['pods'].values())
     got = sorted(tuple(np.round(placement(cp)[:3, 3], 2)) for _, cp in pods)
     axles = []
     for n, cp in pods:                                  # each unsprung mass at nominal: its origin (the axle) on the pod origin
-        kid = next(k for k, v in M.comps(a.model).items() if k.startswith(n + '/') and Path(v.GetPathName()).stem.startswith('V12_unsprung')
+        kid = next(k for k, v in M.comps(a.model).items() if k.startswith(n + '/') and Path(v.GetPathName()).stem.startswith('V13_unsprung')
                    and k.count('/') == 1)
         axles.append(float(np.linalg.norm(placement(M.comps(a.model)[kid])[:3, 3] - placement(cp)[:3, 3])))
     rep = dict(components=len(M.comps(a.model)), top=len(tops), pods=len(pods), flexible=[cp.Solving for _, cp in pods],
@@ -411,7 +411,7 @@ def test_robot(sw):
                mate_errors=M.mate_errors(a.model))
     rep['pass'] = bool(rep['pods'] == 4 and all(s == 1 for s in rep['flexible']) and rep['pod_origins_match']
                        and max(axles) < 0.05 and not rep['mate_errors'])
-    S.discard(sw, 'V12_robot.SLDASM')
+    S.discard(sw, 'V13_robot.SLDASM')
     return rep
 
 
@@ -433,7 +433,7 @@ def stage_interference(sw):
     checks compare within each script; this sees across groups, and the fasteners against everything). Sorted into part / part (must be
     empty), fastener / part over FST_THREAD_MM3 (a head or shank in the wrong place; a screw thread-formed into its pilot interferes by
     less) and the thread interferences (listed, expected). -> validation/solidworks/interference.json"""
-    S.discard(sw, 'V12_robot.SLDASM')
+    S.discard(sw, 'V13_robot.SLDASM')
     m = S.open_doc(sw, asm_path('robot'), 2)
     asm = wrap(m, sld.IAssemblyDoc)
     mgr = wrap(asm.InterferenceDetectionManager, sld.IInterferenceDetectionMgr)
@@ -451,14 +451,19 @@ def stage_interference(sw):
     for raw in mgr.GetInterferences() or []:
         it = wrap(raw, sld.IInterference)
         cps = [wrap(x, sld.IComponent2) for x in (it.Components or [])]
-        rows.append(dict(components=[cp.Name2 for cp in cps], files=[Path(cp.GetPathName()).stem.replace('V12_', '') for cp in cps],
+        rows.append(dict(components=[cp.Name2 for cp in cps], files=[Path(cp.GetPathName()).stem.replace('V13_', '') for cp in cps],
                          mm3=round(it.Volume * 1e9, 3)))
     mgr.Done()
     sw.CloseDoc(m.GetTitle())
     fst = lambda f: f.startswith(('fst_', 'spring_plunger', 'dowel', 'washer'))      # noqa: E731
     fov = [r for r in rows if any(f.startswith('env_d435_fov') for f in r['files'])]   # round 15: the FOV envelopes start inside the camera
     rows = [r for r in rows if r not in fov]
-    part_part = [r for r in rows if not any(fst(f) for f in r['files'])]
+    part_part_all = [r for r in rows if not any(fst(f) for f in r['files'])]
+    # vendor models overlapping themselves, listed but not counted as findings (v12 shows the same 36): the SO-101's official parts at their
+    # joints, and the motor model's pins running into their leads. Anything between a printed / purchased part and anything else is real.
+    vendor_internal = [r for r in part_part_all if all(f.startswith('arm_') for f in r['files'])
+                       or all(f.startswith(('xt30_', 'lead_')) for f in r['files'])]
+    part_part = [r for r in part_part_all if r not in vendor_internal]
     def allowed(r):                                                    # a thread: ~1 mm3 per mm of screw (Ø2.8 pilot), + FST_THREAD_MM3
         import re
         m_ = [re.match(r'fst_M[\d.p]+x([\d.]+)_', f) for f in r['files']]
@@ -468,12 +473,40 @@ def stage_interference(sw):
         return FST_THREAD_MM3 + 1.0 * L_
     fst_big = [r for r in rows if any(fst(f) for f in r['files']) and r['mm3'] > allowed(r)]
     threads = [r for r in rows if any(fst(f) for f in r['files']) and r['mm3'] <= allowed(r)]
-    rep = dict(seconds=round(time.time() - t0), interferences=len(rows), part_part=part_part, fastener_over_thread=fst_big,
+    rep = dict(seconds=round(time.time() - t0), interferences=len(rows), part_part=part_part, vendor_internal_count=len(vendor_internal),
+               vendor_internal=vendor_internal, fastener_over_thread=fst_big,
                threads=len(threads), thread_rows=threads, d435_fov_rows=fov, note=f'fastener rows under {FST_THREAD_MM3:g} mm3 are screws thread-formed into their pilots')
     rep['pass'] = not part_part and not fst_big
     VAL.mkdir(parents=True, exist_ok=True)
     (VAL / 'interference.json').write_text(json.dumps(rep, indent=1))
-    print(json.dumps({k: v for k, v in rep.items() if k != 'thread_rows'}, indent=1)[:6000], flush=True)
+    print(json.dumps({k: v for k, v in rep.items() if k not in ('thread_rows', 'vendor_internal')}, indent=1)[:6000], flush=True)
+
+
+def stage_paths(sw):
+    """the one-folder rule (cad/solidworks.md, Fernando Nov 9): every component of the whole robot, at every depth, is a file inside cad/v13, and
+    every one of this version's files is a saved one. Fails if any component points elsewhere. -> validation/solidworks/paths.json"""
+    S.discard(sw, 'V13_robot.SLDASM')
+    m = S.open_doc(sw, asm_path('robot'), 2)
+    root = str(HERE.parent.resolve()).lower()
+    comps = M.comps(m)                                                 # every depth
+    by_path = {}
+    for cp in comps.values():
+        by_path[cp.GetPathName()] = by_path.get(cp.GetPathName(), 0) + 1
+    outside = sorted(p for p in by_path if not str(Path(p).resolve()).lower().startswith(root))
+    kinds = {}
+    for p in by_path:
+        kinds[Path(p).suffix.upper()] = kinds.get(Path(p).suffix.upper(), 0) + 1
+    rep = dict(components=len(comps), top_level=len(M.comps(m, True)), files=len(by_path), file_kinds=kinds, outside_v13=outside,
+               suppressed=sum(1 for cp in comps.values() if cp.GetSuppression2() == 0),      # IsSuppressed() is also True for lightweight parts
+               lightweight=sum(1 for cp in comps.values() if cp.GetSuppression2() in (1, 4)), hidden=sum(1 for cp in comps.values() if not cp.Visible),
+               pass_=not outside)
+    rep['pass'] = rep.pop('pass_')
+    sw.CloseDoc(m.GetTitle())
+    VAL.mkdir(parents=True, exist_ok=True)
+    (VAL / 'paths.json').write_text(json.dumps(rep, indent=1))
+    print(json.dumps(rep, indent=1)[:3000], flush=True)
+    if outside:
+        raise RuntimeError(f'{len(outside)} component files are outside cad/v13')
 
 
 def stage_views(sw):
@@ -495,15 +528,48 @@ def stage_views(sw):
     sw.CloseDoc(m.GetTitle())
 
 
+def stage_views_close(sw):
+    """close-up views of the robot itself: the D435's 500 mm field envelopes hidden for the picture only (the assembly is closed without
+    saving, so nothing changes in the file), zoom to fit -> validation/robot/solidworks_robot_<view>_close.png"""
+    out = HERE.parent / 'validation' / 'robot'
+    out.mkdir(parents=True, exist_ok=True)
+    S.discard(sw, 'V13_robot.SLDASM')
+    m = S.open_doc(sw, asm_path('robot'), 2)
+    sw.ActivateDoc3(m.GetTitle(), False, 0, 0)
+    v = wrap(m.ActiveView, sld.IModelView)
+    v.EnableGraphicsUpdate = True
+    m.FeatureManager.EnableFeatureTree = True
+    hidden = 0
+    for n, cp in M.comps(m).items():
+        if 'env_d435_fov' in n:
+            cp.Visible = 0                                         # swComponentHidden
+            hidden += 1
+    print(f'  hid {hidden} field envelopes (display only)', flush=True)
+    # the robot's box in SolidWorks' frame (m): robot y -> X, z -> Y, x -> Z; Ø450 bumper, 260 mm tall (zoom-to-fit counts the hidden envelopes)
+    box = (-0.360, -0.075, -0.360, 0.360, 0.340, 0.360)               # about 1.5x the robot: the saved picture is a wide window, and ViewZoomTo2 fits the box's width
+    for name, view in (('iso', '*Isometric'), ('front', '*Front'), ('right', '*Right'), ('top', '*Top')):
+        m.ShowNamedView2(view, -1)
+        m.ClearSelection2(True)
+        m.ViewZoomTo2(*box)
+        m.GraphicsRedraw2()
+        time.sleep(2)
+        ok, e, w = m.Extension.SaveAs3(str(out / f'solidworks_robot_{name}_close.png'), 0, 1, None, None, 0, 0)
+        print(f'  {name}: saved {ok} {e} {w}', flush=True)
+    sw.CloseDoc(m.GetTitle())
+
+
 def main():
     sw = connect()
-    for st in sys.argv[1:]:
-        print('==', st, flush=True)
-        close_robot(sw)                                    # parts opened by the previous stage hold memory (internal errors by stage 5)
-        if st.startswith('group_'):                        # one group: `group_upper` (SolidWorks dies building several big ones in a row)
-            stage_groups(sw, st[6:])
-        else:
-            globals()['stage_' + st](sw)
+    try:
+        for st in sys.argv[1:]:
+            print('==', st, flush=True)
+            close_robot(sw)                                # parts opened by the previous stage hold memory (internal errors by stage 5)
+            if st.startswith('group_'):                    # one group: `group_upper` (SolidWorks dies building several big ones in a row)
+                stage_groups(sw, st[6:])
+            else:
+                globals()['stage_' + st](sw)
+    finally:
+        release(sw)                                        # the Modify popup preference and CommandInProgress, as found
 
 
 if __name__ == '__main__':

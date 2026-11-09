@@ -1,0 +1,14 @@
+{
+ "frame": "V13_frame-1",
+ "mounts": "V13_mounts-1",
+ "bumper": "V13_bumper-1",
+ "reference": "V13_reference-1",
+ "upper": "V13_upper-1",
+ "electronics": "V13_electronics-1",
+ "arm": "V13_arm-1",
+ "fasteners": "V13_fasteners-1",
+ "pod_FL": "V13_pod_m-1",
+ "pod_RL": "V13_pod-1",
+ "pod_RR": "V13_pod_m-2",
+ "pod_FR": "V13_pod-2"
+}

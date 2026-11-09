@@ -1,0 +1,16 @@
+== roller
+   {"components": 2, "mates": 0, "mate_errors": []}
+   {"components": 2, "mates": 0, "mate_errors": []}
+== wheel
+   {"components": 57, "mates": 0, "mate_errors": []}
+   {"components": 57, "mates": 0, "mate_errors": []}
+== motor
+   {"components": 7, "mates": 0, "mate_errors": []}
+   {"components": 7, "mates": 0, "mate_errors": []}
+== unsprung
+   {"components": 78, "mates": 0, "mate_errors": []}
+   {"components": 78, "mates": 0, "mate_errors": []}
+== static
+   {"components": 14, "mates": 0, "mate_errors": []}
+   {"components": 14, "mates": 0, "mate_errors": []}
+exit 0

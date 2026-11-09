@@ -1,0 +1,9 @@
+{
+ "ak40_stator": "V13_ak40_stator_m-1",
+ "ak40_rotor": "V13_ak40_rotor_m-1",
+ "xt30_housing": "V13_xt30_housing_m-1",
+ "xt30_pin_1": "V13_xt30_pin_1_m-1",
+ "xt30_pin_2": "V13_xt30_pin_2_m-1",
+ "lead_pos": "V13_lead_pos_m-1",
+ "lead_neg": "V13_lead_neg_m-1"
+}

@@ -132,7 +132,7 @@ def part_samples(density=1.5):
     for _, prod, _ in SS.arm_parts():
         if prod in out:
             continue
-        tri = np.load(SS.V10 / 'validation' / 'fov_meshes' / f'{prod}.npz')['tri']
+        tri = np.load(SS.REF / 'fov_meshes' / f'{prod}.npz')['tri']
         A, B, C = tri[:, 0], tri[:, 1], tri[:, 2]
         area = 0.5 * np.linalg.norm(np.cross(B - A, C - A), axis=1)
         n = rng.poisson(area * density)
@@ -742,7 +742,7 @@ def render(only=None):
     kin = AK(__import__('arm_sweep').layout_config())
 
     def arm_at(q):
-        return U.load_vendor({f'arm_{n:02d}': (U.V10_STEP / f'{prod}.step', T) for n, (prod, T) in enumerate(SS.part_poses(kin, q))})
+        return U.load_vendor({f'arm_{n:02d}': (U.REF_PARTS / f'{prod}.step', T) for n, (prod, T) in enumerate(SS.part_poses(kin, q))})
 
     def cf(k):
         if k.startswith('bolt_'):

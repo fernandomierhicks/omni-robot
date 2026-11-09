@@ -1,0 +1,4416 @@
+{
+ "seconds": 12,
+ "interferences": 393,
+ "part_part": [],
+ "vendor_internal_count": 36,
+ "vendor_internal": [
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Rotation_Pitch_SO101-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_Rotation_Pitch_SO101",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 1993.679
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Base-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_Motor_holder_SO101_Base",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 1910.97
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-2",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 505.394
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 338.847
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_WaveShare_Mounting_Plate_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_WaveShare_Mounting_Plate_SO101"
+   ],
+   "mm3": 141.024
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-4",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 36.612
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Wrist-1",
+    "V13_arm-1/V13_arm_STS3215_03a-4"
+   ],
+   "files": [
+    "arm_Motor_holder_SO101_Wrist",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 20.321
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-2",
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Base-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Motor_holder_SO101_Base"
+   ],
+   "mm3": 13.188
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 12.175
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 12.175
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-5",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 10.234
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 6.212
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 4.074
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 4.074
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_housing_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_housing_m",
+    "lead_pos_m"
+   ],
+   "mm3": 2.875
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_housing_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_housing_m",
+    "lead_pos_m"
+   ],
+   "mm3": 2.875
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-5",
+    "V13_arm-1/V13_arm_Moving_Jaw_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Moving_Jaw_SO101"
+   ],
+   "mm3": 1.714
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-1",
+    "V13_arm-1/V13_arm_Rotation_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Rotation_Pitch_SO101"
+   ],
+   "mm3": 1.642
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_Base_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_Base_SO101"
+   ],
+   "mm3": 1.533
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_WaveShare_Mounting_Plate_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_WaveShare_Mounting_Plate_SO101"
+   ],
+   "mm3": 0.338
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_Base_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_Base_SO101"
+   ],
+   "mm3": 0.122
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-2",
+    "V13_arm-1/V13_arm_Upper_arm_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Upper_arm_SO101"
+   ],
+   "mm3": 0.014
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_2_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_pin_2_m",
+    "lead_pos_m"
+   ],
+   "mm3": 0.0
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_2_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_pin_2_m",
+    "lead_pos_m"
+   ],
+   "mm3": 0.0
+  }
+ ],
+ "fastener_over_thread": [],
+ "threads": 357,
+ "thread_rows": [
+  {
+   "components": [
+    "V13_upper-1/V13_riser_adapter-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-2"
+   ],
+   "files": [
+    "riser_adapter",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 27.549
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_riser_adapter-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-4"
+   ],
+   "files": [
+    "riser_adapter",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 27.549
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_riser_adapter-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-1"
+   ],
+   "files": [
+    "riser_adapter",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 27.549
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_riser_adapter-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-3"
+   ],
+   "files": [
+    "riser_adapter",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 27.549
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.187
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.187
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.187
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.187
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.169
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.169
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.169
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 23.169
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 20.941
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 20.941
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 20.935
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 20.935
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 17.697
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_pod_fork_outer_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 17.697
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 17.692
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_pod_fork_outer-1",
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 17.692
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_rplidar-1",
+    "V13_fasteners-1/V13_fst_M2p5x8_pan-2"
+   ],
+   "files": [
+    "rplidar",
+    "fst_M2p5x8_pan"
+   ],
+   "mm3": 14.726
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_rplidar-1",
+    "V13_fasteners-1/V13_fst_M2p5x8_pan-4"
+   ],
+   "files": [
+    "rplidar",
+    "fst_M2p5x8_pan"
+   ],
+   "mm3": 14.726
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_rplidar-1",
+    "V13_fasteners-1/V13_fst_M2p5x8_pan-1"
+   ],
+   "files": [
+    "rplidar",
+    "fst_M2p5x8_pan"
+   ],
+   "mm3": 14.726
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_rplidar-1",
+    "V13_fasteners-1/V13_fst_M2p5x8_pan-3"
+   ],
+   "files": [
+    "rplidar",
+    "fst_M2p5x8_pan"
+   ],
+   "mm3": 14.726
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_dowel_inner_m-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "dowel_inner_m"
+   ],
+   "mm3": 14.192
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_dowel_inner_m-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "dowel_inner_m"
+   ],
+   "mm3": 14.192
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_dowel_inner-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "dowel_inner"
+   ],
+   "mm3": 14.192
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_dowel_inner-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "dowel_inner"
+   ],
+   "mm3": 14.192
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_keel_outer-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3x20_pan-1"
+   ],
+   "files": [
+    "pod_keel_outer",
+    "fst_M3x20_pan"
+   ],
+   "mm3": 10.113
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_keel_outer-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3x20_pan-1"
+   ],
+   "files": [
+    "pod_keel_outer",
+    "fst_M3x20_pan"
+   ],
+   "mm3": 10.113
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-4"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.931
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-2"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.931
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-3"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.931
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-1"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.931
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-7"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-9"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-5"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-8"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-10"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-6"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.93
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_front_L-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-11"
+   ],
+   "files": [
+    "support_front_L",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.923
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_front_R-1",
+    "V13_fasteners-1/V13_fst_M3x30_pan-12"
+   ],
+   "files": [
+    "support_front_R",
+    "fst_M3x30_pan"
+   ],
+   "mm3": 9.923
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x130_pan-1"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x130_pan"
+   ],
+   "mm3": 9.566
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x130_pan-2"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x130_pan"
+   ],
+   "mm3": 9.566
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_riser_arm-1",
+    "V13_fasteners-1/V13_fst_M3x35_pan-10"
+   ],
+   "files": [
+    "riser_arm",
+    "fst_M3x35_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_riser_arm-1",
+    "V13_fasteners-1/V13_fst_M3x35_pan-9"
+   ],
+   "files": [
+    "riser_arm",
+    "fst_M3x35_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-4"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-2"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-3"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-1"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 9.111
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_d435-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-6"
+   ],
+   "files": [
+    "d435",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 8.531
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_d435-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-5"
+   ],
+   "files": [
+    "d435",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 8.531
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-28"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.218
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-29"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.218
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-22"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-23"
+   ],
+   "files": [
+    "floor2_RL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-20"
+   ],
+   "files": [
+    "floor2_RL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-21"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-25"
+   ],
+   "files": [
+    "floor2_RL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-24"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.213
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x60_pan-8"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x60_pan"
+   ],
+   "mm3": 8.212
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x60_pan-5"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x60_pan"
+   ],
+   "mm3": 8.212
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-26"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.21
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-27"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 8.21
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x60_pan-6"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x60_pan"
+   ],
+   "mm3": 8.204
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x60_pan-7"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x60_pan"
+   ],
+   "mm3": 8.204
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 8.203
+  },
+  {
+   "components": [
+    "V13_fasteners-1/V13_fst_M3x35_pan-7",
+    "V13_pod-2/V13_pod_static-1/V13_pod_keel_outer-1"
+   ],
+   "files": [
+    "fst_M3x35_pan",
+    "pod_keel_outer"
+   ],
+   "mm3": 7.831
+  },
+  {
+   "components": [
+    "V13_fasteners-1/V13_fst_M3x35_pan-4",
+    "V13_pod-1/V13_pod_static-1/V13_pod_keel_outer-1"
+   ],
+   "files": [
+    "fst_M3x35_pan",
+    "pod_keel_outer"
+   ],
+   "mm3": 7.831
+  },
+  {
+   "components": [
+    "V13_fasteners-1/V13_fst_M3x35_pan-3",
+    "V13_pod-1/V13_pod_static-1/V13_pod_keel_outer-1"
+   ],
+   "files": [
+    "fst_M3x35_pan",
+    "pod_keel_outer"
+   ],
+   "mm3": 7.831
+  },
+  {
+   "components": [
+    "V13_fasteners-1/V13_fst_M3x35_pan-8",
+    "V13_pod-2/V13_pod_static-1/V13_pod_keel_outer-1"
+   ],
+   "files": [
+    "fst_M3x35_pan",
+    "pod_keel_outer"
+   ],
+   "mm3": 7.831
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-17"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 7.292
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-16"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 7.292
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-19"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 7.292
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-18"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 7.292
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-45"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.288
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-44"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.288
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_imu-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-28"
+   ],
+   "files": [
+    "bracket_imu",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.275
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_imu-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-29"
+   ],
+   "files": [
+    "bracket_imu",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.275
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-18"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-22"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-21"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-20"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-17"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-25"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-24"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-23"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-19"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.201
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-3"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-4"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-5"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-6"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-2"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_hub-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-1"
+   ],
+   "files": [
+    "hub",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 7.197
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_right-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-13"
+   ],
+   "files": [
+    "node_right",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_right-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-12"
+   ],
+   "files": [
+    "node_right",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_back-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-9"
+   ],
+   "files": [
+    "node_back",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_back-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-8"
+   ],
+   "files": [
+    "node_back",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-1"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_right-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-11"
+   ],
+   "files": [
+    "node_right",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_back-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-10"
+   ],
+   "files": [
+    "node_back",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-16"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-15"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_right-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-14"
+   ],
+   "files": [
+    "node_right",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_left-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-5"
+   ],
+   "files": [
+    "node_left",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_left-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-6"
+   ],
+   "files": [
+    "node_left",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_left-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-4"
+   ],
+   "files": [
+    "node_left",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_left-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-3"
+   ],
+   "files": [
+    "node_left",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_front-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-2"
+   ],
+   "files": [
+    "node_front",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_frame-1/V13_node_back-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-7"
+   ],
+   "files": [
+    "node_back",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 7.015
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_mic_array-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-1"
+   ],
+   "files": [
+    "mic_array",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 6.807
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_mic_array-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-2"
+   ],
+   "files": [
+    "mic_array",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 6.807
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_mic_array-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-3"
+   ],
+   "files": [
+    "mic_array",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 6.807
+  },
+  {
+   "components": [
+    "V13_electronics-1/V13_mic_array-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-4"
+   ],
+   "files": [
+    "mic_array",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 6.807
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_servo_adapter-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-8"
+   ],
+   "files": [
+    "bracket_servo_adapter",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 6.742
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_servo_adapter-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-7"
+   ],
+   "files": [
+    "bracket_servo_adapter",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 6.742
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_servo_adapter-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-9"
+   ],
+   "files": [
+    "bracket_servo_adapter",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 6.742
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_servo_adapter-1",
+    "V13_fasteners-1/V13_fst_M3x14_pan-10"
+   ],
+   "files": [
+    "bracket_servo_adapter",
+    "fst_M3x14_pan"
+   ],
+   "mm3": 6.742
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-4"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-14"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-13"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-7"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-6"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-11"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-9"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-3"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-2"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-8"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-15"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-5"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_R-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-12"
+   ],
+   "files": [
+    "support_side_R",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_side_L-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-10"
+   ],
+   "files": [
+    "support_side_L",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_mounts-1/V13_support_spine-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-1"
+   ],
+   "files": [
+    "support_spine",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 6.685
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x45_pan-1"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x45_pan"
+   ],
+   "mm3": 6.654
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x45_pan-2"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x45_pan"
+   ],
+   "mm3": 6.654
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_1-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-10"
+   ],
+   "files": [
+    "post_deck_1",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 6.377
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_0-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-9"
+   ],
+   "files": [
+    "post_deck_0",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 6.377
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_2-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-11"
+   ],
+   "files": [
+    "post_deck_2",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 6.377
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_3-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-12"
+   ],
+   "files": [
+    "post_deck_3",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 6.377
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-3"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 5.831
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-1"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 5.831
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-4"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 5.831
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face_crown-1",
+    "V13_fasteners-1/V13_fst_M3x8_pan-2"
+   ],
+   "files": [
+    "housing_face_crown",
+    "fst_M3x8_pan"
+   ],
+   "mm3": 5.831
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-27"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.469
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-26"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.469
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-36"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-41"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-30"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-32"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-38"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-37"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-42"
+   ],
+   "files": [
+    "housing_face",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_0-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-30"
+   ],
+   "files": [
+    "post_deck_0",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-31"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_1-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-31"
+   ],
+   "files": [
+    "post_deck_1",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_2-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-32"
+   ],
+   "files": [
+    "post_deck_2",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-40"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-33"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-34"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-35"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_housing_face-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-43"
+   ],
+   "files": [
+    "housing_face",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_post_deck_3-1",
+    "V13_fasteners-1/V13_fst_M3x12_pan-33"
+   ],
+   "files": [
+    "post_deck_3",
+    "fst_M3x12_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_deck_bin-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-39"
+   ],
+   "files": [
+    "deck_bin",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 5.466
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_fasteners-1/V13_fst_dowel_3x10-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_dowel_3x10"
+   ],
+   "mm3": 5.448
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_fasteners-1/V13_fst_dowel_3x10-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_dowel_3x10"
+   ],
+   "mm3": 5.448
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_fasteners-1/V13_fst_dowel_3x10-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_dowel_3x10"
+   ],
+   "mm3": 5.448
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_fasteners-1/V13_fst_dowel_3x10-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_dowel_3x10"
+   ],
+   "mm3": 5.448
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x12_pan-4",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x12_pan-4",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x12_pan-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x12_pan-2",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x12_pan-2",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x12_pan-3",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_fst_M3x12_pan-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_fst_M3x12_pan-3",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator_m"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x12_pan-3",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x12_pan-2",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x12_pan-4",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x12_pan-2",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_fst_M3x12_pan-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x12_pan-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x12_pan-3",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_fst_M3x12_pan-4",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1"
+   ],
+   "files": [
+    "fst_M3x12_pan",
+    "ak40_stator"
+   ],
+   "mm3": 3.462
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-5"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-5"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-6"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-6"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-11"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-8"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-8"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-11"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-11"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-8"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-11"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-8"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-2"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-6"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-6"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-5"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-3"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-5"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-9"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-9"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-7"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-7"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-10"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-10"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-12"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-12"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-12"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-10"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-10"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-12"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-7"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-9"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-7"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-9"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_hub-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x50_pan-4"
+   ],
+   "files": [
+    "wheel_hub",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_hub_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x50_pan-1"
+   ],
+   "files": [
+    "wheel_hub_m",
+    "fst_M3x50_pan"
+   ],
+   "mm3": 3.015
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_stator_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_stator_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_stator-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_stator",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 2.454
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-2"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_ak40_rotor_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M2p5x5_pan-3"
+   ],
+   "files": [
+    "ak40_rotor_m",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_ak40_rotor-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M2p5x5_pan-1"
+   ],
+   "files": [
+    "ak40_rotor",
+    "fst_M2p5x5_pan"
+   ],
+   "mm3": 1.608
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-3"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-1/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_wheel_cartridge-1",
+    "V13_pod-2/V13_unsprung-1/V13_wheel-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_cartridge",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-2"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_wheel_cartridge_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_wheel_m-1/V13_fst_M3x12_flat-1"
+   ],
+   "files": [
+    "wheel_cartridge_m",
+    "fst_M3x12_flat"
+   ],
+   "mm3": 1.386
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-1/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_pod_static_m-1/V13_pod_frame_inner_m-1",
+    "V13_pod_m-2/V13_pod_static_m-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner_m",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-4"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-1"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-1/V13_pod_static-1/V13_fst_M3_hexnut-2"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_pod_static-1/V13_pod_frame_inner-1",
+    "V13_pod-2/V13_pod_static-1/V13_fst_M3_hexnut-3"
+   ],
+   "files": [
+    "pod_frame_inner",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.44
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-25"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-20"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-24"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-22"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-18"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-19"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-23"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-21"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x10_pan-17"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x10_pan"
+   ],
+   "mm3": 0.095
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-6"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.067
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-6"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.066
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-3"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 0.021
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_fasteners-1/V13_fst_M4x25_flat-4"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "fst_M4x25_flat"
+   ],
+   "mm3": 0.021
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-5"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.007
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-6"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.007
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-6"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.004
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_bracket_d435_riser-1",
+    "V13_fasteners-1/V13_fst_M3_hexnut-5"
+   ],
+   "files": [
+    "bracket_d435_riser",
+    "fst_M3_hexnut"
+   ],
+   "mm3": 0.004
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FL-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-9"
+   ],
+   "files": [
+    "floor2_FL",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 0.0
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RL-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-11"
+   ],
+   "files": [
+    "floor2_RL",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 0.0
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_RR-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-12"
+   ],
+   "files": [
+    "floor2_RR",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 0.0
+  },
+  {
+   "components": [
+    "V13_upper-1/V13_floor2_FR-1",
+    "V13_fasteners-1/V13_fst_M3x16_pan-10"
+   ],
+   "files": [
+    "floor2_FR",
+    "fst_M3x16_pan"
+   ],
+   "mm3": 0.0
+  }
+ ],
+ "d435_fov_rows": [
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_reference-1/V13_env_d435_fov_rgb-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "env_d435_fov_rgb"
+   ],
+   "mm3": 43965630.865
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 17.021
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 8.244
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.484
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 0.104
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  }
+ ],
+ "note": "fastener rows under 10 mm3 are screws thread-formed into their pilots",
+ "pass": true
+}

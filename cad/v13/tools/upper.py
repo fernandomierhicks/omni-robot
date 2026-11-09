@@ -47,9 +47,8 @@ from step_colour import write_part, write_step                         # noqa: E
 
 OUT = W.ROOT / 'step_export' / 'upper'
 VAL = W.ROOT / 'validation' / 'upper'
-V10 = W.ROOT.parent / 'v10 human editable'
-V10_STEP = V10 / 'step_parts'
-V10_REC = V10 / 'step_export' / 'sim_reconciliation' / 'parts'
+REF = W.REF                                                            # every reused / vendor file is read from this version's reference/ (cad/solidworks.md 17)
+REF_PARTS = REF / 'parts'                                              # the SO-101, buck, bin, display, mic, speaker, riser + adapter STEPs
 box, cyl = P.box, W.cyl
 
 Z_UNDER, Z_TOP = C.FLOOR2_UNDER, C.FLOOR2_UNDER + 5.0                  # 176.5 / 181.5
@@ -255,14 +254,14 @@ GROMMETS = ((-105.0, -150.0, 11.0), (100.0, -128.0, 11.0), (-105.0, 150.0, 9.0))
 
 # ---- arm ---------------------------------------------------------------------------------------------------------------------------------
 def v10_instances():
-    return json.loads((V10 / 'reference' / 'robot_sim_instances.json').read_text())
+    return json.loads((REF / 'robot_sim_instances.json').read_text())
 
 
 def arm_kit():
     """v10's riser + adapter (printed), the 12 V buck and its label, and their screws, as v10 placed them (same frame and heights)"""
     parts, vendor, hw = {}, {}, []
-    riser = step(V10_REC / 'REC_arm_riser.step')
-    parts['riser_adapter'] = step(V10_REC / 'REC_arm_adapter.step')
+    riser = step(REF_PARTS / 'REC_arm_riser.step')
+    parts['riser_adapter'] = step(REF_PARTS / 'REC_arm_adapter.step')
     # Nov 4: the adapter's four M3 (v10: x 18 into the riser's top) are made long so they clamp the riser's whole height (it prints z up and
     # the arm's moment pulls one side up across its layers): the front two (over the lidar) M3 x 35 into the riser's lowest 10 mm, the rear
     # two M3 x 45 on through the floor into bosses under it
@@ -299,7 +298,7 @@ def arm_kit():
         if r['product'] in ('12_V_buck_arm', 'label_12V_BUCK_ARM'):
             M = M.copy()
             M[0, 3] += BUCK_DX                                             # round 13 (below)
-            vendor['buck_12v_arm' if r['product'].startswith('12') else 'label_buck_12v_arm'] = (V10_STEP / f"{r['product']}.step", M)
+            vendor['buck_12v_arm' if r['product'].startswith('12') else 'label_buck_12v_arm'] = (REF_PARTS / f"{r['product']}.step", M)
         elif r['product'].startswith('M3_x_'):
             o, z = M[:3, 3], M[:3, 2]
             if np.allclose(np.abs(z), (0.64, 0, 0.77), atol=0.02) or abs(o[1]) > 58 and o[2] < 190:   # the cheeks' screws: no cheeks here
@@ -368,7 +367,7 @@ def arm_parts_at(pose=STOW):
     q = kin.cfg.poses[pose]
     out = {}
     for n, (prod, T) in enumerate(SS.part_poses(kin, q)):
-        out[f'arm_{n:02d}_{prod.replace("SO-101_", "")}'] = (V10_STEP / f'{prod}.step', T)
+        out[f'arm_{n:02d}_{prod.replace("SO-101_", "")}'] = (REF_PARTS / f'{prod}.step', T)
     return out, q
 
 
@@ -582,7 +581,7 @@ def deck():
         lid = lid - cyl(M3_CLR / 2, 6.4, (x, y, sum(LID_Z) / 2))
         floor_pilots.append((x, y))
     # the v10 bin raised onto the deck: its four M3 x 10 into the deck (6 thick) -- from the v10 table
-    vendor['bin'] = (V10_STEP / 'bin.step', W_T(0, 0, DZ_BIN))
+    vendor['bin'] = (REF_PARTS / 'bin.step', W_T(0, 0, DZ_BIN))
     for r in v10_instances():
         if r['group'].startswith('mounts') and r['product'] == 'M3_x_10_PAN':
             M = np.array(r['matrix'], float)
@@ -625,7 +624,7 @@ def face():
     the arm (the SO-101's own shoulder stands over x 205..217 at z 241)"""
     x0, x1 = FACE_X
     hw, pilots = [], []
-    vendor = dict(display=(V10_STEP / '5_in_display_800x480.step', W_T(x0, -60.5, FACE_Z0)))
+    vendor = dict(display=(REF_PARTS / '5_in_display_800x480.step', W_T(x0, -60.5, FACE_Z0)))
     yi, yo = 60.7, 60.7 + FRAME_RAIL
     zt = FACE_Z0 + 77.0
     xb = x0 - 3.0                                                          # back plate behind the panel
@@ -650,16 +649,16 @@ def face():
         fr = fr - cyl(M3_PILOT / 2, 8.2, (CROWN_SCREW_X, y, zt - 4.0))
         crown = crown - cyl(M3_CLR / 2, 4.2, (CROWN_SCREW_X, y, zt + 2.0))
         hw.append(H.pan((CROWN_SCREW_X, y, zt + 4.0), (0, 0, -1), 10.0, 'bolt_face_crown'))
-    mic = step(V10_STEP / 'USB_mic_array.step')
+    mic = step(REF_PARTS / 'USB_mic_array.step')
     mb = mic.bounding_box()
     mx, my, mz = xb - 18.0 - mb.min.X, -64.0 - mb.min.Y, zt + 4.0 + MIC_STANDOFF - mb.min.Z           # front standoffs 1 mm in from the crown's edge
-    vendor['mic_array'] = (V10_STEP / 'USB_mic_array.step', W_T(mx, my, mz))
+    vendor['mic_array'] = (REF_PARTS / 'USB_mic_array.step', W_T(mx, my, mz))
     for hx, hy in MIC_HOLES:                                               # the model's hole axes (its own frame)
         x, y = mb.min.X + hx + mx, mb.min.Y + hy + my
         crown = crown + cyl(3.5, MIC_STANDOFF + 0.5, (x, y, zt + 3.5 + (MIC_STANDOFF + 0.5) / 2)) - cyl(M3_PILOT / 2, 4.0 + MIC_STANDOFF + 0.2, (x, y, zt + (4.0 + MIC_STANDOFF) / 2))
         hw.append(H.pan((x, y, zt + 4.0 + MIC_STANDOFF + 1.6), (0, 0, -1), 8.0, 'bolt_mic'))   # round 13: 10 -> 8 (its tip ran 1.4 into the frame)
     (sx0, sx1), (sy0, sy1) = SPEAKER_X, SPEAKER_Y
-    vendor['speaker'] = (V10_STEP / 'micro_speaker_4_ohm_3_W.step', W_T(sx0, sy0, zt + 4.0))
+    vendor['speaker'] = (REF_PARTS / 'micro_speaker_4_ohm_3_W.step', W_T(sx0, sy0, zt + 4.0))
     top = zt + 4.0 + 12.0
     crown = crown + (box(sx0 - 2.0, sx1 + 2.0, sy0 - 2.0, sy1 + 2.0, zt + 3.5, top) - box(sx0 - 0.2, sx1 + 0.2, sy0 - 0.2, sy1 + 0.2, zt + 4.0, top + 0.1))
     cover = box(sx0 - 10.0, sx1 + 10.0, sy0 - 2.0, sy1 + 2.0, top, top + 2.0)

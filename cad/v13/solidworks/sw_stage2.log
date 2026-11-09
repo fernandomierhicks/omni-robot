@@ -1,0 +1,92 @@
+##### interference
+== interference
+{
+ "seconds": 12,
+ "interferences": 393,
+ "part_part": [],
+ "vendor_internal_count": 36,
+ "fastener_over_thread": [],
+ "threads": 357,
+ "d435_fov_rows": [
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_reference-1/V13_env_d435_fov_rgb-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "env_d435_fov_rgb"
+   ],
+   "mm3": 43965630.865
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 17.021
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 8.244
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.484
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 0.104
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  }
+ ],
+ "note": "fastener rows under 10 mm3 are screws thread-formed into their pilots",
+ "pass": true
+}
+exit 0

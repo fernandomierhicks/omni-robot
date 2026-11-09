@@ -46,7 +46,7 @@ from step_colour import write_part, write_step                                  
 
 ROOT = Path(__file__).resolve().parents[1]
 REF = ROOT / 'reference'
-MOTOR_STEP = ROOT.parents[1] / 'components' / 'ak40-10' / 'AK40-10 with connector.STEP'
+MOTOR_STEP = REF / 'parts' / 'AK40-10 with connector.STEP'          # a copy of components/ak40-10's: this version reads only its own files
 OUT = ROOT / 'step_export' / 'wheel_motor'
 VAL = ROOT / 'validation' / 'wheel_motor'
 

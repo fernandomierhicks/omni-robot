@@ -1,0 +1,185 @@
+== import
+  rplidar <- C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\reference\parts\RPLIDAR.SLDPRT
+  ak40_rotor
+  ak40_rotor_m
+  ak40_stator
+  ak40_stator_m
+  arm_Base_motor_holder_SO101
+  arm_Base_SO101
+  arm_Motor_holder_SO101_Base
+  arm_Motor_holder_SO101_Wrist
+  arm_Moving_Jaw_SO101
+  arm_Rotation_Pitch_SO101
+  arm_STS3215_03a
+  arm_STS3215_03a__2
+  arm_Under_arm_SO101
+  arm_Upper_arm_SO101
+  arm_WaveShare_Mounting_Plate_SO101
+  arm_Wrist_Roll_Follower_SO101
+  arm_Wrist_Roll_Pitch_SO101
+  battery
+  bearing_627_inner
+  bearing_627_inner_m
+  bearing_627_outer
+  bearing_627_outer_m
+  bearing_6804_left
+  bearing_6804_left_m
+  bin  (print bed: +z up)
+  bracket_battery_tray  (print bed: +z up)
+  bracket_computer_0  (print bed: +z up)
+  bracket_computer_1  (print bed: +z up)
+  bracket_computer_2  (print bed: +z up)
+  bracket_computer_3  (print bed: +z up)
+  bracket_d435_riser  (print bed: +z up)
+  bracket_imu  (print bed: +z up)
+  bracket_servo_adapter  (print bed: -x up)
+  buck_12v_arm
+  bumper_q0  (print bed: +z up)
+  bumper_q1  (print bed: +z up)
+  bumper_q2  (print bed: +z up)
+  bumper_q3  (print bed: +z up)
+  computer
+  d435
+  deck_bin  (print bed: +z up)
+  die_spring_inner_a1
+  die_spring_inner_a1_m
+  die_spring_inner_a2
+  die_spring_inner_a2_m
+  die_spring_inner_b1
+  die_spring_inner_b1_m
+  die_spring_inner_b2
+  die_spring_inner_b2_m
+  display
+  dowel_inner
+  dowel_inner_m
+  ear_mcu_0
+  ear_mcu_1
+  ear_mcu_2
+  ear_mcu_3
+  ear_power_0
+  ear_power_1
+  ear_power_2
+  ear_power_3
+  env_d435_fov_depth
+  env_d435_fov_rgb
+  estop
+  floor2_FL  (print bed: -z up)
+  floor2_FR  (print bed: -z up)
+  floor2_RL  (print bed: -z up)
+  floor2_RR  (print bed: -z up)
+  fst_dowel_3x10
+  fst_M2p5x5_pan
+  fst_M2p5x8_pan
+  fst_M3_hexnut
+  fst_M3x10_pan
+  fst_M3x12_flat
+  fst_M3x12_pan
+  fst_M3x130_pan
+  fst_M3x14_pan
+  fst_M3x16_pan
+  fst_M3x20_pan
+  fst_M3x25_pan
+  fst_M3x30_pan
+  fst_M3x35_pan
+  fst_M3x45_pan
+  fst_M3x50_pan
+  fst_M3x60_pan
+  fst_M3x8_pan
+  fst_M4x25_flat
+  housing_estop  (print bed: +z up)
+  housing_face  (print bed: +x up)
+  housing_face_crown  (print bed: +z up)
+  housing_speaker_cover  (print bed: +z up)
+  housing_switch  (print bed: +z up)
+  hub  (print bed: +z up)
+  imu_bno085
+  label_battery
+  label_buck_12v_arm
+  label_computer
+  label_estop
+  label_mcu
+  label_power
+  label_servo_adapter
+  lead_neg
+  lead_neg_m
+  lead_pos
+  lead_pos_m
+  mcu
+  mic_array
+  node_back  (print bed: +z up)
+  node_front  (print bed: +z up)
+  node_left  (print bed: +z up)
+  node_right  (print bed: +z up)
+  pedestal  (print bed: +z up)
+  plug_computer_0
+  plug_computer_1
+  plug_computer_2
+  plug_computer_3
+  plug_computer_4
+  plug_d435
+  plug_imu
+  plug_mcu_0
+  plug_servo_adapter_0
+  pod_fork_inner  (print bed: +x up)
+  pod_fork_inner_m  (print bed: +x up)
+  pod_fork_outer  (print bed: +x up)
+  pod_fork_outer_m  (print bed: +x up)
+  pod_frame_inner  (print bed: -x up)
+  pod_frame_inner_m  (print bed: -x up)
+  pod_keel_outer  (print bed: +x up)
+  pod_keel_outer_m  (print bed: +x up)
+  pod_sleeve  (print bed: +x up)
+  pod_sleeve_m  (print bed: +x up)
+  post_deck_0  (print bed: +z up)
+  post_deck_1  (print bed: +z up)
+  post_deck_2  (print bed: +z up)
+  post_deck_3  (print bed: +z up)
+  post_mcu_0  (print bed: +z up)
+  post_mcu_1  (print bed: +z up)
+  post_mcu_2  (print bed: +z up)
+  post_mcu_3  (print bed: +z up)
+  post_spacer_power_0  (print bed: +z up)
+  post_spacer_power_1  (print bed: +z up)
+  post_spacer_power_2  (print bed: +z up)
+  post_spacer_power_3  (print bed: +z up)
+  power
+  riser_adapter  (print bed: -z up)
+  riser_arm  (print bed: +z up)
+  roller_core  (print bed: +z up)
+  roller_core_m  (print bed: +z up)
+  roller_tread  (print bed: +z up)
+  roller_tread_m  (print bed: +z up)
+  servo_adapter
+  spacer_servo_adapter_0  (print bed: +x up)
+  spacer_servo_adapter_1  (print bed: +x up)
+  spacer_servo_adapter_2  (print bed: +x up)
+  spacer_servo_adapter_3  (print bed: +x up)
+  speaker
+  spring_plunger_inner_a1
+  spring_plunger_inner_a1_m
+  spring_plunger_inner_a2
+  spring_plunger_inner_a2_m
+  spring_plunger_inner_b1
+  spring_plunger_inner_b1_m
+  spring_plunger_inner_b2
+  spring_plunger_inner_b2_m
+  strap_battery
+  support_front_L  (print bed: -z up)
+  support_front_R  (print bed: -z up)
+  support_side_L  (print bed: -z up)
+  support_side_R  (print bed: -z up)
+  support_spine  (print bed: -z up)
+  switch
+  washer_pivot_outer
+  washer_pivot_outer_m
+  wheel_cartridge  (print bed: +x up)
+  wheel_cartridge_m  (print bed: +x up)
+  wheel_hub  (print bed: +x up)
+  wheel_hub_m  (print bed: +x up)
+  xt30_housing
+  xt30_housing_m
+  xt30_pin_1
+  xt30_pin_1_m
+  xt30_pin_2
+  xt30_pin_2_m
+exit 0

@@ -492,7 +492,7 @@ def build_bumpers(rb, rp, sk):
     return out, hw, cuts
 
 
-D435_STEP = W.ROOT.parent / 'v10 human editable' / 'reference' / 'd435_source.step'   # X width, Y up, Z toward the lenses, front Z 0, back -25
+D435_STEP = W.REF / 'parts' / 'd435_source.step'                       # X width, Y up, Z toward the lenses, front Z 0, back -25
 
 
 def d435_real(loc):

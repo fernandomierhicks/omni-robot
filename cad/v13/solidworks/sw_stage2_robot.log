@@ -1,0 +1,330 @@
+##### robot
+== robot
+   {"components": 686, "mates": 0, "mate_errors": []}
+##### paths
+== paths
+{
+ "components": 686,
+ "top_level": 12,
+ "files": 203,
+ "file_kinds": {
+  ".SLDASM": 20,
+  ".SLDPRT": 183
+ },
+ "outside_v13": [],
+ "suppressed": 682,
+ "pass": true
+}
+##### test
+== test
+  right droop {'axle_yz': [0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right bump {'axle_yz': [1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right past bump {'axle_yz': [1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  right past droop {'axle_yz': [0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+  _m droop {'axle_yz': [-0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m bump {'axle_yz': [-1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m past bump {'axle_yz': [-1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  _m past droop {'axle_yz': [-0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+{"components": 686, "top": 12, "pods": 4, "flexible": [1, 1, 1, 1], "pod_origins_match": true, "axle_offset_mm": [0.0, 0.0, 0.0, 0.0], "mate_errors": [], "pass": true} 
+  pass
+##### interference
+== interference
+{
+ "seconds": 13,
+ "interferences": 393,
+ "part_part": [
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Rotation_Pitch_SO101-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_Rotation_Pitch_SO101",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 1993.679
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Base-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_Motor_holder_SO101_Base",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 1910.97
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-2",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 505.394
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 338.847
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_WaveShare_Mounting_Plate_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_WaveShare_Mounting_Plate_SO101"
+   ],
+   "mm3": 141.024
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-4",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 36.612
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Wrist-1",
+    "V13_arm-1/V13_arm_STS3215_03a-4"
+   ],
+   "files": [
+    "arm_Motor_holder_SO101_Wrist",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 20.321
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-2",
+    "V13_arm-1/V13_arm_Motor_holder_SO101_Base-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Motor_holder_SO101_Base"
+   ],
+   "mm3": 13.188
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 12.175
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 12.175
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-5",
+    "V13_arm-1/V13_arm_Wrist_Roll_Follower_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Wrist_Roll_Follower_SO101"
+   ],
+   "mm3": 10.234
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_STS3215_03a-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_STS3215_03a"
+   ],
+   "mm3": 6.212
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 4.074
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a__2-1",
+    "V13_arm-1/V13_arm_Wrist_Roll_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a__2",
+    "arm_Wrist_Roll_Pitch_SO101"
+   ],
+   "mm3": 4.074
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_housing_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_housing_m",
+    "lead_pos_m"
+   ],
+   "mm3": 2.875
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_housing_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_pos_m-1"
+   ],
+   "files": [
+    "xt30_housing_m",
+    "lead_pos_m"
+   ],
+   "mm3": 2.875
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-5",
+    "V13_arm-1/V13_arm_Moving_Jaw_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Moving_Jaw_SO101"
+   ],
+   "mm3": 1.714
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_STS3215_03a-1",
+    "V13_arm-1/V13_arm_Rotation_Pitch_SO101-1"
+   ],
+   "files": [
+    "arm_STS3215_03a",
+    "arm_Rotation_Pitch_SO101"
+   ],
+   "mm3": 1.642
+  },
+  {
+   "components": [
+    "V13_arm-1/V13_arm_Base_motor_holder_SO101-1",
+    "V13_arm-1/V13_arm_Base_SO101-1"
+   ],
+   "files": [
+    "arm_Base_motor_holder_SO101",
+    "arm_Base_SO101"
+   ],
+   "mm3": 1.533
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_2-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_pos-1"
+   ],
+   "files": [
+    "xt30_pin_2",
+    "lead_pos"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-1/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_xt30_pin_1-1",
+    "V13_pod-2/V13_unsprung-1/V13_motor-1/V13_lead_neg-1"
+   ],
+   "files": [
+    "xt30_pin_1",
+    "lead_neg"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-1/V13_unsprung_m-1/V13_motor_m-1/V13_lead_neg_m-1"
+   ],
+   "files": [
+    "xt30_pin_1_m",
+    "lead_neg_m"
+   ],
+   "mm3": 0.846
+  },
+  {
+   "components": [
+    "V13_pod_m-2/V13_unsprung_m-1/V13_motor_m-1/V13_xt30_pin_1_m-1",
+    "V13_pod_m-2/V13_u
+exit 0
