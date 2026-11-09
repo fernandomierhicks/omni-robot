@@ -38,7 +38,7 @@ NUM = r"(-?[0-9.eE+-]+|[A-Z_]+|c\.[a-z_]+)"
 
 def declarations(path: Path) -> dict:
     """{name: (kind, lo, hi)}: kind number | integer | flag | text | array; lo / hi None when not given."""
-    s = re.sub(r"\s+", " ", path.read_text())
+    s = re.sub(r"\s+", " ", path.read_text(encoding="utf-8"))
     out = {}
     for kind, name, rest in re.findall(r"\b(?:P|params)::(number|integer|flag|text)\((?:\*this|n), \"(\w+)\", ([^;]*)", s):
         m = re.match(rf"[^,]+, {NUM}, {NUM},", rest) if kind in ("number", "integer") else None
@@ -57,7 +57,7 @@ def declarations(path: Path) -> dict:
 
 
 def test_every_robot_parameter_is_declared_with_its_type_and_range():
-    values = yaml.safe_load(ROBOT_YAML.read_text())
+    values = yaml.safe_load(ROBOT_YAML.read_text(encoding="utf-8"))
     assert set(values) <= set(NODES), f"robot.yaml names nodes this test doesn't know: {set(values) - set(NODES)}"
     for node, section in values.items():
         decl = declarations(NODES[node])
@@ -75,5 +75,5 @@ def test_every_robot_parameter_is_declared_with_its_type_and_range():
 
 
 def test_the_launch_loads_robot_yaml_into_each_robot_node():
-    stack = (SRC / "omni_bringup" / "omni_bringup" / "stack.py").read_text()
+    stack = (SRC / "omni_bringup" / "omni_bringup" / "stack.py").read_text(encoding="utf-8")
     assert stack.count("robot_params()") >= 15

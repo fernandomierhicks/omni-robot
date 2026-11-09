@@ -39,11 +39,17 @@ int fail(const std::exception& e) {
 
 }  // namespace
 
+#ifdef _WIN32
+#define ARM_API __declspec(dllexport)              // as firmware/sil/sil_api.cpp: a Windows DLL exports only what it marks
+#else
+#define ARM_API __attribute__((visibility("default")))
+#endif
+
 extern "C" {
 
-const char* arm_error() { return g_error.c_str(); }
+ARM_API const char* arm_error() { return g_error.c_str(); }
 
-void* arm_create(const char* config, const char* calibration) {
+ARM_API void* arm_create(const char* config, const char* calibration) {
     try {
         return new Handle(config, calibration);
     } catch (const std::exception& e) {
@@ -52,11 +58,11 @@ void* arm_create(const char* config, const char* calibration) {
     }
 }
 
-void arm_destroy(void* h) { delete (Handle*)h; }
+ARM_API void arm_destroy(void* h) { delete (Handle*)h; }
 
 // pings, torque on, holds where the arm is; returns the number of missing servos (their ids in missing_out[6]), -1 on
 // an error. timeout_s: per reply (0 for the sim's bus, which answers at once)
-int arm_connect(void* hp, write_fn w, read_fn r, double timeout_s, int* missing_out) {
+ARM_API int arm_connect(void* hp, write_fn w, read_fn r, double timeout_s, int* missing_out) {
     auto* h = (Handle*)hp;
     h->port.w = w, h->port.r = r;
     try {
@@ -70,8 +76,8 @@ int arm_connect(void* hp, write_fn w, read_fn r, double timeout_s, int* missing_
 
 // an ArmMotion: cmd MOVE 0 / HOLD 1 / RELAX 2; n_times times, n_values waypoint values (n_times x 6 row-major for a
 // valid MOVE). 1 = taken, 0 = refused (arm_error says why), -1 = the port failed
-int arm_command(void* hp, int cmd, int linear, const double* times, uint32_t n_times, const double* waypoints,
-                uint32_t n_values) {
+ARM_API int arm_command(void* hp, int cmd, int linear, const double* times, uint32_t n_times, const double* waypoints,
+                        uint32_t n_values) {
     auto* h = (Handle*)hp;
     try {
         std::string why;
@@ -84,7 +90,7 @@ int arm_command(void* hp, int cmd, int linear, const double* times, uint32_t n_t
     }
 }
 
-int arm_read(void* hp) {
+ARM_API int arm_read(void* hp) {
     try {
         ((Handle*)hp)->core.read();
         return 0;
@@ -93,7 +99,7 @@ int arm_read(void* hp) {
     }
 }
 
-int arm_drive(void* hp, double t) {
+ARM_API int arm_drive(void* hp, double t) {
     try {
         ((Handle*)hp)->core.drive(t);
         return 0;
@@ -104,8 +110,8 @@ int arm_drive(void* hp, double t) {
 
 // the state: q, dq, load, goal (6 each), temp_c (6), volts; flags bit 0 connected, 1 torque, 2 have_goal, 3 moving,
 // 4 ok, 5 tool_out; the missing / error ids (up to 6 each) and their counts
-void arm_state(void* hp, double* q, double* dq, double* load, double* goal, int* temp_c, double* volts, int* flags,
-               int* missing, int* n_missing, int* errors, int* n_errors) {
+ARM_API void arm_state(void* hp, double* q, double* dq, double* load, double* goal, int* temp_c, double* volts, int* flags,
+                       int* missing, int* n_missing, int* errors, int* n_errors) {
     const ArmDriverCore& c = ((Handle*)hp)->core;
     for (int i = 0; i < 6; ++i) q[i] = c.q[i], dq[i] = c.dq[i], load[i] = c.load[i], goal[i] = c.goal[i], temp_c[i] = c.temp_c[i];
     *volts = c.volts;
@@ -118,7 +124,7 @@ void arm_state(void* hp, double* q, double* dq, double* load, double* goal, int*
 }
 
 // the bus's counters: timeouts, packets sent, replies received, parser errors
-void arm_bus_stats(void* hp, int* out4) {
+ARM_API void arm_bus_stats(void* hp, int* out4) {
     const auto* b = ((Handle*)hp)->core.bus();
     out4[0] = b ? b->n_timeouts : 0, out4[1] = b ? b->n_tx : 0, out4[2] = b ? b->n_rx : 0;
     out4[3] = b ? b->parser.errors : 0;
