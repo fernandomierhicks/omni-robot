@@ -36,7 +36,7 @@ import arm_objects
 from arm_bus import ServoBusSim
 from robot_export import arm_params
 from robot_model import build_model
-from sil_link import SimLink  # noqa: F401  (puts ros/src on the path)
+from sil_link import ROS_SRC, SimLink  # noqa: F401  (SimLink: importing it puts ros/src on the path)
 from sil_robot import SilRobot
 from omni_arm.brain_core import HEALTH_GRACE, HOLD, MotionSync, state_from_joints  # noqa: E402
 from omni_arm.floor_vision import DepthFrame  # noqa: E402
@@ -45,7 +45,7 @@ from omni_arm.pick import Inputs, PickParams, TidyTask, wrist_frame  # noqa: E40
 from omni_catch.modes import ModeMux  # noqa: E402
 from omni_mcu.protocol import State  # noqa: E402
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "ros" / "src" / "omni_cpp" / "sil"))
+sys.path.insert(0, str(ROS_SRC / "omni_cpp" / "sil"))     # ROS_SRC: under ros/omni.sh this file runs from ~/omni_ws/sim
 from arm_sil import CppArmDriver  # noqa: E402  (the robot's C++ arm driver, omni_cpp's ArmDriverCore)
 
 HOME = (1.0, 0.0)
