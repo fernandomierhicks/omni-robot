@@ -50,7 +50,7 @@ def test_fetch_finds_picks_brings_and_puts_down():
     assert find["color"] == "red" and find["shape"] == "square" and ("set_mode", "PICK", False) in r.effects
     c.on_robot_mode("PICK adult")                                   # its own mode change: still fetching
     assert c.mission == "FETCH"
-    fx = arm(c, 101, found=dict(id=find["id"], candidates=[dict(id=3, range_m=1.2, color="red", shape="square")]))
+    fx = arm(c, 101, found=dict(id=find["id"], candidates=[dict(id=3, range_m=1.2, score=0.95, color="red", shape="square")]))
     pick = arm_req(fx, "tidy")[0]
     assert pick["only"] == 3 and pick["keep"] is True
     arm(c, 102, tidy_on=True, tidy=dict(state="APPROACH"))
@@ -74,6 +74,33 @@ def test_fetch_finds_picks_brings_and_puts_down():
     assert c.mission == "MANUAL" and c.task == "Fetched the red square"
     act = c.command("activity").data["items"][0]
     assert act["mission"] == "FETCH" and act["state"] == "done"
+
+
+def test_a_lidar_candidate_is_not_someone_to_talk_to():
+    from omni_console.people import from_tracks
+    tracks = [dict(status="candidate", base_x=0.8, base_y=0.0, range=0.8), dict(status="not_person", base_x=1.0, base_y=0.0, range=1.0),
+              dict(status="person", base_x=2.0, base_y=0.5, range=2.06)]
+    assert from_tracks(tracks) == [(2.0, 0.5), (0.8, 0.0)]                   # Follow: the person first, then the candidate
+    assert from_tracks(tracks, confirmed_only=True) == [(2.0, 0.5)]
+    assert from_tracks(tracks[:2], confirmed_only=True) == []
+
+
+def test_fetch_never_picks_a_near_miss():
+    """A find lists everything it sees, best first: a wrong colour (score 0) or wrong shape (0.2) is not the thing."""
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    near_misses = [dict(id=1, range_m=1.0, score=0.19), dict(id=2, range_m=0.8, score=0.0)]
+    fx = arm(c, 101, found=dict(id=fid, candidates=near_misses))
+    assert not arm_req(fx, "tidy") and c.fun["phase"] == "turn"       # looks on instead
+
+
+def test_fetch_takes_the_right_colour_with_a_shape_guess():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    fx = arm(c, 101, found=dict(id=fid, candidates=[dict(id=7, range_m=1.4, score=0.47), dict(id=2, range_m=0.8, score=0.0)]))
+    assert arm_req(fx, "tidy")[0]["only"] == 7
 
 
 def test_fetch_looks_round_then_gives_up():

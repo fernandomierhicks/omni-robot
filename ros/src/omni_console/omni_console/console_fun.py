@@ -28,6 +28,8 @@ FUN_MISSIONS = ("FETCH", "MESSAGE", "TOWER", "DANCE", "GOALIE")
 MODES_OK = {"FETCH": ("PICK", "TELEOP")}            # missions that switch the mode manager's mode as they go
 LOOK_W = 0.7                                         # rad/s: a look round's turn (people and finds need still-ish frames)
 FIND_LOOKS = 4                                       # quarter turns a fetch looks in before it gives up
+FETCH_MIN_SCORE = 0.4                                # a find lists near misses too (color_vision.find): the right colour
+                                                     # with a shape guess is ~0.47, the wrong shape ~0.2, the wrong colour 0
 PERSON_RANGE = 4.5                                   # m: a person farther than this isn't "seen" for a message
 PEOPLE_STALE = 1.0                                   # s
 
@@ -372,7 +374,7 @@ class FunMixin:
             return []
         found = s.get("found")
         if f["phase"] == "find" and isinstance(found, dict) and found.get("id") == f["find_id"]:
-            cands = found.get("candidates") or []
+            cands = [c for c in found.get("candidates") or [] if float(c.get("score", 0.0)) >= FETCH_MIN_SCORE]
             if found.get("error") or not cands:
                 if f["looks"] >= FIND_LOOKS:
                     return self._fun_end(False, f"Fetch: no {f['what']} in sight after a look round",

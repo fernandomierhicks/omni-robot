@@ -741,8 +741,11 @@ class MissionNode(Node):
         first, never what the camera has looked at and called furniture."""
         if self.people_msg is not None and time.monotonic() - self.people_t < 0.5:
             try:
-                tracks = json.loads(self.people_msg).get("people", [])
-                self.core.on_people(from_tracks(tracks), time.monotonic())
+                msg = json.loads(self.people_msg)
+                # Follow keeps lidar candidates (up close the camera loses the head); talking to someone needs the
+                # camera's word for it, while the camera works
+                sure = bool((msg.get("camera") or {}).get("ok")) and self.core.mission in ("MESSAGE", "FETCH")
+                self.core.on_people(from_tracks(msg.get("people", []), confirmed_only=sure), time.monotonic())
                 return
             except (ValueError, KeyError, TypeError):
                 pass                                  # a malformed message: the lidar alone

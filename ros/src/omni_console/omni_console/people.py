@@ -156,10 +156,13 @@ class Follower:
         return (v * ux, v * uy, wz)
 
 
-def from_tracks(people: list, max_age: float = 0.5) -> list:
+def from_tracks(people: list, max_age: float = 0.5, confirmed_only: bool = False) -> list:
     """omni_perception's /people tracks (people_node: the lidar and the forward camera together) as (x, y) in the
     base frame for Follower: camera-confirmed people first (Follower takes the first one ahead), then lidar
-    candidates, nearest first; never "not_person" (a chair leg the camera has looked at); fresh tracks only."""
+    candidates, nearest first; never "not_person" (a chair leg the camera has looked at); fresh tracks only.
+    confirmed_only: camera-confirmed people alone, for deciding that someone is there to talk to (Messenger, Fetch)."""
     good = [p for p in people if p.get("status") != "not_person" and p.get("seen_s", 0.0) < max_age]
+    if confirmed_only:
+        good = [p for p in good if p.get("status") == "person"]
     good.sort(key=lambda p: (p.get("status") != "person", p.get("range", 0.0)))
     return [(float(p["base_x"]), float(p["base_y"])) for p in good]
