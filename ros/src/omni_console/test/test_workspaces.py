@@ -11,13 +11,12 @@ import sys
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
 from omni_console import checks                                          # noqa: E402
 from omni_console.console_defs import FEATURES, SETTINGS, VERB_FEATURE, WORKSPACES   # noqa: E402
 from omni_console.missions import Console                                # noqa: E402
 
-WEB = os.path.join(REPO, "ros", "src", "omni_console", "web", "js")
+WEB = os.path.join(os.path.dirname(__file__), "..", "web", "js")
 
 
 def ready(**caps) -> Console:

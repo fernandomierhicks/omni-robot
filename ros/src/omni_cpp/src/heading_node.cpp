@@ -1,5 +1,5 @@
-// heading_node: which way the robot faces while Nav2 drives (the core is heading.cpp), in C++: omni_bringup's
-// heading_node.py topics and parameters. Sits between Nav2's velocity smoother and its collision monitor.
+// heading_node: which way the robot faces while Nav2 drives (the core is heading.cpp), in C++.
+// Sits between Nav2's velocity smoother and its collision monitor.
 //
 // Subscribes cmd_vel_shape (the smoother's output), /odometry/filtered (yaw and turn rate), /plan (the path left).
 // Publishes cmd_vel_smoothed: when agnostic each input unchanged, else the shaped command at `rate` Hz while Nav2's

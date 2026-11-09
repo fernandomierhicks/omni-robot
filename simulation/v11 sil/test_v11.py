@@ -1488,7 +1488,7 @@ def test_native_detector_finds_the_same_blobs():
 
 
 def test_a_session_log_is_written_and_its_throws_replay_in_the_sim(tmp_path):
-    from catch_world import WorldConfig
+    from catch_world import CatchWorld, WorldConfig
     from sil_game import SilCatchGame
     from omni_console import session_log
     sys.path.insert(0, str(Path(__file__).parent / "studies"))
@@ -1504,7 +1504,36 @@ def test_a_session_log_is_written_and_its_throws_replay_in_the_sim(tmp_path):
     assert all(t["statef"] and t["truth"] is not None and t["path"] for t in throws)
     assert all(t["caught"] == t["truth"]["caught"] for t in throws)      # the robot's beam agrees with the world
     r = replay_log.replay(tmp_path / s["name"], seed=9101)
-    assert r["throws"] == 3 and r["agree"] >= 66.0
+    assert r["throws"] == 3
+    # the replay is the same throw (whether the robot catches it again is chaotic: 0-100% per seed): flown from the
+    # release the log gives, each lands within 0.35 m of the true one (est: 0.21 m measured over seeds 9101-9106)
+    probe = CatchWorld(WorldConfig(dist=6.5, seed=9101))
+    flight, pose0 = probe.flight, probe.pose0.copy()
+    probe.close()
+    for p, v, _, rec in replay_log.scripted_throws(throws, pose0, flight):
+        want_p, want_v = np.array(rec["truth"]["release"], float), np.array(rec["truth"]["release_v"], float)
+        assert np.linalg.norm(v) == pytest.approx(np.linalg.norm(want_v), rel=0.06)
+        a, b = flight.crossing(np.asarray(p), np.asarray(v), 1.0), flight.crossing(want_p, want_v, 1.0)
+        assert a is not None and b is not None and np.linalg.norm(np.asarray(a[0][:2]) - np.asarray(b[0][:2])) < 0.35
+
+
+def test_a_late_frozen_state_is_flown_back_to_the_release():
+    """A plan frozen near the catch has the ball below the release height on its way down: back over the apex."""
+    sys.path.insert(0, str(Path(__file__).parent / "studies"))
+    from catch_world import CatchWorld, WorldConfig
+    import replay_log
+    w = CatchWorld(WorldConfig(dist=6.5, seed=1))
+    flight = w.flight
+    w.close()
+    p0, v0 = np.array([0.0, 0.0, 1.0]), np.array([7.0, 0.0, 5.0])
+    p, v, t, dt = p0.copy(), v0.copy(), 0.0, 0.001
+    while not (p[2] < 0.9 and v[2] < 0.0):
+        a = flight.accel(v)
+        p, v, t = p + v * dt + 0.5 * a * dt * dt, v + a * dt, t + dt
+    q, u = replay_log.back_to_release(flight, p, v)
+    assert np.linalg.norm(q - p0) < 0.03 and np.linalg.norm(u - v0) < 0.08
+    q, u = replay_log.back_to_release(flight, [0.0, 0.0, 0.5], [7.0, 0.0, 5.0])    # still rising: as it is
+    assert q[2] == 0.5 and u[2] == 5.0
 
 
 def test_pass_game_throws_each_ball_to_the_other_player():
@@ -1580,6 +1609,29 @@ def test_d435_depth_noise_flying_pixels_occlusion_and_dark_surfaces():
     albedo[:, :W // 2] = 0.02                                      # black on the left half
     o = dn.d435(np.full((H, W), 2.0), K, fy, b, rng, albedo=albedo, scale=0.0)
     assert np.isnan(o[:, :W // 2]).mean() > 0.4 > 0.1 > np.isnan(o[:, W // 2:]).mean()
+
+
+def test_the_live_world_rolls_goalie_shots_and_scores_them_on_the_truth():
+    """The ROS sim's Goalie ball (sim_world.shoot / tick): the same play ball and verdicts as studies/goalie.py, on a parked
+    robot in the hallway: at its middle a save, past its side but inside the posts a goal, outside the posts wide."""
+    from bridge_core import CoreConfig, SimCore
+    core = SimCore(CoreConfig(base="drawn", seed=0, shadow=(), payload="arm", live_world=True, clutter="off"))
+    w = core.world
+    t_end = core.d.time + 0.3
+    while core.d.time < t_end:
+        core.step()
+    for aim, want in ((0.0, "save"), (0.45, "goal"), (-0.63, "wide")):             # the hallway's walls at -0.75, +0.75
+        r = w.shoot(side=0.0, aim=aim, speed=2.5)
+        assert r["ok"], r
+        assert not w.shoot()["ok"]                     # one at a time
+        res = None
+        t_end = core.d.time + 5.0
+        while res is None and core.d.time < t_end:
+            core.step()
+            res = w.tick()
+        assert res is not None and res["id"] == r["id"] and res["result"] == want, res
+        assert w.shot is None and w.d.qpos[w.adr[len(w.toys) + 7]] > 20.0                         # parked again
+    assert not w.shoot(dist=40.0)["ok"]                 # a wall in the way
 
 
 def test_the_launchers_live_world_person_clutter_and_thrower():
@@ -2240,7 +2292,10 @@ def test_the_drawn_robot_has_the_cads_mass_cg_wheels_and_scan_plane():
     import re
     from robot_export import CAD_CG, CAD_MASS_KG, drawn_params
     from robot_model import mass_properties
-    bom = (Path(__file__).resolve().parents[2] / "cad" / "v7" / "out" / "BOM.md").read_text(encoding="utf-8")
+    bom_path = Path(__file__).resolve().parents[2] / "cad" / "v7" / "out" / "BOM.md"
+    if not bom_path.exists():
+        pytest.skip("cad/ is not mirrored into ~/omni_ws")
+    bom = bom_path.read_text(encoding="utf-8")
     mt = re.search(r"CAD estimate: \*\*([\d.]+) kg\*\*, CG at \[([-\d.]+), ([-\d.]+), ([-\d.]+)\] mm", bom)
     assert mt, "BOM.md's mass line moved"
     assert float(mt.group(1)) == pytest.approx(CAD_MASS_KG, abs=0.005)
@@ -2460,7 +2515,9 @@ def test_the_v10_arm_robot_reaches_the_floor_and_clears_its_head():
     import json as _json
     from robot_export import ARM, ARM_D435, ARM_V7, arm_params, main
     assert main(check=True)
-    cfg = _json.loads((Path(__file__).resolve().parents[2] / "ros/src/omni_arm/omni_arm/config/robot_arm.json").read_text())
+    import os as _os
+    src = Path(_os.environ.get("OMNI_ROS_SRC", Path(__file__).resolve().parents[2] / "ros" / "src"))
+    cfg = _json.loads((src / "omni_arm/omni_arm/config/robot_arm.json").read_text())
     kin = _omni_arm()
     from omni_arm import motion as mo
     from omni_arm.pick import PickParams

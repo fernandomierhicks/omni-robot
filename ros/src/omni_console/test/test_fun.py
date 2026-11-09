@@ -41,6 +41,35 @@ def arm(c, t, **kw):
     return list(c.on_arm_state(s, t))
 
 
+# -- Goalie's score --------------------------------------------------------------------------------------------------
+def _ball(u, v, du, age=0.0):
+    return dict(x=u, y=v, vx=du, vy=0.0, age=age)
+
+
+def test_a_gap_in_the_track_is_still_the_same_shot():
+    g = Goalie((0.0, 0.0, 0.0), GoalieParams())
+    t = 0.0
+    for u in (2.5, 2.2, 1.9):
+        g.tick(t, (0.0, 0.0, 0.0), _ball(u, 0.0, -2.0))
+        t += 0.15
+    assert g.shots == 1
+    g.tick(t + 0.6, (0.0, 0.0, 0.0), _ball(1.9, 0.0, -2.0, age=0.6))      # stale, not yet lost
+    g.tick(t + 0.7, (0.0, 0.0, 0.0), _ball(1.0, 0.0, -2.0))
+    assert g.shots == 1 and g.state == "shot"
+
+
+def test_a_saved_balls_bounce_isnt_a_new_shot():
+    g = Goalie((0.0, 0.0, 0.0), GoalieParams())
+    g.tick(0.0, (0.0, 0.0, 0.0), _ball(1.0, 0.0, -2.0))
+    g.tick(0.2, (0.0, 0.0, 0.0), _ball(0.4, 0.0, -2.0))
+    g.tick(0.3, (0.0, 0.0, 0.0), _ball(0.4, 0.0, 1.0))                    # back off the robot
+    assert (g.shots, g.saves) == (1, 1)
+    g.tick(0.5, (0.0, 0.0, 0.0), _ball(0.6, 0.0, -0.8))                   # the bounce's noise: not a shot
+    assert g.shots == 1
+    g.tick(2.0, (0.0, 0.0, 0.0), _ball(2.0, 0.0, -2.0))                   # the next one is
+    assert g.shots == 2
+
+
 # -- Fetch -----------------------------------------------------------------------------------------------------------
 def test_fetch_finds_picks_brings_and_puts_down():
     c = ready()
@@ -121,6 +150,162 @@ def test_fetch_looks_round_then_gives_up():
             yaw += tw[2] * 0.05
             c.odom_pose = (0.0, 0.0, yaw)
         fid = arm_req(c.pop_fx(), "find")[0]["id"]
+
+
+def test_fetch_drives_closer_to_a_patch_of_its_colour_then_finds_it():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    blob = dict(pixels=120, bearing_deg=0.0, range_m=1.4, height_m=0.01, flat=False)
+    arm(c, 101, found=dict(id=fid, candidates=[], image_only=[blob]))
+    g = c.goal
+    assert c.fun["phase"] == "approach" and g["x"] == pytest.approx(0.8) and g["y"] == pytest.approx(0.0)
+    assert c.fun["looks"] == 1                                      # driving closer isn't one of the four looks
+    c.pose = ("map", 0.8, 0.0, 0.0)
+    c.on_nav_done(g["seq"], "succeeded")
+    fid = arm_req(c.pop_fx(), "find")[0]["id"]
+    assert c.fun["looks"] == 1 and c.fun["phase"] == "find"
+    fx = arm(c, 110, found=dict(id=fid, candidates=[dict(id=4, range_m=0.6, score=0.95)]))
+    assert arm_req(fx, "tidy")[0]["only"] == 4
+
+
+@pytest.mark.parametrize("blob", [dict(pixels=500, bearing_deg=20.0, range_m=1.2, height_m=0.004, flat=True),   # a rug
+                                  dict(pixels=500, bearing_deg=0.0, range_m=0.6, height_m=0.05, flat=False),    # faced, near
+                                  dict(pixels=500, bearing_deg=20.0, range_m=5.0, height_m=0.05, flat=False),   # too far
+                                  dict(pixels=500, bearing_deg=20.0, range_m=1.5, height_m=0.6, flat=False),    # not the floor
+                                  dict(pixels=3800, bearing_deg=27.0, range_m=2.2, height_m=0.01, flat=False)])  # a rug's piece
+def test_fetch_ignores_a_patch_not_worth_driving_to(blob):
+    c = ready()
+    r = c.command("fetch", {"color": "red"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    arm(c, 101, found=dict(id=fid, candidates=[], image_only=[blob]))
+    assert c.fun["phase"] == "turn" and c.goal is None
+
+
+def test_fetch_drives_closer_at_most_twice_and_never_to_the_same_spot():
+    c = ready()
+    r = c.command("fetch", {"color": "red"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    arm(c, 101, found=dict(id=fid, candidates=[], image_only=[dict(pixels=99, bearing_deg=45.0, range_m=2.0, flat=False)]))
+    g = c.goal
+    c.on_nav_done(g["seq"], "aborted")                               # Nav2 couldn't: it looks from here
+    fid = arm_req(c.pop_fx(), "find")[0]["id"]
+    arm(c, 110, found=dict(id=fid, candidates=[], image_only=[dict(pixels=99, bearing_deg=45.0, range_m=2.0, flat=False)]))
+    assert c.fun["phase"] == "turn" and c.fun["approaches"] == 1     # the same spot: look round instead
+    c = ready()
+    r = c.command("fetch", {"color": "red"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    for k, brg in enumerate((60.0, -60.0)):
+        arm(c, 101 + k, found=dict(id=fid, candidates=[], image_only=[dict(pixels=99, bearing_deg=brg, range_m=2.0, flat=False)]))
+        c.on_nav_done(c.goal["seq"], "succeeded")
+        fid = arm_req(c.pop_fx(), "find")[0]["id"]
+    arm(c, 120, found=dict(id=fid, candidates=[], image_only=[dict(pixels=99, bearing_deg=120.0, range_m=2.0, flat=False)]))
+    assert c.fun["phase"] == "turn" and c.fun["approaches"] == 2
+
+
+def test_fetch_without_nav_only_turns():
+    c = ready()
+    c.set_caps(nav=False, catch=False, collision=False)
+    r = c.command("fetch", {"color": "red"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    arm(c, 101, found=dict(id=fid, candidates=[], image_only=[dict(pixels=99, bearing_deg=20.0, range_m=1.5, flat=False)]))
+    assert c.fun["phase"] == "turn"
+
+
+def test_fetch_to_me_with_nobody_found_says_so():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "to": "me"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    fx = arm(c, 101, found=dict(id=fid, candidates=[dict(id=3, range_m=1.2, score=0.95)]))
+    arm(c, 102, tidy_on=True, tidy=dict(state="APPROACH"))
+    c.now = 140.0
+    arm(c, 140, tidy_on=False, tidy=dict(state="DONE", outcome="held", held=dict(id=3)))
+    assert c.fun["phase"] == "look_person"
+    yaw = 0.0
+    stops = 0
+    for _ in range(3000):                                            # the look round, nobody in it: in steps
+        c.now += 0.05
+        tw = c.drive_output(c.now)
+        if c.fun["phase"] != "look_person":
+            break
+        stops += tw[2] == 0.0
+        yaw += tw[2] * 0.05
+        c.odom_pose = (0.0, 0.0, yaw)
+    assert stops > 100                                               # it stood still to look
+    assert c.fun["phase"] == "deliver" and c.fun["nobody"]
+    c.on_nav_done(c.goal["seq"], "succeeded")
+    c.pop_fx()
+    arm(c, 160, tidy_on=True, tidy=dict(state="P_HOVER", mode="place"))
+    fx = arm(c, 170, tidy_on=False, tidy=dict(state="DONE", outcome="placed", mode="place"))
+    assert c.mission == "MANUAL" and "couldn't find anyone" in c.task
+    assert c.command("activity").data["items"][0]["state"] != "done"
+    assert any(f[0] == "face" and "couldn't find you" in f[1]["text"] for f in fx)
+
+
+def test_fetch_gets_closer_to_an_unsure_shape_before_picking_it():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    far = dict(id=9, range_m=1.4, bearing_deg=0.0, score=0.46, color=dict(name="red", match=0.95),
+               shape={"class": "round", "sure": False, "maybe": ["square"]})
+    fx = arm(c, 101, found=dict(id=fid, candidates=[far]))
+    assert not arm_req(fx, "tidy") and c.fun["phase"] == "approach" and c.goal["x"] == pytest.approx(0.8)
+    c.pose = ("map", 0.8, 0.0, 0.0)
+    c.on_nav_done(c.goal["seq"], "succeeded")
+    fid = arm_req(c.pop_fx(), "find")[0]["id"]
+    near = dict(far, range_m=0.6, score=1.0, shape={"class": "square", "sure": True, "maybe": []})
+    fx = arm(c, 110, found=dict(id=fid, candidates=[near]))
+    assert arm_req(fx, "tidy")[0]["only"] == 9
+
+
+def test_fetch_gets_closer_to_the_right_colour_with_a_low_shape_score():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    long_guess = dict(id=5, range_m=1.3, bearing_deg=10.0, score=0.19, color=dict(name="red", match=0.95),
+                      shape={"class": "long", "sure": False, "maybe": []})
+    fx = arm(c, 101, found=dict(id=fid, candidates=[long_guess]))
+    assert not arm_req(fx, "tidy") and c.fun["phase"] == "approach"
+
+
+def test_fetch_takes_what_it_drove_up_to_when_the_shape_guess_flickers():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    far = dict(id=9, range_m=1.4, bearing_deg=0.0, score=0.46, color=dict(name="red", match=0.95),
+               shape={"class": "round", "sure": False, "maybe": ["square"]})
+    arm(c, 101, found=dict(id=fid, candidates=[far]))
+    c.pose = ("map", 0.8, 0.0, 0.0)
+    c.on_nav_done(c.goal["seq"], "succeeded")
+    fid = arm_req(c.pop_fx(), "find")[0]["id"]
+    near = dict(far, range_m=0.65, bearing_deg=1.0, score=0.2, shape={"class": "other", "sure": False, "maybe": []})
+    fx = arm(c, 110, found=dict(id=fid, candidates=[near]))
+    assert arm_req(fx, "tidy")[0]["only"] == 9
+
+
+def test_fetch_doesnt_drive_to_a_sure_wrong_shape():
+    c = ready()
+    r = c.command("fetch", {"color": "red", "shape": "square"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    crayon = dict(id=5, range_m=1.3, bearing_deg=10.0, score=0.19, color=dict(name="red", match=0.95),
+                  shape={"class": "long", "sure": True, "maybe": []})
+    arm(c, 101, found=dict(id=fid, candidates=[crayon]))
+    assert c.fun["phase"] == "turn" and c.goal is None
+
+
+def test_fetch_without_a_map_says_it_brought_nothing():
+    c = ready()
+    c.pose = ("odom", 0.0, 0.0, 0.0)
+    r = c.command("fetch", {"color": "red", "to": "here"})
+    fid = arm_req(r.effects, "find")[0]["id"]
+    arm(c, 101, found=dict(id=fid, candidates=[dict(id=3, range_m=1.2, score=0.95)]))
+    arm(c, 102, tidy_on=True, tidy=dict(state="APPROACH"))
+    fx = arm(c, 140, tidy_on=False, tidy=dict(state="DONE", outcome="held", held=dict(id=3)))
+    assert arm_req(fx, "place") and c.fun["no_map"]
+    arm(c, 160, tidy_on=True, tidy=dict(state="P_HOVER", mode="place"))
+    arm(c, 170, tidy_on=False, tidy=dict(state="DONE", outcome="placed", mode="place"))
+    assert c.mission == "MANUAL" and "not localized" in c.task
+    assert c.command("activity").data["items"][0]["state"] != "done"
 
 
 def test_fetch_stop_puts_what_it_holds_away():

@@ -22,7 +22,7 @@ export function BaseTab() {
   const st = s.status;
   const m = st?.mcu;
   const b = useRef({ v: makeBuffer(4), w: makeBuffer(2), slip: makeBuffer(1), tilt: makeBuffer(2), t0: 0 }).current;
-  // mcu_link's 200 Hz samples, straight from the robot (omni_mcu link_node SAMPLE_COLS): the command comes in the
+  // mcu_link's 200 Hz samples, straight from the robot (omni_cpp's mcu_link, its SAMPLE_COLS): the command comes in the
   // odom frame and is turned into the body frame here
   useRawTopic("/mcu/samples", "std_msgs/msg/Float32MultiArray", (bytes) => {
     const { dims, data } = decodeFloat32MultiArray(bytes);

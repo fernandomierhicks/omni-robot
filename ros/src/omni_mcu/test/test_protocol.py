@@ -21,9 +21,12 @@ sys.path.insert(0, str(PKG))
 from omni_mcu import protocol as P          # noqa: E402
 from omni_mcu.clock_sync import ClockSync   # noqa: E402
 
-PROTOCOL_H = PKG.parents[2] / "firmware" / "lib" / "omni_fw" / "protocol.h"
+# the repo keeps firmware/ beside ros/; omni.sh mirrors it beside src/ in ~/omni_ws
+PROTOCOL_H = next((r / "firmware" / "lib" / "omni_fw" / "protocol.h" for r in (PKG.parents[2], PKG.parents[1])
+                   if (r / "firmware").is_dir()), None)
 
 
+@pytest.mark.skipif(PROTOCOL_H is None, reason="firmware/ isn't beside this checkout")
 def test_version_and_sizes_match_protocol_h():
     h = PROTOCOL_H.read_text()
     assert int(re.search(r"PROTOCOL_VERSION = (\d+);", h).group(1)) == P.PROTOCOL_VERSION

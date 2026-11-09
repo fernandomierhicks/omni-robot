@@ -186,7 +186,7 @@ class ServoPort:
         self.log = log or (lambda m: None)
         self.srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.srv.bind((bind, port))                   # 0.0.0.0: arm_node runs on another computer (stack.py side:=sim)
+        self.srv.bind((bind, port))                   # 0.0.0.0: arm_driver runs on another computer (stack.py side:=sim)
         self.srv.listen(1)
         self.srv.setblocking(False)
         self.conn = None

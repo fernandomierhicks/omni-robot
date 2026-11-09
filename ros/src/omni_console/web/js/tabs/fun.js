@@ -46,7 +46,7 @@ export function FetchTab() {
     <div class="side">
       <${HelpBox} tab="fetch">
         Pick a colour and a shape and press <b>Fetch</b>. It looks for it with the D435 (turning a quarter at a time,
-        four looks at most), picks it up and keeps it in the gripper, comes to you (the nearest person it sees; it looks
+        four looks at most, and driving closer to a patch of the colour), picks it up and keeps it in the gripper, comes to you (the nearest person it sees; it looks
         round for you if nobody's in view) and puts it down in front of you. Things wider than 6.5 cm are too big.
         By voice: "Omni, bring me the red block" when the voice commands are on.
       <//>

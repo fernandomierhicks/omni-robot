@@ -11,6 +11,9 @@
   ControlPort  the Launcher's link into the bridge (TCP 9873, from Windows through WSL's localhost forwarding): one
                JSON line in, one JSON line out, then closed. Polled from the bridge's loop, so the world changes
                between two physics steps.
+  shoot / tick the Goalie's ball on the ROS sim: studies/goalie.py's rolled shot (the "obstacles" play ball, 22 cm, 0.3 kg)
+               from 3 m ahead of the robot, scored on the truth: never crosses the goal line, a save; crosses between
+               the posts, a goal; outside them, wide. ros/tools/goalie_smoke.py plays them through the control port.
 """
 
 from __future__ import annotations
@@ -25,6 +28,9 @@ import numpy as np
 import arm_objects
 
 CLUTTER = ("off", "toys", "all")
+BALL_BIG = arm_objects.SETS["obstacles"].index("ball_big")
+GOAL_HALF = 0.6                   # m: the posts either side of the goal's middle (studies/goalie.py)
+SHOT_MAX_S = 4.0                  # s (sim): the longest a shot is watched
 PARK = (40.0, 40.0)               # m: where things wait while off (the lidar reaches 12 m; >= arm_objects.PARKED_X)
 PERSON_PARK = (50.0, 50.0, 0.0)   # robot_model._person's own spot
 DOORS = ((-3.0, 2.0), (0.45, 2.0), (3.45, 2.0))      # house.HOUSE_FEATURES' doorways
@@ -67,6 +73,9 @@ class World:
         self.person, self.clutter = False, "off"
         self.thrower = thrower if c.payload == "catch" else None     # the arm robot has no catch game
         self.placed: list[int] = []        # obstacles in the house (their index in objs)
+        self.base = self.m.body("base").id
+        self.shot: dict | None = None      # the shot rolling now (shoot, tick)
+        self.n_shots = 0
         self.set(person=person, clutter=clutter)
 
     # -- changes ---------------------------------------------------------------------------------------------------
@@ -156,6 +165,70 @@ class World:
                 self.placed.append(o)
         mujoco.mj_fwdPosition(self.m, self.d)
         return ok
+
+    # -- the Goalie's shots ----------------------------------------------------------------------------------------------
+    def shoot(self, side: float = 0.0, aim: float = 0.0, speed: float = 2.0, dist: float = 3.0) -> dict:
+        """The play ball from dist m ahead of the robot as it stands now and side m to its left, rolling (not skidding) at
+        speed m/s toward the point aim m to the left of the robot's centre. {ok, id} or {ok: False, message}."""
+        if self.shot is not None:
+            return dict(ok=False, message="a shot is still rolling")
+        m, d = self.m, self.d
+        k = len(self.toys) + BALL_BIG
+        rad = arm_objects.height(self.objs[k]) / 2
+        mujoco.mj_fwdPosition(m, d)
+        R, p0 = d.xmat[self.base].reshape(3, 3).copy(), d.xpos[self.base].copy()
+        fwd, left = R[:, 0].copy(), R[:, 1].copy()
+        fwd[2] = left[2] = 0.0
+        fwd /= np.linalg.norm(fwd)
+        left /= np.linalg.norm(left)
+        start = p0 + dist * fwd + side * left
+        target = p0 + aim * left
+        start[2] = target[2] = rad + 0.001
+        along = target - start
+        length = float(np.linalg.norm(along))
+        along /= length
+        across = np.array([-along[1], along[0], 0.0])
+        gid = np.array([-1], dtype=np.int32)
+        for off in (-0.9 * rad, 0.0, 0.9 * rad):                  # the ball's whole width clear, up to the robot
+            hit = mujoco.mj_ray(m, d, start + off * across, along, None, 1, self.bodies[k], gid)
+            if 0 <= hit < length - 0.6:
+                return dict(ok=False, message=f"something stands in the ball's way {hit:.2f} m along it")
+        self._put(k, float(start[0]), float(start[1]), float(start[2]), 0.0)
+        mujoco.mj_fwdPosition(m, d)
+        if self._touching(k):
+            self._park(k)
+            return dict(ok=False, message="no room for the ball there")
+        dof = self.dof[k]
+        d.qvel[dof:dof + 3] = speed * along
+        d.qvel[dof + 3:dof + 6] = np.cross([0.0, 0.0, 1.0], along) * (speed / rad)
+        self.n_shots += 1
+        self.shot = dict(id=self.n_shots, k=k, t0=float(d.time), p0=p0, fwd=fwd, left=left, crossed=None, closest=9.0,
+                         side=float(side), aim=float(aim), speed=float(speed))
+        return dict(ok=True, id=self.n_shots)
+
+    def tick(self) -> dict | None:
+        """Each few ms of sim time: the shot's truth once it is over (the ball parked again), else None."""
+        s = self.shot
+        if s is None:
+            return None
+        d = self.d
+        b = d.xpos[self.bodies[s["k"]]]
+        rel = b - s["p0"]
+        u, w = float(rel @ s["fwd"]), float(rel @ s["left"])
+        s["closest"] = min(s["closest"], float(np.hypot(*(b[:2] - d.xpos[self.base][:2]))))
+        if s["crossed"] is None and u < 0.0:
+            s["crossed"] = w
+        dof = self.dof[s["k"]]
+        t = float(d.time) - s["t0"]
+        if s["crossed"] is None and t < SHOT_MAX_S and not (t > 1.0 and np.linalg.norm(d.qvel[dof:dof + 2]) < 0.05):
+            return None
+        c = s["crossed"]
+        result = "goal" if c is not None and abs(c) < GOAL_HALF else ("wide" if c is not None else "save")
+        self._park(s["k"])
+        self.shot = None
+        return dict(id=s["id"], result=result, crossed_at=None if c is None else round(c, 3),
+                    closest_m=round(s["closest"], 3), side=round(s["side"], 3), aim=round(s["aim"], 3),
+                    speed=round(s["speed"], 2), t=round(float(d.time), 2))
 
     # -- the things --------------------------------------------------------------------------------------------------
     def _put(self, k: int, x: float, y: float, z: float, yaw_deg: float, live: bool = True):

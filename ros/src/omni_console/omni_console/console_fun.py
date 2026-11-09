@@ -3,9 +3,11 @@ console already has: Nav2 goals, its own twist, omni_arm's requests, the people 
 the face's lines.
 
   FETCH    "bring me the red cube": find (omni_arm's colour and shape find; a quarter turn and again, four looks at
-           most), pick it and keep it (omni_arm's tidy, keep), to the person who asked (the nearest person seen: Nav2 to
-           0.7 m short of them, facing them; nobody seen: a look round, then back where the fetch started), put it down
-           ahead (omni_arm's place), "here you go". Modes: PICK for the arm's parts, TELEOP for Nav2's
+           most; a thing of the asked colour whose shape it can't tell yet, or a patch too small to be an object: Nav2 to
+           0.6 m short of it and look again, twice at most), pick it and keep it (omni_arm's tidy, keep), to the person who asked (the nearest person
+           seen: Nav2 to 0.7 m short of them, facing them; nobody seen: a look round, then back where the fetch started,
+           and the fetch ends as failed: it didn't reach anyone), put it down ahead (omni_arm's place), "here you go".
+           Modes: PICK for the arm's parts, TELEOP for Nav2's
   MESSAGE  "tell the kids dinner's ready": room by room (the map's rooms, nearest first: Nav2 to each one's middle), a
            look round in each (one slow turn) until a person is seen, up to them (Nav2, 0.9 m short), the message said;
            nobody in any room: says so
@@ -30,6 +32,18 @@ LOOK_W = 0.7                                         # rad/s: a look round's tur
 FIND_LOOKS = 4                                       # quarter turns a fetch looks in before it gives up
 FETCH_MIN_SCORE = 0.4                                # a find lists near misses too (color_vision.find): the right colour
                                                      # with a shape guess is ~0.47, the wrong shape ~0.2, the wrong colour 0
+FETCH_APPROACHES = 2                                 # drives to a patch of the asked colour a fetch makes (est)
+APPROACH_SHORT = 0.6                                 # m short of the patch: a 30 mm cube is an object with a shape from here
+FETCH_PICK_RANGE = 1.0                               # m: a shape still unsure beyond this gets a closer look before the pick
+APPROACH_MIN_RANGE = 0.7                             # m: nearer, a closer look would see no more
+APPROACH_MAX_RANGE = 3.5                             # m: a patch farther off isn't worth the drive (est)
+APPROACH_MAX_HEIGHT = 0.2                            # m: the median height of a patch on or near the floor (est)
+APPROACH_FACED_DEG, APPROACH_FACED_RANGE = 10.0, 1.0  # a patch this near and faced, and still no object, is something else
+APPROACH_MAX_PIXELS = 1500                           # a patch bigger than this is a rug's piece (est; a 40 mm cube at 0.4 m ~1000)
+APPROACH_SEEN = 0.4                                  # m: a patch this near a spot already approached is that one
+PERSON_STEP = math.pi / 4                            # rad: Fetch's look for the person turns this far, then stands still ...
+PERSON_HOLD = 2.0                                    # s: ... this long: the camera confirms someone standing still (est;
+                                                     # a steady turn had them in view for too few frames, Nov 9)
 PERSON_RANGE = 4.5                                   # m: a person farther than this isn't "seen" for a message
 PEOPLE_STALE = 1.0                                   # s
 
@@ -140,7 +154,8 @@ class FunMixin:
         r = self._enter("FETCH", f"Fetch: looking for {'the ' if what != 'something' else ''}{what}", "info")
         start = None if self.pose is None or self.pose[0] != "map" else tuple(self.pose[1:])
         self.fun = dict(kind="fetch", what=what, color=color, shape=shape, to=to, looks=0, tries=0, start=start,
-                        oid=None, find_id=None, phase="", t_phase=self.now, turned=0.0, yaw0=None)
+                        oid=None, find_id=None, phase="", t_phase=self.now, turned=0.0, yaw0=None, approaches=0, approached=[],
+                        nobody=False, no_map=False)
         fx = list(r.effects) + self._fetch_find()
         return Reply(True, r.message, None, tuple(fx))
 
@@ -249,14 +264,64 @@ class FunMixin:
         self.people_seen, self.t_people = list(people), now
 
     # -- the phases ---------------------------------------------------------------------------------------------------
-    def _fetch_find(self) -> list:
+    def _fetch_find(self, look: bool = True) -> list:
+        """Ask omni_arm to find it. look=False: a look after driving closer, not one of the FIND_LOOKS."""
         f = self.fun
         self.fun_n += 1
         f["find_id"] = f"fetch-{self.fun_n}"
-        f["looks"] += 1
+        f["looks"] += 1 if look else 0
         self._phase("find")
         req = dict(verb="find", id=f["find_id"], color=f["color"], shape=f["shape"], max_range=2.0)
         return self._mode("PICK") + [("arm", req)]
+
+    @staticmethod
+    def _faced_unsure(c: dict) -> bool:
+        """The asked colour, its shape unsure, close and straight ahead: what a fetch drove up to."""
+        s, col = c.get("shape"), c.get("color")
+        return isinstance(s, dict) and not s.get("sure") and isinstance(col, dict) and col.get("match", 0.0) >= 0.5 \
+            and c.get("range_m", 9.0) <= APPROACH_FACED_RANGE and abs(c.get("bearing_deg", 90.0)) <= 15.0
+
+    def _fetch_closer(self, found: dict, cands: list) -> tuple | None:
+        """The map point most worth driving closer to, or None: the best candidate while its shape is unsure and it is
+        far; with no candidate, a thing of the asked colour of unsure shape (too few pixels: the find scores its shape
+        guess low), else an image-only patch that isn't a rug (flat), is near the floor and in range, not faced from
+        close by. Never a spot already approached. Only with Nav2 and a map (the console's own twist has no obstacle
+        guard)."""
+        f = self.fun
+        if f["approaches"] >= FETCH_APPROACHES or not self.caps["nav"] or self.pose is None or self.pose[0] != "map":
+            return None
+        _, rx, ry, ryaw = self.pose
+
+        def spot(r, bearing):
+            a = ryaw + math.radians(bearing)
+            p = rx + r * math.cos(a), ry + r * math.sin(a)
+            return p if all(math.hypot(p[0] - q[0], p[1] - q[1]) > APPROACH_SEEN for q in f["approached"]) else None
+
+        def unsure(c):
+            s = c.get("shape")
+            return isinstance(s, dict) and not s.get("sure")
+
+        if cands:
+            c = cands[0]
+            return spot(float(c["range_m"]), float(c["bearing_deg"])) if unsure(c) and c["range_m"] > FETCH_PICK_RANGE \
+                else None
+        for c in found.get("candidates") or []:
+            col = c.get("color")
+            if unsure(c) and isinstance(col, dict) and col.get("match", 0.0) >= 0.5 and c["range_m"] > APPROACH_MIN_RANGE:
+                p = spot(float(c["range_m"]), float(c["bearing_deg"]))
+                if p is not None:
+                    return p
+        for b in found.get("image_only") or []:
+            r, h = b.get("range_m"), b.get("height_m")
+            if b.get("flat") or r is None or r > APPROACH_MAX_RANGE or (h is not None and h > APPROACH_MAX_HEIGHT) \
+                    or b.get("pixels", 0) > APPROACH_MAX_PIXELS:
+                continue
+            if abs(b["bearing_deg"]) <= APPROACH_FACED_DEG and r <= APPROACH_FACED_RANGE:
+                continue
+            p = spot(r, b["bearing_deg"])
+            if p is not None:
+                return p
+        return None
 
     def _start_look(self, phase: str, turn: float):
         self.fun.update(turned=0.0, yaw0=None, turn=turn)
@@ -347,6 +412,7 @@ class FunMixin:
             x, y, yaw = f["start"]
             self._phase("deliver", f"Fetch: bringing the {f['what']} back here")
             return self._fun_nav(x, y, yaw, "the start")
+        f["no_map"] = True                                  # no way back without a map: it only puts it down again
         return self._fetch_place()
 
     def _fetch_place(self) -> list:
@@ -375,6 +441,15 @@ class FunMixin:
         found = s.get("found")
         if f["phase"] == "find" and isinstance(found, dict) and found.get("id") == f["find_id"]:
             cands = [c for c in found.get("candidates") or [] if float(c.get("score", 0.0)) >= FETCH_MIN_SCORE]
+            if not cands and f["approached"]:               # driven up to it: its shape guess flickers (a 30 mm cube at 0.65 m:
+                cands = [c for c in found.get("candidates") or [] if self._faced_unsure(c)][:1]   # square?, other?, square?)
+            spot = None if found.get("error") else self._fetch_closer(found, cands)
+            if spot is not None:
+                f["approaches"] += 1
+                f["approached"].append(spot)
+                x, y, yaw = self._goal_short_of(spot[0], spot[1], APPROACH_SHORT)
+                self._phase("approach", f"Fetch: maybe the {f['what']} over there, going closer")
+                return self._fun_nav(x, y, yaw, "a closer look")
             if found.get("error") or not cands:
                 if f["looks"] >= FIND_LOOKS:
                     return self._fun_end(False, f"Fetch: no {f['what']} in sight after a look round",
@@ -397,6 +472,12 @@ class FunMixin:
             return self._fun_end(False, f"Fetch: couldn't pick up the {f['what']} ({t.get('outcome') or t.get('reason')})")
         if f["phase"] == "place" and ended:
             if t.get("outcome") == "placed":
+                if f["nobody"]:
+                    return self._fun_end(False, f"Fetch: couldn't find anyone, left the {f['what']} where the fetch "
+                                                f"started", [self._say_fx("I couldn't find you. I left it here.", "sad")])
+                if f["no_map"]:
+                    return self._fun_end(False, f"Fetch: not localized on a map, so the {f['what']} is back down where "
+                                                f"it was picked up", [self._say_fx("I'm lost. I put it back.", "sad")])
                 self._phase("say", f"Fetch: here's the {f['what']}")
                 return [self._say_fx("Here you go.", "happy", "smile")]
             return self._fun_end(False, f"Fetch: couldn't put it down ({t.get('outcome') or t.get('reason')})")
@@ -419,6 +500,10 @@ class FunMixin:
                     return self._message_say()
                 self._start_look("look", 2 * math.pi)
                 return []
+        if f["kind"] == "fetch" and f["phase"] == "approach":
+            if not ok:
+                self.event("warn", f"Fetch: couldn't get closer ({why}): looking from here")
+            return self._fetch_find(look=False)
         if f["kind"] == "fetch" and f["phase"] == "deliver":
             if not ok:
                 self.event("warn", f"Fetch: couldn't get all the way ({why}): putting it down here")
@@ -454,11 +539,18 @@ class FunMixin:
             f["turned"] += abs(math.remainder(yaw - f["last_yaw"], 2 * math.pi))
             f["last_yaw"] = yaw
             goal = f.get("turn", 2 * math.pi)
+            if f["phase"] == "look_person" and f["turned"] < goal:
+                if now < f.get("hold", -math.inf):
+                    return 0.0, 0.0, 0.0
+                if f["turned"] >= f.get("next_stop", PERSON_STEP):
+                    f["next_stop"] = f.get("next_stop", PERSON_STEP) + PERSON_STEP
+                    f["hold"] = now + PERSON_HOLD
+                    return 0.0, 0.0, 0.0
             if f["turned"] >= goal:
                 if f["phase"] == "turn":                    # a fetch's quarter turn: look again
                     self.fx_queue += self._fetch_find()
                 elif f["phase"] == "look_person":           # nobody to bring it to: back where it started
-                    f["to"] = "here"
+                    f["to"], f["nobody"] = "here", True
                     self.fx_queue += self._fetch_deliver()
                 return (0.0, 0.0, 0.0)
             return 0.0, 0.0, LOOK_W

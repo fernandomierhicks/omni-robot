@@ -37,19 +37,22 @@ RELEASE_HEIGHT = 1.0
 
 
 def back_to_release(flight, pos, vel, z_release: float = RELEASE_HEIGHT, dt: float = 0.002, t_max: float = 3.0):
-    """Integrate the ball backward (drag included) until it last rose through z_release: (pos, vel) there, or the
-    state as given if it never was that low (a throw tracked from very early)."""
+    """Integrate the ball backward (drag included) until it last rose through z_release: (pos, vel) there. A state
+    below z_release on its way down (the plan froze late, near the catch) goes back over the apex first; one below it
+    on its way up (a throw tracked from very early) is given as it is."""
     p, v = np.array(pos, dtype=float), np.array(vel, dtype=float)
-    if p[2] <= z_release:
+    above = bool(p[2] > z_release)
+    if not above and v[2] >= 0.0:
         return p, v
     t = 0.0
     while t < t_max:
         a = flight.accel(v)
         v_prev = v - a * dt
         p_prev = p - 0.5 * (v + v_prev) * dt
-        if p_prev[2] <= z_release:
+        if above and p_prev[2] <= z_release:
             f = (p[2] - z_release) / max(p[2] - p_prev[2], 1e-9)
             return p - f * (p - p_prev), v - f * (v - v_prev)
+        above = above or bool(p_prev[2] > z_release)
         p, v, t = p_prev, v_prev, t + dt
     return p, v
 

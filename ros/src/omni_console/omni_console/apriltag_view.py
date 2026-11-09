@@ -27,6 +27,7 @@ except ImportError:
     try:                               # on the Pi: cam_snap.sh / the bench copy omni_slam/tags.py next to this file
         from tags import Pinhole, TagDetection, TagGate, tag_pose      # type: ignore
     except ImportError:                # a repo checkout without ROS: the source tree
+        sys.modules.pop("omni_slam", None)    # with ros/src on the path the failed import cached the outer folder
         sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "omni_slam"))
         from omni_slam.tags import Pinhole, TagDetection, TagGate, tag_pose
 

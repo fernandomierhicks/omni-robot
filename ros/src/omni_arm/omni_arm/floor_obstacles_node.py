@@ -3,7 +3,7 @@
 Subscribes depth_topic                   sensor_msgs/Image, the depth camera's frames (+ its camera_info): the D435's
                                          /d435/depth/image_rect_raw 16UC1 mm with config:=d435
            /map                          nav_msgs/OccupancyGrid: the map's geometry (the grid uses its cells)
-           /arm/out                      std_msgs/Bool: the arm is out (arm_node, or omni_cpp's arm_driver)
+           /arm/out                      std_msgs/Bool: the arm is out (omni_cpp's arm_driver)
            /tf                           map -> base_link at each frame's stamp
 Publishes  /floor_obstacles/grid         nav_msgs/OccupancyGrid (latched), the map's cells: 100 where a thing on the
                                          floor or something tall is, -1 elsewhere; Nav2's StaticLayer in both

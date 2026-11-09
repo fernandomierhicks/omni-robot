@@ -17,7 +17,7 @@ using Joints = std::array<double, 6>;
 
 Mat4 mat_identity();
 Mat4 mat_mul(const Mat4& a, const Mat4& b);
-std::array<double, 4> quat_of(const Mat4& T);    // x y z w of the rotation (arm_node._quat)
+std::array<double, 4> quat_of(const Mat4& T);    // x y z w of the rotation
 
 struct ArmFk {
     std::vector<double> lo, hi;                  // the joints' ranges (6)

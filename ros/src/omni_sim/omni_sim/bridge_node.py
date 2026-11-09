@@ -26,7 +26,7 @@ MCU, and /cmd_vel reaches the firmware through the mode manager. The bridge keep
 markers.
 
 design.md 11, payload:=arm: the arm robot (the SO-101 on its nose, things on the floor ahead of its start). The bridge
-also serves the arm's servo bus on localhost TCP (servo_port, default 5763: omni_arm's arm_node connects to it as to
+also serves the arm's servo bus on localhost TCP (servo_port, default 5763: omni_cpp's arm_driver connects to it as to
 the bus board's USB port) and renders its cameras on sim time (MuJoCo, EGL in WSL):
            /stereo/depth (+ /stereo/camera_info)      the left nose camera's depth, 32FC1, as a stereo matcher gives it
                                                       (sil_pick.PickCameras), when /arm/camera_request asks "depth"
@@ -70,7 +70,7 @@ from rclpy.qos import DurabilityPolicy, QoSProfile
 from rosgraph_msgs.msg import Clock
 from omni_interfaces.msg import TagDetection, TagDetections
 from sensor_msgs.msg import CameraInfo, Image, Imu, LaserScan, PointCloud2, PointField, TimeReference
-from std_msgs.msg import String
+from std_msgs.msg import Bool, String
 from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 
 from omni_sim import sim_dir
@@ -181,6 +181,7 @@ class Bridge(Node):
         self.p_origin = self.create_publisher(PoseStamped, "/sim/origin", LATCHED)
         self.p_phase = self.create_publisher(String, "/sim/phase", LATCHED)
         self.p_status = self.create_publisher(String, "/sim/status", 10)
+        self.p_shot = self.create_publisher(String, "/sim/goalie_shot", 10)   # a Goalie shot's truth (sim_world.tick)
         self.p_shadow = {k: self.create_publisher(PoseStamped, f"/v9/{k.lower().replace('+', '_')}/pose", 20)
                          for k in self.cfg.shadow}
         self.tf = TransformBroadcaster(self)
@@ -241,7 +242,8 @@ class Bridge(Node):
             self.arm = ArmSide(self, P("servo_port", 5763).value, P("wrist_hz", 1.0).value, P("d435_hz", 5.0).value,
                                bind=bind, color_hz=P("color_hz", 2.0).value,
                                d435_noise=P("d435_noise", "realistic").value,    # | ideal: the Nov 4 model
-                               front_hz=P("front_hz", 5.0).value, front_wh=tuple(P("front_wh", [960, 540]).value))
+                               front_hz=P("front_hz", 5.0).value, front_wh=tuple(P("front_wh", [960, 540]).value),
+                               goalie_hz=P("goalie_hz", 15.0).value)   # the D435's rate while the Goalie's tracker runs
         self.catch = None
         if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
             self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
@@ -262,6 +264,10 @@ class Bridge(Node):
         """The Launcher (sim_world.ControlPort): {"get": 1} or the live world's changes; the reply is the sim's state."""
         w = getattr(self.core, "world", None)
         msg = ""
+        if "shoot" in req:                      # {"shoot": {"side", "aim", "speed"}}: a Goalie shot (sim_world.shoot)
+            if w is None:
+                return dict(ok=False, message="this step has no live world (the Robot and Arm robot steps have one)")
+            return dict(w.shoot(**req["shoot"]), t=round(self.core.d.time, 2))
         if "toys" in req:                       # {"toys": [[x, y, yaw deg], ...]}: a study's scene (sim_world.place_toys)
             if w is None:
                 return dict(ok=False, message="this step has no live world (the Robot and Arm robot steps have one)")
@@ -619,6 +625,10 @@ class Bridge(Node):
             k += 1
             if k % 10 == 0:                                   # commands in every 5 ms of sim time
                 ex.spin_once(timeout_sec=0.0)
+                world = getattr(core, "world", None)
+                shot = None if world is None else world.tick()
+                if shot is not None:
+                    self.p_shot.publish(String(data=json.dumps(shot)))
             if self.control is not None and k % 100 == 0:     # the Launcher, every 50 ms of sim time
                 self.control.poll(self.on_control)
                 if time.perf_counter() - w_rtf >= 1.0:
@@ -725,7 +735,7 @@ class ArmSide:
 
     def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1",
                  color_hz: float = 2.0, d435_noise: str = "realistic", front_hz: float = 5.0,
-                 front_wh: tuple = (960, 540)):
+                 front_wh: tuple = (960, 540), goalie_hz: float = 15.0):
         from arm_bus import ServoPort
         from sil_pick import PickCameras
         import arm_objects
@@ -757,6 +767,11 @@ class ArmSide:
                                              2)
         self.color_dt = 1.0 / color_hz if color_hz > 0 else math.inf
         self.t_color = -math.inf
+        # the Goalie's tracker needs the D435's streams together and quickly (a 3 m/s ball): 15 Hz as studies/goalie.py,
+        # while it plays; the depth and colour rates are back to the above when it sleeps
+        self.idle_dt = (self.depth_dt, self.color_dt)
+        self.goalie_dt = 1.0 / goalie_hz if goalie_hz > 0 else None
+        node.create_subscription(Bool, "/goalie/enable", self.on_goalie, LATCHED)
         self.p_obj = node.create_publisher(String, "/sim/objects", 5)
         # design.md 4.12: the forward IMX662 (front_cam:=imx662), rendered while anything subscribes
         self.front = None
@@ -780,6 +795,9 @@ class ArmSide:
         node.get_logger().info(f"arm robot: servo bus on tcp:{self.port.bind}:{port},{len(c.p.floor_objects)} things on "
                                f"the floor; " + (f"the D435's depth at {d435_hz:g} Hz and on request" if self.d435
                                                  else "cameras rendered on request"))
+
+    def on_goalie(self, m: Bool):
+        self.depth_dt, self.color_dt = (self.goalie_dt, self.goalie_dt) if m.data and self.goalie_dt else self.idle_dt
 
     @staticmethod
     def _info(K, wh, frame) -> CameraInfo:
@@ -815,6 +833,11 @@ class ArmSide:
 
     def step(self, t: float):
         self.port.exchange()
+        # colour first: a node that pairs each depth frame with the newest colour gets the one of this same instant
+        if "color" in self.pending or (t - self.t_color >= self.color_dt and self.p_color.get_subscription_count() > 0):
+            self.pending.discard("color")
+            self.t_color = t
+            self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
         if "depth" in self.pending or t - self.t_depth >= self.depth_dt:
             # each frame with its camera_info, as camera drivers send them
             self.pending.discard("depth")
@@ -833,10 +856,6 @@ class ArmSide:
             self.t_wrist = t
             self.p_wrist.publish(self._image(self.cams.wrist(), "rgb8", "arm_wrist_cam_optical", t))
             self.p_winfo.publish(self.winfo)
-        if "color" in self.pending or (t - self.t_color >= self.color_dt and self.p_color.get_subscription_count() > 0):
-            self.pending.discard("color")
-            self.t_color = t
-            self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
         f = self.front
         if f is not None and t - f["t"] >= f["dt"] and f["pub"].get_subscription_count() > 0:
             f["t"] = t

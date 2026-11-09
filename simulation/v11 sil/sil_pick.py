@@ -1,6 +1,6 @@
 """The arm robot tidying up, in one process (design.md 11, Oct 24): the world with small things on the floor, the robot
 with its C++ firmware (sil_robot.SilRobot) and its SO-101 on the servo bus as the servos behave (arm_bus), and the
-Jetson's code as arm_node runs it (ros/src/omni_arm: driver, floor and wrist vision, the tidy task; omni_catch's mode
+robot's code as arm_driver and arm_brain run it (omni_cpp's C++ driver; ros/src/omni_arm: floor and wrist vision, the tidy task; omni_catch's mode
 mux in PICK with the arm-out caps; omni_mcu's link):
 
   physics 0.5 ms -- CAN / sensors --> firmware (C++, 1 kHz) -- USB bytes --> mode mux (PICK) <-- twist --+

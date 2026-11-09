@@ -3,7 +3,7 @@
 <package format="3">
   <name>omni_arm</name>
   <version>0.11.0</version>
-  <description>omni-robot (design.md 11): the SO-101 arm on the robot's nose. arm_node owns the servo bus (six STS3215 on a
+  <description>omni-robot (design.md 11): the SO-101 arm on the robot's nose. omni_cpp's arm_driver owns the servo bus (six STS3215 on a
     USB bus board, or the sim's bus over TCP), publishes the joints and the arm's links, plays joint trajectories
     (control_msgs FollowJointTrajectory when installed) and runs the tidy task (find small things on the floor with
     the stereo depth, pick each with the wrist camera's help, drop it in the bin). The cores (kinematics, feetech,

@@ -31,6 +31,9 @@ class GoalieParams:
     k_yaw: float = 3.0              # 1/s: back to the heading
     save_r: float = 0.45            # m: a ball this near the robot's centre was reached
     stale: float = 0.4              # s: a track older than this is no ball
+    shot_lost: float = 1.0          # s: a shot ends for want of a ball only after this long (gaps in the track are not a
+                                    #   new shot each: a slow computer or a sim under real time drops frames)
+    shot_gap: float = 1.0           # s: a new shot counts only this long after the last ended (a saved ball's bounce)
     trust: float = 0.4              # s: the prediction followed in full only this close to the line; farther out it
                                     #   is blended toward the shadow (its error grows with the time left), 0: always.
                                     #   0.4 s: best of 0-0.9 s against noisy D435-like tracks offline (est)
@@ -48,6 +51,7 @@ class Goalie:
     _cmd_v: float = 0.0
     _t: float | None = None
     _shot: dict | None = None       # the shot being played: its predicted v, closest approach
+    _t_end: float = -math.inf       # when the last shot ended
 
     def to_goal(self, x: float, y: float) -> tuple:
         hx, hy, a = self.home
@@ -81,22 +85,23 @@ class Goalie:
                     shadow = p.shadow * bv
                     cross = shadow + w * (cross - shadow)
                 target = max(-p.half_width, min(p.half_width, cross))
-                if self._shot is None:
+                if self._shot is None and now - self._t_end >= p.shot_gap:
                     self._shot = dict(cross=cross, closest=math.inf)
                     self.shots += 1
                     self.state = "shot"
-                self._shot["cross"] = cross
+                if self._shot is not None:
+                    self._shot["cross"] = cross
             else:
                 target = max(-p.half_width, min(p.half_width, p.shadow * bv))
             if self._shot is not None:
                 self._shot["closest"] = min(self._shot["closest"], math.hypot(ball["x"] - pose[0], ball["y"] - pose[1]))
                 if bu < 0.0 and abs(bv) < p.half_width and not near:      # behind the line, inside the posts
-                    self._result("goal")
+                    self._result("goal", now)
                 elif bu < -0.3 or (du > 0.1 and self._shot["closest"] < p.save_r) or \
                         (abs(du) < 0.05 and self._shot["closest"] < p.save_r):
-                    self._result("save" if self._shot["closest"] < p.save_r else "miss")
-        elif self._shot is not None:                         # the ball went out of sight mid-shot
-            self._result("save" if self._shot["closest"] < p.save_r else "miss")
+                    self._result("save" if self._shot["closest"] < p.save_r else "miss", now)
+        elif self._shot is not None and (ball is None or ball.get("age", 0.0) >= p.shot_lost):   # out of sight mid-shot
+            self._result("save" if self._shot["closest"] < p.save_r else "miss", now)
         want = max(-p.max_speed, min(p.max_speed, p.k_v * (target - rv)))
         step = p.accel * dt
         self._cmd_v += max(-step, min(step, want - self._cmd_v))
@@ -109,8 +114,8 @@ class Goalie:
         vy = -math.sin(a) * cu + math.cos(a) * self._cmd_v
         return vx, vy, wz
 
-    def _result(self, what: str):
-        self._shot = None
+    def _result(self, what: str, now: float):
+        self._shot, self._t_end = None, now
         if what == "goal":
             self.goals += 1
         elif what == "save":

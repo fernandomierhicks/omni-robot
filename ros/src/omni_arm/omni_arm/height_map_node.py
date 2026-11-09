@@ -6,7 +6,7 @@ Subscribes depth_topic                   sensor_msgs/Image, the depth camera's f
            /odometry/filtered            nav_msgs/Odometry: which way the robot is going (the speed limit's path)
            /speed_limit_zones            nav2_msgs/SpeedLimit: the console's floor-edge zones (Nav2's SpeedFilter,
                                          remapped here by stack.with_depth_layer so the two limits combine)
-           /arm/out                      std_msgs/Bool: the arm is out (arm_node, or omni_cpp's arm_driver)
+           /arm/out                      std_msgs/Bool: the arm is out (omni_cpp's arm_driver)
            /floor_obstacles/label        std_msgs/String JSON {"id": a catalog entry | "x", "y", "r" (m, map frame),
                                          "label": floor | rug | step | low | toy | obstacle | drop, "note"}: an AI's or a
                                          person's word on a thing or a spot (height_map.set_label: a word that relaxes

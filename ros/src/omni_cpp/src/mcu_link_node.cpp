@@ -1,5 +1,4 @@
-// mcu_link: the host's end of the MCU link (design.md 5, 30), in C++: omni_mcu/link_node.py's topics, parameters and
-// behaviour (its notes are the reference), the frames and bodies compiled from the firmware's own protocol.h. Runs on
+// mcu_link: the host's end of the MCU link (design.md 5, 30), in C++ (the Python node was deleted Nov 7, 2026), the frames and bodies compiled from the firmware's own protocol.h. Runs on
 // the robot (USB serial to the Teensy) and against the sim (TCP to the bridge).
 //
 // Publishes /mcu/state (200 Hz), /mcu/state_10hz, /mcu/samples (20 Hz, while someone listens), /odom (50 Hz), /tf

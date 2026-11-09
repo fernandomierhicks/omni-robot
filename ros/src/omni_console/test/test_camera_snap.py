@@ -5,6 +5,7 @@
 import io
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.error
@@ -182,6 +183,15 @@ def test_finds_the_fake_tags_and_their_pose(server):
         assert t["side_px"] == pytest.approx(side, abs=2)
         assert t["range"] == pytest.approx(rng, rel=0.04) and t["angle_deg"] < 15
         assert all(0 < u < 1 and 0 < v < 1 for u, v in t["corners"])
+
+
+def test_apriltag_view_imports_with_ros_src_on_the_path():
+    """ros/src on the path (cd ros/src, or PYTHONPATH) makes an empty namespace package of the ros/src/omni_slam folder."""
+    src = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((os.path.join(src, "omni_console"), src)))
+    r = subprocess.run([sys.executable, "-c", "from omni_console import apriltag_view as v; print(v.tag_pose.__name__)"],
+                       cwd=src, env=env, capture_output=True, text=True, timeout=60)
+    assert r.returncode == 0 and "tag_pose" in r.stdout, r.stderr
 
 
 def test_depth_colormap_and_range():

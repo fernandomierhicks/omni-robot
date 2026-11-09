@@ -53,6 +53,7 @@ ros/
 ├── tools/mujoco_view.py        ← MuJoCo's 3D view of the ROS sim, drawn on Windows (the bridge starts it)
 ├── tools/joystick_sender.py    ← Windows side of the joystick relay (Extreme 3D; the 3Dconnexion is ignored)
 ├── tools/console_smoke.py      ← the operator console checked end to end in Edge (Playwright)
+├── tools/goalie_smoke.py       ← Goalie on the full stack: rolled shots, scored on the sim's truth (/sim/goalie_shot)
 └── tools/cpu_sample.py         ← CPU per process group on the robot side (WSL, the Jetson): what the console costs
 ```
 

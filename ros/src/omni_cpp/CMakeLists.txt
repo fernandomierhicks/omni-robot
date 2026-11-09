@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 project(omni_cpp)
 
 # The robot's always-on glue nodes in C++ (design.md 4.9): mcu_link, mode_manager, scan_prep, heading_node; arm_driver
-# (the arm's servo bus and joints, design.md 4.10, launch arm_impl:=cpp, reading omni_arm's config/robot_arm*.json); and the
-# catch path, catch_perception and catch_behavior (launch catch_impl:=cpp), reading omni_catch's config/robot_v11.json. The MCU
+# (the arm's servo bus and joints, design.md 4.10, reading omni_arm's config/robot_arm*.json); and the
+# catch path, catch_perception and catch_behavior, reading omni_catch's config/robot_v11.json. The MCU
 # link's frames come from the firmware's own source (firmware/lib/omni_fw/protocol.*): beside ros/ in the repo, or
 # mirrored into the workspace by omni.sh ($OMNI_FIRMWARE_DIR).
 if(NOT CMAKE_CXX_STANDARD)

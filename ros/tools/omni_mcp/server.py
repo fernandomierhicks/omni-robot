@@ -702,7 +702,7 @@ def build_server(robot: Robot):
     @mcp.tool()
     def robot_fetch(color: str | None = None, shape: Literal["square", "round", "long", "any"] = "any",
                     to: Literal["me", "here"] = "me", timeout_s: float = 600.0, request_id: str | None = None) -> str:
-        """The robot's Fetch mission: it finds the thing by colour and shape (turning a quarter at a time, four looks
+        """The robot's Fetch mission: it finds the thing by colour and shape (turning a quarter at a time and driving closer to a patch of its colour, four looks
         at most), picks it up and keeps it in the gripper, drives to the nearest person it sees (to "me"; it looks
         round if nobody is in view) or back to where it started ("here"), and puts it down in front. Needs the arm
         stowed and, to reach a person, navigation. Returns a task_id: follow it with robot_task (a fetch takes 1-5

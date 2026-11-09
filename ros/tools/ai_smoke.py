@@ -13,6 +13,10 @@ server (server.py as a child process, MCP JSON-RPC over its stdio) where it matt
   pick    (objects:=colours) "go get the purple square object": find (look round, closer if the shape is a guess),
           pick; only cube40_purple goes into the bin (/sim/objects, the sim's truth); "the purple round one": none
   fetch   "bring me the red cube": find, pick (only cube30 into the bin), goto back to where it started
+  fetchfar (objects:=colours, not by default; needs --control-port) the Fetch mission, the cube placed 1.4 m ahead: it
+          drives closer to the patch of colour and brings it back, judged on /sim/objects
+  fetchme (props:=true map:=house_furnished front_cam:=imx662 objects:=colours, not by default) the Fetch mission to="me"
+          in the office: /people must confirm the person, the cube really put down by them
   restart (--restart-cmd, not by default) the console's mission node restarted mid-goto: the task INTERRUPTED,
           nothing resumes, the robot stops (ros/tools/restart_console.sh)
 
@@ -27,6 +31,7 @@ import argparse
 import json
 import math
 import os
+import socket
 import subprocess
 import sys
 import threading
@@ -316,9 +321,11 @@ def goto(robot: Robot, truth: Truth, env: dict) -> list:
 
 
 def seek(robot: Robot, color: str, shape: str, out: list):
-    """As the model would: find; a guess -> face it and close in to ~0.6 m; the colour seen but nothing pickable ->
-    face it and close in, once (a blob still nothing pickable when faced and near is something else red: look on);
-    nothing -> turn 45 deg (eight times at most); find again. The best candidate (score >= 0.5) or None."""
+    """As the model would: find; a guess (the right colour, its shape unsure) -> face it and close in to ~0.6 m;
+    nothing -> turn 45 deg, a whole look round first (the wanted thing is within reach of a turn more often than a blob
+    leads to it: Nov 9, a 5 m glint and the rugs led the search away from a cube 1.3 m off); then the colour seen but
+    nothing pickable -> face it and close in, once (a blob still nothing pickable when faced and near is something else
+    red: look on); find again. The best candidate (score >= 0.5) or None."""
     turned = 0
     for attempt in range(16):
         f, img = robot.find(color, shape)
@@ -327,7 +334,9 @@ def seek(robot: Robot, color: str, shape: str, out: list):
             return None
         cands = f["data"]["candidates"]
         blobs = [b for b in f["data"].get("image_only") or [] if not b.get("flat")         # a rug: not it
-                 and (abs(b["bearing_deg"]) > 10 or (b.get("range_m") or 0) > 1.4)]   # faced and near: not it
+                 and (abs(b["bearing_deg"]) > 10 or (b.get("range_m") or 0) > 1.4)   # faced and near: not it
+                 and (b.get("range_m") or 0) < 3.5 and (b.get("height_m") or 0) < 0.2   # far off or up high: not the floor's
+                 and b["pixels"] < 1500]                                               # a rug's piece, not a small thing
         print(f"   find {attempt}: " + "; ".join(f"id {c['id']} {c['color']['name']} {c['shape']['class']}"
                                                  f"{'' if c['shape']['sure'] else '?'} {c['score']} at "
                                                  f"{c['range_m']} m {c['bearing_deg']} deg" for c in cands)
@@ -335,21 +344,26 @@ def seek(robot: Robot, color: str, shape: str, out: list):
                         f"{b.get('height_m')} m up" for b in f["data"].get("image_only") or []))
         if cands and cands[0]["score"] >= 0.5:
             return cands[0]
+        # a small thing stays a shape guess even up close (a 30 mm cube at 0.6 m has ~230 pixels; sure takes 300): faced and
+        # near, the right colour with a guess is it, the same bar as the Fetch mission's FETCH_MIN_SCORE
+        if cands and cands[0]["score"] >= 0.4 and cands[0]["range_m"] <= 0.75 and abs(cands[0]["bearing_deg"]) <= 10:
+            return cands[0]
         hint = f["data"].get("hint") or ""
         named = {s.strip() for s in hint.split(":")[0].split(",")} if hint else set()   # "6, 9: the right colour..."
-        guess = [c for c in cands if str(c["id"]) in named]
+        guess = [c for c in cands if str(c["id"]) in named or (c["range_m"] > 0.7 and not c["shape"]["sure"] and
+                                                               c["color"].get("match", 0.0) >= 0.5)]
         if guess:
             g = guess[0]
             steps = [{"do": "turn", "deg": g["bearing_deg"]}]
             if g["range_m"] > 0.7:
                 steps.append({"do": "forward", "m": round(g["range_m"] - 0.6, 2)})
+        elif turned < 8:
+            turned += 1
+            steps = [{"do": "turn", "deg": 45}]
         elif blobs:
             steps = [{"do": "turn", "deg": blobs[0]["bearing_deg"]}]
             if (blobs[0].get("range_m") or 0) > 1.4:
                 steps.append({"do": "forward", "m": round(min(1.0, blobs[0]["range_m"] - 0.8), 2)})
-        elif turned < 8:
-            turned += 1
-            steps = [{"do": "turn", "deg": 45}]
         else:
             return None
         m = robot.move(steps, speed=0.3, turn_rate=60)
@@ -420,6 +434,111 @@ def fetch(robot: Robot, truth: Truth, env: dict) -> list:
                      (d.get("evidence") or {}).get("distance_to_goal_m", 9) < 0.1, reply=r["message"],
                      evidence=d.get("evidence")))
     return out
+
+
+def world_req(env: dict, req: dict) -> dict:
+    """One request on the bridge's control port (sim_world.ControlPort)."""
+    with socket.create_connection((env["OMNI_HOST"], int(env["OMNI_CONTROL_PORT"])), timeout=5.0) as sock:
+        sock.sendall((json.dumps(req) + "\n").encode())
+        return json.loads(sock.makefile().readline())
+
+
+def object_truth(robot: Robot, name: str) -> list | None:
+    """The thing's true position (world, /sim/objects), newest at most ~2 s old."""
+    robot.rb.subscribe("/sim/objects", "std_msgs/msg/String")
+    t_end = time.monotonic() + 8.0
+    while time.monotonic() < t_end:
+        m, age = robot.rb.newest_json("/sim/objects")
+        if m is not None and age < 3.0 and name in m["names"]:
+            return m["positions"][m["names"].index(name)]
+        time.sleep(0.2)
+    return None
+
+
+def mission_done(robot: Robot, r: dict, limit: float) -> dict:
+    return until_done(robot, r["data"]["task_id"], limit) if r["ok"] else {}
+
+
+COLOURS_FAR = [4.5, 3.3, 0.0], [5.0, 3.3, 0.0]               # the world's other things out of the way (the bathroom, world)
+
+
+def fetchfar(robot: Robot, truth: Truth, env: dict) -> list:
+    """(objects:=colours) A 30 mm cube 1.4 m straight ahead, a colour patch from there: the robot's Fetch drives closer
+    (design.md 3's limit), picks it and brings it back; judged on where the cube really is."""
+    hold_lease(robot, True)
+    free_robot(robot)
+    t_end = time.monotonic() + 120.0                      # "back where it started" needs the map
+    while time.monotonic() < t_end and here(robot).get("frame") != "map":
+        time.sleep(1.0)
+    if here(robot).get("frame") != "map":
+        return [check("fetchfar: localized", False, pose=here(robot))]
+    m, _ = robot.rb.newest("/ground_truth/odom")
+    if m is None:
+        return [check("fetchfar: truth", False)]
+    x0, y0 = m["pose"]["pose"]["position"]["x"], m["pose"]["pose"]["position"]["y"]
+    a = truth.yaw
+    spot = [x0 + 1.4 * math.cos(a), y0 + 1.4 * math.sin(a), 0.0]
+    w = world_req(env, dict(toys=[*COLOURS_FAR, spot]))
+    if not w.get("ok") or not w["placed"][2]:
+        return [check("fetchfar: the cube placed", False, reply=w)]
+    time.sleep(3.0)
+    before = object_truth(robot, "cube30")
+    r = robot.mission("fetch", dict(color="red", shape="square", to="here"), 420.0, None)
+    if not r["ok"]:
+        return [check("fetchfar: started", False, reply=r)]
+    d = mission_done(robot, r, 480.0)
+    time.sleep(2.0)
+    after = object_truth(robot, "cube30")
+    moved = None if not before or not after else math.hypot(after[0] - before[0], after[1] - before[1])
+    home = None if not after else math.hypot(after[0] - x0, after[1] - y0)
+    ok = d.get("state") == "SUCCEEDED" and moved is not None and moved > 0.6 and home < 0.75 and after[2] < 0.1
+    return [check("fetch drives closer to a far cube and brings it back", ok, state=d.get("state"), why=d.get("message"),
+                  evidence=d.get("evidence"), cube_moved_m=moved and round(moved, 2), cube_from_start_m=home and round(home, 2),
+                  cube_z_m=after and after[2])]
+
+
+def fetchme(robot: Robot, truth: Truth, env: dict) -> list:
+    """(props:=true map:=house_furnished front_cam:=imx662 objects:=colours) Fetch to="me": the cube in the hallway, the
+    person standing in the office (world 1.1, 3.0), in sight through the door and 2-3 m off (the camera's range,
+    design.md 4.12). Passes only if /people called them a person and the cube is really put down by them."""
+    hold_lease(robot, True)
+    free_robot(robot)
+    person = (1.1, 3.0)
+    w = world_req(env, dict(toys=[*COLOURS_FAR, [-0.1, 0.8, 0.0]]))
+    if not w.get("ok") or not w["placed"][2]:
+        return [check("fetchme: the cube placed", False, reply=w)]
+    # the map's frame is the world's less the start (house.START (-3.0, 1.25), its heading 0)
+    g = robot.goto(x=-1.2 + 3.0, y=0.8 - 1.25, yaw_deg=0.0)
+    d = mission_done(robot, g, 240.0)
+    if d.get("state") != "SUCCEEDED":
+        return [check("fetchme: to the hallway", False, state=d.get("state"), reply=g.get("message"), why=d.get("message"))]
+    robot.rb.subscribe("/people", "std_msgs/msg/String")
+    r = robot.mission("fetch", dict(color="red", shape="square", to="me"), 480.0, None)
+    if not r["ok"]:
+        return [check("fetchme: started", False, reply=r)]
+    tid, t_end, seen, d, stop = r["data"]["task_id"], time.monotonic() + 540.0, [0], {}, threading.Event()
+
+    def watch():                                          # /people at its own pace: a confirmation can be brief
+        while not stop.is_set():
+            m, age = robot.rb.newest_json("/people")
+            if m and age < 2.0:
+                seen[0] = max(seen[0], sum(p.get("status") == "person" for p in m.get("people", [])))
+            time.sleep(0.05)
+
+    threading.Thread(target=watch, daemon=True).start()
+    while time.monotonic() < t_end:
+        d = robot.task(tid, 1.0).get("data") or {}
+        if d.get("state") in TERMINAL:
+            break
+    stop.set()
+    seen = seen[0]
+    time.sleep(2.0)
+    after = object_truth(robot, "cube30")
+    gap = None if not after else math.hypot(after[0] - person[0], after[1] - person[1])
+    ok = d.get("state") == "SUCCEEDED" and seen > 0 and gap is not None and gap < 1.2 and after[2] < 0.1
+    return [check('fetch to="me": put down by the person the camera confirmed', ok, state=d.get("state"), why=d.get("message"),
+                  evidence=d.get("evidence"), people_seen=seen, cube_from_person_m=gap and round(gap, 2),
+                  cube_z_m=after and after[2])]
 
 
 def blocked(robot: Robot, truth: Truth, env: dict) -> list:
@@ -512,7 +631,7 @@ def restart(robot: Robot, truth: Truth, env: dict) -> list:
 
 
 CHECKS = dict(spin=spin, lease=lease, dup=dup, owner=owner, goto=goto, blocked=blocked, navlease=navlease,
-              pick=pick, fetch=fetch, restart=restart)
+              pick=pick, fetch=fetch, fetchfar=fetchfar, fetchme=fetchme, restart=restart)
 DEFAULT = "spin,lease,dup,owner,goto,blocked,navlease,pick,fetch"
 
 
@@ -521,11 +640,13 @@ def main():
     ap.add_argument("--host", default=os.environ.get("OMNI_HOST", "127.0.0.1"))
     ap.add_argument("--rosbridge-port", type=int, default=int(os.environ.get("OMNI_ROSBRIDGE_PORT", 9090)))
     ap.add_argument("--video-port", type=int, default=int(os.environ.get("OMNI_VIDEO_PORT", 8081)))
+    ap.add_argument("--control-port", type=int, default=int(os.environ.get("OMNI_CONTROL_PORT", 9873)))
     ap.add_argument("--only", default=DEFAULT, help="of " + ", ".join(CHECKS) + " (restart needs --restart-cmd)")
     ap.add_argument("--restart-cmd", help="a shell command that restarts the console's mission node (the restart check), e.g. wsl.exe ... ros/tools/restart_console.sh omni_ws_claude")
     ap.add_argument("--out", help="the results as JSON")
     a = ap.parse_args()
-    env = dict(OMNI_HOST=a.host, OMNI_ROSBRIDGE_PORT=str(a.rosbridge_port), OMNI_VIDEO_PORT=str(a.video_port))
+    env = dict(OMNI_HOST=a.host, OMNI_ROSBRIDGE_PORT=str(a.rosbridge_port), OMNI_VIDEO_PORT=str(a.video_port),
+               OMNI_CONTROL_PORT=str(a.control_port))
     if a.restart_cmd:
         env["RESTART_CMD"] = a.restart_cmd
     robot = Robot(a.host, a.rosbridge_port, a.video_port, session="ai-smoke", lease=False, log=lambda m: None)

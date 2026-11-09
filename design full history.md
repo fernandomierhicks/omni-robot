@@ -4946,3 +4946,9 @@ Detailed chronology is in the history; this table records choices that still def
 | Nov 7 | Fun missions implemented (Fernando's request; sim only): Fetch, Block tower, Messenger, Dance party, Goalie, Call. omni_arm gains carry, put-down and tower modes and a D435 ball tracker. MuJoCo: Fetch 3/3 put down about 12 mm off; tower 3 high on 1 of 3 seeds (grasp squareness the limit); Goalie 5/7 saves against 2/7 parked (3). |
 | Nov 7 | AK40-10 firmware driver in **servo mode** (velocity in ERPM, the motor's speed loop; zero current to coast): MIT mode's per-model ranges fail silently when wrong (the wheeled-leg robot's lesson) and couldn't be checked. The arm firmware builds for the Teensy; the v11 SIL emulates the motor's side; bench items VERIFY (2.1). |
 | Nov 7 | Fun missions tuned in the sim: the tower stands 3 high on 4/6 seeds after five fixes found there (keep-out, release slide, carry high, close across faces, regrip); Goalie 13/13 on-target saves against 3/14 parked; the AI starts the missions as leased tasks (omni_mcp) (3). |
+
+## November 9, 2026 — design.md row replaced
+
+The Section 3 row before the Nov 9 update:
+
+| The same missions on the ROS stack (Nov 8, PC, riser D435, one run each, scored on the sim's truth) | Fetch: the asked cube carried 0.8 m and put down. Block tower: 3 high, layers within ~10 mm. Tidy: 5/6 binned in 222 sim-seconds. Dance and Messenger complete (with the camera it waited for a camera-confirmed person, lidar-only it went to the walking person). Goalie runs, tracker on and off, but no ball exists on the ROS sim: saves remain MuJoCo-only. Call's clip, face speech and https work; its microphone needs `arecord`, absent in WSL. Limit: Fetch turns but never drives closer, so a 30 mm cube ~1.4 m away stays unfound. |

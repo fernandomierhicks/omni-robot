@@ -1,6 +1,6 @@
-// LiDAR scan preparation (design.md 28): floor returns dropped, sample times, de-skew, turn-start stamps. C++ port of
-// omni_perception/scan_prep.py's floor mask and scan_time.py (their notes say why); test/test_cores.py checks the two
-// against each other.
+// LiDAR scan preparation (design.md 28): floor returns dropped, sample times, de-skew, turn-start stamps. The floor mask's
+// Python original (scan_prep.py) was deleted Nov 7, 2026; test/test_cores.py checks the sample times against
+// omni_perception/scan_time.py.
 #pragma once
 
 #include <cstddef>

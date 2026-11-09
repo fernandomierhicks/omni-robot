@@ -113,7 +113,7 @@ def main():
     ap.add_argument("--phase", type=float, default=120.0, help="s sampled in each mode")
     ap.add_argument("--settle", type=float, default=20.0, help="s after a mode starts before sampling")
     ap.add_argument("--out", default=str(Path.home() / "omni_load"))
-    ap.add_argument("--label", default="", help="what ran (e.g. glue:=cpp)")
+    ap.add_argument("--label", default="", help="what ran (e.g. nav_profile:=lean)")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)

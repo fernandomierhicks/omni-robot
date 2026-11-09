@@ -1055,7 +1055,8 @@ class TidyTask:
                                                                         2 * math.pi)
             best = None
             for k in range(4):
-                yaw = base_yaw + k * math.pi / 2 if pl["yaw"] is not None else h["yaw"] + k * math.pi
+                yaw = math.remainder(base_yaw + k * math.pi / 2 if pl["yaw"] is not None else h["yaw"] + k * math.pi,
+                                     2 * math.pi)                # the fingers' yaw is kept unwrapped (it was 6.2 rad, Nov 9)
                 if pl["yaw"] is None and k > 1:
                     break
                 tool = self._place_tool(pose, pl["z"] + self.p.place_dz, yaw)
@@ -1065,6 +1066,11 @@ class TidyTask:
                 if best is None or abs(qh[4]) < abs(best[1][4]):
                     best = (yaw, qh)
             if best is None:
+                tool = self._place_tool(pose, pl["z"] + self.p.place_dz, base_yaw)
+                self.events.append((round(t, 2), "P_HOVER", f"no reach: tool {np.round(tool, 3).tolist()}, grip yaw "
+                                    f"{math.degrees(base_yaw):.0f} deg, held "
+                                    f"{ {k: round(float(h[k]), 3) for k in ('yaw', 'width', 'zc', 'yc', 'tip', 'bottom_x') if k in h} }, "
+                                    f"arm {np.round(q, 2).tolist()}"))
                 self._place_failed(t, q, "no reach over the spot" + (" (the tower is too high)" if pl["tower"] else ""))
                 return
             yaw, qh = best

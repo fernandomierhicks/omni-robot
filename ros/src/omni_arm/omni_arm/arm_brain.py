@@ -102,6 +102,7 @@ class ArmBrain(Node):
         self.task = TidyTask(self.kin)
         self.tidy_on = False
         self.starting = False                  # the tidy is waiting for its first odometry
+        self._place_args = None                # a place waiting for the same: the base has moved since the task last listened
         self.motion: mo.Motion | None = None   # the last pose / jog / gripper motion sent (kept after it ends)
         self.goal = None                       # where the arm is commanded when nothing plays
         self.source = "hold"
@@ -287,8 +288,39 @@ class ArmBrain(Node):
         self.tidy_on, self.source = True, "tidy"
         self.event(why)
 
+    def _wait_to_place(self, args: dict):
+        """A place starts from where the base stands now: not listening since the last task (Nav2 may have driven it
+        anywhere, the pose is gone), it waits for the first odometry, as a tidy's start does."""
+        self.motion = None
+        self.sync.reset()
+        self._listen()
+        self._place_args = args
+        self._start_timer = self.create_timer(ODOM_WAIT, self._start_place)    # no odometry: go by the last pose known
+
+    def _start_place(self):
+        if self._start_timer is not None:
+            self.destroy_timer(self._start_timer)
+            self._start_timer = None
+        if self._place_args is None:
+            return
+        a, self._place_args = self._place_args, None
+        t = self.now()
+        last = self.task.history[-1][1] if self.task.history else (0.0, 0.0, 0.0)
+        self.task.history.append((t, self.pose or last))
+        self.tidy_on, self.source = True, "tidy"
+        self.event(f"place: putting object {self.task.held['id']} down")
+        try:
+            if a.get("ahead") or "x" not in a:
+                self.task.start_place(t, ahead=True)
+            else:
+                self.task.start_place(t, float(a["x"]), float(a["y"]), float(a.get("z", 0.0)))
+        except (ValueError, TypeError, KeyError) as e:
+            self._end_tidy()
+            self.event(f"place: {e}")
+
     def _end_tidy(self):
         self.tidy_on = self.starting = False
+        self._place_args = None
         if self._start_timer is not None:
             self.destroy_timer(self._start_timer)
             self._start_timer = None
@@ -301,6 +333,8 @@ class ArmBrain(Node):
         self.pose = (p.position.x, p.position.y, _yaw(p.orientation))
         if self.starting:
             self._start_task()
+        elif self._place_args is not None:
+            self._start_place()
 
     def on_depth(self, m: Image):
         z = None if self.K_depth is None else decode_depth(m.encoding, bytes(m.data), m.height, m.width)
@@ -414,7 +448,10 @@ class ArmBrain(Node):
                 return
             r = self.finder.result
             self.event(f"find: {r['error']}" if r.get("error") else
-                       f"find: {len(r['candidates'])} candidates, {len(r['image_only'])} image-only")
+                       f"find: {len(r['candidates'])} candidates, {len(r['image_only'])} image-only"
+                       + ("" if not r["candidates"] else
+                          " (best: {color[name]} {shape[class]}{sure}, score {score}, {range_m} m at {bearing_deg} deg)".format(
+                              sure="" if r["candidates"][0]["shape"]["sure"] else "?", **r["candidates"][0])))
             for s in self.find_subs:
                 self.destroy_subscription(s)
             self.find_subs, self.color = [], None
@@ -464,18 +501,11 @@ class ArmBrain(Node):
                 return
             self._begin_tidy(a)
         elif verb == "place":
-            if self.tidy_on or self.starting or self.task.held is None:
-                self.event("place: " + ("the task runs" if self.tidy_on or self.starting else "nothing held"))
+            if self.tidy_on or self.starting or self._place_args is not None or self.task.held is None:
+                self.event("place: " + ("the task runs" if self.tidy_on or self.starting or self._place_args is not None
+                                        else "nothing held"))
                 return
-            try:
-                self._resume_task(f"place: putting object {self.task.held['id']} down")
-                if a.get("ahead") or "x" not in a:
-                    self.task.start_place(t, ahead=True)
-                else:
-                    self.task.start_place(t, float(a["x"]), float(a["y"]), float(a.get("z", 0.0)))
-            except (ValueError, TypeError, KeyError) as e:
-                self._end_tidy()
-                self.event(f"place: {e}")
+            self._wait_to_place(a)
         elif verb == "stop" and not self.tidy_on and not self.starting and self.task.held is not None:
             self._resume_task(f"stop: object {self.task.held['id']} goes in the bin, then stow")
             self.task.stop(t)

@@ -13,6 +13,10 @@ and disarms; the ROS tab lists topics. The subsystem tabs: the firmware the MCU 
 build id, the RC receiver is reported, the Base tab's 200 Hz samples arrive, the Thrower bench mode spins the
 flywheels up and fires once; a two-point Patrol runs. Prints the console's Wi-Fi traffic and the page's frame rate.
 Leaves the robot in IDLE and deletes the place and the route it saved.
+
+The arm step runs at about half real time: every wait is scaled by the sim's real-time factor (the control port's rtf,
+--world-port); the Thrower and Catch parts run only on a robot that has them; without the supervisor (omni.sh arm, no
+console launcher) /api/state's 404 is expected.
 """
 
 from __future__ import annotations
@@ -247,7 +251,9 @@ def run_faults(page, a, st, cmd, wait, check):
           f"Faults: link down: the MCU went quiet ({s2['mcu']['age']} s) and the robot stopped turning (true "
           f"{v0 and round(v0[1], 2)} -> {v1 and round(v1[1], 3)} rad/s)")
     check(bool(s2["pose"] and s2["pose"].get("stale")), "Faults: the page marks the robot's position as stale")
-    time.sleep(3.0)
+    deadline = time.time() + max(3.0, 5.0 / a.rtf - 2.0)     # the 4 sim-seconds' link drop has to run out
+    while time.time() < deadline and not any("MCU is back" in e for e in events_since(page, t0)):
+        time.sleep(0.2)
     ev = events_since(page, t0)
     check(any("went quiet" in e for e in ev) and any("MCU is back" in e for e in ev),
           "Faults: the console said the MCU went quiet and came back")
@@ -318,6 +324,17 @@ def run_catch(page, a, st, cmd, wait, check):
     check(bool(s and s["caps"]["nav"]), "Catch: back to the house world (navigation up)")
 
 
+def sim_rtf(port: int) -> float:
+    """The sim's real-time factor (the bridge's control port), 1.0 when it can't be read; floored so a stalled sim can't
+    make the waits endless."""
+    try:
+        with socket.create_connection(("127.0.0.1", port), timeout=3.0) as sock:
+            sock.sendall(b'{"get": 1}\n')
+            return max(0.2, min(1.0, float(json.loads(sock.makefile().readline()).get("rtf") or 1.0)))
+    except (OSError, ValueError, TypeError):
+        return 1.0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--url", default="http://localhost:8080")
@@ -344,7 +361,10 @@ def main():
         page = browser.new_page(viewport={"width": 1400, "height": 860})
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
-        page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+        # the supervisor's /api/state is probed below; a stack without it answers 404, and Edge logs that as an error
+        page.on("console", lambda m: errors.append(f"{m.text} ({(m.location or {}).get('url', '')})")
+                if m.type == "error" and not ("/api/state" in (m.location or {}).get("url", "") and "404" in m.text)
+                else None)
         # count what crosses the (Wi-Fi) link inside the page: every message rosbridge sends it
         page.add_init_script("""(() => { const W = window.WebSocket; window.__rx = 0;
           window.WebSocket = class extends W { constructor(...a) { super(...a); this.addEventListener('message', (e) => {
@@ -354,9 +374,12 @@ def main():
         cmd = lambda verb, args=None: page.evaluate(                                      # noqa: E731
             "([v, a]) => window.omniConsole.command(v, a)", [verb, args or {}])
 
+        rtf = sim_rtf(a.world_port)
+        print(f"the sim runs at {rtf:.2f} x real time: waits and sample counts scaled")
+
         def wait(pred, timeout, what):
             t0 = time.time()
-            while time.time() - t0 < timeout:
+            while time.time() - t0 < timeout / rtf:
                 s = st()
                 if s and pred(s):
                     check(True, what)
@@ -484,22 +507,26 @@ def main():
                                          messageType: 'std_msgs/msg/Float32MultiArray', compression: 'cbor-raw' });
             t.subscribe(m => { const d = cdr.decodeFloat32MultiArray(m.bytes); n += d.dims[0].size; });
             setTimeout(() => { t.unsubscribe(); res(n); }, 2000); }))""")
-        check(rows > 250, f"Base tab: {rows} MCU samples in 2 s (200 Hz in batches, raw from mcu_link)")
-        page.goto(a.url + "/#thrower")
-        page.get_by_role("button", name="Take control").click()
-        wait(lambda s: s["mission"] == "THROWER" and s["robot_mode"] == "THROWER", 5, "Thrower: bench mode")
-        cmd("thrower", {"rpm": 3000, "tilt": 0})          # a 30 deg launch (the flattest fired is 25: the face)
-        wait(lambda s: s["mcu"]["fly_ready"], 10, "Thrower: flywheels at 3000 rpm")
-        done = st()["mcu"]["fire_seq_done"]
-        page.once("dialog", lambda d: d.accept())
-        page.get_by_role("button", name="FIRE ONE BALL").click()
-        wait(lambda s: s["mcu"]["fire_seq_done"] == (done + 1) & 0xFFFF, 3, "Thrower: one fire request reaches the MCU")
-        if a.shots:
-            page.screenshot(path=f"{a.shots}/console_thrower_live.png")
-        cmd("thrower", {"rpm": 0, "tilt": 0})
-        cmd("mission", {"name": "MANUAL"})
-        wait(lambda s: s["robot_mode"] == "TELEOP" and s["mcu"]["fire_seq_done"] == (done + 1) & 0xFFFF, 5,
-             "back to MANUAL without another shot")
+        check(rows > 250 * rtf, f"Base tab: {rows} MCU samples in 2 s (200 Hz of sim time in batches, raw from mcu_link)")
+        has_catch = bool(st()["caps"].get("catch"))
+        if has_catch:
+            page.goto(a.url + "/#thrower")
+            page.get_by_role("button", name="Take control").click()
+            wait(lambda s: s["mission"] == "THROWER" and s["robot_mode"] == "THROWER", 5, "Thrower: bench mode")
+            cmd("thrower", {"rpm": 3000, "tilt": 0})          # a 30 deg launch (the flattest fired is 25: the face)
+            wait(lambda s: s["mcu"]["fly_ready"], 10, "Thrower: flywheels at 3000 rpm")
+            done = st()["mcu"]["fire_seq_done"]
+            page.once("dialog", lambda d: d.accept())
+            page.get_by_role("button", name="FIRE ONE BALL").click()
+            wait(lambda s: s["mcu"]["fire_seq_done"] == (done + 1) & 0xFFFF, 3, "Thrower: one fire request reaches the MCU")
+            if a.shots:
+                page.screenshot(path=f"{a.shots}/console_thrower_live.png")
+            cmd("thrower", {"rpm": 0, "tilt": 0})
+            cmd("mission", {"name": "MANUAL"})
+            wait(lambda s: s["robot_mode"] == "TELEOP" and s["mcu"]["fire_seq_done"] == (done + 1) & 0xFFFF, 5,
+                 "back to MANUAL without another shot")
+        else:
+            print("  skip Thrower: this robot has no catch payload")
 
         # Patrol: two free points, once
         pa, pb = page.evaluate(FREE_POINT_JS, 1.2), page.evaluate(FREE_POINT_JS, 2.2)
@@ -572,6 +599,7 @@ def main():
         if a.tabs:
             run_tabs(page, a, st, cmd, wait, check)
         if a.faults:
+            a.rtf = rtf
             run_faults(page, a, st, cmd, wait, check)
         if a.catch:
             if sup:
@@ -589,6 +617,8 @@ def main():
         # every tab renders; the ROS tab lists topics
         for tab in ("home", "manual", "goto", "explore", "patrol", "catch", "follow", "program", "base", "thrower",
                     "face", "vision", "cameras", "slam", "mapedit", "calibrate", "health", "logbook", "system", "rc", "version", "ros"):
+            if tab in ("catch", "thrower") and not has_catch:
+                continue
             page.goto(f"{a.url}/#{tab}")
             time.sleep(1.0 if tab != "ros" else 2.5)
             if a.shots:
@@ -597,6 +627,7 @@ def main():
         check(n > 10, f"ROS tab lists {n} topics")
         # rosbridge refusing while the supervisor switches steps is expected (--catch): the page reconnects
         errors = [e for e in errors if not (a.catch and "ws://" in e and "ERR_CONNECTION_REFUSED" in e)]
+        errors = [e for e in errors if ":8086/" not in e]      # the Cameras tab's Pi camera server (camera_snap): not in a sim
         check(not errors, "no errors in the page" + (f": {errors[:3]}" if errors else ""))
         browser.close()
     print(f"\n{len(fails)} failed" if fails else "\nall passed")
