@@ -1,12 +1,14 @@
 // @ts-check
 import { html, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { MapView } from "../mapview.js";
 import { act, useStore } from "../ros.js";
-import { Banner, DrivingPicker, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, DrivingPicker, HelpBox, SettingsForm } from "../ui.js";
 
 export function ExploreTab() {
   const s = useStore("status");
   const st = s.status;
+  const g = useGate("explore");
   const ex = st?.explore;
   const slam = st?.slam || {};
   const [name, setName] = useState("");
@@ -32,7 +34,7 @@ export function ExploreTab() {
         <b>Explore this map</b> continues a map that is already being made. <kbd>Space</kbd> stops everything.
         Close doors to rooms it shouldn't enter; it can't see glass or very low obstacles.
       <//>
-      ${!nav && html`<${Banner} title="Navigation isn't running.">Start 'Robot (all modes)' in the Launcher.<//>`}
+      ${!exploring && html`<${Gate} a=${g} />`}
       ${nav && !slam.managed && slam.mode !== "mapping" && html`<${Banner} title="No map is being made.">'Robot (all modes)' lets the console start new maps; the 'Map the house' step maps too.<//>`}
       ${exploring
         ? html`<div class="card">
@@ -40,10 +42,10 @@ export function ExploreTab() {
               <button class="btn danger small" onClick=${() => act("cancel")}>Stop</button></div>
             <div class="dim" style="margin-top: 4px">${phase}</div></div>`
         : html`<div class="row" style="gap: 8px; margin-bottom: 10px">
-            <button class="btn go big grow" style="width: auto" disabled=${!nav || !slam.managed || slam.busy}
+            <button class="btn go big grow" style="width: auto" disabled=${!g.ok || !slam.managed || slam.busy}
               onClick=${() => { if (confirm("Start a new map and explore? The current map is lost unless you saved it.")) act("explore", { new_map: true }); }}>
               New map + explore</button>
-            <button class="btn big" style="width: auto" disabled=${!nav || slam.mode !== "mapping"}
+            <button class="btn big" style="width: auto" disabled=${!g.ok || slam.mode !== "mapping"}
               onClick=${() => act("explore")} title="Keep adding to the map being made now">Explore this map</button></div>`}
       <${DrivingPicker} noSpin=${true} />
       <h3>Save map</h3>

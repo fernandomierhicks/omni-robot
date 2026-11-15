@@ -115,6 +115,16 @@ export function Banner({ title, children, red = false }) {
   return html`<div class=${red ? "banner red" : "banner"}><b>${title}</b> ${children}</div>`;
 }
 
+/** Why a page's start is greyed (features.js useGate): the robot's own words, each reason on its line, and where to
+ *  look. Nothing when it can start. @param {{a: {ok: boolean, why: string}}} p */
+export function Gate({ a }) {
+  if (a.ok) return null;
+  const why = a.why.split("; ").filter(Boolean);
+  return html`<div class="gate"><b>Can't start now</b>
+    ${why.length > 1 ? html`<ul>${why.map((w) => html`<li>${w}</li>`)}</ul>` : html`<div>${why[0]}</div>`}
+    <a href="#preflight" style="font-size: 12px">Preflight: every check</a></div>`;
+}
+
 /** @param {number} rad */
 export const deg = (rad) => Math.round((rad * 180) / Math.PI);
 

@@ -167,7 +167,9 @@ def state_body(rnd, t_mcu, echo_t1, echo_rx):
          rnd.randint(0, 255), *[rnd.randint(0, 3) for _ in range(4)], *[rnd.uniform(-3, 3) for _ in range(12)],
          *[rnd.uniform(0, 9000) for _ in range(3)], rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.randint(0, 3),
          rnd.randint(0, 1), rnd.randint(0, 65535), rnd.randint(0, 9), rnd.uniform(20, 29), rnd.randint(0, 65535),
-         rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(900, 2000)]   # + protocol 6's counters
+         rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(900, 2000),   # + protocol 6's counters
+         *[rnd.uniform(-10, 10) for _ in range(8)],                                           # + protocol 7's wheels
+         *[rnd.uniform(-7, 7) for _ in range(4)]]                                             # + protocol 9's currents
     return P.STATE_FMT.pack(*v)
 
 
@@ -239,7 +241,7 @@ def test_mode_mux_requests_like_the_python():
     for _ in range(3000):
         x = rnd.random()
         if x < 0.05:
-            m = rnd.choice(["idle", "TELEOP", "catch", "THROWER", "pick", "dance"])
+            m = rnd.choice(["idle", "TELEOP", "catch", "THROWER", "pick", "wheels", "dance"])
             k = rnd.choice([-1, 0, 1])
             lines.append(f"set {m} {k}")
             ok, _ = mux.set_mode(m, None if k < 0 else bool(k))
@@ -253,11 +255,15 @@ def test_mode_mux_requests_like_the_python():
             lines.append(f"fire {s}")
             py.append(str(mux.fire(s)))
         else:
-            k = rnd.choice("ntph")
+            k = rnd.choice("ntphw")
             tw = (rnd.uniform(-2, 2), rnd.uniform(-2, 2), rnd.uniform(-3, 3))
             if k in "tp":
                 lines.append(f"req {k} {tw[0]!r} {tw[1]!r} {tw[2]!r}")
                 r = mux.request(twist=tw if k == "t" else None, pick=tw if k == "p" else None)
+            elif k == "w":
+                wh = tuple(rnd.uniform(-12, 12) for _ in range(4)) + (rnd.choice([0.0, 20.0, 500.0, 2000.0]),)
+                lines.append("req w " + " ".join(repr(x) for x in wh))
+                r = mux.request(wheels=wh)
             elif k == "h":
                 th = P.Request(tilt=rnd.uniform(-0.5, 0.7), fly_rpm=rnd.uniform(0, 9000), fire_seq=rnd.randint(0, 3))
                 lines.append(f"req h {th.tilt!r} {th.fly_rpm!r} {th.fire_seq}")

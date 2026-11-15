@@ -1,15 +1,17 @@
 // @ts-check
 import { html, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { Pads, input, saveStickMap, setPadUsed, stickMap, useInputTick } from "../drive.js";
 import { MapView } from "../mapview.js";
 import { SayBox } from "../say.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm } from "../ui.js";
 import { ArmPad } from "./arm.js";
 
 export function ManualTab() {
   const s = useStore("status", "schema");
   const st = s.status;
+  const g = useGate("manual");
   const driving = st?.mission === "MANUAL";
   useInputTick();                      // the drive loop runs in the App; this redraws the input bars
   const inp = input;
@@ -37,7 +39,7 @@ export function ManualTab() {
       ${rc && html`<${Banner} title="RC has control.">The transmitter's switch is on MANUAL: the console's commands are ignored until it's switched back.<//>`}
       ${driving
         ? html`<div class="card"><b class="ok">You're driving.</b> <span class="dim">${cmd ? `Input: ${cmd.source}` : "Hold a dead man to move."}</span></div>`
-        : html`<button class="btn go big" onClick=${() => act("mission", { name: "MANUAL" })} disabled=${!st}>Take control</button>`}
+        : html`<${Gate} a=${g} /><button class="btn go big" onClick=${() => act("mission", { name: "MANUAL" })} disabled=${!g.ok}>Take control</button>`}
       <h3>Input</h3>
       <div class="card">
         ${axis("fwd", cmd?.vx)}${axis("left", cmd?.vy)}${axis("turn", cmd?.wz)}

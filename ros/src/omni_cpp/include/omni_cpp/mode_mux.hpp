@@ -13,7 +13,7 @@
 
 namespace omni {
 
-extern const char* const ROBOT_MODES[5];       // IDLE TELEOP CATCH THROWER PICK
+extern const char* const ROBOT_MODES[6];       // IDLE TELEOP CATCH THROWER PICK WHEELS
 
 struct Twist2 { double vx, vy, wz; };
 
@@ -33,9 +33,11 @@ public:
     bool set_mode(std::string m, std::optional<bool> k, std::string& message);
     // the fire_seq to send for the source in charge's own seq
     uint16_t fire(uint16_t seq);
-    // this cycle's request: twist (TELEOP), thrower (THROWER: tilt, fly_rpm, fire_seq), pick (PICK); each only if
-    // fresh. With the arm out every request carries the arm-out caps.
-    Request request(const Twist2* twist = nullptr, const Request* thrower = nullptr, const Twist2* pick = nullptr);
+    // this cycle's request: twist (TELEOP), thrower (THROWER: tilt, fly_rpm, fire_seq), pick (PICK), wheels (WHEELS,
+    // the motor test: a, b, c, v_end = each wheel's rad/s); each only if fresh. With the arm out every request carries
+    // the arm-out caps.
+    Request request(const Twist2* twist = nullptr, const Request* thrower = nullptr, const Twist2* pick = nullptr,
+                    const Request* wheels = nullptr);
     // the same with the catch behavior's command (modes.ModeMux.request(catch=...)): used in CATCH
     Request request(const CatchCommand& c);
 
@@ -48,7 +50,7 @@ public:
     uint16_t fire_out = 0;       // the fire_seq the MCU sees
 
 private:
-    Request request_(const Twist2* twist, const Request* thrower, const Twist2* pick);
+    Request request_(const Twist2* twist, const Request* thrower, const Twist2* pick, const Request* wheels);
     Request cap(Request r) const;              // the arm-out caps
     bool has_src_ = false;
     std::string src_mode_;

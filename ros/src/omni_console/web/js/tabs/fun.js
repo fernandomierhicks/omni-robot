@@ -3,8 +3,9 @@
    starts its mission with the robot's own verb, shows how it's going and stops it; their settings come from the robot's
    schema like every page's. */
 import { html, useRef, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm } from "../ui.js";
 import { WRIST } from "./arm.js";
 import { mainCamera } from "./home.js";
 import { streamUrl } from "./vision.js";
@@ -37,6 +38,7 @@ function Camera({ topic }) {
 
 export function FetchTab() {
   const s = useStore("status");
+  const g = useGate("fetch");
   const [color, setColor] = useState("red");
   const [shape, setShape] = useState("any");
   const st = s.status;
@@ -50,7 +52,7 @@ export function FetchTab() {
         round for you if nobody's in view) and puts it down in front of you. Things wider than 6.5 cm are too big.
         By voice: "Omni, bring me the red block" when the voice commands are on.
       <//>
-      ${!st?.arm && html`<${Banner} title="No arm.">Fetch needs the arm robot (omni_arm's arm_node).<//>`}
+      ${!on && html`<${Gate} a=${g} />`}
       <h3>Colour</h3>
       <div class="row" style="flex-wrap: wrap; gap: 6px">${COLOURS.map(([c, hex]) => html`<button
         class=${`btn small${color === c ? " on" : ""}`} aria-pressed=${color === c} onClick=${() => setColor(c)}>
@@ -60,7 +62,7 @@ export function FetchTab() {
         aria-pressed=${shape === k} onClick=${() => setShape(k)}>${label}</button>`)}</div>
       <div class="row" style="margin-top: 12px">
         ${on ? html`<button class="btn big danger" onClick=${() => act("stop")}>Stop</button>`
-          : html`<button class="btn go big" disabled=${!st?.arm} onClick=${() => act("fetch", { color: color === "any" ? null : color, shape })}>
+          : html`<button class="btn go big" disabled=${!g.ok} onClick=${() => act("fetch", { color: color === "any" ? null : color, shape })}>
             Fetch ${what}</button>`}
       </div>
       <${SettingsForm} tab="fetch" />
@@ -73,6 +75,7 @@ const PRESETS = ["Dinner's ready!", "Time for bed.", "Come to the living room, p
 
 export function MessageTab() {
   const s = useStore("status", "schema");
+  const g = useGate("message");
   const [text, setText] = useState("");
   const rooms = Object.keys(s.schema?.rooms || {});
   const [pick, setPick] = useState(/** @type {string[] | null} */ (null));
@@ -97,8 +100,9 @@ export function MessageTab() {
         : html`<p class="dim">No rooms on this map: it only looks round where it is. Draw them in <a href="#mapedit">Map edit</a>.</p>`}
       <div class="row" style="margin-top: 12px">
         ${on ? html`<button class="btn big danger" onClick=${() => act("stop")}>Stop</button>`
-          : html`<button class="btn go big" disabled=${!text.trim() || !st} onClick=${() => act("message", { text, rooms: chosen })}>Send</button>`}
+          : html`<button class="btn go big" disabled=${!text.trim() || !g.ok} onClick=${() => act("message", { text, rooms: chosen })}>Send</button>`}
       </div>
+      ${!on && html`<div style="margin-top: 8px"><${Gate} a=${g} /></div>`}
     </div>
     <div class="main full"><${Running} mission="MESSAGE" idle="No message on its way" /><${Camera} /></div>
   </div>`;
@@ -106,6 +110,7 @@ export function MessageTab() {
 
 export function TowerTab() {
   const s = useStore("status");
+  const g = useGate("tower");
   const st = s.status;
   const tw = st?.arm?.tidy?.tower;
   const on = st?.mission === "TOWER";
@@ -116,9 +121,9 @@ export function TowerTab() {
         it finds stays where it is and becomes the base; it brings each other one over and puts it on top, checking the
         tower with the D435 before each block. It stops at the height set below, or when it finds no more blocks.
       <//>
-      ${!st?.arm && html`<${Banner} title="No arm.">Block tower needs the arm robot (omni_arm's arm_node).<//>`}
+      ${!on && html`<${Gate} a=${g} />`}
       ${on ? html`<button class="btn big danger" onClick=${() => act("stop")}>Stop</button>`
-        : html`<button class="btn go big" disabled=${!st?.arm} onClick=${() => act("tower", {})}>Build a tower</button>`}
+        : html`<button class="btn go big" disabled=${!g.ok} onClick=${() => act("tower", {})}>Build a tower</button>`}
       <${SettingsForm} tab="tower" />
     </div>
     <div class="main full">
@@ -133,6 +138,7 @@ export function TowerTab() {
 
 export function DanceTab() {
   const s = useStore("status", "schema");
+  const g = useGate("dance");
   const st = s.status;
   const on = st?.mission === "DANCE";
   const taps = useRef(/** @type {number[]} */ ([]));
@@ -156,7 +162,7 @@ export function DanceTab() {
         started, so it never strays more than 0.6 m. Keep a clear circle round it.
       <//>
       ${on ? html`<button class="btn big danger" onClick=${() => act("stop")}>Stop</button>`
-        : html`<button class="btn go big" disabled=${!st} onClick=${() => act("dance", {})}>Dance</button>`}
+        : html`<${Gate} a=${g} /><button class="btn go big" disabled=${!g.ok} onClick=${() => act("dance", {})}>Dance</button>`}
       <div class="row" style="margin-top: 8px"><button class="btn" onClick=${tap}>Tap the beat</button>
         <span class="dim">${bpm ? `${bpm} bpm` : ""}</span></div>
       <${SettingsForm} tab="dance" />
@@ -167,6 +173,7 @@ export function DanceTab() {
 
 export function GoalieTab() {
   const s = useStore("status");
+  const gate = useGate("goalie");
   const st = s.status;
   const g = st?.goalie;
   const on = st?.mission === "GOALIE";
@@ -179,7 +186,7 @@ export function GoalieTab() {
         omni_bringup's robot.yaml). Keep it to rolling: it can't stop a ball in the air.
       <//>
       ${on ? html`<button class="btn big danger" onClick=${() => act("stop")}>Stop</button>`
-        : html`<button class="btn go big" disabled=${!st} onClick=${() => act("goalie", {})}>Play</button>`}
+        : html`<${Gate} a=${gate} /><button class="btn go big" disabled=${!gate.ok} onClick=${() => act("goalie", {})}>Play</button>`}
       <${SettingsForm} tab="goalie" />
     </div>
     <div class="main full">

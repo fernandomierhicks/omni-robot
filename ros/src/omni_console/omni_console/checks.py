@@ -7,8 +7,18 @@ the RC, localization, the arm, the computer, Wi-Fi) and returns one row per chec
   {id, label, state: ok | warn | fail | na, detail, blocks}
 state "fail" with blocks set refuses the features named there (missions.py gate()), with the check's detail as the
 reason. Only failures that would make the task fail anyway block (an MCU that is silent, latched in a fault stop or
-speaks another protocol, a flat pack, a lost localization, an unhealthy arm); everything else only warns. A missing
-input is "na", never "fail": the console doesn't refuse on what it can't see.
+speaks another protocol, drive motors missing, a silent IMU, no lidar scan, a flat pack, a lost localization, an
+unhealthy arm); everything else only warns. A part a task needs and the robot doesn't hear from (no lidar scan, no
+heading) refuses that task: it would fail. A part nothing needs to start is "na" when it can't be seen.
+
+blocks names features, or one of three groups: MOTION (every feature that moves the base or the arm: moves), BASE
+(every feature that drives the base, by hand too: base) and SELF_DRIVE (the base driving itself: base and moves).
+unavailable(rows, caps) turns the rows and the caps into {feature: why} for every feature that can't start now: the
+robot says what works, the page greys the rest with these words (status "avail"), and gate() refuses with them.
+
+The lidar's self-test (camera_snap at boot, rplidar.LidarSession.self_test: it spins the lidar, counts a few turns and
+stops it) reaches the preflight as status "lidar_test": the lidar row says whether the device itself works when no
+ROS scan comes.
 
 Bring-up: BRINGUP is the catalog. Each check says what it proves, the preconditions the operator ticks, the steps,
 what to expect, the numbers to write down, the status fields to watch live, and buttons for the console verbs that
@@ -22,11 +32,26 @@ from __future__ import annotations
 import math
 
 STATES = ("ok", "warn", "fail", "na")
-MOTION = "motion"                  # blocks: every feature that moves the base or the arm
+# blocks groups (never a feature id: a row's blocks hold both): MOTION every feature that moves the base or the arm
+# (FEATURES moves), BASE every feature that drives the base, by hand too (FEATURES base), SELF_DRIVE the base driving
+# itself (base and moves: not driving by hand)
+MOTION = "motion"
+BASE = "driving"
+SELF_DRIVE = "self_driving"
+# the bench tests a person runs and judges (the motor test, wheels up): refused only by what makes them impossible (no
+# MCU, firmware of another protocol, the e-stop), never by a fault stop, a low pack, the IMU or a missing motor
+BENCH = ("motors",)
 BATT_STOP_V = 21.0                 # the firmware's low-battery stop (design.md 2: provisional, 6S)
 BATT_WARN_V = 22.2                 # the fault stop's re-arm level: below it, a stop latches until the pack is above
 MCU_SILENT_S = 1.0                 # s without MCU state: the link is down
-FAULTS_BLOCK = ("ESTOP", "FAULT_STOP", "LOW_BATT", "MOTOR_ERR", "MOTOR_SILENT")
+# MCU faults that refuse a start: motion (a person has to clear them); ESTOP and MOTOR_ERR also driving by hand (the
+# motors can't turn). LOW_BATT and FAULT_STOP leave driving by hand, to drive to the charger. MOTOR_SILENT and
+# IMU_SILENT have their own rows (drive motors, IMU)
+FAULTS_BLOCK = ("ESTOP", "FAULT_STOP", "LOW_BATT", "MOTOR_ERR")
+FAULTS_BASE = ("ESTOP", "MOTOR_ERR")
+OWN_ROWS = ("IMU_SILENT", "MOTOR_SILENT")
+DM_NO_REPLY = 0xFF                 # protocol 8: STATE dm_err of a motor that isn't answering (protocol.h)
+N_WHEELS = 4
 ARM_HOT_C = 65.0                   # servo temperature worth a warning (est, STS3215 class)
 CPU_HOT_C = 85.0                   # the robot computer's hottest sensor (est)
 WIFI_WEAK_DBM = -72.0
@@ -36,7 +61,10 @@ LIDAR_FEATURES = NAV_FEATURES + ("follow", "message")      # what a silent lidar
 LIDAR_SILENT_S = 1.0               # s without a scan: the lidar is down
 LIDAR_SLOW_HZ = 5.0                # the A2M12 turns at ~10 Hz: slower, its motor or its USB link is struggling
 TILT_WARN_DEG = 15.0               # the base tilted this much while the IMU reports: a ramp, a step, or tipped
-ARM_FEATURES = ("tidy", "arm")
+ARM_FEATURES = ("tidy", "fetch", "tower", "arm")
+CAMERA_FEATURES = ("tidy", "fetch", "tower", "goalie")     # what the floor camera's depth finds things for
+LIDAR_TEST_OLD_S = 24 * 3600.0     # a self-test older than this is said to be old (the lidar may have changed since)
+LIDAR_TEST_FILE = "lidar_selftest.json"   # in the state dir: camera_snap writes it, mission_node reads it
 
 
 def _row(id_, label, state, detail="", blocks=()):
@@ -52,10 +80,10 @@ def preflight(s: dict, fw: dict | None = None) -> list:
     mcu = s.get("mcu")
     if mcu is None:
         out.append(_row("mcu_link", "MCU link", "fail", "No state from the MCU yet: is mcu_link running and the "
-                                                        "Teensy plugged in?", (MOTION,)))
+                                                        "Teensy plugged in?", (MOTION, BASE) + BENCH))
     elif (mcu.get("age") or 0.0) > MCU_SILENT_S:
         out.append(_row("mcu_link", "MCU link", "fail", f"The MCU has been silent for {mcu['age']:.0f} s (USB link "
-                                                        "down); it stops the robot by itself", (MOTION,)))
+                                                        "down); it stops the robot by itself", (MOTION, BASE) + BENCH))
     else:
         rtt = mcu.get("sync_rtt_ms")
         slow = rtt is not None and rtt > SYNC_SLOW_MS
@@ -71,7 +99,7 @@ def preflight(s: dict, fw: dict | None = None) -> list:
     elif fw.get("protocol_host") is not None and f.get("protocol") != fw["protocol_host"]:
         out.append(_row("firmware", "Firmware version", "fail",
                         f"The MCU speaks protocol {f.get('protocol')}, the robot computer {fw['protocol_host']}: it "
-                        "drops every command. Build and flash the firmware from this checkout", (MOTION,)))
+                        "drops every command. Build and flash the firmware from this checkout", (MOTION, BASE) + BENCH))
     elif fw.get("expected") and f.get("build") and f["build"] != fw["expected"]:
         out.append(_row("firmware", "Firmware version", "warn",
                         f"The MCU runs {f['build']}, this software expects {fw['expected']}: rebuild and flash"))
@@ -80,14 +108,16 @@ def preflight(s: dict, fw: dict | None = None) -> list:
                                                               f"{f.get('protocol')}"))
 
     if mcu is not None:
-        names = [x.get("name") for x in mcu.get("faults") or [] if x.get("name") != "IMU_SILENT"]   # its own row
+        names = [x.get("name") for x in mcu.get("faults") or [] if x.get("name") not in OWN_ROWS]
         hard = [n for n in names if n in FAULTS_BLOCK]
         if mcu.get("mode") == "ESTOP" and "ESTOP" not in hard:
             hard.append("ESTOP")
         if hard:
+            base = any(n in FAULTS_BASE for n in hard)
             out.append(_row("faults", "MCU faults", "fail", f"{', '.join(hard)}: a person has to clear it "
-                                                            "(STOP disarms; FAULT_STOP also needs the pack ≥ 22.2 V)",
-                            (MOTION,)))
+                                                            "(STOP disarms; FAULT_STOP also needs the pack ≥ 22.2 V)"
+                            + ("" if base else ". Driving by hand still works"),
+                            ((MOTION, BASE) if base else (MOTION,)) + (BENCH if "ESTOP" in hard else ())))
         elif names:
             out.append(_row("faults", "MCU faults", "warn", ", ".join(n for n in names if n)))
         else:
@@ -107,11 +137,13 @@ def preflight(s: dict, fw: dict | None = None) -> list:
             out.append(_row("battery", "Battery", "ok", f"{v:.1f} V" + (f", about {pct}%" if pct is not None else "")))
 
     if mcu is not None:
+        out.append(drive_row(mcu.get("dm_err")))
         imu_silent = any(x.get("name") == "IMU_SILENT" for x in mcu.get("faults") or [])
         roll, pitch = mcu.get("roll"), mcu.get("pitch")
         if imu_silent:
-            out.append(_row("imu", "IMU", "warn", "The BNO085 stopped reporting: heading from the wheels only "
-                                                  "(odometry drifts in turns)"))
+            out.append(_row("imu", "IMU", "fail", "The BNO085 isn't reporting: no heading, so nothing that drives by "
+                                                  "itself can start (odometry would drift in every turn). Driving "
+                                                  "by hand still works", (SELF_DRIVE,)))
         elif roll is None or pitch is None:
             out.append(_row("imu", "IMU", "na", "No attitude in the MCU's state"))
         else:
@@ -121,11 +153,15 @@ def preflight(s: dict, fw: dict | None = None) -> list:
                             f"roll {math.degrees(roll):+.1f} deg, pitch {math.degrees(pitch):+.1f} deg"))
 
     lid = s.get("lidar")
+    test = lidar_test_text(s.get("lidar_test"), s.get("t"))
     if lid is None:
-        out.append(_row("lidar", "Lidar", "na", "No scan yet (the A2M12's driver not running, or still starting)"))
+        out.append(_row("lidar", "Lidar", "fail", "No scan: no navigation, no people (the lidar's ROS driver isn't "
+                                                  "running" + (f", or is still starting). {test}" if test else
+                                                               ", or is still starting)"), LIDAR_FEATURES))
     elif lid["age"] > LIDAR_SILENT_S:
         out.append(_row("lidar", "Lidar", "fail", f"No scan for {lid['age']:.0f} s: no navigation, no people "
-                                                  "(USB cable, the motor, the driver)", LIDAR_FEATURES))
+                                                  "(USB cable, the motor, the driver)" + (f". {test}" if test else ""),
+                        LIDAR_FEATURES))
     else:
         slow = lid["hz"] < LIDAR_SLOW_HZ
         out.append(_row("lidar", "Lidar", "warn" if slow else "ok",
@@ -179,6 +215,11 @@ def preflight(s: dict, fw: dict | None = None) -> list:
     else:
         out.append(_row("cameras", "Camera streams", "ok" if imgs else "warn",
                         f"{len(imgs)} image topics" if imgs else "No image topics (is the D435 driver running?)"))
+    if arm is not None:                            # the arm robot finds things on the floor in the D435's depth
+        depth = [t for t in imgs if "depth" in t]
+        out.append(_row("floor_camera", "Floor camera", "ok" if depth else "fail",
+                        depth[0] if depth else "No depth image (the D435's driver isn't running): the arm can't find "
+                                               "anything on the floor", CAMERA_FEATURES))
 
     sys_ = s.get("sys") or {}
     t = sys_.get("temp_c")
@@ -202,23 +243,92 @@ def preflight(s: dict, fw: dict | None = None) -> list:
 
 
 def brief(rows: list) -> dict:
-    """The status's short form: counts, and the worst rows' labels (the page asks for the rest)."""
+    """The status's short form: counts, the worst rows' labels, and each row's id, label and state (with its detail
+    when it isn't ok): Home's health strip. The Preflight page asks for the full rows."""
     n = {k: sum(1 for r in rows if r["state"] == k) for k in STATES}
     bad = [r["label"] for r in rows if r["state"] == "fail"] or [r["label"] for r in rows if r["state"] == "warn"]
-    return dict(n, worst=bad[:3])
+    return dict(n, worst=bad[:3], rows=[dict(id=r["id"], label=r["label"], state=r["state"],
+                                             **({"detail": r["detail"]} if r["state"] in ("fail", "warn") else {}))
+                                        for r in rows])
 
 
-def blocking(rows: list | None, feature: str, moves: bool) -> list:
-    """The failing rows that refuse this feature (moves: it drives the base or the arm)."""
-    return [r for r in rows or () if r["state"] == "fail"
-            and (feature in r["blocks"] or (moves and MOTION in r["blocks"]))]
+def _wheels(ix: list) -> str:
+    n = [str(i + 1) for i in ix]
+    return n[0] if len(n) == 1 else f"{', '.join(n[:-1])} and {n[-1]}"
+
+
+def drive_row(dm_err) -> dict:
+    """Which drive motors answer on CAN (STATE dm_err, DM_NO_REPLY = silent, protocol 8). Driving needs all four: a
+    missing one refuses everything that drives the base, by hand too; the motor test turns the ones that answer."""
+    codes = list(dm_err or [])[:N_WHEELS]
+    if len(codes) < N_WHEELS:
+        return _row("drive", "Drive motors", "na", "The MCU's state has no motor codes")
+    gone = [i for i, e in enumerate(codes) if e == DM_NO_REPLY]
+    if not gone:
+        return _row("drive", "Drive motors", "ok", f"all {N_WHEELS} answering on CAN")
+    have = [i for i in range(N_WHEELS) if i not in gone]
+    if not have:
+        return _row("drive", "Drive motors", "fail", "No drive motor answers on CAN (motor power off? the CAN cable? "
+                                                     "each motor's CAN status broadcast on?)", (BASE,))
+    return _row("drive", "Drive motors", "fail",
+                f"Wheel{'s' if len(gone) > 1 else ''} {_wheels(gone)} not answering on CAN (only {len(have)} of "
+                f"{N_WHEELS}): driving needs all four. Test › Motors turns wheel{'s' if len(have) > 1 else ''} "
+                f"{_wheels(have)}", (BASE,))
+
+
+def lidar_test_text(t: dict | None, now: float | None = None) -> str:
+    """The boot self-test's result in a sentence ('' if there is none)."""
+    if not t or "ok" not in t:
+        return ""
+    import time
+    when = time.strftime("%H:%M", time.localtime(t.get("t", 0)))
+    old = now is not None and t.get("t") and now - t["t"] > LIDAR_TEST_OLD_S
+    when = f"{when}{', over a day ago' if old else ''}"
+    if t["ok"] is None:
+        return f"Lidar self-test skipped at {when}: {t.get('detail', '')}"
+    if t["ok"]:
+        return (f"The lidar itself works: self-test passed at {when} ({t.get('model', '?')}, health "
+                f"{t.get('health', '?')}, {t.get('hz', 0):.1f} turns/s, {t.get('samples', 0)} samples a turn)")
+    return f"The lidar's self-test failed at {when}: {t.get('detail', '')}"
+
+
+def blocking(rows: list | None, feat: dict) -> list:
+    """The failing rows that refuse this feature (a FEATURES entry: id, moves, base)."""
+    fid, moves, base = feat["id"], bool(feat.get("moves")), bool(feat.get("base"))
+    groups = {MOTION} if moves else set()
+    if base:
+        groups.add(BASE)
+        if moves:
+            groups.add(SELF_DRIVE)
+    return [r for r in rows or () if r["state"] == "fail" and (fid in r["blocks"] or groups & set(r["blocks"]))]
+
+
+# what a missing cap means, in the operator's words (the page's features.js NEED_TEXT is its fallback for a robot
+# that doesn't send "avail")
+NEED_TEXT = {"nav": "Needs navigation (Nav2 and SLAM aren't running)", "arm": "Needs the arm (arm_node isn't running)",
+             "catch": "Needs the catch code (the parked catch robot)", "sim": "The sim only",
+             "collision": "Needs Nav2's collision monitor"}
+
+
+def unavailable(rows: list | None, caps: dict, features) -> dict:
+    """{feature id: why} for every feature that can't start now: a cap it needs is down, or a failing check refuses
+    it. The robot's own answer to "what works": the page greys these with the reason, gate() refuses them."""
+    out = {}
+    for f in features:
+        why = [NEED_TEXT.get(n, f"Needs {n}") for n in f.get("needs", ()) if not caps.get(n)]
+        why += [f"{r['label']}: {r['detail']}" for r in blocking(rows, f)]
+        if why:
+            out[f["id"]] = "; ".join(why)
+    return out
 
 
 # -- bring-up (design.md 8): guided, attended checks, in the order the build meets them ---------------------------------
-def _c(id_, step, title, why, pre, steps, expect, measure=(), watch=(), actions=(), sim=True):
+def _c(id_, step, title, why, pre, steps, expect, measure=(), watch=(), actions=(), sim=True, auto=None):
+    """auto: the robot runs this check by itself ("lidar": camera_snap's self-test at boot); the page shows its last
+    result and a button to run it again."""
     return dict(id=id_, step=step, title=title, why=why, pre=list(pre), steps=list(steps), expect=expect,
                 measure=[dict(key=k, label=lbl, unit=u) for k, lbl, u in measure], watch=list(watch),
-                actions=[dict(label=lbl, verb=v, args=a) for lbl, v, a in actions], sim=sim)
+                actions=[dict(label=lbl, verb=v, args=a) for lbl, v, a in actions], sim=sim, auto=auto)
 
 
 BRINGUP = (
@@ -295,6 +405,14 @@ BRINGUP = (
        [("line_err_pct", "distance error", "%"), ("spin_err_deg", "heading error", "°")],
        ["pose.x", "pose.y", "pose.yaw"],
        [("Straight line", "calib_start", {"proc": "odom_line"}), ("Spin", "calib_start", {"proc": "odom_spin"})]),
+    _c("lidar_self", "5 Navigation", "Lidar self-test (automatic)",
+       "The robot checks its lidar at every boot (camera_snap, its own service): it opens the serial port, reads the "
+       "model and health, spins it, counts a few turns and stops it again. The preflight's lidar row uses the result "
+       "whenever no ROS scan comes, so the console says whether the lidar or its driver is missing.",
+       [], ["Nothing to do: it ran at boot. Press Test again after replugging or moving the lidar (it spins for a few "
+            "seconds; not while the ROS lidar driver has the port)."],
+       "Passed: the model, health 'good', ~10 turns/s (A2M12; the bench A2M8 ~12 at PWM 660) and a full turn of samples.",
+       [], ["lidar_test.ok", "lidar_test.hz", "lidar_test.samples"], [], sim=False, auto="lidar"),
     _c("lidar_frame", "5 Navigation", "Lidar and frames",
        "The scan lines up with the walls as the robot turns (laser frame, mounting yaw).",
        ["A room with straight walls", "SLAM running (Map)"],

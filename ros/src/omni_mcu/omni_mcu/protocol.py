@@ -27,10 +27,13 @@ from omni_mcu.clock_sync import ClockSync
 MSG_CMD, MSG_STATE, MSG_IMU, MSG_INFO, MSG_TIME = 0x01, 0x81, 0x82, 0x83, 0x84
 TE_SYNC, TE_CAM_TRIGGER, TE_CAM_STROBE = 1, 2, 3
 TIME_KINDS = {TE_SYNC: "sync", TE_CAM_TRIGGER: "cam_trigger", TE_CAM_STROBE: "cam_strobe"}
-PROTOCOL_VERSION = 6           # protocol.h PROTOCOL_VERSION: bump both with any body change
+PROTOCOL_VERSION = 9           # protocol.h PROTOCOL_VERSION: bump both with any body change
+DM_NO_REPLY = 0xFF             # protocol 8: State.dm_err for a motor that isn't answering (protocol.h)
 REQ_DISARM, REQ_AUTO = 0, 1
 PROFILE_ADULT, PROFILE_KID = 0, 1
 DRIVE_IDLE, DRIVE_VEL_BODY, DRIVE_GOTO = 0, 1, 2
+DRIVE_WHEELS = 4               # protocol 7: a, b, c, v_end = each wheel's speed, rad/s (the motor test);
+                               # protocol 9: a_brake = their ramp, rad/s^2 (0 = the firmware's default)
 CMD_HOLD_YAW = 1
 MODES = {0: "BOOT", 1: "DISARMED", 2: "AUTO", 3: "MANUAL", 4: "ESTOP"}
 FAULTS = {1: "LINK_LOST", 2: "ESTOP", 4: "BUMPER", 8: "MOTOR_ERR", 16: "MOTOR_SILENT", 32: "LOW_BATT",
@@ -38,11 +41,11 @@ FAULTS = {1: "LINK_LOST", 2: "ESTOP", 4: "BUMPER", 8: "MOTOR_ERR", 16: "MOTOR_SI
 FEED_STATES = {0: "IDLE", 1: "SEAT", 2: "RUN", 3: "DONE"}
 
 CMD_FMT = struct.Struct("<Q4B6fQ3fQ2fHH")
-STATE_FMT = struct.Struct("<3Q4BH4B9f3f2f3f2B2HfHH3H")
+STATE_FMT = struct.Struct("<3Q4BH4B9f3f2f3f2B2HfHH3H4f4f4f")
 IMU_FMT = struct.Struct("<Q4f3f3f")
 INFO_FMT = struct.Struct("<QH12s2B8h4B4B")
 TIME_FMT = struct.Struct("<QB3xII")
-assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size, INFO_FMT.size, TIME_FMT.size) == (76, 122, 48, 48, 20), \
+assert (CMD_FMT.size, STATE_FMT.size, IMU_FMT.size, INFO_FMT.size, TIME_FMT.size) == (76, 170, 48, 48, 20), \
     "protocol.h changed"
 
 
@@ -163,12 +166,16 @@ class State:
     cmd_rejected: int = 0         # protocol 6: CMDs the MCU dropped (version, non-finite, out of range)
     tick_late: int = 0            # protocol 6: MCU ticks more than 1.5 ms late (count)
     tick_max_us: int = 0          # protocol 6: the longest gap between MCU ticks since the last STATE
+    wheel_cmd: tuple = (0.0, 0.0, 0.0, 0.0)    # protocol 7: each wheel's commanded speed, rad/s
+    wheel_vel: tuple = (0.0, 0.0, 0.0, 0.0)    # protocol 7: each wheel's measured speed (motor feedback), rad/s
+    wheel_cur: tuple = (0.0, 0.0, 0.0, 0.0)    # protocol 9: each wheel motor's current (its feedback), A
     t_host: float = math.nan      # filled by HostLink: t_mcu_us on the host's clock (s)
 
     @classmethod
     def unpack(cls, body: bytes) -> "State":
         v = STATE_FMT.unpack(body)
-        return cls(*v[:8], tuple(v[8:12]), *v[12:24], tuple(v[24:26]), *v[26:])
+        return cls(*v[:8], tuple(v[8:12]), *v[12:24], tuple(v[24:26]), *v[26:39], tuple(v[39:43]), tuple(v[43:47]),
+                   tuple(v[47:51]))
 
     @property
     def ball_held(self) -> bool:

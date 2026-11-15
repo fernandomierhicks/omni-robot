@@ -56,6 +56,12 @@ calibration error as a slowly varying bias: design.md next steps); the bar's sti
 
 ## Detection on the robot
 
-`detect.py` (OpenCV: `findChessboardCornersSB`, the aruco module's AprilTag 36h11 with apriltag corner refinement).
+`detect.py`: checkerboards with OpenCV's `findChessboardCornersSB`; AprilTags with the C apriltag library
+(`pupil_apriltags`, since Nov 12; the `tag_detector` node uses it at decimate 2), else OpenCV's aruco module with
+apriltag corner refinement. Corners are apriltag's order, counter-clockwise from the bottom left of the **official**
+tag images. OpenCV's AprilTag dictionaries are those tags turned 180°, so its raw corners are reordered
+(`OPENCV_TO_APRILTAG`; before Nov 12 the reorder was right only for OpenCV's own marker images, and on a printed
+official tag the pose was rolled 180° about the normal). Print tags from the official images (AprilRobotics
+`apriltag-imgs`), not from OpenCV's `generateImageMarker`; `test/test_detect.py` checks both backends.
 Record sessions as rosbags of `/cam/*/image_raw`, `/imu`, `/scan`, `/odom`, `/mcu/time_ref`; a calibration script
 reads the bag, detects, and calls the solver; the store keeps the result with its metrics.

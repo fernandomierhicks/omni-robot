@@ -9,11 +9,18 @@ from dataclasses import dataclass
 
 VERSION = "0.4.0"                 # the console protocol: the page warns when it differs from the robot's
 MISSIONS = ("IDLE", "MANUAL", "GOTO", "EXPLORE", "PATROL", "CATCH", "THROWER", "FOLLOW", "PROGRAM", "CALIBRATE",
-            "TIDY", "FETCH", "MESSAGE", "TOWER", "DANCE", "GOALIE")
+            "TIDY", "FETCH", "MESSAGE", "TOWER", "DANCE", "GOALIE", "MOTORS")
 MODE_OF = {"IDLE": "IDLE", "MANUAL": "TELEOP", "GOTO": "TELEOP", "EXPLORE": "TELEOP", "PATROL": "TELEOP",
            "CATCH": "CATCH", "THROWER": "THROWER", "FOLLOW": "TELEOP", "PROGRAM": "TELEOP",
            "CALIBRATE": "TELEOP", "TIDY": "PICK", "FETCH": "PICK", "MESSAGE": "TELEOP", "TOWER": "PICK",
-           "DANCE": "TELEOP", "GOALIE": "TELEOP"}            # mission -> mode_manager mode (FETCH switches as it goes)
+           "DANCE": "TELEOP", "GOALIE": "TELEOP", "MOTORS": "WHEELS"}   # mission -> mode_manager mode (FETCH switches)
+N_WHEELS = 4                       # the drive motors, in the firmware's order (fw_params DM_IDS: CAN ids 1-4)
+WHEEL_TEST_MAX = 37.2              # rad/s: the motor's own limit, the firmware's motor-test cap (firmware.h WHEEL_TEST_MAX
+                                   # = fw_params_arm.h MAX_WHEEL_SPEED: 0.95 x the arm robot's AK40-10 no-load speed at
+                                   # 24 V, measured Nov 13: 355 rpm; it was 44.9, its ERPM limit, from the maker's chart)
+WHEEL_TEST_ACCEL = 20.0            # rad/s^2: the firmware's default motor-test ramp (firmware.h WHEEL_TEST_ACCEL) ...
+WHEEL_TEST_ACCEL_MAX = 2000.0      # ... and the most it takes (protocol 9, CMD a_brake: WHEEL_TEST_ACCEL_MAX)
+WHEEL_PROFILE_MAX_S = 60.0         # s: the longest motor-test profile (motors_run)
 ARM_POSES = ("stow", "ready", "high", "drop", "look")   # look: the wrist camera ahead, 24 deg up (omni_arm pick.py)
 ARM_JOG_MAX = 30.0                 # deg: one jog of one joint (omni_arm's motion.JOG_MAX)
 ARM_STALE = 2.0                    # s without /arm/state: the arm node isn't running
@@ -34,13 +41,14 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
          "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames",
          "preflight", "tests", "test_record", "activity", "fetch", "message", "tower", "dance", "goalie", "clip",
-         "ai_mission")
+         "ai_mission", "motors", "motors_run")
 CLIP_NAME = re.compile(r"^clip-[0-9]{10,16}\.wav$")   # the supervisor's /api/clip names
 AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames", "ai_mission")   # the AI client's own
 AI_MISSIONS = ("fetch", "message", "tower", "dance", "goalie")    # what ai_mission starts (console_fun.py), as a task
 # what a person's command (the page, the voice) takes the robot back from the AI with
 HUMAN_VERBS = ("stop", "mission", "goto", "cancel", "explore", "patrol", "thrower", "fire", "follow", "program_run",
-               "calib_start", "tidy", "arm", "slam_new", "slam_load", "fetch", "message", "tower", "dance", "goalie")
+               "calib_start", "tidy", "arm", "slam_new", "slam_load", "fetch", "message", "tower", "dance", "goalie",
+               "motors", "motors_run")
 HUMAN_HOLD = 10.0                  # s after a person takes over that the AI may not start motion
 # the firmware's profile limits, fw_params_arm.h ADULT_LIMITS / KID_LIMITS: m/s, yaw rad/s, yaw rad/s^2
 FW_LIMITS = {"adult": (2.0, 4.0, 15.0), "kid": (0.8, 2.0, 7.5)}
@@ -64,79 +72,97 @@ TRICKS = ("sing", "hum", "whistle", "dance", "giggle", "smile", "wink", "love", 
 
 
 # -- features: what the robot offers, for the page's workspaces (the page draws what the robot lists) ----------------
-# The page groups features into workspaces: home (tasks), drive, map, payload (the fitted payload's: arm or catch),
-# see, test and robot (the menu). needs: caps that must be up (summary()["caps"]: nav, arm, catch, collision, sim);
-# a feature that isn't available is shown greyed with the reason, or hidden if optional (the parked catch robot,
-# the sim's tools). card: a Home card's text (a task anyone can start); start: the verb its card's button sends
-# (None: it opens its page instead). moves: it drives the base or the arm (the preflight's motion failures refuse it).
+# The page groups features into workspaces: home (the modes: driving by hand and every task), map, payload (the fitted
+# payload's: arm or catch), see, test and robot (the menu). needs: caps that must be up (summary()["caps"]: nav, arm,
+# catch, collision, sim); a feature that isn't available (a cap down, or a failing preflight check: checks.unavailable,
+# the status's "avail") is shown greyed with the reason, or hidden if optional (the parked catch robot, the sim's
+# tools). card: a Home card's text (a task anyone can start); start: the verb its card's button sends (None: it opens
+# its page instead; open: it sends it and opens the page). moves: it drives the base or the arm by itself (the
+# preflight's motion failures refuse it). base: it drives the base, by hand too (missing drive motors refuse it;
+# base and moves: the base drives itself, which a silent IMU refuses).
 # A feature the page has no page for gets a generic one: its card text, its settings (Setting.tabs) and its start.
-WORKSPACES = (("home", "Home"), ("drive", "Drive"), ("map", "Map"), ("payload", "Payload"), ("see", "See"),
-              ("test", "Test"), ("robot", "Robot"))
+# server: it works without the robot's software (the page server's own tools: the supervisor, camera_snap); every
+# other page offers to start the software until it answers. The supervisor serves this list too (GET /api/features),
+# so the page shows every page before the robot's software runs.
+WORKSPACES = (("home", "Home"), ("map", "Map"), ("payload", "Payload"), ("see", "See"), ("test", "Test"),
+              ("robot", "Robot"))
 
 
-def _feature(id_, label, group, needs=(), optional=False, mission=None, card="", start=None, moves=False, hint=""):
+def _feature(id_, label, group, needs=(), optional=False, mission=None, card="", start=None, moves=False, hint="",
+             server=False, base=False):
     return dict(id=id_, label=label, group=group, needs=list(needs), optional=optional, mission=mission, card=card,
-                start=start, moves=moves, hint=hint)
+                start=start, moves=moves, hint=hint, server=server, base=base)
 
 
 FEATURES = (
-    _feature("home", "Overview", "home"),
-    _feature("tidy", "Tidy", "home", ("arm",), mission="TIDY", moves=True,
+    _feature("home", "Overview", "home", server=True),
+    _feature("manual", "Drive", "home", mission="MANUAL", base=True,
+             card="Drive it yourself: gamepad, keyboard or the pads on the screen.",
+             start=dict(verb="mission", args=dict(name="MANUAL"), open=True)),
+    _feature("tidy", "Tidy", "home", ("arm",), mission="TIDY", moves=True, base=True,
              card="Picks up small things from the floor and drops them in its bin.", start=dict(verb="tidy")),
-    _feature("follow", "Follow", "home", mission="FOLLOW", moves=True,
+    _feature("follow", "Follow", "home", mission="FOLLOW", moves=True, base=True,
              card="Follows the nearest person, or plays tag at kid speed.",
              start=dict(verb="follow", args=dict(mode="follow"))),
-    _feature("fetch", "Fetch", "home", ("arm",), mission="FETCH", moves=True,
+    _feature("fetch", "Fetch", "home", ("arm",), mission="FETCH", moves=True, base=True,
              card="\"Bring me the red block\": finds it, picks it up and brings it to you."),
-    _feature("tower", "Block tower", "home", ("arm",), mission="TOWER", moves=True,
+    _feature("tower", "Block tower", "home", ("arm",), mission="TOWER", moves=True, base=True,
              card="Stacks the blocks it finds on the floor into a tower.", start=dict(verb="tower")),
-    _feature("message", "Messenger", "home", ("nav",), mission="MESSAGE", moves=True,
+    _feature("message", "Messenger", "home", ("nav",), mission="MESSAGE", moves=True, base=True,
              card="Goes room to room until it finds someone, then tells them your message."),
-    _feature("dance", "Dance party", "home", mission="DANCE", moves=True,
+    _feature("dance", "Dance party", "home", mission="DANCE", moves=True, base=True,
              card="Slides, spins and shimmies on the beat, and sings along.", start=dict(verb="dance")),
-    _feature("goalie", "Goalie", "home", mission="GOALIE", moves=True,
+    _feature("goalie", "Goalie", "home", mission="GOALIE", moves=True, base=True,
              card="Roll a ball at it: it slides sideways to block, and keeps score.", start=dict(verb="goalie")),
-    _feature("program", "Program", "home", mission="PROGRAM", moves=True,
+    _feature("program", "Program", "home", mission="PROGRAM", moves=True, base=True,
              card="Line up moves (forward, turn, spin, wait, go to a place) and press Run."),
-    _feature("manual", "Drive", "drive", mission="MANUAL", card="Gamepad, keyboard or the pads on the screen.",
-             start=dict(verb="mission", args=dict(name="MANUAL"))),
-    _feature("call", "Call", "drive", hint="Telepresence: the camera big, drive and talk through the robot"),
-    _feature("goto", "Go To", "map", ("nav",), mission="GOTO", moves=True, card="Click on the map, or pick a saved place."),
-    _feature("patrol", "Patrol", "map", ("nav",), mission="PATROL", moves=True,
+    _feature("call", "Call", "home", card="Telepresence: its camera big, drive it and talk through the robot.",
+             hint="Telepresence: the camera big, drive and talk through the robot"),
+    _feature("goto", "Go To", "map", ("nav",), mission="GOTO", moves=True, base=True,
+             card="Click on the map, or pick a saved place."),
+    _feature("patrol", "Patrol", "map", ("nav",), mission="PATROL", moves=True, base=True,
              card="Drives a saved route, once or in a loop."),
-    _feature("explore", "Explore", "map", ("nav",), mission="EXPLORE", moves=True,
+    _feature("explore", "Explore", "map", ("nav",), mission="EXPLORE", moves=True, base=True,
              card="Maps the house by itself, room by room.", start=dict(verb="explore", args=dict(new_map=False))),
     _feature("slam", "SLAM", "map", hint="New map, save, load, where the robot is"),
     _feature("mapedit", "Map edit", "map", hint="Places, routes, rooms, no-go zones, edges"),
     _feature("arm", "Arm", "payload", ("arm",), hint="Joints, poses, gripper, wrist camera"),
-    _feature("catch", "Catch", "payload", ("catch",), optional=True, mission="CATCH", moves=True,
+    _feature("catch", "Catch", "payload", ("catch",), optional=True, mission="CATCH", moves=True, base=True,
              card="Throw the ball to the robot: it catches it and throws it back (parked catch robot).",
              start=dict(verb="mission", args=dict(name="CATCH"))),
     _feature("thrower", "Thrower", "payload", ("catch",), optional=True, mission="THROWER", moves=True,
              hint="Flywheels, tilt and one ball, with the base parked"),
-    _feature("cameras", "Cameras", "see"),
+    _feature("cameras", "Cameras", "see", server=True),
     _feature("vision", "Vision", "see"),
     _feature("preflight", "Preflight", "test", hint="Automatic checks, nothing moves"),
     _feature("bringup", "Bring-up", "test", hint="Guided checks on the real robot (design.md 8)"),
-    _feature("calibrate", "Calibrate", "test", mission="CALIBRATE", moves=True),
+    _feature("calibrate", "Calibrate", "test", mission="CALIBRATE", moves=True, base=True),
     _feature("base", "Base", "test", hint="The MCU's 200 Hz samples"),
+    # a bench test a person runs and judges (wheels up): not "moves", so only what makes it impossible refuses it
+    # (checks.BENCH: no MCU, other firmware, the e-stop), not a fault stop, a low pack, the IMU or a missing motor
+    _feature("motors", "Motors", "test", mission="MOTORS",
+             hint="Drive each wheel motor by itself, with the wheels off the ground"),
+    _feature("lidar", "Lidar", "test", hint="The lidar from its serial port: model, health, scan modes, live turns",
+             server=True),
     _feature("faults", "Faults", "test", ("sim",), optional=True, hint="Break the sim robot on purpose"),
     _feature("face", "Face", "robot"),
     _feature("health", "Health", "robot"),
-    _feature("logbook", "Logbook", "robot"),
+    _feature("logbook", "Logbook", "robot", server=True),
     _feature("rc", "RC", "robot"),
     _feature("settings", "Settings", "robot", hint="Every console setting and the robot nodes' ROS parameters"),
-    _feature("system", "System", "robot"),
-    _feature("version", "Version", "robot"),
-    _feature("ros", "ROS", "robot"),
+    _feature("system", "System", "robot", server=True),
+    _feature("version", "Version", "robot", server=True),
+    _feature("ros", "ROS", "robot", server=True),
 )
 FEATURE = {f["id"]: f for f in FEATURES}
 # the verbs that start a feature (the preflight's gate): verb -> feature; "mission" by its name
 VERB_FEATURE = {"tidy": "tidy", "pick": "tidy", "goto": "goto", "explore": "explore", "patrol": "patrol",
                 "follow": "follow", "program_run": "program", "move": "program", "calib_start": "calibrate",
                 "thrower": "thrower", "fire": "thrower", "fetch": "fetch", "message": "message", "tower": "tower",
-                "dance": "dance", "goalie": "goalie"}
-MISSION_FEATURE = {"CATCH": "catch", "THROWER": "thrower"}       # MANUAL is never refused: driving to the charger
+                "dance": "dance", "goalie": "goalie", "motors": "motors", "motors_run": "motors"}
+# MANUAL is refused only by what stops driving by hand (missing drive motors, no MCU, the e-stop): a low pack or a
+# fault stop leaves it, to drive to the charger (checks.FAULTS_BASE)
+MISSION_FEATURE = {"CATCH": "catch", "THROWER": "thrower", "MOTORS": "motors", "MANUAL": "manual"}
 
 
 @dataclass(frozen=True)
@@ -190,6 +216,16 @@ SETTINGS = (
     Setting("manual.obstacle_stop", ("manual",), "Obstacle slow-down", True,
             hint="Slows and stops before obstacles the lidar sees (Nav2's collision monitor). Only while navigation "
                  "runs; without it the stick drives straight into things."),
+    Setting("motors.max_speed", ("motors",), "Top wheel speed", WHEEL_TEST_MAX, "rad/s", 0.5, WHEEL_TEST_MAX, 0.5,
+            "Wheel speed at full stick (1 rad/s is about 10 rpm). The top is the firmware's cap, 0.95 of the motor's "
+            "own no-load speed (the arm robot's AK40-10: 37.2 rad/s, 355 rpm; it tops out at ~38.5 on 24 V); lower "
+            "it for gentler tests."),
+    Setting("motors.expo", ("motors",), "Stick softness", 0.3, "", 0.0, 1.0, 0.05,
+            "0 = linear. Higher makes small stick moves gentler; full stick is still the top speed."),
+    Setting("motors.ramp", ("motors",), "Ramp", WHEEL_TEST_ACCEL, "rad/s²", 5.0, WHEEL_TEST_ACCEL_MAX, 5.0,
+            "How fast the firmware changes each wheel's speed, for the stick and the profiles. 20 rad/s² is gentle "
+            "(rest to full speed in ~2 s); 2000 is a step for a bare wheel (its motor's current limit sets the real "
+            "rate). Letting go, STOP or leaving the test always ramps to rest at 20."),
     Setting("goto.speed", ("goto",), "Speed", 2.0, "m/s", 0.1, 2.0, 0.05,
             "Nav2's top speed between goals: 2 m/s is the firmware's limit (the kid profile caps it at 0.8). It slows "
             "down for the goal by itself."),

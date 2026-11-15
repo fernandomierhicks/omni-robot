@@ -5,13 +5,13 @@
 
 namespace omni {
 
-const char* const ROBOT_MODES[5] = {"IDLE", "TELEOP", "CATCH", "THROWER", "PICK"};
+const char* const ROBOT_MODES[6] = {"IDLE", "TELEOP", "CATCH", "THROWER", "PICK", "WHEELS"};
 
 bool ModeMux::set_mode(std::string m, std::optional<bool> k, std::string& message) {
     std::transform(m.begin(), m.end(), m.begin(), [](unsigned char c) { return (char)std::toupper(c); });
     if (std::find_if(std::begin(ROBOT_MODES), std::end(ROBOT_MODES), [&](const char* x) { return m == x; }) ==
         std::end(ROBOT_MODES)) {
-        message = "unknown mode '" + m + "' (one of IDLE, TELEOP, CATCH, THROWER, PICK)";
+        message = "unknown mode '" + m + "' (one of IDLE, TELEOP, CATCH, THROWER, PICK, WHEELS)";
         return false;
     }
     mode = m;
@@ -41,8 +41,8 @@ Request ModeMux::request(const CatchCommand& c) {
     return cap(r);
 }
 
-Request ModeMux::request(const Twist2* twist, const Request* thrower, const Twist2* pick) {
-    return cap(request_(twist, thrower, pick));
+Request ModeMux::request(const Twist2* twist, const Request* thrower, const Twist2* pick, const Request* wheels) {
+    return cap(request_(twist, thrower, pick, wheels));
 }
 
 Request ModeMux::cap(Request r) const {
@@ -53,7 +53,7 @@ Request ModeMux::cap(Request r) const {
     return r;
 }
 
-Request ModeMux::request_(const Twist2* twist, const Request* thrower, const Twist2* pick) {
+Request ModeMux::request_(const Twist2* twist, const Request* thrower, const Twist2* pick, const Request* wheels) {
     Request r;
     r.kid = kid;
     r.fire_seq = fire_out;
@@ -72,6 +72,11 @@ Request ModeMux::request_(const Twist2* twist, const Request* thrower, const Twi
         r.tilt = thrower->tilt;
         r.fly_rpm = thrower->fly_rpm;
         r.fire_seq = fire(thrower->fire_seq);
+    }
+    if (mode == "WHEELS" && wheels) {          // else the console went quiet: DRIVE_IDLE, the MCU ramps them to rest
+        r.drive_mode = fw::DRIVE_WHEELS;
+        r.a = wheels->a, r.b = wheels->b, r.c = wheels->c, r.v_end = wheels->v_end;
+        r.a_brake = wheels->a_brake;           // protocol 9: their ramp, rad/s^2 (0 = the firmware's default)
     }
     return r;                                  // CATCH without the behavior: a ramped stop
 }

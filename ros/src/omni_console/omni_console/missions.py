@@ -14,6 +14,9 @@ service.
   CALIBRATE  a guided calibration drive (calibration.py)                    TELEOP
   TIDY     the arm robot picks up small things and drops them in its bin    PICK
            (omni_arm's tidy task drives the base and the arm; design.md 11)
+  MOTORS   the motor test (wheels up): the stick drives the chosen wheels   WHEELS
+           each at its own speed (motors_output: /wheels/cmd), ramped at motors.ramp; motors_run plays a
+           timed profile on them instead (steps, a speed sweep, or the caller's segments: the wheel-load captures)
 A command returns effects (set_mode, nav_goal, nav_cancel, nav_limits, param, slam_start, slam_save, initial_pose,
 masks, arm: a request for omni_arm's arm_brain, face / face_hear: a line for omni_face to say, a typed voice command)
 that the node carries out; tick() advances Explore and Patrol, drive_output() gives the twist of the driving
@@ -67,6 +70,7 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     MISSIONS,
     MISSION_FEATURE,
     MODE_OF,
+    N_WHEELS,
     NAME,
     NAV_MISSIONS,
     NEW_MAP,
@@ -80,6 +84,10 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     VERB_FEATURE,
     VERBS,
     VERSION,
+    WHEEL_PROFILE_MAX_S,
+    WHEEL_TEST_ACCEL,
+    WHEEL_TEST_ACCEL_MAX,
+    WHEEL_TEST_MAX,
     WORKSPACES,
     ZERO_TAIL,
     _LAUNCH,
@@ -153,6 +161,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         self.explore = None                # dict: phase, start, t0, blacklist, info, t_plan, t_goal
         self.patrol = None                 # dict: route, points, i, step, lap, laps, dwell_until, fails
         self.thrower = dict(rpm=0.0, tilt=0.0, seq=0)
+        # the motor test: the wheels the stick drives (0-based, the firmware's order); a profile motors_run plays
+        self.motors = dict(wheels=[0], profile=None)
         self.manual_in = None              # (vx, vy, wz, boost) normalized to -1..1
         self.t_manual = -math.inf
         self.now = 0.0
@@ -247,9 +257,16 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         return Reply(r.ok, r.message, r.data, pre + r.effects) if pre else r
 
     # -- the preflight's gate (checks.py) --------------------------------------------------------------------------
+    def unavailable(self) -> dict:
+        """{feature id: why} for what can't start now (checks.unavailable: the caps and the preflight): the status's
+        "avail", what the page greys."""
+        from omni_console.checks import unavailable
+        return unavailable(self.preflight, dict(self.caps, arm=self._arm_up()), FEATURES)
+
     def gate(self, verb: str, a: dict) -> Reply | None:
-        """A start refused by a failing preflight check: the check's own words. Stop, cancel and the arm's hold and
-        torque-off are never refused; neither is driving by hand (MANUAL)."""
+        """A start refused by a failing preflight check (the check's own words) or a cap it needs being down. Stop,
+        cancel and the arm's hold and torque-off are never refused; driving by hand (MANUAL) only by what stops it
+        (missing drive motors, no MCU, the e-stop)."""
         from omni_console.checks import blocking
         if not self.preflight:
             return None
@@ -259,14 +276,17 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             fid = "arm" if str(a.get("do", "")) in ("pose", "gripper", "jog") else None
         else:
             fid = VERB_FEATURE.get(verb)
-        if fid is None:
+        if fid is None or fid not in FEATURE:
             return None
-        rows = blocking(self.preflight, fid, bool(FEATURE.get(fid, {}).get("moves")))
-        if not rows:
+        f = FEATURE[fid]
+        rows = blocking(self.preflight, f)
+        caps = dict(self.caps, arm=self._arm_up())
+        miss = [n for n in f["needs"] if not caps.get(n)]
+        if not rows and not miss:
             return None
-        why = "; ".join(f"{r['label']}: {r['detail']}" for r in rows)
-        return Reply(False, f"Preflight refuses {FEATURE[fid]['label']}: {why}",
-                     dict(error="fault", preflight=[r["id"] for r in rows]))
+        why = self.unavailable().get(fid, "")
+        return Reply(False, f"{'Preflight refuses' if rows else 'Not available:'} {f['label']}: {why}",
+                     dict(error="fault" if rows else "unavailable", preflight=[r["id"] for r in rows], needs=miss))
 
     # -- the activity history: what ran, who started it, how it ended --------------------------------------------
     def _act_open(self):
@@ -307,8 +327,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             who, text = "estop", "E-stop: motors off"
         elif self.rc_manual:
             who, text = "rc", "RC transmitter (MANUAL switch)"
-        elif self.manual_active(now):
-            who, text = "stick", "Stick / gamepad on the console"
+        elif self.manual_active(now) or self.motors_active(now):
+            who, text = "stick", "Stick / gamepad on the console" + (" (motor test)" if self.mission == "MOTORS" else "")
         elif t is not None:
             who, text = "ai", f"AI: {t.kind.replace('_', ' ')}"
         elif self.mission in NAV_MISSIONS:
@@ -421,6 +441,10 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                 return self._patrol(str(a["route"]))
             if verb == "thrower":
                 return self._thrower(a)
+            if verb == "motors":
+                return self._motors(a)
+            if verb == "motors_run":
+                return self._motors_run(a)
             if verb == "fire":
                 if self.mission != "THROWER":
                     return Reply(False, "Fire works in the Thrower tab's bench mode: press 'Take control' there")
@@ -618,8 +642,17 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                                 "(or 'Play catch' in the Launcher)")
         if name == "THROWER":
             self.thrower = dict(rpm=0.0, tilt=0.0, seq=0)
+        if name == "MOTORS":
+            self.manual_in = None
+            self.motors["profile"] = None
+            gone = self.wheels_missing()
+            have = [i for i in range(N_WHEELS) if i not in gone]
+            if not have:
+                return Reply(False, "No drive motor answers on CAN: nothing to test (motor power, the CAN cable)")
+            self.motors["wheels"] = [i for i in self.motors["wheels"] if i in have] or have[:1]
         text = {"IDLE": "Motors off", "MANUAL": "Driving by hand", "CATCH": "Playing catch",
-                "THROWER": "Thrower bench test: base parked"}[name]
+                "THROWER": "Thrower bench test: base parked",
+                "MOTORS": "Motor test: hold the dead man to turn the chosen wheels"}[name]
         return self._enter(name, text, "info")
 
     def _nav_goal(self, x, y, yaw, name, speed, turn_deg) -> list:
@@ -702,6 +735,128 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         el = launch_angle - self.thrower["tilt"]
         return Reply(True, f"Flywheels {self.thrower['rpm']:.0f} rpm, tilt {self.thrower['tilt']:.0f} deg (launch "
                            f"{el:.0f} deg" + (f": too flat to fire, {lowest:g} deg at least)" if el < lowest else ")"))
+
+    def _motors(self, a: dict) -> Reply:
+        """Which wheels the motor test's stick drives: wheels = a list of 0-based indices (the firmware's order)."""
+        if self.mission != "MOTORS":
+            return Reply(False, "Press 'Take control' in the Motors tab first")
+        try:
+            sel = sorted({int(i) for i in a.get("wheels", [])})
+        except (TypeError, ValueError):
+            return Reply(False, "wheels: a list of wheel numbers")
+        if not sel or any(not 0 <= i < N_WHEELS for i in sel):
+            return Reply(False, f"Pick one or more wheels, 1 to {N_WHEELS}")
+        gone = [i for i in sel if i in self.wheels_missing()]
+        if gone:                               # the firmware would fault-stop on turning it
+            return Reply(False, f"Wheel {', '.join(str(i + 1) for i in gone)} isn't answering on CAN: nothing to test")
+        self.motors["wheels"] = sel
+        return Reply(True, "Stick drives wheel" + ("s " if len(sel) > 1 else " ") + ", ".join(str(i + 1) for i in sel))
+
+    def _motors_run(self, a: dict) -> Reply:
+        """A timed profile on the chosen wheels (wheels up), for seeing how a motor and its wheel speed up and slow down
+        (protocol 9: the firmware ramps at the asked rate, STATE carries each motor's current). preset "steps": rest,
+        +speed, rest, -speed, +speed (a reversal), rest, each held `hold` s; "sweep": steady speeds up to `speed` and
+        back, both ways (friction against speed). Or segments = [[rad/s, rad/s^2, hold s], ...]: ramp to the speed at
+        that rate, then hold. speed / ramp default to the settings motors.max_speed / motors.ramp. stop = true ends it
+        (the wheels ramp to rest at the default rate). Holding the stick's dead man takes over from a profile."""
+        if self.mission != "MOTORS":
+            return Reply(False, "Press 'Take control' in the Motors tab first")
+        if a.get("stop"):
+            was = self.motors.get("profile")
+            self.motors["profile"] = None
+            return Reply(True, f"Profile '{was['name']}' stopped: the wheels ramp to rest" if was else "No profile running")
+        try:
+            speed = min(abs(float(a.get("speed", self.values["motors.max_speed"]))), WHEEL_TEST_MAX)
+            ramp = float(a.get("ramp", self.values["motors.ramp"]))
+            hold = float(a.get("hold", 1.0))
+            if not (WHEEL_TEST_ACCEL / 4 <= ramp <= WHEEL_TEST_ACCEL_MAX and 0.1 <= hold <= 10.0 and speed > 0.1):
+                raise ValueError
+        except (TypeError, ValueError):
+            return Reply(False, f"speed 0.1 to {WHEEL_TEST_MAX:g} rad/s, ramp {WHEEL_TEST_ACCEL / 4:g} to "
+                                f"{WHEEL_TEST_ACCEL_MAX:g} rad/s², hold 0.1 to 10 s")
+        preset = str(a.get("preset", "steps" if "segments" not in a else "custom"))
+        if preset == "steps":
+            segs = [(0.0, ramp, 0.5), (speed, ramp, hold), (0.0, ramp, hold), (-speed, ramp, hold), (speed, ramp, hold),
+                    (0.0, ramp, hold)]
+        elif preset == "sweep":
+            levels = [v for v in (2.5, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0) if v < speed - 0.5] + [speed]
+            r = min(ramp, 200.0)                                   # steady speeds: how it gets there doesn't matter
+            segs = [(s * v, r, 1.5) for s in (1.0, -1.0) for v in levels + levels[-2::-1]] + [(0.0, r, 0.5)]
+        elif preset == "custom":
+            try:
+                segs = [(float(w), float(r), float(h)) for w, r, h in a["segments"]]
+            except (KeyError, TypeError, ValueError):
+                return Reply(False, "segments: a list of [rad/s, rad/s², hold s]")
+            bad = [s for s in segs if not (abs(s[0]) <= WHEEL_TEST_MAX + 1e-6 and
+                                           WHEEL_TEST_ACCEL / 4 <= s[1] <= WHEEL_TEST_ACCEL_MAX and 0.0 <= s[2] <= 10.0)]
+            if not segs or len(segs) > 40 or bad:
+                return Reply(False, f"1 to 40 segments, each |speed| ≤ {WHEEL_TEST_MAX:g} rad/s, ramp "
+                                    f"{WHEEL_TEST_ACCEL / 4:g}-{WHEEL_TEST_ACCEL_MAX:g} rad/s², hold 0-10 s")
+        else:
+            return Reply(False, "preset: steps or sweep (or give segments)")
+        # each segment lasts its ramp (from the speed before) plus its hold
+        plan, w0, t = [], 0.0, 0.0
+        for w, r, h in segs:
+            t += abs(w - w0) / r + h
+            plan.append((t, w, r))
+            w0 = w
+        if t > WHEEL_PROFILE_MAX_S:
+            return Reply(False, f"That profile lasts {t:.0f} s: {WHEEL_PROFILE_MAX_S:g} s at most")
+        self.manual_in = None
+        self.motors["profile"] = dict(name=preset, plan=plan, total=t, t0=None, t=0.0)
+        wh = ", ".join(str(i + 1) for i in self.motors["wheels"])
+        self.event("info", f"Motor test: profile '{preset}' on wheel {wh}, {t:.1f} s")
+        return Reply(True, f"Profile '{preset}' on wheel {wh}: {len(plan)} segments, {t:.1f} s",
+                     dict(total=round(t, 3), segments=[[w, r, round(te, 3)] for te, w, r in plan]))
+
+    def _profile_now(self, now: float):
+        """(speed, ramp) of the running profile now, or None once it's over."""
+        p = self.motors.get("profile")
+        if p is None:
+            return None
+        if p["t0"] is None:
+            p["t0"] = now
+        p["t"] = now - p["t0"]
+        for t_end, w, r in p["plan"]:
+            if p["t"] < t_end:
+                return w, r
+        self.motors["profile"] = None
+        self.event("info", f"Motor test: profile '{p['name']}' done")
+        return None
+
+    def motors_ramp(self) -> float:
+        """The ramp the motor test asks the firmware for now (rad/s^2: /wheels/cmd a_brake, protocol 9)."""
+        p = self.motors.get("profile")
+        if p is not None and p["t0"] is not None:
+            for t_end, _, r in p["plan"]:
+                if p["t"] < t_end:
+                    return r
+        return float(self.values["motors.ramp"])
+
+    def motors_output(self, now: float):
+        """The motor test's wheel speeds this tick (rad/s, the firmware's wheel order), or None (send nothing): a
+        running profile (motors_run) on the chosen wheels, else the stick's forward axis on them while the dead man is
+        held, zeros for ZERO_TAIL after it is let go. Holding the dead man ends a profile."""
+        if self.mission != "MOTORS":
+            return None
+        if self.motors.get("profile") is not None:
+            if self.motors_active(now):
+                self.motors["profile"] = None
+                self.event("info", "Motor test: the stick took over from the profile")
+            else:
+                wr = self._profile_now(now)
+                w = 0.0 if wr is None else wr[0]
+                return [w if i in self.motors["wheels"] else 0.0 for i in range(N_WHEELS)]
+        if self.manual_in is None:
+            return None
+        age = now - self.t_manual
+        if age > MANUAL_TIMEOUT + ZERO_TAIL:
+            self.manual_in = None
+            return None
+        if age > MANUAL_TIMEOUT:
+            return [0.0] * N_WHEELS
+        w = shape(self.manual_in[0], self.values["motors.expo"]) * self.values["motors.max_speed"]
+        return [w if i in self.motors["wheels"] else 0.0 for i in range(N_WHEELS)]
 
     def thrower_cmd(self):
         """(tilt rad, flywheel rpm, fire_seq) for /thrower/cmd while THROWER runs, else None."""
@@ -811,6 +966,11 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             return None
         dx, dy = f.target[0] - p[0], f.target[1] - p[1]
         return [round(math.hypot(dx, dy), 2), round(math.atan2(dy, dx) - p[2], 3)]
+
+    def wheels_missing(self) -> list:
+        """The wheels (0-based) whose motor isn't answering on CAN (STATE dm_err DM_NO_REPLY, protocol 8)."""
+        from omni_console.checks import DM_NO_REPLY
+        return [i for i, e in enumerate((self.mcu or {}).get("dm_err") or []) if e == DM_NO_REPLY]
 
     def on_mcu(self, mcu: dict | None):
         """The MCU's summary (status.mcu_summary), from the node at 20 Hz. A fault that appears is said once, with its
@@ -1078,12 +1238,12 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         if self.values["profile.kid"] != kid:
             self.values["profile.kid"] = kid
             self.settings_changed = True
-        adopt = {"CATCH": "CATCH", "TELEOP": "MANUAL", "THROWER": "THROWER", "PICK": "MANUAL"}
+        adopt = {"CATCH": "CATCH", "TELEOP": "MANUAL", "THROWER": "THROWER", "PICK": "MANUAL", "WHEELS": "MOTORS"}
         if not self.adopted:
             self.adopted = True
             self.mission = adopt.get(mode, "IDLE")
             self.task = {"CATCH": "Playing catch", "MANUAL": "Ready to drive", "IDLE": "Motors off",
-                         "THROWER": "Thrower bench test"}[self.mission]
+                         "THROWER": "Thrower bench test", "MOTORS": "Motor test"}[self.mission]
             self.event("info", f"Robot is in {mode} ({'kid' if kid else 'adult'} profile)")
             return ()
         if not self.mode_ok(self.mission, mode):
@@ -1193,8 +1353,9 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
 
     # -- the console's stick -----------------------------------------------------------------------------------
     def manual_input(self, vx: float, vy: float, wz: float, boost: bool, now: float):
-        """The page's stick, -1..1 per axis (vx forward, vy left, wz turn left), sent while the dead man is held."""
-        if self.mission != "MANUAL":
+        """The page's stick, -1..1 per axis (vx forward, vy left, wz turn left), sent while the dead man is held. In
+        the motor test (MOTORS) its forward axis drives the chosen wheels (motors_output)."""
+        if self.mission not in ("MANUAL", "MOTORS"):
             return
         c = lambda u: max(-1.0, min(1.0, float(u))) if math.isfinite(float(u)) else 0.0      # noqa: E731
         vx, vy, wz = c(vx), c(vy), c(wz)
@@ -1223,6 +1384,10 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
 
     def manual_active(self, now: float) -> bool:
         return self.mission == "MANUAL" and self.manual_in is not None and now - self.t_manual <= MANUAL_TIMEOUT
+
+    def motors_active(self, now: float) -> bool:
+        """The motor test's stick is held (its dead man) now."""
+        return self.mission == "MOTORS" and self.manual_in is not None and now - self.t_manual <= MANUAL_TIMEOUT
 
     # -- what the page shows ------------------------------------------------------------------------------------
     def schema(self) -> dict:
@@ -1254,6 +1419,13 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                                                        lap=p["lap"], laps=p["laps"]),
                     thrower=dict(self.thrower, fire_tilt_max=launch_limits()[0] - launch_limits()[1])
                     if self.mission == "THROWER" else None,
+                    motors=dict(wheels=list(self.motors["wheels"]), max_speed=self.values["motors.max_speed"],
+                                active=self.motors_active(self.now), missing=self.wheels_missing(),
+                                ramp=self.motors_ramp(),
+                                profile=None if self.motors.get("profile") is None else dict(
+                                    name=self.motors["profile"]["name"], t=round(self.motors["profile"]["t"], 2),
+                                    total=round(self.motors["profile"]["total"], 2)))
+                    if self.mission == "MOTORS" else None,
                     follow=None if self.follower is None else dict(
                         mode=self.follower.mode, phase=self.follower.phase, text=self.follower.text(),
                         tags=self.follower.tags, person=self._person_rel()),

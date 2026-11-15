@@ -56,8 +56,8 @@ def backend() -> str | None:
 
 
 class TagFinder:
-    """One detector (family, decimation): the C apriltag library when installed, else OpenCV's aruco (what
-    omni_calib.detect and today's tag_detector node use). Not re-entrant: a lock serialises callers."""
+    """One detector (family, decimation): the C apriltag library when installed, else OpenCV's aruco (as
+    omni_calib.detect, which the tag_detector node uses). Not re-entrant: a lock serialises callers."""
 
     def __init__(self, family: str = "tag25h9", decimate: float = 2.0, threads: int = 2, use: str | None = None):
         self.family, self.decimate, self.use = family, float(decimate), use or backend()
@@ -101,8 +101,9 @@ class TagFinder:
             corners, ids, _ = self.det(gray)
         if ids is None:
             return []
-        # OpenCV: clockwise from the top left; apriltag's (ours): counter-clockwise from the bottom left
-        return [Det(int(i), c.reshape(4, 2).astype(float)[[3, 2, 1, 0]], None) for c, i in zip(corners, ids.ravel())]
+        # OpenCV's AprilTag dictionaries are the official tags turned 180 deg: its raw corners on a real tag are
+        # [BR, BL, TL, TR]; apriltag's order (ours) is [BL, BR, TR, TL] (omni_calib.detect.OPENCV_TO_APRILTAG)
+        return [Det(int(i), c.reshape(4, 2).astype(float)[[1, 0, 3, 2]], None) for c, i in zip(corners, ids.ravel())]
 
 
 _finders: dict[tuple, TagFinder] = {}
@@ -128,12 +129,19 @@ def gray_of(img: np.ndarray) -> np.ndarray:
         return (img[..., :3] @ np.array([0.299, 0.587, 0.114], np.float32)).astype(np.uint8)
 
 
-def describe(det: Det, cam: Pinhole | None, size: float, gate: TagGate = TagGate()) -> dict:
+def describe(det: Det, cam: Pinhole | None, size: float, gate: TagGate = TagGate(),
+             shape: tuple[int, int] | None = None) -> dict:
     """One detection as JSON for the page: corners in 0..1 of the picture (so any display size can draw them) and,
     with a camera model, the pose omni_slam would compute: position (m, camera frame: x right, y down, z ahead),
-    range, the angle off the tag's normal, reprojection fit and the mirror solution's, and the gates' verdict."""
-    w = cam.width if cam else 1
-    h = cam.height if cam else 1
+    range, the angle off the tag's normal, reprojection fit and the mirror solution's, and the gates' verdict.
+    shape: the picture's (height, width), for a camera without a model (the webcam); until Nov 12 its corners went
+    out in pixels, so the page drew them off the canvas."""
+    if cam:
+        w, h = cam.width, cam.height
+    elif shape:
+        h, w = shape[0], shape[1]
+    else:
+        w = h = 1
     c = det.corners
     out = dict(id=det.tag_id, corners=[[round(x / w, 5), round(y / h, 5)] for x, y in c],
                margin=None if det.margin is None else round(det.margin, 1), hamming=det.hamming,
@@ -166,4 +174,4 @@ def find(img: np.ndarray, cam: Pinhole | None, family: str = "tag25h9", size: fl
     t0 = time.perf_counter()
     dets = f.detect(gray_of(img))
     ms = (time.perf_counter() - t0) * 1e3
-    return [describe(d, cam, size) for d in dets], ms
+    return [describe(d, cam, size, shape=img.shape[:2]) for d in dets], ms

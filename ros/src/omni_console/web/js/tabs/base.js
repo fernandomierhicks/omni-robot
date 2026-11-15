@@ -7,15 +7,17 @@ import { HelpBox } from "../ui.js";
 
 const RAD = 180 / Math.PI;
 
-// firmware/lib/omni_fw/dm_motor.h DmErr: the DM-2325's state byte
-const DM = {
+// firmware/lib/omni_fw/dm_motor.h DmErr: the DM-2325's state byte (the AK40-10's status errors map onto it)
+export const DM = {
   0: ["off", "Disabled (motors off: IDLE, or not yet enabled)"], 1: ["ok", "Enabled"],
   8: ["over-voltage", "Supply too high"], 9: ["under-voltage", "Battery too low under load"],
   10: ["over-current", "Drew too much current: stall or short"], 11: ["driver hot", "Its MOSFETs overheated"],
   12: ["coil hot", "Its winding overheated: let it cool"], 13: ["no link", "It lost the CAN messages"],
   14: ["overload", "Overloaded for too long"],
+  255: ["not answering", "No reply on CAN: not connected, unpowered, or another CAN id (protocol 8)"],
 };
-const DRIVE = ["idle", "velocity (driving)", "go-to (catch move)", "coast / brake after a catch"];
+export const NO_REPLY = 255;             // protocol.h DM_NO_REPLY
+const DRIVE = ["idle", "velocity (driving)", "go-to (catch move)", "coast / brake after a catch", "wheels (motor test)"];
 
 export function BaseTab() {
   const s = useStore("status");

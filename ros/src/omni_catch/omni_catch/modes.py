@@ -6,6 +6,8 @@
   THROWER   bench test of the module from the operator console: base parked, the console's tilt, flywheel rpm and
             fire requests (the firmware's interlocks still decide whether a ball goes)
   PICK      the arm robot's tidy task (omni_arm, design.md 11) drives the base: its twist, as TELEOP's
+  WHEELS    the motor test from the operator console (wheels up): each wheel's own speed (DRIVE_WHEELS); the console
+            quiet -> DRIVE_IDLE, and the MCU ramps every wheel to rest
 Arm out (design.md 11): while the arm robot's tool is outside the bumper or high (omni_arm says so), every request
 asks the MCU for at most arm_out_caps (speed m/s, acceleration m/s^2), whoever drives: a gentler base with the
 arm's weight out front. The caps come from the generated robot_arm.json's "arm_out" (omni_arm's ArmConfig.arm_out):
@@ -22,10 +24,10 @@ charge; a source that takes over is adopted without firing (a stale counter must
 
 from __future__ import annotations
 
-from omni_mcu.protocol import (DRIVE_GOTO, DRIVE_IDLE, DRIVE_VEL_BODY, REQ_AUTO, REQ_DISARM, Command, Request,
-                               TimeSync, to_command)
+from omni_mcu.protocol import (DRIVE_GOTO, DRIVE_IDLE, DRIVE_VEL_BODY, DRIVE_WHEELS, REQ_AUTO, REQ_DISARM, Command,
+                               Request, TimeSync, to_command)
 
-MODES = ("IDLE", "TELEOP", "CATCH", "THROWER", "PICK")
+MODES = ("IDLE", "TELEOP", "CATCH", "THROWER", "PICK", "WHEELS")
 
 
 class ModeMux:
@@ -55,18 +57,18 @@ class ModeMux:
             self.fire_out = (self.fire_out + 1) & 0xFFFF
         return self.fire_out
 
-    def request(self, catch=None, twist=None, thrower=None, pick=None) -> Request:
+    def request(self, catch=None, twist=None, thrower=None, pick=None, wheels=None) -> Request:
         """This cycle's request: catch = a game.CatchCommand, twist = (vx, vy, wz) body frame, fresh (TELEOP),
-        thrower = a Request with tilt, fly_rpm, fire_seq (THROWER), fresh, pick = the tidy task's twist (PICK), fresh.
-        With the arm out every request carries arm_out_caps."""
-        r = self._request(catch, twist, thrower, pick)
+        thrower = a Request with tilt, fly_rpm, fire_seq (THROWER), fresh, pick = the tidy task's twist (PICK), fresh,
+        wheels = the four wheels' rad/s (WHEELS), fresh. With the arm out every request carries arm_out_caps."""
+        r = self._request(catch, twist, thrower, pick, wheels)
         if self.arm_out and self.arm_out_caps:
             v, a = self.arm_out_caps
             r.speed_cap = min(r.speed_cap, v) if r.speed_cap > 0 else v
             r.a_cap = min(r.a_cap, a) if r.a_cap > 0 else a
         return r
 
-    def _request(self, catch, twist, thrower, pick) -> Request:
+    def _request(self, catch, twist, thrower, pick, wheels) -> Request:
         f = self.fire_out
         if self.mode == "IDLE":
             return Request(req_mode=REQ_DISARM, kid=self.kid, fire_seq=f)
@@ -83,6 +85,12 @@ class ModeMux:
             t = thrower
             return Request(req_mode=REQ_AUTO, kid=self.kid, drive_mode=DRIVE_IDLE, tilt=t.tilt, fly_rpm=t.fly_rpm,
                            fire_seq=self.fire(t.fire_seq))
+        if self.mode == "WHEELS":
+            if wheels is None:                           # the console went quiet: the MCU ramps the wheels to rest
+                return Request(req_mode=REQ_AUTO, kid=self.kid, drive_mode=DRIVE_IDLE, fire_seq=f)
+            w = wheels                                   # 4 speeds, + protocol 9's ramp (rad/s^2, 0 = default)
+            return Request(req_mode=REQ_AUTO, kid=self.kid, drive_mode=DRIVE_WHEELS, a=w[0], b=w[1], c=w[2],
+                           v_end=w[3], a_brake=w[4] if len(w) > 4 else 0.0, fire_seq=f)
         if catch is None:
             return Request(req_mode=REQ_AUTO, kid=self.kid, drive_mode=DRIVE_IDLE, fire_seq=f)
         c = catch
@@ -91,8 +99,8 @@ class ModeMux:
                        tilt=c.tilt, t_tilt=c.t_tilt, tilt_after=c.tilt_after, fly_rpm=c.fly_rpm,
                        fire_seq=self.fire(c.fire_seq))
 
-    def command(self, sync: TimeSync, catch=None, twist=None, thrower=None, pick=None) -> Command:
-        return to_command(self.request(catch, twist, thrower, pick), sync)
+    def command(self, sync: TimeSync, catch=None, twist=None, thrower=None, pick=None, wheels=None) -> Command:
+        return to_command(self.request(catch, twist, thrower, pick, wheels), sync)
 
 
 __all__ = ["DRIVE_GOTO", "MODES", "ModeMux", "Request", "to_command"]

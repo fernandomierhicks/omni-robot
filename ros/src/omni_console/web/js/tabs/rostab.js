@@ -76,7 +76,8 @@ export function RosTab() {
       </div>
     </div>
     <div class="row" style="margin: 6px 0"><input type="text" placeholder="Filter" value=${filter}
-      onInput=${(/** @type {any} */ e) => setFilter(e.currentTarget.value)} /><button class="btn small" onClick=${refresh}>Refresh</button></div>
+      onInput=${(/** @type {any} */ e) => setFilter(e.currentTarget.value)} /><button class="btn small" onClick=${refresh} disabled=${s.conn !== "open"}
+      title=${s.conn === "open" ? "" : "Needs the robot's software (rosbridge and rosapi)"}>Refresh</button></div>
     <div class="row" style="align-items: flex-start; gap: 10px">
       <div class="card grow" style="max-height: 60vh; overflow: auto">
         <h2>Topics (${topics.length})</h2>

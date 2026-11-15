@@ -13,6 +13,8 @@ HTTP (plain, on the robot's own address: the page's ws:// to rosbridge works in 
   GET  /, /js/..., ...       the page (web/)
   GET  /config.json          the ports the page connects to
   GET  /api/state            the steps, which one runs (or ran last, and how it ended), the robot computer
+  GET  /api/features         the robot's pages (console_defs.FEATURES, as /console/schema lists them), so the page
+                             shows them all before the robot's software runs
   GET  /api/log?n=200        the running (or last) step's log, the last n lines
   POST /api/start            {"step": "robot", "args": {"map": "house"}}
   POST /api/stop             {}
@@ -45,6 +47,11 @@ import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
+
+try:                                                      # plain Python (no ROS): the page lists every page from it
+    from omni_console.console_defs import FEATURES
+except ImportError:                                       # run outside the package: the page falls back to its own
+    FEATURES = ()
 
 ARG_VALUE = re.compile(r"^[A-Za-z0-9_.:/+-]{0,80}$")      # what a step argument may be (no shell is involved anyway)
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
@@ -336,6 +343,8 @@ class Supervisor:
                 self.log(f"{cur['step']} ended (exit {code})")
                 step = self.steps.get(cur["step"], {})
                 if step.get("keep_running") and not self.stopping:
+                    # it stopped by itself (a node died: hardware.launch.py ends the launch; ros2 launch says exit 0)
+                    cur["unexpected"] = True
                     now = time.time()
                     self.restarts = [t for t in self.restarts if now - t < 300] + [now]
                     if len(self.restarts) <= 3:
@@ -344,6 +353,10 @@ class Supervisor:
                             self.start(cur["step"], cur["args"])
                         except Exception as e:                 # noqa: BLE001  (logged, the page shows it)
                             self.log(f"restart failed: {e}")
+                    else:
+                        cur["gave_up"] = True
+                        self.log(f"{cur['step']} stopped by itself {len(self.restarts)} times in 5 minutes: left "
+                                 "stopped (its log says why; Start on the System page tries again)")
 
     def state(self) -> dict:
         with self.lock:
@@ -523,6 +536,8 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if u.path == "/api/state":
             return self._json(200, self.sup.state())
+        if u.path == "/api/features":
+            return self._json(200, dict(features=list(FEATURES))) if FEATURES else self._json(404, dict(features=[]))
         if u.path == "/api/mic":
             return self._mic(u)
         if self.tunnels and u.path == "/rosbridge":

@@ -84,7 +84,9 @@ export function StatusBar() {
               ${clock(last.t)} ${last.text}` : "No messages yet"}</span>
         </div>
       </div>
-      <button class="stop" onClick=${stop} title="Software stop: the robot ramps to a stop and disarms its motors (mode IDLE). The red button on the robot is the hardware e-stop (it cuts power).">
+      <button class="stop" onClick=${stop} disabled=${!st} title=${st
+        ? "Software stop: the robot ramps to a stop and disarms its motors (mode IDLE). The red button on the robot is the hardware e-stop (it cuts power)."
+        : "The robot's software isn't answering, so there is nothing to stop from here (its motors are off without it; the MCU stops by itself 0.5 s after its last command). The red button on the robot is the hardware e-stop."}>
         STOP<small>space bar</small></button>
     </div>`;
 }
@@ -104,7 +106,7 @@ function Drawer({ close }) {
 }
 
 /** @param {string} m */
-export const missionName = (m) => ({ GOTO: "GO TO", THROWER: "THROWER TEST" })[m] || m;
+export const missionName = (m) => ({ GOTO: "GO TO", THROWER: "THROWER TEST", MOTORS: "MOTOR TEST" })[m] || m;
 /** @param {string} m */
 const mcuClass = (m) => (m === "AUTO" ? "green" : m === "ESTOP" ? "red" : m === "MANUAL" ? "orange" : "");
 /** @param {string} l */

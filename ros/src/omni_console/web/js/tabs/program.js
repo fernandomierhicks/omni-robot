@@ -2,9 +2,10 @@
 /* Program: kids line up blocks (forward, turn, spin, wiggle, wait, go to a place, repeat) and press Run; the robot
    does them one by one (omni_console/program.py). Programs are saved on the robot. */
 import { html, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { MapView } from "../mapview.js";
 import { act, useStore } from "../ros.js";
-import { HelpBox, SettingsForm } from "../ui.js";
+import { Gate, HelpBox, SettingsForm } from "../ui.js";
 
 /** kind: [label, colour token, the block it adds] */
 const PALETTE = {
@@ -36,6 +37,7 @@ const colourOf = (b) => {
 export function ProgramTab() {
   const s = useStore("status", "schema");
   const st = s.status;
+  const g = useGate("program");
   const programs = s.schema?.programs || {};
   const places = Object.keys(s.schema?.places || {});
   const [blocks, setBlocks] = useState(/** @type {any[]} */ ([]));
@@ -67,12 +69,13 @@ export function ProgramTab() {
         Give it room: forward 1 m means a metre of floor in front of it. "Go to a place" uses the places saved in Go
         To and needs navigation. A block it can't finish (something in the way) stops the program and says why.
       <//>
+      ${!run && html`<${Gate} a=${g} />`}
       ${run ? html`<div class="card">
           <div class="row"><b class="grow">Running '${run.name}'</b><button class="btn danger small" onClick=${() => act("stop")}>Stop</button></div>
           <div style="margin: 6px 0">${run.label}</div>
           <div class="bar"><div style=${`width: ${Math.round((st.progress || 0) * 100)}%`}></div></div></div>`
         : html`<div class="row" style="gap: 8px; margin-bottom: 10px">
-          <button class="btn go big grow" style="width: auto" disabled=${!st || !blocks.length} onClick=${start}>Run</button>
+          <button class="btn go big grow" style="width: auto" disabled=${!g.ok || !blocks.length} onClick=${start}>Run</button>
           <button class="btn big" style="width: auto" disabled=${!blocks.length} onClick=${() => { setBlocks([]); setInto([]); }}>Clear</button></div>`}
       <h3>Blocks ${into.length ? html`<span class="dim">(adding inside a repeat: <a href="#program" onClick=${(/** @type {any} */ e) => { e.preventDefault(); setInto([]); }}>back to the top</a>)</span>` : ""}</h3>
       <div class="palette">${Object.entries(PALETTE).map(([k, [label, col]]) => html`<button class="blk"

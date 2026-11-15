@@ -6,6 +6,43 @@
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
 import { act, command, useStore } from "../ros.js";
 import { HelpBox, clock } from "../ui.js";
+import { defaultUrl, usePref } from "./cameras.js";
+
+/** An automatic check's last result (checks.py BRINGUP auto="lidar"): camera_snap's lidar self-test, run at boot, and
+ *  Test again (GET /lidar/test: it spins the lidar a few seconds, then stops it). The server is the one the Lidar and
+ *  Cameras pages use. @param {{st: any}} p */
+function LidarSelfTest({ st }) {
+  const [url] = usePref("url", defaultUrl());
+  const [res, setRes] = useState(/** @type {any} */ (null));
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  useEffect(() => {
+    fetch(`${url}/lidar?quiet=1`, { cache: "no-store" }).then((r) => r.json())
+      .then((j) => { if (j.self_test) setRes(j.self_test); }).catch(() => setErr(`camera_snap at ${url} isn't answering`));
+  }, [url]);
+  const run = async () => {
+    setBusy(true); setErr("");
+    try {
+      const r = await fetch(`${url}/lidar/test`, { cache: "no-store" });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`);
+      setRes(j);
+    } catch (e) { setErr(String(e)); }
+    setBusy(false);
+  };
+  const t = res || st?.lidar_test;
+  const cls = !t ? "dim" : t.ok ? "ok" : t.ok === null ? "warn" : "err";
+  return html`<div class="card"><h2>Last result</h2>
+    ${t ? html`<div class="kv">
+        <span class="k">result</span><span class=${cls}><b>${t.ok ? "passed" : t.ok === null ? "skipped" : "failed"}</b> · ${clock(t.t)}</span>
+        ${t.model && html`<span class="k">lidar</span><span>${t.model} (firmware ${t.firmware}) on ${t.port}</span>`}
+        ${t.health && html`<span class="k">health</span><span>${t.health}</span>`}
+        ${t.hz != null && html`<span class="k">turns</span><span>${t.hz} /s, ${t.samples} samples a turn${t.range_m ? `, median range ${t.range_m} m` : ""}</span>`}
+        ${t.detail && html`<span class="k">detail</span><span>${t.detail}</span>`}</div>`
+      : html`<p class="dim">No self-test yet on this robot (camera_snap runs one at boot).</p>`}
+    <div class="row" style="margin-top: 8px"><button class="btn" disabled=${busy} onClick=${run}>${busy ? "Testing (it spins ~4 s)..." : "Test again"}</button>
+      <span class="err" style="font-size: 12px">${err}</span></div></div>`;
+}
 
 /** a.b.c of the status @param {any} o @param {string} path */
 const pick = (o, path) => path.split(".").reduce((v, k) => (v == null ? v : v[k]), o);
@@ -30,22 +67,29 @@ export function BringupTab() {
   const checks = /** @type {any[]} */ (data.checks);
   const last = (/** @type {string} */ id) => (data.results[id] || []).slice(-1)[0];
   const c = checks.find((x) => x.id === sel) || checks[0];
-  let step = "";
-  return html`<div class="cols">
+  // one tab per subsystem (the checks' step): its checks only, so none is a scroll away
+  const steps = [...new Set(checks.map((x) => x.step))];
+  const done = (/** @type {string} */ step) => checks.filter((x) => x.step === step && last(x.id)?.result === "pass").length;
+  return html`
+    <nav class="subbar">${steps.map((p) => {
+      const n = checks.filter((x) => x.step === p).length;
+      return html`<button key=${p} class=${`sub${p === c.step ? " sel" : ""}`} title=${`${p}: ${done(p)} of ${n} passed`}
+        onClick=${() => setSel(checks.find((x) => x.step === p).id)}>${p.replace(/^\d+\s*/, "")}
+        <span class="dim"> ${done(p)}/${n}</span></button>`;
+    })}</nav>
+    <div class="cols">
     <div class="side">
-      <${HelpBox} tab="bringup">
-        The checks the real robot goes through before it is trusted, in the order the build meets them (design.md 8).
-        Attended, one at a time: tick the preconditions, follow the steps, write down what you measured and press
-        Pass, Fail or Skip. The results stay on the robot with its firmware, map and profile; the thresholds are
-        estimates until the robot has been measured.
-      <//>
-      ${checks.map((x) => {
-        const head = x.step !== step ? html`<h3>${x.step}</h3>` : null;
-        step = x.step;
+      ${checks.filter((x) => x.step === c.step).map((x) => {
         const r = last(x.id);
-        return html`${head}<button class=${`listrow${x.id === c.id ? " sel" : ""}`} onClick=${() => setSel(x.id)}>
+        return html`<button class=${`listrow${x.id === c.id ? " sel" : ""}`} onClick=${() => setSel(x.id)}>
           <span class="grow">${x.title}</span>${r ? html`<span class=${`badge ${r.result === "pass" ? "green" : r.result === "fail" ? "red" : ""}`}>${r.result}</span>` : html`<span class="dim">–</span>`}</button>`;
       })}
+      <${HelpBox} tab="bringup">
+        The checks the real robot goes through before it is trusted, in the order the build meets them (design.md 8),
+        one tab per stage. Attended, one at a time: tick the preconditions, follow the steps, write down what you
+        measured and press Pass, Fail or Skip. The results stay on the robot with its firmware, map and profile; the
+        thresholds are estimates until the robot has been measured.
+      <//>
     </div>
     <div class="main full"><${Check} key=${c.id} c=${c} st=${s.status} results=${data.results[c.id] || []}
       onSaved=${(/** @type {any} */ res) => setData({ ...data, results: res })} /></div>
@@ -80,6 +124,7 @@ function Check({ c, st, results, onSaved }) {
           onClick=${() => act(a.verb, a.args)}>${a.label}</button>`)}</div>`}
       <h3>Expect</h3><p>${c.expect}</p>
     </div>
+    ${c.auto === "lidar" && html`<${LidarSelfTest} st=${st} />`}
     ${c.watch.length > 0 && html`<div class="card"><h2>Live</h2><div class="kv">
       ${c.watch.map((/** @type {string} */ w) => html`<span class="k mono">${w}</span><span class="mono">${fmt(pick(st, w))}</span>`)}</div></div>`}
     <div class="card">

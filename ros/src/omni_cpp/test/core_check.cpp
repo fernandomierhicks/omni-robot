@@ -589,14 +589,16 @@ int main(int argc, char** argv) {
                 std::string k;
                 is >> k;
                 Twist2 tw{};
-                Request th;
+                Request th, wh;
                 if (k == "t" || k == "p") is >> tw.vx >> tw.vy >> tw.wz;
                 if (k == "h") {
                     int seq;
                     is >> th.tilt >> th.fly_rpm >> seq;
                     th.fire_seq = (uint16_t)seq;
                 }
-                print_request(mux.request(k == "t" ? &tw : nullptr, k == "h" ? &th : nullptr, k == "p" ? &tw : nullptr));
+                if (k == "w") is >> wh.a >> wh.b >> wh.c >> wh.v_end >> wh.a_brake;     // + protocol 9's ramp
+                print_request(mux.request(k == "t" ? &tw : nullptr, k == "h" ? &th : nullptr, k == "p" ? &tw : nullptr,
+                                          k == "w" ? &wh : nullptr));
             } else if (op == "catch") {
                 CatchCommand cm;
                 int drive, fire;

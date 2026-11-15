@@ -1,5 +1,5 @@
 // @ts-check
-/* Drive › Call (telepresence): a visitor looks through the robot, drives it and talks through it. The robot's camera fills
+/* Home › Call (telepresence): a visitor looks through the robot, drives it and talks through it. The robot's camera fills
    the page with the drive pads over it (and the gamepad, as everywhere); the visitor's name is announced on the robot;
    they talk with push-to-talk (the browser records a WAV, the page server keeps it, the face plays it as it is: the
    supervisor's /api/clip, the console's "clip" verb, omni_face's /face/clip) or type a line the robot says in its own
@@ -8,6 +8,7 @@
    (--https, a self-signed certificate) serves one, rosbridge and the camera streams tunnelled through it. Not here:
    reaching the robot from outside the home network (a VPN such as Tailscale to the robot computer). */
 import { html, useEffect, useRef, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { Pads } from "../drive.js";
 import { act, command, note, useStore } from "../ros.js";
 import { SayBox } from "../say.js";
@@ -91,6 +92,7 @@ export function listen(onLevel, onEnd) {
 export function CallTab() {
   const s = useStore("status", "httpsPort");
   const st = s.status;
+  const g = useGate("manual");
   const [name, setName] = useState(() => { try { return localStorage.getItem("console.caller") || ""; } catch { return ""; } });
   const [rec, setRec] = useState(false);
   const [level, setLevel] = useState(0);
@@ -197,8 +199,9 @@ export function CallTab() {
       <${SayBox} compact />
       <div class="row" style="margin-top: 12px">
         ${driving ? html`<span class="ok">You're driving</span>`
-          : html`<button class="btn go" disabled=${!st} onClick=${() => act("mission", { name: "MANUAL" })}>Take control</button>`}
+          : html`<button class="btn go" disabled=${!g.ok} title=${g.why} onClick=${() => act("mission", { name: "MANUAL" })}>Take control</button>`}
       </div>
+      ${!driving && !g.ok && html`<div class="dim" style="font-size: 12px; margin-top: 6px">Driving: ${g.why}</div>`}
     </div>
     <div class="main call-view">
       ${cam ? html`<img alt=${cam} src=${streamUrl(location.hostname || "localhost", v.video_port, cam)} />`

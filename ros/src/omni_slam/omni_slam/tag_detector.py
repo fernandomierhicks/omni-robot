@@ -2,10 +2,12 @@
 
 Subscribes image (/cam/left/image_raw, sensor_msgs/Image mono8 / rgb8 / bgr8), stamped with the exposure's middle by
 the camera node (omni_perception/camera_time.py), so the detections carry the time the tag was actually seen.
-Detects with OpenCV's aruco module (apriltag refinement; omni_calib.detect), undistorts the corners with the left
-camera's calibration (intrinsics: a JSON of omni_calib's Camera.as_dict, or none: the image is already rectified),
-and drops what can't be good: a decision margin under min_margin. Runs at `rate` Hz (10, est for full resolution on
-the Orin's CPU), skipping frames in between.
+Detects with the C apriltag library (pupil_apriltags, through omni_calib.detect; since Nov 12, design.md 4.6), quads
+found at `decimate` (2: ~26-31 ms a 720p-class picture on the Pi 4 with 2 threads, against 80-88 ms for OpenCV's aruco),
+and undistorts the corners with the left camera's calibration (intrinsics: a JSON of omni_calib's Camera.as_dict, or
+none: the image is already rectified). Each detection carries the decoder's margin, which tag_slam's min_margin gate
+uses. Without pupil_apriltags it falls back to OpenCV's aruco, which gives no margin: those detections go out with
+margin 100, so the gate passes them, and the node warns. Runs at `rate` Hz at most, skipping frames in between.
 """
 
 from __future__ import annotations
@@ -28,7 +30,20 @@ class TagDetector(Node):
         p = Params(self)                                   # described parameters (omni_params; robot.yaml)
         self.rate = p.number("rate", 10.0, "Hz: frames searched for tags at most", (0.1, 60.0), live=self)
         self.size = p.number("tag_size", 0.16, "m: the tags' black square", (0.01, 1.0))
+        self.decimate = p.number("decimate", 2.0, "quad search on a picture this many times smaller: 2 finds tags "
+                                 "from ~14 px, 1 from ~11 px at ~2.5x the cost", (1.0, 4.0), live=self)
+        self.threads = p.number("threads", 2, "the C detector's threads", (1, 8))
         self.sizes = {int(k): float(v) for k, v in json.loads(p.text("tag_sizes", "{}", "per-id sizes, JSON {id: m}")).items()}
+        from omni_calib.detect import apriltag_backend
+        self.backend = apriltag_backend()
+        if self.backend == "apriltag":
+            self.get_logger().info(f"C apriltag library, decimate {self.decimate:g}, {self.threads} threads")
+        elif self.backend == "opencv":
+            self.get_logger().warn("pupil_apriltags is not installed (ros/requirements-robot.txt): detecting with "
+                                   "OpenCV's aruco, slower and without a decoder margin, so tag_slam's margin gate "
+                                   "passes every detection")
+        else:
+            self.get_logger().error("no AprilTag detector: pip install pupil-apriltags")
         intr = p.text("intrinsics", "", "the camera's intrinsics json (omni_calib Camera; \"\" = already rectified)")
         self.cam = None
         if intr and Path(intr).exists():
@@ -51,7 +66,7 @@ class TagDetector(Node):
         img = np.frombuffer(bytes(m.data), dtype=np.uint8).reshape(m.height, m.width, -1)
         gray = img[..., 0] if img.shape[2] == 1 else (img[..., :3] @ np.array([0.299, 0.587, 0.114])).astype(np.uint8)
         w0 = time.perf_counter()
-        dets = apriltags(gray)
+        dets = apriltags(gray, decimate=self.decimate, threads=self.threads, backend=self.backend)
         self.ms.append(1000 * (time.perf_counter() - w0))
         out = TagDetections()
         out.header = m.header
@@ -70,7 +85,8 @@ class TagDetector(Node):
 
     def report(self):
         if self.ms:
-            self.get_logger().info(f"{self.n} frames, {self.n_tags} tags, detection {np.median(self.ms):.1f} ms median")
+            self.get_logger().info(f"{self.n} frames, {self.n_tags} tags, detection {np.median(self.ms):.1f} ms median "
+                                   f"({self.backend}, decimate {self.decimate:g})")
             self.ms = []
 
 

@@ -36,9 +36,11 @@ export function SystemTab() {
         <h2>Running now</h2>
         ${cur ? html`<div class="kv">
             <span class="k">step</span><span><b>${cur.label}</b> ${Object.entries(cur.args || {}).map(([k, v]) => html`<span class="dim mono" style="margin-left: 6px">${k}:=${v}</span>`)}</span>
-            <span class="k">state</span><span class=${cur.state === "running" ? "ok" : cur.state === "exited" && cur.code ? "err" : ""}>${cur.state}${cur.state === "exited" ? ` (exit ${cur.code})` : ""}</span>
+            <span class="k">state</span><span class=${cur.state === "running" ? "ok" : cur.state === "exited" && (cur.code || cur.unexpected) ? "err" : ""}>${cur.state}${cur.state === "exited" ? ` (exit ${cur.code})` : ""}</span>
             <span class="k">${cur.state === "exited" ? "started" : "up"}</span><span>${cur.state === "exited" ? new Date(cur.since * 1000).toLocaleTimeString() : fmtUp(cur.uptime_s || 0)}</span>
           </div>
+          ${cur.gave_up && html`<p class="err" style="margin: 6px 0 0">It stopped by itself 4 times in 5 minutes (a part of
+            it died: the log below says which), so it was left stopped. Fix the cause, then start it again.</p>`}
           <div class="row" style="margin-top: 8px">
             ${run && html`<button class="btn danger" onClick=${() => { if (confirm(`Stop '${cur.label}'? The robot ramps to a stop.`)) stopStep(); }}>Stop</button>`}
             <button class="btn" onClick=${() => startStep(cur.step, cur.args)}>${run ? "Restart" : "Start again"}</button>

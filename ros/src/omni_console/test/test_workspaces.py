@@ -29,12 +29,13 @@ def ready(**caps) -> Console:
 def good_status(**kw) -> dict:
     s = dict(source="robot", caps=dict(nav=True, arm=True),
              mcu=dict(mode="TELEOP", profile="adult", faults=[], v_bus=24.1, battery_pct=80, age=0.1, sync_rtt_ms=1.2,
-                      roll=0.01, pitch=-0.02),
+                      roll=0.01, pitch=-0.02, dm_err=[1, 1, 1, 1]),
              lidar=dict(hz=10.0, age=0.05),
              fw=dict(build="abc", protocol=6), rc=dict(ok=True, manual=False, ch=[0] * 8),
              localization=dict(level="GOOD", reasons=[], sigma_xy=0.04),
              arm=dict(ok=True, torque=True, temps=[35, 36, 38, 34, 33, 30], volts=12.1),
-             vision=dict(images=["/d435/color/image_raw"], video_port=8081), sys=dict(load=1.2, temp_c=55),
+             vision=dict(images=["/d435/color/image_raw", "/d435/depth/image_rect_raw"], video_port=8081),
+             sys=dict(load=1.2, temp_c=55),
              wifi=dict(dbm=-55, iface="wlan0", quality=60))
     s.update(kw)
     return s
@@ -68,11 +69,23 @@ def test_the_page_has_a_page_for_every_feature():
     assert not missing, missing
 
 
+def test_server_pages_are_the_pages_fallback_and_the_supervisor_lists_them_all():
+    """`server` pages work without the robot's software (the page offers to start it on every other page): they are
+    the page's own fallback list, and the supervisor (no ROS) serves the whole list before the software runs."""
+    src = open(os.path.join(WEB, "features.js"), encoding="utf-8").read()
+    fallback = set(re.findall(r'\bf\("(\w+)"', src.split("export const FALLBACK", 1)[1].split("];", 1)[0]))
+    assert fallback == {f["id"] for f in FEATURES if f["server"]}
+    from omni_console import supervisor
+    assert supervisor.FEATURES is FEATURES
+
+
 def test_schema_lists_the_features_and_the_status_reports_control_and_cap():
     c = ready()
     sch = c.schema()
-    assert [w["id"] for w in sch["workspaces"]][:3] == ["home", "drive", "map"]
+    assert [w["id"] for w in sch["workspaces"]][:3] == ["home", "map", "payload"]
     assert {f["id"] for f in sch["features"]} >= {"tidy", "manual", "preflight", "bringup", "settings"}
+    feat = {f["id"]: f for f in sch["features"]}
+    assert feat["manual"]["group"] == "home" and feat["manual"]["base"] and not feat["manual"]["moves"]  # a mode
     s = c.summary()
     assert s["caps"]["arm"] is False and s["control"]["who"] == "ready" and s["cap"]["speed"] == 1.0
     json.dumps(s)
@@ -116,11 +129,23 @@ def test_preflight_lidar_and_imu():
     rows = by_id(checks.preflight(good_status(lidar=dict(hz=0.0, age=3.2)), FW))
     assert rows["lidar"]["state"] == "fail" and set(rows["lidar"]["blocks"]) == set(checks.LIDAR_FEATURES)
     assert by_id(checks.preflight(good_status(lidar=dict(hz=3.5, age=0.2)), FW))["lidar"]["state"] == "warn"
-    assert by_id(checks.preflight(good_status(lidar=None), FW))["lidar"]["state"] == "na"
+    # no scan at all: what needs it would fail, so it's refused (the self-test says whether the lidar itself works)
+    row = by_id(checks.preflight(good_status(lidar=None), FW))["lidar"]
+    assert row["state"] == "fail" and "follow" in row["blocks"]
+    t = dict(t=1.7e9, ok=True, model="A2M8", health="good", hz=12.4, samples=330, detail="spun, scanned and stopped")
+    row = by_id(checks.preflight(good_status(lidar=None, lidar_test=t, t=1.7e9 + 60), FW))["lidar"]
+    assert row["state"] == "fail" and "The lidar itself works" in row["detail"] and "A2M8" in row["detail"]
+    t = dict(t=1.7e9, ok=False, detail="no lidar serial port")
+    assert "self-test failed" in by_id(checks.preflight(good_status(lidar=None, lidar_test=t), FW))["lidar"]["detail"]
     s = good_status()
     s["mcu"] = dict(s["mcu"], faults=[dict(name="IMU_SILENT", hint="")])
     rows = by_id(checks.preflight(s, FW))
-    assert rows["imu"]["state"] == "warn" and rows["faults"]["state"] == "ok"        # its own row, not twice
+    assert rows["imu"]["state"] == "fail" and rows["faults"]["state"] == "ok"        # its own row, not twice
+    assert rows["imu"]["blocks"] == [checks.SELF_DRIVE]
+    c = ready()
+    c.preflight = checks.preflight(s, FW)                    # no heading: nothing drives itself, by hand still works
+    assert not c.command("follow", {"mode": "follow"}).ok and not c.command("goto", {"x": 1, "y": 0}).ok
+    assert c.command("mission", {"name": "MANUAL"}).ok and c.command("mission", {"name": "MOTORS"}).ok
     s["mcu"] = dict(s["mcu"], faults=[], pitch=0.4)
     assert by_id(checks.preflight(s, FW))["imu"]["state"] == "warn"                  # tilted 23 deg
     c = ready()
@@ -128,13 +153,118 @@ def test_preflight_lidar_and_imu():
     assert not c.command("follow", {"mode": "follow"}).ok and c.command("mission", {"name": "MANUAL"}).ok
 
 
-def test_the_gate_refuses_blocked_starts_with_the_reason_but_never_stop_or_manual():
+def test_missing_drive_motors_refuse_driving_but_not_the_motor_test_of_the_ones_there():
+    """Protocol 8: STATE dm_err 255 = the motor isn't answering. Driving needs all four, by hand too; the motor test
+    runs the wheels that answer and refuses a missing one (the firmware would fault-stop on turning it)."""
+    s = good_status()
+    s["mcu"] = dict(s["mcu"], dm_err=[1, 255, 255, 255])
+    row = by_id(checks.preflight(s, FW))["drive"]
+    assert row["state"] == "fail" and row["blocks"] == [checks.BASE]
+    assert "Wheels 2, 3 and 4 not answering" in row["detail"] and "turns wheel 1" in row["detail"]
+    assert "No drive motor" in checks.drive_row([255] * 4)["detail"]
+    assert checks.drive_row([1, 1, 1, 1])["state"] == "ok"
+    c = ready()
+    c.mcu = s["mcu"]
+    c.preflight = checks.preflight(s, FW)
+    r = c.command("mission", {"name": "MANUAL"})
+    assert not r.ok and "Drive motors" in r.message and r.data["error"] == "fault"
+    assert not c.command("dance", {}).ok
+    assert c.command("mission", {"name": "MOTORS"}).ok and c.motors["wheels"] == [0]
+    assert not c.command("motors", {"wheels": [0, 1]}).ok                 # wheel 2 isn't there
+    assert c.summary()["motors"]["missing"] == [1, 2, 3]
+    c.command("stop")
+    c.motors["wheels"] = [2]
+    c.mcu = dict(s["mcu"], dm_err=[255, 1, 1, 255])
+    assert c.command("mission", {"name": "MOTORS"}).ok and c.motors["wheels"] == [2]      # kept: it's there
+    c.command("stop")
+    c.mcu = dict(s["mcu"], dm_err=[255] * 4)
+    assert not c.command("mission", {"name": "MOTORS"}).ok
+
+
+def test_motor_test_profiles_play_timed_speeds_at_their_ramp():
+    """Protocol 9: motors_run plays a profile on the chosen wheels (steps, a sweep, or segments), each segment's ramp
+    sent as /wheels/cmd a_brake (motors_ramp); the stick's dead man takes over; stop ends it."""
+    c = ready()
+    assert not c.command("motors_run", {"preset": "steps"}).ok                 # MOTORS first
+    assert c.command("mission", {"name": "MOTORS"}).ok
+    assert c.motors_ramp() == 20.0 and c.motors_output(0.0) is None            # nobody asks anything
+    r = c.command("motors_run", {"preset": "steps", "speed": 10.0, "ramp": 1000.0, "hold": 0.5})
+    assert r.ok and c.summary()["motors"]["profile"]["name"] == "steps"
+    tot = c.motors["profile"]["total"]
+    assert r.data["total"] == pytest.approx(tot, abs=1e-3) and len(r.data["segments"]) == 6     # for wheel_capture
+    assert tot == pytest.approx(0.5 + 5 * 0.5 + (10 + 10 + 10 + 20 + 10) / 1000.0)    # holds + ramps
+    out = {t: c.motors_output(t) for t in (100.0, 100.3, 100.7, 101.2, 101.7, 102.3)}
+    assert out[100.0] == [0.0] * 4                                              # its first 0.5 s at rest
+    assert out[100.7] == [10.0, 0.0, 0.0, 0.0] and c.motors_ramp() == 1000.0   # wheel 1 only (the chosen one)
+    assert out[101.2] == [0.0] * 4 and out[101.7] == [-10.0, 0.0, 0.0, 0.0] and out[102.3][0] == 10.0
+    assert c.motors_output(100.0 + tot + 0.01) == [0.0] * 4 and c.motors["profile"] is None     # done: at rest
+    assert c.motors_ramp() == 20.0
+    sweep = c.command("motors_run", {"preset": "sweep", "speed": 12.0})
+    assert sweep.ok and c.motors_output(200.0) == [2.5, 0.0, 0.0, 0.0]
+    c.manual_input(1.0, 0.0, 0.0, False, 200.1)                                 # the dead man: the stick takes over
+    assert c.motors_output(200.1)[0] > 0 and c.motors["profile"] is None
+    assert c.command("motors_run", {"segments": [[5.0, 100.0, 0.2], [0.0, 100.0, 0.2]]}).ok
+    assert c.command("motors_run", {"stop": True}).ok and c.motors["profile"] is None
+    for bad in ({"preset": "spin"}, {"segments": [[60.0, 100.0, 1.0]]}, {"segments": [[5.0, 9000.0, 1.0]]},
+                {"ramp": 1.0}, {"segments": [[5.0, 100.0, 10.0]] * 7}):
+        assert not c.command("motors_run", bad).ok, bad
+
+
+def test_the_motor_test_is_refused_only_by_what_makes_it_impossible():
+    """A bench test a person judges (wheels up): a fault stop, a low pack, a silent IMU, no lidar, missing motors don't
+    refuse it (the bench, Nov 13); no MCU, other firmware and the e-stop do."""
+    s = good_status(lidar=None)
+    s["mcu"] = dict(s["mcu"], dm_err=[0, 255, 255, 255], v_bus=20.5,
+                    faults=[dict(name=n, hint="") for n in ("FAULT_STOP", "LOW_BATT", "MOTOR_ERR", "IMU_SILENT",
+                                                            "MOTOR_SILENT")])
+    c = ready()
+    c.mcu = s["mcu"]
+    c.preflight = checks.preflight(s, FW)
+    assert "motors" not in c.unavailable() and c.command("mission", {"name": "MOTORS"}).ok
+    c.command("stop")
+    for bad in (good_status(mcu=None), good_status(fw=dict(build="abc", protocol=5)),
+                good_status(mcu=dict(good_status()["mcu"], mode="ESTOP"))):
+        c.preflight = checks.preflight(bad, FW)
+        assert "motors" in c.unavailable() and not c.command("mission", {"name": "MOTORS"}).ok
+
+
+def test_the_robot_says_what_can_start_and_why_not():
+    """checks.unavailable: {feature: why} from the caps and the failing rows; the status's "avail", what the page
+    greys. A healthy robot with navigation and the arm: everything but the optional catch and the sim's tools."""
+    c = ready(arm=True)
+    c.on_arm_state(dict(connected=True), c.now)
+    c.preflight = checks.preflight(good_status(), FW)
+    av = c.unavailable()
+    assert set(av) == {"catch", "thrower", "faults"}, av
+    s = good_status(lidar=None)
+    s["mcu"] = dict(s["mcu"], dm_err=[1, 255, 255, 255], faults=[dict(name="IMU_SILENT", hint="")])
+    c.preflight = checks.preflight(s, FW)
+    av = c.unavailable()
+    assert {"manual", "follow", "goto", "tidy", "calibrate"} <= set(av) and "motors" not in av and "arm" not in av
+    assert "base" not in av                       # the Base page (the MCU's samples) isn't the drive group
+    assert not {checks.MOTION, checks.BASE, checks.SELF_DRIVE} & {f["id"] for f in FEATURES}
+    assert "Drive motors" in av["manual"] and "IMU" not in av["manual"]      # by hand: only the motors stop it
+    assert "IMU" in av["follow"] and "Lidar" in av["follow"]                  # every reason, in one line
+    b = checks.brief(c.preflight)
+    assert {r["id"]: r["state"] for r in b["rows"]}["drive"] == "fail" and "detail" in by_id(b["rows"])["drive"]
+    assert "detail" not in by_id(b["rows"])["battery"]                       # details only where something's wrong
+    c2 = ready(nav=False)
+    c2.preflight = checks.preflight(good_status(), FW)
+    r = c2.command("goto", {"x": 1, "y": 0})
+    assert not r.ok and r.data["error"] == "unavailable" and "navigation" in r.message
+
+
+def test_the_gate_refuses_blocked_starts_with_the_reason_but_never_stop():
     c = ready()
     c.preflight = checks.preflight(good_status(mcu=None), FW)
     r = c.command("goto", {"x": 1, "y": 0})
     assert not r.ok and r.data["error"] == "fault" and "MCU link" in r.message and c.mission == "MANUAL"
-    assert c.command("mission", {"name": "MANUAL"}).ok
+    assert not c.command("mission", {"name": "MANUAL"}).ok           # no MCU: nothing drives, by hand neither
     assert c.command("stop").ok and c.mission == "IDLE"
+    s = good_status()                                                # a low pack leaves driving by hand (the charger)
+    s["mcu"] = dict(s["mcu"], faults=[dict(name="LOW_BATT", hint="")], v_bus=20.6)
+    c.preflight = checks.preflight(s, FW)
+    assert not c.command("dance", {}).ok and c.command("mission", {"name": "MANUAL"}).ok
     c.preflight = checks.preflight(good_status(localization=dict(level="LOST")), FW)
     assert not c.command("explore", {}).ok
     assert c.command("say", {"text": "hello"}).ok                   # not a start
@@ -159,6 +289,18 @@ def test_bringup_catalog_is_well_formed_and_its_actions_are_console_verbs():
             assert a["verb"] in VERBS, a
         for w in ch["watch"]:
             assert re.match(r"^[a-z_]+(\.[a-z_]+)*$", w)
+        assert ch["auto"] in (None, "lidar")
+
+
+def test_lidar_self_test_spins_counts_and_stops_on_the_fake_lidar(tmp_path):
+    from omni_console.rplidar import LidarSession
+    s = LidarSession(fake=True, idle_s=20.0)
+    path = tmp_path / checks.LIDAR_TEST_FILE
+    r = s.self_test(seconds=1.0, path=str(path))
+    assert r["ok"] is True and r["model"] == "A2M8" and r["hz"] > 5 and r["samples"] > 100, r
+    assert s.dev is None                                             # stopped and let go: the ROS driver may want it
+    assert json.loads(path.read_text())["ok"] is True and s.describe(open_=False)["self_test"] == r
+    assert "passed" in checks.lidar_test_text(r)
 
 
 def test_bringup_record_keeps_the_outcome_with_the_config():

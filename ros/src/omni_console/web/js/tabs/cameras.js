@@ -19,9 +19,10 @@ const LOCK_S = 5;                                // the lock statistics' window,
 // depth_colormap's palette (camera_snap.py): near red to far blue
 const DEPTH_RAMP = "linear-gradient(to right, rgb(255,40,40), rgb(255,230,40), rgb(60,220,80), rgb(40,200,230), rgb(60,60,255))";
 
-/** @param {string} key @param {any} dflt */
-function usePref(key, dflt) {
-  const k = `console.cameras.${key}`;
+/** A setting kept in this browser. ns: whose (the Lidar page keeps its own, and shares the server's address).
+ * @param {string} key @param {any} dflt @param {string} [ns] */
+export function usePref(key, dflt, ns = "cameras") {
+  const k = `console.${ns}.${key}`;
   const [v, setV] = useState(() => { try { const s = localStorage.getItem(k); return s === null ? dflt : JSON.parse(s); } catch { return dflt; } });
   /** @param {any} x */
   const set = (x) => { try { localStorage.setItem(k, JSON.stringify(x)); } catch { /* */ } setV(x); };
@@ -29,13 +30,58 @@ function usePref(key, dflt) {
 }
 
 /** The page served by the robot computer itself: its cameras are on the same host; from the PC (localhost): the Pi. */
-function defaultUrl() {
+export function defaultUrl() {
   const h = location.hostname;
   return `http://${!h || h === "localhost" || h === "127.0.0.1" ? "omni-cam.local" : h}:8086`;
 }
 
+/** A request to the Pi's server gives up after this (a Pi that is off never answers; .local names can take ~11 s to
+ * resolve from Windows the first time). */
+export const SERVER_TIMEOUT_MS = 12000;
+export const serverSignal = () => (AbortSignal.timeout ? AbortSignal.timeout(SERVER_TIMEOUT_MS) : undefined);
+
+// the Pi's addresses as of Nov 12 (DHCP leases, no reservation: rpi.md "Network")
+const KNOWN = [["by name", "http://omni-cam.local:8086"], ["wired", "http://192.168.0.100:8086"], ["Wi-Fi", "http://192.168.1.90:8086"]];
+
+/** What to do when camera_snap (the Pi's camera and lidar server) doesn't answer. It runs as a service started at the
+ * Pi's boot (omni-cam-snap, ros/tools/cam_snap.sh), so the causes in order: the Pi off or booting, the address, the
+ * server stopped by hand or by a bench.
+ * @param {{url: string, reach: string, onUse: (u: string) => void}} p */
+export function ServerDown({ url, reach, onUse }) {
+  return html`<div class="warn" style="margin-top: 8px; line-height: 1.5">
+    <b>The Pi's camera and lidar server doesn't answer at <span class="mono">${url}</span></b> <span class="dim">(${reach})</span>.
+    It starts by itself when the Pi boots, so check in this order:
+    <ol style="margin: 4px 0 0 18px; padding: 0">
+      <li><b>Is the Pi on?</b> Power it and give it about a minute to boot; this page keeps asking and shows the server
+        as soon as it answers.</li>
+      <li><b>Is the address right?</b> The name can be slow or fail to resolve from Windows, and the numbers are DHCP
+        leases that can change. Try: ${KNOWN.filter(([, u]) => u !== url).map(([l, u]) => html` <button class="btn small"
+          onClick=${() => onUse(u)}>${l} <span class="mono">${u.replace("http://", "").replace(":8086", "")}</span></button>`)}</li>
+      <li><b>Was the server stopped?</b> (A bench like the tag lock stops it.) From Git Bash, in the repo:${" "}
+        <span class="mono">bash ros/tools/cam_snap.sh start</span>, or <span class="mono">ssh omni-cam sudo systemctl
+        start omni-cam-snap</span>. <span class="mono">bash ros/tools/cam_snap.sh status</span> tells which it is.</li>
+    </ol></div>`;
+}
+
 const css = (/** @type {string} */ v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms));
+
+/** A number box that keeps what is being typed: the tab redraws every second (the bandwidth readout), which reset a
+ * box bound straight to its saved value before the change was committed. Commits a valid number on Enter or when
+ * the box loses focus; Escape or an invalid entry puts the saved value back.
+ * @param {{value: number, set: (v: number) => void, step?: string, min?: string, width?: number}} a */
+function NumBox({ value, set, step = "1", min = "0", width = 60 }) {
+  const [draft, setDraft] = useState(/** @type {string | null} */ (null));
+  const commit = () => {
+    if (draft == null) return;
+    const v = Number(draft);
+    if (draft.trim() !== "" && Number.isFinite(v) && v >= Number(min)) set(v);
+    setDraft(null);
+  };
+  return html`<input type="number" step=${step} min=${min} style=${`width: ${width}px`} value=${draft ?? String(value)}
+    onInput=${(/** @type {any} */ e) => setDraft(e.currentTarget.value)} onBlur=${commit}
+    onKeyDown=${(/** @type {any} */ e) => { if (e.key === "Enter") commit(); else if (e.key === "Escape") setDraft(null); }} />`;
+}
 
 // ---------------------------------------------------------------- the multipart stream
 
@@ -230,7 +276,7 @@ export function CamerasTab() {
     setShots((s) => ({ ...s, [p.id]: next.blob ? next : { ...s[p.id], busy: false, error: next.error } }));
   };
 
-  const poll = () => fetch(`${url}/cameras`, { cache: "no-store" }).then((r) => r.json())
+  const poll = () => fetch(`${url}/cameras`, { cache: "no-store", signal: serverSignal() }).then((r) => r.json())
     .then((j) => { setCams(j.cameras); setDetector(j.tags || null); setReach(""); })
     .catch((e) => setReach(e.message || "no answer"));
 
@@ -288,24 +334,29 @@ export function CamerasTab() {
   const kbps = L.bytes.reduce((a, [, b]) => a + b, 0) / 10 / 1024;
   const rs = (cams || []).find((c) => c.name === "realsense");
   const ac = (cams || []).find((c) => c.name === "arducam");
+  const wc = (cams || []).find((c) => c.name === "webcam");
   const sel = (/** @type {any} */ v, /** @type {(x: any) => void} */ set, /** @type {any[][]} */ opts, num = true) => html`<select value=${v}
     onChange=${(/** @type {any} */ e) => set(num ? Number(e.currentTarget.value) : e.currentTarget.value)}>
     ${opts.map(([x, l]) => html`<option value=${x}>${l}</option>`)}</select>`;
 
   return html`<div class="full">
     <${HelpBox} tab="cameras">
-      The cameras on the robot computer (today the Pi: the Arducam and the D435's colour, left IR and depth
-      images). <b>Snapshots</b> asks for one picture at a time, on demand or every few seconds. <b>Live video</b> streams
-      each picture whose <i>Live</i> is on; stream just one for its fastest rate. A camera's mode is its capture
-      resolution and frame rate (the Arducam's <i>full field</i> modes see its whole view, the <i>2/3 crop</i> runs at
-      100 fps). <b>AprilTags</b> are found on the robot computer and drawn here. Green: usable by the tag SLAM; orange:
+      The cameras on the robot computer (today the Pi: the Arducam, the D435's colour, left IR and depth images, and a
+      USB webcam). A camera that isn't plugged in says so and stays greyed. <b>Snapshots</b> asks for one picture at a
+      time, on demand or every few seconds. <b>Live video</b> streams each picture whose <i>Live</i> is on; stream just
+      one for its fastest rate. A camera's mode is its capture resolution and frame rate (the Arducam's <i>full
+      field</i> modes see its whole view, the <i>2/3 crop</i> runs at 100 fps). In a dark room the webcam lengthens its
+      exposure and delivers fewer frames than its mode says. <b>AprilTags</b> are found on the robot computer and drawn
+      here (the webcam has no calibration: its tags have no range or pose). Green: usable by the tag SLAM; orange:
       ambiguous (a mirror pose fits nearly as well); red: refused by its gates (small, oblique, poor fit, low margin,
       which is how misreads look); dashed: found in a frame more than 0.15 s older than the picture. The size is the
       black square's side. On the D435 the range is also checked against its depth image. Its IR projector's dots hide
       tags from the IR image: switch the projector off to find tags there (depth gets worse). Click the depth image to
-      read the range at a point. Start the picture server on the Pi from Git Bash with <span class="mono">bash
-      ros/tools/cam_snap.sh start</span> and stop it with <span class="mono">stop</span>. Over the
-      cable: put <span class="mono">OMNI_PI=omni-cam-eth</span> in front, and use Server <span class="mono">http://192.168.0.101:8086</span>.
+      read the range at a point. The picture server (camera_snap, which serves the Test › Lidar page too) starts by
+      itself when the Pi boots; nothing has to be started from here. <span class="mono">bash ros/tools/cam_snap.sh
+      start</span> from Git Bash deploys a new version and restarts it, <span class="mono">stop</span> stops it until
+      the next boot. Over the cable, use the Pi's wired address as the Server, e.g. <span class="mono">http://192.168.0.100:8086</span>${" "}
+      (a DHCP lease: rpi.md).
     <//>
     <div class="card">
       <div class="row">
@@ -313,13 +364,14 @@ export function CamerasTab() {
         <input type="text" style="width: 230px" value=${draft} onInput=${(/** @type {any} */ e) => setDraft(e.currentTarget.value)}
           onKeyDown=${(/** @type {any} */ e) => e.key === "Enter" && setUrl(draft.replace(/\/+$/, ""))} />
         ${draft !== url && html`<button class="btn small" onClick=${() => setUrl(draft.replace(/\/+$/, ""))}>Use</button>`}
-        ${reach ? html`<span class="warn">no answer: is camera_snap running there?</span>`
+        ${reach ? html`<span class="warn">no answer from the Pi (see below)</span>`
           : cams ? cams.map((c) => html`<span class=${c.error ? "warn" : c.open ? "ok" : "dim"} title=${c.error || ""}>
               ${c.label} ${c.error ? "unavailable" : c.streaming ? `streaming ×${c.streaming}` : c.open ? "open" : "closed"}</span>`)
           : html`<span class="dim">asking...</span>`}
         <span class="grow"></span>
         <span class="dim mono">${kbps.toFixed(0)} kB/s</span>
       </div>
+      ${reach && html`<${ServerDown} url=${url} reach=${reach} onUse=${(/** @type {string} */ u) => { setDraft(u); setUrl(u); }} />`}
       <div class="seg" role="group" aria-label="Pictures" style="max-width: 360px">
         <button class=${`btn${mode === "snap" ? " on" : ""}`} onClick=${() => setMode("snap")}>Snapshots</button>
         <button class=${`btn${mode === "live" ? " on" : ""}`} onClick=${() => setMode("live")}>Live video</button>
@@ -330,9 +382,9 @@ export function CamerasTab() {
         <select value=${quality} onChange=${(/** @type {any} */ e) => setQuality(Number(e.currentTarget.value))}>
           ${QUALITIES.map(([v, l]) => html`<option value=${v}>${l} quality</option>`)}</select>
         <span class="dim">depth</span>
-        <input type="number" step="0.1" min="0" style="width: 60px" value=${near} onChange=${(/** @type {any} */ e) => setNear(Number(e.currentTarget.value))} />
+        <${NumBox} value=${near} set=${setNear} step="0.1" min="0" />
         <span class="dim">to</span>
-        <input type="number" step="0.5" min="0.5" style="width: 60px" value=${far} onChange=${(/** @type {any} */ e) => setFar(Number(e.currentTarget.value))} />
+        <${NumBox} value=${far} set=${setFar} step="0.5" min="0.5" />
         <span class="dim">m</span>
         ${mode === "snap" && html`<button class="btn primary" disabled=${!shown.length} onClick=${() => shown.forEach(snap)}>Snap all</button>`}
       </div>
@@ -350,6 +402,9 @@ export function CamerasTab() {
             <span class="switch"><input type="checkbox" checked=${!!rs.settings.emitter}
               onChange=${(/** @type {any} */ e) => setCam("realsense", { emitter: e.currentTarget.checked ? "1" : "0" })} /><span></span></span>
             IR projector</label>`}
+        ${wc && html`<span class="dim" style="margin-left: 8px">Webcam</span>
+          <select value=${wc.profile} onChange=${(/** @type {any} */ e) => setCam("webcam", { profile: e.currentTarget.value })}>
+            ${wc.profiles.map((/** @type {any} */ p) => html`<option value=${p.name}>${p.label}</option>`)}</select>`}
         ${setErr && html`<span class="warn">${setErr}</span>`}
       </div>`}
       <div class="row" style="margin-top: 8px">
@@ -357,8 +412,8 @@ export function CamerasTab() {
           <span class="switch"><input type="checkbox" checked=${tagsOn} onChange=${(/** @type {any} */ e) => setTagsOn(e.currentTarget.checked)} /><span></span></span>
           <b>AprilTags</b></label>
         ${sel(family, setFamily, (detector?.families?.length ? detector.families : ["tag25h9", "tag36h11", "tag16h5"]).map((/** @type {string} */ f) => [f, f]), false)}
-        <span class="dim">black square</span>
-        <input type="number" step="1" min="10" style="width: 70px" value=${sizeMm} onChange=${(/** @type {any} */ e) => setSizeMm(Number(e.currentTarget.value))} />
+        <span class="dim" title="the black square's side, its black border included (not the white margin): cells across × cell size. tag25h9 is 7 cells, tag36h11 8, tag16h5 6 (e.g. 7 × 20 mm = 140 mm). It scales the range; a camera without calibration (the webcam) shows no range">black square</span>
+        <${NumBox} value=${sizeMm} set=${setSizeMm} step="1" min="10" width=${70} />
         <span class="dim">mm</span>
         ${sel(dec, setDec, DECIMATE)}
         ${detector && !detector.detector ? html`<span class="warn">no detector on the server${detector.error ? `: ${detector.error}` : ""}</span>`
@@ -429,9 +484,11 @@ function Panel({ p, mode, on, src, shot, probe, near, far, onSnap, onLive, onHid
       if (next) draw();
     };
     (async () => {
-      while (!ac.signal.aborted) {               // reconnects after an error (the server restarted, a camera hiccup)
-        try {
+      let wait = 1500;                           // after an error; doubles to 10 s while it keeps failing (a camera
+      while (!ac.signal.aborted) {               // that isn't plugged in), back to 1.5 s at the first frame
+        try {                                    // reconnects after an error (the server restarted, a camera hiccup)
           await readStream(src, ac.signal, (blob, info, n) => {
+            wait = 1500;
             L.frames.push([performance.now(), n]);
             L.info = info;
             L.error = info.error || info.tag_error || "";
@@ -442,7 +499,8 @@ function Panel({ p, mode, on, src, shot, probe, near, far, onSnap, onLive, onHid
         } catch (e) {
           if (ac.signal.aborted) return;
           L.error = /** @type {Error} */ (e).message;
-          await sleep(1500);
+          await sleep(wait);
+          wait = Math.min(2 * wait, 10000);
         }
       }
     })();
@@ -482,6 +540,7 @@ function Panel({ p, mode, on, src, shot, probe, near, far, onSnap, onLive, onHid
         `${i.width}×${i.height}${i.profile ? ` (${i.profile})` : ""}`, i.age_ms != null && `frame ${i.age_ms.toFixed(0)} ms old`,
         p.stream === "color" && i.exposure_us && `exposure ${(i.exposure_us / 1000).toFixed(1)} ms${i.gain ? `, gain ${i.gain}` : ""}`,
         p.stream === "ir" && i.ir_exposure_us && `IR exposure ${(i.ir_exposure_us / 1000).toFixed(1)} ms`,
+        i.cap_fps && `camera delivers ${i.cap_fps.toFixed(0)} fps`,
         i.detect_ms != null && `tags ${i.detect_ms.toFixed(0)} ms${i.tags_lag_ms ? `, ${i.tags_lag_ms.toFixed(0)} ms behind` : ""}`,
       ].filter(Boolean).join(" · ")}</div>`}
     ${depth && i.width && html`<div class="mono" style="font-size: 12px">

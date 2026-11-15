@@ -1,12 +1,14 @@
 // @ts-check
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { MapView } from "../mapview.js";
 import { act, useStore } from "../ros.js";
-import { Banner, DrivingPicker, HelpBox, SettingsForm, deg } from "../ui.js";
+import { Gate, Banner, DrivingPicker, HelpBox, SettingsForm, deg } from "../ui.js";
 
 export function GotoTab() {
   const s = useStore("status", "schema");
   const st = s.status;
+  const g = useGate("goto");
   const places = s.schema?.places || {};
   const [pending, setPending] = useState(/** @type {{x: number, y: number, yaw: number, name?: string} | null} */ (null));
   const [name, setName] = useState("");
@@ -38,7 +40,7 @@ export function GotoTab() {
         <b>Driving</b> picks which way the robot faces on the way (forward, agnostic or spinning); a change applies
         on the way too.
       <//>
-      ${!nav && html`<${Banner} title="Navigation isn't running.">Start 'Navigate (Nav2)' in the Launcher (in the sim); on the robot it starts with it.<//>`}
+      ${!going && html`<${Gate} a=${g} />`}
       <${DrivingPicker} />
       ${going && st.goal && html`<div class="card">
         <div class="row"><b class="grow">${st.task}</b><button class="btn danger small" onClick=${() => act("cancel")}>Cancel</button></div>
@@ -46,7 +48,7 @@ export function GotoTab() {
       ${pending ? html`<div class="card">
           <div class="row"><b class="grow">New goal</b><button class="btn small" onClick=${() => setPending(null)}>Clear</button></div>
           <div class="mono dim" style="margin: 4px 0 8px">x ${pending.x.toFixed(2)} m, y ${pending.y.toFixed(2)} m, facing ${deg(pending.yaw)}°</div>
-          <button class="btn go big" onClick=${go} disabled=${!nav}>Go</button>
+          <button class="btn go big" onClick=${go} disabled=${!g.ok}>Go</button>
           <div class="row" style="margin-top: 8px">
             <input type="text" class="grow" placeholder="Name, e.g. Kitchen" value=${name}
               onInput=${(/** @type {any} */ e) => setName(e.currentTarget.value)} />

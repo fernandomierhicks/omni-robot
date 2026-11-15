@@ -115,7 +115,7 @@ def run_tabs(page, a, st, cmd, wait, check):
     cards = page.locator(".mode-card .t").all_text_contents()
     check(any(c.startswith("Drive") for c in cards) and any(c.startswith("Follow") for c in cards),
           f"Home: a card per task ({', '.join(cards)})")
-    check(page.locator(".tabbar .tab").count() >= 6, "Home: the workspaces (Home, Drive, Map, payload, See, Test, Robot)")
+    check(page.locator(".tabbar .tab").count() >= 6, "Home: the workspaces (Home, Map, payload, See, Test, Robot)")
     pf = cmd("preflight")
     fails = [f"{r['label']}: {r['detail']}" for r in (pf["data"] or {}).get("rows", []) if r["state"] == "fail"]
     check(pf["ok"] and pf["data"]["assessed"] and not fails,

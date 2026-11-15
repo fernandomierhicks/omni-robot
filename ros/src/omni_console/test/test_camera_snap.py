@@ -40,7 +40,19 @@ def test_lists_both_cameras(server):
     cams = {c["name"]: c for c in json.loads(body)["cameras"]}
     assert cams["arducam"]["streams"] == ["color"]
     assert cams["realsense"]["streams"] == ["color", "ir", "depth"]
+    assert cams["webcam"]["streams"] == ["color"] and cams["webcam"]["profile"] == "hd30"
     assert not cams["realsense"]["open"]
+
+
+def test_webcam_snap_and_no_webcam_is_said_plainly(server, monkeypatch):
+    base, _ = server
+    _, h, body = get(f"{base}/snap?cam=webcam&stream=color&w=320")
+    assert Image.open(io.BytesIO(body)).size == (320, 240)
+    pytest.importorskip("cv2")
+    monkeypatch.setattr(cs, "find_webcams", lambda: [])
+    cam = cs.Camera("webcam", "USB webcam", ("color",), cs.UvcCam)
+    with pytest.raises(cs.CameraError, match="no USB webcam found"):
+        cam.grab("color")
 
 
 @pytest.mark.parametrize("cam, stream, mode", [("arducam", "color", "RGB"), ("realsense", "color", "RGB"),
@@ -183,6 +195,18 @@ def test_finds_the_fake_tags_and_their_pose(server):
         assert t["side_px"] == pytest.approx(side, abs=2)
         assert t["range"] == pytest.approx(rng, rel=0.04) and t["angle_deg"] < 15
         assert all(0 < u < 1 and 0 < v < 1 for u, v in t["corners"])
+
+
+def test_a_camera_without_a_model_still_sends_corners_in_0_to_1():
+    """The webcam has no calibration (no Pinhole): its tags' corners must still be fractions of the picture, which the
+    page scales to its canvas (until Nov 12 they went out in pixels and were drawn off the canvas)."""
+    pytest.importorskip("scipy")
+    from omni_console import apriltag_view as av
+    c = np.array([[474.6, 265.1], [632.0, 271.7], [620.6, 119.1], [466.2, 99.7]])
+    out = av.describe(av.Det(0, c, 62.3), None, 0.14, shape=(720, 1280))
+    assert out["corners"][0] == [round(474.6 / 1280, 5), round(265.1 / 720, 5)]
+    assert all(0 < u < 1 and 0 < v < 1 for u, v in out["corners"])
+    assert "range" not in out and out["side_px"] > 100                     # no model: no pose, the side still in px
 
 
 def test_apriltag_view_imports_with_ros_src_on_the_path():

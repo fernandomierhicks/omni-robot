@@ -5,7 +5,7 @@
 
    Gamepads with the browser's "standard" mapping (Xbox, PlayStation, most pads): left stick moves, right stick turns,
    hold LB or RB to drive, RT = boost. On every tab, not just Manual: a fresh press of the dead man takes control from
-   any mission (see useDriveLoop). Anything else (the Logitech Extreme 3D, other flight sticks) uses the axes and
+   any mission (see useDriveLoop), except the motor test (Test > Motors), where the stick turns the chosen wheels. Anything else (the Logitech Extreme 3D, other flight sticks) uses the axes and
    buttons picked in the Manual tab; the defaults follow ros/tools/joystick_sender.py: thumb button drives, trigger
    boosts.
 
@@ -98,7 +98,8 @@ function readKeys() {
 
 /** Runs for the whole page (App): reads the inputs and sends at 20 Hz. The gamepad / flight stick works on every tab:
  *  pressing its dead man in any other mission takes control first (the mission becomes MANUAL, which ends a Go To,
- *  Explore, Patrol... as "cancel" does). The keyboard and the on-screen pads only count on the Manual tab.
+ *  Explore, Patrol... as "cancel" does), except in the motor test (MOTORS), which the stick drives as it is. The
+ *  keyboard and the on-screen pads only count on the driving tabs (Manual, Call, Motors).
  *  @param {string | undefined} mission the robot's mission (status) @param {boolean} onManualTab */
 export function useDriveLoop(mission, onManualTab) {
   const live = useRef({ mission, onManualTab });
@@ -126,11 +127,12 @@ export function useDriveLoop(mission, onManualTab) {
       const cmd = stick || (onTab ? input.pad || readKeys() : null);
       input.last = cmd;
       const manual = m === "MANUAL";
-      if (stick && !held && m && !manual) {         // a fresh press of the dead man: take control from any mission
+      const driven = manual || m === "MOTORS";     // the missions the stick drives (MOTORS: the chosen wheels)
+      if (stick && !held && m && !driven) {         // a fresh press of the dead man: take control from any mission
         act("mission", { name: "MANUAL" }, true);
       }
       held = !!stick;
-      if (manual && cmd) {
+      if (driven && cmd) {
         sendTwist(cmd.vx, cmd.vy, cmd.wz, cmd.boost);
         zeros = 3;
       } else if (zeros > 0) {             // let go: say so at once rather than waiting for the robot's timeout

@@ -3,8 +3,9 @@
    arm_node runs it; this page starts and stops it and shows what it's doing. Moving the arm by hand is on the Arm
    page (the payload workspace); Drive has the short version. */
 import { html } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm } from "../ui.js";
 import { WRIST } from "./arm.js";
 import { streamUrl } from "./vision.js";
 
@@ -18,6 +19,7 @@ const STATES = {
 export function TidyTab() {
   const s = useStore("status");
   const st = s.status;
+  const g = useGate("tidy");
   const a = st?.arm;
   const on = st?.mission === "TIDY";
   const t = a?.tidy;
@@ -37,9 +39,9 @@ export function TidyTab() {
         With the arm out the base drives at 1 m/s and half its acceleration at most, whoever drives. Things wider
         than 6.5 cm, or bigger than 12 cm, are left where they are. The arm by hand: the <a href="#arm">Arm</a> page.
       <//>
-      ${!a && html`<${Banner} title="No arm.">This needs the arm robot: start 'Arm robot: tidy up' (sim) or omni_arm's arm_node.<//>`}
+      ${!on && html`<${Gate} a=${g} />`}
       ${on ? html`<button class="btn big" onClick=${() => act("stop")}>Stop</button>`
-        : html`<button class="btn go big" disabled=${!a} onClick=${() => act("tidy")}>Tidy up</button>`}
+        : html`<button class="btn go big" disabled=${!g.ok} onClick=${() => act("tidy")}>Tidy up</button>`}
       <${SettingsForm} tab="tidy" />
     </div>
     <div class="main full">

@@ -2,13 +2,15 @@
 /* Follow me and Tag: the robot finds a person's legs in its lidar scan (omni_console/people.py) and follows them, or
    chases them at kid speed and backs off after each tag. */
 import { html } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { MapView } from "../mapview.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm } from "../ui.js";
 
 export function FollowTab() {
   const s = useStore("status");
   const st = s.status;
+  const g = useGate("follow");
   const f = st?.mission === "FOLLOW" ? st.follow : null;
   const pose = st?.pose;
   /** @type {{x: number, y: number, color?: string, label?: string}[]} */
@@ -40,9 +42,9 @@ export function FollowTab() {
           ${f.mode === "tag" && html`<div class="stats" style="margin-top: 8px"><div class="stat"><div class="v">${f.tags}</div><div class="k">tags</div></div></div>`}
           <button class="btn big danger" style="margin-top: 10px" onClick=${() => act("stop")}>Stop</button>
         </div>`
-        : html`<div class="row" style="gap: 10px; margin-bottom: 10px">
-          <button class="btn go big grow" style="width: auto" disabled=${!st} onClick=${() => act("follow", { mode: "follow" })}>Follow me</button>
-          <button class="btn primary big grow" style="width: auto" disabled=${!st} onClick=${() => act("follow", { mode: "tag" })}>Tag</button></div>`}
+        : html`<${Gate} a=${g} /><div class="row" style="gap: 10px; margin-bottom: 10px">
+          <button class="btn go big grow" style="width: auto" disabled=${!g.ok} onClick=${() => act("follow", { mode: "follow" })}>Follow me</button>
+          <button class="btn primary big grow" style="width: auto" disabled=${!g.ok} onClick=${() => act("follow", { mode: "tag" })}>Tag</button></div>`}
       <${SettingsForm} tab="follow" />
     </div>
     <div class="main">

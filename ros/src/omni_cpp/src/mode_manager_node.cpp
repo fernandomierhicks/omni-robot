@@ -8,7 +8,9 @@
 // each fresh for 0.5 s (parameters twist_topics, twist_priorities, twist_timeouts). /cmd_vel/lock (Bool) true stops
 // TELEOP whatever the sources say, while it stays fresh (lock_timeout, 1 s). /cmd_vel/active (latched String) names
 // the source in charge ("none" when nobody is).
-// /catch/cmd (CATCH), /thrower/cmd (THROWER), /pick/cmd_vel (PICK) as before.
+// /catch/cmd (CATCH), /thrower/cmd (THROWER), /pick/cmd_vel (PICK) as before; /wheels/cmd (WHEELS, the console's
+// motor test: McuCommand a, b, c, v_end = each wheel's rad/s; older than wheels_timeout -> DRIVE_IDLE, the MCU ramps
+// the wheels to rest).
 // /arm/out: every request carries the arm-out caps while the arm is out. With arm:=true (the arm robot, the default)
 // a missing or stale /arm/out (older than arm_out_timeout, 0.5 s; the arm driver sends it at 10 Hz) counts as out: a
 // dead arm node caps the base instead of uncapping it. arm:=false (the catch robot) ignores it.
@@ -16,7 +18,7 @@
 // such as d435, or a json path): its arm_out speed_cap and a_cap.
 // Service /set_mode. Publishes /mcu/cmd and /robot_mode (latched, e.g. "CATCH adult"). Parameters: mode (initial), kid,
 // arm, config, arm_out_timeout, twist_topics, twist_priorities, twist_timeouts, lock_timeout, catch_timeout,
-// thrower_timeout, pick_timeout, rate (params.hpp: ranges, read-only, live; values in omni_bringup/config/robot.yaml).
+// thrower_timeout, pick_timeout, wheels_timeout, rate (params.hpp: ranges, read-only, live; values in omni_bringup/config/robot.yaml).
 #include <cctype>
 #include <fstream>
 #include <sstream>
@@ -67,12 +69,15 @@ public:
         catch_timeout_ = P::number(*this, "catch_timeout", 0.3, 0.05, 2.0, "s: CATCH: a /catch/cmd older than this -> a ramped stop");
         thrower_timeout_ = P::number(*this, "thrower_timeout", 0.3, 0.05, 2.0, "s: THROWER: a /thrower/cmd older than this -> flywheels down");
         pick_timeout_ = P::number(*this, "pick_timeout", 0.3, 0.05, 2.0, "s: PICK: a /pick/cmd_vel older than this -> a ramped stop");
+        wheels_timeout_ = P::number(*this, "wheels_timeout", 0.3, 0.05, 2.0,
+                                    "s: WHEELS: a /wheels/cmd older than this -> the wheels ramp to rest");
         double rate = P::number(*this, "rate", 100.0, 20.0, 500.0, "Hz: /mcu/cmd (also the MCU's heartbeat)", true);
         live_->bind("arm_out_timeout", &arm_out_timeout_);
         live_->bind("lock_timeout", &lock_timeout_);
         live_->bind("catch_timeout", &catch_timeout_);
         live_->bind("thrower_timeout", &thrower_timeout_);
         live_->bind("pick_timeout", &pick_timeout_);
+        live_->bind("wheels_timeout", &wheels_timeout_);
         auto topics = declare_parameter<std::vector<std::string>>(
             "twist_topics", std::vector<std::string>{"/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"},
             P::desc("TELEOP's twist sources, one topic each", true));
@@ -99,6 +104,9 @@ public:
         });
         s_thrower_ = create_subscription<McuCommand>("/thrower/cmd", 10, [this](McuCommand::ConstSharedPtr m) {
             thrower_ = from_msg(*m), has_thrower_ = true, t_thrower_ = now_s();
+        });
+        s_wheels_ = create_subscription<McuCommand>("/wheels/cmd", 10, [this](McuCommand::ConstSharedPtr m) {
+            wheels_ = from_msg(*m), has_wheels_ = true, t_wheels_ = now_s();
         });
         s_pick_ = create_subscription<geometry_msgs::msg::Twist>(
             "/pick/cmd_vel", 10, [this](geometry_msgs::msg::Twist::ConstSharedPtr m) {
@@ -205,6 +213,9 @@ private:
             r = mux_.request(nullptr, fresh ? &thrower_ : nullptr);
         } else if (mux_.mode == "PICK") {
             r = mux_.request(nullptr, nullptr, t - t_pick_ < pick_timeout_ ? &pick_ : nullptr);
+        } else if (mux_.mode == "WHEELS") {
+            bool fresh = has_wheels_ && t - t_wheels_ < wheels_timeout_;
+            r = mux_.request(nullptr, nullptr, nullptr, fresh ? &wheels_ : nullptr);
         } else {
             r = mux_.request(teleop_twist(t));
         }
@@ -217,18 +228,18 @@ private:
     std::vector<Source> sources_;
     std::string active_;
     Twist2 pick_{};
-    Request catch_, thrower_;
-    bool has_catch_ = false, has_thrower_ = false;
-    double t_catch_ = -1e9, t_thrower_ = -1e9, t_pick_ = -1e9;
+    Request catch_, thrower_, wheels_;
+    bool has_catch_ = false, has_thrower_ = false, has_wheels_ = false;
+    double t_catch_ = -1e9, t_thrower_ = -1e9, t_pick_ = -1e9, t_wheels_ = -1e9;
     bool has_arm_ = true, arm_out_msg_ = false, lock_ = false;
     double arm_out_timeout_ = 0.5, lock_timeout_ = 1.0, t_arm_ = -1e9, t_lock_ = -1e9;
-    double catch_timeout_ = 0.3, thrower_timeout_ = 0.3, pick_timeout_ = 0.3;
+    double catch_timeout_ = 0.3, thrower_timeout_ = 0.3, pick_timeout_ = 0.3, wheels_timeout_ = 0.3;
     std::unique_ptr<params::Live> live_;
     rclcpp::Publisher<McuCommand>::SharedPtr p_cmd_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr p_mode_, p_active_;
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr s_pick_;
     rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr s_lock_;
-    rclcpp::Subscription<McuCommand>::SharedPtr s_catch_, s_thrower_;
+    rclcpp::Subscription<McuCommand>::SharedPtr s_catch_, s_thrower_, s_wheels_;
     rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr s_arm_;
     rclcpp::Service<omni_interfaces::srv::SetMode>::SharedPtr srv_;
     rclcpp::TimerBase::SharedPtr timer_;

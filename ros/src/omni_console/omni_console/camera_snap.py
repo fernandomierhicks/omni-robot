@@ -1,9 +1,10 @@
 """camera_snap: the robot's cameras for the console's Cameras tab over plain HTTP, no ROS: single frames, live video,
-and AprilTags found in either.
+and AprilTags found in either; and the lidar for the Test > Lidar page (omni_console/rplidar.py).
 
-Runs on the computer the cameras are plugged into (today the Pi, rpi.md: the Arducam IMX708 and the D435;
-ros/tools/cam_snap.sh starts it there). Pictures never go through rosbridge. A snapshot is one JPEG per request, so
-the page decides the rate; live video is a multipart stream that runs only while a page holds it open.
+Runs on the computer the cameras are plugged into (today the Pi, rpi.md: the Arducam IMX708, the D435, a USB
+webcam and the RPLIDAR; ros/tools/cam_snap.sh starts it there). Pictures never go through rosbridge. A snapshot is
+one JPEG per request, so the page decides the rate; live video is a multipart stream that runs only while a page
+holds it open.
 
     GET /cameras                              JSON: the cameras, their streams and capture profiles, open or not,
                                               the profile and settings in use, the last error, the tag detector
@@ -21,12 +22,32 @@ the page decides the rate; live video is a multipart stream that runs only while
     tag36h11, tag16h5: find AprilTags, omni_console/apriltag_view.py), size=0.2 (the tag's black square, m: the
     pose's scale), dec=2 (the detector's quad decimation: faster, a little less reach)
 
-Cameras: arducam (stream color) and realsense (color, ir: the left imager, depth: coloured near red to far blue,
-black where there is no depth). A camera opens on its first request and closes after --idle seconds without one, so
-another program (ball_view, the catch head) can have it back; a camera another program holds answers 503 with the
-reason. --fake serves test patterns with two AprilTags in them, without cameras (the tests, the page on a PC).
+Cameras: arducam (stream color), realsense (color, ir: the left imager, depth: coloured near red to far blue,
+black where there is no depth) and webcam (color: the first USB video camera in /dev/v4l/by-id that isn't the D435,
+MJPEG through OpenCV; no calibration, so its tags have no pose). A camera opens on its first request and closes after
+--idle seconds without one, so another program (ball_view, the catch head) can have it back; a camera another program
+holds, or one that isn't plugged in, answers 503 with the reason. --fake serves test patterns with two AprilTags in
+them, without cameras (the tests, the page on a PC).
 
-    ~/.venvs/cam/bin/python camera_snap.py [--port 8086] [--idle 20] [--fake]
+The lidar (rplidar.LidarSession: opened at the first request, motor only while scanning, closed after --idle s):
+
+    GET /lidar                                JSON: port, baud, model, firmware, hardware, serial, health, scan modes,
+                                              scanning or not, motor PWM, turn rate, samples, framing errors, events
+                                              (what happened: opened, lost on a USB reset and why, started, stopped)
+    GET /lidar/scan?after=SEQ                 the newest turn after SEQ (waits up to 4 s): a (0.01 deg, clockwise),
+                                              r (mm, 0 = no return), q (quality), its statistics
+    GET /lidar/set?run=1&mode=Boost&pwm=660   start (in a mode, at a motor PWM), run=0 stops (scan and motor), pwm=
+                                              alone changes the speed; spin=1 / 0 the motor alone, no scan; health=1
+                                              reads the health again, reset=1 reboots the device, reopen=1 lets the
+                                              port go and opens it again
+    GET /lidar?quiet=1                        the same without opening the port (what's known: the last self-test)
+    GET /lidar/test                           the self-test now (it spins the lidar ~4 s, then stops it): model,
+                                              health, turns/s, samples a turn, ok / why not. It also runs once at
+                                              the start (--no-selftest: not), and each result goes to
+                                              <state dir>/lidar_selftest.json for the console's preflight
+
+    ~/.venvs/cam/bin/python camera_snap.py [--port 8086] [--idle 20] [--webcam DEV] [--lidar PORT|none] [--fake]
+                                           [--state-dir ~/.omni] [--no-selftest]
 """
 from __future__ import annotations
 
@@ -35,6 +56,7 @@ import io
 import itertools
 import json
 import math
+import os
 import signal
 import sys
 import threading
@@ -62,6 +84,13 @@ RS_PROFILES = {
     "vga30": dict(label="640×480, 30 fps", size=(640, 480), fps=30),
     "wvga60": dict(label="848×480, 60 fps", size=(848, 480), fps=60),
     "hd30": dict(label="1280×720, 30 fps", size=(1280, 720), fps=30),
+}
+# a USB webcam (MJPEG): sizes most UVC cameras offer; one it lacks opens at its nearest, and the frame says which
+UVC_PROFILES = {
+    "hd30": dict(label="1280×720, 30 fps", size=(1280, 720), fps=30),
+    "vga30": dict(label="640×480, 30 fps", size=(640, 480), fps=30),
+    "fhd30": dict(label="1920×1080, 30 fps", size=(1920, 1080), fps=30),
+    "hd60": dict(label="1280×720, 60 fps", size=(1280, 720), fps=60),
 }
 
 
@@ -242,6 +271,8 @@ class PiCam(Source):
 
     def __init__(self, profile: str = "wide30", settings: dict | None = None):
         from picamera2 import Picamera2
+        if not Picamera2.global_camera_info():
+            raise CameraError("no Pi camera connected (libcamera lists none)")
         p = self.profiles[profile]
         self.size = p["size"]
         self.cam = Picamera2()
@@ -362,6 +393,70 @@ class RealSense(Source):
     def close(self):
         self._join()
         self.pipe.stop()
+
+
+def find_webcams() -> list[str]:
+    """USB video cameras by id (their capture node, index0), the D435's own nodes left out."""
+    import glob
+    return [p for p in sorted(glob.glob("/dev/v4l/by-id/usb-*-video-index0")) if "RealSense" not in p]
+
+
+def webcam_label(dev: str | None) -> str:
+    """'USB webcam (W4DS)': the product name the kernel has for it."""
+    import os
+    try:
+        name = open(f"/sys/class/video4linux/{os.path.basename(os.path.realpath(dev))}/name").read()
+        return f"USB webcam ({name.split(':')[0].strip()})"
+    except (OSError, TypeError):
+        return "USB webcam"
+
+
+class UvcCam(Source):
+    """A USB webcam through OpenCV's V4L2 backend, MJPEG (YUYV tops out near 640×480 at 30 fps on USB 2). No
+    calibration: tags are found but have no pose. In a dark room most webcams lengthen their exposure and drop
+    below the asked rate; cap_fps in the frame info says what it really delivers."""
+    streams = ("color",)
+    profiles = UVC_PROFILES
+
+    def __init__(self, profile: str = "hd30", settings: dict | None = None, device: str | None = None):
+        import cv2
+        self.cv2 = cv2
+        found = find_webcams()
+        self.device = device or (found[0] if found else None)
+        if not self.device:
+            raise CameraError("no USB webcam found (nothing in /dev/v4l/by-id but the D435)")
+        p = self.profiles[profile]
+        cap = cv2.VideoCapture(self.device, cv2.CAP_V4L2)
+        if not cap.isOpened():
+            raise CameraError(f"can't open {self.device} (another program has it?)")
+        cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, p["size"][0])
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, p["size"][1])
+        cap.set(cv2.CAP_PROP_FPS, p["fps"])
+        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+        self.cap = cap
+        self.fourcc = int(cap.get(cv2.CAP_PROP_FOURCC)).to_bytes(4, "little").decode(errors="replace")
+        self.fps = 0.0
+        self._start_feed()
+
+    def _run(self):
+        t_prev = None
+        while not self.stop.is_set():
+            ok, img = self.cap.read()
+            if not ok or img is None:
+                self.error = f"no frame from {self.device} (unplugged?)"
+                time.sleep(0.2)
+                continue
+            t = time.monotonic()
+            if t_prev is not None and t > t_prev:
+                self.fps = 1.0 / (t - t_prev) if not self.fps else 0.9 * self.fps + 0.1 / (t - t_prev)
+            t_prev = t
+            info = dict(fourcc=self.fourcc, cap_fps=round(self.fps, 1), device=self.device)
+            self._publish(lambda n, img=img: Frame(n, t, {"color": lambda: img[..., ::-1]}, info))     # BGR -> RGB
+
+    def close(self):
+        self._join()
+        self.cap.release()
 
 
 # two tags for the test patterns (OpenCV's drawMarker, 1-cell black border included): tag25h9 id 0, tag36h11 id 0
@@ -510,17 +605,23 @@ class Camera:
 def _why(e: Exception) -> str:
     if isinstance(e, ImportError):
         return f"{e.name or 'its driver'} isn't installed on this computer"
+    if isinstance(e, CameraError):
+        return str(e)
     return f"{type(e).__name__}: {e}".strip()
 
 
-def cameras(fake: bool = False, idle_s: float = 20.0) -> dict[str, Camera]:
-    def opener(cls):
+def cameras(fake: bool = False, idle_s: float = 20.0, webcam: str | None = None) -> dict[str, Camera]:
+    """webcam: its device (default: the first USB video camera that isn't the D435, looked for at each opening)."""
+    def opener(cls, **kw):
         if fake:
             return lambda profile, settings: Fake(cls.streams, cls.profiles, profile, settings)
-        return cls
+        return (lambda profile, settings: cls(profile, settings, **kw)) if kw else cls
+    found = find_webcams() if not fake else []
     return {c.name: c for c in (
         Camera("arducam", "Arducam IMX708", PiCam.streams, opener(PiCam), idle_s, PI_PROFILES, {"focus": None}),
-        Camera("realsense", "RealSense D435", RealSense.streams, opener(RealSense), idle_s, RS_PROFILES, {"emitter": 1}))}
+        Camera("realsense", "RealSense D435", RealSense.streams, opener(RealSense), idle_s, RS_PROFILES, {"emitter": 1}),
+        Camera("webcam", webcam_label(webcam or (found[0] if found else None)), UvcCam.streams,
+               opener(UvcCam, device=webcam), idle_s, UVC_PROFILES))}
 
 
 # ---------------------------------------------------------------- tags
@@ -595,11 +696,15 @@ def tag_worker(cam: Camera, stream: str, family: str, size: float, dec: float) -
 
 class Handler(BaseHTTPRequestHandler):
     cams: dict[str, Camera] = {}
+    lidar = None                                            # rplidar.LidarSession, or None (--lidar none)
+    test_path = None                                        # where the lidar self-test's result goes
 
     def do_GET(self):
         url = urlparse(self.path)
         q = {k: v[-1] for k, v in parse_qs(url.query).items()}
         num = lambda k, d: float(q[k]) if q.get(k, "").replace(".", "", 1).isdigit() else d     # noqa: E731
+        if url.path.startswith("/lidar"):
+            return self._lidar(url.path, q, num)
         if url.path == "/cameras":
             try:
                 av = _av()
@@ -636,7 +741,34 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(404, dict(error="no depth frame sent yet"))
             arr, scale = cam.last_depth
             return self._json(200, dict(range_m=range_at(arr, scale, num("u", 0.5), num("v", 0.5))))
-        self._json(404, dict(error="see /cameras, /snap?cam=&stream=, /stream?cam=&stream=, /set?cam=, /depth?u=&v="))
+        self._json(404, dict(error="see /cameras, /snap?cam=&stream=, /stream?cam=&stream=, /set?cam=, /depth?u=&v=, "
+                                   "/lidar, /lidar/scan, /lidar/set"))
+
+    def _lidar(self, path: str, q: dict, num):
+        rp = _rplidar()
+        if self.lidar is None:
+            return self._json(404, dict(error="no lidar on this server (started with --lidar none)"))
+        flag = lambda k: None if q.get(k) in (None, "") else q[k] not in ("0", "false")     # noqa: E731
+        try:
+            if path == "/lidar":
+                return self._json(200, self.lidar.describe(open_=not flag("quiet")))
+            if path == "/lidar/test":
+                return self._json(200, self.lidar.self_test(path=self.test_path))
+            if path == "/lidar/scan":
+                # 4 s by default: a mode change (stop, the 1 s soft spin-up, the first turn) takes ~2 s
+                return self._json(200, self.lidar.scan(int(num("after", 0)), min(num("timeout", 4.0), 5.0)))
+            if path == "/lidar/set":
+                pwm = q.get("pwm")
+                return self._json(200, self.lidar.set(run=flag("run"), mode=q.get("mode") or None,
+                                                      pwm=int(float(pwm)) if pwm not in (None, "") else None,
+                                                      reset=bool(flag("reset")), health=bool(flag("health")),
+                                                      spin=flag("spin"), reopen=bool(flag("reopen"))))
+        except rp.LidarError as e:
+            return self._json(503, dict(error=str(e)))
+        except (ValueError, OSError) as e:
+            return self._json(400, dict(error=f"{type(e).__name__}: {e}"))
+        self._json(404, dict(error="see /lidar, /lidar/scan?after=, /lidar/set?run=&mode=&pwm=&spin=&health=&reset=&reopen=, "
+                                   "/lidar/test"))
 
     def _picture(self, cam: Camera, f: Frame, stream: str, o: dict, live: bool = False) -> tuple[bytes, dict]:
         arr = f.image(stream)
@@ -728,9 +860,21 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
-def serve(cams: dict[str, Camera], port: int = PORT, host: str = "0.0.0.0") -> ThreadingHTTPServer:
-    """Start the server (and the idle closer) in background threads; returns it (shutdown() stops it)."""
-    httpd = ThreadingHTTPServer((host, port), type("SnapHandler", (Handler,), {"cams": cams}))
+def _rplidar():
+    """rplidar: in the package, or next to this file (the Pi's copy)."""
+    try:
+        from omni_console import rplidar
+    except ImportError:
+        import rplidar
+    return rplidar
+
+
+def serve(cams: dict[str, Camera], port: int = PORT, host: str = "0.0.0.0", lidar=None,
+          test_path: str | None = None) -> ThreadingHTTPServer:
+    """Start the server (and the idle closer) in background threads; returns it (shutdown() stops it). test_path: where
+    the lidar self-test's result goes (None: nowhere)."""
+    httpd = ThreadingHTTPServer((host, port), type("SnapHandler", (Handler,), {"cams": cams, "lidar": lidar,
+                                                                               "test_path": test_path}))
     httpd.daemon_threads = True
 
     def closer():
@@ -738,6 +882,8 @@ def serve(cams: dict[str, Camera], port: int = PORT, host: str = "0.0.0.0") -> T
             time.sleep(1.0)
             for c in cams.values():
                 c.close_if_idle(time.monotonic())
+            if lidar is not None:
+                lidar.close_if_idle(time.monotonic())
 
     threading.Thread(target=closer, daemon=True).start()
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
@@ -748,13 +894,34 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--port", type=int, default=PORT)
     ap.add_argument("--idle", type=float, default=20.0, help="close a camera after this many seconds without a request")
-    ap.add_argument("--fake", action="store_true", help="test patterns, no cameras")
+    ap.add_argument("--fake", action="store_true", help="test patterns and a simulated lidar, no hardware")
+    ap.add_argument("--webcam", help="the USB webcam's device (default: the first in /dev/v4l/by-id that isn't the D435)")
+    ap.add_argument("--lidar", help="the lidar's serial port (default: a CP210x adapter, else /dev/ttyUSB*); none: no lidar")
+    ap.add_argument("--lidar-baud", type=int, help="default: tried 115200, 256000, 1000000")
+    ap.add_argument("--state-dir", default=os.environ.get("OMNI_STATE_DIR", "~/.omni"),
+                    help="where the lidar self-test's result goes (the console's state dir; default $OMNI_STATE_DIR "
+                         "or ~/.omni)")
+    ap.add_argument("--no-selftest", action="store_true", help="don't test the lidar at the start")
     a = ap.parse_args()
-    cams = cameras(a.fake, a.idle)
-    httpd = serve(cams, a.port)
+    cams = cameras(a.fake, a.idle, a.webcam)
+    lidar = None if a.lidar == "none" else _rplidar().LidarSession(a.lidar, a.lidar_baud, a.idle, fake=a.fake)
+    state = os.path.expanduser(a.state_dir)
+    test_path = None
+    try:
+        os.makedirs(state, exist_ok=True)
+        test_path = os.path.join(state, "lidar_selftest.json")     # checks.LIDAR_TEST_FILE
+    except OSError as e:
+        print(f"camera_snap: no state dir {state} ({e}): the lidar self-test stays on this server", flush=True)
+    httpd = serve(cams, a.port, lidar=lidar, test_path=test_path)
+    if lidar is not None and not a.no_selftest:                     # the boot check: spin it, count turns, stop it
+        def boot_test():
+            r = lidar.self_test(path=test_path)
+            print(f"camera_snap: lidar self-test {'passed' if r['ok'] else 'skipped' if r['ok'] is None else 'FAILED'}"
+                  f": {r.get('model', '')} {r['detail']}", flush=True)
+        threading.Thread(target=boot_test, daemon=True).start()
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(0))         # cam_snap.sh stop: close the cameras on the way out
-    print(f"camera_snap on :{a.port} ({'fake' if a.fake else ', '.join(cams)}): GET /cameras, /snap, /stream, /set",
-          flush=True)
+    print(f"camera_snap on :{a.port} ({'fake' if a.fake else ', '.join(cams)}{', lidar' if lidar else ''}): "
+          f"GET /cameras, /snap, /stream, /set, /lidar", flush=True)
     try:
         while True:
             time.sleep(3600)
@@ -765,6 +932,9 @@ def main():
         for c in cams.values():
             with c.lock:
                 c._close()
+        if lidar is not None:
+            with lidar.lock:
+                lidar.close()                                   # the motor stops
 
 
 if __name__ == "__main__":

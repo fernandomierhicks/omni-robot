@@ -19,6 +19,7 @@ export const store = {
   httpsPort: null,         // the supervisor's https port (the Call page's push-to-talk needs a secure page)
   status: null, tStatus: 0, statusHz: 0,
   schema: null,
+  serverFeatures: null,    // the supervisor's feature list (features.js), until the robot's schema arrives
   version: null,             // /console/version: software, firmware (expected, running), packages
   events: [],              // {t, level, text, source}, newest last
   map: null, mapSeq: 0,    // nav_msgs/OccupancyGrid (cdr.js decodeOccupancyGrid)

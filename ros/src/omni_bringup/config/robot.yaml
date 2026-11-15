@@ -17,6 +17,7 @@ mode_manager:
     catch_timeout: 0.3             # s: CATCH without a fresh /catch/cmd -> ramped stop (live)
     thrower_timeout: 0.3           # s: THROWER without a fresh /thrower/cmd -> flywheels down (live)
     pick_timeout: 0.3              # s: PICK without a fresh /pick/cmd_vel -> ramped stop (live)
+    wheels_timeout: 0.3            # s: WHEELS (motor test) without a fresh /wheels/cmd -> wheels ramp to rest (live)
     twist_topics: ["/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"]    # TELEOP's sources (read-only)
     twist_priorities: [100, 90, 50]                                   # the highest fresh one drives
     twist_timeouts: [0.5, 0.5, 0.5]                                   # s each stays fresh
@@ -94,6 +95,8 @@ tag_detector:                      # omni_slam (on the robot; the sim's bridge d
   ros__parameters:
     rate: 10.0                     # Hz: frames searched at most (live)
     tag_size: 0.16                 # m (read-only)
+    decimate: 2.0                  # quad search on a 2x smaller picture: ~3x faster on the Pi 4 (live)
+    threads: 2                     # the C apriltag detector's threads (read-only)
 
 omni_face:
   ros__parameters:

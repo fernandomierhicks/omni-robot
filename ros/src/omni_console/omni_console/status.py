@@ -87,9 +87,9 @@ def mcu_summary(m: dict, age: float) -> dict:
                 **{k: round(m[k], 3) if isinstance(m[k], float) else m[k] for k in EXTRA if k in m})
 
 
-# McuState fields the Base and Thrower tabs show, passed through as they are
+# McuState fields the Base, Thrower and Motors tabs show, passed through as they are
 EXTRA = ("fly_target_rpm", "fly_ready", "tilt_cmd", "feed_state", "feed_exit_beam", "fire_seq_done", "fire_rejected",
-         "vx", "vy", "wz", "slip", "roll", "pitch", "sync_rtt_ms")
+         "vx", "vy", "wz", "slip", "roll", "pitch", "sync_rtt_ms", "wheel_cmd", "wheel_vel", "wheel_cur")
 
 
 def clean(v):

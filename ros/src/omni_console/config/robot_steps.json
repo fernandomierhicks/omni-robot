@@ -1,5 +1,5 @@
 {
-  "_comment": "The Jetson's steps for omni_console's supervisor (supervisor.py --steps robot). 'robot' is the whole robot: every console mode, Catch included, switches at runtime. VERIFY on the robot: robot.launch.py still starts omni_sim's bridge; the hardware bring-up (real drivers: mcu_link on /dev/ttyACM0, rplidar_ros, the cameras) replaces it, and Jazzy on JetPack 6 runs in Docker (design.md 8), which changes cmd to a 'docker exec'.",
+  "_comment": "The robot computer's steps for omni_console's supervisor (supervisor.py --steps robot; systemd/README.md). 'robot' is the robot's software on its real hardware as far as it is brought up (omni_bringup hardware.launch.py: the MCU link, the modes, the console's nodes; the lidar driver, EKF, SLAM and Nav2 join it as their drivers do, design.md 8). Since Nov 12 it runs this way on the Pi 4 bench (an UNO R4 standing in for the Teensy), started from the console's Robot > System page, not at boot. VERIFY with Jazzy in Docker on a JetPack computer: cmd becomes a 'docker exec'.",
   "sim": false,
   "detect": ["pgrep", "-af", "ros2 launch omni_bringup"],
   "stop_all": ["pkill", "-INT", "-f", "ros2 launch omni_bringup"],
@@ -9,9 +9,10 @@
   },
   "steps": [
     {"id": "robot", "label": "Robot", "group": "robot", "keep_running": true,
-     "cmd": ["ros2", "launch", "omni_bringup", "robot.launch.py", "web:=false", "viewer:=false", "foxglove:=true"],
-     "hint": "The robot's software: every mode from its tab. Started at boot; started again if it crashes (3 times in 5 minutes at most).",
+     "cmd": ["ros2", "launch", "omni_bringup", "hardware.launch.py"],
+     "hint": "The robot's software on its hardware: the MCU link, the modes and the console's nodes; with Arm, the SO-101's driver and arm_node (needs its LeRobot calibration in the state dir). The lidar driver and navigation are not brought up on the hardware yet. Started again if it crashes (3 times in 5 minutes at most).",
      "args": [{"key": "map", "label": "map", "kind": "text", "default": "house"},
-              {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"}]}
+              {"key": "kid", "label": "Kid profile", "kind": "bool", "default": "false"},
+              {"key": "arm", "label": "Arm (SO-101)", "kind": "bool", "default": "false"}]}
   ]
 }

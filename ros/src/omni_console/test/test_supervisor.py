@@ -12,6 +12,7 @@ import time
 import urllib.request
 from functools import partial
 from http.server import ThreadingHTTPServer
+from pathlib import Path
 
 import pytest
 
@@ -76,6 +77,8 @@ def test_a_keep_running_step_is_restarted_three_times_at_most(tmp_path):
     assert wait(lambda: sup.state()["current"]["state"] == "exited", 6.0)
     time.sleep(1.5)
     assert len(sup.restarts) == 4 and sup.state()["current"]["state"] == "exited"    # the 4th try isn't made
+    cur = sup.state()["current"]
+    assert cur["unexpected"] and cur["gave_up"]          # the page says it was left stopped, not a clean exit 0
 
 
 def test_switch_from_an_external_launch_preserves_the_console_and_other_processes(tmp_path, monkeypatch):
@@ -169,6 +172,8 @@ def test_http_api_and_the_page(tmp_path):
         assert code == 200 and r["ok"]
         st = json.loads(urllib.request.urlopen(base + "/api/state").read())
         assert st["current"]["step"] == "a" and st["system"]["cpus"] >= 1
+        from omni_console.console_defs import FEATURES                    # every page, before the robot answers
+        assert json.loads(urllib.request.urlopen(base + "/api/features").read())["features"] == list(FEATURES)
         assert wait(lambda: json.loads(urllib.request.urlopen(base + "/api/log?n=5").read())["lines"])
         assert post("/api/power", {"action": "shutdown", "pin": "42"})[0] == 400      # not allowed in the sim
         assert post("/api/stop", {"pin": "42"})[1]["ok"]
@@ -190,6 +195,11 @@ def test_the_sim_and_robot_step_files_load():
     assert robot["cmd"][:3] == ["bash", "/repo/ros/omni.sh", "robot"] and "web:=false" in robot["cmd"]
     real = load_steps("robot", "")
     assert real["steps"][0]["keep_running"] and set(real["power"]) == {"shutdown", "reboot"}
+    # the robot computer's step is the hardware bring-up, never the sim's stack (omni_sim's bridge)
+    cmd = real["steps"][0]["cmd"]
+    assert cmd[:3] == ["ros2", "launch", "omni_bringup"] and cmd[3] == "hardware.launch.py"
+    launch = Path(__file__).resolve().parents[2] / "omni_bringup" / "launch" / cmd[3]
+    assert launch.is_file() and "omni_sim" not in launch.read_text()
 
 
 def _serve(handler, web):

@@ -1,13 +1,15 @@
 // @ts-check
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { act, useStore } from "../ros.js";
-import { Banner, HelpBox, SettingsForm, deg } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm, deg } from "../ui.js";
 
 const PRESETS = [[0, "off"], [2600, "kid lob"], [4500, "indoor return"]];
 
 export function ThrowerTab() {
   const s = useStore("status");
   const st = s.status;
+  const g = useGate("thrower");
   const m = st?.mcu;
   const on = st?.mission === "THROWER";
   const t = st?.thrower;
@@ -40,7 +42,8 @@ export function ThrowerTab() {
       <//>
       ${m?.mode === "MANUAL" && html`<${Banner} title="RC has control.">The transmitter's switch is on MANUAL.<//>`}
       ${on ? html`<div class="card"><b class="ok">Bench mode: the base is parked.</b></div>`
-        : html`<button class="btn go big" disabled=${!st} onClick=${() => act("mission", { name: "THROWER" })}>Take control</button>`}
+        : html`<button class="btn go big" disabled=${!g.ok} onClick=${() => act("mission", { name: "THROWER" })}>Take control</button>`}
+      ${!on && html`<${Gate} a=${g} />`}
       <h3>Flywheels</h3>
       <div class="setting">
         <div class="top"><label>Speed</label>

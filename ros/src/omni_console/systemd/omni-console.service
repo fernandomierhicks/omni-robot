@@ -15,7 +15,9 @@ Environment=OMNI_CONSOLE_HTTPS=8443
 ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash && source /home/omni/omni_ws/install/setup.bash && exec python3 -m omni_console.supervisor --steps robot --autostart robot'
 Restart=always
 RestartSec=3
-KillSignal=SIGTERM
+# SIGINT: the supervisor stops the step on it, and if the supervisor itself died, systemd sends it to the step's
+# leftover processes directly, which stop on SIGINT in 1-2 s (on SIGTERM it took ~30 s on the Pi, Nov 12)
+KillSignal=SIGINT
 TimeoutStopSec=40
 
 [Install]

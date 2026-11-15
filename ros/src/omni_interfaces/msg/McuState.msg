@@ -3,7 +3,7 @@ std_msgs/Header header        # frame_id "odom"
 uint64 t_mcu_us               # the MCU's own clock
 string mode                   # BOOT DISARMED AUTO MANUAL ESTOP
 string profile                # adult / kid
-uint8 drive_mode              # 0 idle, 1 velocity, 2 goto, 3 coasting / braking after a catch
+uint8 drive_mode              # 0 idle, 1 velocity, 2 goto, 3 coasting / braking after a catch, 4 wheels (motor test)
 string feed_state             # IDLE SEAT RUN DONE
 string[] faults
 uint8[4] dm_err               # drive motor error codes (1 = enabled)
@@ -30,3 +30,6 @@ uint16 fire_seq_done
 uint16 fire_rejected
 float32 v_bus
 float64 sync_rtt_ms           # the link's best round trip
+float32[4] wheel_cmd          # each wheel's commanded speed, rad/s (protocol 7)
+float32[4] wheel_vel          # each wheel's measured speed, its motor's feedback, rad/s
+float32[4] wheel_cur          # each wheel motor's current, its feedback, A (protocol 9; signed like wheel_vel)

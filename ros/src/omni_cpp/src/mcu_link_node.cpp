@@ -48,8 +48,9 @@ namespace omni {
 namespace {
 
 constexpr double DEG = 3.14159265358979323846 / 180.0;
-const char* const SAMPLE_COLS = "t,vx,vy,wz,v_cmd_x,v_cmd_y,w_cmd,slip,roll,pitch,yaw";
-constexpr size_t N_COLS = 11;
+const char* const SAMPLE_COLS =
+    "t,vx,vy,wz,v_cmd_x,v_cmd_y,w_cmd,slip,roll,pitch,yaw,c1,c2,c3,c4,w1,w2,w3,w4,i1,i2,i3,i4";
+constexpr size_t N_COLS = 23;                // readers find columns by name (the label), so new ones go at the end
 
 builtin_interfaces::msg::Time stamp_of(double t) {
     int64_t ns = std::llround(t * 1e9);
@@ -395,6 +396,8 @@ private:
         m.feed_exit_beam = s.beams & 2;
         m.fire_seq_done = s.fire_seq_done, m.fire_rejected = s.fire_rejected;
         m.v_bus = s.v_bus;
+        for (int k = 0; k < 4; ++k)
+            m.wheel_cmd[k] = s.wheel_cmd[k], m.wheel_vel[k] = s.wheel_vel[k], m.wheel_cur[k] = s.wheel_cur[k];
         {
             std::lock_guard<std::mutex> g(mtx_);
             m.sync_rtt_ms = link_->sync.rtt_ns.value_or(0) * 1e-6;
@@ -411,6 +414,9 @@ private:
                              (double)s.v_cmd_x, (double)s.v_cmd_y, (double)s.w_cmd, (double)s.slip, (double)s.roll,
                              (double)s.pitch, (double)s.yaw})
                 samples_.push_back((float)v);
+            for (int i = 0; i < 4; ++i) samples_.push_back(s.wheel_cmd[i]);      // c1..c4: each wheel asked (rad/s)
+            for (int i = 0; i < 4; ++i) samples_.push_back(s.wheel_vel[i]);      // w1..w4: and measured
+            for (int i = 0; i < 4; ++i) samples_.push_back(s.wheel_cur[i]);      // i1..i4: each motor's current (A)
             if (n_state_ % 10 == 0) publish_samples();
         }
         if (n_state_ % 4) return;

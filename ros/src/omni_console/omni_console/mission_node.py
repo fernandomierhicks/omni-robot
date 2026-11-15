@@ -27,6 +27,8 @@ Publishes  /console/status    std_msgs/String JSON, 10 Hz (wall clock): mission,
            /cmd_vel           geometry_msgs/Twist: the console's stick in MANUAL (or /cmd_vel_smoothed, through Nav2's
                               collision monitor, when obstacle slow-down is on and it runs)
            /thrower/cmd       omni_interfaces/McuCommand, 20 Hz in THROWER: tilt, flywheel rpm, fire_seq
+           /wheels/cmd        omni_interfaces/McuCommand, 20 Hz in MOTORS while the stick is held (and 0.3 s of
+                              zeros after): a, b, c, v_end = each wheel's rad/s (mode_manager WHEELS)
            /initialpose       geometry_msgs/PoseWithCovarianceStamped: where the robot is on a loaded map
            /face/say /face/hear std_msgs/String: the Say box's lines (JSON: text, mood, act) and typed voice
                               commands, for omni_face's face_node
@@ -76,6 +78,7 @@ from lifecycle_msgs.msg import State, Transition
 from nav_msgs.msg import OccupancyGrid, Path as PathMsg
 from omni_interfaces.msg import ArmHardware, BallTrack, CatchStatus, McuCommand, McuInfo, McuState, SparseImage
 from omni_interfaces.srv import ConsoleCommand, SetMode
+from omni_mcu.protocol import DRIVE_WHEELS
 from rcl_interfaces.msg import Log
 from rclpy.action import ActionClient
 from rclpy.clock import Clock, ClockType
@@ -389,7 +392,9 @@ class MissionNode(Node):
         loc_params = P("slam_localization_params", "").value
         slam_start = P("slam_start", "localization").value
         sim_time = P("slam_sim_time", False).value
-        self.firmware_dir = P("firmware_dir", os.environ.get("OMNI_FIRMWARE_DIR", "")).value
+        ws_fw = Path.home() / "omni_ws" / "firmware"               # the robot computer's copy (pi.sh / omni.sh)
+        self.firmware_dir = P("firmware_dir", os.environ.get("OMNI_FIRMWARE_DIR",
+                                                             str(ws_fw) if (ws_fw / "lib" / "omni_fw").is_dir() else "")).value
         self.version_file = P("version_file", os.environ.get("OMNI_VERSION_FILE",
                                                               str(Path.home() / "omni_ws" / "version.json"))).value
         self.log_source = P("log_source", "robot").value             # "sim" when the sim stands in for the robot
@@ -458,6 +463,7 @@ class MissionNode(Node):
         self.p_cmd = self.create_publisher(Twist, cmd_vel_topic, 10)
         self.p_cmd_safe = self.create_publisher(Twist, "/cmd_vel_smoothed", 10)
         self.p_thrower = self.create_publisher(McuCommand, "/thrower/cmd", 10)
+        self.p_wheels = self.create_publisher(McuCommand, "/wheels/cmd", 10)
         self.p_initial = self.create_publisher(PoseWithCovarianceStamped, "/initialpose", 1)
         self.p_throw = self.create_publisher(String, "/console/throw", LATCHED)      # the last throw, with its path
         self.p_arm = self.create_publisher(String, "/arm/request", 10)              # omni_arm (design.md 11)
@@ -616,7 +622,10 @@ class MissionNode(Node):
                         tilt_cmd=float(m.tilt_cmd), feed_state=m.feed_state, feed_exit_beam=bool(m.feed_exit_beam),
                         fire_seq_done=int(m.fire_seq_done), fire_rejected=int(m.fire_rejected), vx=float(m.vx),
                         vy=float(m.vy), wz=float(m.wz), slip=float(m.slip), roll=float(m.roll), pitch=float(m.pitch),
-                        sync_rtt_ms=float(m.sync_rtt_ms))
+                        sync_rtt_ms=float(m.sync_rtt_ms),
+                        wheel_cmd=[round(float(v), 3) for v in m.wheel_cmd],
+                        wheel_vel=[round(float(v), 3) for v in m.wheel_vel],
+                        wheel_cur=[round(float(v), 2) for v in m.wheel_cur])
         self.mcu_t = time.monotonic()
         self.mcu_us = int(m.t_mcu_us)
 
@@ -708,6 +717,8 @@ class MissionNode(Node):
         self.core.manual_input(m.linear.x, m.linear.y, m.angular.z, m.linear.z > 0.5, time.monotonic())
         if self.core.mission == "MANUAL":
             self.drive_tick()
+        elif self.core.mission == "MOTORS":
+            self.wheels_tick()
 
     def on_ball(self, m: String):
         try:
@@ -1204,6 +1215,18 @@ class MissionNode(Node):
                  self.core.mission != "GOALIE")
         (self.p_cmd_safe if guard and self.core.caps["collision"] else self.p_cmd).publish(m)
 
+    def wheels_tick(self):
+        """The motor test's wheel speeds (missions.Console.motors_output) on /wheels/cmd: mode_manager's WHEELS."""
+        w = self.core.motors_output(time.monotonic())
+        if w is None:
+            return
+        m = McuCommand()
+        m.drive_mode = DRIVE_WHEELS
+        m.a, m.b, m.c, m.v_end = (float(v) for v in w)
+        m.a_brake = float(self.core.motors_ramp())         # protocol 9: the firmware's ramp for them, rad/s^2
+        m.header.stamp = self.get_clock().now().to_msg()
+        self.p_wheels.publish(m)
+
     def fast_tick(self):
         """20 Hz, one timer for everything periodic (each wake-up costs): the inputs (drained, never woken per
         message), the driving missions' twist, the thrower's command, and every second tick the status."""
@@ -1228,6 +1251,7 @@ class MissionNode(Node):
         if self.n_fast % 2 == 0:
             self._status()
         self._drive()
+        self.wheels_tick()
         t = self.core.thrower_cmd()
         if t is not None:
             m = McuCommand()
@@ -1327,6 +1351,21 @@ class MissionNode(Node):
                 self.wifi = None
         return self.wifi
 
+    def read_lidar_test(self):
+        """camera_snap's lidar self-test (<state_dir>/lidar_selftest.json, written at its start and on /lidar/test),
+        re-read when the file changes; None if it never ran here."""
+        now = time.monotonic()
+        if now - getattr(self, "_lt_t", -math.inf) > 2.0:
+            self._lt_t = now
+            p = self.state_dir / checks.LIDAR_TEST_FILE
+            try:
+                m = p.stat().st_mtime
+                if m != getattr(self, "_lt_m", None):
+                    self._lt_m, self._lt = m, json.loads(p.read_text())
+            except (OSError, ValueError):
+                self._lt_m, self._lt = None, None
+        return getattr(self, "_lt", None)
+
     def read_sys(self):
         now = time.monotonic()
         if now - self.sys_t > 2.0:
@@ -1364,15 +1403,18 @@ class MissionNode(Node):
         s["rc"] = None if i is None else dict(ok=i["rc_ok"], manual=i["rc_manual"], ch=i["rc"],
                                               age=round(now - self.info_t, 2))
         s["fw"] = None if i is None else dict(build=i["build"], protocol=i["protocol"])
+        s["motor_temp"] = None if i is None else i["motor_temp"]       # deg C per drive motor (the Motors tab)
         s["wifi"] = self.read_wifi()
         s["sys"] = self.read_sys()
         s["consoles"] = len(self.consoles)
         tw = self.core.last_cmd if self.core.manual_active(now) else None      # what was sent (slow bands applied)
         s["manual"] = dict(active=tw is not None, cmd=None if tw is None else [round(v, 2) for v in tw])
         s["lidar"] = self.lidar_health()
+        s["lidar_test"] = self.read_lidar_test()
         rows = checks.preflight(s, self.fw_expected)     # the Test workspace; failures refuse the starts they block
         self.core.preflight = rows
         s["preflight"] = checks.brief(rows)
+        s["avail"] = self.core.unavailable()             # {feature: why} for what can't start: the page greys these
         self.p_status.publish(String(data=json.dumps(s)))
         self.save()
         self.flush_events()

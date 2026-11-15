@@ -12,7 +12,9 @@ sounddevice
 
 # omni_console camera_snap.py (the Cameras tab's server on the robot computer): JPEG encoding, AprilTags
 simplejpeg
-pupil-apriltags
+# AprilTags: the C apriltag library, for omni_slam's tag_detector (omni_calib.detect) and the console's overlay;
+# without it both fall back to OpenCV's aruco (slower, no decoder margin for tag_slam's gate). In WSL: Nov 12
+pupil-apriltags==1.0.4.post11
 # omni_perception people_node: the person detector (YOLOX ONNX models: ros/tools/fetch_models.py)
 onnxruntime
 # the D435 (x86_64 wheels on PyPI; on a Pi it is built from source: characterization/realsense/README.md)

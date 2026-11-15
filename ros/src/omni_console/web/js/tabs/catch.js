@@ -2,14 +2,16 @@
 /* Catch: start the game, the throw radar (each throw's speed, height and aim, replayed), who's throwing, and the
    leaderboard (omni_console/throws.py). The pass game is a setting: the robot throws each ball to the other player. */
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { MapView } from "../mapview.js";
 import { act, command, useStore, useTopic } from "../ros.js";
 import { ThrowView, kmh } from "../throwview.js";
-import { Banner, HelpBox, SettingsForm } from "../ui.js";
+import { Gate, Banner, HelpBox, SettingsForm } from "../ui.js";
 
 export function CatchTab() {
   const s = useStore("status", "schema");
   const st = s.status;
+  const g = useGate("catch");
   const c = st?.catch;
   const can = !!st?.caps?.catch;
   const playing = st?.mission === "CATCH";
@@ -37,10 +39,10 @@ export function CatchTab() {
         the robot throws each ball to the one who didn't throw it. The radar shows how fast and how high each throw
         was and how close it came to the robot's spot. <b>Pause</b> disarms the motors.
       <//>
-      ${!can && html`<${Banner} title="The catch code isn't running.">In the sim: Home, 'Switch to the catch world'. On the robot it starts with it.<//>`}
+      ${!playing && html`<${Gate} a=${g} />`}
       ${playing
         ? html`<button class="btn big danger" onClick=${() => act("mission", { name: "IDLE" })}>Pause</button>`
-        : html`<button class="btn go big" disabled=${!can} onClick=${() => act("mission", { name: "CATCH" })}>Start</button>`}
+        : html`<button class="btn go big" disabled=${!g.ok} onClick=${() => act("mission", { name: "CATCH" })}>Start</button>`}
       <h3>Who's throwing</h3>
       <div class="row"><input type="text" class="grow" placeholder=${who || "Your name"} value=${player}
         onInput=${(/** @type {any} */ e) => setPlayer(e.currentTarget.value)}

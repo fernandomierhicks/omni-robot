@@ -2,12 +2,14 @@
 /* Calibrate: the bench list (design.md 7) as guided procedures with a tape measure. Results are saved on the robot
    with their time and say what to change; nothing is applied by itself (omni_console/calibration.py). */
 import { html, useEffect, useState } from "../../vendor/htm-preact-standalone.mjs";
+import { useGate } from "../features.js";
 import { act, command, useStore } from "../ros.js";
-import { HelpBox, SettingsForm, clock } from "../ui.js";
+import { Gate, HelpBox, SettingsForm, clock } from "../ui.js";
 
 export function CalibrateTab() {
   const s = useStore("status");
   const st = s.status;
+  const g = useGate("calibrate");
   const [cal, setCal] = useState(/** @type {any} */ (null));
   const refresh = () => command("calib").then((r) => { if (r.ok) setCal(r.data); });
   useEffect(() => { refresh(); const t = setInterval(refresh, 1500); return () => clearInterval(t); }, []);
@@ -21,14 +23,15 @@ export function CalibrateTab() {
       times: when the results agree, put them into the robot's parameters (the firmware's fw_params via
       robot_export.py, the launcher table). The robot drives slowly here (0.25 m/s, 45°/s); <kbd>Space</kbd> stops it.
     <//>
+    ${!live && html`<div style="max-width: 900px"><${Gate} a=${g} /></div>`}
     <div class="calib">
-      <${Proc} title="Odometry: straight line" proc="odom_line" res=${res.odom_line} live=${live} run=${run}
+      <${Proc} title="Odometry: straight line" proc="odom_line" res=${res.odom_line} live=${live} run=${run} gate=${g}
         text="Put a tape mark at the front of the robot, with the set distance of clear floor ahead. Start: it drives straight. Then measure how far the front really moved and enter it."
         unit="m" ask="It really moved" />
-      <${Proc} title="Heading: spin" proc="odom_spin" res=${res.odom_spin} live=${live} run=${run}
+      <${Proc} title="Heading: spin" proc="odom_spin" res=${res.odom_spin} live=${live} run=${run} gate=${g}
         text="Line a mark on the robot up with a mark on the floor. Start: it spins the set number of turns on its IMU heading. Then enter how many degrees past the floor mark it stopped (+ past, − short)."
         unit="deg" ask="Past the mark by" />
-      <${Proc} title="IMU level" proc="imu_level" res=${res.imu_level} live=${live} run=${run}
+      <${Proc} title="IMU level" proc="imu_level" res=${res.imu_level} live=${live} run=${run} gate=${g}
         text="On the flattest floor you have. It measures roll and pitch at rest, turns half round and measures again: the mean is the IMU's mounting offset, the difference the floor's slope." />
       <${Launcher} cal=${cal} st=${st} run=${run} />
       <${Latency} res=${res.camera_latency} run=${run} />
@@ -38,7 +41,7 @@ export function CalibrateTab() {
 }
 
 /** @param {{title: string, proc: string, res: any[], live: any, run: any, text: string, unit?: string, ask?: string}} p */
-function Proc({ title, proc, res, live, run, text, unit, ask }) {
+function Proc({ title, proc, res, live, run, text, unit, ask, gate }) {
   const [v, setV] = useState("");
   const mine = live && live.proc === proc;
   const last = (res || [])[res?.length - 1];
@@ -50,7 +53,7 @@ function Proc({ title, proc, res, live, run, text, unit, ask }) {
       ${live.phase === "measure" && unit && html`<div class="row" style="margin-top: 6px">${ask}
         <input type="number" step="0.001" value=${v} onInput=${(/** @type {any} */ e) => setV(e.currentTarget.value)} /> ${unit}
         <button class="btn primary small" disabled=${v === ""} onClick=${() => run("calib_measure", { value: parseFloat(v) }).then(() => setV(""))}>Done</button></div>`}`
-      : html`<button class="btn go" onClick=${() => run("calib_start", { proc })}>Start</button>`}
+      : html`<button class="btn go" disabled=${gate && !gate.ok} title=${gate?.why || ""} onClick=${() => run("calib_start", { proc })}>Start</button>`}
     ${last && html`<div class="result"><span class="dim">${clock(last.t)}:</span> ${last.summary}</div>`}
     ${res && res.length > 1 && html`<details><summary class="dim">${res.length} results</summary>${res.slice().reverse().map((r) => html`<div class="dim" style="font-size: 12px">${clock(r.t)} ${r.summary}</div>`)}</details>`}
   </div>`;
@@ -58,6 +61,7 @@ function Proc({ title, proc, res, live, run, text, unit, ask }) {
 
 /** @param {{cal: any, st: any, run: any}} p */
 function Launcher({ cal, st, run }) {
+  const tg = useGate("thrower");                       // the parked catch robot's launcher
   const [tilt, setTilt] = useState(10);
   const [dist, setDist] = useState(/** @type {Record<string, string>} */ ({}));
   const bench = st?.mission === "THROWER";
@@ -69,7 +73,8 @@ function Launcher({ cal, st, run }) {
     <p class="dim" style="margin: 0 0 8px">Clear floor ahead (6 m or more). Load a ball, set the rpm, fire, and enter
       where it first touched the floor, measured from the robot's centre. Five shots fit how far off the launcher's
       table is.</p>
-    ${!bench ? html`<button class="btn go" onClick=${() => run("mission", { name: "THROWER" })}>Take control (Thrower bench mode)</button>`
+    ${!bench ? html`<button class="btn go" disabled=${!tg.ok} title=${tg.why} onClick=${() => run("mission", { name: "THROWER" })}>Take control (Thrower bench mode)</button>
+        ${!tg.ok && html`<div class="dim" style="font-size: 12px; margin-top: 4px">${tg.why}</div>`}`
       : html`<div class="row" style="margin-bottom: 6px">Tilt <input type="number" min="-30" max="40" value=${tilt}
           onChange=${(/** @type {any} */ e) => setTilt(+e.currentTarget.value)} />°
           <span class="dim">flywheels ${m ? `${Math.round(m.fly_rpm[0])} / ${Math.round(m.fly_target_rpm)} rpm${m.fly_ready ? ", ready" : ""}` : "–"}${m?.ball_held ? ", ball loaded" : ""}</span></div>

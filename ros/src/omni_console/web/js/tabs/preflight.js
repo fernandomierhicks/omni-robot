@@ -24,13 +24,16 @@ export function PreflightTab() {
     const t = setInterval(get, 2000);
     return () => { alive = false; clearInterval(t); };
   }, [s.conn]);
-  const label = (/** @type {string} */ id) => id === "motion" ? "everything that moves" : list.find((x) => x.id === id)?.label || id;
+  const GROUPS = /** @type {Record<string, string>} */ ({ motion: "everything that moves", driving: "driving, by hand too",
+    self_driving: "everything that drives itself" });     // checks.py MOTION, BASE, SELF_DRIVE
+  const label = (/** @type {string} */ id) => GROUPS[id] || list.find((x) => x.id === id)?.label || id;
   const n = s.status?.preflight;
   return html`<div class="full" style="max-width: 900px">
     <${HelpBox} tab="preflight">
       The robot checks itself all the time; nothing here moves it. <b class="err">✕</b> fails a check that would make a
-      task fail anyway (a silent or faulted MCU, firmware that speaks another protocol, a flat pack, lost localization,
-      an unhealthy arm) and refuses the tasks named beside it until it clears. <b class="warn">!</b> is worth a look
+      task fail anyway (a silent or faulted MCU, firmware that speaks another protocol, drive motors missing, a silent
+      IMU, no lidar scan, a flat pack, lost localization, an unhealthy arm) and refuses the tasks named beside it until
+      it clears: those are greyed everywhere on the page, with the same words. <b class="warn">!</b> is worth a look
       but refuses nothing; <b class="dim">–</b> means the robot can't see that part (not running, or the sim has none).
       Before a session on the real robot, go through <a href="#bringup">Bring-up</a> too.
     <//>
