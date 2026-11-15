@@ -1,0 +1,201 @@
+{
+ "test": "pi_keepup",
+ "label": "console soak: robot step + Lidar page Stability scan, wired",
+ "time": "2026-11-13T00:44:59",
+ "host": "omni-cam",
+ "machine": "aarch64",
+ "governor": "performance",
+ "cores": 4,
+ "model": "Raspberry Pi 4 Model B Rev 1.5",
+ "host_load": {
+  "seconds": 1775,
+  "cpu_total_pct": {
+   "median": 31.969309462915596,
+   "p95": 46.231155778894475,
+   "max": 93.56435643564356,
+   "note": "100 = all cores busy"
+  },
+  "busiest_core_pct": {
+   "median": 37.0,
+   "p95": 53.84615384615385,
+   "max": 100.0
+  },
+  "load1_max": 3.0322265625,
+  "mem_available_mb_min": 3079.1796875,
+  "swap_used_mb_max": 0.0,
+  "temp_c": {
+   "start": 32.615,
+   "max": 36.024
+  },
+  "freq_mhz_min": 1800.0,
+  "throttle_flags_seen": [],
+  "throttle_flags_hex": "0x0"
+ },
+ "processes": {
+  "avahi-daemon:": {
+   "median_pct": 0.2,
+   "max_pct": 0.9,
+   "rss_mb_max": 6
+  },
+  "camera_snap.py": {
+   "median_pct": 19.3,
+   "max_pct": 21.1,
+   "rss_mb_max": 43
+  },
+  "omni_console.supervisor": {
+   "median_pct": 0.3,
+   "max_pct": 0.5,
+   "rss_mb_max": 22
+  },
+  "mcu_link": {
+   "median_pct": 13.7,
+   "max_pct": 15.6,
+   "rss_mb_max": 34
+  },
+  "mode_manager": {
+   "median_pct": 5.7,
+   "max_pct": 6.5,
+   "rss_mb_max": 32
+  },
+  "rosbridge_websocket": {
+   "median_pct": 6.3,
+   "max_pct": 6.8,
+   "rss_mb_max": 89
+  },
+  "rosapi_node": {
+   "median_pct": 0.7,
+   "max_pct": 0.9,
+   "rss_mb_max": 78
+  },
+  "mission_node": {
+   "median_pct": 22.3,
+   "max_pct": 24.1,
+   "rss_mb_max": 114
+  },
+  "pi_keepup.py": {
+   "median_pct": 48.7,
+   "max_pct": 53.7,
+   "rss_mb_max": 97
+  },
+  "ros2 launch/daemon": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 39
+  },
+  "snapd": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 45
+  },
+  "systemd-journald": {
+   "median_pct": 0.15000000000000002,
+   "max_pct": 0.3,
+   "rss_mb_max": 16
+  },
+  "@dbus-daemon": {
+   "median_pct": 0.2,
+   "max_pct": 0.4,
+   "rss_mb_max": 5
+  },
+  "polkitd": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 7
+  },
+  "systemd-logind": {
+   "median_pct": 0.2,
+   "max_pct": 0.5,
+   "rss_mb_max": 8
+  },
+  "rsyslogd": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 5
+  },
+  "sshd:": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 7
+  },
+  "udisksd": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 12
+  },
+  "ModemManager": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 13
+  },
+  "systemd-timesyncd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 7
+  },
+  "systemd-networkd": {
+   "median_pct": 0.1,
+   "max_pct": 0.1,
+   "rss_mb_max": 9
+  },
+  "wpa_supplicant": {
+   "median_pct": 0.1,
+   "max_pct": 0.2,
+   "rss_mb_max": 15
+  },
+  "cron": {
+   "median_pct": 0.2,
+   "max_pct": 0.2,
+   "rss_mb_max": 3
+  },
+  "_robot_total_pct_of_one_core": 68.3,
+  "_monitor_pct_of_one_core": 48.7
+ },
+ "topics": {
+  "/console/status": {
+   "type": "std_msgs/msg/String",
+   "messages": 0
+  },
+  "/mcu/state_10hz": {
+   "type": "omni_interfaces/msg/McuState",
+   "messages": 16166,
+   "rate_hz": 8.992177390625063,
+   "gap_ms": {
+    "median": 111.04304200011939,
+    "p99": 117.51947700008714,
+    "max": 350.29946099999165
+   },
+   "age_ms": {
+    "median": 2.472996711730957,
+    "p95": 3.724813461303711,
+    "max": 246.55771255493164
+   }
+  },
+  "/mcu/link": {
+   "type": "std_msgs/msg/String",
+   "messages": 0
+  },
+  "/mcu/state": {
+   "type": "omni_interfaces/msg/McuState",
+   "messages": 323304,
+   "rate_hz": 179.83859637318878,
+   "gap_ms": {
+    "median": 5.528077000008125,
+    "p99": 7.7384670000242295,
+    "max": 335.6844019999983
+   },
+   "age_ms": {
+    "median": 2.3784637451171875,
+    "p95": 3.341197967529297,
+    "max": 333.24337005615234
+   }
+  },
+  "/catch/status": {
+   "type": "omni_interfaces/msg/CatchStatus",
+   "messages": 0
+  }
+ },
+ "last_text": {
+  "/console/status": "{\"mission\": \"IDLE\", \"task\": \"Motors off\", \"progress\": null, \"goal\": null, \"robot_mode\": \"IDLE\", \"kid\": false, \"caps\": {\"nav\": false, \"catch\": false, \"collision\": false, \"arm\": false, \"sim\": false}, \"version\": \"0.4.0\", \"control\": {\"who\": \"idle\", \"text\": \"Nobody: motors off\", \"ladder\": [{\"id\": \"estop\", \"label\": \"E-stop\"}, {\"id\": \"rc\", \"label\": \"RC switch\"}, {\"id\": \"stick\", \"label\": \"Stick / gamepad\"}, {\"id\": \"task\", \"label\": \"Task (Nav2, Tidy, Follow ...)\"}, {\"id\": \"ai\", \"label\": \"AI\"}], \"ai_hold_s\": null, \"ai_lease\": false}, \"cap\": null, \"activity_n\": 0, \"slam\": {\"mode\": null, \"map\": null, \"managed\": false, \"maps\": [\"house\", \"house_furnished\"], \"busy\": false}, \"explore\": null, \"patrol\": null, \"thrower\": null, \"motors\": null, \"follow\": null, \"program\": null, \"calib\": null, \"slow\": null, \"player\": \"Player 1\", \"localization\": null, \"arm\": null, \"ai\": {\"lease\": false, \"session\": null, \"owner\": null, \"task\": null, \"found\": null, \"limits\": {\"max_speed\": 0.5, \"max_turn\": 180.0}}, \"goalie\": null, \"fun\": null, \"dance\": null, \"t\": 1794559497.061189, \"source\": \"robot\", \"map\": \"house\", \"mcu\": {\"mode\": \"DISARMED\", \"mode_hint\": \"Motors off. Start a mode to arm them.\", \"profile\": \"adult\", \"faults\": [{\"name\": \"IMU_SILENT\", \"hint\": \"The BNO085 stopped reporting: heading comes from the wheels only.\"}], \"v_bus\": 24.0, \"battery_pct\": 83, \"battery_low\": false, \"age\": 0.05, \"dm_err\": [0, 0, 0, 0], \"fly_rpm\": [0, 0], \"tilt\": 0.0, \"ball_held\": false, \"drive_mode\": 0, \"fly_target_rpm\": 0.0, \"fly_ready\": false, \"tilt_cmd\": 0.0, \"feed_state\": \"IDLE\", \"feed_exit_beam\": false, \"fire_seq_done\": 0, \"fire_rejected\": 0, \"vx\": 0.0, \"vy\": 0.0, \"wz\": 0.0, \"slip\": 0.0, \"roll\": 0.0, \"pitch\": 0.0, \"sync_rtt_ms\": 2.137, \"wheel_cmd\": [0.0, 0.0, 0.0, 0.0], \"wheel_vel\": [0.0, 0.0, 0.0, 0.0]}, \"link\": {\"connected\": true, \"port\": \"serial:/dev/serial/by-id/usb-Arduino_UNO_R4_WiFi_350D260F593130388D3A33334B57303E-if00\", \"states\": 329859, \"imus\": 0, \"cmds\": 183398, \"errors\": 1, \"rtt_ms\": 2.137, \"mode\": \"DISARMED\", \"faults\": [\"IMU_SILENT\"], \"mcu_rx_errors\": 0, \"mcu_cmd_rejected\": 0, \"mcu_tick_late\": 54705, \"mcu_tick_max_us\": 1644, \"infos\": 18237, \"protocol\": 7, \"protocol_host\": 7, \"fw_build\": \"f5bc4d5c\"}, \"pose\": {\"frame\": \"odom\", \"x\": 0.0, \"y\": 0.0, \"yaw\": 0.0, \"t\": 1794559497.0568}, \"catch\": null, \"vision\": {\"perception\": null, \"track\": null, \"images\": [], \"video_port\": null}, \"rc\": {\"ok\": false, \"manual\": false, \"ch\": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], \"age\": 0.05}, \"fw\": {\"build\": \"f5bc4d5c\", \"protocol\": 7}, \"motor_temp\": [43, 25, 25, 25], \"wifi\": {\"iface\": \"wlan0\", \"quality\": 47.0, \"dbm\": -63.0}, \"sys\": {\"load\": 3.03, \"cpus\": 4, \"temp_c\": 33.1}, \"consoles\": 1, \"manual\": {\"active\": false, \"cmd\": null}, \"lidar\": null, \"preflight\": {\"ok\": 6, \"warn\": 3, \"fail\": 0, \"na\": 4, \"worst\": [\"IMU\", \"RC receiver\", \"Navigation\"]}}",
+  "/mcu/link": "{\"connected\": true, \"port\": \"serial:/dev/serial/by-id/usb-Arduino_UNO_R4_WiFi_350D260F593130388D3A33334B57303E-if00\", \"states\": 329859, \"imus\": 0, \"cmds\": 183398, \"errors\": 1, \"rtt_ms\": 2.137, \"mode\": \"DISARMED\", \"faults\": [\"IMU_SILENT\"], \"mcu_rx_errors\": 0, \"mcu_cmd_rejected\": 0, \"mcu_tick_late\": 54705, \"mcu_tick_max_us\": 1644, \"infos\": 18237, \"protocol\": 7, \"protocol_host\": 7, \"fw_build\": \"f5bc4d5c\"}"
+ }
+}

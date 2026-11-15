@@ -143,7 +143,7 @@ What the covariance says, for a still camera 1.35 m from a 0.14 m tag:
 - A self-crossing misread made `omni_slam.tags.tag_pose` raise. That would have stopped `tag_slam`, which passes a
   frame's detections to `TagSlam.on_tags` without catching errors. Since Nov 4, `tag_pose` refuses it ("bad fit")
   instead; there is a test in `omni_slam/test`.
-- **OpenCV aruco**, what today's `tag_detector` uses, had no misreads in these runs. It is still 3× slower and its
+- **OpenCV aruco**, what `tag_detector` used until Nov 12, had no misreads in these runs. It is still 3× slower and its
   orientation is worse: on the Arducam, tilt σ was 1.65°, 3.4× its corner-noise prediction, with 15% of poses
   ambiguous. In dim light it called 69% of D435 IR poses ambiguous.
 
@@ -225,7 +225,12 @@ The bench only needs the tag moved between runs; a turntable or the robot turnin
    `sigma_px` 0.7 is a wide margin over the still-camera noise. Fit it from moving and calibrated runs, not from
    these.
 3. **Detect with the C apriltag library.** OpenCV aruco is 3× slower and has worse orientation (1.6° tilt σ on the
-   Arducam; 7–69% of poses ambiguous). This is proposed, not changed.
+   Arducam; 7–69% of poses ambiguous). **Done Nov 12:** `tag_detector` detects with the C library at decimate 2
+   (`omni_calib.detect`, `robot.yaml`), and its detections carry the real margin to `tag_slam`'s gate. On the PC
+   (WSL, synthetic 1280×720) it took 3.8 ms against aruco's 29 ms as the node ran it, and found tags down to 14 px
+   (aruco: 28 px); `tag_slam` refuses tags under 18 px anyway. The same day showed that OpenCV's AprilTag markers are the
+   official tags turned 180°, and that the old corner reorder rolled OpenCV poses of official tags 180° about their
+   normal. The aruco rows above used it: their roll is turned, while range, normal and scatter are unaffected.
 4. **Keep the margin gate at 30.** It is the only thing between real misreads (up to margin 23) and the graph.
 5. **The D435's projector disturbs IR tags:** 0% in dim light, 70% with dropouts in good light. Turn it off for IR
    tags, or alternate it with depth (`emitter_on_off`, untested). Colour locks too, at a lower margin. The IR's

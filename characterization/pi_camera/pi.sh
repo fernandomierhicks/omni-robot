@@ -36,6 +36,11 @@ remote() { "${SSH[@]}" "$HOST" "source /opt/ros/jazzy/setup.bash 2>/dev/null; \
 
 deploy() {
     echo "== deploy -> $HOST:$WS"
+    # what software this is, for the console's Version tab (omni.sh's version_file; dirty trees aren't marked)
+    local g=(git -c safe.directory='*' -C "$REPO") ver
+    ver=$(printf '{"commit": "%s", "commit_time": "%s", "synced": "%s"}' \
+        "$("${g[@]}" rev-parse --short HEAD 2>/dev/null || echo unknown)" \
+        "$("${g[@]}" log -1 --format=%cI 2>/dev/null || true)" "$(date -Iseconds)")
     # tar the tree, unpack into a staging dir, then rsync --delete into place (files removed on the PC go away)
     tar -C "$REPO" -cf - \
         --exclude='__pycache__' --exclude='.pytest_cache' --exclude='.pio' --exclude='sil/build' \
@@ -46,7 +51,8 @@ deploy() {
         rsync -a --delete ~/.omni_stage/firmware/ $WS/firmware/; rsync -a --delete ~/.omni_stage/ros/tools/ $WS/tools/; \
         mkdir -p $WS/maps; rsync -a --update ~/.omni_stage/ros/maps/ $WS/maps/; \
         rsync -a --delete --exclude results/ ~/.omni_stage/characterization/pi_camera/ $WS/pi_camera/; \
-        rm -rf ~/.omni_stage; echo deployed: \$(find $WS/src $WS/firmware $WS/pi_camera -type f | wc -l) files"
+        rm -rf ~/.omni_stage; echo '$ver' > $WS/version.json; \
+        echo deployed: \$(find $WS/src $WS/firmware $WS/pi_camera -type f | wc -l) files"
 }
 
 # -- the robot computer in the loop (design.md 8, phase 1C step 2; stack.py side:=sim | robot) -------------------------

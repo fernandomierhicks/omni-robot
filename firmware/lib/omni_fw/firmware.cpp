@@ -35,7 +35,8 @@ void Firmware::init() {
 // dropped (and counted) before it can reach the controller: a NaN would pass every clamp and reach the wheels.
 bool Firmware::cmd_ok(const CmdBody& c) {
     if (c.protocol != PROTOCOL_VERSION) return false;
-    if (c.req_mode > REQ_AUTO || c.profile > PROFILE_KID || c.drive_mode > DRIVE_GOTO) return false;
+    if (c.req_mode > REQ_AUTO || c.profile > PROFILE_KID) return false;
+    if (c.drive_mode > DRIVE_GOTO && c.drive_mode != DRIVE_WHEELS) return false;
     const float f[] = {c.a, c.b, c.c, c.v_end, c.a_cap, c.speed_cap, c.coast_s, c.a_brake, c.tilt, c.tilt_after,
                        c.fly_rpm};
     for (float x : f)
@@ -154,7 +155,7 @@ void Firmware::send_state(const FwHwInputs& in) {
                    : (uint8_t)(have_cmd_ ? cmd_.drive_mode : 0);
     s.feed_state = feed_.state;
     s.faults = faults_;
-    for (int i = 0; i < prm::N_WHEELS && i < 4; ++i) s.dm_err[i] = fb_[i].err;
+    for (int i = 0; i < prm::N_WHEELS && i < 4; ++i) s.dm_err[i] = wheel_silent(i) ? DM_NO_REPLY : fb_[i].err;
     s.x = odom_.pose.x;
     s.y = odom_.pose.y;
     s.yaw = odom_.pose.yaw;
@@ -182,6 +183,11 @@ void Firmware::send_state(const FwHwInputs& in) {
     s.tick_late = tick_late_;
     s.tick_max_us = (uint16_t)(tick_max_us_ < 65535 ? tick_max_us_ : 65535);
     tick_max_us_ = 0;
+    for (int i = 0; i < prm::N_WHEELS && i < 4; ++i) {
+        s.wheel_cmd[i] = wheel_cmd_[i];
+        s.wheel_vel[i] = fb_[i].vel;
+        s.wheel_cur[i] = wheel_cur_[i];
+    }
     uint8_t buf[192];
     size_t n = frame_encode(MSG_STATE, seq_state_++, &s, sizeof(s), buf, sizeof(buf));
     push_tx(buf, n);
@@ -247,6 +253,7 @@ void Firmware::handle_can(const FwHwInputs& in, float dt) {
                 fb.pos = d * st.pos_deg * 0.017453293f;
                 fb.vel = d * ak_rad_s(st.erpm, prm::AK_GEAR, prm::AK_POLE_PAIRS);
                 fb.torque = d * st.current * prm::AK_KT;
+                wheel_cur_[i] = d * st.current;
                 fb.t_mos = fb.t_rotor = st.temp_c < 0 ? 0 : (uint8_t)st.temp_c;
                 valid[i] = true;
                 pos[i] = fb.pos;
@@ -306,8 +313,56 @@ void Firmware::drive_motors(bool enable, const float* wheel_cmd, FwHwOutputs& ou
 
 // -- the base ---------------------------------------------------------------------------------------------------------
 
+void Firmware::wheel_test_reset() {
+    wheel_test_on_ = false;
+    for (float& w : wheel_test_) w = 0.0f;
+}
+
+bool Firmware::wheel_silent(int i) const {
+    return t_us_ - t_fb_us_[i] > (uint64_t)(prm::DM_FEEDBACK_TIMEOUT * 1e6f);
+}
+
+bool Firmware::silent_matters(int i) const {
+    if (!have_cmd_) return true;
+    if (cmd_.drive_mode == DRIVE_VEL_BODY || cmd_.drive_mode == DRIVE_GOTO) return true;   // the base controller drives
+    if (fabsf(wheel_cmd_[i]) > 1e-3f || fabsf(wheel_test_[i]) > 1e-3f) return true;        // it's being turned
+    if (cmd_.drive_mode == DRIVE_WHEELS && i < 4) {                                       // the motor test asks it to
+        const float ask[4] = {cmd_.a, cmd_.b, cmd_.c, cmd_.v_end};
+        return ask[i] != 0.0f;
+    }
+    return false;                                  // armed at rest (DRIVE_IDLE: the motor test between pushes)
+}
+
 void Firmware::run_base(float dt, bool auto_ok, const FwHwInputs& in, float* wheel_cmd) {
     ctl_.set_limits(limits(), auto_ok ? cmd_.speed_cap : 0.0f);
+    // the motor test (DRIVE_WHEELS): each wheel ramped to its own capped speed. It starts from the wheels' present
+    // command (no step) and, once it is no longer asked for (another mode, link lost, disarm, a bumper), ramps every
+    // wheel to rest before the base controller, held at rest meanwhile, takes over again
+    bool wheels = auto_ok && !bumper_ && cmd_.drive_mode == DRIVE_WHEELS;
+    if (wheels || wheel_test_on_) {
+        if (!wheel_test_on_) {
+            for (int i = 0; i < prm::N_WHEELS; ++i) wheel_test_[i] = wheel_cmd_[i];
+            wheel_test_on_ = true;
+        }
+        float cap = WHEEL_TEST_MAX;
+        if (wheels && cmd_.speed_cap > 0.0f) cap = fminf(cap, cmd_.speed_cap / prm::WHEEL_RADIUS);
+        const float ask[4] = {cmd_.a, cmd_.b, cmd_.c, cmd_.v_end};
+        // protocol 9: the ramp the host asks for (a_brake), else the default; leaving the test always the default
+        float ramp = wheels && cmd_.a_brake > 0.0f ? fminf(cmd_.a_brake, WHEEL_TEST_ACCEL_MAX) : WHEEL_TEST_ACCEL;
+        float step = ramp * dt;
+        bool rest = true;
+        for (int i = 0; i < prm::N_WHEELS; ++i) {
+            float tgt = wheels && i < 4 ? clampf(ask[i], -cap, cap) : 0.0f;
+            wheel_test_[i] += clampf(tgt - wheel_test_[i], -step, step);
+            wheel_cmd[i] = wheel_test_[i];
+            if (fabsf(wheel_test_[i]) > 1e-3f) rest = false;
+        }
+        ctl_.reset();
+        phase_ = PH_TRACK;
+        hold_yaw_set_ = false;
+        if (!wheels && rest) wheel_test_reset();
+        return;
+    }
     Pose pose = odom_.pose;
     if (!auto_ok || bumper_) {
         // link lost, disarm requested or a bumper: a ramped stop, never a step to zero (design.md 3)
@@ -489,9 +544,13 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     if (!link_ok) faults_ |= F_LINK_LOST;
     if (in.estop) faults_ |= F_ESTOP;
     if (bumper_) faults_ |= F_BUMPER;
+    bool silent_counts = false;                   // a silent motor the base needs now (silent_matters)
     for (int i = 0; i < prm::N_WHEELS; ++i) {
         if (fb_[i].err >= DM_OVERVOLT) faults_ |= F_MOTOR_ERR;
-        if (t_us_ - t_fb_us_[i] > (uint64_t)(prm::DM_FEEDBACK_TIMEOUT * 1e6f)) faults_ |= F_MOTOR_SILENT;
+        if (wheel_silent(i)) {
+            faults_ |= F_MOTOR_SILENT;
+            if (silent_matters(i)) silent_counts = true;
+        }
     }
     if (in.v_bus < prm::BATT_LOW) faults_ |= F_LOW_BATT;
     if (t_us_ - t_imu_us_ > 50 * MS) faults_ |= F_IMU_SILENT;
@@ -504,7 +563,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         t_batt_low_us_ = 0;
     }
     bool batt_low = t_batt_low_us_ && t_us_ - t_batt_low_us_ >= BATT_LOW_HOLD_US;
-    bool motor_bad = (faults_ & (F_MOTOR_ERR | F_MOTOR_SILENT)) && t_us_ - t_armed_us_ > ARM_GRACE_US;
+    bool motor_bad = ((faults_ & F_MOTOR_ERR) || silent_counts) && t_us_ - t_armed_us_ > ARM_GRACE_US;
     if (mode_ == MODE_AUTO && (batt_low || motor_bad)) fault_stop_ = true;
     if (fault_stop_ && link_ok && cmd_.req_mode != REQ_AUTO && in.v_bus >= prm::BATT_LOW + BATT_RESUME)
         fault_stop_ = false;
@@ -537,10 +596,11 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
             mode_ = MODE_AUTO;
             t_armed_us_ = t_us_;
             ctl_.reset();
+            wheel_test_reset();
         }
     } else if (mode_ == MODE_AUTO && !want_auto) {
-        // ramp to a stop first; disarm once the base has been at rest for 0.5 s
-        bool still = ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f;
+        // ramp to a stop first (the motor test's wheels too); disarm once the base has been at rest for 0.5 s
+        bool still = ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f && !wheel_test_on_;
         if (!still) {
             t_stopped_us_ = t_us_;
         } else if (t_us_ - t_stopped_us_ > 500 * MS) {
@@ -551,7 +611,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
 
     // the profile in force: kid turns on at once, off only with the base at rest (never a jump in limits mid-drive)
     if (have_cmd_ && link_ok) {
-        bool at_rest = ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f;
+        bool at_rest = ctl_.v_cmd.norm() < 0.01f && fabsf(ctl_.w_cmd) < 0.01f && !wheel_test_on_;
         if (cmd_.profile == PROFILE_KID) profile_ = PROFILE_KID;
         else if (at_rest) profile_ = PROFILE_ADULT;
     }
@@ -562,6 +622,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         run_base(dt, want_auto, in, wheel_cmd);
         enable = true;
     } else if (mode_ == MODE_MANUAL) {
+        wheel_test_reset();                       // the RC took over: its sticks drive (the controller's own ramp)
         Limits L = limits();
         ctl_.set_limits(L, prm::MANUAL_SPEED);
         Vec2 vb(in.rc[1] * prm::MANUAL_SPEED, -in.rc[0] * prm::MANUAL_SPEED);
@@ -582,6 +643,7 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         }
     } else {
         ctl_.reset();
+        wheel_test_reset();
     }
     drive_motors(enable, wheel_cmd, out);
     run_module(dt, mode_ == MODE_AUTO && want_auto, in, out);

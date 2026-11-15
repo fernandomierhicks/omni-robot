@@ -1,3 +1,59 @@
+# Compute trade refresh — November 13, 2026
+
+**Recommendation: keep BMAX B8A Pro as the value leader.** Fernando's two current leaders are BMAX B8A Pro and GMKtec M5 Ultra. At the live offers below, BMAX costs only $17 more after its advertised discount and buys the stronger CPU class plus twice the SSD capacity. Around $500, Getorli adds USB4 and a second Ethernet port. Around $700, UM880 Plus and Beelink SER9 are available, but neither establishes a major navigation-speed improvement over BMAX. Computer selection remains open; these are purchase proposals, not adopted or hardware-qualified configurations.
+
+Budgets mean **complete PC before tax**, excluding battery conversion, MCU and peripherals. Retain Amazon-only purchasing. Live Amazon product pages were read in Chrome on Nov 13; prices, coupons and delivery are account-dependent. No items were added to a cart, and no robot sessions, benchmarks or simulations were run. Search-index prices were not sufficient: several apparently good older deals are now unavailable or much more expensive.
+
+## Verified offers and recommendation by budget
+
+| Role | Exact Amazon configuration | Offer observed | What it buys / verdict |
+| --- | --- | ---: | --- |
+| Existing leader: [BMAX B8A Pro](https://www.amazon.com/dp/B0FY5M9NCZ) | Ryzen 7 8745HS, 16GB DDR5, 512GB SSD | $459.99; save 5% at checkout advertised → **$436.99** if applied | **Best value for the current robot.** 8 Zen 4 cores/16 threads, Radeon 780M; replaceable RAM. BMAX Official Store, Amazon fulfillment. |
+| Existing leader: [GMKtec M5 Ultra](https://www.amazon.com/dp/B0FW43RV3D) | Ryzen 7 7730U, 16GB DDR4 (1×16), **256GB** SSD | **$419.99**, exclusive Prime price | Documented DC/audio interfaces and dual 2.5GbE. Older Zen 3 CPU/Vega graphics; poor saving against BMAX at these prices. This is not the old 512GB ASIN/configuration. |
+| Around $500: [Getorli 8745HS](https://www.amazon.com/dp/B0H29LXN58) | Ryzen 7 8745HS, 16GB DDR5 (single module), 500GB PCIe 4 SSD | $589.99; **$499.99 coupon price** on product page | Same CPU class as BMAX; premium buys advertised dual USB4 and dual 2.5GbE, not a CPU upgrade. Getorli Official, Amazon fulfillment. Search card said 16% off; use product-page coupon, not stacked arithmetic. |
+| Around $700: [MINISFORUM UM880 Plus](https://www.amazon.com/dp/B0GJ59H5WD) | Ryzen 7 8845HS, 16GB DDR5, 512GB SSD | **$679.00** | Preferred in this tier if replaceable RAM/USB4 matter. 8 Zen 4 cores/16 threads and 780M, up to 5.1GHz; modest CPU step over 8745HS. MINISFORUM US, Amazon fulfillment. |
+| Around $700: [Beelink SER9 H255](https://www.amazon.com/dp/B0FMDNQWMM) | Ryzen 7 H255, **24GB LPDDR5X**, 1TB SSD | **$699.00** | More included memory/storage, two C plus four A sockets; fixed RAM is the tradeoff. Same broad 8-core Zen 4/780M performance class. Beelink Shop, Amazon fulfillment. Exact model is SER9 H255, not HX370 or SER9 Pro. |
+
+BMAX discount arithmetic: $459.99 × 0.95 = $436.9905, rounded to $436.99. It is $17.00 above M5 and $63.00 below Getorli. UM880 is $242.01 above discounted BMAX; SER9 is $262.01 above it. Coupons are advertised offers, not checkout-confirmed totals. Prime Visa signup credits, financing and multi-unit discounts are excluded.
+
+**My spending order:** BMAX first; Getorli if USB4/second NIC are worth $63 and its electrical details check out; UM880 if willing to pay for the platform/interfaces; SER9 if 24GB/1TB and its packaging/audio are preferred over replaceable RAM. There is no requirement to spend the whole $700. A RAM upgrade to BMAX may be more useful than the UM880 CPU change, but quote the actual compatible memory before claiming a complete upgraded price.
+
+## What the robot gains
+
+The current stack is primarily CPU work: Nav2 MPPI, costmaps, localization, ROS callbacks, arm planning and geometric/colour vision. RealSense computes stereo depth onboard. The Pi evidence in the retained report shows scheduling/CPU pressure, not exhausted RAM; subsequent C++ node changes also make the old Pi utilization an imperfect prediction of today's stack.
+
+8745HS is the meaningful CPU-generation improvement over M5's 7730U. Moving from 8745HS to 8845HS preserves eight Zen 4 cores and changes advertised boost from 4.9 to 5.1GHz: that ratio is only 1.041, **not a measured 4.1% robot speedup**. Cooling, configured power and memory channels may matter more. H255 is also an eight-core/780M option, not a reason to infer a large gain from the newer product name. Sources: [BMAX specification](https://www.bmaxit.com/MaxMini-B8A-Pro-pd577407348.html), [AMD 8845HS specification](https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8845hs.html), [Beelink H255 specification](https://us.bee-link.com/products/beelink-ser9-amd-ryzen%E2%84%A2-7-h-255).
+
+16GB remains the operating target; 24/32GB buys builds, debugging, camera buffers and extra models. RAM alone does not speed a saturated navigation callback. USB4 is useful expansion, not required by the D435. Radeon/NPU TOPS do not accelerate the existing CPU pipeline automatically, and none of these machines supplies CUDA. A named local neural workload and supported backend must justify buying an accelerator; optional heavy AI can remain on the desktop.
+
+## Integration constraints
+
+- Baseline USB allocation remains D435 on a direct fast port, Teensy, SO-101 bus adapter and lidar adapter. Keep display video on HDMI/DP and its power separate. Extra audio/cameras may need a hub; socket count does not prove independent USB bandwidth.
+- M5 maker documents four A + one C, CTIA headset jack, 19V/3.42A input, 5.5/2.5mm barrel, 128.8×127×47.8mm and 528g. [Maker specification](https://www.gmktec.com/products/gmktec-nucbox-m5-ultra-amd-ryzen-7-7730u-mini-pc). Power-mode ratings are not measured robot consumption.
+- BMAX maker dimensions are 126×112×52mm, approximately 430g. The Amazon port image now labels **19V/6.32A**, whereas the earlier maker table said 19V/3.42A. This discrepancy remains: verify the supplied unit/adapter label, barrel and polarity. Amazon bullets also contradict the pictured display connectors and storage layout. Do not rely on the 256GB RAM marketing limit.
+- Getorli seller confirms single-module RAM, dual M.2 storage and USB4; actual DC voltage/current, barrel, dimensions/mass and microphone support still require confirmation. Do not transfer the old AT103 Intel specifications to this AMD model or assume the H255 GT106 maker page describes the identical board.
+- UM880 seller lists expandable RAM up to 96GB, one 2.5GbE port and USB4. Its OCuLink uses an included M.2 adapter, consuming an SSD slot, and is not hot-pluggable. Four A plus C are described by its platform; verify the actual board and PSU label before final wiring. [Maker product](https://www.minisforum.com/products/minisforum-um880-plus).
+- SER9 seller lists four A (two fast/two USB2), USB4 C plus 10Gb/s C, two audio jacks, 2.5GbE and dual SSD positions. The maker H255 family page specifies soldered LPDDR5X, 135×135×44.7mm without feet, 780g and 19V/6.32A. That page mixes SER9/Pro naming and 24/32GB text; confirm the **24GB Amazon unit** before treating built-in mic/speakers or mechanical details as exact. Do not presume its larger box fits the existing computer mount.
+- All candidates need regulated battery power; never connect the 25.2V full pack directly. The proposed 19V converter's 22V input floor remains incompatible with guaranteed regulation down to the 21V stop until tested/replaced. A 120W adapter rating is not 120W steady draw. Re-evaluate thermal clearance, transient power and the robot power budget after selecting a machine.
+
+## Other offers screened
+
+- GMKtec K8 Plus 8845HS: the M5 page's variants showed $899.99 (32GB/512GB) and $919.99 (32GB/1TB), above these budgets. The old ~$500 deal is not today's offer.
+- Beelink SER8 8745HS 32GB/1TB, [B0FL26FRS2](https://www.amazon.com/dp/B0FL26FRS2): currently unavailable. Other SER8 variants in results were ~$609 for 16GB/512GB or substantially more for 32GB; no verified $500 32GB SER8 purchase established.
+- [MINISFORUM AI X1 HX470](https://www.amazon.com/dp/B0GMDXT461): $687 is **barebones with no RAM/SSD/OS**, not a complete $700 robot computer. Same page's 32GB/1TB model was $1,295. HX370 barebones was $575 with Dec 31–Jan 21 estimated delivery; no complete $700 configuration established. Do not compare barebones prices with the complete leaders.
+- ASUS NUC 15 Pro 225H is also commonly advertised barebones; no verified complete Amazon configuration under $700 was established in this refresh. Jetson remains a workload-specific alternative, not the default CPU upgrade.
+
+## Qualification after purchase
+
+Use Ubuntu 24.04/ROS Jazzy and the real riser D435. Check USB reconnects, Wi-Fi/audio, boot recovery and DC transitions; then run navigation and picking alongside face/voice at wall-clock speed. Measure callback deadlines, dropped frames, peak/average input watts and temperatures. None of the prices/specifications here establishes robot utilization, battery runtime or Linux peripheral compatibility.
+
+---
+
+# Retained November 2 research (historical)
+
+The following material preserves earlier offers and reasoning. The November 13 refresh above supersedes its actionable shortlist and prices.
+
+
 # Arm-first compute purchase trade — November 2, 2026
 
 Current recommendation, superseding the earlier broad-market shortlist below: buy from Amazon only. From Fernando's saved Nov 2 Amazon PDF, BMAX B8A Pro 8745HS / 16 GB / 512 GB at $436.99 after 5% discount is the performance stretch; Getorli AT103 i5-13420H / 16 GB / 512 GB at $379.99 after coupon is the budget option; GMKtec M5 Ultra 7730U / 16 GB / 512 GB at $449.99 is the alternative with the clearest documented robot interfaces. All three have replaceable RAM and four USB-A plus USB-C. These are captured offers, not current checkout guarantees. Getorli DC input and microphone support require confirmation; BMAX Amazon power/display metadata conflict with the manufacturer. Full details in the final Amazon PDF audit below. No computer is adopted, purchased or physically qualified. Earlier direct-store, used and M8 recommendations remain historical research. Teensy and owned D435 retained; OAK is not baseline and wrist camera is TBD.

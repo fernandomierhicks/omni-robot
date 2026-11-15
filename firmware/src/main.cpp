@@ -21,7 +21,8 @@
 //                             which boots DISARMED
 //
 // Build variants (platformio.ini): env arm (the default, fw_params_arm.h: CubeMars AK40-10 drives in servo mode,
-// ak_motor.h) and env catch (fw_params.h: Damiao DM-2325, dm_motor.h). The core picks the protocol (DRIVE_DAMIAO); this
+// ak_motor.h), env arm_bench (the same on a bare bench Teensy: the e-stop input ignored, a fixed 24 V reported; never
+// on a robot) and env catch (fw_params.h: Damiao DM-2325, dm_motor.h). The core picks the protocol (DRIVE_DAMIAO); this
 // layer only carries each frame's id kind (CubeMars servo mode answers extended frames only). CubeMars bench notes from
 // the wheeled-leg robot: CAN needs a common ground with the motor (its UART connector's GND), and servo mode, the
 // status broadcast (send_can_status, off at the factory) and the command timeout are set in the CubeMars tool.
@@ -422,11 +423,19 @@ static void read_inputs(uint64_t t_us) {
     }
     in.beam_catch = digitalReadFast(pin::BEAM_CATCH) ? 1 : 0;      // the receiver idles low while it sees the IR
     in.beam_feed_exit = digitalReadFast(pin::BEAM_FEED_EXIT) ? 1 : 0;
+#ifdef BENCH_NO_ESTOP
+    in.estop = 0;                                // env arm_bench: no e-stop chain on the bench (never on a robot)
+#else
     in.estop = digitalReadFast(pin::ESTOP) ? 1 : 0;                 // the chain's relay contact opens to 1
+#endif
     // normally-closed switches to ground: closed (low) = clear; pressed or a broken wire (high, the pull-up) = hit.
     // The core ignores it without HAS_BUMPERS (the arm robot has none yet: todo.md)
     in.bumper = (digitalReadFast(pin::BUMPER_FRONT) || digitalReadFast(pin::BUMPER_REAR)) ? 1 : 0;
+#ifdef BENCH_V_BUS
+    in.v_bus = BENCH_V_BUS;                      // env arm_bench: no divider on A17, a fixed bench supply (not measured)
+#else
     in.v_bus = analogRead(pin::V_BUS) * ADC_REF / 4095.0f * V_BUS_DIVIDER;
+#endif
     in.rc_ok = crsf_poll(in) ? 1 : 0;
 }
 

@@ -27,14 +27,25 @@ namespace fw {
 enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82, MSG_INFO = 0x83, MSG_TIME = 0x84 };
 enum TimeKind : uint8_t { TE_SYNC = 1, TE_CAM_TRIGGER = 2, TE_CAM_STROBE = 3 };
 
-constexpr uint16_t PROTOCOL_VERSION = 6;      // bump with any change to the bodies below (and in protocol.py)
+constexpr uint16_t PROTOCOL_VERSION = 9;      // bump with any change to the bodies below (and in protocol.py)
                                               // 6: CmdBody.protocol (the MCU drops a CMD of another version);
                                               //    StateBody.cmd_rejected, tick_late, tick_max_us
+                                              // 7: DRIVE_WHEELS (each wheel's speed: the console's motor test);
+                                              //    StateBody.wheel_cmd, wheel_vel
+                                              // 8: StateBody.dm_err DM_NO_REPLY for a motor that isn't answering
+                                              //    (which wheels are there: the console's health)
+                                              // 9: StateBody.wheel_cur (each motor's current); DRIVE_WHEELS takes
+                                              //    its ramp in CmdBody.a_brake (the wheel-load captures)
+constexpr uint8_t DM_NO_REPLY = 0xFF;         // StateBody.dm_err only: no reply from this motor for
+                                              // DM_FEEDBACK_TIMEOUT (unplugged, unpowered, wrong id), never a
+                                              // motor's own code
 constexpr uint32_t INFO_PERIOD_US = 100000;
 
 enum ReqMode : uint8_t { REQ_DISARM = 0, REQ_AUTO = 1 };
 enum Profile : uint8_t { PROFILE_ADULT = 0, PROFILE_KID = 1 };
-enum DriveMode : uint8_t { DRIVE_IDLE = 0, DRIVE_VEL_BODY = 1, DRIVE_GOTO = 2 };
+// DRIVE_WHEELS (protocol 7): each wheel's own speed, the motor test (wheels up). 3 is not a command: STATE reports
+// coasting / braking after a catch as 3
+enum DriveMode : uint8_t { DRIVE_IDLE = 0, DRIVE_VEL_BODY = 1, DRIVE_GOTO = 2, DRIVE_WHEELS = 4 };
 enum CmdFlags : uint8_t {
     CMD_HOLD_YAW = 1,            // VEL_BODY: with wz = 0, hold the heading (teleop)
 };
@@ -46,13 +57,16 @@ struct CmdBody {
     uint8_t profile;             // Profile
     uint8_t drive_mode;          // DriveMode
     uint8_t flags;               // CmdFlags
-    float a, b, c;               // VEL_BODY: vx, vy, wz (body). GOTO: x, y, yaw (odom frame)
-    float v_end;                 // GOTO: pass through the target at this speed (moving catch); 0 = stop there
+    float a, b, c;               // VEL_BODY: vx, vy, wz (body). GOTO: x, y, yaw (odom frame). WHEELS: wheels 1-3,
+    float v_end;                 //   v_end wheel 4, rad/s at the wheel (the motors' order, fw_params DM_IDS); GOTO:
+                                 //   pass through the target at this speed (moving catch), 0 = stop there
     float a_cap;                 // extra acceleration cap (m/s^2), 0 = none
     float speed_cap;             // m/s, 0 = the profile's
     uint64_t t_brake_us;         // GOTO: at this MCU time stop tracking the target: hold the commanded velocity for
     float coast_s;               //   coast_s, then brake at a_brake to rest and hold there (the catch: design.md 22)
-    float a_brake;               //   (0 = no schedule)
+    float a_brake;               //   (0 = no schedule). WHEELS (protocol 9): each wheel's ramp, rad/s^2 (0 = the
+                                 //   firmware's WHEEL_TEST_ACCEL; capped at WHEEL_TEST_ACCEL_MAX). Not a_cap: the
+                                 //   arm-out caps write a_cap into every request
     float tilt;                  // rad, module tilt target
     uint64_t t_tilt_us;          // at this MCU time switch the tilt to tilt_after (the dump after the catch); 0 = none
     float tilt_after;
@@ -70,7 +84,8 @@ struct StateBody {
     uint8_t drive_mode;          // what the base is doing (DriveMode, or 3 = coasting / braking after a catch)
     uint8_t feed_state;          // FeedState
     uint16_t faults;             // Fault bits (firmware.h)
-    uint8_t dm_err[4];           // each drive motor's last error code (0 disabled, 1 enabled, ...)
+    uint8_t dm_err[4];           // each drive motor's last error code (0 disabled, 1 enabled, ...; DM_NO_REPLY:
+                                 //   silent, protocol 8)
     float x, y, yaw;             // odometry pose, odom frame
     float vx, vy, wz;            // body twist (wheels; wz from the IMU when it is there)
     float slip;                  // m/s, wheel disagreement
@@ -90,6 +105,10 @@ struct StateBody {
                                  //   range), count: a dropped CMD is not a heartbeat
     uint16_t tick_late;          // protocol 6: ticks that came more than 1.5 ms after the one before (count)
     uint16_t tick_max_us;        // protocol 6: the longest gap between ticks since the last STATE, us
+    float wheel_cmd[4];          // protocol 7: each wheel's commanded speed, rad/s (0 while disarmed)
+    float wheel_vel[4];          // protocol 7: each wheel's measured speed, rad/s (its motor's feedback)
+    float wheel_cur[4];          // protocol 9: each wheel motor's current, A, as its feedback reports it (the AK40-10's
+                                 //   status; signed like the wheel's speed; 0 on the Damiao build)
 };
 
 struct ImuBody {
@@ -120,7 +139,7 @@ struct TimeBody {
 #pragma pack(pop)
 
 static_assert(sizeof(CmdBody) == 76, "CmdBody layout changed: update omni_mcu/protocol.py");
-static_assert(sizeof(StateBody) == 122, "StateBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(StateBody) == 170,"StateBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(ImuBody) == 48, "ImuBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(InfoBody) == 48, "InfoBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(TimeBody) == 20, "TimeBody layout changed: update omni_mcu/protocol.py");

@@ -23,10 +23,15 @@
 //                                   start: the wheeled-leg robot's "zeroing persists across power cycles")
 //               6 pos + vel  int32 deg x 10000, int16 ERPM / 10, int16 ERPM/s / 10
 //   status    EXTENDED id = (0x29 << 8) | controller id, 8 bytes big-endian, broadcast at the rate set in the tool
-//             (send_can_status on: it is OFF at the factory, then no feedback at all; 500 Hz on the robot, VERIFY):
-//               int16 position deg x 10, int16 speed ERPM / 10, int16 current A x 100, int8 temperature degC,
-//               uint8 error (0 none, 1 motor over-temperature, 2 over-current, 3 over-voltage, 4 under-voltage,
-//               5 encoder fault, 6 MOSFET over-temperature, 7 stall)
+//             (send_can_status on: it is OFF at the factory, then no feedback at all; 1-500 Hz, 500 on the robot):
+//               int16 position deg x 10, int16 speed ERPM / 10, int16 current A x 100, int8 temperature degC (the
+//               DRIVER BOARD's, not the winding's: the V3.0 manual 4.3.1), uint8 error (0 none, 1 motor
+//               over-temperature, 2 over-current, 3 over-voltage, 4 under-voltage, 5 encoder fault, 6 MOSFET
+//               over-temperature, 7 stall). No bus voltage on CAN: only the motor's UART (COMM_GET_VALUES) has it.
+//             The tool's other CAN port mode, query-reply, sends one status per command received instead.
+//   timing    (bench, Nov 13: simulation/v11 sil/studies/results/can_bench_2026-11-13.md) the motor acts ~5.5 ms
+//             after a velocity frame (or reports ~5.5 ms late: the host can't tell which), on top of this firmware's
+//             round robin (each motor every N_WHEELS ms) and the status's age (0-2 ms at 500 Hz)
 //   timeout   the motor's own (VESC app setting timeout_msec, 1000 ms at the factory, then timeout_brake_current,
 //             0 A = coast): set it to ~100 ms and a few A of brake in the tool (bring-up check "link")
 #pragma once

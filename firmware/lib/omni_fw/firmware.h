@@ -17,8 +17,13 @@
 // no bumper. A CMD must pass cmd_ok() (this protocol version, known enums, finite numbers in range) or it is dropped
 // and counted (cmd_rejected): a dropped CMD is no heartbeat. The kid profile turns on at once and off only with the
 // base at rest.
+// The motor test (DRIVE_WHEELS, AUTO only): each wheel at the speed asked, capped (WHEEL_TEST_MAX) and ramped per
+// wheel (at the CMD's a_brake up to WHEEL_TEST_ACCEL_MAX, else WHEEL_TEST_ACCEL); a lost link, a disarm or another drive mode ramps the wheels to rest first, then the base controller resumes.
 // The fault stop: in AUTO, a low pack (under BATT_LOW for BATT_LOW_HOLD_US), a motor error or a silent motor -> a
-// ramped stop, then DISARMED. It latches (FAULT_STOP) until the robot computer asks for DISARM (its mode ended) with the pack at
+// ramped stop, then DISARMED. A silent motor counts only when the base needs it: while the base controller drives
+// (VEL_BODY, GOTO) or while that wheel is being turned (the motor test asking for it, a ramp): armed at rest
+// (DRIVE_IDLE, the motor test between pushes) or turning the other wheels, a robot with motors missing tests the ones
+// it has, and drives nothing else (STATE reports each silent motor as DM_NO_REPLY). It latches (FAULT_STOP) until the robot computer asks for DISARM (its mode ended) with the pack at
 // BATT_LOW + BATT_RESUME or more; only then does a request for AUTO re-arm (which clears the motors' errors). MANUAL is
 // not stopped: the RC operator keeps the sticks to move the robot off.
 #pragma once
@@ -54,6 +59,18 @@ constexpr float BATT_RESUME = 1.2f;              // V over BATT_LOW to re-arm (0
                                                  // recovers less (est)
 constexpr uint64_t BATT_LOW_HOLD_US = 1000000;   // under BATT_LOW this long: a low pack, not a current spike's sag (est)
 constexpr uint64_t ARM_GRACE_US = 200000;        // after arming, the motors' enable and error clear before they count
+// the motor test (DRIVE_WHEELS): each wheel's own speed, for a person at the console with the wheels up. Capped here
+// whatever the host asks (and by CMD speed_cap / WHEEL_RADIUS), ramped per wheel; leaving it ramps every wheel to rest
+// before the base controller takes over again
+constexpr float WHEEL_TEST_MAX = prm::MAX_WHEEL_SPEED;  // rad/s: the motor's own limit, so it is tested at full speed
+                                                        // (the arm robot's AK40-10: 37.2 rad/s, 355 rpm: 0.95 of
+                                                        // its no-load speed at 24 V, measured Nov 13)
+constexpr float WHEEL_TEST_ACCEL = 20.0f;        // rad/s^2 per wheel (est): rest to the arm robot's top in 2.2 s;
+                                                 // the default, and every ramp to rest on leaving the test
+// protocol 9: the host may ask for another ramp (CMD a_brake), up to this: a step for a bare wheel (its motor's
+// current limit sets the real rate: ~3000 rad/s^2 on an AK40-10 with a 140 mm wheel, est), to load the wheel's
+// inertia on the bench and compare with the sim
+constexpr float WHEEL_TEST_ACCEL_MAX = 2000.0f;
 
 enum BasePhase : uint8_t { PH_TRACK = 0, PH_COAST = 1, PH_BRAKE = 2, PH_HOLD = 3 };
 
@@ -124,6 +141,12 @@ private:
     bool wheel_enabled_ = false;               // CubeMars: armed (velocity commands) or coasting
     uint32_t ak_next_ = 0;                     // CubeMars: the motor whose turn it is (one frame per tick)
     uint8_t ak_err_[prm::N_WHEELS]{};          // ... each one's last status error (AkErr)
+    float wheel_test_[prm::N_WHEELS]{};        // the motor test's ramped wheel speeds (DRIVE_WHEELS), rad/s
+    float wheel_cur_[prm::N_WHEELS]{};         // each motor's reported current, A (AK40-10 status; STATE wheel_cur)
+    bool wheel_test_on_ = false;               // ... running, or ramping its wheels down after it ended
+    void wheel_test_reset();
+    bool wheel_silent(int i) const;            // no reply from wheel i's motor for DM_FEEDBACK_TIMEOUT
+    bool silent_matters(int i) const;          // wheel i silent would stop the base: driving, or turning that wheel
 
     // base
     BaseController ctl_;
