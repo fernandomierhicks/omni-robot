@@ -1,0 +1,130 @@
+v13, 85A tread                 pod 1.0              floor rms   7.05 N  5-500 Hz   17.1 dB  lean pp 0.299  hub pp   317 um
+v13, 85A tread                 pod 1.0 camber 0.5   floor rms   7.09 N  5-500 Hz   17.0 dB  lean pp 0.310  hub pp   564 um
+v13                            pod 1.0 camber 0.5   floor rms   9.97 N  5-500 Hz   20.2 dB  lean pp 0.368  hub pp   533 um
+v13                            pod 1.0              floor rms   8.32 N  5-500 Hz   18.7 dB  lean pp 0.310  hub pp   249 um
+v13                            pod 0.6              floor rms   2.93 N  5-500 Hz    8.0 dB  lean pp 0.237  hub pp   165 um
+v13, 85A tread                 pod 0.6              floor rms   2.84 N  5-500 Hz    7.5 dB  lean pp 0.230  hub pp   242 um
+v13 + relief 0.1/3             pod 1.0              floor rms   7.52 N  5-500 Hz   17.8 dB  lean pp 0.297  hub pp   227 um
+v13, 85A tread                 pod 0.3              floor rms   1.48 N  5-500 Hz   -2.7 dB  lean pp 0.187  hub pp   174 um
+v13 + relief 0.1/3             pod 1.0 camber 0.5   floor rms   9.02 N  5-500 Hz   19.4 dB  lean pp 0.350  hub pp   497 um
+v13                            hand 0.3             floor rms   3.96 N  5-500 Hz   12.0 dB  lean pp 8.458  hub pp  1506 um
+v13, 85A tread                 hand 0.3             floor rms   2.72 N  5-500 Hz    8.7 dB  lean pp 8.373  hub pp  1459 um
+v13                            pod 0.3              floor rms   1.45 N  5-500 Hz   -1.9 dB  lean pp 0.195  hub pp   121 um
+v13 + relief 0.1/3             pod 0.6              floor rms   2.78 N  5-500 Hz    7.3 dB  lean pp 0.219  hub pp   144 um
+v13 + relief 0.1/3             pod 0.3              floor rms   1.43 N  5-500 Hz   -2.1 dB  lean pp 0.199  hub pp   110 um
+v13 + relief 0.2/3             pod 1.0 camber 0.5   floor rms   8.75 N  5-500 Hz   19.0 dB  lean pp 0.343  hub pp   487 um
+v13 + relief 0.2/3             pod 1.0              floor rms   7.46 N  5-500 Hz   17.8 dB  lean pp 0.292  hub pp   223 um
+v13 + relief 0.3/3             pod 1.0              floor rms   7.50 N  5-500 Hz   17.9 dB  lean pp 0.290  hub pp   222 um
+v13 + relief 0.2/3             pod 0.6              floor rms   3.08 N  5-500 Hz    8.3 dB  lean pp 0.220  hub pp   140 um
+v13 + relief 0.1/3             hand 0.3             floor rms   3.95 N  5-500 Hz   11.9 dB  lean pp 8.648  hub pp  1528 um
+v13 + relief 0.3/3             pod 0.6              floor rms   3.36 N  5-500 Hz    9.3 dB  lean pp 0.228  hub pp   147 um
+v13 + relief 0.2/3             pod 0.3              floor rms   1.36 N  5-500 Hz   -3.6 dB  lean pp 0.190  hub pp   103 um
+v13 + relief 0.3/3             pod 1.0 camber 0.5   floor rms   9.14 N  5-500 Hz   19.4 dB  lean pp 0.349  hub pp   501 um
+v13 + relief 0.3/3             pod 0.3              floor rms   1.40 N  5-500 Hz   -2.7 dB  lean pp 0.190  hub pp   102 um
+v13 + relief 0.1/4             pod 1.0              floor rms   6.73 N  5-500 Hz   16.9 dB  lean pp 0.284  hub pp   205 um
+v13 + relief 0.2/3             hand 0.3             floor rms   3.72 N  5-500 Hz   11.4 dB  lean pp 8.584  hub pp  1495 um
+v13 + relief 0.1/4             pod 1.0 camber 0.5   floor rms   8.44 N  5-500 Hz   18.8 dB  lean pp 0.337  hub pp   474 um
+v13 + relief 0.1/4             pod 0.6              floor rms   2.70 N  5-500 Hz    7.0 dB  lean pp 0.210  hub pp   132 um
+v13 + relief 0.3/3             hand 0.3             floor rms   3.69 N  5-500 Hz   11.3 dB  lean pp 8.636  hub pp  1488 um
+v13 + relief 0.1/4             pod 0.3              floor rms   1.40 N  5-500 Hz   -2.7 dB  lean pp 0.196  hub pp    96 um
+v13 + relief 0.2/4             pod 1.0 camber 0.5   floor rms   7.87 N  5-500 Hz   18.1 dB  lean pp 0.323  hub pp   452 um
+v13 + relief 0.2/4             pod 1.0              floor rms   6.23 N  5-500 Hz   16.2 dB  lean pp 0.271  hub pp   188 um
+v13 + relief 0.2/4             pod 0.6              floor rms   2.88 N  5-500 Hz    7.5 dB  lean pp 0.213  hub pp   125 um
+v13 + relief 0.1/4             hand 0.3             floor rms   3.77 N  5-500 Hz   11.6 dB  lean pp 8.571  hub pp  1501 um
+v13 + relief 0.2/4             pod 0.3              floor rms   1.35 N  5-500 Hz   -3.7 dB  lean pp 0.185  hub pp    81 um
+v13 + relief 0.3/4             pod 0.6              floor rms   3.19 N  5-500 Hz    8.8 dB  lean pp 0.225  hub pp   134 um
+v13 + relief 0.3/4             pod 1.0              floor rms   6.05 N  5-500 Hz   16.0 dB  lean pp 0.263  hub pp   181 um
+v13 + relief 0.3/4             pod 1.0 camber 0.5   floor rms   8.20 N  5-500 Hz   18.4 dB  lean pp 0.327  hub pp   465 um
+v13 + relief 0.3/4             pod 0.3              floor rms   1.41 N  5-500 Hz   -2.3 dB  lean pp 0.189  hub pp    82 um
+v13 + relief 0.2/4             hand 0.3             floor rms   3.64 N  5-500 Hz   11.2 dB  lean pp 8.523  hub pp  1464 um
+v13 + relief 0.1/5             pod 0.6              floor rms   2.60 N  5-500 Hz    6.6 dB  lean pp 0.203  hub pp   119 um
+v13 + relief 0.1/5             pod 1.0 camber 0.5   floor rms   7.99 N  5-500 Hz   18.4 dB  lean pp 0.327  hub pp   454 um
+v13 + relief 0.1/5             pod 1.0              floor rms   5.93 N  5-500 Hz   15.8 dB  lean pp 0.272  hub pp   182 um
+v13 + relief 0.3/4             hand 0.3             floor rms   3.67 N  5-500 Hz   11.3 dB  lean pp 8.604  hub pp  1451 um
+v13 + relief 0.1/5             pod 0.3              floor rms   1.42 N  5-500 Hz   -2.3 dB  lean pp 0.195  hub pp    86 um
+v13 + relief 0.2/5             pod 0.6              floor rms   2.46 N  5-500 Hz    5.5 dB  lean pp 0.204  hub pp   100 um
+v13 + relief 0.2/5             pod 1.0              floor rms   4.83 N  5-500 Hz   13.9 dB  lean pp 0.250  hub pp   148 um
+v13 + relief 0.2/5             pod 1.0 camber 0.5   floor rms   7.04 N  5-500 Hz   17.2 dB  lean pp 0.305  hub pp   421 um
+v13 + relief 0.3/5             pod 0.6              floor rms   2.60 N  5-500 Hz    6.4 dB  lean pp 0.221  hub pp   100 um
+v13 + relief 0.1/5             hand 0.3             floor rms   3.68 N  5-500 Hz   11.3 dB  lean pp 8.546  hub pp  1491 um
+v13 + relief 0.3/5             pod 1.0              floor rms   4.36 N  5-500 Hz   13.0 dB  lean pp 0.244  hub pp   129 um
+v13 + relief 0.2/5             pod 0.3              floor rms   1.34 N  5-500 Hz   -4.1 dB  lean pp 0.182  hub pp    65 um
+v13 + relief 0.3/5             pod 1.0 camber 0.5   floor rms   7.10 N  5-500 Hz   17.1 dB  lean pp 0.308  hub pp   444 um
+v13 + relief 0.2/5             hand 0.3             floor rms   3.66 N  5-500 Hz   11.3 dB  lean pp 8.527  hub pp  1449 um
+v13 + relief 0.3/5             pod 0.3              floor rms   1.35 N  5-500 Hz   -3.9 dB  lean pp 0.191  hub pp    61 um
+v13 + relief 0.1/6             pod 0.6              floor rms   2.46 N  5-500 Hz    5.9 dB  lean pp 0.201  hub pp   107 um
+v13 + relief 0.1/6             pod 1.0              floor rms   5.24 N  5-500 Hz   14.7 dB  lean pp 0.262  hub pp   161 um
+v13 + relief 0.1/6             pod 1.0 camber 0.5   floor rms   7.68 N  5-500 Hz   18.1 dB  lean pp 0.321  hub pp   439 um
+v13 + relief 0.3/5             hand 0.3             floor rms   3.64 N  5-500 Hz   11.2 dB  lean pp 8.655  hub pp  1444 um
+v13 + relief 0.2/6             pod 1.0              floor rms   3.69 N  5-500 Hz   11.3 dB  lean pp 0.247  hub pp   109 um
+v13 + relief 0.2/6             pod 0.6              floor rms   2.14 N  5-500 Hz    3.2 dB  lean pp 0.201  hub pp    74 um
+v13 + relief 0.1/6             pod 0.3              floor rms   1.39 N  5-500 Hz   -2.9 dB  lean pp 0.193  hub pp    76 um
+v13 + relief 0.2/6             pod 1.0 camber 0.5   floor rms   6.37 N  5-500 Hz   16.4 dB  lean pp 0.293  hub pp   399 um
+v13 + relief 0.2/6             pod 0.3              floor rms   1.29 N  5-500 Hz   -5.9 dB  lean pp 0.181  hub pp    51 um
+v13 + relief 0.1/6             hand 0.3             floor rms   3.66 N  5-500 Hz   11.2 dB  lean pp 8.555  hub pp  1488 um
+v13 + relief 0.3/6             pod 0.6              floor rms   2.25 N  5-500 Hz    4.1 dB  lean pp 0.224  hub pp    75 um
+v13 + relief 0.3/6             pod 1.0              floor rms   3.35 N  5-500 Hz   10.0 dB  lean pp 0.266  hub pp   103 um
+v13 + relief 0.3/6             pod 1.0 camber 0.5   floor rms   6.10 N  5-500 Hz   15.7 dB  lean pp 0.295  hub pp   416 um
+2x5 ov 4                       pod 0.6              floor rms   3.23 N  5-500 Hz    9.2 dB  lean pp 0.265  hub pp   174 um
+v13 + relief 0.3/6             pod 0.3              floor rms   1.33 N  5-500 Hz   -4.5 dB  lean pp 0.193  hub pp    57 um
+v13 + relief 0.2/6             hand 0.3             floor rms   3.66 N  5-500 Hz   11.3 dB  lean pp 8.555  hub pp  1446 um
+2x5 ov 4                       pod 1.0              floor rms   5.15 N  5-500 Hz   14.2 dB  lean pp 0.273  hub pp   196 um
+2x5 ov 4                       pod 1.0 camber 0.5   floor rms   8.60 N  5-500 Hz   17.9 dB  lean pp 0.356  hub pp   546 um
+2x5 ov 4                       pod 0.3              floor rms   1.53 N  5-500 Hz   -1.0 dB  lean pp 0.190  hub pp   134 um
+v13 + relief 0.3/6             hand 0.3             floor rms   3.61 N  5-500 Hz   11.2 dB  lean pp 8.725  hub pp  1444 um
+2x5 ov 4 + relief 0.2/5        pod 0.6              floor rms   2.41 N  5-500 Hz    5.0 dB  lean pp 0.204  hub pp   135 um
+2x5 ov 4 + relief 0.2/5        pod 1.0              floor rms   5.19 N  5-500 Hz   14.5 dB  lean pp 0.265  hub pp   183 um
+2x5 ov 4 + relief 0.2/5        pod 1.0 camber 0.5   floor rms   5.34 N  5-500 Hz   13.1 dB  lean pp 0.299  hub pp   419 um
+2x5 ov 4                       hand 0.3             floor rms   3.73 N  5-500 Hz   11.6 dB  lean pp 10.425  hub pp  1901 um
+2x5 ov 4 + relief 0.3/6        pod 0.6              floor rms   2.42 N  5-500 Hz    4.7 dB  lean pp 0.206  hub pp   109 um
+2x5 ov 4 + relief 0.3/6        pod 1.0              floor rms   4.17 N  5-500 Hz   12.3 dB  lean pp 0.245  hub pp   137 um
+2x5 ov 4 + relief 0.2/5        pod 0.3              floor rms   1.36 N  5-500 Hz   -4.4 dB  lean pp 0.180  hub pp   103 um
+2x5 ov 4 + relief 0.3/6        pod 1.0 camber 0.5   floor rms   4.57 N  5-500 Hz   12.3 dB  lean pp 0.287  hub pp   396 um
+2x5 ov 4 + relief 0.3/6        pod 0.3              floor rms   1.34 N  5-500 Hz   -4.3 dB  lean pp 0.176  hub pp    79 um
+2x5 ov 4 + relief 0.2/5        hand 0.3             floor rms   3.65 N  5-500 Hz   11.5 dB  lean pp 10.624  hub pp  1872 um
+2x5 ov 4 + relief 0.3/8        pod 0.6              floor rms   2.14 N  5-500 Hz    2.7 dB  lean pp 0.213  hub pp    74 um
+2x5 ov 4 + relief 0.3/8        pod 1.0              floor rms   3.11 N  5-500 Hz    8.5 dB  lean pp 0.271  hub pp   104 um
+2x5 ov 4 + relief 0.3/8        pod 1.0 camber 0.5   floor rms   3.90 N  5-500 Hz   11.0 dB  lean pp 0.270  hub pp   357 um
+2x5 ov 4 + relief 0.3/6        hand 0.3             floor rms   3.66 N  5-500 Hz   11.5 dB  lean pp 10.888  hub pp  1886 um
+2x5 ov 6                       pod 0.6              floor rms   3.34 N  5-500 Hz    9.0 dB  lean pp 0.240  hub pp   164 um
+2x5 ov 4 + relief 0.3/8        pod 0.3              floor rms   1.30 N  5-500 Hz   -4.9 dB  lean pp 0.184  hub pp    44 um
+2x5 ov 6                       pod 1.0              floor rms   4.82 N  5-500 Hz   13.9 dB  lean pp 0.259  hub pp   195 um
+2x5 ov 6                       pod 1.0 camber 0.5   floor rms   9.04 N  5-500 Hz   18.1 dB  lean pp 0.359  hub pp   550 um
+2x5 ov 6                       pod 0.3              floor rms   1.54 N  5-500 Hz   -1.0 dB  lean pp 0.188  hub pp   133 um
+2x5 ov 4 + relief 0.3/8        hand 0.3             floor rms   3.66 N  5-500 Hz   11.5 dB  lean pp 10.995  hub pp  1893 um
+2x5 ov 6 + relief 0.2/5        pod 0.6              floor rms   2.20 N  5-500 Hz    4.1 dB  lean pp 0.219  hub pp   152 um
+2x5 ov 6 + relief 0.2/5        pod 1.0              floor rms   5.20 N  5-500 Hz   14.3 dB  lean pp 0.269  hub pp   193 um
+2x5 ov 6 + relief 0.2/5        pod 1.0 camber 0.5   floor rms   5.94 N  5-500 Hz   13.7 dB  lean pp 0.298  hub pp   426 um
+2x5 ov 6                       hand 0.3             floor rms   3.52 N  5-500 Hz   11.2 dB  lean pp 9.255  hub pp  1658 um
+2x5 ov 6 + relief 0.2/5        pod 0.3              floor rms   1.40 N  5-500 Hz   -3.9 dB  lean pp 0.177  hub pp   126 um
+2x5 ov 6 + relief 0.3/6        pod 0.6              floor rms   2.41 N  5-500 Hz    5.0 dB  lean pp 0.205  hub pp   138 um
+2x5 ov 6 + relief 0.3/6        pod 1.0              floor rms   5.28 N  5-500 Hz   14.6 dB  lean pp 0.267  hub pp   187 um
+2x5 ov 6 + relief 0.3/6        pod 1.0 camber 0.5   floor rms   4.91 N  5-500 Hz   12.6 dB  lean pp 0.287  hub pp   399 um
+2x5 ov 6 + relief 0.2/5        hand 0.3             floor rms   3.52 N  5-500 Hz   11.2 dB  lean pp 9.684  hub pp  1686 um
+2x5 ov 6 + relief 0.3/6        pod 0.3              floor rms   1.37 N  5-500 Hz   -4.3 dB  lean pp 0.180  hub pp   106 um
+2x5 ov 6 + relief 0.3/8        pod 0.6              floor rms   2.07 N  5-500 Hz    2.2 dB  lean pp 0.190  hub pp    93 um
+2x5 ov 6 + relief 0.3/8        pod 1.0 camber 0.5   floor rms   4.18 N  5-500 Hz   10.8 dB  lean pp 0.265  hub pp   361 um
+2x5 ov 6 + relief 0.3/8        pod 1.0              floor rms   3.69 N  5-500 Hz   11.0 dB  lean pp 0.245  hub pp   123 um
+2x5 ov 6 + relief 0.3/8        pod 0.3              floor rms   1.30 N  5-500 Hz   -5.6 dB  lean pp 0.173  hub pp    71 um
+2x5 ov 6 + relief 0.3/6        hand 0.3             floor rms   3.52 N  5-500 Hz   11.2 dB  lean pp 9.936  hub pp  1696 um
+2x5 ov 8                       pod 0.6              floor rms   3.10 N  5-500 Hz    8.5 dB  lean pp 0.237  hub pp   168 um
+2x5 ov 8                       pod 1.0              floor rms   6.33 N  5-500 Hz   16.4 dB  lean pp 0.288  hub pp   222 um
+2x5 ov 8                       pod 1.0 camber 0.5   floor rms   8.94 N  5-500 Hz   17.9 dB  lean pp 0.366  hub pp   551 um
+2x5 ov 8 + relief 0.2/5        pod 0.6              floor rms   2.24 N  5-500 Hz    4.1 dB  lean pp 0.215  hub pp   145 um
+2x5 ov 8 + relief 0.2/5        pod 1.0              floor rms   4.06 N  5-500 Hz   11.7 dB  lean pp 0.248  hub pp   165 um
+2x5 ov 6 + relief 0.3/8        hand 0.3             floor rms   3.53 N  5-500 Hz   11.3 dB  lean pp 10.099  hub pp  1716 um
+2x5 ov 8                       pod 0.3              floor rms   1.54 N  5-500 Hz   -1.0 dB  lean pp 0.188  hub pp   134 um
+2x5 ov 8 + relief 0.2/5        pod 1.0 camber 0.5   floor rms   6.23 N  5-500 Hz   14.0 dB  lean pp 0.298  hub pp   430 um
+2x5 ov 8                       hand 0.3             floor rms   3.42 N  5-500 Hz   11.0 dB  lean pp 8.550  hub pp  1523 um
+2x5 ov 8 + relief 0.3/6        pod 0.6              floor rms   2.19 N  5-500 Hz    4.0 dB  lean pp 0.220  hub pp   152 um
+2x5 ov 8 + relief 0.2/5        pod 0.3              floor rms   1.41 N  5-500 Hz   -3.8 dB  lean pp 0.177  hub pp   131 um
+2x5 ov 8 + relief 0.3/6        pod 1.0              floor rms   5.17 N  5-500 Hz   14.2 dB  lean pp 0.268  hub pp   193 um
+2x5 ov 8 + relief 0.3/6        pod 1.0 camber 0.5   floor rms   5.40 N  5-500 Hz   13.1 dB  lean pp 0.285  hub pp   404 um
+2x5 ov 8 + relief 0.2/5        hand 0.3             floor rms   3.37 N  5-500 Hz   10.9 dB  lean pp 8.875  hub pp  1528 um
+2x5 ov 8 + relief 0.3/8        pod 1.0              floor rms   4.46 N  5-500 Hz   12.9 dB  lean pp 0.253  hub pp   163 um
+2x5 ov 8 + relief 0.3/8        pod 0.6              floor rms   2.15 N  5-500 Hz    3.7 dB  lean pp 0.202  hub pp   127 um
+2x5 ov 8 + relief 0.3/6        pod 0.3              floor rms   1.40 N  5-500 Hz   -3.8 dB  lean pp 0.178  hub pp   128 um
+2x5 ov 8 + relief 0.3/8        pod 1.0 camber 0.5   floor rms   4.55 N  5-500 Hz   11.3 dB  lean pp 0.265  hub pp   363 um
+2x5 ov 8 + relief 0.3/8        pod 0.3              floor rms   1.35 N  5-500 Hz   -5.1 dB  lean pp 0.174  hub pp    99 um
+2x5 ov 8 + relief 0.3/6        hand 0.3             floor rms   3.35 N  5-500 Hz   10.9 dB  lean pp 9.087  hub pp  1528 um
+2x5 ov 8 + relief 0.3/8        hand 0.3             floor rms   3.28 N  5-500 Hz   10.6 dB  lean pp 9.071  hub pp  1508 um

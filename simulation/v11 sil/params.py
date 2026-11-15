@@ -374,6 +374,10 @@ class SimParams:
     arm_display: str = "bin_back"      # "bin_back": Oct 24's 7 in on the bin's back facing the rear; "face": the arm kit
                                        # as drawn (cad/v7 arm_kit.py): the 5 in face over the bin, its uprights and the
                                        # audio box on a shelf above it
+    colours: str = "auto"              # Nov 13 (Fernando baselined the filaments, cad/v13 README "Filament colours"): "auto" = the arm
+                                       # robot printed in Jade White / Dark Gray / Orange + black TPU treads (robot_model.FILAMENT_MATERIALS:
+                                       # grey arm, white bin, riser, decks; orange hubs and bumper), the catch robot in its earlier colours;
+                                       # "legacy" = the earlier colours for both (yellow arm, orange bin and riser): pre-Nov 13 renders
     arm_payload_kg: float = 0.0        # held at the arm's tool point
     arm_bin: tuple | None = None       # (x, y, length, width, height) m: an open bin on the plate the arm drops into
     arm_pick: bool = False             # the picking arm (arm_so101.py): finger pads that grasp loose objects, fingertips
@@ -455,6 +459,8 @@ class SimParams:
             raise ValueError(f"payload {self.payload!r}: 'catch' or 'arm'")
         if self.payload == "arm" and (self.camera_mount == "rim" or self.hopper != "none"):
             raise ValueError("payload='arm' has no catch module: no rim cameras, no hopper")
+        if self.colours not in ("auto", "legacy"):
+            raise ValueError(f"colours {self.colours!r}: 'auto' or 'legacy'")
         if self.lidar_mount not in ("front", "rear"):
             raise ValueError(f"lidar_mount {self.lidar_mount!r}: 'front' or 'rear'")
         if self.depth_camera not in ("none", "d435"):

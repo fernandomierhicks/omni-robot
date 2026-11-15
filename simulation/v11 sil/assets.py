@@ -129,3 +129,59 @@ def barrel(name: str, wheel_r: float, roller_r: float, half_len: float, ns: int 
             t = 2 * math.pi * j / nt
             verts += [s, rho * math.cos(t), rho * math.sin(t)]
     return f'<mesh name="{name}" vertex="{_f(*verts)}"/>'      # convex hull is the collision shape
+
+
+def roller_profile(s, wheel_r: float, axis_r: float, half_len: float, fillet: float = 0.0, relief_len: float = 0.0,
+                   relief_depth: float = 0.0):
+    """Nov 12: a drawn omni roller's radius about its own axis at axial position s (m, |s| <= half_len), as cad/v13
+    builds it (wheel_motor.tread_solid, wheel_quiet_2.tread_relief): the wheel circle about the wheel axis
+    sqrt(R^2 - s^2) - axis_r; over the last relief_len a tangent arc of radius 1 / (1/R + 2 depth / len^2) that ends
+    relief_depth under the circle; then a rolling-ball round of radius fillet into the end face s = half_len (tangent to
+    both, found numerically: the highest circle centred at half_len - fillet that stays under the profile)."""
+    s = abs(float(s))
+
+    def bare(u):
+        rho = math.sqrt(max(wheel_r ** 2 - u * u, 0.0)) - axis_r
+        if relief_len > 0 and relief_depth > 0:
+            s0 = half_len - relief_len
+            if u > s0:
+                rr = 1.0 / (1.0 / wheel_r + 2.0 * relief_depth / relief_len ** 2)
+                q = math.sqrt(wheel_r ** 2 - s0 ** 2)
+                cs, cr = s0 - rr * s0 / wheel_r, (q - axis_r) - rr * q / wheel_r
+                rho = cr + math.sqrt(max(rr ** 2 - (u - cs) ** 2, 0.0))
+        return rho
+
+    if fillet <= 0:
+        return bare(s)
+    sc = half_len - fillet
+    us = [sc - fillet + 2 * fillet * k / 4000 for k in range(4001)]
+    gaps = [bare(u) - math.sqrt(max(fillet ** 2 - (u - sc) ** 2, 0.0)) for u in us]
+    k = min(range(len(us)), key=gaps.__getitem__)
+    yc, st = gaps[k], us[k]                                     # the round's centre height and its tangent point
+    if s <= st:
+        return bare(s)
+    return yc + math.sqrt(max(fillet ** 2 - (min(s, half_len) - sc) ** 2, 0.0))
+
+
+def roller_drawn(name: str, wheel_r: float, roller_r: float, half_len: float, fillet: float = 0.0,
+                 relief_len: float = 0.0, relief_depth: float = 0.0, ns: int = 13, nt: int = 64) -> str:
+    """Nov 12: the convex collision hull of a drawn roller (roller_profile): ns stations evenly along it, plus every
+    0.5 mm over the relief and eight across each end round, so the 0.1-0.2 mm relief and the R2 end are in the hull;
+    nt points round each station (64: 0.02 mm facet sag on an 18 mm roller)."""
+    axis_r = wheel_r - roller_r
+    ss = {round(-half_len + 2 * half_len * i / (ns - 1), 9) for i in range(ns)}
+    edge = max(relief_len, 2 * fillet)
+    n_edge = max(2, int(round(edge / 0.0005)))
+    for i in range(n_edge + 1):
+        u = half_len - edge + edge * i / n_edge
+        ss |= {round(u, 9), round(-u, 9)}
+    for i in range(9):                                           # across the end round, evenly in angle
+        u = half_len - fillet + fillet * math.sin(math.pi / 2 * i / 8)
+        ss |= {round(u, 9), round(-u, 9)}
+    verts = []
+    for s in sorted(ss):
+        rho = roller_profile(s, wheel_r, axis_r, half_len, fillet, relief_len, relief_depth)
+        for j in range(nt):
+            t = 2 * math.pi * j / nt
+            verts += [s, rho * math.cos(t), rho * math.sin(t)]
+    return f'<mesh name="{name}" vertex="{_f(*verts)}"/>'

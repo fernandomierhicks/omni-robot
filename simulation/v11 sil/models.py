@@ -56,6 +56,9 @@ class DriveActuator:
       - gearbox efficiency.
     After each step, account() turns the torque MuJoCo applied into phase
     current, bus current, copper loss and temperature.
+    A motor whose own loop ramps its setpoint (spec.accel_limit, rad/s^2: the
+    AK40-10's servo mode, measured Nov 13) follows the command through that
+    ramp, from where the wheel is when it starts driving (release()).
     """
 
     def __init__(self, spec: DriveMotor, kp: float = 2.0, ki: float = 40.0, t_amb: float = 25.0):
@@ -66,6 +69,7 @@ class DriveActuator:
 
     def reset(self):
         self.integ = 0.0
+        self.w_ref = None               # the ramped setpoint (accel_limit); None: not driving, start from the wheel
         self.thermal.reset()
         self.i_phase = self.i_bus = self.p_loss = 0.0
         self.i_limited = False          # the last command's torque was at the current/voltage envelope
@@ -87,8 +91,20 @@ class DriveActuator:
         t_mot, t_brk = self.s.torque_at(i_mot), self.s.torque_at(i_brk)
         return (-t_brk, t_mot) if w_out >= 0 else (-t_mot, t_brk)
 
+    def release(self):
+        """Not driving (zero current, coasting): the integrator empties and the next command's ramp starts from the
+        wheel's own speed."""
+        self.integ = 0.0
+        self.w_ref = None
+
     def command(self, w_cmd: float, w_out: float, v_bus: float, dt: float):
         """Speed command -> (ctrl for the MuJoCo actuator, force range)."""
+        a = self.s.accel_limit
+        if a:
+            if self.w_ref is None:
+                self.w_ref = float(w_out)
+            self.w_ref += float(_clip(w_cmd - self.w_ref, -a * dt, a * dt))
+            w_cmd = self.w_ref
         lo, hi = self.torque_limits(w_out, v_bus)
         self.integ = float(_clip(self.integ + self.ki * (w_cmd - w_out) * dt, lo, hi))
         return w_cmd + self.integ / self.kp, (lo, hi)

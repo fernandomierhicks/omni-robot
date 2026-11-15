@@ -1,0 +1,195 @@
+{
+ "wheels": {
+  "v13": {
+   "name": "v13",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "v13, 85A tread": {
+   "name": "85A",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 12000000.0,
+   "c_h": 4.0
+  },
+  "no end fillet (sharp)": {
+   "name": "sharp",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.0002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "rows -+14 (smaller rollers)": {
+   "name": "d14",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.002,
+   "d_row": 0.014,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "rows -+10": {
+   "name": "d10",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.002,
+   "d_row": 0.01,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "longer rollers ht 21": {
+   "name": "ht21",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.021,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "longer rollers ht 22.5": {
+   "name": "ht22.5",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0225,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.0,
+   "relief_depth": 0.0,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "ht 22.5 + relief 0.15/5": {
+   "name": "ht22.5r",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0225,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.005,
+   "relief_depth": 0.00015,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "ht 22.5 + relief 0.3/6": {
+   "name": "ht22.5r3",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0225,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.006,
+   "relief_depth": 0.0003,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  },
+  "ht 19.5 + relief 0.15/4": {
+   "name": "ht19.5r",
+   "R": 0.07,
+   "R_axis": 0.052,
+   "ht": 0.0195,
+   "fillet": 0.002,
+   "d_row": 0.01725,
+   "n_row": 6,
+   "relief_len": 0.004,
+   "relief_depth": 0.00015,
+   "E_tread": 26000000.0,
+   "c_h": 3.0
+  }
+ },
+ "results": {
+  "roll": {
+   "v13": {
+    "pod 0.3 m/s, k_roll 30": {
+     "floor_rms_N": 2.128112695437096,
+     "floor_pp_N": 15.165465035255608,
+     "floor_5_500_dB": 4.388885655426399,
+     "floor_500_5k_dB": -40.31742546821511,
+     "lean_pp_deg": 2.0448391290308394,
+     "hub_pp_um": 399.42217933809644,
+     "chassis_rms_N": 1.4746928994961956,
+     "lift_off_frac": 0.0,
+     "wall_s": 7.529668569564819
+    },
+    "pod 0.3 m/s, k_roll 3000": {
+     "floor_rms_N": 1.4606725038049693,
+     "floor_pp_N": 10.589140771212179,
+     "floor_5_500_dB": -1.6889859498628121,
+     "floor_500_5k_dB": -47.35981979535697,
+     "lean_pp_deg": 0.017826644984336767,
+     "hub_pp_um": 97.46824648927677,
+     "chassis_rms_N": 1.234027812239647,
+     "lift_off_frac": 0.0,
+     "wall_s": 7.559256076812744
+    },
+    "pod 0.3 m/s, k_roll 300": {
+     "floor_rms_N": 1.445399299552828,
+     "floor_pp_N": 10.59168826520808,
+     "floor_5_500_dB": -1.8727253289813204,
+     "floor_500_5k_dB": -46.574596009996185,
+     "lean_pp_deg": 0.19545790099009694,
+     "hub_pp_um": 121.25802006307529,
+     "chassis_rms_N": 1.2510570249664121,
+     "lift_off_frac": 0.0,
+     "wall_s": 7.596770763397217
+    },
+    "pod 0.3 m/s, k_roll 100": {
+     "floor_rms_N": 1.5759290222011026,
+     "floor_pp_N": 12.147263315591047,
+     "floor_5_500_dB": -0.7095901986375558,
+     "floor_500_5k_dB": -45.072575360231625,
+     "lean_pp_deg": 0.6020300370492122,
+     "hub_pp_um": 172.3449308558139,
+     "chassis_rms_N": 1.286536410302378,
+     "lift_off_frac": 0.0,
+     "wall_s": 7.60776948928833
+    },
+    "pod 0.3 m/s, k_roll 1000": {
+     "floor_rms_N": 1.466286226527123,
+     "floor_pp_N": 10.5901748001763,
+     "floor_5_500_dB": -1.5652593755946687,
+     "floor_500_5k_dB": -46.93823317286263,
+     "lean_pp_deg": 0.05560166514006724,
+     "hub_pp_um": 102.94508703385941,
+     "chassis_rms_N": 1.2371234066952854,
+     "lift_off_frac": 0.0,
+     "wall_s": 7.786363363265991
+    }
+   }
+  }
+ }
+}

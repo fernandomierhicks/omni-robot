@@ -42,6 +42,8 @@ from pathlib import Path
 
 import numpy as np
 
+import filament
+
 HERE = Path(__file__).resolve().parent
 ARM_DIR = HERE / "assets" / "so101"
 REPO_RAW = "https://raw.githubusercontent.com/TheRobotStudio/SO-ARM100"
@@ -271,7 +273,7 @@ def bin_xml(p, plate_top: float) -> str:
                    f'pos="{_f((dx0 + dx1) / 2, (dy0 + dy1) / 2, (dz0 + dz1) / 2)}" material="camera_body" mass="0"/>'
                    for nm, (dx0, dx1), (dy0, dy1), (dz0, dz1) in rear_boxes(p, plate_top))
     return "".join(f'<geom name="arm_bin{k}" class="structure" type="box" size="{_f(*s)}" pos="{_f(x + c[0], y + c[1], z0 + c[2])}" '
-                   f'material="petg_orange" mass="{M_BIN / 5:.4g}" friction="0.6 0.005 0.0001"/>'
+                   f'material="{filament.mat(p, "petg_orange", "white")}" mass="{M_BIN / 5:.4g}" friction="0.6 0.005 0.0001"/>'
                    for k, (c, s) in enumerate(walls)) + rear + \
         f'<site name="arm_bin" pos="{_f(x, y, z0 + H)}" group="5"/>'
 
@@ -284,7 +286,7 @@ def bracket_xml(p, deck_top: float, plate_top: float) -> str:
     mx, my, _ = p.arm_mount
     h = p.arm_mount_z - deck_top
     return (f'<geom class="decor" type="box" size="{_f(0.04, 0.035, h / 2)}" pos="{_f(mx - 0.005, my, deck_top + h / 2)}" '
-            f'material="petg_orange" mass="0.06"/>')
+            f'material="{filament.mat(p, "petg_orange", "white")}" mass="0.06"/>')
 
 
 def body_xml(p, plate_top: float) -> str:
@@ -293,19 +295,20 @@ def body_xml(p, plate_top: float) -> str:
     mx, my, myaw = p.arm_mount
     root = ET.fromstring(_TREE)
     show_mesh = meshes_available()
+    print_mat = filament.mat(p, "so101_print", "gray")             # Nov 13: the printed SO-101 in Dark Gray (neutral for color_vision)
     for body in root.iter("body"):
         link = body.get("name")
         for g in list(body.findall("geom")):
             if g.get("mesh") and show_mesh:
                 g.set("class", "arm_visual")
-                g.set("material", "so101_servo" if g.get("mesh") in SERVO_MESHES else "so101_print")
+                g.set("material", "so101_servo" if g.get("mesh") in SERVO_MESHES else print_mat)
                 g.set("mesh", "so101_" + g.get("mesh"))
             else:
                 body.remove(g)
         for k, e in enumerate(_link_capsules(body, p.arm_pick)):
             ET.SubElement(body, "geom", {"name": f"{name(link)}_link{k}", "class": "arm_link", "type": "capsule",
                                          "size": _f(LINK_R[link]), "fromto": _f(0, 0, 0, *e),
-                                         "group": "3" if show_mesh else "1"})
+                                         "group": "3" if show_mesh else "1", "material": print_mat})
         for el in body.findall("joint") + body.findall("site"):
             el.set("name", name(el.get("name")))
             if el.tag == "joint":
@@ -340,11 +343,12 @@ def body_xml(p, plate_top: float) -> str:
     extra = ET.SubElement(root, "body", {"name": "arm_base_extra", "pos": "-0.02 0 0.01"})
     extra.append(ET.Element("inertial", {"pos": "0 0 0", "mass": f"{M_BASE_EXTRA}", "diaginertia": "5e-5 5e-5 5e-5"}))
     q = (math.cos(math.radians(myaw) / 2), 0.0, 0.0, math.sin(math.radians(myaw) / 2))
-    adapter = ('<geom class="decor" type="box" size="0.055 0.045 0.003" pos="0.005 0 0.003" material="petg_orange"/>')
+    kit_mat = filament.mat(p, "petg_orange", "white")             # Nov 13: the riser and adapter are Jade White
+    adapter = (f'<geom class="decor" type="box" size="0.055 0.045 0.003" pos="0.005 0 0.003" material="{kit_mat}"/>')
     if p.arm_mount_z is None and p.arm_riser > 0:                     # its front cut back by arm_riser_pocket (the D435's)
         hx = 0.045 - p.arm_riser_pocket / 2
         adapter += (f'<geom class="decor" type="box" size="{_f(hx, 0.045, p.arm_riser / 2)}" '
-                    f'pos="{_f(-0.005 - p.arm_riser_pocket / 2, 0, -p.arm_riser / 2)}" material="petg_orange"/>')
+                    f'pos="{_f(-0.005 - p.arm_riser_pocket / 2, 0, -p.arm_riser / 2)}" material="{kit_mat}"/>')
     return (f'<body name="arm_mount" pos="{_f(mx, my, mount_z(p, plate_top))}" quat="{_f(*q)}">'
             f'<site name="arm_mount" pos="0 0 0" group="5"/>{adapter}'
             f'{ET.tostring(root, encoding="unicode")}</body>')

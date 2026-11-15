@@ -37,8 +37,10 @@ import numpy as np
 
 import arm_objects
 import arm_so101
+import filament
 import floor as floor_mod
-from assets import barrel, cone_shell, ensure_textures, _f
+from filament import mat as _mat
+from assets import barrel, cone_shell, ensure_textures, roller_drawn, _f
 from params import SimParams
 
 
@@ -468,6 +470,8 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
     m_roller = max(0.004, 0.45 * om.mass / om.n_rollers) if om.mass > 0.15 else 0.004   # v6's 4 g on the 96 mm wheel
     # v7: 2 or 3 staggered rows across the width (v6: two rows at +/- w/4)
     row_x = [hw * (2 * k + 1 - nrow) / nrow for k in range(nrow)]
+    if om.row_offset is not None and nrow == 2:          # Nov 12: the CAD's row planes (cad/v13: -+17.25 mm)
+        row_x = [-om.row_offset, om.row_offset]
     # mecanum: each roller's axis turned 45 deg about the radial direction (rows = 1)
     tw = quat_axis((0, 1, 0), math.radians(45.0)) if om.kind == "mecanum" else (1.0, 0.0, 0.0, 0.0)
     for row, off in enumerate(row_x):
@@ -482,7 +486,7 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
                     f'frictionloss="{p.roller_friction_torque * rr / R:.3g}"/>'
                     f'<geom name="roller{i}_{row * n_r + j}" class="roller" mesh="roller{i}" mass="{m_roller:.4g}"/></body>')
             else:
-                rollers.append(f'<geom class="decor" type="mesh" mesh="roller{i}" material="roller" pos="{_f(*pos)}" quat="{_f(*rq)}"/>')
+                rollers.append(f'<geom class="decor" type="mesh" mesh="roller{i}" material="{_mat(p, "roller", "tpu")}" pos="{_f(*pos)}" quat="{_f(*rq)}"/>')
     contact_mass = 0.06
     hub_mass = max(0.02, om.mass - (contact_mass if p.wheel_model == "sphere" else m_roller * om.n_rollers))
     if p.wheel_model == "sphere":
@@ -520,15 +524,15 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
         f'fromto="{_f(L - rm0, 0, 0, L - rm0 + 0.006, 0, 0)}"/>'
         f'<geom class="decor" type="cylinder" size="{_f(mot.diameter / 2 - 0.001)}" material="motor_black" '
         f'fromto="{_f(L - rm0 + 0.006, 0, 0, L - rm1, 0, 0)}"/>'
-        f'<geom class="decor" type="box" size="0.004 {_f(mot.diameter / 2 + 0.006)} {_f(pod_hz)}" material="petg_dark" '
+        f'<geom class="decor" type="box" size="0.004 {_f(mot.diameter / 2 + 0.006)} {_f(pod_hz)}" material="{_mat(p, "petg_dark", "gray")}" '
         f'mass="{p.m_pod + (p.m_pod_suspension if p.suspension == "pod" else 0.0):.4g}" pos="{_f(L - br, 0, pod_z - R)}"/>')
     sprung = p.suspension == "pod" or p.swing != "none"
     hub_body = f"""
           <body name="hub{i}"{{hub_pos}}>
             <joint name="drive{i}" type="hinge" axis="1 0 0" armature="{mot.reflected_inertia:.4g}"
                    frictionloss="{mot.backdrive_torque}" damping="{mot.viscous:.4g}"/>
-            <geom class="decor" type="cylinder" size="{_f(d - rr * 0.6)}" fromto="{_f(-hw * 0.9, 0, 0, hw * 0.9, 0, 0)}" material="wheel_hub" mass="{hub_mass}"/>
-            <geom class="decor" type="cylinder" size="{_f(d + rr * 0.2)}" fromto="{_f(-0.0015, 0, 0, 0.0015, 0, 0)}" material="wheel_plate"/>
+            <geom class="decor" type="cylinder" size="{_f(d - rr * 0.6)}" fromto="{_f(-hw * 0.9, 0, 0, hw * 0.9, 0, 0)}" material="{_mat(p, "wheel_hub", "orange")}" mass="{hub_mass}"/>
+            <geom class="decor" type="cylinder" size="{_f(d + rr * 0.2)}" fromto="{_f(-0.0015, 0, 0, 0.0015, 0, 0)}" material="{_mat(p, "wheel_plate", "orange")}"/>
             <geom class="decor" type="cylinder" size="0.012" fromto="{_f(-hw - 0.002, 0, 0, hw + 0.002, 0, 0)}" material="steel"/>
             {''.join(rollers)}
             <site name="hub{i}" group="5"/>
@@ -569,7 +573,7 @@ def _wheel(p: SimParams, g: Geometry, i: int, origin=(0.0, 0.0, 0.0)) -> str:
         f'fromto="{_f(rm0 * c - ox, rm0 * s - oy, R - oz, (rm0 - 0.006) * c - ox, (rm0 - 0.006) * s - oy, R - oz)}"/>'
         f'<geom class="decor" type="cylinder" size="{_f(mot.diameter / 2 - 0.001)}" material="motor_black" '
         f'fromto="{_f((rm0 - 0.006) * c - ox, (rm0 - 0.006) * s - oy, R - oz, rm1 * c - ox, rm1 * s - oy, R - oz)}"/>'
-        f'<geom class="decor" type="box" size="0.004 {_f(mot.diameter / 2 + 0.006)} {_f(pod_hz)}" material="petg_dark" '
+        f'<geom class="decor" type="box" size="0.004 {_f(mot.diameter / 2 + 0.006)} {_f(pod_hz)}" material="{_mat(p, "petg_dark", "gray")}" '
         f'mass="{p.m_pod}" pos="{_f(br * c - ox, br * s - oy, pod_z - oz)}" quat="{_f(*quat_axis((0, 0, 1), th))}"/>')
     return wheel + base_geoms
 
@@ -644,11 +648,12 @@ def _wheel_on_fork(p: SimParams, i: int, pos, q, k: float, c_susp: float, hub_bo
     m_fork = p.m_pod + p.m_pod_suspension
     psi = math.atan2(-az, -ay)
     half_len = 0.5 * math.hypot(ay, az) + 0.012
+    pod_mat = _mat(p, "petg_dark", "gray")
     for x0, x1, share in FORK_PLATES:
         box(m_fork * share, (0.5 * (x0 + x1), 0.5 * ay, 0.5 * az), (0.5 * (x1 - x0), half_len, 0.014),
-            quat_axis((1, 0, 0), psi), "petg_dark")
-    cyl(0.0172, FORK_PLATES[0][1], 0.029, (ay, az), "petg_dark")
-    cyl(FORK_PLATES[1][0], FORK_PLATES[1][1], 0.026, (ay, az), "petg_dark")
+            quat_axis((1, 0, 0), psi), pod_mat)
+    cyl(0.0172, FORK_PLATES[0][1], 0.029, (ay, az), pod_mat)
+    cyl(FORK_PLATES[1][0], FORK_PLATES[1][1], 0.026, (ay, az), pod_mat)
     cyl(FORK_SHAFT_X[0], FORK_SHAFT_X[1], 0.0035, (0.0, 0.0), "steel")
     by, bz = to_pod(0.5 * sum(FORK_BAR["y"]), 0.5 * sum(FORK_BAR["z"]))
     box(0.0, (0.5 * sum(FORK_BAR["x"]), by, bz),
@@ -675,7 +680,7 @@ def _wheel_on_fork(p: SimParams, i: int, pos, q, k: float, c_susp: float, hub_bo
     ey = 0.5 * sum(FORK_EAR_Y)
     for x0, x1, top in FORK_EARS:
         fixed.append(f'<geom class="decor" type="box" size="{_f(0.5 * abs(x1 - x0), 0.5 * (FORK_EAR_Y[1] - FORK_EAR_Y[0]), 0.5 * (top - FORK_EAR_Z0))}" '
-                     f'pos="{_f(*world(0.5 * (x0 + x1), ey, 0.5 * (top + FORK_EAR_Z0)))}" quat="{_f(*quat_axis((0, 0, 1), th))}" material="petg_dark"/>')
+                     f'pos="{_f(*world(0.5 * (x0 + x1), ey, 0.5 * (top + FORK_EAR_Z0)))}" quat="{_f(*quat_axis((0, 0, 1), th))}" material="{pod_mat}"/>')
     for sx, sy in FORK_SHOCKS:
         fixed.append(f'<geom class="decor" type="capsule" size="0.0035" fromto="{_f(*world(sx, sy, FORK_SHOCK_Z[1]), *world(sx, sy, FORK_SHOCK_Z[0] + 0.020))}" '
                      f'material="steel"/>')
@@ -1309,7 +1314,7 @@ def _deck(p: SimParams, g: Geometry) -> str:
     areas = [_area(q) for q in pieces]
     zc = g.deck_z + p.deck_thickness / 2
     m_deck = p.m_deck * ((p.deck_radius / 0.185) ** 2 if p.is_swerve else 1.0)    # v8: a bigger deck covers the modules
-    return "".join(f'<geom class="structure" type="mesh" mesh="deck{k}" pos="0 0 {_f(zc)}" material="petg_dark" '
+    return "".join(f'<geom class="structure" type="mesh" mesh="deck{k}" pos="0 0 {_f(zc)}" material="{_mat(p, "petg_dark", "white")}" '
                    f'mass="{m_deck * a / sum(areas):.4g}"/>' for k, a in enumerate(areas))
 
 
@@ -1331,30 +1336,30 @@ def _robot(p: SimParams, g: Geometry) -> str:
     zbump = dz + 0.003 if axle else dz - 0.004
     for k in range(nb):
         a0, a1 = 2 * math.pi * k / nb, 2 * math.pi * (k + 1) / nb
-        bumper.append(f'<geom {bcls} type="capsule" size="0.014" material="tpu_orange" mass="{p.m_bumper / nb:.4g}" '
+        bumper.append(f'<geom {bcls} type="capsule" size="0.014" material="{_mat(p, "tpu_orange", "orange")}" mass="{p.m_bumper / nb:.4g}" '
                       f'fromto="{_f(rbump * math.cos(a0), rbump * math.sin(a0), zbump, rbump * math.cos(a1), rbump * math.sin(a1), zbump)}"/>')
     pack = p.pack
     if axle:
         # 7 x 21700 in one flat row under the deck (~150 x 72 x 23 mm with wrap), between the motors, on a
         # 1 mm strap: its underside matches the motors' (~21 mm ground clearance)
         battery = (f'<geom class="decor" type="box" size="0.075 0.036 0.0115" pos="0 0 {_f(dz - 0.0115)}" material="battery" mass="{pack.mass}"/>'
-                   f'<geom class="decor" type="box" size="0.077 0.012 0.0005" pos="0 0 {_f(dz - 0.0235)}" material="pla_black" mass="{p.m_battery_tray}"/>')
+                   f'<geom class="decor" type="box" size="0.077 0.012 0.0005" pos="0 0 {_f(dz - 0.0235)}" material="{_mat(p, "pla_black", "gray")}" mass="{p.m_battery_tray}"/>')
         jet, pcb, estop = (0.0, 0.0), (0.0, 0.125), (-0.155, 0.0)
         if p.lidar_mount == "rear":                             # the e-stop moves aside for it
             estop = (-0.09, -0.13)
         lidar_base = max(top, 2 * g.R + 0.004 - 0.026)          # scan plane (~26 mm up) above the wheel tops
     else:
         battery = (f'<geom class="decor" type="box" size="0.045 0.038 0.036" pos="0 0 {_f(dz - 0.04)}" material="battery" mass="{pack.mass}"/>'
-                   f'<geom class="decor" type="box" size="0.046 0.039 0.002" pos="0 0 {_f(dz - 0.003)}" material="pla_black" mass="{p.m_battery_tray}"/>')
+                   f'<geom class="decor" type="box" size="0.046 0.039 0.002" pos="0 0 {_f(dz - 0.003)}" material="{_mat(p, "pla_black", "gray")}" mass="{p.m_battery_tray}"/>')
         jet, pcb, estop = (-0.07, 0.0), (0.03, 0.1), (-0.13, -0.08)
         lidar_base = top
     if p.lidar_scan_z is not None:                               # the drawn robot: cad/v7's scan plane
         lidar_base = max(top, p.lidar_scan_z - 0.026)
     deck_top_decor = "" if axle else \
-        f'<geom class="decor" type="cylinder" size="{_f(p.deck_radius - 0.03, 0.0035)}" pos="0 0 {_f(dz + 0.0032)}" material="petg_grey"/>'
+        f'<geom class="decor" type="cylinder" size="{_f(p.deck_radius - 0.03, 0.0035)}" pos="0 0 {_f(dz + 0.0032)}" material="{_mat(p, "petg_grey", "white")}"/>'
     rl = (p.deck_radius - 0.045 if p.lidar_x is None else p.lidar_x) * (-1.0 if p.lidar_mount == "rear" else 1.0)   # lidar near the front (rear) edge
     riser = (f'<geom class="decor" type="cylinder" size="0.024 {_f((lidar_base - top) / 2)}" pos="{_f(rl, 0, (lidar_base + top) / 2)}" '
-             f'material="pla_black"/>') if lidar_base > top + 0.002 else ""
+             f'material="{_mat(p, "pla_black", "white")}"/>') if lidar_base > top + 0.002 else ""
     parent, cams = camera_positions(p, g)
     cam_xml = ""
     if parent == "base":
@@ -1385,13 +1390,13 @@ def _robot(p: SimParams, g: Geometry) -> str:
       <geom class="decor" group="2" type="cylinder" size="0.028 0.0165" pos="{_f(rl, 0, lb + 0.0165)}" material="lidar" mass="{p.m_lidar}"/>
       <geom class="decor" group="2" type="cylinder" size="0.022 0.006" pos="{_f(rl, 0, lb + 0.039)}" material="lidar_top"/>
       <site name="lidar" pos="{_f(rl, 0, lb + 0.026)}" group="5"/>
-      <geom class="decor" type="cylinder" size="0.02 0.01" pos="{_f(*estop, top + 0.01)}" material="estop_base"/>
+      <geom class="decor" type="cylinder" size="0.02 0.01" pos="{_f(*estop, top + 0.01)}" material="{_mat(p, "estop_base", "gray")}"/>
       <geom class="decor" type="cylinder" size="0.017 0.009" pos="{_f(*estop, top + 0.029)}" material="estop"/>
       <geom class="decor" type="box" size="0.01 0.01 0.01" pos="0 0 {_f(top)}" material="pla_black" mass="{p.m_misc}"/>
       {''.join(standoffs)}
       {''.join(bumper)}
       {_guards(p, g) if p.bumper_collides else ''}
-      <geom class="structure" type="cylinder" size="{_f(p.plate_radius, 0.003)}" pos="0 0 {_f(g.plate_top - 0.003)}" material="petg_grey" mass="{p.m_plate}"/>
+      <geom class="structure" type="cylinder" size="{_f(p.plate_radius, 0.003)}" pos="0 0 {_f(g.plate_top - 0.003)}" material="{_mat(p, "petg_grey", "white")}" mass="{p.m_plate}"/>
       {cam_xml}
       {_d435(p)}
       {_extra_masses(p)}
@@ -1512,14 +1517,14 @@ def _guards(p: SimParams, g: Geometry) -> str:
     rs = p.deck_radius + 0.010 if p.bumper_radius is None else p.bumper_radius + 0.002   # under the bumper ring
     for k in range(SKIRT_SEGMENTS):
         a0, a1 = 2 * math.pi * k / SKIRT_SEGMENTS, 2 * math.pi * (k + 1) / SKIRT_SEGMENTS
-        out.append(f'<geom name="skirt{k}" type="capsule" size="0.008" contype="0" conaffinity="0" material="tpu_orange" '
+        out.append(f'<geom name="skirt{k}" type="capsule" size="0.008" contype="0" conaffinity="0" material="{_mat(p, "tpu_orange", "orange")}" '
                    f'mass="0" fromto="{_f(rs * math.cos(a0), rs * math.sin(a0), 0.027, rs * math.cos(a1), rs * math.sin(a1), 0.027)}"/>')
     for i, a in enumerate(p.wheel_angles_deg, start=1):
         th = math.radians(a)
         L = p.wheel_base_radius
         out.append(f'<geom name="wheel_guard{i}" type="box" size="{_f(p.omni.width / 2 + 0.006, g.R * 1.1, 0.0015)}" '
                    f'pos="{_f(L * math.cos(th), L * math.sin(th), 2 * g.R + 0.006)}" quat="{_f(*quat_axis((0, 0, 1), th))}" '
-                   f'contype="0" conaffinity="0" material="petg_dark" mass="0"/>')
+                   f'contype="0" conaffinity="0" material="{_mat(p, "petg_dark", "gray")}" mass="0"/>')
     return "".join(out)
 
 
@@ -1712,6 +1717,11 @@ def build_xml(p: SimParams = SimParams()) -> str:
         c45 = math.cos(math.radians(45.0))
         half = min(g.R * math.sin(math.pi * om.coverage * 1.25 / om.rollers_per_row) / c45, om.width / 2 / c45)
         roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, half, tan_frac=c45) for i in range(1, nw + 1))
+    elif om.roller_half is not None:
+        # Nov 12: the CAD's roller (catalog: half length, end round, tip relief)
+        roller_mesh = "".join(roller_drawn(f"roller{i}", g.R, rr, om.roller_half, om.end_fillet, om.relief_len,
+                                           om.relief_depth, ns=p.roller_mesh[0], nt=p.roller_mesh[1])
+                              for i in range(1, nw + 1))
     else:
         roller_mesh = "".join(barrel(f"roller{i}", g.R, rr, g.R * math.sin(math.pi * om.coverage / om.rollers_per_row),
                                      ns=p.roller_mesh[0], nt=p.roller_mesh[1])
@@ -1764,6 +1774,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
     <texture name="mat" type="2d" file="mat.png"/>
     <texture name="netting" type="2d" file="netting.png"/>
     {MATERIALS}
+    {filament.MATERIALS_XML}
     {scene_assets}
     {roller_mesh}
     {payload_assets}
@@ -1787,7 +1798,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
       <geom group="3" contype="0" conaffinity="0" rgba="0.9 0.2 0.2 0.3" condim="3"/>
     </default>
     <default class="roller">
-      <geom type="mesh" group="1" contype="0" conaffinity="0" material="roller" condim="3"/>
+      <geom type="mesh" group="1" contype="0" conaffinity="0" material="{_mat(p, "roller", "tpu")}" condim="3"/>
     </default>
     <default class="funnel_collision">
       <geom group="3" contype="0" conaffinity="0" mass="{p.m_funnel * 0.1 / p.funnel_panels:.4g}" rgba="0.2 0.6 0.9 0.3"/>

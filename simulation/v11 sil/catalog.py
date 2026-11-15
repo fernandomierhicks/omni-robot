@@ -58,6 +58,9 @@ class DriveMotor:
     viscous: float = 0.0005
     driver_eff: float = 0.95
     p_idle: float = 0.0
+    # Nov 13: the motor's own speed loop slews its speed setpoint at this rate (rad/s^2 at the output), None = it
+    # follows a step at once (up to its current). Measured on the AK40-10 in servo mode (a CubeMars-tool setting, VERIFY)
+    accel_limit: float | None = None
 
     @property
     def ke(self) -> float:
@@ -103,10 +106,24 @@ class DriveMotor:
 DRIVE_MOTORS = {
     "AK40-10": DriveMotor(
         "CubeMars AK40-10 V3.0 KV170", "AK40-10 V3.0 KV170 (with driver)", 135.90, 0.190, 0.053, 0.0402,
+        kv=170, kt=0.073082, gear=10, r_ll=0.978, i_rated=2.05, i_peak=7.01, v_rated=24, noload_rpm=374.2,
+        rotor_inertia=9.735e-6, backdrive_torque=0.0533, viscous=0.00232, accel_limit=148.0, gear_eff=1.0,
+        r_fit=2.1288, k_sat=0.025124, driver_eff=1.0, p_idle=0.0,
+        notes="Baseline since Nov 13 2026: AK40-10-chart (the maker's chart fit) corrected by one real motor on the "
+              "bench (studies/results/wheel_bench_2026-11-13.md; servo mode, a bare wheel, 24 V): top speed 38.5 "
+              "rad/s at 24 V (no-load 374.2 rpm here, from 461.5: its back-EMF), friction 0.073 + 0.0032 |w| A "
+              "(Coulomb 0.0533 N m + viscous 0.00232 N m s/rad, through this model's own torque per amp), the speed "
+              "loop's ramp 148 rad/s^2 (accel_limit). Unmeasured, kept from the chart fit: torque per amp (k_out, "
+              "k_sat; the bench's inertia reads 2.85e-3 kg m^2 with it, 1.87e-3 at the firmware's 0.48 N m/A), "
+              "r_fit, i_peak, the loaded curve, thermal. One motor, unloaded, 24 V: VERIFY on the pack and under "
+              "load."),
+    "AK40-10-chart": DriveMotor(
+        "CubeMars AK40-10 V3.0 KV170", "AK40-10 V3.0 KV170 (with driver)", 135.90, 0.190, 0.053, 0.0402,
         kv=170, kt=0.073082, gear=10, r_ll=0.978, i_rated=2.05, i_peak=7.01, v_rated=24, noload_rpm=461.49,
         rotor_inertia=9.735e-6, backdrive_torque=0.1208, gear_eff=1.0, r_fit=2.1288, k_sat=0.025124,
         driver_eff=1.0, p_idle=0.0,
-        notes="Baseline. Fitted (studies/motor_fit.py, Nov 1 2026) to the maker's 24 V torque-speed chart "
+        notes="The Nov 1 - Nov 13 baseline (reproduces the motor study and every arm-robot result before Nov 13). "
+              "Fitted (studies/motor_fit.py, Nov 1 2026) to the maker's 24 V torque-speed chart "
               "(studies/data/ak40_10_kv170_24v.csv): RMS 1.9 % speed, 1.6 % current, 1.6 points efficiency. "
               "r_fit lumps winding + driver + gearbox losses; i_peak gives the datasheet 4.1 N m peak, i_rated "
               "its 1.3 N m rated. kv / r_ll stay the datasheet values for reference. Thermal (est); all fitted "
@@ -298,6 +315,13 @@ class OmniWheel:
     coverage: float = 0.62     # v7: each roller spans this fraction of its row pitch (rows overlap to roll smoothly)
     kind: str = "omni"         # v7: "omni" (rollers tangent to the rim) or "mecanum" (rollers at 45 deg)
     printed: bool = False      # v7: our own printed design (PETG hub, TPU-tread rollers on steel pins)
+    # Nov 12 (Fernando: the sim's rollers are the CAD's): an omni roller's drawn shape, when known. None / 0 = v7's
+    # generic barrel (half length from coverage, rows spread over the width, no end rounding)
+    roller_half: float | None = None    # m, tread half length along the roller axis
+    row_offset: float | None = None     # m, two rows: their planes at -+ this (the width stays the hub's envelope)
+    end_fillet: float = 0.0             # m, the tread's end-edge round
+    relief_len: float = 0.0             # m, tip relief: over the tread's last relief_len the profile leaves the wheel
+    relief_depth: float = 0.0           # circle on a tangent arc, relief_depth under it at the end (before the fillet)
 
     @property
     def radius(self) -> float:
@@ -394,6 +418,17 @@ OMNI_WHEELS = {
     "Printed-140-2x6-36-cad": printed_omni(0.140, 6, 0.036, width=0.072),
     "Printed-152-2x6-40": printed_omni(0.152, 6, 0.040),
 }
+# Nov 12 (Fernando: the sim uses the latest CAD roller): cad/v13's wheel as wheel_quiet_2 draws it -- R70 tread circle,
+# roller axes at r 52, 2 x 6, rows at x -+17.25, tread half length 19.5 (2.35 deg overlap), R2 end fillet, tip relief
+# 0.2 mm over the last 7 mm (R44.55 tangent arc), each roller on two 687s (no pin friction: roller_pin_mu 0). The width
+# (hub envelope, motor packaging) and the mass estimate stay the v10 entry's
+OMNI_WHEELS["Printed-140-2x6-687-v13"] = replace(
+    OMNI_WHEELS["Printed-140-2x6-36-cad"],
+    name="Printed 140 mm omni, 2 x 6 rollers of 36 mm on 687 bearings (cad/v13 wheel_quiet_2)",
+    part="printed (PETG hub, TPU 95A relieved treads, PLA cores, 2 x 687ZZ per roller on a printed sleeve, M3 x 50)",
+    roller_half=0.0195, row_offset=0.01725, end_fillet=0.002, relief_len=0.007, relief_depth=0.0002,
+    notes="cad/v13 tools/wheel_quiet.py + wheel_quiet_2.py (proposal, Fernando's next roller print). Mass and price "
+          "are the v10 entry's estimate; the CAD's solid volumes give ~44 g per roller (VERIFY: weigh a wheel).")
 # v8 swerve (design.md 26): plain tired wheels for steered modules (kind "tire": one cylinder, no rollers). Printed
 # PETG hub + a cast or printed TPU / urethane tread (est; mu on a hard floor est, VERIFY)
 OMNI_WHEELS.update({

@@ -17,6 +17,14 @@ in `catalog.py`; pack resistance and the discharge curve have not been measured.
 provisional low-voltage stop is 21 V. Plan runtime with a 20% reserve. The results below predate this change;
 use `battery="7S1P-P50B"` explicitly to reproduce the previous battery, or another catalog key for comparisons.
 
+**Nov 12 (Fernando): the arm robot's rollers are the CAD's.** `robot_export.ARM` (and `ARM_D435`) now rolls on
+`catalog` `"Printed-140-2x6-687-v13"`: cad/v13's bearing-roller wheel as `wheel_quiet_2` draws it. That means rows at ±17.25 mm,
+a 19.5 mm tread half-length, the R2 end round and the 0.2 / 7 mm tip relief, built by `assets.roller_drawn` (its radius matches the CAD's sections
+to 1 µm, `test_the_arm_robots_rollers_are_the_cads`). Each roller turns on two 687s, so `roller_pin_mu` is 0 (the v10 PLA-on-M3
+rollers had 0.3). Only `wheel_model="rollers"` sees the shape; the default sphere wheel is unchanged. `V10` keeps the v10
+wheel for reproduction, and the firmware header did not change (same wheel radius). Not redone on the new rollers: earlier
+roller-model studies (terrain crossings, `wheel_wobble.py mj`).
+
 ## Results in one place
 
 **The same 216 throws** (the 6-7 m catch game, home_floor B's grid, firmware adult, expected cameras, flat floor), played two ways (`studies/sil_catch.py`):
@@ -35,6 +43,19 @@ By apex: 0.75 m 83 → 76%, 1.0 m 96 → 89%, 1.5 m 93 → 96%, 2.0 m 100 → 10
 **Rendered images** (`studies/rendered_frames.py`, 6 throws): the same detector on MuJoCo-rendered 1280 × 800 frames finds the ball in as many frames as on the sparse ones, with its centre 0.11-0.12 px from the truth, and the filter's rim-crossing prediction agrees within a few mm. Rendering costs 2-5 ms per frame on this PC's GPU.
 
 ![the detector on a rendered frame: blue the true silhouette, red its blob](renders/v11_rendered_ball.png)
+
+**Arm robot colours (Nov 13):** the arm robot is drawn in the baselined filaments (`filament.py`, `SimParams.colours="auto"`; cad/v13 README
+"Filament colours"):
+
+- grey SO-101
+- white decks, bin, riser and adapter
+- orange hubs and bumper
+- black TPU rollers
+
+`colours="legacy"` reproduces the earlier yellow arm and orange bin; the catch robot is unchanged. Perception before → after on the same
+tree: colour_scene identical for both cameras; test_color_vision 18/18; the tidy 105 → **108/120** (missed grasps 19 → 3: the yellow jaws
+no longer in the wrist camera's view). The same tidy scored 112/120 on Nov 7; the tree drifted to 105 before any colour change. Details:
+`studies/results/filament_colours_2026-11-13.md`.
 
 ## Run it
 
@@ -115,3 +136,7 @@ The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asse
 | `catalog.py`, `models.py` (Nov 1 motor study) | `DriveMotor` fit fields (`r_fit`, `k_sat`, `viscous`, `driver_eff`, `p_idle`); `AK40-10` fitted to the maker's 24 V curve (`studies/motor_fit.py`, `studies/data/ak40_10_kv170_24v.csv`), the old model as `AK40-10-dc`; `datasheet_fit()` and the `-ds` candidates (AK40, DM-2325, DM-J3507, GIM4305-10, GIM3510-8, EduLite 05, M2006) |
 | `params.py`, `floor.py`, `robot_model.py`, `robot_export.py` (Nov 1) | `roller_pin_mu` / `roller_pin_radius` (plain rollers: pin friction with the load), `roller_mesh` (ARM: 13 x 64, smooth), `pod_sprung_mass` (the damping's mass), `floor.Incline`, `arm_params(mass_kg, cg_dz)`, `sprung_mass()`, `study_firmware()` / `study_limits()` / `study_from_env()` (`OMNI_SIM_STUDY`), `SimParams.fw_variant` |
 | `studies/drive_char.py`, `drive_mission.py`, `drive_char_report.py` (Nov 1) | the drive-motor study: physics limits with the binding cause (parts C A R S F I U T P), missions through the firmware (M, E), `results/motor_char/` (`HANDOFF.md`: how to run it) |
+| `studies/bump_detect.py` (Nov 9) | bumps without bumper switches: the arm robot (firmware in the loop, rollers) into walls, posts, a sprung sofa / leg, free objects, a table edge and pushes, plus free driving, floor transitions and the arm moving; logs what the Teensy reads (BNO085, AK40-10 status, its own commands) to `OMNI_BUMP_LOGS` (~/sim_data/bump_detect, 82 MB, outside Dropbox) and scores an IMU-only, a motor-only, a fused force observer (`ContactObserver`) and a held-back detector, with and without known floor edges, plus a closed loop against an ideal switch. `run`, `analyze`, `sweep`, `closed`, `report` → `results/bump_detect.json`, `bump_detect_2026-11-09.md` |
+| `studies/wheel_noise.py`, `studies/petal_step.py` (Nov 11) | stand-alone wheel studies, no robot model change: roller "clicks" (one wheel in its plane at 1 us, each roller a body with its bore and thrust play, A-weighted force into hub / floor / chassis; `all`, `susp`) and the hub's spoke ends ("petals") against a square step (one sprung MuJoCo wheel with the v13 spoke shapes; `all`, `sens`, `trim` = cad/v13 `wheel_quiet` round 3) → `results/wheel_noise/`, `results/petal_step/`, `wheel_noise_2026-11-11.md` |
+| `studies/pod_loads.py` (Nov 12) | the arm robot (CAD rollers, pods, AK40s) across 12-25 mm thresholds and a square rug edge, and hard starts / stops on the flat, at 0.5 / 1 / 2 m/s, head-on and at 45 deg: each wheel's peak floor / obstacle force (raw and 5 ms average, world and pod frame), drive torque, pod travel → `results/pod_loads.json`, the loads for cad/v13 `fe_pod.py` |
+| `studies/wheel_wobble.py` (Nov 12) | stand-alone, rollers locked: the double-row wheel's lean step (exact support geometry of the drawn rollers, fixed and free lean) and the hub's bob on its TPU contacts with its lean free (hand) or held by the fork (pod), floor-force ripple 5-500 Hz; end relief, row spacing, roller length, 2 x 5, 85A; `mj` drives the robot sim itself (its hubs cannot lean) → `results/wheel_wobble/`, `wheel_wobble_2026-11-12.md`, cad/v13 `wheel_quiet_2` |

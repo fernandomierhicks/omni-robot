@@ -39,6 +39,7 @@ REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 
 import arm_so101 as A  # noqa: E402
+from catalog import OMNI_WHEELS  # noqa: E402
 from omni_control import OmniKinematics  # noqa: E402
 from params import SimParams  # noqa: E402
 from robot import LauncherCal, cal_file  # noqa: E402
@@ -168,7 +169,12 @@ D435_NOSE = dict(d435_pos=(0.19, 0.0, 0.1115), d435_tilt_deg=-7.5, arm_riser_poc
 D435_RISER = dict(d435_pos=(0.1908, 0.0, 0.193), d435_tilt_deg=-30.0, arm_riser_pocket=0.010)
 D435_TILT = D435_RISER["d435_tilt_deg"]
 D435_LOOK_BACK = 0.10
-ARM = dict(ARM_V7, **V10, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
+# Nov 12 (Fernando: the sim's rollers are the latest CAD's): the arm robot rolls on cad/v13's bearing roller wheel as
+# wheel_quiet_2 draws it (rows -+17.25 mm, 19.5 mm half length, R2 end round, 0.2 / 7 mm tip relief, catalog
+# "Printed-140-2x6-687-v13"); each roller turns on two 687s, so no pin friction (the v10 PLA-on-M3 rollers had
+# roller_pin_mu 0.3). V10 keeps the v10 wheel for reproduction. Only wheel_model="rollers" sees the roller shape
+WHEEL_V13 = dict(wheel="Printed-140-2x6-687-v13", roller_pin_mu=0.0, roller_pin_radius=0.0)
+ARM = dict(ARM_V7, **{**V10, **WHEEL_V13}, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
            d435_box=True, **D435_RISER)
 # cad/v9/out/ARM_KIT.md (the arm robot's CAD estimate, the SO-101 stowed; v10 keeps v9's base) plus the D435's 72 g
 CAD_ARM_MASS_KG = 9.56 + 0.072
@@ -255,8 +261,9 @@ def firmware_variant(p: SimParams) -> str:
     robot's wheels, base radius and motor (cad/v10), else "" (fw_params.h: the catch robot's). The constants (wheel radius,
     the kinematics matrix, the wheel speed limit) are compile-time in the firmware, as on the Teensy."""
     a = ARM
-    same = (p.wheel == a["wheel"] and abs(p.wheel_base_radius - a["wheel_base_radius"]) < 1e-9
-            and p.drive_motor == a["drive_motor"])
+    # Nov 12: by the wheel's radius, not its catalog key (the header has no roller shape: the v10 and v13 wheels share it)
+    same = (abs(p.omni.radius - OMNI_WHEELS[a["wheel"]].radius) < 1e-9
+            and abs(p.wheel_base_radius - a["wheel_base_radius"]) < 1e-9 and p.drive_motor == a["drive_motor"])
     return "arm" if same else ""
 
 

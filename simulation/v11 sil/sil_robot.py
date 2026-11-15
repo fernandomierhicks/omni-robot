@@ -119,16 +119,24 @@ class AkMotor:
     an independent implementation of the motor's side). Extended frames only, id = mode << 8 | controller id: velocity
     (int32 ERPM: its own speed loop, clamped at max_erpm), current (0 A: free, it coasts; other currents are not modelled
     and coast too), current brake (held: modelled as a zero speed). It broadcasts its status (0x29 << 8 | id: int16
-    0.1 deg, int16 10 ERPM, int16 0.01 A, int8 degC, error) at status_hz whatever it is sent (the CubeMars tool's
-    send_can_status rate: 500 Hz on the robot, VERIFY; off at the factory). No command for timeout s (the tool's
-    timeout_msec: 1000 ms at the factory) applies the timeout brake current, 0 A at the factory: it coasts."""
+    0.1 deg, int16 10 ERPM, int16 0.01 A, int8 degC of the driver board, error) at status_hz whatever it is sent (the
+    CubeMars tool's send_can_status rate: 1-500 Hz, 500 on the robot; off at the factory). No command for timeout s (the tool's
+    timeout_msec: 1000 ms at the factory) applies the timeout brake current, 0 A at the factory: it coasts.
+
+    latency: s from a command frame's arrival to the motor acting on it (applied at the next step() after). The bench
+    (Nov 13, two AK40-10s, servo mode, the robot's firmware: simulation/v11 sil/studies/results/can_bench_2026-11-13.md)
+    lags the asked speed by ~9 ms where this model with no latency lags ~3.5 ms: ~5.5 ms inside the motor. Whether it
+    is on the command side or between sampling and broadcasting the status can't be told apart from the host; it is
+    put here (SilRobot's ak_latency). 0 = the protocol alone (the unit tests)."""
 
     def __init__(self, motor_id: int, pole_pairs: float, gear: float, kt: float, max_erpm: float = 60000.0,
-                 timeout: float = 1.0, status_hz: float = 500.0):
+                 timeout: float = 1.0, status_hz: float = 500.0, latency: float = 0.0):
         self.id = motor_id
         self.k = 60.0 / (2 * math.pi) * gear * pole_pairs          # ERPM per rad/s at the output
         self.kt, self.max_erpm = kt, max_erpm
         self.timeout, self.period = timeout, 1.0 / status_hz
+        self.latency = latency
+        self.pending = deque()                    # (time it takes effect, mode, value) of frames not yet acted on
         self.enabled = False
         self.err = 0
         self.setpoint = 0.0
@@ -142,9 +150,15 @@ class AkMotor:
             return
         mode = (f.id >> 8) & 0xFF
         v = struct.unpack(">i", bytes(f.data[:4]))[0]
-        self.t_rx = t
+        self.t_rx = t                             # the link's timeout counts from the arrival
         self.n_frames += 1
         self.modes.add(mode)
+        if self.latency > 0:
+            self.pending.append((t + self.latency, mode, v))
+        else:
+            self._apply(mode, v)
+
+    def _apply(self, mode: int, v: int):
         if mode == 3:
             self.enabled, self.setpoint = True, max(-self.max_erpm, min(self.max_erpm, v)) / self.k
         elif mode == 2:
@@ -153,6 +167,9 @@ class AkMotor:
             self.enabled = False
 
     def step(self, t: float):
+        while self.pending and self.pending[0][0] <= t + 1e-12:
+            _, mode, v = self.pending.popleft()
+            self._apply(mode, v)
         if self.enabled and self.timeout > 0 and t - self.t_rx > self.timeout:
             self.enabled = False
 
@@ -173,6 +190,7 @@ class AkMotor:
         return f
 
 
+AK_LATENCY = 0.0055                # s, an AK40-10's command-to-action delay (bench, Nov 13: AkMotor); 0 = before Nov 13
 CAN_BIT = 1e-6                     # s at 1 Mbit/s
 
 
@@ -242,7 +260,7 @@ class SilRobot(Robot):
 
     def __init__(self, model: mujoco.MjModel, data: mujoco.MjData, p, *, seed: int = 0, lidar: bool = False,
                  boot_offset: float = 12.345, dm_comm_timeout: float = 0.1, sensor_kw: dict | None = None,
-                 ak_timeout: float = 0.1,
+                 ak_timeout: float = 0.1, ak_latency: float = AK_LATENCY,
                  timing: str = "ideal", clock_ppm: float = 20.0, exposure: float = 0.003, trig_to_exp: float = 20e-6):
         super().__init__(model, data, p)
         if p.n_wheels != 4 or p.is_swerve:
@@ -275,7 +293,7 @@ class SilRobot(Robot):
         self.cubemars = param("DRIVE_DAMIAO", v) < 0.5          # the arm robot's AK40-10s (servo mode)
         if self.cubemars:
             self.dm = [AkMotor(i + 1, param("AK_POLE_PAIRS", v), param("AK_GEAR", v), param("AK_KT", v),
-                               param("AK_MAX_ERPM", v), ak_timeout) for i in range(self.nw)]
+                               param("AK_MAX_ERPM", v), ak_timeout, latency=ak_latency) for i in range(self.nw)]
         else:
             self.dm = [DmMotor(i + 1, int(param("DM_MASTER_BASE")), rng, dm_comm_timeout) for i in range(self.nw)]
         self.j_drive_q = [model.jnt_qposadr[model.joint(f"drive{i}").id] for i in range(1, self.nw + 1)]
@@ -460,7 +478,7 @@ class SilRobot(Robot):
                 d.ctrl[a] = ctrl
                 m.actuator_forcerange[a] = (lo, hi)
             else:                                   # disabled: no torque, the wheel is back-driven freely
-                drv.integ = 0.0
+                drv.release()
                 d.ctrl[a] = w
                 m.actuator_forcerange[a] = (0.0, 0.0)
         for k, (a, jv) in enumerate(zip(self.a_fly, self.j_fly_v)):

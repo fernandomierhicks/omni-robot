@@ -7,6 +7,7 @@ where it projects (Windows only), acquisition starts on the moving ball, not on 
 Run: python -m pytest -q   (a few minutes)"""
 
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -188,15 +189,19 @@ def test_catch_and_return():
 
 # --- v5 ----------------------------------------------------------------------------
 
-@pytest.mark.parametrize("battery,limits,lo,hi", [
-    ("7S1P-P50B", "firmware", 1.3, 1.45),
-    ("7S1P-P50B", "physics", 3.0, 3.8),
-    ("6S1P-OVONIC-5200", "firmware", 1.3, 1.45),
-    ("6S1P-OVONIC-5200", "physics", 2.7, 3.2),
+@pytest.mark.parametrize("battery,limits,lo,hi,motor", [
+    ("7S1P-P50B", "firmware", 1.3, 1.45, "AK40-10"),
+    ("7S1P-P50B", "physics", 2.6, 3.2, "AK40-10"),           # Nov 13: the bench's back-EMF, ~0.81 of the chart fit's
+    ("6S1P-OVONIC-5200", "firmware", 1.3, 1.45, "AK40-10"),
+    ("6S1P-OVONIC-5200", "physics", 2.25, 2.75, "AK40-10"),
+    ("7S1P-P50B", "physics", 3.0, 3.8, "AK40-10-chart"),     # the chart fit's, as before Nov 13 (reproduction)
+    ("6S1P-OVONIC-5200", "physics", 2.7, 3.2, "AK40-10-chart"),
 ])
-def test_top_speed_follows_the_limits_profile(battery, limits, lo, hi):
-    """The 96 mm test robot retains its firmware cap; uncapped speed depends on the selected pack's voltage."""
-    p, m, d, r = make(SimParams(home_xy=(0.0, 0.0), area_size=(30.0, 30.0), limits=limits, battery=battery))
+def test_top_speed_follows_the_limits_profile(battery, limits, lo, hi, motor):
+    """The 96 mm test robot retains its firmware cap; uncapped speed depends on the selected pack's voltage and the
+    motor's back-EMF (the bench-refit AK40-10 since Nov 13, ~0.81 of the chart fit's top speed)."""
+    p, m, d, r = make(SimParams(home_xy=(0.0, 0.0), area_size=(30.0, 30.0), limits=limits, battery=battery,
+                                drive_motor=motor))
     for _ in range(int(2.0 / m.opt.timestep)):
         r.drive_velocity((20.0, 0.0), 0.0, r.pose()[2])
         r.step()
@@ -869,8 +874,10 @@ def test_firmware_state_reaches_the_host_and_time_syncs():
     assert len(infos) == 4 and infos[-1].protocol == PR.PROTOCOL_VERSION and infos[-1].build == build_id()
     assert not infos[-1].rc_ok and infos[-1].rc == (0.0,) * 8
     assert any(s.mode_name == "AUTO" for s in states) and states[-1].cmd_count == 40
-    # no drive motor answers on this bare MCU: armed, then the fault stop (firmware.h) once its grace has passed
-    assert {"MOTOR_SILENT", "FAULT_STOP"} <= set(states[-1].fault_names()) and states[-1].mode_name == "DISARMED"
+    # no drive motor answers on this bare MCU: reported, but armed at rest (DRIVE_IDLE) it doesn't matter, so no fault
+    # stop (protocol 8, firmware.h: a silent motor counts only while the base needs it)
+    f = set(states[-1].fault_names())
+    assert "MOTOR_SILENT" in f and "FAULT_STOP" not in f and states[-1].mode_name == "AUTO"
     assert abs(host.sync.offset_ns * 1e-9 - boot) < 0.0015              # within the 1 ms tick
 
 
@@ -958,6 +965,68 @@ def test_arm_firmware_faults_on_a_silent_ak40():
     assert r.fw.mode != 2 and s[-1, 1] < 0.05                            # MOTOR_SILENT: the fault stop, ramped
 
 
+def test_arm_firmware_reports_a_missing_ak40_and_tests_the_wheels_it_has():
+    """Protocol 8: a motor that never answers (unplugged) is DM_NO_REPLY in STATE, so the console knows which wheels
+    are there. Driving still fault-stops on it, but the motor test turns the wheels that answer as long as it leaves
+    the missing one at rest; asking the missing wheel to turn is the fault stop again (firmware.h)."""
+    FW, PR = _sil()
+    rig = arm_rig()
+    p, m, d, r, link = rig
+    r.motor_cut_until[1] = d.time + 60.0                                 # motor 2 is not there
+    sil_run(rig, 0.3, lambda t: None)
+    st = link.host.state
+    assert st.dm_err[1] == PR.DM_NO_REPLY and all(st.dm_err[k] != PR.DM_NO_REPLY for k in (0, 2, 3))
+    assert "MOTOR_SILENT" in st.fault_names()
+    # what mode_manager sends in the motor test (WHEELS): armed at rest (DRIVE_IDLE) until the dead man is held, then
+    # DRIVE_WHEELS, then at rest again between pushes (the bench, Nov 13: this latched the fault stop at once)
+    rest = PR.Command(drive_mode=PR.DRIVE_IDLE)
+    sil_run(rig, 1.0, lambda t: rest)
+    assert r.fw.mode == 2 and "FAULT_STOP" not in link.host.state.fault_names()
+    wheel1 = PR.Command(drive_mode=PR.DRIVE_WHEELS, a=3.0)
+    sil_run(rig, 1.0, lambda t: wheel1)
+    st = link.host.state
+    assert r.fw.mode == 2 and "FAULT_STOP" not in st.fault_names()       # armed: the test leaves wheel 2 alone
+    assert st.wheel_vel[0] > 1.5
+    sil_run(rig, 1.0, lambda t: rest)                                    # let go: wheel 1 ramps down, still armed
+    assert r.fw.mode == 2 and "FAULT_STOP" not in link.host.state.fault_names()
+    sil_run(rig, 0.5, lambda t: wheel1)
+    assert r.fw.mode == 2 and link.host.state.wheel_vel[0] > 0.5
+    both = PR.Command(drive_mode=PR.DRIVE_WHEELS, a=3.0, b=3.0)          # now it asks the missing wheel too
+    sil_run(rig, 1.0, lambda t: both)
+    assert "FAULT_STOP" in link.host.state.fault_names() and r.fw.mode != 2
+
+
+def test_arm_motor_test_takes_the_hosts_ramp_and_reports_each_motors_current():
+    """Protocol 9: DRIVE_WHEELS ramps at the CMD's a_brake (rad/s^2), capped at WHEEL_TEST_ACCEL_MAX (2000), else the
+    default 20; leaving the test ramps to rest at the default. STATE carries each AK40-10's current (its status
+    broadcast), signed like the wheel's speed: it pushes while the wheel speeds up and holds friction after."""
+    FW, PR = _sil()
+    rig = arm_rig()
+    p, m, d, r, link = rig
+    w, cur = [], []
+
+    def run(seconds, cmd):
+        for _ in range(int(round(seconds / 0.01))):
+            sil_run(rig, 0.01, cmd)
+            w.append(float(r.fw.outputs.dbg_wheel_cmd[0]))
+            cur.append(float(link.host.state.wheel_cur[0]))
+
+    run(0.3, lambda t: PR.Command(drive_mode=PR.DRIVE_IDLE))
+    n0 = len(w)
+    run(0.3, lambda t: PR.Command(drive_mode=PR.DRIVE_WHEELS, a=10.0, a_brake=500.0))
+    dw = np.diff(w[n0 - 1:])
+    assert max(dw) <= 500.0 * 0.0115 and max(dw) > 500.0 * 0.008             # 500 rad/s^2, not the default 20
+    assert w[-1] == pytest.approx(10.0, abs=1e-3)
+    assert max(cur[n0:n0 + 5]) > 0.5                                         # current while it speeds the wheel up
+    n1 = len(w)
+    run(0.3, lambda t: PR.Command(drive_mode=PR.DRIVE_WHEELS, a=-10.0, a_brake=1e4))
+    assert max(abs(x) for x in np.diff(w[n1 - 1:])) <= 2000.0 * 0.0115       # capped at WHEEL_TEST_ACCEL_MAX
+    assert w[-1] == pytest.approx(-10.0, abs=1e-3) and min(cur[n1:n1 + 5]) < -0.5
+    n2 = len(w)
+    run(0.3, lambda t: PR.Command(drive_mode=PR.DRIVE_IDLE))                 # leaving: the default ramp
+    assert max(abs(x) for x in np.diff(w[n2 - 1:])) <= 20.0 * 0.0115
+
+
 def test_firmware_drives_then_ramps_to_a_stop_and_disarms_when_the_link_dies():
     FW, PR = _sil()
     rig = sil_rig()
@@ -1040,6 +1109,44 @@ def test_firmware_drops_a_non_finite_or_foreign_cmd():
         r.fw.rx(PR.frame(PR.MSG_CMD, k, bytes(raw)), 0)
         sil_run(rig, 0.01)
     assert link.host.state.cmd_rejected - n0 >= 45 and r.fw.mode == 1
+
+
+def test_motor_test_drives_each_wheel_capped_and_ramps_back_to_rest():
+    """DRIVE_WHEELS (protocol 7, the console's motor test): each wheel at its own speed, capped at WHEEL_TEST_MAX
+    (the motor's own limit, MAX_WHEEL_SPEED) and ramped per wheel (20 rad/s^2); another drive mode, or a lost link,
+    ramps every wheel to rest (never a step) before the base controller takes over or the MCU disarms. STATE reports
+    each wheel's command and speed."""
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    ramp = 20.0 * 0.0115                                                 # rad/s per 10 ms window: up to 11 ticks of 1 ms
+    hdr = (Path(__file__).resolve().parents[2] / "firmware" / "lib" / "omni_fw" / "fw_params.h").read_text()
+    cap = float(re.search(r"MAX_WHEEL_SPEED = ([0-9.]+)f", hdr).group(1))     # this SIL's variant (the catch robot's)
+
+    def run(seconds, cmd):
+        w = []
+        for _ in range(int(round(seconds / 0.01))):
+            sil_run(rig, 0.01, cmd)
+            w.append(list(r.fw.outputs.dbg_wheel_cmd))
+        return np.array(w)
+
+    wheels = PR.Command(drive_mode=PR.DRIVE_WHEELS, a=3.0, b=0.0, c=-(cap + 20.0), v_end=0.0)
+    w = run(cap / 20.0 + 0.4, lambda t: wheels)
+    assert r.fw.mode == 2
+    assert w[-1] == pytest.approx([3.0, 0.0, -cap, 0.0], abs=1e-3)        # wheel 3 capped at the motor's limit
+    assert float(np.max(np.abs(np.diff(w, axis=0)))) <= ramp              # ramped, every wheel
+    st = link.host.state
+    assert st.drive_mode == PR.DRIVE_WHEELS and st.wheel_cmd == pytest.approx(w[-1], abs=0.25)
+    assert st.wheel_vel[0] > 1.5 and st.wheel_vel[2] < -5.0               # the motors follow
+    idle = PR.Command(drive_mode=PR.DRIVE_IDLE)
+    w2 = run(cap / 20.0 + 0.4, lambda t: idle)                           # another mode: ramp down, then hand over
+    assert float(np.max(np.abs(np.diff(np.vstack([w[-1:], w2]), axis=0)))) <= ramp
+    assert np.all(np.abs(w2[-1]) < 1e-3) and r.fw.mode == 2
+    run(1.0, lambda t: wheels)
+    w3 = run(4.0, lambda t: None)                                        # the host goes silent (the sim robot is on
+    #                                                                      the floor: the base's own ramped stop follows)
+    assert float(np.max(np.abs(np.diff(w3, axis=0)))) <= ramp
+    assert np.all(np.abs(w3[-1]) < 1e-3) and r.fw.mode == 1               # at rest, then disarmed
 
 
 def test_leaving_manual_ramps_the_base_to_rest_before_disarming():
@@ -2436,7 +2543,8 @@ def test_the_v10_pod_is_the_cads_fork():
     from robot_export import CAD_POD_PIVOT, POD_PIVOT
     p, m, d, r = _v10_robot(pod_pivot=CAD_POD_PIVOT)         # the fork as drawn (the baseline's: both level since Nov 2)
     assert CAD_POD_PIVOT == pytest.approx(POD_PIVOT, abs=1e-6) and POD_PIVOT[1] == 0.0
-    assert p.wheel == "Printed-140-2x6-36-cad" and p.wheel_base_radius == 0.146 and p.drive_motor == "AK40-10"
+    # Nov 12: the arm robot rolls on cad/v13's bearing-roller wheel (the same 140 mm, 2 x 6, 72 mm envelope)
+    assert p.wheel == "Printed-140-2x6-687-v13" and p.wheel_base_radius == 0.146 and p.drive_motor == "AK40-10"
     assert p.omni.width == pytest.approx(0.072) and p.omni.rollers_per_row == 6 and p.omni.roller_diameter == 0.036
     for i, mirrored in zip((1, 2, 3, 4), (True, False, True, False)):          # 45, 135, 225, 315 deg
         f = fork_kinematics(p, i)
@@ -2553,10 +2661,13 @@ def test_the_arm_robot_runs_the_firmware_built_for_its_wheels():
     assert robot_export.firmware_variant(robot_export.arm_params()) == "arm"
     assert robot_export.firmware_variant(robot_export.v11_params()) == ""
     assert robot_export.firmware_variant(robot_export.arm_d435_params()) == "arm"
-    # the AK40-10's own 60000 ERPM limit, under wheel_speed_frac of its no-load speed
+    # wheel_speed_frac of the AK40-10's no-load speed (since the Nov 13 bench: 374.2 rpm at 24 V), under its own
+    # 60000 ERPM limit (44.9 rad/s, which bound with the chart fit's 461.5 rpm)
     assert FW.param("MAX_WHEEL_SPEED", "arm") == pytest.approx(robot_export.wheel_speed_max(robot_export.arm_params()),
                                                                rel=1e-5)
-    assert robot_export.wheel_speed_max(robot_export.arm_params()) == pytest.approx(60000 / 140 * 2 * math.pi / 60)
+    p_arm = robot_export.arm_params()
+    assert robot_export.wheel_speed_max(p_arm) == pytest.approx(p_arm.wheel_speed_frac * 374.2 * 2 * math.pi / 60)
+    assert robot_export.wheel_speed_max(p_arm) < 60000 / 140 * 2 * math.pi / 60
     assert FW.param("MAX_WHEEL_SPEED") != FW.param("MAX_WHEEL_SPEED", "arm")
     p, m, d, r = make(robot_export.arm_params(home_xy=(0.0, 0.0)))
     from sil_robot import SilRobot
@@ -2567,11 +2678,12 @@ def test_the_arm_robot_runs_the_firmware_built_for_its_wheels():
 # -- Nov 1 motor study (studies/drive_char.py): the drive model and the arm robot's new physics -------------------------
 
 def test_the_ak40_model_follows_the_makers_24v_curve():
-    """catalog's AK40-10 (fitted by studies/motor_fit.py) on the maker's full-throttle chart: at each torque the speed
-    where the drive's motoring limit, less the gearbox friction, equals it, within 3% RMS."""
+    """catalog's AK40-10-chart (fitted by studies/motor_fit.py; the baseline Nov 1-13) on the maker's full-throttle
+    chart: at each torque the speed where the drive's motoring limit, less the gearbox friction, equals it, within 3%
+    RMS."""
     from catalog import DRIVE_MOTORS
     from models import DriveActuator
-    mot = DRIVE_MOTORS["AK40-10"]
+    mot = DRIVE_MOTORS["AK40-10-chart"]
     drv = DriveActuator(mot)
     rpm = 2 * math.pi / 60
     errs = []
@@ -2594,6 +2706,36 @@ def test_the_ak40_model_follows_the_makers_24v_curve():
     assert DRIVE_MOTORS["AK40-10-dc"].r_eq == pytest.approx(0.75 * 0.978)      # the earlier model, kept
 
 
+def test_the_ak40_model_matches_the_bench():
+    """The baseline AK40-10 since Nov 13 (studies/results/wheel_bench_2026-11-13.md, one motor, a bare wheel, 24 V):
+    unloaded it tops out at 38.5 rad/s, holds 0.073 + 0.0032 |w| A of friction, and its own speed loop ramps the
+    setpoint at 148 rad/s^2 whatever step it is given, starting from the wheel's speed after coasting."""
+    from catalog import DRIVE_MOTORS
+    from models import DriveActuator
+    mot = DRIVE_MOTORS["AK40-10"]
+    drv = DriveActuator(mot)
+
+    def friction(w):
+        return mot.backdrive_torque + mot.viscous * w
+
+    lo, hi = 0.0, 60.0                                   # top speed: the motoring limit meets the friction
+    for _ in range(60):
+        w = 0.5 * (lo + hi)
+        lo, hi = (w, hi) if drv.torque_limits(w, 24.0)[1] > friction(w) else (lo, w)
+    assert lo == pytest.approx(38.5, abs=0.1)
+    for w, amps in ((2.5, 0.081), (20.0, 0.137), (35.0, 0.185)):
+        assert mot.current_for(friction(w)) == pytest.approx(amps, abs=0.006)
+    dt, w_ref = 0.0005, []
+    for _ in range(400):                                 # a step to 30 rad/s from rest: a 148 rad/s^2 ramp
+        drv.command(30.0, 0.0, 24.0, dt)
+        w_ref.append(drv.w_ref)
+    assert np.diff(w_ref).max() == pytest.approx(148.0 * dt, rel=1e-6) and w_ref[-1] == pytest.approx(148.0 * 0.2)
+    drv.release()
+    drv.command(0.0, 12.0, 24.0, dt)                     # after coasting the ramp starts from the wheel's speed
+    assert drv.w_ref == pytest.approx(12.0 - 148.0 * dt)
+    assert DRIVE_MOTORS["AK40-10-chart"].accel_limit is None and DRIVE_MOTORS["AK40-10-chart"].noload_rpm == 461.49
+
+
 def test_the_arm_robot_at_the_motor_studys_masses():
     """arm_params(mass_kg, cg_dz): the total and CG land where asked, and the pods' damping uses the sprung mass."""
     import robot_export as E
@@ -2604,7 +2746,33 @@ def test_the_arm_robot_at_the_motor_studys_masses():
         assert p.pod_sprung_mass == pytest.approx(E.sprung_mass(p, kg), abs=1e-3) and p.pod_sprung_mass < kg - 3.0
     p = E.arm_params()
     assert p.pod_sprung_mass == pytest.approx(5.95, abs=0.1)          # ~ the 6 kg the pods were tuned on
-    assert p.roller_pin_mu > 0 and p.roller_mesh == (13, 64)
+    # Nov 12: the cad/v13 bearing rollers (two 687s each): no pin friction; the v10 dict keeps its plain rollers
+    assert p.roller_pin_mu == 0.0 and p.roller_mesh == (13, 64) and E.V10["roller_pin_mu"] > 0
+
+
+def test_the_arm_robots_rollers_are_the_cads():
+    """Nov 12 (Fernando): the sim's roller is cad/v13 wheel_quiet_2's -- its radius at the CAD's own section stations
+    (validation/wheel_quiet_2/checks.json), rows at -+17.25 mm, 2 x 6 rollers 19.5 mm half length -- and the firmware
+    variant is still the arm's."""
+    import robot_export as E
+    from assets import roller_profile
+    p = E.arm_params(wheel_model="rollers")
+    om = p.omni
+    assert p.wheel == "Printed-140-2x6-687-v13" and om.roller_half == 0.0195 and om.row_offset == 0.01725
+    assert E.firmware_variant(p) == "arm"
+    cad = {0.0: 18.0, 12.5: 16.875, 15.31: 16.271, 18.12: 15.473, 18.5: 15.303, 19.0: 14.895}   # mm, CAD sections
+    for z, r in cad.items():
+        rho = roller_profile(z / 1000, om.radius, om.radius - om.roller_diameter / 2, om.roller_half, om.end_fillet,
+                             om.relief_len, om.relief_depth)
+        assert rho * 1000 == pytest.approx(r, abs=0.002), z
+    m = build_model(p)
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    xs = sorted({round(float(m.body_pos[m.geom_bodyid[m.geom(f"roller1_{k}").id]][0]), 5) for k in range(12)})
+    assert xs == pytest.approx([-0.01725, 0.01725])
+    v = m.mesh_vert[m.mesh_vertadr[m.mesh("roller1").id]:][:m.mesh_vertnum[m.mesh("roller1").id]]
+    ext = np.sort(np.abs(v - v.mean(axis=0)).max(axis=0))         # MuJoCo re-centres and re-orients the mesh
+    assert ext == pytest.approx([0.018, 0.018, 0.0195], abs=2e-5)
 
 
 def test_plain_rollers_drag_with_their_load_and_an_incline_builds():
@@ -2613,7 +2781,9 @@ def test_plain_rollers_drag_with_their_load_and_an_incline_builds():
     import robot_export as E
     from floor import Incline, edges
     inc = Incline(1.0, 0.0, angle_up=10.0, height=0.1)
-    p = E.arm_params(home_xy=(0.0, 0.0), floor_features=(inc,))
+    # Nov 12: the arm robot's rollers have bearings now; the v10 plain rollers' pin friction, asked for explicitly
+    p = E.arm_params(home_xy=(0.0, 0.0), floor_features=(inc,), roller_pin_mu=E.V10["roller_pin_mu"],
+                     roller_pin_radius=E.V10["roller_pin_radius"])
     m, d = build_model(p), None
     d = mujoco.MjData(m)
     mujoco.mj_forward(m, d)
