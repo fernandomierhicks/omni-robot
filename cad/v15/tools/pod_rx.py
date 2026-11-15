@@ -899,4 +899,15 @@ def export(out_dir, printed, items_nominal, recs, asm_name):
     for r in recs:
         items[r['name']] = (H.part_solid(r).moved(b.Location(b.Plane(origin=tuple(float(v) for v in r['p']), x_dir=tuple(H.pose(r)[:3, 0]),
                                                                     z_dir=tuple(H.pose(r)[:3, 2])))), H.MAGENTA)
-    write_step(items, ou
+    write_step(items, out_dir / f'{asm_name}_assembly.step', asm_name)
+    return len(items)
+
+
+def jdump(path, obj):
+    def conv(o):
+        if isinstance(o, (np.floating, np.integer)):
+            return o.item()
+        if isinstance(o, np.ndarray):
+            return o.tolist()
+        return str(o)
+    Path(path).write_text(json.dumps(obj, indent=1, default=conv), encoding='utf-8')

@@ -10,7 +10,7 @@ Keep this file for actionable working rules and pointers, not subsystem descript
 
 ## Current entry points
 
-The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. **The arm robot's only camera is the RealSense D435 on the arm riser's front** (since Nov 5; `arm_camera:=d435`, the default; `ARM_D435`; the old nose mount is `ARM_D435_NOSE`, for reproduction only): run and test the arm robot with it only. The stereo pair belongs to the parked catch robot; use `arm_camera:=stereo` only to reproduce earlier results. Active editable CAD is **`cad/v10 human editable`**. Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
+The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. **The arm robot's only camera is the RealSense D435 on the arm riser's front** (since Nov 5; `arm_camera:=d435`, the default; `ARM_D435`; the old nose mount is `ARM_D435_NOSE`, for reproduction only): run and test the arm robot with it only. The stereo pair belongs to the parked catch robot; use `arm_camera:=stereo` only to reproduce earlier results. Active editable CAD is **`cad/v10 human editable`**; the current whole-robot CAD (build123d STEPs + SolidWorks viewing assembly) is **`cad/v14`**. Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
 
 | Task | Start with |
 | --- | --- |
@@ -23,6 +23,7 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | AI control (Claude / Codex via MCP) | [omni_mcp README](ros/tools/omni_mcp/README.md), [ai_robot_architecture.md](ai_robot_architecture.md); its own venv `C:\Users\ferna\.venvs\omni-mcp` |
 | Firmware / SIL | [firmware README](firmware/README.md), [pin map](firmware/PINS.md) |
 | Parts database | [database README](database/README.md) |
+| Drive motor (AK40-10: settings, protocol, measured timing) | [components/ak40-10/README.md](components/ak40-10/README.md) and its CubeMars manual |
 | Pi / split-computer experiments | [rpi.md](rpi.md), [Pi README](characterization/pi_camera/README.md) |
 | Camera characterization | The relevant `characterization/<bench>/README.md`; observe the pause below |
 

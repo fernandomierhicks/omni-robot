@@ -16,6 +16,7 @@ cad/v8/out/build*.log
 cad/v8/out/assembly*.step
 # firmware: PlatformIO's build tree and the SIL library (rebuilt on demand by sil/build_sil.py)
 firmware/.pio/
+firmware/bench/*/.pio/
 firmware/sil/build/
 # v11 house scene textures (~28 MB): CC0 photos from Poly Haven, fetched by `python house_scene.py fetch` (sources,
 # md5 and licence in house_scene.POLYHAVEN and the generated assets/house/SOURCES.md); the rest is made on demand

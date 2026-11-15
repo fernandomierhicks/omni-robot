@@ -4952,3 +4952,8 @@ Detailed chronology is in the history; this table records choices that still def
 The Section 3 row before the Nov 9 update:
 
 | The same missions on the ROS stack (Nov 8, PC, riser D435, one run each, scored on the sim's truth) | Fetch: the asked cube carried 0.8 m and put down. Block tower: 3 high, layers within ~10 mm. Tidy: 5/6 binned in 222 sim-seconds. Dance and Messenger complete (with the camera it waited for a camera-confirmed person, lidar-only it went to the walking person). Goalie runs, tracker on and off, but no ball exists on the ROS sim: saves remain MuJoCo-only. Call's clip, face speech and https work; its microphone needs `arecord`, absent in WSL. Limit: Fetch turns but never drives closer, so a 30 mm cube ~1.4 m away stays unfound. |
+
+
+## November 13, 2026 — compute shortlist before purchase-trade refresh
+
+- **Computer open (Amazon-only, compact; Fernando):** BMAX B8A Pro 8745HS ($436.99 captured) for performance, Getorli AT103 i5-13420H ($379.99) for budget, GMKtec M5 Ultra 7730U ($449.99) for documented interfaces; all 16 GB, replaceable RAM, four A + one C. DC input, audio jacks and Getorli's microphone VERIFY. [Compute trade](components/computer/compute_purchase_trade_2026-11-02.md).
