@@ -1,0 +1,11 @@
+== group_bumper
+    [1/4] bumper_FL  (SolidWorks 31.1 GB)
+    [2/4] bumper_FR  (SolidWorks 31.5 GB)
+    [3/4] bumper_RL  (SolidWorks 31.6 GB)
+    [4/4] bumper_RR  (SolidWorks 31.6 GB)
+   {"components": 4, "mates": 0, "mate_errors": []}
+== group_reference
+    [1/3] env_d435_fov_depth  (SolidWorks 31.2 GB)
+    [2/3] env_d435_fov_rgb  (SolidWorks 31.6 GB)
+    [3/3] rplidar  (SolidWorks 31.7 GB)
+   {"components": 3, "mates": 0, "mate_errors": []}

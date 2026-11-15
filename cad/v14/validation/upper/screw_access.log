@@ -1,0 +1,182 @@
+bolt_pod_0 ok [] None
+bolt_pod_1 ok [] None
+bolt_pod_2 ok [] None
+bolt_pod_3 ok [] None
+bolt_pod_4 ok [] None
+bolt_pod_5 ok [] None
+bolt_pod_6 ok [] None
+bolt_pod_7 ok [] None
+bolt_pod_8 ok [] None
+bolt_pod_9 ok [] None
+bolt_pod_10 ok [] None
+bolt_pod_11 ok [] None
+bolt_pod_12 ok [] None
+bolt_pod_13 ok [] None
+bolt_pod_14 ok [] None
+bolt_pod_15 ok [] None
+bolt_keel_0 ok [] None
+bolt_keel_1 ok [] None
+bolt_keel_2 ok [] None
+bolt_keel_3 ok [] None
+bolt_keel_4 ok [] None
+bolt_keel_5 ok [] None
+bolt_keel_6 ok [] None
+bolt_keel_7 ok [] None
+bolt_lap_0 BLOCKED by ['pedestal'] 80
+bolt_lap_1 BLOCKED by ['pedestal'] 80
+bolt_lap_2 ok [] None
+bolt_lap_3 BLOCKED by ['support_spine'] 80
+bolt_lap_4 BLOCKED by ['support_spine'] 80
+bolt_lap_5 ok [] None
+bolt_pedestal_0 BLOCKED by ['pedestal', 'bolt_lidar_0'] 60
+bolt_pedestal_1 BLOCKED by ['pedestal', 'bolt_lidar_1'] 60
+bolt_pedestal_2 BLOCKED by ['pedestal', 'bolt_lidar_2'] 60
+bolt_pedestal_3 BLOCKED by ['pedestal', 'bolt_lidar_3'] 60
+bolt_lidar_0 BLOCKED by ['node_front', 'pedestal', 'bolt_pedestal_0'] 60
+bolt_lidar_1 BLOCKED by ['hub', 'pedestal', 'bolt_pedestal_1'] 60
+bolt_lidar_2 BLOCKED by ['hub', 'pedestal', 'bolt_pedestal_2'] 60
+bolt_lidar_3 BLOCKED by ['node_front', 'pedestal', 'bolt_pedestal_3'] 60
+bolt_bumper_8 ok [] None
+bolt_bumper_14 ok [] None
+bolt_bumper_72 ok [] None
+bolt_bumper_84 ok [] None
+bolt_bumper_96 ok [] None
+bolt_bumper_108 ok [] None
+bolt_bumper_166 ok [] None
+bolt_bumper_172 ok [] None
+bolt_bumper_188 ok [] None
+bolt_bumper_194 ok [] None
+bolt_bumper_252 ok [] None
+bolt_bumper_264 ok [] None
+bolt_bumper_276 ok [] None
+bolt_bumper_288 ok [] None
+bolt_bumper_346 ok [] None
+bolt_bumper_352 ok [] None
+bolt_fin_0 ok [] None
+bolt_fin_1 ok [] None
+bolt_fin_2 ok [] None
+bolt_fin_3 ok [] None
+bolt_fin_4 ok [] None
+bolt_fin_5 ok [] None
+bolt_fin_6 ok [] None
+bolt_fin_7 ok [] None
+bolt_fin_8 ok [] None
+bolt_fin_9 ok [] None
+bolt_fin_10 ok [] None
+bolt_fin_11 ok [] None
+bolt_fin_long_L ok [] None
+bolt_fin_long_R ok [] None
+bolt_seam_RL#0 BLOCKED by ['bracket_battery_tray', 'deck_bin', 'battery'] 5
+bolt_seam_RL#1 BLOCKED by ['bracket_battery_tray', 'deck_bin', 'battery'] 5
+bolt_seam_RL#2 ok [] None
+bolt_seam_RL#3 ok [] None
+bolt_seam_RR#4 BLOCKED by ['bracket_battery_tray', 'deck_bin', 'battery'] 5
+bolt_seam_RR#5 BLOCKED by ['bracket_battery_tray', 'deck_bin', 'battery'] 5
+bolt_seam_RR#6 BLOCKED by ['bracket_power_box', 'bracket_power_shelf', 'power', 'mcu'] 5
+bolt_seam_RR#7 ok [] None
+bolt_seam_FR#8 BLOCKED by ['riser_adapter', 'riser_arm', 'bracket_d435_riser', 'arm_02_STS3215_03a'] 5
+bolt_floor_fin#9 BLOCKED by ['servo_adapter'] 5
+bolt_floor_fin#10 BLOCKED by ['deck_bin', 'bin'] 60
+bolt_floor_fin#11 BLOCKED by ['deck_bin', 'computer', 'label_computer', 'bin'] 5
+bolt_floor_fin#12 BLOCKED by ['deck_bin', 'computer', 'label_computer'] 5
+bolt_floor_fin#13 ok [] None
+bolt_floor_fin#14 ok [] None
+bolt_floor_fin#15 ok [] None
+bolt_floor_fin#16 ok [] None
+bolt_floor_fin#17 ok [] None
+bolt_floor_fin#18 ok [] None
+bolt_floor_fin#19 BLOCKED by ['plug_d435'] 15
+bolt_floor_fin#20 ok [] None
+bolt_floor_fin#21 BLOCKED by ['bracket_power_box', 'bracket_power_shelf', 'conv_19v'] 5
+bolt_floor_fin#22 BLOCKED by ['bracket_power_shelf', 'power', 'conv_19v'] 5
+bolt_floor_fin#23 BLOCKED by ['plug_mcu_0'] 100
+bolt_so101_base#24 ok [] None
+bolt_so101_base#25 ok [] None
+bolt_so101_base#26 BLOCKED by ['arm_08_Upper_arm_SO101'] 80
+bolt_so101_base#27 BLOCKED by ['arm_04_STS3215_03a', 'arm_06_Rotation_Pitch_SO101', 'arm_08_Upper_arm_SO101'] 5
+bolt_arm_kit_M3x10#28 BLOCKED by ['riser_adapter'] 30
+bolt_arm_kit_M3x10#29 BLOCKED by ['riser_adapter'] 30
+bolt_arm_kit_M3x12#30 BLOCKED by ['riser_adapter'] 30
+bolt_arm_kit_M3x12#31 BLOCKED by ['riser_adapter'] 30
+bolt_arm_kit_M3x45#32 ok [] None
+bolt_arm_kit_M3x45#33 ok [] None
+bolt_arm_kit_M3x35#34 BLOCKED by ['arm_01_Base_SO101'] 5
+bolt_arm_kit_M3x35#35 BLOCKED by ['arm_01_Base_SO101'] 5
+bolt_riser_ext#36 BLOCKED by ['riser_adapter', 'arm_01_Base_SO101'] 30
+bolt_riser_ext#37 BLOCKED by ['riser_adapter', 'arm_01_Base_SO101'] 30
+bolt_clip_computer#38 BLOCKED by ['housing_estop', 'deck_bin', 'estop'] 60
+bolt_clip_computer#39 BLOCKED by ['housing_switch', 'deck_bin'] 60
+bolt_clip_computer#40 BLOCKED by ['deck_bin'] 60
+bolt_clip_computer#41 BLOCKED by ['deck_bin'] 60
+bolt_tray_battery#42 BLOCKED by ['deck_bin', 'bin'] 60
+bolt_tray_battery#43 BLOCKED by ['deck_bin', 'bin'] 60
+bolt_tray_battery#44 BLOCKED by ['deck_bin'] 60
+bolt_tray_battery#45 BLOCKED by ['deck_bin'] 60
+bolt_power_stack#46 ok [] None
+bolt_power_stack#47 ok [] None
+bolt_power_stack#48 ok [] None
+bolt_power_stack#49 ok [] None
+bolt_servo_adapter#50 BLOCKED by ['battery'] 60
+bolt_servo_adapter#51 BLOCKED by ['battery'] 60
+bolt_servo_adapter#52 BLOCKED by ['bracket_battery_tray', 'battery'] 60
+bolt_servo_adapter#53 BLOCKED by ['bracket_battery_tray', 'battery'] 60
+bolt_servo_bracket#54 BLOCKED by ['bracket_battery_tray', 'battery', 'servo_adapter'] 5
+bolt_servo_bracket#56 BLOCKED by ['bracket_battery_tray', 'battery', 'servo_adapter'] 5
+bolt_imu#58 ok [] None
+bolt_imu#59 ok [] None
+bolt_imu_base#60 BLOCKED by ['deck_bin'] 60
+bolt_imu_base#61 ok [] None
+bolt_post_floor#62 ok [] None
+bolt_post_deck#63 ok [] None
+bolt_post_floor#64 ok [] None
+bolt_post_deck#65 ok [] None
+bolt_post_floor#66 BLOCKED by ['RL/wheel_hub', 'RL/roller_tread_1_3', 'RL/bolt_1_3'] 40
+bolt_post_deck#67 ok [] None
+bolt_post_floor#68 BLOCKED by ['RR/wheel_hub', 'RR/roller_tread_1_3', 'RR/bolt_1_3'] 40
+bolt_post_deck#69 ok [] None
+bolt_bin#70 ok [] None
+bolt_bin#71 ok [] None
+bolt_bin#72 ok [] None
+bolt_bin#73 ok [] None
+bolt_estop_pod#74 BLOCKED by ['estop'] 40
+bolt_estop_pod#75 BLOCKED by ['estop'] 40
+bolt_switch_pod#76 ok [] None
+bolt_switch_pod#77 ok [] None
+bolt_face_deck#78 BLOCKED by ['housing_face'] 80
+bolt_face_deck#79 ok [] None
+bolt_face_deck#80 BLOCKED by ['housing_face'] 80
+bolt_face_deck#81 ok [] None
+bolt_face_crown#82 BLOCKED by ['mic_array'] 5
+bolt_face_crown#83 BLOCKED by ['housing_speaker_cover'] 10
+bolt_mic#84 ok [] None
+bolt_mic#85 ok [] None
+bolt_mic#86 ok [] None
+bolt_mic#87 ok [] None
+bolt_speaker_cover#88 ok [] None
+bolt_speaker_cover#89 ok [] None
+bolt_d435_camera#90 BLOCKED by ['riser_adapter', 'arm_01_Base_SO101'] 30
+bolt_d435_camera#91 BLOCKED by ['riser_adapter', 'arm_01_Base_SO101'] 30
+bolt_d435_cradle#92 ok [] None
+bolt_d435_cradle#94 BLOCKED by ['plug_d435'] 20
+bolt_arm_kit_M3x             n= 6 first block   5 mm  by ['arm_01_Base_SO101', 'riser_adapter']
+bolt_clip_computer           n= 4 first block  60 mm  by ['deck_bin', 'estop', 'housing_estop', 'housing_switch']
+bolt_d435_camera             n= 2 first block  30 mm  by ['arm_01_Base_SO101', 'riser_adapter']
+bolt_d435_cradle             n= 1 first block  20 mm  by ['plug_d435']
+bolt_estop_pod               n= 2 first block  40 mm  by ['estop']
+bolt_face_crown              n= 2 first block   5 mm  by ['housing_speaker_cover', 'mic_array']
+bolt_face_deck               n= 2 first block  80 mm  by ['housing_face']
+bolt_floor_fin               n= 8 first block   5 mm  by ['bin', 'bracket_power_box', 'bracket_power_shelf', 'computer', 'conv_19v', 'deck_bin']
+bolt_imu_base                n= 1 first block  60 mm  by ['deck_bin']
+bolt_lap                     n= 4 first block  80 mm  by ['pedestal', 'support_spine']
+bolt_lidar                   n= 4 first block  60 mm  by ['bolt_pedestal_0', 'bolt_pedestal_1', 'bolt_pedestal_2', 'bolt_pedestal_3', 'hub', 'node_front']
+bolt_pedestal                n= 4 first block  60 mm  by ['bolt_lidar_0', 'bolt_lidar_1', 'bolt_lidar_2', 'bolt_lidar_3', 'pedestal']
+bolt_post_floor              n= 2 first block  40 mm  by ['RL/bolt_1_3', 'RL/roller_tread_1_3', 'RL/wheel_hub', 'RR/bolt_1_3', 'RR/roller_tread_1_3', 'RR/wheel_hub']
+bolt_riser_ext               n= 2 first block  30 mm  by ['arm_01_Base_SO101', 'riser_adapter']
+bolt_seam_FR                 n= 1 first block   5 mm  by ['arm_02_STS3215_03a', 'arm_06_Rotation_Pitch_SO101', 'bracket_d435_riser', 'riser_adapter', 'riser_arm']
+bolt_seam_RL                 n= 2 first block   5 mm  by ['battery', 'bracket_battery_tray', 'deck_bin']
+bolt_seam_RR                 n= 3 first block   5 mm  by ['battery', 'bracket_battery_tray', 'bracket_power_box', 'bracket_power_shelf', 'conv_19v', 'deck_bin']
+bolt_servo_adapter           n= 4 first block  60 mm  by ['battery', 'bracket_battery_tray']
+bolt_servo_bracket           n= 2 first block   5 mm  by ['battery', 'bracket_battery_tray', 'servo_adapter']
+bolt_so101_base              n= 2 first block   5 mm  by ['arm_04_STS3215_03a', 'arm_06_Rotation_Pitch_SO101', 'arm_08_Upper_arm_SO101']
+bolt_tray_battery            n= 4 first block  60 mm  by ['bin', 'deck_bin']
+160 screws, 62 blocked

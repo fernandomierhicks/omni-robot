@@ -1,0 +1,446 @@
+fork_outer 1 True 68587
+fork_inner 1 True 85854
+sleeve 1 True 271
+frame_inner 1 True 44983
+keel 1 True 11884
+retainer 1 True 1537
+{"inner_frame": {"x": [66.6, 78.6], "edge_round": "36/47", "z_bottom": -9.66, "z_top": 56.88, "droop_hook_top": [[46.6, 3.73], [62.6, -3.66]], "bump_rail_underside": [[45.28, 31.12], [69.6, 26.51]]}, "keel": {"top": 16.0, "edge_round": "16/25", "l_cove_r": 3.0, "pivot_screw_engagement": 11.1, "pivot_screw_tip_to_boss_end": 1.6, "foot_screw": "M3 x 35 up from under the chassis into a \u00d82.9 pilot through the whole keel"}, "fork_rounds": {"outer_arm_edges": 2.0, "bar_long_edges": 2.5, "bar_root": "0/1", "stub_root": 1.5, "motor_plate_edges": 2.0, "wide_arm_edges": 2.0, "motor_plate_root": 1.0}}
+{
+ "poses_deg": {
+  "droop": 2.133,
+  "nominal": 0.0,
+  "bump": -10.726
+ },
+ "droop": {
+  "axle": [
+   0.06,
+   -3.0
+  ],
+  "plunger_lift": {
+   "inner_a1": -1.15,
+   "inner_b1": -0.75,
+   "inner_a2": -1.15,
+   "inner_b2": -0.75
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 8.24,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.0,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 45.14
+  },
+  "fork_base_z": [
+   -29.67,
+   0.15
+  ]
+ },
+ "nominal": {
+  "axle": [
+   0.0,
+   0.0
+  ],
+  "plunger_lift": {
+   "inner_a1": 0.0,
+   "inner_b1": 0.0,
+   "inner_a2": 0.0,
+   "inner_b2": 0.0
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 8.04,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.51,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 45.65
+  },
+  "fork_to_rotating (stub: not its 6804)": {
+   "pod_fork_outer": 1.5,
+   "pod_fork_inner": 7.48
+  },
+  "fork_to_harness": 2.72,
+  "fork_halves_overlap_mm3": 0.0,
+  "fork_halves_gap_mm": 0.0,
+  "fork_base_z": [
+   -29.5,
+   0.0
+  ]
+ },
+ "bump": {
+  "axle": [
+   1.41,
+   15.0
+  ],
+  "plunger_lift": {
+   "inner_a1": 6.43,
+   "inner_b1": 4.43,
+   "inner_a2": 6.43,
+   "inner_b2": 4.43
+  },
+  "interference_mm3": {},
+  "gaps_mm": {
+   "inner_frame_to_rotating": 7.57,
+   "keel_to_rotating": 8.19,
+   "inner_frame_to_fork": 0.0,
+   "keel_to_fork": 0.8,
+   "keel_to_tie_bolts": 8.13,
+   "static_to_harness": 50.47
+  },
+  "fork_base_z": [
+   -29.75,
+   0.99
+  ]
+ },
+ "printed_parts": {
+  "pod_frame_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 44.98,
+   "bbox": [
+    35.8,
+    76.0,
+    66.0
+   ],
+   "overhang_mm2_as_printed": 1012.5
+  },
+  "pod_keel_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.88,
+   "bbox": [
+    28.7,
+    29.4,
+    24.0
+   ],
+   "overhang_mm2_as_printed": 111.0
+  },
+  "pod_fork_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 68.59,
+   "bbox": [
+    102.2,
+    111.1,
+    46.5
+   ],
+   "overhang_mm2_as_printed": 107.2
+  },
+  "pod_fork_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 85.85,
+   "bbox": [
+    22.9,
+    123.6,
+    59.0
+   ],
+   "overhang_mm2_as_printed": 2514.0
+  },
+  "pod_sleeve": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.27,
+   "bbox": [
+    8.0,
+    10.0,
+    10.0
+   ]
+  },
+  "pod_retainer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.54,
+   "bbox": [
+    7.8,
+    23.0,
+    23.0
+   ],
+   "overhang_mm2_as_printed": 104.3
+  }
+ },
+ "tie_bolts": {
+  "lines_yz": [
+   [
+    78.5,
+    -16.5
+   ],
+   [
+    82.0,
+    -24.5
+   ]
+  ],
+  "bolt": "4 x M3 x 50 pan head, \u00d83.0 pilot their whole length",
+  "seats_x_outer_inner": [
+   [
+    -49.0,
+    55.5
+   ],
+   [
+    -42.0,
+    62.0
+   ]
+  ],
+  "threaded_x": [
+   [
+    [
+     -49.0,
+     1.0
+    ],
+    [
+     5.5,
+     42.7
+    ]
+   ],
+   [
+    [
+     -42.0,
+     8.0
+    ],
+    [
+     12.0,
+     42.7
+    ]
+   ]
+  ],
+  "bar_x_without_a_bolt": [
+   -52.5,
+   -52.0,
+   -51.5,
+   -51.0,
+   -50.5,
+   -50.0,
+   -49.5
+  ],
+  "bolt_overlap_with_fork_mm3": {
+   "bolt_tie_outer_1": 0.0,
+   "bolt_tie_outer_2": 0.0,
+   "bolt_tie_inner_1": 0.0,
+   "bolt_tie_inner_2": 0.0
+  },
+  "min_wall_to_627_seats_mm": 2.23
+ },
+ "nov13": {
+  "tenon_clearance_per_face": 0.05,
+  "inner_pivot": {
+   "pin_d": 7.0,
+   "pin_x": [
+    58.7,
+    65.6
+   ],
+   "pin_in_627_overlap_mm3": 0.0,
+   "screw": "M3 x 16",
+   "screw_tip_x": 59.7,
+   "screw_tip_inside_pin_by": 1.0,
+   "screw_threaded_mm": 16.0,
+   "pin_wall": 2.1
+  },
+  "retainer": {
+   "volume_cm3": 1.54,
+   "solids": 1,
+   "valid": true,
+   "overlap_6804_mm3": 0.0,
+   "gap_to_6804_mm": 0.0,
+   "stub_shoulder_gap_to_6804": 0.0,
+   "stub_overlap_6804_mm3": 0.0,
+   "nearest_turning_part": [
+    4.55,
+    "wheel_cartridge"
+   ],
+   "screw": "M3 x 25",
+   "thread_in_retainer_mm": 6.2,
+   "screw_tip_to_boss_end": 1.6
+  },
+  "lead_tie": {
+   "strap": "3.6 x 1.2",
+   "x": 52.0,
+   "tunnel": [
+    4.6,
+    2.0
+   ],
+   "tunnel_r": 26.5,
+   "bridge_over_tunnel": 2.0,
+   "tie_overlap_fork_inner_mm3": 0.0,
+   "tie_gap_to_fork_inner": 0.4,
+   "poses": {
+    "droop": {
+     "nearest_turning": [
+      15.75,
+      "roller_tread_2_3"
+     ],
+     "nearest_static": [
+      44.12,
+      "pod_frame_inner"
+     ],
+     "overlap_leads_mm3": 0.0,
+     "gap_to_leads": 0.1
+    },
+    "nominal": {
+     "nearest_turning": [
+      15.75,
+      "roller_tread_2_3"
+     ],
+     "nearest_static": [
+      44.87,
+      "pod_frame_inner"
+     ],
+     "overlap_leads_mm3": 0.0,
+     "gap_to_leads": 0.1
+    },
+    "bump": {
+     "nearest_turning": [
+      15.75,
+      "roller_tread_2_3"
+     ],
+     "nearest_static": [
+      49.8,
+      "pod_frame_inner"
+     ],
+     "overlap_leads_mm3": 0.0,
+     "gap_to_leads": 0.1
+    }
+   },
+   "lead_centres_yz": [
+    [
+     -32.96,
+     9.81
+    ],
+    [
+     -30.58,
+     14.21
+    ]
+   ],
+   "tie_outer_radius": 41.66
+  },
+  "up_arrows_engraved": {
+   "outer": true,
+   "inner": true,
+   "size": "9 long, 5 wide head, 0.4 deep",
+   "faces": "outer arm wheel side (y 45); motor plate outer face (axle centre)"
+  },
+  "blind_holes (want none; Nov 13: every hole through)": {},
+  "hole_audit": {
+   "thread_mm": {
+    "bolt_pivot_outer#0": {
+     "pod_keel_outer": 11.1
+    },
+    "bolt_pivot_inner#1": {
+     "pod_frame_inner": 16.0
+    },
+    "bolt_retainer#2": {
+     "pod_retainer": 6.2
+    },
+    "bolt_tie_outer_1#3": {
+     "pod_fork_outer": 35.5
+    },
+    "bolt_tie_outer_2#4": {
+     "pod_fork_outer": 35.5
+    },
+    "bolt_tie_inner_1#5": {
+     "pod_fork_outer": 31.4
+    },
+    "bolt_tie_inner_2#6": {
+     "pod_fork_outer": 26.8
+    },
+    "bolt_pod_foot#7": {
+     "pod_frame_inner": 6.2
+    },
+    "bolt_pod_foot#8": {
+     "pod_frame_inner": 6.2
+    },
+    "bolt_pod_foot#9": {
+     "pod_frame_inner": 6.2
+    },
+    "bolt_pod_column#10": {
+     "pod_frame_inner": 14.2
+    },
+    "bolt_keel#11": {
+     "pod_keel_outer": 15.1
+    },
+    "bolt_keel#12": {
+     "pod_keel_outer": 15.1
+    }
+   },
+   "partial": {
+    "bolt_tie_inner_2#6 / pod_fork_outer": 0.71
+   },
+   "across_layers": {},
+   "soft_across_layers": {
+    "bolt_pod_foot#7 / pod_frame_inner": 90.0,
+    "bolt_pod_foot#8 / pod_frame_inner": 90.0,
+    "bolt_pod_foot#9 / pod_frame_inner": 90.0,
+    "bolt_pod_column#10 / pod_frame_inner": 90.0,
+    "bolt_keel#11 / pod_keel_outer": 90.0,
+    "bolt_keel#12 / pod_keel_outer": 90.0
+   },
+   "head_buried": {},
+   "no_hole": {}
+  },
+  "nuts_in_pod": 0
+ },
+ "envelope_nominal": {
+  "x": [
+   -52.5,
+   78.6
+  ],
+  "y": [
+   -70.0,
+   103.0
+  ],
+  "z": [
+   -70.0,
+   70.0
+  ]
+ },
+ "static": {
+  "inner_frame": {
+   "x": [
+    66.6,
+    78.6
+   ],
+   "edge_round": "36/47",
+   "z_bottom": -9.66,
+   "z_top": 56.88,
+   "droop_hook_top": [
+    [
+     46.6,
+     3.73
+    ],
+    [
+     62.6,
+     -3.66
+    ]
+   ],
+   "bump_rail_underside": [
+    [
+     45.28,
+     31.12
+    ],
+    [
+     69.6,
+     26.51
+    ]
+   ]
+  },
+  "keel": {
+   "top": 16.0,
+   "edge_round": "16/25",
+   "l_cove_r": 3.0,
+   "pivot_screw_engagement": 11.1,
+   "pivot_screw_tip_to_boss_end": 1.6,
+   "foot_screw": "M3 x 35 up from under the chassis into a \u00d82.9 pilot through the whole keel"
+  },
+  "fork_rounds": {
+   "outer_arm_edges": 2.0,
+   "bar_long_edges": 2.5,
+   "bar_root": "0/1",
+   "stub_root": 1.5,
+   "motor_plate_edges": 2.0,
+   "wide_arm_edges": 2.0,
+   "motor_plate_root": 1.0
+  }
+ }
+}
+exported C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v14\step_export\pod_lean
+rendered C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v14\validation\pod_lean

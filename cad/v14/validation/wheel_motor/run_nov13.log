@@ -1,0 +1,375 @@
+hub build {'edge_round_failed': 0, 'root_fillet': {'edges': 1, 'radius': 2.0}, 'slivers_dropped_mm3': []}
+{
+ "hub": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 208584,
+  "x_range": [
+   -39.5,
+   29.0
+  ],
+  "diameter_over_rollers": 139.99
+ },
+ "printed_parts": {
+  "wheel_hub": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 208583.8
+  },
+  "wheel_cartridge": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 7729.5
+  },
+  "roller_core": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 15146.9
+  },
+  "roller_sleeve": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 1866.4
+  },
+  "roller_tread": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 16316.9
+  }
+ },
+ "hub_overlaps_mm3 (want none)": {},
+ "sleeve_press_fit_mm3 (by design: 0.1 per end x its end face ~26.2 mm2 x 2 = 5.2)": {
+  "min": 5.34,
+  "max": 5.34,
+  "sleeves": 12
+ },
+ "screws_overlapping_hub_mm3 (12 axles + 3 cartridge screws; want ~0)": {
+  "min": 0.0,
+  "max": 0.0,
+  "screws": 15
+ },
+ "seat_slots_mm": {
+  "depth": 0.5,
+  "width": 7.1,
+  "side_clearance": 0.05,
+  "neck": 6.9,
+  "neck_interference_per_side": 0.05,
+  "axial_click_step": 0.1,
+  "axial_pinch_per_side_entering": 0.2,
+  "axial_pinch_per_side_seated": 0.1,
+  "m3x50_thread_in_pilot": 6.0,
+  "wall_under_head_seat": 1.9
+ },
+ "min_gaps_mm (turning parts to the hub)": {
+  "1_1": {
+   "bearing_outer_race": 0.283,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "1_2": {
+   "bearing_outer_race": 0.283,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "2_1": {
+   "bearing_outer_race": 0.283,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "2_2": {
+   "bearing_outer_race": 0.283,
+   "core": 1.05,
+   "tread": 0.95
+  }
+ },
+ "thrust_lands_mm (Nov 13: on the static inner race only)": {
+  "1_1": {
+   "land_to_687_face": 0.2,
+   "id": 7.3,
+   "od": 8.6,
+   "height_head_side": 0.95,
+   "height_pilot_side": -1.05,
+   "width": 0.65
+  },
+  "2_2": {
+   "land_to_687_face": 0.2,
+   "id": 7.3,
+   "od": 8.6,
+   "height_head_side": 0.95,
+   "height_pilot_side": -1.05,
+   "width": 0.65
+  }
+ },
+ "cartridge_overlaps_mm3 (core / sleeve-core want 0; sleeve / 687s = the \u00d87.15 press fit on the 7.0 bores, ~16.7 by design)": {
+  "core_bearings": 0.0,
+  "sleeve_bearings": 16.67,
+  "sleeve_core": 0.0
+ },
+ "fits": {
+  "pocket_d": 14.05,
+  "sleeve_d_in_bearings": 7.15,
+  "sleeve_d_at_seats": 7.0,
+  "source": "coupon_687 cells 2 (pocket) / 4 (pin), Nov 13"
+ },
+ "tread_core_overlap_mm3 (keys in keyways + detent rib in groove: 0)": 0.0,
+ "cartridge_clearances_mm": {
+  "sleeve_middle_to_core": 1.0,
+  "bearing_B_to_pocket_floor": 0.5,
+  "sleeve_wall": 1.9,
+  "core_wall_at_pocket_to_key_slot": 4.17
+ },
+ "tread_profile_mm (radius about the roller axis; relief = under the R70 circle)": {
+  "z 0.00": {
+   "cad": 18.0,
+   "formula": 18.0,
+   "relief": -0.0
+  },
+  "z 12.50": {
+   "cad": 16.875,
+   "formula": 16.875,
+   "relief": -0.0
+  },
+  "z 15.31": {
+   "cad": 16.271,
+   "formula": 16.271,
+   "relief": 0.034
+  },
+  "z 18.12": {
+   "cad": 15.473,
+   "formula": null,
+   "relief": 0.141
+  },
+  "z 18.50": {
+   "cad": 15.303,
+   "formula": null,
+   "relief": 0.208
+  },
+  "z 19.00": {
+   "cad": 14.895,
+   "formula": null,
+   "relief": 0.477
+  }
+ },
+ "tread_relief": {
+  "len": 7.0,
+  "depth_at_end": 0.2,
+  "arc_radius": 44.55,
+  "starts_at_z": 12.5,
+  "handover_z": 18.12,
+  "at_handover": 0.142
+ },
+ "roller_neighbour_gaps_mm_lt2 (closest 6)": {
+  "roller_tread_1_1 / roller_tread_2_1": 1.24,
+  "roller_tread_1_1 / roller_tread_2_6": 1.24,
+  "roller_tread_1_2 / roller_tread_2_1": 1.24,
+  "roller_tread_1_2 / roller_tread_2_2": 1.24,
+  "roller_tread_1_3 / roller_tread_2_2": 1.24,
+  "roller_tread_1_3 / roller_tread_2_3": 1.24
+ },
+ "rollers_vs_motor_proxy_overlap_mm3": 0.0,
+ "harness": {
+  "closest rotating part (want >= 4)": {
+   "gap": 4.68,
+   "pair": "xt30_housing - wheel_hub"
+  }
+ },
+ "x_range_hub_to_motor": [
+  -39.5,
+  44.7
+ ],
+ "motor_x_output_rear": [
+  4.5,
+  44.7
+ ],
+ "axle_insertion_tunnel_hits_mm3 (want none)": {
+  "1_1": {
+   "roller_tread_1_2": 7.86,
+   "bolt_1_2": 1.22
+  },
+  "1_2": {
+   "roller_tread_1_1": 7.86,
+   "bolt_1_1": 1.22
+  },
+  "1_3": {
+   "roller_tread_1_4": 7.86,
+   "bolt_1_4": 1.22
+  },
+  "1_4": {
+   "roller_tread_1_3": 7.86,
+   "bolt_1_3": 1.22
+  },
+  "1_5": {
+   "roller_tread_1_6": 7.86,
+   "bolt_1_6": 1.22
+  },
+  "1_6": {
+   "roller_tread_1_5": 7.86,
+   "bolt_1_5": 1.22
+  },
+  "2_1": {
+   "roller_tread_2_2": 7.86,
+   "bolt_2_2": 1.22
+  },
+  "2_2": {
+   "roller_tread_2_1": 7.86,
+   "bolt_2_1": 1.22
+  },
+  "2_3": {
+   "roller_tread_2_4": 7.86,
+   "bolt_2_4": 1.22
+  },
+  "2_4": {
+   "roller_tread_2_3": 7.86,
+   "bolt_2_3": 1.22
+  },
+  "2_5": {
+   "roller_tread_2_6": 7.86,
+   "bolt_2_6": 1.22
+  },
+  "2_6": {
+   "roller_tread_2_5": 7.86,
+   "bolt_2_5": 1.22
+  }
+ },
+ "cartridge_radial_press_in_mm3 (core_tread_bearings want 0; sleeve = its pinch between the thrust faces along the slot)": {
+  "1_1 +0": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 5.34
+  },
+  "1_1 +10": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "1_1 +20": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "1_1 +30": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +0": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 5.34
+  },
+  "1_2 +10": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +20": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +30": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +0": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 5.34
+  },
+  "2_1 +10": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +20": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +30": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +0": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 5.34
+  },
+  "2_2 +10": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +20": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +30": {
+   "core_tread_bearings": 0.0,
+   "sleeve": 0.0
+  }
+ },
+ "block_walls_mm": {
+  "head_counterbore_side_profile": 2.5,
+  "head_counterbore_rim_wheel_plane": 1.86,
+  "pilot_thread_side_profile": 4.6,
+  "pilot_thread_end_wheel_plane": 3.77,
+  "pilot": "Nov 13: through the block (was a blind floor 2.95 beyond the thread)",
+  "pilot_open_past_block": true
+ },
+ "cartridge_screws": {
+  "countersink_extra": 0.5,
+  "pilot_x": [
+   -36.5,
+   -17.5
+  ],
+  "pilot": "through the end wall into the cavity",
+  "pilot_open_at_end": true
+ },
+ "hub_print_overhang_mm2 (cartridge end down, faces under 45 deg)": {
+  "all": 9367,
+  "spokes": 5954
+ },
+ "hub_max_radius_mm": 63.61,
+ "spoke_neck_row2_az0_mm": {
+  "34": {
+   "tangential": 17.1,
+   "x": 40.3
+  },
+  "36": {
+   "tangential": 12.1,
+   "x": 36.1
+  },
+  "38": {
+   "tangential": 7.7,
+   "x": 32.0
+  },
+  "40": {
+   "tangential": 3.5,
+   "x": 30.0
+  },
+  "42": {
+   "tangential": 1.9,
+   "x": 28.0
+  },
+  "44": {
+   "tangential": 3.3,
+   "x": 26.0
+  },
+  "46": {
+   "tangential": 5.7,
+   "x": 26.0
+  },
+  "50": {
+   "tangential": 10.3,
+   "x": 26.0
+  },
+  "54": {
+   "tangential": 13.7,
+   "x": 25.4
+  },
+  "58": {
+   "tangential": 1.5,
+   "x": 20.5
+  }
+ },
+ "roller_angular_overlap_deg": 2.35,
+ "hub_build": {
+  "edge_round_failed": 0,
+  "root_fillet": {
+   "edges": 1,
+   "radius": 2.0
+  },
+  "slivers_dropped_mm3": []
+ }
+}
+exported C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v14\step_export\wheel_motor
+rendered C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v14\validation\wheel_motor

@@ -1,0 +1,568 @@
+{
+ "leads": {
+  "M_FR": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 9,
+   "tightest_bend_r": 8.8,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 369
+  },
+  "M_FL": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 6,
+   "tightest_bend_r": 15.8,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 395
+  },
+  "M_RR": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 8,
+   "tightest_bend_r": 4.9,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 292
+  },
+  "M_RL": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 8,
+   "tightest_bend_r": 16.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 336
+  },
+  "CAN_FR": {
+   "od": 3.0,
+   "bend_r_allowed": 6.0,
+   "bends": 6,
+   "tightest_bend_r": 3.1,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 99
+  },
+  "CAN_FL": {
+   "od": 3.0,
+   "bend_r_allowed": 6.0,
+   "bends": 7,
+   "tightest_bend_r": 2.5,
+   "bends_under_allowed": 4,
+   "length_drawn_mm": 121
+  },
+  "CAN_RR": {
+   "od": 3.0,
+   "bend_r_allowed": 6.0,
+   "bends": 7,
+   "tightest_bend_r": 2.0,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 93
+  },
+  "CAN_RL": {
+   "od": 3.0,
+   "bend_r_allowed": 6.0,
+   "bends": 7,
+   "tightest_bend_r": 3.2,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 112
+  },
+  "PC19": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 5,
+   "tightest_bend_r": 1.8,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 165
+  },
+  "ARM12": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 5,
+   "tightest_bend_r": 4.3,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 241
+  },
+  "5V": {
+   "od": 3.8,
+   "bend_r_allowed": 8.0,
+   "bends": 3,
+   "tightest_bend_r": 8.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 232
+  },
+  "ESTOP": {
+   "od": 4.5,
+   "bend_r_allowed": 18.0,
+   "bends": 4,
+   "tightest_bend_r": 10.8,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 329
+  },
+  "SWITCH": {
+   "od": 4.5,
+   "bend_r_allowed": 18.0,
+   "bends": 6,
+   "tightest_bend_r": 17.2,
+   "bends_under_allowed": 1,
+   "length_drawn_mm": 174
+  },
+  "D435": {
+   "od": 4.6,
+   "bend_r_allowed": 23.0,
+   "bends": 6,
+   "tightest_bend_r": 1.9,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 265
+  },
+  "TEENSY": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 2,
+   "tightest_bend_r": 0.7,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 106
+  },
+  "SO101": {
+   "od": 5.0,
+   "bend_r_allowed": 25.0,
+   "bends": 5,
+   "tightest_bend_r": 2.0,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 168
+  },
+  "LIDAR": {
+   "od": 3.5,
+   "bend_r_allowed": 10.0,
+   "bends": 7,
+   "tightest_bend_r": 10.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 294
+  },
+  "LIDARUSB": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 3,
+   "tightest_bend_r": 1.1,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 63
+  },
+  "IMU": {
+   "od": 5.0,
+   "bend_r_allowed": 15.0,
+   "bends": 2,
+   "tightest_bend_r": 3.4,
+   "bends_under_allowed": 1,
+   "length_drawn_mm": 79
+  },
+  "HDMI": {
+   "od": 6.0,
+   "bend_r_allowed": 6.0,
+   "bends": 8,
+   "tightest_bend_r": 5.7,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 133
+  },
+  "MIC": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 6,
+   "tightest_bend_r": 6.7,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 307
+  }
+ },
+ "leads_static_clearance_mm": {
+  "per_lead": {
+   "M_FR": {
+    "min_mm": 2.47,
+    "against": "floor2_RR"
+   },
+   "M_FL": {
+    "min_mm": 2.47,
+    "against": "floor2_RR"
+   },
+   "M_RR": {
+    "min_mm": 0.47,
+    "against": "floor2_RR"
+   },
+   "M_RL": {
+    "min_mm": 2.5,
+    "against": "floor2_RR"
+   },
+   "CAN_FR": {
+    "min_mm": 1.65,
+    "against": "plug_pb_switch"
+   },
+   "CAN_FL": {
+    "min_mm": 1.59,
+    "against": "plug_mcu_can1"
+   },
+   "CAN_RR": {
+    "min_mm": 1.49,
+    "against": "plug_pb_switch"
+   },
+   "CAN_RL": {
+    "min_mm": 1.59,
+    "against": "plug_mcu_can1"
+   },
+   "PC19": {
+    "min_mm": 1.6,
+    "against": "power"
+   },
+   "ARM12": {
+    "min_mm": 3.65,
+    "against": "post_mcu_1"
+   },
+   "5V": {
+    "min_mm": 2.34,
+    "against": "bin"
+   },
+   "ESTOP": {
+    "min_mm": 3.12,
+    "against": "plug_pb_m1"
+   },
+   "SWITCH": {
+    "min_mm": 2.37,
+    "against": "plug_pc_hdmi"
+   },
+   "D435": {
+    "min_mm": 3.7,
+    "against": "deck_bin"
+   },
+   "TEENSY": {
+    "min_mm": 9.81,
+    "against": "deck_bin"
+   },
+   "SO101": {
+    "min_mm": 3.14,
+    "against": "bolt_post_deck#63"
+   },
+   "LIDAR": {
+    "min_mm": 1.76,
+    "against": "floor2_RR"
+   },
+   "LIDARUSB": {
+    "min_mm": 1000000000.0,
+    "against": null
+   },
+   "IMU": {
+    "min_mm": 7.81,
+    "against": "deck_bin"
+   },
+   "HDMI": {
+    "min_mm": 1.66,
+    "against": "post_deck_3"
+   },
+   "MIC": {
+    "min_mm": 1.38,
+    "against": "deck_bin"
+   }
+  },
+  "under_0": [],
+  "under_2": [
+   "M_RR",
+   "CAN_FR",
+   "CAN_FL",
+   "CAN_RR",
+   "CAN_RL",
+   "PC19",
+   "LIDAR",
+   "HDMI",
+   "MIC"
+  ],
+  "centreline_inside_a_part": {},
+  "in_d435_fields": {},
+  "note": "centreline samples every 0.5 mm to the nearest surface sample of any part (~1 per mm2, +-0.3 mm) minus the lead's radius; its own two plugs and its last r + 1.5 mm at each end left out"
+ },
+ "plugs_overlap_mm3": {},
+ "leads_sharing_a_path": {
+  "pairs": {
+   "M_FR / M_RR": -1.0,
+   "M_FR / M_RL": -1.0,
+   "M_FR / CAN_FR": -5.5,
+   "M_FR / LIDAR": -3.6,
+   "M_FL / M_RR": -7.1,
+   "M_FL / M_RL": -4.9,
+   "M_FL / CAN_FL": -5.5,
+   "M_FL / LIDAR": -0.9,
+   "M_RR / M_RL": -5.8,
+   "M_RR / CAN_RR": -5.5,
+   "M_RL / CAN_RL": -5.5,
+   "CAN_FR / CAN_RR": -2.9,
+   "CAN_FR / SWITCH": -3.3,
+   "CAN_FL / CAN_RL": -3.0,
+   "CAN_RR / SWITCH": -2.5,
+   "CAN_RL / 5V": -1.9,
+   "PC19 / ESTOP": -2.6,
+   "PC19 / TEENSY": -4.0,
+   "SWITCH / HDMI": -4.8,
+   "D435 / SO101": -4.7
+  },
+  "note": "negative = the two drawn tubes overlap by that much: built, they lie side by side in one bundle"
+ },
+ "moving_pods_min_mm": {
+  "per_lead": {
+   "M_FR": {
+    "min_mm": 5.77,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "M_FL": {
+    "min_mm": 8.53,
+    "against": "FL/pod_fork_inner",
+    "pose": "nominal"
+   },
+   "M_RR": {
+    "min_mm": 5.04,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "M_RL": {
+    "min_mm": 5.52,
+    "against": "RR/pod_fork_inner",
+    "pose": "bump"
+   },
+   "CAN_FR": {
+    "min_mm": 90.67,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "CAN_FL": {
+    "min_mm": 100.98,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "CAN_RR": {
+    "min_mm": 87.13,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "CAN_RL": {
+    "min_mm": 95.34,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "PC19": {
+    "min_mm": 80.77,
+    "against": "RR/spring_plunger_inner_b2",
+    "pose": "bump"
+   },
+   "ARM12": {
+    "min_mm": 73.65,
+    "against": "FR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "5V": {
+    "min_mm": 98.05,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "ESTOP": {
+    "min_mm": 67.65,
+    "against": "RL/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "SWITCH": {
+    "min_mm": 68.28,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "D435": {
+    "min_mm": 59.15,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "TEENSY": {
+    "min_mm": 79.27,
+    "against": "RR/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "SO101": {
+    "min_mm": 88.89,
+    "against": "RL/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "LIDAR": {
+    "min_mm": 6.42,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "LIDARUSB": {
+    "min_mm": 38.4,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "IMU": {
+    "min_mm": 81.2,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "HDMI": {
+    "min_mm": 61.18,
+    "against": "RR/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "MIC": {
+    "min_mm": 51.78,
+    "against": "RL/roller_tread_2_2",
+    "pose": "bump"
+   }
+  },
+  "under_4mm": {},
+  "note": "fork, wheel, motor, rollers, plungers in droop / nominal / bump (static frames are in the static check); a motor lead's first 20 mm from its lead end flexes with its fork and is left out; samples +-0.4 mm"
+ },
+ "arm_sweep_min_mm": {
+  "per_lead": {
+   "M_FR": 93.1,
+   "M_FL": 112.6,
+   "M_RR": 121.6,
+   "M_RL": 142.3,
+   "CAN_FR": 134.4,
+   "CAN_FL": 141.0,
+   "CAN_RR": 124.1,
+   "CAN_RL": 144.9,
+   "PC19": 101.4,
+   "ARM12": 16.5,
+   "5V": 51.4,
+   "ESTOP": 29.1,
+   "SWITCH": 103.1,
+   "D435": 60.8,
+   "TEENSY": 111.6,
+   "SO101": 78.8,
+   "LIDAR": 87.7,
+   "LIDARUSB": 99.8,
+   "IMU": 86.8,
+   "HDMI": 53.0,
+   "MIC": 25.5
+  },
+  "min": 16.5,
+  "under_4mm": {},
+  "note": "to the nearest swept-arm cell centre minus half its diagonal and the lead radius (a lower bound on the grid)"
+ },
+ "scan_band": {
+  "per_lead": {
+   "M_FR": {
+    "samples": 30,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.85
+   },
+   "M_FL": {
+    "samples": 33,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.36
+   },
+   "M_RR": {
+    "samples": 29,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.89
+   },
+   "M_RL": {
+    "samples": 30,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.72
+   },
+   "LIDAR": {
+    "samples": 19,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 1.48
+   }
+  },
+  "blind_added_deg": 0.0,
+  "note": "a lead's full width, as the lidar sees it, wherever its centreline is within 3 mm + r of the scan plane; inside a fin's shadow it adds nothing (margin: deg of the shadow's half width left beside the lead)"
+ },
+ "bends_under_allowed": {
+  "M_FR": {
+   "tightest": 8.8,
+   "allowed": 16.0,
+   "n": 5
+  },
+  "M_FL": {
+   "tightest": 15.8,
+   "allowed": 16.0,
+   "n": 2
+  },
+  "M_RR": {
+   "tightest": 4.9,
+   "allowed": 16.0,
+   "n": 3
+  },
+  "CAN_FR": {
+   "tightest": 3.1,
+   "allowed": 6.0,
+   "n": 2
+  },
+  "CAN_FL": {
+   "tightest": 2.5,
+   "allowed": 6.0,
+   "n": 4
+  },
+  "CAN_RR": {
+   "tightest": 2.0,
+   "allowed": 6.0,
+   "n": 3
+  },
+  "CAN_RL": {
+   "tightest": 3.2,
+   "allowed": 6.0,
+   "n": 2
+  },
+  "PC19": {
+   "tightest": 1.8,
+   "allowed": 10.0,
+   "n": 2
+  },
+  "ARM12": {
+   "tightest": 4.3,
+   "allowed": 10.0,
+   "n": 3
+  },
+  "ESTOP": {
+   "tightest": 10.8,
+   "allowed": 18.0,
+   "n": 3
+  },
+  "SWITCH": {
+   "tightest": 17.2,
+   "allowed": 18.0,
+   "n": 1
+  },
+  "D435": {
+   "tightest": 1.9,
+   "allowed": 23.0,
+   "n": 3
+  },
+  "TEENSY": {
+   "tightest": 0.7,
+   "allowed": 19.0,
+   "n": 2
+  },
+  "SO101": {
+   "tightest": 2.0,
+   "allowed": 25.0,
+   "n": 5
+  },
+  "LIDARUSB": {
+   "tightest": 1.1,
+   "allowed": 19.0,
+   "n": 3
+  },
+  "IMU": {
+   "tightest": 3.4,
+   "allowed": 15.0,
+   "n": 1
+  },
+  "HDMI": {
+   "tightest": 5.7,
+   "allowed": 6.0,
+   "n": 2
+  },
+  "MIC": {
+   "tightest": 6.7,
+   "allowed": 19.0,
+   "n": 5
+  }
+ }
+}

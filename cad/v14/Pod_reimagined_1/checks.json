@@ -1,0 +1,464 @@
+{
+ "proposal": "pod_reimagined_1",
+ "poses_deg": {
+  "droop": 2.133,
+  "nominal": 0.0,
+  "bump": -10.726
+ },
+ "build_info": {
+  "outer_arm_top_r": 1.4,
+  "outer_arm_bed_chamfer": 0.6,
+  "dish_floor": "R1.5 on 1 edges",
+  "stub_root": "R1.5 on 1 edges",
+  "motor_plate_top_r": 1.4,
+  "motor_plate_bed_chamfer": 0.6,
+  "block_plan_corners": "R4 on 4 edges",
+  "block_top_edges": "R3 on 8 edges",
+  "boss_roots": "refused (4 edges)"
+ },
+ "droop": {
+  "axle": [
+   0.06,
+   -3.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_block / bearing_627_inner": 6.69,
+   "rx_block / bearing_627_outer": 6.69,
+   "rx_cap_outer / bearing_627_outer": 6.69,
+   "rx_cap_inner / bearing_627_inner": 6.69
+  },
+  "gaps_mm": {
+   "rx_block_to_fork": 1.0,
+   "rx_block_to_wheel_envelope": 3.54,
+   "rx_block_to_harness": 88.69,
+   "bridge_to_pads": 2.2,
+   "block_except_pads_to_fork": 1.0,
+   "droop_heads_to_block": 0.0,
+   "caps_to_fork": 4.4,
+   "plunger_heads_to_bridge": 0.14,
+   "plunger_nut_gap": 0.52
+  },
+  "plunger_lift_mm": {
+   "spring_1": 0.98,
+   "spring_2": 0.98,
+   "spring_3": 0.98,
+   "spring_4": 0.98
+  }
+ },
+ "nominal": {
+  "axle": [
+   0.0,
+   0.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_block / bearing_627_inner": 6.69,
+   "rx_block / bearing_627_outer": 6.69,
+   "rx_cap_outer / bearing_627_outer": 6.69,
+   "rx_cap_inner / bearing_627_inner": 6.69
+  },
+  "gaps_mm": {
+   "rx_block_to_fork": 1.0,
+   "rx_block_to_wheel_envelope": 3.6,
+   "rx_block_to_harness": 88.34,
+   "bridge_to_pads": 2.2,
+   "block_except_pads_to_fork": 1.0,
+   "droop_heads_to_block": 0.15,
+   "caps_to_fork": 4.4,
+   "plunger_heads_to_bridge": 0.18,
+   "plunger_nut_gap": 1.5
+  },
+  "plunger_lift_mm": {
+   "spring_1": 0.0,
+   "spring_2": 0.0,
+   "spring_3": 0.0,
+   "spring_4": 0.0
+  }
+ },
+ "bump": {
+  "axle": [
+   1.41,
+   15.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_block / bearing_627_inner": 6.69,
+   "rx_block / bearing_627_outer": 6.69,
+   "rx_cap_outer / bearing_627_outer": 6.69,
+   "rx_cap_inner / bearing_627_inner": 6.69
+  },
+  "gaps_mm": {
+   "rx_block_to_fork": 0.0,
+   "rx_block_to_wheel_envelope": 2.23,
+   "rx_block_to_harness": 86.08,
+   "bridge_to_pads": 0.0,
+   "block_except_pads_to_fork": 1.0,
+   "droop_heads_to_block": 0.25,
+   "caps_to_fork": 4.4,
+   "plunger_heads_to_bridge": 0.02,
+   "plunger_nut_gap": 6.06
+  },
+  "plunger_lift_mm": {
+   "spring_1": -4.56,
+   "spring_2": -4.56,
+   "spring_3": -4.56,
+   "spring_4": -4.56
+  }
+ },
+ "fork_to_wheel_envelope_mm": {
+  "pod_fork_outer": 1.47,
+  "pod_fork_inner": 7.44,
+  "rx_ring_outer": 4.64,
+  "rx_ring_inner": 9.36
+ },
+ "fork_to_wheel_envelope_outside_r16_mm (the arms; the 6804 stub inside r 16 is unchanged from pod_lean)": {
+  "pod_fork_outer": 1.99,
+  "pod_fork_inner": 7.44
+ },
+ "retainer_to_wheel_envelope_mm": 4.52,
+ "fork_to_harness_mm": 2.72,
+ "fork_halves_overlap_mm3": 0.0,
+ "lead_tie": {
+  "gap_to_motor_plate": 0.4,
+  "overlap_motor_plate_mm3": 0.0,
+  "overlap_leads_mm3": 0.0,
+  "nearest_static": [
+   91.71,
+   "rx_block",
+   "bump"
+  ]
+ },
+ "springs": {
+  "count": 4,
+  "lever_mm": 26.0,
+  "where": "behind the pivot, under the bridge",
+  "wheel_rate_N_per_mm": 2.54,
+  "compression_mm": {
+   "droop": 2.13,
+   "nominal": 3.12,
+   "bump": 7.68
+  },
+  "bump_percent_of_free": 30.7,
+  "long_life_limit_mm": 10.0,
+  "plunger": "M4 x 40 button head, dome up, nyloc 1.5 under the block"
+ },
+ "printed_parts": {
+  "pod_fork_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 113.72,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 91.0,
+   "bed": {
+    "height": 99.1,
+    "footprint": [
+     148.5,
+     77.9
+    ]
+   }
+  },
+  "pod_fork_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 86.39,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 177.9,
+   "bed": {
+    "height": 12.0,
+    "footprint": [
+     148.5,
+     77.9
+    ]
+   }
+  },
+  "rx_block": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 74.29,
+   "print_up": [
+    0,
+    0,
+    1
+   ],
+   "overhang_mm2": 320.9,
+   "bed": {
+    "height": 27.9,
+    "footprint": [
+     92.1,
+     43.4
+    ]
+   }
+  },
+  "rx_ring_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.06,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 3.0,
+    "footprint": [
+     36.0,
+     36.0
+    ]
+   }
+  },
+  "rx_ring_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.06,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 3.0,
+    "footprint": [
+     36.0,
+     36.0
+    ]
+   }
+  },
+  "rx_cap_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.29,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 5.3,
+   "bed": {
+    "height": 6.0,
+    "footprint": [
+     10.0,
+     10.0
+    ]
+   }
+  },
+  "rx_cap_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.29,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 9.5,
+   "bed": {
+    "height": 6.0,
+    "footprint": [
+     10.0,
+     10.0
+    ]
+   }
+  },
+  "rx_shim_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.02,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 0.6,
+    "footprint": [
+     10.0,
+     10.0
+    ]
+   }
+  },
+  "rx_shim_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.02,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 0.6,
+    "footprint": [
+     10.0,
+     10.0
+    ]
+   }
+  },
+  "pod_retainer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.89,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 106.2,
+   "bed": {
+    "height": 12.7,
+    "footprint": [
+     23.0,
+     23.0
+    ]
+   }
+  }
+ },
+ "hole_audit": {
+  "thread": {
+   "bolt_tie_1_outer#0": {
+    "pod_fork_outer": 23.1
+   },
+   "bolt_tie_1_inner#1": {
+    "pod_fork_outer": 24.6
+   },
+   "bolt_tie_2_outer#2": {
+    "pod_fork_outer": 25.7
+   },
+   "bolt_tie_2_inner#3": {
+    "pod_fork_outer": 22.0
+   },
+   "bolt_droop_o#4": {
+    "pod_fork_outer": 8.0
+   },
+   "bolt_droop_i#5": {
+    "pod_fork_inner": 8.0
+   },
+   "bolt_ring_o_1#6": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_o_2#7": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_o_3#8": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_i_1#9": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_ring_i_2#10": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_ring_i_3#11": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_retainer#16": {
+    "pod_retainer": 6.0
+   },
+   "bolt_pivot_o#17": {
+    "rx_block": 15.2
+   },
+   "bolt_pivot_i#18": {
+    "rx_block": 15.2
+   },
+   "bolt_chassis_1#19": {
+    "rx_block": 15.6
+   },
+   "bolt_chassis_2#20": {
+    "rx_block": 15.6
+   },
+   "bolt_chassis_3#21": {
+    "rx_block": 15.6
+   },
+   "bolt_chassis_4#22": {
+    "rx_block": 15.6
+   }
+  },
+  "partial": {},
+  "across_layers": {},
+  "soft_across_layers": {
+   "bolt_pivot_o#17 / rx_block": 90.0,
+   "bolt_pivot_i#18 / rx_block": 90.0
+  },
+  "head": {},
+  "no_hole": {}
+ },
+ "blind_holes": {},
+ "pod_envelope_swept": {
+  "x": [
+   -50.4,
+   55.7
+  ],
+  "y": [
+   -29.5,
+   124.6
+  ],
+  "z": [
+   -39.1,
+   44.5
+  ],
+  "pod_lean_for_comparison": {
+   "x": [
+    -52.5,
+    78.6
+   ],
+   "y_back": 103.0,
+   "z_top": "56.9 (+ nuts 63.4)"
+  }
+ },
+ "hand_loads": {
+  "assumptions": {
+   "robot_kg": 10.0,
+   "static_wheel_N": 24.5,
+   "bump_N": 61.3,
+   "side_hit_N": "30 along x at z -60 (a threshold edge)",
+   "peak_traction_N": "59 (AK40-10 peak 4.1 N.m at R70, VERIFY)",
+   "motor_output_bearing_x": "~+10 (VERIFY on the motor)"
+  },
+  "static": {
+   "springs_total_N": 76.0,
+   "per_spring_N": 19.0,
+   "pivot_total_N": 100.6,
+   "per_pivot_N": 50.3
+  },
+  "bump": {
+   "springs_total_N": 190.1,
+   "per_spring_N": 47.5,
+   "pivot_total_N": 251.4,
+   "per_pivot_N": 125.7
+  },
+  "hub_load_split": {
+   "row_1": {
+    "outer_6804": 0.63,
+    "motor": 0.37
+   },
+   "row_2": {
+    "outer_6804": -0.17,
+    "motor": 1.17
+   },
+   "note": "the motor side takes 0.4-1.2 of the wheel load, the 6804 -0.2..0.6: the fork is loaded unevenly whatever the springs do, so its cross members carry torsion every time the rows hand over"
+  },
+  "side_hit": {
+   "roll_Nm": 1.8,
+   "yaw_Nm": 2.42,
+   "pivot_bearing_couple_N": 32.4,
+   "axial_N": 30.0,
+   "bearing_span_mm": 93.1
+  },
+  "traction": {
+   "pivot_horizontal_N": 58.6,
+   "note": "pivot level with the axle: drive torque does not load the springs"
+  }
+ }
+}

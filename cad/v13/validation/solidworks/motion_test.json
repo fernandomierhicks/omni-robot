@@ -180,8 +180,8 @@
   "pass": true
  },
  "robot": {
-  "components": 686,
-  "top": 12,
+  "components": 740,
+  "top": 13,
   "pods": 4,
   "flexible": [
    1,

@@ -1,0 +1,219 @@
+{
+ "parts": {
+  "coupon_dt_tabs": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 59.62,
+   "bbox": [
+    136.0,
+    90.0,
+    15.0
+   ],
+   "fits_bed": true
+  },
+  "coupon_dt_sockets": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 159.49,
+   "bbox": [
+    136.0,
+    90.0,
+    14.0
+   ],
+   "fits_bed": true
+  },
+  "coupon_seats": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 102.69,
+   "bbox": [
+    188.0,
+    84.0,
+    9.6
+   ],
+   "fits_bed": true
+  },
+  "coupon_pilots": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 56.42,
+   "bbox": [
+    80.0,
+    24.0,
+    30.6
+   ],
+   "fits_bed": true
+  },
+  "coupon_slots": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 48.46,
+   "bbox": [
+    88.0,
+    46.0,
+    20.6
+   ],
+   "fits_bed": true
+  },
+  "coupon_peg": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 4.32,
+   "bbox": [
+    12.0,
+    30.0,
+    12.0
+   ],
+   "fits_bed": true
+  },
+  "coupon_can": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 67.1,
+   "bbox": [
+    142.8,
+    148.8,
+    4.6
+   ],
+   "fits_bed": true
+  },
+  "coupon_gaps": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 12.41,
+   "bbox": [
+    76.0,
+    14.0,
+    12.6
+   ],
+   "fits_bed": true
+  }
+ },
+ "fits": {
+  "tabs_into_sockets_overlap_mm3": 0.0,
+  "closest_gap_at_10_mm": {
+   "want": 0.1,
+   "got": 0.1
+  },
+  "closest_gap_at_15_mm": {
+   "want": 0.15,
+   "got": 0.15
+  },
+  "closest_gap_at_20_mm": {
+   "want": 0.2,
+   "got": 0.2
+  },
+  "closest_gap_at_30_mm": {
+   "want": 0.3,
+   "got": 0.3
+  },
+  "peg_in_slot_20": {
+   "overlap_mm3": 0.0,
+   "want": 0.2,
+   "got": 0.2
+  },
+  "peg_in_slot_30": {
+   "overlap_mm3": 0.0,
+   "want": 0.3,
+   "got": 0.3
+  },
+  "peg_in_slot_40": {
+   "overlap_mm3": 0.0,
+   "want": 0.4,
+   "got": 0.4
+  },
+  "peg_in_slot_50": {
+   "overlap_mm3": 0.0,
+   "want": 0.5,
+   "got": 0.5
+  }
+ },
+ "series": {
+  "dovetail_tenon_clr": [
+   0.1,
+   0.15,
+   0.2,
+   0.3
+  ],
+  "b627": [
+   21.8,
+   21.9,
+   22.0,
+   22.1
+  ],
+  "b6804": [
+   31.9,
+   32.0,
+   32.1,
+   32.2
+  ],
+  "pilots": [
+   2.7,
+   2.8,
+   2.9,
+   3.0,
+   3.1
+  ],
+  "slots": [
+   0.2,
+   0.3,
+   0.4,
+   0.5
+  ],
+  "can": [
+   0.05,
+   0.1,
+   0.15,
+   0.2
+  ],
+  "gaps": [
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.8
+  ]
+ },
+ "print": {
+  "coupon_dt_tabs": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_dt_sockets": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_seats": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_pilots": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_slots": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_peg": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_can": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  },
+  "coupon_gaps": {
+   "up": "+z",
+   "supports": "none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are \u00d83 bridges)",
+   "why": "the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical"
+  }
+ }
+}

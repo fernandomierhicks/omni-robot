@@ -30,6 +30,7 @@ import pod as P                                                        # noqa: E
 import pod_lean as L                                                   # noqa: E402
 import wheel_motor as W                                                # noqa: E402
 from dims import *                                                     # noqa: E402,F401,F403
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                         # noqa: E402
 
 OUT = W.ROOT / 'step_export' / 'base'
@@ -54,6 +55,8 @@ COLOURS = {'plate': (0.80, 0.80, 0.78), 'spider': (0.55, 0.57, 0.60), 'bumper': 
 
 
 def colour(name):
+    if PAL.colour(name):                                               # printed parts: their filament (palette.py, Nov 13)
+        return PAL.colour(name)
     for k, v in COLOURS.items():
         if name.startswith(k):
             return v

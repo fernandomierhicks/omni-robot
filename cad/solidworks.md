@@ -743,7 +743,12 @@ Expected: volumes 12,440.7 (one hole) → 12,063.7 (four holes) → 11,435.4 mm�
 
 ## 15. Exporting STEP files (Fernando's rule, Nov 1)
 
-- **When asked to export STEP files, export only the 3D printed parts.** No fasteners (screws, nuts), no washers, no bearings, no shafts or other purchased parts, unless he names them. This applies to assemblies too: leave the hardware out of the assembly STEP.
+- **Assembly STEPs show the bearings and fasteners, in magenta (Fernando, Nov 13; replaces "printed parts only" for assemblies).** Every bearing,
+  screw, nut, washer and plunger bolt goes into an assembly STEP as a real model in magenta, not left out and not as a plain envelope: screws as
+  their library part (pan / flat head with its hex socket, cad/v14 `hardware.part_solid`), bearings as inner + outer ring with recessed shields
+  (`hardware.bearing_model`, or the vendor STEP where there is one, e.g. the 6804). Create the model when a part has none yet. The checks keep
+  their plain envelopes. Per-part **print** STEPs (`parts/`, the files that go to the slicer) stay printed parts only.
+- **When asked to export STEP files of parts to print, export only the 3D printed parts.** No fasteners (screws, nuts), no washers, no bearings, no shafts or other purchased parts, unless he names them.
 - "Only the wheel, no hub pieces" meant the printed wheel parts without the hubs: roller cores, roller treads and the bearing cartridge. Do not add the hubs, the axles or the screws that join them.
 - Put the files in `step_export/<group>/` (one folder per request group, loose parts in `parts/` when there is also an assembly). Export parts from SolidWorks (`SaveAs3(path, 0, 3, ...)` on the open part, which keeps the colours). An assembly of printed parts can be written from the exported part files at their nominal positions with build123d (`tools/human/export_wheel_step.py` does this, with labels and colours) instead of suppressing components in the live assembly.
 - Re-import each assembly STEP to check the solid count and bounding box before reporting it.
@@ -795,6 +800,12 @@ Lessons from building the v11 pod and the whole proposed robot (660 components) 
 - **Fit the 256 mm bed:** every printed part one valid solid that fits the bed (the chassis is nine parts with half-laps; the second floor is four quadrants). Check in the script, not by eye.
 - **Fasteners:** M3 thread-forming into a Ø2.8 pilot, ≥ 6 mm engagement (count it per screw, between the pilot and clearance radii, in the check), Ø3.4 through, flush counterbores for pan or flat heads, and ≥ 2.2 mm of wall between a counterbore and a bearing seat.
   A long bolt that must clamp two parts passes the first in Ø3.4 and threads the second; a bolt that holds a layered part pre-compressed threads into a Ø2.9 pilot its whole length. Drive screws from where a driver reaches: check the access from the assembled side, not just the fit.
+  **Snug fit (Fernando, Nov 13): Ø3.2 for any M3 that must sit snug in a printed part it does not thread into**, e.g. where the screw acts as a
+  shaft or steel core in a PLA sleeve, stub or spigot (the roller sleeve on its M3 x 50, the outer pivot's sleeve, the fork's axle stub, the 6804
+  retainer's spigot). Ø3.2 prints about 3.05-3.1: snug on the screw, no play. Ø3.4 stays the clearance hole where a part must slide on the screw
+  or be clamped by it; Ø2.8 / 2.9 are thread-forming pilots. (cad/v14 `dims.M3_SNUG`; the hole audit's thread probe ends at r 1.58, so a snug
+  hole does not count as thread.)
+  **Pilot size by thread length (Fernando, Nov 13):** a **long thread (over 10 mm) meant to compress or grab along its whole length** (the fork's tie bolts, a column bolt, a pin's M3 core) gets a **Ø2.9** pilot, easier to drive that far; a **short, regular thread (10 mm or less)** gets **Ø2.8** for a firmer grab. A pilot across the print layers is Ø2.9 whatever its length (round 14).
 - **Service access is a requirement:** ask whether each module (a pod, battery, computer) can be removed without taking the robot apart, and sweep the part out along its path. v11's pods could not, because every vertical screw was under the second floor; that is a finding to fix, not a note to leave.
   Members and pocket walls are clipped about 1 mm off the path a pod's parts sweep going out.
 - **Clearance to moving parts is checked in every pose** (droop / nominal / bump, both hands, the arm's planned moves): ≥ 3 mm for the chassis to anything that moves, about 4 mm for plugs and leads (section 16).
@@ -806,8 +817,18 @@ Lessons from building the v11 pod and the whole proposed robot (660 components) 
   Thread-forming pilots go along a part's print-up axis where possible; a pilot in the layer plane splits the layers when the screw wedges it.
   Otherwise use a hex nut in a slot or pocket, ideally one covered by the mating part once assembled. `cad/v12/tools/hardware.audit()` checks both per screw.
   Vendor holes are their own (check them, but they are not ours to fix). Also take mounting holes from the vendor model: the SO-101 base has four countersunk teardrop holes for M4 flat heads.
+- **Nuts, holes, countersinks and shafts (Fernando, Nov 13; general rules, applied from cad/v14).** Any place that cannot follow one of these is an exception: say so and ask Fernando to approve it before treating it as done.
+  - **No captive nuts.** A nut slot or pocket inside a part needs support that is hard to remove. Where a nut is needed, put it on an **external face** of the part in a hex recess that holds it from turning: **5.5 mm across flats, 2.5 mm deep** (an M3 nut is 5.5 x 2.4). On a vertical face, set the hex with a corner up so its roof is self-supporting. Where no external face is available, a thread-forming pilot can replace the nut, e.g. a Ø2.9 pilot across the layers (round 14).
+  - **Every hole goes through the whole part**, so that support can be pushed out: pilots, clearance holes and bores run on out of the far face (or into an open cavity), not to a blind floor. A pilot extended past the screw tip is only a hole.
+  - **Countersinks for flat heads are 0.5 mm deeper** than the nominal head (a straight bore of the head's diameter, 0.5 deep, above the cone), so the printed head ends up flush, not proud.
+  - **No dowels or special shaft hardware.** Pins and pivots are an M3 screw and printed PLA, e.g. a printed pin with an M3 threaded along its axis as the steel core; Fernando: an M3 running in PLA is strong enough. Bought bearings, washers and nuts are still fine.
+  - Tools (cad/v14 `hardware.py`): `hex_recess()` cuts the nut recess; `blind_holes()` lists every screw whose hole stops inside its printed part, and `make_through()` drills those with ≤ 20 mm of plastic left (the build scripts call it and list the rest). It sees only holes that have a screw record; check other bores by hand.
 - **Interlock structural joints (Fernando, Nov 4):** where it is easy and does not hinder assembly or removal, give split structural parts an interlock (dovetail half-laps, dovetail tabs, shiplaps) so the joint carries load, not only the screws.
   Make faces that could be one face actually one face (a pocket wall flush with the member it stands on), and round generously.
 - **Interference across everything:** check every pair of parts within a script as well as across scripts, and run SolidWorks interference detection on the whole assembly (`sw_robot.py interference`).
   v12 shipped with the hub inside all four ring edges because each check compared its parts only with the pods or the other script's parts.
-- **Every round gets a `check`** in its build script: no interference at every pose, one valid solid per part, fits the bed, every screw lands (count landed/total), clearances, overhang area. Rerun the full check after any change to a part another part depends on.
+- **Every round gets a `check`** in its build script: no interference at every pose, one valid solid per part, fits the bed, every screw lands (count landed/total), clearances, overhang area. Rerun the checks of the changed part and of the parts that depend on it.
+- **Think before running a long check (Fernando, Nov 13).** Before each long run, ask what it could find that the last run didn't: which of its inputs changed? If none did, don't run it.
+  - The long runs are `chassis.py`, `upper.py`, `harness_route.py` / `harness.py check` (minutes each), `screw_access.py` (~25 min), `pod_service.py`, `arm_sweep.py`, and SolidWorks `import` / `interference`.
+  - Copying a version forward, renaming files or moving helpers, and minor or local edits need no geometry rechecks. Run only the checks whose geometry the change reaches. Example: the cad/v14 wheel change needed `wheel_motor.py check` and `pod_lean.py check`, not the chassis, upper floor, harness, arm sweep or screw access, all unchanged from cad/v13.
+  - Say which checks you skipped and why. Run the whole set before a print or a review that relies on it, not after every change.

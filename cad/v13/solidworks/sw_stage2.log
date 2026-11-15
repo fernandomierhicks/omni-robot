@@ -90,3 +90,1532 @@
  "pass": true
 }
 exit 0
+===== Wed Nov 11 12:47:51 PST 2026 harness regen
+##### import
+== import
+  bracket_battery_tray  (print bed: +z up)
+  bracket_power_box
+  bracket_power_shelf
+  bumper_q0  (print bed: +z up)
+  bumper_q1  (print bed: +z up)
+  bumper_q2  (print bed: +z up)
+  bumper_q3  (print bed: +z up)
+  conv_12v
+  conv_19v
+  conv_5v
+  deck_bin  (print bed: +z up)
+  ear_mcu_0
+  ear_mcu_1
+  ear_mcu_2
+  ear_mcu_3
+  floor2_FL  (print bed: -z up)
+  floor2_FR  (print bed: -z up)
+  floor2_RL  (print bed: -z up)
+  floor2_RR  (print bed: -z up)
+  fst_M3x80_pan
+  harness_lead_5V
+  harness_lead_ARM12
+  harness_lead_battery_balance
+  harness_lead_battery_xt90
+  harness_lead_CAN_FL
+  harness_lead_CAN_FR
+  harness_lead_CAN_RL
+  harness_lead_CAN_RR
+  harness_lead_D435
+  harness_lead_ESTOP
+  harness_lead_HDMI
+  harness_lead_IMU
+  harness_lead_LIDAR
+  harness_lead_LIDARUSB
+  harness_lead_M_FL
+  harness_lead_M_FR
+  harness_lead_M_RL
+  harness_lead_M_RR
+  harness_lead_MIC
+  harness_lead_pb_xt90
+  harness_lead_PC19
+  harness_lead_SO101
+  harness_lead_SWITCH
+  harness_lead_TEENSY
+  harness_lidar_adapter
+  harness_plug_battery_balance
+  harness_plug_disp_hdmi
+  harness_plug_disp_pwr
+  harness_plug_lidar
+  harness_plug_lidar_ad_in
+  harness_plug_lidar_ad_usb
+  harness_plug_mcu_can1
+  harness_plug_mcu_can2
+  harness_plug_mcu_can3
+  harness_plug_mcu_can4
+  harness_plug_mcu_imu
+  harness_plug_mcu_spare_can3
+  harness_plug_mcu_spare_i2c
+  harness_plug_mcu_spare_io
+  harness_plug_mcu_spare_uart
+  harness_plug_mic_usb
+  harness_plug_pb_5v_face
+  harness_plug_pb_arm
+  harness_plug_pb_estop
+  harness_plug_pb_m1
+  harness_plug_pb_m2
+  harness_plug_pb_m3
+  harness_plug_pb_m4
+  harness_plug_pb_spare_5v
+  harness_plug_pb_spare_bat
+  harness_plug_pb_switch
+  harness_plug_pc_hdmi
+  harness_plug_pc_usbc
+  harness_plug_sa_dc
+  harness_plug_xt90_pair
+  hub  (print bed: +z up)
+  label_conv_12v
+  label_conv_19v
+  label_conv_5v
+  label_mcu
+  label_power
+  mcu
+  node_back  (print bed: +z up)
+  node_front  (print bed: +z up)
+  node_left  (print bed: +z up)
+  node_right  (print bed: +z up)
+  plug_mcu_0
+  post_mcu_0  (print bed: +z up)
+  post_mcu_1  (print bed: +z up)
+  post_mcu_2  (print bed: +z up)
+  post_mcu_3  (print bed: +z up)
+  post_power_low_0  (print bed: +z up)
+  post_power_low_1  (print bed: +z up)
+  post_power_low_2  (print bed: +z up)
+  post_power_low_3  (print bed: +z up)
+  power
+  support_side_L  (print bed: -z up)
+  support_side_R  (print bed: -z up)
+##### group_frame
+== group_frame
+   {"components": 5, "mates": 0, "mate_errors": []}
+##### group_mounts
+== group_mounts
+   {"components": 6, "mates": 0, "mate_errors": []}
+##### group_bumper
+== group_bumper
+   {"components": 4, "mates": 0, "mate_errors": []}
+##### group_upper
+== group_upper
+   {"components": 38, "mates": 0, "mate_errors": []}
+##### group_electronics
+== group_electronics
+   {"components": 39, "mates": 0, "mate_errors": []}
+##### group_fasteners
+== group_fasteners
+   {"components": 168, "mates": 0, "mate_errors": []}
+##### group_harness
+== group_harness
+FAILED group_harness
+exit 1
+===== Wed Nov 11 14:39:29 PST 2026 harness retry
+##### group_harness
+== group_harness
+    [1/55] harness_lead_5V
+    [2/55] harness_lead_ARM12
+    [3/55] harness_lead_CAN_FL
+    [4/55] harness_lead_CAN_FR
+    [5/55] harness_lead_CAN_RL
+    [6/55] harness_lead_CAN_RR
+    [7/55] harness_lead_D435
+    [8/55] harness_lead_ESTOP
+    [9/55] harness_lead_HDMI
+    [10/55] harness_lead_IMU
+    [11/55] harness_lead_LIDAR
+    [12/55] harness_lead_LIDARUSB
+    [13/55] harness_lead_MIC
+    [14/55] harness_lead_M_FL
+    [15/55] harness_lead_M_FR
+    [16/55] harness_lead_M_RL
+    [17/55] harness_lead_M_RR
+    [18/55] harness_lead_PC19
+    [19/55] harness_lead_SO101
+    [20/55] harness_lead_SWITCH
+    [21/55] harness_lead_TEENSY
+    [22/55] harness_lead_battery_balance
+    [23/55] harness_lead_battery_xt90
+    [24/55] harness_lead_pb_xt90
+    [25/55] harness_lidar_adapter
+    [26/55] harness_plug_battery_balance
+    [27/55] harness_plug_disp_hdmi
+    [28/55] harness_plug_disp_pwr
+    [29/55] harness_plug_lidar
+    [30/55] harness_plug_lidar_ad_in
+    [31/55] harness_plug_lidar_ad_usb
+    [32/55] harness_plug_mcu_can1
+    [33/55] harness_plug_mcu_can2
+    [34/55] harness_plug_mcu_can3
+    [35/55] harness_plug_mcu_can4
+    [36/55] harness_plug_mcu_imu
+    [37/55] harness_plug_mcu_spare_can3
+    [38/55] harness_plug_mcu_spare_i2c
+    [39/55] harness_plug_mcu_spare_io
+    [40/55] harness_plug_mcu_spare_uart
+    [41/55] harness_plug_mic_usb
+    [42/55] harness_plug_pb_5v_face
+    [43/55] harness_plug_pb_arm
+Traceback (most recent call last):
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 583, in <module>
+    main()
+    ~~~~^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 575, in main
+    stage_groups(sw, st[6:])
+    ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 299, in stage_groups
+    fixed_asm(sw, g, [(k, part(stem), np.array(T)) for k, stem, T in items] + extra)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 179, in fixed_asm
+    a.add(key, path, pose, fixed=True)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 114, in add
+    open_doc(self.sw, path, kind)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 49, in open_doc
+    d, e, w = sw.OpenDoc6(str(path), kind, 1, '', 0, 0)
+              ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ferna\AppData\Local\Temp\gen_py\3.13\83A33D31-27C5-11CE-BFD4-00400513BB57x0x31x0.py", line 59676, in OpenDoc6
+    return self._ApplyTypes_(167, 1, (9, 0), ((8, 1), (3, 1), (3, 1), (8, 1), (16387, 3), (16387, 3)), 'OpenDoc6', '{B90793FB-EF3D-4B80-A5C4-99959CDB6CEB}',FileName
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	, Type, Options, Configuration, Errors, Warnings
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	)
+     ^
+  File "C:\Users\ferna\cadenv\Lib\site-packages\win32com\client\__init__.py", line 581, in _ApplyTypes_
+    self._oleobj_.InvokeTypes(dispid, 0, wFlags, retType, argTypes, *args),
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147023170, 'The remote procedure call failed.', None, None)
+FAILED group_harness
+exit 1
+===== Wed Nov 11 14:40:54 PST 2026 harness retry 2 (fresh SolidWorks)
+##### group_harness
+== group_harness
+    [1/55] harness_lead_5V
+    [2/55] harness_lead_ARM12
+    [3/55] harness_lead_CAN_FL
+    [4/55] harness_lead_CAN_FR
+    [5/55] harness_lead_CAN_RL
+    [6/55] harness_lead_CAN_RR
+    [7/55] harness_lead_D435
+    [8/55] harness_lead_ESTOP
+    [9/55] harness_lead_HDMI
+    [10/55] harness_lead_IMU
+    [11/55] harness_lead_LIDAR
+    [12/55] harness_lead_LIDARUSB
+    [13/55] harness_lead_MIC
+    [14/55] harness_lead_M_FL
+    [15/55] harness_lead_M_FR
+    [16/55] harness_lead_M_RL
+    [17/55] harness_lead_M_RR
+    [18/55] harness_lead_PC19
+    [19/55] harness_lead_SO101
+    [20/55] harness_lead_SWITCH
+    [21/55] harness_lead_TEENSY
+    [22/55] harness_lead_battery_balance
+    [23/55] harness_lead_battery_xt90
+    [24/55] harness_lead_pb_xt90
+    [25/55] harness_lidar_adapter
+    [26/55] harness_plug_battery_balance
+    [27/55] harness_plug_disp_hdmi
+    [28/55] harness_plug_disp_pwr
+    [29/55] harness_plug_lidar
+    [30/55] harness_plug_lidar_ad_in
+    [31/55] harness_plug_lidar_ad_usb
+    [32/55] harness_plug_mcu_can1
+    [33/55] harness_plug_mcu_can2
+    [34/55] harness_plug_mcu_can3
+    [35/55] harness_plug_mcu_can4
+    [36/55] harness_plug_mcu_imu
+    [37/55] harness_plug_mcu_spare_can3
+    [38/55] harness_plug_mcu_spare_i2c
+    [39/55] harness_plug_mcu_spare_io
+    [40/55] harness_plug_mcu_spare_uart
+    [41/55] harness_plug_mic_usb
+    [42/55] harness_plug_pb_5v_face
+    [43/55] harness_plug_pb_arm
+    [44/55] harness_plug_pb_estop
+    [45/55] harness_plug_pb_m1
+    [46/55] harness_plug_pb_m2
+    [47/55] harness_plug_pb_m3
+Traceback (most recent call last):
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 583, in <module>
+    main()
+    ~~~~^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 575, in main
+    stage_groups(sw, st[6:])
+    ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 299, in stage_groups
+    fixed_asm(sw, g, [(k, part(stem), np.array(T)) for k, stem, T in items] + extra)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 179, in fixed_asm
+    a.add(key, path, pose, fixed=True)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 114, in add
+    open_doc(self.sw, path, kind)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 51, in open_doc
+    raise RuntimeError(f'cannot open {path} ({e}/{w})')
+RuntimeError: cannot open C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\solidworks\parts\V13_harness_plug_pb_m3.SLDPRT (4194304/0)
+FAILED group_harness
+exit 1
+===== Wed Nov 11 14:42:48 PST 2026 harness retry 3 (memory trace)
+##### group_harness
+== group_harness
+    [1/55] harness_lead_5V  (SolidWorks 2.1 GB)
+    [2/55] harness_lead_ARM12  (SolidWorks 2.6 GB)
+    [3/55] harness_lead_CAN_FL  (SolidWorks 3.0 GB)
+    [4/55] harness_lead_CAN_FR  (SolidWorks 3.4 GB)
+    [5/55] harness_lead_CAN_RL  (SolidWorks 3.8 GB)
+    [6/55] harness_lead_CAN_RR  (SolidWorks 4.2 GB)
+    [7/55] harness_lead_D435  (SolidWorks 4.6 GB)
+    [8/55] harness_lead_ESTOP  (SolidWorks 5.1 GB)
+    [9/55] harness_lead_HDMI  (SolidWorks 5.5 GB)
+    [10/55] harness_lead_IMU  (SolidWorks 5.9 GB)
+    [11/55] harness_lead_LIDAR  (SolidWorks 6.3 GB)
+    [12/55] harness_lead_LIDARUSB  (SolidWorks 6.7 GB)
+    [13/55] harness_lead_MIC  (SolidWorks 7.2 GB)
+    [14/55] harness_lead_M_FL  (SolidWorks 7.6 GB)
+    [15/55] harness_lead_M_FR  (SolidWorks 8.0 GB)
+    [16/55] harness_lead_M_RL  (SolidWorks 8.5 GB)
+    [17/55] harness_lead_M_RR  (SolidWorks 8.9 GB)
+    [18/55] harness_lead_PC19  (SolidWorks 9.3 GB)
+    [19/55] harness_lead_SO101  (SolidWorks 9.7 GB)
+    [20/55] harness_lead_SWITCH  (SolidWorks 10.1 GB)
+    [21/55] harness_lead_TEENSY  (SolidWorks 10.6 GB)
+    [22/55] harness_lead_battery_balance  (SolidWorks 11.0 GB)
+    [23/55] harness_lead_battery_xt90  (SolidWorks 11.4 GB)
+    [24/55] harness_lead_pb_xt90  (SolidWorks 11.8 GB)
+    [25/55] harness_lidar_adapter  (SolidWorks 12.2 GB)
+    [26/55] harness_plug_battery_balance  (SolidWorks 12.7 GB)
+    [27/55] harness_plug_disp_hdmi  (SolidWorks 13.1 GB)
+    [28/55] harness_plug_disp_pwr  (SolidWorks 13.5 GB)
+    [29/55] harness_plug_lidar  (SolidWorks 13.9 GB)
+    [30/55] harness_plug_lidar_ad_in  (SolidWorks 14.3 GB)
+    [31/55] harness_plug_lidar_ad_usb  (SolidWorks 14.7 GB)
+    [32/55] harness_plug_mcu_can1  (SolidWorks 15.1 GB)
+    [33/55] harness_plug_mcu_can2  (SolidWorks 15.6 GB)
+    [34/55] harness_plug_mcu_can3  (SolidWorks 16.0 GB)
+    [35/55] harness_plug_mcu_can4  (SolidWorks 16.4 GB)
+    [36/55] harness_plug_mcu_imu  (SolidWorks 16.8 GB)
+    [37/55] harness_plug_mcu_spare_can3  (SolidWorks 17.2 GB)
+    [38/55] harness_plug_mcu_spare_i2c  (SolidWorks 17.6 GB)
+    [39/55] harness_plug_mcu_spare_io  (SolidWorks 18.1 GB)
+    [40/55] harness_plug_mcu_spare_uart  (SolidWorks 18.5 GB)
+    [41/55] harness_plug_mic_usb  (SolidWorks 18.9 GB)
+    [42/55] harness_plug_pb_5v_face  (SolidWorks 19.3 GB)
+    [43/55] harness_plug_pb_arm  (SolidWorks 19.7 GB)
+    [44/55] harness_plug_pb_estop  (SolidWorks 20.1 GB)
+    [45/55] harness_plug_pb_m1  (SolidWorks 20.5 GB)
+    [46/55] harness_plug_pb_m2  (SolidWorks 20.9 GB)
+    [47/55] harness_plug_pb_m3  (SolidWorks 21.3 GB)
+Traceback (most recent call last):
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 593, in <module>
+    main()
+    ~~~~^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 585, in main
+    stage_groups(sw, st[6:])
+    ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 309, in stage_groups
+    fixed_asm(sw, g, [(k, part(stem), np.array(T)) for k, stem, T in items] + extra)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 189, in fixed_asm
+    a.add(key, path, pose, fixed=True)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 114, in add
+    open_doc(self.sw, path, kind)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\subasm.py", line 51, in open_doc
+    raise RuntimeError(f'cannot open {path} ({e}/{w})')
+RuntimeError: cannot open C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\solidworks\parts\V13_harness_plug_pb_m3.SLDPRT (4194304/0)
+FAILED group_harness
+exit 1
+===== Wed Nov 11 14:45:17 PST 2026 harness retry 4 (close part windows)
+##### group_harness
+== group_harness
+    [1/55] harness_lead_5V  (SolidWorks 2.2 GB)
+    [2/55] harness_lead_ARM12  (SolidWorks 2.2 GB)
+    [3/55] harness_lead_CAN_FL  (SolidWorks 2.3 GB)
+    [4/55] harness_lead_CAN_FR  (SolidWorks 2.3 GB)
+    [5/55] harness_lead_CAN_RL  (SolidWorks 2.3 GB)
+    [6/55] harness_lead_CAN_RR  (SolidWorks 2.4 GB)
+    [7/55] harness_lead_D435  (SolidWorks 2.4 GB)
+    [8/55] harness_lead_ESTOP  (SolidWorks 2.5 GB)
+    [9/55] harness_lead_HDMI  (SolidWorks 2.5 GB)
+    [10/55] harness_lead_IMU  (SolidWorks 2.6 GB)
+    [11/55] harness_lead_LIDAR  (SolidWorks 2.6 GB)
+    [12/55] harness_lead_LIDARUSB  (SolidWorks 2.6 GB)
+    [13/55] harness_lead_MIC  (SolidWorks 2.6 GB)
+    [14/55] harness_lead_M_FL  (SolidWorks 2.7 GB)
+    [15/55] harness_lead_M_FR  (SolidWorks 2.7 GB)
+    [16/55] harness_lead_M_RL  (SolidWorks 2.7 GB)
+    [17/55] harness_lead_M_RR  (SolidWorks 2.8 GB)
+    [18/55] harness_lead_PC19  (SolidWorks 2.9 GB)
+    [19/55] harness_lead_SO101  (SolidWorks 2.9 GB)
+    [20/55] harness_lead_SWITCH  (SolidWorks 2.9 GB)
+    [21/55] harness_lead_TEENSY  (SolidWorks 3.0 GB)
+    [22/55] harness_lead_battery_balance  (SolidWorks 3.0 GB)
+    [23/55] harness_lead_battery_xt90  (SolidWorks 3.0 GB)
+    [24/55] harness_lead_pb_xt90  (SolidWorks 3.1 GB)
+    [25/55] harness_lidar_adapter  (SolidWorks 3.1 GB)
+    [26/55] harness_plug_battery_balance  (SolidWorks 3.1 GB)
+    [27/55] harness_plug_disp_hdmi  (SolidWorks 3.2 GB)
+    [28/55] harness_plug_disp_pwr  (SolidWorks 3.2 GB)
+    [29/55] harness_plug_lidar  (SolidWorks 3.2 GB)
+    [30/55] harness_plug_lidar_ad_in  (SolidWorks 3.2 GB)
+    [31/55] harness_plug_lidar_ad_usb  (SolidWorks 3.3 GB)
+    [32/55] harness_plug_mcu_can1  (SolidWorks 3.3 GB)
+    [33/55] harness_plug_mcu_can2  (SolidWorks 3.3 GB)
+    [34/55] harness_plug_mcu_can3  (SolidWorks 3.4 GB)
+    [35/55] harness_plug_mcu_can4  (SolidWorks 3.4 GB)
+    [36/55] harness_plug_mcu_imu  (SolidWorks 3.4 GB)
+    [37/55] harness_plug_mcu_spare_can3  (SolidWorks 3.4 GB)
+    [38/55] harness_plug_mcu_spare_i2c  (SolidWorks 3.5 GB)
+    [39/55] harness_plug_mcu_spare_io  (SolidWorks 3.5 GB)
+    [40/55] harness_plug_mcu_spare_uart  (SolidWorks 3.5 GB)
+    [41/55] harness_plug_mic_usb  (SolidWorks 3.6 GB)
+    [42/55] harness_plug_pb_5v_face  (SolidWorks 3.6 GB)
+    [43/55] harness_plug_pb_arm  (SolidWorks 3.6 GB)
+    [44/55] harness_plug_pb_estop  (SolidWorks 3.7 GB)
+    [45/55] harness_plug_pb_m1  (SolidWorks 3.7 GB)
+    [46/55] harness_plug_pb_m2  (SolidWorks 3.7 GB)
+    [47/55] harness_plug_pb_m3  (SolidWorks 3.7 GB)
+    [48/55] harness_plug_pb_m4  (SolidWorks 3.8 GB)
+    [49/55] harness_plug_pb_spare_5v  (SolidWorks 3.8 GB)
+    [50/55] harness_plug_pb_spare_bat  (SolidWorks 3.8 GB)
+    [51/55] harness_plug_pb_switch  (SolidWorks 3.8 GB)
+    [52/55] harness_plug_pc_hdmi  (SolidWorks 3.9 GB)
+    [53/55] harness_plug_pc_usbc  (SolidWorks 3.9 GB)
+    [54/55] harness_plug_sa_dc  (SolidWorks 3.9 GB)
+    [55/55] harness_plug_xt90_pair  (SolidWorks 3.9 GB)
+   {"components": 55, "mates": 0, "mate_errors": []}
+exit 0
+===== Wed Nov 11 14:46:21 PST 2026 robot + checks after harness
+##### robot
+== robot
+   {"components": 740, "mates": 0, "mate_errors": []}
+##### test
+== test
+  right droop {'axle_yz': [0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right bump {'axle_yz': [1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right past bump {'axle_yz': [1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  right past droop {'axle_yz': [0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+  _m droop {'axle_yz': [-0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m bump {'axle_yz': [-1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m past bump {'axle_yz': [-1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  _m past droop {'axle_yz': [-0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+{"components": 740, "top": 13, "pods": 4, "flexible": [1, 1, 1, 1], "pod_origins_match": true, "axle_offset_mm": [0.0, 0.0, 0.0, 0.0], "mate_errors": [], "pass": true} 
+  pass
+##### paths
+== paths
+{
+ "components": 740,
+ "top_level": 13,
+ "files": 263,
+ "file_kinds": {
+  ".SLDASM": 21,
+  ".SLDPRT": 242
+ },
+ "outside_v13": [],
+ "suppressed": 0,
+ "lightweight": 736,
+ "hidden": 0,
+ "pass": true
+}
+##### interference
+== interference
+{
+ "seconds": 23,
+ "interferences": 1627,
+ "part_part": [
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_M_RR-1",
+    "V13_harness-1/V13_harness_plug_pb_m1-1"
+   ],
+   "files": [
+    "harness_lead_M_RR",
+    "harness_plug_pb_m1"
+   ],
+   "mm3": 99.996
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_M_FR-1",
+    "V13_harness-1/V13_harness_plug_pb_m2-1"
+   ],
+   "files": [
+    "harness_lead_M_FR",
+    "harness_plug_pb_m2"
+   ],
+   "mm3": 99.996
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_SO101-1",
+    "V13_electronics-1/V13_plug_servo_adapter_0-1"
+   ],
+   "files": [
+    "harness_lead_SO101",
+    "plug_servo_adapter_0"
+   ],
+   "mm3": 65.45
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_M_RL-1",
+    "V13_harness-1/V13_harness_plug_pb_m3-1"
+   ],
+   "files": [
+    "harness_lead_M_RL",
+    "harness_plug_pb_m3"
+   ],
+   "mm3": 51.37
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_HDMI-1",
+    "V13_harness-1/V13_harness_plug_pc_hdmi-1"
+   ],
+   "files": [
+    "harness_lead_HDMI",
+    "harness_plug_pc_hdmi"
+   ],
+   "mm3": 46.72
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_SO101-1",
+    "V13_electronics-1/V13_plug_servo_adapter_0-1"
+   ],
+   "files": [
+    "harness_lead_SO101",
+    "plug_servo_adapter_0"
+   ],
+   "mm3": 32.134
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_SO101-1",
+    "V13_electronics-1/V13_plug_computer_1-1"
+   ],
+   "files": [
+    "harness_lead_SO101",
+    "plug_computer_1"
+   ],
+   "mm3": 30.254
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_PC19-1",
+    "V13_electronics-1/V13_plug_computer_4-1"
+   ],
+   "files": [
+    "harness_lead_PC19",
+    "plug_computer_4"
+   ],
+   "mm3": 29.535
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_ARM12-1",
+    "V13_harness-1/V13_harness_plug_pb_arm-1"
+   ],
+   "files": [
+    "harness_lead_ARM12",
+    "harness_plug_pb_arm"
+   ],
+   "mm3": 28.809
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_D435-1",
+    "V13_electronics-1/V13_plug_computer_0-1"
+   ],
+   "files": [
+    "harness_lead_D435",
+    "plug_computer_0"
+   ],
+   "mm3": 24.982
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_PC19-1",
+    "V13_electronics-1/V13_plug_computer_4-1"
+   ],
+   "files": [
+    "harness_lead_PC19",
+    "plug_computer_4"
+   ],
+   "mm3": 23.025
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_IMU-1",
+    "V13_electronics-1/V13_plug_imu-1"
+   ],
+   "files": [
+    "harness_lead_IMU",
+    "plug_imu"
+   ],
+   "mm3": 22.849
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_SO101-1",
+    "V13_electronics-1/V13_plug_computer_1-1"
+   ],
+   "files": [
+    "harness_lead_SO101",
+    "plug_computer_1"
+   ],
+   "mm3": 18.889
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_ESTOP-1",
+    "V13_harness-1/V13_harness_plug_pb_estop-1"
+   ],
+   "files": [
+    "harness_lead_ESTOP",
+    "harness_plug_pb_estop"
+   ],
+   "mm3": 16.832
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_PC19-1",
+    "V13_electronics-1/V13_plug_computer_4-1"
+   ],
+   "files": [
+    "harness_lead_PC19",
+    "plug_computer_4"
+   ],
+   "mm3": 16.648
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_D435-1",
+    "V13_electronics-1/V13_plug_d435-1"
+   ],
+   "files": [
+    "harness_lead_D435",
+    "plug_d435"
+   ],
+   "mm3": 15.952
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_IMU-1",
+    "V13_electronics-1/V13_plug_imu-1"
+   ],
+   "files": [
+    "harness_lead_IMU",
+    "plug_imu"
+   ],
+   "mm3": 14.455
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_SO101-1",
+    "V13_electronics-1/V13_plug_servo_adapter_0-1"
+   ],
+   "files": [
+    "harness_lead_SO101",
+    "plug_servo_adapter_0"
+   ],
+   "mm3": 14.075
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_D435-1",
+    "V13_electronics-1/V13_plug_computer_0-1"
+   ],
+   "files": [
+    "harness_lead_D435",
+    "plug_computer_0"
+   ],
+   "mm3": 14.048
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_LIDARUSB-1",
+    "V13_electronics-1/V13_plug_computer_3-1"
+   ],
+   "files": [
+    "harness_lead_LIDARUSB",
+    "plug_computer_3"
+   ],
+   "mm3": 14.025
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_TEENSY-1",
+    "V13_electronics-1/V13_plug_computer_2-1"
+   ],
+   "files": [
+    "harness_lead_TEENSY",
+    "plug_computer_2"
+   ],
+   "mm3": 14.025
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_TEENSY-1",
+    "V13_electronics-1/V13_plug_mcu_0-1"
+   ],
+   "files": [
+    "harness_lead_TEENSY",
+    "plug_mcu_0"
+   ],
+   "mm3": 14.025
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_TEENSY-1",
+    "V13_electronics-1/V13_plug_mcu_0-1"
+   ],
+   "files": [
+    "harness_lead_TEENSY",
+    "plug_mcu_0"
+   ],
+   "mm3": 12.05
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_CAN_RR-1",
+    "V13_harness-1/V13_harness_plug_mcu_can1-1"
+   ],
+   "files": [
+    "harness_lead_CAN_RR",
+    "harness_plug_mcu_can1"
+   ],
+   "mm3": 11.319
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_CAN_RR-1",
+    "V13_harness-1/V13_harness_plug_mcu_can1-1"
+   ],
+   "files": [
+    "harness_lead_CAN_RR",
+    "harness_plug_mcu_can1"
+   ],
+   "mm3": 11.248
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_LIDARUSB-1",
+    "V13_electronics-1/V13_plug_computer_3-1"
+   ],
+   "files": [
+    "harness_lead_LIDARUSB",
+    "plug_computer_3"
+   ],
+   "mm3": 11.175
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_D435-1",
+    "V13_electronics-1/V13_plug_d435-1"
+   ],
+   "files": [
+    "harness_lead_D435",
+    "plug_d435"
+   ],
+   "mm3": 11.175
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harness_lead_PC19-1",
+    "V13_electronics-1/V13_plug_computer_4-1"
+   ],
+   "files": [
+    "harness_lead_PC19",
+    "plug_computer_4"
+   ],
+   "mm3": 11.063
+  },
+  {
+   "components": [
+    "V13_harness-1/V13_harn
+exit 0
+===== Wed Nov 11 15:03:00 PST 2026 power box head holes + own-plug rule
+##### import
+== import
+  bracket_power_box
+  conv_19v
+  conv_5v
+  label_conv_19v
+  label_conv_5v
+##### group_upper
+== group_upper
+    [1/38] bracket_battery_tray  (SolidWorks 5.8 GB)
+    [2/38] bracket_computer_0  (SolidWorks 5.9 GB)
+    [3/38] bracket_computer_1  (SolidWorks 5.9 GB)
+    [4/38] bracket_computer_2  (SolidWorks 5.9 GB)
+    [5/38] bracket_computer_3  (SolidWorks 5.9 GB)
+    [6/38] bracket_d435_riser  (SolidWorks 5.9 GB)
+    [7/38] bracket_imu  (SolidWorks 5.9 GB)
+    [8/38] bracket_power_box  (SolidWorks 6.0 GB)
+    [9/38] bracket_power_shelf  (SolidWorks 5.9 GB)
+    [10/38] bracket_servo_adapter  (SolidWorks 6.0 GB)
+    [11/38] deck_bin  (SolidWorks 6.0 GB)
+    [12/38] floor2_FL  (SolidWorks 6.0 GB)
+    [13/38] floor2_FR  (SolidWorks 6.1 GB)
+    [14/38] floor2_RL  (SolidWorks 6.1 GB)
+    [15/38] floor2_RR  (SolidWorks 6.1 GB)
+    [16/38] housing_estop  (SolidWorks 6.1 GB)
+    [17/38] housing_face  (SolidWorks 6.2 GB)
+    [18/38] housing_face_crown  (SolidWorks 6.2 GB)
+    [19/38] housing_speaker_cover  (SolidWorks 6.2 GB)
+    [20/38] housing_switch  (SolidWorks 6.2 GB)
+    [21/38] post_deck_0  (SolidWorks 6.2 GB)
+    [22/38] post_deck_1  (SolidWorks 6.3 GB)
+    [23/38] post_deck_2  (SolidWorks 6.3 GB)
+    [24/38] post_deck_3  (SolidWorks 6.3 GB)
+    [25/38] post_mcu_0  (SolidWorks 6.3 GB)
+    [26/38] post_mcu_1  (SolidWorks 6.3 GB)
+    [27/38] post_mcu_2  (SolidWorks 6.4 GB)
+    [28/38] post_mcu_3  (SolidWorks 6.4 GB)
+    [29/38] post_power_low_0  (SolidWorks 6.4 GB)
+    [30/38] post_power_low_1  (SolidWorks 6.4 GB)
+    [31/38] post_power_low_2  (SolidWorks 6.5 GB)
+    [32/38] post_power_low_3  (SolidWorks 6.5 GB)
+    [33/38] riser_adapter  (SolidWorks 6.5 GB)
+    [34/38] riser_arm  (SolidWorks 6.5 GB)
+    [35/38] spacer_servo_adapter_0  (SolidWorks 6.5 GB)
+    [36/38] spacer_servo_adapter_1  (SolidWorks 6.6 GB)
+    [37/38] spacer_servo_adapter_2  (SolidWorks 6.6 GB)
+    [38/38] spacer_servo_adapter_3  (SolidWorks 6.6 GB)
+   {"components": 38, "mates": 0, "mate_errors": []}
+##### group_electronics
+== group_electronics
+    [1/39] battery  (SolidWorks 6.6 GB)
+    [2/39] computer  (SolidWorks 6.7 GB)
+    [3/39] conv_12v  (SolidWorks 6.7 GB)
+    [4/39] conv_19v  (SolidWorks 6.7 GB)
+    [5/39] conv_5v  (SolidWorks 6.7 GB)
+    [6/39] d435  (SolidWorks 6.7 GB)
+    [7/39] ear_mcu_0  (SolidWorks 6.7 GB)
+    [8/39] ear_mcu_1  (SolidWorks 6.8 GB)
+    [9/39] ear_mcu_2  (SolidWorks 6.8 GB)
+    [10/39] ear_mcu_3  (SolidWorks 6.8 GB)
+    [11/39] estop  (SolidWorks 6.8 GB)
+    [12/39] label_battery  (SolidWorks 6.8 GB)
+    [13/39] label_computer  (SolidWorks 6.9 GB)
+    [14/39] label_conv_12v  (SolidWorks 6.9 GB)
+    [15/39] label_conv_19v  (SolidWorks 6.9 GB)
+    [16/39] label_conv_5v  (SolidWorks 6.9 GB)
+    [17/39] label_estop  (SolidWorks 7.0 GB)
+    [18/39] label_mcu  (SolidWorks 7.0 GB)
+    [19/39] label_power  (SolidWorks 7.0 GB)
+    [20/39] label_servo_adapter  (SolidWorks 7.0 GB)
+    [21/39] mcu  (SolidWorks 7.0 GB)
+    [22/39] plug_computer_0  (SolidWorks 7.1 GB)
+    [23/39] plug_computer_1  (SolidWorks 7.1 GB)
+    [24/39] plug_computer_2  (SolidWorks 7.1 GB)
+    [25/39] plug_computer_3  (SolidWorks 7.1 GB)
+    [26/39] plug_computer_4  (SolidWorks 7.2 GB)
+    [27/39] plug_d435  (SolidWorks 7.2 GB)
+    [28/39] plug_imu  (SolidWorks 7.2 GB)
+    [29/39] plug_mcu_0  (SolidWorks 7.3 GB)
+    [30/39] plug_servo_adapter_0  (SolidWorks 7.3 GB)
+    [31/39] power  (SolidWorks 7.3 GB)
+    [32/39] servo_adapter  (SolidWorks 7.3 GB)
+    [33/39] strap_battery  (SolidWorks 7.3 GB)
+    [34/39] switch  (SolidWorks 7.3 GB)
+    [35/39] bin  (SolidWorks 7.3 GB)
+    [36/39] display  (SolidWorks 7.4 GB)
+    [37/39] mic_array  (SolidWorks 7.4 GB)
+    [38/39] speaker  (SolidWorks 7.4 GB)
+    [39/39] imu_bno085  (SolidWorks 7.4 GB)
+   {"components": 39, "mates": 0, "mate_errors": []}
+##### robot
+== robot
+   {"components": 740, "mates": 0, "mate_errors": []}
+##### test
+== test
+  right droop {'axle_yz': [0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right bump {'axle_yz': [1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right past bump {'axle_yz': [1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  right past droop {'axle_yz': [0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+  _m droop {'axle_yz': [-0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m bump {'axle_yz': [-1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m past bump {'axle_yz': [-1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  _m past droop {'axle_yz': [-0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+{"components": 740, "top": 13, "pods": 4, "flexible": [1, 1, 1, 1], "pod_origins_match": true, "axle_offset_mm": [0.0, 0.0, 0.0, 0.0], "mate_errors": [], "pass": true} 
+  pass
+##### paths
+== paths
+{
+ "components": 740,
+ "top_level": 13,
+ "files": 263,
+ "file_kinds": {
+  ".SLDASM": 21,
+  ".SLDPRT": 242
+ },
+ "outside_v13": [],
+ "suppressed": 0,
+ "lightweight": 736,
+ "hidden": 0,
+ "pass": true
+}
+##### interference
+== interference
+{
+ "seconds": 22,
+ "interferences": 1623,
+ "part_part": [],
+ "vendor_internal_count": 1282,
+ "harness_bundled_count": 1092,
+ "harness_lead_into_own_plug_count": 154,
+ "fastener_over_thread": [],
+ "threads": 341,
+ "d435_fov_rows": [
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_reference-1/V13_env_d435_fov_rgb-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "env_d435_fov_rgb"
+   ],
+   "mm3": 43965630.865
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 17.021
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 8.244
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.484
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 0.104
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  }
+ ],
+ "note": "fastener rows under 10 mm3 are screws thread-formed into their pilots",
+ "pass": true
+}
+exit 0
+##### Fri Nov 13 12:11:22 PST 2026 colour rebuild (Nov 13 filament scheme)
+##### import
+== import
+  arm_Base_motor_holder_SO101
+  arm_Base_SO101
+  arm_Motor_holder_SO101_Base
+  arm_Motor_holder_SO101_Wrist
+  arm_Moving_Jaw_SO101
+  arm_Rotation_Pitch_SO101
+  arm_Under_arm_SO101
+  arm_Upper_arm_SO101
+  arm_WaveShare_Mounting_Plate_SO101
+  arm_Wrist_Roll_Follower_SO101
+  arm_Wrist_Roll_Pitch_SO101
+  bin  (print bed: +z up)
+  bracket_battery_tray  (print bed: +z up)
+  bracket_computer_0  (print bed: +z up)
+  bracket_computer_1  (print bed: +z up)
+  bracket_computer_2  (print bed: +z up)
+Traceback (most recent call last):
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 609, in <module>
+    main()
+    ~~~~^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 603, in main
+    globals()['stage_' + st](sw)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\sw_robot.py", line 133, in stage_import
+    d, err = sw.LoadFile4(str(step), '', sw.GetImportFileData(str(step)), 0)
+             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ferna\AppData\Local\Temp\gen_py\3.13\83A33D31-27C5-11CE-BFD4-00400513BB57x0x31x0.py", line 59596, in LoadFile4
+    return self._ApplyTypes_(227, 1, (9, 0), ((8, 1), (8, 1), (9, 1), (16387, 3)), 'LoadFile4', '{B90793FB-EF3D-4B80-A5C4-99959CDB6CEB}',FileName
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    	, ArgString, ImportData, Errors)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ferna\cadenv\Lib\site-packages\win32com\client\__init__.py", line 581, in _ApplyTypes_
+    self._oleobj_.InvokeTypes(dispid, 0, wFlags, retType, argTypes, *args),
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147023170, 'The remote procedure call failed.', None, None)
+FAILED import
+exit 1
+stale 67, this batch 22; SolidWorks before: ?
+  bracket_computer_3  (print bed: +z up)
+  bracket_d435_riser  (print bed: +z up)
+  bracket_imu  (print bed: +z up)
+  bracket_power_box
+  bracket_power_shelf
+  bracket_servo_adapter  (print bed: -x up)
+  bumper_q0  (print bed: +z up)
+  bumper_q1  (print bed: +z up)
+  bumper_q2  (print bed: +z up)
+  bumper_q3  (print bed: +z up)
+  deck_bin  (print bed: +z up)
+  floor2_FL  (print bed: -z up)
+  floor2_FR  (print bed: -z up)
+  floor2_RL  (print bed: -z up)
+  floor2_RR  (print bed: -z up)
+  housing_estop  (print bed: +z up)
+  housing_face  (print bed: +x up)
+  housing_face_crown  (print bed: +z up)
+  housing_speaker_cover  (print bed: +z up)
+  housing_switch  (print bed: +z up)
+  hub  (print bed: +z up)
+  node_back  (print bed: +z up)
+SolidWorks after: ?
+quit SolidWorks
+remaining 45
+stale 45, this batch 23; SolidWorks before: ?
+  node_front  (print bed: +z up)
+  node_left  (print bed: +z up)
+  node_right  (print bed: +z up)
+  pedestal  (print bed: +z up)
+  pod_fork_inner  (print bed: +x up)
+  pod_fork_inner_m  (print bed: +x up)
+  pod_fork_outer  (print bed: +x up)
+  pod_fork_outer_m  (print bed: +x up)
+  pod_frame_inner  (print bed: -x up)
+  pod_frame_inner_m  (print bed: -x up)
+  pod_keel_outer  (print bed: +x up)
+  pod_keel_outer_m  (print bed: +x up)
+  pod_sleeve  (print bed: +x up)
+  pod_sleeve_m  (print bed: +x up)
+  post_deck_0  (print bed: +z up)
+  post_deck_1  (print bed: +z up)
+  post_deck_2  (print bed: +z up)
+  post_deck_3  (print bed: +z up)
+  post_mcu_0  (print bed: +z up)
+  post_mcu_1  (print bed: +z up)
+  post_mcu_2  (print bed: +z up)
+  post_mcu_3  (print bed: +z up)
+  post_power_low_0  (print bed: +z up)
+SolidWorks after: ?
+quit SolidWorks
+remaining 22
+stale 22, this batch 22; SolidWorks before: ?
+  post_power_low_1  (print bed: +z up)
+  post_power_low_2  (print bed: +z up)
+  post_power_low_3  (print bed: +z up)
+  riser_adapter  (print bed: -z up)
+  riser_arm  (print bed: +z up)
+  roller_core  (print bed: +z up)
+  roller_core_m  (print bed: +z up)
+  roller_tread  (print bed: +z up)
+  roller_tread_m  (print bed: +z up)
+  spacer_servo_adapter_0  (print bed: +x up)
+  spacer_servo_adapter_1  (print bed: +x up)
+  spacer_servo_adapter_2  (print bed: +x up)
+  spacer_servo_adapter_3  (print bed: +x up)
+  support_front_L  (print bed: -z up)
+  support_front_R  (print bed: -z up)
+  support_side_L  (print bed: -z up)
+  support_side_R  (print bed: -z up)
+  support_spine  (print bed: -z up)
+  wheel_cartridge  (print bed: +x up)
+  wheel_cartridge_m  (print bed: +x up)
+  wheel_hub  (print bed: +x up)
+  wheel_hub_m  (print bed: +x up)
+SolidWorks after: ?
+quit SolidWorks
+remaining 0
+##### roller
+== roller
+    [1/2] roller_core  (SolidWorks 2.2 GB)
+    [2/2] roller_tread  (SolidWorks 2.2 GB)
+   {"components": 2, "mates": 0, "mate_errors": []}
+    [1/2] roller_core  (SolidWorks 2.0 GB)
+    [2/2] roller_tread  (SolidWorks 2.0 GB)
+   {"components": 2, "mates": 0, "mate_errors": []}
+##### wheel
+== wheel
+    [1/33] wheel_hub  (SolidWorks 2.4 GB)
+    [2/33] wheel_cartridge  (SolidWorks 2.5 GB)
+    [3/33] bearing_6804_left  (SolidWorks 2.5 GB)
+    [4/33] roller_1_1  (SolidWorks 2.5 GB)
+    [5/33] roller_1_2  (SolidWorks 2.6 GB)
+    [6/33] roller_1_3  (SolidWorks 2.6 GB)
+    [7/33] roller_1_4  (SolidWorks 2.6 GB)
+    [8/33] roller_1_5  (SolidWorks 2.6 GB)
+    [9/33] roller_1_6  (SolidWorks 2.6 GB)
+    [10/33] roller_2_1  (SolidWorks 2.6 GB)
+    [11/33] roller_2_2  (SolidWorks 2.6 GB)
+    [12/33] roller_2_3  (SolidWorks 2.6 GB)
+    [13/33] roller_2_4  (SolidWorks 2.6 GB)
+    [14/33] roller_2_5  (SolidWorks 2.6 GB)
+    [15/33] roller_2_6  (SolidWorks 2.6 GB)
+    [16/33] bolt_hub_rotor_0  (SolidWorks 2.6 GB)
+    [17/33] bolt_hub_rotor_1  (SolidWorks 2.6 GB)
+    [18/33] bolt_hub_rotor_2  (SolidWorks 2.6 GB)
+    [19/33] bolt_axle_1_1_3  (SolidWorks 2.6 GB)
+    [20/33] bolt_axle_1_2_4  (SolidWorks 2.6 GB)
+    [21/33] bolt_axle_1_3_5  (SolidWorks 2.6 GB)
+    [22/33] bolt_axle_1_4_6  (SolidWorks 2.6 GB)
+    [23/33] bolt_axle_1_5_7  (SolidWorks 2.6 GB)
+    [24/33] bolt_axle_1_6_8  (SolidWorks 2.6 GB)
+    [25/33] bolt_axle_2_1_9  (SolidWorks 2.6 GB)
+    [26/33] bolt_axle_2_2_10  (SolidWorks 2.6 GB)
+    [27/33] bolt_axle_2_3_11  (SolidWorks 2.6 GB)
+    [28/33] bolt_axle_2_4_12  (SolidWorks 2.6 GB)
+    [29/33] bolt_axle_2_5_13  (SolidWorks 2.6 GB)
+    [30/33] bolt_axle_2_6_14  (SolidWorks 2.6 GB)
+    [31/33] bolt_cartridge_15  (SolidWorks 2.6 GB)
+    [32/33] bolt_cartridge_16  (SolidWorks 2.6 GB)
+    [33/33] bolt_cartridge_17  (SolidWorks 2.6 GB)
+   {"components": 57, "mates": 0, "mate_errors": []}
+    [1/33] wheel_hub  (SolidWorks 2.7 GB)
+    [2/33] wheel_cartridge  (SolidWorks 2.8 GB)
+    [3/33] bearing_6804_left  (SolidWorks 2.8 GB)
+    [4/33] roller_1_1  (SolidWorks 2.8 GB)
+    [5/33] roller_1_2  (SolidWorks 2.9 GB)
+    [6/33] roller_1_3  (SolidWorks 2.9 GB)
+    [7/33] roller_1_4  (SolidWorks 2.9 GB)
+    [8/33] roller_1_5  (SolidWorks 2.9 GB)
+    [9/33] roller_1_6  (SolidWorks 2.9 GB)
+    [10/33] roller_2_1  (SolidWorks 2.9 GB)
+    [11/33] roller_2_2  (SolidWorks 2.9 GB)
+    [12/33] roller_2_3  (SolidWorks 2.9 GB)
+    [13/33] roller_2_4  (SolidWorks 2.9 GB)
+    [14/33] roller_2_5  (SolidWorks 2.9 GB)
+    [15/33] roller_2_6  (SolidWorks 2.9 GB)
+    [16/33] bolt_hub_rotor_0  (SolidWorks 2.9 GB)
+    [17/33] bolt_hub_rotor_1  (SolidWorks 2.9 GB)
+    [18/33] bolt_hub_rotor_2  (SolidWorks 2.9 GB)
+    [19/33] bolt_axle_1_1_3  (SolidWorks 2.9 GB)
+    [20/33] bolt_axle_1_2_4  (SolidWorks 2.9 GB)
+    [21/33] bolt_axle_1_3_5  (SolidWorks 2.9 GB)
+    [22/33] bolt_axle_1_4_6  (SolidWorks 2.9 GB)
+    [23/33] bolt_axle_1_5_7  (SolidWorks 2.9 GB)
+    [24/33] bolt_axle_1_6_8  (SolidWorks 2.9 GB)
+    [25/33] bolt_axle_2_1_9  (SolidWorks 2.9 GB)
+    [26/33] bolt_axle_2_2_10  (SolidWorks 2.9 GB)
+    [27/33] bolt_axle_2_3_11  (SolidWorks 2.9 GB)
+    [28/33] bolt_axle_2_4_12  (SolidWorks 2.9 GB)
+    [29/33] bolt_axle_2_5_13  (SolidWorks 2.9 GB)
+    [30/33] bolt_axle_2_6_14  (SolidWorks 2.9 GB)
+    [31/33] bolt_cartridge_15  (SolidWorks 2.9 GB)
+    [32/33] bolt_cartridge_16  (SolidWorks 2.9 GB)
+    [33/33] bolt_cartridge_17  (SolidWorks 2.9 GB)
+   {"components": 57, "mates": 0, "mate_errors": []}
+##### unsprung
+== unsprung
+    [1/14] pod_fork_outer  (SolidWorks 2.9 GB)
+    [2/14] pod_fork_inner  (SolidWorks 3.1 GB)
+    [3/14] bearing_627_outer  (SolidWorks 3.1 GB)
+    [4/14] bearing_627_inner  (SolidWorks 3.1 GB)
+    [5/14] wheel  (SolidWorks 3.1 GB)
+    [6/14] motor  (SolidWorks 3.2 GB)
+    [7/14] bolt_tie_outer_1_0  (SolidWorks 3.3 GB)
+    [8/14] bolt_tie_outer_2_1  (SolidWorks 3.3 GB)
+    [9/14] bolt_tie_inner_1_2  (SolidWorks 3.3 GB)
+    [10/14] bolt_tie_inner_2_3  (SolidWorks 3.3 GB)
+    [11/14] bolt_motor_rear_4  (SolidWorks 3.3 GB)
+    [12/14] bolt_motor_rear_5  (SolidWorks 3.3 GB)
+    [13/14] bolt_motor_rear_6  (SolidWorks 3.3 GB)
+    [14/14] bolt_motor_rear_7  (SolidWorks 3.3 GB)
+   {"components": 78, "mates": 0, "mate_errors": []}
+    [1/14] pod_fork_outer  (SolidWorks 3.3 GB)
+    [2/14] pod_fork_inner  (SolidWorks 3.4 GB)
+    [3/14] bearing_627_outer  (SolidWorks 3.4 GB)
+    [4/14] bearing_627_inner  (SolidWorks 3.4 GB)
+    [5/14] wheel  (SolidWorks 3.5 GB)
+    [6/14] motor  (SolidWorks 3.6 GB)
+    [7/14] bolt_tie_outer_1_0  (SolidWorks 3.7 GB)
+    [8/14] bolt_tie_outer_2_1  (SolidWorks 3.7 GB)
+    [9/14] bolt_tie_inner_1_2  (SolidWorks 3.7 GB)
+    [10/14] bolt_tie_inner_2_3  (SolidWorks 3.7 GB)
+    [11/14] bolt_motor_rear_4  (SolidWorks 3.7 GB)
+    [12/14] bolt_motor_rear_5  (SolidWorks 3.7 GB)
+    [13/14] bolt_motor_rear_6  (SolidWorks 3.7 GB)
+    [14/14] bolt_motor_rear_7  (SolidWorks 3.7 GB)
+   {"components": 78, "mates": 0, "mate_errors": []}
+##### static
+== static
+    [1/14] pod_frame_inner  (SolidWorks 3.7 GB)
+    [2/14] pod_keel_outer  (SolidWorks 3.8 GB)
+    [3/14] pod_sleeve  (SolidWorks 3.8 GB)
+    [4/14] dowel_inner  (SolidWorks 3.8 GB)
+    [5/14] washer_pivot_outer  (SolidWorks 3.8 GB)
+    [6/14] die_spring_inner_a1  (SolidWorks 3.8 GB)
+    [7/14] die_spring_inner_b1  (SolidWorks 3.9 GB)
+    [8/14] die_spring_inner_a2  (SolidWorks 3.9 GB)
+    [9/14] die_spring_inner_b2  (SolidWorks 3.9 GB)
+    [10/14] bolt_pivot_outer_0  (SolidWorks 4.0 GB)
+    [11/14] nut_pod_1  (SolidWorks 4.0 GB)
+    [12/14] nut_pod_2  (SolidWorks 4.0 GB)
+    [13/14] nut_pod_3  (SolidWorks 4.0 GB)
+    [14/14] nut_pod_4  (SolidWorks 4.0 GB)
+   {"components": 14, "mates": 0, "mate_errors": []}
+    [1/14] pod_frame_inner  (SolidWorks 4.0 GB)
+    [2/14] pod_keel_outer  (SolidWorks 4.1 GB)
+    [3/14] pod_sleeve  (SolidWorks 4.1 GB)
+    [4/14] dowel_inner  (SolidWorks 4.1 GB)
+    [5/14] washer_pivot_outer  (SolidWorks 4.1 GB)
+    [6/14] die_spring_inner_a1  (SolidWorks 4.2 GB)
+    [7/14] die_spring_inner_b1  (SolidWorks 4.2 GB)
+    [8/14] die_spring_inner_a2  (SolidWorks 4.3 GB)
+    [9/14] die_spring_inner_b2  (SolidWorks 4.3 GB)
+    [10/14] bolt_pivot_outer_0  (SolidWorks 4.3 GB)
+    [11/14] nut_pod_1  (SolidWorks 4.3 GB)
+    [12/14] nut_pod_2  (SolidWorks 4.4 GB)
+    [13/14] nut_pod_3  (SolidWorks 4.4 GB)
+    [14/14] nut_pod_4  (SolidWorks 4.4 GB)
+   {"components": 14, "mates": 0, "mate_errors": []}
+##### pod
+== pod
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_inner_a1_guide                  concentric
+    + spring_plunger_inner_a1_on_pad                 tangent
+    + spring_plunger_inner_b1_guide                  concentric
+    + spring_plunger_inner_b1_on_pad                 tangent
+    + spring_plunger_inner_a2_guide                  concentric
+    + spring_plunger_inner_a2_on_pad                 tangent
+    + spring_plunger_inner_b2_guide                  concentric
+    + spring_plunger_inner_b2_on_pad                 tangent
+   {"components": 98, "mates": 11, "mate_errors": []}
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_inner_a1_guide                  concentric
+    + spring_plunger_inner_a1_on_pad                 tangent
+    + spring_plunger_inner_b1_guide                  concentric
+    + spring_plunger_inner_b1_on_pad                 tangent
+    + spring_plunger_inner_a2_guide                  concentric
+    + spring_plunger_inner_a2_on_pad                 tangent
+    + spring_plunger_inner_b2_guide                  concentric
+    + spring_plunger_inner_b2_on_pad                 tangent
+   {"components": 98, "mates": 11, "mate_errors": []}
+##### group_frame
+== group_frame
+    [1/5] hub  (SolidWorks 5.1 GB)
+    [2/5] node_back  (SolidWorks 5.2 GB)
+    [3/5] node_front  (SolidWorks 5.2 GB)
+    [4/5] node_left  (SolidWorks 5.2 GB)
+    [5/5] node_right  (SolidWorks 5.3 GB)
+   {"components": 5, "mates": 0, "mate_errors": []}
+##### group_mounts
+== group_mounts
+    [1/6] pedestal  (SolidWorks 5.3 GB)
+    [2/6] support_front_L  (SolidWorks 5.4 GB)
+    [3/6] support_front_R  (SolidWorks 5.4 GB)
+    [4/6] support_side_L  (SolidWorks 5.4 GB)
+    [5/6] support_side_R  (SolidWorks 5.4 GB)
+    [6/6] support_spine  (SolidWorks 5.4 GB)
+   {"components": 6, "mates": 0, "mate_errors": []}
+##### group_bumper
+== group_bumper
+    [1/4] bumper_q0  (SolidWorks 5.4 GB)
+    [2/4] bumper_q1  (SolidWorks 5.5 GB)
+    [3/4] bumper_q2  (SolidWorks 5.5 GB)
+    [4/4] bumper_q3  (SolidWorks 5.5 GB)
+   {"components": 4, "mates": 0, "mate_errors": []}
+##### group_upper
+== group_upper
+    [1/38] bracket_battery_tray  (SolidWorks 5.6 GB)
+    [2/38] bracket_computer_0  (SolidWorks 5.6 GB)
+    [3/38] bracket_computer_1  (SolidWorks 5.6 GB)
+    [4/38] bracket_computer_2  (SolidWorks 5.7 GB)
+    [5/38] bracket_computer_3  (SolidWorks 5.7 GB)
+    [6/38] bracket_d435_riser  (SolidWorks 5.7 GB)
+    [7/38] bracket_imu  (SolidWorks 5.7 GB)
+    [8/38] bracket_power_box  (SolidWorks 5.7 GB)
+    [9/38] bracket_power_shelf  (SolidWorks 5.7 GB)
+    [10/38] bracket_servo_adapter  (SolidWorks 5.8 GB)
+    [11/38] deck_bin  (SolidWorks 5.8 GB)
+    [12/38] floor2_FL  (SolidWorks 5.6 GB)
+    [13/38] floor2_FR  (SolidWorks 5.6 GB)
+    [14/38] floor2_RL  (SolidWorks 5.7 GB)
+    [15/38] floor2_RR  (SolidWorks 5.9 GB)
+    [16/38] housing_estop  (SolidWorks 5.9 GB)
+    [17/38] housing_face  (SolidWorks 5.9 GB)
+    [18/38] housing_face_crown  (SolidWorks 5.7 GB)
+    [19/38] housing_speaker_cover  (SolidWorks 5.8 GB)
+    [20/38] housing_switch  (SolidWorks 6.0 GB)
+    [21/38] post_deck_0  (SolidWorks 6.0 GB)
+    [22/38] post_deck_1  (SolidWorks 6.0 GB)
+    [23/38] post_deck_2  (SolidWorks 6.1 GB)
+    [24/38] post_deck_3  (SolidWorks 6.1 GB)
+    [25/38] post_mcu_0  (SolidWorks 6.1 GB)
+    [26/38] post_mcu_1  (SolidWorks 6.1 GB)
+    [27/38] post_mcu_2  (SolidWorks 6.2 GB)
+    [28/38] post_mcu_3  (SolidWorks 6.2 GB)
+    [29/38] post_power_low_0  (SolidWorks 6.2 GB)
+    [30/38] post_power_low_1  (SolidWorks 6.2 GB)
+    [31/38] post_power_low_2  (SolidWorks 6.2 GB)
+    [32/38] post_power_low_3  (SolidWorks 6.3 GB)
+    [33/38] riser_adapter  (SolidWorks 6.3 GB)
+    [34/38] riser_arm  (SolidWorks 6.3 GB)
+    [35/38] spacer_servo_adapter_0  (SolidWorks 6.3 GB)
+    [36/38] spacer_servo_adapter_1  (SolidWorks 6.3 GB)
+    [37/38] spacer_servo_adapter_2  (SolidWorks 6.4 GB)
+    [38/38] spacer_servo_adapter_3  (SolidWorks 6.4 GB)
+   {"components": 38, "mates": 0, "mate_errors": []}
+##### group_electronics
+== group_electronics
+    [1/39] battery  (SolidWorks 6.4 GB)
+    [2/39] computer  (SolidWorks 6.5 GB)
+    [3/39] conv_12v  (SolidWorks 6.5 GB)
+    [4/39] conv_19v  (SolidWorks 6.5 GB)
+    [5/39] conv_5v  (SolidWorks 6.5 GB)
+    [6/39] d435  (SolidWorks 6.5 GB)
+    [7/39] ear_mcu_0  (SolidWorks 6.5 GB)
+    [8/39] ear_mcu_1  (SolidWorks 6.6 GB)
+    [9/39] ear_mcu_2  (SolidWorks 6.6 GB)
+    [10/39] ear_mcu_3  (SolidWorks 6.6 GB)
+    [11/39] estop  (SolidWorks 6.6 GB)
+    [12/39] label_battery  (SolidWorks 6.6 GB)
+    [13/39] label_computer  (SolidWorks 6.6 GB)
+    [14/39] label_conv_12v  (SolidWorks 6.7 GB)
+    [15/39] label_conv_19v  (SolidWorks 6.7 GB)
+    [16/39] label_conv_5v  (SolidWorks 6.7 GB)
+    [17/39] label_estop  (SolidWorks 6.7 GB)
+    [18/39] label_mcu  (SolidWorks 6.7 GB)
+    [19/39] label_power  (SolidWorks 6.8 GB)
+    [20/39] label_servo_adapter  (SolidWorks 6.8 GB)
+    [21/39] mcu  (SolidWorks 6.8 GB)
+    [22/39] plug_computer_0  (SolidWorks 6.8 GB)
+    [23/39] plug_computer_1  (SolidWorks 6.8 GB)
+    [24/39] plug_computer_2  (SolidWorks 6.9 GB)
+    [25/39] plug_computer_3  (SolidWorks 6.9 GB)
+    [26/39] plug_computer_4  (SolidWorks 6.9 GB)
+    [27/39] plug_d435  (SolidWorks 6.9 GB)
+    [28/39] plug_imu  (SolidWorks 6.9 GB)
+    [29/39] plug_mcu_0  (SolidWorks 7.0 GB)
+    [30/39] plug_servo_adapter_0  (SolidWorks 7.0 GB)
+    [31/39] power  (SolidWorks 7.0 GB)
+    [32/39] servo_adapter  (SolidWorks 7.0 GB)
+    [33/39] strap_battery  (SolidWorks 7.0 GB)
+    [34/39] switch  (SolidWorks 7.1 GB)
+    [35/39] bin  (SolidWorks 7.1 GB)
+    [36/39] display  (SolidWorks 7.2 GB)
+    [37/39] mic_array  (SolidWorks 7.1 GB)
+    [38/39] speaker  (SolidWorks 7.2 GB)
+    [39/39] imu_bno085  (SolidWorks 7.2 GB)
+   {"components": 39, "mates": 0, "mate_errors": []}
+##### group_arm
+== group_arm
+    [1/17] arm_00_Base_motor_holder_SO101  (SolidWorks 7.2 GB)
+    [2/17] arm_01_Base_SO101  (SolidWorks 7.3 GB)
+    [3/17] arm_02_STS3215_03a  (SolidWorks 7.3 GB)
+    [4/17] arm_03_WaveShare_Mounting_Plate_SO101  (SolidWorks 7.3 GB)
+    [5/17] arm_04_STS3215_03a  (SolidWorks 7.3 GB)
+    [6/17] arm_05_Motor_holder_SO101_Base  (SolidWorks 7.3 GB)
+    [7/17] arm_06_Rotation_Pitch_SO101  (SolidWorks 7.3 GB)
+    [8/17] arm_07_STS3215_03a  (SolidWorks 7.4 GB)
+    [9/17] arm_08_Upper_arm_SO101  (SolidWorks 7.4 GB)
+    [10/17] arm_09_Under_arm_SO101  (SolidWorks 7.4 GB)
+    [11/17] arm_10_Motor_holder_SO101_Wrist  (SolidWorks 7.4 GB)
+    [12/17] arm_11_STS3215_03a  (SolidWorks 7.4 GB)
+    [13/17] arm_12_STS3215_03a__2  (SolidWorks 7.4 GB)
+    [14/17] arm_13_Wrist_Roll_Pitch_SO101  (SolidWorks 7.5 GB)
+    [15/17] arm_14_STS3215_03a  (SolidWorks 7.5 GB)
+    [16/17] arm_15_Wrist_Roll_Follower_SO101  (SolidWorks 7.5 GB)
+    [17/17] arm_16_Moving_Jaw_SO101  (SolidWorks 7.5 GB)
+   {"components": 17, "mates": 0, "mate_errors": []}
+##### robot
+== robot
+   {"components": 740, "mates": 0, "mate_errors": []}
+##### test
+== test
+  right droop {'axle_yz': [0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right bump {'axle_yz': [1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  right nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  right past bump {'axle_yz': [1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  right past droop {'axle_yz': [0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+  _m droop {'axle_yz': [-0.06, -3.0], 'plunger_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'expected_lift': {'inner_a1': -1.15, 'inner_b1': -0.75, 'inner_a2': -1.15, 'inner_b2': -0.75}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m bump {'axle_yz': [-1.41, 15.0], 'plunger_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'expected_lift': {'inner_a1': 6.43, 'inner_b1': 4.43, 'inner_a2': 6.43, 'inner_b2': 4.43}, 'mate_errors': []}
+  _m nominal {'axle_yz': [0.0, 0.0], 'plunger_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'expected_lift': {'inner_a1': 0.0, 'inner_b1': 0.0, 'inner_a2': 0.0, 'inner_b2': 0.0}, 'mate_errors': []}
+  _m past bump {'axle_yz': [-1.39, 14.89], 'plunger_lift': {'inner_a1': 6.38, 'inner_b1': 4.39, 'inner_a2': 6.38, 'inner_b2': 4.39}, 'mate_errors': []}
+  _m past droop {'axle_yz': [-0.0, 0.84], 'plunger_lift': {'inner_a1': 0.33, 'inner_b1': 0.22, 'inner_a2': 0.33, 'inner_b2': 0.22}, 'mate_errors': []}
+{"components": 740, "top": 13, "pods": 4, "flexible": [1, 1, 1, 1], "pod_origins_match": true, "axle_offset_mm": [0.0, 0.0, 0.0, 0.0], "mate_errors": [], "pass": true} 
+  pass
+##### paths
+== paths
+{
+ "components": 740,
+ "top_level": 13,
+ "files": 263,
+ "file_kinds": {
+  ".SLDASM": 21,
+  ".SLDPRT": 242
+ },
+ "outside_v13": [],
+ "suppressed": 0,
+ "lightweight": 736,
+ "hidden": 0,
+ "pass": true
+}
+##### interference
+== interference
+{
+ "seconds": 23,
+ "interferences": 1623,
+ "part_part": [],
+ "vendor_internal_count": 1282,
+ "harness_bundled_count": 1092,
+ "harness_lead_into_own_plug_count": 154,
+ "fastener_over_thread": [],
+ "threads": 341,
+ "d435_fov_rows": [
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_reference-1/V13_env_d435_fov_rgb-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "env_d435_fov_rgb"
+   ],
+   "mm3": 43965630.865
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 17.021
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 8.244
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.484
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_depth-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_depth",
+    "d435"
+   ],
+   "mm3": 0.104
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  },
+  {
+   "components": [
+    "V13_reference-1/V13_env_d435_fov_rgb-1",
+    "V13_electronics-1/V13_d435-1"
+   ],
+   "files": [
+    "env_d435_fov_rgb",
+    "d435"
+   ],
+   "mm3": 0.044
+  }
+ ],
+ "note": "fastener rows under 10 mm3 are screws thread-formed into their pilots",
+ "pass": true
+}
+##### views
+== views
+  iso: saved True 0 0
+  trimetric: saved True 0 0
+##### views_close
+== views_close
+  hid 2 field envelopes (display only)
+  iso: saved True 0 0
+  front: saved True 0 0
+  right: saved True 0 0
+  top: saved True 0 0
+exit 0

@@ -1,0 +1,199 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -25.0,
+  "slide_v14": -20.0,
+  "r_rim": 237,
+  "bumper_inside_r": 237.5,
+  "robot_diameter": 481.0,
+  "robot_diameter_v14": 450.3,
+  "wheels": {
+   "FL": [
+    126.6,
+    91.2
+   ],
+   "RL": [
+    -126.6,
+    91.2
+   ],
+   "RR": [
+    -126.6,
+    -91.2
+   ],
+   "FR": [
+    126.6,
+    -91.2
+   ]
+  },
+  "r_moving": 217.0,
+  "r_static": 226.4,
+  "bumper_to_moving_mm": 20.5
+ },
+ "pods_plan_gaps_mm": {
+  "side_FL_RL": 16.8,
+  "side_FR_RR": 16.8,
+  "front_FL_FR": 50.3,
+  "back_RL_RR": 50.3
+ },
+ "triangles": {
+  "FL": {
+   "area_cm2": 191.7,
+   "volume_cm3": 415.0,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    237.0,
+    237.0
+   ],
+   "bed_turn_deg": 0,
+   "fits_256": true,
+   "frame_feet_supported_pct": 100.0,
+   "beam_underside_supported_pct": 22.9,
+   "pod_screws_edge_margin_mm": [
+    27.73,
+    24.19,
+    18.09,
+    16.5,
+    53.15,
+    36.17,
+    19.2,
+    15.67,
+    45.18,
+    32.89
+   ],
+   "plan_gap_to_pod_hollow_mm": 1.0,
+   "top_edges": "R1.5"
+  },
+  "RL": {
+   "area_cm2": 181.4,
+   "volume_cm3": 390.6,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    237.0,
+    237.0
+   ],
+   "bed_turn_deg": 0,
+   "fits_256": true,
+   "frame_feet_supported_pct": 100.0,
+   "beam_underside_supported_pct": 24.9,
+   "pod_screws_edge_margin_mm": [
+    27.73,
+    24.19,
+    18.09,
+    16.5,
+    53.15,
+    36.17,
+    19.2,
+    15.67,
+    45.18,
+    32.89
+   ],
+   "plan_gap_to_pod_hollow_mm": 1.0,
+   "top_edges": "R1.5"
+  },
+  "RR": {
+   "area_cm2": 181.4,
+   "volume_cm3": 391.0,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    237.0,
+    237.0
+   ],
+   "bed_turn_deg": 0,
+   "fits_256": true,
+   "frame_feet_supported_pct": 100.0,
+   "beam_underside_supported_pct": 24.9,
+   "pod_screws_edge_margin_mm": [
+    27.73,
+    24.19,
+    18.09,
+    16.5,
+    53.15,
+    36.17,
+    19.2,
+    15.67,
+    45.18,
+    32.89
+   ],
+   "plan_gap_to_pod_hollow_mm": 1.0,
+   "top_edges": "R1.5"
+  },
+  "FR": {
+   "area_cm2": 191.7,
+   "volume_cm3": 415.2,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    237.0,
+    237.0
+   ],
+   "bed_turn_deg": 0,
+   "fits_256": true,
+   "frame_feet_supported_pct": 100.0,
+   "beam_underside_supported_pct": 22.9,
+   "pod_screws_edge_margin_mm": [
+    27.73,
+    24.19,
+    18.09,
+    16.5,
+    53.15,
+    36.17,
+    19.2,
+    15.67,
+    45.18,
+    32.89
+   ],
+   "plan_gap_to_pod_hollow_mm": 1.0,
+   "top_edges": "R1.5"
+  }
+ },
+ "fins_pedestal_vs_pods": {
+  "overlap_mm3": {
+   "support_side_L / RL static (droop)": 1874.3,
+   "support_side_R / RR static (droop)": 1874.3,
+   "support_side_L / RL static (nominal)": 1874.3,
+   "support_side_R / RR static (nominal)": 1874.3,
+   "support_side_L / RL static (bump)": 1874.3,
+   "support_side_R / RR static (bump)": 1874.3
+  },
+  "min_gap_mm": {
+   "support_side_L / FL static": 3.01,
+   "support_side_L / FL moving": 12.38,
+   "support_front_L / FL moving": 1.07,
+   "pedestal / FL moving": 0.87,
+   "support_side_L / RL static": 0.0,
+   "support_side_L / RL moving": 9.41,
+   "support_side_R / RR static": 0.0,
+   "support_side_R / RR moving": 9.41,
+   "support_side_R / FR static": 3.01,
+   "support_side_R / FR moving": 12.38,
+   "support_front_R / FR moving": 1.07,
+   "pedestal / FR moving": 0.87
+  }
+ },
+ "fin_feet_on_triangles": {
+  "0": "FL",
+  "1": "FL",
+  "2": "RL",
+  "3": "RL",
+  "4": "RL",
+  "5": "RL",
+  "6": "RL",
+  "7": "RL",
+  "8": "RR",
+  "9": "RR",
+  "10": "FL",
+  "11": "FR"
+ },
+ "pedestal_on": [
+  "FL",
+  "FR"
+ ],
+ "pod_tops_vs_lidar_plane": {
+  "pod_top_z": 136.2,
+  "scan_plane_z": 163.0,
+  "floor2_under": 176.5
+ }
+}

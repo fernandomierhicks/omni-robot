@@ -7,11 +7,11 @@ BEDS = [  # (key prefix, up axis, supports, why)
     # pod (pod frame: x = wheel axis)
     ('pod_frame_inner', '-x', 'none (round hole roofs only)', 'on its flat outer face: the springs push the tower up and the pivot pulls the keel down, both in the layer planes; round 13: the chassis screws (and the M3 x 60 column bolt, from below) go into hex nuts in slots, not pilots: a vertical pilot here would lie in the layer planes'),
     ('pod_keel_outer', '+x', 'none (hole roofs)', 'on its flat outer face: the pivot load (mostly z) and the lateral load bend the side plate in the layer planes; two M3 x 35 from under the chassis into Ø2.9 pilots through the whole keel (round 14, Fernando: a 2.9 pilot is gentle enough not to split the layers it lies in; round 13 had hex nuts in a slot)'),
-    ('pod_fork_outer', '+x', 'none', 'on the arm\'s outer face: the arm\'s bending is in the layer planes; the base bar prints upright (layers across it), so its tie bolts pre-compress those layers'),
-    ('pod_fork_inner', '+x', 'none (45 deg socket roof)', 'on the motor face: motor torque and the spring pads load it in the layer planes'),
+    ('pod_fork_outer', '+x', 'only the two tie-bolt head seats in the bed face (the pilots run straight through)', 'on the arm\'s outer face: the arm\'s bending is in the layer planes; the base bar prints upright (layers across it), so its tie bolts pre-compress those layers'),
+    ('pod_fork_inner', '+x', 'only inside the 2 mm motor pocket (Ø53 roof); the tenon socket\'s roof is a 9.2 mm bridge', 'on the motor face: motor torque and the spring pads load it in the layer planes'),
     ('pod_sleeve', '+x', 'none', 'on its flange'),
     # wheel (pod frame / roller frame)
-    ('wheel_hub', '+x', 'under the spokes\' flat x faces (README)', 'cartridge end down: wheel load and roller axles load it radially, in the layer planes'),
+    ('wheel_hub', '+x', 'under the spokes\' flat x faces over the open roller pockets and the flange (README); none in the channel between the rows (v13 collar)', 'cartridge end down: wheel load and roller axles load it radially, in the layer planes'),
     ('wheel_cartridge', '+x', 'none', 'plate down (no floor, no trapped cavity)'),
     ('roller_core', '+z', 'none', 'upright on its end: the axle load is radial, in the layer planes; the 45 deg V groove prints without support'),
     ('roller_tread', '+z', 'none', 'upright on its end (TPU)'),
@@ -41,6 +41,11 @@ BEDS = [  # (key prefix, up axis, supports, why)
     ('housing_estop', '+z', 'none (the 22 mm hole\'s roof is a bridge)', 'on its base plate: a press on the button is compression down the tube'),
     ('housing_switch', '+z', 'none (the 22 mm hole\'s roof is a bridge)', 'as housing_estop'),
     ('bin', '+z', 'none', 'open side up (v10 part)'),
+    # print-fit coupons (coupon.py; Nov 11): each flat on its biggest face with its features up, as the robot part its series stands for prints
+    ('coupon_', '+z', 'none (pocket and hole mouths face up; the horizontal pilots in coupon_pilots are Ø3 bridges)', 'the same layer direction as the fits they calibrate: pockets, seats and vertical pilots open upward, tabs and tenons grow up, slits are vertical'),
+    # bench tooling (motor_jig.py; pod frame)
+    ('jig_motor_cradle', '-x', 'none', 'on its base, sleeve up: the can and hub load it along the sleeve'),
+    ('jig_motor_guide', '+x', 'none', 'on its plate, stem and pegs up: every bore runs along the print axis'),
 ]
 
 

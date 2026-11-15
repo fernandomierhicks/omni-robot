@@ -40,7 +40,8 @@
     ],
     "tabs": 3,
     "sockets": 2
-   }
+   },
+   "grid_pilots": 57
   },
   "arm_pose": [
    1.571,
@@ -75,7 +76,7 @@
   "floor2_FL": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 209.3,
+   "volume_cm3": 210.5,
    "bbox": [
     219.3,
     225.0,
@@ -86,7 +87,7 @@
   "floor2_RL": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 210.0,
+   "volume_cm3": 209.6,
    "bbox": [
     225.0,
     225.0,
@@ -97,7 +98,7 @@
   "floor2_RR": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 209.6,
+   "volume_cm3": 210.0,
    "bbox": [
     225.0,
     225.0,
@@ -108,7 +109,7 @@
   "floor2_FR": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 205.3,
+   "volume_cm3": 207.6,
    "bbox": [
     220.1,
     225.0,
@@ -185,7 +186,7 @@
   "bracket_battery_tray": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 38.1,
+   "volume_cm3": 34.6,
    "bbox": [
     75.0,
     162.0,
@@ -193,91 +194,113 @@
    ],
    "bed_fit": true
   },
-  "post_spacer_power_0": {
+  "bracket_power_box": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.2,
+   "volume_cm3": 72.8,
+   "bbox": [
+    163.0,
+    80.0,
+    36.0
+   ],
+   "bed_fit": true
+  },
+  "bracket_power_shelf": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 32.9,
+   "bbox": [
+    163.0,
+    80.0,
+    3.0
+   ],
+   "bed_fit": true
+  },
+  "post_power_low_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    6.0
+    30.0
    ],
    "bed_fit": true
   },
   "post_mcu_0": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 1.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    40.0
+    32.0
    ],
    "bed_fit": true
   },
-  "post_spacer_power_1": {
+  "post_power_low_1": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    6.0
+    30.0
    ],
    "bed_fit": true
   },
   "post_mcu_1": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 1.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    40.0
+    32.0
    ],
    "bed_fit": true
   },
-  "post_spacer_power_2": {
+  "post_power_low_2": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    6.0
+    30.0
    ],
    "bed_fit": true
   },
   "post_mcu_2": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 1.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    40.0
+    32.0
    ],
    "bed_fit": true
   },
-  "post_spacer_power_3": {
+  "post_power_low_3": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    6.0
+    30.0
    ],
    "bed_fit": true
   },
   "post_mcu_3": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 1.2,
+   "volume_cm3": 0.9,
    "bbox": [
     7.0,
     7.0,
-    40.0
+    32.0
    ],
    "bed_fit": true
   },
@@ -416,7 +439,7 @@
   "deck_bin": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 259.8,
+   "volume_cm3": 254.2,
    "bbox": [
     218.0,
     200.0,
@@ -514,79 +537,77 @@
   "bolt_arm_kit_M3x45#33": 7.3,
   "bolt_arm_kit_M3x35#34": 10.0,
   "bolt_arm_kit_M3x35#35": 10.0,
-  "bolt_buck_12v_arm#36": 0.5,
-  "bolt_buck_12v_arm#38": 0.5,
-  "bolt_riser_ext#40": 8.0,
-  "bolt_riser_ext#41": 8.0,
-  "bolt_clip_computer#42": 9.0,
-  "bolt_clip_computer#43": 9.0,
-  "bolt_clip_computer#44": 9.0,
-  "bolt_clip_computer#45": 9.0,
-  "bolt_tray_battery#46": 9.0,
-  "bolt_tray_battery#47": 9.0,
-  "bolt_tray_battery#48": 9.0,
-  "bolt_tray_battery#49": 9.0,
-  "bolt_mcu_stack#50": 9.0,
-  "bolt_mcu_stack#51": 9.0,
-  "bolt_mcu_stack#52": 9.0,
-  "bolt_mcu_stack#53": 9.0,
-  "bolt_servo_adapter#54": 7.4,
-  "bolt_servo_adapter#55": 7.4,
-  "bolt_servo_adapter#56": 7.4,
-  "bolt_servo_adapter#57": 7.4,
-  "bolt_servo_bracket#58": 0.0,
-  "bolt_servo_bracket#60": 0.0,
-  "bolt_imu#62": 8.1,
-  "bolt_imu#63": 8.1,
-  "bolt_imu_base#64": 9.0,
-  "bolt_imu_base#65": 9.0,
+  "bolt_riser_ext#36": 8.0,
+  "bolt_riser_ext#37": 8.0,
+  "bolt_clip_computer#38": 9.0,
+  "bolt_clip_computer#39": 9.0,
+  "bolt_clip_computer#40": 9.0,
+  "bolt_clip_computer#41": 9.0,
+  "bolt_tray_battery#42": 9.0,
+  "bolt_tray_battery#43": 9.0,
+  "bolt_tray_battery#44": 9.0,
+  "bolt_tray_battery#45": 9.0,
+  "bolt_power_stack#46": 7.0,
+  "bolt_power_stack#47": 7.0,
+  "bolt_power_stack#48": 7.0,
+  "bolt_power_stack#49": 7.0,
+  "bolt_servo_adapter#50": 7.4,
+  "bolt_servo_adapter#51": 7.4,
+  "bolt_servo_adapter#52": 7.4,
+  "bolt_servo_adapter#53": 7.4,
+  "bolt_servo_bracket#54": 0.0,
+  "bolt_servo_bracket#56": 0.0,
+  "bolt_imu#58": 8.1,
+  "bolt_imu#59": 8.1,
+  "bolt_imu_base#60": 9.0,
+  "bolt_imu_base#61": 9.0,
+  "bolt_post_floor#62": 7.0,
+  "bolt_post_deck#63": 6.0,
+  "bolt_post_floor#64": 7.0,
+  "bolt_post_deck#65": 6.0,
   "bolt_post_floor#66": 7.0,
   "bolt_post_deck#67": 6.0,
   "bolt_post_floor#68": 7.0,
   "bolt_post_deck#69": 6.0,
-  "bolt_post_floor#70": 7.0,
-  "bolt_post_deck#71": 6.0,
-  "bolt_post_floor#72": 7.0,
-  "bolt_post_deck#73": 6.0,
-  "bolt_bin#74": 6.0,
-  "bolt_bin#75": 6.0,
-  "bolt_bin#76": 6.0,
-  "bolt_bin#77": 6.0,
-  "bolt_estop_pod#78": 6.0,
-  "bolt_estop_pod#79": 6.0,
-  "bolt_switch_pod#80": 6.0,
-  "bolt_switch_pod#81": 6.0,
-  "bolt_face_deck#82": 6.0,
-  "bolt_face_deck#83": 6.0,
-  "bolt_face_deck#84": 6.0,
-  "bolt_face_deck#85": 6.0,
-  "bolt_face_crown#86": 6.0,
-  "bolt_face_crown#87": 6.0,
-  "bolt_mic#88": 7.5,
-  "bolt_mic#89": 7.5,
-  "bolt_mic#90": 7.5,
-  "bolt_mic#91": 7.5,
-  "bolt_speaker_cover#92": 8.0,
-  "bolt_speaker_cover#93": 8.0,
-  "bolt_d435_camera#94": 0.0,
-  "bolt_d435_camera#95": 0.0,
-  "bolt_d435_cradle#96": 0.0,
-  "bolt_d435_cradle#98": 0.0
+  "bolt_bin#70": 6.0,
+  "bolt_bin#71": 6.0,
+  "bolt_bin#72": 6.0,
+  "bolt_bin#73": 6.0,
+  "bolt_estop_pod#74": 6.0,
+  "bolt_estop_pod#75": 6.0,
+  "bolt_switch_pod#76": 6.0,
+  "bolt_switch_pod#77": 6.0,
+  "bolt_face_deck#78": 6.0,
+  "bolt_face_deck#79": 6.0,
+  "bolt_face_deck#80": 6.0,
+  "bolt_face_deck#81": 6.0,
+  "bolt_face_crown#82": 6.0,
+  "bolt_face_crown#83": 6.0,
+  "bolt_mic#84": 7.5,
+  "bolt_mic#85": 7.5,
+  "bolt_mic#86": 7.5,
+  "bolt_mic#87": 7.5,
+  "bolt_speaker_cover#88": 8.0,
+  "bolt_speaker_cover#89": 8.0,
+  "bolt_d435_camera#90": 0.0,
+  "bolt_d435_camera#91": 0.0,
+  "bolt_d435_cradle#92": 0.0,
+  "bolt_d435_cradle#94": 0.0
  },
  "screws_short_of_6mm": {},
  "hole_audit": {
-  "screws": 94,
+  "screws": 92,
   "partial_holes": {},
   "threads_across_layers": {
-   "bolt_face_crown#86 / housing_face": 90.0,
-   "bolt_face_crown#87 / housing_face": 90.0
+   "bolt_face_crown#82 / housing_face": 90.0,
+   "bolt_face_crown#83 / housing_face": 90.0
   },
   "heads_in_parts": {},
   "no_hole": {
-   "bolt_mic#88 / mic_array": 3.5,
-   "bolt_mic#89 / mic_array": 3.5,
-   "bolt_mic#90 / mic_array": 3.5,
-   "bolt_mic#91 / mic_array": 3.5
+   "bolt_mic#84 / mic_array": 3.5,
+   "bolt_mic#85 / mic_array": 3.5,
+   "bolt_mic#86 / mic_array": 3.5,
+   "bolt_mic#87 / mic_array": 3.5
   },
   "note": "partial: a hole that is not a full circle in a part (straddles a seam or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the printed part's print-up axis"
  },
@@ -596,10 +617,10 @@
   "M4x25_flat": 4,
   "M3x45_pan": 2,
   "M3x35_pan": 2,
-  "M3x14_pan": 6,
-  "M3_hexnut": 6,
-  "M3x60_pan": 4,
+  "M3x80_pan": 4,
+  "M3x14_pan": 4,
   "M3x16_pan": 6,
+  "M3_hexnut": 4,
   "M3x8_pan": 6
  },
  "d435_riser": {

@@ -1,0 +1,1475 @@
+{
+ "pitch": 3.0,
+ "clearance_static": 2.0,
+ "clearance_moving": 4.0,
+ "clearance_slide": 1.0,
+ "clearance_in_slot": 0.0,
+ "start_r": 10.0,
+ "scan_z": 163.0,
+ "slots": {
+  "R": [
+   [
+    -58.3,
+    -168.0
+   ],
+   [
+    -78.0,
+    -186.5
+   ]
+  ],
+  "L": [
+   [
+    -58.3,
+    168.0
+   ],
+   [
+    -78.0,
+    186.5
+   ]
+  ]
+ },
+ "slot_r": 6.5,
+ "runs": {
+  "M_FR": {
+   "reachable": true,
+   "a": "motor_FR",
+   "b": "pb_m2",
+   "lead": "motor",
+   "od": 8.0,
+   "r_class": 4.0,
+   "length_mm": 317,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 5.0,
+   "scan_band": {
+    "crosses": true,
+    "slot": "R",
+    "blind_added_deg": 1.8,
+    "cells_hidden": 0,
+    "cells_seen": 4
+   },
+   "start": [
+    70.2,
+    -78.7,
+    120.2
+   ],
+   "end": [
+    -64.0,
+    -138.0,
+    226.0
+   ],
+   "port_a": [
+    70.2,
+    -78.7,
+    120.2
+   ],
+   "port_b": [
+    -32.0,
+    -138.0,
+    226.0
+   ],
+   "waypoints": [
+    [
+     70.2,
+     -78.7,
+     120.2
+    ],
+    [
+     49.5,
+     -82.5,
+     137.5
+    ],
+    [
+     46.5,
+     -85.5,
+     140.5
+    ],
+    [
+     -46.5,
+     -178.5,
+     155.5
+    ],
+    [
+     -58.5,
+     -178.5,
+     155.5
+    ],
+    [
+     -63.0,
+     -172.5,
+     146.0
+    ],
+    [
+     -63.0,
+     -172.5,
+     188.0
+    ],
+    [
+     -64.0,
+     -138.0,
+     226.0
+    ]
+   ]
+  },
+  "M_FL": {
+   "reachable": true,
+   "a": "motor_FL",
+   "b": "pb_m4",
+   "lead": "motor",
+   "od": 8.0,
+   "r_class": 4.0,
+   "length_mm": 438,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 4.5,
+   "scan_band": {
+    "crosses": true,
+    "slot": "R",
+    "blind_added_deg": 1.81,
+    "cells_hidden": 0,
+    "cells_seen": 4
+   },
+   "start": [
+    70.2,
+    78.7,
+    120.2
+   ],
+   "end": [
+    -64.0,
+    -160.0,
+    226.0
+   ],
+   "port_a": [
+    70.2,
+    78.7,
+    120.2
+   ],
+   "port_b": [
+    -32.0,
+    -160.0,
+    226.0
+   ],
+   "waypoints": [
+    [
+     70.2,
+     78.7,
+     120.2
+    ],
+    [
+     58.5,
+     -31.5,
+     119.5
+    ],
+    [
+     -67.5,
+     -157.5,
+     155.5
+    ],
+    [
+     -75.4,
+     -184.1,
+     146.0
+    ],
+    [
+     -75.4,
+     -184.1,
+     188.0
+    ],
+    [
+     -64.0,
+     -160.0,
+     226.0
+    ]
+   ]
+  },
+  "M_RR": {
+   "reachable": true,
+   "a": "motor_RR",
+   "b": "pb_m1",
+   "lead": "motor",
+   "od": 8.0,
+   "r_class": 4.0,
+   "length_mm": 247,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 4.5,
+   "scan_band": {
+    "crosses": true,
+    "slot": "R",
+    "blind_added_deg": 1.78,
+    "cells_hidden": 0,
+    "cells_seen": 4
+   },
+   "start": [
+    -70.2,
+    -78.7,
+    120.2
+   ],
+   "end": [
+    -64.0,
+    -127.0,
+    226.0
+   ],
+   "port_a": [
+    -70.2,
+    -78.7,
+    120.2
+   ],
+   "port_b": [
+    -32.0,
+    -127.0,
+    226.0
+   ],
+   "waypoints": [
+    [
+     -70.2,
+     -78.7,
+     120.2
+    ],
+    [
+     -70.5,
+     -94.5,
+     134.5
+    ],
+    [
+     -70.5,
+     -103.5,
+     137.5
+    ],
+    [
+     -70.5,
+     -169.5,
+     155.5
+    ],
+    [
+     -56.8,
+     -166.7,
+     146.0
+    ],
+    [
+     -56.8,
+     -166.7,
+     188.0
+    ],
+    [
+     -64.0,
+     -127.0,
+     226.0
+    ]
+   ]
+  },
+  "M_RL": {
+   "reachable": true,
+   "a": "motor_RL",
+   "b": "pb_m3",
+   "lead": "motor",
+   "od": 8.0,
+   "r_class": 4.0,
+   "length_mm": 408,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 4.5,
+   "scan_band": {
+    "crosses": true,
+    "slot": "R",
+    "blind_added_deg": 1.75,
+    "cells_hidden": 0,
+    "cells_seen": 4
+   },
+   "start": [
+    -70.2,
+    78.7,
+    120.2
+   ],
+   "end": [
+    -64.0,
+    -149.0,
+    226.0
+   ],
+   "port_a": [
+    -70.2,
+    78.7,
+    120.2
+   ],
+   "port_b": [
+    -32.0,
+    -149.0,
+    226.0
+   ],
+   "waypoints": [
+    [
+     -70.2,
+     78.7,
+     120.2
+    ],
+    [
+     -76.5,
+     13.5,
+     116.5
+    ],
+    [
+     -82.5,
+     7.5,
+     110.5
+    ],
+    [
+     -85.5,
+     4.5,
+     110.5
+    ],
+    [
+     -85.5,
+     -40.5,
+     113.5
+    ],
+    [
+     -85.5,
+     -49.5,
+     122.5
+    ],
+    [
+     -76.5,
+     -82.5,
+     146.5
+    ],
+    [
+     -76.5,
+     -85.5,
+     149.5
+    ],
+    [
+     -76.5,
+     -94.5,
+     152.5
+    ],
+    [
+     -69.2,
+     -178.3,
+     146.0
+    ],
+    [
+     -69.2,
+     -178.3,
+     188.0
+    ],
+    [
+     -64.0,
+     -149.0,
+     226.0
+    ]
+   ]
+  },
+  "CAN_FR": {
+   "reachable": true,
+   "a": "pb_m2",
+   "b": "mcu_can2",
+   "lead": "can",
+   "od": 3.0,
+   "r_class": 1.5,
+   "length_mm": 138,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 101.6,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -54.0,
+    -138.0,
+    226.0
+   ],
+   "end": [
+    13.0,
+    -191.8,
+    256.0
+   ],
+   "port_a": [
+    -32.0,
+    -138.0,
+    226.0
+   ],
+   "port_b": [
+    13.0,
+    -176.0,
+    256.0
+   ],
+   "waypoints": [
+    [
+     -54.0,
+     -138.0,
+     226.0
+    ],
+    [
+     -43.5,
+     -145.5,
+     239.5
+    ],
+    [
+     -40.5,
+     -148.5,
+     242.5
+    ],
+    [
+     -25.5,
+     -154.5,
+     245.5
+    ],
+    [
+     1.5,
+     -181.5,
+     245.5
+    ],
+    [
+     13.0,
+     -191.8,
+     256.0
+    ]
+   ]
+  },
+  "CAN_FL": {
+   "reachable": true,
+   "a": "pb_m4",
+   "b": "mcu_can4",
+   "lead": "can",
+   "od": 3.0,
+   "r_class": 1.5,
+   "length_mm": 157,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 106.8,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -54.0,
+    -160.0,
+    226.0
+   ],
+   "end": [
+    43.0,
+    -191.8,
+    256.0
+   ],
+   "port_a": [
+    -32.0,
+    -160.0,
+    226.0
+   ],
+   "port_b": [
+    43.0,
+    -176.0,
+    256.0
+   ],
+   "waypoints": [
+    [
+     -54.0,
+     -160.0,
+     226.0
+    ],
+    [
+     -40.5,
+     -163.5,
+     239.5
+    ],
+    [
+     -37.5,
+     -163.5,
+     239.5
+    ],
+    [
+     -31.5,
+     -169.5,
+     245.5
+    ],
+    [
+     -19.5,
+     -178.5,
+     245.5
+    ],
+    [
+     -7.5,
+     -190.5,
+     257.5
+    ],
+    [
+     43.0,
+     -191.8,
+     256.0
+    ]
+   ]
+  },
+  "CAN_RR": {
+   "reachable": true,
+   "a": "pb_m1",
+   "b": "mcu_can1",
+   "lead": "can",
+   "od": 3.0,
+   "r_class": 1.5,
+   "length_mm": 132,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 93.1,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -54.0,
+    -127.0,
+    226.0
+   ],
+   "end": [
+    -2.0,
+    -191.8,
+    256.0
+   ],
+   "port_a": [
+    -32.0,
+    -127.0,
+    226.0
+   ],
+   "port_b": [
+    -2.0,
+    -176.0,
+    256.0
+   ],
+   "waypoints": [
+    [
+     -54.0,
+     -127.0,
+     226.0
+    ],
+    [
+     -43.5,
+     -148.5,
+     239.5
+    ],
+    [
+     -40.5,
+     -151.5,
+     242.5
+    ],
+    [
+     -25.5,
+     -166.5,
+     245.5
+    ],
+    [
+     -16.5,
+     -175.5,
+     245.5
+    ],
+    [
+     -7.5,
+     -184.5,
+     254.5
+    ],
+    [
+     -2.0,
+     -191.8,
+     256.0
+    ]
+   ]
+  },
+  "CAN_RL": {
+   "reachable": true,
+   "a": "pb_m3",
+   "b": "mcu_can3",
+   "lead": "can",
+   "od": 3.0,
+   "r_class": 1.5,
+   "length_mm": 148,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 106.4,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -54.0,
+    -149.0,
+    226.0
+   ],
+   "end": [
+    28.0,
+    -191.8,
+    256.0
+   ],
+   "port_a": [
+    -32.0,
+    -149.0,
+    226.0
+   ],
+   "port_b": [
+    28.0,
+    -176.0,
+    256.0
+   ],
+   "waypoints": [
+    [
+     -54.0,
+     -149.0,
+     226.0
+    ],
+    [
+     -43.5,
+     -157.5,
+     239.5
+    ],
+    [
+     -40.5,
+     -160.5,
+     242.5
+    ],
+    [
+     -25.5,
+     -172.5,
+     245.5
+    ],
+    [
+     -16.5,
+     -181.5,
+     248.5
+    ],
+    [
+     -7.5,
+     -190.5,
+     257.5
+    ],
+    [
+     28.0,
+     -191.8,
+     256.0
+    ]
+   ]
+  },
+  "PC19": {
+   "reachable": true,
+   "a": "pb_19v",
+   "b": "pc_dc",
+   "lead": "pair18",
+   "od": 5.0,
+   "r_class": 2.5,
+   "length_mm": 176,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 78.9,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -20.0,
+    -110.0,
+    231.0
+   ],
+   "end": [
+    -175.0,
+    -105.0,
+    238.0
+   ],
+   "port_a": [
+    -20.0,
+    -110.0,
+    221.0
+   ],
+   "port_b": [
+    -175.0,
+    -105.0,
+    236.5
+   ],
+   "waypoints": [
+    [
+     -20.0,
+     -110.0,
+     231.0
+    ],
+    [
+     -37.5,
+     -106.5,
+     233.5
+    ],
+    [
+     -109.5,
+     -109.5,
+     239.5
+    ],
+    [
+     -169.5,
+     -109.5,
+     239.5
+    ],
+    [
+     -175.0,
+     -105.0,
+     238.0
+    ]
+   ]
+  },
+  "ARM12": {
+   "reachable": true,
+   "a": "pb_arm",
+   "b": "sa_dc",
+   "lead": "pair18",
+   "od": 5.0,
+   "r_class": 2.5,
+   "length_mm": 319,
+   "clear_static_mm": 3.5,
+   "clear_moving_mm": 72.5,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    132.0,
+    -144.0,
+    231.0
+   ],
+   "end": [
+    41.5,
+    64.5,
+    214.0
+   ],
+   "port_a": [
+    106.0,
+    -144.0,
+    231.0
+   ],
+   "port_b": [
+    41.5,
+    22.5,
+    214.0
+   ],
+   "waypoints": [
+    [
+     132.0,
+     -144.0,
+     231.0
+    ],
+    [
+     67.5,
+     34.5,
+     230.5
+    ],
+    [
+     46.5,
+     55.5,
+     224.5
+    ],
+    [
+     43.5,
+     58.5,
+     221.5
+    ],
+    [
+     41.5,
+     64.5,
+     214.0
+    ]
+   ]
+  },
+  "5V": {
+   "reachable": true,
+   "a": "pb_5v_face",
+   "b": "disp_pwr",
+   "lead": "pair20",
+   "od": 3.8,
+   "r_class": 2.0,
+   "length_mm": 286,
+   "clear_static_mm": 2.2,
+   "clear_moving_mm": 82.9,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -49.8,
+    -156.0,
+    234.0
+   ],
+   "end": [
+    -154.8,
+    20.0,
+    289.0
+   ],
+   "port_a": [
+    -32.0,
+    -156.0,
+    234.0
+   ],
+   "port_b": [
+    -154.8,
+    20.0,
+    322.0
+   ],
+   "waypoints": [
+    [
+     -49.8,
+     -156.0,
+     234.0
+    ],
+    [
+     -136.5,
+     -58.5,
+     272.5
+    ],
+    [
+     -154.8,
+     20.0,
+     289.0
+    ]
+   ]
+  },
+  "ESTOP": {
+   "reachable": true,
+   "a": "estop",
+   "b": "pb_estop",
+   "lead": "multi4",
+   "od": 4.5,
+   "r_class": 2.5,
+   "length_mm": 370,
+   "clear_static_mm": 3.5,
+   "clear_moving_mm": 66.5,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -183.0,
+    76.0,
+    223.0
+   ],
+   "end": [
+    -59.8,
+    -128.0,
+    234.0
+   ],
+   "port_a": [
+    -183.0,
+    76.0,
+    249.0
+   ],
+   "port_b": [
+    -32.0,
+    -128.0,
+    234.0
+   ],
+   "waypoints": [
+    [
+     -183.0,
+     76.0,
+     223.0
+    ],
+    [
+     -70.5,
+     64.5,
+     224.5
+    ],
+    [
+     -64.5,
+     58.5,
+     227.5
+    ],
+    [
+     -59.8,
+     -128.0,
+     234.0
+    ]
+   ]
+  },
+  "SWITCH": {
+   "reachable": true,
+   "a": "switch",
+   "b": "pb_switch",
+   "lead": "multi4",
+   "od": 4.5,
+   "r_class": 2.5,
+   "length_mm": 209,
+   "clear_static_mm": 3.5,
+   "clear_moving_mm": 66.8,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -183.0,
+    -76.0,
+    223.0
+   ],
+   "end": [
+    -59.8,
+    -142.0,
+    234.0
+   ],
+   "port_a": [
+    -183.0,
+    -76.0,
+    249.0
+   ],
+   "port_b": [
+    -32.0,
+    -142.0,
+    234.0
+   ],
+   "waypoints": [
+    [
+     -183.0,
+     -76.0,
+     223.0
+    ],
+    [
+     -124.5,
+     -85.5,
+     224.5
+    ],
+    [
+     -109.5,
+     -100.5,
+     224.5
+    ],
+    [
+     -103.5,
+     -109.5,
+     224.5
+    ],
+    [
+     -100.5,
+     -112.5,
+     224.5
+    ],
+    [
+     -59.8,
+     -142.0,
+     234.0
+    ]
+   ]
+  },
+  "D435": {
+   "reachable": true,
+   "a": "d435",
+   "b": "pc_usb3_1",
+   "lead": "usb3",
+   "od": 4.6,
+   "r_class": 2.5,
+   "length_mm": 286,
+   "clear_static_mm": 3.5,
+   "clear_moving_mm": 70.3,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    58.3,
+    -60.8,
+    197.6
+   ],
+   "end": [
+    -95.0,
+    113.0,
+    244.0
+   ],
+   "port_a": [
+    59.8,
+    -60.8,
+    197.6
+   ],
+   "port_b": [
+    -95.0,
+    113.0,
+    242.5
+   ],
+   "waypoints": [
+    [
+     58.3,
+     -60.8,
+     197.6
+    ],
+    [
+     46.5,
+     -25.5,
+     227.5
+    ],
+    [
+     22.5,
+     37.5,
+     251.5
+    ],
+    [
+     -7.5,
+     67.5,
+     251.5
+    ],
+    [
+     -88.5,
+     106.5,
+     251.5
+    ],
+    [
+     -95.0,
+     113.0,
+     244.0
+    ]
+   ]
+  },
+  "TEENSY": {
+   "reachable": true,
+   "a": "mcu_usb",
+   "b": "pc_usb2_1",
+   "lead": "usb2",
+   "od": 3.8,
+   "r_class": 2.0,
+   "length_mm": 109,
+   "clear_static_mm": 2.2,
+   "clear_moving_mm": 87.5,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -60.0,
+    -163.5,
+    300.0
+   ],
+   "end": [
+    -117.0,
+    -105.0,
+    235.0
+   ],
+   "port_a": [
+    -60.0,
+    -163.5,
+    298.5
+   ],
+   "port_b": [
+    -117.0,
+    -105.0,
+    233.5
+   ],
+   "waypoints": [
+    [
+     -60.0,
+     -163.5,
+     300.0
+    ],
+    [
+     -117.0,
+     -105.0,
+     235.0
+    ]
+   ]
+  },
+  "SO101": {
+   "reachable": true,
+   "a": "sa_usb",
+   "b": "pc_usb3_2",
+   "lead": "usbc",
+   "od": 5.0,
+   "r_class": 2.5,
+   "length_mm": 175,
+   "clear_static_mm": 2.7,
+   "clear_moving_mm": 93.9,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    41.0,
+    75.5,
+    244.5
+   ],
+   "end": [
+    -113.0,
+    113.0,
+    244.0
+   ],
+   "port_a": [
+    41.0,
+    75.5,
+    243.0
+   ],
+   "port_b": [
+    -113.0,
+    113.0,
+    242.5
+   ],
+   "waypoints": [
+    [
+     41.0,
+     75.5,
+     244.5
+    ],
+    [
+     19.5,
+     85.5,
+     251.5
+    ],
+    [
+     10.5,
+     94.5,
+     251.5
+    ],
+    [
+     -106.5,
+     106.5,
+     251.5
+    ],
+    [
+     -113.0,
+     113.0,
+     244.0
+    ]
+   ]
+  },
+  "LIDAR": {
+   "reachable": true,
+   "a": "lidar",
+   "b": "lidar_ad_in",
+   "lead": "lidar",
+   "od": 3.5,
+   "r_class": 2.0,
+   "length_mm": 290,
+   "clear_static_mm": 2.2,
+   "clear_moving_mm": 7.0,
+   "scan_band": {
+    "crosses": true,
+    "slot": "R",
+    "blind_added_deg": 0,
+    "cells_hidden": 4,
+    "cells_seen": 0
+   },
+   "start": [
+    77.2,
+    -42.8,
+    136.0
+   ],
+   "end": [
+    -80.0,
+    -168.0,
+    189.0
+   ],
+   "port_a": [
+    92.8,
+    -27.2,
+    136.0
+   ],
+   "port_b": [
+    -80.0,
+    -146.0,
+    189.0
+   ],
+   "waypoints": [
+    [
+     77.2,
+     -42.8,
+     136.0
+    ],
+    [
+     67.5,
+     -61.5,
+     137.5
+    ],
+    [
+     -46.5,
+     -175.5,
+     155.5
+    ],
+    [
+     -80.1,
+     -188.6,
+     146.0
+    ],
+    [
+     -80.1,
+     -188.6,
+     188.0
+    ],
+    [
+     -80.0,
+     -168.0,
+     189.0
+    ]
+   ]
+  },
+  "LIDARUSB": {
+   "reachable": true,
+   "a": "lidar_ad_usb",
+   "b": "pc_usb2_2",
+   "lead": "usb2",
+   "od": 3.8,
+   "r_class": 2.0,
+   "length_mm": 109,
+   "clear_static_mm": 4.7,
+   "clear_moving_mm": 48.6,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -80.0,
+    -80.0,
+    189.0
+   ],
+   "end": [
+    -97.0,
+    -105.0,
+    235.0
+   ],
+   "port_a": [
+    -80.0,
+    -124.0,
+    189.0
+   ],
+   "port_b": [
+    -97.0,
+    -105.0,
+    233.5
+   ],
+   "waypoints": [
+    [
+     -80.0,
+     -80.0,
+     189.0
+    ],
+    [
+     -94.5,
+     -100.5,
+     233.5
+    ],
+    [
+     -97.0,
+     -105.0,
+     235.0
+    ]
+   ]
+  },
+  "IMU": {
+   "reachable": true,
+   "a": "mcu_imu",
+   "b": "imu",
+   "lead": "imu",
+   "od": 5.0,
+   "r_class": 2.5,
+   "length_mm": 92,
+   "clear_static_mm": 6.0,
+   "clear_moving_mm": 94.0,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    30.0,
+    -86.2,
+    256.0
+   ],
+   "end": [
+    25.6,
+    -40.0,
+    212.5
+   ],
+   "port_a": [
+    30.0,
+    -111.0,
+    256.0
+   ],
+   "port_b": [
+    25.6,
+    -40.0,
+    211.0
+   ],
+   "waypoints": [
+    [
+     30.0,
+     -86.2,
+     256.0
+    ],
+    [
+     25.6,
+     -40.0,
+     212.5
+    ]
+   ]
+  },
+  "HDMI": {
+   "reachable": true,
+   "a": "pc_hdmi",
+   "b": "disp_hdmi",
+   "lead": "hdmi",
+   "od": 6.0,
+   "r_class": 3.0,
+   "length_mm": 191,
+   "clear_static_mm": 2.2,
+   "clear_moving_mm": 67.7,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -150.0,
+    -85.0,
+    214.5
+   ],
+   "end": [
+    -154.8,
+    -19.0,
+    292.0
+   ],
+   "port_a": [
+    -150.0,
+    -55.0,
+    214.5
+   ],
+   "port_b": [
+    -154.8,
+    -19.0,
+    322.0
+   ],
+   "waypoints": [
+    [
+     -150.0,
+     -85.0,
+     214.5
+    ],
+    [
+     -145.5,
+     -85.5,
+     221.5
+    ],
+    [
+     -142.5,
+     -82.5,
+     224.5
+    ],
+    [
+     -127.5,
+     -82.5,
+     239.5
+    ],
+    [
+     -127.5,
+     -82.5,
+     245.5
+    ],
+    [
+     -136.5,
+     -70.5,
+     257.5
+    ],
+    [
+     -154.8,
+     -19.0,
+     292.0
+    ]
+   ]
+  },
+  "MIC": {
+   "reachable": true,
+   "a": "mic_usb",
+   "b": "pc_usbc",
+   "lead": "usb2",
+   "od": 3.8,
+   "r_class": 2.0,
+   "length_mm": 399,
+   "clear_static_mm": 2.2,
+   "clear_moving_mm": 56.3,
+   "scan_band": {
+    "crosses": false,
+    "slot": null,
+    "blind_added_deg": 0.0,
+    "cells_hidden": 0,
+    "cells_seen": 0
+   },
+   "start": [
+    -163.0,
+    -108.0,
+    410.0
+   ],
+   "end": [
+    -135.0,
+    97.0,
+    204.5
+   ],
+   "port_a": [
+    -163.0,
+    -64.0,
+    410.0
+   ],
+   "port_b": [
+    -135.0,
+    57.0,
+    204.5
+   ],
+   "waypoints": [
+    [
+     -163.0,
+     -108.0,
+     410.0
+    ],
+    [
+     -139.5,
+     -67.5,
+     386.5
+    ],
+    [
+     -136.5,
+     70.5,
+     254.5
+    ],
+    [
+     -130.5,
+     76.5,
+     248.5
+    ],
+    [
+     -130.5,
+     82.5,
+     242.5
+    ],
+    [
+     -135.0,
+     97.0,
+     204.5
+    ]
+   ]
+  }
+ },
+ "note": "grid lengths ~5 % over a smooth route; clearances are grid estimates (+-PITCH/2) outside the opened end zones; harness.py check measures the drawn tubes"
+}

@@ -1,0 +1,491 @@
+C:\Users\ferna\.venvs\omni-robot-sim\Lib\site-packages\build123d\topology\shape_core.py:1631: UserWarning: Boolean operation unable to clean
+  return_value = self._bool_op((self,), to_fuse, fuse_op)
+C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\harness.py:210: UserWarning: Unable to clean Part at 0x23d28a51a50, label(), #children(0)
+  out = out.fuse(*segs[1:]).clean()
+58 harness items {
+"M_FR": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 10,
+"tightest_bend_r": 3.9,
+"bends_under_allowed": 6,
+"length_drawn_mm": 353
+},
+"M_FL": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 6,
+"tightest_bend_r": 15.8,
+"bends_under_allowed": 2,
+"length_drawn_mm": 373
+},
+"M_RR": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 9,
+"tightest_bend_r": 4.9,
+"bends_under_allowed": 4,
+"length_drawn_mm": 282
+},
+"M_RL": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 10,
+"tightest_bend_r": 1.8,
+"bends_under_allowed": 2,
+"length_drawn_mm": 319
+},
+"CAN_FR": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 7,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 2,
+"length_drawn_mm": 102
+},
+"CAN_FL": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 6,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 3,
+"length_drawn_mm": 120
+},
+"CAN_RR": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 6,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 3,
+"length_drawn_mm": 98
+},
+"CAN_RL": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 8,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 2,
+"length_drawn_mm": 110
+},
+"PC19": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 8,
+"tightest_bend_r": 0.9,
+"bends_under_allowed": 4,
+"length_drawn_mm": 173
+},
+"ARM12": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 5,
+"tightest_bend_r": 3.8,
+"bends_under_allowed": 3,
+"length_drawn_mm": 247
+},
+"SERVO12": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 3,
+"tightest_bend_r": 9.1,
+"bends_under_allowed": 1,
+"length_drawn_mm": 85
+},
+"5V": {
+"od": 3.8,
+"bend_r_allowed": 8.0,
+"bends": 4,
+"tightest_bend_r": 8.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 238
+},
+"ESTOP": {
+"od": 4.5,
+"bend_r_allowed": 18.0,
+"bends": 4,
+"tightest_bend_r": 10.5,
+"bends_under_allowed": 3,
+"length_drawn_mm": 329
+},
+"SWITCH": {
+"od": 4.5,
+"bend_r_allowed": 18.0,
+"bends": 6,
+"tightest_bend_r": 17.2,
+"bends_under_allowed": 1,
+"length_drawn_mm": 171
+},
+"D435": {
+"od": 4.6,
+"bend_r_allowed": 23.0,
+"bends": 6,
+"tightest_bend_r": 1.9,
+"bends_under_allowed": 3,
+"length_drawn_mm": 265
+},
+"TEENSY": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 2,
+"tightest_bend_r": 0.9,
+"bends_under_allowed": 2,
+"length_drawn_mm": 90
+},
+"SO101": {
+"od": 5.0,
+"bend_r_allowed": 25.0,
+"bends": 5,
+"tightest_bend_r": 2.0,
+"bends_under_allowed": 5,
+"length_drawn_mm": 168
+},
+"LIDAR": {
+"od": 3.5,
+"bend_r_allowed": 10.0,
+"bends": 7,
+"tightest_bend_r": 10.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 294
+},
+"LIDARUSB": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 3,
+"tightest_bend_r": 1.1,
+"bends_under_allowed": 3,
+"length_drawn_mm": 63
+},
+"IMU": {
+"od": 5.0,
+"bend_r_allowed": 15.0,
+"bends": 2,
+"tightest_bend_r": 2.2,
+"bends_under_allowed": 1,
+"length_drawn_mm": 68
+},
+"HDMI": {
+"od": 6.0,
+"bend_r_allowed": 6.0,
+"bends": 7,
+"tightest_bend_r": 6.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 133
+},
+"MIC": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 6,
+"tightest_bend_r": 4.6,
+"bends_under_allowed": 5,
+"length_drawn_mm": 312
+}
+}
+world samples 4913197
+{
+ "leads_static_clearance_mm": {
+  "per_lead": {
+   "M_FR": {
+    "min_mm": 0.6,
+    "against": "lidar_adapter"
+   },
+   "M_FL": {
+    "min_mm": 2.32,
+    "against": "floor2_RR"
+   },
+   "M_RR": {
+    "min_mm": 0.36,
+    "against": "floor2_RR"
+   },
+   "M_RL": {
+    "min_mm": 2.01,
+    "against": "floor2_RR"
+   },
+   "CAN_FR": {
+    "min_mm": 1.41,
+    "against": "plug_pb_5v_face"
+   },
+   "CAN_FL": {
+    "min_mm": 2.88,
+    "against": "plug_mcu_can3"
+   },
+   "CAN_RR": {
+    "min_mm": 1.98,
+    "against": "power"
+   },
+   "CAN_RL": {
+    "min_mm": 1.32,
+    "against": "power"
+   },
+   "PC19": {
+    "min_mm": 1.51,
+    "against": "plug_battery_balance"
+   },
+   "ARM12": {
+    "min_mm": 2.68,
+    "against": "riser_adapter"
+   },
+   "SERVO12": {
+    "min_mm": 1.49,
+    "against": "buck_12v_arm"
+   },
+   "5V": {
+    "min_mm": 1.69,
+    "against": "bin"
+   },
+   "ESTOP": {
+    "min_mm": 4.23,
+    "against": "computer"
+   },
+   "SWITCH": {
+    "min_mm": 2.37,
+    "against": "plug_pc_hdmi"
+   },
+   "D435": {
+    "min_mm": 3.7,
+    "against": "deck_bin"
+   },
+   "TEENSY": {
+    "min_mm": 15.24,
+    "against": "plug_computer_3"
+   },
+   "SO101": {
+    "min_mm": 3.14,
+    "against": "bolt_post_deck#67"
+   },
+   "LIDAR": {
+    "min_mm": 1.77,
+    "against": "floor2_RR"
+   },
+   "LIDARUSB": {
+    "min_mm": 1000000000.0,
+    "against": null
+   },
+   "IMU": {
+    "min_mm": 9.5,
+    "against": "post_deck_1"
+   },
+   "HDMI": {
+    "min_mm": 1.64,
+    "against": "post_deck_3"
+   },
+   "MIC": {
+    "min_mm": 1.56,
+    "against": "deck_bin"
+   }
+  },
+  "under_0": [],
+  "under_2": [
+   "M_FR",
+   "M_RR",
+   "CAN_FR",
+   "CAN_RR",
+   "CAN_RL",
+   "PC19",
+   "SERVO12",
+   "5V",
+   "LIDAR",
+   "HDMI",
+   "MIC"
+  ],
+  "centreline_inside_a_part": {},
+  "in_d435_fields": {},
+  "note": "centreline samples every 0.5 mm to the nearest surface sample of any part (~1 per mm2, +-0.3 mm) minus the lead's radius; its own two plugs and its last r + 1.5 mm at each end left out"
+ },
+ "plugs_overlap_mm3": {},
+ "leads_sharing_a_path": {
+  "pairs": {
+   "M_FR / M_FL": -1.0,
+   "M_FR / M_RR": -6.8,
+   "M_FR / M_RL": -5.0,
+   "M_FR / CAN_FR": -5.5,
+   "M_FR / LIDAR": -3.6,
+   "M_FL / M_RR": -7.1,
+   "M_FL / M_RL": -4.8,
+   "M_FL / CAN_FL": -5.5,
+   "M_FL / LIDAR": -0.1,
+   "M_RR / M_RL": -6.4,
+   "M_RR / CAN_RR": -5.5,
+   "M_RL / CAN_RL": -5.5,
+   "CAN_FR / CAN_FL": -1.1,
+   "CAN_FR / CAN_RR": -0.9,
+   "CAN_FR / CAN_RL": -2.9,
+   "CAN_FL / CAN_RL": -1.9,
+   "CAN_RR / CAN_RL": -2.9,
+   "CAN_RR / SWITCH": -1.8,
+   "PC19 / ESTOP": -4.3,
+   "PC19 / SWITCH": -4.4,
+   "PC19 / HDMI": -4.8,
+   "SWITCH / HDMI": -4.8,
+   "D435 / SO101": -4.7
+  },
+  "note": "negative = the two drawn tubes overlap by that much: built, they lie side by side in one bundle"
+ },
+ "moving_pods_min_mm": {
+  "per_lead": {
+   "M_FR": {
+    "min_mm": 5.77,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "M_FL": {
+    "min_mm": 8.53,
+    "against": "FL/pod_fork_inner",
+    "pose": "nominal"
+   },
+   "M_RR": {
+    "min_mm": 5.04,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "M_RL": {
+    "min_mm": 5.24,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "CAN_FR": {
+    "min_mm": 67.22,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "CAN_FL": {
+    "min_mm": 79.38,
+    "against": "RR/roller_tread_1_2",
+    "pose": "bump"
+   },
+   "CAN_RR": {
+    "min_mm": 61.83,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "CAN_RL": {
+    "min_mm": 74.14,
+    "against": "RR/spring_plunger_inner_b1",
+    "pose": "bump"
+   },
+   "PC19": {
+    "min_mm": 61.11,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "ARM12": {
+    "min_mm": 47.8,
+    "against": "FL/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "SERVO12": {
+    "min_mm": 45.79,
+    "against": "FL/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "5V": {
+    "min_mm": 85.07,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "ESTOP": {
+    "min_mm": 63.93,
+    "against": "RL/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "SWITCH": {
+    "min_mm": 68.28,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "D435": {
+    "min_mm": 59.15,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "TEENSY": {
+    "min_mm": 79.27,
+    "against": "RR/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "SO101": {
+    "min_mm": 88.89,
+    "against": "RL/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "LIDAR": {
+    "min_mm": 6.42,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "LIDARUSB": {
+    "min_mm": 38.4,
+    "against": "RR/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "IMU": {
+    "min_mm": 81.11,
+    "against": "FR/spring_plunger_inner_a2",
+    "pose": "bump"
+   },
+   "HDMI": {
+    "min_mm": 61.18,
+    "against": "RR/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "MIC": {
+    "min_mm": 50.29,
+    "against": "RL/roller_tread_1_3",
+    "pose": "bump"
+   }
+  },
+  "under_4mm": {},
+  "note": "fork, wheel, motor, rollers, plungers in droop / nominal / bump (static frames are in the static check); a motor lead's first 20 mm from its lead end flexes with its fork and is left out; samples +-0.4 mm"
+ },
+ "arm_sweep_min_mm": {
+  "per_lead": {
+   "M_FR": 93.1,
+   "M_FL": 112.6,
+   "M_RR": 133.3,
+   "M_RL": 141.8,
+   "CAN_FR": 146.4,
+   "CAN_FL": 150.3,
+   "CAN_RR": 135.8,
+   "CAN_RL": 157.1,
+   "PC19": 89.5,
+   "ARM12": 6.9,
+   "SERVO12": 23.3,
+   "5V": 51.4,
+   "ESTOP": 46.0,
+   "SWITCH": 103.1,
+   "D435": 60.8,
+   "TEENSY": 111.7,
+   "SO101": 78.8,
+   "LIDAR": 87.7,
+   "LIDARUSB": 99.8,
+   "IMU": 87.2,
+   "HDMI": 53.0,
+   "MIC": 25.1
+  },
+  "min": 6.9,
+  "under_4mm": {},
+  "note": "to the nearest swept-arm cell centre minus half its diagonal and the lead radius (a lower bound on the grid)"
+ },
+ "scan_band": {
+  "per_lead": {
+   "M_FR": {
+    "samples": 30,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.85
+   },
+  
+Traceback (most recent call last):
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\harness.py", line 860, in <module>
+    main(sys.argv[1] if sys.argv[1:] else 'inventory')
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\harness.py", line 842, in main
+    render(items)
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\harness.py", line 818, in render
+    L.iso(allc, VAL / 'harness_iso_rear_right.png', 225 + 90, 35, 'harness over the second floor (from the rear right): leads red motor, '
+  File "C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\pod_lean.py", line 600, in iso
+    v, t = s.tessellate(tol, 0.4)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ferna\.venvs\omni-robot-sim\Lib\site-packages\build123d\topology\shape_core.py", line 2346, in tessellate
+    poly.Node(i).Transformed(trsf) for i in range(1, poly.NbNodes() + 1)
+                                                     ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'NbNodes'
+CHECK_EXIT 1

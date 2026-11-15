@@ -1,0 +1,434 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "deck_z": [
+   80.0,
+   100.0
+  ],
+  "deck_z_v14": [
+   40.0,
+   62.0
+  ],
+  "r_deck": 229,
+  "r_hold": 227.2,
+  "r_opening": 219.1,
+  "r_moving": 218.8,
+  "bumper_inside_r": 229.5,
+  "robot_diameter": 465.0,
+  "robot_diameter_v14": 450.3,
+  "bumper_to_moving_mm": 10.7
+ },
+ "pods_plan_gaps_mm": {
+  "side_FL_RL": 14.8,
+  "side_FR_RR": 14.8,
+  "front_FL_FR": 54.6,
+  "back_RL_RR": 54.6
+ },
+ "deck_pieces": {
+  "FL": {
+   "volume_cm3": 441.2,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    234.4,
+    238.2
+   ],
+   "fits_256": true,
+   "hanger_beam_tops_on_deck_pct": 100.0,
+   "tower_bases_on_deck_pct": 68.1,
+   "pod_up_screws_on_own_piece": "12 of 12",
+   "pod_up_screws_edge_margin_mm": 6.49,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 1.0,
+   "top_edges": "top edges R0.6"
+  },
+  "RL": {
+   "volume_cm3": 421.5,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    234.9,
+    238.9
+   ],
+   "fits_256": true,
+   "hanger_beam_tops_on_deck_pct": 100.0,
+   "tower_bases_on_deck_pct": 68.1,
+   "pod_up_screws_on_own_piece": "12 of 12",
+   "pod_up_screws_edge_margin_mm": 7.0,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 1.0,
+   "top_edges": "top edges R1"
+  },
+  "RR": {
+   "volume_cm3": 416.0,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    230.2,
+    234.0
+   ],
+   "fits_256": true,
+   "hanger_beam_tops_on_deck_pct": 100.0,
+   "tower_bases_on_deck_pct": 68.1,
+   "pod_up_screws_on_own_piece": "12 of 12",
+   "pod_up_screws_edge_margin_mm": 7.0,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 1.0,
+   "top_edges": "top edges R1"
+  },
+  "FR": {
+   "volume_cm3": 366.8,
+   "solids": 1,
+   "valid": true,
+   "bed_fit_mm": [
+    222.3,
+    218.5
+   ],
+   "fits_256": true,
+   "hanger_beam_tops_on_deck_pct": 100.0,
+   "tower_bases_on_deck_pct": 68.1,
+   "pod_up_screws_on_own_piece": "12 of 12",
+   "pod_up_screws_edge_margin_mm": 6.49,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 1.0,
+   "top_edges": "top edges R1"
+  }
+ },
+ "cantilever_strips_removed_mm2": {
+  "FL": 29.4,
+  "RL": 28.1,
+  "RR": 33.5,
+  "FR": 34.8
+ },
+ "joints": {
+  "kind": "dovetail half-laps across the midline seams (lower piece: bottom half tab; upper piece: socket + its top half over it), 2 x M3 x 16 each, down from the top into the tab",
+  "order": "FL and RR first, RL and FR dropped onto them",
+  "laps": [
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 48.0
+   },
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 143.0
+   },
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 205.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 38.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 128.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 180.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 48.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 138.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 200.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 48.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 118.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 205.0
+   }
+  ],
+  "per_seam": {
+   "90.0": 3,
+   "180.0": 3,
+   "270.0": 3,
+   "0.0": 3
+  }
+ },
+ "accessory_holes": {
+  "per_piece": {
+   "FL": {
+    "tie_pairs": 16,
+    "m3_pilots": 7
+   },
+   "RL": {
+    "tie_pairs": 16,
+    "m3_pilots": 17
+   },
+   "RR": {
+    "tie_pairs": 24,
+    "m3_pilots": 20
+   },
+   "FR": {
+    "tie_pairs": 15,
+    "m3_pilots": 8
+   }
+  },
+  "pitch": 15.0,
+  "note": "zip-tie pairs on multiples of the pitch (cable along x), M3 pilots (\u00d82.8, through) half a pitch off, as the second floor; clear of seats, screws, laps, fin feet, pedestal"
+ },
+ "deck_volume_cm3": {
+  "total": 1645.5,
+  "v14_frame": 1141.3
+ },
+ "fins_pedestal_vs_pods": {
+  "overlap_mm3": {
+   "support_side_L / FL static (droop)": 0.0,
+   "support_side_R / FR static (droop)": 0.0,
+   "support_side_L / FL static (nominal)": 0.0,
+   "support_side_R / FR static (nominal)": 0.0,
+   "support_side_L / FL static (bump)": 0.0,
+   "support_side_R / FR static (bump)": 0.0
+  },
+  "min_gap_mm": {
+   "support_side_L / FL static": 0.0,
+   "support_side_L / FL moving": 20.96,
+   "support_front_L / FL moving": 8.75,
+   "pedestal / FL moving": 5.26,
+   "bumper_FL / FL static": 2.34,
+   "bumper_FL / FL moving": 10.74,
+   "support_side_L / RL static": 6.3,
+   "support_side_L / RL moving": 16.62,
+   "bumper_RL / RL static": 2.34,
+   "bumper_RL / RL moving": 10.74,
+   "support_side_R / RR static": 6.3,
+   "support_side_R / RR moving": 16.62,
+   "bumper_RR / RR static": 2.34,
+   "bumper_RR / RR moving": 10.74,
+   "support_side_R / FR static": 0.0,
+   "support_side_R / FR moving": 20.96,
+   "support_front_R / FR moving": 8.75,
+   "pedestal / FR moving": 5.26,
+   "bumper_FR / FR static": 2.33,
+   "bumper_FR / FR moving": 10.74
+  }
+ },
+ "bumper": {
+  "z": [
+   40.0,
+   80.0
+  ],
+  "tabs": [
+   {
+    "quarter": "FL",
+    "deg": 14.0,
+    "screw_xy": [
+     215.9,
+     53.8
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "FL",
+    "deg": 45.0,
+    "screw_xy": [
+     157.3,
+     157.3
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "FL",
+    "deg": 75.0,
+    "screw_xy": [
+     57.6,
+     214.9
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 105.0,
+    "screw_xy": [
+     -57.6,
+     214.9
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 135.0,
+    "screw_xy": [
+     -157.3,
+     157.3
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 165.0,
+    "screw_xy": [
+     -214.9,
+     57.6
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RR",
+    "deg": 195.0,
+    "screw_xy": [
+     -214.9,
+     -57.6
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "RR",
+    "deg": 225.0,
+    "screw_xy": [
+     -157.3,
+     -157.3
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "RR",
+    "deg": 255.0,
+    "screw_xy": [
+     -57.6,
+     -214.9
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 285.0,
+    "screw_xy": [
+     57.6,
+     -214.9
+    ],
+    "into": "deck_FR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 315.0,
+    "screw_xy": [
+     157.3,
+     -157.3
+    ],
+    "into": "deck_FR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 346.0,
+    "screw_xy": [
+     215.9,
+     -53.8
+    ],
+    "into": "deck_FR"
+   }
+  ],
+  "per_quarter": {
+   "FL": 3,
+   "RL": 3,
+   "RR": 3,
+   "FR": 3
+  },
+  "solids": {
+   "bumper_FL": [
+    1,
+    true
+   ],
+   "bumper_RL": [
+    1,
+    true
+   ],
+   "bumper_RR": [
+    1,
+    true
+   ],
+   "bumper_FR": [
+    1,
+    true
+   ]
+  },
+  "screw": "M3 x 16 pan up through the tab (counterbored) into a \u00d82.8 pilot through the deck: 12.9 mm of thread",
+  "note": "quarters print upside down: the top edge and the tabs on the bed, the gussets 45 deg"
+ },
+ "fin_feet_on_deck": {
+  "0": "FL",
+  "1": "FL",
+  "2": "RL",
+  "3": "RL",
+  "4": "RL",
+  "5": "RL",
+  "6": "RL",
+  "7": "RL",
+  "8": "RR",
+  "9": "RR",
+  "10": "FL",
+  "11": "FR"
+ },
+ "fins_vs_openings_plan_mm2": {
+  "support_spine": 0.0,
+  "support_side_L": 118.6,
+  "support_side_R": 118.6,
+  "support_front_L": 0.2,
+  "support_front_R": 0.2
+ },
+ "pedestal": {
+  "on": [
+   "FL",
+   "FR"
+  ],
+  "height_mm": 31.7,
+  "height_v14_mm": 69.7
+ },
+ "heights": {
+  "pod_and_tower_top_z": 131.2,
+  "wheel_top_bump_z": 155.0,
+  "scan_plane_z": 163.0,
+  "floor2_under": 176.5,
+  "lowest_chassis_z": {
+   "deck": 80.0,
+   "bumper": 40.0
+  }
+ },
+ "fins_volume_cm3": {
+  "support_spine": 206.9,
+  "support_side_L": 87.2,
+  "support_side_R": 87.2,
+  "support_front_L": 11.8,
+  "support_front_R": 11.8
+ }
+}

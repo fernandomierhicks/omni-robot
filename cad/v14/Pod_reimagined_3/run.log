@@ -1,0 +1,16 @@
+pod_fork_outer 1 True 80484
+pod_fork_inner 1 True 69710
+rx_frame_outer 1 True 44571
+rx_frame_inner 1 True 44571
+rx_tie 1 True 14261
+rx_ring_outer 1 True 2059
+rx_ring_inner 1 True 2059
+rx_cap_outer 1 True 616
+rx_cap_inner 1 True 616
+rx_shim_outer 1 True 21
+rx_shim_inner 1 True 21
+pod_retainer 1 True 1885
+{'outer_arm_top_r': 1.4, 'outer_arm_bed_chamfer': 0.6, 'dish_floor': 'R1.5 on 1 edges', 'stub_root': 'R1.5 on 1 edges', 'motor_plate_top_r': 1.4, 'motor_plate_bed_chamfer': 0.6, 'frame_o_top_r': 1.4, 'frame_o_bed_chamfer': 0.6, 'tower_o_edges': 'R3 on 8 edges', 'frame_i_top_r': 1.4, 'frame_i_bed_chamfer': 0.6, 'tower_i_edges': 'R3 on 8 edges', 'tie_edges': 'R3 on 2 edges'}
+checks written
+exported 133
+rendered

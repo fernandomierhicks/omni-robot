@@ -27,7 +27,7 @@
   "node_front": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 161.9,
+   "volume_cm3": 161.8,
    "footprint_on_bed": [
     141.2,
     137.4
@@ -38,7 +38,7 @@
   "node_left": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 188.7,
+   "volume_cm3": 188.6,
    "footprint_on_bed": [
     137.1,
     136.8
@@ -49,7 +49,7 @@
   "node_back": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 117.5,
+   "volume_cm3": 117.4,
    "footprint_on_bed": [
     128.6,
     127.4
@@ -60,7 +60,7 @@
   "node_right": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 188.7,
+   "volume_cm3": 188.6,
    "footprint_on_bed": [
     137.1,
     136.8
@@ -82,7 +82,7 @@
   "bumper_q0": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 45.7,
+   "volume_cm3": 55.7,
    "footprint_on_bed": [
     225.1,
     225.1
@@ -93,7 +93,7 @@
   "bumper_q1": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 55.5,
+   "volume_cm3": 55.7,
    "footprint_on_bed": [
     225.1,
     225.1
@@ -104,7 +104,7 @@
   "bumper_q2": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 55.5,
+   "volume_cm3": 55.7,
    "footprint_on_bed": [
     225.1,
     225.1
@@ -115,7 +115,7 @@
   "bumper_q3": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 45.7,
+   "volume_cm3": 55.7,
    "footprint_on_bed": [
     225.1,
     225.1
@@ -137,7 +137,7 @@
   "support_side_L": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 96.9,
+   "volume_cm3": 96.7,
    "footprint_on_bed": [
     125.2,
     123.9
@@ -148,7 +148,7 @@
   "support_side_R": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 96.9,
+   "volume_cm3": 96.7,
    "footprint_on_bed": [
     125.2,
     123.9
@@ -204,7 +204,7 @@
   "found": {}
  },
  "d435_cradle": "none: v13 has the D435 on the arm riser (upper.py / d435_riser.py)",
- "frame_volume_cm3": 1155.5,
+ "frame_volume_cm3": 1155.1,
  "supports_static": {
   "overlap_mm3": {
    "support_spine / hub": 0,
@@ -240,9 +240,9 @@
    "support_side_R / bumper_q2": 40.11,
    "support_side_R / bumper_q3": 71.06,
    "support_front_L / node_front": 0.0,
-   "support_front_L / bumper_q0": 10.64,
+   "support_front_L / bumper_q0": 2.82,
    "support_front_R / node_front": 0.0,
-   "support_front_R / bumper_q3": 10.63
+   "support_front_R / bumper_q3": 2.82
   },
   "note": "0 overlap everywhere; the side fins sit 0.02 above the column top (bearing there), the feet stand on the members"
  },

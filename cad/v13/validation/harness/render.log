@@ -1,0 +1,197 @@
+C:\Users\ferna\.venvs\omni-robot-sim\Lib\site-packages\build123d\topology\shape_core.py:1631: UserWarning: Boolean operation unable to clean
+  return_value = self._bool_op((self,), to_fuse, fuse_op)
+C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\tools\harness.py:210: UserWarning: Unable to clean Part at 0x1c8625e0d90, label(), #children(0)
+  out = out.fuse(*segs[1:]).clean()
+58 harness items {
+"M_FR": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 10,
+"tightest_bend_r": 3.9,
+"bends_under_allowed": 6,
+"length_drawn_mm": 353
+},
+"M_FL": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 6,
+"tightest_bend_r": 15.8,
+"bends_under_allowed": 2,
+"length_drawn_mm": 373
+},
+"M_RR": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 9,
+"tightest_bend_r": 4.9,
+"bends_under_allowed": 4,
+"length_drawn_mm": 282
+},
+"M_RL": {
+"od": 8.0,
+"bend_r_allowed": 16.0,
+"bends": 10,
+"tightest_bend_r": 1.8,
+"bends_under_allowed": 2,
+"length_drawn_mm": 319
+},
+"CAN_FR": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 7,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 2,
+"length_drawn_mm": 102
+},
+"CAN_FL": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 6,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 3,
+"length_drawn_mm": 120
+},
+"CAN_RR": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 6,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 3,
+"length_drawn_mm": 98
+},
+"CAN_RL": {
+"od": 3.0,
+"bend_r_allowed": 6.0,
+"bends": 8,
+"tightest_bend_r": 3.0,
+"bends_under_allowed": 2,
+"length_drawn_mm": 110
+},
+"PC19": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 8,
+"tightest_bend_r": 0.9,
+"bends_under_allowed": 4,
+"length_drawn_mm": 173
+},
+"ARM12": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 5,
+"tightest_bend_r": 3.8,
+"bends_under_allowed": 3,
+"length_drawn_mm": 247
+},
+"SERVO12": {
+"od": 5.0,
+"bend_r_allowed": 10.0,
+"bends": 3,
+"tightest_bend_r": 9.1,
+"bends_under_allowed": 1,
+"length_drawn_mm": 85
+},
+"5V": {
+"od": 3.8,
+"bend_r_allowed": 8.0,
+"bends": 4,
+"tightest_bend_r": 8.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 238
+},
+"ESTOP": {
+"od": 4.5,
+"bend_r_allowed": 18.0,
+"bends": 4,
+"tightest_bend_r": 10.5,
+"bends_under_allowed": 3,
+"length_drawn_mm": 329
+},
+"SWITCH": {
+"od": 4.5,
+"bend_r_allowed": 18.0,
+"bends": 6,
+"tightest_bend_r": 17.2,
+"bends_under_allowed": 1,
+"length_drawn_mm": 171
+},
+"D435": {
+"od": 4.6,
+"bend_r_allowed": 23.0,
+"bends": 6,
+"tightest_bend_r": 1.9,
+"bends_under_allowed": 3,
+"length_drawn_mm": 265
+},
+"TEENSY": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 2,
+"tightest_bend_r": 0.9,
+"bends_under_allowed": 2,
+"length_drawn_mm": 90
+},
+"SO101": {
+"od": 5.0,
+"bend_r_allowed": 25.0,
+"bends": 5,
+"tightest_bend_r": 2.0,
+"bends_under_allowed": 5,
+"length_drawn_mm": 168
+},
+"LIDAR": {
+"od": 3.5,
+"bend_r_allowed": 10.0,
+"bends": 7,
+"tightest_bend_r": 10.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 294
+},
+"LIDARUSB": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 3,
+"tightest_bend_r": 1.1,
+"bends_under_allowed": 3,
+"length_drawn_mm": 63
+},
+"IMU": {
+"od": 5.0,
+"bend_r_allowed": 15.0,
+"bends": 2,
+"tightest_bend_r": 2.2,
+"bends_under_allowed": 1,
+"length_drawn_mm": 68
+},
+"HDMI": {
+"od": 6.0,
+"bend_r_allowed": 6.0,
+"bends": 7,
+"tightest_bend_r": 6.0,
+"bends_under_allowed": 0,
+"length_drawn_mm": 133
+},
+"MIC": {
+"od": 3.8,
+"bend_r_allowed": 19.0,
+"bends": 6,
+"tightest_bend_r": 4.6,
+"bends_under_allowed": 5,
+"length_drawn_mm": 312
+}
+}
+render: skipped (does not tessellate) lead_battery_xt90
+render: skipped (does not tessellate) lead_pb_xt90
+render: skipped (does not tessellate) lead_M_FR
+render: skipped (does not tessellate) lead_M_RR
+render: skipped (does not tessellate) lead_M_RL
+render: skipped (does not tessellate) lead_CAN_FR
+render: skipped (does not tessellate) lead_CAN_RR
+render: skipped (does not tessellate) lead_CAN_RL
+render: skipped (does not tessellate) lead_PC19
+render: skipped (does not tessellate) lead_SERVO12
+render: skipped (does not tessellate) lead_ESTOP
+render: skipped (does not tessellate) lead_D435
+render: skipped (does not tessellate) lead_TEENSY
+render: skipped (does not tessellate) lead_SO101
+RENDER_EXIT 0

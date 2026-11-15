@@ -1,0 +1,75 @@
+{
+ "roller_tread_relief": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 16316.9,
+  "v13_volume_mm3": 16405.6
+ },
+ "relief": {
+  "len": 7.0,
+  "depth_at_end": 0.2,
+  "arc_radius": 44.55,
+  "starts_at_z": 12.5,
+  "handover_z": 18.12
+ },
+ "profile_mm (radius about the roller axis; below_v13 = the relief there)": {
+  "z 0.00": {
+   "cad": 18.0,
+   "formula": 18.0,
+   "below_v13": 0.0
+  },
+  "z 12.50": {
+   "cad": 16.875,
+   "formula": 16.875,
+   "below_v13": 0.0
+  },
+  "z 15.31": {
+   "cad": 16.271,
+   "formula": 16.271,
+   "below_v13": 0.035
+  },
+  "z 18.12": {
+   "cad": 15.473,
+   "formula": null,
+   "below_v13": 0.139
+  },
+  "z 18.50": {
+   "cad": 15.303,
+   "formula": null,
+   "below_v13": 0.139
+  },
+  "z 19.00": {
+   "cad": 14.895,
+   "formula": null,
+   "below_v13": 0.139
+  }
+ },
+ "unloaded_upright_dip_at_handover_mm": 0.139,
+ "tread_core_overlap_mm3 (want = v13)": {
+  "relief": 0.0,
+  "v13": 0.0
+ },
+ "tread_to_hub_min_gap_mm (wheel_quiet: 0.95)": {
+  "1_1": {
+   "relief": 0.95
+  },
+  "1_2": {
+   "relief": 0.95
+  },
+  "2_1": {
+   "relief": 0.95
+  },
+  "2_2": {
+   "relief": 0.95
+  }
+ },
+ "tread_hub_overlap_mm3 (want 0)": 0.0,
+ "build": {
+  "edge_round_failed": 0,
+  "root_fillet": {
+   "edges": 1,
+   "radius": 2.0
+  },
+  "slivers_dropped_mm3": []
+ }
+}

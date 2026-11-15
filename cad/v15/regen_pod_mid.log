@@ -1,0 +1,14 @@
+pod_fork_outer 1 True 72498
+pod_fork_inner 1 True 69822
+rx_hanger_outer 1 True 16811
+rx_hanger_inner 1 True 16809
+rx_beam 1 True 58288
+rx_tower_outer 1 True 16642
+rx_tower_inner 1 True 16642
+rx_ring_outer 1 True 2059
+rx_ring_inner 1 True 2059
+pod_retainer 1 True 1885
+{'outer_arm_top_r': 1.4, 'outer_arm_bed_chamfer': 0.6, 'dish_floor': 'R1.5 on 1 edges', 'stub_root': 'R1.5 on 1 edges', 'motor_plate_top_r': 1.4, 'motor_plate_bed_chamfer': 0.6, 'hanger_o_top': 'R1 on 29 edges', 'hanger_i_top': 'R1 on 28 edges', 'beam_back_corners': 'R4 on 2 edges', 'beam_front_corners': 'R0.8 on 2 edges', 'lug_root': 'R2 on 4 edges', 'lug_edges': 'R1.5 on 8 edges', 'beam_bottom_edges': 'R1 on 8 edges', 'beam_boss_roots': 'R1 on 2 edges', 'tower_o_edges': 'R2 on 11 edges', 'tower_o_tab0': 'R2 on 3 edges', 'tower_o_tab1': 'R2 on 3 edges', 'tower_i_edges': 'R2 on 11 edges', 'tower_i_tab0': 'R2 on 3 edges', 'tower_i_tab1': 'R2 on 3 edges'}
+checks written
+exported 143
+rendered

@@ -1,0 +1,62 @@
+== import
+  deck_FL  (print bed: +z up)
+  deck_FR  (print bed: +z up)
+  deck_RL  (print bed: +z up)
+  deck_RR  (print bed: +z up)
+  harness_lead_5V
+  harness_lead_ARM12
+  harness_lead_battery_balance
+  harness_lead_battery_xt90
+  harness_lead_CAN_FL
+  harness_lead_CAN_FR
+  harness_lead_CAN_RL
+  harness_lead_CAN_RR
+  harness_lead_D435
+  harness_lead_ESTOP
+  harness_lead_HDMI
+  harness_lead_IMU
+  harness_lead_LIDAR
+  harness_lead_LIDARUSB
+  harness_lead_M_FL
+  harness_lead_M_FR
+  harness_lead_M_RL
+  harness_lead_M_RR
+  harness_lead_MIC
+  harness_lead_pb_xt90
+  harness_lead_PC19
+  harness_lead_SO101
+  harness_lead_SWITCH
+  harness_lead_TEENSY
+  harness_lidar_adapter
+  harness_plug_battery_balance
+  harness_plug_disp_hdmi
+  harness_plug_disp_pwr
+  harness_plug_lidar
+  harness_plug_lidar_ad_in
+  harness_plug_lidar_ad_usb
+  harness_plug_mcu_can1
+  harness_plug_mcu_can2
+  harness_plug_mcu_can3
+  harness_plug_mcu_can4
+  harness_plug_mcu_imu
+  harness_plug_mcu_spare_can3
+  harness_plug_mcu_spare_i2c
+  harness_plug_mcu_spare_io
+  harness_plug_mcu_spare_uart
+  harness_plug_mic_usb
+  harness_plug_pb_5v_face
+  harness_plug_pb_arm
+  harness_plug_pb_estop
+  harness_plug_pb_m1
+  harness_plug_pb_m2
+  harness_plug_pb_m3
+  harness_plug_pb_m4
+  harness_plug_pb_spare_5v
+  harness_plug_pb_spare_bat
+  harness_plug_pb_switch
+  harness_plug_pc_hdmi
+  harness_plug_pc_usbc
+  harness_plug_sa_dc
+  harness_plug_xt90_pair
+  wheel_hub  (print bed: +x up)
+  wheel_hub_m  (print bed: +x up)

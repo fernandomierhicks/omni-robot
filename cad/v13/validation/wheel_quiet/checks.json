@@ -1,0 +1,261 @@
+{
+ "wheel_hub_687": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 208682.7
+ },
+ "roller_core_687": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 15135.0
+ },
+ "roller_sleeve_687": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 1849.5
+ },
+ "fit_coupon_687": {
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 14977.6
+ },
+ "hub_overlaps_mm3 (want none; sleeves apart)": {},
+ "sleeve_squeeze_mm3 (by design: 0.1 per end x its end face ~26.2 mm2 x 2 = 5.2)": {
+  "min": 5.34,
+  "max": 5.34
+ },
+ "seat_slots_mm": {
+  "depth": 0.5,
+  "width": 7.1,
+  "side_clearance": 0.05,
+  "neck": 6.9,
+  "neck_interference_per_side": 0.05,
+  "axial_click_step": 0.1,
+  "axial_pinch_per_side_entering": 0.2,
+  "axial_pinch_per_side_seated": 0.1,
+  "m3x50_thread_in_pilot": 6.0,
+  "wall_under_head_seat": 1.9
+ },
+ "min_gaps_mm (turning parts to the hub)": {
+  "1_1": {
+   "bearing": 1.15,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "1_2": {
+   "bearing": 1.15,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "2_1": {
+   "bearing": 1.15,
+   "core": 1.05,
+   "tread": 0.95
+  },
+  "2_2": {
+   "bearing": 1.15,
+   "core": 1.05,
+   "tread": 0.95
+  }
+ },
+ "cartridge_overlaps_mm3 (want 0)": {
+  "core_bearings": 0.0,
+  "sleeve_bearings": 0.0,
+  "sleeve_core": 0.0
+ },
+ "cartridge_clearances_mm": {
+  "sleeve_middle_to_core": 1.0,
+  "bearing_B_to_pocket_floor": 0.5,
+  "sleeve_wall": 1.9,
+  "core_wall_at_pocket_to_key_slot": 4.15
+ },
+ "cartridge_radial_press_in (core_tread want 0; sleeve = its squeeze between the thrust faces along the slot)": {
+  "1_1 +0": {
+   "core_tread": 0.0,
+   "sleeve": 5.34
+  },
+  "1_1 +10": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "1_1 +20": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "1_1 +30": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +0": {
+   "core_tread": 0.0,
+   "sleeve": 5.34
+  },
+  "1_2 +10": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +20": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "1_2 +30": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +0": {
+   "core_tread": 0.0,
+   "sleeve": 5.34
+  },
+  "2_1 +10": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +20": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_1 +30": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +0": {
+   "core_tread": 0.0,
+   "sleeve": 5.34
+  },
+  "2_2 +10": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +20": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  },
+  "2_2 +30": {
+   "core_tread": 0.0,
+   "sleeve": 0.0
+  }
+ },
+ "block_walls_mm": {
+  "head_counterbore_side_profile": 2.5,
+  "head_counterbore_rim_wheel_plane": 1.86,
+  "pilot_thread_side_profile": 4.6,
+  "pilot_thread_end_wheel_plane": 3.77,
+  "pilot_floor_beyond_thread": 2.95
+ },
+ "print_overhang_mm2 (cartridge end down, faces under 45 deg)": {
+  "round3": {
+   "all": 9051,
+   "spokes": 5621
+  },
+  "v13": {
+   "all": 10882,
+   "spokes": 7452
+  }
+ },
+ "hub_max_radius_mm": {
+  "round3": 63.61,
+  "v13": 66.66
+ },
+ "volume_cm3": {
+  "round3": 208.7,
+  "v13": 244.3
+ },
+ "spoke_neck_row2_az0_mm (unchanged below r 54 = same load path)": {
+  "round3": {
+   "34": {
+    "tangential": 17.1,
+    "x": 40.3
+   },
+   "36": {
+    "tangential": 12.1,
+    "x": 36.1
+   },
+   "38": {
+    "tangential": 7.7,
+    "x": 32.0
+   },
+   "40": {
+    "tangential": 3.5,
+    "x": 30.0
+   },
+   "42": {
+    "tangential": 1.9,
+    "x": 28.0
+   },
+   "44": {
+    "tangential": 3.3,
+    "x": 26.0
+   },
+   "46": {
+    "tangential": 5.7,
+    "x": 26.0
+   },
+   "50": {
+    "tangential": 10.3,
+    "x": 26.0
+   },
+   "54": {
+    "tangential": 13.7,
+    "x": 25.4
+   },
+   "58": {
+    "tangential": 2.7,
+    "x": 20.5
+   }
+  },
+  "v13": {
+   "34": {
+    "tangential": 17.1,
+    "x": 40.3
+   },
+   "36": {
+    "tangential": 12.1,
+    "x": 36.1
+   },
+   "38": {
+    "tangential": 7.7,
+    "x": 32.0
+   },
+   "40": {
+    "tangential": 3.5,
+    "x": 30.0
+   },
+   "42": {
+    "tangential": 1.9,
+    "x": 28.0
+   },
+   "44": {
+    "tangential": 3.3,
+    "x": 26.0
+   },
+   "46": {
+    "tangential": 5.7,
+    "x": 26.0
+   },
+   "50": {
+    "tangential": 10.3,
+    "x": 26.0
+   },
+   "54": {
+    "tangential": 14.9,
+    "x": 26.0
+   },
+   "58": {
+    "tangential": 2.7,
+    "x": 26.0
+   }
+  }
+ },
+ "hub_x_range": [
+  -39.5,
+  29.0
+ ],
+ "build": {
+  "edge_round_failed": 0,
+  "root_fillet": {
+   "edges": 1,
+   "radius": 2.0
+  },
+  "slivers_dropped_mm3": []
+ }
+}

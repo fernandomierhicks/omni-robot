@@ -34,6 +34,7 @@ import pod as P                                                        # noqa: E
 import pod_lean as L                                                   # noqa: E402
 import wheel_motor as W                                                # noqa: E402
 from dims import R_WHEEL, M3_PILOT, M3_CLR                             # noqa: E402
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                         # noqa: E402
 
 OUT = W.ROOT / 'step_export' / 'first_floor'
@@ -73,6 +74,8 @@ COLOURS = {'plate': (0.80, 0.80, 0.78), 'spider': (0.55, 0.57, 0.60), 'pedestal'
 
 
 def colour(name):
+    if PAL.colour(name):                                               # printed parts: their filament (palette.py, Nov 13)
+        return PAL.colour(name)
     for k, v in COLOURS.items():
         if name.split('/')[-1].startswith(k):
             return v
@@ -93,9 +96,16 @@ def pan_screw(p, axis, length):
 
 # ---- pod footprints ---------------------------------------------------------------------------------------------------------------------
 def pod_geometry():
+    """pod footprints and bands (pod frame), cached in validation/first_floor/pod_fp.pkl as (key, fp). The key is the mtimes of the pod's sources
+    (as chassis.slide_path): a Nov 5 cache with no key outlived the Nov 9-10 fork / hub changes (the inner half's 2 mm shift: +93 mm2 per pod); an old
+    cache (a bare dict) or a changed source rebuilds it"""
+    srcs = [Path(__file__).with_name(n) for n in ('pod.py', 'pod_lean.py', 'dims.py', 'wheel_motor.py', 'base.py')]
+    key = [round(s.stat().st_mtime) for s in srcs]
     cache = VAL / 'pod_fp.pkl'
     if cache.exists():
-        return pickle.loads(cache.read_bytes())
+        got = pickle.loads(cache.read_bytes())
+        if isinstance(got, tuple) and got[0] == key:
+            return got[1]
     parts, _ = L.build_static()
     unit = P.wheel_unit()
     fp = B.footprints(parts, unit)
@@ -121,7 +131,7 @@ def pod_geometry():
     fp['bands'] = bands
     fp['static_below_deck'] = union_all(st)
     VAL.mkdir(parents=True, exist_ok=True)
-    cache.write_bytes(pickle.dumps(fp))
+    cache.write_bytes(pickle.dumps((key, fp)))
     return fp
 
 

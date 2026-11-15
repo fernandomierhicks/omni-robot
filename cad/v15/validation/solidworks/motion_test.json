@@ -1,0 +1,203 @@
+{
+ "right": {
+  "geometry": {
+   "droop": {
+    "axle_yz": [
+     0.06,
+     -3.0
+    ],
+    "plunger_lift": {
+     "o1": -1.15,
+     "o2": -0.75,
+     "i1": -1.15,
+     "i2": -0.75
+    },
+    "expected_lift": {
+     "o1": -1.15,
+     "o2": -0.75,
+     "i1": -1.15,
+     "i2": -0.75
+    },
+    "mate_errors": []
+   },
+   "nominal": {
+    "axle_yz": [
+     0.0,
+     0.0
+    ],
+    "plunger_lift": {
+     "o1": 0.0,
+     "o2": 0.0,
+     "i1": 0.0,
+     "i2": 0.0
+    },
+    "expected_lift": {
+     "o1": 0.0,
+     "o2": 0.0,
+     "i1": 0.0,
+     "i2": 0.0
+    },
+    "mate_errors": []
+   },
+   "bump": {
+    "axle_yz": [
+     1.41,
+     15.0
+    ],
+    "plunger_lift": {
+     "o1": 6.43,
+     "o2": 4.43,
+     "i1": 6.43,
+     "i2": 4.43
+    },
+    "expected_lift": {
+     "o1": 6.43,
+     "o2": 4.43,
+     "i1": 6.43,
+     "i2": 4.43
+    },
+    "mate_errors": []
+   }
+  },
+  "limit": {
+   "past bump": {
+    "axle_yz": [
+     1.39,
+     14.89
+    ],
+    "plunger_lift": {
+     "o1": 6.38,
+     "o2": 4.39,
+     "i1": 6.38,
+     "i2": 4.39
+    },
+    "mate_errors": []
+   },
+   "past droop": {
+    "axle_yz": [
+     0.0,
+     0.84
+    ],
+    "plunger_lift": {
+     "o1": 0.33,
+     "o2": 0.22,
+     "i1": 0.33,
+     "i2": 0.22
+    },
+    "mate_errors": []
+   }
+  },
+  "pass": true
+ },
+ "mirror": {
+  "geometry": {
+   "droop": {
+    "axle_yz": [
+     -0.06,
+     -3.0
+    ],
+    "plunger_lift": {
+     "o1": -1.15,
+     "o2": -0.75,
+     "i1": -1.15,
+     "i2": -0.75
+    },
+    "expected_lift": {
+     "o1": -1.15,
+     "o2": -0.75,
+     "i1": -1.15,
+     "i2": -0.75
+    },
+    "mate_errors": []
+   },
+   "nominal": {
+    "axle_yz": [
+     0.0,
+     0.0
+    ],
+    "plunger_lift": {
+     "o1": 0.0,
+     "o2": 0.0,
+     "i1": 0.0,
+     "i2": 0.0
+    },
+    "expected_lift": {
+     "o1": 0.0,
+     "o2": 0.0,
+     "i1": 0.0,
+     "i2": 0.0
+    },
+    "mate_errors": []
+   },
+   "bump": {
+    "axle_yz": [
+     -1.41,
+     15.0
+    ],
+    "plunger_lift": {
+     "o1": 6.43,
+     "o2": 4.43,
+     "i1": 6.43,
+     "i2": 4.43
+    },
+    "expected_lift": {
+     "o1": 6.43,
+     "o2": 4.43,
+     "i1": 6.43,
+     "i2": 4.43
+    },
+    "mate_errors": []
+   }
+  },
+  "limit": {
+   "past bump": {
+    "axle_yz": [
+     -1.39,
+     14.89
+    ],
+    "plunger_lift": {
+     "o1": 6.38,
+     "o2": 4.39,
+     "i1": 6.38,
+     "i2": 4.39
+    },
+    "mate_errors": []
+   },
+   "past droop": {
+    "axle_yz": [
+     -0.0,
+     0.84
+    ],
+    "plunger_lift": {
+     "o1": 0.33,
+     "o2": 0.22,
+     "i1": 0.33,
+     "i2": 0.22
+    },
+    "mate_errors": []
+   }
+  },
+  "pass": true
+ },
+ "robot": {
+  "components": 973,
+  "top": 13,
+  "pods": 4,
+  "flexible": [
+   1,
+   1,
+   1,
+   1
+  ],
+  "pod_origins_match": true,
+  "axle_offset_mm": [
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "mate_errors": [],
+  "pass": true
+ },
+ "pass": true
+}

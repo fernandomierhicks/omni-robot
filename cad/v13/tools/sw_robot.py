@@ -171,11 +171,32 @@ def add_bed_plane(m, ax, sign, off):
     m.ClearSelection2(True)
 
 
+def sw_mem_gb():
+    """SolidWorks' private memory (it leaks over many opens); 0 when psutil or the process is missing"""
+    try:
+        import psutil
+        return max((p.memory_info().private for p in psutil.process_iter(['name']) if (p.info['name'] or '').upper() == 'SLDWORKS.EXE'),
+                   default=0) / 2 ** 30
+    except Exception:
+        return 0.0
+
+
 def fixed_asm(sw, name, items):
     """an assembly of components fixed at their poses: items = [(key, file, 4x4)]"""
     a = Asm(sw, asm_path(name))
-    for key, path, pose in items:
+    def open_titles():
+        return {wrap(d, sld.IModelDoc2).GetTitle() for d in sw.GetDocuments() or []}
+
+    for i, (key, path, pose) in enumerate(items):
+        print(f'    [{i + 1}/{len(items)}] {key}  (SolidWorks {sw_mem_gb():.1f} GB)', flush=True)   # progress: a stalled insert names its part
+        before = open_titles()
         a.add(key, path, pose, fixed=True)
+        # Nov 11: every part window left open costs SolidWorks ~0.4 GB; the harness group's 55 distinct files ran it out of memory
+        # (error 4194304 / RPC failure) at ~21 GB. Close the part's own window once it is a component (it stays loaded by the assembly)
+        title = Path(path).name
+        if title not in before and title != a.model.GetTitle():
+            sw.CloseDoc(title)
+            a.activate()
     return finish(a)
 
 
@@ -463,6 +484,17 @@ def stage_interference(sw):
     # joints, and the motor model's pins running into their leads. Anything between a printed / purchased part and anything else is real.
     vendor_internal = [r for r in part_part_all if all(f.startswith('arm_') for f in r['files'])
                        or all(f.startswith(('xt30_', 'lead_')) for f in r['files'])]
+    # Nov 11 (harness): leads sharing a path are drawn as separate round tubes through the same space (built, one bundle), and each motor
+    # bundle starts inside the motor model's own lead stubs: listed, not findings. A harness item against anything else is a finding
+    harness_bundled = [r for r in part_part_all if r not in vendor_internal and all(f.startswith(('harness_lead', 'harness_plug_xt90', 'xt30_', 'lead_pos', 'lead_neg'))
+                                                                                  for f in r['files'])]
+    own = MAN.get('harness_own', {})                                   # a lead running into the back of its own end plug (its termination)
+
+    def ends_in_own(r):
+        lead = [f for f in r['files'] if f in own]
+        return len(lead) == 1 and len(r['files']) == 2 and next(f for f in r['files'] if f != lead[0]) in own[lead[0]]
+    harness_ends = [r for r in part_part_all if r not in vendor_internal and r not in harness_bundled and ends_in_own(r)]
+    vendor_internal += harness_bundled + harness_ends
     part_part = [r for r in part_part_all if r not in vendor_internal]
     def allowed(r):                                                    # a thread: ~1 mm3 per mm of screw (Ø2.8 pilot), + FST_THREAD_MM3
         import re
@@ -474,6 +506,7 @@ def stage_interference(sw):
     fst_big = [r for r in rows if any(fst(f) for f in r['files']) and r['mm3'] > allowed(r)]
     threads = [r for r in rows if any(fst(f) for f in r['files']) and r['mm3'] <= allowed(r)]
     rep = dict(seconds=round(time.time() - t0), interferences=len(rows), part_part=part_part, vendor_internal_count=len(vendor_internal),
+               harness_bundled_count=len(harness_bundled), harness_lead_into_own_plug_count=len(harness_ends),
                vendor_internal=vendor_internal, fastener_over_thread=fst_big,
                threads=len(threads), thread_rows=threads, d435_fov_rows=fov, note=f'fastener rows under {FST_THREAD_MM3:g} mm3 are screws thread-formed into their pilots')
     rep['pass'] = not part_part and not fst_big

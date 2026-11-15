@@ -1,0 +1,35 @@
+{
+ "source": "cad/v14 validation/chassis/checks.json lidar.supports (Nov 13): the fins webs in the scan band are unchanged in v15",
+ "supports": [
+  {
+   "support": "support_spine",
+   "nearest": 54.3,
+   "bearing": -180.0,
+   "shadow_deg": 5.3
+  },
+  {
+   "support": "support_side_L",
+   "nearest": 78.1,
+   "bearing": 136.7,
+   "shadow_deg": 3.7
+  },
+  {
+   "support": "support_side_R",
+   "nearest": 78.1,
+   "bearing": -136.7,
+   "shadow_deg": 3.7
+  },
+  {
+   "support": "support_front_L",
+   "nearest": 84.0,
+   "bearing": 36.0,
+   "shadow_deg": 4.1
+  },
+  {
+   "support": "support_front_R",
+   "nearest": 84.0,
+   "bearing": -36.0,
+   "shadow_deg": 4.1
+  }
+ ]
+}

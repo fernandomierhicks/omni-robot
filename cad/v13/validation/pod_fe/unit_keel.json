@@ -1,0 +1,18 @@
+{
+ "part": "keel",
+ "H": 1.5,
+ "nodes": 19164,
+ "tets": 92241,
+ "dofs": 417426,
+ "names": [
+  "pivot_Fx",
+  "pivot_Fy",
+  "pivot_Fz"
+ ],
+ "reactions": {
+  "pivot_Fx": {},
+  "pivot_Fy": {},
+  "pivot_Fz": {}
+ },
+ "seconds": 410.0
+}

@@ -1,0 +1,2785 @@
+{
+ "note": "Pod strength check, step 3 (fe_pod.py combine): every wheel load the sim found (studies/pod_loads.py, the 5 ms peaks,",
+ "static_wheel_load_N": 23.7,
+ "pla_MPa": {
+  "in_layer": 45.0,
+  "across_layers": 20.0,
+  "interlayer_shear": 15.0,
+  "fatigue_in_layer": 15.0,
+  "creep": 8.0
+ },
+ "bearings_C0_C_N": {
+  "627 (pivots)": [
+   1370.0,
+   3300.0
+  ],
+  "6804 (hub, stub)": [
+   2470.0,
+   4000.0
+  ],
+  "687 (roller)": [
+   500.0,
+   1150.0
+  ]
+ },
+ "steel": {
+  "M3_88_yield": 640.0,
+  "M3_minor_d": 2.387,
+  "dowel_d": 7.0,
+  "dowel_yield": 500.0
+ },
+ "fe": {
+  "E": 3500.0,
+  "nu": 0.36,
+  "excl_mm": 3.0,
+  "meshes": {
+   "fork": {
+    "H": 3.0,
+    "tets": 203258,
+    "dofs": 945996
+   },
+   "frame": {
+    "H": 2.0,
+    "tets": 151035,
+    "dofs": 701022
+   },
+   "keel": {
+    "H": 1.5,
+    "tets": 92241,
+    "dofs": 417426
+   }
+  }
+ },
+ "x_stub_brg": -33.0,
+ "x_motor_brg": 9.0,
+ "layers_note": "layers = sqrt((s_xx+ / across_layers)^2 + (tau / interlayer_shear)^2): 1 = the layers part",
+ "categories": {
+  "A static, robot standing (creep)": {
+   "n_loads": 1,
+   "worst": {
+    "fork vm raw corner peak (singular, mesh-dependent)": {
+     "value": 5.2,
+     "case": "static, a quarter of 9.65 kg x_c -17.25"
+    },
+    "fork vm": {
+     "value": 2.85,
+     "at": [
+      -42.1,
+      72.7,
+      -18.7
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "fork sxx": {
+     "value": 1.12,
+     "at": [
+      -39.0,
+      73.6,
+      -10.8
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "fork layers": {
+     "value": 0.11,
+     "at": [
+      -40.1,
+      73.6,
+      -11.9
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ],
+     "sxx": 1.0,
+     "tau": 1.3
+    },
+    "frame vm raw corner peak (singular, mesh-dependent)": {
+     "value": 5.9,
+     "case": "static, a quarter of 9.65 kg x_c -17.25"
+    },
+    "frame vm": {
+     "value": 2.25,
+     "at": [
+      65.9,
+      69.4,
+      26.6
+     ],
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "frame sxx": {
+     "value": 1.86,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "frame layers": {
+     "value": 0.12,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ],
+     "sxx": 1.9,
+     "tau": 0.8
+    },
+    "frame foot pull MPa (bonded in the model)": {
+     "value": 1.03,
+     "case": "static, a quarter of 9.65 kg x_c +17.25"
+    },
+    "keel vm raw corner peak (singular, mesh-dependent)": {
+     "value": 1.3,
+     "case": "static, a quarter of 9.65 kg x_c -17.25"
+    },
+    "keel vm": {
+     "value": 0.67,
+     "at": [
+      -40.3,
+      88.6,
+      -4.7
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "keel sxx": {
+     "value": 0.32,
+     "at": [
+      -30.6,
+      88.4,
+      -4.3
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "keel layers": {
+     "value": 0.02,
+     "at": [
+      -35.0,
+      85.4,
+      -6.8
+     ],
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ],
+     "sxx": 0.0,
+     "tau": 0.3
+    },
+    "keel foot pull MPa (bonded in the model)": {
+     "value": 0.84,
+     "case": "static, a quarter of 9.65 kg x_c -17.25"
+    },
+    "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+     "value": 189.3,
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+     "value": 1.1,
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "split joint: tenon shear MPa (V / 220 mm2)": {
+     "value": 0.0,
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+     "value": 57.3,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+     "value": 8.5,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "627 outer radial N": {
+     "value": 17.4,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "627 inner radial N": {
+     "value": 62.4,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "6804 radial N": {
+     "value": 14.8,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "motor bearing radial N": {
+     "value": 28.3,
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "687 radial N (one roller, near bearing 1.05x)": {
+     "value": 24.9,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "687 axial N (along the roller)": {
+     "value": 0.0,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "M2.5 motor screw tension N (moment / 2 r)": {
+     "value": 21.5,
+     "case": "static, a quarter of 9.65 kg x_c +17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    },
+    "spring max N (one plunger)": {
+     "value": 21.1,
+     "case": "static, a quarter of 9.65 kg x_c -17.25",
+     "F_pod": [
+      0.0,
+      0.0,
+      23.7
+     ]
+    }
+   }
+  },
+  "B flat floor <= 1 m/s, hard starts and stops": {
+   "n_loads": 18,
+   "worst": {
+    "fork vm raw corner peak (singular, mesh-dependent)": {
+     "value": 17.8,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2"
+    },
+    "fork vm": {
+     "value": 9.76,
+     "at": [
+      -40.1,
+      86.2,
+      -13.2
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "fork sxx": {
+     "value": 6.44,
+     "at": [
+      41.2,
+      85.6,
+      -0.7
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "fork layers": {
+     "value": 0.38,
+     "at": [
+      -40.1,
+      73.6,
+      -11.9
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ],
+     "sxx": 3.9,
+     "tau": 4.7
+    },
+    "frame vm raw corner peak (singular, mesh-dependent)": {
+     "value": 33.2,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau -4.2"
+    },
+    "frame vm": {
+     "value": 12.71,
+     "at": [
+      65.9,
+      69.4,
+      26.6
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "frame sxx": {
+     "value": 10.5,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "frame layers": {
+     "value": 0.65,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ],
+     "sxx": 10.5,
+     "tau": 4.7
+    },
+    "frame foot pull MPa (bonded in the model)": {
+     "value": 5.63,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau -4.2"
+    },
+    "keel vm raw corner peak (singular, mesh-dependent)": {
+     "value": 8.0,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2"
+    },
+    "keel vm": {
+     "value": 3.97,
+     "at": [
+      -40.1,
+      89.5,
+      -4.9
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "keel sxx": {
+     "value": 1.81,
+     "at": [
+      -30.6,
+      88.4,
+      -4.3
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "keel layers": {
+     "value": 0.13,
+     "at": [
+      -31.0,
+      84.8,
+      2.6
+     ],
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ],
+     "sxx": 1.6,
+     "tau": 1.3
+    },
+    "keel foot pull MPa (bonded in the model)": {
+     "value": 3.76,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2"
+    },
+    "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+     "value": 2350.4,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+     "value": 15.4,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "split joint: tenon shear MPa (V / 220 mm2)": {
+     "value": 0.2,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+     "value": 323.0,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+     "value": 49.6,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "627 outer radial N": {
+     "value": 98.0,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "627 inner radial N": {
+     "value": 362.9,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "6804 radial N": {
+     "value": 65.8,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "motor bearing radial N": {
+     "value": 123.3,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "687 radial N (one roller, near bearing 1.05x)": {
+     "value": 85.1,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "687 axial N (along the roller)": {
+     "value": 65.0,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "M2.5 motor screw tension N (moment / 2 r)": {
+     "value": 93.7,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c +17.25 tau +4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    },
+    "spring max N (one plunger)": {
+     "value": 118.9,
+     "case": "flat 45 deg 1 m/s wheel 2 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -0.7,
+      65.0,
+      81.0
+     ]
+    }
+   }
+  },
+  "C 12 mm threshold or rug edge <= 1 m/s": {
+   "n_loads": 32,
+   "worst": {
+    "fork vm raw corner peak (singular, mesh-dependent)": {
+     "value": 492.1,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "fork vm": {
+     "value": 267.24,
+     "at": [
+      -42.0,
+      72.6,
+      -18.3
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "fork sxx": {
+     "value": 102.49,
+     "at": [
+      -38.4,
+      86.8,
+      -10.4
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "fork layers": {
+     "value": 9.45,
+     "at": [
+      -40.0,
+      73.4,
+      -15.5
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ],
+     "sxx": -52.2,
+     "tau": 140.5
+    },
+    "frame vm raw corner peak (singular, mesh-dependent)": {
+     "value": 76.5,
+     "case": "threshold 12 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "frame vm": {
+     "value": 29.24,
+     "at": [
+      65.9,
+      69.4,
+      26.6
+     ],
+     "case": "threshold 12 mm 45 deg 1 m/s wheel 1 x_c -17.25 tau -4.2",
+     "F_pod": [
+      251.2,
+      155.8,
+      255.1
+     ]
+    },
+    "frame sxx": {
+     "value": 24.2,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "threshold 12 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      251.2,
+      155.8,
+      255.1
+     ]
+    },
+    "frame layers": {
+     "value": 1.51,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "threshold 12 mm 45 deg 1 m/s wheel 1 x_c -17.25 tau -4.2",
+     "F_pod": [
+      251.2,
+      155.8,
+      255.1
+     ],
+     "sxx": 24.2,
+     "tau": 10.8
+    },
+    "frame foot pull MPa (bonded in the model)": {
+     "value": 18.44,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "keel vm raw corner peak (singular, mesh-dependent)": {
+     "value": 118.2,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "keel vm": {
+     "value": 72.0,
+     "at": [
+      -31.6,
+      86.3,
+      -5.7
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "keel sxx": {
+     "value": 15.7,
+     "at": [
+      -30.6,
+      88.4,
+      -4.3
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 3 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -299.2,
+      77.0,
+      187.7
+     ]
+    },
+    "keel layers": {
+     "value": 2.01,
+     "at": [
+      -31.4,
+      87.3,
+      -4.6
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ],
+     "sxx": -27.4,
+     "tau": 28.6
+    },
+    "keel foot pull MPa (bonded in the model)": {
+     "value": 27.73,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+     "value": 22080.7,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+     "value": 133.8,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "split joint: tenon shear MPa (V / 220 mm2)": {
+     "value": 5.1,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+     "value": 3542.6,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+     "value": 148.9,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "627 outer radial N": {
+     "value": 1075.0,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "627 inner radial N": {
+     "value": 1090.2,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "6804 radial N": {
+     "value": 1324.6,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "motor bearing radial N": {
+     "value": 1451.0,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "687 radial N (one roller, near bearing 1.05x)": {
+     "value": 997.1,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "687 axial N (along the roller)": {
+     "value": 181.4,
+     "case": "threshold 12 mm 0 deg 1 m/s wheel 4 x_c -17.25 tau +4.2",
+     "F_pod": [
+      121.9,
+      181.4,
+      203.1
+     ]
+    },
+    "M2.5 motor screw tension N (moment / 2 r)": {
+     "value": 1102.1,
+     "case": "rug edge 12 mm (square) 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      941.6,
+      79.8,
+      123.3
+     ]
+    },
+    "spring max N (one plunger)": {
+     "value": 273.9,
+     "case": "threshold 12 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      251.2,
+      155.8,
+      255.1
+     ]
+    }
+   }
+  },
+  "D 18-25 mm threshold <= 1 m/s": {
+   "n_loads": 32,
+   "worst": {
+    "fork vm raw corner peak (singular, mesh-dependent)": {
+     "value": 279.1,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "fork vm": {
+     "value": 152.16,
+     "at": [
+      -42.0,
+      72.6,
+      -18.3
+     ],
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ]
+    },
+    "fork sxx": {
+     "value": 55.22,
+     "at": [
+      42.2,
+      75.7,
+      -0.6
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "fork layers": {
+     "value": 5.41,
+     "at": [
+      -40.0,
+      73.4,
+      -15.5
+     ],
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ],
+     "sxx": -27.3,
+     "tau": 80.4
+    },
+    "frame vm raw corner peak (singular, mesh-dependent)": {
+     "value": 93.4,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "frame vm": {
+     "value": 35.67,
+     "at": [
+      65.9,
+      69.4,
+      26.6
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c -17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "frame sxx": {
+     "value": 29.55,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "frame layers": {
+     "value": 1.84,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ],
+     "sxx": 29.6,
+     "tau": 13.2
+    },
+    "frame foot pull MPa (bonded in the model)": {
+     "value": 16.6,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "keel vm raw corner peak (singular, mesh-dependent)": {
+     "value": 68.5,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "keel vm": {
+     "value": 40.98,
+     "at": [
+      -31.5,
+      86.9,
+      -5.2
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "keel sxx": {
+     "value": 14.92,
+     "at": [
+      -30.6,
+      88.4,
+      -4.3
+     ],
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 3 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -270.0,
+      89.5,
+      249.2
+     ]
+    },
+    "keel layers": {
+     "value": 1.15,
+     "at": [
+      -31.4,
+      87.3,
+      -4.6
+     ],
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ],
+     "sxx": -15.6,
+     "tau": 16.3
+    },
+    "keel foot pull MPa (bonded in the model)": {
+     "value": 23.92,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 3 x_c -17.25 tau +4.2"
+    },
+    "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+     "value": 13630.9,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+     "value": 84.3,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "split joint: tenon shear MPa (V / 220 mm2)": {
+     "value": 3.0,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ]
+    },
+    "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+     "value": 1800.0,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ]
+    },
+    "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+     "value": 138.3,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 3 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -270.0,
+      89.5,
+      249.2
+     ]
+    },
+    "627 outer radial N": {
+     "value": 546.2,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ]
+    },
+    "627 inner radial N": {
+     "value": 1012.3,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 3 x_c -17.25 tau -4.2",
+     "F_pod": [
+      -270.0,
+      89.5,
+      249.2
+     ]
+    },
+    "6804 radial N": {
+     "value": 748.0,
+     "case": "threshold 18 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      555.8,
+      138.5,
+      302.1
+     ]
+    },
+    "motor bearing radial N": {
+     "value": 1067.3,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "687 radial N (one roller, near bearing 1.05x)": {
+     "value": 734.7,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "687 axial N (along the roller)": {
+     "value": 280.2,
+     "case": "threshold 25 mm 0 deg 1 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      232.5,
+      280.2,
+      242.4
+     ]
+    },
+    "M2.5 motor screw tension N (moment / 2 r)": {
+     "value": 810.7,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    },
+    "spring max N (one plunger)": {
+     "value": 334.7,
+     "case": "threshold 25 mm 45 deg 1 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      620.7,
+      152.6,
+      323.1
+     ]
+    }
+   }
+  },
+  "E anything at 2 m/s (the speed cap)": {
+   "n_loads": 40,
+   "worst": {
+    "fork vm raw corner peak (singular, mesh-dependent)": {
+     "value": 606.2,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "fork vm": {
+     "value": 329.68,
+     "at": [
+      -42.0,
+      72.6,
+      -18.3
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "fork sxx": {
+     "value": 124.27,
+     "at": [
+      -38.4,
+      86.8,
+      -10.4
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "fork layers": {
+     "value": 11.69,
+     "at": [
+      -40.0,
+      73.4,
+      -15.5
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ],
+     "sxx": -63.0,
+     "tau": 173.8
+    },
+    "frame vm raw corner peak (singular, mesh-dependent)": {
+     "value": 108.8,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "frame vm": {
+     "value": 41.42,
+     "at": [
+      65.9,
+      69.4,
+      26.6
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c -17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "frame sxx": {
+     "value": 34.4,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "frame layers": {
+     "value": 2.14,
+     "at": [
+      65.2,
+      69.5,
+      26.6
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ],
+     "sxx": 34.4,
+     "tau": 15.3
+    },
+    "frame foot pull MPa (bonded in the model)": {
+     "value": 20.17,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "keel vm raw corner peak (singular, mesh-dependent)": {
+     "value": 142.3,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2"
+    },
+    "keel vm": {
+     "value": 85.17,
+     "at": [
+      -31.6,
+      86.3,
+      -5.7
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "keel sxx": {
+     "value": 14.86,
+     "at": [
+      -30.6,
+      88.4,
+      -4.3
+     ],
+     "case": "threshold 12 mm 45 deg 2 m/s wheel 3 x_c -17.25 tau +4.2",
+     "F_pod": [
+      -238.7,
+      98.8,
+      294.8
+     ]
+    },
+    "keel layers": {
+     "value": 2.37,
+     "at": [
+      -31.4,
+      87.3,
+      -4.6
+     ],
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ],
+     "sxx": -32.3,
+     "tau": 33.7
+    },
+    "keel foot pull MPa (bonded in the model)": {
+     "value": 33.03,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2"
+    },
+    "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+     "value": 26992.8,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+     "value": 164.1,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "split joint: tenon shear MPa (V / 220 mm2)": {
+     "value": 6.4,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+     "value": 4168.9,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+     "value": 162.3,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "627 outer radial N": {
+     "value": 1265.1,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "627 inner radial N": {
+     "value": 1187.9,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "6804 radial N": {
+     "value": 1631.8,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "motor bearing radial N": {
+     "value": 2020.8,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau +4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "687 radial N (one roller, near bearing 1.05x)": {
+     "value": 1250.2,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "687 axial N (along the roller)": {
+     "value": 337.4,
+     "case": "threshold 25 mm 0 deg 2 m/s wheel 1 x_c -17.25 tau +4.2",
+     "F_pod": [
+      293.6,
+      337.4,
+      308.7
+     ]
+    },
+    "M2.5 motor screw tension N (moment / 2 r)": {
+     "value": 1534.9,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    },
+    "spring max N (one plunger)": {
+     "value": 390.5,
+     "case": "rug edge 12 mm (square) 45 deg 2 m/s wheel 1 x_c +17.25 tau -4.2",
+     "F_pod": [
+      1126.8,
+      110.3,
+      384.8
+     ]
+    }
+   }
+  }
+ },
+ "per_100N": {
+  "100 N up (floor)": {
+   "fork vm raw corner peak (singular, mesh-dependent)": {
+    "value": 21.8,
+    "case": "x_c -17.25"
+   },
+   "fork vm": {
+    "value": 12.02,
+    "at": [
+     -42.1,
+     72.7,
+     -18.7
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "fork sxx": {
+    "value": 4.75,
+    "at": [
+     -39.0,
+     73.6,
+     -10.8
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "fork layers": {
+    "value": 0.45,
+    "at": [
+     -40.1,
+     73.6,
+     -11.9
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ],
+    "sxx": 4.1,
+    "tau": 5.7
+   },
+   "frame vm raw corner peak (singular, mesh-dependent)": {
+    "value": 24.8,
+    "case": "x_c +17.25"
+   },
+   "frame vm": {
+    "value": 9.52,
+    "at": [
+     65.9,
+     69.4,
+     26.6
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "frame sxx": {
+    "value": 7.86,
+    "at": [
+     65.2,
+     69.5,
+     26.6
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "frame layers": {
+    "value": 0.49,
+    "at": [
+     65.2,
+     69.5,
+     26.6
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ],
+    "sxx": 7.9,
+    "tau": 3.5
+   },
+   "frame foot pull MPa (bonded in the model)": {
+    "value": 4.37,
+    "case": "x_c +17.25"
+   },
+   "keel vm raw corner peak (singular, mesh-dependent)": {
+    "value": 5.5,
+    "case": "x_c -17.25"
+   },
+   "keel vm": {
+    "value": 2.85,
+    "at": [
+     -40.3,
+     88.6,
+     -4.7
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "keel sxx": {
+    "value": 1.36,
+    "at": [
+     -30.6,
+     88.4,
+     -4.3
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "keel layers": {
+    "value": 0.09,
+    "at": [
+     -35.0,
+     85.4,
+     -6.8
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ],
+    "sxx": 0.1,
+    "tau": 1.4
+   },
+   "keel foot pull MPa (bonded in the model)": {
+    "value": 3.54,
+    "case": "x_c -17.25"
+   },
+   "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+    "value": 799.3,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+    "value": 4.4,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "split joint: tenon shear MPa (V / 220 mm2)": {
+    "value": 0.2,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+    "value": 241.9,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+    "value": 36.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "627 outer radial N": {
+    "value": 73.4,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "627 inner radial N": {
+    "value": 263.7,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "6804 radial N": {
+    "value": 62.5,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "motor bearing radial N": {
+    "value": 119.6,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "687 radial N (one roller, near bearing 1.05x)": {
+    "value": 105.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "687 axial N (along the roller)": {
+    "value": 0.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "M2.5 motor screw tension N (moment / 2 r)": {
+    "value": 90.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   },
+   "spring max N (one plunger)": {
+    "value": 89.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     0.0,
+     100.0
+    ]
+   }
+  },
+  "100 N toward the pivot (edge, z -58)": {
+   "fork vm raw corner peak (singular, mesh-dependent)": {
+    "value": 10.6,
+    "case": "x_c +17.25"
+   },
+   "fork vm": {
+    "value": 8.42,
+    "at": [
+     64.9,
+     66.9,
+     3.5
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "fork sxx": {
+    "value": 5.6,
+    "at": [
+     41.8,
+     86.6,
+     -3.0
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "fork layers": {
+    "value": 0.3,
+    "at": [
+     41.8,
+     86.6,
+     -3.0
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ],
+    "sxx": 5.6,
+    "tau": 1.3
+   },
+   "frame vm raw corner peak (singular, mesh-dependent)": {
+    "value": 2.7,
+    "case": "x_c +17.25"
+   },
+   "frame vm": {
+    "value": 1.39,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "frame sxx": {
+    "value": 0.47,
+    "at": [
+     71.4,
+     88.2,
+     -2.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "frame layers": {
+    "value": 0.05,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ],
+    "sxx": 0.1,
+    "tau": 0.8
+   },
+   "frame foot pull MPa (bonded in the model)": {
+    "value": 0.55,
+    "case": "x_c +17.25"
+   },
+   "keel vm raw corner peak (singular, mesh-dependent)": {
+    "value": 7.0,
+    "case": "x_c -17.25"
+   },
+   "keel vm": {
+    "value": 3.35,
+    "at": [
+     -40.2,
+     86.2,
+     -5.9
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "keel sxx": {
+    "value": 1.42,
+    "at": [
+     -31.2,
+     85.7,
+     0.1
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "keel layers": {
+    "value": 0.11,
+    "at": [
+     -30.8,
+     85.5,
+     0.4
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ],
+    "sxx": 1.3,
+    "tau": 1.0
+   },
+   "keel foot pull MPa (bonded in the model)": {
+    "value": 2.0,
+    "case": "x_c -17.25"
+   },
+   "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+    "value": 2396.1,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+    "value": 16.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "split joint: tenon shear MPa (V / 220 mm2)": {
+    "value": 0.2,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+    "value": 247.6,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+    "value": 10.8,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "627 outer radial N": {
+    "value": 75.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "627 inner radial N": {
+    "value": 78.8,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "6804 radial N": {
+    "value": 62.5,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "motor bearing radial N": {
+    "value": 119.6,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "687 radial N (one roller, near bearing 1.05x)": {
+    "value": 0.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "687 axial N (along the roller)": {
+    "value": 100.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "M2.5 motor screw tension N (moment / 2 r)": {
+    "value": 90.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   },
+   "spring max N (one plunger)": {
+    "value": 0.0,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     100.0,
+     0.0
+    ]
+   }
+  },
+  "100 N away from the pivot (edge, z -58)": {
+   "fork vm raw corner peak (singular, mesh-dependent)": {
+    "value": 10.6,
+    "case": "x_c +17.25"
+   },
+   "fork vm": {
+    "value": 8.42,
+    "at": [
+     64.9,
+     66.9,
+     3.5
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "fork sxx": {
+    "value": 4.68,
+    "at": [
+     41.4,
+     74.4,
+     -0.6
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "fork layers": {
+    "value": 0.26,
+    "at": [
+     41.9,
+     74.2,
+     -0.7
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ],
+    "sxx": 4.5,
+    "tau": 1.3
+   },
+   "frame vm raw corner peak (singular, mesh-dependent)": {
+    "value": 2.7,
+    "case": "x_c +17.25"
+   },
+   "frame vm": {
+    "value": 1.39,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "frame sxx": {
+    "value": 0.13,
+    "at": [
+     74.4,
+     88.7,
+     -0.8
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "frame layers": {
+    "value": 0.05,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ],
+    "sxx": -0.1,
+    "tau": 0.8
+   },
+   "frame foot pull MPa (bonded in the model)": {
+    "value": 0.76,
+    "case": "x_c +17.25"
+   },
+   "keel vm raw corner peak (singular, mesh-dependent)": {
+    "value": 7.0,
+    "case": "x_c -17.25"
+   },
+   "keel vm": {
+    "value": 3.35,
+    "at": [
+     -40.2,
+     86.2,
+     -5.9
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "keel sxx": {
+    "value": 0.43,
+    "at": [
+     -31.2,
+     78.4,
+     4.3
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "keel layers": {
+    "value": 0.08,
+    "at": [
+     -30.8,
+     85.5,
+     0.4
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ],
+    "sxx": -1.3,
+    "tau": 1.0
+   },
+   "keel foot pull MPa (bonded in the model)": {
+    "value": 1.23,
+    "case": "x_c -17.25"
+   },
+   "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+    "value": 2396.1,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+    "value": 16.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "split joint: tenon shear MPa (V / 220 mm2)": {
+    "value": 0.2,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+    "value": 247.6,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+    "value": 10.8,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "627 outer radial N": {
+    "value": 75.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "627 inner radial N": {
+    "value": 78.8,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "6804 radial N": {
+    "value": 62.5,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "motor bearing radial N": {
+    "value": 119.6,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "687 radial N (one roller, near bearing 1.05x)": {
+    "value": 0.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "687 axial N (along the roller)": {
+    "value": 100.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "M2.5 motor screw tension N (moment / 2 r)": {
+    "value": 90.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   },
+   "spring max N (one plunger)": {
+    "value": 0.0,
+    "case": "x_c +17.25",
+    "F_pod": [
+     0.0,
+     -100.0,
+     0.0
+    ]
+   }
+  },
+  "100 N along the axle, toward the motor (edge, z -58)": {
+   "fork vm raw corner peak (singular, mesh-dependent)": {
+    "value": 51.3,
+    "case": "x_c +17.25"
+   },
+   "fork vm": {
+    "value": 27.79,
+    "at": [
+     -42.0,
+     72.6,
+     -18.3
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "fork sxx": {
+    "value": 10.98,
+    "at": [
+     -38.4,
+     86.8,
+     -10.4
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "fork layers": {
+    "value": 0.98,
+    "at": [
+     -40.0,
+     73.4,
+     -15.5
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": -5.7,
+    "tau": 14.6
+   },
+   "frame vm raw corner peak (singular, mesh-dependent)": {
+    "value": 4.0,
+    "case": "x_c +17.25"
+   },
+   "frame vm": {
+    "value": 2.33,
+    "at": [
+     72.2,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "frame sxx": {
+    "value": 0.56,
+    "at": [
+     71.4,
+     88.2,
+     -2.2
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "frame layers": {
+    "value": 0.09,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": 0.1,
+    "tau": 1.3
+   },
+   "frame foot pull MPa (bonded in the model)": {
+    "value": 2.07,
+    "case": "x_c +17.25"
+   },
+   "keel vm raw corner peak (singular, mesh-dependent)": {
+    "value": 12.7,
+    "case": "x_c -17.25"
+   },
+   "keel vm": {
+    "value": 7.74,
+    "at": [
+     -31.6,
+     86.3,
+     -5.7
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "keel sxx": {
+    "value": 1.29,
+    "at": [
+     -30.9,
+     81.5,
+     -4.9
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "keel layers": {
+    "value": 0.22,
+    "at": [
+     -31.4,
+     87.3,
+     -4.6
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": -2.9,
+    "tau": 3.1
+   },
+   "keel foot pull MPa (bonded in the model)": {
+    "value": 2.98,
+    "case": "x_c -17.25"
+   },
+   "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+    "value": 2351.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+    "value": 14.3,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "split joint: tenon shear MPa (V / 220 mm2)": {
+    "value": 0.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+    "value": 384.0,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+    "value": 15.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "627 outer radial N": {
+    "value": 116.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "627 inner radial N": {
+    "value": 116.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "6804 radial N": {
+    "value": 138.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "motor bearing radial N": {
+    "value": 138.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "687 radial N (one roller, near bearing 1.05x)": {
+    "value": 105.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "687 axial N (along the roller)": {
+    "value": 0.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "M2.5 motor screw tension N (moment / 2 r)": {
+    "value": 104.9,
+    "case": "x_c -17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "spring max N (one plunger)": {
+    "value": 0.1,
+    "case": "x_c +17.25",
+    "F_pod": [
+     100.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "100 N along the axle, outward (edge, z -58)": {
+   "fork vm raw corner peak (singular, mesh-dependent)": {
+    "value": 51.3,
+    "case": "x_c +17.25"
+   },
+   "fork vm": {
+    "value": 27.79,
+    "at": [
+     -42.0,
+     72.6,
+     -18.3
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "fork sxx": {
+    "value": 12.34,
+    "at": [
+     -39.0,
+     73.6,
+     -10.8
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "fork layers": {
+    "value": 1.09,
+    "at": [
+     -40.1,
+     73.6,
+     -11.9
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": 11.3,
+    "tau": 13.2
+   },
+   "frame vm raw corner peak (singular, mesh-dependent)": {
+    "value": 4.0,
+    "case": "x_c +17.25"
+   },
+   "frame vm": {
+    "value": 2.33,
+    "at": [
+     72.2,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "frame sxx": {
+    "value": 0.21,
+    "at": [
+     74.4,
+     88.7,
+     -0.8
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "frame layers": {
+    "value": 0.09,
+    "at": [
+     73.0,
+     90.3,
+     -0.2
+    ],
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": -0.1,
+    "tau": 1.3
+   },
+   "frame foot pull MPa (bonded in the model)": {
+    "value": 1.38,
+    "case": "x_c -17.25"
+   },
+   "keel vm raw corner peak (singular, mesh-dependent)": {
+    "value": 12.7,
+    "case": "x_c -17.25"
+   },
+   "keel vm": {
+    "value": 7.74,
+    "at": [
+     -31.6,
+     86.3,
+     -5.7
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "keel sxx": {
+    "value": 4.13,
+    "at": [
+     -30.6,
+     88.4,
+     -4.3
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "keel layers": {
+    "value": 0.3,
+    "at": [
+     -30.6,
+     88.4,
+     -4.3
+    ],
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ],
+    "sxx": 4.1,
+    "tau": 2.9
+   },
+   "keel foot pull MPa (bonded in the model)": {
+    "value": 6.02,
+    "case": "x_c +17.25"
+   },
+   "split joint: clamp to stay shut N (both tie bolts, no tenon)": {
+    "value": 2301.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "split joint: tenon root bending MPa (tenon alone, across its layers)": {
+    "value": 14.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "split joint: tenon shear MPa (V / 220 mm2)": {
+    "value": 0.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "outer pivot M3 bending, MPa (627 4.4 mm out of the keel)": {
+    "value": 384.0,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "inner dowel bending, MPa (627 4.6 mm out of the frame)": {
+    "value": 15.9,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "627 outer radial N": {
+    "value": 116.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "627 inner radial N": {
+    "value": 116.5,
+    "case": "x_c +17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "6804 radial N": {
+    "value": 138.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "motor bearing radial N": {
+    "value": 138.1,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "687 radial N (one roller, near bearing 1.05x)": {
+    "value": 105.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "687 axial N (along the roller)": {
+    "value": 0.0,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "M2.5 motor screw tension N (moment / 2 r)": {
+    "value": 104.9,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   },
+   "spring max N (one plunger)": {
+    "value": 0.2,
+    "case": "x_c -17.25",
+    "F_pod": [
+     -100.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ }
+}

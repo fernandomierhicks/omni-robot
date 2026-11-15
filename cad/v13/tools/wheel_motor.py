@@ -2,6 +2,12 @@
 
     python -B wheel_motor.py [build|check|export|render|all]        (omni-robot-sim interpreter)
 
+v13 (Nov 10, Fernando: the supports deep in the channel between the two spoke rows, boxed in by the spokes, were hard to pull out): a 45 deg
+collar round the drum (CHANNEL_CHAMFER 11) from x -8 at the drum to r 44 at x +3 under row 2's inboard web faces. Printed cartridge end down,
+row 2's web roots now grow out of the drum, so nothing needs support in that channel; the short supports that stood on row 1's webs there
+(about 1,470 mm2, 3-7 mm tall) are gone. The collar stays 2.0 mm off row 1's treads; row 2's roller cut trims it; +10.4 cm3. Supports remain
+under the flat x faces that hang over the open roller pockets (row 2's inboard faces r 44..65, row 1's outboard faces) and under the flange.
+
 Round 8, Fernando's sketch: each axle head pocket is a round shank hole, a round head counterbore and a 45 deg cone opening outward along the
 axle (pocket_tool), instead of the double-teardrop tunnel that left cantilevered slivers of web; the cone stops at 5 mm because the two axles
 in a spoke cross just past their heads and a longer cone cuts into the neighbour's head seat.
@@ -42,6 +48,7 @@ from OCP.gp import gp_Trsf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dims import *                                                     # noqa: E402,F401,F403
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                                     # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -59,7 +66,10 @@ COLOURS = {                         # STEP colours (SolidWorks shows them per co
 
 
 def colour(name):
+    """the printed parts' filament (palette.py, Nov 13), else the role colours above (bought and mechanical parts)"""
     name = name.lstrip('_')
+    if PAL.colour(name):
+        return PAL.colour(name)
     for k, v in COLOURS.items():
         if name.startswith(k):
             return v
@@ -253,7 +263,10 @@ def web_x(row):
 def build_hub():
     # drum, left end wall (cartridge counterbore + access bore) running out on a 45 deg cone, flange plate joined to the drum by a 45 deg cone,
     # open right end around the motor can: the cavity between the cones needs no support printed either end down
-    prof = [(X_LEFT, DRUM_IN + 0.2), (X_LEFT, DRUM_OUT), (X_RIGHT, DRUM_OUT), (X_RIGHT, DRUM_IN), (FLANGE_BACK, DRUM_IN), (FLANGE_BACK, 0.0),
+    # v13: a 45 deg collar round the drum under row 2's inboard web faces (CHANNEL_CHAMFER), so their roots need no support in the channel
+    xc = WEB_GAP / 2
+    collar = [(xc - CHANNEL_CHAMFER, DRUM_OUT), (xc, DRUM_OUT + CHANNEL_CHAMFER), (xc, DRUM_OUT)] if CHANNEL_CHAMFER > 0 else []
+    prof = [(X_LEFT, DRUM_IN + 0.2), (X_LEFT, DRUM_OUT), *collar, (X_RIGHT, DRUM_OUT), (X_RIGHT, DRUM_IN), (FLANGE_BACK, DRUM_IN), (FLANGE_BACK, 0.0),
             (FLANGE_FRONT, 0.0), (FLANGE_FRONT, ACCESS_R), (FLANGE_FRONT - (DRUM_IN - ACCESS_R), DRUM_IN),
             (WALL_BACK + (DRUM_IN - ACCESS_R), DRUM_IN), (WALL_BACK, ACCESS_R), (X_PLATE_FLOOR, ACCESS_R), (X_PLATE_FLOOR, DRUM_IN + 0.2)]
     hub = b.revolve(b.Plane.XY * b.Polygon(*prof, align=None), axis=b.Axis.X)
@@ -298,7 +311,8 @@ def build_hub():
 
 def fillet_roots(hub, radii=(3.0, 2.5, 2.0, 1.5)):
     """fillet where the spoke webs' x faces meet the drum's outside cylinder"""
-    planes = [x for row in (1, 2) for x in web_x(row) if abs(x - X_RIGHT) > 0.05]       # a web face flush with the drum end has no root edge
+    planes = [x for row in (1, 2) for x in web_x(row) if abs(x - X_RIGHT) > 0.05       # a web face flush with the drum end has no root edge,
+              and not (CHANNEL_CHAMFER > 0 and abs(x) < WEB_GAP / 2 + 0.05)]           # nor one standing on the v13 collar
     arcs = [e for e in hub.edges() if e.geom_type.name == 'CIRCLE' and abs(e.radius - DRUM_OUT) < 0.02
             and any(abs(e.position_at(0.5).X - p) < 0.05 for p in planes)]
     err = None
@@ -342,13 +356,13 @@ def motor_and_plug():
 
 def build_motor(housing, pins):
     """own solid AK40-10: the maker's STEP is surfaces only (B-spline faces, no solid), which neither SolidWorks mates nor volume checks can use.
-    Dimensions measured off that STEP: can Ø53 from the output side + 1 to the rear face, rear face 4 x Ø2.8 x 4.3 at r 23.5 (mounting) and
+    Dimensions measured off that STEP: can Ø53 from the output side + 1 to the rear face, rear face 4 x M2.5 x 4.3 at r 23.5 (mounting; drawn Ø2.8 in the STEP) and
     4 x Ø4 recessed case screws, front 6 x Ø2.6 at r 23.75; rotor = output disk Ø37 x 1 with 3 x Ø2.05 (M2.5) at r 13.5 and 3 x Ø2 dowel holes at
     r 12.2, a spigot into the can. The XT30 socket is a pocket of the plug's own shape. Stator and rotor are separate so the wheel can turn."""
     xo, xr = MOTOR_X
     st = along_x(MOTOR_R, xo + 1.0, xr) - along_x(10.0, xo + 0.9, xo + 2.0)
     for a in REAR_HOLES_AZ:
-        st = st - along_x(1.4, xr - REAR_HOLE_DEPTH, xr + 0.1, *at_angle(REAR_HOLES_R, a))
+        st = st - along_x(REAR_HOLE_D / 2, xr - REAR_HOLE_DEPTH, xr + 0.1, *at_angle(REAR_HOLES_R, a))
     for a in (-132, -42, 72, 162):
         st = st - along_x(2.0, xr - 0.5, xr + 0.1, *at_angle(23.5, a + MOTOR_ROT)) - along_x(1.1, xr - 1.4, xr, *at_angle(23.5, a + MOTOR_ROT))
     for a in range(-180, 180, 60):

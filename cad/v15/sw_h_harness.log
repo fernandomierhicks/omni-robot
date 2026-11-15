@@ -1,0 +1,33 @@
+== interference_harness
+  harness_lead_M_FR: 585 rows, 0 findings (25 s)
+  harness_lead_M_RR: 587 rows, 0 findings (48 s)
+  harness_lead_SO101: 601 rows, 0 findings (71 s)
+  harness_lead_CAN_FR: 590 rows, 0 findings (95 s)
+  harness_lead_D435: 597 rows, 0 findings (118 s)
+  harness_lead_HDMI: 586 rows, 0 findings (141 s)
+  harness_lead_LIDAR: 578 rows, 0 findings (164 s)
+  harness_lead_CAN_RR: 596 rows, 0 findings (187 s)
+  harness_lead_IMU: 586 rows, 0 findings (209 s)
+  harness_lead_ESTOP: 579 rows, 0 findings (232 s)
+  harness_lead_LIDARUSB: 597 rows, 0 findings (254 s)
+  harness_lead_CAN_FL: 589 rows, 0 findings (277 s)
+  harness_lead_ARM12: 583 rows, 0 findings (299 s)
+  harness_lead_MIC: 582 rows, 0 findings (322 s)
+  harness_lead_CAN_RL: 584 rows, 0 findings (344 s)
+  harness_lead_M_FL: 586 rows, 0 findings (367 s)
+  harness_lead_5V: 579 rows, 0 findings (389 s)
+  harness_lead_M_RL: 583 rows, 0 findings (412 s)
+  harness_lead_PC19: 594 rows, 0 findings (434 s)
+  harness_lead_SWITCH: 580 rows, 0 findings (457 s)
+  harness_lead_TEENSY: 604 rows, 0 findings (480 s)
+  harness_lead_battery_xt90: 596 rows, 0 findings (503 s)
+  harness_lead_pb_xt90: 586 rows, 0 findings (526 s)
+  harness_lead_battery_balance: 580 rows, 0 findings (549 s)
+{
+ "seconds": 549,
+ "leads": 24,
+ "max_rows_per_run": 604,
+ "findings": [],
+ "pass_": true,
+ "note": "each lead alone (+ every plug) against the whole robot; a row under the ~2000 cap each run"
+}

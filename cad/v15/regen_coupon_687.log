@@ -1,0 +1,87 @@
+coupon_687 1 True 15.01 [40.1, 40.1, 18.8]
+{
+ "part": {
+  "solids": 1,
+  "valid": true,
+  "volume_cm3": 15.01,
+  "bbox": [
+   40.1,
+   40.1,
+   18.8
+  ]
+ },
+ "cells": {
+  "1": {
+   "pocket_d": 14.1,
+   "pocket_d_measured": 14.1,
+   "interference_d_on_14": -0.1,
+   "pocket_bearing_overlap_mm3": 0.0,
+   "pin_d": 7.0,
+   "pin_d_measured": 7.0,
+   "interference_d_on_7": 0.0,
+   "pin_bearing_overlap_mm3": 0.0,
+   "shoulder_on_inner_race_only": true,
+   "wall_to_face": 4.0,
+   "push_hole_inside_pocket_by": 0.1,
+   "web_to_neighbour_min": 3.9,
+   "roof_over_cone_apex": 0.95,
+   "pin_wall": 1.9,
+   "push_out_holes_reach_race": true
+  },
+  "2": {
+   "pocket_d": 14.05,
+   "pocket_d_measured": 14.05,
+   "interference_d_on_14": -0.05,
+   "pocket_bearing_overlap_mm3": 0.0,
+   "pin_d": 7.05,
+   "pin_d_measured": 7.05,
+   "interference_d_on_7": 0.05,
+   "pin_bearing_overlap_mm3": 2.759,
+   "shoulder_on_inner_race_only": true,
+   "wall_to_face": 4.03,
+   "push_hole_inside_pocket_by": 0.075,
+   "web_to_neighbour_min": 3.93,
+   "roof_over_cone_apex": 0.97,
+   "pin_wall": 1.92,
+   "push_out_holes_reach_race": true
+  },
+  "3": {
+   "pocket_d": 14.0,
+   "pocket_d_measured": 14.0,
+   "interference_d_on_14": 0.0,
+   "pocket_bearing_overlap_mm3": 0.0,
+   "pin_d": 7.1,
+   "pin_d_measured": 7.1,
+   "interference_d_on_7": 0.1,
+   "pin_bearing_overlap_mm3": 5.537,
+   "shoulder_on_inner_race_only": true,
+   "wall_to_face": 4.05,
+   "push_hole_inside_pocket_by": 0.05,
+   "web_to_neighbour_min": 3.95,
+   "roof_over_cone_apex": 1.0,
+   "pin_wall": 1.95,
+   "push_out_holes_reach_race": true
+  },
+  "4": {
+   "pocket_d": 13.95,
+   "pocket_d_measured": 13.95,
+   "interference_d_on_14": 0.05,
+   "pocket_bearing_overlap_mm3": 5.488,
+   "pin_d": 7.15,
+   "pin_d_measured": 7.15,
+   "interference_d_on_7": 0.15,
+   "pin_bearing_overlap_mm3": 8.335,
+   "shoulder_on_inner_race_only": true,
+   "wall_to_face": 4.08,
+   "push_hole_inside_pocket_by": 0.025,
+   "web_to_neighbour_min": 3.98,
+   "roof_over_cone_apex": 1.03,
+   "pin_wall": 1.98,
+   "push_out_holes_reach_race": true
+  }
+ },
+ "bearings_clear_each_other": true,
+ "fits_bed": true
+}
+exported C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v15\step_export\coupon_687
+rendered C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v15\validation\coupon_687

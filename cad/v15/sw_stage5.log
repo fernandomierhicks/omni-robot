@@ -1,0 +1,263 @@
+== interference
+{
+ "seconds": 23,
+ "interferences": 573,
+ "part_part": [
+  {
+   "components": [
+    "V15_pod-2/V15_unsprung-1/V15_pod_fork_outer-1",
+    "V15_pod-2/V15_unsprung-1/V15_bearing_627_outer-1"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "bearing_627_outer"
+   ],
+   "mm3": 12.609
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_pod_fork_outer-1",
+    "V15_pod-1/V15_unsprung-1/V15_bearing_627_outer-1"
+   ],
+   "files": [
+    "pod_fork_outer",
+    "bearing_627_outer"
+   ],
+   "mm3": 12.609
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_pod_fork_outer_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_bearing_627_outer_m-1"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "bearing_627_outer_m"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod_m-2/V15_unsprung_m-1/V15_pod_fork_outer_m-1",
+    "V15_pod_m-2/V15_unsprung_m-1/V15_bearing_627_outer_m-1"
+   ],
+   "files": [
+    "pod_fork_outer_m",
+    "bearing_627_outer_m"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod_m-2/V15_unsprung_m-1/V15_pod_fork_inner_m-1",
+    "V15_pod_m-2/V15_unsprung_m-1/V15_bearing_627_inner_m-1"
+   ],
+   "files": [
+    "pod_fork_inner_m",
+    "bearing_627_inner_m"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_pod_fork_inner-1",
+    "V15_pod-1/V15_unsprung-1/V15_bearing_627_inner-1"
+   ],
+   "files": [
+    "pod_fork_inner",
+    "bearing_627_inner"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_pod_fork_inner_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_bearing_627_inner_m-1"
+   ],
+   "files": [
+    "pod_fork_inner_m",
+    "bearing_627_inner_m"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod-2/V15_unsprung-1/V15_pod_fork_inner-1",
+    "V15_pod-2/V15_unsprung-1/V15_bearing_627_inner-1"
+   ],
+   "files": [
+    "pod_fork_inner",
+    "bearing_627_inner"
+   ],
+   "mm3": 12.081
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-10/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-10/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-12/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-12/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-4/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-4/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-8/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-8/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-2/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-2/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-7/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-7/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-1/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-1/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-3/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-3/V15_bearing_687-2"
+   ],
+   "files": [
+    "roller_sleeve",
+    "bearing_687"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-11/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-11/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-7/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-7/V15_bearing_687-2"
+   ],
+   "files": [
+    "roller_sleeve",
+    "bearing_687"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-6/V15_roller_sleeve_m-1",
+    "V15_pod_m-1/V15_unsprung_m-1/V15_wheel_m-1/V15_roller_m-6/V15_bearing_687_m-2"
+   ],
+   "files": [
+    "roller_sleeve_m",
+    "bearing_687_m"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-5/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-5/V15_bearing_687-1"
+   ],
+   "files": [
+    "roller_sleeve",
+    "bearing_687"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-9/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-9/V15_bearing_687-2"
+   ],
+   "files": [
+    "roller_sleeve",
+    "bearing_687"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-7/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-7/V15_bearing_687-1"
+   ],
+   "files": [
+    "roller_sleeve",
+    "bearing_687"
+   ],
+   "mm3": 8.335
+  },
+  {
+   "components": [
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-2/V15_roller_sleeve-1",
+    "V15_pod-1/V15_unsprung-1/V15_wheel-1/V15_roller-2/V15_bearing_687-1"
+   ],
+   "files": [
+    "roller_sleeve",
+  
+interference exit 0
+== views_close
+  hid 2 field envelopes (display only)
+  iso: saved True 0 0
+  front: saved True 0 0
+  right: saved True 0 0
+  top: saved True 0 0
+views exit 0

@@ -1,0 +1,88 @@
+{
+ "rails": {
+  "motor": {
+   "typ": 70.0,
+   "peak": 248,
+   "ceiling": 713.0
+  },
+  "12V": {
+   "typ": 12.0,
+   "peak": 80.0,
+   "ceiling": 0.0
+  },
+  "19V": {
+   "typ": 30.0,
+   "peak": 65.0,
+   "ceiling": 0.0
+  },
+  "5V": {
+   "typ": 5.3,
+   "peak": 11.1,
+   "ceiling": 0.0
+  },
+  "bat": {
+   "typ": 1.0,
+   "peak": 1.5,
+   "ceiling": 0.0
+  }
+ },
+ "converters": {
+  "19 V buck-boost": {
+   "out_typ_A": 1.58,
+   "out_peak_A": 3.42,
+   "in_peak_W": 70.7,
+   "in_peak_A_at_v_stop": 3.36
+  },
+  "12 V buck (arm)": {
+   "out_typ_A": 1.0,
+   "out_peak_A": 6.67,
+   "in_peak_W": 87.0,
+   "in_peak_A_at_v_stop": 4.14
+  },
+  "5 V buck": {
+   "out_typ_A": 1.06,
+   "out_peak_A": 2.22,
+   "in_peak_W": 12.3,
+   "in_peak_A_at_v_stop": 0.59
+  }
+ },
+ "battery": {
+  "typ_W": 123,
+  "typ_A_at_nom": 5.5,
+  "peak_W": 419,
+  "peak_A_at_stop": 20.0,
+  "ceiling_W": 884,
+  "ceiling_A_at_stop": 42.1,
+  "runtime_min_typ": 45
+ }
+}
+| id | from | to | lead | mm |
+| --- | --- | --- | --- | --- |
+| BAT | battery | pb_bat | bat | None |
+| BAL | battery | None | None | None |
+| M_FR | motor_FR | pb_m2 | motor | 377 |
+| M_FL | motor_FL | pb_m4 | motor | 389 |
+| M_RR | motor_RR | pb_m1 | motor | 312 |
+| M_RL | motor_RL | pb_m3 | motor | 343 |
+| CAN_FR | pb_m2 | mcu_can2 | can | 141 |
+| CAN_FL | pb_m4 | mcu_can4 | can | 159 |
+| CAN_RR | pb_m1 | mcu_can1 | can | 136 |
+| CAN_RL | pb_m3 | mcu_can3 | can | 151 |
+| PC19 | pb_19v | pc_dc | pair18 | 201 |
+| ARM12 | pb_arm | buck_in | pair18 | 304 |
+| SERVO12 | buck_out | sa_dc | pair18 | 133 |
+| SBUS | servo_adapter | SO-101 base servo | None | None |
+| 5V | pb_5v_face | disp_pwr | pair20 | 295 |
+| PB-MCU | power board top | carrier underside | None | None |
+| ESTOP | estop | pb_estop | multi4 | 368 |
+| SWITCH | switch | pb_switch | multi4 | 204 |
+| D435 | d435 | pc_usb3_1 | usb3 | 286 |
+| TEENSY | mcu_usb | pc_usb2_1 | usb2 | 96 |
+| SO101 | sa_usb | pc_usb3_2 | usbc | 175 |
+| LIDAR | lidar | lidar_ad_in | lidar | 290 |
+| LIDARUSB | lidar_ad_usb | pc_usb2_2 | usb2 | 109 |
+| IMU | mcu_imu | imu | imu | 85 |
+| HDMI | pc_hdmi | disp_hdmi | hdmi | 191 |
+| MIC | mic_usb | pc_usbc | usb2 | 401 |
+| SPK | mic array audio out | speaker | None | None |
+| ELRS | ELRS receiver | mcu | None | None |

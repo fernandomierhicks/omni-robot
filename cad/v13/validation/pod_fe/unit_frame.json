@@ -1,0 +1,26 @@
+{
+ "part": "frame",
+ "H": 2.0,
+ "nodes": 32867,
+ "tets": 151035,
+ "dofs": 701022,
+ "names": [
+  "pivot_Fx",
+  "pivot_Fy",
+  "pivot_Fz",
+  "seat_0_Fz",
+  "seat_1_Fz",
+  "seat_2_Fz",
+  "seat_3_Fz"
+ ],
+ "reactions": {
+  "pivot_Fx": {},
+  "pivot_Fy": {},
+  "pivot_Fz": {},
+  "seat_0_Fz": {},
+  "seat_1_Fz": {},
+  "seat_2_Fz": {},
+  "seat_3_Fz": {}
+ },
+ "seconds": 2344.5
+}

@@ -1,0 +1,134 @@
+{
+ "cradle": {
+  "slot_azimuth_deg": 159.8,
+  "slot_width_mm": 17.7
+ },
+ "jig_motor_cradle": {
+  "solids": 1,
+  "valid": true,
+  "volume_cm3": 68.8,
+  "bbox": [
+   39.7,
+   110.0,
+   110.0
+  ],
+  "overhang_mm2_as_printed": 0.0
+ },
+ "jig_motor_guide": {
+  "solids": 1,
+  "valid": true,
+  "volume_cm3": 62.7,
+  "bbox": [
+   45.0,
+   72.0,
+   72.0
+  ],
+  "overhang_mm2_as_printed": 26.3
+ },
+ "cradle_overlap_mm3": {
+  "ak40_stator": 0.0,
+  "ak40_rotor": 0.0,
+  "xt30_housing": 0.0,
+  "xt30_pin_1": 0.0,
+  "xt30_pin_2": 0.0,
+  "lead_pos": 0.0,
+  "lead_neg": 0.0,
+  "wheel_hub": 0.0
+ },
+ "cradle_gap_mm": {
+  "ak40_stator": 0.0,
+  "ak40_rotor": 9.83,
+  "xt30_housing": 1.0,
+  "xt30_pin_1": 5.23,
+  "xt30_pin_2": 3.91,
+  "lead_pos": 4.54,
+  "lead_neg": 4.59,
+  "wheel_hub": 0.15
+ },
+ "cradle_to_rollers_min_mm": 4.15,
+ "motor_drop_into_cradle_overlap_mm3": {
+  "5": 0.0,
+  "10": 0.0,
+  "20": 0.0,
+  "30": 0.0,
+  "40": 0.0,
+  "50": 0.0,
+  "60": 0.0
+ },
+ "hub_drop_over_cradle_overlap_mm3": {
+  "5": 0.0,
+  "10": 0.0,
+  "15": 0.0,
+  "20": 0.0,
+  "30": 0.0,
+  "40": 0.0
+ },
+ "guide": {
+  "cap turned 0": {
+   "guide_hub_overlap_mm3": 0.0,
+   "guide_hub_gap_mm": 0.0,
+   "guide_rotor_gap_mm": 4.0,
+   "screw_overlap_mm3": {
+    "173": 0.0,
+    "293": 0.0,
+    "413": 0.0
+   },
+   "lift_out_overlap_mm3": {
+    "1": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "10": 0.0,
+    "20": 0.0,
+    "40": 0.0
+   }
+  },
+  "cap turned 120": {
+   "guide_hub_overlap_mm3": 0.0,
+   "guide_hub_gap_mm": 0.0,
+   "guide_rotor_gap_mm": 4.0,
+   "screw_overlap_mm3": {
+    "173": 0.0,
+    "293": 0.0,
+    "413": 0.0
+   },
+   "lift_out_overlap_mm3": {
+    "1": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "10": 0.0,
+    "20": 0.0,
+    "40": 0.0
+   }
+  },
+  "cap turned 240": {
+   "guide_hub_overlap_mm3": 0.0,
+   "guide_hub_gap_mm": 0.0,
+   "guide_rotor_gap_mm": 4.0,
+   "screw_overlap_mm3": {
+    "173": 0.0,
+    "293": 0.0,
+    "413": 0.0
+   },
+   "lift_out_overlap_mm3": {
+    "1": 0.0,
+    "3": 0.0,
+    "6": 0.0,
+    "10": 0.0,
+    "20": 0.0,
+    "40": 0.0
+   }
+  }
+ },
+ "filament_overlap_mm3": {
+  "guide": 0.0,
+  "hub": 0.0,
+  "rotor_tip_in_its_hole": 0.0
+ },
+ "screw_vs_hub_overlap_mm3 (shank in \u00d82.7, head on the flange)": {
+  "173": 0.0,
+  "293": 0.0,
+  "413": 0.0
+ },
+ "screw_driver_depth_mm (cap top to a seated head top)": 43.5,
+ "filament_min_length_mm (cap top to rotor face, plus 30 to hold)": 79.0
+}

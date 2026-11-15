@@ -1,0 +1,23 @@
+== pod
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_o1_guide                        concentric
+    + spring_plunger_o1_on_pad                       tangent
+    + spring_plunger_o2_guide                        concentric
+    + spring_plunger_o2_on_pad                       tangent
+    + spring_plunger_i1_guide                        concentric
+    + spring_plunger_i1_on_pad                       tangent
+    + spring_plunger_i2_guide                        concentric
+    + spring_plunger_i2_on_pad                       tangent
+   {"components": 161, "mates": 11, "mate_errors": []}
+    + Fork_axial_location                            coincident
+    + Suspension_pivot                               concentric
+    + spring_plunger_o1_guide                        concentric
+    + spring_plunger_o1_on_pad                       tangent
+    + spring_plunger_o2_guide                        concentric
+    + spring_plunger_o2_on_pad                       tangent
+    + spring_plunger_i1_guide                        concentric
+    + spring_plunger_i1_on_pad                       tangent
+    + spring_plunger_i2_guide                        concentric
+    + spring_plunger_i2_on_pad                       tangent
+   {"components": 161, "mates": 11, "mate_errors": []}

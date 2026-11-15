@@ -23,6 +23,7 @@ import build123d as b
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import wheel_motor as W                                                # noqa: E402
 from dims import *                                                     # noqa: E402,F401,F403
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                         # noqa: E402
 
 loc, cyl, along_x, V, arc, line, prism_x = W.loc, W.cyl, W.along_x, W.V, W.arc, W.line, W.prism_x
@@ -36,6 +37,8 @@ EXTRA_COLOURS = {'pod_frame': (0.25, 0.68, 0.74), 'pod_fork': (0.95, 0.75, 0.15)
 
 
 def colour(name):
+    if PAL.colour(name):                                               # printed parts: their filament (palette.py, Nov 13)
+        return PAL.colour(name)
     for k, v in EXTRA_COLOURS.items():
         if name.startswith(k):
             return v

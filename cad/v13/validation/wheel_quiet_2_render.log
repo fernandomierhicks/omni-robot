@@ -1,0 +1,2 @@
+build {'edge_round_failed': 0, 'root_fillet': {'edges': 1, 'radius': 2.0}, 'slivers_dropped_mm3': []}
+rendered C:\Dropbox\Personal Projects\Robotics\omni-robot\cad\v13\validation\wheel_quiet_2

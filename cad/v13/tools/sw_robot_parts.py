@@ -32,7 +32,8 @@ import base as B                                                       # noqa: E
 import chassis as C                                                    # noqa: E402
 import first_floor as FF                                               # noqa: E402
 import hardware as H                                                   # noqa: E402
-import pod as P                                                        # noqa: E402
+import palette as PAL                                                  # noqa: E402
+import pod as P                                                      # noqa: E402
 import pod_lean as L                                                   # noqa: E402
 import print_beds as PB                                                # noqa: E402
 import upper as U                                                      # noqa: E402
@@ -82,10 +83,10 @@ def pod_fasteners():
     static = [H.from_solid(L.outer_screw(), 'bolt_pivot_outer')] + L.nuts()                # round 13: the column bolt comes up from under
                                                                                          # the chassis (chassis.py); the pod keeps its hex nuts
     unsprung = [H.from_solid(s, k) for k, s in L.tie_bolts().items()]
-    head_x = L.MOTOR_PLATE_X[0] + L.MOTOR_SCREW_L - REAR_ENGAGE
+    head_x = INNER_ARM_X[0] + L.MOTOR_SCREW_L - REAR_ENGAGE                 # from the motor's rear face (Nov 10: the fork's pocket floor)
     for a in REAR_HOLES_AZ:                                            # fork inner half to the motor's rear face
         y, z = W.at_angle(REAR_HOLES_R, a)
-        unsprung.append(H.pan((head_x, y, z), (-1, 0, 0), L.MOTOR_SCREW_L, 'bolt_motor_rear'))
+        unsprung.append(H.pan((head_x, y, z), (-1, 0, 0), L.MOTOR_SCREW_L, 'bolt_motor_rear', size=2.5))
     wheel = []
     for a in FLANGE_ANGLES:                                            # hub flange to the rotor's M2.5 holes (2 deep in our model: VERIFY)
         y, z = W.at_angle(FLANGE_R, a)
@@ -164,7 +165,7 @@ def main():
         stem = ('arm_' + Path(path).stem.replace('SO-101_', '')) if k.startswith('arm_') else k
         if stem not in done:
             s = b.import_step(str(path))
-            rgb = U.COL['servo'] if 'STS3215' in stem else (U.COL['arm'] if stem.startswith('arm_') else U.colour(k))
+            rgb = U.COL['servo'] if 'STS3215' in stem else (PAL.colour(stem) or U.colour(k))   # Nov 13: printed SO-101 parts Dark Gray
             write_step_part(s, rgb, stem)
             done[stem] = 1
             if stem.startswith('arm_') and 'STS3215' not in stem:
@@ -223,7 +224,22 @@ def main():
     groups['electronics'] = [[k, k, eye] for k in sorted(bought)] + [[k, st, T] for k, (st, T) in vend_inst.items() if not k.startswith('arm_')]
     groups['arm'] = [[k, st, T] for k, (st, T) in vend_inst.items() if k.startswith('arm_')]
     groups['fasteners'] = inst['robot']
+    # Nov 11: the wiring harness (harness.py: the leads along harness_route.py's routes, the plugs upper.py does not draw, the XT90 pair, the
+    # lidar's adapter), purchased items for review; part names carry the prefix harness_
+    import harness as HN
+    hitems, _, _ = HN.build()
+    for k, s in hitems.items():
+        out(f'harness_{k}', s, HN.colour(k))
+    groups['harness'] = [[f'harness_{k}', f'harness_{k}', eye] for k in sorted(hitems)]
+    # each lead's own end plugs (it runs into the plug's back, as its build123d check allows): sw_robot.py's interference lists those
+    # overlaps as the lead's termination, not findings
+    harness_own = {}
+    for cn in HN.CONNECTIONS:
+        ends = [q for q in (cn.get('a'), cn.get('b')) if isinstance(q, str)]
+        harness_own[f'harness_lead_{cn["id"]}'] = sorted({f'harness_plug_{q}' for q in ends} | {HN.DRAWN_PLUG[q] for q in ends if q in HN.DRAWN_PLUG})
+    harness_own['harness_lead_pb_xt90'] = ['harness_plug_xt90_pair', 'power']   # the board's XT90 pigtail, soldered to the board
     man = dict(
+        harness_own=harness_own,
         groups=groups, pods=pods, mirror=S_POD.tolist(), vendor=vendor_poses(), print_bed=beds,
         pod_fasteners={g: v for g, v in inst.items() if g != 'robot'}, fastener_count=dict(sorted(count.items())),
         rollers={k: M.tolist() for k, M in rollers.items()},

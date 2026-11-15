@@ -1,0 +1,202 @@
+{
+ "build": {
+  "pockets": 0,
+  "pocket_area_mm2": 0,
+  "pocket_volume_cm3": 0.0,
+  "widest_pocket_roof_mm": 0.0,
+  "seat_pieces_mm2": [
+   3321
+  ],
+  "seat_area_mm2": 3321,
+  "base_area_mm2": 12206,
+  "base_pieces_mm2": [
+   12206,
+   39
+  ],
+  "base_slits_mm2": 0.0,
+  "base_and_seat_overlap_mm2": 3321
+ },
+ "z": {
+  "bench": -80.0,
+  "member_underside": -30.0,
+  "top": -8.0,
+  "screw_heads": -26.1
+ },
+ "jig": {
+  "solids": 1,
+  "valid": true,
+  "volume_cm3": 297.5,
+  "bbox": [
+   151.5,
+   194.8,
+   96.0
+  ],
+  "fits_bed": true,
+  "overhang_mm2_as_printed": 210.7
+ },
+ "static_parts": {
+  "pod_frame_inner": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 0.0
+  },
+  "pod_keel_outer": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 0.0
+  },
+  "pod_sleeve": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 10.093
+  },
+  "dowel_inner": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 0.102
+  },
+  "washer_pivot_outer": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 8.885
+  },
+  "bolt_pivot_outer": {
+   "overlap_mm3": 0.0,
+   "gap_mm": 11.637
+  }
+ },
+ "moving_parts": {
+  "droop": {
+   "overlap_mm3": {},
+   "nearest_moving": "pod_fork_inner",
+   "nearest_mm": 2.8,
+   "lowest_moving_z": -73.67,
+   "to_bench_mm": 6.33
+  },
+  "nominal": {
+   "overlap_mm3": {},
+   "nearest_moving": "pod_fork_inner",
+   "nearest_mm": 2.82,
+   "lowest_moving_z": -70.0,
+   "to_bench_mm": 10.0
+  },
+  "bump": {
+   "overlap_mm3": {},
+   "nearest_moving": "pod_fork_inner",
+   "nearest_mm": 2.82,
+   "lowest_moving_z": -58.04,
+   "to_bench_mm": 21.96
+  }
+ },
+ "drop_in_from_above_overlap_mm3": {
+  "0.5": 0.0,
+  "2": 0.0,
+  "5": 0.0,
+  "10": 0.0,
+  "20": 0.0,
+  "40": 0.0,
+  "80": 0.0,
+  "120": 0
+ },
+ "screw_audit": {
+  "thread": {
+   "bolt_jig_keel#4": {
+    "pod_keel_outer": 15.1
+   },
+   "bolt_jig_keel#5": {
+    "pod_keel_outer": 15.1
+   }
+  },
+  "partial": {},
+  "across_layers": {},
+  "soft_across_layers": {
+   "bolt_jig_keel#4 / pod_keel_outer": 90.0,
+   "bolt_jig_keel#5 / pod_keel_outer": 90.0
+  },
+  "head": {},
+  "no_hole": {}
+ },
+ "screws": [
+  {
+   "name": "bolt_jig_foot",
+   "xy": [
+    72.6,
+    23.0
+   ],
+   "L": 70.0,
+   "tip_z": -1.1,
+   "past_nut_top_mm": 1.5
+  },
+  {
+   "name": "bolt_jig_foot",
+   "xy": [
+    72.6,
+    34.5
+   ],
+   "L": 70.0,
+   "tip_z": -1.1,
+   "past_nut_top_mm": 1.5
+  },
+  {
+   "name": "bolt_jig_foot",
+   "xy": [
+    72.6,
+    89.5
+   ],
+   "L": 70.0,
+   "tip_z": -1.1,
+   "past_nut_top_mm": 1.5
+  },
+  {
+   "name": "bolt_jig_column",
+   "xy": [
+    72.6,
+    54.6
+   ],
+   "L": 100.0,
+   "tip_z": 33.9,
+   "past_nut_top_mm": 1.5
+  },
+  {
+   "name": "bolt_jig_keel",
+   "xy": [
+    -27.0,
+    98.0
+   ],
+   "L": 80.0,
+   "tip_z": 8.9
+  },
+  {
+   "name": "bolt_jig_keel",
+   "xy": [
+    -17.0,
+    98.0
+   ],
+   "L": 80.0,
+   "tip_z": 8.9
+  }
+ ],
+ "driver_from_below_overlap_mm3 (\u00d86)": {
+  "bolt_jig_foot (72.6, 23.0)": 0.0,
+  "bolt_jig_foot (72.6, 34.5)": 0.0,
+  "bolt_jig_foot (72.6, 89.5)": 0.0,
+  "bolt_jig_column (72.6, 54.6)": 0.0,
+  "bolt_jig_keel (-27.0, 98.0)": 0.0,
+  "bolt_jig_keel (-17.0, 98.0)": 0.0
+ },
+ "driver_reach_mm (bench to the head)": {
+  "bolt_jig_foot": 6.4,
+  "bolt_jig_column": 11.4,
+  "bolt_jig_keel": 6.4
+ },
+ "screw_lengths": {
+  "foot": "M3 x 70",
+  "column": "M3 x 100",
+  "keel": "M3 x 80"
+ },
+ "stability (distance inside the base footprint, mm)": {
+  "axle": 67.4,
+  "motor": 58.8,
+  "footprint_bbox": [
+   -67.4,
+   -84.7,
+   83.9,
+   109.9
+  ]
+ }
+}

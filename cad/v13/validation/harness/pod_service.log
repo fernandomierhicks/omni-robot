@@ -1,0 +1,96 @@
+FL bolt_pod_0 driver blocked by []
+FL bolt_pod_1 driver blocked by []
+FL bolt_pod_2 driver blocked by []
+FL bolt_pod_3 driver blocked by []
+FL bolt_keel_0 driver blocked by []
+FL bolt_keel_1 driver blocked by []
+FL swept 65 parts against 440 hits 0
+RL bolt_pod_4 driver blocked by []
+RL bolt_pod_5 driver blocked by []
+RL bolt_pod_6 driver blocked by []
+RL bolt_pod_7 driver blocked by []
+RL bolt_keel_2 driver blocked by []
+RL bolt_keel_3 driver blocked by []
+RL swept 63 parts against 444 hits 0
+RR bolt_pod_8 driver blocked by []
+RR bolt_pod_9 driver blocked by []
+RR bolt_pod_10 driver blocked by []
+RR bolt_pod_11 driver blocked by []
+RR bolt_keel_4 driver blocked by []
+RR bolt_keel_5 driver blocked by []
+RR swept 63 parts against 444 hits 0
+FR bolt_pod_12 driver blocked by []
+FR bolt_pod_13 driver blocked by []
+FR bolt_pod_14 driver blocked by []
+FR bolt_pod_15 driver blocked by []
+FR bolt_keel_6 driver blocked by []
+FR bolt_keel_7 driver blocked by []
+FR swept 65 parts against 442 hits 0
+{
+ "FL": {
+  "screws_reachable_from_below": true,
+  "n_screws": 6,
+  "slide_dir": [
+   0.707,
+   0.707
+  ],
+  "slide_mm": 250.0,
+  "slide_clear": true,
+  "first_contact_mm": null,
+  "contacts": {},
+  "bumper_quarter_off": "bumper_q0",
+  "pins_carried": [
+   "bolt_pin_FL_0",
+   "bolt_pin_FL_1"
+  ],
+  "xt30_in_from_bumper_mm": 96.4
+ },
+ "RL": {
+  "screws_reachable_from_below": true,
+  "n_screws": 6,
+  "slide_dir": [
+   -0.707,
+   0.707
+  ],
+  "slide_mm": 250.0,
+  "slide_clear": true,
+  "first_contact_mm": null,
+  "contacts": {},
+  "bumper_quarter_off": "bumper_q1",
+  "pins_carried": [],
+  "xt30_in_from_bumper_mm": 96.4
+ },
+ "RR": {
+  "screws_reachable_from_below": true,
+  "n_screws": 6,
+  "slide_dir": [
+   -0.707,
+   -0.707
+  ],
+  "slide_mm": 250.0,
+  "slide_clear": true,
+  "first_contact_mm": null,
+  "contacts": {},
+  "bumper_quarter_off": "bumper_q2",
+  "pins_carried": [],
+  "xt30_in_from_bumper_mm": 96.4
+ },
+ "FR": {
+  "screws_reachable_from_below": true,
+  "n_screws": 6,
+  "slide_dir": [
+   0.707,
+   -0.707
+  ],
+  "slide_mm": 250.0,
+  "slide_clear": true,
+  "first_contact_mm": null,
+  "contacts": {},
+  "bumper_quarter_off": "bumper_q3",
+  "pins_carried": [
+   "bolt_pin_FR_0",
+   "bolt_pin_FR_1"
+  ],
+  "xt30_in_from_bumper_mm": 96.4
+ }
+}

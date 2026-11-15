@@ -1,0 +1,25 @@
+world 297 static + 648 pod solids 191 s
+rasterised 229 s
+fields 231 s
+M_FR 396 mm, clear 2.7 / 4.5 band {'crosses': True, 'slot': 'R', 'blind_added_deg': 1.86, 'cells_hidden': 0, 'cells_seen': 4} 233 s
+M_FL 417 mm, clear 2.7 / 4.5 band {'crosses': True, 'slot': 'R', 'blind_added_deg': 1.84, 'cells_hidden': 0, 'cells_seen': 4} 234 s
+M_RR 325 mm, clear 2.7 / 4.5 band {'crosses': True, 'slot': 'R', 'blind_added_deg': 1.84, 'cells_hidden': 0, 'cells_seen': 4} 235 s
+M_RL 369 mm, clear 2.7 / 4.5 band {'crosses': True, 'slot': 'R', 'blind_added_deg': 1.84, 'cells_hidden': 0, 'cells_seen': 4} 236 s
+CAN_FR 138 mm, clear 2.7 / 101.6 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 237 s
+CAN_FL 157 mm, clear 2.7 / 106.8 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 238 s
+CAN_RR 132 mm, clear 2.7 / 93.1 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 239 s
+CAN_RL 148 mm, clear 2.7 / 106.4 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 240 s
+PC19 176 mm, clear 2.7 / 78.9 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 241 s
+ARM12 319 mm, clear 3.5 / 72.5 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 242 s
+5V 286 mm, clear 2.2 / 82.9 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 243 s
+ESTOP 370 mm, clear 3.5 / 66.5 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 244 s
+SWITCH 209 mm, clear 3.5 / 66.8 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 245 s
+D435 286 mm, clear 3.5 / 68.0 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 246 s
+TEENSY 109 mm, clear 2.2 / 87.5 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 247 s
+SO101 175 mm, clear 2.7 / 94.3 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 248 s
+LIDAR 290 mm, clear 2.2 / 4.7 band {'crosses': True, 'slot': 'R', 'blind_added_deg': 0, 'cells_hidden': 4, 'cells_seen': 0} 249 s
+LIDARUSB 109 mm, clear 4.7 / 48.9 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 250 s
+IMU 92 mm, clear 6.0 / 82.9 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 251 s
+HDMI 191 mm, clear 2.2 / 67.7 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 252 s
+MIC 399 mm, clear 2.2 / 56.4 band {'crosses': False, 'slot': None, 'blind_added_deg': 0.0, 'cells_hidden': 0, 'cells_seen': 0} 253 s
+done 254 s

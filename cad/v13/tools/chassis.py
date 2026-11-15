@@ -81,7 +81,8 @@ import hardware as H                                                   # noqa: E
 import pod as P                                                        # noqa: E402
 import pod_lean as L                                                   # noqa: E402
 import wheel_motor as W                                                # noqa: E402
-from dims import R_WHEEL, M3_PILOT, M3_CLR, DOVETAIL_CLR, MIN_FEATURE  # noqa: E402
+from dims import R_WHEEL, M3_PILOT, M3_CLR, DOVETAIL_CLR, MIN_FEATURE, TIE_SLOT_L, TIE_SLOT_W  # noqa: E402
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                         # noqa: E402
 
 OUT = W.ROOT / 'step_export' / 'chassis'
@@ -149,6 +150,7 @@ FRONT = dict(bearing=36.0, top=(84.0, 109.0), foot=(93.0, 109.0), knee=134.0, no
             # reaches in only above the knee, to u 84: at 80 it was 1.1 mm from the lead); +-38 leaves < 4 mm to the front pods' way out.
             # Web 6 at its near end (the long bolt's walls: 2.1 mm at u 105). The foot: M3 x 30 up from below; the bolt: M3 x LONG_BOLT_L down from the floor's top into the node
 LONG_BOLT_L, LONG_BOLT_PILOT = 130.0, 11.3   # pan head on the floor top (181.5): tip at z 51.5, 10.5 mm into a vertical pilot in the node
+TIE_FIN_U, TIE_FIN_ABOVE = (150.0, 185.0, 215.0), 6.0   # Nov 11 (harness): zip-tie slots in the side fins (u), this far over the arch's edge
 FINS = (('support_spine', 'spine', 1), ('support_side_L', 'side', 1), ('support_side_R', 'side', -1),
         ('support_front_L', 'front', 1), ('support_front_R', 'front', -1))
 FIN_DIMS = dict(spine=SPINE, side=SIDE, front=FRONT)
@@ -159,6 +161,10 @@ PIN_D, PIN_L, PIN_PROUD = 3.0, 10.0, 4.0  # steel dowels pressed into the column
 # bumper: impact only
 BUMPER_T = 3.0
 FF.MOUNTS_Q0 = (8.0, 14.0, 72.0, 84.0)    # round 12: 25 -> 17, the front / back arcs now end at 20 deg (clear of the pods' way out); round 13: 14 (the tab)
+TAB_FILLET = 3.0                           # v13 review (Nov 11): fillet R where each bumper tab meets the wall (the tab's top and its two sides); 0 = the sharp
+                                           # round-13 corner. A stress model of one quarter (3 mm PETG, tabs fixed round their screws, 10 N inward on the
+                                           # wall mid-span) put its peak, 4 MPa, at that corner; the node's recess takes the same shape, so the arc loses
+                                           # about 3 x 3 mm there
 TAB_REACH, TAB_W, TAB_T, TAB_SCREW_L = 10.0, 16.0, 5.0, 10.0   # round 13: a tab at the bumper's foot per mount, in a recess under the node's
                                                                 # arc, one M3 x 10 up from below into a vertical pilot
 # D435 cradle (round 13; camera pose: first_floor.D435_C / D435_TILT). Round 13 put the camera 12 mm over the sim's ARM_D435 (z 111.5): with
@@ -166,6 +172,9 @@ TAB_REACH, TAB_W, TAB_T, TAB_SCREW_L = 10.0, 16.0, 5.0, 10.0   # round 13: a tab
 # sim (robot_export.D435_TILT, design.md 4.11; was 30)
 FF.D435_C = (190.0, 0.0, 111.5)
 FF.D435_TILT = 7.5
+NOSE_DIP = False                           # v13 review (Nov 11): the +-22 deg of bumper across the nose, cut down to z 52 for the nose camera's lowest ray
+                                           # (first_floor.NOSE_DIP_DEG / _TOP), stayed after the camera moved to the riser (z 193; its lowest ray
+                                           # is 59 deg down, the bumper's top corner 75 deg): False = full height all round; True = round 15's dip
 NOSE_D435 = False                          # v13 (Nov 5, proposal): the D435 moves to the arm riser's front (d435_riser.py): no nose cradle,
                                            # camera, plug or FOV here, nor the cradle's two pilots in node_front. The node keeps round 15's
                                            # outline (the skeleton still takes the cradle's footprint), so nothing else in the chassis moves
@@ -186,6 +195,8 @@ COLOURS = dict(FF.COLOURS, hub=(0.50, 0.52, 0.56), edge=(0.70, 0.72, 0.62), node
 
 def colour(name):
     n = name.split('/')[-1]
+    if PAL.colour(n):                                                  # printed parts: their filament (palette.py, Nov 13)
+        return PAL.colour(n)
     for k in ('hub', 'edge', 'node', 'support'):
         if n.startswith(k):
             return COLOURS[k]
@@ -462,8 +473,25 @@ def build_pedestal():
 
 
 def bumper_tab(a, rp, rb, grow=0.0):
-    """round 13: plan of the tab at the bumper's foot at mount angle a: from the bumper wall in under the node's arc"""
-    return affinity.rotate(sbox(rp - TAB_REACH - grow, -TAB_W / 2 - grow, rb + 0.5, TAB_W / 2 + grow), a, origin=(0, 0))
+    """round 13: plan of the tab at the bumper's foot at mount angle a: from the bumper wall in under the node's arc. v13 review: with TAB_FILLET the
+    tab's sides flare into the wall on concave arcs of that radius (local frame: x radial out, y across)"""
+    g = sbox(rp - TAB_REACH, -TAB_W / 2, rb + 0.5, TAB_W / 2)
+    R = TAB_FILLET
+    if R > 0:
+        for s in (1, -1):
+            y0, y1 = (TAB_W / 2, TAB_W / 2 + R) if s > 0 else (-TAB_W / 2 - R, -TAB_W / 2)
+            g = g.union(sbox(rb - R, y0, rb + 0.5, y1).difference(Point(rb - R, s * (TAB_W / 2 + R)).buffer(R, 48)))
+    if grow:
+        g = g.buffer(grow, join_style=2)
+    return affinity.rotate(g, a, origin=(0, 0))
+
+
+def tab_root_fillet(a, rb, grow=0.0):
+    """v13 review: the concave fillet along the top of a tab where it meets the bumper wall (a quarter-round strip, TAB_W wide); grow: the node's recess"""
+    R, z0 = TAB_FILLET, Z0 + TAB_T
+    piece = box(rb - R - grow, rb + 0.5, -TAB_W / 2 - grow, TAB_W / 2 + grow, z0 - 0.01, z0 + R + grow) \
+        - b.Solid.make_cylinder(R - grow, TAB_W + 4.0, b.Plane(origin=(rb - R, -TAB_W / 2 - 2.0, z0 + R), z_dir=(0, 1, 0)))
+    return piece.rotate(b.Axis.Z, a)
 
 
 def build_bumpers(rb, rp, sk):
@@ -473,7 +501,8 @@ def build_bumpers(rb, rp, sk):
     Returns the quarters, the screws and the recesses to cut from the nodes"""
     ro = rb + BUMPER_T
     ring = prism(Point(0, 0).buffer(ro, 720).difference(Point(0, 0).buffer(rb, 720)), *FF.BUMPER_Z)
-    ring = ring - prism(Polygon([(0, 0)] + [tuple(1.5 * ro * U(t)) for t in np.linspace(-FF.NOSE_DIP_DEG, FF.NOSE_DIP_DEG, 9)]), FF.NOSE_DIP_TOP, FF.BUMPER_Z[1] + 1)
+    if NOSE_DIP:
+        ring = ring - prism(Polygon([(0, 0)] + [tuple(1.5 * ro * U(t)) for t in np.linspace(-FF.NOSE_DIP_DEG, FF.NOSE_DIP_DEG, 9)]), FF.NOSE_DIP_TOP, FF.BUMPER_Z[1] + 1)
     out, hw, cuts = {}, {}, []
     mounts = FF.mount_angles()
     for q in range(4):
@@ -484,9 +513,12 @@ def build_bumpers(rb, rp, sk):
             if affinity.rotate(sbox(rp - TAB_REACH - 0.2, -TAB_W / 2 - 1, rp - 0.5, TAB_W / 2 + 1), a, origin=(0, 0)).difference(sk).area > 0.01:
                 raise RuntimeError(f'bumper tab at {a:g} deg has no arc over it')
             s = s + prism(bumper_tab(a, rp, rb), Z0, Z0 + TAB_T)
+            if TAB_FILLET > 0:
+                s = s + tab_root_fillet(a, rb)
             x, y = U(a) * (rp - TAB_REACH / 2)
             s = s - cyl(M3_CLR / 2, TAB_T + 0.2, (x, y, Z0 + TAB_T / 2)) - cyl(FF.CB_D / 2, FF.CB_DEPTH + 0.1, (x, y, Z0 + FF.CB_DEPTH / 2 - 0.05))
-            cuts.append((prism(bumper_tab(a, rp, rb, 0.2), Z0 - 0.1, Z0 + TAB_T + 0.2), (x, y)))
+            recess = prism(bumper_tab(a, rp, rb, 0.2), Z0 - 0.1, Z0 + TAB_T + 0.2)
+            cuts.append((recess + tab_root_fillet(a, rb, 0.2) if TAB_FILLET > 0 else recess, (x, y)))
             hw[f'bolt_bumper_{a:g}'] = pan_screw((x, y, Z0 + FF.CB_DEPTH), (0, 0, 1), TAB_SCREW_L)
         out[f'bumper_q{q}'] = s
     return out, hw, cuts
@@ -681,6 +713,17 @@ def build_fin(kind, side=1):
             slot = LineString([(x, y), (x + 15.0 * out[0], y + 15.0 * out[1])]).buffer((PIN_D + 0.1) / 2, 16, cap_style=2)
             s = s - B.solid_of(union_all([Point(x, y).buffer((PIN_D + 0.1) / 2, 32), slot]), COLUMN_TOP - 0.05, COLUMN_TOP + PIN_PROUD + 0.5)
             hw[f'bolt_pin_{B.NAMES[i]}_{n}'] = cyl(PIN_D / 2, PIN_L, (x, y, COLUMN_TOP + PIN_PROUD - PIN_L / 2))
+    if kind == 'side':                                                                  # Nov 11 (harness): zip-tie slots through the plate
+        for u in TIE_FIN_U:                                                             # above the arch's edge (the motor and lidar leads
+            col = prof.intersection(sbox(u - 0.01, -1e3, u + 0.01, 1e3))                # run along the right fin to the floor's slot; the
+            if col.is_empty:                                                            # left fin's are spares). The tie goes through the
+                continue                                                                # slot and round the edge and the leads under it
+            zc = col.bounds[1] + TIE_FIN_ABOVE
+            if zc + TIE_SLOT_W / 2 > SUPPORT_PLANE_BAND[0] - 8.0:                     # stays in the 8 mm legs, under the band's taper
+                continue
+            cx, cy = fin_xy(kind, u, side)
+            cut = box(-TIE_SLOT_L / 2, TIE_SLOT_L / 2, -FIN_FLANGE, FIN_FLANGE, -TIE_SLOT_W / 2, TIE_SLOT_W / 2)
+            s = s - cut.rotate(b.Axis.Z, bearing).moved(b.Location((cx, cy, zc)))
     sec = cone.intersection(sbox(band[0], -FIN_FLANGE, band[2], FIN_FLANGE))                    # round 15: the wedge at the scan plane
     sec = affinity.translate(affinity.rotate(sec, bearing, origin=(0, 0)), *lc)
     return s, hw, sec, feet, long_

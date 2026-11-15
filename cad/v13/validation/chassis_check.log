@@ -1,16 +1,16 @@
 hub 1 True 498.6
-node_front 1 True 161.9
-node_left 1 True 188.7
-node_back 1 True 117.5
-node_right 1 True 188.7
+node_front 1 True 161.8
+node_left 1 True 188.6
+node_back 1 True 117.4
+node_right 1 True 188.6
 pedestal 1 True 48.3
-bumper_q0 1 True 45.7
-bumper_q1 1 True 55.5
-bumper_q2 1 True 55.5
-bumper_q3 1 True 45.7
+bumper_q0 1 True 55.7
+bumper_q1 1 True 55.7
+bumper_q2 1 True 55.7
+bumper_q3 1 True 55.7
 support_spine 1 True 261.0
-support_side_L 1 True 96.9
-support_side_R 1 True 96.9
+support_side_L 1 True 96.7
+support_side_R 1 True 96.7
 support_front_L 1 True 16.8
 support_front_R 1 True 16.8
 {
@@ -52,7 +52,7 @@ support_front_R 1 True 16.8
   "found": {}
  },
  "d435_cradle": "none: v13 has the D435 on the arm riser (upper.py / d435_riser.py)",
- "frame_volume_cm3": 1155.5,
+ "frame_volume_cm3": 1155.1,
  "supports_static": {
   "overlap_mm3": {
    "support_spine / hub": 0,
@@ -88,9 +88,9 @@ support_front_R 1 True 16.8
    "support_side_R / bumper_q2": 40.11,
    "support_side_R / bumper_q3": 71.06,
    "support_front_L / node_front": 0.0,
-   "support_front_L / bumper_q0": 10.64,
+   "support_front_L / bumper_q0": 2.82,
    "support_front_R / node_front": 0.0,
-   "support_front_R / bumper_q3": 10.63
+   "support_front_R / bumper_q3": 2.82
   },
   "note": "0 overlap everywhere; the side fins sit 0.02 above the column top (bearing there), the feet stand on the members"
  },

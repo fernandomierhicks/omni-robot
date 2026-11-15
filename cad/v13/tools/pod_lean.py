@@ -78,6 +78,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pod as P                                                        # noqa: E402
 import wheel_motor as W                                                # noqa: E402
 from dims import *                                                     # noqa: E402,F401,F403
+import palette as PAL                                                  # noqa: E402
 from step_colour import write_part, write_step                         # noqa: E402
 
 box, prism, hull2c, rot_pt, yz_poly = P.box, P.prism, P.hull2c, P.rot_pt, P.yz_poly
@@ -123,9 +124,10 @@ COLUMN_NUT_Z = 30.0                # the column bolt's nut (pod z)
 SLEEVE_D, SLEEVE_FLANGE_D, SLEEVE_FLANGE_T = 7.0, 10.0, 1.0   # printed sleeve in the outer 627's inner race (Ø3.4 bore for the M3)
 HEAD_HOLE_D = 14.0                 # through the outer arm round the sleeve flange and the screw head (static parts in the turning arm)
 OUTER_SCREW_L = 20.0               # round 11 (round 9-10: 16): 11.1 mm into the keel and its pin boss
-INNER_W_X = (INNER_ARM_X[0], 65.6)  # inner arm widened behind the motor: spring pads (2 x 2) and the inner 627 seat
-MOTOR_PLATE_X = INNER_ARM_X       # the plate under the motor's rear face, 13 thick: it carries all 4 springs (round 10 tried 6.7, Fernando: back to 13)
-MOTOR_SCREW_L = REAR_SCREW_L      # 4 x M3 x 12 pan heads, 3.8 into the motor's Ø2.8 x 4.3 holes
+INNER_FACE_X = INNER_ARM_X[0] - MOTOR_POCKET_D   # Nov 10: the inner half's motor-side face, MOTOR_POCKET_D in front of the motor's rear face (44.7)
+INNER_W_X = (INNER_FACE_X, 65.6)  # inner arm widened behind the motor: spring pads (2 x 2) and the inner 627 seat
+MOTOR_PLATE_X = (INNER_FACE_X, INNER_ARM_X[1])   # the plate under the motor's rear face, 13 thick behind the pocket: it carries all 4 springs (round 10 tried 6.7, Fernando: back to 13)
+MOTOR_SCREW_L = REAR_SCREW_L      # 4 x M2.5 x 14 pan heads, 3.8 into the motor's 4.3 deep holes
 SPRING_X = (50.5, 61.1)            # the two spring columns (x); the tower's wall is 7.3 mm from the rollers
 PAD_HALF_L, TOWER_HALF_L = 15.0, 15.0   # pad / tower half length (y): 4.2 mm bump rails in front of and behind the spring pairs
 FI_X = (INNER_W_X[1] + FRAME_GAP, INNER_W_X[1] + FRAME_GAP + FRAME_T)   # inner frame
@@ -142,16 +144,17 @@ BASE_TOP = 0.0                     # round 9: from BASE_RAISE_X to the inner hal
 BASE_KEEL_CUT = 10.0               # under the outer keel the bar's top is cut down to z -BASE_KEEL_CUT (and r 9 round the pivot)
 BASE_RAISE_X = KEEL_PIN_BOSS_X + 1.5
 # round 9: fork halves and tie bolts
-SPLIT_X = INNER_ARM_X[0]           # the halves meet on the motor-face plane (44.7)
+SPLIT_X = INNER_FACE_X             # the halves meet on the inner half's motor-side face (Nov 10: 42.7; was the motor-face plane 44.7)
 TIE_LINES = ((78.5, -16.5), (82.0, -24.5))   # (y, z) of the two tie-bolt lines; each head counterbore stays >= 2 mm off the 627 seats
 TIE_L, TIE_CBORE_D, TIE_HEAD = 50.0, 6.8, (6.5, 2.5)   # M3 x 50 pan heads
 TIE_SEATS = ((OA_X[0] + 3.5, 55.5), (OA_X[0] + 10.5, 62.0))   # round 10, per line (outer, inner) head seats, staggered so that along the bar
                                    # some bolt is threaded in at every x: line 1 from x -49 to 1 and 5.5 to 55.5, line 2 from -42 to 8 and 12 to 62.
-                                   # The inner heads sit >= 3 mm above the socket's ridge
-TIE_PILOT_D = 2.9                  # round 10: the bolts thread into a Ø2.9 pilot along their whole length (soft thread through every layer); the
-                                   # inner ones pass the inner half in Ø3.4 so they clamp it to the bar
-TENON_L, TENON_INSET, TENON_CLR = 3.0, 2.5, 0.15   # tenon on the bar's end into a socket in the inner half
+                                   # The inner heads sit >= 3 mm above the socket's floor
+TIE_PILOT_D = 3.0                  # round 10: the bolts thread into a pilot along their whole length (soft thread through every layer); Nov 10 (Fernando): Ø3.0, was Ø2.9, easier
+                                   # to drive 50 mm of screw. The inner ones pass the inner half in Ø3.4 so they clamp it to the bar
+TENON_L, TENON_INSET, TENON_CLR = 7.0, 2.5, 0.1   # Nov 10 (Fernando): square tenon on the bar's end, a tight fit in a square socket in the inner half (was 45 deg gabled, 3 + 4.5 long, 0.15 clear)
 FORK_EDGE_R, FORK_ROOT_R = 2.0, 3.0
+FORK_CORNER_R = 10.0               # Nov 10 (Fernando): where each arm's bottom edge meets the front of the bar's leg: the corner looks down and is in tension under wheel load
 DOWEL_D, DOWEL_L = 7.0, 20.0       # inner pivot: Ø7 x 20 steel dowel (ISO 8734) pressed through the inner keel (fit VERIFY)
 Y_S = P.Y_S
 Y_PAIR = P.Y_PAIR
@@ -161,6 +164,8 @@ EXTRA = {'pod_keel': (0.25, 0.68, 0.74), 'pod_sleeve': (0.66, 0.46, 0.86), 'dowe
 
 
 def colour(name):
+    if PAL.colour(name):                                               # printed parts: their filament (palette.py, Nov 13)
+        return PAL.colour(name)
     for k, v in EXTRA.items():
         if name.startswith(k):
             return v
@@ -224,31 +229,41 @@ def arm(outline, x0, x1, bed, info, name):
 
 
 def tenon(grow=0.0):
-    """tenon on the bar's end, gabled at 45 deg so the socket in the inner half (printed motor face down) has a self-supporting roof"""
+    """square tenon on the bar's end (grow 0), or the socket it fits in the inner half (grow TENON_CLR, which also leaves the tenon's end clear of the socket floor, so the halves
+    seat on the split plane). Nov 10 (Fernando): was gabled at 45 deg for a self-supporting socket roof; the gable did nothing for rigidity, and the square socket's roof is a
+    9.2 mm bridge (printed motor face down)"""
     y0, y1 = BASE_Y[0] + TENON_INSET - grow, BASE_Y[1] - TENON_INSET + grow
     z0, z1 = BASE_Z[0] + TENON_INSET - grow, BASE_TOP - TENON_INSET + grow
     xe = SPLIT_X + TENON_L + grow
-    gable = b.extrude(b.Plane.XY.offset(z0) * b.Polygon((SPLIT_X - 0.01, y0), (xe, y0), (xe + (y1 - y0) / 2, (y0 + y1) / 2), (xe, y1), (SPLIT_X - 0.01, y1),
-                                                       align=None), amount=z1 - z0)
-    return gable
+    t = box(SPLIT_X - 0.01, xe, y0, y1, z0, z1)
+    return t if grow else b.chamfer([e for e in t.edges() if on_x(e, (xe,))], 0.5)      # lead-in for the tight fit
+
+
+def arm_outline(r_axle):
+    """y-z outline of an arm: the hull of its axle circle and pivot lobe, with the bottom edge blended into the front of the bar's leg by a FORK_CORNER_R concave arc (the outline
+    then runs inside the bar back up to the lobe, so one closed profile takes the arm's edge rounds round the corner too)"""
+    a_top, lobe, bottom, axle_end = hull2c((0, 0), r_axle, PIV, OA_LOBE_R)
+    B2, B1 = np.array(tuple(bottom.position_at(0)))[1:], np.array(tuple(bottom.position_at(1)))[1:]
+    u = (B1 - B2) / np.linalg.norm(B1 - B2)                              # along the bottom edge, toward the axle
+    v = np.array([0.0, -1.0])                                            # down the bar's front face
+    Pc = B2 + u * (BASE_Y[0] - B2[0]) / u[0]                             # the sharp corner
+    half = math.acos(float(u @ v)) / 2
+    t = FORK_CORNER_R / math.tan(half)
+    T1, T2 = Pc + u * t, Pc + v * t
+    w = (u + v) / np.linalg.norm(u + v)
+    M = Pc + w * (FORK_CORNER_R / math.sin(half) - FORK_CORNER_R)
+    G = np.array([B2[0], T2[1]])                                         # inside the bar
+    return [a_top, lobe, line(V(*B2), V(*G)), line(V(*G), V(*T2)), arc(V(*T2), V(*M), V(*T1)), line(V(*T1), V(*B1)), axle_end]
 
 
 def tie_holes():
-    """the tie bolts' holes: (cut from the outer half, cut from the inner half). Each bolt threads into a Ø2.9 pilot from its head seat to 0.8
-    past its tip (round 10; round 9 had Ø3.4 then 10 mm of Ø2.8); the inner bolts pass the inner half in Ø3.4, so they clamp it to the bar"""
+    """the tie bolts' holes: (cut from the outer half, cut from the inner half). Both bolts on a line thread into one pilot that runs straight
+    through the outer half (Nov 10, Fernando: each bolt's blind pilot stopped 0.8 past its tip, leaving a 2.4-2.9 mm plug of PLA between the two tips;
+    now only the head seats need support); the inner bolts pass the inner half in Ø3.4, so they clamp it to the bar"""
     outer, inner = [], []
-    for (y, z), seats in zip(TIE_LINES, TIE_SEATS):
-        for side, seat in enumerate(seats):
-            s = (1, -1)[side]
-            tip = seat + s * TIE_L
-            face = (OA_X[0], INNER_W_X[1])[side]
-            cbore = along_x(TIE_CBORE_D / 2, *sorted((face - s * 0.1, seat)), y, z)
-            pilot = along_x(TIE_PILOT_D / 2, *sorted((seat, tip + s * 0.8)), y, z)
-            if side == 0:
-                outer += [cbore, pilot]
-            else:
-                outer.append(pilot)
-                inner += [cbore, along_x(M3_CLR / 2, SPLIT_X - 1.0, seat + 0.01, y, z)]
+    for (y, z), (seat_o, seat_i) in zip(TIE_LINES, TIE_SEATS):
+        outer += [along_x(TIE_CBORE_D / 2, OA_X[0] - 0.1, seat_o, y, z), along_x(TIE_PILOT_D / 2, seat_o, seat_i, y, z)]
+        inner += [along_x(TIE_CBORE_D / 2, seat_i, INNER_W_X[1] + 0.1, y, z), along_x(M3_CLR / 2, SPLIT_X - 1.0, seat_i + 0.01, y, z)]
     return outer, inner
 
 
@@ -268,7 +283,7 @@ def build_fork():
     """returns the outer half, the inner half and what the rounding managed"""
     info = {}
     # outer half: outer arm, axle stub, the base bar up to the split plane and its tenon
-    outer = arm(hull2c((0, 0), OUTER_BOSS_R, PIV, OA_LOBE_R), *OA_X, OA_X[0], info, 'outer_arm')
+    outer = arm(arm_outline(OUTER_BOSS_R), *OA_X, OA_X[0], info, 'outer_arm')
     # bar side profile (x-z): top z -8 at the arm, down to -10 under the keel, up at 45 deg (prints upright without support) to the pivot height
     xk = KEEL_X[0] - 1.5
     bar = xz_poly([(OA_X[0], BASE_Z[0]), (SPLIT_X, BASE_Z[0]), (SPLIT_X, BASE_TOP), (BASE_RAISE_X + BASE_TOP + BASE_KEEL_CUT, BASE_TOP),
@@ -285,26 +300,34 @@ def build_fork():
     outer = outer + tenon()
     xb0 = OA_X[1] - BRG_RECESS                                            # outer 627 from the arm's inner face; Ø14 hole for the sleeve flange + head
     outer = outer - along_x(B627_OD / 2, xb0 - B627_W, xb0 + 0.2, *PIV) - along_x(HEAD_HOLE_D / 2, OA_X[0] - 0.1, xb0 - B627_W + 0.1, *PIV)
+    # Nov 9 (Fernando): the bearing slides into its seat along its axis from the arm's inner face, and the bar's top (the flat at z -10 under the keel) clipped its
+    # Ø22 circle. Full cutout: a trough the bearing's size + BRG_PATH_CLEAR from the arm's face to BRG_PATH_LEN past the bearing's exposed face (open at the top,
+    # so the bearing is set in from above and pushed home; the first try ran the whole bar and was too deep).
+    outer = outer - along_x(B627_OD / 2 + BRG_PATH_CLEAR, OA_X[1], xb0 + BRG_PATH_LEN, *PIV)
     for h in tie_holes()[0]:
         outer = outer - h
     # inner half: motor plate, widened arm (spring pads, inner 627), the bar's last 21 mm, socket for the tenon
-    inner = arm(hull2c((0, 0), INNER_PLATE_R, PIV, OA_LOBE_R), *MOTOR_PLATE_X, MOTOR_PLATE_X[0], info, 'motor_plate')
+    inner = arm(arm_outline(INNER_PLATE_R), *MOTOR_PLATE_X, MOTOR_PLATE_X[0], info, 'motor_plate')
     yp0, yp1 = Y_S - PAD_HALF_L, Y_S + PAD_HALF_L
     wide = (box(INNER_W_X[0], INNER_W_X[1], yp0, yp1, 5.0, PAD_Z)
-            + prism(hull2c((yp1 - 6.0, PAD_Z - 6.0), 6.0, PIV, OA_LOBE_R), INNER_ARM_X[0], INNER_W_X[1])
-            + prism(hull2c((yp0 + 6.0, PAD_Z - 6.0), 6.0, PIV, OA_LOBE_R), INNER_ARM_X[0], INNER_W_X[1])
+            + prism(hull2c((yp1 - 6.0, PAD_Z - 6.0), 6.0, PIV, OA_LOBE_R), INNER_W_X[0], INNER_W_X[1])
+            + prism(hull2c((yp0 + 6.0, PAD_Z - 6.0), 6.0, PIV, OA_LOBE_R), INNER_W_X[0], INNER_W_X[1])
             + box(SPLIT_X, INNER_W_X[1], *BASE_Y, BASE_Z[0], BASE_TOP))
     wide, info['wide_arm_edges'] = round_edges(wide, [e for e in wide.edges() if on_x(e, (INNER_W_X[1],))], (FORK_EDGE_R, 1.0))
     inner = inner + wide
     inner, info['motor_plate_root'] = round_edges(inner, [e for e in inner.edges() if on_x(e, (MOTOR_PLATE_X[1],)) and e.center().Y > 30], (FORK_ROOT_R, 2.0, 1.0))
+    # Nov 10 (Fernando): shallow tight-fit pocket for the can, so the stator drops onto the hole pattern; 0.5 x 45 deg lead-in at its mouth
+    xm, rp = MOTOR_PLATE_X[0], MOTOR_R + MOTOR_POCKET_CLR
+    if MOTOR_POCKET_D > 0:
+        inner = inner - along_x(rp, xm - 0.1, INNER_ARM_X[0]) - b.Cone(rp + 0.6, rp - 0.01, 0.6).rotate(b.Axis.Y, 90).moved(b.Location((xm + 0.2, 0, 0)))
     y, z = W.at_angle(LEAD_NOTCH_R + 12.0, P.lead_azimuth())             # notch where the leads pass (they move with the fork)
-    inner = inner - along_x(12.0, MOTOR_PLATE_X[0] - 0.1, MOTOR_PLATE_X[1] + 0.1, y, z)
+    inner = inner - along_x(12.0, xm - 0.1, MOTOR_PLATE_X[1] + 0.1, y, z)
     xi = INNER_W_X[1] - BRG_RECESS                                         # inner 627: seat in the outer face, relief beyond it
     inner = inner - along_x(B627_OD / 2, xi - B627_W, INNER_W_X[1] + 0.1, *PIV) - along_x(SEAT_RELIEF_D / 2, xi - B627_W - SEAT_RELIEF_T, xi - B627_W + 0.1, *PIV)
-    head_x = MOTOR_PLATE_X[0] + MOTOR_SCREW_L - REAR_ENGAGE                 # motor rear face: 4 x M3 x 8 in counterbores
+    head_x = INNER_ARM_X[0] + MOTOR_SCREW_L - REAR_ENGAGE                   # from the motor's rear face (the pocket floor): 4 x M2.5 x 14 in counterbores
     for a in REAR_HOLES_AZ:
         y, z = W.at_angle(REAR_HOLES_R, a)
-        inner = inner - along_x(M3_CLR / 2, MOTOR_PLATE_X[0] - 0.1, MOTOR_PLATE_X[1] + 0.1, y, z) - along_x(REAR_CBORE_D / 2, head_x, MOTOR_PLATE_X[1] + 0.1, y, z)
+        inner = inner - along_x(REAR_CLR_D / 2, MOTOR_PLATE_X[0] - 0.1, MOTOR_PLATE_X[1] + 0.1, y, z) - along_x(REAR_CBORE_D / 2, head_x, MOTOR_PLATE_X[1] + 0.1, y, z)
     inner = inner - tenon(TENON_CLR)
     for h in tie_holes()[1]:
         inner = inner - h
