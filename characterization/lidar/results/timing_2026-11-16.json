@@ -1,0 +1,1349 @@
+{
+ "device": {
+  "session": "timing_2026-11-16",
+  "host": "omni-cam",
+  "port": "/dev/ttyUSB0",
+  "baud": 115200,
+  "info": {
+   "model": 40,
+   "name": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "serial": "C79D9AF2C1EA9FC2A2EB92F1544E3C00"
+  },
+  "health": {
+   "status": "good",
+   "code": 0
+  },
+  "rates": {
+   "standard_us": 500,
+   "express_us": 250
+  },
+  "modes": [
+   {
+    "id": 0,
+    "name": "Standard",
+    "us": 500.0,
+    "rate": 2000,
+    "max_m": 12.0,
+    "answer": 129,
+    "typical": false
+   },
+   {
+    "id": 1,
+    "name": "Express",
+    "us": 250.0,
+    "rate": 4000,
+    "max_m": 12.0,
+    "answer": 130,
+    "typical": false
+   },
+   {
+    "id": 2,
+    "name": "Boost",
+    "us": 125.0,
+    "rate": 8000,
+    "max_m": 12.0,
+    "answer": 132,
+    "typical": false
+   },
+   {
+    "id": 3,
+    "name": "Stability",
+    "us": 250.0,
+    "rate": 4000,
+    "max_m": 12.0,
+    "answer": 132,
+    "typical": true
+   }
+  ],
+  "typical": "Stability",
+  "plan": "typical:660:300,Standard:660:30,Express:660:30,Boost:660:30,Stability:660:30,typical:300:20,typical:400:20,typical:500:20,typical:800:20,typical:1023:20",
+  "gap_s": 5.0,
+  "t_wall": 1794887814.562712,
+  "pi": {
+   "loadavg": [
+    0.8,
+    0.53,
+    0.24
+   ],
+   "cpu_temp_c": 31.641
+  }
+ },
+ "runs": [
+  {
+   "name": "run_00_Stability_660",
+   "mode": "Stability",
+   "pwm": 660,
+   "seconds": 300.0,
+   "answer": "0x84",
+   "bytes": 1645249,
+   "skipped_bytes": 0,
+   "packets": 12464,
+   "samples": 1196448,
+   "driver_samples": 1195768,
+   "bytes_per_s": 5500.1,
+   "link_use": 0.477,
+   "sample_us_nominal": 250.0,
+   "sample_us": 249.9979,
+   "clock_ppm": -8,
+   "delivery_ms": {
+    "p50": 0.719,
+    "p95": 1.257,
+    "p99": 1.459,
+    "max": 21.284
+   },
+   "reads": 315071,
+   "bytes_per_read": 5.2,
+   "turns": 3651,
+   "hz": 12.308,
+   "hz_mean": 12.306,
+   "period_cv_pct": 0.443,
+   "period_ms": {
+    "p0": 80.499,
+    "p50": 81.249,
+    "max": 81.999,
+    "std": 0.36
+   },
+   "samples_per_turn": {
+    "mean": 325.1,
+    "std": 1.4,
+    "min": 322,
+    "max": 328
+   },
+   "spinup_s": 113.84,
+   "spinup_turns": 1372,
+   "scan_after_motor_s": 1.88,
+   "first_turn_hz": 9.37,
+   "hz_at_s": {
+    "2": 9.48,
+    "3": 10.855,
+    "5": 11.834,
+    "10": 11.905,
+    "20": 12.012,
+    "30": 12.048,
+    "60": 12.085,
+    "120": 12.195,
+    "180": 12.27,
+    "240": 12.346,
+    "290": 12.384
+   },
+   "hz_drift_per_min": 0.0579,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.701,
+    "p95": 1.201,
+    "p99": 1.352,
+    "max": 1.574
+   },
+   "turn_ready_ms": {
+    "p0": 24.153,
+    "p50": 36.573,
+    "p95": 47.362,
+    "max": 49.062
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 9.65,
+    "p95": 15.251,
+    "p99": 15.347,
+    "max": 15.954
+   },
+   "angle": {
+    "step_mean_deg": 1.1073,
+    "step_std_deg": 1.2185,
+    "step_p1_p99_deg": [
+     -3.7656,
+     5.7656
+    ],
+    "backward_steps_per_turn": 18.45,
+    "widest_gap_deg": {
+     "p50": 6.484,
+     "max": 6.953
+    },
+    "first_sample_deg": {
+     "p0": -6.656,
+     "p50": -6.078,
+     "max": -5.484
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.122,
+    "p95": 0.186,
+    "max": 0.209
+   },
+   "in_turn_time_rms_ms": 0.028,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.126,
+    -0.059,
+    -0.161,
+    0.003,
+    -0.047,
+    0.063,
+    0.089,
+    0.239,
+    0.049,
+    0.047,
+    -0.075,
+    -0.02
+   ],
+   "valid_share": 0.708,
+   "range_m_median": 0.416,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.81,
+      0.54,
+      0.24
+     ],
+     "cpu_temp_c": 31.641
+    },
+    "after": {
+     "loadavg": [
+      0.45,
+      0.47,
+      0.29
+     ],
+     "cpu_temp_c": 31.641
+    }
+   }
+  },
+  {
+   "name": "run_01_Standard_660",
+   "mode": "Standard",
+   "pwm": 660,
+   "seconds": 30.0,
+   "answer": "0x81",
+   "bytes": 292581,
+   "skipped_bytes": 0,
+   "packets": 58516,
+   "samples": 58516,
+   "driver_samples": 58337,
+   "bytes_per_s": 9980.3,
+   "link_use": 0.866,
+   "sample_us_nominal": 500.0,
+   "sample_us": 499.9972,
+   "clock_ppm": -6,
+   "delivery_ms": {
+    "p50": 0.57,
+    "p95": 0.981,
+    "p99": 1.037,
+    "max": 2.467
+   },
+   "reads": 58505,
+   "bytes_per_read": 5.0,
+   "turns": 357,
+   "hz": 12.346,
+   "hz_mean": 12.368,
+   "period_cv_pct": 0.339,
+   "period_ms": {
+    "p0": 80.5,
+    "p50": 81.0,
+    "max": 81.5,
+    "std": 0.274
+   },
+   "samples_per_turn": {
+    "mean": 161.7,
+    "std": 0.5,
+    "min": 161,
+    "max": 163
+   },
+   "spinup_s": 7.3,
+   "spinup_turns": 86,
+   "scan_after_motor_s": 1.75,
+   "first_turn_hz": 9.43,
+   "hz_at_s": {
+    "2": 9.757,
+    "3": 11.268,
+    "5": 12.195,
+    "10": 12.308,
+    "20": 12.346,
+    "30": 12.346
+   },
+   "hz_drift_per_min": 0.1957,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.579,
+    "p95": 0.981,
+    "p99": 1.053,
+    "max": 1.069
+   },
+   "turn_ready_ms": {
+    "p0": 0.066,
+    "p50": 0.579,
+    "p95": 0.981,
+    "max": 1.069
+   },
+   "packet_tx_ms": 0.43,
+   "stamp_period_err_ms": {
+    "p50": 0.084,
+    "p95": 0.545,
+    "p99": 0.622,
+    "max": 0.949
+   },
+   "angle": {
+    "step_mean_deg": 2.2258,
+    "step_std_deg": 2.5628,
+    "step_p1_p99_deg": [
+     -5.0938,
+     9.4375
+    ],
+    "backward_steps_per_turn": 16.86,
+    "widest_gap_deg": {
+     "p50": 9.906,
+     "max": 9.938
+    },
+    "first_sample_deg": {
+     "p0": -8.469,
+     "p50": -7.172,
+     "max": -6.047
+    }
+   },
+   "valid_share": 0.68,
+   "quality": {
+    "p1": 8.0,
+    "p50": 15.0,
+    "p99": 15.0
+   },
+   "range_m_median": 0.413,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.41,
+      0.46,
+      0.29
+     ],
+     "cpu_temp_c": 31.154
+    },
+    "after": {
+     "loadavg": [
+      0.28,
+      0.42,
+      0.28
+     ],
+     "cpu_temp_c": 30.667
+    }
+   }
+  },
+  {
+   "name": "run_02_Express_660",
+   "mode": "Express",
+   "pwm": 660,
+   "seconds": 30.0,
+   "answer": "0x82",
+   "bytes": 307167,
+   "skipped_bytes": 0,
+   "packets": 3656,
+   "samples": 116960,
+   "driver_samples": 116696,
+   "bytes_per_s": 10496.5,
+   "link_use": 0.911,
+   "sample_us_nominal": 250.0,
+   "sample_us": 249.998,
+   "clock_ppm": -8,
+   "delivery_ms": {
+    "p50": 0.55,
+    "p95": 0.974,
+    "p99": 1.03,
+    "max": 1.205
+   },
+   "reads": 58500,
+   "bytes_per_read": 5.3,
+   "turns": 359,
+   "hz": 12.461,
+   "hz_mean": 12.447,
+   "period_cv_pct": 0.21,
+   "period_ms": {
+    "p0": 79.999,
+    "p50": 80.249,
+    "max": 80.999,
+    "std": 0.168
+   },
+   "samples_per_turn": {
+    "mean": 321.4,
+    "std": 0.7,
+    "min": 320,
+    "max": 324
+   },
+   "spinup_s": 7.33,
+   "spinup_turns": 87,
+   "scan_after_motor_s": 1.76,
+   "first_turn_hz": 9.35,
+   "hz_at_s": {
+    "2": 9.734,
+    "3": 11.3,
+    "5": 12.214,
+    "10": 12.422,
+    "20": 12.461,
+    "30": 12.461
+   },
+   "hz_drift_per_min": 0.1375,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.574,
+    "p95": 0.984,
+    "p99": 1.021,
+    "max": 1.046
+   },
+   "turn_ready_ms": {
+    "p0": 8.273,
+    "p50": 12.54,
+    "p95": 16.065,
+    "max": 16.808
+   },
+   "packet_tx_ms": 7.29,
+   "stamp_period_err_ms": {
+    "p50": 0.281,
+    "p95": 1.042,
+    "p99": 7.763,
+    "max": 7.803
+   },
+   "angle": {
+    "step_mean_deg": 1.1202,
+    "step_std_deg": 2.1919,
+    "step_p1_p99_deg": [
+     -6.25,
+     8.2656
+    ],
+    "backward_steps_per_turn": 24.99,
+    "widest_gap_deg": {
+     "p50": 8.875,
+     "max": 8.891
+    },
+    "first_sample_deg": {
+     "p0": -6.578,
+     "p50": -5.852,
+     "max": -5.266
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.137,
+    "p95": 0.16,
+    "max": 0.172
+   },
+   "in_turn_time_rms_ms": 0.031,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.144,
+    -0.061,
+    -0.139,
+    0.024,
+    -0.077,
+    0.049,
+    0.098,
+    0.254,
+    0.014,
+    0.008,
+    -0.042,
+    0.014
+   ],
+   "valid_share": 0.717,
+   "range_m_median": 0.425,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.26,
+      0.41,
+      0.28
+     ],
+     "cpu_temp_c": 30.18
+    },
+    "after": {
+     "loadavg": [
+      0.23,
+      0.39,
+      0.28
+     ],
+     "cpu_temp_c": 31.154
+    }
+   }
+  },
+  {
+   "name": "run_03_Boost_660",
+   "mode": "Boost",
+   "pwm": 660,
+   "seconds": 30.0,
+   "answer": "0x84",
+   "bytes": 321881,
+   "skipped_bytes": 0,
+   "packets": 2438,
+   "samples": 233952,
+   "driver_samples": 233019,
+   "bytes_per_s": 10996.4,
+   "link_use": 0.955,
+   "sample_us_nominal": 125.0,
+   "sample_us": 124.9994,
+   "clock_ppm": -5,
+   "delivery_ms": {
+    "p50": 0.549,
+    "p95": 0.955,
+    "p99": 1.004,
+    "max": 1.057
+   },
+   "reads": 58518,
+   "bytes_per_read": 5.5,
+   "turns": 359,
+   "hz": 12.5,
+   "hz_mean": 12.503,
+   "period_cv_pct": 0.085,
+   "period_ms": {
+    "p0": 79.875,
+    "p50": 80.0,
+    "max": 80.125,
+    "std": 0.068
+   },
+   "samples_per_turn": {
+    "mean": 639.9,
+    "std": 0.5,
+    "min": 639,
+    "max": 641
+   },
+   "spinup_s": 23.64,
+   "spinup_turns": 289,
+   "scan_after_motor_s": 1.75,
+   "first_turn_hz": 9.57,
+   "hz_at_s": {
+    "2": 9.828,
+    "3": 11.315,
+    "5": 12.27,
+    "10": 12.461,
+    "20": 12.5,
+    "30": 12.5
+   },
+   "hz_drift_per_min": -0.1443,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.675,
+    "p95": 0.993,
+    "p99": 1.031,
+    "max": 1.036
+   },
+   "turn_ready_ms": {
+    "p0": 12.367,
+    "p50": 17.833,
+    "p95": 22.539,
+    "max": 22.852
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 4.082,
+    "p95": 8.002,
+    "p99": 8.086,
+    "max": 8.102
+   },
+   "angle": {
+    "step_mean_deg": 0.5626,
+    "step_std_deg": 1.0006,
+    "step_p1_p99_deg": [
+     -3.8594,
+     4.7188
+    ],
+    "backward_steps_per_turn": 32.24,
+    "widest_gap_deg": {
+     "p50": 5.781,
+     "max": 6.172
+    },
+    "first_sample_deg": {
+     "p0": -6.047,
+     "p50": -5.703,
+     "max": -5.5
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.131,
+    "p95": 0.158,
+    "max": 0.164
+   },
+   "in_turn_time_rms_ms": 0.029,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.154,
+    -0.067,
+    -0.113,
+    0.015,
+    -0.061,
+    0.036,
+    0.128,
+    0.245,
+    0.033,
+    0.013,
+    -0.104,
+    0.028
+   ],
+   "valid_share": 0.703,
+   "range_m_median": 0.412,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.22,
+      0.38,
+      0.27
+     ],
+     "cpu_temp_c": 30.667
+    },
+    "after": {
+     "loadavg": [
+      0.42,
+      0.41,
+      0.29
+     ],
+     "cpu_temp_c": 32.128
+    }
+   }
+  },
+  {
+   "name": "run_04_Stability_660",
+   "mode": "Stability",
+   "pwm": 660,
+   "seconds": 30.0,
+   "answer": "0x84",
+   "bytes": 160659,
+   "skipped_bytes": 0,
+   "packets": 1217,
+   "samples": 116736,
+   "driver_samples": 116038,
+   "bytes_per_s": 5498.3,
+   "link_use": 0.477,
+   "sample_us_nominal": 250.0,
+   "sample_us": 250.0013,
+   "clock_ppm": 5,
+   "delivery_ms": {
+    "p50": 0.591,
+    "p95": 1.074,
+    "p99": 1.145,
+    "max": 1.249
+   },
+   "reads": 30777,
+   "bytes_per_read": 5.2,
+   "turns": 359,
+   "hz": 12.5,
+   "hz_mean": 12.49,
+   "period_cv_pct": 0.321,
+   "period_ms": {
+    "p0": 79.75,
+    "p50": 80.0,
+    "max": 80.75,
+    "std": 0.257
+   },
+   "samples_per_turn": {
+    "mean": 320.3,
+    "std": 1.0,
+    "min": 319,
+    "max": 323
+   },
+   "spinup_s": 4.93,
+   "spinup_turns": 57,
+   "scan_after_motor_s": 1.8,
+   "first_turn_hz": 9.71,
+   "hz_at_s": {
+    "2": 9.901,
+    "3": 11.3,
+    "5": 12.308,
+    "10": 12.461,
+    "20": 12.5,
+    "30": 12.5
+   },
+   "hz_drift_per_min": 0.2216,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.593,
+    "p95": 1.027,
+    "p99": 1.078,
+    "max": 1.143
+   },
+   "turn_ready_ms": {
+    "p0": 24.229,
+    "p50": 37.94,
+    "p95": 47.782,
+    "max": 48.612
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 8.066,
+    "p95": 16.189,
+    "p99": 16.264,
+    "max": 16.329
+   },
+   "angle": {
+    "step_mean_deg": 1.1239,
+    "step_std_deg": 1.2753,
+    "step_p1_p99_deg": [
+     -3.8125,
+     6.0
+    ],
+    "backward_steps_per_turn": 18.73,
+    "widest_gap_deg": {
+     "p50": 6.406,
+     "max": 6.734
+    },
+    "first_sample_deg": {
+     "p0": -6.719,
+     "p50": -6.133,
+     "max": -5.547
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.113,
+    "p95": 0.192,
+    "max": 0.206
+   },
+   "in_turn_time_rms_ms": 0.025,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.131,
+    -0.064,
+    -0.163,
+    0.009,
+    -0.008,
+    0.083,
+    0.057,
+    0.206,
+    0.039,
+    0.079,
+    -0.08,
+    -0.03
+   ],
+   "valid_share": 0.708,
+   "range_m_median": 0.422,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.39,
+      0.4,
+      0.28
+     ],
+     "cpu_temp_c": 30.667
+    },
+    "after": {
+     "loadavg": [
+      0.31,
+      0.39,
+      0.28
+     ],
+     "cpu_temp_c": 30.667
+    }
+   }
+  },
+  {
+   "name": "run_05_Stability_300",
+   "mode": "Stability",
+   "pwm": 300,
+   "seconds": 20.0,
+   "answer": "0x84",
+   "bytes": 104672,
+   "skipped_bytes": 0,
+   "packets": 792,
+   "samples": 75936,
+   "driver_samples": 74595,
+   "bytes_per_s": 5501.9,
+   "link_use": 0.478,
+   "sample_us_nominal": 250.0,
+   "sample_us": 249.9991,
+   "clock_ppm": -4,
+   "delivery_ms": {
+    "p50": 0.484,
+    "p95": 0.944,
+    "p99": 0.991,
+    "max": 1.019
+   },
+   "reads": 19998,
+   "bytes_per_read": 5.2,
+   "turns": 91,
+   "hz": 4.854,
+   "hz_mean": 4.855,
+   "period_cv_pct": 0.236,
+   "period_ms": {
+    "p0": 204.999,
+    "p50": 205.999,
+    "max": 207.249,
+    "std": 0.487
+   },
+   "samples_per_turn": {
+    "mean": 823.9,
+    "std": 1.9,
+    "min": 820,
+    "max": 829
+   },
+   "spinup_s": 3.8,
+   "spinup_turns": 18,
+   "scan_after_motor_s": 1.99,
+   "first_turn_hz": 5.41,
+   "hz_at_s": {
+    "3": 4.954,
+    "5": 4.938,
+    "10": 4.843,
+    "20": 4.866
+   },
+   "hz_drift_per_min": 0.0193,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.548,
+    "p95": 0.931,
+    "p99": 0.969,
+    "max": 0.973
+   },
+   "turn_ready_ms": {
+    "p0": 24.079,
+    "p50": 36.682,
+    "p95": 47.305,
+    "max": 48.423
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 10.536,
+    "p95": 14.654,
+    "p99": 14.943,
+    "max": 15.102
+   },
+   "angle": {
+    "step_mean_deg": 0.4363,
+    "step_std_deg": 1.08,
+    "step_p1_p99_deg": [
+     -4.3281,
+     5.1875
+    ],
+    "backward_steps_per_turn": 43.82,
+    "widest_gap_deg": {
+     "p50": 5.656,
+     "max": 5.828
+    },
+    "first_sample_deg": {
+     "p0": -5.859,
+     "p50": -5.656,
+     "max": -5.438
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.178,
+    "p95": 0.258,
+    "max": 0.293
+   },
+   "in_turn_time_rms_ms": 0.102,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.13,
+    -0.053,
+    -0.155,
+    0.004,
+    -0.115,
+    0.021,
+    0.091,
+    0.266,
+    -0.004,
+    0.063,
+    -0.073,
+    0.076
+   ],
+   "valid_share": 0.628,
+   "range_m_median": 0.39,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.29,
+      0.38,
+      0.28
+     ],
+     "cpu_temp_c": 31.641
+    },
+    "after": {
+     "loadavg": [
+      0.56,
+      0.44,
+      0.3
+     ],
+     "cpu_temp_c": 31.154
+    }
+   }
+  },
+  {
+   "name": "run_06_Stability_400",
+   "mode": "Stability",
+   "pwm": 400,
+   "seconds": 20.0,
+   "answer": "0x84",
+   "bytes": 105160,
+   "skipped_bytes": 0,
+   "packets": 796,
+   "samples": 76320,
+   "driver_samples": 75622,
+   "bytes_per_s": 5501.3,
+   "link_use": 0.478,
+   "sample_us_nominal": 250.0,
+   "sample_us": 249.9974,
+   "clock_ppm": -10,
+   "delivery_ms": {
+    "p50": 0.587,
+    "p95": 0.948,
+    "p99": 0.998,
+    "max": 1.022
+   },
+   "reads": 20187,
+   "bytes_per_read": 5.2,
+   "turns": 132,
+   "hz": 7.005,
+   "hz_mean": 6.998,
+   "period_cv_pct": 0.236,
+   "period_ms": {
+    "p0": 142.499,
+    "p50": 142.749,
+    "max": 143.998,
+    "std": 0.338
+   },
+   "samples_per_turn": {
+    "mean": 571.6,
+    "std": 1.4,
+    "min": 570,
+    "max": 576
+   },
+   "spinup_s": 6.61,
+   "spinup_turns": 45,
+   "scan_after_motor_s": 1.9,
+   "first_turn_hz": 6.79,
+   "hz_at_s": {
+    "2": 6.791,
+    "3": 6.926,
+    "5": 6.981,
+    "10": 6.981,
+    "20": 7.018
+   },
+   "hz_drift_per_min": 0.1822,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.623,
+    "p95": 0.979,
+    "p99": 1.018,
+    "max": 1.018
+   },
+   "turn_ready_ms": {
+    "p0": 24.389,
+    "p50": 35.751,
+    "p95": 46.749,
+    "max": 47.931
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 1.2,
+    "p95": 1.586,
+    "p99": 23.012,
+    "max": 23.24
+   },
+   "angle": {
+    "step_mean_deg": 0.6304,
+    "step_std_deg": 1.1301,
+    "step_p1_p99_deg": [
+     -4.1875,
+     5.3438
+    ],
+    "backward_steps_per_turn": 33.31,
+    "widest_gap_deg": {
+     "p50": 5.906,
+     "max": 6.078
+    },
+    "first_sample_deg": {
+     "p0": -8.078,
+     "p50": -5.906,
+     "max": -5.453
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.119,
+    "p95": 0.16,
+    "max": 0.187
+   },
+   "in_turn_time_rms_ms": 0.047,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.096,
+    -0.137,
+    -0.102,
+    -0.022,
+    -0.054,
+    -0.013,
+    0.143,
+    0.199,
+    0.079,
+    -0.015,
+    0.025,
+    -0.01
+   ],
+   "valid_share": 0.628,
+   "range_m_median": 0.393,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.59,
+      0.45,
+      0.3
+     ],
+     "cpu_temp_c": 30.667
+    },
+    "after": {
+     "loadavg": [
+      1.02,
+      0.55,
+      0.34
+     ],
+     "cpu_temp_c": 30.18
+    }
+   }
+  },
+  {
+   "name": "run_07_Stability_500",
+   "mode": "Stability",
+   "pwm": 500,
+   "seconds": 20.0,
+   "answer": "0x84",
+   "bytes": 105457,
+   "skipped_bytes": 0,
+   "packets": 798,
+   "samples": 76512,
+   "driver_samples": 75757,
+   "bytes_per_s": 5502.2,
+   "link_use": 0.478,
+   "sample_us_nominal": 250.0,
+   "sample_us": 250.0022,
+   "clock_ppm": 9,
+   "delivery_ms": {
+    "p50": 0.629,
+    "p95": 0.992,
+    "p99": 1.068,
+    "max": 1.185
+   },
+   "reads": 20223,
+   "bytes_per_read": 5.2,
+   "turns": 172,
+   "hz": 9.174,
+   "hz_mean": 9.167,
+   "period_cv_pct": 0.21,
+   "period_ms": {
+    "p0": 108.501,
+    "p50": 109.001,
+    "max": 110.001,
+    "std": 0.23
+   },
+   "samples_per_turn": {
+    "mean": 436.4,
+    "std": 0.9,
+    "min": 434,
+    "max": 440
+   },
+   "spinup_s": 6.3,
+   "spinup_turns": 55,
+   "scan_after_motor_s": 1.85,
+   "first_turn_hz": 8.0,
+   "hz_at_s": {
+    "2": 8.049,
+    "3": 8.686,
+    "5": 9.039,
+    "10": 9.195,
+    "20": 9.174
+   },
+   "hz_drift_per_min": -0.001,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.573,
+    "p95": 0.917,
+    "p99": 0.962,
+    "max": 0.978
+   },
+   "turn_ready_ms": {
+    "p0": 24.377,
+    "p50": 36.764,
+    "p95": 47.565,
+    "max": 48.421
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 11.284,
+    "p95": 13.312,
+    "p99": 13.482,
+    "max": 13.973
+   },
+   "angle": {
+    "step_mean_deg": 0.825,
+    "step_std_deg": 1.2099,
+    "step_p1_p99_deg": [
+     -4.0625,
+     5.5938
+    ],
+    "backward_steps_per_turn": 28.54,
+    "widest_gap_deg": {
+     "p50": 6.109,
+     "max": 6.438
+    },
+    "first_sample_deg": {
+     "p0": -6.297,
+     "p50": -5.891,
+     "max": -5.438
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.127,
+    "p95": 0.171,
+    "max": 0.186
+   },
+   "in_turn_time_rms_ms": 0.039,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.142,
+    -0.099,
+    -0.132,
+    0.037,
+    -0.12,
+    0.09,
+    0.13,
+    0.238,
+    0.028,
+    0.019,
+    -0.046,
+    0.001
+   ],
+   "valid_share": 0.704,
+   "range_m_median": 0.416,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.94,
+      0.54,
+      0.34
+     ],
+     "cpu_temp_c": 30.667
+    },
+    "after": {
+     "loadavg": [
+      0.73,
+      0.52,
+      0.34
+     ],
+     "cpu_temp_c": 30.667
+    }
+   }
+  },
+  {
+   "name": "run_08_Stability_800",
+   "mode": "Stability",
+   "pwm": 800,
+   "seconds": 20.0,
+   "answer": "0x84",
+   "bytes": 105997,
+   "skipped_bytes": 0,
+   "packets": 803,
+   "samples": 76992,
+   "driver_samples": 76436,
+   "bytes_per_s": 5499.5,
+   "link_use": 0.477,
+   "sample_us_nominal": 250.0,
+   "sample_us": 249.9975,
+   "clock_ppm": -10,
+   "delivery_ms": {
+    "p50": 0.615,
+    "p95": 0.995,
+    "p99": 1.04,
+    "max": 1.075
+   },
+   "reads": 20346,
+   "bytes_per_read": 5.2,
+   "turns": 292,
+   "hz": 15.564,
+   "hz_mean": 15.574,
+   "period_cv_pct": 0.249,
+   "period_ms": {
+    "p0": 63.749,
+    "p50": 64.249,
+    "max": 64.749,
+    "std": 0.16
+   },
+   "samples_per_turn": {
+    "mean": 256.8,
+    "std": 0.6,
+    "min": 255,
+    "max": 259
+   },
+   "spinup_s": 3.78,
+   "spinup_turns": 52,
+   "scan_after_motor_s": 1.74,
+   "first_turn_hz": 11.05,
+   "hz_at_s": {
+    "2": 11.529,
+    "3": 13.793,
+    "5": 15.095,
+    "10": 15.564,
+    "20": 15.564
+   },
+   "hz_drift_per_min": 0.091,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.533,
+    "p95": 0.985,
+    "p99": 1.039,
+    "max": 1.062
+   },
+   "turn_ready_ms": {
+    "p0": 24.068,
+    "p50": 37.069,
+    "p95": 46.902,
+    "max": 48.305
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 7.917,
+    "p95": 16.336,
+    "p99": 16.519,
+    "max": 17.214
+   },
+   "angle": {
+    "step_mean_deg": 1.4014,
+    "step_std_deg": 1.2612,
+    "step_p1_p99_deg": [
+     -3.375,
+     6.1719
+    ],
+    "backward_steps_per_turn": 15.52,
+    "widest_gap_deg": {
+     "p50": 6.844,
+     "max": 7.234
+    },
+    "first_sample_deg": {
+     "p0": -7.0,
+     "p50": -6.234,
+     "max": -5.547
+    }
+   },
+   "in_turn_angle_rms_deg": {
+    "p50": 0.138,
+    "p95": 0.208,
+    "max": 0.291
+   },
+   "in_turn_time_rms_ms": 0.025,
+   "angle_vs_constant_speed_by_30deg": [
+    -0.126,
+    -0.139,
+    -0.18,
+    0.01,
+    -0.008,
+    0.174,
+    0.087,
+    0.215,
+    0.032,
+    0.026,
+    -0.094,
+    -0.006
+   ],
+   "valid_share": 0.711,
+   "range_m_median": 0.428,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.67,
+      0.51,
+      0.34
+     ],
+     "cpu_temp_c": 31.154
+    },
+    "after": {
+     "loadavg": [
+      0.52,
+      0.49,
+      0.33
+     ],
+     "cpu_temp_c": 30.667
+    }
+   }
+  },
+  {
+   "name": "run_09_Stability_1023",
+   "mode": "Stability",
+   "pwm": 1023,
+   "seconds": 20.0,
+   "answer": "0x84",
+   "bytes": 106261,
+   "skipped_bytes": 0,
+   "packets": 805,
+   "samples": 77184,
+   "driver_samples": 76847,
+   "bytes_per_s": 5500.1,
+   "link_use": 0.477,
+   "sample_us_nominal": 250.0,
+   "sample_us": 250.0001,
+   "clock_ppm": 0,
+   "delivery_ms": {
+    "p50": 0.488,
+    "p95": 0.984,
+    "p99": 1.043,
+    "max": 1.072
+   },
+   "reads": 20349,
+   "bytes_per_read": 5.2,
+   "turns": 402,
+   "hz": 21.505,
+   "hz_mean": 21.485,
+   "period_cv_pct": 0.266,
+   "period_ms": {
+    "p0": 46.25,
+    "p50": 46.5,
+    "max": 46.75,
+    "std": 0.124
+   },
+   "samples_per_turn": {
+    "mean": 186.2,
+    "std": 0.5,
+    "min": 185,
+    "max": 187
+   },
+   "spinup_s": 4.26,
+   "spinup_turns": 79,
+   "scan_after_motor_s": 1.7,
+   "first_turn_hz": 13.16,
+   "hz_at_s": {
+    "2": 14.111,
+    "3": 17.857,
+    "5": 20.942,
+    "10": 21.505,
+    "20": 21.505
+   },
+   "hz_drift_per_min": 0.3183,
+   "turn_stamp_jitter_ms": {
+    "p50": 0.55,
+    "p95": 0.965,
+    "p99": 1.019,
+    "max": 1.072
+   },
+   "turn_ready_ms": {
+    "p0": 24.21,
+    "p50": 36.361,
+    "p95": 47.172,
+    "max": 48.28
+   },
+   "packet_tx_ms": 11.46,
+   "stamp_period_err_ms": {
+    "p50": 1.496,
+    "p95": 22.421,
+    "p99": 22.708,
+    "max": 22.884
+   },
+   "angle": {
+    "step_mean_deg": 1.9335,
+    "step_std_deg": 1.3377,
+    "step_p1_p99_deg": [
+     -2.7188,
+     6.4844
+    ],
+    "backward_steps_per_turn": 11.6,
+    "widest_gap_deg": {
+     "p50": 7.266,
+     "max": 7.781
+    },
+    "first_sample_deg": {
+     "p0": -7.781,
+     "p50": -6.578,
+     "max": -5.438
+    }
+   },
+   "valid_share": 0.718,
+   "range_m_median": 0.434,
+   "pi": {
+    "before": {
+     "loadavg": [
+      0.47,
+      0.48,
+      0.33
+     ],
+     "cpu_temp_c": 30.18
+    },
+    "after": {
+     "loadavg": [
+      0.54,
+      0.5,
+      0.34
+     ],
+     "cpu_temp_c": 31.154
+    }
+   }
+  }
+ ]
+}

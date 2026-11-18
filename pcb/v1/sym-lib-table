@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "omni_carrier")(type "KiCad")(uri "${KIPRJMOD}/omni_carrier.kicad_sym")(options "")(descr "omni carrier parts"))
+)

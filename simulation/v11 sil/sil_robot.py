@@ -8,7 +8,7 @@ firmware/sil/omni_fw_sil.py), ticked every 1 ms of sim time like the Teensy's lo
   CAN frames from the four DM-2325s (DmMotor below)    CAN frames to them: enable / disable / clear, speed setpoints
   (or the arm robot's AK40-10s' status broadcasts:      (servo mode, extended ids: velocity in ERPM, zero current)
    AkMotor below)
-  BNO085 reports (sensors.py, 400 Hz)                  ESC throttles (bidirectional DShot)
+  BNO085 reports (sensors.py, 100 Hz; 400 before Nov 17) ESC throttles (bidirectional DShot)
   ESC eRPM telemetry, quantized as DShot's period      feed-wheel speed commands (RoboClaw), 0 = position hold
   feed-wheel speeds (RoboClaw, 100 Hz est)             tilt servo goal (STS3250)
   tilt servo position (STS3250, 4096 counts/turn)
@@ -261,7 +261,8 @@ class SilRobot(Robot):
     def __init__(self, model: mujoco.MjModel, data: mujoco.MjData, p, *, seed: int = 0, lidar: bool = False,
                  boot_offset: float = 12.345, dm_comm_timeout: float = 0.1, sensor_kw: dict | None = None,
                  ak_timeout: float = 0.1, ak_latency: float = AK_LATENCY,
-                 timing: str = "ideal", clock_ppm: float = 20.0, exposure: float = 0.003, trig_to_exp: float = 20e-6):
+                 timing: str = "ideal", clock_ppm: float = 20.0, exposure: float = 0.003, trig_to_exp: float = 20e-6,
+                 lidar_part: str = "A2M8", lidar_mode: str = "Stability"):
         super().__init__(model, data, p)
         if p.n_wheels != 4 or p.is_swerve:
             raise ValueError("the firmware core is built for the X4 base")
@@ -285,7 +286,8 @@ class SilRobot(Robot):
         self._sync_next = self._cam_next = 0
         self._n_cam = 0
         self._strobe = None                       # (rise us, width us, due us) of the exposure in progress
-        sc = SensorConfig.parts("BNO085", "A2M12", seed=seed, flow=False, **(sensor_kw or {}))
+        # the robot's lidar: the A2M8 since Nov 16 (design.md 2; lidar_part="A2M12" reproduces earlier runs)
+        sc = SensorConfig.parts("BNO085", lidar_part, lidar_mode=lidar_mode, seed=seed, flow=False, **(sensor_kw or {}))
         sc.lidar = lidar                          # the catch scene needs no scans
         self.sn = Sensors(self, sc)
         rng = (param("DM_PMAX"), param("DM_VMAX"), param("DM_TMAX"))

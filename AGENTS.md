@@ -10,7 +10,7 @@ Keep this file for actionable working rules and pointers, not subsystem descript
 
 ## Current entry points
 
-The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. **The arm robot's only camera is the RealSense D435 on the arm riser's front** (since Nov 5; `arm_camera:=d435`, the default; `ARM_D435`; the old nose mount is `ARM_D435_NOSE`, for reproduction only): run and test the arm robot with it only. The stereo pair belongs to the parked catch robot; use `arm_camera:=stereo` only to reproduce earlier results. Active editable CAD is **`cad/v10 human editable`**; the current whole-robot CAD (build123d STEPs + SolidWorks viewing assembly) is **`cad/v14`**. Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
+The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_export.ARM` / `arm_params()`, the coarse v10 model. **The arm robot's only camera is the RealSense D435 on the arm riser's front** (since Nov 5; `arm_camera:=d435`, the default; `ARM_D435`; the old nose mount is `ARM_D435_NOSE`, for reproduction only): run and test the arm robot with it only. The stereo pair belongs to the parked catch robot; use `arm_camera:=stereo` only to reproduce earlier results. Active editable CAD is **`cad/v10 human editable`**; the last adopted whole-robot CAD (build123d STEPs) is **`cad/v14`**, and **`cad/v15` (the mid deck, build123d STEPs + SolidWorks viewing assembly) is the working CAD** Fernando develops (colours, the HRB pack and the bed-fit rule are drawn there), not formally adopted: when he names deck, beam, towers or fins he means v15's parts; say which version you used. The robot's lidar is the **RPLIDAR A2M8**, read by `omni_cpp` `rplidar_node` (not sllidar_ros2). Older sim/CAD versions reproduce earlier work; do not treat their README status as a current adoption decision. Robot computer selection remains open; do not assume a Jetson deployment.
 
 | Task | Start with |
 | --- | --- |
@@ -20,14 +20,14 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | ROS launch / navigation / bridges | [ros/README.md](ros/README.md), `ros/omni.sh`, affected package/config; use design.md for current hardware assumptions |
 | Arm / face / calibration | READMEs in `ros/src/omni_arm`, `omni_face`, `omni_calib` |
 | Console / supervisor / web UI | [console instructions](ros/src/omni_console/AGENTS.md) and affected source |
-| AI control (Claude / Codex via MCP) | [omni_mcp README](ros/tools/omni_mcp/README.md), [ai_robot_architecture.md](ai_robot_architecture.md); its own venv `C:\Users\ferna\.venvs\omni-mcp` |
+| AI control (Claude / Codex via MCP) | [omni_mcp README](ros/tools/omni_mcp/README.md) (the original plan, `ai_robot_architecture.md`, was removed Nov 14: `git show 6a9883f^:ai_robot_architecture.md`); its own venv `C:\Users\ferna\.venvs\omni-mcp` |
 | Firmware / SIL | [firmware README](firmware/README.md), [pin map](firmware/PINS.md) |
 | Parts database | [database README](database/README.md) |
 | Drive motor (AK40-10: settings, protocol, measured timing) | [components/ak40-10/README.md](components/ak40-10/README.md) and its CubeMars manual |
 | Pi / split-computer experiments | [rpi.md](rpi.md), [Pi README](characterization/pi_camera/README.md) |
 | Camera characterization | The relevant `characterization/<bench>/README.md`; observe the pause below |
 
-Old `§1–31` references generally mean `design full history.md`; legacy `design.md 10–16` means its Appendix A. Appendix B preserves the full design before the Nov 1 compression, and the dated Nov 7 entry the full design before the Nov 7 compression (detailed run tables, CAD rounds, the full decision log). Consult history only when needed to trace a decision or reproduce an old study.
+Old `§1–31` references generally mean `design full history.md`; legacy `design.md 10–16` means its Appendix A. Appendix B preserves the full design before the Nov 1 compression, the dated Nov 7 entry the full design before the Nov 7 compression (detailed run tables, CAD rounds, the full decision log), and the dated Nov 17 entry the full design before the Nov 17 compression (bench results, lidar timing/SLAM, v15 pod review, power budget, the decision log to Nov 17). Consult history only when needed to trace a decision or reproduce an old study.
 
 ## Environment and running processes
 

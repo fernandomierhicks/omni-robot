@@ -1,5 +1,0 @@
-harness.py all -> exit 0 (489 s)
-pod_mid.py all -> exit 0 (528 s)
-chassis_mid.py all -> exit 0 (454 s)
-robot_step.py -> exit 0 (152 s)
-BUILD123D DONE

@@ -3,7 +3,9 @@ bumps"). Sim only; no firmware or CAD change.
 
 The question: before drawing bumper switches into cad/v13, how well can the arm robot tell it has touched something
 from what its Teensy already reads?
-  * the BNO085: game rotation vector, gyro and accelerometer at 400 Hz (sensors.py's noise model);
+  * the BNO085: game rotation vector, gyro and accelerometer at 400 Hz (sensors.py's noise model). Since Nov 17 the
+    sim's BNO085 reports at 100 Hz, the firmware's rate: the Nov 9 results used 400 (SilRobot(..., sensor_kw=
+    dict(imu_rate=400)) to reproduce them; this script doesn't pass it);
   * the four AK40-10s' status broadcasts at 500 Hz, as the firmware decodes them: speed (10 ERPM steps) and q-axis
     current (10 mA steps; current noise added in the analysis, est);
   * its own wheel-speed commands (the ramped body velocity it is executing).

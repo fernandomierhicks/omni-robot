@@ -5,7 +5,7 @@ the SIL library.
 Frame:   COBS( type | seq | body | crc16 ) 0x00      crc16 = CRC-16/CCITT-FALSE over type | seq | body, little-endian
   CMD   0x01  host -> MCU (100 Hz; also the heartbeat)
   STATE 0x81  MCU -> host (200 Hz)
-  IMU   0x82  MCU -> host (every BNO085 sample, 400 Hz; protocol 4: stamped with the sample's own time)
+  IMU   0x82  MCU -> host (every BNO085 sample, 100 Hz; protocol 4: stamped with the sample's own time)
   INFO  0x83  MCU -> host (10 Hz): protocol version, firmware build id, the RC receiver
   TIME  0x84  MCU -> host (protocol 4): an edge of a time reference: the 1 Hz sync pulse, a camera trigger, the
               left camera's measured exposure (design.md 10)

@@ -24,6 +24,8 @@
 //   game    config <path> | param <name> <value> | new | rv <t> <x> <y> <yaw> <vbx> <vby> <wz> <vcx> <vcy> <tilt>
 //           <tilt_cmd> <fly0> <fly1> <fly_target> <fly_ready> <ball_held> | track <t> <n> <ready> <x 6> <P 36>
 //           | notrack | step <t>
+//   lidar   cfg <ans_type> <period_s> <baud> <latency_s> <bins> <print samples 0/1> <print anchors 0/1>
+//           | feed <t> <hex> (samples "s", anchors "a", turns "turn" + "r" ranges) | stats
 //   arm     cfg <robot_arm.json> | fk|tool|toolout <q 6> | quat <16> | pkt|spkt <id> <code> <hex> | feed <hex>
 //           | sm|fsm <v> <bit> | cal <id> <drive> <min> <max> | rad <ticks> | ticks <rad> | nominal <id> <lo> <hi>
 //           | bus ping|write|read|goals ... | play <kind> <n> + a line of times and a line of n x 6 | sample <t>
@@ -50,6 +52,7 @@
 #include "omni_cpp/intercept.hpp"
 #include "omni_cpp/mode_mux.hpp"
 #include "omni_cpp/perception.hpp"
+#include "omni_cpp/rplidar.hpp"
 #include "omni_cpp/scan.hpp"
 
 using namespace omni;
@@ -497,6 +500,8 @@ int main(int argc, char** argv) {
     ModeMux mux;
     HeadingShaper heading;
     ScanClock sclock;
+    std::unique_ptr<rplidar::LidarStream> lidar;
+    bool lidar_samples = true, lidar_anchors = true;
     CatchCheck cc;
     ArmCheck arm;
     std::string line;
@@ -672,6 +677,44 @@ int main(int argc, char** argv) {
                 std::printf(" ");
                 num(sclock.T);
                 std::printf("\n");
+            }
+        } else if (core == "lidar") {
+            if (op == "cfg") {
+                rplidar::StreamConfig c;
+                int type;
+                is >> type >> c.period_s >> c.baud >> c.latency_s >> c.bins >> lidar_samples >> lidar_anchors;
+                c.ans_type = (uint8_t)type;
+                lidar = std::make_unique<rplidar::LidarStream>(c);
+            } else if (op == "feed") {
+                double t;
+                std::string hex;
+                is >> t >> hex;
+                auto bytes = from_hex(hex);
+                auto turns = lidar->feed(bytes.data(), bytes.size(), t);
+                if (lidar_samples)
+                    for (size_t i = 0; i < lidar->samples.size(); ++i) {
+                        const auto& s = lidar->samples[i];
+                        std::printf("s %lld ", (long long)s.n);
+                        nums({s.enc, s.angle, s.mm, (double)s.quality, (double)s.start, lidar->times[i]});
+                    }
+                if (lidar_anchors)
+                    for (const auto& a : lidar->anchors) {
+                        std::printf("a %lld %d ", (long long)a.n_end, (int)a.fresh);
+                        nums({a.t, lidar->clock.residual(a)});
+                    }
+                for (const auto& tr : turns) {
+                    std::printf("turn ");
+                    nums({tr.stamp, tr.time_increment, tr.scan_time, (double)tr.samples, (double)tr.dropped, tr.fit_rms});
+                    std::printf("r");
+                    for (float r : tr.ranges) std::printf(" %.9g", (double)r);
+                    std::printf("\n");
+                }
+            } else if (op == "stats") {
+                const auto& d = lidar->dec;
+                std::printf("stats ");
+                nums({(double)d.bad, (double)d.packets, (double)d.lost, (double)d.breaks, (double)lidar->clock.lines,
+                      lidar->clock.period, lidar->clock.ppm(), lidar->clock.spread, (double)lidar->turns.turns,
+                      (double)lidar->turns.dropped});
             }
         } else if (core == "arm") {
             run_arm(arm, op, is);

@@ -8,7 +8,16 @@ v11 is v10 (the v7 robot, its sensors, the ROS 2 bridge) running the code that w
 - **The Jetson's catch code** (`../../ros/src/omni_catch`, `omni_mcu`): the colour-blob detector on camera pixels, the tracking filter on the MCU's odometry and attitude, the catch behaviour, the modes, the MCU link with time sync. It runs here in one process (`sil_game.py`) and as ROS nodes (`ros/omni.sh catch`).
 - **What stays the sim's:** the world (physics, the thrower, the cameras' image formation, the parts' own loops inside the motors, ESCs and servos) and the truth used for scoring.
 
-Numbers and decisions: [../../design.md](../../design.md) section 30. Everything is **proposed** and simulated, not measured.
+Numbers and decisions: [../../design.md](../../design.md) (history §30 for the catch-era text above). Everything is **proposed** and simulated, not measured.
+
+**Current use (Nov 17): the arm robot.** The description above is v11 as built for the catch robot; today v11 is the active
+simulator for the arm robot (design.md 5). Use `robot_export.ARM` / `ARM_D435` (`arm_params()`; the D435 on the arm riser is the
+arm robot's only camera). Defaults since the bench work: the AK40-10 drives in servo mode (`AkMotor`), refit to the Nov 13 bench
+with its 5.5 ms command latency (`SilRobot(ak_latency=)`, 0 reproduces earlier runs); the **RPLIDAR A2M8** lidar
+(`lidar_part="A2M12"` / `lidar:=a2m12` reproduce earlier runs) stamped as the robot's `rplidar_node` does (`lidar_stamp:=clock`;
+`sllidar` reproduces Nov 16); realistic D435 depth errors (`d435_noise:=ideal` reproduces earlier runs); the CAD's 687 rollers
+(below). The baselined pack is now the HRB 6S 3300 (design.md 2), but the sim still models the OVONIC (next paragraph) until the
+HRB is in `catalog.py`. The catch results in "Results in one place" are the parked catch robot's.
 
 Nov 1 battery update: the default is `6S1P-OVONIC-5200` (OVONIC Roam 6S 5200 mAh XT90-S, 25.2 V full).
 Sag, recovery and charge depletion use the existing battery model with a separate, explicitly estimated LiPo fit

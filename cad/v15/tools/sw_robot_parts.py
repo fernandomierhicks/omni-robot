@@ -1,5 +1,5 @@
 """Part STEPs + manifest for the SolidWorks viewing assembly of the whole v15 robot: the MID DECK (chassis_mid.py: four deck pieces, bumper,
-lidar pedestal, v14's fins standing on the deck), four mid-deck pods (pod_mid.py), upper.py's second floor, arm, electronics, bin deck and face,
+lidar pedestal, the generated fins (fins.py), the battery under the deck and its clips), four mid-deck pods (pod_mid.py), upper.py's second floor, arm, electronics, bin deck and face,
 the D435 on the arm riser. omni-robot-sim interpreter; sw_robot.py builds the assemblies from them. Every input is read from cad/v15
 (cad/solidworks.md section 17); nothing comes from another version's folder.
 
@@ -27,9 +27,8 @@ import build123d as b
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import base as B                                                       # noqa: E402
-import chassis_mid as CM                                               # noqa: E402  (sets layout F and the deck height for the fins)
-import chassis as C                                                    # noqa: E402
-import first_floor as FF                                               # noqa: E402
+import chassis_mid as CM                                               # noqa: E402
+import fins as F                                                       # noqa: E402
 import hardware as H                                                   # noqa: E402
 import palette as PAL                                                  # noqa: E402
 import pod as P                                                        # noqa: E402
@@ -45,9 +44,12 @@ from step_colour import write_part                                     # noqa: E
 RSW = W.ROOT / 'solidworks'
 STEPS = RSW / 'step_parts'
 S_POD = np.diag([1.0, -1.0, 1.0, 1.0])                                 # the mirror hand: pod y -> -y (base.place3d)
-POD_STATIC = ('rx_hanger_outer', 'rx_hanger_inner', 'rx_beam', 'rx_tower_outer', 'rx_tower_inner')   # Nov 14: no shims (exact-length bosses)
+POD_STATIC = ('rx_hanger_outer', 'rx_hanger_inner', 'rx_beam', 'rx_pin', 'rx_lug', 'rx_tower_outer', 'rx_tower_inner')   # Nov 15: + the beam's pin, the lug
 POD_FORK = ('pod_fork_outer', 'pod_fork_inner', 'bearing_627_outer', 'bearing_627_inner', 'rx_ring_outer', 'rx_ring_inner', 'pod_retainer')   # Nov 14: no leads' tie
-POD_WHEEL = ('wheel_hub', 'wheel_cartridge')
+POD_WHEEL = ('wheel_hub', 'wheel_cartridge', 'wheel_cartridge_cap')   # Nov 15: the cartridge is a cup + cap (the 6804 held both ways)
+# Nov 15 (Fernando: numbers and IN / OUT on the big parts): these carry their pod's marks, so they are written once per pod (<part>_<pod>, already
+# in that pod's hand); the rest once per hand as before
+POD_LABELLED = PM.LABELLED
 POD_MOTOR = ('ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg')
 PLUNGERS = {f'{side}{j + 1}': (xc, y) for side, xc in (('o', P4.ARM_C[0]), ('i', P4.ARM_C[1])) for j, y in enumerate(P.Y_PAIR)}
 LIMIT_KEY = 'i1'                                                       # the travel limit rides on this plunger (motor side, far from the pivot)
@@ -58,6 +60,11 @@ LIDAR_FOOT_Y = -9.3                                                    # vendor 
 
 def mirror(s):
     return s.mirror(b.Plane.XZ)
+
+
+def PM_number(name):
+    import labels as LB
+    return LB.NUMBER[name]
 
 
 def mirror_rec(r):
@@ -75,8 +82,14 @@ def pod_parts():
     for k, (xs, y) in PLUNGERS.items():
         once[f'spring_plunger_{k}'] = P.plunger(xs, y)
         once[f'die_spring_{k}'] = P.die_spring(xs, y, P.Z_CEIL - P.Z_SB)
+    per_pod = {}
+    for i, name in enumerate(B.NAMES):                                 # the marked parts, each pod's own (pod_mid.labelled), in its hand
+        lab = PM.labelled(parts, i)
+        for k in POD_LABELLED:
+            once.pop(k, None)
+            per_pod[f'{k}_{name}'] = mirror(lab[k]) if B.mirrored(i) else lab[k]
     wm, _ = W.build_all()
-    return once, {k: wm['_' + k] for k in (*W.ROLLER_PARTS, 'bearing_687')}, rm, rs
+    return once, per_pod, {k: wm['_' + k] for k in (*W.ROLLER_PARTS, 'bearing_687')}, rm, rs
 
 
 def wheel_fasteners():
@@ -95,10 +108,10 @@ def wheel_fasteners():
 
 
 def vendor_poses():
-    """robot-frame pose of the vendor lidar: its base on the pedestal top at chassis.LIDAR_X (the pedestal now stands on the mid deck; the
-    lidar stays at its height)"""
+    """robot-frame pose of the vendor lidar: its base on the pedestal top at fins.LIDAR_X (the pedestal stands on the mid deck; the lidar
+    stays at v14's height)"""
     lid = PERM.copy()
-    lid[:3, 3] = (C.LIDAR_X, 0.0, FF.LIDAR_BASE_Z - LIDAR_FOOT_Y)
+    lid[:3, 3] = (F.LIDAR_X, 0.0, F.LIDAR_BASE_Z - LIDAR_FOOT_Y)
     return dict(lidar=lid.tolist())
 
 
@@ -131,23 +144,25 @@ def main():
         if bd:
             beds[stem] = bd
 
-    once, local, rm, rs = pod_parts()
+    once, per_pod, local, rm, rs = pod_parts()
     for k, s in once.items():
         rgb = H.MAGENTA if k.startswith(('washer', 'spring_plunger', 'bearing_')) else R.colour(k)
         out(k, s, rgb)
         out(k + '_m', mirror(s), rgb)
+    for k, s in per_pod.items():
+        out(k, s, R.colour(k))
     for k, s in local.items():                                         # mirrored about the roller's own x-z plane: placed by S M S
         rgb = H.MAGENTA if k.startswith('bearing_') else R.colour(k)
         out(k, s, rgb)
         out(k + '_m', mirror(s), rgb)
-    fp = CM.pod_build()[4]
-    cparts, chw, _ = CM.build(fp)
+    cparts, chw, cg = CM.built()
+    cparts = dict(cparts, **cg['bought'])                              # + the battery and its straps (bought, under the deck)
     for k, s in cparts.items():
-        out(k, s, PAL.ORANGE if k.startswith('bumper') else PAL.WHITE)
+        out(k, s, CM.colour(k))
     import d435_riser as D                                             # the riser camera's fields of view (500 mm frustums, see-through)
     env = D.fov_envelopes()
     for k, s in env.items():
-        out(k, s, C.colour(k))
+        out(k, s, D.colour(k))
     printed, bought, vendor, uhw, uinfo = U.build()                    # the upper robot (v14's, unchanged in place)
     for k, s in printed.items():
         out(k, s, U.colour(k))
@@ -201,12 +216,13 @@ def main():
         A, xh, yh, m = B.frame(i)
         T = np.eye(4)
         T[:2, 0], T[:2, 1], T[:2, 3], T[2, 3] = xh, yh, A, R_WHEEL
-        pods[name] = dict(mirrored=bool(m), pose=T.tolist())
+        pods[name] = dict(mirrored=bool(m), pose=T.tolist(), number=PM_number(name))
     lift = {pose: {pk: float(P.plunger_lift(a, y)[0]) for pk, (_, y) in PLUNGERS.items()} for pose, a in R.POSES.items()}
     eye = np.eye(4).tolist()
     groups = dict(frame=sorted(k for k in cparts if k.startswith('deck_')),
                   mounts=sorted(k for k in cparts if k.startswith(('pedestal', 'support'))),
                   bumper=sorted(k for k in cparts if k.startswith('bumper')),
+                  battery=sorted(k for k in cparts if k.startswith(('battery', 'strap_battery', 'bracket_battery'))),
                   reference=sorted(env))
     left = set(cparts) | set(env)
     left -= {k for g in groups.values() for k in g}
@@ -230,7 +246,8 @@ def main():
     for cn in HN.CONNECTIONS:
         ends = [q for q in (cn.get('a'), cn.get('b')) if isinstance(q, str)]
         harness_own[f'harness_lead_{cn["id"]}'] = sorted({f'harness_plug_{q}' for q in ends} | {HN.DRAWN_PLUG[q] for q in ends if q in HN.DRAWN_PLUG})
-    harness_own['harness_lead_pb_xt90'] = ['harness_plug_xt90_pair', 'power']   # the board's XT90 pigtail, soldered to the board
+    harness_own['harness_lead_pb_xt90'] = ['harness_plug_xt90_pair', 'harness_lead_BAT_PB']   # the board's XT90 lead: the pair under the
+                                                                       # deck to the hole, then routed (BAT_PB) to the board
     man = dict(
         harness_own=harness_own,
         groups=groups, pods=pods, mirror=S_POD.tolist(), vendor=vendor_poses(), print_bed=beds,
@@ -240,7 +257,7 @@ def main():
         rollers_m={k: (S_POD @ M @ S_POD).tolist() for k, M in rollers.items()},
         pivot=[PIVOT_Y, PIVOT_Z], b627_bore_r=B627_BORE / 2, spigot_r=R.SPIGOT_D / 2, poses_deg=R.POSES,
         pod=dict(static=list(POD_STATIC), fork=list(POD_FORK), wheel=list(POD_WHEEL) + ['bearing_6804_left'], motor=list(POD_MOTOR),
-                 axial_pair=['pod_fork_inner', 'rx_hanger_inner'], pivot_static='rx_hanger_outer'),
+                 axial_pair=['pod_fork_inner', 'rx_hanger_inner'], pivot_static='rx_hanger_outer', labelled=list(POD_LABELLED)),
         plungers=dict(axes={k: list(v) for k, v in PLUNGERS.items()}, shank_r=SHANK_R, guide_r=GUIDE_R, pad_z=PAD_Z,
                       guide_part={k: ('rx_tower_outer' if k.startswith('o') else 'rx_tower_inner') for k in PLUNGERS},
                       pad_part={k: ('pod_fork_outer' if k.startswith('o') else 'pod_fork_inner') for k in PLUNGERS},

@@ -6,7 +6,7 @@
      Arm    the fitted payload (Catch on the catch robot)
      See    cameras and vision
      Test   check it works: preflight, bring-up, calibration, the base's samples, each wheel motor, the lidar, the
-            sim's faults
+            IMU, the sim's faults
      Robot  look inside or tune it (a menu): health, logbook, face, settings, RC, system, version, ROS
    The robot lists its features and their workspaces (features.js), and says which can start now and why not (status
    "avail": its caps and its preflight); whatever can't is greyed everywhere with those words. Each page's address is
@@ -36,6 +36,7 @@ import { DanceTab, FetchTab, GoalieTab, MessageTab, TowerTab } from "./tabs/fun.
 import { GotoTab } from "./tabs/goto.js";
 import { HealthTab } from "./tabs/health.js";
 import { HomeTab, fmtUp } from "./tabs/home.js";
+import { ImuTab } from "./tabs/imu.js";
 import { LidarTab } from "./tabs/lidar.js";
 import { LogbookTab } from "./tabs/logbook.js";
 import { ManualTab } from "./tabs/manual.js";
@@ -84,6 +85,7 @@ const PAGES = /** @type {Record<string, any>} */ ({
   base: BaseTab,
   motors: MotorsTab,
   lidar: LidarTab,
+  imu: ImuTab,
   faults: FaultsTab,
   face: FaceTab,
   health: HealthTab,

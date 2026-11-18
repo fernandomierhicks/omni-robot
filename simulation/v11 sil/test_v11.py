@@ -733,6 +733,93 @@ def test_a2m12_tilted_scan_plane_sees_the_floor():
     assert np.nanmedian(r) == pytest.approx(r_floor, rel=0.1)   # it returns the floor, not the wall 6.6 m away
 
 
+def _a2m8_scans(mode="Stability", n=12, spot="9", **kw):
+    import house
+    from sensors import Sensors, SensorConfig
+    drv = house.Driver(house.house_params("v7", assist=False))
+    drv.teleport(house.SPOTS[spot])
+    sn = Sensors(drv.r, SensorConfig.parts("BNO085", "A2M8", lidar_mode=mode, seed=3, lidar_flatness=0.0,
+                                           lidar_cast_dt=0.002, **kw))
+    out = []
+    while len(out) < n:
+        drv.step(np.zeros(2), 0.0, False)
+        rd = sn.step()
+        if rd.scan is not None:
+            out.append((drv.d.time, rd.scan))
+    return sn, out
+
+
+def test_a2m8_turns_rate_delivery_and_stamps_follow_the_bench():
+    """Nov 16 (characterization/lidar, test 1): Stability is 4 k samples/s at 12.5 Hz (PWM 660), 320 a turn; a turn
+    reaches the host one capsule-and-a-bit after its last sample (bench: 24-49 ms above the fastest delivery, which adds
+    the 132-byte capsule's 11.5 ms at 115200 baud); sllidar's stamp is the previous handover, late by a delivery, and its
+    spacing jitters by up to a capsule (bench: up to 23 ms) while the turns themselves come every 80 ms. Since Nov 17 the
+    default stamps are omni_cpp rplidar_node's (the sample clock): each turn's own times."""
+    sn, scans = _a2m8_scans(lidar_stamp="sllidar")
+    c = sn.cfg
+    assert (c.lidar_rate, sn.n_scan) == (4000.0, 320) and c.lidar_scan_hz == pytest.approx(12.5)
+    tx = 132 * 10 / 115200
+    for t_pub, s in scans[1:]:
+        assert len(s.rng) == 320 and s.ang[0] == 0.0                      # rplidar_node's bins (robot.yaml)
+        wait = s.t_ready - s.t_end - tx - c.lidar_usb[0]
+        assert 96 / 4000 - 1e-9 <= wait <= 191 / 4000 + c.lidar_usb[1] + 1e-9
+        assert t_pub == pytest.approx(s.t_ready, abs=5e-4)                 # handed over then, not at its last sample
+        late = s.stamp - np.min(s.t)
+        assert 0.030 < late < 0.065                                       # the stamp: late by a delivery
+    ends = np.array([s.t_end for _, s in scans[1:]])
+    assert np.allclose(np.diff(ends), 0.08, atol=1e-3)
+    gaps = np.diff([s.stamp for _, s in scans[1:]])
+    assert gaps.max() - gaps.min() > 0.005 and np.all(np.abs(gaps - 0.08) < 0.025)
+    # a stamp-true variant: the turn's first sample's own time
+    _, true = _a2m8_scans(n=4, lidar_stamp="true")
+    for _, s in true[1:]:
+        assert s.stamp == pytest.approx(np.min(s.t), abs=1e-9) and s.time_increment == pytest.approx(1 / 4000)
+    # the default, rplidar_node's: bin n - 1's time from the turn's own samples, a bin apart, 80 ms a turn
+    _, clock = _a2m8_scans(n=4)
+    for _, s in clock[1:]:
+        assert abs(s.stamp - np.min(s.t)) < 0.001 and s.time_increment == pytest.approx(1 / 4000, rel=1e-9)
+        assert s.scan_time == pytest.approx(0.08, rel=1e-9)
+    # other bin counts (the Nov 17 study): 720 a turn, a bin 0.08 / 720 s apart
+    _, fine = _a2m8_scans(n=3, lidar_bins=720)
+    for _, s in fine[1:]:
+        assert len(s.rng) == 720 and s.time_increment == pytest.approx(0.08 / 720, rel=1e-9)
+
+
+def test_the_sims_a2m8_bins_its_turns_as_the_robots_driver():
+    import os
+
+    import yaml
+    from sensors import A2M8_BINS
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "ros", "src", "omni_bringup", "config",
+                        "robot.yaml")
+    assert yaml.safe_load(open(path))["rplidar"]["ros__parameters"]["bins"] == A2M8_BINS
+
+
+def test_a2m8_ranges_quantized_and_angles_parallax_corrected_with_a_seam():
+    """The ultra capsule carries 1 mm under 0.512 m, 2 mm to 2.048, 4 mm to 4.096, 8 mm beyond (bench); the device
+    reports each sample at its hit's bearing (the encoder's angle - 8 deg + the parallax), so re-binned by angle the
+    wall is where it is. Nov 17: the head turns clockwise, so the bins run against time (bin n - 1 first); with
+    rplidar_node's stamps every bin is within the parallax of its nominal time (the seam's crossers are dropped)."""
+    _, scans = _a2m8_scans(n=4, lidar_stamp="sllidar")
+    s = scans[-1][1]
+    k = int(np.argmin(np.abs(s.ang - math.pi / 2)))
+    assert np.nanmean(s.rng[k - 2:k + 3]) == pytest.approx(0.70, abs=0.03)          # hallway: wall 0.7 m left
+    r = s.rng[np.isfinite(s.rng)]
+    for lo, hi, step in ((0.0, 0.512, 0.001), (0.512, 2.048, 0.002), (2.048, 4.096, 0.004), (4.096, 12.0, 0.008)):
+        m = r[(r >= lo) & (r < hi)]
+        if m.size:
+            assert np.allclose(m / step, np.round(m / step), atol=1e-6)
+    deg = np.degrees(s.ang)
+    mid = (deg > 10) & (deg < 350)
+    assert np.all(np.diff(s.t[mid]) < 0.01)                  # elsewhere the bins run against time, within the parallax
+    sn, clock = _a2m8_scans(n=4)
+    s = clock[-1][1]
+    n = len(s.rng)
+    nominal = s.stamp + (n - 1 - np.arange(n)) * s.time_increment
+    fin = np.isfinite(s.rng)
+    assert fin.mean() > 0.8 and np.all(np.abs(s.t - nominal)[fin] < 0.0025)
+
+
 def test_bno085_game_rotation_vector_drifts_with_its_gyro_bias():
     drv, sn = _parts_house(seed=4)
     reps = []
@@ -741,7 +828,7 @@ def test_bno085_game_rotation_vector_drifts_with_its_gyro_bias():
         rd = sn.step()
         if rd.imu3 is not None:
             reps.append(rd.imu3)
-    assert len(reps) == pytest.approx(400 * (4.0 - reps[0][0]), abs=3)        # 400 Hz
+    assert len(reps) == pytest.approx(100 * (4.0 - reps[0][0]), abs=3)        # 100 Hz (the firmware's, Nov 17)
     t, q, g, a = reps[-1]
     assert abs(np.linalg.norm(q) - 1) < 1e-9 and a[2] == pytest.approx(9.81, abs=4 * sn.cfg.accel_bias)
     yaw = math.atan2(2 * (q[0] * q[3] + q[1] * q[2]), 1 - 2 * (q[2] ** 2 + q[3] ** 2))
@@ -762,7 +849,8 @@ def test_bridge_core_events_odometry_and_cmd_timeout():
         for k in n:
             n[k] += getattr(ev, k) is not None
     assert n["imu"] == pytest.approx(400, abs=2) and n["odom"] == pytest.approx(50, abs=1)
-    assert n["truth"] == pytest.approx(50, abs=1) and n["scan"] in (9, 10, 11)
+    # scans: the A2M8 (Nov 16) turns at 12.5 Hz; the first is handed over ~0.13 s in
+    assert n["truth"] == pytest.approx(50, abs=1) and n["scan"] in (11, 12, 13)
     moved = core.r.pose()[:2] - p0[:2]
     assert np.linalg.norm(core.odom[:2] - moved) < 0.02 and moved[0] > 0.3      # wheel odometry follows the truth
     # no more commands: after cmd_timeout the firmware ramps to a stop (never a step to zero)
@@ -2430,10 +2518,12 @@ def test_the_lidar_mask_hides_the_drawn_robots_standoff_sectors():
         scan = c.step().scan
     assert scan is not None
     deg = np.degrees(scan.ang) % 360
-    blocked = np.zeros(len(deg), bool)
+    inc = 360.0 / len(deg)
+    blocked, inner = np.zeros(len(deg), bool), np.zeros(len(deg), bool)
     for a0, w in BLOCKED_CAD:
         blocked |= (deg - a0) % 360 < w
-    assert np.isnan(scan.rng[blocked]).all()
+        inner |= ((deg - a0 - inc) % 360 < w - 2 * inc)    # a bin in from the edges (a sample just outside rounds in)
+    assert np.isnan(scan.rng[inner]).all()
     assert np.isfinite(scan.rng[~blocked]).mean() > 0.9                  # the house's walls everywhere else
     assert 0.055 < blocked.mean() < 0.07                                 # 22 of 360 deg
 

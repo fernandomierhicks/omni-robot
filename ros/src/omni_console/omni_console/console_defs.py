@@ -144,6 +144,7 @@ FEATURES = (
              hint="Drive each wheel motor by itself, with the wheels off the ground"),
     _feature("lidar", "Lidar", "test", hint="The lidar from its serial port: model, health, scan modes, live turns",
              server=True),
+    _feature("imu", "IMU", "test", hint="The BNO085 as the robot sees it (/imu): a box that turns with it, live charts"),
     _feature("faults", "Faults", "test", ("sim",), optional=True, hint="Break the sim robot on purpose"),
     _feature("face", "Face", "robot"),
     _feature("health", "Health", "robot"),

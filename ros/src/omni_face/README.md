@@ -8,14 +8,14 @@ engineering data: that's the console page.
 ```
 /console/status, /console/schema, /console/events, /mcu/state_10hz, /face/say, /face/hear
         │
-   face_node (ROS; on the Jetson, WSL in the sim) ── moments.Brain: what to show and say, the antics, by priority
+   face_node (ROS; on the robot computer, WSL in the sim) ── moments.Brain: what to show and say, the antics, by priority
         │  TCP 9881, JSON lines both ways          ── commands.py: what a heard phrase means → /console/command
    display.py (pygame; no ROS) ── the panel full screen + the speaker + the mics (robot), a window + the PC's (sim)
         │  listen.py: Vosk (robot) or Windows' recognizer (sim), a closed grammar of the commands
         │  while face_node is away: the supervisor's /api/state ("software stopped", "starting ...")
 ```
 
-**On the robot:** the Jetson boots without a desktop. `systemd/omni-face.service` starts the display at boot (SDL
+**On the robot:** the robot computer (still open, design.md 4.9) boots without a desktop. `systemd/omni-face.service` starts the display at boot (SDL
 straight on the panel through KMS/DRM; fallback: a bare X server with only the face). The face node runs with the
 console's nodes in every step. Voice: Kokoro-82M (offline neural TTS, Apache 2.0, `pip install kokoro-onnx`, its
 model in `OMNI_KOKORO_DIR` via `python -m omni_face.voice fetch`; VERIFY its speed on the robot computer's CPU), else

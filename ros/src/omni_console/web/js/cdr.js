@@ -72,6 +72,21 @@ export function decodeOccupancyGrid(b) {
     orientation: { x: qx, y: qy, z: qz, w: qw } } }, data };
 }
 
+/** sensor_msgs/Imu -> {header, quat [w, x, y, z], gyro [x, y, z] rad/s, accel [x, y, z] m/s²} (covariances skipped).
+ *  @param {Uint8Array} b */
+export function decodeImu(b) {
+  const r = new CdrReader(b);
+  const header = r.header();
+  const f3 = () => [r.float64(), r.float64(), r.float64()];
+  const skip9 = () => { for (let i = 0; i < 9; i++) r.float64(); };
+  const [x, y, z, w] = [r.float64(), r.float64(), r.float64(), r.float64()];
+  skip9();
+  const gyro = f3();
+  skip9();
+  const accel = f3();
+  return { header, quat: [w, x, y, z], gyro, accel };
+}
+
 /** std_msgs/Float32MultiArray -> {labels: dim labels, sizes, data}. @param {Uint8Array} b */
 export function decodeFloat32MultiArray(b) {
   const r = new CdrReader(b);

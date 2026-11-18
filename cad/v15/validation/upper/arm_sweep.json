@@ -1,0 +1,222 @@
+{
+ "drop": {
+  "q": [
+   0.0,
+   -1.01,
+   -1.481,
+   -1.436,
+   0.0,
+   -0.17
+  ],
+  "tool": [
+   -0.1,
+   0.0,
+   0.396
+  ],
+  "tilt_deg": 45
+ },
+ "failed": [
+  [
+   "grasp 0.36 -0.12 1.57",
+   "ik"
+  ],
+  [
+   "grasp 0.36 -0.12 0.00",
+   "ik"
+  ],
+  [
+   "grasp 0.36 0.12 1.57",
+   "ik"
+  ],
+  [
+   "grasp 0.36 0.12 0.00",
+   "ik"
+  ]
+ ],
+ "legs": {
+  "stow-high": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "high-ready": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.26,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.26,-0.12": {
+   "min_mm": 10.0,
+   "arm_body": "arm_jaw",
+   "nearest": "bumper_FR"
+  },
+  "grasp-hover 0.26,-0.12": {
+   "min_mm": 10.0,
+   "arm_body": "arm_jaw",
+   "nearest": "bumper_FR"
+  },
+  "hover-high 0.26,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.26,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.26,+0.00": {
+   "min_mm": 0.2,
+   "arm_body": "arm_gripper",
+   "nearest": "bumper_FL"
+  },
+  "grasp-hover 0.26,+0.00": {
+   "min_mm": 0.2,
+   "arm_body": "arm_gripper",
+   "nearest": "bumper_FL"
+  },
+  "hover-high 0.26,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.26,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.26,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "grasp-hover 0.26,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-high 0.26,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.31,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.31,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "grasp-hover 0.31,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-high 0.31,-0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.31,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.31,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "grasp-hover 0.31,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-high 0.31,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.31,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.31,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "grasp-hover 0.31,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-high 0.31,+0.12": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "ready-hover 0.36,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-grasp 0.36,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "grasp-hover 0.36,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "hover-high 0.36,+0.00": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "high-drop": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "drop-high": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  },
+  "high-stow": {
+   "min_mm": 18.6,
+   "arm_body": "arm_shoulder",
+   "nearest": "riser_adapter"
+  }
+ },
+ "contacts_under_2mm": {
+  "hover-grasp 0.26,+0.00": {
+   "min_mm": 0.2,
+   "arm_body": "arm_gripper",
+   "nearest": "bumper_FL"
+  },
+  "grasp-hover 0.26,+0.00": {
+   "min_mm": 0.2,
+   "arm_body": "arm_gripper",
+   "nearest": "bumper_FL"
+  }
+ },
+ "planner_ring": {
+  "kind": "ring",
+  "r0": 0.19,
+  "r1": 0.2325,
+  "z1": 0.1,
+  "note": "v15: the bumper (r 232.5) and the deck rim (r 229, z 80..100)"
+ }
+}

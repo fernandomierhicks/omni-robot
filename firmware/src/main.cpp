@@ -10,8 +10,11 @@
 //   RoboClaw, feed motors     packet serial, speed commands + speed reads: written, VERIFY on the bench
 //   STS3250, tilt servo       Feetech half-duplex bus, goal position + position reads: written, VERIFY on the bench
 //   break-beams, e-stop, bumpers, battery ADC, buzzer, LED       complete (thresholds and divider ratio VERIFY)
-//   BNO085 (SH-2 over SPI)    written, VERIFY on the bench: SHTP reads on INT, the INT edge stamped in its interrupt,
-//                             gyro / accel / game RV at 400 Hz, each sample's time from the SH-2 timestamps (sh2.cpp)
+//   BNO085 (SH-2 over SPI)    the wheeled-leg robot's proven driver ported (Nov 17): CEVA's SH-2 through the vendored,
+//                             patched Adafruit_BNO08x (lib/Adafruit_BNO08x), PS0/WAKE and PS1 strapped high on the
+//                             module, so reset-as-wake handshakes; game RV + calibrated gyro + accelerometer at 100 Hz,
+//                             each sample's time from the INT edge and the SH-2 delays; stalls and sensor resets
+//                             recovered without a reboot. Its test_imu passed on this Teensy and module (Nov 17)
 //   time references           written, VERIFY: SYNC_OUT and CAM_TRIG on one-shot PIT timers at the core's scheduled
 //                             MCU times, the fired time read in the timer's interrupt; the left camera's STROBE on a pin
 //                             interrupt (both edges). CAN replies stamped by FlexCAN's own timer (design.md 10)
@@ -26,13 +29,13 @@
 // layer only carries each frame's id kind (CubeMars servo mode answers extended frames only). CubeMars bench notes from
 // the wheeled-leg robot: CAN needs a common ground with the motor (its UART connector's GND), and servo mode, the
 // status broadcast (send_can_status, off at the factory) and the command timeout are set in the CubeMars tool.
+#include <Adafruit_BNO08x.h>                 // CEVA's SH-2 (its sh2.h, not lib/omni_fw's SIL parser of the same name)
 #include <Arduino.h>
 #include <FlexCAN_T4.h>
 #include <SPI.h>
 
 #include "board_teensy41.h"
 #include "firmware.h"
-#include "sh2.h"
 
 using namespace board;
 
@@ -205,93 +208,229 @@ struct StsServo {
 };
 static StsServo g_servo;
 
-// -- BNO085 over SPI (SHTP / SH-2), written: VERIFY on the bench ----------------------------------------------------
-// SPI mode 3, <= 3 MHz; PS0 (WAKE) and PS1 high at reset select SPI. H_INTN falls when the hub has data: its
-// interrupt stamps that moment, which is the SH-2 timestamps' reference (sh2.h). Every packet: a 4-byte SHTP header
-// (length with bit 15 = continuation, channel, sequence), then the payload. Channel 3 = sensor reports.
+// -- BNO085 over SPI: the wheeled-leg robot's driver (its lib/IMU), ported --------------------------------------------
+// CEVA's SH-2 library through the vendored Adafruit_BNO08x (lib/Adafruit_BNO08x: bounded SPI handshakes, no hidden
+// resets, a report FIFO; plus our patch that stamps each transfer at the INT edge). SPI0 mode 3 at 3 MHz, CS 10, INT 9,
+// RST 6. PS0/WAKE and PS1 are strapped high on the module (SPI), so the host can't wake the hub before a write: like the
+// wheeled-leg robot, every configuration is sent right after a reset (the boot wake window) or on an interrupt the
+// sensor raised (it is awake then). The required reports (game rotation vector, calibrated gyro) go first; the
+// accelerometer is staged on the next interrupt.
+//   boot (setup, before the watchdog: begin_SPI's product-id exchange takes ~0.5 s): up to 2 attempts; if both fail the
+//     IMU stays off (the core reports IMU_SILENT) until the MCU restarts
+//   runtime: streams silent for STREAM_TIMEOUT_MS or a sensor reset -> GRACE (its own retry) -> a reset pulse (not
+//     blocking: RESET_LOW) -> WAIT_RESET -> required reports -> CONFIG_AUX -> WAIT_DATA -> NOMINAL; a failed attempt
+//     retries every RETRY_MS. While it recovers no samples go out, so the core's IMU_SILENT shows it (50 ms)
+// Samples: one per gyro report, with the newest game RV and accelerometer, at the gyro's own sample time (SH-2: the INT
+// edge less the report's delay). The game RV's yaw restarts at 0 after a sensor reset; the driver turns it back to the
+// last yaw it sent so heading stays continuous (any turn during the gap is lost from the IMU's yaw).
 struct Bno085 {
-    static constexpr uint32_t PERIOD_US = 2500;          // 400 Hz for gyro, accelerometer and game rotation vector
-    volatile uint32_t t_int32 = 0;
-    volatile bool pending = false;
-    uint8_t seq_out[6] = {};
-    uint8_t buf[512];
-    FwImuSample last{};
-    bool configured = false;
-    uint32_t t_reset_ms = 0;
+    static constexpr uint32_t RATE_HZ = 100;              // each report (heading and the EKF need no more)
+    static constexpr uint32_t STREAM_TIMEOUT_MS = 100;
+    static constexpr uint32_t GRACE_MS = 20;              // the BNO's own retry of an unserviced transfer is ~10 ms
+    static constexpr uint32_t RESET_LOW_MS = 10;
+    static constexpr uint32_t WAKE_TIMEOUT_MS = 500;      // reset notice / first interrupt / first data
+    static constexpr uint32_t RETRY_MS = 1000;
+    static constexpr uint8_t MAX_DRAIN = 16;
+    enum class Phase : uint8_t { OFF, NOMINAL, GRACE, RESET_LOW, WAIT_RESET, CONFIG_AUX, WAIT_DATA, RETRY_DELAY };
 
-    void begin() {
+    Adafruit_BNO08x dev{(int8_t)pin::BNO_RST};
+    Phase phase = Phase::OFF;
+    uint32_t t_phase = 0;
+    uint32_t last_rv_ms = 0, last_gyro_ms = 0;
+    bool have_quat = false;
+    float quat[4] = {1, 0, 0, 0};                         // w x y z, yaw-corrected across sensor resets
+    float accel[3] = {0, 0, 9.81f};
+    float yaw_off = 0, last_out_yaw = 0;
+    bool restitch = false, any_out = false;
+    struct {
+        uint32_t boot_attempts, sensor_resets, recovery_attempts, recoveries, stalls, failures, dropped, invalid;
+    } diag{};
+
+    bool int_low() const { return digitalReadFast(pin::BNO_INT) == LOW; }
+    void enter(Phase p) { phase = p; t_phase = millis(); }
+
+    bool enable(sh2_SensorId_t id, uint32_t hz) { return dev.enableReport(id, hz ? 1000000UL / hz : 0, true); }
+    bool enable_required() {
+        return enable(SH2_GAME_ROTATION_VECTOR, RATE_HZ) && enable(SH2_GYROSCOPE_CALIBRATED, RATE_HZ);
+    }
+
+    void clear_fresh() {
+        last_rv_ms = last_gyro_ms = 0;
+        have_quat = false;
+    }
+
+    // setup(): blocking, before the watchdog starts
+    bool begin() {
         pinMode(pin::BNO_CS, OUTPUT);
         digitalWriteFast(pin::BNO_CS, HIGH);
-        pinMode(pin::BNO_WAKE, OUTPUT);
-        digitalWriteFast(pin::BNO_WAKE, HIGH);
-        pinMode(pin::BNO_PS1, OUTPUT);
-        digitalWriteFast(pin::BNO_PS1, HIGH);
-        pinMode(pin::BNO_BOOTN, OUTPUT);
-        digitalWriteFast(pin::BNO_BOOTN, HIGH);                 // run the application, not the bootloader
-        pinMode(pin::BNO_INT, INPUT_PULLUP);
+        // PS0/WAKE + PS1 high at reset = SPI; BOOTN high = its application. Strapped on the bench module (then these
+        // pins are unconnected or at the same level); routed here on the carrier (pcb/v1 J4)
+        for (uint8_t p : {pin::BNO_WAKE, pin::BNO_PS1, pin::BNO_BOOTN}) {
+            pinMode(p, OUTPUT);
+            digitalWriteFast(p, HIGH);
+        }
+        for (int a = 0; a < 2; ++a) {
+            diag.boot_attempts++;
+            if (!dev.begin_SPI(pin::BNO_CS, pin::BNO_INT)) continue;
+            // reset as wake: service one boot transfer, then configure before the hub can sleep again
+            dev.hardwareReset();
+            const uint32_t t0 = millis();
+            while (!int_low() && millis() - t0 <= WAKE_TIMEOUT_MS) {}
+            if (!int_low()) { sh2_close(); continue; }
+            sh2_SensorValue_t ignored;
+            (void)dev.getSensorEvent(&ignored);
+            (void)dev.wasReset();
+            dev.clearSensorEvents();
+            clear_fresh();
+            if (!enable_required()) { sh2_close(); continue; }
+            enter(Phase::CONFIG_AUX);
+            return true;
+        }
+        enter(Phase::OFF);
+        return false;
+    }
+
+    void begin_reset() {
+        diag.recovery_attempts++;
+        clear_fresh();
+        restitch = true;
+        dev.clearSensorEvents();
+        (void)dev.wasReset();
         pinMode(pin::BNO_RST, OUTPUT);
         digitalWriteFast(pin::BNO_RST, LOW);
-        delay(2);
-        digitalWriteFast(pin::BNO_RST, HIGH);                   // the straps are read now
-        t_reset_ms = millis();
-        SPI.begin();
-        attachInterrupt(digitalPinToInterrupt(pin::BNO_INT), isr, FALLING);
-    }
-    static void isr();
-
-    size_t transfer(const uint8_t* tx, size_t n_tx) {           // one SHTP packet each way; returns the rx length
-        SPI.beginTransaction(SPISettings(3000000, MSBFIRST, SPI_MODE3));
-        digitalWriteFast(pin::BNO_CS, LOW);
-        uint8_t h[4];
-        for (int i = 0; i < 4; ++i) h[i] = SPI.transfer(i < (int)n_tx ? tx[i] : 0);
-        size_t len = (size_t)((h[0] | (h[1] << 8)) & 0x7FFF);
-        size_t n = len > n_tx ? len : n_tx;
-        if (n > sizeof(buf)) n = sizeof(buf);
-        memcpy(buf, h, 4);
-        for (size_t i = 4; i < n; ++i) buf[i] = SPI.transfer(i < n_tx ? tx[i] : 0);
-        digitalWriteFast(pin::BNO_CS, HIGH);
-        SPI.endTransaction();
-        return len <= sizeof(buf) ? len : 0;
+        enter(Phase::RESET_LOW);
     }
 
-    void set_feature(uint8_t report_id) {                       // SH-2 Set Feature (0xFD) on channel 2
-        uint8_t p[21] = {21, 0, 2, seq_out[2]++, 0xFD, report_id, 0, 0, 0};
-        uint32_t us = PERIOD_US;
-        memcpy(p + 9, &us, 4);
-        digitalWriteFast(pin::BNO_WAKE, LOW);                   // wake it to take a write (it answers on INT)
-        uint32_t t0 = micros();
-        while (!pending && micros() - t0 < 20000) {}
-        digitalWriteFast(pin::BNO_WAKE, HIGH);
-        transfer(p, sizeof(p));
-        pending = false;
+    void fail() {
+        diag.failures++;
+        enter(Phase::RETRY_DELAY);
     }
 
-    // -> samples (each with its own time) since the last call
-    uint32_t poll(FwImuSample* out, uint32_t cap, uint64_t now64) {
-        if (!configured) {
-            if (millis() - t_reset_ms < 300) return 0;          // its boot (est; it announces itself on channel 0)
-            set_feature(fw::SH2_GYRO);
-            set_feature(fw::SH2_ACCEL);
-            set_feature(fw::SH2_GAME_RV);
-            configured = true;
+    static float yaw_of(const float* q) {
+        return atan2f(2.0f * (q[0] * q[3] + q[1] * q[2]), 1.0f - 2.0f * (q[2] * q[2] + q[3] * q[3]));
+    }
+
+    void on_rotation(float qi, float qj, float qk, float qr, uint32_t now) {
+        if (!isfinite(qi) || !isfinite(qj) || !isfinite(qk) || !isfinite(qr)) { diag.invalid++; return; }
+        const float n2 = qi * qi + qj * qj + qk * qk + qr * qr;
+        if (!(n2 > 0.25f && n2 < 2.25f)) { diag.invalid++; return; }
+        const float k = 1.0f / sqrtf(n2);
+        const float q[4] = {qr * k, qi * k, qj * k, qk * k};
+        if (restitch) {                                   // the first rotation after a reset: keep the heading
+            if (any_out) yaw_off = last_out_yaw - yaw_of(q);
+            restitch = false;
         }
-        if (!pending) return 0;
-        noInterrupts();
-        uint32_t t32 = t_int32;
-        pending = false;
-        interrupts();
-        size_t len = transfer(nullptr, 0);
-        if (len < 5 || buf[2] != 3) return 0;                   // only sensor reports (channel 3) carry samples
-        fw::Sh2Report r[16];
-        size_t nr = fw::sh2_parse(buf + 4, len - 4, extend_us(t32, now64), r, 16);
-        return (uint32_t)fw::sh2_samples(r, nr, last, out, cap);
+        const float c = cosf(0.5f * yaw_off), s = sinf(0.5f * yaw_off);    // a turn about the world's z, first
+        quat[0] = c * q[0] - s * q[3];
+        quat[1] = c * q[1] - s * q[2];
+        quat[2] = c * q[2] + s * q[1];
+        quat[3] = c * q[3] + s * q[0];
+        have_quat = true;
+        last_rv_ms = now;
+    }
+
+    void handle(const sh2_SensorValue_t& v, FwImuSample* out, uint32_t cap, uint32_t& n, uint64_t now64, uint32_t now) {
+        if (v.sensorId == SH2_GAME_ROTATION_VECTOR) {
+            on_rotation(v.un.gameRotationVector.i, v.un.gameRotationVector.j, v.un.gameRotationVector.k,
+                        v.un.gameRotationVector.real, now);
+        } else if (v.sensorId == SH2_ACCELEROMETER) {
+            const auto& a = v.un.accelerometer;
+            if (!isfinite(a.x) || !isfinite(a.y) || !isfinite(a.z)) { diag.invalid++; return; }
+            accel[0] = a.x, accel[1] = a.y, accel[2] = a.z;
+        } else if (v.sensorId == SH2_GYROSCOPE_CALIBRATED) {
+            const auto& g = v.un.gyroscope;
+            if (!isfinite(g.x) || !isfinite(g.y) || !isfinite(g.z)) { diag.invalid++; return; }
+            last_gyro_ms = now;
+            if (!have_quat) return;                       // the core takes its heading zero from the first sample
+            if (n >= cap) { diag.dropped++; return; }
+            FwImuSample& s = out[n++];
+            s.t_us = extend_us((uint32_t)v.timestamp, now64);
+            memcpy(s.quat, quat, sizeof(quat));
+            s.gyro[0] = g.x, s.gyro[1] = g.y, s.gyro[2] = g.z;
+            memcpy(s.accel, accel, sizeof(accel));
+            last_out_yaw = yaw_of(quat);
+            any_out = true;
+        }
+    }
+
+    bool fresh(uint32_t now) const {
+        return last_rv_ms && last_gyro_ms && now - last_rv_ms <= STREAM_TIMEOUT_MS &&
+               now - last_gyro_ms <= STREAM_TIMEOUT_MS;
+    }
+
+    // every tick: -> the samples (each with its own time) since the last call
+    uint32_t poll(FwImuSample* out, uint32_t cap, uint64_t now64) {
+        const uint32_t now = millis();
+        switch (phase) {
+            case Phase::OFF: return 0;
+            case Phase::RESET_LOW:
+                if (now - t_phase >= RESET_LOW_MS) {
+                    digitalWriteFast(pin::BNO_RST, HIGH);
+                    enter(Phase::WAIT_RESET);
+                }
+                return 0;
+            case Phase::WAIT_RESET:                       // the first transfer after our reset: configure at once
+                if (int_low()) {
+                    sh2_SensorValue_t ignored;
+                    (void)dev.getSensorEvent(&ignored);
+                    (void)dev.wasReset();
+                    diag.sensor_resets++;
+                    dev.clearSensorEvents();
+                    clear_fresh();
+                    if (enable_required()) enter(Phase::CONFIG_AUX);
+                    else fail();
+                } else if (now - t_phase > WAKE_TIMEOUT_MS) {
+                    fail();
+                }
+                return 0;
+            case Phase::CONFIG_AUX:                       // on an interrupt the sensor raised: it is awake
+                if (int_low()) {
+                    if (enable(SH2_ACCELEROMETER, RATE_HZ)) enter(Phase::WAIT_DATA);
+                    else fail();
+                } else if (now - t_phase > WAKE_TIMEOUT_MS) {
+                    fail();
+                }
+                return 0;
+            case Phase::RETRY_DELAY:
+                if (now - t_phase >= RETRY_MS) begin_reset();
+                return 0;
+            default: break;                               // NOMINAL, GRACE, WAIT_DATA: read
+        }
+        uint32_t n = 0;
+        sh2_SensorValue_t v;
+        for (uint8_t i = 0; i < MAX_DRAIN; ++i) {         // drain first: a late tick finds what the sensor kept
+            if (!dev.hasQueuedSensorEvent() && !int_low()) break;
+            if (!dev.getSensorEvent(&v)) break;
+            handle(v, out, cap, n, now64, now);
+        }
+        const uint32_t t = millis();
+        if (dev.wasReset()) {                             // the sensor reset by itself: its reports are gone
+            diag.sensor_resets++;
+            clear_fresh();
+            restitch = true;
+            phase = Phase::GRACE;
+            t_phase = t - GRACE_MS;                       // reconfigure through our own reset, next tick
+            return n;
+        }
+        const bool ok = fresh(t);
+        switch (phase) {
+            case Phase::NOMINAL:
+                if (!ok) { diag.stalls++; enter(Phase::GRACE); }
+                break;
+            case Phase::GRACE:
+                if (ok) { diag.recoveries++; enter(Phase::NOMINAL); }
+                else if (t - t_phase >= GRACE_MS) begin_reset();
+                break;
+            case Phase::WAIT_DATA:
+                if (ok) { if (diag.recovery_attempts) diag.recoveries++; enter(Phase::NOMINAL); }
+                else if (t - t_phase > WAKE_TIMEOUT_MS) fail();
+                break;
+            default: break;
+        }
+        return n;
     }
 };
 static Bno085 g_bno;
-void Bno085::isr() {
-    g_bno.t_int32 = micros();
-    g_bno.pending = true;
-}
 
 // -- time references (design.md 10) --------------------------------------------------------------------------------
 // The core schedules each edge in MCU microseconds; a one-shot PIT timer fires it and its interrupt reads the time it

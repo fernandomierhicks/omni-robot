@@ -1,8 +1,14 @@
-"""cad/v11 upper robot for layout F (PROPOSAL, Nov 4 2026): the second floor and everything on it. build123d, STEP review only.
+"""v15 upper robot: the second floor and everything on it (cad/v11-v14's, unchanged in place: the floor stays at z 176.5). build123d,
+STEP review only.
 
     python -B upper.py [build|check|export|render|all]        (omni-robot-sim interpreter)
 
-What it adds over chassis.py (first floor, pods, fins):
+v15 (Nov 14 2026): it stands on fins.py's fins (their flanges and floor screws: fins.FINS / floor_pts, the same points as v14's) on the mid
+deck (chassis_mid.py); its check runs against world.py's base. The battery is no longer here: it hangs under the deck (chassis_mid.BATTERY);
+the bin deck now holds only the computer down, and the battery's old place under it is free. The front fins' long M3s through the floor are
+gone (one floor screw at the same point instead). The history below is v11-v14's.
+
+What it adds over the base (first floor, pods, fins):
  * SECOND FLOOR: a 5 mm PETG plate (z 176.5..181.5, r 218) in four quadrant pieces (each fits the 256 bed). Under it, 6 x 6 lips: round
    the rim and along the two side seams (x = 0), where the quadrants bolt together through the lips (horizontal M3 x 12) on the bench
    before the floor goes on. The rear seam (y = 0) lies on the spine fin's flange: its five floor screws straddle the seam, each head
@@ -36,8 +42,8 @@ from shapely import affinity, union_all
 from shapely.geometry import LineString, Point, Polygon, box as sbox
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import chassis as C                                                    # noqa: E402
-import first_floor as FF                                               # noqa: E402
+import base as B                                                       # noqa: E402
+import fins as F                                                       # noqa: E402
 import hardware as H                                                   # noqa: E402
 import devices as LS                                              # noqa: E402
 import pod as P                                                        # noqa: E402
@@ -52,7 +58,7 @@ REF = W.REF                                                            # every r
 REF_PARTS = REF / 'parts'                                              # the SO-101, buck, bin, display, mic, speaker, riser + adapter STEPs
 box, cyl = P.box, W.cyl
 
-Z_UNDER, Z_TOP = C.FLOOR2_UNDER, C.FLOOR2_UNDER + 5.0                  # 176.5 / 181.5
+Z_UNDER, Z_TOP = F.FLOOR2_UNDER, F.FLOOR2_TOP                  # 176.5 / 181.5
 R_FLOOR = 218.0                                                        # bumper inside r 222.2
 LIP_W, LIP_D = 6.0, 6.0                                                # lips under the floor
 SEAM = 0.1                                                             # each quadrant stops this far off its seam line
@@ -75,10 +81,10 @@ DZ_BIN = LID_Z[1] - Z_TOP                                              # the v10
 STOW = 'stow'
 
 # Nov 13: the printed parts take their filament (palette.py; README "Filament colours"); the rest keep role colours for review
-COL = dict(floor=PAL.WHITE, riser=PAL.WHITE, deck=PAL.WHITE, post=PAL.DARK_GRAY, bracket=PAL.DARK_GRAY,
-           housing=PAL.DARK_GRAY, display=(0.05, 0.05, 0.08), computer=(0.35, 0.45, 0.85), battery=(0.85, 0.25, 0.25),
+COL = dict(floor=PAL.WHITE, riser=PAL.ORANGE, deck=PAL.WHITE, post=PAL.WHITE, bracket=PAL.WHITE,
+           housing=PAL.WHITE, display=(0.05, 0.05, 0.08), computer=(0.35, 0.45, 0.85), battery=(0.85, 0.25, 0.25),
            power=(0.95, 0.60, 0.10), mcu=(0.20, 0.65, 0.30), servo_adapter=(0.60, 0.30, 0.75), plug=(0.12, 0.12, 0.12),
-           label=(0.97, 0.97, 0.97), arm=PAL.DARK_GRAY, servo=(0.10, 0.10, 0.12), bin=PAL.WHITE, audio=(0.30, 0.30, 0.34),
+           label=(0.97, 0.97, 0.97), arm=PAL.WHITE, servo=(0.10, 0.10, 0.12), bin=PAL.ORANGE, audio=(0.30, 0.30, 0.34),
            estop=(0.85, 0.10, 0.10), switch=(0.15, 0.15, 0.15), buck=(0.10, 0.40, 0.70))
 
 
@@ -95,7 +101,7 @@ def colour(name):
 
 
 def prism(g, z0, z1):
-    return C.prism(g, z0, z1)
+    return B.prism(g, z0, z1)
 
 
 def label(text, at, size=5.0, up=0.6, yaw=0.0):
@@ -120,15 +126,15 @@ def fin_flanges():
     """plan polygons of the fins' flanges under the floor, their floor-screw points and (round 15) the front fins' long bolts (through the
     floor, heads on its top: chassis.py's records)"""
     out, pts, long_ = [], [], []
-    for _, kind, side in C.FINS:
-        S = C.FIN_DIMS[kind]
+    for _, kind, side in F.FINS:
+        S = F.FIN_DIMS[kind]
         u0, u1 = S['top']
-        a, d = C.fin_xy(kind, u0, side), C.fin_xy(kind, u1, side)
-        n = np.array([-(d - a)[1], (d - a)[0]]) / np.linalg.norm(d - a) * C.FIN_FLANGE / 2
+        a, d = F.fin_xy(kind, u0, side), F.fin_xy(kind, u1, side)
+        n = np.array([-(d - a)[1], (d - a)[0]]) / np.linalg.norm(d - a) * F.FIN_FLANGE / 2
         out.append(Polygon([a + n, d + n, d - n, a - n]))
-        pts += C.floor_pts(kind, side)
+        pts += F.floor_pts(kind, side)
         if 'bolt' in S:
-            long_.append(tuple(C.fin_xy(kind, S['bolt'], side)))
+            long_.append(tuple(F.fin_xy(kind, S['bolt'], side)))
     return union_all(out), pts, long_
 
 
@@ -142,7 +148,7 @@ def quad_region(sx, sy):
 
 
 def lidar_keepout():
-    return Point(C.LIDAR_X, 0).buffer(FF.LIDAR['d'] / 2 + 4.0, 64)
+    return Point(F.LIDAR_X, 0).buffer(F.LIDAR['d'] / 2 + 4.0, 64)
 
 
 # round 13 (Fernando): the quadrants interlock. Every seam has dovetail tabs in the plate (one quadrant's tab in the other's socket; they go
@@ -261,12 +267,12 @@ def build_floor(holes_thru, pilots, flange, fin_pts, notch=None):
 # r 11, G1 (100, -128) r 11, G2 (-105, 150) r 9 added 10.5 deg of lidar blind angle (cable_route.py); they are replaced by one stadium slot past
 # each side fin's tail on its lidar ray (dims.HARNESS_SLOT_*), inside the fin's shadow: 0 deg added. Right (-y): the four motor leads and the
 # lidar's lead (harness_route.py); left (+y): spare. Bare PLA, no grommet; the leads are zip-tied through tie slots beside it (TIE_*).
-SIDE_RAY = (math.cos(math.radians(C.SIDE['bearing'])), math.sin(math.radians(C.SIDE['bearing'])))
+SIDE_RAY = (math.cos(math.radians(F.SIDE['bearing'])), math.sin(math.radians(F.SIDE['bearing'])))
 
 
 def slot_centreline(side):
     """the slot's two end centres (robot x, y) on the side fin's ray; side +1 = left (+y), -1 = right"""
-    return [(C.LIDAR_X + SIDE_RAY[0] * u, side * SIDE_RAY[1] * u) for u in HARNESS_SLOT_U]
+    return [(F.LIDAR_X + SIDE_RAY[0] * u, side * SIDE_RAY[1] * u) for u in HARNESS_SLOT_U]
 
 
 def slot_region(side, grow=0.0):
@@ -505,12 +511,11 @@ def arm_parts_at(pose=STOW):
 
 # ---- electronics block --------------------------------------------------------------------------------------------------------------
 BLOCK = dict(computer=dict(xy=(-135.0, 1.0), yaw=90, z0=Z_TOP + 3.0),           # its corners on the four clips' 3 mm floors
-             battery=dict(xy=(-26.0, 1.0), yaw=90, z0=Z_TOP + 2.0),             # in its tray (2 mm floor); 13 mm forward of layout F (clips)
              power=dict(xy=(3.0, -144.0), yaw=0, z0=220.5),                     # Nov 11 (harness): the power stack (STACK below): the fuse /
              mcu=dict(xy=(37.0, -143.5), yaw=0, z0=252.5),                      # contactor / distribution board on the stack's shelf, the
                                                                                  # Teensy carrier on posts over it
              servo_adapter=dict(xy=(21.0, -7.0), yaw=90, z0=Z_TOP + 5.0))       # on two 5 mm spacers
-LABELS = dict(computer='BMAX B8A PRO', battery='6S 5200 LIPO', power='POWER', mcu='TEENSY 4.1', servo_adapter='SERVO BUS')
+LABELS = dict(computer='BMAX B8A PRO', power='POWER', mcu='TEENSY 4.1', servo_adapter='SERVO BUS')
 # Nov 11 (harness, Fernando: the three potted converters "all in the power stack"): at the right rear, where the power board was. A printed
 # open box on the floor holds the 19 V and 5 V modules side by side; a printed shelf on the box carries our fuse / anti-spark + contactor /
 # current sensor / distribution board (`power`, 70 x 60 x 18 est: the motor XT30s on its -x face toward the cable slot) and the 12 V module
@@ -574,24 +579,6 @@ def electronics():
         sp = to_robot((c[0] + sx * 9.0, c[1]), at['xy'], at['yaw'])
         pilots.append(sp)
         hw.append(H.pan((*sp, Z_TOP + 3.0), (0, 0, -1), 12.0, 'bolt_clip_computer'))
-    # battery tray: 2 mm floor, 2.5 walls 30 tall, strap slots; four tabs with M3 x 12
-    d, at = devs['battery'], BLOCK['battery']
-    l, w, h = d['size']
-    t = box(-l / 2 - 2.5, l / 2 + 2.5, -w / 2 - 2.5, w / 2 + 2.5, 0, 30.0) - box(-l / 2, l / 2, -w / 2, w / 2, 2.0, 30.1)
-    t = t - box(-l / 2 - 2.6, -l / 2 + 12, -w / 2 - 3, w / 2 + 3, 2.0, 30.1).moved(b.Location((0, 0, 0)))   # the XT90 end stays open
-    # (Nov 11, harness: the cut started 0.1 inside the end wall, so the wall stood; it now goes through, for the pack's XT90 pigtail)
-    t = t - box(l / 2 - 0.1, l / 2 + 2.6, -w / 2 - 3, w / 2 + 3, 2.0, 30.1)      # round 12: the +u end (robot +y) open too: the pack slides
-    for u in (-l / 4, l / 4):                                                     # out to the left under the deck (strap opened, XT90 unplugged)
-        t = t - box(u - 11, u + 11, -w / 2 - 3, w / 2 + 3, 8.0, 11.0) - box(u - 11, u + 11, -w / 2 + 4, w / 2 - 4, -0.1, 2.1)   # strap slots
-    for i, (u, v) in enumerate(((-l / 2 + 20, w / 2 + 8), (l / 2 - 20, w / 2 + 8), (-l / 2 + 20, -w / 2 - 8), (l / 2 - 20, -w / 2 - 8))):   # round 12: tabs
-        # 5 mm further out (they touched the strap)
-        t = t + (box(u - 6, u + 6, min(v, 0) * 0 + v - 6, v + 6, 0, 3.0) - cyl(M3_CLR / 2, 3.2, (u, v, 1.5)))
-        sp = to_robot((u, v), at['xy'], at['yaw'])
-        pilots.append(sp)
-        hw.append(H.pan((*sp, Z_TOP + 3.0), (0, 0, -1), 12.0, 'bolt_tray_battery'))
-    printed['bracket_battery_tray'] = place(t, at['xy'], at['yaw'], Z_TOP)
-    bought['strap_battery'] = place(box(-l / 4 - 10, -l / 4 + 10, -w / 2 - 3.5, w / 2 + 3.5, 2.0, h + 3.0) - box(-l / 4 - 11, -l / 4 + 11, -w / 2 - 2.5, w / 2 + 2.5, 0, h + 2.0), at['xy'], at['yaw'], Z_TOP) \
-        + place(box(l / 4 - 10, l / 4 + 10, -w / 2 - 3.5, w / 2 + 3.5, 2.0, h + 3.0) - box(l / 4 - 11, l / 4 + 11, -w / 2 - 2.5, w / 2 + 2.5, 0, h + 2.0), at['xy'], at['yaw'], Z_TOP)
     # Nov 11: the power stack (STACK above; replaces round 12's power board + carrier on one hole pattern)
     b3, p3, h3, pl3 = power_stack(devs)
     bought.update(b3)
@@ -932,9 +919,14 @@ def check(printed, bought, vendor, hw, info):
     static parts (moving parts swept); fasteners: each screw's shank must end inside a printed part (thread) or a nut"""
     import pod_lean as L
     rep = dict(info=info)
+    import print_beds as PB                                            # Nov 16: the shared bed check (best rotation, 2 mm margin)
     rep['printed'] = {k: dict(solids=len(s.solids()), valid=bool(s.is_valid), volume_cm3=round(s.volume / 1000, 1),
                               bbox=[round(v, 1) for v in tuple(s.bounding_box().size)],
-                              bed_fit=bool(sorted(tuple(s.bounding_box().size))[1] <= 256)) for k, s in printed.items()}
+                              up=(PB.bed(k) or ('+z (NO PRINT_BED ENTRY)',))[0],
+                              bed=PB.bed_fit(s, (PB.bed(k) or ('+z',))[0])) for k, s in printed.items()}
+    rep['bed_fit_failures'] = PB.bed_failures(rep['printed'])
+    for line in rep['bed_fit_failures']:
+        print('BED FIT FAIL', line, flush=True)
     vend = load_vendor(vendor)
     allp = dict(printed, **bought, **vend)
     # pairwise overlaps (bounding boxes first)
@@ -952,10 +944,11 @@ def check(printed, bought, vendor, hw, info):
                 if v > 0.05 or v < 0:
                     ov[f'{a} / {c}'] = round(v, 2)
     rep['overlaps_mm3'] = ov
-    # against the chassis, fins, pods (static) and the moving pods' sweep (their bounding: wheel top 155)
-    parts, chw, env, g = C.build(FF.pod_geometry())
-    lower = {k: v for k, v in parts.items()}
-    lower.update({k: v for k, v in env.items() if k != 'env_arm_riser'})
+    # against the base (deck, fins, pedestal, bumper, battery: world.py), the lidar and the pods' parts that stand on the deck
+    import world as WD
+    lower = WD.base_items()
+    st, _ = WD.pods(0.0, split=True)
+    lower.update({k: v for k, v in st.items() if k.split('/')[-1].startswith(('rx_tower', 'plunger', 'spring', 'bolt_tower', 'nut_tower'))})
     ov2 = {}
     for a, sa in allp.items():
         for c, sc in lower.items():
@@ -963,19 +956,8 @@ def check(printed, bought, vendor, hw, info):
                 v = W.overlap(sa, sc)
                 if v > 0.05:
                     ov2[f'{a} / {c}'] = round(v, 2)
-    rep['overlaps_with_chassis_mm3'] = ov2
-    # round 12: the battery's way out: the pack (and its label) slid along +y under the deck, against everything but its tray and strap
-    out = {}
-    pack = {k: allp[k] for k in ('battery', 'label_battery')}
-    rest = {k: v for k, v in dict(allp, **lower).items() if k not in pack and k not in ('bracket_battery_tray', 'strap_battery')}
-    for t in (5.0, 20.0, 40.0, 60.0, 90.0, 120.0, 150.0, 180.0):
-        for k, s in pack.items():
-            sm = s.moved(b.Location((0, t, 0)))
-            for c, sc in rest.items():
-                if W.near(sm, sc, 0.0) and W.overlap(sm, sc) > 0.05:
-                    out.setdefault(str(t), []).append(f'{k} / {c}')
-    rep['battery_slide_out_+y'] = dict(contacts=out, clear=not out, note='strap opened and the XT90 unplugged first (reached under the deck from the right side)')
-    rep['lidar_top_to_floor_mm'] = round(Z_UNDER - (FF.LIDAR_BASE_Z + FF.LIDAR['h']), 2)
+    rep['overlaps_with_base_mm3'] = ov2
+    rep['lidar_top_to_floor_mm'] = round(Z_UNDER - (F.LIDAR_BASE_Z + F.LIDAR['h']), 2)
     # fasteners: thread engagement = shank length that has plastic between the pilot (r 1.4) and the clearance (r 1.7) radius: a tube
     # r 1.42..1.68 along the shank picks up material only where the hole is a pilot (or blind / solid), never in a Ø3.4 clearance hole
     rep['thread_engagement_mm'] = engagement(hw, dict(printed, **lower, **vend))

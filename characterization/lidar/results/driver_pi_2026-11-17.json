@@ -1,0 +1,225 @@
+{
+ "boost": {
+  "scans": 343,
+  "seconds": 28.0,
+  "bins": 320,
+  "hz_first_last": [
+   11.69,
+   12.3
+  ],
+  "hz_at": {
+   "5s": 12.14
+  },
+  "samples_per_turn": 650.5,
+  "finite_share": 0.74,
+  "stamp_gap_ms": {
+   "p50": 0.038,
+   "p95": 0.105,
+   "max": 0.923,
+   "first5_max": 0.04
+  },
+  "receipt_after_turn_ms": {
+   "min": 25.2,
+   "p50": 31.4,
+   "p95": 36.8,
+   "max": 37.7
+  },
+  "cpu_pct": 5.6,
+  "status": {
+   "model": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "health": "good",
+   "mode": "Boost",
+   "samples_per_s": 8000,
+   "turns": 353,
+   "bad_bytes": 0,
+   "lost_packets": 0,
+   "clock_breaks": 0,
+   "clock_lines": 1,
+   "clock_ppm": -13.9,
+   "clock_spread_ms": 0.552,
+   "seam_dropped": 162,
+   "error": null
+  }
+ },
+ "express": {
+  "scans": 363,
+  "seconds": 29.7,
+  "bins": 320,
+  "hz_first_last": [
+   9.79,
+   12.36
+  ],
+  "hz_at": {
+   "5s": 12.17
+  },
+  "samples_per_turn": 324.0,
+  "finite_share": 0.634,
+  "stamp_gap_ms": {
+   "p50": 0.041,
+   "p95": 0.085,
+   "max": 0.903,
+   "first5_max": 0.206
+  },
+  "receipt_after_turn_ms": {
+   "min": 16.9,
+   "p50": 21.2,
+   "p95": 24.8,
+   "max": 25.6
+  },
+  "cpu_pct": 5.5,
+  "status": {
+   "model": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "health": "good",
+   "mode": "Express",
+   "samples_per_s": 4000,
+   "turns": 354,
+   "bad_bytes": 0,
+   "lost_packets": 0,
+   "clock_breaks": 0,
+   "clock_lines": 1,
+   "clock_ppm": 8.0,
+   "clock_spread_ms": 0.362,
+   "seam_dropped": 927,
+   "error": null
+  }
+ },
+ "stability_cold": {
+  "scans": 1808,
+  "seconds": 149.6,
+  "bins": 320,
+  "hz_first_last": [
+   9.53,
+   12.22
+  ],
+  "hz_at": {
+   "5s": 11.84,
+   "30s": 12.04,
+   "60s": 12.1,
+   "120s": 12.19
+  },
+  "samples_per_turn": 327.2,
+  "finite_share": 0.666,
+  "stamp_gap_ms": {
+   "p50": 0.032,
+   "p95": 0.108,
+   "max": 0.993,
+   "first5_max": 0.176
+  },
+  "receipt_after_turn_ms": {
+   "min": 36.1,
+   "p50": 49.4,
+   "p95": 60.2,
+   "max": 61.8
+  },
+  "cpu_pct": 3.3,
+  "status": {
+   "model": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "health": "good",
+   "mode": "Stability",
+   "samples_per_s": 4000,
+   "turns": 1800,
+   "bad_bytes": 0,
+   "lost_packets": 0,
+   "clock_breaks": 0,
+   "clock_lines": 1,
+   "clock_ppm": -3.1,
+   "clock_spread_ms": 0.351,
+   "seam_dropped": 206,
+   "error": null
+  }
+ },
+ "stability_restart": {
+  "scans": 219,
+  "seconds": 17.9,
+  "bins": 320,
+  "hz_first_last": [
+   11.67,
+   12.25
+  ],
+  "hz_at": {
+   "5s": 12.11
+  },
+  "samples_per_turn": 326.5,
+  "finite_share": 0.66,
+  "stamp_gap_ms": {
+   "p50": 0.031,
+   "p95": 0.147,
+   "max": 0.947,
+   "first5_max": 0.054
+  },
+  "receipt_after_turn_ms": {
+   "min": 37.0,
+   "p50": 50.0,
+   "p95": 60.8,
+   "max": 61.6
+  },
+  "cpu_pct": 3.3,
+  "status": {
+   "model": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "health": "good",
+   "mode": "Stability",
+   "samples_per_s": 4000,
+   "turns": 228,
+   "bad_bytes": 0,
+   "lost_packets": 0,
+   "clock_breaks": 0,
+   "clock_lines": 1,
+   "clock_ppm": 128.2,
+   "clock_spread_ms": 0.034,
+   "seam_dropped": 21,
+   "error": null
+  }
+ },
+ "standard": {
+  "scans": 345,
+  "seconds": 27.9,
+  "bins": 320,
+  "hz_first_last": [
+   11.83,
+   12.37
+  ],
+  "hz_at": {
+   "5s": 12.24
+  },
+  "samples_per_turn": 161.7,
+  "finite_share": 0.34,
+  "stamp_gap_ms": {
+   "p50": 0.421,
+   "p95": 0.504,
+   "max": 2.271,
+   "first5_max": 0.466
+  },
+  "receipt_after_turn_ms": {
+   "min": 1.9,
+   "p50": 3.3,
+   "p95": 3.9,
+   "max": 5.0
+  },
+  "cpu_pct": 5.8,
+  "status": {
+   "model": "A2M8",
+   "firmware": "1.26",
+   "hardware": 5,
+   "health": "good",
+   "mode": "Standard",
+   "samples_per_s": 2000,
+   "turns": 355,
+   "bad_bytes": 0,
+   "lost_packets": 0,
+   "clock_breaks": 0,
+   "clock_lines": 1,
+   "clock_ppm": 11.4,
+   "clock_spread_ms": 0.207,
+   "seam_dropped": 3,
+   "error": null
+  }
+ }
+}

@@ -10,11 +10,11 @@ Based on [design.md](../design.md) and current [v14 CAD](../cad/v14/README.md), 
 | 1 | SO-101 follower arm kit | Six servos, servo cables and hardware; choose the follower kit, not a leader/follower pair. Check kit contents before buying duplicate parts. |
 | 1 | SO-101 USB servo-bus adapter | Required unless included in arm kit; compatible with its servos and 12 V supply. |
 | 1 | Intel RealSense D435 | Arm riser camera; include a suitable USB 3 cable. |
-| 1 | SLAMTEC RPLIDAR A2M12 plus USB adapter/cable | Baseline; existing A2M8 bench unit is a different model. |
+| 1 | SLAMTEC RPLIDAR A2M8 plus USB adapter/cable | Baseline since Nov 16 (Fernando; was the A2M12); **already owned** (the Pi bench unit). Characterization: `characterization/lidar/README.md`. |
 | 1 | Teensy 4.1 | Robot MCU; include headers and USB data cable. |
 | 1 | BNO085 IMU breakout | SPI-capable, compatible with Teensy 3.3 V logic. |
 | 1 | Robot computer with RAM/storage and Wi-Fi | Choice OPEN: leading candidates BMAX B8A Pro 8745HS and GMKtec M5 Ultra 7730U; $500 Getorli 8745HS and $700 UM880 Plus / SER9 H255 alternatives in the refreshed trade. See [compute trade](computer/compute_purchase_trade_2026-11-02.md). Verify DC input before buying power hardware. |
-| 1 | OVONIC Roam 6S1P 5200 mAh LiPo | Baseline pack; verify actual dimensions and connector. |
+| 1 | HRB 6S 3300 mAh LiPo (136 × 46 × 43 mm, 558 g) | Baseline pack since Nov 16 (replaces the OVONIC Roam 6S 5200); verify connector and C rating. See [battery](battery/README.md). |
 | 1 | 6S-compatible balance charger and matching charge leads | Supporting equipment; model not selected. |
 
 ## Wheels, suspension and printed structure

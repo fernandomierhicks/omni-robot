@@ -1,13 +1,16 @@
 """v10 (design.md 28): the MuJoCo side of the ROS 2 bridge, with no ROS in it (the node in ros/omni_bridge wraps it).
 
 One SimCore owns the v7 house (house.py, base house.BASES["v7"], 0.5 ms physics), the robot's sensors as the real
-parts report them (SensorConfig.parts: BNO085 IMU, RPLIDAR A2M12) and what the MCU would send the Jetson:
+parts report them (SensorConfig.parts: BNO085 IMU, RPLIDAR A2M8 since Nov 16, A2M12 before) and what the MCU would
+send the Jetson:
 
-  imu      every IMU report (400 Hz): game rotation vector, calibrated gyro, accelerometer (with gravity), IMU frame
+  imu      every IMU report (100 Hz, as the robot's firmware; 400 before Nov 17): game rotation vector, calibrated gyro, accelerometer (with gravity), IMU frame
   odom     wheel odometry (odom_hz, est 50 Hz): the encoders' body twist averaged over the period and integrated
            into a pose in the odom frame (its origin = where the robot stood when the bridge started), with a
            covariance that grows with speed and with the wheels' disagreement (slip), as v9's EKF trusts them
-  scan     one turn of the lidar (A2M12: 1,600 samples, each with its own time; the scan is skewed when moving)
+  scan     one turn of the lidar, each sample with its own time (the scan is skewed when moving). A2M8 (Stability):
+           320 samples at 12.5 Hz, re-binned by angle, handed over 36-61 ms after its last sample with the driver's
+           stamp (sensors.py); A2M12: 1,600 samples at 10 Hz at its last sample, stamped with the first's own time
   truth    the base's true pose and twist in the world (the house) frame, for scoring only
   shadow   v9's own estimators (estimator.Localizer: EKF + known-map matcher) on the same readings, for comparison
 
@@ -55,7 +58,10 @@ class CoreConfig:
     wheel_model: str = "rollers"         # crossings need the explicit rollers (CLAUDE.md)
     seed: int = 0
     imu: str = "BNO085"
-    lidar: str = "A2M12"
+    # the robot's lidar: the A2M8 since Nov 16 (design.md 2; sensors.py: its modes, delivery, stamps); "A2M12" (the
+    # datasheet model, 1,600 samples at 10 Hz, ideal stamps) reproduces earlier runs
+    lidar: str = "A2M8"
+    lidar_mode: str = "Stability"        # A2M8: Standard | Express | Boost | Stability (the device's default)
     flow: bool = False                   # the PAA5100JE is optional (design.md 27); not on the ROS side
     odom_hz: float = 50.0                # MCU -> Jetson odometry rate (est)
     truth_hz: float = 50.0
@@ -188,7 +194,8 @@ class SimCore:
         if self.firmware:
             from sil_robot import SilRobot
             self.drv.r = SilRobot(self.drv.m, self.drv.d, self.drv.p, seed=c.seed, lidar=True, timing=c.timing,
-                                  sensor_kw=dict(lidar_cast_dt=c.lidar_cast_dt, **sensor_kw))
+                                  sensor_kw=dict(lidar_cast_dt=c.lidar_cast_dt, **sensor_kw),
+                                  lidar_part=c.lidar, lidar_mode=c.lidar_mode)
         self.m, self.d, self.r = self.drv.m, self.drv.d, self.drv.r
         self.dt = self.m.opt.timestep
         self.bus_sim = None
@@ -200,8 +207,8 @@ class SimCore:
         if self.firmware:
             self.sn, self.loc = self.r.sn, None
         else:
-            self.sn = Sensors(self.r, SensorConfig.parts(c.imu, c.lidar, seed=c.seed, flow=c.flow,
-                                                         lidar_cast_dt=c.lidar_cast_dt, **sensor_kw))
+            self.sn = Sensors(self.r, SensorConfig.parts(c.imu, c.lidar, lidar_mode=c.lidar_mode, seed=c.seed,
+                                                         flow=c.flow, lidar_cast_dt=c.lidar_cast_dt, **sensor_kw))
             self.loc = Localizer(self.r, self.sn, variants=list(c.shadow)) if c.shadow else None
         self.p = self.drv.p
         # frames: base_link = the MuJoCo base body; laser, imu = their sites (fixed on the base)

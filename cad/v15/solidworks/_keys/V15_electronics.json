@@ -1,5 +1,4 @@
 {
- "battery": "V15_battery-1",
  "computer": "V15_computer-1",
  "conv_12v": "V15_conv_12v-1",
  "conv_19v": "V15_conv_19v-1",
@@ -10,7 +9,6 @@
  "ear_mcu_2": "V15_ear_mcu_2-1",
  "ear_mcu_3": "V15_ear_mcu_3-1",
  "estop": "V15_estop-1",
- "label_battery": "V15_label_battery-1",
  "label_computer": "V15_label_computer-1",
  "label_conv_12v": "V15_label_conv_12v-1",
  "label_conv_19v": "V15_label_conv_19v-1",
@@ -31,7 +29,6 @@
  "plug_servo_adapter_0": "V15_plug_servo_adapter_0-1",
  "power": "V15_power-1",
  "servo_adapter": "V15_servo_adapter-1",
- "strap_battery": "V15_strap_battery-1",
  "switch": "V15_switch-1",
  "bin": "V15_bin-1",
  "display": "V15_display-1",

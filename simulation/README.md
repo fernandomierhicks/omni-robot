@@ -8,9 +8,9 @@
 | [v5 unlimited](v5%20unlimited/README.md) | The v3b robot with every firmware limit removed (only motors, traction, tip-over and the BMS left), a per-pixel camera/vision model (blob detector, stereo + known-size ranging, image-space filter) with a sensitivity sweep, and a multi-ball hopper mode (magazine tube, shooting at targets, on the move). There is no v4 |
 | [v6 shallow throw](v6%20shallow%20throw/README.md) | Shallow throws from 6-7 m: roller feed (driven feed wheels hold the ball and pass it to the flywheels, one per trigger), padded pocket, catch tilt to 35 deg, honest stereo track start; multi-ball options including a tennis-machine indexer wheel |
 | [v10 ros bridge](v10%20ros%20bridge/README.md) | v9 (v7 home-floor base, sensors, estimator) as a ROS 2 Jazzy robot in WSL2: MuJoCo publishes `/clock`, `/scan` (RPLIDAR A2M12), `/imu` (BNO085), `/odom`, TF and takes `/cmd_vel`; robot_localization, slam_toolbox, Nav2, RViz (WSLg), Foxglove and a flight stick run against it. Its ROS side runs in WSL (`ros/omni.sh`; design.md 28) |
-| [v11 sil](v11%20sil/README.md) | v10 with the robot's own code in the loop: the Teensy firmware's C++ core ticked every 1 ms (software in the loop, behind raw CAN frames and sensor values), and the Jetson's catch code (pixel detector, filter, behaviour, modes, MCU link) in one process or as ROS nodes. The default sim for `ros/omni.sh` (design.md 30) |
+| [v11 sil](v11%20sil/README.md) | v10 with the robot's own code in the loop: the Teensy firmware's C++ core ticked every 1 ms (software in the loop, behind raw CAN frames and sensor values), and the robot computer's code (the catch code, the arm, the full ROS stack). **The active simulator**: the arm robot `robot_export.ARM` / `ARM_D435` is the design baseline (design.md 5); the default sim for `ros/omni.sh` |
 
-The design baseline (with sim-predicted performance and the recommended parts) is [../design.md](../design.md); the printable CAD that matches v2 is in [../cad](../cad/README.md).
+The design baseline (with sim-predicted performance and the chosen parts) is [../design.md](../design.md); the CAD versions are listed in [../cad](../cad/README.md).
 
 ## Python environment
 

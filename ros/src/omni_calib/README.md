@@ -11,7 +11,7 @@ Limits below are (est) until the bench shows what the parts can do (`results.LIM
 
 | # | Item | Target / motion | Solver | Checks (limit) |
 | --- | --- | --- | --- | --- |
-| 0 | **Clocks** (Teensy ↔ Jetson) | nothing: runs all the time | `omni_mcu/clock_sync.py`: line through the 1 Hz SYNC_OUT pulses | `/mcu/clock`: mode `pulse`, residual RMS < 50 µs, drift steady; the echo-minus-pulse offset is the USB path's asymmetry (record it) |
+| 0 | **Clocks** (Teensy ↔ robot computer) | nothing: runs all the time | `omni_mcu/clock_sync.py`: line through the 1 Hz SYNC_OUT pulses | `/mcu/clock`: mode `pulse`, residual RMS < 50 µs, drift steady; the echo-minus-pulse offset is the USB path's asymmetry (record it) |
 | 1 | **Camera intrinsics** (each OV9782) | AprilGrid 6×6 (Kalibr's, 88 mm tags at A0; caliper the print) or a 9×6 checkerboard; 30–60 views, tilted ±40°, corners into every part of the image | `cameras.calibrate_camera`: Zhang's closed form, then all intrinsics + distortion (k1 k2 p1 p2, k3 held) + poses, robust | reprojection RMS < 0.5 px, coverage ≥ 60% of an 8×5 grid; per-view outliers dropped and redone |
 | 2 | **Stereo extrinsics** | the same target, both cameras at one trigger (the hardware trigger guarantees the same instant) | `cameras.calibrate_stereo`, intrinsics held | RMS < 0.5 px, **epipolar error < 0.3 px**, rotation σ < 0.02°; baseline vs the drawing's 190 mm; **session-to-session drift** (`Store.drift`): > 0.1° = the bar moved (the catch rate's biggest risk, design.md 3) |
 | 3 | **Camera timing** | the strobe on the scope (bench), then nothing | `omni_perception/camera_time.py` locks frames to triggers | SOF jitter, stereo skew (strobes), dropped frames: `FrameStamper.report()` |

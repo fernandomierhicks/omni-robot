@@ -31,7 +31,7 @@ WIRE = {10: (5.0, 0.00328, 40.0), 12: (4.0, 0.00521, 30.0), 14: (3.3, 0.00828, 2
 # ---- leads (what is routed): OD of the bundle as drawn, tightest bend (centreline radius) allowed, what is in it. All ASSUMED (VERIFY)
 LEADS = {
     'motor': (8.0, 16.0, '2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve'),
-    'bat': (9.0, 12.0, "the pack's own XT90 pigtail, 2 x 10 AWG (OVONIC: VERIFY gauge and length)"),
+    'bat': (9.0, 12.0, "the pack's own XT90 pigtail, 2 x 10 AWG (HRB 6S 3300: VERIFY connector, gauge and length)"),
     'pair12': (7.0, 14.0, '2 x 12 AWG silicone, twisted'),
     'pair18': (5.0, 10.0, '2 x 18 AWG silicone, twisted'),
     'pair20': (3.8, 8.0, '2 x 20 AWG silicone, twisted'),
@@ -93,6 +93,8 @@ def ports():
     # potted converters' output leads. ASSUMED ports
     zm, zj = 226.0, 234.0                                              # the board's XT30 row and its JST row
     add('pb_bat', (32.0, PB['y'][1], 229.0), (0, 1, 0), 'power', 'pigtail', False, "6S in: 12 AWG pigtail to the XT90 that mates the pack's")
+    add('bat_deck', (-128.0, -17.0, 101.0), (0, 0, 1), 'battery', 'lead', True, "v15: the board's XT90 lead out of the deck's lead hole "
+        '(chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)')
     for k, y in enumerate(MOTOR_Y):
         add(f'pb_m{k + 1}', (PB['x'][0], y, zm), (-1, 0, 0), 'power', 'XT30', False, f'motor bus out {k + 1} (fused)')
     add('pb_19v', (-20.0, -110.0, 221.0), (0, 0, 1), 'conv_19v', 'pair18', False, "the 19 V module's output lead, up through the shelf's lead slot")
@@ -210,27 +212,25 @@ def tube(pts, od, bend_r=None):
 
 
 LIDAR_AD = dict(x=(-95.0, -65.0), y=(-146.0, -124.0), z=(184.5, 192.5))   # the A2M12's USB adapter board (Slamtec, ~30 x 22: VERIFY), zip-tied
-XT90_AT = dict(x=(-22.0, 24.0), y=(-103.0, -92.0), z=(185.5, 206.5))      # the mated XT90 pair lying along x in the gap before the battery's end
-                                                                          # (Nov 11: 1 mm off the deck post and the power stack's box)
-BAT_EXIT = (-26.0, -77.5, 196.0)                                          # the pack's pigtail leaves its -y end here (VERIFY on the pack)
-
-
 def battery_items():
-    """the pack's XT90 pigtail (out -y, bent toward +x into the pair), the mated pair, the board's 12 AWG pigtail (bent -y into the board's
-    +y face), the balance lead's XH7 tucked against the pack's end. All ASSUMED (pack lead length and exit, XT90 size)"""
+    """v15 (Nov 14): the pack hangs under the deck's centre (chassis_mid.BATTERY), its XT90 end toward the rear. Its pigtail runs into the
+    mated XT90 pair under the deck behind it; the board's 12 AWG lead runs from the pair to the deck's lead hole and up through it (drawn
+    here to the hole's top: the port 'bat_deck', from where harness_route routes it to the power board, connection BAT_PB). The balance
+    lead's XH7 is tucked against the pack's front end. All ASSUMED (pack lead length and exit, XT90 size)"""
     import pod as Pd
+    import chassis_mid as CM
+    Bt, x = CM.BATTERY, CM.BATTERY['xt90']
+    (l, w, h), (cx, cy) = Bt['size'], Bt['xy']
+    zc = (x['z'][0] + x['z'][1]) / 2
+    hx, hy, _ = CM.LEAD_HOLE
     out = {}
-    yc, zc = sum(XT90_AT['y']) / 2, sum(XT90_AT['z']) / 2
     od_b, R_b = LEADS['bat'][:2]
-    out['lead_battery_xt90'] = tube([BAT_EXIT, (BAT_EXIT[0], yc, zc), (XT90_AT['x'][0], yc, zc)], od_b, R_b)
-    out['plug_xt90_pair'] = Pd.box(*XT90_AT['x'], *XT90_AT['y'], *XT90_AT['z'])
+    out['lead_battery_xt90'] = tube([(cx - l / 2 - 0.5, cy, zc), (x['x'][1] + 0.5, cy, zc)], od_b, R_b)
+    out['plug_xt90_pair'] = Pd.box(*x['x'], *x['y'], *x['z'])
     od_p, R_p = LEADS['pair12'][:2]
-    pb = ports()['pb_bat']['p']
-    out['lead_pb_xt90'] = tube([(XT90_AT['x'][1], yc, zc), (pb[0], yc, zc), (pb[0], yc, pb[2]), (pb[0], pb[1], pb[2])], od_p, R_p)   # up over the box
-                                                                                                                          # into the board's +y face
-    w, h, L_ = xh(7)
-    out['plug_battery_balance'] = Pd.box(-50.0, -50.0 + w, -77.5 - 3.0 - L_, -77.5 - 3.0, 216.0, 216.0 + h)
-    out['lead_battery_balance'] = tube([(-40.0, -77.5, 222.0), (-40.0, -80.5, 222.0)], 3.0)
+    out['lead_pb_xt90'] = tube([(x['x'][0] - 0.5, cy, zc), (hx, cy, zc), (hx, hy, zc), (hx, hy, CM.Z1 + 1.0)], od_p, R_p)
+    wx, hh, L_ = xh(7)
+    out['plug_battery_balance'] = Pd.box(cx + l / 2 + 0.5, cx + l / 2 + 0.5 + L_, cy - wx / 2, cy + wx / 2, CM.Z0 - h + 4.0, CM.Z0 - h + 4.0 + hh)
     return out
 
 
@@ -249,9 +249,11 @@ def new_items():
 
 
 def lidar_supports():
-    """the fins' lidar shadows (bearing, shadow_deg): v14's chassis check, copied into reference/harness (the fins' webs in the scan band are
-    unchanged in v15)"""
-    return json.loads((ROOT / 'reference' / 'harness' / 'lidar_supports.json').read_text())['supports']
+    """the fins' lidar shadows (bearing, shadow_deg): chassis_mid.py's check of the generated fins (validation/chassis_mid/lidar_shadows.json);
+    before that has run, v14's (reference/harness: the webs' rule in the scan band is unchanged)"""
+    f = ROOT / 'validation' / 'chassis_mid' / 'lidar_shadows.json'
+    f = f if f.exists() else ROOT / 'reference' / 'harness' / 'lidar_supports.json'
+    return json.loads(f.read_text())['supports']
 
 
 def motor_leg_pod():
@@ -261,7 +263,6 @@ def motor_leg_pod():
     round the edge and the bundle), and from there the service loop goes up through the deck's opening (harness_route routes it from the tie).
     Returns [P0, ..., T]"""
     import build123d as b
-    import pod_mid  # noqa: F401  (sets pod_rx's v15 settings: the harness hole, no tie tunnel)
     import pod_p4 as P4
     import pod_rx as R
     import wheel_motor as W
@@ -295,7 +296,6 @@ def motor_legs():
     (base.place3d's placement, both hands)"""
     import base as B
     import build123d as b
-    import first_floor  # noqa: F401  (sets layout F: D 154, slide -20, the robot's wheel positions)
     leg = motor_leg_pod()
     leg = leg + [leg[-1] + np.array([0.0, 0.0, MOTOR_LOOP_UP])]
     out = {}
@@ -319,10 +319,13 @@ SVC_ARM = 'arm module removal: unplug at the module'
 SVC_DECK = 'bin deck lift: unplug at the power board, or 150 mm slack'
 CONNECTIONS = [
     # power
-    dict(id='BAT', a='battery', b='pb_bat', sig='6S pack (18-25.2 V) in', conn='XT90 pair', lead='bat', awg=10, amps=30.0, route=False,
-         survive='battery removal: unplug the XT90 first (from the front-right, under the deck edge)'),
+    dict(id='BAT', a='battery', b='bat_deck', sig='6S pack (18-25.2 V) in: the pack, its pigtail, the XT90 pair under the deck, the board '
+         "lead up through the deck's lead hole", conn='XT90 pair', lead='bat', awg=10, amps=30.0, route=False,
+         survive='battery removal (v15): robot on its stand, unplug the XT90 under the deck, open the straps, the pack drops out'),
+    dict(id='BAT_PB', a='bat_deck', b='pb_bat', sig="6S in: the board's 12 AWG XT90 lead from the deck's lead hole to the power board",
+         conn='pigtail', lead='pair12', awg=12, amps=30.0, route=True, survive='stays (unplugged at the XT90 under the deck)'),
     dict(id='BAL', a='battery', b=None, sig='6S balance lead (charging only)', conn='JST XH 7P', lead=None, awg=22, amps=0.0, route=False,
-         survive='stays with the pack; tucked along it under the strap'),
+         survive="stays with the pack; its XH7 tucked against the pack's front end"),
 ] + [dict(id=f'M_{n}', a=f'motor_{n}', b=f'pb_m{SLOT_ORDER.index(n) + 1}', sig='motor bus 6S (after the e-stop contactor) + CAN1 in / out',
           conn='XT30(2+2)-F at the motor / XT30 at the board + XH4 at the carrier', lead='motor', awg=18, amps=7.3, route=True, survive=SVC_POD)
      for n in ('FR', 'FL', 'RR', 'RL')] + [
@@ -369,7 +372,7 @@ CONNECTIONS = [
 
 
 # ---- power budget ---------------------------------------------------------------------------------------------------------------------------
-PACK = dict(cells=6, v_full=25.2, v_nom=22.2, v_stop=21.0, v_min=18.0, wh=115.0, usable=0.8)   # design.md 2 (21 V stop provisional)
+PACK = dict(cells=6, v_full=25.2, v_nom=22.2, v_stop=21.0, v_min=18.0, wh=73.3, usable=0.8)   # design.md 2 (21 V stop provisional); Nov 16: HRB 6S 3300 (was OVONIC 5200, 115 Wh)
 EFF = dict(buckboost19=0.92, buck12=0.92, buck5=0.90)                  # converter efficiency (ASSUMED, typical synchronous modules)
 # Fernando's picks (Nov 11): potted, waterproof Amazon modules. Values from the listings (and, where the listing gives none, a comparable unit's):
 # VERIFY on the units bought. Sizes are the modules' bodies, leads extra.
@@ -482,17 +485,34 @@ def stub_len(port, lead):
 # where each lead crosses the floor in the right slot: u along the side fin's ray (dims.HARNESS_SLOT_U 245..272, ends at 238.5 / 278.5),
 # one behind another on the ray so each stays inside the fin's shadow (half width 7.7 mm at u 238.5 against a Ø8 bundle's 4)
 SLOT_U_LEAD = {'M_RR': 243.0, 'M_FR': 251.5, 'M_RL': 260.0, 'M_FL': 268.5, 'LIDAR': 275.0}
-SLOT_Z = (146.0, 188.0)                                                # the lead runs straight up the slot's axis between these heights
+SLOT_U_LEAD_L = {'BAT_PB': 258.5}    # v15: the battery's lead (from the deck's lead hole) up the spare LEFT slot: the right one is full
+SLOT_Z = (138.0, 192.0)              # the lead runs straight up the slot's axis between these heights. v15 (Nov 14): was 146 / 188, but a
+                                     # bundle's R16 bends at the run's ends then reached into the scan band (z 163 +- 3 + r) off the ray
+
+
+def slot_of(rid):
+    """(u, side) of a lead pinned to a slot (side -1: the right slot, +1: the left), or None"""
+    if rid in SLOT_U_LEAD:
+        return SLOT_U_LEAD[rid], -1
+    if rid in SLOT_U_LEAD_L:
+        return SLOT_U_LEAD_L[rid], 1
+    return None
+
+
+def slot_xy(u, side):
+    import fins as F
+    import upper as U
+    return F.LIDAR_X + U.SIDE_RAY[0] * u, side * U.SIDE_RAY[1] * u
 
 
 def snap_to_slot(rid, pts):
     """replace the route's cells in and near the slot by a vertical run on the slot's ray at this lead's u"""
     import upper as U
-    if rid not in SLOT_U_LEAD:
+    us = slot_of(rid)
+    if us is None:
         return pts
-    u = SLOT_U_LEAD[rid]
-    x, y = U.C.LIDAR_X + U.SIDE_RAY[0] * u, -U.SIDE_RAY[1] * u
-    g = U.SLOTS['R'].buffer(14.0)
+    x, y = slot_xy(*us)
+    g = U.SLOTS['R' if us[1] < 0 else 'L'].buffer(14.0)
     from shapely.geometry import Point
     idx = [i for i, q in enumerate(pts) if SLOT_Z[0] - 8.0 <= q[2] <= SLOT_Z[1] + 8.0 and g.contains(Point(q[0], q[1]))]
     if not idx:
@@ -632,15 +652,15 @@ def tie_filter(cand, floor, others, lower):
 
 def ties_stage():
     """place the floor's zip-tie anchors (validation/harness/ties.json); paste the list into upper.TIES_FLOOR"""
-    import chassis as C
-    import first_floor as FF
+    import fins as F
     import upper as U
     runs = json.loads((VAL / 'routes.json').read_text())['runs']
     printed, bought, vendor, hw, _ = U.build()
     floor = {k: v for k, v in printed.items() if k.startswith('floor2_')}
     others = {k: v for k, v in dict(printed, **bought).items() if not k.startswith('floor2_')}
     others.update(new_items())
-    parts, chw, env, _ = C.build(FF.pod_geometry())
+    import world as WD
+    parts, chw, _ = WD.base()
     keep = tie_filter(tie_candidates(runs), floor, others, dict(parts, **chw))
     (VAL / 'ties.json').write_text(json.dumps(dict(ties=keep, n=len(keep)), indent=1), encoding='utf-8')
     print(len(keep), 'tie pairs')
@@ -660,8 +680,7 @@ def grid_stage():
      * no tie pair's path (footprint + TIE_KEEP) within the boss's circle."""
     from shapely import union_all
     from shapely.geometry import Point, Polygon
-    import chassis as C
-    import first_floor as FF
+    import fins as F
     import upper as U
     from dims import GRID_PITCH, GRID_OFFSET, GRID_KEEP, GRID_TOP_R, GRID_TOP_H, TIE_KEEP
     U.GRID_PILOTS = ()                                                     # place from scratch
@@ -670,7 +689,8 @@ def grid_stage():
     others = {k: v for k, v in dict(printed, **bought, **U.load_vendor(vendor)).items() if not k.startswith('floor2_')}
     items, _, paths = build()
     others.update({k: v for k, v in items.items() if not k.startswith('lead_')})
-    parts, chw, env, _ = C.build(FF.pod_geometry())
+    import world as WD
+    parts, chw, _ = WD.base()
     lower = dict(parts, **chw)
     rb = U.BOSS_D / 2
     zm = (U.Z_UNDER + U.Z_TOP) / 2
@@ -767,7 +787,8 @@ def lead_r(rid):
 
 
 DRAWN_PLUG = {'pc_usb3_1': 'plug_computer_0', 'pc_usb3_2': 'plug_computer_1', 'pc_usb2_1': 'plug_computer_2', 'pc_usb2_2': 'plug_computer_3',
-              'pc_dc': 'plug_computer_4', 'mcu_usb': 'plug_mcu_0', 'imu': 'plug_imu', 'd435': 'plug_d435', 'sa_usb': 'plug_servo_adapter_0'}
+              'pc_dc': 'plug_computer_4', 'mcu_usb': 'plug_mcu_0', 'imu': 'plug_imu', 'd435': 'plug_d435', 'sa_usb': 'plug_servo_adapter_0',
+              'bat_deck': 'lead_pb_xt90'}   # v15: the routed BAT_PB continues the drawn lead out of the deck's hole
 
 
 def check(items, info, paths):
@@ -776,8 +797,7 @@ def check(items, info, paths):
     boards by exact overlap. Moving parts: the pods in droop / nominal / bump (fork, wheel, motor, rollers, plungers) and the arm's sweep
     (harness_route's grid). Scan band: each lead's width as the lidar sees it where its centreline is within 3 mm + r of the plane"""
     import build123d as b
-    import chassis as C
-    import first_floor as FF
+    import fins as F
     import harness_route as HR
     import upper as U
     import wheel_motor as W
@@ -790,7 +810,7 @@ def check(items, info, paths):
     printed, bought, vendor, uhw, _ = U.build()
     world.update(U.load_vendor({k: v for k, v in vendor.items() if k.startswith('arm_')}))   # the arm at stow (its sweep: below)
     fov = D.fov_envelopes(500.0)
-    plugs = {k: v for k, v in items.items() if not k.startswith('lead_') or k in ('lead_battery_xt90', 'lead_pb_xt90', 'lead_battery_balance')}
+    plugs = {k: v for k, v in items.items() if not k.startswith('lead_') or k in ('lead_battery_xt90', 'lead_pb_xt90')}
     world_h = dict(world, **fov, **plugs)                                  # the leads also keep off the new plugs and boards and the D435's fields
     names = list(world_h)
     shapes = [world_h[k] for k in names]
@@ -840,7 +860,7 @@ def check(items, info, paths):
                                             centreline_inside_a_part=inside, in_d435_fields=fov_hits,
                                             note='centreline samples every 0.5 mm to the nearest surface sample of any part (~1 per mm2, +-0.3 mm) minus '
                                                  "the lead's radius; its own two plugs and its last r + 1.5 mm at each end left out")
-    devs = ('computer', 'power', 'mcu', 'lidar_adapter', 'conv_19v', 'conv_12v', 'conv_5v', 'servo_adapter', 'display', 'mic_array', 'env_lidar', 'battery', 'label_battery')
+    devs = ('computer', 'power', 'mcu', 'lidar_adapter', 'conv_19v', 'conv_12v', 'conv_5v', 'servo_adapter', 'display', 'mic_array', 'env_lidar', 'battery')
     ov = {}
     for a, sa in plugs.items():
         for c_, sc in dict(world, **fov).items():
@@ -851,7 +871,7 @@ def check(items, info, paths):
                 if v > 0.05:
                     ov[f'{a} / {c_}'] = round(v, 2)
     pk = list(plugs)
-    chain = {'lead_battery_xt90', 'plug_xt90_pair', 'lead_pb_xt90', 'plug_battery_balance', 'lead_battery_balance'}
+    chain = {'lead_battery_xt90', 'plug_xt90_pair', 'lead_pb_xt90', 'plug_battery_balance', 'battery', 'strap_battery_0', 'strap_battery_1'}
     for n, a in enumerate(pk):
         for c_ in pk[n + 1:]:
             if {a, c_} <= chain:
@@ -907,11 +927,11 @@ def check(items, info, paths):
     for rid, path in paths.items():
         r = lead_r(rid)
         q, _ = samples(path)
-        q = q[np.abs(q[:, 2] - FF.LIDAR['plane']) <= 3.0 + r]
+        q = q[np.abs(q[:, 2] - F.LIDAR['plane']) <= 3.0 + r]
         if not len(q):
             continue
-        dist = np.hypot(q[:, 0] - C.LIDAR_X, q[:, 1])
-        brg = np.degrees(np.arctan2(q[:, 1], q[:, 0] - C.LIDAR_X))
+        dist = np.hypot(q[:, 0] - F.LIDAR_X, q[:, 1])
+        brg = np.degrees(np.arctan2(q[:, 1], q[:, 0] - F.LIDAR_X))
         half = np.degrees(np.arctan(r / dist))
         hid = np.zeros(len(q), bool)
         margin = None

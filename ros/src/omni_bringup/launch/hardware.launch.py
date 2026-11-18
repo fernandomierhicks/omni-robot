@@ -14,15 +14,21 @@ config/robot_steps.json, started from the console's Robot > System page). No sim
                    without the arm and its log says why. The arm nodes don't end the step if they die: the base and
                    the console stay up.
 
-Not yet on the hardware, so not here: the lidar's ROS driver (the console's Test > Lidar reads the lidar straight from
-its serial port through camera_snap meanwhile; one reader at a time), the EKF, scan prep, slam_toolbox, Nav2,
-cameras, face. Each joins this file as its driver is brought up (design.md 8).
+    lidar:=true    the RPLIDAR A2M8 (Nov 16): omni_cpp's rplidar_node on its CP210x adapter, /scan stamped from the
+                   device's sample clock, /lidar/status. Off by default until it has run on the bench (design.md 4.6):
+                   it holds the port exclusively, so the console's Test > Lidar (camera_snap) can't open it meanwhile.
+                   Its frame "laser" needs base_link -> laser from the robot's frames (not yet in this file).
+
+Not yet on the hardware, so not here: the EKF, scan prep, slam_toolbox, Nav2, cameras, face. Each joins this file as
+its driver is brought up (design.md 8).
 
     ros2 launch omni_bringup hardware.launch.py [mcu:=auto|/dev/...] [arm:=false] [arm_port:=auto|/dev/...]
                                                 [arm_calibration:=<json>] [kid:=false] [map:=house]
+                                                [lidar:=false] [lidar_port:=auto|/dev/...]
 
 mcu (auto): the MCU's serial device; auto takes a Teensy by id, else an Arduino (the bench's UNO R4), else /dev/ttyACM0.
 arm_port (auto): the SO-101 bus adapter (a CH340/CH343 by id: SERVO_PATTERNS), never the MCU's device.
+lidar_port (auto): the lidar's adapter (rplidar_node's own search: a CP210x by id, else /dev/ttyUSB0).
 """
 
 import glob
@@ -85,7 +91,8 @@ def ends_step(name: str) -> Shutdown:
 
 
 def build(ctx):
-    a = {k: ctx.launch_configurations[k] for k in ("mcu", "arm", "arm_port", "arm_calibration", "kid", "map")}
+    a = {k: ctx.launch_configurations[k] for k in ("mcu", "arm", "arm_port", "arm_calibration", "kid", "map", "lidar",
+                                                   "lidar_port")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     dev = find_mcu() if a["mcu"] == "auto" else a["mcu"]
     acts = []
@@ -116,6 +123,9 @@ def build(ctx):
     ]
     if on("arm"):
         acts += arm_nodes(a, dev)
+    if on("lidar"):                                               # it retries on its own: it doesn't end the step
+        acts.append(Node(package="omni_cpp", executable="rplidar_node", name="rplidar", output="screen",
+                         parameters=[robot_params(), {"port": a["lidar_port"]}]))
     return acts
 
 
@@ -131,5 +141,9 @@ def generate_launch_description():
                               "json (default <state dir>/so101_calibration.json)"),
         DeclareLaunchArgument("kid", default_value="false", description="the kid speed profile from the start"),
         DeclareLaunchArgument("map", default_value="house", description="the console's map (maps/<map>)"),
+        DeclareLaunchArgument("lidar", default_value="false", description="the A2M8: omni_cpp's rplidar_node (/scan "
+                              "from the sample clock)"),
+        DeclareLaunchArgument("lidar_port", default_value="auto", description="the lidar's serial device; auto: a "
+                              "CP210x by id, else /dev/ttyUSB0"),
         OpaqueFunction(function=build),
     ])

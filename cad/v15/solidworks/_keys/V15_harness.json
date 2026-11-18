@@ -1,6 +1,7 @@
 {
  "harness_lead_5V": "V15_harness_lead_5V-1",
  "harness_lead_ARM12": "V15_harness_lead_ARM12-1",
+ "harness_lead_BAT_PB": "V15_harness_lead_BAT_PB-1",
  "harness_lead_CAN_FL": "V15_harness_lead_CAN_FL-1",
  "harness_lead_CAN_FR": "V15_harness_lead_CAN_FR-1",
  "harness_lead_CAN_RL": "V15_harness_lead_CAN_RL-1",
@@ -20,7 +21,6 @@
  "harness_lead_SO101": "V15_harness_lead_SO101-1",
  "harness_lead_SWITCH": "V15_harness_lead_SWITCH-1",
  "harness_lead_TEENSY": "V15_harness_lead_TEENSY-1",
- "harness_lead_battery_balance": "V15_harness_lead_battery_balance-1",
  "harness_lead_battery_xt90": "V15_harness_lead_battery_xt90-1",
  "harness_lead_pb_xt90": "V15_harness_lead_pb_xt90-1",
  "harness_lidar_adapter": "V15_harness_lidar_adapter-1",

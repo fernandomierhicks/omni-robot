@@ -446,7 +446,7 @@ def frames(m, d, p) -> list:
     def add(parent, child, pos, R, note):
         out.append(dict(parent=parent, child=child, xyz=[float(x) for x in pos], quat=_quat_xyzw(R), note=note))
 
-    for child, site, note in (("laser", "lidar", "RPLIDAR A2M12: scan plane origin, x = its 0 deg"),
+    for child, site, note in (("laser", "lidar", "RPLIDAR A2M8: scan plane origin, x = its 0 deg"),
                               ("imu_link", "imu", "BNO085 on the MCU board, axes as mounted")):
         sid = m.site(site).id
         add("base_link", child, Rb.T @ (d.site_xpos[sid] - pb), Rb.T @ d.site_xmat[sid].reshape(3, 3), note)

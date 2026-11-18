@@ -4,16 +4,16 @@ port to its port, on both floors.
 v15 (Nov 14): the world is the mid deck (chassis_mid.py: deck pieces, bumper, pedestal, fins) and the mid-deck pods (pod_mid.py: their static
 parts fixed, their moving parts and plungers in droop / nominal / bump); the upper robot is v14's in place. The pods drop out DOWNWARD, so a
 pod's removal path is everything under its parts (was: 250 mm radially out). A motor lead starts at its tie on the motor plate
-(harness.motor_ends; the fixed leg from the plug to the tie is harness.motor_leg_pod). The arm sweep and the fins' lidar shadows are v14's
-(unchanged in v15), copied into reference/harness/.
+(harness.motor_ends; the fixed leg from the plug to the tie is harness.motor_leg_pod). The arm's sweep grid is v14's (the arm and its moves
+are unchanged), copied into reference/harness/; the fins' lidar shadows come from chassis_mid.py's check of the generated fins.
 
     python -B harness_route.py [PITCH=3]      (omni-robot-sim interpreter; ~5 min; writes validation/harness/routes.json + routes.png)
 
 A voxel clearance model and shortest paths (cad/v13's cable_route.py, extended past the four motor leads):
- * World: chassis.py (frame, fins, pedestal, bumpers, lidar), upper.py (floors, riser + adapter, electronics, deck, bin, face, fasteners,
+ * World: world.py: chassis_mid.py (deck, fins, pedestal, bumper, battery), upper.py (floors, riser + adapter, electronics, deck, bin, face, fasteners,
    vendor models), harness.py's own new items (plugs on the power board, carrier and computer, the XT90 pair, the lidar's USB adapter),
    the four pods in droop / nominal / bump. Keep-outs added: the D435's depth and RGB fields (500 mm frustums), the bin's inside (the arm
-   drops into it), the battery's way out (+y under the deck), the SO-101 swept through every planned move (arm_motion.json, d435_riser.py),
+   drops into it), the SO-101 swept through every planned move (arm_motion.json, d435_riser.py),
    and each pod's slide-out path (250 mm radially, all poses: a pod's own lead may cross its own path, it leaves with the pod).
  * Clearance: a lead's centreline keeps r + CLR_STATIC from static parts (r + CLR_SLOT inside a cable slot, where it is tied against the edge),
    r + CLR_MOVING from the pods' parts in all three poses (static frames included), r + CLR_ARM from the arm's swept cells and r + CLR_SLIDE from
@@ -36,8 +36,7 @@ from scipy.sparse.csgraph import dijkstra
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build123d as b                                                    # noqa: E402,F401
 import base as B                                                         # noqa: E402
-import chassis as C                                                      # noqa: E402
-import first_floor as FF                                                 # noqa: E402
+import fins as F                                                         # noqa: E402
 import harness as HN                                                     # noqa: E402
 import pod_rx as R                                                       # noqa: E402
 import upper as U                                                        # noqa: E402
@@ -52,11 +51,11 @@ CLR_SLIDE = 1.0                                                          # to a 
                                                                          # (chassis.SLIDE_CLR: the members keep 1 mm off it too)
 CLR_SLOT = 0.0                                                           # inside a cable slot the lead may lie against its edge (it is tied there)
 START_R = 10.0
-SCAN_Z, SCAN_MARGIN = FF.LIDAR['plane'], 3.0
+SCAN_Z, SCAN_MARGIN = F.LIDAR['plane'], 3.0
 R_MAX = 216.0                                                            # inside the bumper (r 222.2) and the floor's rim (218)
 VAL = HN.VAL
 REF_H = Path(__file__).resolve().parents[1] / 'reference' / 'harness'   # v14's arm sweep grid and the fins' lidar shadows (unchanged in v15)
-LIDAR_XY = np.array([C.LIDAR_X, 0.0])
+LIDAR_XY = np.array([F.LIDAR_X, 0.0])
 HARNESS = ('xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg')   # each pod's own plug and leads: the thing routed
 CLASSES = (1.5, 2.0, 2.5, 3.0, 4.0)                                      # lead radius classes (a lead uses the next one up)
 
@@ -128,23 +127,24 @@ def arm_cache():
 
 
 def lidar_env():
-    return C.cyl(FF.LIDAR['d'] / 2, FF.LIDAR['h'], (C.LIDAR_X, 0, FF.LIDAR_BASE_Z + FF.LIDAR['h'] / 2))
+    return F.lidar_env()
 
 
 STAYS = ('rx_tower', 'bolt_tower', 'nut_tower', 'bolt_towerfix')     # a pod's static parts that stay on the deck when it drops out
 
 
 def build_world(fov=True):
-    """v15: static shapes (the mid deck, bumper, pedestal, fins, their fasteners; the pods' static parts at nominal; the upper robot, its
-    vendor models and fasteners; the lidar; the harness's new items; the D435's fields) and each pod's moving shapes in droop / nominal / bump
-    (fork, wheel, motor, rings, retainer, plungers and springs; not its own plug and leads: those are what is routed), plus the static parts
-    that drop out with it (hangers, beam and their screws, key 'static/...': kept 4 mm off as moving parts, a conservative choice)"""
+    """v15: static shapes (world.py: the base with its fins, pedestal, bumper, battery and their fasteners; the pods' parts that stay on the
+    deck; the upper robot, its vendor models and fasteners; the lidar; the harness's new items; the D435's fields) and each pod's moving
+    shapes in droop / nominal / bump (fork, wheel, motor, rings, retainer, plungers and springs; not its own plug and leads: those are what
+    is routed), plus the static parts that drop out with it (hangers, beam and their screws, key 'static/...': kept 4 mm off as moving parts,
+    a conservative choice)"""
     import chassis_mid as CM
     import hardware as H
-    fp = CM.pod_build()[4]
-    parts, chw, _ = CM.build(fp)
-    printed, bought, vendor, uhw, _ = U.build()
-    static = dict(parts, **printed, **bought)
+    import world as WD
+    parts, chw, g = WD.base()
+    printed, bought, vendor, uhw, _ = WD.upper()
+    static = dict(parts, **g['bought'], **printed, **bought)
     static.update(U.load_vendor({k: v for k, v in vendor.items() if not k.startswith('arm_')}))
     static['env_lidar'] = lidar_env()
     if fov:
@@ -174,10 +174,9 @@ def build_world(fov=True):
 
 
 def keepout_boxes():
-    """plain boxes added to the static world: the bin's inside, the battery's way out"""
+    """plain boxes added to the static world: the bin's inside (v15: the battery is under the deck, out of the routed space)"""
     bx = []
     bx.append(((-130.0, -60.0, 245.5), (-10.0, 60.0, 315.5)))              # the bin (filled)
-    bx.append(((-50.5, -77.5, 183.5), (-1.5, 240.0, 230.5)))               # the battery slid out along +y (strap and XT90 off first)
     return bx
 
 
@@ -313,7 +312,8 @@ def main():
     from shapely import contains_xy
     for g in U.SLOTS.values():
         in_slot |= contains_xy(g, XX, YY)
-    in_slot_R = contains_xy(U.SLOTS['R'], XX, YY)                        # the leads pinned to the right slot may cross only there
+    in_slot_R = contains_xy(U.SLOTS['R'], XX, YY)                        # the leads pinned to a slot may cross only there
+    in_slot_L = contains_xy(U.SLOTS['L'], XX, YY)
     slot_col = in_slot & (ZZ > U.Z_UNDER - U.LIP_D - 3.0) & (ZZ < U.Z_TOP + 3.0)   # the slot through the plate (and its rim lip)
     slot_cross = in_slot & (ZZ > SCAN_Z - SCAN_MARGIN - 5.0) & (ZZ < U.Z_TOP + 3.0)  # the whole crossing, band included: pinned to the ray
     print('fields', round(time.time() - t0), 's', flush=True)
@@ -330,7 +330,8 @@ def main():
         for nm, dd in d_sl.items():
             if nm != own:
                 free &= dd > r + CLR_SLIDE
-        free &= ~((np.abs(ZZ - SCAN_Z) < SCAN_MARGIN + r) & ~(in_slot_R if c['id'] in HN.SLOT_U_LEAD else in_slot))
+        pin = HN.slot_of(c['id'])
+        free &= ~((np.abs(ZZ - SCAN_Z) < SCAN_MARGIN + r) & ~(in_slot if pin is None else (in_slot_R if pin[1] < 0 else in_slot_L)))
         sa, pa = endpoint(c['a'], P, ends, c['lead'])
         sb, pb = endpoint(c['b'], P, ends, c['lead'])
         zone = np.zeros(SHAPE, bool)
@@ -365,10 +366,9 @@ def main():
                 if all(contains_xy(g, x, y) for x, y in pts[band][:, :2]):
                     slot = k
         sc = slot_cross[tuple(ci.T)]
-        if c['id'] in HN.SLOT_U_LEAD and sc.any():                    # the slot crossing: straight up the fin's ray at this lead's u
+        if pin is not None and sc.any():                              # the slot crossing: straight up the fin's ray at this lead's u
             i0, i1 = int(np.argmax(sc)), len(sc) - 1 - int(np.argmax(sc[::-1]))
-            u = HN.SLOT_U_LEAD[c['id']]
-            sx, sy = C.LIDAR_X + U.SIDE_RAY[0] * u, -U.SIDE_RAY[1] * u
+            sx, sy = HN.slot_xy(*pin)
             lo, hi = np.array([sx, sy, HN.SLOT_Z[0]]), np.array([sx, sy, HN.SLOT_Z[1]])
             a_, b2 = (lo, hi) if pts[i0][2] < pts[i1][2] else (hi, lo)
             wp = np.vstack([shortcut(np.vstack([pts[:i0], a_]), fr), shortcut(np.vstack([b2, pts[i1 + 1:]]), fr)])
@@ -405,7 +405,7 @@ def plot(occ, runs):
         ax.set_title(t, fontsize=10)
         for g in U.SLOTS.values():
             ax.plot(*g.exterior.xy, color='m', lw=1.5)
-        ax.add_patch(plt.Circle(LIDAR_XY, FF.LIDAR['d'] / 2, fill=False, color='g'))
+        ax.add_patch(plt.Circle(LIDAR_XY, F.LIDAR['d'] / 2, fill=False, color='g'))
     side = occ.sum(axis=1).T
     axs[2].imshow(np.log1p(side), origin='lower', extent=[ext[0], ext[1], ORG[2], ORG[2] + SHAPE[2] * PITCH], cmap='Greys', vmax=np.log1p(side).max() * 1.6)
     axs[2].axhline(SCAN_Z, color='g', ls='--', lw=0.8)

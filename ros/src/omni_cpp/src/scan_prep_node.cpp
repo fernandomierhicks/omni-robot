@@ -2,6 +2,9 @@
 // omni_perception/scan_prep.py, was deleted Nov 7). Drops the A2M12's floor returns (/lidar/tilt_cal, the BNO085's
 // roll and pitch), then de-skews each scan with odom -> base_link at every sample's time and re-bins it by angle.
 // Scans wait for the EKF's transform up to their last sample (0.3 s at most), never blocking the executor.
+// Empty bins stay +inf (REP-117): slam_toolbox's Karto skips inf / NaN beams, and a finite stand-in past range_max
+// would become a scan-matching point (Karto matches every beam's point; its range threshold only limits the map's
+// rays. Tried Nov 17: 720 bins 5.6 -> 7.9 cm median, design.md 4.6).
 //
 // Parameters: margin (m before the predicted floor hit), floor, deskew, deskew_keys (odom poses per turn),
 // time_order (-1: the array runs against time), refine_stamps + latency (scan_time.ScanClock).
@@ -51,8 +54,7 @@ public:
         live_->bind("deskew_keys", &n_key_);
         buf_ = std::make_unique<tf2_ros::Buffer>(get_clock(), tf2::durationFromSec(5.0));
         tfl_ = std::make_unique<tf2_ros::TransformListener>(*buf_, this);
-        pub_ = create_publisher<LaserScan>("/scan_filtered", 10);
-        s_cal_ = create_subscription<geometry_msgs::msg::Vector3Stamped>(
+        pub_ = create_publisher<LaserScan>("/scan_filtered", 10);        s_cal_ = create_subscription<geometry_msgs::msg::Vector3Stamped>(
             "/lidar/tilt_cal", rclcpp::QoS(1).transient_local(),
             [this](geometry_msgs::msg::Vector3Stamped::ConstSharedPtr m) {
                 cal_ = LidarCal{std::tan(m->vector.x), m->vector.y, m->vector.z};

@@ -698,13 +698,9 @@ def overhang_mm2(shape, up, lim=0.7072, tol=0.1):
 
 
 def bed_fit(shape, up):
-    """the part's extent across the bed and its height, printed with `up` up"""
-    u = np.asarray(up, float)
-    pts = surface_points(shape, 3.0)
-    h = pts @ u
-    q = pts - np.outer(h, u)
-    ext = q.max(0) - q.min(0)
-    return dict(height=round(float(h.max() - h.min()), 1), footprint=sorted([round(float(e), 1) for e in ext if e > 1e-6], reverse=True)[:2])
+    """the part on the 256 bed, printed with `up` up: print_beds.bed_fit (best rotation, 2 mm margin, as exported)"""
+    import print_beds as PB
+    return PB.bed_fit(shape, up)
 
 
 # ---- hand loads ------------------------------------------------------------------------------------------------------------------------
@@ -790,6 +786,10 @@ def run_checks(name, parts, recs_moving, recs_static, unit, info, assembly, stat
     rep['springs'] = springs
     rep['printed_parts'] = {k: dict(solids=len(v.solids()), valid=bool(v.is_valid), volume_cm3=round(v.volume / 1000, 2), print_up=printed_up[k],
                                     overhang_mm2=overhang_mm2(v, printed_up[k]), bed=bed_fit(v, printed_up[k])) for k, v in parts.items()}
+    import print_beds as PB
+    rep['bed_fit_failures'] = PB.bed_failures(rep['printed_parts'])
+    for line in rep['bed_fit_failures']:
+        print('BED FIT FAIL', line, flush=True)
     recs = recs_moving + recs_static
     up = {k: np.array(v, float) for k, v in printed_up.items()}
     rep['hole_audit'] = H.audit(recs, parts, up_of=lambda n: up.get(n))
@@ -808,11 +808,14 @@ def run_checks(name, parts, recs_moving, recs_static, unit, info, assembly, stat
 
 def front_springs_report(n=4):
     """pod.py's front springs (two per arm, 26 mm ahead of the pivot)"""
-    comp = {pn: round(P.C_NOM + max(P.plunger_lift(a, y)[0] for y in P.Y_PAIR), 2) for pn, a in POSES.items()}
-    return dict(count=n, lever_mm=SPRING_ARM, where='ahead of the pivot, over each arm (pod.py plungers, dome down on the arm pad)',
-                wheel_rate_N_per_mm=round(n * SPRING_K * (SPRING_ARM / PIVOT_Y) ** 2, 2), compression_mm_far_spring=comp,
+    ns = SPRINGS_IN_SERIES                                             # v15 Nov 15: springs stacked in series in each bore
+    comp = {pn: round(P.C_NOM + (STACK_PRELOAD + max(P.plunger_lift(a, y)[0] for y in P.Y_PAIR)) / ns, 2) for pn, a in POSES.items()}
+    stack = {pn: round(ns * P.C_NOM + STACK_PRELOAD + max(P.plunger_lift(a, y)[0] for y in P.Y_PAIR), 2) for pn, a in POSES.items()}
+    return dict(count=n, in_series_per_bore=ns, lever_mm=SPRING_ARM, where='ahead of the pivot, over each arm (pod.py plungers, dome down on the arm pad)',
+                wheel_rate_N_per_mm=round(n * SPRING_K / ns * (SPRING_ARM / PIVOT_Y) ** 2, 2), compression_mm_each_spring_far_bore=comp,
+                compression_mm_stack_far_bore=stack, stack_free_mm=ns * SPRING_L0, stack_solid_mm=round(ns * SPRING_SOLID, 2),
                 bump_percent_of_free=round(100 * comp['bump'] / SPRING_L0, 1), long_life_limit_mm=SPRINGS[SPRING_DESIGN][1],
-                plunger=f'M4 x {P.BOLT_L:g} button head (pod.py)')
+                plunger=f'M4 x {P.BOLT_L:g} button head (pod.py)', rate='ASSUMED (VERIFY: kitchen-scale test)')
 
 
 # ---- outputs -----------------------------------------------------------------------------------------------------------------------------

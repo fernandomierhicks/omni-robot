@@ -2,7 +2,7 @@
  "hub": {
   "solids": 1,
   "valid": true,
-  "volume_mm3": 209660,
+  "volume_mm3": 206002,
   "x_range": [
    -39.5,
    29.0
@@ -13,12 +13,17 @@
   "wheel_hub": {
    "solids": 1,
    "valid": true,
-   "volume_mm3": 209659.5
+   "volume_mm3": 206001.7
   },
   "wheel_cartridge": {
    "solids": 1,
    "valid": true,
-   "volume_mm3": 7729.5
+   "volume_mm3": 5157.5
+  },
+  "wheel_cartridge_cap": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 6582.5
   },
   "roller_core": {
    "solids": 1,
@@ -35,6 +40,27 @@
    "valid": true,
    "volume_mm3": 16316.9
   }
+ },
+ "bearing_6804_retention": {
+  "race_x": [
+   -36.5,
+   -29.5
+  ],
+  "cap_face_x": -36.5,
+  "cup_lip_face_x": -29.5,
+  "lip_r": [
+   14.5,
+   17.6
+  ],
+  "gap_cap_to_race": 0.0,
+  "gap_lip_to_race": 0.0,
+  "overlaps_mm3": {
+   "cap_cup": 0.0,
+   "cap_hub": 0.0,
+   "cup_hub": 0.0,
+   "cup_race": 0.0
+  },
+  "note": "the outer race is clamped between the cap and the cup's lip, both clamped to the hub by the 3 flat heads; the inner race between the stub's shoulder and the retainer. The wheel is now located axially at both ends (the 6804 and the motor's bearing): the fork's arm spacing must match the hub (print error is taken by the PLA; VERIFY on the first build)"
  },
  "hub_overlaps_mm3 (want none)": {},
  "sleeve_in_seats_mm3 (by design: -0.00 per end x its end face ~26.2 mm2 x 2 = -0.0; evening: 0, the sleeve sits on the seat floors)": {
@@ -308,15 +334,16 @@
  "cartridge_screws": {
   "countersink_extra": 0.5,
   "pilot_x": [
-   -36.5,
+   -34.5,
    -17.5
   ],
   "pilot": "through the end wall into the cavity",
+  "thread_in_hub": 7.5,
   "pilot_open_at_end": true
  },
  "hub_print_overhang_mm2 (cartridge end down, faces under 45 deg)": {
-  "all": 9463,
-  "spokes": 6050
+  "all": 9458,
+  "spokes": 6045
  },
  "hub_max_radius_mm": 63.58,
  "spoke_neck_row2_az0_mm": {

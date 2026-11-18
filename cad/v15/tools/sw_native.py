@@ -1,7 +1,7 @@
-"""SolidWorks COM helpers for cad/v14's assembly scripts (sw_robot.py, subasm.py, mate_api.py). Run with C:/Users/ferna/cadenv/Scripts/python.exe.
+"""SolidWorks COM helpers for this version's (cad/v15) assembly scripts (sw_robot.py, subasm.py, mate_api.py). Run with C:/Users/ferna/cadenv/Scripts/python.exe.
 
 Copied from cad/v10's tools/sw_native.py and trimmed to the generic helpers (the v10 NativePart authoring class and its V10_ file names stay in
-v10). Everything cad/v14 needs is read from cad/v14 (cad/solidworks.md section 17: files come from the current version's folder).
+v10). Everything this version needs is read from its own folder (cad/solidworks.md section 17: files come from the current version's folder).
 connect() remembers the two settings it changes (the modal Modify popup, CommandInProgress) and release() puts them back: call it when a
 script finishes, so Fernando's session is left as it was found.
 """
@@ -14,7 +14,7 @@ from win32com.client import gencache, constants as c
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 sld = gencache.EnsureModule('{83A33D31-27C5-11CE-BFD4-00400513BB57}', 0, 31, 0)
 gencache.EnsureModule('{4687F359-55D0-4CD3-B6CF-2EB42C11F989}', 0, 31, 0)
-ROOT = Path(__file__).resolve().parents[1]                              # cad/v14
+ROOT = Path(__file__).resolve().parents[1]                              # this CAD version's folder
 MM = .001
 _PRIOR = {}
 

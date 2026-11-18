@@ -1,0 +1,1353 @@
+{
+ "info": {
+  "through": {
+   "drilled": [
+    "bolt_arm_kit_M3x35#36 / riser_arm",
+    "bolt_arm_kit_M3x35#37 / riser_arm",
+    "bolt_speaker_cover#86 / housing_face_crown",
+    "bolt_speaker_cover#87 / housing_face_crown"
+   ],
+   "left": {
+    "bolt_face_crown#80 / housing_face": null,
+    "bolt_face_crown#81 / housing_face": null
+   }
+  },
+  "floor": {
+   "notch_removed_mm3": {
+    "FL": 12486.0,
+    "FR": 9011.0
+   },
+   "FL": {
+    "bbox": [
+     219.3,
+     225.0,
+     13.0
+    ],
+    "tabs": 3,
+    "sockets": 2
+   },
+   "RL": {
+    "bbox": [
+     225.0,
+     225.0,
+     11.0
+    ],
+    "tabs": 3,
+    "sockets": 4
+   },
+   "RR": {
+    "bbox": [
+     225.0,
+     225.0,
+     11.0
+    ],
+    "tabs": 3,
+    "sockets": 4
+   },
+   "FR": {
+    "bbox": [
+     220.1,
+     225.0,
+     13.0
+    ],
+    "tabs": 3,
+    "sockets": 2
+   },
+   "grid_pilots": 57
+  },
+  "arm_pose": [
+   1.571,
+   -1.745,
+   1.449,
+   1.421,
+   0.0,
+   -0.17
+  ],
+  "fin_screws": 17,
+  "d435": {
+   "pose": {
+    "centre": [
+     190.81198914858916,
+     0.0,
+     193.0
+    ],
+    "tilt_down_deg": 30.0,
+    "roll_deg": 0.0
+   },
+   "notch_bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "pocket_x0": 153.2,
+   "cradle_edges_rounded": "51/95"
+  }
+ },
+ "printed": {
+  "floor2_FL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 209.9,
+   "bbox": [
+    219.3,
+    225.0,
+    13.0
+   ],
+   "up": "-z",
+   "bed": {
+    "height": 13.0,
+    "as_exported": [
+     219.3,
+     225.0
+    ],
+    "best": [
+     222.9,
+     222.0
+    ],
+    "rotate_deg": 91.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 29.1
+   }
+  },
+  "floor2_RL": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 209.5,
+   "bbox": [
+    225.0,
+    225.0,
+    11.0
+   ],
+   "up": "-z",
+   "bed": {
+    "height": 11.0,
+    "as_exported": [
+     225.0,
+     225.0
+    ],
+    "best": [
+     225.0,
+     225.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 27.0
+   }
+  },
+  "floor2_RR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 209.8,
+   "bbox": [
+    225.0,
+    225.0,
+    11.0
+   ],
+   "up": "-z",
+   "bed": {
+    "height": 11.0,
+    "as_exported": [
+     225.0,
+     225.0
+    ],
+    "best": [
+     225.0,
+     225.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 27.0
+   }
+  },
+  "floor2_FR": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 207.6,
+   "bbox": [
+    220.1,
+    225.0,
+    13.0
+   ],
+   "up": "-z",
+   "bed": {
+    "height": 13.0,
+    "as_exported": [
+     220.1,
+     225.0
+    ],
+    "best": [
+     224.1,
+     223.8
+    ],
+    "rotate_deg": 88.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 27.9
+   }
+  },
+  "riser_adapter": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 133.4,
+   "bbox": [
+    143.0,
+    112.0,
+    10.1
+   ],
+   "up": "-z",
+   "bed": {
+    "height": 10.1,
+    "as_exported": [
+     143.0,
+     112.0
+    ],
+    "best": [
+     143.0,
+     112.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 109.0
+   }
+  },
+  "riser_arm": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 109.7,
+   "bbox": [
+    143.0,
+    102.0,
+    30.5
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 30.5,
+    "as_exported": [
+     143.0,
+     102.0
+    ],
+    "best": [
+     143.0,
+     102.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 109.0
+   }
+  },
+  "bracket_computer_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     20.0,
+     28.0
+    ],
+    "best": [
+     28.0,
+     20.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 224.0
+   }
+  },
+  "bracket_computer_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     20.0,
+     28.0
+    ],
+    "best": [
+     28.0,
+     20.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 224.0
+   }
+  },
+  "bracket_computer_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     20.0,
+     28.0
+    ],
+    "best": [
+     28.0,
+     20.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 224.0
+   }
+  },
+  "bracket_computer_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.5,
+   "bbox": [
+    20.0,
+    28.0,
+    20.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     20.0,
+     28.0
+    ],
+    "best": [
+     28.0,
+     20.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 224.0
+   }
+  },
+  "bracket_power_box": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 72.8,
+   "bbox": [
+    163.0,
+    80.0,
+    36.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 36.0,
+    "as_exported": [
+     163.0,
+     80.0
+    ],
+    "best": [
+     160.2,
+     159.8
+    ],
+    "rotate_deg": 135.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 91.8
+   }
+  },
+  "bracket_power_shelf": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 32.9,
+   "bbox": [
+    163.0,
+    80.0,
+    3.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 3.0,
+    "as_exported": [
+     163.0,
+     80.0
+    ],
+    "best": [
+     160.2,
+     159.8
+    ],
+    "rotate_deg": 135.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 91.8
+   }
+  },
+  "post_power_low_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    30.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_mcu_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    32.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 32.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_power_low_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    30.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_mcu_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    32.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 32.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_power_low_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    30.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_mcu_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    32.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 32.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_power_low_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    30.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "post_mcu_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.9,
+   "bbox": [
+    7.0,
+    7.0,
+    32.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 32.0,
+    "as_exported": [
+     7.0,
+     7.0
+    ],
+    "best": [
+     7.0,
+     7.0
+    ],
+    "rotate_deg": 55.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 245.0
+   }
+  },
+  "spacer_servo_adapter_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    5.0,
+    6.0,
+    6.0
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 5.0,
+    "as_exported": [
+     6.0,
+     6.0
+    ],
+    "best": [
+     6.0,
+     6.0
+    ],
+    "rotate_deg": 165.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 246.0
+   }
+  },
+  "spacer_servo_adapter_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    5.0,
+    6.0,
+    6.0
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 5.0,
+    "as_exported": [
+     6.0,
+     6.0
+    ],
+    "best": [
+     6.0,
+     6.0
+    ],
+    "rotate_deg": 45.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 246.0
+   }
+  },
+  "spacer_servo_adapter_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    5.0,
+    6.0,
+    6.0
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 5.0,
+    "as_exported": [
+     6.0,
+     6.0
+    ],
+    "best": [
+     6.0,
+     6.0
+    ],
+    "rotate_deg": 165.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 246.0
+   }
+  },
+  "spacer_servo_adapter_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.1,
+   "bbox": [
+    5.0,
+    6.0,
+    6.0
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 5.0,
+    "as_exported": [
+     6.0,
+     6.0
+    ],
+    "best": [
+     6.0,
+     6.0
+    ],
+    "rotate_deg": 165.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 246.0
+   }
+  },
+  "bracket_servo_adapter": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 15.5,
+   "bbox": [
+    8.0,
+    52.0,
+    38.5
+   ],
+   "up": "-x",
+   "bed": {
+    "height": 8.0,
+    "as_exported": [
+     52.0,
+     38.5
+    ],
+    "best": [
+     52.0,
+     38.5
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 200.0
+   }
+  },
+  "bracket_imu": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 3.6,
+   "bbox": [
+    36.0,
+    32.0,
+    9.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 9.0,
+    "as_exported": [
+     36.0,
+     32.0
+    ],
+    "best": [
+     36.0,
+     32.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 216.0
+   }
+  },
+  "post_deck_0": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.0,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 58.0,
+    "as_exported": [
+     14.0,
+     14.0
+    ],
+    "best": [
+     14.0,
+     14.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 238.0
+   }
+  },
+  "post_deck_1": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.0,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 58.0,
+    "as_exported": [
+     14.0,
+     14.0
+    ],
+    "best": [
+     14.0,
+     14.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 238.0
+   }
+  },
+  "post_deck_2": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.0,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 58.0,
+    "as_exported": [
+     14.0,
+     14.0
+    ],
+    "best": [
+     14.0,
+     14.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 238.0
+   }
+  },
+  "post_deck_3": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.0,
+   "bbox": [
+    14.0,
+    14.0,
+    58.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 58.0,
+    "as_exported": [
+     14.0,
+     14.0
+    ],
+    "best": [
+     14.0,
+     14.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 238.0
+   }
+  },
+  "housing_estop": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 8.8,
+   "bbox": [
+    30.0,
+    48.0,
+    36.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 36.0,
+    "as_exported": [
+     30.0,
+     48.0
+    ],
+    "best": [
+     48.0,
+     30.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 204.0
+   }
+  },
+  "housing_switch": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 8.8,
+   "bbox": [
+    30.0,
+    48.0,
+    36.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 36.0,
+    "as_exported": [
+     30.0,
+     48.0
+    ],
+    "best": [
+     48.0,
+     30.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 204.0
+   }
+  },
+  "deck_bin": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 254.2,
+   "bbox": [
+    218.0,
+    200.0,
+    6.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 6.0,
+    "as_exported": [
+     218.0,
+     200.0
+    ],
+    "best": [
+     218.0,
+     200.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 34.0
+   }
+  },
+  "housing_face": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 66.4,
+   "bbox": [
+    31.0,
+    135.4,
+    153.5
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 31.0,
+    "as_exported": [
+     135.4,
+     153.5
+    ],
+    "best": [
+     153.5,
+     135.4
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 98.5
+   }
+  },
+  "housing_face_crown": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 35.9,
+   "bbox": [
+    57.0,
+    138.7,
+    16.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 16.0,
+    "as_exported": [
+     57.0,
+     138.7
+    ],
+    "best": [
+     138.4,
+     138.4
+    ],
+    "rotate_deg": 45.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 113.6
+   }
+  },
+  "housing_speaker_cover": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 3.5,
+   "bbox": [
+    48.0,
+    44.0,
+    2.0
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 2.0,
+    "as_exported": [
+     48.0,
+     44.0
+    ],
+    "best": [
+     48.0,
+     44.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 204.0
+   }
+  },
+  "bracket_d435_riser": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 16.4,
+   "bbox": [
+    31.7,
+    91.6,
+    25.5
+   ],
+   "up": "+z",
+   "bed": {
+    "height": 25.5,
+    "as_exported": [
+     31.7,
+     91.6
+    ],
+    "best": [
+     86.3,
+     86.3
+    ],
+    "rotate_deg": 135.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 165.7
+   }
+  }
+ },
+ "bed_fit_failures": [],
+ "overlaps_mm3": {},
+ "overlaps_with_base_mm3": {},
+ "lidar_top_to_floor_mm": 3.8,
+ "thread_engagement_mm": {
+  "bolt_seam_RL#0": 7.9,
+  "bolt_seam_RL#1": 7.9,
+  "bolt_seam_RL#2": 7.9,
+  "bolt_seam_RL#3": 7.9,
+  "bolt_seam_RR#4": 7.9,
+  "bolt_seam_RR#5": 7.9,
+  "bolt_seam_RR#6": 7.9,
+  "bolt_seam_RR#7": 7.9,
+  "bolt_seam_FR#8": 7.9,
+  "bolt_floor_fin#9": 7.0,
+  "bolt_floor_fin#10": 7.0,
+  "bolt_floor_fin#11": 7.0,
+  "bolt_floor_fin#12": 7.0,
+  "bolt_floor_fin#13": 7.0,
+  "bolt_floor_fin#14": 7.0,
+  "bolt_floor_fin#15": 7.0,
+  "bolt_floor_fin#16": 7.0,
+  "bolt_floor_fin#17": 7.0,
+  "bolt_floor_fin#18": 7.0,
+  "bolt_floor_fin#19": 7.0,
+  "bolt_floor_fin#20": 7.0,
+  "bolt_floor_fin#21": 7.0,
+  "bolt_floor_fin#22": 7.0,
+  "bolt_floor_fin#23": 7.0,
+  "bolt_floor_fin#24": 7.0,
+  "bolt_floor_fin#25": 7.0,
+  "bolt_so101_base#26": 7.9,
+  "bolt_so101_base#27": 7.9,
+  "bolt_so101_base#28": 8.1,
+  "bolt_so101_base#29": 8.1,
+  "bolt_arm_kit_M3x10#30": 6.0,
+  "bolt_arm_kit_M3x10#31": 6.0,
+  "bolt_arm_kit_M3x12#32": 8.0,
+  "bolt_arm_kit_M3x12#33": 8.0,
+  "bolt_arm_kit_M3x45#34": 7.3,
+  "bolt_arm_kit_M3x45#35": 7.3,
+  "bolt_arm_kit_M3x35#36": 10.0,
+  "bolt_arm_kit_M3x35#37": 10.0,
+  "bolt_riser_ext#38": 8.0,
+  "bolt_riser_ext#39": 8.0,
+  "bolt_clip_computer#40": 9.0,
+  "bolt_clip_computer#41": 9.0,
+  "bolt_clip_computer#42": 9.0,
+  "bolt_clip_computer#43": 9.0,
+  "bolt_power_stack#44": 7.0,
+  "bolt_power_stack#45": 7.0,
+  "bolt_power_stack#46": 7.0,
+  "bolt_power_stack#47": 7.0,
+  "bolt_servo_adapter#48": 7.4,
+  "bolt_servo_adapter#49": 7.4,
+  "bolt_servo_adapter#50": 7.4,
+  "bolt_servo_adapter#51": 7.4,
+  "bolt_servo_bracket#52": 0.0,
+  "bolt_servo_bracket#54": 0.0,
+  "bolt_imu#56": 8.1,
+  "bolt_imu#57": 8.1,
+  "bolt_imu_base#58": 9.0,
+  "bolt_imu_base#59": 9.0,
+  "bolt_post_floor#60": 7.0,
+  "bolt_post_deck#61": 6.0,
+  "bolt_post_floor#62": 7.0,
+  "bolt_post_deck#63": 6.0,
+  "bolt_post_floor#64": 7.0,
+  "bolt_post_deck#65": 6.0,
+  "bolt_post_floor#66": 7.0,
+  "bolt_post_deck#67": 6.0,
+  "bolt_bin#68": 6.0,
+  "bolt_bin#69": 6.0,
+  "bolt_bin#70": 6.0,
+  "bolt_bin#71": 6.0,
+  "bolt_estop_pod#72": 6.0,
+  "bolt_estop_pod#73": 6.0,
+  "bolt_switch_pod#74": 6.0,
+  "bolt_switch_pod#75": 6.0,
+  "bolt_face_deck#76": 6.0,
+  "bolt_face_deck#77": 6.0,
+  "bolt_face_deck#78": 6.0,
+  "bolt_face_deck#79": 6.0,
+  "bolt_face_crown#80": 6.0,
+  "bolt_face_crown#81": 6.0,
+  "bolt_mic#82": 7.5,
+  "bolt_mic#83": 7.5,
+  "bolt_mic#84": 7.5,
+  "bolt_mic#85": 7.5,
+  "bolt_speaker_cover#86": 8.0,
+  "bolt_speaker_cover#87": 8.0,
+  "bolt_d435_camera#88": 0.0,
+  "bolt_d435_camera#89": 0.0,
+  "bolt_d435_cradle#90": 0.0,
+  "bolt_d435_cradle#92": 0.0
+ },
+ "screws_short_of_6mm": {},
+ "hole_audit": {
+  "screws": 90,
+  "partial_holes": {
+   "bolt_servo_bracket#52 / riser_arm": 0.15,
+   "bolt_servo_bracket#54 / riser_arm": 0.15
+  },
+  "threads_across_layers": {
+   "bolt_face_crown#80 / housing_face": 90.0,
+   "bolt_face_crown#81 / housing_face": 90.0
+  },
+  "heads_in_parts": {},
+  "no_hole": {
+   "bolt_mic#82 / mic_array": 3.5,
+   "bolt_mic#83 / mic_array": 3.5,
+   "bolt_mic#84 / mic_array": 3.5,
+   "bolt_mic#85 / mic_array": 3.5
+  },
+  "note": "partial: a hole that is not a full circle in a part (straddles a seam or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the printed part's print-up axis"
+ },
+ "holes_through (Nov 13)": {
+  "drilled": 4,
+  "left_blind_mm_of_plastic": {
+   "bolt_face_crown#80 / housing_face": null,
+   "bolt_face_crown#81 / housing_face": null
+  },
+  "blind_now": {
+   "bolt_floor_fin#9 / support_spine": 62.75,
+   "bolt_floor_fin#10 / support_spine": 69.25,
+   "bolt_floor_fin#11 / support_spine": 45.25,
+   "bolt_floor_fin#12 / support_spine": 50.25,
+   "bolt_floor_fin#13 / support_spine": 59.75,
+   "bolt_floor_fin#14 / support_side_L": 69.5,
+   "bolt_floor_fin#15 / support_side_L": 31.25,
+   "bolt_floor_fin#16 / support_side_L": 69.5,
+   "bolt_floor_fin#17 / support_side_L": 69.5,
+   "bolt_floor_fin#18 / support_side_L": 69.5,
+   "bolt_floor_fin#19 / support_side_R": 69.5,
+   "bolt_floor_fin#20 / support_side_R": 31.25,
+   "bolt_floor_fin#21 / support_side_R": 69.5,
+   "bolt_floor_fin#22 / support_side_R": 69.5,
+   "bolt_floor_fin#23 / support_side_R": 69.5,
+   "bolt_floor_fin#24 / support_front_L": 69.5,
+   "bolt_floor_fin#25 / support_front_R": 69.5,
+   "bolt_face_crown#80 / housing_face": null,
+   "bolt_face_crown#81 / housing_face": null
+  },
+  "note": "blind_now includes the chassis parts these screws end in (the fins' flanges): chassis.py owns those holes"
+ },
+ "fastener_count": {
+  "M3x10_pan": 29,
+  "M3x12_pan": 31,
+  "M4x25_flat": 4,
+  "M3x45_pan": 2,
+  "M3x35_pan": 2,
+  "M3x80_pan": 4,
+  "M3x14_pan": 6,
+  "M3x16_pan": 6,
+  "M3_hexnut": 4,
+  "M3x8_pan": 6
+ },
+ "d435_riser": {
+  "pose": {
+   "centre": [
+    190.81198914858916,
+    0.0,
+    193.0
+   ],
+   "tilt_down_deg": 30.0,
+   "roll_deg": 0.0
+  },
+  "note": "nominal CAD; the camera is Intel's model, the plug a straight USB-C envelope (VERIFY on the cable)",
+  "arm_mm": {
+   "d435": {
+    "min": 13.3,
+    "by": "SO-101 base (fixed)"
+   },
+   "bracket_d435_riser": {
+    "min": 11.0,
+    "by": "SO-101 base (fixed)"
+   },
+   "plug_d435": {
+    "min": 17.8,
+    "by": "SO-101 base (fixed)"
+   }
+  },
+  "arm_rule": ">= 5 mm (camera, cradle), >= 4 mm (plug, lead) over every pose and move in validation/d435/arm_motion.json",
+  "lidar": {
+   "scan_z": 163.0,
+   "lowest_z": {
+    "d435": 178.09,
+    "bracket_d435_riser": 185.5,
+    "plug_d435": 190.63
+   },
+   "margin_mm": 15.09,
+   "added_blind_deg": 0.0,
+   "note": "nothing of the mount comes within 3 mm of the scan plane, so the lidar's blind angle stays the chassis' (chassis.py check: lidar.blind_total_deg)"
+  },
+  "bumper": {
+   "r_outer": 232.5,
+   "r_max": {
+    "d435": 209.4,
+    "bracket_d435_riser": 191.2,
+    "plug_d435": 199.9
+   },
+   "inside": true
+  },
+  "fov_overlaps_mm3": {
+   "env_d435_fov_depth": {},
+   "env_d435_fov_rgb": {},
+   "note": "frustums 500 mm from each lens (depth 89 x 58 deg from the left imager, RGB 69 x 42; lens positions VERIFY); arm at stow, front pods at bump"
+  },
+  "camera_static_gaps_mm": {
+   "floor2_FL": 1.17,
+   "floor2_FR": 1.17,
+   "riser_adapter": 3.21,
+   "riser_arm": 0.9,
+   "support_front_L": 6.53,
+   "support_front_R": 6.53
+  },
+  "plug_d435_static_gaps_mm": {
+   "riser_arm": 0.6
+  },
+  "view": {
+   "lens": [
+    198.0,
+    17.5,
+    188.8
+   ],
+   "notch_area_mm2": 5920.0,
+   "notch_bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "nearest_floor_ahead_mm": 311.5,
+   "nearest_floor_any_mm": 311.5,
+   "robot_in_view_pct": 0.0,
+   "in_view_by_pct": {
+    "chassis": 0.0,
+    "pods_bump": 0.0,
+    "floor": 0.0
+   },
+   "without_floor": {
+    "nearest_floor_ahead_mm": 311.5,
+    "nearest_floor_any_mm": 311.5
+   },
+   "note": "ray cast of the depth image (61 x 41 rays) against the chassis, the pods at bump and the notched floor"
+  },
+  "view_25deg": {
+   "nearest_floor_ahead_mm": 336.0,
+   "robot_in_view_pct": 0.0
+  },
+  "floor_notch": {
+   "bounds": [
+    183.4,
+    -46.0,
+    248.0,
+    49.6
+   ],
+   "area_in_floor_mm2": 3052.0,
+   "removed_mm3": {
+    "FL": 12486.0,
+    "FR": 9011.0
+   },
+   "note": "plate and rim lip cut over |y| <= 46 from x 183.4 to the edge; the front seam lost its tab at x 190 (now 120) and its screws at 172 / 205 (one at 167): no fin, fin screw, boss or dovetail cut"
+  }
+ }
+}

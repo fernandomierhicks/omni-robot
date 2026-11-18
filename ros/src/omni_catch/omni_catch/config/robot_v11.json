@@ -954,7 +954,7 @@
     0.0,
     1.0
    ],
-   "note": "RPLIDAR A2M12: scan plane origin, x = its 0 deg"
+   "note": "RPLIDAR A2M8: scan plane origin, x = its 0 deg"
   },
   {
    "parent": "base_link",

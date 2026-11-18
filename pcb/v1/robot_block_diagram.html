@@ -1,0 +1,489 @@
+<title>Omni Robot Block Diagram</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one wide wiring figure (scrolls sideways on phones), then reference sections in a single 72ch column. */
+  :root {
+    --bg: #f6f6f9; --fg: #1c1d24; --muted: #5d6070; --rule: #d9d9e2; --box: #ffffff; --boxline: #8b8e9e;
+    --power: #b35c00; --safety: #c2352b; --pcb: #5a2d90; --pcb-fill: #f2ebfb;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131319; --fg: #e7e7ee; --muted: #a0a3b3; --rule: #2e2f3a; --box: #1c1d25; --boxline: #6d7082;
+      --power: #f2a54c; --safety: #ff6f61; --pcb: #bb9af3; --pcb-fill: #241b35; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131319; --fg: #e7e7ee; --muted: #a0a3b3; --rule: #2e2f3a; --box: #1c1d25; --boxline: #6d7082;
+    --power: #f2a54c; --safety: #ff6f61; --pcb: #bb9af3; --pcb-fill: #241b35; color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15px; line-height: 1.55; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px;
+          padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  h2 { font-size: 18px; font-weight: 600; margin: 0 0 10px; }
+  .lede { color: var(--muted); max-width: 72ch; margin: 0 0 22px; }
+  code, .mono { font-family: var(--mono); font-size: 0.92em; }
+  figure { margin: 0 0 36px; }
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--box); }
+  .scroll svg { display: block; width: 100%; min-width: 1060px; height: auto; color: var(--fg); }
+  figcaption { color: var(--muted); font-size: 13.5px; margin-top: 10px; max-width: 90ch; }
+  section { max-width: 76ch; margin: 0 0 32px; }
+  .owners { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; max-width: none; }
+  .owners div { min-width: 0; border-top: 3px solid var(--boxline); padding-top: 8px; }
+  .owners div.pcb { border-top-color: var(--pcb); }
+  .owners div.pwr { border-top-color: var(--power); }
+  .owners h3 { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+  .owners p { margin: 0; font-size: 14px; color: var(--muted); }
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-weight: 600; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  td:first-child { font-family: var(--mono); white-space: nowrap; }
+  ul { padding-left: 20px; margin: 0; }
+  li { margin-bottom: 4px; }
+  .tag { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--pcb); font-weight: 600; }
+  footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 12px; max-width: 76ch; }
+
+  .plan { max-width: none; }
+  .plan > p { max-width: 76ch; color: var(--muted); }
+  .plan-svg { min-width: 560px !important; max-width: 720px; }
+  .areas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 22px; margin-bottom: 18px; }
+  .areas div { min-width: 0; border-top: 2px solid var(--rule); padding-top: 8px; }
+  .areas h3, h3.sub { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+  .areas p { margin: 0; font-size: 14px; color: var(--muted); }
+  .grp.prop-zone { stroke-dasharray: 6 4; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .plans figure { margin: 0 0 12px; min-width: 0; }
+  .plans .plan-svg { min-width: 0 !important; width: 100%; max-width: 620px; }
+  .fin { stroke: var(--boxline); stroke-width: 5; stroke-linecap: round; }
+  /* drawing classes (page CSS styles the inline SVG, so both themes follow the tokens) */
+  .bx { fill: var(--box); stroke: var(--boxline); stroke-width: 1.2; }
+  .bx.prop { stroke-dasharray: 5 3; }
+  .bx.sfb { stroke: var(--safety); stroke-width: 2; }
+  .grp { fill: none; stroke: var(--boxline); stroke-width: 1; stroke-dasharray: 2 4; }
+  .pcbb { fill: var(--pcb-fill); stroke: var(--pcb); stroke-width: 2; }
+  .tb { fill: var(--box); stroke: var(--pcb); stroke-width: 1.4; }
+  .pw { stroke: var(--power); stroke-width: 3; fill: none; }
+  .dt { stroke: currentColor; stroke-width: 1.3; fill: none; }
+  .sf { stroke: var(--safety); stroke-width: 1.8; fill: none; }
+  .dash { stroke-dasharray: 6 4; }
+  .dot { stroke-dasharray: 1.5 3.5; }
+  .jn { fill: var(--power); }
+  .jt { fill: currentColor; }
+  .mp { fill: var(--power); } .md { fill: currentColor; } .ms { fill: var(--safety); }
+  .t { font: 500 12.5px var(--sans); fill: currentColor; }
+  .tl { font: 400 11px var(--sans); fill: var(--muted); }
+  .th { font: 600 11px var(--sans); fill: var(--muted); letter-spacing: 0.08em; }
+  .tp { font: 600 12px var(--sans); fill: var(--pcb); letter-spacing: 0.08em; }
+  .tm { font: 500 11px var(--mono); fill: currentColor; }
+  .tpw { font: 500 11px var(--mono); fill: var(--power); }
+  .tsf { font: 500 11px var(--mono); fill: var(--safety); }
+  .c { text-anchor: middle; } .e { text-anchor: end; }
+</style>
+
+<div class="wrap">
+  <h1>Omni Robot Block Diagram</h1>
+  <p class="lede">How the Teensy carrier (<code>pcb/v1</code>, rev C) connects to the battery, the DC/DC converters, the robot computer and the drives on the arm robot. This is the nominal design as of Nov 17, 2026. Nothing is bought or wired yet, and dashed items are proposals.</p>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 1240 860" role="img" aria-label="Arm robot block diagram: the battery goes through one latching main switch, which is also the e-stop, and a 30 A fuse to the four AK40-10 drives and to separate 5 V, 19 V and 12 V converters. An INA226 measures total current on a shunt after the fuse, and an INA3221 measures the three converter outputs. The Teensy carrier, powered over USB from the robot computer, talks CAN to the drives, SPI to the BNO085, CRSF to the ELRS receiver and I2C to both monitors, and reads pack voltage. The computer drives the D435 and the display directly, and the lidar, microphone and arm servo adapter through a powered USB hub.">
+        <defs>
+          <marker id="ap" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="mp" d="M0,0 L8,4 L0,8 z"/></marker>
+          <marker id="ad" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="md" d="M0,0 L8,4 L0,8 z"/></marker>
+        </defs>
+
+        <!-- ============ power ============ -->
+        <rect class="bx" x="44" y="36" width="120" height="52" rx="4"/>
+        <text class="t c" x="104" y="56">Battery</text>
+        <text class="tl c" x="104" y="71">HRB 6S 3300 mAh</text>
+        <text class="tl c" x="104" y="83">18–25.2 V, 73 Wh</text>
+        <line class="pw" x1="104" y1="88" x2="104" y2="110" marker-end="url(#ap)"/>
+        <text class="tpw" x="112" y="104">XT90</text>
+        <rect class="bx sfb" x="44" y="112" width="120" height="56" rx="4"/>
+        <text class="t c" x="104" y="131">Main switch</text>
+        <text class="tsf c" x="104" y="146">= e-stop</text>
+        <text class="tl c" x="104" y="160">latching, cuts everything</text>
+        <line class="pw" x1="104" y1="168" x2="104" y2="208" marker-end="url(#ap)"/>
+
+        <rect class="grp" x="24" y="190" width="324" height="390" rx="6"/>
+        <text class="th" x="232" y="206">DC/DC CONVERTERS</text>
+
+        <rect class="bx" x="44" y="210" width="120" height="34" rx="4"/>
+        <text class="t c" x="104" y="231">Main fuse 30 A</text>
+        <line class="pw" x1="104" y1="244" x2="104" y2="256" marker-end="url(#ap)"/>
+        <rect class="bx" x="64" y="258" width="80" height="26" rx="3"/>
+        <text class="tl c" x="104" y="275">shunt 50 A</text>
+        <line class="pw" x1="104" y1="284" x2="104" y2="560"/>
+        <polyline class="dt dot" points="144,271 202,271"/>
+        <rect class="bx" x="204" y="250" width="124" height="40" rx="4"/>
+        <text class="t c" x="266" y="268">INA226</text>
+        <text class="tl c" x="266" y="282">robot total current</text>
+
+        <line class="pw" x1="104" y1="322" x2="202" y2="322" marker-end="url(#ap)"/>
+        <line class="pw" x1="104" y1="382" x2="202" y2="382" marker-end="url(#ap)"/>
+        <line class="pw" x1="104" y1="442" x2="202" y2="442" marker-end="url(#ap)"/>
+        <circle class="jn" cx="104" cy="322" r="3.5"/><circle class="jn" cx="104" cy="382" r="3.5"/><circle class="jn" cx="104" cy="442" r="3.5"/>
+        <rect class="bx" x="204" y="300" width="124" height="44" rx="4"/>
+        <text class="t c" x="266" y="320">5 V · 5 A</text>
+        <text class="tl c" x="266" y="335">display, audio, hub</text>
+        <rect class="bx" x="204" y="360" width="124" height="44" rx="4"/>
+        <text class="t c" x="266" y="380">19 V · 10 A</text>
+        <text class="tl c" x="266" y="395">computer</text>
+        <rect class="bx" x="204" y="420" width="124" height="44" rx="4"/>
+        <text class="t c" x="266" y="440">12 V · 8 A</text>
+        <text class="tl c" x="266" y="455">arm</text>
+
+        <rect class="bx" x="204" y="500" width="124" height="60" rx="4"/>
+        <text class="t c" x="266" y="518">INA3221</text>
+        <text class="tl c" x="266" y="533">CH1 arm 12 V</text>
+        <text class="tl c" x="266" y="547">CH2 19 V · CH3 5 V</text>
+        <polyline class="dt dot" points="340,322 340,530 330,530"/>
+        <circle class="jt" cx="340" cy="322" r="2.6"/><circle class="jt" cx="340" cy="382" r="2.6"/><circle class="jt" cx="340" cy="442" r="2.6"/>
+        <text class="tpw" x="114" y="600">drives: no fuses</text>
+        <text class="tl" x="114" y="614">(they limit their own current)</text>
+
+        <!-- converter outputs -->
+        <polyline class="pw" points="328,322 352,322 352,152 1232,152 1232,430 1050,430 1050,448" marker-end="url(#ap)"/>
+        <line class="pw" x1="1232" y1="282" x2="1222" y2="282" marker-end="url(#ap)"/>
+        <line class="pw" x1="1232" y1="386" x2="1222" y2="386" marker-end="url(#ap)"/>
+        <circle class="jn" cx="1232" cy="282" r="3.5"/><circle class="jn" cx="1232" cy="386" r="3.5"/>
+        <text class="tpw" x="1110" y="146">5 V</text>
+        <polyline class="pw" points="328,382 360,382 360,164 900,164 900,208" marker-end="url(#ap)"/>
+        <text class="tpw" x="790" y="178">19 V</text>
+        <polyline class="pw" points="328,442 352,442 352,836 830,836 830,472 838,472" marker-end="url(#ap)"/>
+        <text class="tpw" x="600" y="851">12 V to the arm</text>
+        <polyline class="pw" points="104,560 104,812 740,812"/>
+        <line class="pw" x1="440" y1="812" x2="440" y2="792" marker-end="url(#ap)"/>
+        <line class="pw" x1="540" y1="812" x2="540" y2="792" marker-end="url(#ap)"/>
+        <line class="pw" x1="640" y1="812" x2="640" y2="792" marker-end="url(#ap)"/>
+        <line class="pw" x1="740" y1="812" x2="740" y2="792" marker-end="url(#ap)"/>
+        <circle class="jn" cx="440" cy="812" r="3.5"/><circle class="jn" cx="540" cy="812" r="3.5"/><circle class="jn" cx="640" cy="812" r="3.5"/>
+        <text class="tpw" x="112" y="806">pack to the drives, one XT30 each</text>
+
+        <!-- ============ the carrier ============ -->
+        <rect class="pcbb" x="420" y="200" width="320" height="400" rx="8"/>
+        <text class="tp" x="436" y="222">TEENSY CARRIER</text>
+        <text class="tl" x="436" y="237">pcb/v1 rev C · 2-layer · all through-hole</text>
+        <rect class="tb" x="460" y="252" width="240" height="56" rx="4"/>
+        <text class="t c" x="580" y="273">Teensy 4.1</text>
+        <text class="tl c" x="580" y="288">USB-powered · 1 kHz control loop</text>
+        <text class="tl c" x="580" y="301">odometry · wheel CAN · status</text>
+        <text class="th" x="440" y="336">ON THE BOARD</text>
+        <text class="tl" x="440" y="352">2 × SN65HVD230 CAN modules (120 Ω each)</text>
+        <text class="tl" x="440" y="367">pack divider ÷11 → A17 (21 V stop)</text>
+        <text class="tl" x="440" y="382">buzzer driver (2N7000)</text>
+        <text class="tl" x="440" y="397">RGB LED and NeoPixel driven directly</text>
+        <text class="th" x="440" y="430">RESERVED AND SPARE</text>
+        <text class="tl" x="440" y="446">J10 CAN3 payload bus</text>
+        <text class="tl" x="440" y="461">J13 camera trigger / time sync</text>
+        <text class="tl" x="440" y="476">J11, J16–J19: UART, PWM, GPIO, analog</text>
+        <text class="tl" x="440" y="491">10k pull-up / pull-down spots (unfitted)</text>
+
+        <!-- carrier to the converters -->
+        <line class="dt" x1="420" y1="484" x2="106" y2="484"/>
+        <circle class="jt" cx="104" cy="484" r="2.6"/>
+        <text class="tm e" x="414" y="478">J1 · pack V</text>
+        <line class="dt" x1="420" y1="271" x2="330" y2="271"/>
+        <text class="tm e" x="414" y="265">J21 · I2C</text>
+        <line class="dt" x1="420" y1="545" x2="330" y2="545"/>
+        <text class="tm e" x="414" y="539">J12 · I2C</text>
+
+        <!-- RC -->
+        <rect class="bx" x="560" y="20" width="120" height="40" rx="4"/>
+        <text class="t c" x="620" y="44">RC transmitter</text>
+        <line class="dt dash" x1="620" y1="60" x2="620" y2="96"/>
+        <text class="tm" x="626" y="82">2.4 GHz</text>
+        <rect class="bx" x="560" y="96" width="120" height="40" rx="4"/>
+        <text class="t c" x="620" y="114">ELRS receiver</text>
+        <text class="tl c" x="620" y="128">manual override</text>
+        <line class="dt" x1="620" y1="136" x2="620" y2="200"/>
+        <text class="tm" x="626" y="192">J5 · CRSF</text>
+
+        <!-- bottom devices -->
+        <line class="dt" x1="540" y1="600" x2="540" y2="640"/>
+        <rect class="bx" x="496" y="640" width="88" height="40" rx="4"/>
+        <text class="t c" x="540" y="658">BNO085 IMU</text>
+        <text class="tm c" x="540" y="672">J4+J3 · SPI</text>
+        <line class="dt" x1="615" y1="600" x2="615" y2="640"/>
+        <rect class="bx" x="592" y="640" width="46" height="40" rx="4"/>
+        <text class="t c" x="615" y="658">Buzzer</text>
+        <text class="tm c" x="615" y="672">J14</text>
+        <line class="dt" x1="680" y1="600" x2="680" y2="640"/>
+        <rect class="bx" x="646" y="640" width="68" height="40" rx="4"/>
+        <text class="t c" x="680" y="658">RGB LED</text>
+        <text class="tm c" x="680" y="672">J15</text>
+        <line class="dt" x1="732" y1="600" x2="732" y2="640"/>
+        <rect class="bx prop" x="722" y="640" width="96" height="40" rx="4"/>
+        <text class="t c" x="770" y="658">NeoPixel strip</text>
+        <text class="tm c" x="770" y="672">J20 · pin 35</text>
+
+        <!-- CAN chain -->
+        <line class="dt" x1="450" y1="600" x2="450" y2="740"/>
+        <text class="tm" x="456" y="704">J6 · CAN1 1 Mbit/s</text>
+        <text class="tl c" x="620" y="730">daisy chain in the harness</text>
+        <rect class="bx" x="400" y="740" width="80" height="50" rx="4"/>
+        <rect class="bx" x="500" y="740" width="80" height="50" rx="4"/>
+        <rect class="bx" x="600" y="740" width="80" height="50" rx="4"/>
+        <rect class="bx" x="700" y="740" width="80" height="50" rx="4"/>
+        <text class="t c" x="440" y="761">AK40-10</text><text class="tl c" x="440" y="777">M1 · FL</text>
+        <text class="t c" x="540" y="761">AK40-10</text><text class="tl c" x="540" y="777">M2 · FR</text>
+        <text class="t c" x="640" y="761">AK40-10</text><text class="tl c" x="640" y="777">M3 · RL</text>
+        <text class="t c" x="740" y="761">AK40-10</text><text class="tl c" x="740" y="777">M4 · RR</text>
+        <line class="dt" x1="480" y1="765" x2="500" y2="765"/>
+        <line class="dt" x1="580" y1="765" x2="600" y2="765"/>
+        <line class="dt" x1="680" y1="765" x2="700" y2="765"/>
+        <line class="dt" x1="780" y1="765" x2="790" y2="765"/>
+        <rect class="bx" x="790" y="754" width="34" height="22" rx="3"/>
+        <text class="tm c" x="807" y="769">120Ω</text>
+        <text class="tl" x="786" y="748">far end</text>
+
+        <!-- ============ computer ============ -->
+        <rect class="bx" x="900" y="20" width="180" height="40" rx="4"/>
+        <text class="t c" x="990" y="44">Phone / PC browser</text>
+        <line class="dt dash" x1="990" y1="60" x2="990" y2="210"/>
+        <text class="tm" x="996" y="104">Wi-Fi · console</text>
+
+        <rect class="bx" x="840" y="210" width="200" height="200" rx="4"/>
+        <text class="t c" x="940" y="236">Robot computer</text>
+        <text class="tl c" x="940" y="252">choice open (BMAX B8A Pro leads)</text>
+        <text class="tl c" x="940" y="282">ROS 2 Jazzy</text>
+        <text class="tl c" x="940" y="298">navigation and SLAM</text>
+        <text class="tl c" x="940" y="314">arm planning and vision</text>
+        <text class="tl c" x="940" y="330">console, people, AI control</text>
+        <text class="tl c" x="940" y="366">5 native USB ports, all used:</text>
+        <text class="tl c" x="940" y="380">2 × A 3.0, 2 × A 2.0, 1 × C</text>
+
+        <line class="dt" x1="740" y1="270" x2="840" y2="270"/>
+        <text class="tm c" x="790" y="263">USB-A 2.0</text>
+        <text class="tl c" x="790" y="286">powers the Teensy</text>
+
+        <line class="dt" x1="1040" y1="230" x2="1090" y2="230"/>
+        <text class="tm c" x="1065" y="224">A 3.0</text>
+        <rect class="bx" x="1090" y="210" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="228">RealSense D435</text>
+        <text class="tl c" x="1155" y="242">riser, the only camera</text>
+        <line class="dt" x1="1040" y1="282" x2="1090" y2="282"/>
+        <text class="tm c" x="1065" y="276">HDMI</text>
+        <rect class="bx" x="1090" y="262" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="280">5 in face display</text>
+        <text class="tl c" x="1155" y="294">power from 5 V</text>
+        <line class="dt" x1="1040" y1="334" x2="1090" y2="334"/>
+        <text class="tm c" x="1065" y="328">A 2.0</text>
+        <rect class="bx" x="1090" y="314" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="332">RPLIDAR A2M8</text>
+        <text class="tl c" x="1155" y="346">via its USB adapter</text>
+        <rect class="bx" x="1090" y="366" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="384">Speaker + amp</text>
+        <text class="tl c" x="1155" y="398">audio from the mic</text>
+
+        <line class="dt" x1="900" y1="410" x2="900" y2="450"/>
+        <text class="tm" x="906" y="436">A 3.0</text>
+        <rect class="bx" x="840" y="450" width="120" height="44" rx="4"/>
+        <text class="t c" x="900" y="469">Servo bus adapter</text>
+        <text class="tl c" x="900" y="484">USB ↔ TTL servo bus</text>
+        <line class="dt" x1="900" y1="494" x2="900" y2="540"/>
+        <text class="tm" x="906" y="521">servo bus</text>
+        <rect class="bx" x="840" y="540" width="120" height="46" rx="4"/>
+        <text class="t c" x="900" y="560">SO-101 arm</text>
+        <text class="tl c" x="900" y="576">6 × STS3215, 12 V</text>
+
+        <line class="dt" x1="1015" y1="410" x2="1015" y2="450"/>
+        <text class="tm e" x="1009" y="436">USB-C</text>
+        <rect class="bx" x="970" y="450" width="96" height="44" rx="4"/>
+        <text class="t c" x="1018" y="469">USB hub</text>
+        <text class="tl c" x="1018" y="484">powered, 4 ports</text>
+        <line class="dt" x1="1066" y1="482" x2="1090" y2="482"/>
+        <polyline class="dt dash" points="1078,482 1078,534 1090,534"/>
+        <circle class="jt" cx="1078" cy="482" r="2.6"/>
+        <rect class="bx" x="1090" y="462" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="486">USB mic array</text>
+        <rect class="bx prop" x="1090" y="514" width="130" height="40" rx="4"/>
+        <text class="t c" x="1155" y="532">3 spare ports</text>
+        <text class="tl c" x="1155" y="546">e.g. IMX662 camera later</text>
+
+        <!-- legend -->
+        <text class="th" x="1100" y="716">KEY</text>
+        <line class="pw" x1="1100" y1="732" x2="1130" y2="732"/><text class="tl" x="1138" y="736">power</text>
+        <line class="dt" x1="1100" y1="750" x2="1130" y2="750"/><text class="tl" x="1138" y="754">signal / data</text>
+        <line class="dt dot" x1="1100" y1="768" x2="1130" y2="768"/><text class="tl" x="1138" y="772">current sense</text>
+        <line class="dt dash" x1="1100" y1="786" x2="1130" y2="786"/><text class="tl" x="1138" y="790">proposed / wireless</text>
+        <text class="tl" x="1100" y="810">one common ground,</text>
+        <text class="tl" x="1100" y="823">not drawn</text>
+      </svg>
+    </div>
+    <figcaption>One latching main switch, which is also the e-stop, cuts the whole robot, the computer included. The drives take the pack straight after the 30 A fuse, with no fuses of their own because they limit their own current. The carrier carries no rail current: both current monitors sit with the converters and report to the Teensy over I2C cables. The computer's five native USB ports are all used directly; a hub on the USB-C port carries the mic and leaves three spare ports.</figcaption>
+  </figure>
+
+  <section class="plan">
+    <h2>Blue sky: power down, logic in the middle</h2>
+    <p>A proposal for both floors of <code>cad/v15</code>, at area level. The arm keeps the front and the bin keeps its place, since the arm's drop reach fixes both. Everything else moves. Outlines are at their CAD positions (1.1 px per mm, front up); pods and fins are approximate, and dashed areas are rough.</p>
+    <div class="plans">
+      <figure>
+        <div class="scroll">
+          <svg class="plan-svg" viewBox="0 0 560 600" role="img" aria-label="First floor, the deck top, front up: the four pods near the corners, the lidar at the front, the spine fin along the centre line and two side fins. The power bay takes the 126 by 112 millimetre space at the deck's centre, right over the battery, with short leads to the four drives. A slot beside the spine fin carries the leads up to the second floor.">
+            <defs>
+              <marker id="ap3" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="mp" d="M0,0 L8,4 L0,8 z"/></marker>
+            </defs>
+            <text class="th c" x="280" y="18">FRONT (+x)</text>
+            <circle class="dt" cx="280" cy="290" r="255.75"/>
+            <text class="tp" x="16" y="48">FIRST FLOOR</text>
+            <text class="tl" x="16" y="63">deck top, z 100; parts under 48 mm</text>
+
+            <!-- pods (towers on the deck), approximate -->
+            <circle class="grp" cx="166.7" cy="176.7" r="46"/><text class="tl c" x="166.7" y="180">pod</text>
+            <circle class="grp" cx="393.3" cy="176.7" r="46"/><text class="tl c" x="393.3" y="180">pod</text>
+            <circle class="grp" cx="166.7" cy="403.3" r="46"/><text class="tl c" x="166.7" y="407">pod</text>
+            <circle class="grp" cx="393.3" cy="403.3" r="46"/><text class="tl c" x="393.3" y="407">pod</text>
+            <!-- lidar and fins -->
+            <circle class="bx" cx="280" cy="158" r="40"/><text class="t c" x="280" y="162">lidar</text>
+            <line class="fin" x1="280" y1="206.4" x2="280" y2="220.7"/>
+            <line class="fin" x1="280" y1="359.3" x2="280" y2="526.5"/>
+            <line class="fin" x1="338.9" y1="220.5" x2="459.5" y2="348.6"/>
+            <line class="fin" x1="221.2" y1="220.5" x2="100.5" y2="348.6"/>
+            <line class="fin" x1="225.7" y1="83.2" x2="209.5" y2="61"/>
+            <line class="fin" x1="334.3" y1="83.2" x2="350.5" y2="61"/>
+            <text class="tl" x="288" y="470">spine fin</text>
+            <text class="tl" x="288" y="484">(bridges over the bay)</text>
+            <text class="tl c" x="478" y="368">side fin</text>
+
+            <!-- A: the power bay, over the battery -->
+            <rect class="grp prop-zone" x="254.7" y="202.5" width="50.6" height="149.7" rx="3"/>
+            <rect class="bx" x="218.4" y="220.7" width="123.2" height="138.6" rx="4"/>
+            <text class="t" x="226" y="242">A · power bay</text>
+            <text class="tl" x="226" y="257">converters, fuse,</text>
+            <text class="tl" x="226" y="271">anti-spark, XT30,</text>
+            <text class="tl" x="226" y="285">INA226, INA3221</text>
+            <circle class="dt" cx="300" cy="322" r="7"/>
+            <text class="tm c" x="300" y="326">S</text>
+            <text class="tl c" x="280" y="348">S: leads up</text>
+            <text class="tl" x="226" y="304">battery right below</text>
+
+            <!-- drives: short leads -->
+            <line class="pw" x1="218.4" y1="220.7" x2="203.5" y2="208" marker-end="url(#ap3)"/>
+            <line class="pw" x1="341.6" y1="220.7" x2="356.5" y2="208" marker-end="url(#ap3)"/>
+            <line class="pw" x1="218.4" y1="359.3" x2="203.5" y2="372" marker-end="url(#ap3)"/>
+            <line class="pw" x1="341.6" y1="359.3" x2="356.5" y2="372" marker-end="url(#ap3)"/>
+            <text class="tpw c" x="280" y="104">drive leads stay on this floor</text>
+
+            <text class="tl" x="16" y="590">fins from fins.py; pods approximate</text>
+          </svg>
+        </div>
+      </figure>
+      <figure>
+        <div class="scroll">
+          <svg class="plan-svg" viewBox="0 0 560 600" role="img" aria-label="Second floor, front up: the arm riser at the front; the carrier in the open middle between the arm and the bin, connectors up, with the IMU beside it; the computer directly under the unchanged bin; the USB hub beside the computer; the face and the main button at the rear; free space on both sides. The slot S between the carrier and the computer brings the leads up from the power bay.">
+            <text class="th c" x="280" y="18">FRONT (+x)</text>
+            <circle class="dt" cx="280" cy="290" r="239.8"/>
+            <text class="tp" x="16" y="48">SECOND FLOOR</text>
+            <text class="tl" x="16" y="63">z 181.5</text>
+
+            <rect class="grp" x="225" y="64.5" width="110" height="83" rx="4"/>
+            <text class="t c" x="280" y="102">Arm riser, SO-101</text>
+            <text class="tl c" x="280" y="117">D435, servo adapter</text>
+
+            <!-- B: carrier in the middle -->
+            <rect class="pcbb" x="227.75" y="190" width="104.5" height="68.2" rx="4"/>
+            <text class="tp c" x="280" y="214">B · carrier</text>
+            <text class="tl c" x="280" y="230">95 × 62, plugs up</text>
+            <text class="tl c" x="280" y="244">ELRS on its edge</text>
+            <rect class="bx" x="183.5" y="215" width="28" height="17" rx="2"/>
+            <text class="tl c" x="197.5" y="209">IMU</text>
+
+            <!-- S: the slot from the power bay -->
+            <circle class="dt" cx="271.2" cy="275" r="7"/>
+            <text class="tm c" x="271.2" y="279">S</text>
+            <text class="tl" x="284" y="279">up from the power bay</text>
+
+            <!-- C: computer under the bin -->
+            <rect class="grp" x="203" y="290" width="154" height="154" rx="4"/>
+            <rect class="bx" x="218.4" y="297.7" width="123.2" height="138.6" rx="4"/>
+            <rect class="grp prop-zone" x="214" y="301" width="132" height="132" rx="3"/>
+            <text class="t c" x="280" y="350">C · computer</text>
+            <text class="tl c" x="280" y="365">under the bin (unchanged)</text>
+            <text class="tl c" x="280" y="379">ports toward the carrier</text>
+            <rect class="bx" x="152" y="355" width="44" height="24" rx="3"/>
+            <text class="tl c" x="174" y="371">USB hub</text>
+
+            <!-- rear: face and the button -->
+            <rect class="grp" x="203" y="466" width="154" height="40" rx="4"/>
+            <text class="t c" x="280" y="484">Face</text>
+            <text class="tl c" x="280" y="498">display, mic, speaker</text>
+            <circle class="sf" cx="160" cy="477" r="10"/>
+            <text class="tl c" x="160" y="503">main button</text>
+
+            <!-- free areas -->
+            <rect class="grp prop-zone" x="71" y="191" width="99" height="140" rx="6"/>
+            <text class="tl c" x="120" y="258">free</text>
+            <rect class="grp prop-zone" x="390" y="191" width="99" height="209" rx="6"/>
+            <text class="tl c" x="440" y="292">free (old power</text>
+            <text class="tl c" x="440" y="306">stack, old tray)</text>
+
+            <text class="tl" x="16" y="590">computer, bin, arm and face at their CAD sizes</text>
+          </svg>
+        </div>
+      </figure>
+    </div>
+    <div class="areas">
+      <div><h3>A · Power bay, first floor centre</h3><p>The 126 × 112 mm space the v15 README found for the computer on the deck's top, between the pods. It holds the three converters, the main fuse, the anti-spark switch, an XT30 distribution block, the INA226 with its 50 A shunt, and the INA3221. The battery sits right below it, and the four drives' leads stay on this floor, so no battery or motor lead crosses the lidar plane any more. The spine fin bridges over the bay (only its web and flange, z 158 to 176.5).</p></div>
+      <div><h3>B · Carrier in the middle of floor 2</h3><p>Between the arm and the bin, connectors up, nothing above: plug and unplug from the top. Every lead is short: USB to the computer behind it, the IMU beside it, the ELRS receiver on its edge, and the CAN, I2C and pack-sense leads straight down through S. VERIFY that the arm's sweep and stow pose clear the plugs (they reach about z 230).</p></div>
+      <div><h3>C · Computer under the bin</h3><p>Moved from x −135 to x −70, directly under the bin, with its ports facing the carrier. The bin and its deck stay where the arm drops into them; the deck shrinks to the bin's footprint. The USB hub sits beside the computer.</p></div>
+      <div><h3>S · One slot for everything that climbs</h3><p>Beside the spine fin, in its shadow, between the carrier and the computer: 19 V up to the computer, 12 V to the arm, 5 V to the face and hub, and the carrier's CAN, I2C and pack-sense leads down. Today the battery lead and four motor leads climb instead.</p></div>
+      <div><h3>Rear and sides</h3><p>The face and the one main button at the rear. Both sides of floor 2 come free (the old power stack and the old battery tray) for payloads or storage.</p></div>
+      <div><h3>What it buys</h3><p>Short heavy leads, a lower CG (the converters about 0.4 kg, est, down 80 mm), the carrier central and easy to reach, and floor 2 opened up. The cost: the power bay is reached through the lidar layer between the fins, or by lifting floor 2, which suits wiring that's set once.</p></div>
+    </div>
+    <h3 class="sub">Answers</h3>
+    <ul>
+      <li><b>Power modules on the first floor: yes.</b> All three converters are at most 32 mm tall, under the 48 mm clear below the lidar's band, and they sit right over the battery.</li>
+      <li><b>Carrier on the first floor: it fits but isn't recommended.</b> It is about 30 mm tall with the CAN modules standing, but you would reach it through the lidar layer, and every lead to floor 2 would cross the scan plane.</li>
+      <li><b>The computer on the first floor instead</b> (the README's idea): it lowers 430 g by about 110 mm, but its five USB/HDMI leads would cross the lidar plane and the power would have to stay up. Power down is the better trade.</li>
+    </ul>
+  </section>
+
+  <section class="owners">
+    <div class="pwr"><h3>Power</h3><p>The main switch (the e-stop), the 30 A fuse and three discrete DC/DC converters (19 V, 12 V, 5 V). There is no power board. The drives take the pack directly. An INA226 measures total current, and an INA3221 measures the arm's 12 V, the computer's 19 V and the 5 V rail.</p></div>
+    <div class="pcb"><h3>Teensy carrier</h3><p>Real-time I/O: the wheel CAN bus, the IMU, RC override, pack voltage for the 21 V stop, the current monitors, the buzzer, the RGB status LED and a NeoPixel strip. Firmware core: <code>firmware/lib/omni_fw</code>.</p></div>
+    <div><h3>Robot computer</h3><p>ROS 2 and everything with bandwidth: the D435, the arm adapter, the Teensy and the lidar on its four USB-A ports, the display on HDMI, and the mic plus spares through a hub on USB-C. It serves the web console over Wi-Fi.</p></div>
+  </section>
+
+  <section>
+    <h2>Carrier connectors</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Ref</th><th>Goes to</th><th>Signals</th></tr></thead>
+        <tbody>
+          <tr><td>USB</td><td>Robot computer</td><td>Serial link, and the Teensy's 5 V power</td></tr>
+          <tr><td>J1 · XH2</td><td>Pack, after the fuse</td><td>Pack + (sense), GND</td></tr>
+          <tr><td>J4 · XH2, J3 · XH6</td><td>BNO085 IMU</td><td>VCC, GND; SCL/SCK, SDA/MISO, AD0/MOSI, CS, INT, RST (the board's order)</td></tr>
+          <tr><td>J5 · XH4</td><td>ELRS receiver</td><td>5 V, GND, CRSF RX/TX (Serial2)</td></tr>
+          <tr><td>J6 · XH2</td><td>AK40-10 chain</td><td>CAN1 H, L at 1 Mbit/s</td></tr>
+          <tr><td>J10 · XH2</td><td>Payload (reserved)</td><td>CAN3 H, L</td></tr>
+          <tr><td>J12 · XH4</td><td>INA3221 (arm 12 V, 19 V, 5 V)</td><td>3V3, GND, SDA, SCL; address 0x40</td></tr>
+          <tr><td>J21 · XH4</td><td>INA226 (robot total)</td><td>3V3, GND, SDA, SCL; set to 0x41 (both modules default to 0x40)</td></tr>
+          <tr><td>J13 · XH4</td><td>Camera / time sync (reserved)</td><td>Trigger, sync pulse, strobe</td></tr>
+          <tr><td>J14 · XH2</td><td>Buzzer</td><td>5 V and the switched return</td></tr>
+          <tr><td>J15 · XH4</td><td>RGB status LED</td><td>R, G, B (series resistors on the board), common cathode</td></tr>
+          <tr><td>J20 · XH3</td><td>NeoPixel strip</td><td>5 V (USB: short strips only), DIN from pin 35, GND</td></tr>
+          <tr><td>J11, J16–J19</td><td>Spares</td><td>Serial1/3/4/5, PWM, GPIO, A15/A16; each pin can take a 10k pull-up or pull-down</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Not settled yet</h2>
+    <ul>
+      <li>The main switch's rating. It carries the whole robot (20 A bursts, 30 A fuse) and the converters' inrush at switch-on, and few latching e-stop buttons are rated for that much DC. Choose a rated battery-disconnect switch, or let the button drive a high-current anti-spark switch.</li>
+      <li>The main switch drops the computer without a shutdown. That's acceptable for an e-stop; decide whether everyday power-off should shut down first.</li>
+      <li>The robot computer. BMAX B8A Pro and GMKtec M5 Ultra lead; none is bought. The M5 Ultra has fewer USB ports and would put more on the hub.</li>
+      <li>Where the CAN chain's far-end 120 Ω lives (harness or the last drive). The drives' own termination must be off.</li>
+      <li>The 19 V converter's 22 V input floor, which needs a bench test against a sagging 6S pack.</li>
+    </ul>
+  </section>
+
+  <footer>Sources: <code>design.md</code> sections 2 and 4.7, <code>cad/v13/README.md</code> "Wiring harness", <code>pcb/v1/README.md</code>. Source file: <code>pcb/v1/robot_block_diagram.html</code>.</footer>
+</div>

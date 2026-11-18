@@ -1,7 +1,8 @@
 """rplidar: a Slamtec RPLIDAR on a serial port, ROS-free and SDK-free, for the console's Lidar page (camera_snap
-serves it) and bench checks. What the ROS driver (sllidar_ros2) hides is the point: the device's model, firmware,
-hardware revision, serial number and health, its scan modes, the motor's PWM, and the raw turn rate, sample count and
-framing errors.
+serves it) and bench checks. What a ROS driver hides is the point: the device's model, firmware, hardware revision,
+serial number and health, its scan modes, the motor's PWM, and the raw turn rate, sample count and framing errors.
+The robot's ROS driver is omni_cpp's rplidar_node (Nov 17: the same protocol in C++, stamped from the sample clock;
+omni_cpp/test/test_cores.py checks its decode against this file's on the bench's recordings).
 
 Protocol (Slamtec's interface protocol and SDK): a request is A5 CMD [len payload checksum]; an answer starts with a
 7-byte descriptor A5 5A len(30 bits) mode(2 bits) type. The scan modes the device lists (GET_LIDAR_CONF) answer in

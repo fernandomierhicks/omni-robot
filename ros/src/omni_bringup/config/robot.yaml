@@ -32,9 +32,20 @@ scan_prep:
   ros__parameters:
     margin: 0.3                    # m: returns this far short of the predicted floor hit are kept (live)
     deskew_keys: 11                # odom poses per scan for the de-skew (live)
-    time_order: 1                  # 1: the A2M12's array runs with time, -1 against (read-only)
-    refine_stamps: false           # re-time scans from their spacing (read-only)
+    time_order: -1                 # -1: the A2M8 turns clockwise, so /scan's array runs against time (rplidar_node and
+                                   # the sim's A2M8; the sim's lidar:=a2m12 runs with it: stack.py sets 1) (read-only)
+    refine_stamps: false           # re-time scans from their spacing: for sllidar-style stamps only (read-only)
     latency: 0.0                   # s: the lidar's stamp latency with refine_stamps (read-only)
+
+rplidar:                           # omni_cpp rplidar_node: the A2M8, stamped from its sample clock (design.md 4.6)
+  ros__parameters:
+    mode: Stability                # the device's typical: 4 k samples/s (read-only)
+    pwm: 660                       # the motor: 12.5 Hz warm, open loop (live)
+    bins: 320                      # about the turn's samples at pwm 660 (320-340): few empty bins. slam_toolbox scores a
+                                   # match over all bins, empty ones too, so empty bins lower every score against its
+                                   # loop-closure thresholds; 720 bins mapped worse (sim, Nov 17, design.md 4.6; the
+                                   # sim's A2M8 bins as this) (read-only)
+    latency: 0.0005                # s: a packet's fastest delivery beyond its transmission (est; omni_calib) (live)
 
 heading_node:
   ros__parameters:

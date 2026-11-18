@@ -41,7 +41,7 @@ typedef struct {
     // CAN1 (drive motors, 1 Mbit/s): frames received since the last tick
     uint32_t n_can_rx;
     FwCanFrame can_rx[FW_CAN_MAX];
-    // BNO085 over SPI (400 Hz): the samples since the last tick, oldest first
+    // BNO085 over SPI (100 Hz): the samples since the last tick, oldest first
     uint32_t imu_n;
     FwImuSample imu[FW_IMU_MAX];
     // flywheel ESC (bidirectional DShot): a new eRPM frame per channel?

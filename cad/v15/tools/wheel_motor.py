@@ -390,7 +390,8 @@ def build_hub():
     collar = [(xc - CHANNEL_CHAMFER, DRUM_OUT), (xc, DRUM_OUT + CHANNEL_CHAMFER), (xc, DRUM_OUT)] if CHANNEL_CHAMFER > 0 else []
     prof = [(X_LEFT, DRUM_IN + 0.2), (X_LEFT, DRUM_OUT), *collar, (X_RIGHT, DRUM_OUT), (X_RIGHT, DRUM_IN), (FLANGE_BACK, DRUM_IN), (FLANGE_BACK, 0.0),
             (FLANGE_FRONT, 0.0), (FLANGE_FRONT, ACCESS_R), (FLANGE_FRONT - (DRUM_IN - ACCESS_R), DRUM_IN),
-            (WALL_BACK + (DRUM_IN - ACCESS_R), DRUM_IN), (WALL_BACK, ACCESS_R), (X_PLATE_FLOOR, ACCESS_R), (X_PLATE_FLOOR, DRUM_IN + 0.2)]
+            (WALL_BACK + (DRUM_IN - ACCESS_R), DRUM_IN), (WALL_BACK, ACCESS_R), (X_CUP_FLOOR, ACCESS_R), (X_CUP_FLOOR, DRUM_IN + 0.2)]   # Nov 15: the
+                                                                            # counterbore takes the cap and the cup's flange
     hub = b.revolve(b.Plane.XY * b.Polygon(*prof, align=None), axis=b.Axis.X)
     keepout = b.Cylinder(DRUM_OUT - 0.5, 120.0).rotate(b.Axis.Y, 90)   # nothing of the spokes inside r 32.5 (the drum wall is r 30..33)
     info = dict(edge_round_failed=0)
@@ -423,9 +424,8 @@ def build_hub():
     for row, k, M in frames:                                                # Nov 13: the thrust lands (before the seats are cut)
         for t in land:
             hub = hub + t.moved(loc(M))
-    z_out = (ZF + A_OUT) / 2 + BLOCK_R + 1.0                                 # past the pilot block's round end
-    for row, k, M in frames:                                                # Nov 13: the pilot runs on out of the block (through)
-        pilot = cyl(PILOT_D / 2, z_out - ZF, (0, 0, -(ZF + z_out) / 2))
+    for row, k, M in frames:                                                # Nov 13: the pilot runs on out of the block; Nov 17: on out of the
+        pilot = cyl(PILOT_D / 2, PILOT_OUT - ZF, (0, 0, -(ZF + PILOT_OUT) / 2))   # neighbouring block in the spoke too (through)
         hub = hub - (pocket_tool() + pilot).moved(loc(M))
         for t in seat_slot_tools():
             hub = hub - t.moved(loc(M))
@@ -434,27 +434,38 @@ def build_hub():
         hub = hub - along_x(M25_CLEAR / 2, FLANGE_FRONT - 0.1, FLANGE_BACK + 0.1, y, z)
     for a in CART_ANGLES:
         y, z = at_angle(CART_R, a)
-        hub = hub - along_x(1.4, X_PLATE_FLOOR - 0.1, CART_PILOT_END, y, z)    # Nov 13: through the end wall's cone into the cavity
+        hub = hub - along_x(1.4, X_CUP_FLOOR - 0.1, CART_PILOT_END, y, z)      # Nov 13: through the end wall's cone into the cavity
     return hub, info
 
 
 CART_PILOT_END = WALL_BACK + (CART_R - ACCESS_R) + 1.0                      # the cone is at x -18.5 at r 26
 
 
-# ---- cartridge (flush plate + boss carrying the left 6804) -------------------------------------------------------------------
+# ---- cartridge (cap + cup carrying the left 6804) -----------------------------------------------------------------------------
+CUP_R = 17.6                       # the cup's boss outside radius (the hub's access bore is r ACCESS_R 18)
+
+
 def build_cartridge():
-    """flush plate whose lip holds the left 6804's outer race, and a boss the bearing presses into from the open (+x) side: no floor, so no
-    trapped cavity, and it prints plate-down without support. The 6804 floats axially (the motor's output bearing locates the wheel)."""
+    """Nov 15 (Fernando: the 6804 slid in and out): two parts that clamp the left 6804's outer race between them.
+     * CAP (wheel_cartridge_cap): the flush plate, its face on the outer race's outboard face (r 13 ..), the 3 countersinks; prints flat.
+     * CUP (wheel_cartridge): a flange under the cap in the hub's counterbore, the bearing seat (Ø32.1) and a lip (r CUP_LIP_R) on the outer race's
+       motor-side face. The bearing presses into the cup from the flange side, onto the lip; the cup prints flange down, the seat's axis vertical,
+       the lip a 1.55 mm overhang ring at the top.
+    The 3 flat heads clamp cap + flange to the hub: the outer race is held both ways (it used to float on a press fit, the motor's bearing
+    locating the wheel). Returns cap, cup, the bearing's centre x"""
     x0, x1 = X_LEFT, X_PLATE_FLOOR
-    brg_back = x1 + 7.0
-    prof = [(x0, 13.0), (x0, DRUM_IN - 0.3), (x1, DRUM_IN - 0.3), (x1, 17.6), (brg_back, 17.6), (brg_back, R_BRG + BRG_FIT), (x1, R_BRG + BRG_FIT),
-            (x1, 13.0)]
-    c = b.revolve(b.Plane.XY * b.Polygon(*prof, align=None), axis=b.Axis.X)
+    brg_back = x1 + 7.0                                                  # the bearing's motor-side face = the lip's face
+    cap = b.revolve(b.Plane.XY * b.Polygon(*[(x0, 13.0), (x0, DRUM_IN - 0.3), (x1, DRUM_IN - 0.3), (x1, 13.0)], align=None), axis=b.Axis.X)
+    rs = R_BRG + BRG_FIT
+    cup = b.revolve(b.Plane.XY * b.Polygon(*[(x1, rs), (x1, DRUM_IN - 0.3), (X_CUP_FLOOR, DRUM_IN - 0.3), (X_CUP_FLOOR, CUP_R),
+                                            (brg_back + CUP_LIP_T, CUP_R), (brg_back + CUP_LIP_T, CUP_LIP_R), (brg_back, CUP_LIP_R), (brg_back, rs)],
+                                          align=None), axis=b.Axis.X)
     for a in CART_ANGLES:
         y, z = at_angle(CART_R, a)
-        c = c - along_x(1.7, x0 - 0.1, x1 + 0.1, y, z) - b.Cone(2.75, 1.7, 1.7).rotate(b.Axis.Y, 90).moved(b.Location((x0 + CSK_EXTRA + 0.85, y, z)))
-        c = c - along_x(2.75, x0 - 0.1, x0 + CSK_EXTRA, y, z)                # Nov 13: the countersink 0.5 deeper (straight Ø5.5 over the cone)
-    return c, (x1 + brg_back) / 2
+        cap = cap - along_x(1.7, x0 - 0.1, x1 + 0.1, y, z) - b.Cone(2.75, 1.7, 1.7).rotate(b.Axis.Y, 90).moved(b.Location((x0 + CSK_EXTRA + 0.85, y, z)))
+        cap = cap - along_x(2.75, x0 - 0.1, x0 + CSK_EXTRA, y, z)          # Nov 13: the countersink 0.5 deeper (straight Ø5.5 over the cone)
+        cup = cup - along_x(1.7, x1 - 0.1, X_CUP_FLOOR + 0.1, y, z)       # Ø3.4 through the flange
+    return cap, cup, (x1 + brg_back) / 2
 
 
 # ---- motor, plug, leads ------------------------------------------------------------------------------------------------------
@@ -542,8 +553,8 @@ def build_all():
     shapes = {}
     hub, info = build_hub()
     shapes['wheel_hub'] = hub
-    cart, x_brg_left = build_cartridge()
-    shapes['wheel_cartridge'] = cart
+    cap, cup, x_brg_left = build_cartridge()
+    shapes['wheel_cartridge'], shapes['wheel_cartridge_cap'] = cup, cap
     _, housing, pins = motor_and_plug()
     shapes['ak40_stator'], shapes['ak40_rotor'] = build_motor(housing, pins)
     shapes['xt30_housing'] = housing
@@ -644,7 +655,18 @@ def check(shapes):
     rep['hub'] = dict(solids=len(hub.solids()), valid=bool(hub.is_valid), volume_mm3=round(hub.volume), x_range=[round(bb.min.X, 2), round(bb.max.X, 2)],
                       diameter_over_rollers=round(2 * max(np.hypot(tp[:, 1], tp[:, 2])), 2))
     rep['printed_parts'] = {k.lstrip('_'): dict(solids=len(shapes[k].solids()), valid=bool(shapes[k].is_valid), volume_mm3=round(shapes[k].volume, 1))
-                            for k in ('wheel_hub', 'wheel_cartridge', '_roller_core', '_roller_sleeve', '_roller_tread')}
+                            for k in ('wheel_hub', 'wheel_cartridge', 'wheel_cartridge_cap', '_roller_core', '_roller_sleeve', '_roller_tread')}
+    # Nov 15: the 6804's outer race held both ways (cap face / cup lip), the cap and cup on the hub
+    brg, cap, cup = shapes['bearing_6804_left'], shapes['wheel_cartridge_cap'], shapes['wheel_cartridge']
+    bx = brg.bounding_box()
+    rep['bearing_6804_retention'] = dict(
+        race_x=[round(bx.min.X, 2), round(bx.max.X, 2)], cap_face_x=X_PLATE_FLOOR, cup_lip_face_x=X_PLATE_FLOOR + 7.0, lip_r=[CUP_LIP_R, CUP_R],
+        gap_cap_to_race=round(min_dist(cap, brg), 3), gap_lip_to_race=round(min_dist(cup, brg), 3),
+        overlaps_mm3=dict(cap_cup=round(overlap(cap, cup), 3), cap_hub=round(overlap(cap, hub), 3), cup_hub=round(overlap(cup, hub), 3),
+                          cup_race=round(overlap(cup, brg), 2)),
+        note='the outer race is clamped between the cap and the cup\'s lip, both clamped to the hub by the 3 flat heads; the inner race between '
+             'the stub\'s shoulder and the retainer. The wheel is now located axially at both ends (the 6804 and the motor\'s bearing): the '
+             'fork\'s arm spacing must match the hub (print error is taken by the PLA; VERIFY on the first build)')
     # the hub against everything else: the axles thread into their pilots and the sleeves press into their seats by design, nothing else
     ov, squeeze, threads = {}, {}, {}
     for k in shapes:
@@ -765,8 +787,11 @@ def check(shapes):
         pilot_thread_side_profile=round(BLOCK_R - PILOT_D / 2, 2),
         pilot_thread_end_wheel_plane=round(math.sqrt(BLOCK_R ** 2 - (ZF + PILOT_DEPTH - za) ** 2) - PILOT_D / 2, 2),
         pilot='Nov 13: through the block (was a blind floor 2.95 beyond the thread)',
-        pilot_open_past_block=not _inside_hub(hub, roller_frames()[0][2], -(za + BLOCK_R + 0.5)))
-    rep['cartridge_screws'] = dict(countersink_extra=CSK_EXTRA, pilot_x=[X_PLATE_FLOOR, round(CART_PILOT_END, 2)], pilot='through the end wall into the cavity',
+        pilot_open_past_block=not any(_inside_hub(hub, M, -z) for _, _, M in roller_frames() for z in np.arange(ZF + 0.2, PILOT_OUT + 12.0, 0.5)))
+                                                                            # Nov 17: no plastic on the axle line from the thrust face to 12 past
+                                                                            # the pilot's end (the old probe sat inside the cut and always passed)
+    rep['cartridge_screws'] = dict(countersink_extra=CSK_EXTRA, pilot_x=[X_CUP_FLOOR, round(CART_PILOT_END, 2)], pilot='through the end wall into the cavity',
+                                   thread_in_hub=round(X_LEFT + CSK_EXTRA + 12.0 - X_CUP_FLOOR, 2),
                                    pilot_open_at_end=not any(_inside_pt(hub, (CART_PILOT_END - 0.6, *at_angle(CART_R, a))) for a in CART_ANGLES))
     o = overhang_mm2(hub)
     rep['hub_print_overhang_mm2 (cartridge end down, faces under 45 deg)'] = dict(all=o[0], spokes=o[1])
@@ -778,7 +803,7 @@ def check(shapes):
 
 # ---- export --------------------------------------------------------------------------------------------------------------------
 STEP_SKIP = ('bolt_', 'bearing_', '_')          # no fasteners or bearings in any STEP; '_' = unplaced print copies
-PRINTED = ('wheel_hub', 'wheel_cartridge', '_roller_core', '_roller_sleeve', '_roller_tread')
+PRINTED = ('wheel_hub', 'wheel_cartridge', 'wheel_cartridge_cap', '_roller_core', '_roller_sleeve', '_roller_tread')
 
 
 def export(shapes):

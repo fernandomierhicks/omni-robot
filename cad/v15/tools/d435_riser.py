@@ -10,7 +10,7 @@ upper.py check).
 
 Arm motion: the SO-101's official meshes in every fixed pose (stow, high, ready, predrop, drop, look) and along every planned move (stow <->
 high, high <-> ready, high <-> predrop <-> drop and the floor grasps 0.26..0.36 m ahead: ready -> hover -> grasp -> hover -> high, as
-arm_sweep.py). The camera frame is chassis.py's: x along the view (tilt deg below the horizontal), y to the camera's left, z its up.
+arm_sweep.py). The camera frame (was chassis.py's): x along the view (tilt deg below the horizontal), y to the camera's left, z its up.
 """
 import json
 import math
@@ -28,10 +28,41 @@ from omni_arm.kinematics import ArmKinematics, DOWN                   # noqa: E4
 import omni_arm.motion as mo                                          # noqa: E402
 
 VAL = HERE.parent / 'validation' / 'd435'
-CAM = (25.0, 90.0, 25.0)                                               # D435 box: depth along its view, width, height (first_floor.D435_SIZE)
-DEPTH_LENS = (12.5 - 4.2, 17.5)                                        # depth origin (left imager) in the camera frame: x, y (chassis.D435_FOV)
+CAM = (25.0, 90.0, 25.0)                                               # D435 box: depth along its view, width, height
+DEPTH_LENS = (12.5 - 4.2, 17.5)                                        # depth origin (left imager) in the camera frame: x, y (D435_FOV)
 SCAN_Z, LIDAR_MARGIN = 163.0, 3.0
-R_BUMPER = 225.15                                                      # bumper outside radius (chassis check: robot diameter 450.3)
+# the D435's own model and fields (were chassis.py's): Intel's figures, depth 87 x 58 from the left imager (the depth origin, 4.2 mm behind
+# the front glass), RGB 69 x 42; lens positions (17.5 / 32.5 mm left of the centre) VERIFY against the datasheet and the unit
+D435_STEP = HERE.parent / 'reference' / 'parts' / 'd435_source.step'  # X width, Y up, Z toward the lenses, front Z 0, back -25
+D435_FOV = dict(depth=(87.0, 58.0, (12.5 - 4.2, 17.5)), rgb=(69.0, 42.0, (12.5 - 4.2, 32.5)))
+FOV_COLOURS = dict(depth=(0.30, 0.55, 0.95), rgb=(0.35, 0.85, 0.40))
+
+
+def r_bumper():
+    """the bumper's outside radius (v15: chassis_mid's deck rim + the bumper wall; was v14's 225.15)"""
+    import world as WD
+    import chassis_mid as CM
+    return WD.base()[2]['rb'] + CM.BUMPER_T
+
+
+def d435_real(loc):
+    """the D435's own model in the camera frame (x along its view, back face x -12.5), moved by loc"""
+    import build123d as b
+    import wheel_motor as W
+    s = b.import_step(str(D435_STEP))
+    s = b.Compound([q for q in s.solids()]) if not isinstance(s, b.Solid) else s
+    T = np.eye(4)
+    T[:3, :3] = [[0, 0, 1.0], [1.0, 0, 0], [0, 1.0, 0]]               # source (X, Y, Z) -> camera (y, z, x)
+    T[:3, 3] = (CAM[0] / 2, 0, 0)
+    return s.moved(W.loc(T[:3, :])).moved(loc)
+
+
+def colour(k):
+    """the fields' colours; the base's parts: chassis_mid.colour"""
+    if k.startswith('env_d435_fov_'):
+        return FOV_COLOURS[k[13:]]
+    import chassis_mid as CM
+    return (0.75, 0.75, 0.78) if k.startswith('env') else CM.colour(k)
 ROI = ((130.0, 290.0), (-70.0, 70.0), (130.0, 300.0))                 # where arm points are kept (mm, robot frame)
 VOX = 0.5
 LOOK = [-0.3, -0.609, -0.668, 1.102, 0.16, -0.17]                      # omni_arm.pick: the wrist camera's look pose
@@ -273,19 +304,13 @@ def view_world():
     if f.exists():
         d = np.load(f)
         return {k[2:]: trimesh.Trimesh(d[k], d['F' + k[1:]], process=False) for k in d.files if k.startswith('V_')}
-    import base as B
-    import chassis as C
-    import first_floor as FF
-    import pod as P
-    import pod_lean as L
+    import pod_rx as R
     import upper as U
-    parts, _, env, _ = C.build(FF.pod_geometry())
+    import world as WD
     kit, _, _ = U.arm_kit()
-    groups = dict(chassis=list(parts.values()) + [env['env_lidar']], riser=[kit['riser_arm'], kit['riser_adapter']])
-    sp, _ = L.build_static()
-    unit = P.wheel_unit()
-    sh, _ = L.posed(sp, unit, L.A_BUMP)
-    groups['pods_bump'] = [B.place3d(s, i) for i in range(4) for k, s in sh.items() if k.startswith(('roller_tread', 'wheel_hub', 'pod_fork', 'ak40', 'xt30', 'lead'))]
+    groups = dict(chassis=list(WD.base_items().values()), riser=[kit['riser_arm'], kit['riser_adapter']])
+    pods = WD.pods(R.A_BUMP, rollers=True)
+    groups['pods_bump'] = [s for k, s in pods.items() if k.split('/')[-1].startswith(('roller_tread', 'wheel_hub', 'pod_fork', 'ak40', 'xt30', 'lead'))]
     out = {}
     for k, ss in groups.items():
         m = mesh_of(ss)
@@ -337,13 +362,13 @@ def notch_for(c, tilt, roll, body_pad=2.0):
 
 def floor_mesh(notch):
     """the second floor (plate + rim lip) less the notch, for the view check"""
-    import chassis as C
+    import base as B
     from shapely.geometry import Point as SP
     plate = SP(0, 0).buffer(R_FLOOR, 360).difference(notch)
     lip = SP(0, 0).buffer(R_FLOOR, 360).difference(SP(0, 0).buffer(R_FLOOR - LIP[0], 360)).difference(notch)
     if plate.is_empty:
         return None
-    return mesh_of([C.prism(plate, *Z_FLOOR)] + ([C.prism(lip, Z_FLOOR[0] - LIP[1], Z_FLOOR[0])] if not lip.is_empty else []))
+    return mesh_of([B.prism(plate, *Z_FLOOR)] + ([B.prism(lip, Z_FLOOR[0] - LIP[1], Z_FLOOR[0])] if not lip.is_empty else []))
 
 
 def evaluate(c, tilt, roll, notch=None):
@@ -405,14 +430,14 @@ def cam_box(x0, x1, y0, y1, z0, z1):
 def build_mount():
     """the camera (Intel's model), its cradle, plug and lead, the fasteners, and what the riser and floor give up for them"""
     import build123d as b
-    import chassis as C
+    import base as B
     import hardware as H
     import pod as P
     import wheel_motor as W
     from dims import M3_CLR
     K = CRADLE_R
     c, tilt, _ = POSE
-    camera = C.d435_real(cam_loc())
+    camera = d435_real(cam_loc())
     bx = cam_box(-12.5, 12.5, -45.0, 45.0, -12.5, 12.5)                   # its box (the model is 0.25 deeper underneath: cut both)
     xb = -12.5 - K['plate_t']
     plate = cam_box(xb, -12.5, -K['half_w'], K['half_w'], -40.0, 12.5)
@@ -510,11 +535,11 @@ def MultiPoint_run(g, dx=30.0):
 def fov_envelopes(L=500.0):
     """the depth (from the left imager) and RGB fields as solid frustums L long, at this pose (lens positions VERIFY)"""
     import build123d as b
-    import chassis as C
+    import base as B
     c, tilt, _ = POSE
     R = cam_R(tilt, 0.0)
     out = {}
-    for k, (h, v, (xl, yl)) in dict(C.D435_FOV, depth=(DEPTH_FOV[0], DEPTH_FOV[1], DEPTH_LENS)).items():
+    for k, (h, v, (xl, yl)) in dict(D435_FOV, depth=(DEPTH_FOV[0], DEPTH_FOV[1], DEPTH_LENS)).items():
         o = np.asarray(c) + R @ np.array([xl, yl, 0.0])
         th, tv = math.tan(math.radians(h / 2)), math.tan(math.radians(v / 2))
         rects = [b.Wire.make_polygon([b.Vector(*(o + R @ np.array([d, sy * d * th, sz * d * tv]))) for sy, sz in ((1, 1), (-1, 1), (-1, -1), (1, -1))],
@@ -544,10 +569,10 @@ def arm_to_solid(shape, density=1.0):
 
 def check_mount(printed, bought, vend, lower, info):
     """v13: the riser D435 against the brief's priorities (arm, lidar, view, bumper, floor, lead)"""
-    import base as B
-    import pod as P
-    import pod_lean as L
+    import pod_rx as R
     import wheel_motor as W
+    import world as WD
+    R_BUMPER = r_bumper()
     mine = {k: dict(printed, **bought)[k] for k in MOUNT_PARTS}
     rep = dict(pose=info['d435']['pose'], note='nominal CAD; the camera is Intel\'s model, the plug a straight USB-C envelope (VERIFY on the cable)')
     np.random.seed(5)
@@ -565,10 +590,8 @@ def check_mount(printed, bought, vend, lower, info):
     rep['bumper'] = dict(r_outer=R_BUMPER, r_max=rmax, inside=all(v <= R_BUMPER for v in rmax.values()))
     # the fields of view against every part (the camera aside), the pods at bump, the arm at stow
     fov = fov_envelopes()
-    sp, _ = L.build_static()
-    sh, _ = L.posed(sp, P.wheel_unit(), L.A_BUMP)
-    pods = {f'{B.NAMES[i]}/{k}': B.place3d(s, i) for i in (0, 3) for k, s in sh.items() if not k.startswith('bolt')}
-    world = dict(printed, **bought, **vend, **lower, **pods)
+    pods = {k: s for k, s in WD.pods(R.A_BUMP).items() if k.startswith(('FL/', 'FR/')) and not k.split('/')[-1].startswith('bolt')}
+    world = {**printed, **bought, **vend, **lower, **pods}
     hits = {}
     for f, F in fov.items():
         h = {}
@@ -629,18 +652,17 @@ def fov_overlay(ax, Rm, L=600.0):
 def render(only=None):
     """validation/d435: the camera from the right side with the arm stowed and at its nearest floor grasp (0.26 m ahead, fingers down),
     a top view of the notch, a front iso; only='fov': just the side section with both fields drawn over it (side_fov.png)"""
-    import base as B
-    import chassis as C
-    import first_floor as FF
     import hardware as H
     import pod_lean as L
     import upper as U
+    import world as WD
     from omni_arm.kinematics import ArmKinematics as AK
     printed, bought, vendor, hw, info = U.build()
-    parts, _, env, _ = C.build(FF.pod_geometry())
+    parts = WD.base()[0]
+    env = dict(env_lidar=WD.base_items()['env_lidar'])
     front = lambda s: s.bounding_box().max.X > 40.0                     # noqa: E731
     base = {k: s for k, s in dict(printed, **bought).items() if front(s) and not k.startswith(('floor2_R', 'deck', 'post', 'housing', 'bin'))}
-    base.update({k: s for k, s in parts.items() if front(s) and k.startswith(('node_front', 'support_front', 'pedestal', 'bumper_q'))})
+    base.update({k: s for k, s in parts.items() if front(s) and k.startswith(('deck_F', 'support_front', 'pedestal', 'bumper_F'))})
     base['env_lidar'] = env['env_lidar']
     base.update({k: s for k, s in U.load_vendor({k: v for k, v in vendor.items() if not k.startswith('arm_')}).items() if front(s)})
     for n, r in enumerate(hw):
@@ -665,7 +687,7 @@ def render(only=None):
         if k.startswith('arm_'):
             return (0.92, 0.92, 0.92)
         if k in parts or k.startswith('env'):
-            return C.colour(k)
+            return colour(k)
         return U.colour(k)
     def drawable(items):
         out = {}
@@ -725,7 +747,7 @@ def render(only=None):
           'riser\'s pocket, the plug out of the right wall (adapter and arm hidden)', cf, tol=0.3)
     items = dict(base, **arm_at(qs['pose stow']), **fov_envelopes(260.0))
     L.iso(items, VAL / 'iso_front.png', 35.0, 20.0, 'front left: the D435 under the SO-101\'s base, its depth (blue) and RGB (green) fields '
-          '(260 mm shown)', lambda k: C.colour(k) if k.startswith('env_d435_fov') else cf(k), tol=0.3)
+          '(260 mm shown)', lambda k: colour(k) if k.startswith('env_d435_fov') else cf(k), tol=0.3)
 
 
 if __name__ == '__main__':

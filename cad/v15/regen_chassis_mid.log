@@ -1,7 +1,0 @@
-deck_FL 1 True 441.2 cm3
-deck_RL 1 True 421.5 cm3
-deck_RR 1 True 416.0 cm3
-deck_FR 1 True 366.8 cm3
-{"D": 154.0, "slide": -20.0, "deck_z": [80.0, 100.0], "deck_z_v14": [40.0, 62.0], "r_deck": 229, "r_hold": 227.2, "r_opening": 219.1, "r_moving": 218.8, "bumper_inside_r": 229.5, "robot_diameter": 465.0, "robot_diameter_v14": 450.3, "bumper_to_moving_mm": 10.7}
-rendered
-exported 636

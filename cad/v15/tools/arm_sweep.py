@@ -1,6 +1,7 @@
-"""cad/v11 review (Nov 4 2026): the SO-101's official meshes swept through the tidy's planned motions against the whole proposed robot.
+"""The SO-101's official meshes swept through the tidy's planned motions against the whole v15 robot (world.py; cad/v11 Nov 4 on).
 
-    python -B arm_sweep.py            (omni-robot-sim interpreter; writes validation/upper/arm_sweep.json)
+    python -B arm_sweep.py [robot_ring]   (omni-robot-sim interpreter; writes validation/upper/arm_sweep.json, or with robot_ring
+                                          arm_sweep_robot_ring.json: planned with the robot's own keep-out ring)
 
 Motions: stow -> high -> ready; for floor targets over the reach (x 0.26..0.36, y -0.12..0.12, both grasp yaws) ready -> hover -> grasp
 -> hover -> high; then high -> drop over the raised bin -> high, and high -> stow. Planned by omni_arm's own planner with keep-outs for
@@ -60,13 +61,26 @@ def arm_surface(density=0.5):
     return out
 
 
+V15_RING = True                    # Nov 14 review: the robot's config (omni_arm robot_arm.json) keeps the arm out of a ring r 0.19..0.235 up to z
+                                   # 0.085 (v14's bumper top 90, frame top 62). v15's deck rim stands at r 0.229 up to z 0.100: the planner here
+                                   # uses v15's ring (ring_keep_out); False plans with the robot's own (which the mesh check then judges)
+
+
+def ring_keep_out():
+    """v15's bumper and deck rim as the planner's ring: from the deck's openings' rim (r 0.19, as the robot's) to the bumper's outside, up to the
+    deck's top (z 0.100)"""
+    import chassis_mid as CM
+    return dict(kind='ring', r0=0.19, r1=0.2325, z1=CM.Z1 * 1e-3, note='v15: the bumper (r 232.5) and the deck rim (r 229, z 80..100)')
+
+
 def layout_config():
-    """omni_arm's config with this layout's keep-outs: the old robot's floor / bumper / body cylinders kept; its bin, face, mast, stereo
-    head and adapter boxes replaced by this layout's"""
+    """omni_arm's config with this layout's keep-outs: the robot's floor and body cylinders kept, its ring v15's (V15_RING); its bin, face,
+    mast, stereo head and adapter boxes replaced by this layout's"""
     import upper as U
     cfg = ArmConfig()
-    keep = [k for k in cfg.keep_out if k['kind'] in ('floor', 'ring', 'cylinder')]
     m = 1e-3
+    keep = [k for k in cfg.keep_out if k['kind'] in ('floor', 'cylinder')]
+    keep += [ring_keep_out()] if V15_RING else [k for k in cfg.keep_out if k['kind'] == 'ring']
     bz = (U.LID_Z[1]) * m
     keep += [dict(kind='box', min=[-0.13, -0.06, bz], max=[-0.01, 0.06, bz + 0.07], note='the bin: from above only'),
              dict(kind='box', min=[U.LID_X[0] * m, -U.LID_Y * m, U.LID_Z[0] * m], max=[U.LID_X[1] * m, U.LID_Y * m, U.LID_Z[1] * m], note='the bin deck'),
@@ -103,33 +117,9 @@ def path_qs(path, step=0.03):
 
 
 def static_robot():
-    """name -> solid of everything but the arm (robot frame, pods at nominal)"""
-    import base as B
-    import chassis as C
-    import first_floor as FF
-    import pod as P
-    import pod_lean as L
-    import upper as U
-    printed, bought, vendor, hw, _ = U.build()
-    out = dict(printed, **bought)
-    out.update({k: s for k, s in U.load_vendor({k: v for k, v in vendor.items() if not k.startswith('arm_')}).items()})
-    parts, chw, env, _ = C.build(FF.pod_geometry())
-    out.update(parts)
-    out.update({k: v for k, v in env.items() if k not in ('env_arm_riser', 'env_d435', 'env_lidar') and not k.startswith('env_d435_fov')})   # round 15:
-                                                                       # the FOV envelopes are views, the arm works in them
-    import sw_robot_parts as SRP
-    import build123d as b
-    vp = SRP.vendor_poses()
-    out['env_lidar'] = env['env_lidar']                                # v13: the D435 is on the riser (upper.py's parts above)
-    sp, _ = L.build_static()
-    unit = P.wheel_unit()
-    sh, _ = L.posed(sp, unit, 0.0)
-    for i, name in enumerate(B.NAMES):
-        for k, s in sh.items():
-            if k.startswith(('roller_core', 'roller_sleeve', 'bearing_687', 'bolt_')):
-                continue
-            out[f'{name}/{k}'] = B.place3d(s, i)
-    return out
+    """name -> solid of everything but the arm (robot frame, pods at nominal): world.py's v15 robot"""
+    import world as WD
+    return {k: v for k, v in WD.static_robot(0.0).items() if not k.startswith('env_d435')}
 
 
 def main():
@@ -203,10 +193,13 @@ def main():
         rep['legs'][nm] = dict(min_mm=round(best[0], 1), arm_body=best[1], nearest=best[2])
         print(f'  {nm}: {rep["legs"][nm]}', flush=True)
     rep['contacts_under_2mm'] = {k: v for k, v in rep['legs'].items() if v['min_mm'] < 2.0}
-    (VAL / 'arm_sweep.json').write_text(json.dumps(rep, indent=1), encoding='utf-8')
+    rep['planner_ring'] = [k for k in cfg.keep_out if k['kind'] == 'ring'][0]
+    (VAL / ('arm_sweep.json' if V15_RING else 'arm_sweep_robot_ring.json')).write_text(json.dumps(rep, indent=1), encoding='utf-8')
     print(json.dumps(rep['contacts_under_2mm'], indent=1))
     print('min per leg type:', {t: min(v['min_mm'] for k, v in rep['legs'].items() if k.startswith(t)) for t in {k.split()[0] for k in rep['legs']}})
 
 
 if __name__ == '__main__':
+    if sys.argv[1:] == ['robot_ring']:                                  # plan with the robot's own ring (omni_arm robot_arm.json)
+        V15_RING = False
     main()

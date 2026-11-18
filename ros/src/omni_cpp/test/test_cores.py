@@ -3,8 +3,10 @@ outputs (to rounding). The C++ side is test/core_check.cpp, built here on first 
 as omni_catch's fast detector) into ~/.cache/omni_cpp/<hash of the sources>. Run from the repo root, Windows or WSL:
     & $py -m pytest -q ros/src/omni_cpp/test
 
-The arm cores (STS3215 bus, calibration, forward kinematics, motion player) beside the glue (clock map, link, mode mux, heading, scans) and the catch path (design.md 4.9: the robot config, ball flight,
-intercept planner, detector, the perception's filter on synthetic stereo throws, and the game tick by tick against a
+The arm cores (STS3215 bus, calibration, forward kinematics, motion player) beside the glue (clock map, link, mode
+mux, heading, scans; the RPLIDAR driver: its decode against omni_console/rplidar.py on the bench's recordings, its
+sample-clock stamps against known times) and the catch path (design.md 4.9: the robot config, ball flight, intercept
+planner, detector, the perception's filter on synthetic stereo throws, and the game tick by tick against a
 small world the Python's own commands drive).
 """
 
@@ -24,7 +26,7 @@ import pytest
 
 PKG = Path(__file__).resolve().parents[1]
 SRC = PKG.parent
-for p in ("omni_mcu", "omni_catch", "omni_bringup", "omni_perception", "omni_arm"):
+for p in ("omni_mcu", "omni_catch", "omni_bringup", "omni_perception", "omni_arm", "omni_console"):
     sys.path.insert(0, str(SRC / p))
 
 from omni_arm import motion as arm_motion                                        # noqa: E402
@@ -40,6 +42,7 @@ from omni_catch.modes import ModeMux                                            
 from omni_catch.perception import Perception                                     # noqa: E402
 from omni_catch.robot_config import CONFIG, RobotConfig                          # noqa: E402
 from omni_catch.tracker import TrackView, sphere_image                           # noqa: E402
+from omni_console import rplidar                                                 # noqa: E402
 from omni_mcu import protocol as P                                               # noqa: E402
 from omni_mcu.clock_sync import ClockSync                                        # noqa: E402
 from omni_perception.scan_time import ScanClock, deskew, floor_mask, sample_times   # noqa: E402
@@ -392,6 +395,153 @@ def test_scan_clock_like_the_python():
         assert close(v, gv, 1e-6) and close(T, gT, 1e-9), ((v, T), got)
     # a turn without a scan_time (i 80) keeps counting with the known period: the line stays sane
     assert all(abs(T - 0.1002) < 2e-3 for _, T in py[5:])
+
+
+# -- the RPLIDAR A2M8 driver (rplidar.hpp) ---------------------------------------------------------------------------
+LIDAR_DATA = PKG / "test" / "data"
+
+
+def lidar_fixture(mode: str):
+    """A bench recording (characterization/lidar, Nov 16: the first seconds of a scan as the Pi's reads got them):
+    chunk arrival times (s), chunk sizes, the bytes, the answer type and the sample period."""
+    d = np.load(LIDAR_DATA / f"a2m8_{mode}.npz")
+    return d["t_us"] * 1e-6 + 1000.0, d["n"].astype(int), d["data"].tobytes(), int(d["ans_type"]), \
+        float(d["us_per_sample"]) * 1e-6
+
+
+def lidar_run(ans: int, period: float, chunks, bins: int = 360, latency: float = 0.0005, samples=True, anchors=True):
+    lines = [f"cfg {ans} {period!r} 115200 {latency!r} {bins} {int(samples)} {int(anchors)}"]
+    lines += [f"feed {float(t)!r} {b.hex()}" for t, b in chunks if b]
+    lines.append("stats")
+    out = {"s": [], "a": [], "turn": [], "r": [], "stats": []}
+    for ln in run("lidar", lines):
+        k, *v = ln.split()
+        out[k].append([float(x) for x in v])
+    return out
+
+
+def split_chunks(t, n, data):
+    off = np.concatenate([[0], np.cumsum(n)])
+    return [(float(t[i]), data[off[i]:off[i + 1]]) for i in range(len(n))]
+
+
+@pytest.mark.parametrize("mode", ["stability", "express", "boost", "standard"])
+def test_rplidar_decodes_the_bench_recordings_like_the_console_reader(mode):
+    t, n, data, ans, period = lidar_fixture(mode)
+    chunks = split_chunks(t, n, data)
+    parser, py = rplidar.PARSERS[ans](), []
+    for _, b in chunks:
+        py += parser.feed(b)
+    out = lidar_run(ans, period, chunks, anchors=False)
+    cc = [(s[2], s[3], int(s[4]), bool(s[5])) for s in out["s"]]
+    assert len(py) > 3000 and len(cc) == len(py)
+    assert cc == [(a, d, q, bool(sync)) for a, d, q, sync in py]
+    bad, packets, lost, breaks = out["stats"][0][:4]
+    assert bad == parser.bad and lost == 0 and breaks == 0
+    idx = [int(s[0]) for s in out["s"]]
+    assert idx == list(range(idx[0], idx[0] + len(idx)))           # every sample counted, none twice
+
+
+def test_rplidar_stamps_the_bench_recording_from_its_sample_clock():
+    """6 s of Stability as the Pi read it (1,000 reads a second, USB and the reader's jitter in them): the line sits
+    under every packet's arrival and hugs the fastest ones, and the turns' stamps follow their own scan times (what
+    sllidar's handover stamps miss by 8-16 ms, characterization/lidar)."""
+    t, n, data, ans, period = lidar_fixture("stability")
+    out = lidar_run(ans, period, split_chunks(t, n, data), samples=False)
+    res = np.array([a[3] for a in out["a"]])
+    assert res.min() > -1e-9                                         # arrivals never before the line
+    bad, packets, lost, breaks, lines, per, ppm, spread, turns, dropped = out["stats"][0]
+    assert lines == 1 and breaks == 0 and lost == 0
+    assert abs(ppm) < 200 and spread < 1e-3
+    tr = np.array(out["turn"])                                       # stamp, inc, scan_time, samples, dropped, rms
+    assert len(tr) >= 60
+    hz = 1 / tr[:, 2]
+    assert np.all((hz > 9.0) & (hz < 13.0)) and hz[-20:].min() > 12.0     # still spinning up at the scan's start
+    assert np.all((tr[:, 3] > 290) & (tr[:, 3] < 430))
+    gap = np.diff(tr[:, 0]) - tr[:-1, 2]                             # stamp to stamp: a turn, its own scan time
+    assert np.abs(gap).max() < 1.5e-3 and np.abs(gap[-20:]).max() < 2e-4     # 1 ms while it speeds up 2 % a turn
+    assert np.all(tr[:, 5] < 2e-4)                                   # samples on the encoder's line within 0.2 ms
+    assert dropped < 0.005 * tr[:, 3].sum()                         # the seam follows the bearing offset
+    r = np.array(out["r"])
+    assert np.isfinite(r).mean() > 0.5                               # the bench room: most bins have a return
+
+
+def _express_stream(seed: int):
+    """An A2M8 in Express (4 k/s, 32 samples a capsule) with known sample times: the head at ~12.4 Hz drifting, in a
+    4 x 3 m room, each capsule's last byte arriving 84 x 10 / 115200 s + 0.5 ms + 0-1 ms after its last sample, the
+    reader late now and then (up to 20 ms, capsules then arriving together), capsules split across reads; a capsule
+    lost (230), 7 bytes of garbage (400), a corrupted capsule (600), and 1.2 s of capsules lost (900-1049: the USB
+    stalled while the head kept sampling)."""
+    rnd = np.random.default_rng(seed)
+    K, period, t0 = 32, 250e-6, 2000.0
+    n_cap = 1400
+    k = np.arange(n_cap * K + 1)
+    T = t0 + k * period
+    hz = 12.4 + 0.15 * np.sin(2 * math.pi * (T - t0) / 40.0)       # the open-loop motor creeping
+    theta = 33.0 + 360.0 * np.concatenate([[0], np.cumsum(hz[:-1] * period)])     # deg, clockwise
+    chunks, t_prev = [], t0
+    for c in range(n_cap):
+        s0 = c * K
+        a0 = int(round(theta[s0] % 360.0 * 64)) & 0x7FFF
+        body = bytes()
+        body += (a0 | (0x8000 if c == 0 else 0)).to_bytes(2, "little")
+        for pos in range(16):
+            ds = []
+            for j in (0, 1):
+                ang = theta[s0 + 2 * pos + j] % 360.0
+                ds.append(int(round(rplidar.FakeSerial.range_mm(ang))))
+            body += (ds[0] << 2).to_bytes(2, "little") + (ds[1] << 2).to_bytes(2, "little") + b"\x00"
+        cs = 0
+        for b in body:
+            cs ^= b
+        cap = bytes((0xA0 | (cs & 0xF), 0x50 | (cs >> 4))) + body
+        if c == 600:
+            cap = cap[:40] + bytes((cap[40] ^ 0x5A,)) + cap[41:]
+        t_arr = T[s0 + K - 1] + 84 * 10 / 115200 + 0.0005 + rnd.uniform(0, 0.001)
+        if rnd.random() < 0.08:
+            t_arr += rnd.uniform(0, 0.02)
+        t_arr = max(t_arr, t_prev)
+        t_prev = t_arr
+        if c == 230 or 900 <= c < 1050:
+            continue
+        if c == 400:
+            chunks.append((t_arr - 0.003, bytes(rnd.integers(0, 256, 7, dtype=np.uint8))))
+        cut = int(rnd.integers(1, 84))
+        chunks.append((t_arr - (84 - cut) * 10 / 115200, cap[:cut]))
+        chunks.append((t_arr, cap[cut:]))
+    return chunks, T, theta
+
+
+def test_rplidar_stamps_known_sample_times_through_lost_capsules_and_a_pause():
+    chunks, T, theta = _express_stream(3)
+    bins = 360
+    out = lidar_run(rplidar.ANS_EXPRESS, 250e-6, chunks, bins=bins, anchors=False)
+    bad, packets, lost, breaks, lines, per, ppm, spread, turns, dropped = out["stats"][0]
+    assert lost == 2                                                 # 230 and the corrupted 600, counted by angle
+    assert breaks == 1 and lines == 2                                # the stall can't be counted: a new line
+    # the samples' times against the truth up to the stall (lost capsules counted, so the line held)
+    s = np.array(out["s"])
+    before = s[:, 0] < 900 * 32
+    err = s[before, 6] - T[s[before, 0].astype(int)]
+    assert before.sum() > 25000
+    assert np.abs(err).max() < 2e-4 and np.abs(np.median(err)) < 5e-5
+    # each turn's stamp, before and after the stall: when the encoder was at bin bins - 1's centre (1 deg past the 0
+    # mark), by the truth
+    tr = np.array(out["turn"])
+    assert len(tr) >= 120 and np.any(tr[:, 0] > T[1050 * 32])
+    inc = 360.0 / bins
+    for stamp, ti, st, ns, nd, rms in tr:
+        i = int(np.searchsorted(T, stamp))
+        th = np.interp(stamp, T[i - 1:i + 1], theta[i - 1:i + 1])
+        assert abs((th - inc + 180.0) % 360.0 - 180.0) < 0.25        # within 0.25 deg: 56 us at 12.4 Hz
+        assert ti == pytest.approx(inc / (360.0 * 12.4), rel=0.02)
+    # the grid: bin i at i x 1 deg counter-clockwise from the lidar's 0 mark, the room's range there
+    r = np.array(out["r"])
+    phi = np.arange(bins) * inc
+    want = np.array([rplidar.FakeSerial.range_mm((360.0 - p) % 360.0) for p in phi]) / 1000.0
+    ok = np.isfinite(r) & (want > 0)
+    assert ok.mean() > 0.6
+    assert np.median(np.abs(r - want)[ok]) < 0.01
 
 
 # -- the catch path (design.md 4.9) -----------------------------------------------------------------------------------

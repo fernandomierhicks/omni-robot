@@ -1,5 +1,5 @@
 """SolidWorks viewing assembly of the whole v15 robot (the MID DECK: four deck pieces at z 80..100 with the pods hanging under them, the
-bumper, lidar pedestal and v14's fins on the deck; the upper robot, the D435 on the arm riser), built from sw_robot_parts.py's STEPs (imported
+bumper, lidar pedestal and the generated fins on the deck, the battery under it; the upper robot, the D435 on the arm riser), built from sw_robot_parts.py's STEPs (imported
 parts: not native features). Only the suspension has real mates; everything else is fixed where build123d put it.
 Every file it reads or writes is inside cad/v15 (cad/solidworks.md section 17): the SolidWorks helpers are this folder's own subasm.py /
 mate_api.py / sw_native.py, the vendor RPLIDAR part is reference/parts/RPLIDAR.SLDPRT, and the D435 is a STEP part (reference/parts/d435_source.step).
@@ -7,7 +7,7 @@ mate_api.py / sw_native.py, the vendor RPLIDAR part is reference/parts/RPLIDAR.S
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py import
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py roller wheel motor unsprung static
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py pod
-    C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py group_frame group_mounts group_bumper group_reference
+    C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py group_frame group_mounts group_bumper group_battery group_reference
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py group_upper      (then group_electronics, group_arm, group_fasteners, group_harness: one per call)
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py robot test paths
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py interference
@@ -15,24 +15,27 @@ mate_api.py / sw_native.py, the vendor RPLIDAR part is reference/parts/RPLIDAR.S
         whole run hit SolidWorks' ~2000-row cap; these check the robot without it, then each lead alone against everything)
 
 Files go to cad/v15/solidworks/: the top V15_robot.SLDASM alone (the one to open), assemblies/V15_*.SLDASM, parts/V15_*.SLDPRT. Every pod file
-exists in both hands (suffix _m: the FL and RR pods are the mirror image).
+exists in both hands (suffix _m: the FL and RR pods are the mirror image). Nov 15: the parts that carry a pod's number (hangers, beam, towers,
+fork halves: manifest pod.labelled) are one file per pod (<part>_<pod>, in its hand), so the pod assemblies are one per pod too (V15_pod_FL,
+V15_pod_static_FL, V15_unsprung_FL ...); wheel, motor and roller stay one per hand.
 
     V15_robot             robot z up = SolidWorks Y, front toward the Front view; everything fixed; the four pods are flexible
     |- V15_frame          the mid deck: four pieces (deck_FL / RL / RR / FR), joined by dovetail half-laps on the midlines
-    |- V15_mounts         lidar pedestal (on the deck), 5 second-floor fins (standing on the deck)
+    |- V15_mounts         lidar pedestal (on the deck), 5 second-floor fins (fins.py: generated, standing on the deck)
     |- V15_bumper         4 quarters, hung from the deck's rim
+    |- V15_battery        the pack under the deck's centre, its 4 corner clips and 2 straps
     |- V15_reference      the vendor RPLIDAR part and the D435's depth / RGB fields of view from the riser (see-through)
     |- V15_upper          second floor (4 quadrants), arm riser + adapter, D435 cradle, electronics holders, bin deck + posts, face frame
-    |- V15_electronics    computer, battery, power board, Teensy carrier, servo adapter, 12 V buck, bin, display, mics, speaker, e-stop, switch, the D435
+    |- V15_electronics    computer, power board, Teensy carrier, servo adapter, 12 V buck, bin, display, mics, speaker, e-stop, switch, the D435
     |- V15_arm            the SO-101's official parts at the stow pose (fixed)
     |- V15_fasteners      every screw outside the pods: magenta library parts (fst_*)
-    +- V15_pod (RL, FR) / V15_pod_m (FL, RR)
+    +- V15_pod_<FL|RL|RR|FR>   (FL, RR: the mirror hand)
        |                   static fixed; unsprung hinged on the static parts' 7.2 mm spigots in its 627s (concentric + the fork's and the
        |                   inner hanger's Right Planes); each spring plunger slides in its tower's guide with its dome tangent to its arm's pad;
        |                   Suspension_travel: the i1 plunger's lift, droop .. bump
-       |- V15_pod_static  hangers, beam (droop lug), the two towers (they stand on the deck), 4 springs (nominal length), fasteners
-       |- V15_unsprung    fork halves, 2 x 627 (in the arms), rings, 6804 retainer, wheel, motor, tie bolts, ring / motor screws
-       |  |- V15_wheel    hub, cartridge, 6804, 12 x V15_roller (core, sleeve, tread, 2 x 687), 12 axles, 3 cartridge + 3 rotor screws
+       |- V15_pod_static_<pod>  hangers, beam, its pin and droop lug, the two towers (on the deck), 4 spring stacks (nominal), fasteners
+       |- V15_unsprung_<pod>    fork halves, 2 x 627 (in the arms), rings, 6804 retainer, wheel, motor, tie bolts, ring / motor screws
+       |  |- V15_wheel    hub, cartridge cup + cap, 6804, 12 x V15_roller (core, sleeve, tread, 2 x 687), 12 axles, 3 cartridge + 3 rotor screws
        |  +- V15_motor    stator, rotor, XT30 plug, pins, leads
        +- 4 spring plungers
     |- V15_harness        the leads along harness_route.py's routes and their plugs (purchased items, review only; Nov 14)
@@ -226,16 +229,30 @@ def stage_motor(sw):
         fixed_asm(sw, 'motor' + h, [(k, part(k + h), np.eye(4)) for k in MOTOR])
 
 
+LABELLED = tuple(MAN['pod'].get('labelled', ()))                       # Nov 15: parts carrying their pod's number: one file per pod
+
+
+def pod_hand(name):
+    return '_m' if MAN['pods'][name]['mirrored'] else ''
+
+
+def pod_file(k, name):
+    """the part file of pod part k in pod `name`: its own (<k>_<pod>) if it carries the pod's marks, else its hand's"""
+    return part(f'{k}_{name}') if k in LABELLED else part(k + pod_hand(name))
+
+
 def stage_unsprung(sw):
-    for h in HANDS:
-        fixed_asm(sw, 'unsprung' + h, [(k, part(k + h), np.eye(4)) for k in FORK]
+    for name in MAN['pods']:                                          # Nov 15: one per pod (the fork halves carry its number)
+        h = pod_hand(name)
+        fixed_asm(sw, 'unsprung_' + name, [(k, pod_file(k, name), np.eye(4)) for k in FORK]
                   + [('wheel', asm_path('wheel' + h), np.eye(4)), ('motor', asm_path('motor' + h), np.eye(4))] + fasteners('unsprung' + h))
 
 
 def stage_static(sw):
-    for h in HANDS:
-        fixed_asm(sw, 'pod_static' + h, [(k, part(k + h), np.eye(4)) for k in (*STATIC, *('die_spring_' + pk for pk in PLUNGERS))]
-                  + fasteners('static' + h))
+    for name in MAN['pods']:                                          # Nov 15: one per pod (hangers, beam, towers carry its number)
+        h = pod_hand(name)
+        fixed_asm(sw, 'pod_static_' + name, [(k, pod_file(k, name), np.eye(4)) for k in STATIC]
+                  + [('die_spring_' + pk, part('die_spring_' + pk + h), np.eye(4)) for pk in PLUNGERS] + fasteners('static' + h))
 
 
 def hand(h):
@@ -246,9 +263,9 @@ def hand(h):
     return sy, piv, axes
 
 
-def aliases(a, h):
-    a.alias_nested('static', S.keys_of_file('V15_pod_static' + h))
-    a.alias_nested('unsprung', S.keys_of_file('V15_unsprung' + h))
+def aliases(a, name):
+    a.alias_nested('static', S.keys_of_file('V15_pod_static_' + name))
+    a.alias_nested('unsprung', S.keys_of_file('V15_unsprung_' + name))
 
 
 def tangent(a, name, plunger_key, fork_key, axis_xy, pad_z):
@@ -289,16 +306,17 @@ def tangent(a, name, plunger_key, fork_key, axis_xy, pad_z):
 
 def stage_pod(sw):
     pl = MAN['plungers']
-    for h in HANDS:
+    for name in MAN['pods']:                                          # Nov 15: one pod assembly per pod (its marked parts)
+        h = pod_hand(name)
         _, piv, axes = hand(h)
-        a = Asm(sw, asm_path('pod' + h))
-        a.add('static', asm_path('pod_static' + h), np.eye(4), fixed=True)
-        a.add('unsprung', asm_path('unsprung' + h), np.eye(4))
+        a = Asm(sw, asm_path('pod_' + name))
+        a.add('static', asm_path('pod_static_' + name), np.eye(4), fixed=True)
+        a.add('unsprung', asm_path('unsprung_' + name), np.eye(4))
         for pk in PLUNGERS:
             a.add('spring_plunger_' + pk, part(f'spring_plunger_{pk}{h}'), np.eye(4))
         a.save(check=False)
         a.refresh()
-        aliases(a, h)
+        aliases(a, name)
         m = a.mater
         # v15: the unsprung mass hinges on the static parts' 7.2 mm spigots in its 627s' bores, located in x by the fork's and the inner hanger's
         # Right Planes (both parts sit in the pod frame)
@@ -330,7 +348,7 @@ def stage_robot(sw):
     for g in MAN['groups']:
         a.add(g, asm_path(g), TO_SW, fixed=True)
     for name, p in MAN['pods'].items():
-        a.add('pod_' + name, asm_path('pod' + ('_m' if p['mirrored'] else '')), TO_SW @ np.array(p['pose']), fixed=True)
+        a.add('pod_' + name, asm_path('pod_' + name), TO_SW @ np.array(p['pose']), fixed=True)
     for name in MAN['pods']:
         a.flexible('pod_' + name)
     rep = finish(a)
@@ -338,21 +356,22 @@ def stage_robot(sw):
         raise RuntimeError(f'robot mate errors {rep["mate_errors"]}')
 
 
-def test_pod(sw, h):
-    """for one hand: 1) with Suspension_travel suppressed, turn the unsprung mass to droop / nominal / bump and
+def test_pod(sw, name):
+    """for one pod: 1) with Suspension_travel suppressed, turn the unsprung mass to droop / nominal / bump and
     compare the axle and plunger lifts with build123d's; 2) unsuppressed, drag it past each end (IDragOperator) and check it stops."""
     import pythoncom
     from win32com.client import VARIANT
     p, pl = MAN['poses_deg'], MAN['plungers']
+    h = pod_hand(name)
     sy, piv, _ = hand(h)
-    fname = f'V15_pod{h}.SLDASM'
+    fname = f'V15_pod_{name}.SLDASM'
     S.discard(sw, fname)
-    a = Asm(sw, asm_path('pod' + h), fresh=False)
+    a = Asm(sw, asm_path('pod_' + name), fresh=False)
     a.refresh()
     tops = M.comps(a.model, True)
-    a.parts = {Path(cp.GetPathName()).stem.replace('V15_', '').removesuffix(h): cp for cp in tops.values()}   # file names -> keys
+    a.parts = {Path(cp.GetPathName()).stem.replace('V15_', '').removesuffix('_' + name).removesuffix(h): cp for cp in tops.values()}   # files -> keys
     a.parts['static'] = a.parts.pop('pod_static')
-    aliases(a, h)
+    aliases(a, name)
     a.mater = M.Mater(sw, a.model, prefix='')
     fork = a.parts['unsprung']
     mu = wrap(sw.GetMathUtility(), sld.IMathUtility)
@@ -380,18 +399,18 @@ def test_pod(sw, h):
     rep = dict(geometry={}, limit={})
     suppress(True)
     now = 0.0
-    for name in ('droop', 'nominal', 'bump', 'nominal'):
-        deg = p[name]
+    for pose_name in ('droop', 'nominal', 'bump', 'nominal'):
+        deg = p[pose_name]
         for step in np.linspace(now, deg, int(abs(deg - now)) + 2)[1:]:      # 1 deg steps: the solver follows a drag, not a jump
             M.set_placement(sw, fork, rot(step)[:3, :])
             a.model.EditRebuild3()
         now = deg
         axle, lift = read()
-        rep['geometry'][name] = dict(axle_yz=axle, plunger_lift=lift, expected_lift={k: round(v, 2) for k, v in pl['lift'][name].items()},
-                                     mate_errors=M.mate_errors(a.model))
-        print(' ', h or 'right', name, rep['geometry'][name], flush=True)
+        rep['geometry'][pose_name] = dict(axle_yz=axle, plunger_lift=lift, expected_lift={k: round(v, 2) for k, v in pl['lift'][pose_name].items()},
+                                          mate_errors=M.mate_errors(a.model))
+        print(' ', name, pose_name, rep['geometry'][pose_name], flush=True)
     suppress(False)
-    for name, deg in (('past bump', p['bump'] - 6.0), ('past droop', p['droop'] + 6.0)):
+    for pose_name, deg in (('past bump', p['bump'] - 6.0), ('past droop', p['droop'] + 6.0)):
         dop = wrap(a.asm.GetDragOperator(), sld.IDragOperator)
         dop.AddComponent(fork, False)
         dop.CollisionDetectionEnabled = False
@@ -405,8 +424,8 @@ def test_pod(sw, h):
         dop.EndDrag()
         a.model.EditRebuild3()
         axle, lift = read()
-        rep['limit'][name] = dict(axle_yz=axle, plunger_lift=lift, mate_errors=M.mate_errors(a.model))
-        print(' ', h or 'right', name, rep['limit'][name], flush=True)
+        rep['limit'][pose_name] = dict(axle_yz=axle, plunger_lift=lift, mate_errors=M.mate_errors(a.model))
+        print(' ', name, pose_name, rep['limit'][pose_name], flush=True)
     g, lim, k = rep['geometry'], rep['limit'], pl['limit_key']
     ok = abs(g['droop']['axle_yz'][1] + DROOP_MM) < 0.1 and abs(g['bump']['axle_yz'][1] - BUMP_MM) < 0.1 and abs(g['nominal']['axle_yz'][1]) < 0.05
     ok &= all(abs(r['plunger_lift'][pk] - r['expected_lift'][pk]) < 0.05 for r in g.values() for pk in PLUNGERS)
@@ -443,7 +462,7 @@ def test_robot(sw):
 
 
 def stage_test(sw):
-    rep = {('right' if not h else 'mirror'): test_pod(sw, h) for h in HANDS}
+    rep = {f'pod_{n}': test_pod(sw, n) for n in MAN['pods']}             # Nov 15: every pod (each has its own marked parts)
     rep['robot'] = test_robot(sw)
     rep['pass'] = all(r['pass'] for r in rep.values())
     print(json.dumps(rep['robot']), '\n  pass' if rep['pass'] else '\n  FAIL', flush=True)
@@ -573,7 +592,7 @@ def stage_interference(sw, suppress=(), out='interference.json'):
                  and sorted(f.removesuffix('_m') for f in r['files']) == ['roller_sleeve', 'wheel_hub']]
     # v15: each 627's bore on a static spigot (7.2 mm in its 7.0 bore, coupon_627's fit): ~6.7 mm3 a spigot, by design
     spigot_fit = [r for r in part_part_all if r not in vendor_internal and len(r['files']) == 2 and r['mm3'] <= 8.0
-                  and any(f.startswith('bearing_627') for f in r['files']) and any(f.startswith(('rx_hanger', 'rx_beam')) for f in r['files'])]
+                  and any(f.startswith('bearing_627') for f in r['files']) and any(f.startswith(('rx_hanger', 'rx_beam', 'rx_pin')) for f in r['files'])]
     # v15: the bearings' press fits by design: each 687 on its roller sleeve (7.15 in the 7.0 bore, coupon_687), each 627 in its fork seat
     # (21.95 seat on the 22.0 race, coupon_627); and plain contacts (under 0.02 mm3: touching faces the detection counts)
     def pair(r, a_, b_):

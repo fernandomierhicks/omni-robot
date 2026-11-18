@@ -21,6 +21,7 @@ NODES = {
     "scan_prep": SRC / "omni_cpp" / "src" / "scan_prep_node.cpp",
     "heading_node": SRC / "omni_cpp" / "src" / "heading_node.cpp",
     "arm_driver": SRC / "omni_cpp" / "src" / "arm_driver_node.cpp",
+    "rplidar": SRC / "omni_cpp" / "src" / "rplidar_node.cpp",
     "catch_perception": SRC / "omni_cpp" / "src" / "catch_perception_node.cpp",
     "catch_behavior": SRC / "omni_cpp" / "src" / "catch_behavior_node.cpp",
     "arm_node": SRC / "omni_arm" / "omni_arm" / "arm_brain.py",

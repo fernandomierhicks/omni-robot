@@ -1,46 +1,70 @@
-"""One STEP of the whole v15 robot for review: every printed part in the robot frame, at the pods' nominal pose. Printed parts only
-(Fernando's STEP rule: no fasteners, bearings, bought or vendor parts).
+"""One STEP of the whole v15 robot for review (step_export/robot_assembly.step): every printed part in the robot frame at the pods' nominal pose,
+**with every fastener and bearing as a real model in magenta** (cad/solidworks.md 15: assembly STEPs show the bearings and fasteners; the
+per-part print STEPs in step_export/<group>/ stay printed parts only). Other bought parts (motors, electronics, the battery, the SO-101) are
+left out: SolidWorks (solidworks/V15_robot.SLDASM) shows everything.
 
-    python -B robot_step.py        (omni-robot-sim interpreter; writes step_export/robot_assembly.step)
+    python -B robot_step.py        (omni-robot-sim interpreter)
 
-v15 (Nov 14 2026): the MID-DECK robot: chassis_mid.py's deck (four pieces), bumper, lidar pedestal and fins; pod_mid.py's pods (fork, hangers,
-beam, towers, rings, shims, retainer and the wheel's printed parts) at layout F; upper.py's second floor and everything on it (unchanged from
-v14 in place: the floor stays at z 176.5). The hardware-complete assembly of the base is step_export/chassis_mid/v15_mid_base_assembly.step.
+The STEP is read back afterwards and its solid count and bounding box written to validation/robot/robot_step.json, with the same for the
+base's hardware-complete assembly (step_export/chassis_mid/v15_mid_base_assembly.step).
 """
+import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import base as B                                                       # noqa: E402
 import chassis_mid as CM                                               # noqa: E402
-import pod_mid as PM                                                   # noqa: E402
+import hardware as H                                                   # noqa: E402
 import pod_rx as R                                                     # noqa: E402
 import upper as U                                                      # noqa: E402
 import wheel_motor as W                                                # noqa: E402
-import palette as PAL                                                  # noqa: E402
+import world as WD                                                     # noqa: E402
 from step_colour import write_step                                     # noqa: E402
 
 OUT = W.ROOT / 'step_export' / 'robot_assembly.step'
-POD_PRINTED = ('pod_fork_outer', 'pod_fork_inner', 'rx_hanger', 'rx_beam', 'rx_tower', 'rx_ring', 'rx_shim', 'pod_retainer', 'wheel_hub',
+VAL = W.ROOT / 'validation' / 'robot'
+POD_PRINTED = ('pod_fork_outer', 'pod_fork_inner', 'rx_hanger', 'rx_beam', 'rx_pin', 'rx_lug', 'rx_tower', 'rx_ring', 'pod_retainer', 'wheel_hub',
                'wheel_cartridge', 'roller_core', 'roller_sleeve', 'roller_tread')
+POD_HARDWARE = ('bolt', 'nut', 'bearing', 'plunger', 'spring')        # the springs and plunger bolts are bought too: magenta as the rest
+
+
+def reimport(path):
+    """(solids, bounding box) of a STEP read back"""
+    import build123d as b
+    s = b.import_step(str(path))
+    bb = s.bounding_box()
+    return dict(file=str(path.relative_to(W.ROOT)), solids=len(s.solids()), bbox_min=[round(v, 1) for v in tuple(bb.min)],
+                bbox_max=[round(v, 1) for v in tuple(bb.max)])
 
 
 def main():
     items = {}
-    fp = CM.pod_build()[4]
-    parts, _, _ = CM.build(fp)
+    parts, hw, _ = WD.base()
     for k, s in parts.items():
-        items[f'base/{k}'] = (s, PAL.ORANGE if k.startswith('bumper') else PAL.WHITE)
-    for n, (st, mv) in CM.pods_placed(0.0).items():
+        items[f'base/{k}'] = (s, CM.colour(k))
+    for k, s in hw.items():
+        items[f'base/{k}'] = (s, H.MAGENTA)
+    for n, (st, mv) in CM.pods_placed(0.0, labelled=True).items():    # Nov 15: each pod's parts with its number and IN / OUT
         for k, s in {**st, **mv}.items():
             if k.startswith(POD_PRINTED):
                 items[f'{n}/{k}'] = (s, R.colour(k))
-    printed, bought, _, _, _ = U.build()
+            elif k.startswith(POD_HARDWARE):
+                items[f'{n}/{k}'] = (H.step_model(k, s), H.MAGENTA)
+    printed, _, _, uhw, _ = WD.upper()
     for k, s in printed.items():
         items[f'upper/{k}'] = (s, U.colour(k))
+    for n, r in enumerate(uhw):
+        items[f'upper/{r["name"]}#{n}'] = (H.solid(r), H.MAGENTA)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     write_step(items, OUT, 'robot_v15')
-    print('wrote', OUT, len(items), 'parts', flush=True)
+    print('wrote', OUT, len(items), 'items', flush=True)
+    VAL.mkdir(parents=True, exist_ok=True)
+    rep = dict(written=len(items), robot=reimport(OUT))
+    base = W.ROOT / 'step_export' / 'chassis_mid' / 'v15_mid_base_assembly.step'
+    if base.exists():
+        rep['base_assembly'] = reimport(base)
+    (VAL / 'robot_step.json').write_text(json.dumps(rep, indent=1), encoding='utf-8')
+    print(json.dumps(rep), flush=True)
 
 
 if __name__ == '__main__':

@@ -128,6 +128,22 @@
    "drawn": false,
    "note": "6S in: 12 AWG pigtail to the XT90 that mates the pack's"
   },
+  "bat_deck": {
+   "p": [
+    -128.0,
+    -17.0,
+    101.0
+   ],
+   "d": [
+    0,
+    0,
+    1
+   ],
+   "dev": "battery",
+   "conn": "lead",
+   "drawn": true,
+   "note": "v15: the board's XT90 lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+  },
   "pb_m1": {
    "p": [
     -32.0,
@@ -725,19 +741,67 @@
   {
    "id": "BAT",
    "a": "battery",
-   "b": "pb_bat",
-   "sig": "6S pack (18-25.2 V) in",
+   "b": "bat_deck",
+   "sig": "6S pack (18-25.2 V) in: the pack, its pigtail, the XT90 pair under the deck, the board lead up through the deck's lead hole",
    "conn": "XT90 pair",
    "lead": "bat",
    "awg": 10,
    "amps": 30.0,
    "route": false,
-   "survive": "battery removal: unplug the XT90 first (from the front-right, under the deck edge)",
+   "survive": "battery removal (v15): robot on its stand, unplug the XT90 under the deck, open the straps, the pack drops out",
    "od": 9.0,
    "bend_r": 12.0,
-   "what": "the pack's own XT90 pigtail, 2 x 10 AWG (OVONIC: VERIFY gauge and length)",
+   "what": "the pack's own XT90 pigtail, 2 x 10 AWG (HRB 6S 3300: VERIFY connector, gauge and length)",
    "length_mm": null,
    "a_port": null,
+   "b_port": {
+    "p": [
+     -128.0,
+     -17.0,
+     101.0
+    ],
+    "d": [
+     0,
+     0,
+     1
+    ],
+    "dev": "battery",
+    "conn": "lead",
+    "drawn": true,
+    "note": "v15: the board's XT90 lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+   }
+  },
+  {
+   "id": "BAT_PB",
+   "a": "bat_deck",
+   "b": "pb_bat",
+   "sig": "6S in: the board's 12 AWG XT90 lead from the deck's lead hole to the power board",
+   "conn": "pigtail",
+   "lead": "pair12",
+   "awg": 12,
+   "amps": 30.0,
+   "route": true,
+   "survive": "stays (unplugged at the XT90 under the deck)",
+   "od": 7.0,
+   "bend_r": 14.0,
+   "what": "2 x 12 AWG silicone, twisted",
+   "length_mm": 603,
+   "a_port": {
+    "p": [
+     -128.0,
+     -17.0,
+     101.0
+    ],
+    "d": [
+     0,
+     0,
+     1
+    ],
+    "dev": "battery",
+    "conn": "lead",
+    "drawn": true,
+    "note": "v15: the board's XT90 lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+   },
    "b_port": {
     "p": [
      32.0,
@@ -765,7 +829,7 @@
    "awg": 22,
    "amps": 0.0,
    "route": false,
-   "survive": "stays with the pack; tucked along it under the strap",
+   "survive": "stays with the pack; its XH7 tucked against the pack's front end",
    "od": null,
    "bend_r": null,
    "what": "",
@@ -787,7 +851,7 @@
    "od": 8.0,
    "bend_r": 16.0,
    "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
-   "length_mm": 317,
+   "length_mm": 318,
    "a_port": {
     "p": [
      0.0,
@@ -835,7 +899,7 @@
    "od": 8.0,
    "bend_r": 16.0,
    "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
-   "length_mm": 438,
+   "length_mm": 439,
    "a_port": {
     "p": [
      0.0,
@@ -883,7 +947,7 @@
    "od": 8.0,
    "bend_r": 16.0,
    "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
-   "length_mm": 247,
+   "length_mm": 241,
    "a_port": {
     "p": [
      0.0,
@@ -931,7 +995,7 @@
    "od": 8.0,
    "bend_r": 16.0,
    "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
-   "length_mm": 408,
+   "length_mm": 399,
    "a_port": {
     "p": [
      0.0,
@@ -1447,7 +1511,7 @@
    "od": 4.6,
    "bend_r": 23.0,
    "what": "USB 3 lead (the D435 lead is drawn \u00d84.5, VERIFY)",
-   "length_mm": 286,
+   "length_mm": 258,
    "a_port": {
     "p": [
      59.8,
@@ -1783,7 +1847,7 @@
    "od": 3.8,
    "bend_r": 19.0,
    "what": "USB 2 lead",
-   "length_mm": 399,
+   "length_mm": 401,
    "a_port": {
     "p": [
      -163.0,

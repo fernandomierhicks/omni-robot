@@ -1,9 +1,15 @@
 """The MuJoCo sim as a ROS 2 robot (design.md 28). It is the clock: everything else runs with use_sim_time.
 
 Publishes  /clock                  rosgraph_msgs/Clock, every clock_period of sim time
-           /scan                   sensor_msgs/LaserScan, one A2M12 turn (1,600 samples, 10 Hz): stamp = the first
-                                   sample's time, time_increment = 1 / 16 kHz, so each sample has its own time
-           /imu                    sensor_msgs/Imu, BNO085 at 400 Hz: game rotation vector, gyro, accelerometer
+           /scan                   sensor_msgs/LaserScan, one lidar turn. The A2M8 (lidar:=A2M8, the default since
+                                   Nov 16; sensors.py): 320 samples at 12.5 Hz in Stability, published when the host
+                                   would have the turn; turning clockwise, so the array runs against time (Nov 17),
+                                   stamped as omni_cpp's rplidar_node stamps it, from the sample clock
+                                   (lidar_stamp:=clock; sllidar: as sllidar_ros2 would, late by a delivery; true: the
+                                   turn's first sample's own time). lidar:=A2M12, as before: one A2M12 turn (1,600
+                                   samples, 10 Hz, counter-clockwise, with time): stamp = the first sample's time,
+                                   time_increment = 1 / 16 kHz
+           /imu                    sensor_msgs/Imu, BNO085 at 100 Hz (the firmware's rate): game rotation vector, gyro, accelerometer
            /odom                   nav_msgs/Odometry, wheel odometry (50 Hz est) with covariance
            /tf                     odom -> base_link from the wheel odometry (publish_odom_tf; off when an EKF does it)
            /tf_static              base_link -> the robot's frames (robot_export.frames: laser, imu_link, cameras ...)
@@ -136,12 +142,27 @@ class Bridge(Node):
         kw = {} if flat < 0 else dict(lidar_flatness=math.radians(flat))
         if not P("lidar_mask", True).value:                 # the drawn robot's lidar shadows off (an experiment)
             kw["lidar_blocked"] = ()
+        # the lidar (design.md 2): A2M8 (the robot's since Nov 16, its mode) | A2M12 (earlier runs); the A2M8's stamps:
+        # clock (omni_cpp rplidar_node's, the robot's: the sample clock) | sllidar (as sllidar_ros2 would: late by a
+        # delivery) | true (the turn's first sample's own time)
+        lidar = P("lidar", "A2M8").value.upper()
+        lidar_mode = P("lidar_mode", "Stability").value.capitalize()
+        stamp_mode = P("lidar_stamp", "clock").value
+        if lidar == "A2M8":
+            kw["lidar_stamp"] = stamp_mode
+            bins = P("lidar_bins", -1).value                # rplidar_node's bins (stack.py: robot.yaml's); 0: one a
+            if bins >= 0:                                   # sample (the runs before Nov 17); -1: sensors.py's
+                kw["lidar_bins"] = bins
+            hz = P("lidar_hz", 0.0).value                   # the head's turn rate; 0: the bench's at PWM 660 (12.5 Hz).
+            if hz > 0:                                      # The sim's turns hold a whole number of samples (4000 / hz)
+                kw["lidar_scan_hz"] = hz
         fw = P("fw_div", 2).value                           # firmware every fw_div physics steps (2 = 1 kHz)
         hk = P("hook_div", 4).value                         # floor + electrical hooks (4 = 500 Hz, est: they vary slowly)
         sil = P("firmware", False).value and mode != "tour"  # v11: the C++ firmware in the loop
         self.cfg = CoreConfig(base=P("base", "v7").value, assist=P("assist", mode != "tour").value,
                               seed=P("seed", 0).value, mode=mode, tour_rounds=P("tour_rounds", 1).value,
                               shadow=("wheels+IMU", "wheels+IMU+lidar") if shadow else (), sensor_kw=kw,
+                              lidar=lidar, lidar_mode=lidar_mode,
                               fw_div=fw, floor_div=hk, post_div=hk, lidar_cast_dt=P("lidar_cast_dt", 0.002).value,
                               person=P("person", False).value,      # a person walking ahead (the console's Follow)
                               timing=P("timing", "ideal").value,    # design.md 10: "real" = drifting MCU clock
@@ -170,8 +191,9 @@ class Bridge(Node):
         self.core = SimCore(self.cfg)
         sc = self.sc = self.core.sn.cfg
         self.n_scan = int(round(sc.lidar_rate / sc.lidar_scan_hz))
-        self.get_logger().info(f"sensors: {sc.imu_part} at {sc.imu_rate:.0f} Hz, {sc.lidar_part} {sc.lidar_rate:.0f} "
-                               f"samples/s at {sc.lidar_scan_hz:.0f} Hz, scan plane tilt "
+        self.get_logger().info(f"sensors: {sc.imu_part} at {sc.imu_rate:.0f} Hz, {sc.lidar_part} {sc.lidar_mode} "
+                               f"{sc.lidar_rate:.0f} samples/s at {sc.lidar_rate / self.n_scan:.2f} Hz "
+                               f"({self.n_scan} a turn, stamps {sc.lidar_stamp}), scan plane tilt "
                                f"{math.degrees(math.atan(self.core.sn.flat_tilt[0])):.2f} deg")
         self.p_clock = self.create_publisher(Clock, "/clock", 10)
         self.p_scan = self.create_publisher(LaserScan, "/scan", 10)
@@ -525,14 +547,15 @@ class Bridge(Node):
 
     def pub_scan(self, s):
         m = LaserScan()
-        m.header.stamp = stamp(float(s.t[0]))
+        # the A2M8 (sensors.py, Nov 16): the driver's stamp and timing, published when the host would have the turn
+        m.header.stamp = stamp(float(s.t[0]) if s.stamp is None else s.stamp)
         m.header.frame_id = "laser"
-        inc = 2 * math.pi / self.n_scan
+        inc = 2 * math.pi / len(s.rng)                    # the A2M8's bins (sensors.py lidar_bins), else a sample each
         m.angle_min = 0.0
         m.angle_increment = inc
         m.angle_max = inc * (len(s.rng) - 1)
-        m.time_increment = 1.0 / self.sc.lidar_rate
-        m.scan_time = 1.0 / self.sc.lidar_scan_hz
+        m.time_increment = 1.0 / self.sc.lidar_rate if s.time_increment is None else s.time_increment
+        m.scan_time = 1.0 / self.sc.lidar_scan_hz if s.scan_time is None else s.scan_time
         m.range_min, m.range_max = map(float, self.sc.lidar_range)
         r = np.where(np.isfinite(s.rng), s.rng, np.inf).astype(np.float32)     # REP-117: no return = +inf
         a = array.array("f")

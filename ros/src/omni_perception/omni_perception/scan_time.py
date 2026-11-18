@@ -1,5 +1,10 @@
 """LiDAR sample times and de-skew (design.md 28, 32). No ROS here; scan_prep and the tests use it.
 
+Nov 17: the robot's lidar is the A2M8 and its driver is omni_cpp's rplidar_node (rplidar.hpp), which stamps each
+sample from the device's own sample clock: the stamp is bin n - 1's time, the array runs against time (time_order -1,
+robot.yaml), and ScanClock isn't needed. The text below is about sllidar_ros2's stamps, which ScanClock was for (and
+the sim reproduces with lidar_stamp:=sllidar).
+
 What the RPLIDAR A2M12 gives: no clock. Its serial stream (256 kbaud through the USB adapter) carries each sample's
 angle and range and a start-of-turn flag; the driver (sllidar_ros2) stamps a turn with the host's clock when it
 starts reading it, takes the turn's duration from its own clock, and sets time_increment = duration / (n - 1). So:

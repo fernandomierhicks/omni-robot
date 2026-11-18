@@ -17,13 +17,14 @@ ros/
 │   │                        TagDetection(s); SetMode,
 │   │                        ConsoleCommand                                                              → robot
 │   ├── omni_console/      ← the operator console: supervisor.py (serves web/, the page, and starts / stops the
-│   │                        steps: the page is the launcher; systemd/ for the Jetson), mission_node (missions,
+│   │                        steps: the page is the launcher; systemd/ for the robot computer), mission_node (missions,
 │   │                        settings, places, zones, programs, logs, status; runs slam_toolbox in the robot
 │   │                        step), console_web (the page alone) + ROS-free cores (missions, program, people,
 │   │                        calibration, zones, throws, health, session_log, cdr, tflite ...)         → robot
-│   ├── omni_bringup/      ← launch + config (EKF, slam_toolbox, Nav2, teleop, RViz), save_map; frames.py:
+│   ├── omni_bringup/      ← launch + config (EKF, slam_toolbox, Nav2, teleop, RViz), save_map, lifecycle_up
+│   │                        (brings slam_toolbox to active, retrying lost requests); frames.py:
 │   │                        robot_frames (the frame tree, calibrated within bounds), frame_check (REP-105) → robot
-│   ├── omni_perception/   ← scan_prep: drop the A2M12's floor returns, de-skew scans (scan_time.py: sample
+│   ├── omni_perception/   ← scan_prep: drop the lidar's floor returns, de-skew scans (scan_time.py: sample
 │   │                        times, ScanClock); camera_time.py: frames stamped from the MCU's trigger;
 │   │                        image_preview: a small, slow JPEG copy of a camera for the console; people:
 │   │                        people from the lidar + the forward camera (people_vision.py: YOLOX on onnxruntime,
@@ -31,7 +32,9 @@ ros/
 │   ├── omni_mcu/          ← mcu_link + protocol.py (no ROS): the MCU link, odometry, IMU; clock_sync.py: the
 │   │                        MCU clock map from the SYNC_OUT pulses (gpio_edges.py) or the echo         → robot
 │   ├── omni_cpp/          ← the robot's always-on nodes in C++ (the only implementation since Nov 7): mcu_link
-│   │                        (frames from the firmware's own protocol.h), mode_manager, scan_prep, heading_node;
+│   │                        (frames from the firmware's own protocol.h), mode_manager, scan_prep, heading_node,
+│   │                        rplidar_node (the A2M8, /scan stamped from its sample clock; tools/a2m8_replay.py
+│   │                        stands in for the lidar);
 │   │                        the catch nodes catch_perception, catch_behavior; arm_driver (the SO-101's servo bus);
 │   │                        test/test_cores.py checks the C++ cores against the Python cores the sim still uses → robot
 │   ├── omni_camera/       ← the camera head (design.md 4.9): libcamera_capture (a CSI camera as
@@ -56,7 +59,7 @@ ros/
 ├── tools/pi_console.py         ← the robot computer's console page driven step by step in Edge (open, click, text, shot, errors)
 ├── tools/pi_robust.py          ← the robot computer's console: start/stop cycles and node kills, checked for leftovers
 ├── tools/goalie_smoke.py       ← Goalie on the full stack: rolled shots, scored on the sim's truth (/sim/goalie_shot)
-└── tools/cpu_sample.py         ← CPU per process group on the robot side (WSL, the Jetson): what the console costs
+└── tools/cpu_sample.py         ← CPU per process group on the robot side (WSL, the robot computer): what the console costs
 ```
 
 `omni_sim` depends on the robot packages, never the reverse. On the robot: `colcon build --packages-skip omni_sim`.
@@ -70,7 +73,7 @@ Reasons:
 - Dropbox locks fresh files;
 - build output doesn't belong in Dropbox.
 
-Nothing is ever built on `/mnt/c`, so Dropbox needn't be paused. On the Jetson, clone the repo from GitHub and build in place.
+Nothing is ever built on `/mnt/c`, so Dropbox needn't be paused. On the robot computer, clone the repo from GitHub and build in place (the Pi 4 bench: rpi.md).
 
 ## Run it
 
@@ -118,7 +121,7 @@ odometry and the MCU's clock: a console restarted within 2 min on the same MCU b
 start) and `slam_toolbox.pgid`
 (its slam_toolbox's process group: a console that died without stopping it leaves it running in its own session, and the
 next console stops it first). Per map in `maps/<map>.places.json`: places, routes, no-go zones and floor edges.
-- **On the Jetson:** `omni_console/systemd/README.md` (the supervisor at boot, `omni.local`, shutdown from the page).
+- **On the robot computer (and the Pi 4 bench):** `omni_console/systemd/README.md` (the supervisor at boot, `omni.local`, shutdown from the page).
 
 **With a terminal** (WSL, or PowerShell with `wsl -d Ubuntu-24.04 -- bash`):
 
@@ -199,7 +202,7 @@ Arguments are `name:=value` after the step:
 | `/set_mode` (service) | → mode_manager | `IDLE`, `TELEOP`, `CATCH` or `THROWER`, kid on / off |
 | `/thrower/cmd` | omni_console → mode_manager | the Thrower tab's tilt, flywheel rpm, fire (`McuCommand`), in THROWER |
 | `/mcu/info` | mcu_link → omni_console | the MCU's INFO (`McuInfo`, 10 Hz): protocol version (6), firmware build id, RC channels, motor temperatures |
-| `/mcu/clock`, `/mcu/time_ref` | mcu_link | the clock map's state (JSON, 1 Hz); camera triggers and strobes (`TimeReference`) on the Jetson's clock (design.md 10) |
+| `/mcu/clock`, `/mcu/time_ref` | mcu_link | the clock map's state (JSON, 1 Hz); camera triggers and strobes (`TimeReference`) on the robot computer's clock (design.md 10) |
 | `/tags/detections`, `/tag_slam/*`, `/localization/health` | tag_detector (the bridge in the sim) → tag_slam → omni_console | AprilTags, the tag map and pose, the localization's level and speed scale |
 | `/mcu/state_10hz`, `/mcu/samples` | mcu_link → omni_console, the page | the STATE every 20th; the 200 Hz samples batched (`Float32MultiArray`, only while someone listens) |
 | `/sim/catch_result`, `/sim/ball`, `/ground_truth/odom` | catch_bridge | the truth, for scoring and views |

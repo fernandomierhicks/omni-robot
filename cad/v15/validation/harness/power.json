@@ -5,7 +5,7 @@
   "v_nom": 22.2,
   "v_stop": 21.0,
   "v_min": 18.0,
-  "wh": 115.0,
+  "wh": 73.3,
   "usable": 0.8
  },
  "loads": [
@@ -186,7 +186,7 @@
   "peak_A_at_stop": 20.0,
   "ceiling_W": 884,
   "ceiling_A_at_stop": 42.1,
-  "runtime_min_typ": 45
+  "runtime_min_typ": 29
  },
  "fuses": {
   "main (battery +, at the board input)": "30 A slow (ATO / mini blade): above the 20 A burst, below the 12 AWG pigtail",
@@ -203,6 +203,13 @@
    "awg": 10,
    "peak_A": 30.0,
    "rated_A": 40.0,
+   "ok": true
+  },
+  {
+   "id": "BAT_PB",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
    "ok": true
   },
   {

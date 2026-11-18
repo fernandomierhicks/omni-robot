@@ -2,14 +2,15 @@
  "frame": "V15_frame-1",
  "mounts": "V15_mounts-1",
  "bumper": "V15_bumper-1",
+ "battery": "V15_battery-1",
  "reference": "V15_reference-1",
  "upper": "V15_upper-1",
  "electronics": "V15_electronics-1",
  "arm": "V15_arm-1",
  "fasteners": "V15_fasteners-1",
  "harness": "V15_harness-1",
- "pod_FL": "V15_pod_m-1",
- "pod_RL": "V15_pod-1",
- "pod_RR": "V15_pod_m-2",
- "pod_FR": "V15_pod-2"
+ "pod_FL": "V15_pod_FL-1",
+ "pod_RL": "V15_pod_RL-1",
+ "pod_RR": "V15_pod_RR-1",
+ "pod_FR": "V15_pod_FR-1"
 }

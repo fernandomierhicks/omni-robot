@@ -117,6 +117,7 @@ class TagSlamNode(Node):
         self.health = HealthMonitor()
         self.lock = threading.Lock()
         self.n_imu = 0
+        self.t_att = None                  # the last /imu stamp passed on as attitude
         self.t_last = None
         self.pending = []
         self.p_pose = self.create_publisher(PoseWithCovarianceStamped, "/tag_slam/pose", 10)
@@ -166,13 +167,18 @@ class TagSlamNode(Node):
 
     def on_imu(self, m: Imu):
         self.n_imu += 1
-        if self.slam is None or self.n_imu % 8 or m.orientation_covariance[0] < 0:
+        if self.slam is None or m.orientation_covariance[0] < 0:
             return
+        t = t_of(m.header.stamp)
+        # roll / pitch at most every 20 ms (50 Hz), whatever /imu's rate (100 Hz since Nov 17; it was every 8th of 400)
+        if self.t_att is not None and 0.0 <= t - self.t_att < 0.019:
+            return
+        self.t_att = t
         q = m.orientation
         roll = math.atan2(2 * (q.w * q.x + q.y * q.z), 1 - 2 * (q.x * q.x + q.y * q.y))
         pitch = math.asin(max(-1.0, min(1.0, 2 * (q.w * q.y - q.z * q.x))))
         with self.lock:
-            self.slam.on_attitude(t_of(m.header.stamp), roll, pitch)
+            self.slam.on_attitude(t, roll, pitch)
 
     def on_lidar_tick(self):
         if not self.use_lidar or self.slam is None or self.t_last is None:

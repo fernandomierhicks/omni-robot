@@ -1,101 +1,101 @@
 {
- "seconds": 549,
+ "seconds": 660,
  "leads": 24,
- "max_rows_per_run": 604,
+ "max_rows_per_run": 607,
  "per_lead": {
-  "harness_lead_M_FR": {
-   "rows": 585,
-   "findings": []
-  },
   "harness_lead_M_RR": {
-   "rows": 587,
-   "findings": []
-  },
-  "harness_lead_SO101": {
-   "rows": 601,
-   "findings": []
-  },
-  "harness_lead_CAN_FR": {
-   "rows": 590,
-   "findings": []
-  },
-  "harness_lead_D435": {
-   "rows": 597,
-   "findings": []
-  },
-  "harness_lead_HDMI": {
-   "rows": 586,
-   "findings": []
-  },
-  "harness_lead_LIDAR": {
-   "rows": 578,
-   "findings": []
-  },
-  "harness_lead_CAN_RR": {
-   "rows": 596,
-   "findings": []
-  },
-  "harness_lead_IMU": {
-   "rows": 586,
-   "findings": []
-  },
-  "harness_lead_ESTOP": {
-   "rows": 579,
-   "findings": []
-  },
-  "harness_lead_LIDARUSB": {
-   "rows": 597,
-   "findings": []
-  },
-  "harness_lead_CAN_FL": {
-   "rows": 589,
-   "findings": []
-  },
-  "harness_lead_ARM12": {
    "rows": 583,
+   "findings": []
+  },
+  "harness_lead_M_FR": {
+   "rows": 588,
+   "findings": []
+  },
+  "harness_lead_PC19": {
+   "rows": 595,
    "findings": []
   },
   "harness_lead_MIC": {
    "rows": 582,
    "findings": []
   },
-  "harness_lead_CAN_RL": {
-   "rows": 584,
-   "findings": []
-  },
-  "harness_lead_M_FL": {
-   "rows": 586,
-   "findings": []
-  },
-  "harness_lead_5V": {
-   "rows": 579,
-   "findings": []
-  },
-  "harness_lead_M_RL": {
+  "harness_lead_SWITCH": {
    "rows": 583,
    "findings": []
   },
-  "harness_lead_PC19": {
-   "rows": 594,
+  "harness_lead_M_FL": {
+   "rows": 588,
    "findings": []
   },
-  "harness_lead_SWITCH": {
-   "rows": 580,
-   "findings": []
-  },
-  "harness_lead_TEENSY": {
-   "rows": 604,
-   "findings": []
-  },
-  "harness_lead_battery_xt90": {
-   "rows": 596,
-   "findings": []
-  },
-  "harness_lead_pb_xt90": {
+  "harness_lead_M_RL": {
    "rows": 586,
    "findings": []
   },
-  "harness_lead_battery_balance": {
+  "harness_lead_pb_xt90": {
+   "rows": 582,
+   "findings": []
+  },
+  "harness_lead_TEENSY": {
+   "rows": 603,
+   "findings": []
+  },
+  "harness_lead_battery_xt90": {
+   "rows": 581,
+   "findings": []
+  },
+  "harness_lead_SO101": {
+   "rows": 600,
+   "findings": []
+  },
+  "harness_lead_ARM12": {
+   "rows": 586,
+   "findings": []
+  },
+  "harness_lead_CAN_FL": {
+   "rows": 590,
+   "findings": []
+  },
+  "harness_lead_LIDARUSB": {
+   "rows": 600,
+   "findings": []
+  },
+  "harness_lead_5V": {
+   "rows": 582,
+   "findings": []
+  },
+  "harness_lead_BAT_PB": {
+   "rows": 577,
+   "findings": []
+  },
+  "harness_lead_CAN_FR": {
+   "rows": 586,
+   "findings": []
+  },
+  "harness_lead_CAN_RL": {
+   "rows": 585,
+   "findings": []
+  },
+  "harness_lead_ESTOP": {
+   "rows": 580,
+   "findings": []
+  },
+  "harness_lead_CAN_RR": {
+   "rows": 593,
+   "findings": []
+  },
+  "harness_lead_D435": {
+   "rows": 607,
+   "findings": []
+  },
+  "harness_lead_HDMI": {
+   "rows": 585,
+   "findings": []
+  },
+  "harness_lead_IMU": {
+   "rows": 587,
+   "findings": []
+  },
+  "harness_lead_LIDAR": {
    "rows": 580,
    "findings": []
   }

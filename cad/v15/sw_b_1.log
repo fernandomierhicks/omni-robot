@@ -1,9 +1,0 @@
-== import
-  deck_FL  (print bed: +z up)
-  deck_FR  (print bed: +z up)
-  deck_RL  (print bed: +z up)
-  deck_RR  (print bed: +z up)
-  rx_beam  (print bed: -z up)
-  rx_beam_m  (print bed: -z up)
-  wheel_hub  (print bed: +x up)
-  wheel_hub_m  (print bed: +x up)

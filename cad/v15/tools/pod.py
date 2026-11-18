@@ -1,6 +1,9 @@
-"""cad/v11 compact suspension pod for the wheel + motor (Nov 3 2026), build123d, STEP review only. Dimensions in dims.py.
+"""v15 pod library, layer 1 of 5 (pod.py -> pod_lean.py -> pod_rx.py -> pod_p4.py -> pod_mid.py; tools/README.md). What v15 takes from it:
+the fork's poses (droop / nominal / bump) and pivot axis, the springs and plungers (die_spring, plunger, plunger_lift, spring_table), the tower
+heights (Z_TBOT, Z_CEIL, Z_TT), the wheel unit and the small solid helpers (box, prism, yz_poly). Library only, no entry point (cad/v11's
+pod, as written then:)
 
-    python -B pod.py [build|check|export|render|all]        (omni-robot-sim interpreter)
+cad/v11 compact suspension pod for the wheel + motor (Nov 3 2026), build123d, STEP review only. Dimensions in dims.py.
 
 A module that drops into a cutout in the flat robot plate (designed later) and is held by 6 vertical M3 screws from the top:
  * two side frames (printed, each lying on its flat outer face): a foot on the plate, a spring tower over the fork arm, a keel down through a
@@ -102,9 +105,10 @@ def spring_force(mass):
 
 
 K_DESIGN, MAXW_DESIGN = SPRINGS[SPRING_DESIGN]
-C_NOM = spring_force(DESIGN_MASS) / K_DESIGN
+C_NOM = spring_force(DESIGN_MASS) / K_DESIGN            # one spring's compression at nominal (in series each carries the full force)
 Z_SB = PAD_Z + BOLT_HEAD_K + WASHER_T                   # spring bottom seat (on the washer), nominal
-Z_CEIL = Z_SB + SPRING_L0 - C_NOM                       # spring top seat in the tower
+Z_CEIL = Z_SB + SPRINGS_IN_SERIES * (SPRING_L0 - C_NOM) - STACK_PRELOAD   # spring top seat in the tower (v15 Nov 15: SPRINGS_IN_SERIES stacked
+                                                        # in each bore, STACK_PRELOAD lower)
 Z_TT = Z_CEIL + GUIDE_LEN                               # tower top
 Z_TBOT = PAD_Z + TOWER_CLEAR                            # tower underside
 BOLT_L = math.ceil((Z_TT + NUT_GAP + NUT_T + 1.0 - (PAD_Z + BOLT_HEAD_K)) / 5.0) * 5.0
@@ -282,12 +286,17 @@ def plunger(xt, y):
 
 
 def die_spring(xt, y, length):
+    """the spring stack in one bore (SPRINGS_IN_SERIES springs end to end; one body, a 0.6 mm groove where they meet)"""
     z0 = Z_SB
-    return cyl(SPRING_OD / 2, length, (xt, y, z0 + length / 2)) - cyl(SPRING_ID / 2, length + 1, (xt, y, z0 + length / 2))
+    s = cyl(SPRING_OD / 2, length, (xt, y, z0 + length / 2)) - cyl(SPRING_ID / 2, length + 1, (xt, y, z0 + length / 2))
+    for j in range(1, SPRINGS_IN_SERIES):
+        zj = z0 + j * length / SPRINGS_IN_SERIES
+        s = s - (cyl(SPRING_OD / 2 + 1.0, 0.6, (xt, y, zj)) - cyl(SPRING_OD / 2 - 0.6, 1.0, (xt, y, zj)))
+    return s
 
 
 # ---- assembly at a pose ----------------------------------------------------------------------------------------------------------
-WHEEL_KEEP = ('wheel_hub', 'wheel_cartridge', 'ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg', 'bearing_6804_left')
+WHEEL_KEEP = ('wheel_hub', 'wheel_cartridge', 'wheel_cartridge_cap', 'ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg', 'bearing_6804_left')
 
 
 def wheel_unit():
@@ -487,31 +496,3 @@ def render(parts, unit):
         fig.tight_layout()
         fig.savefig(VAL / f'section_{nm}.png', dpi=90)
         plt.close(fig)
-
-
-def main(stage):
-    for d in (OUT, VAL):
-        d.mkdir(parents=True, exist_ok=True)
-    parts, finfo = build_static()
-    print('frames', finfo, 'spring nominal compression', round(C_NOM, 2), 'tower top', round(Z_TT, 2), 'bolt', BOLT_L, flush=True)
-    for k in ('fork', 'stub', 'frame_outer', 'frame_inner'):
-        print(k, len(parts[k].solids()), parts[k].is_valid, round(parts[k].volume), flush=True)
-    if stage == 'build':
-        return
-    unit = wheel_unit()
-    if stage in ('check', 'all'):
-        rep = check(parts, unit)
-        rep['frames'] = finfo
-        (VAL / 'checks.json').write_text(json.dumps(rep, indent=1), encoding='utf-8')
-        print(json.dumps({k: v for k, v in rep.items() if k != 'springs'}, indent=1), flush=True)
-        print(json.dumps(rep['springs']['table'], indent=1), flush=True)
-    if stage in ('export', 'all'):
-        export(parts, unit)
-        print('exported', OUT, flush=True)
-    if stage in ('render', 'all'):
-        render(parts, unit)
-        print('rendered', VAL, flush=True)
-
-
-if __name__ == '__main__':
-    main(sys.argv[1] if sys.argv[1:] else 'build')

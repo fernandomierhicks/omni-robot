@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(omni_cpp)
 
-# The robot's always-on glue nodes in C++ (design.md 4.9): mcu_link, mode_manager, scan_prep, heading_node; arm_driver
+# The robot's always-on glue nodes in C++ (design.md 4.9): mcu_link, mode_manager, scan_prep, heading_node, rplidar_node
+# (the A2M8, stamped from its sample clock: design.md 4.6); arm_driver
 # (the arm's servo bus and joints, design.md 4.10, reading omni_arm's config/robot_arm*.json); and the
 # catch path, catch_perception and catch_behavior, reading omni_catch's config/robot_v11.json. The MCU
 # link's frames come from the firmware's own source (firmware/lib/omni_fw/protocol.*): beside ros/ in the repo, or
@@ -46,7 +47,8 @@ message(STATUS "omni_cpp: the MCU protocol from ${FW_DIR}")
 add_library(omni_cpp_cores STATIC src/clock_sync.cpp src/host_link.cpp src/mode_mux.cpp src/heading.cpp
             src/scan.cpp src/gpio_edges.cpp ${FW_DIR}/protocol.cpp
             src/json_value.cpp src/flight.cpp src/robot_config.cpp src/tracker.cpp src/detector.cpp src/perception.cpp
-            src/intercept.cpp src/game.cpp src/feetech.cpp src/arm_kin.cpp src/arm_motion.cpp src/arm_driver_core.cpp)
+            src/intercept.cpp src/game.cpp src/feetech.cpp src/arm_kin.cpp src/arm_motion.cpp src/arm_driver_core.cpp
+            src/rplidar.cpp)
 target_include_directories(omni_cpp_cores PUBLIC include ${FW_DIR})
 set_target_properties(omni_cpp_cores PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
@@ -69,5 +71,6 @@ omni_node(heading_component src/heading_node.cpp "omni::HeadingNode" heading_nod
 omni_node(catch_perception_component src/catch_perception_node.cpp "omni::CatchPerception" catch_perception)
 omni_node(catch_behavior_component src/catch_behavior_node.cpp "omni::CatchBehaviorNode" catch_behavior)
 omni_node(arm_driver_component src/arm_driver_node.cpp "omni::ArmDriver" arm_driver)
+omni_node(rplidar_component src/rplidar_node.cpp "omni::RplidarNode" rplidar_node)
 
 ament_package()

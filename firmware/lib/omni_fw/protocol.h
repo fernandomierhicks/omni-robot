@@ -7,7 +7,7 @@
 //
 //   CMD   0x01  host -> MCU, 100 Hz (it is also the heartbeat: none for CMD_TIMEOUT -> ramped stop)
 //   STATE 0x81  MCU -> host, 200 Hz: odometry, module, beams, mode, faults, time-sync echo
-//   IMU   0x82  MCU -> host, every BNO085 sample (400 Hz), stamped with its own sample time (protocol 4)
+//   IMU   0x82  MCU -> host, every BNO085 sample (100 Hz), stamped with its own sample time (protocol 4)
 //   INFO  0x83  MCU -> host, 10 Hz: the protocol version, the firmware build, the RC receiver, the drive motors'
 //               temperatures (the operator console)
 //   TIME  0x84  MCU -> host, protocol 4 (design.md 10): an edge of a time reference, MCU clock: the 1 Hz SYNC_OUT

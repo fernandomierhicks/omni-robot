@@ -389,3 +389,11 @@ def up_axis(axis):
     v = np.zeros(3)
     v['xyz'.index(axis[1])] = 1.0
     return v
+
+
+def pan_screw(p, axis, length):
+    """an M3 hex-drive pan head (6.5 x 2.5) + shank as one solid: head on the surface at p, shank along the unit `axis` (into the parts)"""
+    ax = np.asarray(axis, float)
+    head = b.Solid.make_cylinder(3.25, 2.5, b.Plane(origin=tuple(np.asarray(p) - 2.5 * ax), z_dir=tuple(ax)))
+    shank = b.Solid.make_cylinder(1.5, length, b.Plane(origin=tuple(p), z_dir=tuple(ax)))
+    return head + shank

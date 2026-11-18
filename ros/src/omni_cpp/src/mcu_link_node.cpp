@@ -2,7 +2,7 @@
 // the robot (USB serial to the Teensy) and against the sim (TCP to the bridge).
 //
 // Publishes /mcu/state (200 Hz), /mcu/state_10hz, /mcu/samples (20 Hz, while someone listens), /odom (50 Hz), /tf
-// odom -> base_link (publish_tf), /imu (400 Hz), /mcu/link and /mcu/clock (JSON, 1 Hz), /mcu/info (10 Hz),
+// odom -> base_link (publish_tf), /imu (every BNO085 sample, 100 Hz), /mcu/link and /mcu/clock (JSON, 1 Hz), /mcu/info (10 Hz),
 // /mcu/time_ref (camera triggers and strobes). Subscribes /mcu/cmd (sent at `rate` Hz as the heartbeat; a request
 // older than 0.3 s becomes a ramped stop), /sim/sync_edge (sync_source "topic"). Parameters: port ("tcp:host:port" |
 // "serial:/dev/ttyACM0"), publish_tf, rate, sync_source (none | gpio | topic), sync_gpio ("/dev/gpiochip0:<line>"),

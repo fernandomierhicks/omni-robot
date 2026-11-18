@@ -70,16 +70,19 @@ constexpr Use PINS[] = {
     // payload connector bus (design.md 15: the module announces itself over CAN); CAN-FD capable
     {pin::CAN3_TX, CAN3_TX, "CAN3 TX: payload connector (module id), reserved"},
     {pin::CAN3_RX, CAN3_RX, "CAN3 RX: payload connector, reserved"},
-    // IMU: BNO085 on SPI0 (400 Hz reports need SPI, not I2C)
-    {pin::BNO_MOSI, SPI0_MOSI, "SPI0 MOSI: BNO085"},
-    {pin::BNO_MISO, SPI0_MISO, "SPI0 MISO: BNO085"},
-    {pin::BNO_SCK, SPI0_SCK, "SPI0 SCK: BNO085 (also the on-board LED: it flickers)"},
+    // IMU: BNO085 on SPI0 (SPI: INT-edge sample times, bounded handshakes; the module's SDA pad is MISO, AD0 is MOSI).
+    // The bench module (Nov 17) has PS0/WAKE and PS1 strapped high and BOOTN on its pull-up, as on the wheeled-leg
+    // robot; the carrier (pcb/v1 J4) routes them here. The firmware holds all three high, which suits both, and wakes
+    // the hub with reset-as-wake handshakes either way (src/main.cpp)
+    {pin::BNO_MOSI, SPI0_MOSI, "SPI0 MOSI: BNO085 (module AD0)"},
+    {pin::BNO_MISO, SPI0_MISO, "SPI0 MISO: BNO085 (module SDA)"},
+    {pin::BNO_SCK, SPI0_SCK, "SPI0 SCK: BNO085 (module SCL; also the on-board LED: it flickers)"},
     {pin::BNO_CS, GPIO, "BNO085 CS"},
     {pin::BNO_INT, GPIO, "BNO085 INT (data ready, interrupt)"},
     {pin::BNO_RST, GPIO, "BNO085 RST"},
-    {pin::BNO_WAKE, GPIO, "BNO085 PS0/WAKE"},
+    {pin::BNO_WAKE, GPIO, "BNO085 PS0/WAKE (held high; strapped on the bench module)"},
     {pin::BNO_BOOTN, GPIO, "BNO085 BOOTN (low at reset: its bootloader, for firmware updates)"},
-    {pin::BNO_PS1, GPIO, "BNO085 PS1 (high at reset with PS0: SPI mode)"},
+    {pin::BNO_PS1, GPIO, "BNO085 PS1 (high at reset with PS0: SPI mode; strapped on the bench module)"},
     // time references (design.md 10): edges on hardware timers, reported in the MCU clock
     {pin::SYNC_OUT, PWM, "SYNC_OUT: 1 Hz pulse to the robot computer's 40-pin GPIO (AON pin for HTE stamps, VERIFY)"},
     {pin::CAM_TRIG, PWM, "CAM_TRIG: both OV9782 FSIN (external trigger, 120 Hz; level shift to DOVDD, VERIFY)"},

@@ -1,0 +1,31 @@
+{
+ "written": 756,
+ "robot": {
+  "file": "step_export\\robot_assembly.step",
+  "solids": 756,
+  "bbox_min": [
+   -232.5,
+   -232.5,
+   -11.4
+  ],
+  "bbox_max": [
+   232.5,
+   232.5,
+   419.5
+  ]
+ },
+ "base_assembly": {
+  "file": "step_export\\chassis_mid\\v15_mid_base_assembly.step",
+  "solids": 656,
+  "bbox_min": [
+   -232.5,
+   -232.5,
+   -11.4
+  ],
+  "bbox_max": [
+   232.5,
+   232.5,
+   176.5
+  ]
+ }
+}

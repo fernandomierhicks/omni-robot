@@ -1,11 +1,11 @@
-# The console on the Jetson: page and launcher at boot
+# The console on the robot computer: page and launcher at boot
 
 The supervisor (`omni_console/supervisor.py`) is the robot's front door. systemd starts it at boot; it serves the
 operator page on port 8080 and starts the robot's software (`config/robot_steps.json`, step `robot`) at once. From the
 PC or the iPad, open `http://omni.local:8080` and pick a mode: there is no launcher to run. Its System tab restarts the
-software, shows its log, and shuts the Jetson down.
+software, shows its log, and shuts the robot computer down.
 
-Not tried on a Jetson yet (no hardware): the steps below are the plan. VERIFY each one on the robot.
+The robot computer is still open (design.md 4.9). The steps below run on the Pi 4 bench (next section, `robot_console.sh install`); VERIFY each one on the chosen computer.
 
 1. A user `omni` with the workspace in `/home/omni/omni_ws`, built with `colcon build --packages-skip omni_sim`.
 2. The unit:
@@ -39,7 +39,7 @@ Not tried on a Jetson yet (no hardware): the steps below are the plan. VERIFY ea
 
 6. Optional PIN for the System tab and power (kid-proofing, not security): `Environment=OMNI_CONSOLE_PIN=1234` in the
    unit.
-7. JetPack 6 is Ubuntu 22.04 and the stack is Jazzy (24.04): if Jazzy runs in Docker, the unit starts the container and
+7. Only if a Jetson is chosen: JetPack 6 is Ubuntu 22.04 and the stack is Jazzy (24.04): if Jazzy runs in Docker, the unit starts the container and
    the supervisor runs inside it (with `--network host`, so 8080 and rosbridge's 9090 are the Jetson's ports).
 8. The secure page, `https://omni.local:8443` (`OMNI_CONSOLE_HTTPS` in the unit; `openssl` makes a self-signed
    certificate in `~/.omni/tls` on first start). Browsers let a page use the microphone only when it is secure, so the
@@ -52,7 +52,7 @@ Not tried on a Jetson yet (no hardware): the steps below are the plan. VERIFY ea
 The same front door runs on the Pi ("omni-cam", rpi.md), so the PC needs no WSL to look at or drive the hardware: open
 `http://omni-cam.local:8080` (or the Pi's address). `bash ros/tools/robot_console.sh install` writes this unit with
 the Pi's user and home, sets logind's `RemoveIPC=no` (step 4 above), enables it for boot and starts it (unless another
-program holds port 8080). It differs from the Jetson's in
+program holds port 8080). It differs from the robot's in
 two ways: **no autostart** (the bench MCU isn't always plugged in; Robot › System › Start starts the robot;
 `OMNI_AUTOSTART=robot` gives the real robot's setting) and `ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST` (the page reaches
 the robot through rosbridge, so its DDS stays on the Pi). The step `robot` is `omni_bringup hardware.launch.py`: the

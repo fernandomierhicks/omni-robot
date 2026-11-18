@@ -79,6 +79,14 @@ X_PLATE_FLOOR = X_LEFT + PLATE_T
 ACCESS_R = 18.0                    # left access bore (cartridge boss, driver access to the flange screws)
 CART_R = 26.0                      # cartridge screws (M3 x 12 flat head into Ø2.8 pilots)
 R_BRG, BRG_FIT = 16.0, 0.05        # 6804 outside radius and seat allowance
+# v15 Nov 15 (Fernando: the 6804 could slide in and out; positive retention, the wheel's axis must not move): the cartridge is two parts. The CUP
+# (wheel_cartridge) is a flange in the hub's counterbore, the bearing seat and a lip on the outer race's motor-side face; the CAP
+# (wheel_cartridge_cap, the old flush plate) covers it and holds the outer race's other face. The cartridge's 3 flat heads clamp cap + cup flange to
+# the hub, so the outer race is clamped between the cap and the cup's lip (the inner race already is: stub shoulder + retainer)
+CUP_FLANGE_T = 2.0                 # the cup's flange under the cap: the hub's counterbore is this much deeper (its end wall 10 -> 8 mm)
+X_CUP_FLOOR = X_PLATE_FLOOR + CUP_FLANGE_T   # the hub's counterbore floor
+CUP_LIP_T, CUP_LIP_R = 1.5, 14.5   # the cup's lip on the outer race's motor-side face: thickness, inner radius (6804 outer ring land ~Ø28.5,
+                                   # the shields inside it: VERIFY on the bearing). Clear of the static retainer's flange (r 11.5) by 3.0
 CSK_EXTRA = 0.5                    # Nov 13 (Fernando, a general rule): every flat-head countersink 0.5 deeper (a straight bore of the head's top Ø over
                                    # the cone), so the printed head ends flush
 # Nov 13 (Fernando): a positive retainer on the 6804's inner race, so the bearing cannot slide in along the stub and the fork's stub shoulder clamps
@@ -127,6 +135,10 @@ HEAD_DEPTH = B_OUT - SEAT
 PILOT_D = 2.7                      # roller axle thread pilot (v15 Nov 14, Fernando: the hub prints the blocks sideways, so the pilots come out
                                    # a little large: 2.7. Nov 11: 2.8 as every M3 pilot; v13 2.9)
 PILOT_DEPTH = ENGAGE + 0.8
+PILOT_OUT = 37.7                   # Nov 17 (Fernando: through, so the support can be pushed out): the pilot's far end (local z). The pilot ended
+                                   # at z 31.7 inside the neighbouring roller's block in the pilot-side spoke (plastic on the axis to z 36.2); 37.7
+                                   # clears the oblique exit fully (hub volume = 38-42's). 38-42 leave OCC's hub invalid, 37.3 a 0.2 mm3 lip per hole.
+                                   # The closest pass to that roller's thread stays 2.01 mm between axes at z 31.7 (unchanged)
 A_OUT = 29.05                      # pilot-side block outer face (kept where it was: the tip now ends 1.25 inside it, as before; the pilot is through)
 CLR_D = 3.4                        # M3 shank hole from the thrust face to the head seat
 
@@ -221,6 +233,10 @@ SPRINGS = {'yellow 8x25': (6.1, 10.0),   # N/mm, long-life working deflection mm
            '7.7x18.5 (Nov 14)': (10.4, SPRING_L0 - SPRING_SOLID - 1.0)}   # RATE UNKNOWN (VERIFY): 10.4 N/mm is the rate that carries 10 kg
                                    # on 1.83 mm of preload, which keeps the far spring 1 mm off solid at bump (6.44 mm more) at today's lever
 SPRING_DESIGN = '7.7x18.5 (Nov 14)'   # the nominal geometry is for this spring at DESIGN_MASS; other masses: printed shims (spring table)
+SPRINGS_IN_SERIES = 2              # v15 Nov 15 (Fernando): each bore takes two springs stacked in series (half the rate, preload set by compressing
+                                   # them; a printed spring block replaces one if only one is wanted). Each spring carries the full spring force
+STACK_PRELOAD = 5.0                # Nov 15 evening (Fernando: the tower 5 mm lower, so the two springs are always compressed): the spring seat in the
+                                   # tower this much lower than the design-mass geometry asks (the ride height then depends on the real rate: VERIFY)
 SPRINGS_PER_SIDE, SPRING_PITCH = 2, 10.6   # two plungers per side, this far apart in y (2 mm wall between the Ø8.6 bores)
 DESIGN_MASS = 10.0                 # kg robot (all on the 4 wheels: conservative)
 SPRING_ARM = 26.0                  # centre of the spring pair this far from the pivot toward the axle (springs at 31.3 / 20.7): wheel rate 2.6 N/mm
@@ -301,4 +317,11 @@ C627_PUSH_D, C627_PUSH_R = 1.6, 10.05   # two push-out holes per pocket onto the
 # Printed Nov 13 evening (Fernando): the best pocket is cell 1 (21.95), the best pin cell 4 (7.20, the largest offered: a larger one not tried). The pod's
 # 627 seats and the pins / spigots in its bore take them (pod_lean: the outer arm's and the frame's seats; the fork's pin, the outer cap's and sleeve's spigots)
 B627_SEAT_D = C627_POCKET[0]       # 21.95: a 627 seat (the bearing's OD 22.0)
+
+# ---- dovetail fit coupon (coupon_dovetail.py; Nov 15 evening, Fernando: the deck laps' 0.1 clearance is far too loose; try 0.05 and 0) -----------
+CDT_CLR = (0.05, 0.0)              # socket over the tab, per face, the socket bar's two cells (Fernando: one male tab, two sockets 0.05 and 0;
+                                   # Nov 17, printed (Fernando): 0.05 fits best, now the deck's chassis_mid.TAB / KEY clr (was 0.1)
+CDT_T = 10.0                       # both bars as thick as the deck's half-lap layer (chassis_mid: the tab is the lower piece's bottom half)
+CDT_WALL, CDT_BACK = 6.0, 8.0      # bar wall between / beside the cells; bar behind the tab roots / behind the sockets' far ends
+CDT_LABEL = (5.0, 0.6)             # engraved clearance labels on the socket bar: font size, depth
 B627_PIN_D = C627_PIN[3]           # 7.20: a printed pin or spigot in a 627's 7.0 bore

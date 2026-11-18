@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "omni_carrier")(type "KiCad")(uri "${KIPRJMOD}/omni_carrier.pretty")(options "")(descr "omni carrier footprints"))
+)

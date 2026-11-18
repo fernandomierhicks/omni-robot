@@ -20,6 +20,7 @@ setup(
     description="omni-robot launch + config (design.md 28)",
     license="Proprietary",
     entry_points={"console_scripts": ["save_map = omni_bringup.save_map:main",
+                                      "lifecycle_up = omni_bringup.lifecycle_up:main",
                                       "robot_frames = omni_bringup.frames_node:main",
                                       "frame_check = omni_bringup.frames_node:check_main"]},
 )

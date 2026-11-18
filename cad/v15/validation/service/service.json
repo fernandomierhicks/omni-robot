@@ -1,0 +1,4740 @@
+{
+ "drop": {
+  "note": "every part that leaves (pods at droop: all but the towers, plungers, springs and the screws that come out first; the battery: the pack, its straps opened), lowered straight down: an item that stays blocks it where its triangles lie wholly below a 5 mm slab of the moving part inside that slab's plan (mm2 of overlap)",
+  "per_item": {
+   "FL": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "RL": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "RR": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "FR": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "battery": {
+    "parts": 1,
+    "clear": true,
+    "blocked_by_mm2": {}
+   }
+  }
+ },
+ "screw_access": {
+  "note": "straight \u00d86 driver, 100 mm out from each head, finished robot, nominal pods; blocked_by = overlap mm3",
+  "screws": 224,
+  "blocked": 109,
+  "blocked_groups": {
+   "FL/bolt_pivot_o": {
+    "n": 1,
+    "first_block_mm": 5,
+    "by": [
+     "bumper_FL"
+    ]
+   },
+   "FL/bolt_towerfix": {
+    "n": 2,
+    "first_block_mm": 40,
+    "by": [
+     "floor2_FL",
+     "support_side_L"
+    ]
+   },
+   "FR/bolt_pivot_o": {
+    "n": 1,
+    "first_block_mm": 5,
+    "by": [
+     "bumper_FR"
+    ]
+   },
+   "FR/bolt_towerfix": {
+    "n": 2,
+    "first_block_mm": 40,
+    "by": [
+     "floor2_FR",
+     "support_side_R"
+    ]
+   },
+   "RL/bolt_pivot_o": {
+    "n": 1,
+    "first_block_mm": 5,
+    "by": [
+     "bumper_RL"
+    ]
+   },
+   "RL/bolt_towerfix": {
+    "n": 2,
+    "first_block_mm": 40,
+    "by": [
+     "floor2_RL"
+    ]
+   },
+   "RR/bolt_pivot_o": {
+    "n": 1,
+    "first_block_mm": 5,
+    "by": [
+     "bumper_RR"
+    ]
+   },
+   "RR/bolt_towerfix": {
+    "n": 2,
+    "first_block_mm": 40,
+    "by": [
+     "floor2_RR"
+    ]
+   },
+   "bolt_arm_kit_M3x": {
+    "n": 4,
+    "first_block_mm": 30,
+    "by": [
+     "riser_adapter"
+    ]
+   },
+   "bolt_bumper": {
+    "n": 12,
+    "first_block_mm": 5,
+    "by": [
+     "bumper_FL",
+     "bumper_FR",
+     "bumper_RL",
+     "bumper_RR"
+    ]
+   },
+   "bolt_clip_computer": {
+    "n": 4,
+    "first_block_mm": 60,
+    "by": [
+     "deck_bin",
+     "estop",
+     "housing_estop",
+     "housing_switch"
+    ]
+   },
+   "bolt_d435_camera": {
+    "n": 2,
+    "first_block_mm": 30,
+    "by": [
+     "riser_adapter"
+    ]
+   },
+   "bolt_d435_cradle": {
+    "n": 1,
+    "first_block_mm": 20,
+    "by": [
+     "plug_d435"
+    ]
+   },
+   "bolt_estop_pod": {
+    "n": 2,
+    "first_block_mm": 40,
+    "by": [
+     "estop"
+    ]
+   },
+   "bolt_face_crown": {
+    "n": 2,
+    "first_block_mm": 5,
+    "by": [
+     "housing_speaker_cover",
+     "mic_array"
+    ]
+   },
+   "bolt_face_deck": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "housing_face"
+    ]
+   },
+   "bolt_fin": {
+    "n": 8,
+    "first_block_mm": 5,
+    "by": [
+     "RL/rx_beam",
+     "RL/rx_lug",
+     "RR/rx_beam",
+     "RR/rx_lug",
+     "battery"
+    ]
+   },
+   "bolt_floor_fin": {
+    "n": 8,
+    "first_block_mm": 5,
+    "by": [
+     "bin",
+     "bracket_power_box",
+     "bracket_power_shelf",
+     "computer",
+     "conv_19v",
+     "deck_bin",
+     "label_computer",
+     "plug_d435"
+    ]
+   },
+   "bolt_imu_base": {
+    "n": 1,
+    "first_block_mm": 60,
+    "by": [
+     "deck_bin"
+    ]
+   },
+   "bolt_key": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "bolt_seam_RR#4",
+     "floor2_FR",
+     "floor2_RR"
+    ]
+   },
+   "bolt_lap_0": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FL",
+     "floor2_RL"
+    ]
+   },
+   "bolt_lap_1": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FL",
+     "floor2_RL"
+    ]
+   },
+   "bolt_lap_10": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "bracket_power_box",
+     "conv_19v",
+     "floor2_FR"
+    ]
+   },
+   "bolt_lap_11": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FR"
+    ]
+   },
+   "bolt_lap_12": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FR",
+     "riser_arm"
+    ]
+   },
+   "bolt_lap_13": {
+    "n": 2,
+    "first_block_mm": 5,
+    "by": [
+     "floor2_FR",
+     "pedestal",
+     "riser_arm"
+    ]
+   },
+   "bolt_lap_14": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "bracket_d435_riser",
+     "floor2_FR",
+     "riser_arm"
+    ]
+   },
+   "bolt_lap_15": {
+    "n": 1,
+    "first_block_mm": 100,
+    "by": [
+     "d435"
+    ]
+   },
+   "bolt_lap_2": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FL",
+     "floor2_RL"
+    ]
+   },
+   "bolt_lap_3": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "floor2_FL",
+     "floor2_RL"
+    ]
+   },
+   "bolt_lap_4": {
+    "n": 2,
+    "first_block_mm": 5,
+    "by": [
+     "floor2_RR",
+     "strap_battery_0",
+     "support_spine"
+    ]
+   },
+   "bolt_lap_5": {
+    "n": 2,
+    "first_block_mm": 30,
+    "by": [
+     "computer",
+     "floor2_RR",
+     "support_spine"
+    ]
+   },
+   "bolt_lap_6": {
+    "n": 2,
+    "first_block_mm": 10,
+    "by": [
+     "bolt_floor_fin#12",
+     "computer",
+     "floor2_RL",
+     "floor2_RR",
+     "support_spine"
+    ]
+   },
+   "bolt_lap_7": {
+    "n": 2,
+    "first_block_mm": 15,
+    "by": [
+     "computer",
+     "floor2_RR",
+     "support_spine"
+    ]
+   },
+   "bolt_lap_8": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "bracket_imu",
+     "floor2_FR"
+    ]
+   },
+   "bolt_lap_9": {
+    "n": 2,
+    "first_block_mm": 80,
+    "by": [
+     "bolt_post_floor#62",
+     "floor2_FR",
+     "post_deck_1",
+     "support_side_R"
+    ]
+   },
+   "bolt_pedestal": {
+    "n": 4,
+    "first_block_mm": 10,
+    "by": [
+     "floor2_FL",
+     "floor2_FR",
+     "pedestal",
+     "riser_arm"
+    ]
+   },
+   "bolt_post_floor": {
+    "n": 4,
+    "first_block_mm": 40,
+    "by": [
+     "RL/bolt_1_3",
+     "RL/roller_tread_1_3",
+     "RL/wheel_hub",
+     "RR/bolt_1_3",
+     "RR/roller_tread_1_3",
+     "RR/wheel_hub",
+     "bolt_lap_9_0",
+     "bolt_lap_9_1"
+    ]
+   },
+   "bolt_riser_ext": {
+    "n": 2,
+    "first_block_mm": 30,
+    "by": [
+     "riser_adapter"
+    ]
+   },
+   "bolt_seam_FR": {
+    "n": 1,
+    "first_block_mm": 5,
+    "by": [
+     "bracket_d435_riser",
+     "riser_adapter",
+     "riser_arm"
+    ]
+   },
+   "bolt_seam_RL": {
+    "n": 2,
+    "first_block_mm": 60,
+    "by": [
+     "deck_bin"
+    ]
+   },
+   "bolt_seam_RR": {
+    "n": 3,
+    "first_block_mm": 5,
+    "by": [
+     "bracket_power_box",
+     "bracket_power_shelf",
+     "conv_19v",
+     "deck_bin",
+     "mcu",
+     "power"
+    ]
+   },
+   "bolt_servo_bracket": {
+    "n": 2,
+    "first_block_mm": 5,
+    "by": [
+     "servo_adapter"
+    ]
+   }
+  },
+  "records": {
+   "bolt_lap_0_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     30.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 80.1
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_0_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     39.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 82.7
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_1_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     85.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 80.1
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_1_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     94.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 82.7
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_2_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     140.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 263.4,
+     "floor2_RL": 98.8
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_2_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     149.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 82.7
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_3_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     190.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 307.2,
+     "floor2_RL": 54.5
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_3_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -0.5,
+     199.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 279.0,
+     "floor2_RL": 80.1
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_4_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -29.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1660.5,
+     "strap_battery_0": 42.4,
+     "floor2_RR": 141.4
+    },
+    "first_block_mm": 5
+   },
+   "bolt_lap_4_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -38.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1660.5,
+     "strap_battery_0": 14.5,
+     "floor2_RR": 141.4
+    },
+    "first_block_mm": 5
+   },
+   "bolt_lap_5_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -89.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1342.4,
+     "floor2_RR": 141.4,
+     "computer": 432.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_lap_5_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -98.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1350.9,
+     "floor2_RR": 141.4,
+     "computer": 432.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_lap_6_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -144.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1525.6,
+     "floor2_RR": 141.4,
+     "computer": 432.6
+    },
+    "first_block_mm": 10
+   },
+   "bolt_lap_6_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -153.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1390.6,
+     "floor2_RL": 133.4,
+     "computer": 432.6,
+     "bolt_floor_fin#12": 33.6
+    },
+    "first_block_mm": 20
+   },
+   "bolt_lap_7_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -179.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1368.2,
+     "floor2_RR": 141.4,
+     "computer": 432.6
+    },
+    "first_block_mm": 20
+   },
+   "bolt_lap_7_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -188.5,
+     -3.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_spine": 1448.2,
+     "floor2_RR": 141.4,
+     "computer": 432.6
+    },
+    "first_block_mm": 15
+   },
+   "bolt_lap_8_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -50.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "bracket_imu": 14.3
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_8_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -59.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_9_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -80.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 177.9,
+     "post_deck_1": 516.4,
+     "bolt_post_floor#62": 17.9
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_9_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -89.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_side_R": 47.3,
+     "floor2_FR": 150.4,
+     "post_deck_1": 416.3,
+     "bolt_post_floor#62": 0.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_10_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -160.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "bracket_power_box": 84.8,
+     "conv_19v": 432.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_10_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -169.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "bracket_power_box": 84.8,
+     "conv_19v": 432.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_11_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -205.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_11_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     12.5,
+     -214.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 310.2
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_12_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     66.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "riser_arm": 272.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_12_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     75.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_13_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     111.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 722.9,
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_lap_13_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     120.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 453.4,
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_lap_14_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     156.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_14_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     165.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1,
+     "bracket_d435_riser": 2.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_lap_15_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     201.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "d435": 215.9
+    },
+    "first_block_mm": 100
+   },
+   "bolt_lap_15_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     210.5,
+     -16.5,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     68.8,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "battery": 1215.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     19.4,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "battery": 1215.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_2": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -3.9,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "battery": 1215.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_3": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -53.6,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "battery": 1213.6
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_4": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -130.2,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_5": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -206.9,
+     0.0,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_6": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -4.0,
+     116.9,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_7": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -36.5,
+     147.5,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RL/rx_beam": 508.9
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_8": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -45.1,
+     155.6,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RL/rx_beam": 502.0,
+     "RL/rx_lug": 506.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_9": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -4.0,
+     -116.9,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_10": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -36.5,
+     -147.5,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RR/rx_beam": 508.9
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_11": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     -45.1,
+     -155.6,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RR/rx_beam": 502.0,
+     "RR/rx_lug": 506.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_fin_12": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     193.3,
+     53.3,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_13": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     200.4,
+     58.4,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_14": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     193.3,
+     -53.3,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_fin_15": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 25.0,
+    "head": [
+     200.4,
+     -58.4,
+     82.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_pedestal_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     138.0,
+     18.0,
+     104.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 421.9,
+     "floor2_FL": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 10
+   },
+   "bolt_pedestal_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     102.0,
+     18.0,
+     104.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 421.9,
+     "floor2_FL": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 10
+   },
+   "bolt_pedestal_2": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     102.0,
+     -18.0,
+     104.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 421.9,
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 10
+   },
+   "bolt_pedestal_3": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     138.0,
+     -18.0,
+     104.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "pedestal": 421.9,
+     "floor2_FR": 141.4,
+     "riser_arm": 113.1
+    },
+    "first_block_mm": 10
+   },
+   "bolt_bumper_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     214.9,
+     57.6,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     157.3,
+     157.3,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_2": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     57.6,
+     214.9,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_3": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -57.6,
+     214.9,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_4": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -157.3,
+     157.3,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_5": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -214.9,
+     57.6,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RL": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_6": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -214.9,
+     -57.6,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_7": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -157.3,
+     -157.3,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_8": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -57.6,
+     -214.9,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_RR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_9": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     57.6,
+     -214.9,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_10": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     157.3,
+     -157.3,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_bumper_11": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     214.9,
+     -57.6,
+     76.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "bumper_FR": 24.0
+    },
+    "first_block_mm": 5
+   },
+   "bolt_key_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -3.9,
+     -19.9,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_RR": 129.7,
+     "floor2_FR": 204.9,
+     "bolt_seam_RR#4": 6.5
+    },
+    "first_block_mm": 80
+   },
+   "bolt_key_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     15.9,
+     -19.9,
+     97.1
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 168.3
+    },
+    "first_block_mm": 80
+   },
+   "bolt_battery_clip_0": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     87.5,
+     17.2,
+     77.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_battery_clip_1": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -64.5,
+     17.2,
+     77.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_battery_clip_2": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -64.5,
+     -17.2,
+     77.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_battery_clip_3": {
+    "src": "base",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     87.5,
+     -17.2,
+     77.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_seam_RL#0": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     25.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_seam_RL#1": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     80.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_seam_RL#2": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     160.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_seam_RL#3": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     205.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_seam_RR#4": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     -25.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_seam_RR#5": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     -80.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_seam_RR#6": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     -160.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "bracket_power_box": 84.8,
+     "bracket_power_shelf": 84.8,
+     "power": 508.9,
+     "mcu": 706.9,
+     "conv_19v": 904.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_seam_RR#7": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -3.1,
+     -205.0,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_seam_FR#8": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     167.0,
+     -3.1,
+     178.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 138.5,
+     "riser_arm": 113.1,
+     "bracket_d435_riser": 21.6
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#9": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     40.0,
+     0.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "servo_adapter": 989.6
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#10": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -62.0,
+     0.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6,
+     "bin": 113.1
+    },
+    "first_block_mm": 60
+   },
+   "bolt_floor_fin#11": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -110.0,
+     0.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6,
+     "computer": 1470.3,
+     "label_computer": 4.2,
+     "bin": 113.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#12": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -155.0,
+     0.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6,
+     "computer": 1470.3,
+     "label_computer": 4.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#13": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -208.0,
+     0.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#14": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     57.4,
+     59.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#15": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     33.4,
+     81.6,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#16": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     7.2,
+     106.3,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#17": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -29.2,
+     140.6,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#18": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -48.8,
+     159.1,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#19": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     57.4,
+     -59.0,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "plug_d435": 0.6
+    },
+    "first_block_mm": 15
+   },
+   "bolt_floor_fin#20": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     33.4,
+     -81.6,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#21": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     7.2,
+     -106.3,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "bracket_power_box": 443.8,
+     "bracket_power_shelf": 40.5,
+     "conv_19v": 319.6
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#22": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -29.2,
+     -140.6,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "bracket_power_shelf": 84.8,
+     "power": 504.0,
+     "conv_19v": 904.8
+    },
+    "first_block_mm": 5
+   },
+   "bolt_floor_fin#23": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -48.8,
+     -159.1,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "plug_mcu_0": 2.0
+    },
+    "first_block_mm": 100
+   },
+   "bolt_floor_fin#24": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     204.9,
+     61.7,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_floor_fin#25": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     204.9,
+     -61.7,
+     181.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_so101_base#26": {
+    "src": "upper",
+    "kind": "flat",
+    "size": 4.0,
+    "L": 25.0,
+    "head": [
+     125.8,
+     31.8,
+     239.2
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_so101_base#27": {
+    "src": "upper",
+    "kind": "flat",
+    "size": 4.0,
+    "L": 25.0,
+    "head": [
+     125.8,
+     -31.8,
+     239.2
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_so101_base#28": {
+    "src": "upper",
+    "kind": "flat",
+    "size": 4.0,
+    "L": 25.0,
+    "head": [
+     195.5,
+     27.8,
+     239.2
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_so101_base#29": {
+    "src": "upper",
+    "kind": "flat",
+    "size": 4.0,
+    "L": 25.0,
+    "head": [
+     195.5,
+     -27.8,
+     239.2
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_arm_kit_M3x10#30": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     75.0,
+     25.0,
+     185.5
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 285.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_arm_kit_M3x10#31": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     75.0,
+     -25.0,
+     185.5
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 285.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_arm_kit_M3x12#32": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     97.0,
+     40.5,
+     185.5
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 285.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_arm_kit_M3x12#33": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     97.0,
+     -40.5,
+     185.5
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 285.6
+    },
+    "first_block_mm": 30
+   },
+   "bolt_arm_kit_M3x45#34": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 45.0,
+    "head": [
+     70.0,
+     -40.0,
+     219.2
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_arm_kit_M3x45#35": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 45.0,
+    "head": [
+     70.0,
+     40.0,
+     219.2
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_arm_kit_M3x35#36": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     122.0,
+     -40.0,
+     219.2
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_arm_kit_M3x35#37": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     122.0,
+     40.0,
+     219.2
+    ],
+    "out_dir": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_riser_ext#38": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     158.0,
+     30.0,
+     185.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 138.5
+    },
+    "first_block_mm": 30
+   },
+   "bolt_riser_ext#39": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     158.0,
+     -30.0,
+     185.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "riser_adapter": 138.5
+    },
+    "first_block_mm": 30
+   },
+   "bolt_clip_computer#40": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -198.0,
+     66.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "housing_estop": 42.4,
+     "deck_bin": 151.1,
+     "estop": 141.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_clip_computer#41": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -198.0,
+     -64.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "housing_switch": 42.4,
+     "deck_bin": 151.1
+    },
+    "first_block_mm": 60
+   },
+   "bolt_clip_computer#42": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -72.0,
+     -64.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_clip_computer#43": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -72.0,
+     66.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 169.6
+    },
+    "first_block_mm": 60
+   },
+   "bolt_power_stack#44": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 80.0,
+    "head": [
+     -42.0,
+     -117.0,
+     254.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_power_stack#45": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 80.0,
+    "head": [
+     112.0,
+     -117.0,
+     254.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_power_stack#46": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 80.0,
+    "head": [
+     -42.0,
+     -171.5,
+     254.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_power_stack#47": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 80.0,
+    "head": [
+     112.0,
+     -170.0,
+     254.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_servo_adapter#48": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     47.4,
+     18.5,
+     217.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_servo_adapter#49": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     47.4,
+     -18.5,
+     217.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_servo_adapter#50": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     47.4,
+     -18.5,
+     189.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_servo_adapter#51": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     47.4,
+     18.5,
+     189.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_servo_bracket#52": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     54.0,
+     -10.0,
+     197.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {
+     "servo_adapter": 424.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_servo_bracket#54": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     54.0,
+     10.0,
+     197.0
+    ],
+    "out_dir": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "blocked_by": {
+     "servo_adapter": 424.1
+    },
+    "first_block_mm": 5
+   },
+   "bolt_imu#56": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     36.7,
+     -29.9,
+     192.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_imu#57": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     36.7,
+     -50.1,
+     192.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_imu_base#58": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     18.0,
+     -40.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "deck_bin": 84.8
+    },
+    "first_block_mm": 60
+   },
+   "bolt_imu_base#59": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     46.0,
+     -40.0,
+     184.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_post_floor#60": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     10.0,
+     84.0,
+     172.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "deck_FL": 565.5
+    },
+    "first_block_mm": 80
+   },
+   "bolt_post_deck#61": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     10.0,
+     84.0,
+     245.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_post_floor#62": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     10.0,
+     -84.0,
+     172.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "deck_RR": 271.6,
+     "deck_FR": 253.0,
+     "bolt_lap_9_0": 17.9,
+     "bolt_lap_9_1": 0.6
+    },
+    "first_block_mm": 80
+   },
+   "bolt_post_deck#63": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     10.0,
+     -84.0,
+     245.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_post_floor#64": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -150.0,
+     97.0,
+     172.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RL/wheel_hub": 355.1,
+     "RL/roller_tread_1_3": 276.5,
+     "RL/bolt_1_3": 3.8
+    },
+    "first_block_mm": 40
+   },
+   "bolt_post_deck#65": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -150.0,
+     97.0,
+     245.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_post_floor#66": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 16.0,
+    "head": [
+     -150.0,
+     -97.0,
+     172.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {
+     "RR/wheel_hub": 355.1,
+     "RR/roller_tread_1_3": 276.5,
+     "RR/bolt_1_3": 3.8
+    },
+    "first_block_mm": 40
+   },
+   "bolt_post_deck#67": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 12.0,
+    "head": [
+     -150.0,
+     -97.0,
+     245.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_bin#68": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -80.0,
+     30.0,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_bin#69": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -80.0,
+     -30.0,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_bin#70": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -106.0,
+     22.0,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_bin#71": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -106.0,
+     -22.0,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_estop_pod#72": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -183.0,
+     56.5,
+     248.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "estop": 233.6
+    },
+    "first_block_mm": 40
+   },
+   "bolt_estop_pod#73": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -183.0,
+     95.5,
+     248.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "estop": 233.6
+    },
+    "first_block_mm": 40
+   },
+   "bolt_switch_pod#74": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -183.0,
+     -95.5,
+     248.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_switch_pod#75": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -183.0,
+     -56.5,
+     248.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_face_deck#76": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -145.0,
+     64.2,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "housing_face": 105.9
+    },
+    "first_block_mm": 80
+   },
+   "bolt_face_deck#77": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -137.0,
+     64.2,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_face_deck#78": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -145.0,
+     -64.2,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "housing_face": 105.9
+    },
+    "first_block_mm": 80
+   },
+   "bolt_face_deck#79": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -137.0,
+     -64.2,
+     249.5
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_face_crown#80": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -158.0,
+     -64.2,
+     403.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "mic_array": 20.7
+    },
+    "first_block_mm": 5
+   },
+   "bolt_face_crown#81": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -158.0,
+     64.2,
+     403.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "housing_speaker_cover": 56.5
+    },
+    "first_block_mm": 10
+   },
+   "bolt_mic#82": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     -178.6,
+     -61.0,
+     407.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_mic#83": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     -151.6,
+     -61.0,
+     407.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_mic#84": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     -178.6,
+     19.0,
+     407.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_mic#85": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     -151.6,
+     19.0,
+     407.6
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_speaker_cover#86": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -197.5,
+     46.0,
+     417.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_speaker_cover#87": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 10.0,
+    "head": [
+     -158.5,
+     46.0,
+     417.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_d435_camera#88": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     176.5,
+     -22.5,
+     201.2
+    ],
+    "out_dir": [
+     -0.87,
+     -0.0,
+     0.5
+    ],
+    "blocked_by": {
+     "riser_adapter": 277.1
+    },
+    "first_block_mm": 30
+   },
+   "bolt_d435_camera#89": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 8.0,
+    "head": [
+     176.5,
+     22.5,
+     201.2
+    ],
+    "out_dir": [
+     -0.87,
+     -0.0,
+     0.5
+    ],
+    "blocked_by": {
+     "riser_adapter": 277.1
+    },
+    "first_block_mm": 30
+   },
+   "bolt_d435_cradle#90": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     169.8,
+     50.0,
+     200.5
+    ],
+    "out_dir": [
+     -0.0,
+     1.0,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "bolt_d435_cradle#92": {
+    "src": "upper",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 14.0,
+    "head": [
+     169.8,
+     -50.0,
+     200.5
+    ],
+    "out_dir": [
+     -0.0,
+     -1.0,
+     -0.0
+    ],
+    "blocked_by": {
+     "plug_d435": 34.1
+    },
+    "first_block_mm": 20
+   },
+   "FL/bolt_pivot_o": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     109.5,
+     195.2,
+     70.0
+    ],
+    "out_dir": [
+     0.71,
+     0.71,
+     -0.0
+    ],
+    "blocked_by": {
+     "bumper_FL": 87.9
+    },
+    "first_block_mm": 5
+   },
+   "FL/bolt_pivot_i": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     18.8,
+     104.5,
+     70.0
+    ],
+    "out_dir": [
+     -0.71,
+     -0.71,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     93.3,
+     201.5,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     12.6,
+     120.8,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     56.3,
+     180.1,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     45.0,
+     168.8,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_5": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     33.7,
+     157.4,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_6": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     75.8,
+     180.4,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_up_7": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     33.3,
+     138.0,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_lug": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     54.8,
+     158.9,
+     42.4
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_tower_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     137.7,
+     161.2,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_tower_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     110.2,
+     188.8,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_tower_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     52.8,
+     76.3,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_tower_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     25.2,
+     103.9,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FL/bolt_towerfix_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     124.0,
+     175.0,
+     128.0
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FL": 303.9
+    },
+    "first_block_mm": 40
+   },
+   "FL/bolt_towerfix_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     39.0,
+     90.1,
+     128.0
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_side_L": 12.3,
+     "floor2_FL": 141.4
+    },
+    "first_block_mm": 60
+   },
+   "RL/bolt_pivot_o": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     -109.5,
+     195.2,
+     70.0
+    ],
+    "out_dir": [
+     -0.71,
+     0.71,
+     -0.0
+    ],
+    "blocked_by": {
+     "bumper_RL": 87.9
+    },
+    "first_block_mm": 5
+   },
+   "RL/bolt_pivot_i": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     -18.8,
+     104.5,
+     70.0
+    ],
+    "out_dir": [
+     0.71,
+     -0.71,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -93.3,
+     201.5,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -12.6,
+     120.8,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -56.3,
+     180.1,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -45.0,
+     168.8,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_5": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -33.7,
+     157.4,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_6": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -75.8,
+     180.4,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_up_7": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -33.3,
+     138.0,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_lug": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -54.8,
+     158.9,
+     42.4
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_tower_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -137.7,
+     161.2,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_tower_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -110.2,
+     188.8,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_tower_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -52.8,
+     76.3,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_tower_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -25.2,
+     103.9,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RL/bolt_towerfix_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     -124.0,
+     175.0,
+     128.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_RL": 303.6
+    },
+    "first_block_mm": 40
+   },
+   "RL/bolt_towerfix_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     -39.0,
+     90.1,
+     128.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_RL": 115.2
+    },
+    "first_block_mm": 60
+   },
+   "RR/bolt_pivot_o": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     -109.5,
+     -195.2,
+     70.0
+    ],
+    "out_dir": [
+     -0.71,
+     -0.71,
+     -0.0
+    ],
+    "blocked_by": {
+     "bumper_RR": 87.9
+    },
+    "first_block_mm": 5
+   },
+   "RR/bolt_pivot_i": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     -18.8,
+     -104.5,
+     70.0
+    ],
+    "out_dir": [
+     0.71,
+     0.71,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -93.3,
+     -201.5,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -12.6,
+     -120.8,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -56.3,
+     -180.1,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -45.0,
+     -168.8,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_5": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -33.7,
+     -157.4,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_6": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -75.8,
+     -180.4,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_up_7": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     -33.3,
+     -138.0,
+     64.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_lug": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -54.8,
+     -158.9,
+     42.4
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_tower_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -137.7,
+     -161.2,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_tower_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -110.2,
+     -188.8,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_tower_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -52.8,
+     -76.3,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_tower_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     -25.2,
+     -103.9,
+     62.9
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "RR/bolt_towerfix_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     -124.0,
+     -175.0,
+     128.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_RR": 303.6
+    },
+    "first_block_mm": 40
+   },
+   "RR/bolt_towerfix_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     -39.0,
+     -90.1,
+     128.0
+    ],
+    "out_dir": [
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_RR": 141.4
+    },
+    "first_block_mm": 60
+   },
+   "FR/bolt_pivot_o": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     109.5,
+     -195.2,
+     70.0
+    ],
+    "out_dir": [
+     0.71,
+     -0.71,
+     -0.0
+    ],
+    "blocked_by": {
+     "bumper_FR": 87.9
+    },
+    "first_block_mm": 5
+   },
+   "FR/bolt_pivot_i": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 35.0,
+    "head": [
+     18.8,
+     -104.5,
+     70.0
+    ],
+    "out_dir": [
+     -0.71,
+     0.71,
+     -0.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     93.3,
+     -201.5,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     12.6,
+     -120.8,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     56.3,
+     -180.1,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     45.0,
+     -168.8,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_5": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     33.7,
+     -157.4,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_6": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     75.8,
+     -180.4,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_up_7": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 30.0,
+    "head": [
+     33.3,
+     -138.0,
+     64.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_lug": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     54.8,
+     -158.9,
+     42.4
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_tower_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     137.7,
+     -161.2,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_tower_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     110.2,
+     -188.8,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_tower_3": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     52.8,
+     -76.3,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_tower_4": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 50.0,
+    "head": [
+     25.2,
+     -103.9,
+     62.9
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    "blocked_by": {},
+    "first_block_mm": null
+   },
+   "FR/bolt_towerfix_1": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     124.0,
+     -175.0,
+     128.0
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "floor2_FR": 304.1
+    },
+    "first_block_mm": 40
+   },
+   "FR/bolt_towerfix_2": {
+    "src": "pod",
+    "kind": "pan",
+    "size": 3.0,
+    "L": 40.0,
+    "head": [
+     39.0,
+     -90.1,
+     128.0
+    ],
+    "out_dir": [
+     0.0,
+     -0.0,
+     1.0
+    ],
+    "blocked_by": {
+     "support_side_R": 12.3,
+     "floor2_FR": 141.4
+    },
+    "first_block_mm": 60
+   }
+  }
+ }
+}

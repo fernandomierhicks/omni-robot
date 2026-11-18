@@ -113,6 +113,12 @@ def robot_params() -> str:
     return cfg("robot.yaml")
 
 
+def rplidar_bins() -> int:
+    """robot.yaml's rplidar bins: the sim's A2M8 publishes its turns as the robot's driver does."""
+    import yaml
+    return int(yaml.safe_load(open(robot_params()))["rplidar"]["ros__parameters"]["bins"])
+
+
 def describe(kind: str) -> LaunchDescription:
     rv, fx, jy, vw, fa, co = DEFAULTS[kind]
     args = [DeclareLaunchArgument("map", default_value="house"), DeclareLaunchArgument("seed", default_value="0"),
@@ -176,6 +182,22 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("terrain", default_value="false"),
             DeclareLaunchArgument("props", default_value="false"),
             DeclareLaunchArgument("lidar_mask", default_value="true"),
+            # the sim's lidar (design.md 2, 4.6): a2m8 (the robot's since Nov 16) | a2m12 (earlier runs); the A2M8's
+            # mode (stability, its default | boost | express | standard) and stamps (clock: omni_cpp rplidar_node's, the
+            # robot's, from the sample clock | sllidar: as sllidar_ros2 would, late by a delivery | true: each turn's
+            # first sample's own time)
+            DeclareLaunchArgument("lidar", default_value="a2m8"),
+            DeclareLaunchArgument("lidar_mode", default_value="stability"),
+            DeclareLaunchArgument("lidar_stamp", default_value="clock"),
+            # the A2M8's bins a turn: "" = robot.yaml's (rplidar_node's) | 0 = one a sample (the runs before Nov 17) | n
+            DeclareLaunchArgument("lidar_bins", default_value=""),
+            # the A2M8 head's turn rate, Hz: "" = the bench's warm 12.5 at PWM 660 (exactly 320 samples a turn: each
+            # turn's samples then sit at the same place in their bins, which the real head's ~327 never do)
+            DeclareLaunchArgument("lidar_hz", default_value=""),
+            # scan_prep's stamp re-timing (scan_time.ScanClock): "" = robot.yaml's (off) | true | false, and its fixed
+            # latency (s; -1 = robot.yaml's)
+            DeclareLaunchArgument("scan_refine", default_value=""),
+            DeclareLaunchArgument("scan_latency", default_value="-1"),
             # goals step: the console's Go To settings (0 / "" = nav2.yaml's own)
             DeclareLaunchArgument("speed", default_value="0.0"),
             DeclareLaunchArgument("heading", default_value=""),
@@ -328,7 +350,9 @@ def build(ctx, kind: str):
                                                    "thrower", "speed", "heading", "spin_rate", "route", "terrain", "props",
                                                    "nav_profile", "catch_sleep", "compose",
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
-                                                   "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise", "front_cam")}
+                                                   "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise", "front_cam",
+                                                   "lidar", "lidar_mode", "lidar_stamp", "lidar_bins", "lidar_hz", "scan_refine",
+                                                   "scan_latency")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
     a["nav_profile"] = resolved_profile(a["nav_profile"], a["side"])
     if a["clock"] not in ("sim", "wall"):
@@ -378,6 +402,9 @@ def build(ctx, kind: str):
                                   # OMNI_CONTROL_PORT: a second stack beside Fernando's (AGENTS.md), as rosbridge's
                                   "control_port": int(os.environ.get("OMNI_CONTROL_PORT", 9873)) if robot else 0,
                                   "d435_noise": a["d435_noise"],
+                                  "lidar": a["lidar"], "lidar_mode": a["lidar_mode"], "lidar_stamp": a["lidar_stamp"],
+                                  "lidar_bins": int(a["lidar_bins"]) if a["lidar_bins"] else rplidar_bins(),
+                                  "lidar_hz": float(a["lidar_hz"]) if a["lidar_hz"] else 0.0,
                                   **arm_kw}]))
     sim_side = [acts[-1]]                                          # what side:=sim keeps (stack.split_sides)
     if arm:
@@ -435,8 +462,15 @@ def build(ctx, kind: str):
     prep = (on("floor_filter") or on("deskew")) and kind != "sim"
     scan = "/scan_filtered" if prep else "/scan"
     if prep:
+        refine = {}
+        if a["scan_refine"]:
+            refine["refine_stamps"] = on("scan_refine")
+        if float(a["scan_latency"]) >= 0:
+            refine["latency"] = float(a["scan_latency"])
+        if a["lidar"].lower() == "a2m12":                      # it turns counter-clockwise: its array runs with time
+            refine["time_order"] = 1
         glue_node("scan_prep", "omni::ScanPrep",
-                  {"floor": on("floor_filter"), "deskew": on("deskew"), **sim_t})
+                  {"floor": on("floor_filter"), "deskew": on("deskew"), **refine, **sim_t})
     if front:
         # design.md 4.12: people from the lidar and the forward camera (/people; the console's Follow uses it)
         acts.append(Node(package="omni_perception", executable="people", name="people", output="screen",
@@ -448,10 +482,18 @@ def build(ctx, kind: str):
         src = profiled(src, name, a["nav_profile"])
         return tmp_yaml(src.replace("scan_topic: /scan", f"scan_topic: {scan}") + extra, name)
 
+    def slam_up():
+        # slam_toolbox's launch files send one configure through launch_ros and never retry: lost under load, the node
+        # stays unconfigured (Nov 16-17). Started with autostart:=false, lifecycle_up drives it to active instead.
+        acts.append(Node(package=PKG, executable="lifecycle_up", name="lifecycle_up_slam_toolbox", output="screen",
+                         arguments=["slam_toolbox"]))
+
     if kind in ("mapping", "auto_map"):
         acts.append(IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(slam_launch, "online_async_launch.py")),
-            launch_arguments={"slam_params_file": slam_yaml("slam_mapping.yaml"), "use_sim_time": str(SIM_TIME[0]).lower()}.items()))
+            launch_arguments={"slam_params_file": slam_yaml("slam_mapping.yaml"), "use_sim_time": str(SIM_TIME[0]).lower(),
+                              "autostart": "false"}.items()))
+        slam_up()
     if a["localizer"] not in ("slam", "amcl"):
         raise RuntimeError(f"localizer: slam or amcl, not {a['localizer']!r}")
     nav_on = a["nav"].lower() in ("1", "true", "yes")             # nav:=false: no Nav2, no SLAM (a small computer's tiers)
@@ -480,7 +522,8 @@ def build(ctx, kind: str):
         acts.append(IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(slam_launch, "localization_launch.py")),
             launch_arguments={"slam_params_file": slam_yaml("slam_localization.yaml", extra),
-                              "use_sim_time": str(SIM_TIME[0]).lower()}.items()))
+                              "use_sim_time": str(SIM_TIME[0]).lower(), "autostart": "false"}.items()))
+        slam_up()
     if kind in ("navigation", "goals", "robot", "arm") and nav_on:
         nav = open(cfg("nav2.yaml")).read().replace("topic: /scan\n", f"topic: {scan}\n")
         if d435 and a["depth_layer"] != "off":
