@@ -281,33 +281,46 @@ def tower_boss_plan(side):
     return rounded_box(xb + s * ALIGN_INSET, xe - s * (ALIGN_INSET + 1.0), ty0 - TOWER_TAB['dy'] + ALIGN_INSET, ty1 + TOWER_TAB['dy'] - ALIGN_INSET)
 
 
-def build_tower(side, info):
+def tower_stop_z(y):
+    """the bump stop's surface under a tower (pod y -> z): the pad's top at bump (pod_rx.rail_line)"""
+    return R.rail_line(P.Y_S - 14.0, P.Y_S + 14.0)(y)
+
+
+def build_tower(side, info, stop=False):
     """a spring tower standing on the deck: its base on the deck's top over the hanger, its overhang over the arm (underside at Z_TBOT, the bump
     rails under it), pod.py's spring bores (two springs in series since Nov 15) and plunger guides.
     Nov 15 (Fernando: the holes perpendicular to the bed): printed TOP DOWN, so the spring bores, the plunger guides and every screw hole stand
     vertical; for that the foot tabs at each end run the tower's full height (no overhang under them) and the long bolts' nuts drop down a hex
-    well from the top onto the well's floor at the old tab-top height. The alignment boss under its base (printed last, on top)"""
+    well from the top onto the well's floor at the old tab-top height. The alignment boss under its base (printed last, on top).
+    stop (Nov 18, Fernando, PROPOSAL: tools/plunger_study.py): the overhang's whole underside IS the bump stop's surface (the pad's top at bump,
+    tower_stop_z), its full length, so the spring bores run down to it (no separate rails); drawn before the rounds like the rest"""
     fr, arm, xo, xi, s = hside(side)
     xc = P4.ARM_C[0] if side == 'o' else P4.ARM_C[1]
     xb = xo - s * TOWER_OUT                                            # the base's outer face
     xe = xi                                                            # the deck's opening edge (1 mm off the arm's outer face)
     ty0, ty1 = TOWER_Y
     dy = TOWER_TAB['dy']
-    t = box(*R.xs(xb, arm[1]), ty0, ty1, P.Z_TBOT, P.Z_TT) + box(*R.xs(xb, xe), ty0, ty1, DECK_Z[1], P.Z_TT)
-    # the bump rails (the hard stop: the arm's pad lands on them at bump) under the overhang, either side of the springs. Nov 14 (Fernando: the
-    # stub was added after the rounds and left sharp): joined BEFORE the edge rounds, so they are rounded with the rest of the tower
     line_b = R.rail_line(P.Y_S - 14.0, P.Y_S + 14.0)
-    pad_front_at_bump = float(P.rot_pt((P.Y_S - 14.0, PAD_Z), A_BUMP)[0]) + 0.5
-    wy = WASHER_OD / 2 + RAIL_CLEAR
-    ax = R.xs(xe, arm[1])                  # flush with the base's face (to the arm's outer face, a 1 mm ledge under the overhang refused every round)
-    for ry in ((max(ty0, pad_front_at_bump), P.Y_PAIR[0] - wy), (P.Y_PAIR[1] + wy, ty1)):
-        if ry[1] - ry[0] >= 1.0:
-            t = t + R.P.yz_poly([(ry[0], line_b(ry[0])), (ry[1], line_b(ry[1])), (ry[1], P.Z_TBOT + 0.5), (ry[0], P.Z_TBOT + 0.5)], *ax)
+    if stop:
+        t = (R.P.yz_poly([(ty0, line_b(ty0)), (ty1, line_b(ty1)), (ty1, P.Z_TT), (ty0, P.Z_TT)], *R.xs(xb, arm[1]))
+             + box(*R.xs(xb, xe), ty0, ty1, DECK_Z[1], P.Z_TT))
+    else:
+        t = box(*R.xs(xb, arm[1]), ty0, ty1, P.Z_TBOT, P.Z_TT) + box(*R.xs(xb, xe), ty0, ty1, DECK_Z[1], P.Z_TT)
+        # the bump rails (the hard stop: the arm's pad lands on them at bump) under the overhang, either side of the springs. Nov 14 (Fernando:
+        # the stub was added after the rounds and left sharp): joined BEFORE the edge rounds, so they are rounded with the rest of the tower
+        pad_front_at_bump = float(P.rot_pt((P.Y_S - 14.0, PAD_Z), A_BUMP)[0]) + 0.5
+        wy = WASHER_OD / 2 + RAIL_CLEAR
+        ax = R.xs(xe, arm[1])              # flush with the base's face (to the arm's outer face, a 1 mm ledge under the overhang refused every round)
+        for ry in ((max(ty0, pad_front_at_bump), P.Y_PAIR[0] - wy), (P.Y_PAIR[1] + wy, ty1)):
+            if ry[1] - ry[0] >= 1.0:
+                t = t + R.P.yz_poly([(ry[0], line_b(ry[0])), (ry[1], line_b(ry[1])), (ry[1], P.Z_TBOT + 0.5), (ry[0], P.Z_TBOT + 0.5)], *ax)
     t = t.clean()
     zb, ztop = DECK_Z[1], P.Z_TT
-    def sel(t):
+    z_low = min(line_b(ty0), line_b(ty1)) - 0.1 if stop else P.Z_TBOT - 0.1   # the underside's lowest point
+
+    def sel(t):                                                        # (not the overhang's inner corner against the base's face, at x = xe)
         return [e for e in t.edges() if not on_plane(e, 2, ztop) and not on_plane(e, 2, zb)
-                and not (abs(e.center().Z - P.Z_TBOT) < 0.2 and abs(e.center().X - xe) < 0.2)]
+                and not (abs(e.center().X - xe) < 0.2 and abs(e.position_at(0).X - e.position_at(1).X) < 1e-3 and e.center().Z < P.Z_TBOT + 0.2)]
 
     def vertical(e):
         p0, p1 = e.position_at(0), e.position_at(1)
@@ -331,7 +344,7 @@ def build_tower(side, info):
     info[f'tower_{side}_mirror_valid'] = bool(t.mirror(b.Plane.XZ).is_valid)
     t = t + align_boss(tower_boss_plan(side), zb, -1)
     for y in P.Y_PAIR:
-        t = t - cyl((SPRING_HOLE_D + 0.6) / 2, P.Z_CEIL - P.Z_TBOT + 0.1, (xc, y, (P.Z_CEIL + P.Z_TBOT) / 2 - 0.05))
+        t = t - cyl((SPRING_HOLE_D + 0.6) / 2, P.Z_CEIL - z_low + 0.1, (xc, y, (P.Z_CEIL + z_low) / 2 - 0.05))
         t = t - cyl(GUIDE_R, GUIDE_LEN + 0.2, (xc, y, P.Z_CEIL + GUIDE_LEN / 2))
     xm = (xb + xe) / 2
     for y in TOWER_SCREW_Y:                                            # the long bolts: clearance through the stub, the nut in a recess in its top
@@ -582,7 +595,17 @@ def marks(key, n):
         fr, arm, xo, xi, s = hside('o' if side == 'OUT' else 'i')
         return [dict(text=f'{n} {side}', size=6.0, origin=(xo - s * TOWER_OUT, sum(TOWER_Y) / 2, (DECK_Z[1] + P.Z_TT) / 2), normal=(-s, 0, 0), up=(0, 0, 1))]
     if key == 'rx_beam':
-        return [dict(text=f'{n}', size=6.0, origin=(P4.X_MID - 10.0, 104.0, P4.BEAM['z'][0]), normal=(0, 0, -1), up=(0, -1, 0))]
+        # Nov 18 (Fernando: "in, out and up on the beam, it's confusing"): OUT points to its outer end (-x: the pin, the outer arm), IN to its
+        # inner end (+x: the boss, the motor plate), UP to the deck. On the back face (seen from behind, u = -x) and on the underside (u = +x)
+        (x0, x1), z0, yb = P4.BEAM['x'], P4.BEAM['z'][0], P4.BEAM['y'][1]
+        back = dict(origin=(P4.X_MID, yb, 1.0), normal=(0, 1, 0), up=(0, 0, 1))
+        under = dict(origin=(P4.X_MID, 100.0, z0), normal=(0, 0, -1), up=(0, -1, 0))
+        return [dict(text=f'{n}', size=6.0, origin=(P4.X_MID - 10.0, 104.0, z0), normal=(0, 0, -1), up=(0, -1, 0)),
+                dict(text='UP', size=5.0, arrow_to=(0, 0, 1), prefer=(0.0, 0.0), **back),
+                dict(text='OUT', size=5.0, arrow_to=(-1, 0, 0), prefer=(P4.X_MID - x0 - 12.0, 0.0), **back),
+                dict(text='IN', size=5.0, arrow_to=(1, 0, 0), prefer=(P4.X_MID - x1 + 14.0, 0.0), **back),
+                dict(text='OUT', size=4.5, arrow_to=(-1, 0, 0), prefer=(x0 - P4.X_MID + 11.0, 0.0), **under),
+                dict(text='IN', size=4.5, arrow_to=(1, 0, 0), prefer=(x1 - P4.X_MID - 11.0, 0.0), **under)]
     if key == 'pod_fork_outer':
         return [dict(text=f'{n} OUT', size=6.0, arrow=True, origin=(R.OUTER_ARM[0], 40.0, 0.0), normal=(-1, 0, 0), up=(0, 0, 1))]
     if key == 'pod_fork_inner':

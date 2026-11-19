@@ -556,6 +556,9 @@ ACC_WALL, ACC_KEEP = 2.6, 3.0      # walls: ACC_WALL from a pilot or slot to the
 ACC_SCREW_KEEP = 6.5               # feet, the pedestal; ACC_SCREW_KEEP round the screws. Tie pairs first, on a 5 mm lattice at 0/45/90/135
 ACC_TIE_STEP, ACC_TIE_GAP = 5.0, 22.0   # deg (cable direction), >= ACC_TIE_GAP apart; pilots then skip anything within 4 mm of a pair.
 ACC_BATTERY_KEEP = 10.0            # Nov 14: none over the battery (a screw from the top would reach the pack) nor its straps, the stand pads
+ACC_STAGGER = True                 # Nov 18 (Fernando: more M3 pilots, for whatever gets mounted later): the lattice's centre points too
+ACC_FILL_SEP, ACC_FILL_STEP = 10.6, 2.5   # (a 10.6 mm diagonal pitch), then pilots in the pockets left, >= ACC_FILL_SEP from every other pilot
+ACC_TIE_KEEP = 4.0                 # a pilot's centre this far from a tie pair's slots
 
 
 def accessory_holes(g, fp):
@@ -571,12 +574,12 @@ def accessory_holes(g, fp):
                       + [tab_plan(ang, g['r_deck'] + 0.5).buffer(ACC_KEEP) for _, ang, _, _ in g.get('btabs', [])]
                       + [m['zone'].buffer(ACC_KEEP) for m in g.get('marks', {}).values() if m.get('placed')]
                       + [key_plan(KEY['clr'] + ACC_KEEP)])
-    cutters, count = {}, {}
+    cutters, count, points = {}, {}, {}
     slot = sbox(-TIE_SLOT_L / 2, -TIE_SLOT_W / 2, TIE_SLOT_L / 2, TIE_SLOT_W / 2)       # cable along local x; the slots across it
     for n, d in g['decks'].items():
         ok = d.intersection(g['lower'][n]).buffer(-ACC_WALL).difference(avoid)
         x0, y0, x1, y1 = d.bounds
-        cut, ties, taken, pil_pts = [], [], [], []
+        cut, ties, taken, pil_pts, tie_dirs = [], [], [], [], []
         for x in np.arange(math.floor(x0 / ACC_TIE_STEP) * ACC_TIE_STEP, x1, ACC_TIE_STEP):    # tie pairs
             for y in np.arange(math.floor(y0 / ACC_TIE_STEP) * ACC_TIE_STEP, y1, ACC_TIE_STEP):
                 if any(math.hypot(x - tx, y - ty) < ACC_TIE_GAP for tx, ty in ties):
@@ -588,15 +591,27 @@ def accessory_holes(g, fp):
                             cut.append(B.solid_of(s, Z0 - 1.0, Z1 + 1.0))
                         taken.append(union_all(sl).convex_hull)
                         ties.append((x, y))
+                        tie_dirs.append(deg)
                         break
-        for x in np.arange(math.floor(x0 / ACC_PITCH) * ACC_PITCH, x1, ACC_PITCH):              # pilots
-            for y in np.arange(math.floor(y0 / ACC_PITCH) * ACC_PITCH, y1, ACC_PITCH):
-                p = Point(x, y)
-                if ok.contains(p.buffer(M3_PILOT / 2, 16)) and not any(t.distance(p) < 4.0 for t in taken):
-                    cut.append(W.cyl(M3_PILOT / 2, Z1 - Z0 + 2.0, (float(x), float(y), (Z0 + Z1) / 2)))
-                    pil_pts.append((float(x), float(y)))
+        def fits(x, y, sep):
+            p = Point(x, y)
+            return (ok.contains(p.buffer(M3_PILOT / 2, 16)) and not any(t.distance(p) < ACC_TIE_KEEP for t in taken)
+                    and all(math.hypot(x - px, y - py) >= sep for px, py in pil_pts))
+        P = ACC_PITCH                                                                          # pilots: the lattice (+ its centres)
+        for ox in ((0.0, P / 2) if ACC_STAGGER else (0.0,)):
+            for x in np.arange(math.floor(x0 / P) * P + ox, x1, P):
+                for y in np.arange(math.floor(y0 / P) * P + ox, y1, P):
+                    if fits(x, y, 0.0):
+                        pil_pts.append((float(x), float(y)))
+        if ACC_FILL_SEP:                                                                       # then the pockets the lattice missed
+            for x in np.arange(math.floor(x0 / ACC_FILL_STEP) * ACC_FILL_STEP, x1, ACC_FILL_STEP):
+                for y in np.arange(math.floor(y0 / ACC_FILL_STEP) * ACC_FILL_STEP, y1, ACC_FILL_STEP):
+                    if fits(x, y, ACC_FILL_SEP):
+                        pil_pts.append((float(x), float(y)))
+        cut += [W.cyl(M3_PILOT / 2, Z1 - Z0 + 2.0, (x, y, (Z0 + Z1) / 2)) for x, y in pil_pts]
         cutters[n], count[n] = cut, dict(tie_pairs=len(ties), m3_pilots=len(pil_pts))
-    return dict(cutters=cutters, count=count)
+        points[n] = dict(ties=[(float(x), float(y), float(dg)) for (x, y), dg in zip(ties, tie_dirs)], pilots=pil_pts)   # Nov 18: for the
+    return dict(cutters=cutters, count=count, points=points)                                      # electrics' cradles (electrical.py)
 
 
 # ---- the bumper's tabs ---------------------------------------------------------------------------------------------------------------------
@@ -770,6 +785,7 @@ def build(fp):
         if cutters:
             parts[f'deck_{n}'] = parts[f'deck_{n}'] - b.Compound(cutters)
     g['accessory'] = acc['count']
+    g['accessory_pts'] = acc['points']                                 # Nov 18: where electrical.py's cradles screw / tie down
     rb = g['r_deck'] + 0.5
     for n in B.NAMES:                                                  # bumper quarters hung on the deck's rim (one per quarter)
         parts[f'bumper_{n}'] = bumper_quarter(n, g['btabs'], rb)
@@ -864,8 +880,13 @@ def check(parts, hw, g, fp):
                                     note='a pocket must be in one piece (wall >= 0 inside it); seats_on_another_piece must be empty (Nov 15: FR\'s beam '
                                          'under RR\'s tab)')
     rep['deck_marks'] = {n: {k: v for k, v in m.items() if k not in ('cut', 'zone')} for n, m in g.get('marks', {}).items()}
-    rep['accessory_holes'] = dict(per_piece=g.get('accessory'), pitch=ACC_PITCH, note='zip-tie pairs and M3 pilots (Ø2.8, through) on a 15 mm '
-                                  'lattice where the deck has room; none over the battery, its straps, the stand pads')
+    pil = [p for v in g.get('accessory_pts', {}).values() for p in v['pilots']]
+    sep = min((math.dist(a, b) for i, a in enumerate(pil) for b in pil[i + 1:]), default=None)
+    rep['accessory_holes'] = dict(per_piece=g.get('accessory'), m3_pilots=len(pil), tie_pairs=sum(v['tie_pairs'] for v in (g.get('accessory') or {}).values()),
+                                  pitch=ACC_PITCH, stagger=ACC_STAGGER, fill_sep=ACC_FILL_SEP,
+                                  min_pilot_spacing_mm=round(sep, 2) if sep else None,
+                                  note='zip-tie pairs and M3 pilots (Ø2.8, through) where the deck has room: a 15 mm lattice and (Nov 18) its centre '
+                                       'points, then the pockets left at >= fill_sep; none over the battery, its straps, the stand pads')
     rep['deck_volume_cm3'] = dict(total=round(sum(v['volume_cm3'] for v in q.values()), 1), v14_frame=1141.3)
     # the fins, pedestal, bumper and battery against the pods (every pose)
     clash, near_ = {}, {}

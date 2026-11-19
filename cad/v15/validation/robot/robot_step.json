@@ -1,11 +1,11 @@
 {
- "written": 756,
+ "written": 779,
  "robot": {
   "file": "step_export\\robot_assembly.step",
-  "solids": 756,
+  "solids": 781,
   "bbox_min": [
    -232.5,
-   -232.5,
+   -235.4,
    -11.4
   ],
   "bbox_max": [

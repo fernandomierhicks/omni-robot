@@ -1,4 +1,4 @@
-"""cad/v15 robot wiring harness (v13 Nov 11 2026; ported to v15's mid deck Nov 14: harness_route's world, the motor bundle's tie on the motor
+"""cad/v15 robot wiring harness (Nov 18 2026: the electrics of electrical.py, power on the first floor; v13 Nov 11 2026; ported to v15's mid deck Nov 14: harness_route's world, the motor bundle's tie on the motor
 plate; PROPOSAL; nothing bought, wired or built). Inventory, power budget, the leads as solids, checks.
 
     python -B harness.py inventory | power | build | check | render | all      (omni-robot-sim interpreter, from tools/)
@@ -40,89 +40,83 @@ LEADS = {
     'usb2': (3.8, 19.0, 'USB 2 lead'),
     'usbc': (5.0, 25.0, 'USB-C lead'),
     'hdmi': (6.0, 6.0, 'flat FPC HDMI cable (a round HDMI lead is Ø7, R 35: too stiff here), ASSUMED'),
-    'lidar': (3.5, 10.0, "the A2M12's own lead to its USB adapter (VERIFY)"),
+    'lidar': (3.5, 10.0, "the A2M8's own lead to its USB adapter (VERIFY)"),
+    'pair26': (2.6, 6.0, '2 x 26 AWG twisted (CAN H / L, pack sense)'),
+    'sig8': (5.0, 15.0, '8 x 26 AWG in a jacket: CAN H / L (a twisted pair), pack sense +/-, I2C 3V3 / GND / SDA / SCL'),
+    'i2c4': (4.0, 12.0, '4 x 26 AWG in a jacket (3V3, GND, SDA, SCL; or 5 V, GND, TX, RX)'),
+    'imu8': (4.5, 14.0, '8 x 26 AWG in a jacket (the BNO085: J4 power + J3 data)'),
+    'btn2': (3.0, 8.0, '2 x 24 AWG, jacketed (the main button to the anti-spark switch)'),
     'imu': (5.0, 15.0, '10 x 26 AWG (SPI 4 + INT, RST, WAKE, BOOTN + 3V3 / GND), round jacket'),
     'multi4': (4.5, 18.0, '4 x 22 AWG in a jacket (button contacts + LED)'),
 }
 
 # ---- connectors: body across (w) x high (h) x how far the mated plug stands out of its device (L), the part, status ------------------------
 def xh(n):
-    return (2.5 * (n - 1) + 4.9, 5.75, 9.8)                              # JST XHP-n housing (catalogue A = 2.5 (n - 1) + 4.9), ASSUMED height / length
+    return (2.5 * (n - 1) + 4.9, 5.75, 9.8)                              # JST XH, mated (reference/harness/jst_xh_catalogue_eXH.pdf: header
+                                                                         # B 2.5 (n - 1) + 4.9 x 5.75, the plug's top 9.8 over the board; the
+                                                                         # XHP plug itself 2.5 (n - 1) + 4.8 x 5.7 x 7.5); the wire leaves its top
 
 
 CONN = {
     'XT90': ((21.0, 11.0, 46.0), 'Amass XT90 pair, mated (the pack\'s plug + the board pigtail\'s socket)', 'ASSUMED size'),
     'XT30': ((10.2, 5.2, 16.0), 'Amass XT30U', 'ASSUMED size'),
     'XT30(2+2)': ((14.0, 9.0, 20.0), 'Amass XT30(2+2)-F, the CubeMars motor-cable plug (power + CAN_H / CAN_L)', 'motor side: maker STEP; plug VERIFY'),
-    'XH2': (xh(2), 'JST XH 2P', 'ASSUMED size'), 'XH4': (xh(4), 'JST XH 4P', 'ASSUMED size'), 'XH6': (xh(6), 'JST XH 6P', 'ASSUMED size'),
-    'XH10': (xh(10), 'JST XH 10P', 'ASSUMED size'),
+    'XH2': (xh(2), 'JST XH 2P', 'JST catalogue eXH'), 'XH4': (xh(4), 'JST XH 4P', 'JST catalogue eXH'),
+    'XH6': (xh(6), 'JST XH 6P', 'JST catalogue eXH'), 'XH10': (xh(10), 'JST XH 10P', 'JST catalogue eXH'),
+    'XH3': (xh(3), 'JST XH 3P', 'JST catalogue eXH'),
+    'XT60': ((15.8, 8.2, 25.0), 'Amass XT60 (the 30 A path)', 'ASSUMED size'),
     'USB-A': ((16.0, 8.5, 30.0), 'USB-A plug overmould', 'ASSUMED (layout_study.PLUGS)'),
     'USB-C': ((12.4, 6.5, 21.0), 'USB-C plug overmould', 'D435 bench cable size; others ASSUMED'),
     'micro-B': ((11.0, 7.0, 25.0), 'USB micro-B plug overmould', 'ASSUMED'),
     'HDMI-A': ((21.0, 9.0, 24.0), 'HDMI-A plug on an FPC adapter board', 'ASSUMED'),
     'DC5525': ((10.0, 10.0, 32.0), '5.5 / 2.5 mm DC barrel plug', 'BMAX: VERIFY the barrel size'),
     'Dupont1x8': ((20.3, 2.5, 18.0), 'Dupont 1 x 8 housing on the BNO085 header', 'drawn by upper.py'),
-    'spade': ((7.0, 3.0, 8.0), '2.8 mm spade / screw terminals on the 22 mm contact block', 'ASSUMED'),
+    'spade': ((7.6, 5.5, 19.5), "4.8 mm fully insulated receptacles on the main switch's tabs (drawn by upper.main_switch)", 'ASSUMED'),
     'lidar': ((12.0, 6.0, 12.0), "A2M12's connector (on its base)", 'position ASSUMED (VERIFY on the unit)'),
 }
 
 # ---- ports (robot frame, mm): p = where the plug meets its device; d = the way the plug points out; dev; conn; drawn = an upper.py plug + lead
-# already ends here (p is then that lead's end and the route starts there). New ports on our own boards are ASSUMED placements.
-PB = dict(x=(-32.0, 38.0), y=(-174.0, -114.0), z=(220.5, 238.5))      # the distribution board on the power stack's shelf (upper.STACK, Nov 11)
-MCU = dict(x=(-13.0, 87.0), y=(-176.0, -111.0), z=(252.5, 277.5))     # Teensy carrier (perfboard, Teensy on headers, JST XH round its edge)
-CARRIER_Z = 256.0                                                      # side-entry XH headers on the perfboard (its top at ~254)
-MOTOR_Y = (-127.0, -138.0, -149.0, -160.0)                             # the four motor XT30s on the board's -x face, between the stack's
-                                                                       # posts at (-42, -117) and (-42, -175)
-SLOT_ORDER = ('RR', 'FR', 'RL', 'FL')                                  # which socket each pod's lead takes (nearest the slot first)
+# already ends here (p is then that lead's end and the route starts there). Nov 18 (Fernando: power down): the electrics' ports are
+# electrical.py's (its blocks on both floors, the carrier pcb/v1's connectors, the Teensy's USB); the computer's are on its two panels.
+COMPUTER = dict(xy=(-70.0, 0.0), l=112.0, w=126.0, z0=184.5)          # upper.BLOCK['computer'] (yaw 0): front panel at x -14, rear at x -126
 
 
 def ports():
+    import electrical as EL
     P = {}
 
     def add(name, p, d, dev, conn, drawn=False, note=''):
-        P[name] = dict(p=[round(float(v), 1) for v in p], d=list(d), dev=dev, conn=conn, drawn=drawn, note=note)
-    # computer (BMAX B8A Pro envelope; port layout ASSUMED, upper.electronics draws the four USB-A and the DC plugs + leads)
-    add('pc_usb3_1', (-95.0, 113.0, 242.5), (0, 0, 1), 'computer', 'USB-A', True, 'USB 3 A, the face toward +y (drawn lead end)')
-    add('pc_usb3_2', (-113.0, 113.0, 242.5), (0, 0, 1), 'computer', 'USB-A', True, 'USB 3 A, +y face')
-    add('pc_usb2_1', (-117.0, -105.0, 233.5), (0, 0, 1), 'computer', 'USB-A', True, 'USB 2 A, -y face')
-    add('pc_usb2_2', (-97.0, -105.0, 233.5), (0, 0, 1), 'computer', 'USB-A', True, 'USB 2 A, -y face')
-    add('pc_dc', (-175.0, -105.0, 236.5), (0, 0, 1), 'computer', 'DC5525', True, '19 V in, -y face')
-    add('pc_usbc', (-135.0, 57.0, 204.5), (0, 1, 0), 'computer', 'USB-C', False, 'USB-C, +y face (new plug)')
-    add('pc_hdmi', (-150.0, -55.0, 214.5), (0, -1, 0), 'computer', 'HDMI-A', False, 'HDMI, -y face (new plug)')
-    # power stack (Nov 11): our distribution board (fuse, anti-spark + e-stop contactor, current sensor, XT30 / XH outputs) and the three
-    # potted converters' output leads. ASSUMED ports
-    zm, zj = 226.0, 234.0                                              # the board's XT30 row and its JST row
-    add('pb_bat', (32.0, PB['y'][1], 229.0), (0, 1, 0), 'power', 'pigtail', False, "6S in: 12 AWG pigtail to the XT90 that mates the pack's")
-    add('bat_deck', (-128.0, -17.0, 101.0), (0, 0, 1), 'battery', 'lead', True, "v15: the board's XT90 lead out of the deck's lead hole "
+        P[name] = dict(p=[round(float(v), 1) for v in p], d=[round(float(v), 4) for v in d], dev=dev, conn=conn, drawn=drawn, note=note)
+    # computer (BMAX B8A Pro envelope, under the bin; port layout ASSUMED from the maker's photos: front 2 x USB-A 3 + USB-C, rear DC,
+    # HDMI, 2 x USB-A 2 -- VERIFY)
+    xf = COMPUTER['xy'][0] + COMPUTER['l'] / 2
+    xr = COMPUTER['xy'][0] - COMPUTER['l'] / 2
+    z = COMPUTER['z0']
+    add('pc_usb3_1', (xf, -40.0, z + 20.0), (1, 0, 0), 'computer', 'USB-A', False, 'front USB-A 3: the D435')
+    add('pc_usb3_2', (xf, -22.0, z + 20.0), (1, 0, 0), 'computer', 'USB-A', False, 'front USB-A 3: the Teensy')
+    add('pc_usbc', (xf, 12.0, z + 20.0), (1, 0, 0), 'computer', 'USB-C', False, 'front USB-C: the USB hub')
+    add('pc_usb2_1', (xr, 32.0, z + 15.0), (-1, 0, 0), 'computer', 'USB-A', False, 'rear USB-A 2: the mic array')
+    add('pc_usb2_2', (xr, 32.0, z + 32.0), (-1, 0, 0), 'computer', 'USB-A', False, 'rear USB-A 2: the lidar\'s adapter')
+    add('pc_hdmi', (xr, 0.0, z + 22.0), (-1, 0, 0), 'computer', 'HDMI-A', False, 'rear HDMI: the face')
+    add('pc_dc', (xr, -40.0, z + 22.0), (-1, 0, 0), 'computer', 'DC5525', False, 'rear DC in, 19 V')
+    for k, (p, d, dev, conn, note) in EL.ports().items():                  # the electrics (both floors) and the carrier
+        if conn == 'XH':
+            conn = {'J1': 'XH2', 'J3': 'XH6', 'J4': 'XH2', 'J6': 'XH2', 'J10': 'XH2', 'J12': 'XH4', 'J13': 'XH4',
+                    'J15': 'XH4', 'J20': 'XH3', 'J21': 'XH4', 'J19': 'XH4'}.get(k.split('_')[1], 'XH6')
+        add(k, p, d, dev, conn, False, note)
+    add('bat_deck', (-128.0, -17.0, 101.0), (0, 0, 1), 'battery', 'lead', True, "the pack's 12 AWG lead out of the deck's lead hole "
         '(chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)')
-    for k, y in enumerate(MOTOR_Y):
-        add(f'pb_m{k + 1}', (PB['x'][0], y, zm), (-1, 0, 0), 'power', 'XT30', False, f'motor bus out {k + 1} (fused)')
-    add('pb_19v', (-20.0, -110.0, 221.0), (0, 0, 1), 'conv_19v', 'pair18', False, "the 19 V module's output lead, up through the shelf's lead slot")
-    add('pb_estop', (PB['x'][0], -128.0, zj), (-1, 0, 0), 'power', 'XH4', False, 'e-stop: NC loop (contactor) + sense')
-    add('pb_switch', (PB['x'][0], -142.0, zj), (-1, 0, 0), 'power', 'XH4', False, 'power switch: NO (anti-spark enable) + LED')
-    add('pb_5v_face', (PB['x'][0], -156.0, zj), (-1, 0, 0), 'power', 'XH2', False, '5 V out (from the 5 V module): display + audio amp')
-    add('pb_arm', (106.0, -144.0, 231.0), (1, 0, 0), 'conv_12v', 'XT30', False, "the 12 V module's output to the arm (the e-stop cuts its input)")
-    add('pb_spare_bat', (0.0, PB['y'][0], zm), (0, -1, 0), 'power', 'XT30', False, 'SPARE: switched 6S (future payload)')
-    add('pb_spare_5v', (20.0, PB['y'][0], zj), (0, -1, 0), 'power', 'XH2', False, 'SPARE: 5 V')
-    # Teensy carrier (perfboard + JST XH, Fernando Nov 11): CAN chain, IMU, spares; the Teensy's own micro-B is drawn by upper.py
-    for k, x in enumerate((-2.0, 13.0, 28.0, 43.0)):
-        add(f'mcu_can{k + 1}', (x, MCU['y'][0], CARRIER_Z), (0, -1, 0), 'mcu', 'XH4', False, f'CAN1 chain, motor {k + 1}: out pair + return pair')
-    add('mcu_usb', (-60.0, -163.5, 298.5), (0, 0, 1), 'mcu', 'micro-B', True, "the Teensy 4.1's micro-B (drawn lead end)")
-    add('mcu_imu', (30.0, MCU['y'][1], CARRIER_Z), (0, 1, 0), 'mcu', 'XH10', False, 'BNO085 (SPI)')
-    add('mcu_spare_can3', (MCU['x'][1], -128.0, CARRIER_Z), (1, 0, 0), 'mcu', 'XH4', False, 'SPARE: CAN3 payload connector (firmware: reserved)')
-    add('mcu_spare_uart', (MCU['x'][1], -142.0, CARRIER_Z), (1, 0, 0), 'mcu', 'XH4', False, 'SPARE: a UART (+5 V)')
-    add('mcu_spare_i2c', (MCU['x'][1], -156.0, CARRIER_Z), (1, 0, 0), 'mcu', 'XH4', False, 'SPARE: I2C (+3V3)')
-    add('mcu_spare_io', (60.0, MCU['y'][1], CARRIER_Z), (0, 1, 0), 'mcu', 'XH6', False, 'SPARE: GPIO / analog (bumpers, trigger, sync)')
     # devices
     add('imu', (25.6, -40.0, 211.0), (0, 0, 1), 'imu', 'Dupont1x8', True, 'BNO085 header housing, lead up (drawn)')
     add('d435', (59.8, -60.8, 197.6), (-1, 0, 0), 'd435', 'USB-C', True, "the D435's USB-C lead end at the riser's rear (d435_riser.py)")
     add('sa_usb', (41.0, 75.5, 243.0), (0, 0, 1), 'servo_adapter', 'USB-C', True, 'servo bus adapter USB-C (drawn lead end)')
     add('sa_dc', (41.5, 22.5, 214.0), (0, 1, 0), 'servo_adapter', 'DC5525', False, 'servo bus adapter DC in (ASSUMED on the +y end, over its USB-C)')
-    add('lidar', (120.0 - 38.5 * 0.7071, -38.5 * 0.7071, 136.0), (-0.7071, -0.7071, 0), 'lidar', 'lidar', False, "A2M12 base, toward the right rear (its lead's exit: VERIFY)")
-    add('lidar_ad_in', (-80.0, -146.0, 189.0), (0, -1, 0), 'lidar_adapter', 'lidar', False, 'A2M12 USB adapter board, lidar in')
-    add('lidar_ad_usb', (-80.0, -124.0, 189.0), (0, 1, 0), 'lidar_adapter', 'micro-B', False, 'A2M12 USB adapter board, USB out')
-    add('estop', (-183.0, 76.0, 249.0), (0, 0, -1), 'estop', 'spade', False, '22 mm e-stop contact block (NC + NC), lead down through the deck')
-    add('switch', (-183.0, -76.0, 249.0), (0, 0, -1), 'switch', 'spade', False, '22 mm latching switch (NO + LED), lead down through the deck')
+    add('lidar', (120.0 - 38.5 * 0.7071, -38.5 * 0.7071, 136.0), (-0.7071, -0.7071, 0), 'lidar', 'lidar', False, "A2M8 base, toward the right rear (its lead's exit: VERIFY)")
+    add('lidar_ad_in', (-80.0, -146.0, 189.0), (0, -1, 0), 'lidar_adapter', 'lidar', False, 'A2M8 USB adapter board, lidar in')
+    add('lidar_ad_usb', (-80.0, -124.0, 189.0), (0, 1, 0), 'lidar_adapter', 'micro-B', False, 'A2M8 USB adapter board, USB out')
+    import upper as U
+    add('switch_main', U.SWITCH_PORT, U.SWITCH_PORT_DIR, 'switch_main', 'spade', True, "the main button (Fernando's rocker, latching = "
+        "the e-stop) on floor 2's rear rim: the lead leaves its two drawn 4.8 mm receptacles (upper.main_switch) toward the floor's middle")
     add('disp_hdmi', (-154.8, -19.0, 322.0), (0, 0, -1), 'display', 'HDMI-A', False, '5 in panel HDMI, at its bottom edge (ASSUMED)')
     add('disp_pwr', (-154.8, 20.0, 322.0), (0, 0, -1), 'display', 'micro-B', False, '5 in panel 5 V (micro-USB power only, ASSUMED)')
     add('mic_usb', (-163.0, -64.0, 410.0), (0, -1, 0), 'mic_array', 'micro-B', False, 'USB mic array (ASSUMED micro-B at its -y end)')
@@ -143,6 +137,65 @@ def obox(p, d, L, w, h):
     M = np.zeros((3, 4))
     M[:, 0], M[:, 1], M[:, 2], M[:, 3] = d, a, u, p
     return Pd.box(0, L, -w / 2, w / 2, -h / 2, h / 2).moved(W.loc(M))
+
+
+# Nov 18 (Fernando: real USB connector CAD where we can): no maker STEP of an overmoulded USB cable plug is free to download (the makers'
+# models are board receptacles), so the cable plugs are drawn as moulded: a rounded overmould tapering 8 % back from the port's face, then a
+# strain-relief boot tapering to the cable (its outside size, total length and the cable's centre unchanged: CONN). The metal shell inside
+# the receptacle is not drawn (the devices are envelopes). (body length, corner radius as a fraction of the height, cable OD)
+USB_MOULD = {'USB-A': (20.0, 0.30, 4.6), 'USB-C': (14.0, 0.45, 5.0), 'micro-B': (15.0, 0.40, 3.8)}
+
+
+def usb_plug(p, d, kind):
+    """a moulded USB cable plug from the port p along unit d (obox's frame: w across, h the third axis): the overmould, then the boot"""
+    import build123d as b
+    import wheel_motor as W
+    (w, h, L), _, _ = CONN[kind]
+    Lb, rf, od = USB_MOULD[kind]
+
+    def rr(x, ww, hh, r):                                                # a rounded rectangle across the axis at x
+        return b.Plane.YZ.offset(x) * b.RectangleRounded(ww, hh, min(r, hh / 2 - 0.01, ww / 2 - 0.01))
+    body = b.loft([rr(0.0, w, h, rf * h), rr(Lb, 0.92 * w, 0.92 * h, rf * h * 0.92)])
+    boot = b.loft([rr(Lb, 0.62 * w, 0.7 * h, rf * h * 0.7),
+                   b.Plane.YZ.offset(L) * b.Circle(od / 2 + 0.6)])
+    s = body + boot
+    d = np.asarray(d, float) / np.linalg.norm(d)
+    a = np.cross((0, 0, 1.0), d) if abs(d[2]) < 0.9 else np.array([0, 1.0, 0])
+    a = a / np.linalg.norm(a)
+    M = np.zeros((3, 4))
+    M[:, 0], M[:, 1], M[:, 2], M[:, 3] = d, a, np.cross(d, a), p
+    return s.moved(W.loc(M))
+
+
+# Nov 18 (Fernando): JST's own XHP-4 STEP, re-stacked to XHP-2 / -3 / -4 / -6 (jst_xh.py); XH10 stays a box. On the carrier the plug sits
+# in its top-entry header (its mating face jst_xh.IN_HEADER = 4.95 under the header's top, the port), its wire end 2.8 over it; on a
+# block (an envelope with no header drawn) it stands on the face, its whole 7.75 outside
+XH_REAL = ('XH2', 'XH3', 'XH4', 'XH6')
+
+
+def plug_len(port, pt):
+    """how far the plug reaches out of its port along d (the lead starts there)"""
+    if pt['conn'] in XH_REAL:
+        import jst_xh as JX
+        return JX.H - (JX.IN_HEADER if port.startswith('carrier_') else 0.0)
+    return CONN[pt['conn']][0][2] if pt['conn'] in CONN else 0.0
+
+
+def xh_plug(port, pt):
+    """the real XHP-n at a port: contacts across the header's row (the carrier's footprint rotation), else obox's horizontal across"""
+    import electrical as EL
+    import jst_xh as JX
+    import wheel_motor as W
+    d = np.asarray(pt['d'], float) / np.linalg.norm(pt['d'])
+    if port.startswith('carrier_') and abs(d[2]) > 0.9:
+        a = np.array([0, 1.0, 0]) if port.split('_')[1] in EL.CARRIER_CONN_ALONG_Y else np.array([1.0, 0, 0])
+    else:
+        a = np.cross((0, 0, 1.0), d) if abs(d[2]) < 0.9 else np.array([0, 1.0, 0])
+        a = a / np.linalg.norm(a)
+    ins = JX.IN_HEADER if port.startswith('carrier_') else 0.0
+    M = np.zeros((3, 4))
+    M[:, 0], M[:, 1], M[:, 2], M[:, 3] = a, np.cross(d, a), d, np.asarray(pt['p'], float) - d * ins
+    return JX.xhp(int(pt['conn'][2:])).moved(W.loc(M))
 
 
 def corner_radii(pts, R):
@@ -242,7 +295,12 @@ def new_items():
         if pt['drawn'] or pt['conn'] not in CONN or k.startswith(('motor_', 'estop', 'switch')):
             continue
         (w, h, L_), _, _ = CONN[pt['conn']]
-        out[f'plug_{k}'] = obox(pt['p'], pt['d'], L_, w, h)
+        if pt['conn'] in XH_REAL:
+            out[f'plug_{k}'] = xh_plug(k, pt)
+        elif pt['conn'] in USB_MOULD:
+            out[f'plug_{k}'] = usb_plug(pt['p'], pt['d'], pt['conn'])
+        else:
+            out[f'plug_{k}'] = obox(pt['p'], pt['d'], L_, w, h)
     out['lidar_adapter'] = Pd.box(*LIDAR_AD['x'], *LIDAR_AD['y'], *LIDAR_AD['z'])
     out.update(battery_items())
     return out
@@ -316,58 +374,84 @@ def motor_ends():
 SVC_POD = ('pod removal (v15: the pod drops out downward): unplug the XT30 at the motor through the deck\'s opening and cut the tie at the '
            'motor plate; a service loop from that tie up onto the deck takes the fork\'s travel')
 SVC_ARM = 'arm module removal: unplug at the module'
-SVC_DECK = 'bin deck lift: unplug at the power board, or 150 mm slack'
+SVC_DECK = 'bin deck lift: unplug at the computer, or 150 mm slack'
+SVC_F1 = 'first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot\'s top first)'
+MOTOR_SOCKET = {'FL': 'blk_m1', 'FR': 'blk_m2', 'RL': 'blk_m3', 'RR': 'blk_m4'}
 CONNECTIONS = [
-    # power
+    # power, first floor: the pack -> anti-spark switch -> fuse -> INA226 -> XT30 block -> drives, 12 V and 5 V converters
     dict(id='BAT', a='battery', b='bat_deck', sig='6S pack (18-25.2 V) in: the pack, its pigtail, the XT90 pair under the deck, the board '
          "lead up through the deck's lead hole", conn='XT90 pair', lead='bat', awg=10, amps=30.0, route=False,
          survive='battery removal (v15): robot on its stand, unplug the XT90 under the deck, open the straps, the pack drops out'),
-    dict(id='BAT_PB', a='bat_deck', b='pb_bat', sig="6S in: the board's 12 AWG XT90 lead from the deck's lead hole to the power board",
-         conn='pigtail', lead='pair12', awg=12, amps=30.0, route=True, survive='stays (unplugged at the XT90 under the deck)'),
+    dict(id='BAT_AS', a='bat_deck', b='as_in', sig="6S in: the pack's lead from the deck's lead hole to the anti-spark switch",
+         conn='lead / XT60', lead='pair12', awg=12, amps=30.0, route=True, survive=SVC_F1),
+    dict(id='AS_INA', a='as_out', b='ina226_in', sig='6S switched, through the 30 A inline fuse (blade holder on this lead)',
+         conn='XT60 both ends', lead='pair12', awg=12, amps=30.0, route=True, survive=SVC_F1),
+    dict(id='INA_BLK', a='ina226 IN-', b='block bus', sig='6S metered, into the distribution block',
+         conn="inside the block (the INA226 stands on its side)", lead=None, awg=12, amps=30.0, route=False, survive=''),
     dict(id='BAL', a='battery', b=None, sig='6S balance lead (charging only)', conn='JST XH 7P', lead=None, awg=22, amps=0.0, route=False,
          survive="stays with the pack; its XH7 tucked against the pack's front end"),
-] + [dict(id=f'M_{n}', a=f'motor_{n}', b=f'pb_m{SLOT_ORDER.index(n) + 1}', sig='motor bus 6S (after the e-stop contactor) + CAN1 in / out',
-          conn='XT30(2+2)-F at the motor / XT30 at the board + XH4 at the carrier', lead='motor', awg=18, amps=7.3, route=True, survive=SVC_POD)
+] + [dict(id=f'M_{n}', a=f'motor_{n}', b=MOTOR_SOCKET[n], sig='drive bus 6S + CAN1 in / out (the chain runs through every drive lead)',
+          conn='XT30(2+2)-F at the motor / XT30 + XH4 at the block', lead='motor', awg=18, amps=7.3, route=True, survive=SVC_POD)
      for n in ('FR', 'FL', 'RR', 'RL')] + [
-    dict(id=f'CAN_{n}', a=f'pb_m{SLOT_ORDER.index(n) + 1}', b=f'mcu_can{SLOT_ORDER.index(n) + 1}', sig='CAN1 chain branch of the motor bundle',
-         conn='XH4', lead='can', awg=26, amps=0.1, route=True, survive='') for n in ('FR', 'FL', 'RR', 'RL')] + [
-    dict(id='PC19', a='pb_19v', b='pc_dc', sig='19 V computer supply (the 19 V module, before the e-stop)', conn="module lead / DC 5.5x2.5",
-         lead='pair18', awg=18, amps=4.5, route=True, survive=''),
-    dict(id='ARM12', a='pb_arm', b='sa_dc', sig='12 V servo bus power from the stack\'s 12 V module (the e-stop cuts its input)',
-         conn='XT30 at the module / DC 5.5x2.1 at the adapter (Waveshare: VERIFY)', lead='pair18', awg=18, amps=6.7, route=True,
-         survive=SVC_ARM + ' (the DC plug at the servo adapter)'),
+    dict(id='BLK_12', a='blk_12', b='c12v_in', sig='6S to the 12 V converter', conn='XT30 both ends', lead='pair18', awg=18, amps=6.0,
+         route=True, survive=SVC_F1),
+    dict(id='BLK_5', a='blk_5', b='c5v_in', sig='6S to the 5 V converter', conn='XT30 both ends', lead='pair20', awg=20, amps=1.5,
+         route=True, survive=SVC_F1),
+    dict(id='BLK_19', a='blk_19', b='c19v_in', sig='6S up to the 19 V converter (second floor)', conn='XT30 both ends', lead='pair18', awg=18,
+         amps=4.5, route=True, survive=SVC_F1),
+    dict(id='SIG_DOWN', a='blk_sense', b='carrier_J1', sig="one signal lead, carrier <-> distribution block: pack sense (+, GND) to J1, "
+         "CAN1 H / L to J6 (U2's 120 ohm is this end of the chain), the INA226's I2C to J21; short breakouts at both ends",
+         conn='XH2 + XH2 + XH4 at each end', lead='sig8', awg=26, amps=0.1, route=True, survive=SVC_F1),
+    dict(id='BUTTON', a='switch_main', b='as_btn', sig='the main button (latching = off / e-stop) to the anti-spark switch\'s control input',
+         conn='spades / XH2', lead='btn2', awg=24, amps=0.05, route=True, survive=SVC_F1),
+    # rails: the converters' outputs through the INA3221 (second floor) to their loads
+    dict(id='C12_OUT', a='c12v_out', b='ina3221_1_in', sig='12 V out, up to the INA3221 CH1', conn='XT30 / XH2', lead='pair18', awg=18,
+         amps=6.7, route=True, survive=SVC_F1),
+    dict(id='C5_OUT', a='c5v_out', b='ina3221_3_in', sig='5 V out, up to the INA3221 CH3', conn='XT30 / XH2', lead='pair20', awg=20,
+         amps=2.5, route=True, survive=SVC_F1),
+    dict(id='C19_OUT', a='c19v_out', b='ina3221_2_in', sig='19 V out to the INA3221 CH2', conn='XT30 / XH2', lead='pair18', awg=18, amps=4.5,
+         route=True, survive=''),
+    dict(id='R12', a='ina3221_1_out', b='sa_dc', sig='12 V to the servo bus adapter (the SO-101)', conn='XH2 / DC 5.5x2.1 (Waveshare: VERIFY)',
+         lead='pair18', awg=18, amps=6.7, route=True, survive=SVC_ARM + ' (the DC plug at the servo adapter)'),
+    dict(id='R19', a='ina3221_2_out', b='pc_dc', sig='19 V to the computer', conn='XH2 / DC 5.5x2.5', lead='pair18', awg=18, amps=4.5,
+         route=True, survive=SVC_DECK),
+    dict(id='R5_DISP', a='ina3221_3_out', b='disp_pwr', sig='5 V to the face display and the speaker amp (branch at the crown)',
+         conn='XH2 / micro-B', lead='pair20', awg=20, amps=2.0, route=True, survive=SVC_DECK),
+    dict(id='R5_HUB', a='ina3221_3_out', b='hub_pwr', sig='5 V to the powered USB hub', conn='XH2 both ends', lead='pair20', awg=20, amps=1.5,
+         route=True, survive=''),
     dict(id='SBUS', a='servo_adapter', b='SO-101 base servo', sig='Feetech TTL half-duplex bus + 12 V', conn='5264 3P (SO-101 kit cable)',
          lead=None, awg=None, amps=6.6, route=False, survive='arm kit: inside the SO-101, routed by its own clips'),
-    dict(id='5V', a='pb_5v_face', b='disp_pwr', sig='5 V: display + the speaker amp (branch at the crown)', conn='XH2 / micro-B', lead='pair20',
-         awg=20, amps=2.0, route=True, survive=SVC_DECK),
-    dict(id='PB-MCU', a='power board top', b='carrier underside', sig='5 V, GND, V_BUS, I_BUS, ESTOP, BUS_EN', conn='XH6 both ends',
-         lead=None, awg=24, amps=0.5, route=False, survive='inside the stack (10 mm gap)'),
-    # safety
-    dict(id='ESTOP', a='estop', b='pb_estop', sig='e-stop: NC in the contactor / anti-spark loop + NC to Teensy pin 35', conn='spades / XH4',
-         lead='multi4', awg=22, amps=0.5, route=True, survive=SVC_DECK),
-    dict(id='SWITCH', a='switch', b='pb_switch', sig='power switch: NO to the anti-spark enable + LED ring', conn='spades / XH4', lead='multi4',
-         awg=22, amps=0.5, route=True, survive=SVC_DECK),
+    # the carrier
+    dict(id='CAN1', a='carrier_J6', b='blk_can', sig="CAN1 H / L to the drives' chain: in SIG_DOWN (its breakouts)", conn='XH2 both ends',
+         lead=None, awg=26, amps=0.1, route=False, survive=''),
+    dict(id='I2C_226', a='carrier_J21', b='ina226_i2c', sig='I2C to the INA226 (robot total current): in SIG_DOWN (its breakouts)',
+         conn='XH4 both ends', lead=None, awg=26, amps=0.01, route=False, survive=''),
+    dict(id='I2C_3221', a='carrier_J12', b='ina3221_i2c', sig='I2C to the INA3221 (12 V, 19 V, 5 V)', conn='XH4 both ends', lead='i2c4',
+         awg=26, amps=0.01, route=True, survive=''),
+    dict(id='IMU', a='carrier_J3', b='imu', sig='BNO085: J3 data (SCL/SCK, SDA/MISO, AD0/MOSI, CS, INT, RST) + J4 power, in one jacket',
+         conn='XH6 + XH2 / the board\'s header', lead='imu8', awg=26, amps=0.05, route=True, survive=''),
+    dict(id='TEENSY', a='teensy_usb', b='pc_usb3_2', sig='USB 2 (Teensy native CDC; also the Teensy\'s power)', conn='micro-B / USB-A', lead='usb2',
+         awg=None, amps=0.3, route=True, survive=''),
     # data
     dict(id='D435', a='d435', b='pc_usb3_1', sig='USB 3 (5 Gb/s)', conn='USB-C / USB-A', lead='usb3', awg=None, amps=0.7, route=True,
          survive=SVC_ARM + ' (USB-C at the camera; the lead stays on the floor)'),
-    dict(id='TEENSY', a='mcu_usb', b='pc_usb2_1', sig='USB 2 (Teensy native CDC)', conn='micro-B / USB-A', lead='usb2', awg=None, amps=0.1,
-         route=True, survive=''),
-    dict(id='SO101', a='sa_usb', b='pc_usb3_2', sig='USB (servo bus adapter)', conn='USB-C / USB-A', lead='usbc', awg=None, amps=0.1, route=True,
+    dict(id='SO101', a='sa_usb', b='hub_d1', sig='USB (servo bus adapter), through the hub', conn='USB-C / USB-A', lead='usbc', awg=None, amps=0.1, route=True,
          survive=SVC_ARM + ' (USB-C at the adapter)'),
-    dict(id='LIDAR', a='lidar', b='lidar_ad_in', sig="A2M12 UART + 5 V (its own lead)", conn='A2M12 connector both ends', lead='lidar',
+    dict(id='HUB', a='hub_up', b='pc_usbc', sig='USB 2 uplink of the hub', conn='USB-C both ends', lead='usbc', awg=None, amps=0.1, route=True,
+         survive=''),
+    dict(id='LIDAR', a='lidar', b='lidar_ad_in', sig="A2M8 UART + 5 V (its own lead)", conn='A2M8 connector both ends', lead='lidar',
          awg=None, amps=0.6, route=True, survive='second floor lift: unplug at the adapter'),
-    dict(id='LIDARUSB', a='lidar_ad_usb', b='pc_usb2_2', sig='USB 2 (A2M12 adapter)', conn='micro-B / USB-A', lead='usb2', awg=None,
-         amps=0.6, route=True, survive=''),
-    dict(id='IMU', a='mcu_imu', b='imu', sig='BNO085 SPI + INT / RST / WAKE / BOOTN, 3V3', conn='XH10 / Dupont 1x8 (+2: VERIFY its header)',
-         lead='imu', awg=26, amps=0.05, route=True, survive=''),
+    dict(id='LIDARUSB', a='lidar_ad_usb', b='pc_usb2_2', sig='USB 2 (A2M8 adapter)', conn='micro-B / USB-A', lead='usb2', awg=None,
+         amps=0.6, route=True, survive=SVC_DECK),
     dict(id='HDMI', a='pc_hdmi', b='disp_hdmi', sig='HDMI video to the 5 in face', conn='HDMI-A both ends (FPC cable)', lead='hdmi', awg=None,
-         amps=0.0, route=True, survive=SVC_DECK.replace('unplug at the power board', 'unplug at the computer')),
-    dict(id='MIC', a='mic_usb', b='pc_usbc', sig='USB audio: 4-mic array in, playback out to the amp (AEC reference)', conn='micro-B / USB-C',
-         lead='usb2', awg=None, amps=0.3, route=True, survive=SVC_DECK.replace('unplug at the power board', 'unplug at the computer')),
+         amps=0.0, route=True, survive=SVC_DECK),
+    dict(id='MIC', a='mic_usb', b='pc_usb2_1', sig='USB audio: 4-mic array in, playback out to the amp (AEC reference)', conn='micro-B / USB-A',
+         lead='usb2', awg=None, amps=0.3, route=True, survive=SVC_DECK),
     dict(id='SPK', a='mic array audio out', b='speaker', sig='3.5 mm line out -> class-D amp (PAM8302 class, ASSUMED) -> 4 ohm 3 W speaker',
          conn='3.5 mm / XH2', lead=None, awg=24, amps=0.9, route=False, survive='on the crown (amp beside the speaker, not drawn)'),
-    dict(id='ELRS', a='ELRS receiver', b='mcu', sig='CRSF on Serial2 (pins 7 / 8) + 5 V', conn='soldered on the carrier', lead=None, awg=None,
-         amps=0.15, route=False, survive='on the carrier; its antenna up past the carrier\'s edge'),
+    dict(id='STATUS', a='carrier_J15 / J20', b='RGB LED, NeoPixel strip', sig='RGB status LED, NeoPixel strip (Nov 18: the buzzer and the '
+         'ELRS receiver are on the carrier itself, no leads)',
+         conn='XH4 / XH3', lead=None, awg=26, amps=0.5, route=False, survive='not placed yet: where the face shows them (open)'),
 ]
 
 
@@ -382,7 +466,7 @@ CONVERTER_PARTS = {
                 issue='input floor 22 V: a 6S pack is under 22 V for its last stretch (3.67 V / cell) and sags under it in a burst well before the '
                       '21 V stop, so the computer\'s supply would leave its spec: bench-test the dropout at 20-22 V and 3.4 A, or use a buck-boost'),
     '12V': dict(listing='amazon.com/dp/B0F3HQ6ND8', what='Proshopping DC-DC buck 15-90 V to 12 V 8 A 96 W, waterproof', vin=(15.0, 90.0), vout=12.0,
-                amps=8.0, eff='not stated', size_mm=(64.0, 60.0, 22.0), size_src='ASSUMED: the potted 8 A class (no size in the listing)'),
+                amps=8.0, eff='not stated', size_mm=(64.0, 57.0, 22.0), size_src='comparable 96 W potted units: 64 x 57 x 22 (Gladstone M8163, ATO 72S1210Z); VERIFY'),
     '5V': dict(listing='amazon.com/dp/B0CM37DX4Q', what='LeMotech DC 12/24 V to 5 V 5 A 25 W, IP68', vin=(8.0, 40.0), vout=5.0, amps=5.0,
                eff='not stated', size_mm=(66.0, 60.0, 22.0), size_src='ASSUMED: comparable 5 A 25 W potted units are 66 x 60 x 22-23'),
 }
@@ -408,10 +492,10 @@ def power_budget():
         ('12V', 'SO-101, 6 x STS3215 12 V: holding / moving', 12.0, 80.0, 'est: 2.7 A stall each (servos.csv); peak = two joints at stall + four at 0.3 A'),
         ('19V', 'computer (BMAX B8A Pro 8745HS) incl. its USB loads (D435 <= 3.5 W, A2M12 ~2.5 W, mic, adapter)', 30.0, 65.0,
          'est: typical robot load; peak = the maker\'s 19 V / 3.42 A adapter (VERIFY)'),
-        ('5V', 'Teensy 4.1 + 2 CAN transceivers + BNO085 + ELRS + buzzer / LED', 1.5, 2.5, 'est (datasheet class values)'),
+        ('5V', 'powered USB hub (its own draw; the Teensy and its board ride on the computer USB, in the 19 V line)', 0.5, 1.0, 'est'),
         ('5V', '5 in display (backlight)', 3.5, 5.0, 'est (VERIFY on the panel)'),
         ('5V', 'speaker amp, 3 W into 4 ohm', 0.3, 3.6, 'est'),
-        ('bat', 'power board itself: contactor coil, current sensor, LEDs', 1.0, 1.5, 'est'),
+        ('bat', 'anti-spark switch (idle), INA226, INA3221', 0.2, 0.3, 'est'),
     ]
     rails = {}
     for rail, what, typ, pk, _ in loads:
@@ -484,8 +568,10 @@ def stub_len(port, lead):
 
 # where each lead crosses the floor in the right slot: u along the side fin's ray (dims.HARNESS_SLOT_U 245..272, ends at 238.5 / 278.5),
 # one behind another on the ray so each stays inside the fin's shadow (half width 7.7 mm at u 238.5 against a Ø8 bundle's 4)
-SLOT_U_LEAD = {'M_RR': 243.0, 'M_FR': 251.5, 'M_RL': 260.0, 'M_FL': 268.5, 'LIDAR': 275.0}
-SLOT_U_LEAD_L = {'BAT_PB': 258.5}    # v15: the battery's lead (from the deck's lead hole) up the spare LEFT slot: the right one is full
+# Nov 18 (power down): only the converters' feed / outputs and the thin signal leads climb; the battery and the drives stay on floor 1
+SLOT_U_LEAD = {'BLK_19': 243.5, 'C5_OUT': 250.5, 'SIG_DOWN': 257.5, 'BUTTON': 264.5, 'LIDAR': 275.0}   # 5 up the right slot, 1 up the
+SLOT_U_LEAD_L = {'C12_OUT': 246.0}                                    # left: 6 crossings. Nov 18: BUTTON to slot R (the main button moved
+                                                                     # to the rear rim's right half, its anti-spark switch on the right)
 SLOT_Z = (138.0, 192.0)              # the lead runs straight up the slot's axis between these heights. v15 (Nov 14): was 146 / 188, but a
                                      # bundle's R16 bends at the run's ends then reached into the scan band (z 163 +- 3 + r) off the ray
 
@@ -539,7 +625,7 @@ def lead_polyline(run, P, rid=None):
             continue
         pt = P[name]
         p, d = np.array(pt['p'], float), np.array(pt['d'], float)
-        rear = p if pt['drawn'] else p + d * CONN[pt['conn']][0][2] if pt['conn'] in CONN else p
+        rear = p if pt['drawn'] else p + d * plug_len(name, pt)
         ends.append(rear)
     out = ([ends[0]] if ends[0] is not None else []) + pts + ([ends[1]] if ends[1] is not None else [])
     keep = [out[0]]
@@ -786,9 +872,8 @@ def lead_r(rid):
     return LEADS[next(c for c in CONNECTIONS if c['id'] == rid)['lead']][0] / 2
 
 
-DRAWN_PLUG = {'pc_usb3_1': 'plug_computer_0', 'pc_usb3_2': 'plug_computer_1', 'pc_usb2_1': 'plug_computer_2', 'pc_usb2_2': 'plug_computer_3',
-              'pc_dc': 'plug_computer_4', 'mcu_usb': 'plug_mcu_0', 'imu': 'plug_imu', 'd435': 'plug_d435', 'sa_usb': 'plug_servo_adapter_0',
-              'bat_deck': 'lead_pb_xt90'}   # v15: the routed BAT_PB continues the drawn lead out of the deck's hole
+DRAWN_PLUG = {'imu': 'plug_imu', 'd435': 'plug_d435', 'sa_usb': 'plug_servo_adapter_0',
+              'bat_deck': 'lead_pb_xt90'}   # v15: the routed BAT_AS continues the drawn lead out of the deck's hole
 
 
 def check(items, info, paths):
@@ -860,7 +945,9 @@ def check(items, info, paths):
                                             centreline_inside_a_part=inside, in_d435_fields=fov_hits,
                                             note='centreline samples every 0.5 mm to the nearest surface sample of any part (~1 per mm2, +-0.3 mm) minus '
                                                  "the lead's radius; its own two plugs and its last r + 1.5 mm at each end left out")
-    devs = ('computer', 'power', 'mcu', 'lidar_adapter', 'conv_19v', 'conv_12v', 'conv_5v', 'servo_adapter', 'display', 'mic_array', 'env_lidar', 'battery')
+    import electrical as EL
+    devs = ('computer', 'lidar_adapter', 'servo_adapter', 'display', 'mic_array', 'env_lidar', 'battery', 'carrier_pcb', 'teensy', 'can_U2',
+            'can_U3') + tuple(EL.BLOCKS) + tuple(f'bracket_{k}' for k in EL.BLOCKS)   # a plug on its own device is not a clash
     ov = {}
     for a, sa in plugs.items():
         for c_, sc in dict(world, **fov).items():

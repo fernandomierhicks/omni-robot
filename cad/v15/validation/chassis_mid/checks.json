@@ -28,7 +28,7 @@
  },
  "deck_pieces": {
   "FL": {
-   "volume_cm3": 513.6,
+   "volume_cm3": 508.3,
    "solids": 1,
    "valid": true,
    "bed": {
@@ -56,7 +56,7 @@
    "top_edges": "top edges R1"
   },
   "RL": {
-   "volume_cm3": 524.1,
+   "volume_cm3": 519.0,
    "solids": 1,
    "valid": true,
    "bed": {
@@ -84,7 +84,7 @@
    "top_edges": "top edges R1"
   },
   "RR": {
-   "volume_cm3": 471.4,
+   "volume_cm3": 465.6,
    "solids": 1,
    "valid": true,
    "bed": {
@@ -112,7 +112,7 @@
    "top_edges": "top edges R1"
   },
   "FR": {
-   "volume_cm3": 387.3,
+   "volume_cm3": 383.4,
    "solids": 1,
    "valid": true,
    "bed": {
@@ -534,26 +534,31 @@
   "per_piece": {
    "FL": {
     "tie_pairs": 17,
-    "m3_pilots": 7
+    "m3_pilots": 50
    },
    "RL": {
     "tie_pairs": 22,
-    "m3_pilots": 16
+    "m3_pilots": 58
    },
    "RR": {
     "tie_pairs": 20,
-    "m3_pilots": 19
+    "m3_pilots": 66
    },
    "FR": {
     "tie_pairs": 13,
-    "m3_pilots": 11
+    "m3_pilots": 43
    }
   },
+  "m3_pilots": 217,
+  "tie_pairs": 72,
   "pitch": 15.0,
-  "note": "zip-tie pairs and M3 pilots (\u00d82.8, through) on a 15 mm lattice where the deck has room; none over the battery, its straps, the stand pads"
+  "stagger": true,
+  "fill_sep": 10.6,
+  "min_pilot_spacing_mm": 10.31,
+  "note": "zip-tie pairs and M3 pilots (\u00d82.8, through) where the deck has room: a 15 mm lattice and (Nov 18) its centre points, then the pockets left at >= fill_sep; none over the battery, its straps, the stand pads"
  },
  "deck_volume_cm3": {
-  "total": 1896.4,
+  "total": 1876.3,
   "v14_frame": 1141.3
  },
  "base_items_vs_pods": {
@@ -724,7 +729,7 @@
   },
   "volume_cm3": {
    "support_spine": 224.7,
-   "support_side_L": 98.0,
+   "support_side_L": 98.1,
    "support_side_R": 98.0,
    "support_front_L": 15.5,
    "support_front_R": 15.5

@@ -38,3 +38,11 @@ tmp/
 
 # rendered videos: regenerate with the sims (deleted from git Nov 7, 2026)
 *.mp4
+
+# over GitHub's 100 MB file limit (Nov 19, 2026): regenerated assembly STEPs and a vendor installer; they stay in the Dropbox folder
+cad/v14/step_export/robot_assembly.step
+cad/v15/step_export/robot_assembly.step
+cad/v15/step_export/chassis_mid/v15_mid_base_assembly.step
+cad/v15/step_export/electrical/electrical_review.step
+cad/v15/studies/triangle/step_export/chassis_tri/v15_base_assembly.step
+components/ak40-10/CubeMarsTool_V3.2.1.exe

@@ -42,12 +42,14 @@ def _add(st, ct, shape, rgb, name, at_origin):
         proto = BRepBuilderAPI_Transform(bare, s.Location().Transformation(), True).Shape()
     lab = st.AddShape(proto, False, False)
     TDataStd_Name.Set_s(lab, TCollection_ExtendedString(name))
-    col = Quantity_Color(*rgb, Quantity_TOC_sRGB)       # the values are display (sRGB) colours, as SolidWorks shows them
+    # the values are display (sRGB) colours, as SolidWorks shows them; rgb may be a function of the face (TopoDS_Face, in the written
+    # part's coordinates) for a part painted in several colours (Nov 19: the M3 plunger's cap and sleeve)
+    col = None if callable(rgb) else Quantity_Color(*rgb, Quantity_TOC_sRGB)
     ex = TopExp_Explorer(proto, TopAbs_FACE)
     while ex.More():
         sub = st.AddSubShape(lab, ex.Current())
         if not sub.IsNull():
-            ct.SetColor(sub, col, XCAFDoc_ColorType.XCAFDoc_ColorSurf)
+            ct.SetColor(sub, col or Quantity_Color(*rgb(ex.Current()), Quantity_TOC_sRGB), XCAFDoc_ColorType.XCAFDoc_ColorSurf)
         ex.Next()
     return lab
 

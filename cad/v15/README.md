@@ -5,6 +5,19 @@ v15 is a complete folder: its scripts (`tools/`, map in [tools/README.md](tools/
 CAD version; the one outside import is the robot's own `ros/src/omni_arm` kinematics. **`./regen_all.sh` regenerates everything** in order
 (`./regen_all.sh sw` adds the SolidWorks rebuild). Nominal CAD and hand statics: nothing here is printed or load-tested.
 
+**Nov 18 (Fernando: power down): the electrics are rearranged on both floors and the harness is re-routed** ([Electrics and
+harness](#electrics-and-harness-nov-18-fernando-power-down)): the 12 V and 5 V converters and the battery's path on the first floor, the
+computer under the bin, the carrier (pcb/v1) beside the arm riser; the power stack, the power board and the switch pod are gone. The deck, the
+pods and the fins are unchanged. Review STEP: `step_export/electrical/electrical_review.step`. Not rerun yet (they wait for the STEP review):
+`harness.py check`, the arm sweeps, service, the SolidWorks assembly.
+**Nov 18, evening (Fernando):** the deck has **217 accessory M3 pilots** (was 53; [the deck](#the-deck-toolschassis_midpy)), and **the ELRS
+receiver is on the carrier** (plugged into J5 on headers, in the carrier's KiCad STEP; its floor-2 block, cradle and lead are gone). Rerun:
+`chassis_mid.py all`, `upper.py all` (no overlap, no bed-fit failure), harness route / render / inventory / table, the electrical review STEP.
+**Open, found doing it:** the D435's drawn lead (`d435_riser.py`, along the riser's side at y -60.75, z ~197.6, x 62-138) lies 3-8 mm over
+the carrier's top edge: through the top-row XH housings (J15, J20) and now the receiver's header (the carrier is only box-checked, so the
+check doesn't name it). Raise that lead over the carrier, or move the carrier ~15 mm toward -y. The receiver's antenna (upright, top z ~244 at
+(96.5, -62)) is 5.6 mm from the riser adapter and 21.6 mm from the arm's base at stow; the arm sweep has not been rerun with it.
+
 **Status (Nov 15 evening): the pod review and the evening round below are drawn; the pod, wheel and deck (+ fins) checks are rerun on them,
 and the SolidWorks assembly is rebuilt on them (one pod assembly per pod, the marked parts per pod): motion test pass on all four pods, paths
 pass (984 components, 300 files), interference without the harness: no part / part finding; each harness lead alone: no finding.
@@ -62,7 +75,7 @@ computer's move (not done), the bumper's redesign (not drawn).
 | --- | --- | --- |
 | The 6804 could slide in and out | The cartridge is two parts: the **cup** (`wheel_cartridge`: a flange in the hub's counterbore, the Ø32.1 seat, a lip r 14.5-17.6 on the outer race's motor-side face) and the **cap** (`wheel_cartridge_cap`, the old flush plate, on its outboard face). The 3 flat heads clamp cap + flange to the hub, so the outer race is held both ways; the inner race already was (stub shoulder + retainer). The hub's counterbore is 2 mm deeper (end wall 10 → 8, the cartridge screws 7.5 mm in the hub). The wheel's and the pod's widths are unchanged | `validation/wheel_motor/checks.json` `bearing_6804_retention`: 0.0 gap cap / lip to the race, no overlaps. **The wheel is now located axially at both ends** (the 6804 and the motor's bearing): VERIFY on the first build that nothing binds |
 | Beam, tower, hanger: holes perpendicular to the bed | Hangers print on their outer faces (pivot boss, spigot, snug hole vertical); the beam stands on its outer end (pivot line vertical): its outer boss is a separate **pin** (`rx_pin`, Ø10 + Ø7.2 spigot, snug on the pivot screw) and the droop lug a separate **lug** (`rx_lug`, a boss in a pocket under the beam, the lug bolt through both; it now bends in its layer planes); the towers print **top down** (spring bores, guides, every screw vertical), their end tabs full height, the long bolts' nuts dropped down a 5.7 AF hex well onto its floor | `print_beds.py`; overhang (mm²): towers 72, beam 544, lug 84, pin 0, **hangers 690: the rear 8 mm part's outer face stands 6 mm over the bed and needs a small support block** (widening it would put its corner into the bumper). The hangers' bed edges stay sharp (OCC refused the chamfer) |
-| Numbers and IN / OUT | **1 front left, 2 front right, 3 back left, 4 back right** (top view, front up). Engraved 0.6: hangers (underside), towers (outer face), beam (underside), fork halves (outer faces), each deck piece's number in its top (reading with the front up). One file per pod for those parts (`step_export/pod_mid/parts/<part>_<n>_<pod>.step`, already in that pod's hand; `tools/labels.py`) | every mark placed (`pod_mid` checks `marks`, `chassis_mid` `deck_marks`) |
+| Numbers and IN / OUT | **1 front left, 2 front right, 3 back left, 4 back right** (top view, front up). Engraved 0.6: hangers (underside), towers (outer face), beam (underside; **Nov 18, Fernando: also "← OUT", "↑ UP", "IN →" on its back face and "OUT" / "IN" with arrows beside the number underneath**, the arrows pointing to the outer end (the pin) and the inner end (the boss) in every pod's hand: `labels.engrave`'s `arrow_to`), fork halves (outer faces), each deck piece's number in its top (reading with the front up). One file per pod for those parts (`step_export/pod_mid/parts/<part>_<n>_<pod>.step`, already in that pod's hand; `tools/labels.py`) | every mark placed (`pod_mid` checks `marks`, `chassis_mid` `deck_marks`) |
 | Up arrow on the forks, XT30 mark | An up arrow next to the number on both fork halves; a 2 mm V-notch in the motor plate's rim at the plug's azimuth (89.8°) and an engraved "↑ XT30" pointing at it | |
 | Alignment, deck ↔ tower / hanger / beam | 1.5 mm bosses (0.15 a side, pockets 1.7 deep): under each tower's base into the deck's top, on each hanger's and the beam's top into the deck's underside; the separate lug the same into the beam | every pocket in one piece, walls ≥ 2.8 to an opening, 4.7 to the nearest dovetail tab |
 | Two hanger screws very close | The one at y 88.5 is gone; the one at 96.5 stays | hole audit clean |
@@ -109,7 +122,7 @@ moves** (Nov 14 review; was 1.0: `pod_mid.CLR`, the wheel rule): 2.0 / 2.02 to t
 | --- | --- |
 | Deck | a 20 mm disc (z 80-100) in four pieces, one pod each, joined by dovetail half-laps (4 per seam, tabs 13 deep, 2 x M3 x 16 down into the tab). The seams cross at (6, -10): the spine fin runs along y 0 and no screw may straddle a seam. 1896 cm³ in all (v14's frame 1141). **Bed fit (Nov 16), the solids as exported, tabs included:** FL 236.0 x 251.6, RR 247.4 x 232.0, RL 235.0 x 239.0, FR 222.4 x 218.6, all inside the 252 mm limit (256 bed, 2 mm margin) without turning; FL has the least spare (3.7 mm at its best rotation) |
 | Openings | everything of the pod above the deck's underside in every pose + 2.0 mm; robot Ø465 (v14 Ø450), bumper 10.7 mm outside the wheels' swept envelope |
-| Accessory holes | zip-tie pairs and spare Ø2.8 M3 pilots on a 15 mm lattice where the deck has room (69 pairs, 43 pilots with the Nov 16 pack); **none over the battery, its straps or the stand pads** (a screw from the top would reach the pack) |
+| Accessory holes | zip-tie pairs and spare Ø2.8 M3 pilots, through, where the deck has room: **since Nov 18 (Fernando: more, for whatever gets mounted later) 217 pilots** (FL 50, RL 58, RR 66, FR 43; was 53) on the 15 mm lattice, its centre points (a 10.6 mm diagonal pitch) and then the pockets left, at least 10.6 mm apart within a piece (10.31 across a seam); 72 tie pairs (unchanged); plan `validation/chassis_mid/accessory_holes.png`. **None over the battery, its straps or the stand pads** (a screw from the top would reach the pack), the pods' seats, laps, marks or within 6.5 of a screw |
 | Bumper | four 3 mm PLA quarters, z 40-80, 3 tabs each under the deck's rim (M3 x 16 up into the deck). Other strategies below |
 | Lidar pedestal | 31.7 mm on the deck (v14 69.7), the lidar at v14's height (scan plane z 163) |
 | Heights | pod and tower tops z 131; a wheel at bump 155; scan plane 163; second floor 176.5; nothing of the base below z 80 but the bumper (40), the battery's straps (35.5 with the HRB pack) and the pods themselves (31) |
@@ -165,7 +178,7 @@ the deck's top at the centre, its top at z 155, under the scan plane (`computer_
 costs:
 - the spine fin runs through exactly that spot (it would have to bridge over the computer: only its web and flange, z 158-176.5);
 - the computer's five leads would have to rise to the second floor through a fin's shadow (a new slot beside the spine, or the side slots);
-- the bin deck, which exists to hold the computer down, could then come down to the floor, which moves the bin, the face and the e-stop.
+- the bin deck, which exists to hold the computer down, could then come down to the floor, which moves the bin and the face (the e-stop left the deck on Nov 18).
 
 Worth it for the CG (430 g down ~110 mm) and a lower bin, if you want that round.
 
@@ -238,7 +251,73 @@ z 0.085 (v14's bumper top 90, frame top 62); v15's deck rim stands at r 0.229 up
 (`arm_sweep.json` with v15's ring, `arm_sweep_robot_ring.json` with the robot's): the same moves, the same clearances. No planned move uses
 that gap. If v15 is adopted, raise the ring's z1 to 0.100 anyway.
 
-## Harness
+## Electrics and harness (Nov 18, Fernando: power down)
+
+`tools/electrical.py` (every block, its cradle and its ports, both floors), `tools/harness.py` (ports, connections, the leads drawn),
+`tools/harness_route.py` (routes), `tools/harness_table.py` (the table below), `tools/electrical_step.py` (the review STEP). Proposal: nothing
+bought or wired; block sizes ASSUMED unless noted, port layouts per block class (VERIFY on the parts).
+
+**Rules kept:** the deck, the pods and the fins are not modified (Fernando): every first-floor cradle screws into the deck's own accessory
+M3 pilots (`chassis_mid.accessory_holes`, now also returning their positions). Nothing on the first floor over z 148 (the lidar's band; the
+drive leads hop over the towers at up to z 150.5, their top 154.5, under the band rule z 163 +- (3 + r)). Every lead that changes floor
+climbs a slot in a side fin's shadow.
+
+**Where the deck has room:** a 1 mm map of the deck's top (the pods in every pose, towers, straps, fins + 2, openings: the fins' own height
+map) holds exactly two converter-sized blocks, one in each side lens outside the side fins (around (22, +-182)), and small blocks in the
+wedges by the spine. The 19 V module (74 x 74, with ears 92) fits nowhere on the deck, so it stays on the second floor.
+
+| Block | Where | Size (mm), source | Held by |
+| --- | --- | --- | --- |
+| 12 V 8 A converter (the arm) | floor 1, left lens (22, 184) | 64 x 57 x 22 + ears (comparable 96 W units, VERIFY) | cradle: deck accessory pilots under it; its ears into the cradle |
+| 5 V 5 A converter (face, hub) | floor 1, right lens (22, -184) | 66 x 60 x 22 + ears (comparable 25 W units, VERIFY) | as above |
+| anti-spark switch (the main button's) | floor 1, right wedge (-68, -40) | 50 x 25 x 15 (ASSUMED) | cradle, deck pilots |
+| distribution block + INA226 | floor 1, right wedge (0, -62) | 70 x 30 x 16: 7 XT30 out on top, CAN junction and pack sense on its side, the INA226 (2 mOhm shunt, 41 A) standing on it | cradle, deck pilots |
+| 19 V 10 A converter (the computer) | floor 2, right (0, -165) | 74 x 74 x 32 + ears (ASSUMED) | cradle on outside tabs, new floor pilots |
+| INA3221 (12 V, 19 V, 5 V) | floor 2 (-105, -100) | 32 x 25 x 8 | cradle, floor pilots |
+| computer (BMAX B8A Pro) | floor 2, under the bin (-70, 0), front panel to the arm | 112 x 126 x 52 | its four clips |
+| carrier (pcb/v1, KiCad STEP + the Teensy 4.1 and CAN models from `electronics/`) | floor 2, beside the arm riser: board x 26..128, y -122..-60 (Nov 18: 4 mm back, so the top-left corner screw clears the side fin's flange) | 102 x 62 (Nov 18: M3 holes at the corners, 3.5 in), 6 mm standoffs, plugs up | one M3 x 18 per corner through the board, its standoff and the tray into a floor pilot |
+| USB hub | floor 2, left (-40, 120) | 90 x 28 x 14 (ASSUMED) | cradle, floor pilots |
+| ELRS receiver (HPXGRC 2.4 GHz, `components/radio receiver`) | **on the carrier** (Nov 18, Fernando): plugged into J5 (1x4 female socket) on a male header, flat along the board's top edge 11 mm up; the 40 mm T antenna drawn upright from its U.FL (top at z ~246, robot (96.5, -62)) | 20 x 11 (vendor) | J5; in the carrier's KiCad STEP (`pcb/v1/tools/elrs_model.py`); no cradle, no lead |
+| main button (= e-stop, latching) | floor 2's rear rim, face at x -204, y -45, facing back (-x); the bin deck's e-stop pod is gone | Fernando's `Switch.SLDPRT` (`reference/electronics/switch.step`): round snap-in rocker, Ø20.2 hole, Ø23 bezel, 4.8 mm tabs | `housing_switch`, 4 M3 x 10 into new pilots |
+
+**Cradles (Nov 18, after the second floor's check):** each block sits in a printed tray with 7 mm walls. The converters' trays have a
+7.5 mm floor: their ear screws (M3 x 10 through the 3 mm ear) get 7 mm of thread and end 0.5 mm over the deck or floor (a 2.5 mm floor
+gave 3 mm). The other first-floor trays have a 5 mm floor. First-floor trays screw into the deck's accessory pilots under them (M3 x 12),
+with the heads in 7 x 3 counterbores under the device (the converters 3 each, the distribution block 2, on the denser Nov 18 pilots). The
+anti-spark switch's tray, beside the battery's keep-out, still finds only one pilot. A tray with fewer than two screws gets a 5 mm pad out to the nearest deck tie pair outside
+its walls (`electrical._tie_pad`; the anti-spark's: the pair at (-105, -25), next to the battery lead's +L end). The pad has the same two
+slots, and a zip tie goes down one slot through pad and deck, under the deck's bridge, up the other and over the pad. One screw + one tie
+stop it turning. The tie isn't modelled. Second-floor trays screw down through
+3 mm tabs outside their walls into new floor pilots (M3 x 10). These screws stay off the floor's seams, the fins' flanges, the slots, the
+lidar, the grid pilots and the computer. The carrier's tray clears the two side-fin floor screws under it. Raising the converters
+(+5.0 mm) and the other first-floor blocks (+2.5 mm) moved their ports, so the leads are re-routed.
+
+**Battery path (floor 1 only):** the deck's lead hole (-128, -17) -> anti-spark switch -> 30 A fuse (inline) -> INA226 -> distribution
+block -> the four drives (their own leads, no fuses), the 12 V and 5 V converters, and the 19 V converter's feed up slot R. No battery or
+drive lead leaves the first floor.
+
+**USB:** front USB-A 3: the D435 and the Teensy; front USB-C: the hub (the servo bus adapter and spares); rear USB-A 2: the mic and the
+lidar's adapter; rear HDMI: the face; rear DC: 19 V from the INA3221.
+
+**Lidar-plane crossings: 6, all inside the side fins' shadows** (was 6 thick ones: the battery's and four drive bundles): slot R the 19 V
+feed, the 5 V output, one 8-wire signal lead (CAN, pack sense, the INA226's I2C) and the lidar's own lead; slot L the 12 V output and the
+main button's two wires. The leads' table (from where, to where, through where, length) is `validation/harness/harness_table.md`.
+
+**Main button (Nov 18, Fernando):** his `Switch.SLDPRT`, a round snap-in rocker (latching), is the main button and so the e-stop. It
+sits on the second floor's rear rim, facing straight back at z 200: the panel's face at x -204, centred at y -45 (right of the rear seam's
+lip and screws, behind the computer; Fernando moved it here from the left rim for less intrusive access). The bin deck's rear edge
+(x -200) is 23 mm over the rocker's top, the rocker's centre about 3 mm inside the floor's Ø436 edge. The rocker tilts up and down.
+`housing_switch` is a 4 mm panel (2.5 mm at the Ø20.2 hole, with a notch for the body's key) on a 3 mm base with two webs, drawn in its
+own frame and turned into place (`upper.SWITCH`: `at`, `out`). It is open at the back for the leads and held by four M3 x 10 into new
+floor pilots at (-191, -35), (-191, -55), (-164, -35) and (-164, -55). Put the outer two screws in before snapping the switch in,
+because they sit under its body. It prints on the panel's face, so
+the hole is round. The BUTTON lead starts at two 4.8 mm insulated receptacles (ASSUMED size). Which two tabs the rocker closes is VERIFY.
+The modelled snap fingers are undeflected, so they overlap the panel by design; the check reports this under `intended_fits_mm3`.
+
+The earlier harness notes below (v15 Nov 14: the power stack, the motor bundles up the right slot, `BAT_PB` up the left) are superseded by
+the above; kept for the record.
+
+## Harness (Nov 14, superseded Nov 18)
 
 `tools/harness_route.py` (routes) and `tools/harness.py all` (the leads drawn and checked, `step_export/harness/harness_review.step`), on
 `world.py`'s robot. Ports, leads and the upper floor's routes are v14's (cad/v13 Nov 11). What v15 changed:
@@ -269,7 +348,7 @@ bearings stay magenta). It replaces the Nov 13 three-colour scheme (cad/v14); ch
 
 | Filament | Hex | Where |
 | --- | --- | --- |
-| **Jade White** | `#ffffff` | the deck (four pieces and its key), second floor, bin deck, the SO-101's printed links, face frame / crown / speaker cover, brackets, posts, spacers, e-stop and switch housings, battery clips, roller cores and sleeves |
+| **Jade White** | `#ffffff` | the deck (four pieces and its key), second floor, bin deck, the SO-101's printed links, face frame / crown / speaker cover, brackets, posts, spacers, the main switch's housing, battery clips, roller cores and sleeves |
 | **Dark Gray** (PLA) | `#545454` | the suspension (fork halves, hangers, beam with pin and lug, towers, rings, 6804 retainer) and the five fins |
 | **Orange** | `#ff6a13` | bumper quarters, bin, lidar pedestal, arm riser with the D435 cradle |
 | **Black** | `#151515` (swatch `#000000`: shows no shading) | wheel hubs, wheel cartridges (cup and cap) |
@@ -354,6 +433,31 @@ and all hardware: 652 solids), `pod_mid/`, `wheel_motor/`, `upper/`, `harness/`,
 
 ## Open items
 
+- **Nov 18: the plungers tilt in their guides and the M4 heads grind the fork's pads** (Fernando, by hand). Try-out: a domed PETG cap under
+  each M4 head (`step_export/plunger/plunger_cap_m4_print.step`: Ø9.4 x 3.5, its pocket the domed head's sphere with a Ø7.8 relief round
+  its upper half; +1.2 mm of preload). **Nov 18, round 2 (Fernando: they work but don't stay put):** both caps' walls rise past the head
+  round the washer (a Ø washer-OD pocket: the washer presses in snug and, clamped on the head by the spring, stops the cap rocking off its
+  ball-joint seat; the wall ends 0.1 under the washer's top, the floor round the head 0.2 under its top, so steel bears on steel). M4 cap
+  Ø10.2 x 4.4 for a 9.0 x 0.8 washer (VERIFY his), 0.4 off the rails; M3 cap Ø8.35 x 3.5 for his 6.85 x 0.6, 0.22 inside the Ø8.8 bore at bump.
+  Wrapping the spring's first turn would not fit: a cap round an 8.2 spring is Ø10+ (rails at 5.5, the bore Ø8.8). Proposal (`tools/plunger_study.py m3`, not in the pod
+  build; Fernando: steel takes the loads): from the pad up an M3 x 45 button head (his: 5.5 x 1.8, dome R 3.0, dome down; its contact stays within 0.56 mm of the apex, inside the 2 mm
+  hex socket's rim, so the pad rides on the socket's edge, as the M4's did) **sitting dome down in a PETG cap** (Ø8, its pocket the head's
+  own sphere, an R8 dome 1.2 under the head: `plunger_cap_m3_print.step`, prints pocket down; the cap touches the pad, contact within 1.5 mm of
+  its apex), his M3 washers (6.85 x 3.4 x 0.6: one on the head as the spring seat, it rises 0.1 into the bore at bump), a DIN 9021 washer (9 x 0.8, the spring seat), a printed Ø4.9
+  sleeve (Ø2.9 x 12 thread at its top, Ø3.2 snug below; compression only), two M3 washers and the nyloc. The sleeve slides in a Ø5.16 guide
+  (printed Ø5.0, 13/64" drill: 0.26 clearance, 1.9° at most); bores Ø8.8 for Fernando's 8.2 / 7.6 OD x 20 springs, two in series, drawn as
+  coils at droop / nominal / bump; towers not moved, but (Fernando) **their overhang's underside comes down to the bump stop's surface** (the
+  pad's top at bump, where the two rails were: now one stop face), so the bores reach z 30.4 / 28.4 (pod; was 34) and only 2.8 / 0.75 mm of
+  spring stands below them at nominal (was 6.4); the fork clears it by 2.5 at nominal, 2.9 at droop, touches it at bump (the stop); each cap
+  rises into its bore at bump with 0.4 all round. Drawn in `pod_mid.build_tower(side, info, stop=True)` (the overhang built with the stop
+  surface as its underside, its full length, before the rounds; both bores walled all round at their mouths); the pod build still draws
+  today's tower (`stop=False`) until it is adopted. Springs from Fernando's picture: flat wire 1.0 thick, 1.5 gaps (pitch 2.5), a closed turn
+  each end: 6.8 active turns, solid 8.8; radial width 1.5 ASSUMED (ID 5.2 on the 8.2 spring: 0.15 round the sleeve; the 7.6 spring's ID 4.6
+  does not take the Ø4.9 sleeve, so the bores hold the 8.2s). Each spring 14.4 at nominal, 11.2 at bump (2.4 off solid, 0.19 between coils).
+  At bump the seat washer is 0.97 mm under the tower and the screw tip at robot z 147.2. VERIFY the radial width (which drill shank passes).
+- **Nov 18: the D435's drawn lead crosses the carrier's top edge** 3-8 mm over the board (its XH row and the ELRS receiver): raise the lead
+  over it or move the carrier toward -y. The ELRS antenna next to the arm's base: rerun the arm sweep after the STEP review. The receiver's
+  pad pitch (2.54 assumed, the pictures read 2.3-2.45) is VERIFY before the carrier is ordered (pcb/v1 README).
 - **The arm's nearest floor grasp passes 0.5 mm from the front bumper** (v14 7.5): pull the front bumper back to r 225, or grasp from 0.27 m (above).
 - **Deck openings: 2.0 mm, as asked**, against the general 3 mm rule for the chassis to moving parts (cad/solidworks.md 18); 1.96 mm at bump.
 - **The spring rate** (kitchen-scale test), then the ride height and preload (two springs in series per bore since Nov 15).

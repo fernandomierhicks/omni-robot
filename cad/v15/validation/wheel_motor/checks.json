@@ -2,7 +2,7 @@
  "hub": {
   "solids": 1,
   "valid": true,
-  "volume_mm3": 206002,
+  "volume_mm3": 205688,
   "x_range": [
    -39.5,
    29.0
@@ -13,7 +13,7 @@
   "wheel_hub": {
    "solids": 1,
    "valid": true,
-   "volume_mm3": 206001.7
+   "volume_mm3": 205687.9
   },
   "wheel_cartridge": {
    "solids": 1,
@@ -33,7 +33,7 @@
   "roller_sleeve": {
    "solids": 1,
    "valid": true,
-   "volume_mm3": 1849.2
+   "volume_mm3": 1860.7
   },
   "roller_tread": {
    "solids": 1,
@@ -129,14 +129,14 @@
    "width": 0.65
   }
  },
- "cartridge_overlaps_mm3 (core / sleeve-core want 0; sleeve / 687s = the \u00d87.15 press fit on the 7.0 bores, ~16.7 by design)": {
+ "cartridge_overlaps_mm3 (core / sleeve-core want 0; sleeve / 687s = the \u00d87.25 press fit on the 7.0 bores, ~28.0 by design)": {
   "core_bearings": 0.0,
-  "sleeve_bearings": 16.67,
+  "sleeve_bearings": 27.98,
   "sleeve_core": 0.0
  },
  "fits": {
   "pocket_d": 14.05,
-  "sleeve_d_in_bearings": 7.15,
+  "sleeve_d_in_bearings": 7.25,
   "sleeve_d_at_seats": 7.0,
   "source": "coupon_687 cells 2 (pocket) / 4 (pin), Nov 13"
  },
@@ -342,8 +342,8 @@
   "pilot_open_at_end": true
  },
  "hub_print_overhang_mm2 (cartridge end down, faces under 45 deg)": {
-  "all": 9458,
-  "spokes": 6045
+  "all": 9610,
+  "spokes": 6196
  },
  "hub_max_radius_mm": 63.58,
  "spoke_neck_row2_az0_mm": {

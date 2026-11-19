@@ -32,7 +32,8 @@ BRG_D, BRG_DO, BRG_B = 7.0, 14.0, 5.0      # 687 bore, OD, width
 BRG_IR_LAND = 8.6                  # sleeve shoulder Ø: on the inner race only (687 inner-race land ~Ø8.8-9.1: VERIFY)
 BRG_POCKET_FIT = 0.025             # core pocket radius over the bearing OD: Ø14.05, coupon_687 cell 2 (Fernando printed it, Nov 13: the best OD fit;
                                    # was 0.05 = cell 1). A friction fit; it holds the bearing (Fernando: no snap features needed)
-SLEEVE_BRG_D = 7.15                # sleeve Ø through the 687s: coupon_687 cell 4 (Nov 13: the best ID fit; was 7.0). Outside the bearings the sleeve
+SLEEVE_BRG_D = 7.25                # sleeve Ø through the 687s: coupon_687 cell 4 (Nov 13: the best ID fit; was 7.0); Nov 18 (Fernando: the printed
+                                   # rollers' sleeves are too loose in the 687s) 0.1 over it (was 7.15). Outside the bearings the sleeve
 SLEEVE_STEP_L = 0.15               # steps back to BRG_D (7.0) for the hub's click seats over a 45 deg cone this long, just outside each bearing face
 LAND_GAP = 0.25                    # Nov 13 (Fernando: a thrust washer / journal to keep the roller centred): a land on each hub thrust face, Ø LAND_ID ..
                                    # (evening: 0.25, was 0.2: the land face 0.05 outside the core's end plane, which the core passes in the radial drop-in)

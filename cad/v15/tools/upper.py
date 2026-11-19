@@ -20,7 +20,8 @@ What it adds over the base (first floor, pods, fins):
    two strap slots, power board and Teensy carrier stacked on one hole pattern (40 mm posts, one M3 x 60 per corner into the floor), servo
    bus adapter by the arm. Labelled (raised text), with the plugs and leads of layout_study.py.
  * BIN DECK over the block on four posts: the v10 bin (120 x 120 x 70) on it, the arm drops into it from above (arm_sweep.py); the deck
-   holds the computer and the battery down (3 mm over the computer). On its rear corners the e-stop and the power switch.
+   holds the computer and the battery down (3 mm over the computer). (Nov 18: the e-stop pod on its rear corner is gone: the main
+   button is Fernando's rocker on floor 2's left rim, main_switch().)
  * FACE: the 5 in 800 x 480 panel upright on a frame behind the bin (screen_study.py: in front of the arm the SO-101's own shoulder takes
    the room); its crown carries the USB mic array (on standoffs) and the speaker (in a cup under a grille cover).
 Round 12 (Nov 4, after the review): the battery slides out to the left (+y) under the deck (tray open at both ends; strap opened and XT90
@@ -74,8 +75,16 @@ RIBS = (((-150.0, 9.5), (-150.0, 91.0)), ((-150.0, 103.0), (-150.0, 152.0)), ((-
 RIB_W, RIB_D = 10.0, LIP_D                                             # rear quadrants (and mirrored): spine flange -> rear deck post ->
                                                                        # rim, post -> side fin's tail; as deep as the lips (above the
                                                                        # lidar's band)
-ESTOP_XY, SWITCH_XY = (-183.0, 76.0), (-183.0, -76.0)                  # on the deck's rear corners, in printed pods above it (the
-                                                                       # computer fills the space under the deck)
+# Nov 18 (Fernando): the main button is his Switch.SLDPRT (reference/electronics/switch.step: a round snap-in rocker for a Ø20 hole, Ø23
+# bezel, three 4.8 mm tabs) in housing_switch (main_switch()) on the second floor's rim. Its model's frame: +y out of the panel (bezel's
+# back at y 23.1), the rocker tilting about x, the key rib at -x. The bin deck's e-stop pod is gone. Then (Fernando): toward the back, for
+# less intrusive access: on the rear rim, facing straight back (out 180 deg), right of the rear seam (y 0: its lip and screws) and behind
+# the computer; the rocker's tip ends inside the floor's edge, under the bin deck's rear edge (x -200) by 23 mm.
+SWITCH = dict(at=(-204.0, -45.0), out=180.0, zc=200.0, half=17.0, depth=48.0, top=216.0, wall=4.0, web=2.5, hole_r=10.1, side=3.0,
+              bezel_y=23.1, tabs=(0.0, -7.1),                         # at: the panel's outer face, centre (plan); hole Ø20.2; the panel
+              screws=((10.0, -13.0, True), (-10.0, -13.0, True),      # 2.5 at the hole (a Ø27 recess behind it for the snap fingers);
+                      (10.0, -40.0, True), (-10.0, -40.0, True)))     # tabs used (model x): VERIFY which close. Screws (local x, y, new
+                                                                       # pilot): four new floor pilots
 POST_W = 14.0
 DZ_BIN = LID_Z[1] - Z_TOP                                              # the v10 bin (drawn on the 181.5 plate) raised onto the deck
 STOW = 'stow'
@@ -283,9 +292,9 @@ SLOTS = {'R': slot_region(-1), 'L': slot_region(1)}
 GROMMETS = tuple((round(x, 1), round(y, 1), HARNESS_SLOT_R) for s in (-1, 1)                # circles along each slot (2 mm apart), for
                  for x, y in [tuple(np.array(slot_centreline(s)[0]) + t * (np.array(slot_centreline(s)[1]) - np.array(slot_centreline(s)[0])))
                               for t in np.linspace(0.0, 1.0, 14)])                         # cable_route.py's columns
-# bin deck pass-throughs (x, y, r): under the e-stop and the switch (inside their pods' Ø26 bores), the face's leads beside each of its legs
+# bin deck pass-throughs (x, y, r): the face's leads beside each of its legs
 # (display HDMI + 5 V on the -y side, the mic array's USB on the +y side), and two spares over the gap between the computer and the battery
-DECK_HOLES = ((-183.0, 76.0, 7.0), (-183.0, -76.0, 7.0), (-128.0, -82.0, 8.0), (-128.0, 82.0, 8.0), (-60.0, 88.0, 6.0), (-60.0, -88.0, 6.0))
+DECK_HOLES = ((-128.0, -82.0, 8.0), (-128.0, 82.0, 8.0), (-60.0, 88.0, 6.0), (-60.0, -88.0, 6.0))   # Nov 18: the switch's and the e-stop's gone
 
 
 def tie_pair(x, y, deg):
@@ -510,25 +519,14 @@ def arm_parts_at(pose=STOW):
 
 
 # ---- electronics block --------------------------------------------------------------------------------------------------------------
-BLOCK = dict(computer=dict(xy=(-135.0, 1.0), yaw=90, z0=Z_TOP + 3.0),           # its corners on the four clips' 3 mm floors
-             power=dict(xy=(3.0, -144.0), yaw=0, z0=220.5),                     # Nov 11 (harness): the power stack (STACK below): the fuse /
-             mcu=dict(xy=(37.0, -143.5), yaw=0, z0=252.5),                      # contactor / distribution board on the stack's shelf, the
-                                                                                 # Teensy carrier on posts over it
+BLOCK = dict(computer=dict(xy=(-70.0, 0.0), yaw=0, z0=Z_TOP + 3.0),            # Nov 18: under the bin (was (-135, 1), yaw 90), its
+                                                                                 # front panel (USB 3) toward the arm, the rear (DC, HDMI,
+                                                                                 # USB 2) toward the face; corners on the four clips' floors
              servo_adapter=dict(xy=(21.0, -7.0), yaw=90, z0=Z_TOP + 5.0))       # on two 5 mm spacers
-LABELS = dict(computer='BMAX B8A PRO', power='POWER', mcu='TEENSY 4.1', servo_adapter='SERVO BUS')
-# Nov 11 (harness, Fernando: the three potted converters "all in the power stack"): at the right rear, where the power board was. A printed
-# open box on the floor holds the 19 V and 5 V modules side by side; a printed shelf on the box carries our fuse / anti-spark + contactor /
-# current sensor / distribution board (`power`, 70 x 60 x 18 est: the motor XT30s on its -x face toward the cable slot) and the 12 V module
-# (its output toward the riser: the arm takes 12 V on its XT30, so the riser's buck goes); the Teensy carrier on posts over the shelf. Per
-# corner: the box's ear, a post, the shelf's ear, a post, the carrier's ear, and one M3 x 80 from the top down through all into a floor boss.
-# The box is 4 mm higher than the 19 V module: the shelf keeps both modules down. Module sizes ASSUMED (dims.CONV_*)
-STACK = dict(x=(-38.0, 108.0), y=(-184.0, -104.0), wall=2.5, floor=3.0, top=Z_TOP + 36.0, shelf=3.0, ear_h=6.0,   # floor 3: over the
-             # two floor-fin screws' heads (2.5 tall, in Ø8 holes through it, cut in build()); the 19 V module still 1 mm under the shelf
-             ears=((-42.0, -117.0), (112.0, -117.0), (-42.0, -171.5), (112.0, -170.0)), screw_l=80.0,   # (-42, -170) sat beside the side fin's
-             # flange (12.6 mm off its plane: no boss, 5 mm of thread); at -171.5 it is 13.8 off, boss allowed (at -175 the boss blocked the motor leads)
-             conv19=(-35.0, -181.0), conv5=(45.0, -176.0), conv12=(42.0, -174.0),     # each module's min corner (x, y)
-             lead_slot=((-30.0, 100.0), (-114.0, -106.5)))                            # the modules' leads up through the shelf
-BUCK_ON_RISER = False                                                  # Nov 11: the arm's 12 V comes from the stack; the riser keeps the buck's two
+# Nov 18 (Fernando: power down): the power stack (box, shelf, posts, the distribution board) and the carrier's envelope are gone; the
+# converters, the battery's path, the carrier (pcb/v1) and the rest of the electrics are electrical.py's (both floors)
+LABELS = dict(computer='BMAX B8A PRO', servo_adapter='SERVO BUS')
+BUCK_ON_RISER = False                                                  # Nov 11: the arm's 12 V comes from a converter (Nov 18: electrical.py); the riser keeps the buck's two
                                                                        # bosses and holes (a spare mount for a module on the arm)
 
 
@@ -541,19 +539,15 @@ def to_robot(local_xy, xy, yaw):
     return (xy[0] + c * local_xy[0] - s * local_xy[1], xy[1] + s * local_xy[0] + c * local_xy[1])
 
 
-def electronics():
-    """devices (purchased: envelopes), their plugs, labels; printed holders; screws; floor pilots"""
+def electronics(fin_heads=(), flange=None):
+    """devices (purchased: envelopes), their plugs, labels; printed holders; screws; floor pilots. Nov 18: + electrical.py's blocks on
+    both floors (fin_heads: the fins' floor screws, whose heads the floor-2 cradles clear)"""
     devs = {d['name']: d for d in LS.devices()}
     c = devs['computer']                                                # layout_study stacked the two rear USB-A 2 plugs 17 mm apart: their
                                                                        # (Nov 11, harness: the Teensy and the SO-101 adapter swap ports, so
                                                                        # the Teensy and lidar leads use the face toward the power stack)
-    devs['computer'] = LS.device('computer', c['size'], c['mass'], zones=[('+x', 12.0)], note=c['note'],   # leads clashed; side by side
-                                 ports=[('usb_a3', '+x', -40, 20, '+z', 'D435 (USB 3)'), ('usb_a3', '+x', -22, 20, '+z', 'SO-101 bus adapter'),
-                                        ('usb_a2', '-x', 18, 15, '+z', 'Teensy'), ('usb_a2', '-x', 38, 15, '+z', 'A2M12 adapter'),
-                                        ('dc_barrel', '-x', -40, 22, '+z', '19 V in')])
-    devs['power'] = LS.device('power', (70.0, 60.0, 18.0), 0.12,               # Nov 11: the distribution board on the stack's shelf (est)
-                              note='ours (est): fuse, anti-spark switch + e-stop contactor, current sensor, motor XT30s, JST XH; the converters are '
-                                   'the three potted modules in the power stack')
+    devs['computer'] = LS.device('computer', c['size'], c['mass'], zones=[('+x', 12.0)], note=c['note'])   # Nov 18: its plugs and leads
+                                                                       # are harness.py's (from the panels' ports)
     bought, printed, hw, pilots = {}, {}, [], []
     for name, at in BLOCK.items():
         if name == 'servo_adapter':                                     # round 13: on the arm (servo_adapter() below)
@@ -570,17 +564,34 @@ def electronics():
     for i, (sx, sy) in enumerate(((1, 1), (-1, 1), (-1, -1), (1, -1))):
         c = np.array([sx * l / 2, sy * w / 2])
         clip = box(-14, 2.5, -14, 2.5, 0, 20.0) - box(-14.1, 0.1, -14.1, 0.1, 3.0, 20.1)          # corner: walls outside the device
-        tab = box(2.5, 14.0, -6, 6, 0, 3.0) - cyl(M3_CLR / 2, 3.2, (9.0, 0, 1.5))
+        if sx > 0:                                                      # Nov 18: the front clips' tabs point sideways (along x their
+            tab = box(-12.0, 0.0, 2.5, 14.0, 0, 3.0) - cyl(M3_CLR / 2, 3.2, (-6.0, 9.0, 1.5))   # screws fell on the floor's x 0 seam)
+            off = (-6.0, 9.0)
+        else:
+            tab = box(2.5, 14.0, -6, 6, 0, 3.0) - cyl(M3_CLR / 2, 3.2, (9.0, 0, 1.5))
+            off = (9.0, 0.0)
         clip = clip + tab
         clip = clip.mirror(b.Plane.YZ) if sx < 0 else clip
         clip = clip.mirror(b.Plane.XZ) if sy < 0 else clip
         clip = clip.moved(b.Location((c[0] - sx * 0.0, c[1], 0)))
         printed[f'bracket_computer_{i}'] = place(clip, at['xy'], at['yaw'], Z_TOP)
-        sp = to_robot((c[0] + sx * 9.0, c[1]), at['xy'], at['yaw'])
+        sp = to_robot((c[0] + sx * off[0], c[1] + sy * off[1]), at['xy'], at['yaw'])
         pilots.append(sp)
         hw.append(H.pan((*sp, Z_TOP + 3.0), (0, 0, -1), 12.0, 'bolt_clip_computer'))
-    # Nov 11: the power stack (STACK above; replaces round 12's power board + carrier on one hole pattern)
-    b3, p3, h3, pl3 = power_stack(devs)
+    # Nov 18: electrical.py's blocks (floor 1 cradles into the deck's accessory pilots; floor 2 into new floor pilots) and the carrier
+    import chassis_mid as CM
+    import electrical as EL
+    ok2 = None
+    if flange is not None:                                              # where floor 2 may take a cradle's hold-down screw: off the seams
+        R = R_FLOOR                                                     # (x 0, y 0: their lips and tabs), the fins' flanges, the slots, the
+        comp = affinity.translate(affinity.rotate(sbox(-l / 2 - 18.0, -w / 2 - 18.0, l / 2 + 18.0, w / 2 + 18.0), at['yaw'], origin=(0, 0)),
+                                  *at['xy'])                           # lidar, the grid pilots and the computer with its clips
+        bad = union_all([flange.buffer(7.0), lidar_keepout().buffer(5.0), LineString([(0, -R), (0, R)]).buffer(11.0),
+                         LineString([(-R, 0), (R, 0)]).buffer(11.0), comp] + [g.buffer(7.0) for g in SLOTS.values()]
+                        + [Point(p).buffer(9.0) for p in GRID_PILOTS])
+        inner = Point(0, 0).buffer(R_FLOOR - LIP_W - 6.0, 180)
+        ok2 = lambda px, py: inner.contains(Point(px, py)) and not bad.contains(Point(px, py))   # noqa: E731
+    b3, p3, v3, h3, pl3 = EL.build(CM.built()[2]['accessory_pts'], fin_heads, ok2)
     bought.update(b3)
     printed.update(p3)
     hw += h3
@@ -594,49 +605,74 @@ def electronics():
     printed.update(p2)
     hw += h2
     pilots += pl2
+    v2.update(v3)
+    p2, b2, v4, h2, pl2 = main_switch(ok2)
+    printed.update(p2)
+    bought.update(b2)
+    v2.update(v4)
+    hw += h2
+    pilots += pl2
     return bought, printed, hw, pilots, v2, riser_cuts
 
 
-def power_stack(devs):
-    """the box (19 V + 5 V modules), the shelf (distribution board + 12 V module), the posts, the carrier's ears, the corner screws (STACK)"""
-    from dims import CONV_19V, CONV_12V, CONV_5V
-    S = STACK
-    (x0, x1), (y0, y1), t, fl, top, sh = S['x'], S['y'], S['wall'], S['floor'], S['top'], S['shelf']
-    bought, printed, hw, pilots = {}, {}, [], []
-    bx = box(x0, x1, y0, y1, Z_TOP, top) - box(x0 + t, x1 - t, y0 + t, y1 - t, Z_TOP + fl, top + 0.1)
-    def ear(ex, ey, inner, z0, z1):
-        """a 9 x 9 pad round (ex, ey) bridged to the part's end wall at x = inner"""
-        return box(min(ex - 4.5, inner), max(ex + 4.5, inner), ey - 4.5, ey + 4.5, z0, z1)
-    for ex, ey in S['ears']:                                           # ears outside the box's two x ends
-        bx = bx + ear(ex, ey, x0 + t / 2 if ex < x0 else x1 - t / 2, Z_TOP, Z_TOP + S['ear_h'])
-    for ex, ey in S['ears']:
-        bx = bx - cyl(M3_CLR / 2, S['ear_h'] + 0.4, (ex, ey, Z_TOP + S['ear_h'] / 2))
-    printed['bracket_power_box'] = bx
-    shelf = box(x0, x1, y0, y1, top, top + sh)
-    for ex, ey in S['ears']:
-        shelf = shelf + ear(ex, ey, x0 + 1.0 if ex < x0 else x1 - 1.0, top, top + sh)
-    (sx0, sx1), (sy0, sy1) = S['lead_slot']
-    shelf = shelf - box(sx0, sx1, sy0, sy1, top - 0.1, top + sh + 0.1)
-    for ex, ey in S['ears']:
-        shelf = shelf - cyl(M3_CLR / 2, sh + 0.4, (ex, ey, top + sh / 2))
-    printed['bracket_power_shelf'] = shelf
-    am = BLOCK['mcu']
-    lm, wm, _ = devs['mcu']['size']
-    for i, (ex, ey) in enumerate(S['ears']):                           # posts: box ear -> shelf, shelf -> carrier; the carrier's ear tab
-        h1 = top - (Z_TOP + S['ear_h'])
-        printed[f'post_power_low_{i}'] = cyl(3.5, h1, (ex, ey, Z_TOP + S['ear_h'] + h1 / 2)) - cyl(M3_CLR / 2, h1 + 0.2, (ex, ey, Z_TOP + S['ear_h'] + h1 / 2))
-        h2 = am['z0'] - (top + sh)
-        printed[f'post_mcu_{i}'] = cyl(3.5, h2, (ex, ey, top + sh + h2 / 2)) - cyl(M3_CLR / 2, h2 + 0.2, (ex, ey, top + sh + h2 / 2))
-        cx = am['xy'][0] + (lm / 2 if ex > am['xy'][0] else -lm / 2)
-        bought[f'ear_mcu_{i}'] = box(min(cx, ex + 4.0 * np.sign(ex - am['xy'][0])), max(cx, ex + 4.0 * np.sign(ex - am['xy'][0])), ey - 4, ey + 4,
-                                     am['z0'], am['z0'] + 2.0) - cyl(M3_CLR / 2, 2.2, (ex, ey, am['z0'] + 1.0))
-        hw.append(H.pan((ex, ey, am['z0'] + 2.0), (0, 0, -1), S['screw_l'], 'bolt_power_stack'))
-        pilots.append((ex, ey))
-    for nm, size, (mx, my), z0 in (('conv_19v', CONV_19V, S['conv19'], Z_TOP + fl), ('conv_5v', CONV_5V, S['conv5'], Z_TOP + fl),
-                                   ('conv_12v', CONV_12V, S['conv12'], top + sh)):
-        bought[nm] = box(mx, mx + size[0], my, my + size[1], z0, z0 + size[2])
-        bought[f'label_{nm}'] = label(nm.split('_')[1].upper(), (mx + size[0] / 2, my + size[1] / 2, z0 + size[2]), size=7.0)
-    return bought, printed, hw, pilots
+def switch_xy(lx, ly):
+    """the switch housing's local plan frame (x across the panel, centre 0; y out of the panel, its outer face at 0) to robot x, y"""
+    t = np.radians(SWITCH['out'] - 90.0)
+    return (SWITCH['at'][0] + lx * np.cos(t) - ly * np.sin(t), SWITCH['at'][1] + lx * np.sin(t) + ly * np.cos(t))
+
+
+def switch_T():
+    """local frame -> robot (4 x 4): a turn about z, then the panel's centre"""
+    t = np.radians(SWITCH['out'] - 90.0)
+    T = W_T(*SWITCH['at'], 0.0)
+    T[:2, :2] = [[np.cos(t), -np.sin(t)], [np.sin(t), np.cos(t)]]
+    return T
+
+
+def main_switch(floor_ok=None):
+    """(printed, bought, vendor, hw, floor pilots): Fernando's rocker (SWITCH) in housing_switch on floor 2's rear rim, facing back (Nov
+    18: SWITCH['out'], the panel's outward direction in plan): a 4 mm panel (2.5 at the Ø20.2 hole, the bezel on its outer face, the snap
+    fingers in a Ø27 recess behind it; a notch for the key), a 3 mm base plate on the floor and two 3 mm webs, open at the back for the
+    leads. Four M3 x 10 through the base into floor pilots (put in before the switch snaps in: the outer pair lie under its body). Drawn in
+    its own frame (x across, y out, the panel's outer face at y 0) and turned into place. Two 4.8 mm insulated receptacles on the tabs
+    (ASSUMED 7.6 x 5.5 x 19.5) start the BUTTON lead (harness.py port switch_main)"""
+    S = SWITCH
+    x0, x1 = -S['half'], S['half']
+    zc, yf = S['zc'], 0.0
+    yi, yb = yf - S['wall'], -S['depth']
+    h = box(x0, x1, yi, yf, Z_TOP, S['top']) + box(x0, x1, yb, yf, Z_TOP, Z_TOP + 3.0)
+    for xa in (x0, x1 - S['side']):                                     # webs: triangles from the panel's top back to the base
+        pts = [(xa, yi + 0.5, Z_TOP + 2.9), (xa, yi + 0.5, S['top']), (xa, yb + 4.0, Z_TOP + 2.9)]
+        h = h + b.extrude(b.Face(b.Wire.make_polygon([b.Vector(*p) for p in pts], close=True)), amount=S['side'], dir=(1, 0, 0))
+    h = h - W_y(13.5, 0.0, yi - 0.1, yf - S['web'], zc)                 # the fingers' recess
+    h = h - W_y(S['hole_r'], 0.0, yi - 0.1, yf + 0.1, zc)
+    h = h - box(-11.0, -9.5, yf - S['web'] - 0.1, yf + 0.1, zc - 1.3, zc + 1.3)   # key notch (the rib: model x -10.6, z +-1.05)
+    y0 = yf - S['bezel_y']                                               # the model's y 0 (the tabs' tips) in the local frame
+    bought = {}
+    for i, tx in enumerate(S['tabs']):                                   # receptacles over the tabs (model y 0..8.6): to y 6.5, slotted
+        r = box(tx - 2.75, tx + 2.75, y0 - 13.0, y0 + 6.5, zc - 3.8, zc + 3.8)
+        bought[f'plug_switch_main_{i}'] = r - box(tx - 0.5, tx + 0.5, y0 - 0.1, y0 + 6.6, zc - 2.6, zc + 2.6)
+    hw, pilots = [], []
+    for lx, ly, new in S['screws']:
+        h = h - cyl(M3_CLR / 2, 3.2, (lx, ly, Z_TOP + 1.5))
+    loc = mat_loc(switch_T())
+    h = h.moved(loc)
+    bought = {k: v.moved(loc) for k, v in bought.items()}
+    for lx, ly, new in S['screws']:
+        px, py = (round(float(v), 2) for v in switch_xy(lx, ly))
+        if new and floor_ok is not None and not floor_ok(px, py):
+            raise RuntimeError(f'housing_switch: its screw at ({px}, {py}) is on a seam, a flange, a slot or the computer')
+        if not new and not any(np.hypot(px - gx, py - gy) < 0.05 for gx, gy in GRID_PILOTS):
+            raise RuntimeError(f'housing_switch: ({px}, {py}) is not a grid pilot')
+        hw.append(H.pan((px, py, Z_TOP + 3.0), (0, 0, -1), 10.0, 'bolt_switch_housing'))
+        if new:
+            pilots.append((px, py))
+    vendor = {'switch_main': (REF / 'electronics' / 'switch.step', switch_T() @ W_T(0.0, y0, zc))}
+    return {'housing_switch': h}, bought, vendor, hw, pilots
+
+
+SWITCH_PORT = (*(float(v) for v in switch_xy(SWITCH['tabs'][1] / 2, -SWITCH['bezel_y'] - 13.0)), SWITCH['zc'])   # the BUTTON lead's start
+SWITCH_PORT_DIR = (float(-np.cos(np.radians(SWITCH['out']))), float(-np.sin(np.radians(SWITCH['out']))), 0.0)   # into the robot
 
 
 # round 13 (Fernando): the servo bus adapter rides on the arm module (riser, adapter, SO-101, its 12 V buck and this board), so the arm comes
@@ -738,7 +774,7 @@ def L_round(s, r):
     return PL.round_edges_each(s, [e for e in s.edges() if not all(abs(e.position_at(t).Z - z0) < 1e-3 for t in (0, 0.5, 1))], r)
 
 
-# ---- bin deck, bin, audio, e-stop ----------------------------------------------------------------------------------------------------------
+# ---- bin deck, bin, audio ------------------------------------------------------------------------------------------------------------------
 def deck():
     printed, bought, vendor, hw, floor_pilots = {}, {}, {}, [], []
     reg = sbox(LID_X[0], -LID_Y, LID_X[1], LID_Y).intersection(Point(0, 0).buffer(R_FLOOR - 3.0, 360))
@@ -760,18 +796,7 @@ def deck():
                 o = M[:3, 3] + np.array([0, 0, DZ_BIN])
                 hw.append(H.pan(tuple(o), (0, 0, -1), 10.0, 'bolt_bin'))
                 lid = lid - cyl(M3_PILOT / 2, 6.2, (o[0], o[1], sum(LID_Z) / 2))
-    # e-stop (22 mm panel button, Ø40 mushroom) and the power switch (22 mm) in printed pods on the deck (their bodies above it)
-    for nm, (x, y), cap in (('estop', ESTOP_XY, 20.0), ('switch', SWITCH_XY, 12.0)):
-        pod = cyl(15.0, 36.0, (x, y, LID_Z[1] + 18.0)) - cyl(13.0, 34.0, (x, y, LID_Z[1] + 17.0 - 0.1)) - cyl(11.2, 2.2, (x, y, LID_Z[1] + 35.0))
-        pod = pod + (box(x - 15, x + 15, y - 24, y + 24, LID_Z[1], LID_Z[1] + 3.0) - cyl(13.0, 3.2, (x, y, LID_Z[1] + 1.5)))
-        for dy in (-19.5, 19.5):                                           # round 13: 17 -> 19.5 (the heads sat in the tube's wall)
-            pod = pod - cyl(M3_CLR / 2, 3.2, (x, y + dy, LID_Z[1] + 1.5))
-            hw.append(H.pan((x, y + dy, LID_Z[1] + 3.0), (0, 0, -1), 10.0, f'bolt_{nm}_pod'))
-            lid = lid - cyl(M3_PILOT / 2, 6.2, (x, y + dy, sum(LID_Z) / 2))
-        printed[f'housing_{nm}'] = pod
-        top = LID_Z[1] + 36.0
-        bought[nm] = cyl(cap, 14.0 if nm == 'estop' else 8.0, (x, y, top + (7.0 if nm == 'estop' else 4.0))) + cyl(11.0, 32.0, (x, y, top - 16.0 - 0.01))
-    bought['label_estop'] = label('STOP', (ESTOP_XY[0], ESTOP_XY[1], LID_Z[1] + 36.0 + 14.0), 7.0, yaw=90)
+    # Nov 18 (Fernando): the e-stop pod is gone from the deck: the main button is the rocker on floor 2 (main_switch())
     for x, y, r in DECK_HOLES:                                             # Nov 11: cable pass-throughs (harness)
         lid = lid - cyl(r, LID_Z[1] - LID_Z[0] + 0.4, (x, y, sum(LID_Z) / 2))
     printed['deck_bin'] = lid
@@ -855,7 +880,7 @@ SPEAKER_X, SPEAKER_Y = (-192.0, -164.0), (26.0, 66.0)                 # the 28 x
 def build():
     flange, fin_pts, long_pts = fin_flanges()
     kit, kit_vendor, kit_hw = arm_kit()
-    el_bought, el_printed, el_hw, el_pilots, el_vendor, riser_cuts = electronics()
+    el_bought, el_printed, el_hw, el_pilots, el_vendor, riser_cuts = electronics(fin_pts + long_pts, flange)
     for c in riser_cuts:                                                  # round 13: the servo bracket's screws through the riser's back wall
         kit['riser_arm'] = kit['riser_arm'] - c
     dk_printed, dk_bought, dk_vendor, dk_hw, dk_pilots = deck()
@@ -874,11 +899,6 @@ def build():
     for k in floor:
         for x, y in dk_pilots:
             floor[k] = floor[k] - cyl(M3_CLR / 2, 12.0, (x, y, Z_TOP - 3.0))
-    (sx0, sx1), (sy0, sy1) = STACK['x'], STACK['y']                     # Nov 11: the power stack's box stands over two floor-fin screws: a
-    for x, y in fin_pts:                                                  # Ø8 hole through its floor round each head (driver access with the box off)
-        if sx0 - 4 < x < sx1 + 4 and sy0 - 4 < y < sy1 + 4:
-            el_printed['bracket_power_box'] = el_printed['bracket_power_box'] - cyl(4.0, 3.2, (x, y, Z_TOP + 1.5))   # floor height only:
-            # (7.2, -106.3) sits under the box's +y wall, which bridges the notch
     arm, q = arm_parts_at()
     printed = dict(floor, **kit, **el_printed, **dk_printed, **sc_printed, bracket_d435_riser=mount['cradle'])
     bought = dict(el_bought, **dk_bought, d435=mount['camera'], plug_d435=mount['plug'])
@@ -891,10 +911,18 @@ def build():
                                                        cradle_edges_rounded=mount['rounded']))
 
 
-def load_vendor(vendor):
+INTENDED_FITS = {frozenset(('housing_switch', 'switch_main'))}       # Nov 18: snap fits (overlap by design), reported apart
+BOXED_IN_CHECK = ('teensy', 'carrier_pcb')                          # Nov 18: their detailed models (hundreds of faces) stall the pairwise
+                                                                       # overlap check (> 50 min): checked as their bounding boxes
+
+
+def load_vendor(vendor, boxed=()):
     out = {}
     for k, (path, T) in vendor.items():
         s = b.import_step(str(path))
+        if k in boxed:
+            bb = s.bounding_box()
+            s = b.Solid.make_box(bb.size.X, bb.size.Y, bb.size.Z, b.Plane(origin=(bb.min.X, bb.min.Y, bb.min.Z)))
         out[k] = s.moved(mat_loc(T))
     return out
 
@@ -927,7 +955,7 @@ def check(printed, bought, vendor, hw, info):
     rep['bed_fit_failures'] = PB.bed_failures(rep['printed'])
     for line in rep['bed_fit_failures']:
         print('BED FIT FAIL', line, flush=True)
-    vend = load_vendor(vendor)
+    vend = load_vendor(vendor, BOXED_IN_CHECK)
     allp = dict(printed, **bought, **vend)
     # pairwise overlaps (bounding boxes first)
     keys = list(allp)
@@ -943,7 +971,14 @@ def check(printed, bought, vendor, hw, info):
                     v = -1
                 if v > 0.05 or v < 0:
                     ov[f'{a} / {c}'] = round(v, 2)
-    rep['overlaps_mm3'] = ov
+    boxed = {k: v for k, v in ov.items() if any(p in BOXED_IN_CHECK for p in k.split(' / '))}
+    fits = {k: v for k, v in ov.items() if frozenset(k.split(' / ')) in INTENDED_FITS}
+    rep['overlaps_mm3'] = {k: v for k, v in ov.items() if k not in boxed and k not in fits}
+    rep['intended_fits_mm3'] = dict(fits, note="the rocker's snap fingers, modelled undeflected, ramp out through the panel's Ø20.2 hole "
+                                    '(their preload on the panel)')
+    rep['overlaps_with_boxed_models_mm3'] = dict(boxed, note='against the bounding boxes of BOXED_IN_CHECK: not clashes by themselves. Nov 18 '
+                                                 'with the real models: the D435 lead clears the board; no part under the board reaches a '
+                                                 'standoff; the Teensy\'s pins sit in their sockets (the fit)')
     # against the base (deck, fins, pedestal, bumper, battery: world.py), the lidar and the pods' parts that stand on the deck
     import world as WD
     lower = WD.base_items()
@@ -960,6 +995,7 @@ def check(printed, bought, vendor, hw, info):
     rep['lidar_top_to_floor_mm'] = round(Z_UNDER - (F.LIDAR_BASE_Z + F.LIDAR['h']), 2)
     # fasteners: thread engagement = shank length that has plastic between the pilot (r 1.4) and the clearance (r 1.7) radius: a tube
     # r 1.42..1.68 along the shank picks up material only where the hole is a pilot (or blind / solid), never in a Ø3.4 clearance hole
+    vend = {k: v for k, v in vend.items() if k not in BOXED_IN_CHECK}   # boxes have no holes: kept out of the fastener checks
     rep['thread_engagement_mm'] = engagement(hw, dict(printed, **lower, **vend))
     nutted = ('bolt_servo_bracket', 'bolt_buck_12v_arm', 'bolt_d435_cradle', 'bolt_d435_camera')   # round 13: into hex nuts inside the
                                                                        # riser; v13: the D435's cradle (nuts) and the camera's own M3
@@ -1006,8 +1042,8 @@ def render(printed, bought, vendor, hw):
     for n, r in enumerate(hw):
         items[f'bolt_{n}'] = H.solid(r)
     cf = lambda k: H.MAGENTA if k.startswith('bolt_') else (COL['servo'] if 'STS3215' in k else (COL['arm'] if k.startswith('arm_') else colour(k)))   # noqa: E731
-    L.iso(items, VAL / 'iso_upper_front.png', 35, 25, 'upper robot (layout F proposal): floor, arm kit + SO-101 (stow), screen, electronics, bin deck', cf, tol=0.6)
-    L.iso(items, VAL / 'iso_upper_rear.png', 215, 25, 'upper robot from the rear left: bin deck, audio, e-stop over the electronics block', cf, tol=0.6)
+    L.iso(items, VAL / 'iso_upper_front.png', 35, 25, 'upper robot from the rear right: the main switch on the rear rim (left), screen, bin deck, arm kit + SO-101 (stow)', cf, tol=0.6)
+    L.iso(items, VAL / 'iso_upper_rear.png', 215, 25, 'upper robot from the front left: arm kit + SO-101 (stow), bin deck, screen', cf, tol=0.6)
     under = {k: v for k, v in items.items() if not k.startswith(('arm_', 'deck', 'bin', 'housing_audio', 'mic', 'speaker', 'estop', 'switch', 'label_estop'))}
     L.iso(under, VAL / 'iso_block.png', 215, 35, 'the electronics block with the bin deck, the bin and the arm hidden', cf, tol=0.6)
 

@@ -221,7 +221,7 @@ def endpoint(port_name, P, ends, lead=None):
     p, d = np.array(pt['p'], float), np.array(pt['d'], float)
     if pt['drawn']:
         return p + d * 1.5, p
-    Lc = HN.CONN[pt['conn']][0][2] if pt['conn'] in HN.CONN else 0.0
+    Lc = HN.plug_len(port_name, pt)
     return p + d * (Lc + HN.stub_len(port_name, lead)), p
 
 

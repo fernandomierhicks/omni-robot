@@ -21,6 +21,10 @@ Rules kept by every module (Nov 14 cleanup):
 | `upper.py all` | the second floor and everything on it; its check against the base and the D435's (`d435_riser.check_mount`) | `validation/upper`, `step_export/upper` |
 | `arm_sweep.py [robot_ring]` | the SO-101's meshes through every planned move against the whole robot | `validation/upper/arm_sweep*.json` |
 | `harness_route.py`, `harness.py all` | the leads' routes; the leads drawn and checked | `validation/harness`, `step_export/harness` |
+| `jst_xh.py` | the real JST XHP-2 / -3 / -4 / -6 plugs, re-stacked from JST's XHP-4 STEP (`reference/parts/JST_XHP-4.stp`); `harness.py` places them in the carrier's headers and on the blocks (Nov 18) | `step_export/jst_xh` |
+| `harness_table.py` | Nov 18: the leads as a table (from, to, through which floor and slot, length) | `validation/harness/harness_table.md` |
+| `electrical_step.py` | Nov 18: one review STEP of the electrics and the harness in the robot (context, blocks, cradles, the carrier with its Teensy / CAN models, leads, plugs) | `step_export/electrical`, `validation/electrical` |
+| `plunger_study.py cap / m3 / all` | **not in `regen_all.sh` (a try-out, Nov 18).** The M4 plunger's domed PETG cap (to print now) and the proposed M3 plunger (M3 x 45 head + washer on the pad, a printed Ø4.9 sleeve, two washers + nyloc on top) with the towers' bores opened to Ø8.8 and the guide to Ø5.0 (+ a 13/64" drill), the springs as coils at droop / nominal / bump | `step_export/plunger`, `validation/plunger` |
 | `service.py all` | driver access to every screw; the pods and the battery dropping out | `validation/service` |
 | `robot_step.py` | one STEP of every printed part | `step_export/robot_assembly.step` |
 | `print_files.py [--bumper] [--new-tracker]` | **not in `regen_all.sh`; run after the STEP exports.** The first floor's and the four pods' print STEPs sorted by filament colour (one folder per part type, every pod's file in it; the wheel hub and droop lug written once per pod because they come in two hands), the folder README and the Excel print tracker (written only if missing, never overwritten). Needs `openpyxl` in the omni-robot-sim venv | `print_files/First floor/` |
@@ -39,6 +43,8 @@ Rules kept by every module (Nov 14 cleanup):
 | `upper.py`, `devices.py` | the second floor, arm kit, electronics (device envelopes and plugs) |
 | `d435_riser.py` | the D435 on the arm riser: its model, fields of view, mount, checks |
 | `hardware.py`, `palette.py`, `step_colour.py`, `print_beds.py` | fastener records and solids, filament colours, coloured STEPs, each printed part's bed face |
+| `electrical.py` | Nov 18 (Fernando: power down): every electrical block on both floors (sizes, places, cradles screwed into the deck's accessory pilots / new floor pilots), the carrier (pcb/v1 STEP) and every block's ports for the harness |
+| `sw_export_step.py` | Nov 18: SolidWorks parts (`electronics/*.SLDPRT`) to STEP in `reference/electronics/` (cadenv interpreter) |
 | `labels.py` | Nov 15: assembly marks (wheel numbers 1 FL, 2 FR, 3 RL, 4 RR; engraved text and arrows on flat faces, readable on mirrored pods). `pod_mid.labelled(parts, i)` marks a pod's hangers, beam, towers and fork halves; `chassis_mid.deck_marks` numbers the deck pieces |
 | `arm_pose.py` | the SO-101's official parts posed by the robot's own `ros/src/omni_arm` kinematics (the one import from outside cad/) |
 | `subasm.py`, `mate_api.py`, `sw_native.py` | SolidWorks COM helpers (from cad/v10) |

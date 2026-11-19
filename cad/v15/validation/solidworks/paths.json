@@ -1,14 +1,14 @@
 {
- "components": 988,
+ "components": 1041,
  "top_level": 14,
- "files": 300,
+ "files": 327,
  "file_kinds": {
   ".SLDASM": 28,
-  ".SLDPRT": 272
+  ".SLDPRT": 299
  },
  "outside_v15": [],
  "suppressed": 0,
- "lightweight": 984,
+ "lightweight": 1037,
  "hidden": 0,
  "pass": true
 }

@@ -46,10 +46,10 @@
   },
   {
    "rail": "5V",
-   "load": "Teensy 4.1 + 2 CAN transceivers + BNO085 + ELRS + buzzer / LED",
-   "typ_W": 1.5,
-   "peak_W": 2.5,
-   "source": "est (datasheet class values)"
+   "load": "powered USB hub (its own draw; the Teensy and its board ride on the computer USB, in the 19 V line)",
+   "typ_W": 0.5,
+   "peak_W": 1.0,
+   "source": "est"
   },
   {
    "rail": "5V",
@@ -67,9 +67,9 @@
   },
   {
    "rail": "bat",
-   "load": "power board itself: contactor coil, current sensor, LEDs",
-   "typ_W": 1.0,
-   "peak_W": 1.5,
+   "load": "anti-spark switch (idle), INA226, INA3221",
+   "typ_W": 0.2,
+   "peak_W": 0.3,
    "source": "est"
   }
  ],
@@ -90,13 +90,13 @@
    "ceiling": 0.0
   },
   "5V": {
-   "typ": 5.3,
-   "peak": 11.1,
+   "typ": 4.3,
+   "peak": 9.6,
    "ceiling": 0.0
   },
   "bat": {
-   "typ": 1.0,
-   "peak": 1.5,
+   "typ": 0.2,
+   "peak": 0.3,
    "ceiling": 0.0
   }
  },
@@ -114,10 +114,10 @@
    "in_peak_A_at_v_stop": 4.14
   },
   "5 V buck": {
-   "out_typ_A": 1.06,
-   "out_peak_A": 2.22,
-   "in_peak_W": 12.3,
-   "in_peak_A_at_v_stop": 0.59
+   "out_typ_A": 0.86,
+   "out_peak_A": 1.92,
+   "in_peak_W": 10.7,
+   "in_peak_A_at_v_stop": 0.51
   }
  },
  "converter_choice": {
@@ -156,10 +156,10 @@
    "eff": "not stated",
    "size_mm": [
     64.0,
-    60.0,
+    57.0,
     22.0
    ],
-   "size_src": "ASSUMED: the potted 8 A class (no size in the listing)"
+   "size_src": "comparable 96 W potted units: 64 x 57 x 22 (Gladstone M8163, ATO 72S1210Z); VERIFY"
   },
   "5V": {
    "listing": "amazon.com/dp/B0CM37DX4Q",
@@ -180,12 +180,12 @@
   }
  },
  "battery": {
-  "typ_W": 123,
-  "typ_A_at_nom": 5.5,
-  "peak_W": 419,
-  "peak_A_at_stop": 20.0,
-  "ceiling_W": 884,
-  "ceiling_A_at_stop": 42.1,
+  "typ_W": 121,
+  "typ_A_at_nom": 5.4,
+  "peak_W": 417,
+  "peak_A_at_stop": 19.8,
+  "ceiling_W": 882,
+  "ceiling_A_at_stop": 42.0,
   "runtime_min_typ": 29
  },
  "fuses": {
@@ -206,7 +206,21 @@
    "ok": true
   },
   {
-   "id": "BAT_PB",
+   "id": "BAT_AS",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
+   "ok": true
+  },
+  {
+   "id": "AS_INA",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
+   "ok": true
+  },
+  {
+   "id": "INA_BLK",
    "awg": 12,
    "peak_A": 30.0,
    "rated_A": 30.0,
@@ -241,73 +255,108 @@
    "ok": true
   },
   {
-   "id": "CAN_FR",
-   "awg": 26,
-   "peak_A": 0.1,
-   "rated_A": 2.2,
+   "id": "BLK_12",
+   "awg": 18,
+   "peak_A": 6.0,
+   "rated_A": 10.0,
    "ok": true
   },
   {
-   "id": "CAN_FL",
-   "awg": 26,
-   "peak_A": 0.1,
-   "rated_A": 2.2,
+   "id": "BLK_5",
+   "awg": 20,
+   "peak_A": 1.5,
+   "rated_A": 7.0,
    "ok": true
   },
   {
-   "id": "CAN_RR",
-   "awg": 26,
-   "peak_A": 0.1,
-   "rated_A": 2.2,
-   "ok": true
-  },
-  {
-   "id": "CAN_RL",
-   "awg": 26,
-   "peak_A": 0.1,
-   "rated_A": 2.2,
-   "ok": true
-  },
-  {
-   "id": "PC19",
+   "id": "BLK_19",
    "awg": 18,
    "peak_A": 4.5,
    "rated_A": 10.0,
    "ok": true
   },
   {
-   "id": "ARM12",
+   "id": "SIG_DOWN",
+   "awg": 26,
+   "peak_A": 0.1,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "BUTTON",
+   "awg": 24,
+   "peak_A": 0.05,
+   "rated_A": 3.5,
+   "ok": true
+  },
+  {
+   "id": "C12_OUT",
    "awg": 18,
    "peak_A": 6.7,
    "rated_A": 10.0,
    "ok": true
   },
   {
-   "id": "5V",
+   "id": "C5_OUT",
+   "awg": 20,
+   "peak_A": 2.5,
+   "rated_A": 7.0,
+   "ok": true
+  },
+  {
+   "id": "C19_OUT",
+   "awg": 18,
+   "peak_A": 4.5,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R12",
+   "awg": 18,
+   "peak_A": 6.7,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R19",
+   "awg": 18,
+   "peak_A": 4.5,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R5_DISP",
    "awg": 20,
    "peak_A": 2.0,
    "rated_A": 7.0,
    "ok": true
   },
   {
-   "id": "PB-MCU",
-   "awg": 24,
-   "peak_A": 0.5,
-   "rated_A": 3.5,
+   "id": "R5_HUB",
+   "awg": 20,
+   "peak_A": 1.5,
+   "rated_A": 7.0,
    "ok": true
   },
   {
-   "id": "ESTOP",
-   "awg": 22,
-   "peak_A": 0.5,
-   "rated_A": 5.0,
+   "id": "CAN1",
+   "awg": 26,
+   "peak_A": 0.1,
+   "rated_A": 2.2,
    "ok": true
   },
   {
-   "id": "SWITCH",
-   "awg": 22,
-   "peak_A": 0.5,
-   "rated_A": 5.0,
+   "id": "I2C_226",
+   "awg": 26,
+   "peak_A": 0.01,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "I2C_3221",
+   "awg": 26,
+   "peak_A": 0.01,
+   "rated_A": 2.2,
    "ok": true
   },
   {
@@ -322,6 +371,13 @@
    "awg": 24,
    "peak_A": 0.9,
    "rated_A": 3.5,
+   "ok": true
+  },
+  {
+   "id": "STATUS",
+   "awg": 26,
+   "peak_A": 0.5,
+   "rated_A": 2.2,
    "ok": true
   }
  ],

@@ -300,7 +300,7 @@ C_TH = "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm"
 CP_TH = "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 LED_TH = "LED_THT:LED_D3.0mm"
 D_TH = "Diode_THT:D_DO-35_SOD27_P2.54mm_Vertical_AnodeUp"
-TO92 = "Package_TO_SOT_THT:TO-92_Inline"          # 2N7000: 1 S, 2 G, 3 D
+TO92 = "Package_TO_SOT_THT:TO-92_Inline_Wide"     # 2N7000: 1 S, 2 G, 3 D; legs spread to 2.54 (the 1.27 pitch footprint's ring is 0.15 mm, under OSH Park's 0.178)
 SOCK6 = "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical"
 SJ3 = "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm"
 MH = "MountingHole:MountingHole_3.2mm_M3"
@@ -336,13 +336,13 @@ FIRMWARE_TO_CHANGE = {
 }
 
 
-def conn(s: Sheet, ref, x, y, nets, title, note=None):
-    """a JST XH connector whose title starts at y; returns the y below its block"""
+def conn(s: Sheet, ref, x, y, nets, title, note=None, footprint=None, value=None):
+    """a JST XH connector (or the given footprint) whose title starts at y; returns the y below its block"""
     n = len(nets)
     lib_id = f"Connector_Generic:Conn_01x{n:02d}"
     pin1_y = s.lib(lib_id)["1"][1]
     ysym = y + 7.62 + pin1_y
-    s.part(ref, lib_id, x, ysym, f"XH{n}", xh(n))
+    s.part(ref, lib_id, x, ysym, value or f"XH{n}", footprint or xh(n))
     for i, net in enumerate(nets):
         s.connect(ref, str(i + 1), net)
     s.note(title, x - 33.02, y + 2.54, size=1.524, bold=True)
@@ -453,16 +453,25 @@ def build() -> Sheet:
         s.connect("U3", str(i + 1), net)
     y = conn(s, "J10", X, y + 30.48, ["CAN3_H", "CAN3_L"], "J10: CAN3 (1 H, 2 L)")
 
-    s.note("Buzzer (firmware tone() 2.7 kHz; any 5 V buzzer)", X - 45.72, y, size=1.778, bold=True)
-    conn(s, "J14", X - 20.32, y + 5.08, ["+5V", "BUZ_N"], "J14: buzzer (1 +5V, 2 switched -)")
+    # Fernando, Nov 18: the buzzer solders on the board (12085 passive magnetic, Ø12 x 8.5 mm, 42 R, 5 V)
+    s.note("Buzzer on the board (firmware tone() 2.7 kHz)", X - 45.72, y, size=1.778, bold=True)
+    s.note("BZ1: 12085 passive magnetic buzzer, 42 R, 5 V (~120 mA peak)\n"
+           "pin 1 = + (square pad), pin 2 slot takes 6.5 or 7.6 mm pitch", X - 45.72, y + 5.08)
+    s.part("BZ1", "Device:Buzzer", X - 20.32, y + 17.78, "12085 passive 42R", f"{PROJECT}:Buzzer_D12_P6.5-7.6_Slot")
+    s.connect("BZ1", "1", "+5V")
+    s.connect("BZ1", "2", "BUZ_N")
     s.part("D1", "Device:D", X + 15.24, y + 22.86, "1N4148", D_TH)
     s.connect("D1", "1", "+5V")
     s.connect("D1", "2", "BUZ_N")
     low_side(s, "Q1", "R12", X + 5.08, y + 38.1, "BUZZER", "BUZ_N")
     y += 58.42
-    s.note("RGB status LED, off board: common cathode, driven straight from the Teensy", X - 45.72, y, size=1.778, bold=True)
-    conn(s, "J15", X - 20.32, y + 5.08, ["LED_R_OUT", "LED_G_OUT", "LED_B_OUT", "GND"],
-         "J15: RGB LED (1 R, 2 G, 3 B, 4 GND)", note="R 28, G 29, B 5 (PWM); ~4 mA each at 3.3 V")
+    s.note("RGB status LED (on a lead or soldered in J15): common cathode, driven straight from the Teensy", X - 45.72, y, size=1.778, bold=True)
+    # Fernando, Nov 18: J15 in the LED's own leg order (common-cathode 5 mm RGB: R, cathode (longest leg), G, B), so the LED can
+    # also solder straight into J15's holes (XH 2.50 mm vs the legs' 2.54: 0.12 mm over the four)
+    conn(s, "J15", X - 20.32, y + 5.08, ["LED_R_OUT", "GND", "LED_G_OUT", "LED_B_OUT"],
+         "J15: RGB LED (1 R, 2 GND, 3 G, 4 B)",
+         note="the LED's leg order (2 = common cathode, the longest leg); it can solder in directly\n"
+              "R 28, G 29, B 5 (PWM); ~4 mA each at 3.3 V")
     for k, (col, rv) in enumerate((("R", "330R"), ("G", "100R"), ("B", "100R"))):
         r(s, f"R{20 + k}", X + 20.32 + k * 12.7, y + 22.86, rv, f"LED_{col}", f"LED_{col}_OUT")
     y += 45.72
@@ -510,8 +519,14 @@ def build() -> Sheet:
     y = conn(s, "J4", X, 48.26, ["+3V3", "GND"], "J4: BNO085 power (1 VCC, 2 GND)")
     y = conn(s, "J3", X, y, ["IMU_SCK", "IMU_MISO", "IMU_MOSI", "IMU_CS", "IMU_INT", "IMU_RST"], "J3: BNO085 SPI",
              note="board order: SCL=SCK, SDA=MISO, AD0=MOSI, CS, INT, RST\nPS0/PS1 tied high on the board (SPI); BOOTN not wired")
-    y = conn(s, "J5", X, y, ["+5V", "GND", "RC_RX", "RC_TX"], "J5: ELRS receiver (CRSF)",
-             note="3 = Teensy RX2 (to the receiver's TX), 4 = TX2")
+    # Fernando, Nov 18: the receiver (components/radio receiver: HPXGRC ELRS 2.4 GHz, 20 x 11 mm, pads T R V G) lives
+    # on the carrier: a male pin header soldered into its four pads plugs into J5, a 1x4 2.54 mm female socket; it lies
+    # flat over the board (tools/elrs_model.py). Its row read from the G end is G, V, R, T = J5's 1..4. VERIFY the pads'
+    # pitch is 2.54 (the vendor's pictures read 2.3-2.45) and that they are through-holes before ordering.
+    y = conn(s, "J5", X, y, ["GND", "+5V", "RC_TX", "RC_RX"], "J5: ELRS receiver (CRSF), plugged in",
+             note="1x4 2.54 mm female socket; the receiver on a male header, pads G V R T = 1 2 3 4\n"
+                  "3 its RX = Teensy TX2 (8), 4 its TX = Teensy RX2 (7); VERIFY its pad pitch = 2.54",
+             footprint=f"{PROJECT}:ELRS_Rx_Socket_1x04_P2.54mm", value="ELRS socket 1x4")
     y = conn(s, "J13", X, y, ["GND", "CAM_TRIG", "SYNC_OUT", "CAM_STROBE"], "J13: camera trigger / time sync (reserved)")
     spare(s, "J17", X, y, ["GND", "+3V3", "SP_D2", "SP_D3", "SP_D20", "SP_D21"], "J17: PWM, Serial5",
           note="2, 3 [DShot]; 20 TX5, 21 RX5")
@@ -542,6 +557,77 @@ def teensy_footprint() -> str:
             f"  (attr through_hole)\n{silk}\n" + "\n".join(pads) + "\n  (embedded_fonts no)\n)\n")
 
 
+def buzzer_footprint() -> str:
+    """the 12 mm magnetic buzzer (12085 class, Ø12 x 8.5, 42 R passive), soldered on the board. Pin pitch varies by
+    maker (6.5 or 7.6 mm), so pad 2 is a plated slot that takes either: pin 1 (+, square) at 0, pin 2 anywhere from
+    6.5 to 7.6 mm. Body circle drawn for the middle of that range."""
+    cx = 3.5                                              # body centre: 3.25 (6.5 pitch) .. 3.8 (7.6 pitch)
+    def circ(r, layer, w):
+        return (f'  (fp_circle (center {cx} 0) (end {cx + r} 0) (stroke (width {w}) (type solid)) (fill no) '
+                f'(layer "{layer}") (uuid "{uid()}"))')
+    return (f'(footprint "Buzzer_D12_P6.5-7.6_Slot" (version 20241229) (generator "omni_gen_sch") (layer "F.Cu")\n'
+            f'  (descr "12 mm magnetic buzzer (12085 / 12095 class), through-hole; pin 2 in a plated slot for '
+            f'6.5 or 7.6 mm pitch. Pin 1 = +")\n'
+            f'  (tags "buzzer magnetic 12mm")\n'
+            f'  (property "Reference" "BZ1" (at {cx} -7.3 0) (layer "F.SilkS") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
+            f'  (property "Value" "Buzzer_D12" (at {cx} 7.4 0) (layer "F.Fab") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
+            f'  (attr through_hole)\n'
+            + circ(6.15, "F.SilkS", 0.12) + "\n" + circ(6.0, "F.Fab", 0.1) + "\n" + circ(6.65, "F.CrtYd", 0.05) + "\n"
+            + f'  (fp_text user "+" (at -0.2 -2.0 0) (layer "F.SilkS") (uuid "{uid()}") (effects (font (size 1.2 1.2) (thickness 0.18))))\n'
+            f'  (pad "1" thru_hole rect (at 0 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") '
+            f'(remove_unused_layers no) (uuid "{uid()}"))\n'
+            f'  (pad "2" thru_hole oval (at 7.05 0) (size 2.9 1.9) (drill oval 2.0 0.9) (layers "*.Cu" "*.Mask") '
+            f'(remove_unused_layers no) (uuid "{uid()}"))\n'
+            f'  (embedded_fonts no)\n)\n')
+
+
+ELRS_FP = "ELRS_Rx_Socket_1x04_P2.54mm"
+RX_BOX = (-18.8, 1.2, -1.69, 9.31)       # the receiver board over the footprint (x0, x1, y0, y1; tools/elrs_model.py, footprint y down)
+
+
+def elrs_footprint() -> str:
+    """J5: a 1x4 2.54 mm female socket (KiCad's PinSocket_1x04_P2.54mm_Vertical pads and outline) carrying the ELRS
+    receiver on its male header: the receiver lies flat 11 mm over the board toward -x (its outline on silk, fab and
+    one courtyard round socket + receiver, so nothing gets placed under it), and its 3D model next to the socket's."""
+    x0, x1, y0, y1 = RX_BOX
+    g = 0.25
+
+    def line(a, b, layer, w):
+        return (f'  (fp_line (start {a[0]} {a[1]}) (end {b[0]} {b[1]}) (stroke (width {w}) (type solid)) '
+                f'(layer "{layer}") (uuid "{uid()}"))')
+
+    def rect(a, b, layer, w):
+        return (f'  (fp_rect (start {a[0]} {a[1]}) (end {b[0]} {b[1]}) (stroke (width {w}) (type solid)) (fill no) '
+                f'(layer "{layer}") (uuid "{uid()}"))')
+
+    def model(path):
+        return f'  (model "{path}" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))'
+
+    silk = [line((-1.33, 1.27), (-1.33, 8.95), "F.SilkS", 0.12), line((-1.33, 1.27), (1.33, 1.27), "F.SilkS", 0.12),
+            line((-1.33, 8.95), (1.33, 8.95), "F.SilkS", 0.12), line((0, -1.33), (1.33, -1.33), "F.SilkS", 0.12),
+            line((1.33, -1.33), (1.33, 0), "F.SilkS", 0.12), line((1.33, 1.27), (1.33, 8.95), "F.SilkS", 0.12),
+            rect((x0, y0), (x1, y1), "F.SilkS", 0.12), rect((x0, y0), (x1, y1), "F.Fab", 0.1),
+            line((-1.27, -1.27), (0.635, -1.27), "F.Fab", 0.1), line((-1.27, 8.89), (-1.27, -1.27), "F.Fab", 0.1),
+            line((0.635, -1.27), (1.27, -0.635), "F.Fab", 0.1), line((1.27, -0.635), (1.27, 8.89), "F.Fab", 0.1),
+            line((1.27, 8.89), (-1.27, 8.89), "F.Fab", 0.1),
+            rect((x0 - g, min(y0 - g, -1.77)), (max(x1 + g, 1.77), max(y1 + g, 9.39)), "F.CrtYd", 0.05)]
+    pads = [f'  (pad "{k + 1}" thru_hole {"rect" if k == 0 else "circle"} (at 0 {k * 2.54:g}) (size 1.7 1.7) (drill 1) '
+            f'(layers "*.Cu" "*.Mask") (remove_unused_layers no) (uuid "{uid()}"))' for k in range(4)]
+    return (f'(footprint "{ELRS_FP}" (version 20241229) (generator "omni_gen_sch") (layer "F.Cu")\n'
+            f'  (descr "1x04 2.54 mm female socket with the ELRS receiver (20 x 11 mm, HPXGRC) plugged in on a male header, '
+            f'lying flat 11 mm over the board toward -x. Pads G V R T = 1 2 3 4")\n'
+            f'  (tags "ELRS receiver socket 1x04 2.54mm")\n'
+            f'  (property "Reference" "J5" (at 0 -2.77 0) (layer "F.SilkS") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
+            f'  (property "Value" "{ELRS_FP}" (at {(x0 + x1) / 2:g} {y1 + 1.2:g} 0) (layer "F.Fab") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
+            f'  (attr through_hole)\n'
+            + "\n".join(silk) + "\n"
+            + f'  (fp_text user "ELRS rx, on header" (at {(x0 + x1) / 2 - 1.5:g} {(y0 + y1) / 2:g} 0) (layer "F.SilkS") (uuid "{uid()}") '
+              f'(effects (font (size 0.8 0.8) (thickness 0.12))))\n'
+            + "\n".join(pads) + "\n  (embedded_fonts no)\n"
+            + model("${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step") + "\n"
+            + model("${KIPRJMOD}/models/elrs_receiver_on_J5.step") + "\n)\n")
+
+
 def write_project_files():
     lib = (f"(kicad_symbol_lib (version 20251024) (generator \"omni_gen_sch\") (generator_version \"10.0\")\n"
            + teensy_symbol("Teensy4.1") + "\n" + can_module_symbol("SN65HVD230_Module") + "\n)\n")
@@ -550,6 +636,10 @@ def write_project_files():
     os.makedirs(os.path.join(HERE, f"{PROJECT}.pretty"), exist_ok=True)
     with open(os.path.join(HERE, f"{PROJECT}.pretty", "Teensy41_Socket.kicad_mod"), "w", encoding="utf-8", newline="\n") as f:
         f.write(teensy_footprint())
+    with open(os.path.join(HERE, f"{PROJECT}.pretty", "Buzzer_D12_P6.5-7.6_Slot.kicad_mod"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(buzzer_footprint())
+    with open(os.path.join(HERE, f"{PROJECT}.pretty", f"{ELRS_FP}.kicad_mod"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(elrs_footprint())
     with open(os.path.join(HERE, "sym-lib-table"), "w", encoding="utf-8", newline="\n") as f:
         f.write(f'(sym_lib_table\n  (version 7)\n  (lib (name "{PROJECT}")(type "KiCad")(uri "${{KIPRJMOD}}/{PROJECT}.kicad_sym")(options "")(descr "omni carrier parts"))\n)\n')
     with open(os.path.join(HERE, "fp-lib-table"), "w", encoding="utf-8", newline="\n") as f:

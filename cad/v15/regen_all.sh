@@ -29,6 +29,8 @@ run arm_sweep     $PY arm_sweep.py             # the SO-101 swept against the v1
 run arm_sweep_rr  $PY arm_sweep.py robot_ring  # ... and planned with the robot's own ring (omni_arm robot_arm.json)
 run harness_route $PY harness_route.py         # the leads' routes on the mid deck
 run harness       $PY harness.py all           # the leads drawn, checks, harness_review.step
+run harness_table $PY harness_table.py        # Nov 18: the leads' table (from, to, through, length)
+run electrical    $PY electrical_step.py      # Nov 18: the electrics + harness review STEP
 run service       $PY service.py all           # driver access to every screw, the pods and battery dropping out
 run robot_step    $PY robot_step.py            # step_export/robot_assembly.step
 echo "BUILD123D DONE"

@@ -4,12 +4,12 @@
    "drilled": [
     "bolt_arm_kit_M3x35#36 / riser_arm",
     "bolt_arm_kit_M3x35#37 / riser_arm",
-    "bolt_speaker_cover#86 / housing_face_crown",
-    "bolt_speaker_cover#87 / housing_face_crown"
+    "bolt_speaker_cover#112 / housing_face_crown",
+    "bolt_speaker_cover#113 / housing_face_crown"
    ],
    "left": {
-    "bolt_face_crown#80 / housing_face": null,
-    "bolt_face_crown#81 / housing_face": null
+    "bolt_face_crown#106 / housing_face": null,
+    "bolt_face_crown#107 / housing_face": null
    }
   },
   "floor": {
@@ -88,7 +88,7 @@
   "floor2_FL": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 209.9,
+   "volume_cm3": 210.1,
    "bbox": [
     219.3,
     225.0,
@@ -115,7 +115,7 @@
   "floor2_RL": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 209.5,
+   "volume_cm3": 209.6,
    "bbox": [
     225.0,
     225.0,
@@ -142,7 +142,7 @@
   "floor2_RR": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 209.8,
+   "volume_cm3": 210.4,
    "bbox": [
     225.0,
     225.0,
@@ -169,7 +169,7 @@
   "floor2_FR": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 207.6,
+   "volume_cm3": 208.2,
    "bbox": [
     220.1,
     225.0,
@@ -252,7 +252,7 @@
    "valid": true,
    "volume_cm3": 2.5,
    "bbox": [
-    20.0,
+    16.5,
     28.0,
     20.0
    ],
@@ -260,12 +260,12 @@
    "bed": {
     "height": 20.0,
     "as_exported": [
-     20.0,
+     16.5,
      28.0
     ],
     "best": [
      28.0,
-     20.0
+     16.5
     ],
     "rotate_deg": 0.0,
     "limit": 252.0,
@@ -279,16 +279,16 @@
    "valid": true,
    "volume_cm3": 2.5,
    "bbox": [
-    20.0,
     28.0,
+    20.0,
     20.0
    ],
    "up": "+z",
    "bed": {
     "height": 20.0,
     "as_exported": [
-     20.0,
-     28.0
+     28.0,
+     20.0
     ],
     "best": [
      28.0,
@@ -306,16 +306,16 @@
    "valid": true,
    "volume_cm3": 2.5,
    "bbox": [
-    20.0,
     28.0,
+    20.0,
     20.0
    ],
    "up": "+z",
    "bed": {
     "height": 20.0,
     "as_exported": [
-     20.0,
-     28.0
+     28.0,
+     20.0
     ],
     "best": [
      28.0,
@@ -333,7 +333,7 @@
    "valid": true,
    "volume_cm3": 2.5,
    "bbox": [
-    20.0,
+    16.5,
     28.0,
     20.0
    ],
@@ -341,12 +341,12 @@
    "bed": {
     "height": 20.0,
     "as_exported": [
-     20.0,
+     16.5,
      28.0
     ],
     "best": [
      28.0,
-     20.0
+     16.5
     ],
     "rotate_deg": 0.0,
     "limit": 252.0,
@@ -355,274 +355,220 @@
     "spare_mm": 224.0
    }
   },
-  "bracket_power_box": {
+  "bracket_conv_12v": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 72.8,
+   "volume_cm3": 29.4,
    "bbox": [
-    163.0,
-    80.0,
-    36.0
+    62.0,
+    87.0,
+    14.5
    ],
    "up": "+z",
    "bed": {
-    "height": 36.0,
+    "height": 14.5,
     "as_exported": [
-     163.0,
-     80.0
+     62.0,
+     87.0
     ],
     "best": [
-     160.2,
-     159.8
+     87.0,
+     62.0
     ],
-    "rotate_deg": 135.0,
+    "rotate_deg": 0.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 91.8
+    "spare_mm": 165.0
    }
   },
-  "bracket_power_shelf": {
+  "bracket_conv_5v": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 32.9,
+   "volume_cm3": 31.2,
    "bbox": [
-    163.0,
-    80.0,
-    3.0
+    85.8,
+    102.8,
+    14.5
    ],
    "up": "+z",
    "bed": {
-    "height": 3.0,
+    "height": 14.5,
     "as_exported": [
-     163.0,
-     80.0
+     85.8,
+     102.8
     ],
     "best": [
-     160.2,
-     159.8
+     89.0,
+     65.0
     ],
-    "rotate_deg": 135.0,
+    "rotate_deg": 15.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 91.8
+    "spare_mm": 163.0
    }
   },
-  "post_power_low_0": {
+  "bracket_anti_spark": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 11.5,
    "bbox": [
-    7.0,
-    7.0,
-    30.0
+    77.6,
+    60.1,
+    12.0
    ],
    "up": "+z",
    "bed": {
-    "height": 30.0,
+    "height": 12.0,
     "as_exported": [
-     7.0,
-     7.0
+     77.6,
+     60.1
     ],
     "best": [
-     7.0,
-     7.0
+     66.6,
+     66.5
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 70.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 185.4
    }
   },
-  "post_mcu_0": {
+  "bracket_xt30_block": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 15.8,
    "bbox": [
-    7.0,
-    7.0,
-    32.0
+    77.8,
+    77.8,
+    12.0
    ],
    "up": "+z",
    "bed": {
-    "height": 32.0,
+    "height": 12.0,
     "as_exported": [
-     7.0,
-     7.0
+     77.8,
+     77.8
     ],
     "best": [
-     7.0,
-     7.0
+     75.0,
+     35.0
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 45.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 177.0
    }
   },
-  "post_power_low_1": {
+  "bracket_conv_19v": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 36.1,
    "bbox": [
-    7.0,
-    7.0,
-    30.0
+    120.0,
+    90.5,
+    14.5
    ],
    "up": "+z",
    "bed": {
-    "height": 30.0,
+    "height": 14.5,
     "as_exported": [
-     7.0,
-     7.0
+     120.0,
+     90.5
     ],
     "best": [
-     7.0,
-     7.0
+     118.5,
+     94.5
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 80.5,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 133.5
    }
   },
-  "post_mcu_1": {
+  "bracket_ina3221": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 5.4,
    "bbox": [
-    7.0,
-    7.0,
-    32.0
+    60.0,
+    41.5,
+    9.5
    ],
    "up": "+z",
    "bed": {
-    "height": 32.0,
+    "height": 9.5,
     "as_exported": [
-     7.0,
-     7.0
+     60.0,
+     41.5
     ],
     "best": [
-     7.0,
-     7.0
+     47.3,
+     47.0
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 152.5,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 204.7
    }
   },
-  "post_power_low_2": {
+  "bracket_usb_hub": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 12.4,
    "bbox": [
-    7.0,
-    7.0,
-    30.0
+    118.0,
+    56.0,
+    9.5
    ],
    "up": "+z",
    "bed": {
-    "height": 30.0,
+    "height": 9.5,
     "as_exported": [
-     7.0,
-     7.0
+     118.0,
+     56.0
     ],
     "best": [
-     7.0,
-     7.0
+     92.7,
+     92.5
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 42.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 159.3
    }
   },
-  "post_mcu_2": {
+  "tray_carrier": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 0.9,
+   "volume_cm3": 21.3,
    "bbox": [
-    7.0,
-    7.0,
-    32.0
+    106.0,
+    66.0,
+    9.0
    ],
    "up": "+z",
    "bed": {
-    "height": 32.0,
+    "height": 9.0,
     "as_exported": [
-     7.0,
-     7.0
+     106.0,
+     66.0
     ],
     "best": [
-     7.0,
-     7.0
+     106.0,
+     66.0
     ],
-    "rotate_deg": 55.0,
+    "rotate_deg": 0.0,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 245.0
-   }
-  },
-  "post_power_low_3": {
-   "solids": 1,
-   "valid": true,
-   "volume_cm3": 0.9,
-   "bbox": [
-    7.0,
-    7.0,
-    30.0
-   ],
-   "up": "+z",
-   "bed": {
-    "height": 30.0,
-    "as_exported": [
-     7.0,
-     7.0
-    ],
-    "best": [
-     7.0,
-     7.0
-    ],
-    "rotate_deg": 55.0,
-    "limit": 252.0,
-    "fits": true,
-    "fits_as_exported": true,
-    "spare_mm": 245.0
-   }
-  },
-  "post_mcu_3": {
-   "solids": 1,
-   "valid": true,
-   "volume_cm3": 0.9,
-   "bbox": [
-    7.0,
-    7.0,
-    32.0
-   ],
-   "up": "+z",
-   "bed": {
-    "height": 32.0,
-    "as_exported": [
-     7.0,
-     7.0
-    ],
-    "best": [
-     7.0,
-     7.0
-    ],
-    "rotate_deg": 55.0,
-    "limit": 252.0,
-    "fits": true,
-    "fits_as_exported": true,
-    "spare_mm": 245.0
+    "spare_mm": 146.0
    }
   },
   "spacer_servo_adapter_0": {
@@ -787,6 +733,33 @@
     "spare_mm": 216.0
    }
   },
+  "housing_switch": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 11.1,
+   "bbox": [
+    48.0,
+    34.0,
+    34.5
+   ],
+   "up": "+x",
+   "bed": {
+    "height": 48.0,
+    "as_exported": [
+     34.0,
+     34.5
+    ],
+    "best": [
+     34.5,
+     34.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 217.5
+   }
+  },
   "post_deck_0": {
    "solids": 1,
    "valid": true,
@@ -895,64 +868,10 @@
     "spare_mm": 238.0
    }
   },
-  "housing_estop": {
-   "solids": 1,
-   "valid": true,
-   "volume_cm3": 8.8,
-   "bbox": [
-    30.0,
-    48.0,
-    36.0
-   ],
-   "up": "+z",
-   "bed": {
-    "height": 36.0,
-    "as_exported": [
-     30.0,
-     48.0
-    ],
-    "best": [
-     48.0,
-     30.0
-    ],
-    "rotate_deg": 0.0,
-    "limit": 252.0,
-    "fits": true,
-    "fits_as_exported": true,
-    "spare_mm": 204.0
-   }
-  },
-  "housing_switch": {
-   "solids": 1,
-   "valid": true,
-   "volume_cm3": 8.8,
-   "bbox": [
-    30.0,
-    48.0,
-    36.0
-   ],
-   "up": "+z",
-   "bed": {
-    "height": 36.0,
-    "as_exported": [
-     30.0,
-     48.0
-    ],
-    "best": [
-     48.0,
-     30.0
-    ],
-    "rotate_deg": 0.0,
-    "limit": 252.0,
-    "fits": true,
-    "fits_as_exported": true,
-    "spare_mm": 204.0
-   }
-  },
   "deck_bin": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 254.2,
+   "volume_cm3": 256.1,
    "bbox": [
     218.0,
     200.0,
@@ -1087,6 +1006,24 @@
  },
  "bed_fit_failures": [],
  "overlaps_mm3": {},
+ "intended_fits_mm3": {
+  "housing_switch / switch_main": 9.98,
+  "note": "the rocker's snap fingers, modelled undeflected, ramp out through the panel's \u00d820.2 hole (their preload on the panel)"
+ },
+ "overlaps_with_boxed_models_mm3": {
+  "riser_adapter / carrier_pcb": 10369.12,
+  "riser_arm / carrier_pcb": 6867.36,
+  "tray_carrier / carrier_pcb": 212.31,
+  "bracket_imu / carrier_pcb": 39.59,
+  "plug_imu / carrier_pcb": 163.53,
+  "plug_d435 / carrier_pcb": 1073.54,
+  "imu_bno085 / carrier_pcb": 191.59,
+  "carrier_pcb / teensy": 15571.87,
+  "carrier_pcb / can_U2": 280.66,
+  "carrier_pcb / can_U3": 280.66,
+  "carrier_pcb / arm_01_Base_SO101": 464.48,
+  "note": "against the bounding boxes of BOXED_IN_CHECK: not clashes by themselves. Nov 18 with the real models: the D435 lead clears the board; no part under the board reaches a standoff; the Teensy's pins sit in their sockets (the fit)"
+ },
  "overlaps_with_base_mm3": {},
  "lidar_top_to_floor_mm": 3.8,
  "thread_engagement_mm": {
@@ -1134,78 +1071,104 @@
   "bolt_clip_computer#41": 9.0,
   "bolt_clip_computer#42": 9.0,
   "bolt_clip_computer#43": 9.0,
-  "bolt_power_stack#44": 7.0,
-  "bolt_power_stack#45": 7.0,
-  "bolt_power_stack#46": 7.0,
-  "bolt_power_stack#47": 7.0,
-  "bolt_servo_adapter#48": 7.4,
-  "bolt_servo_adapter#49": 7.4,
-  "bolt_servo_adapter#50": 7.4,
-  "bolt_servo_adapter#51": 7.4,
-  "bolt_servo_bracket#52": 0.0,
-  "bolt_servo_bracket#54": 0.0,
-  "bolt_imu#56": 8.1,
-  "bolt_imu#57": 8.1,
-  "bolt_imu_base#58": 9.0,
-  "bolt_imu_base#59": 9.0,
-  "bolt_post_floor#60": 7.0,
-  "bolt_post_deck#61": 6.0,
-  "bolt_post_floor#62": 7.0,
-  "bolt_post_deck#63": 6.0,
-  "bolt_post_floor#64": 7.0,
-  "bolt_post_deck#65": 6.0,
-  "bolt_post_floor#66": 7.0,
-  "bolt_post_deck#67": 6.0,
-  "bolt_bin#68": 6.0,
-  "bolt_bin#69": 6.0,
-  "bolt_bin#70": 6.0,
-  "bolt_bin#71": 6.0,
-  "bolt_estop_pod#72": 6.0,
-  "bolt_estop_pod#73": 6.0,
-  "bolt_switch_pod#74": 6.0,
-  "bolt_switch_pod#75": 6.0,
-  "bolt_face_deck#76": 6.0,
-  "bolt_face_deck#77": 6.0,
-  "bolt_face_deck#78": 6.0,
-  "bolt_face_deck#79": 6.0,
-  "bolt_face_crown#80": 6.0,
-  "bolt_face_crown#81": 6.0,
-  "bolt_mic#82": 7.5,
-  "bolt_mic#83": 7.5,
-  "bolt_mic#84": 7.5,
-  "bolt_mic#85": 7.5,
-  "bolt_speaker_cover#86": 8.0,
-  "bolt_speaker_cover#87": 8.0,
-  "bolt_d435_camera#88": 0.0,
-  "bolt_d435_camera#89": 0.0,
-  "bolt_d435_cradle#90": 0.0,
-  "bolt_d435_cradle#92": 0.0
+  "bolt_conv_12v_ear#44": 7.0,
+  "bolt_conv_12v_ear#45": 7.0,
+  "bolt_conv_12v_deck#46": 7.5,
+  "bolt_conv_12v_deck#47": 7.5,
+  "bolt_conv_12v_deck#48": 7.5,
+  "bolt_conv_5v_ear#49": 7.0,
+  "bolt_conv_5v_ear#50": 7.0,
+  "bolt_conv_5v_deck#51": 7.5,
+  "bolt_conv_5v_deck#52": 7.5,
+  "bolt_conv_5v_deck#53": 7.5,
+  "bolt_anti_spark_deck#54": 10.0,
+  "bolt_xt30_block_deck#55": 10.0,
+  "bolt_xt30_block_deck#56": 10.0,
+  "bolt_conv_19v_ear#57": 7.0,
+  "bolt_conv_19v_ear#58": 7.0,
+  "bolt_conv_19v_floor#59": 7.0,
+  "bolt_conv_19v_floor#60": 7.0,
+  "bolt_conv_19v_floor#61": 7.0,
+  "bolt_conv_19v_floor#62": 7.0,
+  "bolt_ina3221_floor#63": 7.0,
+  "bolt_ina3221_floor#64": 7.0,
+  "bolt_ina3221_floor#65": 7.0,
+  "bolt_usb_hub_floor#66": 7.0,
+  "bolt_usb_hub_floor#67": 7.0,
+  "bolt_usb_hub_floor#68": 7.0,
+  "bolt_usb_hub_floor#69": 7.0,
+  "bolt_carrier#70": 7.4,
+  "bolt_carrier#71": 7.4,
+  "bolt_carrier#72": 7.4,
+  "bolt_carrier#73": 7.4,
+  "bolt_servo_adapter#74": 7.4,
+  "bolt_servo_adapter#75": 7.4,
+  "bolt_servo_adapter#76": 7.4,
+  "bolt_servo_adapter#77": 7.4,
+  "bolt_servo_bracket#78": 0.0,
+  "bolt_servo_bracket#80": 0.0,
+  "bolt_imu#82": 8.1,
+  "bolt_imu#83": 8.1,
+  "bolt_imu_base#84": 9.0,
+  "bolt_imu_base#85": 9.0,
+  "bolt_switch_housing#86": 7.0,
+  "bolt_switch_housing#87": 7.0,
+  "bolt_switch_housing#88": 7.0,
+  "bolt_switch_housing#89": 7.0,
+  "bolt_post_floor#90": 7.0,
+  "bolt_post_deck#91": 6.0,
+  "bolt_post_floor#92": 7.0,
+  "bolt_post_deck#93": 6.0,
+  "bolt_post_floor#94": 7.0,
+  "bolt_post_deck#95": 6.0,
+  "bolt_post_floor#96": 7.0,
+  "bolt_post_deck#97": 6.0,
+  "bolt_bin#98": 6.0,
+  "bolt_bin#99": 6.0,
+  "bolt_bin#100": 6.0,
+  "bolt_bin#101": 6.0,
+  "bolt_face_deck#102": 6.0,
+  "bolt_face_deck#103": 6.0,
+  "bolt_face_deck#104": 6.0,
+  "bolt_face_deck#105": 6.0,
+  "bolt_face_crown#106": 6.0,
+  "bolt_face_crown#107": 6.0,
+  "bolt_mic#108": 7.5,
+  "bolt_mic#109": 7.5,
+  "bolt_mic#110": 7.5,
+  "bolt_mic#111": 7.5,
+  "bolt_speaker_cover#112": 8.0,
+  "bolt_speaker_cover#113": 8.0,
+  "bolt_d435_camera#114": 0.0,
+  "bolt_d435_camera#115": 0.0,
+  "bolt_d435_cradle#116": 0.0,
+  "bolt_d435_cradle#118": 0.0
  },
  "screws_short_of_6mm": {},
  "hole_audit": {
-  "screws": 90,
+  "screws": 116,
   "partial_holes": {
-   "bolt_servo_bracket#52 / riser_arm": 0.15,
-   "bolt_servo_bracket#54 / riser_arm": 0.15
+   "bolt_servo_bracket#78 / riser_arm": 0.15,
+   "bolt_servo_bracket#80 / riser_arm": 0.15
   },
   "threads_across_layers": {
-   "bolt_face_crown#80 / housing_face": 90.0,
-   "bolt_face_crown#81 / housing_face": 90.0
+   "bolt_face_crown#106 / housing_face": 90.0,
+   "bolt_face_crown#107 / housing_face": 90.0
   },
   "heads_in_parts": {},
   "no_hole": {
-   "bolt_mic#82 / mic_array": 3.5,
-   "bolt_mic#83 / mic_array": 3.5,
-   "bolt_mic#84 / mic_array": 3.5,
-   "bolt_mic#85 / mic_array": 3.5
+   "bolt_mic#108 / mic_array": 3.5,
+   "bolt_mic#109 / mic_array": 3.5,
+   "bolt_mic#110 / mic_array": 3.5,
+   "bolt_mic#111 / mic_array": 3.5
   },
   "note": "partial: a hole that is not a full circle in a part (straddles a seam or runs off an edge); across layers: a thread-forming pilot whose axis is > 45 deg off the printed part's print-up axis"
  },
  "holes_through (Nov 13)": {
   "drilled": 4,
   "left_blind_mm_of_plastic": {
-   "bolt_face_crown#80 / housing_face": null,
-   "bolt_face_crown#81 / housing_face": null
+   "bolt_face_crown#106 / housing_face": null,
+   "bolt_face_crown#107 / housing_face": null
   },
   "blind_now": {
    "bolt_floor_fin#9 / support_spine": 62.75,
@@ -1225,18 +1188,18 @@
    "bolt_floor_fin#23 / support_side_R": 69.5,
    "bolt_floor_fin#24 / support_front_L": 69.5,
    "bolt_floor_fin#25 / support_front_R": 69.5,
-   "bolt_face_crown#80 / housing_face": null,
-   "bolt_face_crown#81 / housing_face": null
+   "bolt_face_crown#106 / housing_face": null,
+   "bolt_face_crown#107 / housing_face": null
   },
   "note": "blind_now includes the chassis parts these screws end in (the fins' flanges): chassis.py owns those holes"
  },
  "fastener_count": {
-  "M3x10_pan": 29,
-  "M3x12_pan": 31,
+  "M3x10_pan": 46,
+  "M3x12_pan": 40,
   "M4x25_flat": 4,
   "M3x45_pan": 2,
   "M3x35_pan": 2,
-  "M3x80_pan": 4,
+  "M3x18_pan": 4,
   "M3x14_pan": 6,
   "M3x16_pan": 6,
   "M3_hexnut": 4,
@@ -1302,7 +1265,8 @@
    "support_front_R": 6.53
   },
   "plug_d435_static_gaps_mm": {
-   "riser_arm": 0.6
+   "riser_arm": 0.6,
+   "tray_carrier": 4.88
   },
   "view": {
    "lens": [

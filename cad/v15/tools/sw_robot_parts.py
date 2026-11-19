@@ -53,6 +53,27 @@ POD_LABELLED = PM.LABELLED
 POD_MOTOR = ('ak40_stator', 'ak40_rotor', 'xt30_housing', 'xt30_pin_1', 'xt30_pin_2', 'lead_pos', 'lead_neg')
 PLUNGERS = {f'{side}{j + 1}': (xc, y) for side, xc in (('o', P4.ARM_C[0]), ('i', P4.ARM_C[1])) for j, y in enumerate(P.Y_PAIR)}
 LIMIT_KEY = 'i1'                                                       # the travel limit rides on this plunger (motor side, far from the pivot)
+# Nov 18 (Fernando: "pick up the latest towers that have M3 + sleeves + plungers"): the SolidWorks assembly shows plunger_study.py's M3 set,
+# which the pod build (pod.py / pod_mid.py, so robot_assembly.step and the pod checks) does not draw yet: the towers with the stop-surface
+# underside and the Ø8.8 bores / Ø5.0 guides (plunger_study.tower_m3, marked per pod as before), each plunger one moving part (its PETG cap,
+# the M3 x 45 button head, the seat washer, the printed Ø4.9 sleeve, two washers and the nyloc; it slides on the sleeve in the guide), two
+# 8.2 OD coil springs per bore at nominal (plunger_study.coil). 'm4' gives the pod build's set
+PLUNGER_SET = 'm3'
+# Nov 19 (Fernando: "bright colors to the M3 sleeve and plunger cap"): the plunger stays one part (one sphere for the pad mate), its faces
+# painted by the piece they belong to: the PETG cap yellow, the printed sleeve cyan, the steel magenta (springs stay green, towers grey)
+PLUNGER_CAP_RGB, PLUNGER_SLEEVE_RGB = (1.0, 0.85, 0.0), (0.0, 0.85, 1.0)
+PAINT = {}                                                             # stem -> [(solid, rgb)]: a face takes the colour of the piece it bounds
+
+
+def painter(body, pieces):
+    """face -> rgb: a point on the face nudged 0.05 into the body, coloured as the piece that holds it (the first at 0 distance)"""
+    def rgb(face):
+        f = b.Face(face)
+        p = f.position_at(0.5, 0.5)
+        n = f.normal_at(p)
+        q = min((p + n * 0.05, p - n * 0.05), key=lambda v: body.distance_to(v))
+        return min(pieces, key=lambda sc: sc[0].distance_to(q))[1]
+    return rgb
 # vendor part frame -> robot frame: part Z -> robot x, X -> y, Y -> z (the RPLIDAR is Y-up; its Laser_link has its x along part +Z)
 PERM = np.array([[0, 0, 1.0, 0], [1.0, 0, 0, 0], [0, 1.0, 0, 0], [0, 0, 0, 1.0]])
 LIDAR_FOOT_Y = -9.3                                                    # vendor RPLIDAR: base Y -9.3, Laser_link (scan plane) Y 22
@@ -75,13 +96,33 @@ def pod_parts():
     """pod-frame parts at nominal (one solid each), the plungers and springs, the roller's parts (core, sleeve, tread, 687) in their own frame;
     the pod's fastener records (static, unsprung)"""
     parts, rm, rs, unit, _ = CM.pod_build()
+    if PLUNGER_SET == 'm3':
+        import plunger_study as PS
+        parts = dict(parts, rx_tower_outer=PS.tower_m3('o')[0], rx_tower_inner=PS.tower_m3('i')[0])
+        PM._LAB.clear()                                                # the marks go on these towers (labelled() caches per pod
+        PM._REG.clear()                                                # and the marks' regions per part)
     sh, moving, _ = PM.assembly(parts, rm, rs, unit, 0.0, deck=False)
     once = {k: sh[k] for k in POD_STATIC + POD_FORK + POD_WHEEL + POD_MOTOR}
     # one-body 6804 ring in the cartridge (the reference STEP has separate races and balls: SolidWorks opens it as an assembly)
     once['bearing_6804_left'] = W.along_x(R_BRG, X_PLATE_FLOOR, X_PLATE_FLOOR + 7.0) - W.along_x(10.0, X_PLATE_FLOOR - 1, X_PLATE_FLOOR + 8.0)
     for k, (xs, y) in PLUNGERS.items():
-        once[f'spring_plunger_{k}'] = P.plunger(xs, y)
-        once[f'die_spring_{k}'] = P.die_spring(xs, y, P.Z_CEIL - P.Z_SB)
+        if PLUNGER_SET == 'm3':
+            at = b.Location((xs, y, 0))
+            fill = b.Solid.make_cylinder(3.6, PS.Z_SEAT - PAD_Z - 1.0, b.Plane(origin=(0, 0, PAD_Z + 1.0)))   # the head's pocket filled:
+                                                                       # the cap's R8 dome stays the body's only sphere (the pad mate)
+            paint = [(s, H.MAGENTA) for s in PS.hardware().values()] + [(PS.cap_m3(), PLUNGER_CAP_RGB), (PS.sleeve(), PLUNGER_SLEEVE_RGB),
+                                                                        (fill, PLUNGER_CAP_RGB)]
+            body = paint[0][0]
+            for s, _ in paint[1:]:
+                body = body + s
+            once[f'spring_plunger_{k}'] = body.moved(at)
+            PAINT[f'spring_plunger_{k}'] = [(s.moved(at), c) for s, c in paint]
+            sp = PS.SPRINGS[PS.IN_BORES[0]]
+            each = (P.Z_CEIL - PS.Z_SEAT) / 2
+            once[f'die_spring_{k}'] = b.Compound([PS.coil(sp, PS.Z_SEAT + j * each, each)[0] for j in range(2)]).moved(at)
+        else:
+            once[f'spring_plunger_{k}'] = P.plunger(xs, y)
+            once[f'die_spring_{k}'] = P.die_spring(xs, y, P.Z_CEIL - P.Z_SB)
     per_pod = {}
     for i, name in enumerate(B.NAMES):                                 # the marked parts, each pod's own (pod_mid.labelled), in its hand
         lab = PM.labelled(parts, i)
@@ -147,6 +188,10 @@ def main():
     once, per_pod, local, rm, rs = pod_parts()
     for k, s in once.items():
         rgb = H.MAGENTA if k.startswith(('washer', 'spring_plunger', 'bearing_')) else R.colour(k)
+        if k in PAINT:
+            out(k, s, painter(s, PAINT[k]))
+            out(k + '_m', mirror(s), painter(mirror(s), [(mirror(p), c) for p, c in PAINT[k]]))
+            continue
         out(k, s, rgb)
         out(k + '_m', mirror(s), rgb)
     for k, s in per_pod.items():
@@ -217,7 +262,12 @@ def main():
         T = np.eye(4)
         T[:2, 0], T[:2, 1], T[:2, 3], T[2, 3] = xh, yh, A, R_WHEEL
         pods[name] = dict(mirrored=bool(m), pose=T.tolist(), number=PM_number(name))
-    lift = {pose: {pk: float(P.plunger_lift(a, y)[0]) for pk, (_, y) in PLUNGERS.items()} for pose, a in R.POSES.items()}
+    if PLUNGER_SET == 'm3':
+        import plunger_study as PS
+        lift_fn, shank_r, guide_r = PS.lift_of, PS.SLEEVE_D / 2, PS.GUIDE_PRINT_D / 2   # the sleeve in the printed guide
+    else:
+        lift_fn, shank_r, guide_r = P.plunger_lift, SHANK_R, GUIDE_R
+    lift = {pose: {pk: float(lift_fn(a, y)[0]) for pk, (_, y) in PLUNGERS.items()} for pose, a in R.POSES.items()}
     eye = np.eye(4).tolist()
     groups = dict(frame=sorted(k for k in cparts if k.startswith('deck_')),
                   mounts=sorted(k for k in cparts if k.startswith(('pedestal', 'support'))),
@@ -258,7 +308,7 @@ def main():
         pivot=[PIVOT_Y, PIVOT_Z], b627_bore_r=B627_BORE / 2, spigot_r=R.SPIGOT_D / 2, poses_deg=R.POSES,
         pod=dict(static=list(POD_STATIC), fork=list(POD_FORK), wheel=list(POD_WHEEL) + ['bearing_6804_left'], motor=list(POD_MOTOR),
                  axial_pair=['pod_fork_inner', 'rx_hanger_inner'], pivot_static='rx_hanger_outer', labelled=list(POD_LABELLED)),
-        plungers=dict(axes={k: list(v) for k, v in PLUNGERS.items()}, shank_r=SHANK_R, guide_r=GUIDE_R, pad_z=PAD_Z,
+        plungers=dict(axes={k: list(v) for k, v in PLUNGERS.items()}, shank_r=shank_r, guide_r=guide_r, pad_z=PAD_Z, set=PLUNGER_SET,
                       guide_part={k: ('rx_tower_outer' if k.startswith('o') else 'rx_tower_inner') for k in PLUNGERS},
                       pad_part={k: ('pod_fork_outer' if k.startswith('o') else 'pod_fork_inner') for k in PLUNGERS},
                       column_top_z=P.Z_TT, limit_key=LIMIT_KEY, limit_part='rx_tower_inner', lift=lift),

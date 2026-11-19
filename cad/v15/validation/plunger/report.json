@@ -1,0 +1,204 @@
+{
+ "cap_m4": {
+  "part": "cap_m4",
+  "solids": 1,
+  "valid": true,
+  "volume_mm3": 161.9,
+  "height": 4.4,
+  "od": 10.2,
+  "head": [
+   7.4,
+   2.5
+  ],
+  "washer": [
+   9.0,
+   4.3,
+   0.8
+  ],
+  "pocket": "the head's sphere R4.04 (lower half), the washer's \u00d89.0 round it",
+  "dome_r": 8.0,
+  "apex": 1.2,
+  "seat_raise_mm": 1.2,
+  "print": "pocket down on the bed (the dome the top skin); PETG",
+  "rails_clearance_mm": 0.4
+ },
+ "plunger_m3": {
+  "stack_from_the_pad": [
+   "PETG cap (\u00d88.0, R8 dome, 1.2 under the head's apex): it touches the pad",
+   "M3 x 45 button head (5.5 x 1.8, R3 dome), dome down in the cap",
+   "M3 washer 6.85 x 0.6 (the spring seat)",
+   "printed sleeve \u00d84.9",
+   "2 x M3 washer 6.85 x 0.6",
+   "M3 nyloc"
+  ],
+  "cap": {
+   "solids": 1,
+   "valid": true,
+   "volume_mm3": 107.9,
+   "od": 8.0,
+   "height": 2.8,
+   "pocket": "the head's sphere R3.05, rim \u00d85.47",
+   "head_proud_mm": 0.2,
+   "to_rails_mm": 1.5,
+   "top_at_bump_to_tower_mm": 0.7,
+   "print": "pocket down on the bed (the dome the top skin); PETG"
+  },
+  "seat_washer_on_spring": "the washer covers the spring's wire from r 1.70 to 3.42; the 8.2 spring's wire runs r 2.60..4.10 (radial width ASSUMED)",
+  "z_pod": {
+   "head": [
+    24.0,
+    27.0
+   ],
+   "seat": 27.6,
+   "sleeve_top": 64.84,
+   "nut": [
+    66.04,
+    70.04
+   ],
+   "screw_tip": 72.0,
+   "tip_past_nut_mm": 1.96
+  },
+  "seat_vs_today_mm": 0.6,
+  "sleeve": {
+   "d": 4.9,
+   "length": 37.24,
+   "thread": "\u00d82.9 x 12.0 at its top",
+   "snug": "\u00d83.2 below",
+   "wall_at_thread_mm": 1.0,
+   "loads": "compression only, between the steel washers"
+  },
+  "guide": {
+   "length": 8.0,
+   "printed_d": 5.0,
+   "drill": [
+    "13/64\"",
+    5.159
+   ],
+   "clearance_mm": 0.259,
+   "tilt_deg": 1.85,
+   "sleeve_fills_guide": "from droop (-1.15) to bump (+6.43): the sleeve runs from the seat to 1.5 over the tower"
+  },
+  "seat_washer_to_tower_at_bump_mm": -0.1,
+  "seat_washer_to_rails_mm": 2.08,
+  "dome_contact": {
+   "cap": "R8: the contact stays within 1.49 mm of its apex",
+   "bare_head": "M3 button R3.00: within 0.56 mm of its apex, inside the 2.0 hex socket's rim (r 1.00): the pad would ride on the socket's edge"
+  },
+  "nut_top_at_bump_robot_z": 146.5,
+  "screw_tip_at_bump_robot_z": 148.5,
+  "springs": [
+   {
+    "name": "8.2 OD",
+    "od": 8.2,
+    "wire": "1.0 thick (picture) x 1.5 radial (ASSUMED)",
+    "free_gap": 1.5,
+    "active_turns": 6.8,
+    "total_turns": 8.8,
+    "solid_mm": 8.8,
+    "id": 5.2,
+    "travel_to_solid_mm": 10.2,
+    "sleeve_clearance_in_id": 0.3,
+    "bore_clearance": 0.6,
+    "seat_washer_covers_wire": false,
+    "drawn": [
+     true,
+     true
+    ]
+   },
+   {
+    "name": "7.6 OD",
+    "od": 7.6,
+    "wire": "1.0 thick (picture) x 1.5 radial (ASSUMED)",
+    "free_gap": 1.5,
+    "active_turns": 6.8,
+    "total_turns": 8.8,
+    "solid_mm": 8.8,
+    "id": 4.6,
+    "travel_to_solid_mm": 10.2,
+    "sleeve_clearance_in_id": -0.3,
+    "bore_clearance": 1.2,
+    "seat_washer_covers_wire": false,
+    "drawn": [
+     false,
+     false
+    ]
+   }
+  ],
+  "bore_d": 8.8,
+  "wall_between_bores_mm": 1.8,
+  "poses": {
+   "droop": [
+    {
+     "bore": 0,
+     "spring": "8.2 OD",
+     "lift_mm": -1.14,
+     "stack_mm": 28.89,
+     "each_mm": 14.44,
+     "compressed_each_mm": 5.56,
+     "to_solid_each_mm": 5.64,
+     "active_pitch": 1.67,
+     "gap_between_coils": 0.67
+    },
+    {
+     "bore": 1,
+     "spring": "8.2 OD",
+     "lift_mm": -0.75,
+     "stack_mm": 28.49,
+     "each_mm": 14.25,
+     "compressed_each_mm": 5.75,
+     "to_solid_each_mm": 5.45,
+     "active_pitch": 1.64,
+     "gap_between_coils": 0.64
+    }
+   ],
+   "nominal": [
+    {
+     "bore": 0,
+     "spring": "8.2 OD",
+     "lift_mm": 0.0,
+     "stack_mm": 27.74,
+     "each_mm": 13.87,
+     "compressed_each_mm": 6.13,
+     "to_solid_each_mm": 5.07,
+     "active_pitch": 1.59,
+     "gap_between_coils": 0.59
+    },
+    {
+     "bore": 1,
+     "spring": "8.2 OD",
+     "lift_mm": 0.0,
+     "stack_mm": 27.74,
+     "each_mm": 13.87,
+     "compressed_each_mm": 6.13,
+     "to_solid_each_mm": 5.07,
+     "active_pitch": 1.59,
+     "gap_between_coils": 0.59
+    }
+   ],
+   "bump": [
+    {
+     "bore": 0,
+     "spring": "8.2 OD",
+     "lift_mm": 6.5,
+     "stack_mm": 21.25,
+     "each_mm": 10.62,
+     "compressed_each_mm": 9.38,
+     "to_solid_each_mm": 1.82,
+     "active_pitch": 1.11,
+     "gap_between_coils": 0.11
+    },
+    {
+     "bore": 1,
+     "spring": "8.2 OD",
+     "lift_mm": 4.49,
+     "stack_mm": 23.25,
+     "each_mm": 11.63,
+     "compressed_each_mm": 8.37,
+     "to_solid_each_mm": 2.83,
+     "active_pitch": 1.26,
+     "gap_between_coils": 0.26
+    }
+   ]
+  }
+ }
+}

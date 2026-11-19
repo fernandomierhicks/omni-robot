@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Dropbox\Personal Projects\Robotics\omni-robot\pcb\v1\omni_carrier.kicad_sch</source>
-    <date>2026-11-17T22:27:38</date>
+    <date>2026-11-18T23:55:52</date>
     <tool>Eeschema 10.0.7</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -24,6 +24,30 @@
     </sheet>
   </design>
   <components>
+    <comp ref="BZ1">
+      <value>12085 passive 42R</value>
+      <footprint>omni_carrier:Buzzer_D12_P6.5-7.6_Slot</footprint>
+      <fields>
+        <field name="Footprint">omni_carrier:Buzzer_D12_P6.5-7.6_Slot</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="Buzzer" description="Buzzer, polarized"/>
+      <property name="Sheetname" value="omni_carrier"/>
+      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
+      <property name="ki_keywords" value="quartz resonator ceramic"/>
+      <property name="ki_fp_filters" value="*Buzzer*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>558dc3c1-ed55-5b36-8dd2-6e53641dd9bc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
     <comp ref="C1">
       <value>100n</value>
       <footprint>Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm</footprint>
@@ -305,10 +329,10 @@
       </units>
     </comp>
     <comp ref="J5">
-      <value>XH4</value>
-      <footprint>Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical</footprint>
+      <value>ELRS socket 1x4</value>
+      <footprint>omni_carrier:ELRS_Rx_Socket_1x04_P2.54mm</footprint>
       <fields>
-        <field name="Footprint">Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical</field>
+        <field name="Footprint">omni_carrier:ELRS_Rx_Socket_1x04_P2.54mm</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -454,30 +478,6 @@
             <pin num="2"/>
             <pin num="3"/>
             <pin num="4"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="J14">
-      <value>XH2</value>
-      <footprint>Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</footprint>
-      <fields>
-        <field name="Footprint">Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Sheetname" value="omni_carrier"/>
-      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
-      <property name="ki_keywords" value="connector"/>
-      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>ef7207a1-1e29-5442-82c5-e002c965ff54</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
           </pins>
         </unit>
       </units>
@@ -801,9 +801,9 @@
     </comp>
     <comp ref="Q1">
       <value>2N7000</value>
-      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline_Wide</footprint>
       <fields>
-        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline_Wide</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -1688,6 +1688,23 @@
         <pin num="6" name="Pin_6" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Device" part="Buzzer">
+      <description>Buzzer, polarized</description>
+      <footprints>
+        <fp>*Buzzer*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">BZ</field>
+        <field name="Value">Buzzer</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Buzzer, polarized</field>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="-" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Device" part="C">
       <description>Unpolarized capacitor</description>
       <footprints>
@@ -1931,7 +1948,7 @@
     </library>
   </libraries>
   <nets>
-    <net code="1" name="+3V3" class="Default">
+    <net code="1" name="+3V3" class="Power,Default">
       <node ref="C6" pin="1" pintype="passive"/>
       <node ref="J11" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J12" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
@@ -1951,12 +1968,12 @@
       <node ref="U2" pin="1" pinfunction="3V3_1" pintype="power_in"/>
       <node ref="U3" pin="1" pinfunction="3V3_1" pintype="power_in"/>
     </net>
-    <net code="2" name="+5V" class="Default">
+    <net code="2" name="+5V" class="Power,Default">
+      <node ref="BZ1" pin="1" pinfunction="+_1" pintype="passive"/>
       <node ref="C5" pin="1" pintype="passive"/>
       <node ref="D1" pin="1" pinfunction="K_1" pintype="passive"/>
-      <node ref="J14" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="J20" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
-      <node ref="J5" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J5" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="U1" pin="25" pinfunction="VIN_25" pintype="power_out"/>
     </net>
     <net code="3" name="/BIAS_J11" class="Default">
@@ -1999,8 +2016,8 @@
       <node ref="U1" pin="6" pinfunction="4_6" pintype="bidirectional"/>
     </net>
     <net code="9" name="/BUZ_N" class="Default">
+      <node ref="BZ1" pin="2" pinfunction="-_2" pintype="passive"/>
       <node ref="D1" pin="2" pinfunction="A_2" pintype="passive"/>
-      <node ref="J14" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="Q1" pin="3" pinfunction="D_3" pintype="passive"/>
     </net>
     <net code="10" name="/CAM_STROBE" class="Default">
@@ -2082,7 +2099,7 @@
       <node ref="U1" pin="7" pinfunction="5_7" pintype="bidirectional"/>
     </net>
     <net code="29" name="/LED_B_OUT" class="Default">
-      <node ref="J15" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J15" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
       <node ref="R22" pin="2" pintype="passive"/>
     </net>
     <net code="30" name="/LED_G" class="Default">
@@ -2090,7 +2107,7 @@
       <node ref="U1" pin="21" pinfunction="29_21" pintype="bidirectional"/>
     </net>
     <net code="31" name="/LED_G_OUT" class="Default">
-      <node ref="J15" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J15" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
       <node ref="R21" pin="2" pintype="passive"/>
     </net>
     <net code="32" name="/LED_R" class="Default">
@@ -2114,11 +2131,11 @@
       <node ref="R15" pin="2" pintype="passive"/>
     </net>
     <net code="37" name="/RC_RX" class="Default">
-      <node ref="J5" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J5" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
       <node ref="U1" pin="9" pinfunction="7/RX2_9" pintype="bidirectional"/>
     </net>
     <net code="38" name="/RC_TX" class="Default">
-      <node ref="J5" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="J5" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
       <node ref="U1" pin="10" pinfunction="8/TX2_10" pintype="bidirectional"/>
     </net>
     <net code="39" name="/SP_A15" class="Default">
@@ -2230,7 +2247,7 @@
       <node ref="J1" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="R1" pin="1" pintype="passive"/>
     </net>
-    <net code="61" name="GND" class="Default">
+    <net code="61" name="GND" class="Power,Default">
       <node ref="C1" pin="2" pintype="passive"/>
       <node ref="C5" pin="2" pintype="passive"/>
       <node ref="C6" pin="2" pintype="passive"/>
@@ -2239,7 +2256,7 @@
       <node ref="J11" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="J12" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J13" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
-      <node ref="J15" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="J15" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J16" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="J17" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="J18" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
@@ -2247,7 +2264,7 @@
       <node ref="J20" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
       <node ref="J21" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J4" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
-      <node ref="J5" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J5" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="JP11" pin="3" pinfunction="B_3" pintype="passive"/>
       <node ref="JP16" pin="3" pinfunction="B_3" pintype="passive"/>
       <node ref="JP17" pin="3" pinfunction="B_3" pintype="passive"/>

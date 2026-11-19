@@ -173,7 +173,7 @@ def core_solid():
 
 
 def sleeve_solid():
-    """stepped sleeve: Ø SLEEVE_BRG_D (7.15, coupon_687 cell 4) through the bearings, a 45 deg step down to Ø7 just outside each bearing face for
+    """stepped sleeve: Ø SLEEVE_BRG_D (7.25: coupon_687 cell 4's 7.15 + 0.1, Nov 18) through the bearings, a 45 deg step down to Ø7 just outside each bearing face for
     the hub's click seats, Ø8.6 between the inner races, Ø3.2 bore on the M3"""
     s = zcyl(BRG_D / 2, -SLEEVE_Z, SLEEVE_Z)
     s = b.chamfer([e for e in s.edges() if e.geom_type.name == 'CIRCLE' and abs(abs(e.center().Z) - SLEEVE_Z) < 1e-3], SLEEVE_LEAD)

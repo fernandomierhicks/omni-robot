@@ -212,7 +212,7 @@
         <line class="dt" x1="615" y1="600" x2="615" y2="640"/>
         <rect class="bx" x="592" y="640" width="46" height="40" rx="4"/>
         <text class="t c" x="615" y="658">Buzzer</text>
-        <text class="tm c" x="615" y="672">J14</text>
+        <text class="tm c" x="615" y="672">BZ1 · on board</text>
         <line class="dt" x1="680" y1="600" x2="680" y2="640"/>
         <rect class="bx" x="646" y="640" width="68" height="40" rx="4"/>
         <text class="t c" x="680" y="658">RGB LED</text>
@@ -259,7 +259,7 @@
         <text class="tl c" x="940" y="380">2 × A 3.0, 2 × A 2.0, 1 × C</text>
 
         <line class="dt" x1="740" y1="270" x2="840" y2="270"/>
-        <text class="tm c" x="790" y="263">USB-A 2.0</text>
+        <text class="tm c" x="790" y="263">USB-A 3.0</text>
         <text class="tl c" x="790" y="286">powers the Teensy</text>
 
         <line class="dt" x1="1040" y1="230" x2="1090" y2="230"/>
@@ -281,8 +281,7 @@
         <text class="t c" x="1155" y="384">Speaker + amp</text>
         <text class="tl c" x="1155" y="398">audio from the mic</text>
 
-        <line class="dt" x1="900" y1="410" x2="900" y2="450"/>
-        <text class="tm" x="906" y="436">A 3.0</text>
+        <line class="dt" x1="970" y1="472" x2="960" y2="472"/>
         <rect class="bx" x="840" y="450" width="120" height="44" rx="4"/>
         <text class="t c" x="900" y="469">Servo bus adapter</text>
         <text class="tl c" x="900" y="484">USB ↔ TTL servo bus</text>
@@ -297,9 +296,9 @@
         <rect class="bx" x="970" y="450" width="96" height="44" rx="4"/>
         <text class="t c" x="1018" y="469">USB hub</text>
         <text class="tl c" x="1018" y="484">powered, 4 ports</text>
-        <line class="dt" x1="1066" y1="482" x2="1090" y2="482"/>
-        <polyline class="dt dash" points="1078,482 1078,534 1090,534"/>
-        <circle class="jt" cx="1078" cy="482" r="2.6"/>
+        <polyline class="dt" points="1040,400 1078,400 1078,482 1090,482"/>
+        <text class="tm c" x="1059" y="394">A 2.0</text>
+        <polyline class="dt dash" points="1018,494 1018,534 1090,534"/>
         <rect class="bx" x="1090" y="462" width="130" height="40" rx="4"/>
         <text class="t c" x="1155" y="486">USB mic array</text>
         <rect class="bx prop" x="1090" y="514" width="130" height="40" rx="4"/>
@@ -316,7 +315,7 @@
         <text class="tl" x="1100" y="823">not drawn</text>
       </svg>
     </div>
-    <figcaption>One latching main switch, which is also the e-stop, cuts the whole robot, the computer included. The drives take the pack straight after the 30 A fuse, with no fuses of their own because they limit their own current. The carrier carries no rail current: both current monitors sit with the converters and report to the Teensy over I2C cables. The computer's five native USB ports are all used directly; a hub on the USB-C port carries the mic and leaves three spare ports.</figcaption>
+    <figcaption>One latching main switch, which is also the e-stop, cuts the whole robot, the computer included. The drives take the pack straight after the 30 A fuse, with no fuses of their own because they limit their own current. The carrier carries no rail current: both current monitors sit with the converters and report to the Teensy over I2C cables. The computer's five native USB ports are all used: the D435 and the Teensy on the front USB 3 ports, the mic and the lidar on the rear USB 2 ports, and a hub on the front USB-C port for the servo bus adapter and three spares (the allocation drawn in <code>cad/v15</code>, Nov 18).</figcaption>
   </figure>
 
   <section class="plan">
@@ -389,7 +388,7 @@
             <!-- B: carrier in the middle -->
             <rect class="pcbb" x="227.75" y="190" width="104.5" height="68.2" rx="4"/>
             <text class="tp c" x="280" y="214">B · carrier</text>
-            <text class="tl c" x="280" y="230">95 × 62, plugs up</text>
+            <text class="tl c" x="280" y="230">102 × 62, plugs up</text>
             <text class="tl c" x="280" y="244">ELRS on its edge</text>
             <rect class="bx" x="183.5" y="215" width="28" height="17" rx="2"/>
             <text class="tl c" x="197.5" y="209">IMU</text>
@@ -442,6 +441,15 @@
       <li><b>Carrier on the first floor: it fits but isn't recommended.</b> It is about 30 mm tall with the CAN modules standing, but you would reach it through the lidar layer, and every lead to floor 2 would cross the scan plane.</li>
       <li><b>The computer on the first floor instead</b> (the README's idea): it lowers 430 g by about 110 mm, but its five USB/HDMI leads would cross the lidar plane and the power would have to stay up. Power down is the better trade.</li>
     </ul>
+    <h3 class="sub">As drawn in cad/v15 (Nov 18)</h3>
+    <p>Fernando kept the deck unchanged, so the power parts screw into the deck's spare M3 pilots instead of filling one central bay. Where the CAD departs from the plans above:</p>
+    <ul>
+      <li><b>Floor 1 takes two converters, not three.</b> The deck has room for exactly two converter-sized blocks across every suspension pose, one beside each side fin: the 12 V on the left, the 5 V on the right. The anti-spark switch and the XT30 distribution block (with the INA226 on it) sit at the centre. The 19 V converter (74 × 74 mm, assumed) stays on floor 2 beside the computer it feeds.</li>
+      <li><b>The INA3221 moved to floor 2</b>, near the 19 V converter and the carrier.</li>
+      <li><b>The carrier sits beside the arm riser</b> (x 30 to 125), not in the exact middle: the gap between the bin deck and the riser is only 44 mm.</li>
+      <li><b>Two climbing slots, not one.</b> Slot S became the two floor-2 slots in the side fins' shadows. There are 6 lidar-plane crossings: slot R carries the 19 V feed, the 5 V output, the carrier's 8-wire signal lead (CAN, pack sense, INA226 I2C) and the lidar's lead; slot L carries the 12 V output and the main button's pair. No battery or drive lead crosses.</li>
+    </ul>
+    <p>The harness table (every lead, from where, to where, through where, how long) is <code>cad/v15/validation/harness/harness_table.md</code>; the review STEP is <code>cad/v15/step_export/electrical/electrical_review.step</code>.</p>
   </section>
 
   <section class="owners">
@@ -459,14 +467,14 @@
           <tr><td>USB</td><td>Robot computer</td><td>Serial link, and the Teensy's 5 V power</td></tr>
           <tr><td>J1 · XH2</td><td>Pack, after the fuse</td><td>Pack + (sense), GND</td></tr>
           <tr><td>J4 · XH2, J3 · XH6</td><td>BNO085 IMU</td><td>VCC, GND; SCL/SCK, SDA/MISO, AD0/MOSI, CS, INT, RST (the board's order)</td></tr>
-          <tr><td>J5 · XH4</td><td>ELRS receiver</td><td>5 V, GND, CRSF RX/TX (Serial2)</td></tr>
+          <tr><td>J5 · XH4</td><td>ELRS receiver</td><td>GND, 5 V, receiver RX, TX (its own row order; it can solder straight in on a 0.1 in header), CRSF on Serial2</td></tr>
           <tr><td>J6 · XH2</td><td>AK40-10 chain</td><td>CAN1 H, L at 1 Mbit/s</td></tr>
           <tr><td>J10 · XH2</td><td>Payload (reserved)</td><td>CAN3 H, L</td></tr>
           <tr><td>J12 · XH4</td><td>INA3221 (arm 12 V, 19 V, 5 V)</td><td>3V3, GND, SDA, SCL; address 0x40</td></tr>
           <tr><td>J21 · XH4</td><td>INA226 (robot total)</td><td>3V3, GND, SDA, SCL; set to 0x41 (both modules default to 0x40)</td></tr>
           <tr><td>J13 · XH4</td><td>Camera / time sync (reserved)</td><td>Trigger, sync pulse, strobe</td></tr>
-          <tr><td>J14 · XH2</td><td>Buzzer</td><td>5 V and the switched return</td></tr>
-          <tr><td>J15 · XH4</td><td>RGB status LED</td><td>R, G, B (series resistors on the board), common cathode</td></tr>
+          <tr><td>BZ1 · on board</td><td>Buzzer</td><td>12085 passive magnetic, Ø12 mm, soldered to the carrier (no lead)</td></tr>
+          <tr><td>J15 · XH4</td><td>RGB status LED</td><td>R, GND, G, B: the LED's own leg order, so it can solder straight in (series resistors on the board), common cathode</td></tr>
           <tr><td>J20 · XH3</td><td>NeoPixel strip</td><td>5 V (USB: short strips only), DIN from pin 35, GND</td></tr>
           <tr><td>J11, J16–J19</td><td>Spares</td><td>Serial1/3/4/5, PWM, GPIO, A15/A16; each pin can take a 10k pull-up or pull-down</td></tr>
         </tbody>

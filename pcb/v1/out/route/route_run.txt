@@ -1,0 +1,2 @@
+500 track segments (2308 mm), 11 vias -> omni_carrier_routed.kicad_pcb
+exit 0

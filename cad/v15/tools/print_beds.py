@@ -55,6 +55,12 @@ BEDS = [  # (key prefix, up axis, supports, why)
     ('bracket_computer', '+z', 'none', 'on its tab'),
     ('bracket_power_box', '+z', 'none (open top; the ears sit on the bed)', 'Nov 16: the power stack\'s tray, on its floor: the modules\' weight and the corner screws\' clamp press across the layers, the walls stand in the layer planes; the ear holes run along the print axis'),
     ('bracket_power_shelf', '+z', 'none', 'Nov 16: flat plate, as printed it lies on the box\'s posts: its corner holes run along the print axis'),
+    ('bracket_conv_', '+z', 'none (the wall notches under the ears are open at the top)', 'Nov 18: a converter cradle, on its plate: the module\'s weight and the screws\' clamp press across the layers; the screw holes run along the print axis'),
+    ('bracket_anti_spark', '+z', 'none', 'Nov 18: a cradle, on its plate (as bracket_conv_)'),
+    ('bracket_xt30_block', '+z', 'none', 'Nov 18: a cradle, on its plate (as bracket_conv_)'),
+    ('bracket_ina3221', '+z', 'none', 'Nov 18: a cradle, on its plate (as bracket_conv_)'),
+    ('bracket_usb_hub', '+z', 'none', 'Nov 18: a cradle, on its plate (as bracket_conv_)'),
+    ('tray_carrier', '+z', 'none', 'Nov 18: the carrier\'s tray, on its plate: the four standoffs grow up from it, their pilots vertical'),
     ('bracket_imu', '+z', 'none', 'on its base: the two standoffs grow up from it, their pilots vertical'),
     ('spacer_servo_adapter', '+x', 'none', 'standing on its end (a short tube along robot x)'),
     ('bracket_servo_adapter', '-x', 'none', 'flat on its riser face: its board pilots and mounting holes run along the print axis'),
@@ -65,7 +71,9 @@ BEDS = [  # (key prefix, up axis, supports, why)
     ('housing_face', '+x', 'none (the panel slot\'s roof is the 3 mm bezel lip, bridged)', 'on its back plate: legs, rails and back in the layer planes, so the panel\'s weight and a knock bend it in-plane'),
     ('housing_speaker_cover', '+z', 'none', 'flat (grille plate)'),
     ('housing_estop', '+z', 'none (the 22 mm hole\'s roof is a bridge)', 'on its base plate: a press on the button is compression down the tube'),
-    ('housing_switch', '+z', 'none (the 22 mm hole\'s roof is a bridge)', 'as housing_estop'),
+    ('housing_switch', '+x','none (the base plate and webs grow up from the panel; the Ø27 recess opens upward)', 'Nov 18: the main '
+     'switch\'s housing on floor 2, on its panel\'s outer face: the Ø20.2 hole runs along the print axis (round, for the snap fit); a press '
+     'on the rocker bends the panel in its layer planes, the base\'s root across them (small load; the webs carry it)'),
     ('bin', '+z', 'none', 'open side up (v10 part)'),
 ]
 

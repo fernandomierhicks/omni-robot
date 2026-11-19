@@ -43,19 +43,31 @@ def _text_size(text, size):
     return bb.max.X - bb.min.X, bb.max.Y - bb.min.Y
 
 
-def layout(text, size, arrow=False, gap=1.5):
-    """[(kind, payload, du)] pieces of one mark along u, centred, and its (w, h)"""
+def layout(text, size, arrow=False, gap=1.5, arrow_ang=0.0):
+    """[(kind, payload, du)] pieces of one mark along u, centred, and its (w, h). arrow_ang: the arrow turned this far (rad, counter-clockwise
+    in (u, v)) from pointing up; an arrow pointing toward +u goes after the text, so the mark reads like "OUT ->" """
     tw, th = _text_size(text, size) if text else (0.0, 0.0)
-    aw, ah = (size * 0.75, size * 1.35) if arrow else (0.0, 0.0)
+    a0, a1 = size * 0.75, size * 1.35
+    c, s = abs(math.cos(arrow_ang)), abs(math.sin(arrow_ang))
+    aw, ah = ((a0 * c + a1 * s), (a0 * s + a1 * c)) if arrow else (0.0, 0.0)
     w = tw + aw + (gap if (text and arrow) else 0.0)
     h = max(th, ah)
     out, u = [], -w / 2
-    if arrow:
-        out.append(('arrow', (aw, ah), u + aw / 2))
+    after = arrow and -math.sin(arrow_ang) > 0.5                       # pointing +u
+    if arrow and not after:
+        out.append(('arrow', (a0, a1, arrow_ang), u + aw / 2))
         u += aw + gap
     if text:
         out.append(('text', text, u + tw / 2))
+        u += tw + gap
+    if after:
+        out.append(('arrow', (a0, a1, arrow_ang), u + aw / 2))
     return out, (w, h)
+
+
+def _turn(poly, ang):
+    c, s = math.cos(ang), math.sin(ang)
+    return [(c * x - s * y, s * x + c * y) for x, y in poly]
 
 
 def _mark_solid(pieces, size, centre, normal, up, depth):
@@ -68,7 +80,8 @@ def _mark_solid(pieces, size, centre, normal, up, depth):
         if kind == 'text':
             sk = pl * b.Text(payload, font_size=size, align=(b.Align.CENTER, b.Align.CENTER))
         else:
-            sk = pl * b.Polygon(*arrow_poly(*payload), align=None)
+            w, h = payload[:2]
+            sk = pl * b.Polygon(*_turn(arrow_poly(w, h), payload[2] if len(payload) > 2 else 0.0), align=None)
         s = b.extrude(sk, amount=depth + 0.1, dir=tuple(-n))
         out = s if out is None else out + s
     return out
@@ -113,11 +126,19 @@ def fit(region, w, h, prefer=(0.0, 0.0), margin=MARK_MARGIN, step=0.5, reach=80.
 
 
 def engrave(part, marks, mirrored=False, region_cache=None, key=''):
-    """cut marks into a part (in its drawn frame). marks: [dict(text, size, origin, normal, up, prefer=(u, v), arrow=False)], origin a point on the
-    face. mirrored: the part will be mirrored about y later (see the module docstring). Returns (part, report)"""
+    """cut marks into a part (in its drawn frame). marks: [dict(text, size, origin, normal, up, prefer=(u, v), arrow=False, arrow_to=None)],
+    origin a point on the face; arrow_to (Nov 18): the 3D direction the arrow points, in the drawn frame (default: up). mirrored: the part will
+    be mirrored about y later (see the module docstring); arrow_to is mirrored with it, so it points the same way in the real part. Returns
+    (part, report)"""
     rep = []
     for j, m in enumerate(marks):
-        pieces, (w, h) = layout(m.get('text', ''), m['size'], m.get('arrow', False))
+        ang = 0.0
+        if m.get('arrow_to') is not None:                                # the arrow's angle in the frame the mark is cut in
+            M = MIRROR if mirrored else np.eye(3)
+            n2, up2, d2 = M @ _v(m['normal']), M @ _v(m['up']), M @ _v(m['arrow_to'])
+            up2 = up2 / np.linalg.norm(up2)
+            ang = math.atan2(float(d2 @ up2), float(d2 @ x_dir(n2, up2))) - math.pi / 2
+        pieces, (w, h) = layout(m.get('text', ''), m['size'], m.get('arrow', False) or m.get('arrow_to') is not None, arrow_ang=ang)
         ck = (key, j)
         if region_cache is not None and ck in region_cache:
             reg = region_cache[ck]
