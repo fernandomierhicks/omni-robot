@@ -13,6 +13,9 @@ How the board sits in the robot: [robot_block_diagram.html](robot_block_diagram.
 | `omni_carrier.kicad_sch` / `.kicad_pro` | Open in KiCad 10 |
 | `omni_carrier.kicad_sym`, `omni_carrier.pretty/` | Teensy 4.1 (outer 48 pins) and the SN65HVD230 module; the Teensy's 2 × 1x24 socket footprint, the Ø12 buzzer's (slotted pin 2) and J5's (1x4 socket + the ELRS receiver's outline and model) |
 | `tools/elrs_model.py` → `models/elrs_receiver_on_J5.step` | The ELRS receiver on its male header, with its U.FL plug and T antenna, in J5's 3D frame (sizes from the vendor's pictures: VERIFY) |
+| `tools/buzzer_model.py` → `models/buzzer_12085.step` | BZ1's 12085 buzzer (Ø12 × 8.5) in its footprint's 3D frame |
+| `models/teensy_4_1.step`, `models/can.step`; `tools/paint_models.py` → `*_colour.step` | Fernando's Teensy 4.1 and SN65HVD230 module models (copied from `cad/v16/reference/electronics`, his SolidWorks parts; no colours), and the painted copies the footprints use |
+| `tools/colour_step.py` → `out/omni_carrier_colour.step` | **The board for the CAD:** KiCad's STEP export, every face coloured (see Board, STEP) |
 | `out/omni_carrier_schematic.pdf` | The sheet for review (A2) |
 | `tools/gen_pcb.py` | Places the footprints on `omni_carrier.kicad_pcb` (placement study; runs in KiCad's Python) |
 | `robot_block_diagram.html` | The whole robot's power and signal block diagram |
@@ -46,8 +49,12 @@ cd pcb/v1
 - **IMU, the BNO085 board in `components/imu`:** J4 = VCC, GND; J3 = SCL, SDA, AD0, CS, INT, RST in the board's own
   order, so the cable runs straight. In SPI mode SCL is SCK (13), SDA is MISO (12), AD0 is MOSI (11) (BNO08x pin
   functions; VERIFY on the board). PS0/PS1 are tied high on the board; BOOTN is not wired.
-- **Pack voltage (J1: pack +, GND):** 100k/10k on A17 (= the firmware's `V_BUS_DIVIDER` 11.0, safe to ~36 V), after
-  the main switch and fuse. It stays analog, so the 21 V low-battery stop never depends on I2C.
+- **Pack voltage: the INA226 (Nov 19, Fernando).** No divider on the board any more (it was J1 + 100k/10k on A17): the
+  INA226 already sits on the pack's high side after the fuse, and its bus-voltage register reads the pack (0-36 V,
+  1.25 mV steps, better than the divider through the Teensy's ADC). Pin 41 (A17) is a spare on J19. The 21 V stop now
+  depends on I2C, so the firmware must treat a missing or stale INA226 reading as a low pack (fail safe). VERIFY on
+  the module bought that its VBUS pin sees the pack (on some INA226 boards VBUS is tied to IN−, on others it is a
+  separate pin to wire to it).
 - **Buzzer (BZ1, on the board, Nov 18):** a 12085 passive magnetic buzzer (Ø12 × 8.5 mm, 42 Ω, 5 V;
   `components/buzzer`) soldered straight to the carrier, no lead. 2N7000 low-side switch with a 1N4148 flyback to
   +5V; firmware `tone()` drives it (a passive buzzer needs the square wave). About 120 mA peak from USB 5 V, ~60 mA
@@ -86,20 +93,19 @@ cd pcb/v1
 
 | Monitor | Measures | Shunt | Full scale |
 | --- | --- | --- | --- |
-| **INA226** (rated to 36 V), J21, set to 0x41 | **Robot total current**, high side after the fuse | external 50 A / 75 mV (1.5 mΩ) | ~55 A |
+| **INA226** (rated to 36 V), J21, set to 0x41 | **Robot total current** and **the pack voltage** (bus voltage), high side after the fuse | external 50 A / 75 mV (1.5 mΩ) | ~55 A; 36 V |
 | INA3221 CH1, J12 | **Arm 12 V** (1 A typical, 6.7 A peak est) | 10 mΩ 2512 (replace R100) | 16.4 A |
 | INA3221 CH2 | **Computer 19 V** (1.6 A typical, 3.4 A peak) | 20 mΩ 2512 | 8.2 A |
 | INA3221 CH3 | 5 V rail (display, audio, USB hub) | 50 mΩ 2512 | 3.3 A |
 
 **Why the total isn't on the INA3221:** its inputs are rated 0–26 V absolute maximum and a full 6S pack is 25.2 V,
 so regen or a charger spike can exceed it, and its module's traces aren't for 20 A bursts. The INA226 (GY-INA226
-class modules, 36 V) on an external shunt takes the pack current; the pack voltage stays on the divider.
+class modules, 36 V) on an external shunt takes the pack current, and its bus voltage is the pack voltage.
 
 ## Connectors
 
 | Ref | Pins | 1 | 2 | 3 | 4 | 5 | 6 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| J1 pack sense | XH2 | pack + | GND | | | | |
 | J3 BNO085 data | XH6 | SCL = SCK (13) | SDA = MISO (12) | AD0 = MOSI (11) | CS (10) | INT (9) | RST (6) |
 | J4 BNO085 power | XH2 | VCC (3V3) | GND | | | | |
 | J5 ELRS (receiver plugged in) | 1x4 2.54 socket | GND (rx G) | 5 V (rx V) | TX2 (8) → rx R | RX2 (7) ← rx T | | |
@@ -112,7 +118,7 @@ class modules, 36 V) on an external shunt takes the pack current; the pack volta
 | J16 spare | XH6 | GND | 3V3 | 14 TX3 | 15 RX3 | 16 RX4 | 17 TX4 |
 | J17 spare | XH6 | GND | 3V3 | 2 | 3 | 20 TX5 | 21 RX5 |
 | J18 spare | XH6 | GND | 32 | 33 | 36 | 37 | 38 (A14) |
-| J19 spare | XH4 | 3V3 | GND | 39 (A15) | 34 | | |
+| J19 spare | XH5 | 3V3 | GND | 39 (A15) | 34 | 41 (A17) | |
 | J20 NeoPixel | XH3 | 5 V | DIN (35) | GND | | | |
 | J21 INA226 | XH4 | 3V3 (VS) | GND | SDA (18) | SCL (19) | | |
 
@@ -133,19 +139,30 @@ reference-text placement.
     resistors under them); then J5 at the right end (pin 1 at board (80.2, 2.5)) with the ELRS receiver lying over
     the strip x 61.1-82.0, y 0.5-12.1 above the Teensy's end. BZ1 (the buzzer) in the top-right corner below it
     (courtyards 0.8 mm apart); its Q1, R12, D1 between C6 and J19.
-  - **Bottom (robot −y, toward the motor leads' fin slot and the converters below):** J6 CAN1, J10 CAN3, J1 pack
-    sense, J12 INA3221, J21 INA226, J13 camera/sync.
+  - **Bottom (robot −y, toward the motor leads' fin slot and the converters below):** J6 CAN1, J10 CAN3, J12 INA3221,
+    J21 INA226, J13 camera/sync (J1 pack sense gone, Nov 19).
   - **Right (robot +x):** spares J11, J16, J17, each with its bias column, 7 mm in from the edge (the corner holes);
     J18 on the left under the Teensy, J19 inside. The top and bottom rows start 7 mm in from the left corners.
 - **Mounting (Fernando, Nov 18): four M3 holes at the corners**, 3.5 mm in from both edges: board (3.5, 3.5),
   (98.5, 3.5), (3.5, 58.5), (98.5, 58.5), 95 × 55 mm apart; each corner kept clear 7 mm for the hole and an M3 pan
   head (Ø6.5). They replace the earlier holes inside the board. The CAD adapts to them (its tray / posts are not
   drawn yet; M3 into Ø2.8 pilots).
-- **Height (VERIFY against the CAD's 25 mm envelope):** the Teensy on 8.5 mm sockets stands about 12 mm; each CAN
-  module standing in its 1x6 socket about 27 mm; an XH plug with its wires about 20 mm; the ELRS receiver about
-  14.5 mm (its U.FL plug), its antenna about 52 mm as drawn (upright).
-- **STEP:** `"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe" pcb export step -f -o out/omni_carrier.step
-  omni_carrier.kicad_pcb` (includes the receiver); `cad/v15` reads a copy in `reference/electronics/omni_carrier_v1.step`.
+- **Height over the board's top (VERIFY against the CAD's 25 mm envelope; from the models, Nov 19):** the Teensy on
+  its 8.5 mm sockets 15.9 mm (its headers' plastic sits on the sockets, so its board is at 12.1-13.7); each CAN module
+  standing in its 1x6 socket 25.7 mm (on a 2.5 mm header; standing up needs a right-angle header, a straight one
+  lays it flat); an XH plug with its wires about 20 mm; the buzzer 8.5 mm; the ELRS receiver about 14.5 mm (its U.FL
+  plug), its antenna about 52 mm as drawn (upright).
+- **3D models (Nov 19):** U1 = KiCad's two 1x24 sockets + Fernando's Teensy 4.1 seated on them; U2 / U3 = the
+  SN65HVD230 module standing in its socket, pin holes down (added by `gen_pcb.py`, `gen_sch.CAN_MODEL`); BZ1 = the
+  12085; J5 = the receiver. The Teensy and CAN models come from his SolidWorks parts without colours;
+  `tools/paint_models.py` paints copies (Teensy: green board, black parts and header plastic, gold pins, silver
+  micro-B; CAN: blue board, black transceiver) so KiCad's 3D view shows them.
+- **STEP for the CAD: `out/omni_carrier_colour.step`** (`tools/colour_step.py`, omni-robot-sim interpreter, after
+  `gen_pcb.py`): KiCad's export (board, pads, every model) rewritten as one part with a colour on every face, the
+  form SolidWorks shows (it ignores KiCad's solid colours): the board OSH Park purple, the pads gold, each model its
+  own colours. KiCad's frame: x 0..102, y −62..0, the board's underside at z 0. The plain export it starts from is
+  `out/omni_carrier.step`. `cad/v15` / `v16` read an older copy (`reference/electronics/omni_carrier_v1.step`,
+  without the Teensy, CAN modules and buzzer, which the CAD adds itself): replacing it means dropping those.
 - **Fab rules in the project file:** `gen_pcb.py` writes OSH Park's limits (0.152 mm track / space, 0.33 mm drill, 0.178 mm
   ring, 0.381 mm copper to edge) and the net classes (signals 0.2 mm, power +5V / +3V3 / GND 0.5 mm, 0.2 mm clearance,
   vias 0.8 / 0.4 mm) into `omni_carrier.kicad_pro`; KiCad keeps a board's rules there, not in the board file.
@@ -155,6 +172,7 @@ reference-text placement.
 
 `tools/route.py` (KiCad's Python, after `gen_pcb.py`) autoroutes the placement with Freerouting 2.5.0 and writes
 **`omni_carrier_routed.kicad_pcb`** (a study; the placement board stays the source until the layout is approved).
+It predates the Nov 19 changes (J1 gone, J19 an XH5): rerun it with KiCad closed.
 Result: **every connection routed on two layers**, about 3.7 m of track and 24 vias, GND poured on both sides; KiCad
 DRC against the OSH Park rules: 0 unconnected, no clearance, width or edge errors (left: silkscreen text overlaps from the
 placement, and 5 GND pads whose pour thermal has one spoke instead of two: they are also on GND tracks). Renders:
@@ -174,8 +192,9 @@ placement, and 5 GND pads whose pour thermal has one spoke instead of two: they 
 
 `board_teensy41.h`: the e-stop input (pin 35) goes, as the main switch now removes all power (left as it is, pin 35
 would read 1 = stop), and 35 becomes the NeoPixel data; pin 5 (was BNO_WAKE) → LED_B, 29 (was BNO_PS1) → LED_G,
-28 LED → LED_R; 27 (BNO_BOOTN), 34, 39 (I_BUS) and 40 (V_12) become spares. `main.cpp`: an INA3221 + INA226 reader on
-Wire; RGB and NeoPixel status; stop driving the BNO085's WAKE/PS1/BOOTN.
+28 LED → LED_R; 27 (BNO_BOOTN), 34, 39 (I_BUS), 40 (V_12) and 41 (V_BUS) become spares. `main.cpp`: an INA3221 +
+INA226 reader on Wire, the INA226's bus voltage replacing the A17 divider (`V_BUS_DIVIDER`) as `v_bus`, a missing or
+stale reading counting as low; RGB and NeoPixel status; stop driving the BNO085's WAKE/PS1/BOOTN.
 
 ## Open for the review
 

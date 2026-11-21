@@ -921,7 +921,12 @@ class MissionNode(Node):
         self.arm_hw = dict(connected=bool(m.connected), torque=bool(m.torque), ok=bool(m.ok), missing=list(m.missing),
                            port=m.port, names=list(m.joint_names), joints=[round(math.degrees(v), 1) for v in m.position],
                            loads=[round(float(v), 3) for v in m.load], temps=[int(v) for v in m.temp_c],
-                           volts=round(float(m.volts), 1), out=bool(m.tool_out))
+                           volts=round(float(m.volts), 1), out=bool(m.tool_out),
+                           # design.md 4.5: the load model's view (the outside torque, the strain, the reflex)
+                           external=[round(float(v), 3) for v in m.external], strained=[bool(v) for v in m.strained],
+                           force=[round(float(v), 2) for v in m.tool_force], load_model=m.load_model,
+                           reflexes=int(m.reflexes), reflex=m.reflex, reflex_active=bool(m.reflex_active),
+                           current=[round(float(v), 3) for v in m.current], servo_notes=list(m.servo_notes))
         self.t_arm_hw = time.monotonic()
         self.arm_merged()
 

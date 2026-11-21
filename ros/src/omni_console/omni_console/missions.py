@@ -273,7 +273,7 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         if verb == "mission":
             fid = MISSION_FEATURE.get(str(a.get("name", "")).upper())
         elif verb == "arm":
-            fid = "arm" if str(a.get("do", "")) in ("pose", "gripper", "jog") else None
+            fid = "arm" if str(a.get("do", "")) in ("pose", "gripper", "jog", "cal_load") else None
         else:
             fid = VERB_FEATURE.get(verb)
         if fid is None or fid not in FEATURE:
@@ -592,7 +592,18 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         if what in ("hold", "relax"):
             text = "Arm holding" if what == "hold" else "Arm torque off: it drops, hold it"
             return Reply(True, text, None, (("arm", dict(verb=what)),))
-        return Reply(False, "arm: do = pose | gripper | jog | hold | relax")
+        # the arm load calibration (design.md 4.5, omni_calib arm_load): arm_brain runs it, the person answers
+        if what == "cal_load":
+            if self.mission not in ("IDLE", "MANUAL"):
+                return Reply(False, f"The arm load calibration needs the robot still: stop {self.mission} first")
+            self.event("info", "Arm load calibration: started (the arm moves by itself)")
+            return Reply(True, "Arm load calibration started", None,
+                         (("arm", dict(verb="cal_load", quick=bool(a.get("quick", False)))),))
+        if what == "cal_input":
+            return Reply(True, "Sent", None, (("arm", dict(verb="cal_input", value=a.get("value", True))),))
+        if what == "cal_cancel":
+            return Reply(True, "Arm load calibration cancelled", None, (("arm", dict(verb="cal_cancel")),))
+        return Reply(False, "arm: do = pose | gripper | jog | hold | relax | cal_load | cal_input | cal_cancel")
 
     # -- the AI client: console_ai.AiMixin; programs, zones, rooms, tf: console_edit.EditMixin; calibration:
     #    console_calib.CalibMixin -----------------------------------------------------------------------------
@@ -1451,7 +1462,9 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             return None
         s = self.arm
         return {k: s.get(k) for k in ("torque", "source", "ok", "joints", "names", "loads", "temps", "volts", "out",
-                                      "tidy", "tidy_on", "wrist_cam")}
+                                      "tidy", "tidy_on", "wrist_cam", "external", "strained", "force", "load_model",
+                                      "reflexes", "reflex", "reflex_active", "current", "servo_notes", "cal",
+                                      "cal_last")}
 
     # -- localization health (design.md 10: omni_slam's /localization/health) ----------------------------------------
     def on_loc_health(self, h: dict, now: float):

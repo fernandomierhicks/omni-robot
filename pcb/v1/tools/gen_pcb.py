@@ -11,9 +11,13 @@ the face / LEDs, -y robot (bottom edge) the motor chain slot and the converters 
 """
 import json
 import os
+import sys
 import xml.etree.ElementTree as ET
 
 import pcbnew
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gen_sch                                  # noqa: E402  (CAN_MODEL; gen_sch imports only the standard library)
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KFP = os.environ.get("KICAD_FP", r"C:\Program Files\KiCad\10.0\share\kicad\footprints")
@@ -81,7 +85,7 @@ def place(fps):
         y += 1.2
     # bottom edge (robot -y: the motor chain's slot, the converters below)
     x = CORNER
-    for ref in ("J6", "J10", "J1", "J12", "J21", "J13"):
+    for ref in ("J6", "J10", "J12", "J21", "J13"):              # Nov 19: J1 (pack sense) gone, the INA226 reads the pack
         _, x, _, _ = put(fps[ref], 180, left=x, bottom=H - E)
         x += GAP
     # left edge under the Teensy's USB end: J18 and its bias column
@@ -101,7 +105,6 @@ def place(fps):
     row(["R12", "D1"], 54.8, 40.6, rot=90, dx=3.4)                # right of Q1 (TO-92 wide, Nov 18)
     row(["R15", "D3"], 33.0, 34.0)                                # 3V3 LED
     row(["C5", "C6"], 33.0, 40.5, dx=6.6)                         # bulk caps
-    row(["R1", "R2", "C1"], 33.0, 47.0)                           # pack divider, by J1
     # spare bias resistors (a column beside each spare connector) and that connector's 3-pad jumper at its end
     for conn, (x0, y0, step) in BIAS_AT.items():
         rs = sorted(BIAS[conn], key=lambda r: int(r[1:]))
@@ -115,7 +118,7 @@ def place(fps):
 
 BIAS = {}                                        # spare connector -> its bias resistors (filled from the netlist)
 BIAS_AT = {"J11": (W - 19.9, 0.8, 3.2), "J16": (W - 19.9, 20.4, 3.2), "J17": (W - 19.9, 40.0, 3.2),
-           "J18": (8.2, 33.0, 3.2), "J19": (73.0, 44.0, 3.2)}
+           "J18": (8.2, 33.0, 3.2), "J19": (75.6, 44.0, 3.2)}           # J19: XH5 since Nov 19 (pin 41 joined it)
 # Nov 18 (Fernando): the four M3 holes at the board's corners (were inside the board); the CAD adapts
 HOLES = ((HOLE_IN, H - HOLE_IN), (HOLE_IN, HOLE_IN), (W - HOLE_IN, HOLE_IN), (W - HOLE_IN, H - HOLE_IN))
 
@@ -176,6 +179,13 @@ def main():
             ni = nets.get((ref, pad.GetNumber()))
             if ni is not None:
                 pad.SetNet(ni)
+        if ref in ("U2", "U3"):                       # the CAN module standing in KiCad's 1x6 socket (gen_sch.CAN_MODEL)
+            path, off, rot = gen_sch.CAN_MODEL
+            m = pcbnew.FP_3DMODEL()
+            m.m_Filename = path
+            m.m_Offset = pcbnew.VECTOR3D(*off)
+            m.m_Rotation = pcbnew.VECTOR3D(*rot)
+            fp.Models().push_back(m)
         board.Add(fp)
         fps[ref] = fp
     place(fps)

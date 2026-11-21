@@ -41,7 +41,9 @@ GPIO and mcu_link maps the MCU's clock from those pulses (/mcu/clock says how we
 AprilTags on the walls, the camera's detections simulated by the bridge, omni_slam's tag_slam alongside slam_toolbox
 (/tag_slam/*, /localization/health: the console slows with it). arm step: objects (toys | clutter | colours: the AI's
 find scene, ai_robot_architecture.md 5.2), n_objects (6),
-servo_port (5763: the arm's servo bus on localhost TCP), arm_camera (d435, the default and the arm robot's camera: the
+servo_port (5763: the arm's servo bus on localhost TCP), arm_model (simple, every earlier result | detailed: the
+detailed arm under emulated STS3215s, design.md 4.5, its truth drawn from seed; the arm load calibration's sim), arm_camera
+(d435, the default and the arm robot's camera: the
 RealSense D435 on the deck's nose gives the tidy's depth and Nav2's depth layer, design.md 4.11 | stereo: the parked
 catch robot's pair, for reproducing earlier arm runs), depth_layer (raw: the default, RAW_LAYER | height: proposed,
 omni_arm's fused height map, its speed limits | floor: Nov 5's per-frame grid | off), front_cam (none | imx662: the
@@ -163,6 +165,8 @@ def describe(kind: str) -> LaunchDescription:
             # depth layer; the arm robot's only camera since Nov 5, Fernando) | stereo (the head's pair: the parked
             # catch robot's, kept to reproduce earlier arm runs)
             DeclareLaunchArgument("arm_camera", default_value="d435"),
+            # the sim's arm (design.md 4.5): simple | detailed (motors, gearboxes, flex, heat, emulated STS3215s)
+            DeclareLaunchArgument("arm_model", default_value="simple"),
             # the D435's layer in Nav2's costmaps (design.md 4.5, 4.11): raw (the default: the raw cloud in an
             # ObstacleLayer, marking above 4 cm, RAW_LAYER; it sees no toy under 4 cm) | height (proposed: omni_arm's
             # height_map, fused over the frames, obstacles and drops to Nav2, speed by certainty) | floor (Nov 5's
@@ -346,7 +350,7 @@ def build(ctx, kind: str):
                                                    "console", "rtf", "out", "slam_range", "floor_filter", "deskew", "firmware",
                                                    "dist", "floor", "returns", "tosses", "kid", "mcu_port", "web",
                                                    "person", "pass_game", "timing", "sync_gpio", "tags", "objects",
-                                                   "n_objects", "servo_port", "arm_camera", "robot", "catch", "lidar_mask", "clutter",
+                                                   "n_objects", "servo_port", "arm_camera", "arm_model", "robot", "catch", "lidar_mask", "clutter",
                                                    "thrower", "speed", "heading", "spin_rate", "route", "terrain", "props",
                                                    "nav_profile", "catch_sleep", "compose",
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
@@ -382,7 +386,7 @@ def build(ctx, kind: str):
         raise RuntimeError(f"front_cam: none or imx662, not {a['front_cam']!r}")
     front = arm and a["front_cam"] == "imx662"
     arm_kw = dict(payload="arm", objects=a["objects"], n_objects=int(a["n_objects"]),
-                  servo_port=int(a["servo_port"]), arm_camera=a["arm_camera"],
+                  servo_port=int(a["servo_port"]), arm_camera=a["arm_camera"], arm_model=a["arm_model"],
                   front_cam=a["front_cam"] if arm else "none") if arm else {}
     acts.append(Node(package=SIM, executable="bridge", name="mujoco_bridge", output="screen",
                      additional_env={"MUJOCO_GL": "egl"} if arm else None,       # the arm's cameras render in WSL
@@ -413,11 +417,15 @@ def build(ctx, kind: str):
         arm_cfg = "d435" if d435 else ""
         # the C++ driver owns the bus at 50 Hz; arm_hz only when asked (the pi profile's 20 Hz was the deleted Python
         # arm_node's executor's)
+        # design.md 4.5: the arm load calibration's model (written by arm_brain's cal_load, reread by the driver)
+        load_json = os.path.join(os.path.expanduser(os.environ.get("OMNI_STATE_DIR", "~/.omni")), "arm_load_model.json")
         acts.append(Node(package=CPP, executable="arm_driver", name="arm_driver", output="screen",
-                         parameters=[robot_params(), {"port": arm_port, "config": arm_cfg, **sim_t,
+                         parameters=[robot_params(), {"port": arm_port, "config": arm_cfg, "load_calibration": load_json,
+                                                      **sim_t,
                                       **({"rate": float(a["arm_hz"])} if float(a["arm_hz"]) > 0 else {})}]))
         acts.append(Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
-                         parameters=[robot_params(), {"odom_topic": "/odom", "config": arm_cfg, **sim_t}]))
+                         parameters=[robot_params(), {"odom_topic": "/odom", "config": arm_cfg,
+                                                      "load_model_path": load_json, **sim_t}]))
         if d435:                                                   # Goalie's ball: asleep until /goalie/enable
             acts.append(Node(package="omni_arm", executable="ball_track", name="ball_track", output="screen",
                              parameters=[robot_params(), {"config": arm_cfg, **sim_t}]))

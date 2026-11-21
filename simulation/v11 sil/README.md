@@ -66,6 +66,18 @@ tree: colour_scene identical for both cameras; test_color_vision 18/18; the tidy
 no longer in the wrist camera's view). The same tidy scored 112/120 on Nov 7; the tree drifted to 105 before any colour change. Details:
 `studies/results/filament_colours_2026-11-13.md`.
 
+**The arm load calibration on the detailed arm (Nov 20, design.md 4.5; est physics, no servo measured).** `arm_model="detailed"` (`arm_detailed.py` under `servo_emulator.py`) with its truth drawn per seed; the robot's C++ driver on the emulated bus; omni_calib's procedure with a simulated person (`sim_human.py`); then the same arm tested with the driver legacy / on the datasheet model / calibrated (`studies/arm_load_cal.py`, 3 seeds, `studies/results/arm_load_cal.md`):
+
+| | legacy | datasheet model | calibrated |
+| --- | --- | --- | --- |
+| False reflexes in 25 tidy-speed moves | (no reflex) | 23-24 | 0 |
+| A 3 kg box pressed by the fingers: force when it stops | never (24-25 N) | 19-21 N, ~0.6 s | 11-12 N, ~0.4 s |
+| A sideways push on the fingertip: force when it stops | never | 7-9 N | 5-6 N |
+| Still torque error / a 0.2 kg weight's force error | 0.19-0.28 N m / 2.5-2.8 N | the same | 0.10-0.18 N m / 1.7-1.9 N |
+| Reach (fingers-down points), mm rms | 6-10 | 3.5-7 (the hold trim) | 4-6 |
+
+The same procedure ran through ROS (`omni.sh arm arm_model:=detailed`, `ros/tools/sim_arm_cal_human.py` pressing Calibrate's button and answering through the console); its first run was refused by the pass limit then set at 1.0 N for the weight (it read 1.19 N), since raised to 1.5 N.
+
 ## Run it
 
 - **Any variation on Windows:** `Launcher.cmd` → group 4 *Catch game on Windows*: pick the scene (house / arena), the cameras (rendered / sparse), the acquisition, the thrower distance, apex range, throws and seed, then *Play catch*. *Study: run the grid* runs the 6-7 m grid with the same options, *Study report* compares everything run so far, *Camera pictures* and *House overview* write `renders/`.
@@ -84,6 +96,7 @@ no longer in the wrist camera's view). The same tidy scored 112/120 on Nov 7; th
 & $py studies\rendered_catch.py report                  # every variation run so far
 & $py studies\rendered_catch.py pictures                # camera frames with the detector's blob + the overview
 & $py robot_export.py                                   # after a change to params / catalog / the model
+& $py studies\arm_load_cal.py --seeds 3                 # the arm load calibration on the detailed arm (~25 min)
 & $py sil_game.py --returns --tosses 6 --log logs\      # + a session log in the robot's own format (omni-log/1)
 & $py sil_game.py --returns --pass-game --tosses 6      # two throwers taking turns: the pass game
 & $py studies\replay_log.py <log.jsonl>                 # a session's throws thrown again in the sim (--demo: end to end)
@@ -136,6 +149,11 @@ The house textures are CC0 photos from Poly Haven (`house_scene.POLYHAVEN`: asse
 | `params.py`, `robot_model.py`, `arm_so101.py` | design.md 11, Oct 24 (the picking arm robot): `arm_mount_z` (a low nose bracket), `arm_pick` (finger pads that grasp, fingertips on the floor, the wrist camera; the self-view boxes), `arm_bin` (+ the display behind it), `lidar_mount="rear"`, `camera_mount="nose_pods"` + `camera_pod_xz`, `floor_objects`; `POSES["pick_stow"]`, `gap_at` |
 | `arm_objects.py` | new: loose things on the floor (box, cylinder, puck, sphere; `CATALOG`, `SETS` toys / clutter, `scatter`) |
 | `arm_bus.py` | new: the six STS3215s' side of the bus (`ServoBusSim`, with a per-joint calibration error) and its TCP port (`ServoPort`) |
+| `arm_detailed.py` | Nov 20 (design.md 4.5): `params.arm_model="detailed"`: each servo a DC motor (R with heat, back-EMF) behind a 1:345 gearbox (rotor inertia, Coulomb + viscous + load-dependent friction, efficiency 0.55 driving / 0.45 back-driven, stiction, ~0.2° backlash), the horn and printed links as a spring past the encoder (35-90 N m/rad), the links' masses 7 % / 3 mm off the official model, a 12 V supply through 0.2 Ω; its truth drawn per `arm_seed`; a person's weight on a string (`hang`) and push. `"simple"` (`arm_so101.ArmServos`) stays every earlier result. est throughout |
+| `servo_emulator.py` | Nov 20: the STS3215 as its driver meets it: the memory table (EEPROM kept through a power cycle only when unlocked), the firmware's position loop (P / D per tick, dead zone, start-up force, torque limit, current limit), its protections (overload, over-current, overheat, voltage: unload and status bits), its sensors (12-bit encoder with once- and twice-per-turn errors, current sense, voltage ADC, thermistor) and the bus (PING, READ, WRITE, REG_WRITE / ACTION, SYNC_READ, SYNC_WRITE). Present Load is taken as the duty, Present Current in 6.5 mA (VERIFY both) |
+| `sim_human.py` | Nov 20: the person who helps the arm load calibration, with Fernando's kitchen scale, calipers, ruler and luggage scale and their errors |
+| `studies/arm_datums.py` | Nov 20 (proposal): touch blocks on the plate (`params.arm_datums`, `arm_so101.DATUMS`, opt-in and removable) zeroing the arm through omni_calib `arm_datum`, against the ruler: they fix pan's zero (0.1-0.5° on 3 seeds; the ruler can't see it), but the whole arm's zeros from them made reach worse on 2 seeds of 3; ruler + pan from the blocks: 4.3-6.2 → 1.8-4.5 mm (results/arm_datums.md) |
+| `studies/arm_load_cal.py` | Nov 20: the arm load calibration (omni_calib `arm_load`) run on the detailed arm through the robot's C++ driver and the emulated bus, then five tests with the driver legacy / nominal / calibrated (results/arm_load_cal.md) |
 | `sil_pick.py` | new: the tidy in one process (firmware, link, mode mux in PICK, `omni_arm` on the emulated bus, depth and wrist renders), `--world arena \| house`, `--view`, `--camera stereo \| d435` (Nov 1: the RealSense D435 on the nose, design.md 4.11) |
 | `robot_export.ARM` (= cad/v10's coarse model since Nov 1; the Oct 25 robot is `ARM_V7`), `arm_robot()`, `arm_ballast()`, `robot_model.fork_kinematics` | the arm robot as `cad/v10 human editable` draws it: `SimParams(pod_pivot=, pod_droop=, lidar_x=, d435_box=)` (a hinged fork pod: the wheel, AK40, fork plates, shaft, bar and shocks on a hinge parallel to the axle; the guard's ears and the shocks' rods on the base), the `Printed-140-2x6-36-cad` wheel, deck r 217, bumper r 225, plate 181.5, lidar 163, a D435 box; riser 37 mm and head +5 mm (not the CAD's 50 mm / +13: the arm must reach the floor); tests `test_the_v10_*`; its firmware is built against `fw_params_arm.h` (`firmware_variant`, `build_sil.build(variant="arm")`) |
 | `robot_export.py` | + `ARM`, `arm_params()`, `arm_json()` → `ros/src/omni_arm/omni_arm/config/robot_arm.json`; `frames()` puts `arm_mount` on the arm's adapter for the arm robot; writes only the files that changed |

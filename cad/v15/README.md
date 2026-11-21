@@ -1,5 +1,8 @@
 # cad/v15: the mid-deck robot (Nov 14 2026, PROPOSAL; cad/v14 stays the current robot)
 
+**Nov 19: superseded by [cad/v16](../v16/README.md)**, a clean copy of this folder's baseline design (Fernando). Develop there; this folder
+keeps the review rounds below, the triangle study, the plunger study (M4 cap try-out) and the proposals, for history and reproduction.
+
 v15 is a complete folder: its scripts (`tools/`, map in [tools/README.md](tools/README.md)), reference parts (`reference/`), checks
 (`validation/`), STEPs (`step_export/`), the SolidWorks viewing assembly (`solidworks/`) and run logs (`logs/`). It reads nothing from another
 CAD version; the one outside import is the robot's own `ros/src/omni_arm` kinematics. **`./regen_all.sh` regenerates everything** in order

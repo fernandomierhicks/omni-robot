@@ -1,0 +1,44 @@
+{
+ "tab_shape_matches_deck": true,
+ "deck_clr_today": 0.05,
+ "parts": {
+  "coupon_dovetail_tabs": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 4.74,
+   "bbox": [
+    28.1,
+    21.0,
+    10.0
+   ]
+  },
+  "coupon_dovetail_sockets": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 8.04,
+   "bbox": [
+    62.2,
+    21.0,
+    10.0
+   ]
+  }
+ },
+ "cells": {
+  "1": {
+   "clearance_per_face": 0.05,
+   "overlap_mm3": 0.0,
+   "flank_gap_measured": 0.047,
+   "seam_contact": true,
+   "wall_beside_socket": 6.0
+  },
+  "2": {
+   "clearance_per_face": 0.0,
+   "overlap_mm3": 2.0406,
+   "flank_gap_measured": 0.0,
+   "seam_contact": true,
+   "wall_beside_socket": 6.1
+  }
+ },
+ "fits_bed": true,
+ "how": "slide each tab into its socket from above; pick the tightest that goes in by hand and does not rock"
+}

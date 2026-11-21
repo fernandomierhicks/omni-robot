@@ -13,8 +13,9 @@ From pod_p4.py: the fork, the pivot housings and rings, the beam and its droop l
    per hanger up into the deck.
  * The BEAM's top is the deck's underside: 7 x M3 x 30 up from below into the deck (the 2 front ones driven with an L-key over the fork's bar)
    and an M3 x 50 up the droop lug's length.
- * TOWERS stand on the deck over the hangers (pod.py's springs and plungers push from them onto the arms' pads); one M3 x 30 down through each
-   into the deck keeps it there with the pod out (the plungers' nylocs keep each spring's preload in its tower).
+ * TOWERS stand on the deck over the hangers (the springs and plungers push from them onto the arms' pads; since Nov 19 plunger_study.py's M3
+   set: a PETG cap's R8 dome on the pad, an M3 x 45 button head in it, a printed Ø4.9 sleeve in each Ø5.0 guide, the overhang's underside the
+   bump stop); one M3 x 40 down through each into the deck keeps it there with the pod out (the plungers' nylocs keep each spring's preload).
  * The pod drops out downward (motor unplugged through the deck's opening, the bolts and screws out from below): everything of it above the
    deck's underside passes through the deck's opening (CLR all round, every pose).
  * rx_deck here is a local stand-in for the robot deck (chassis_mid.py): a 20 mm plate with the pod's opening, for the pod-level checks.
@@ -286,14 +287,45 @@ def tower_stop_z(y):
     return R.rail_line(P.Y_S - 14.0, P.Y_S + 14.0)(y)
 
 
-def build_tower(side, info, stop=False):
+def m3():
+    """plunger_study (the M3 plunger set, baseline since Nov 19), imported here, not at the top: it imports this module"""
+    import plunger_study as PS
+    return PS
+
+
+_M3_PLUNGER = {}
+
+
+def m3_plunger_at_origin():
+    """one M3 plunger (cap + sleeve + steel) fused, axis at x = y = 0, pod z at nominal; built once"""
+    if 'p' not in _M3_PLUNGER:
+        PS = m3()
+        p = PS.cap_m3() + PS.sleeve()
+        for s in PS.hardware().values():
+            p = p + s
+        _M3_PLUNGER['p'] = p
+    return _M3_PLUNGER['p']
+
+
+def m3_spring(xc, y, lift):
+    """the bore's two springs in series as one tube (the 8.2 OD's OD and ID) from the seat washer (lifted) up to the tower's ceiling; the coils
+    are drawn only in the review STEPs and SolidWorks (sw_robot_parts.m3_plunger)"""
+    PS = m3()
+    sp = PS.SPRINGS[PS.IN_BORES[0]]
+    z0 = PS.Z_SEAT + lift
+    return cyl(sp['od'] / 2, P.Z_CEIL - z0, (xc, y, (P.Z_CEIL + z0) / 2)) - cyl(sp['od'] / 2 - sp['w'], P.Z_CEIL - z0 + 1.0, (xc, y, (P.Z_CEIL + z0) / 2))
+
+
+def build_tower(side, info, stop=True):
     """a spring tower standing on the deck: its base on the deck's top over the hanger, its overhang over the arm (underside at Z_TBOT, the bump
     rails under it), pod.py's spring bores (two springs in series since Nov 15) and plunger guides.
     Nov 15 (Fernando: the holes perpendicular to the bed): printed TOP DOWN, so the spring bores, the plunger guides and every screw hole stand
     vertical; for that the foot tabs at each end run the tower's full height (no overhang under them) and the long bolts' nuts drop down a hex
     well from the top onto the well's floor at the old tab-top height. The alignment boss under its base (printed last, on top).
-    stop (Nov 18, Fernando, PROPOSAL: tools/plunger_study.py): the overhang's whole underside IS the bump stop's surface (the pad's top at bump,
-    tower_stop_z), its full length, so the spring bores run down to it (no separate rails); drawn before the rounds like the rest"""
+    stop (Nov 18, Fernando, tools/plunger_study.py; the baseline since Nov 19): the overhang's whole underside IS the bump stop's surface (the
+    pad's top at bump, tower_stop_z), its full length, so the spring bores run down to it (no separate rails); drawn before the rounds like the
+    rest. Nov 19 (Fernando: "make the M3 the baseline towers now"): the bores Ø plunger_study.BORE_D (8.8) and the guides printed
+    Ø GUIDE_PRINT_D (5.0, drilled 13/64") for the M3 plunger's Ø4.9 sleeve (were Ø8.6 / Ø4.4 for the M4 bolt)"""
     fr, arm, xo, xi, s = hside(side)
     xc = P4.ARM_C[0] if side == 'o' else P4.ARM_C[1]
     xb = xo - s * TOWER_OUT                                            # the base's outer face
@@ -343,9 +375,10 @@ def build_tower(side, info, stop=False):
         t = (t + tab).clean()
     info[f'tower_{side}_mirror_valid'] = bool(t.mirror(b.Plane.XZ).is_valid)
     t = t + align_boss(tower_boss_plan(side), zb, -1)
+    PS = m3()
     for y in P.Y_PAIR:
-        t = t - cyl((SPRING_HOLE_D + 0.6) / 2, P.Z_CEIL - z_low + 0.1, (xc, y, (P.Z_CEIL + z_low) / 2 - 0.05))
-        t = t - cyl(GUIDE_R, GUIDE_LEN + 0.2, (xc, y, P.Z_CEIL + GUIDE_LEN / 2))
+        t = t - cyl(PS.BORE_D / 2, P.Z_CEIL - z_low + 0.1, (xc, y, (P.Z_CEIL + z_low) / 2 - 0.05))
+        t = t - cyl(PS.GUIDE_PRINT_D / 2, GUIDE_LEN + 0.2, (xc, y, P.Z_CEIL + GUIDE_LEN / 2))
     xm = (xb + xe) / 2
     for y in TOWER_SCREW_Y:                                            # the long bolts: clearance through the stub, the nut in a recess in its top
         t = t - cyl(M3_CLR / 2, zt - zb + ALIGN_H + 1.0, (xm, y, (zt + zb - ALIGN_H) / 2)) - H.hex_recess((xm, y, zt), (0, 0, -1))
@@ -652,12 +685,13 @@ def assembly(parts, recs_moving, recs_static, unit, a, deck=True):
     for r in recs_static:
         out[r['name']] = H.solid(r)
     lifts = {}
+    PS = m3()                                                          # Nov 19: the M3 plunger (cap's R8 dome on the pad) and its springs
     for side, xc in (('o', P4.ARM_C[0]), ('i', P4.ARM_C[1])):
         for j, y in enumerate(P.Y_PAIR):
-            lift = P.plunger_lift(a, y)[0]
+            lift = PS.lift_of(a, y)[0]
             lifts[f'{side}{j + 1}'] = lift
-            out[f'plunger_{side}{j + 1}'] = P.plunger(xc, y).moved(b.Location((0, 0, lift)))
-            out[f'spring_{side}{j + 1}'] = P.die_spring(xc, y, P.Z_CEIL - P.Z_SB - lift).moved(b.Location((0, 0, lift)))
+            out[f'plunger_{side}{j + 1}'] = m3_plunger_at_origin().moved(b.Location((xc, y, lift)))
+            out[f'spring_{side}{j + 1}'] = m3_spring(xc, y, lift)
     return out, set(moving), lifts
 
 
@@ -672,7 +706,8 @@ def pose_gaps(sh, a):
                 hangers_to_fork=min(min_dist(sh[h], sh[f]) for h in ('rx_hanger_outer', 'rx_hanger_inner') for f in fork),
                 towers_base_to_fork=min(min_dist(sh[t] & box(-200, 200, -200, 200, DECK_Z[1] - 0.1, P.Z_TBOT - 0.2), sh[f])
                                         for t in ('rx_tower_outer', 'rx_tower_inner') for f in fork),
-                plunger_nut_gap=NUT_GAP + min(P.plunger_lift(a, y)[0] for y in P.Y_PAIR))
+                plunger_top_washer_gap=m3().TOP_GAP + min(m3().lift_of(a, y)[0] for y in P.Y_PAIR))   # the lower top washer over the
+                                                                       # tower's top (it lands there with the pod out)
 
 
 def check(parts, rm, rs, unit, info, fp):
@@ -699,7 +734,11 @@ def check(parts, rm, rs, unit, info, fp):
                               why='FR\'s beam corner lay under RR\'s dovetail tab (270 deg seam); chassis_mid checks every tab against the seats')
     rep['print_orientation'] = {k: dict(up=PRINTED_UP[k]) for k in STATIC_PRINTED + ('pod_fork_outer', 'pod_fork_inner')}
     rep['towers'] = dict(springs_in_series=SPRINGS_IN_SERIES, spring_bore_mm=round(P.Z_CEIL - P.Z_TBOT, 2), top_z_pod=round(P.Z_TT, 2),
-                         top_z_robot=round(P.Z_TT + R_WHEEL, 2), height_over_deck=round(P.Z_TT - DECK_Z[1], 2), plunger=f'M4 x {P.BOLT_L:g}',
+                         top_z_robot=round(P.Z_TT + R_WHEEL, 2), height_over_deck=round(P.Z_TT - DECK_Z[1], 2),
+                         plunger=(f'M3 x {m3().SCREW_L:g} button head dome down in a PETG cap (R{m3().DOME_R:g} on the pad), printed '
+                                  f'Ø{m3().SLEEVE_D} sleeve in a Ø{m3().GUIDE_PRINT_D} guide (13/64" drill), 2 washers + nyloc on top '
+                                  '(plunger_study.py, baseline Nov 19)'),
+                         spring_bore_d=m3().BORE_D, bump_stop='the overhang\'s underside (stop=True)',
                          fix_screw=f'M3 x {TOWER_FIX_L:g}, head seat {tower_fix_head_z():.1f} (counterbore {P.Z_TT - tower_fix_head_z():.1f} deep), '
                                    f'{TOWER_FIX_THREAD:g} mm in the deck',
                          stack_preload_mm=STACK_PRELOAD,
@@ -776,6 +815,12 @@ def main(stage):
         printed = {k: v for k, v in parts.items() if k not in LABELLED}
         printed['rx_lug_m'] = parts['rx_lug'].mirror(b.Plane.XZ)       # the lug's other hand (the rest of the unmarked parts are round)
         print('exported', R.export(STEP_OUT, printed, {k: v for k, v in sh.items() if k not in names}, rm + rs, NAME), flush=True)
+        PS = m3()                                                      # Nov 19: the M3 plunger's printed parts (4 of each per pod), in
+        zt = PS.Z_HEAD_APEX + PS.CAP_M3['rim']                         # their print orientation (as plunger_study): the cap pocket down,
+        R.write_part(PS.cap_m3().mirror(b.Plane.XY).moved(b.Location((0, 0, zt))), (1.0, 0.85, 0.0),   # the sleeve standing (PETG,
+                     STEP_OUT / 'parts' / 'plunger_cap_m3.step', 'plunger_cap_m3')                     # SolidWorks' colours)
+        R.write_part(PS.sleeve().moved(b.Location((0, 0, -PS.Z_SEAT))), (0.0, 0.85, 1.0), STEP_OUT / 'parts' / 'plunger_sleeve_m3.step',
+                     'plunger_sleeve_m3')
         import labels as LB                                            # Nov 15: the marked parts once per pod, in that pod's hand
         for i, n in enumerate(B.NAMES):
             li = labelled(parts, i)

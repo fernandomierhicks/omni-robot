@@ -18,6 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TagDetections.msg"
   "msg/ArmMotion.msg"
   "msg/ArmHardware.msg"
+  "msg/ArmServoState.msg"
   "srv/SetMode.srv"
   "srv/ConsoleCommand.srv"
   DEPENDENCIES builtin_interfaces std_msgs

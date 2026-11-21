@@ -1,0 +1,182 @@
+{
+ "kind": "M4",
+ "stack_from_the_pad": [
+  "M4 x 45 button head (7.6 x 2.2, R4.38 dome) dome down on the pad",
+  "M4 washer 8 x 0.5 (the spring seat)",
+  "the bare M4 through the springs and the guide",
+  "2 x M4 washer 9 x 0.8",
+  "M4 nyloc"
+ ],
+ "z_pod": {
+  "head": [
+   24.0,
+   26.2
+  ],
+  "seat": 26.7,
+  "top_washers": 63.15,
+  "nut": [
+   64.75,
+   69.75
+  ],
+  "screw_tip": 71.2,
+  "tip_past_nut_mm": 1.45
+ },
+ "in_the_guide": {
+  "shaft_d": 4.0,
+  "what": "the M4 thread (major diameter; no sleeve)"
+ },
+ "guide": {
+  "length": 16.0,
+  "printed_d": 4.3,
+  "drill": [
+   "4.3 mm",
+   4.3
+  ],
+  "clearance_mm": 0.3,
+  "tilt_deg": 1.07
+ },
+ "head_radial_clearance_in_bore_mm": 0.35,
+ "seat_washer_radial_clearance_in_bore_mm": 0.15,
+ "seat_washer_to_tower_at_bump_mm": 0.87,
+ "dome_contact": "R4.38: the contact stays within 0.82 mm of its apex",
+ "nut_top_at_bump_robot_z": 146.2,
+ "screw_tip_at_bump_robot_z": 147.6,
+ "steel_valid": {
+  "screw": true,
+  "washer_seat": true,
+  "washer_top_1": true,
+  "washer_top_2": true,
+  "nyloc": true
+ },
+ "springs": [
+  {
+   "name": "8.2 OD",
+   "od": 8.2,
+   "wire": "1.0 thick (picture) x 1.5 radial (ASSUMED)",
+   "free_gap": 1.5,
+   "active_turns": 6.8,
+   "total_turns": 8.8,
+   "solid_mm": 8.8,
+   "id": 5.2,
+   "travel_to_solid_mm": 10.2,
+   "shaft_clearance_in_id": 1.2,
+   "bore_clearance": 0.1,
+   "seat_washer_covers_wire": true,
+   "drawn": [
+    false,
+    false
+   ]
+  },
+  {
+   "name": "7.6 OD",
+   "od": 7.6,
+   "wire": "1.0 thick (picture) x 1.5 radial (ASSUMED)",
+   "free_gap": 1.5,
+   "active_turns": 6.8,
+   "total_turns": 8.8,
+   "solid_mm": 8.8,
+   "id": 4.6,
+   "travel_to_solid_mm": 10.2,
+   "shaft_clearance_in_id": 0.6,
+   "bore_clearance": 0.7,
+   "seat_washer_covers_wire": true,
+   "drawn": [
+    false,
+    false
+   ]
+  },
+  {
+   "name": "7.85 x 4.25 (Nov 20)",
+   "od": 7.85,
+   "wire": "solid 12.0 measured; 12 turns of 1.0 wire ASSUMED x 1.8 radial (from the OD / ID given)",
+   "free_gap": 0.72,
+   "active_turns": 10.0,
+   "total_turns": 12.0,
+   "solid_mm": 12.0,
+   "id": 4.25,
+   "travel_to_solid_mm": 7.2,
+   "shaft_clearance_in_id": 0.25,
+   "bore_clearance": 0.45,
+   "seat_washer_covers_wire": true,
+   "drawn": [
+    true,
+    true
+   ]
+  }
+ ],
+ "bore_d": 8.3,
+ "poses": {
+  "droop": [
+   {
+    "bore": 0,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": -1.15,
+    "stack_mm": 20.1,
+    "each_mm": 20.1,
+    "compressed_each_mm": 0.1,
+    "to_solid_each_mm": 8.1,
+    "active_pitch": 1.7,
+    "gap_between_coils": 0.7
+   },
+   {
+    "bore": 1,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": -0.75,
+    "stack_mm": 19.71,
+    "each_mm": 19.71,
+    "compressed_each_mm": 0.49,
+    "to_solid_each_mm": 7.71,
+    "active_pitch": 1.66,
+    "gap_between_coils": 0.66
+   }
+  ],
+  "nominal": [
+   {
+    "bore": 0,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": 0.0,
+    "stack_mm": 18.95,
+    "each_mm": 18.95,
+    "compressed_each_mm": 1.25,
+    "to_solid_each_mm": 6.95,
+    "active_pitch": 1.59,
+    "gap_between_coils": 0.59
+   },
+   {
+    "bore": 1,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": 0.0,
+    "stack_mm": 18.95,
+    "each_mm": 18.95,
+    "compressed_each_mm": 1.25,
+    "to_solid_each_mm": 6.95,
+    "active_pitch": 1.59,
+    "gap_between_coils": 0.59
+   }
+  ],
+  "bump": [
+   {
+    "bore": 0,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": 6.43,
+    "stack_mm": 12.52,
+    "each_mm": 12.52,
+    "compressed_each_mm": 7.68,
+    "to_solid_each_mm": 0.52,
+    "active_pitch": 0.94,
+    "gap_between_coils": -0.06
+   },
+   {
+    "bore": 1,
+    "spring": "7.85 x 4.25 (Nov 20)",
+    "lift_mm": 4.43,
+    "stack_mm": 14.53,
+    "each_mm": 14.53,
+    "compressed_each_mm": 5.67,
+    "to_solid_each_mm": 2.53,
+    "active_pitch": 1.14,
+    "gap_between_coils": 0.14
+   }
+  ]
+ }
+}

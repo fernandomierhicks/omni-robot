@@ -105,10 +105,33 @@ class Robot:
                                           faults=[f.get("name") for f in mcu.get("faults", [])], age_s=mcu.get("age")),
             arm=None if not arm else dict(connected=True, out=arm.get("out"), source=arm.get("source"),
                                           tidy=arm.get("tidy"), joints_deg=arm.get("joints"),
-                                          wrist_cam=arm.get("wrist_cam")),
+                                          wrist_cam=arm.get("wrist_cam"), outside_force_n=arm.get("force"),
+                                          strained=any(arm.get("strained") or ()), reflexes=arm.get("reflexes")),
             cameras=(s.get("vision") or {}).get("images"),
             lease=self.lease.state() if self.lease else None, status_age_s=round(age, 2))
         return dict(ok=True, message=f"{d['source']}: {d['mission']}, {d['task']}", data=d)
+
+    def arm_effort(self) -> dict:
+        """design.md 4.5: what the arm's servos feel beyond its own weight and friction."""
+        s, age = self.status_raw()
+        arm = (s or {}).get("arm") or {}
+        if not arm:
+            return dict(ok=False, message="No arm", data=dict(error="no_arm"))
+        names = arm.get("names") or []
+        ext = arm.get("external") or []
+        d = dict(load_model=arm.get("load_model"),
+                 calibrated=bool(arm.get("load_model")) and arm.get("load_model") != "nominal",
+                 joints=[dict(name=n, deg=(arm.get("joints") or [None] * 6)[k],
+                              outside_nm=ext[k] if k < len(ext) and k < 5 else None,
+                              strained=bool((arm.get("strained") or [False] * 6)[k]),
+                              temp_c=(arm.get("temps") or [None] * 6)[k],
+                              current_a=(arm.get("current") or [None] * 6)[k] if arm.get("current") else None)
+                         for k, n in enumerate(names)],
+                 outside_force_n=arm.get("force"), reflexes=arm.get("reflexes"), last_reflex=arm.get("reflex"),
+                 reflex_holding=arm.get("reflex_active"), status_age_s=round(age, 2))
+        f = arm.get("force") or [0, 0, 0]
+        return dict(ok=True, message=f"outside force {sum(v * v for v in f) ** 0.5:.1f} N"
+                    + (", strained" if any(arm.get("strained") or ()) else ""), data=d)
 
     def events(self, since: int = 0) -> dict:
         ev = self.rb.events_since(int(since or 0))
@@ -621,6 +644,15 @@ def build_server(robot: Robot):
         pose (map or odom frame, m, deg) and localization, battery and MCU faults, the arm (out? tidying?), cameras,
         and whether this server holds the AI lease. Read-only; call it first."""
         return out(robot.status())
+
+    @mcp.tool()
+    def robot_arm_effort() -> str:
+        """What the arm feels beyond its own weight and friction (design.md 4.5): per joint the outside torque (N m;
+        0 while friction could still be holding it), strained or not, temperature, current; the outside torques as one
+        force at the fingertip (N, the robot's frame: x ahead, y left, z up); the reflex (a guarded arm motion the driver
+        stopped and backed off) and the load model it uses (nominal until the arm load calibration has run: then only
+        large forces show). Read-only: check a grasp held, a push landed, a door or drawer resists."""
+        return out(robot.arm_effort())
 
     @mcp.tool()
     def robot_events(since: int = 0) -> str:

@@ -111,6 +111,13 @@ ArmFk::ArmFk(const std::string& path) {
     cam_ = mat_mul(translation(vec3(wc["pos"])), quat_mat(wc["cam_quat"].nums(), vec3(wc["cam_pos"])));
     for (double v : a["servos"]["ids"].nums()) servo_ids.push_back((int)v);
     servo_speed = a["servos"]["speed"].num();
+    stall_torque = a["servos"]["stall_torque"].num();
+    current_feedback = a["servos"].has("current_feedback") && a["servos"]["current_feedback"].boolean();
+    if (a.has("inertials"))
+        for (size_t i = 0; i < a["inertials"].size(); ++i) {
+            const Json& l = a["inertials"][i];
+            links.push_back({l["body"].str(), l["mass"].num(), vec3(l["com"])});
+        }
     out_radius = raw["arm_out"]["out_radius"].num();
     out_z = raw["arm_out"]["out_z"].num();
 }
@@ -152,6 +159,114 @@ Mat4 ArmFk::tool(const Joints& q) const {
         }
     }
     return mat_mul(T, tool_);
+}
+
+namespace {
+Vec3 xform(const Mat4& T, const Vec3& p) {
+    return {T[0] * p[0] + T[1] * p[1] + T[2] * p[2] + T[3], T[4] * p[0] + T[5] * p[1] + T[6] * p[2] + T[7],
+            T[8] * p[0] + T[9] * p[1] + T[10] * p[2] + T[11]};
+}
+Vec3 rotate(const Mat4& T, const Vec3& v) {
+    return {T[0] * v[0] + T[1] * v[1] + T[2] * v[2], T[4] * v[0] + T[5] * v[1] + T[6] * v[2],
+            T[8] * v[0] + T[9] * v[1] + T[10] * v[2]};
+}
+Vec3 cross(const Vec3& a, const Vec3& b) {
+    return {a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]};
+}
+double dot(const Vec3& a, const Vec3& b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+}  // namespace
+
+void ArmFk::joint_frames(const Joints& q, std::array<Vec3, N_ARM>& origin, std::array<Vec3, N_ARM>& axis,
+                         std::map<std::string, Mat4>* bodies) const {
+    Mat4 T = mat_identity();
+    int k = 0;
+    for (const Body& b : bodies_) {
+        T = mat_mul(T, b.fixed);
+        if (b.has_joint) {
+            if (k < N_ARM) origin[k] = xform(T, b.pos), axis[k] = rotate(T, b.axis);
+            T = mat_mul(mat_mul(mat_mul(T, translation(b.pos)), axis_mat(b.axis, q[k])),
+                        translation({-b.pos[0], -b.pos[1], -b.pos[2]}));
+            ++k;
+        }
+        if (bodies) (*bodies)[b.name] = T;
+    }
+}
+
+Joints ArmFk::gravity(const Joints& q, const Vec3& g, const std::vector<LinkMass>& ls) const {
+    std::array<Vec3, N_ARM> o{}, z{};
+    std::map<std::string, Mat4> T;
+    joint_frames(q, o, z, &T);
+    // which joint moves each body: a body moves with every joint up to and including its own
+    std::map<std::string, int> last;
+    int k = -1;
+    for (const Body& b : bodies_) {
+        if (b.has_joint) ++k;
+        last[b.name] = k;
+    }
+    Joints out{};
+    for (const LinkMass& l : ls) {
+        auto it = T.find(l.body);
+        if (it == T.end()) continue;
+        Vec3 p = xform(it->second, l.com), f = {l.mass * g[0], l.mass * g[1], l.mass * g[2]};
+        for (int j = 0; j <= std::min(last[l.body], N_ARM - 1); ++j) {
+            Vec3 r = {p[0] - o[j][0], p[1] - o[j][1], p[2] - o[j][2]};
+            out[j] += dot(cross(r, f), z[j]);
+        }
+    }
+    return out;
+}
+
+Joints ArmFk::inertia_torque(const Joints& q, const Joints& qdd, const std::vector<LinkMass>& ls) const {
+    std::array<Vec3, N_ARM> o{}, z{};
+    std::map<std::string, Mat4> T;
+    joint_frames(q, o, z, &T);
+    std::map<std::string, int> last;
+    int k = -1;
+    for (const Body& b : bodies_) {
+        if (b.has_joint) ++k;
+        last[b.name] = k;
+    }
+    Joints out{};
+    for (const LinkMass& l : ls) {
+        auto it = T.find(l.body);
+        if (it == T.end()) continue;
+        Vec3 p = xform(it->second, l.com);
+        int n = std::min(last[l.body], N_ARM - 1);
+        std::array<Vec3, N_ARM> col{};
+        Vec3 a{};
+        for (int j = 0; j <= n; ++j) {
+            col[j] = cross(z[j], {p[0] - o[j][0], p[1] - o[j][1], p[2] - o[j][2]});
+            for (int i = 0; i < 3; ++i) a[i] += col[j][i] * qdd[j];
+        }
+        for (int j = 0; j <= n; ++j) out[j] += l.mass * dot(col[j], a);
+    }
+    return out;
+}
+
+Joints ArmFk::point_torque(const Joints& q, const Vec3& f, const Vec3& pg) const {
+    std::array<Vec3, N_ARM> o{}, z{};
+    std::map<std::string, Mat4> T;
+    joint_frames(q, o, z, &T);
+    Vec3 p = xform(T.at("arm_gripper"), pg);
+    Joints out{};
+    for (int j = 0; j < N_ARM; ++j) {
+        Vec3 r = {p[0] - o[j][0], p[1] - o[j][1], p[2] - o[j][2]};
+        out[j] = dot(cross(r, f), z[j]);
+    }
+    return out;
+}
+
+std::array<double, 3 * N_ARM> ArmFk::jacobian(const Joints& q, const Vec3& pg) const {
+    std::array<Vec3, N_ARM> o{}, z{};
+    std::map<std::string, Mat4> T;
+    joint_frames(q, o, z, &T);
+    Vec3 p = xform(T.at("arm_gripper"), pg);
+    std::array<double, 3 * N_ARM> J{};
+    for (int j = 0; j < N_ARM; ++j) {
+        Vec3 c = cross(z[j], {p[0] - o[j][0], p[1] - o[j][1], p[2] - o[j][2]});
+        for (int i = 0; i < 3; ++i) J[i * N_ARM + j] = c[i];
+    }
+    return J;
 }
 
 bool ArmFk::tool_out(const Joints& q) const {

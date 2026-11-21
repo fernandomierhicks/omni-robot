@@ -94,6 +94,9 @@ class ArmConfig:
         self.wrist_cam = a["wrist_cam"]
         self.capsules = a["capsules"]
         self.servos = a["servos"]
+        # each moving body's mass and centre in its own frame (the official model's; design.md 4.5)
+        self.inertials = [dict(body=l["body"], mass=float(l["mass"]), com=np.array(l["com"], float))
+                          for l in a.get("inertials", [])]
         self.keep_out = raw["keep_out"]
         self.cameras = raw["cameras"]
         self.bin = raw["bin"]
@@ -312,6 +315,85 @@ class ArmKinematics:
             if not ok:
                 return False, why
         return True, ""
+
+    # -- statics (design.md 4.5; omni_cpp's ArmFk::gravity, point_torque, jacobian) ---------------------------------
+    def joint_frames(self, q):
+        """([(axis point, axis direction)] of the five joints in base_link, {body: 4 x 4})."""
+        q = np.asarray(q, float)
+        T = np.eye(4)
+        k = 0
+        frames, bodies = [], {}
+        for name, F, ax in zip(self.bodies, self._fixed, self._axis):
+            T = T @ F
+            if ax is not None:
+                axis, jp = ax
+                if k < 5:
+                    frames.append((T[:3, :3] @ jp + T[:3, 3], T[:3, :3] @ axis))
+                T = T @ tf(None, jp) @ tf(axis_mat(axis, q[k])) @ tf(None, -jp)
+                k += 1
+            bodies[name] = T
+        return frames, bodies
+
+    def _moved_by(self) -> dict:
+        """{body: the index of the last joint that moves it}."""
+        out, k = {}, -1
+        for name, ax in zip(self.bodies, self._axis):
+            if ax is not None:
+                k += 1
+            out[name] = k
+        return out
+
+    def gravity(self, q, g=(0.0, 0.0, -9.81), links=None) -> np.ndarray:
+        """The torque (N m about each joint's axis, 6; the jaw's 0) gravity g (base_link) puts on the joints through
+        links ([{body, mass, com}], default the config's inertials)."""
+        frames, T = self.joint_frames(q)
+        g = np.asarray(g, float)
+        last = self._moved_by()
+        out = np.zeros(6)
+        for l in (self.cfg.inertials if links is None else links):
+            if l["body"] not in T:
+                continue
+            p = T[l["body"]][:3, :3] @ np.asarray(l["com"], float) + T[l["body"]][:3, 3]
+            f = l["mass"] * g
+            for j in range(min(last[l["body"]], 4) + 1):
+                o, z = frames[j]
+                out[j] += np.cross(p - o, f) @ z
+        return out
+
+    def inertia_torque(self, q, qdd, links=None) -> np.ndarray:
+        """M(q) qdd (6; the jaw's 0): each link a point mass at its centre, no Coriolis (omni_cpp inertia_torque)."""
+        frames, T = self.joint_frames(q)
+        last = self._moved_by()
+        qdd = np.asarray(qdd, float)
+        out = np.zeros(6)
+        for l in (self.cfg.inertials if links is None else links):
+            if l["body"] not in T:
+                continue
+            p = T[l["body"]][:3, :3] @ np.asarray(l["com"], float) + T[l["body"]][:3, 3]
+            n = min(last[l["body"]], 4)
+            cols = [np.cross(z, p - o) for o, z in frames[:n + 1]]
+            a = sum(c * qdd[j] for j, c in enumerate(cols))
+            for j, c in enumerate(cols):
+                out[j] += l["mass"] * (c @ a)
+        return out
+
+    def point_torque(self, q, f, p_gripper) -> np.ndarray:
+        """The torque on each joint (6) of force f (base_link, N) at p_gripper (the gripper's frame, m)."""
+        frames, T = self.joint_frames(q)
+        Tg = T["arm_gripper"]
+        p = Tg[:3, :3] @ np.asarray(p_gripper, float) + Tg[:3, 3]
+        out = np.zeros(6)
+        for j, (o, z) in enumerate(frames):
+            out[j] = np.cross(p - o, np.asarray(f, float)) @ z
+        return out
+
+    def jacobian(self, q, p_gripper=None) -> np.ndarray:
+        """d(point)/dq (3 x 5, base_link) of p_gripper (the gripper's frame; default the tool point)."""
+        frames, T = self.joint_frames(q)
+        Tg = T["arm_gripper"]
+        pg = self._tool[:3, 3] if p_gripper is None else np.asarray(p_gripper, float)
+        p = Tg[:3, :3] @ pg + Tg[:3, 3]
+        return np.stack([np.cross(z, p - o) for o, z in frames], axis=1)
 
     def tool_out(self, q) -> bool:
         """The tool is outside the bumper or high: the base runs with the "arm out" caps (design.md 11)."""

@@ -1,0 +1,390 @@
+{
+ "pack": {
+  "cells": 6,
+  "v_full": 25.2,
+  "v_nom": 22.2,
+  "v_stop": 21.0,
+  "v_min": 18.0,
+  "wh": 73.3,
+  "usable": 0.8
+ },
+ "loads": [
+  {
+   "rail": "motor",
+   "load": "drive, 4 x AK40-10, cruising",
+   "typ_W": 70.0,
+   "peak_W": null,
+   "source": "sim: cruise 68-76 W (design.md 3)"
+  },
+  {
+   "rail": "motor",
+   "load": "drive, accelerating at the traction limit at 2 m/s",
+   "typ_W": null,
+   "peak_W": 248,
+   "source": "est: mu 1, 9.63 kg, 1.65 N m / wheel (2.9 A)"
+  },
+  {
+   "rail": "motor",
+   "load": "drive, all four at peak torque at 2 m/s (not reachable on a floor)",
+   "typ_W": null,
+   "peak_W": 713,
+   "source": "ceiling: 4.1 N m, 7.3 A each (motors.csv)"
+  },
+  {
+   "rail": "12V",
+   "load": "SO-101, 6 x STS3215 12 V: holding / moving",
+   "typ_W": 12.0,
+   "peak_W": 80.0,
+   "source": "est: 2.7 A stall each (servos.csv); peak = two joints at stall + four at 0.3 A"
+  },
+  {
+   "rail": "19V",
+   "load": "computer (BMAX B8A Pro 8745HS) incl. its USB loads (D435 <= 3.5 W, A2M12 ~2.5 W, mic, adapter)",
+   "typ_W": 30.0,
+   "peak_W": 65.0,
+   "source": "est: typical robot load; peak = the maker's 19 V / 3.42 A adapter (VERIFY)"
+  },
+  {
+   "rail": "5V",
+   "load": "powered USB hub (its own draw; the Teensy and its board ride on the computer USB, in the 19 V line)",
+   "typ_W": 0.5,
+   "peak_W": 1.0,
+   "source": "est"
+  },
+  {
+   "rail": "5V",
+   "load": "5 in display (backlight)",
+   "typ_W": 3.5,
+   "peak_W": 5.0,
+   "source": "est (VERIFY on the panel)"
+  },
+  {
+   "rail": "5V",
+   "load": "speaker amp, 3 W into 4 ohm",
+   "typ_W": 0.3,
+   "peak_W": 3.6,
+   "source": "est"
+  },
+  {
+   "rail": "bat",
+   "load": "anti-spark switch (idle), INA226, INA3221",
+   "typ_W": 0.2,
+   "peak_W": 0.3,
+   "source": "est"
+  }
+ ],
+ "rails": {
+  "motor": {
+   "typ": 70.0,
+   "peak": 248,
+   "ceiling": 713.0
+  },
+  "12V": {
+   "typ": 12.0,
+   "peak": 80.0,
+   "ceiling": 0.0
+  },
+  "19V": {
+   "typ": 30.0,
+   "peak": 65.0,
+   "ceiling": 0.0
+  },
+  "5V": {
+   "typ": 4.3,
+   "peak": 9.6,
+   "ceiling": 0.0
+  },
+  "bat": {
+   "typ": 0.2,
+   "peak": 0.3,
+   "ceiling": 0.0
+  }
+ },
+ "converters": {
+  "19 V buck-boost": {
+   "out_typ_A": 1.58,
+   "out_peak_A": 3.42,
+   "in_peak_W": 70.7,
+   "in_peak_A_at_v_stop": 3.36
+  },
+  "12 V buck (arm)": {
+   "out_typ_A": 1.0,
+   "out_peak_A": 6.67,
+   "in_peak_W": 87.0,
+   "in_peak_A_at_v_stop": 4.14
+  },
+  "5 V buck": {
+   "out_typ_A": 0.86,
+   "out_peak_A": 1.92,
+   "in_peak_W": 10.7,
+   "in_peak_A_at_v_stop": 0.51
+  }
+ },
+ "converter_choice": {
+  "19 V buck-boost": "19 V, >= 5 A (95-100 W), input 16-26 V: a buck alone drops out near the 21 V stop under load; 3.4 A peak out",
+  "12 V buck (arm)": "12 V, 8 A, in the power stack (the riser buck is gone); 6.7 A peak out",
+  "5 V buck": "5 V, 5 A (25 W): 2.2 A peak out, room for a powered USB hub or a head camera later"
+ },
+ "converter_parts": {
+  "19V": {
+   "listing": "amazon.com/dp/B09KY6H4FZ",
+   "what": "DC-DC 24 V to 19 V 10 A 190 W buck, IP67",
+   "vin": [
+    22.0,
+    40.0
+   ],
+   "vout": 19.0,
+   "amps": 10.0,
+   "eff": "up to 96 % (listing)",
+   "size_mm": [
+    74.0,
+    74.0,
+    32.0
+   ],
+   "size_src": "a comparable 24-19 V 10 A potted unit (VERIFY)",
+   "issue": "input floor 22 V: a 6S pack is under 22 V for its last stretch (3.67 V / cell) and sags under it in a burst well before the 21 V stop, so the computer's supply would leave its spec: bench-test the dropout at 20-22 V and 3.4 A, or use a buck-boost"
+  },
+  "12V": {
+   "listing": "amazon.com/dp/B0F3HQ6ND8",
+   "what": "Proshopping DC-DC buck 15-90 V to 12 V 8 A 96 W, waterproof",
+   "vin": [
+    15.0,
+    90.0
+   ],
+   "vout": 12.0,
+   "amps": 8.0,
+   "eff": "not stated",
+   "size_mm": [
+    64.0,
+    57.0,
+    22.0
+   ],
+   "size_src": "comparable 96 W potted units: 64 x 57 x 22 (Gladstone M8163, ATO 72S1210Z); VERIFY"
+  },
+  "5V": {
+   "listing": "amazon.com/dp/B0CM37DX4Q",
+   "what": "LeMotech DC 12/24 V to 5 V 5 A 25 W, IP68",
+   "vin": [
+    8.0,
+    40.0
+   ],
+   "vout": 5.0,
+   "amps": 5.0,
+   "eff": "not stated",
+   "size_mm": [
+    66.0,
+    60.0,
+    22.0
+   ],
+   "size_src": "ASSUMED: comparable 5 A 25 W potted units are 66 x 60 x 22-23"
+  }
+ },
+ "battery": {
+  "typ_W": 121,
+  "typ_A_at_nom": 5.4,
+  "peak_W": 417,
+  "peak_A_at_stop": 19.8,
+  "ceiling_W": 882,
+  "ceiling_A_at_stop": 42.0,
+  "runtime_min_typ": 29
+ },
+ "fuses": {
+  "main (battery +, at the board input)": "30 A slow (ATO / mini blade): above the 20 A burst, below the 12 AWG pigtail",
+  "motor bus (after the contactor)": "20 A, or 4 x 7.5 A, one per motor XT30 (a shorted lead then stops one wheel)",
+  "19 V module input": "7.5 A",
+  "12 V module input (after the contactor)": "7.5 A",
+  "12 V out to the arm": "10 A",
+  "5 V module input": "3 A",
+  "spare XT30 out": "10 A"
+ },
+ "wires": [
+  {
+   "id": "BAT",
+   "awg": 10,
+   "peak_A": 30.0,
+   "rated_A": 40.0,
+   "ok": true
+  },
+  {
+   "id": "BAT_AS",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
+   "ok": true
+  },
+  {
+   "id": "AS_INA",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
+   "ok": true
+  },
+  {
+   "id": "INA_BLK",
+   "awg": 12,
+   "peak_A": 30.0,
+   "rated_A": 30.0,
+   "ok": true
+  },
+  {
+   "id": "M_FR",
+   "awg": 18,
+   "peak_A": 7.3,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "M_FL",
+   "awg": 18,
+   "peak_A": 7.3,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "M_RR",
+   "awg": 18,
+   "peak_A": 7.3,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "M_RL",
+   "awg": 18,
+   "peak_A": 7.3,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "BLK_12",
+   "awg": 18,
+   "peak_A": 6.0,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "BLK_5",
+   "awg": 20,
+   "peak_A": 1.5,
+   "rated_A": 7.0,
+   "ok": true
+  },
+  {
+   "id": "BLK_19",
+   "awg": 18,
+   "peak_A": 4.5,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "SIG_DOWN",
+   "awg": 26,
+   "peak_A": 0.1,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "BUTTON",
+   "awg": 24,
+   "peak_A": 0.05,
+   "rated_A": 3.5,
+   "ok": true
+  },
+  {
+   "id": "C12_OUT",
+   "awg": 18,
+   "peak_A": 6.7,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "C5_OUT",
+   "awg": 20,
+   "peak_A": 2.5,
+   "rated_A": 7.0,
+   "ok": true
+  },
+  {
+   "id": "C19_OUT",
+   "awg": 18,
+   "peak_A": 4.5,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R12",
+   "awg": 18,
+   "peak_A": 6.7,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R19",
+   "awg": 18,
+   "peak_A": 4.5,
+   "rated_A": 10.0,
+   "ok": true
+  },
+  {
+   "id": "R5_DISP",
+   "awg": 20,
+   "peak_A": 2.0,
+   "rated_A": 7.0,
+   "ok": true
+  },
+  {
+   "id": "R5_HUB",
+   "awg": 20,
+   "peak_A": 1.5,
+   "rated_A": 7.0,
+   "ok": true
+  },
+  {
+   "id": "CAN1",
+   "awg": 26,
+   "peak_A": 0.1,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "I2C_226",
+   "awg": 26,
+   "peak_A": 0.01,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "I2C_3221",
+   "awg": 26,
+   "peak_A": 0.01,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "IMU",
+   "awg": 26,
+   "peak_A": 0.05,
+   "rated_A": 2.2,
+   "ok": true
+  },
+  {
+   "id": "SPK",
+   "awg": 24,
+   "peak_A": 0.9,
+   "rated_A": 3.5,
+   "ok": true
+  },
+  {
+   "id": "STATUS",
+   "awg": 26,
+   "peak_A": 0.5,
+   "rated_A": 2.2,
+   "ok": true
+  }
+ ],
+ "computer_direct_from_battery": "no: the BMAX takes 19 V (maker: 19 V / 3.42 A); the pack is 25.2 V full, 22.2 nominal, 21 V at the stop. Feed it from the 19 V buck-boost on the battery side of the e-stop (an e-stop must not reboot the computer). Only a PC rated for a wide input (e.g. 12-28 V) could take the pack directly.",
+ "notes": [
+  "e-stop cuts the motor bus and the arm (contactor / anti-spark); the computer, MCU, lidar and face stay up",
+  "regen: the AK40-10s brake into the bus; with the contactor open at speed the back-EMF at the 44.9 rad/s cap is ~25 V (10:1, KV 170): a 30 V TVS on the motor bus (VERIFY)",
+  "all values est unless sourced; nothing measured"
+ ]
+}

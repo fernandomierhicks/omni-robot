@@ -169,6 +169,7 @@ class Bridge(Node):
                               payload=P("payload", "catch").value,  # design.md 11: "arm" = the arm robot
                               objects=P("objects", "toys").value, n_objects=P("n_objects", 6).value,
                               arm_camera=P("arm_camera", "d435").value,     # design.md 4.11: the riser D435 (stereo: earlier runs)
+                              arm_model=P("arm_model", "simple").value,     # design.md 4.5: | detailed (arm_detailed.py)
                               front_cam=P("front_cam", "none").value,       # design.md 4.12: | imx662, the forward camera
                               # the Launcher's live world (sim_world.py): person, clutter, thrower on and off
                               live_world=P("live_world", False).value, clutter=P("clutter", "off").value,
@@ -795,6 +796,13 @@ class ArmSide:
         self.idle_dt = (self.depth_dt, self.color_dt)
         self.goalie_dt = 1.0 / goalie_hz if goalie_hz > 0 else None
         node.create_subscription(Bool, "/goalie/enable", self.on_goalie, LATCHED)
+        # design.md 4.5, sim only: a person's hands on the detailed arm (ros/tools/sim_arm_cal_human.py: the arm load
+        # calibration's weights and pull) and what their ruler would read
+        self.detailed = hasattr(c.r.arm, "hang")
+        if self.detailed:
+            node.create_subscription(String, "/sim/human", self.on_human, 10)
+            self.p_truth = node.create_publisher(String, "/sim/arm_truth", 2)
+            self.t_truth = 0.0
         self.p_obj = node.create_publisher(String, "/sim/objects", 5)
         # design.md 4.12: the forward IMX662 (front_cam:=imx662), rendered while anything subscribes
         self.front = None
@@ -818,6 +826,35 @@ class ArmSide:
         node.get_logger().info(f"arm robot: servo bus on tcp:{self.port.bind}:{port},{len(c.p.floor_objects)} things on "
                                f"the floor; " + (f"the D435's depth at {d435_hz:g} Hz and on request" if self.d435
                                                  else "cameras rendered on request"))
+
+    def on_human(self, m: String):
+        """/sim/human JSON: {"op": "hang", "kg", "point" (the gripper's frame)} | {"op": "unhang"} | {"op": "push",
+        "force" (N, the robot's frame), "point"} | {"op": "release"}."""
+        try:
+            a = json.loads(m.data)
+        except ValueError:
+            return
+        arm = self.core.r.arm
+        op = a.get("op")
+        if op == "hang":
+            arm.hang(float(a["kg"]), a["point"])
+        elif op == "unhang":
+            arm.unhang()
+        elif op == "push":
+            R = self.core.d.xmat[self.core.base_id].reshape(3, 3)
+            arm.push(R @ np.asarray(a["force"], float), a["point"])
+        elif op == "release":
+            arm.push(None, None)
+        self.node.get_logger().info(f"sim human: {op}")
+
+    def publish_truth(self):
+        arm = self.core.r.arm
+        self.p_truth.publish(String(data=json.dumps(dict(
+            t=round(self.core.d.time, 3), tip_height_m=round(arm.tip_height(), 5),
+            hung=None if arm.hung is None else [arm.hung[0], arm.hung[1].tolist()],
+            winding_c=[round(float(v), 1) for v in arm.T_w], case_c=[round(float(v), 1) for v in arm.T_c],
+            masses={k: round(v["mass"], 4) for k, v in arm.mass_truth.items()},
+            compliance=[round(1.0 / s.k_flex, 4) for s in arm.truth[:5]]))))
 
     def on_goalie(self, m: Bool):
         self.depth_dt, self.color_dt = (self.goalie_dt, self.goalie_dt) if m.data and self.goalie_dt else self.idle_dt
@@ -856,6 +893,9 @@ class ArmSide:
 
     def step(self, t: float):
         self.port.exchange()
+        if self.detailed and t - self.t_truth >= 0.5:
+            self.t_truth = t
+            self.publish_truth()
         # colour first: a node that pairs each depth frame with the newest colour gets the one of this same instant
         if "color" in self.pending or (t - self.t_color >= self.color_dt and self.p_color.get_subscription_count() > 0):
             self.pending.discard("color")

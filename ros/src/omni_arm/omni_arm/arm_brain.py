@@ -26,7 +26,16 @@ Subscribes /arm/request             std_msgs/String JSON {"verb": ...} from the 
                                                                     it would hit the robot, the bumper or the floor)
                                       hold | relax                  torque on, hold here | torque off (the arm drops:
                                                                     hold it; the SO-101 has no brakes)
-           /arm/hw                  omni_interfaces/ArmHardware (5 Hz): connected, the measured joints
+                                      cal_load {quick}              the arm load calibration (omni_calib arm_load,
+                                                                    design.md 4.5): the arm moves itself and stops for
+                                                                    a person (/arm/state "cal": the prompt); a passed
+                                                                    run is written to load_model_path, the driver
+                                                                    rereads it
+                                      cal_input {value}             the person's answer to the prompt
+                                      cal_cancel                    stop the calibration, hold
+           /arm/hw                  omni_interfaces/ArmHardware (5 Hz): connected, the measured joints, the
+                                    reflex (a guarded motion the driver stopped: a tidy stops too)
+           /arm/servo               omni_interfaces/ArmServoState, only while the arm load calibration runs
            the tidy's inputs, only while it runs: odom_topic (/odom), depth_topic (+ camera_info): /stereo/depth 32FC1,
            or with config:=d435 the D435's /d435/depth/image_rect_raw 16UC1 mm (design.md 4.11); /arm_cam/image_raw
            (+ camera_info), /arm/joint_states (the task steps on each message); a find's, only while it waits: odom,
@@ -42,13 +51,15 @@ Publishes  /arm/motion              omni_interfaces/ArmMotion: the driver plays 
            /pick/cmd_vel            geometry_msgs/Twist: the task's base command (the mode manager forwards it in PICK)
            /arm/camera_request      std_msgs/String "depth" | "wrist" when the task wants a frame
 Action     /arm/follow_joint_trajectory   control_msgs/FollowJointTrajectory (played by the driver in straight lines)
-Parameters odom_topic, config ("" | d435 | a json path), depth_topic, depth_info_topic, color_topic.
+Parameters odom_topic, config ("" | d435 | a json path), depth_topic, depth_info_topic, color_topic,
+           load_model_path (where a passed arm load calibration goes; the driver's load_calibration), calib_store.
 """
 
 from __future__ import annotations
 
 import json
 import math
+import os
 import time
 from collections import deque
 
@@ -56,7 +67,7 @@ import numpy as np
 import rclpy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
-from omni_interfaces.msg import ArmHardware, ArmMotion
+from omni_interfaces.msg import ArmHardware, ArmMotion, ArmServoState
 from rclpy.action import ActionServer, CancelResponse, GoalResponse
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.node import Node
@@ -97,6 +108,11 @@ class ArmBrain(Node):
                                      (0.05, 5.0), live=self)
         self.hw_stale = p.number("hw_stale", HW_STALE, "s without /arm/hw: the driver isn't running", (0.2, 30.0),
                                  live=self)
+        state = os.path.expanduser(os.environ.get("OMNI_STATE_DIR", "~/.omni"))
+        self.load_model_path = p.text("load_model_path", os.path.join(state, "arm_load_model.json"),
+                                      "where a passed arm load calibration goes (the driver's load_calibration)")
+        self.calib_store = p.text("calib_store", os.path.join(state, "calibration"),
+                                  "omni_calib's results store (every arm load calibration run is kept)")
         self.kin = ArmKinematics(ArmConfig(config_path(config)))
         self.cfg = self.kin.cfg
         self.task = TidyTask(self.kin)
@@ -130,6 +146,11 @@ class ArmBrain(Node):
         self.find_subs: list = []              # a find's inputs while it waits (the tidy's own when it runs)
         self._find_timer = None
         self.t_found, self.t_find_pub = -math.inf, -math.inf
+        self.cal = None                        # omni_calib.arm_load.ArmLoadCal while the arm load calibration runs
+        self.cal_sub = None
+        self.cal_until = -math.inf             # its motion plays until then
+        self.cal_last = None                   # the last run's summary (for the console)
+        self.reflexes = None
         self.p_motion = self.create_publisher(ArmMotion, "/arm/motion", 10)
         self.p_find = self.create_publisher(Image, "/arm/find_image", 2)
         self.p_state = self.create_publisher(String, "/arm/state", 10)
@@ -177,6 +198,13 @@ class ArmBrain(Node):
             self.event(f"arm connected on {m.port}: holding where it is")
         elif was and not self.connected:
             self.event("servo bus lost")
+        if self.reflexes is not None and m.reflexes > self.reflexes:     # design.md 4.5: the driver's reflex
+            self.event(f"arm strained ({m.reflex or 'a joint'}): the driver stopped it and backed off")
+            if self.tidy_on:
+                self.task.stop(self.now())
+            self.motion, self.source = None, "hold"
+            self.goal = np.array(m.position)
+        self.reflexes = m.reflexes
 
     def q_now(self) -> np.ndarray:
         """The measured joints (/arm/hw's: up to 0.2 s old; the task has /arm/joint_states every cycle)."""
@@ -190,12 +218,13 @@ class ArmBrain(Node):
             return self.motion.sample(self.now())
         return self.goal.copy() if self.goal is not None else self.q_now()
 
-    def send(self, command: int, times=(), waypoints=(), interpolation: int = ArmMotion.QUINTIC):
+    def send(self, command: int, times=(), waypoints=(), interpolation: int = ArmMotion.QUINTIC,
+             guard: int = ArmMotion.GUARD_ON):
         m = ArmMotion()
         m.header.stamp = self.get_clock().now().to_msg()
         self.motion_id += 1
         m.id = self.motion_id
-        m.command, m.interpolation = command, interpolation
+        m.command, m.interpolation, m.guard = command, interpolation, guard
         m.times = [float(t) for t in times]
         m.waypoints = [float(v) for w in waypoints for v in w]
         self.p_motion.publish(m)
@@ -486,11 +515,18 @@ class ArmBrain(Node):
         if verb == "find":                     # the cameras alone: no servo bus needed
             self._find(a)
             return
+        if verb in ("cal_load", "cal_input", "cal_cancel"):
+            self._cal_request(verb, a)
+            return
         t = self.now()
         if not self.connected or t - self.t_hw > self.hw_stale:
             self.event(f"{verb}: the arm isn't connected")
             return
         q = self.q_now()
+        if self.cal is not None and verb in ("tidy", "place", "pose", "gripper", "jog", "stop", "hold", "relax"):
+            self._cal_end("cancelled: " + verb)            # anything else takes the arm back
+            if verb == "stop":
+                return
         if verb in ("tidy", "stop", "pose", "gripper", "jog", "hold", "relax") and self.traj_goal is not None:
             self.traj_goal = None            # any request takes over from a trajectory: the driver stops it here
             self.send(ArmMotion.HOLD)
@@ -563,6 +599,105 @@ class ArmBrain(Node):
             self._end_tidy()
         self.motion = None
 
+    # -- the arm load calibration (omni_calib arm_load, design.md 4.5) ----------------------------------------------
+    def _cal_request(self, verb: str, a: dict):
+        from omni_calib.arm_load import ArmLoadCal
+        if verb == "cal_load":
+            if self.cal is not None or self.tidy_on or self.starting or self.traj_goal is not None:
+                self.event("arm load calibration: " + ("it runs already" if self.cal is not None else "the arm is busy"))
+                return
+            if not self.connected or self.now() - self.t_hw > self.hw_stale:
+                self.event("arm load calibration: the arm isn't connected")
+                return
+            self.motion, self.source = None, "calibrate"
+            self.cal = ArmLoadCal(self.kin, seed=int(a.get("seed", 0)), quick=bool(a.get("quick", False)),
+                                  log=self.get_logger().info)
+            self.cal_until = -math.inf
+            self.cal_sub = self.create_subscription(ArmServoState, "/arm/servo", self.on_servo, 10)
+            self.event(f"arm load calibration: {len(self.cal.steps)} steps")
+            self.publish_state()
+        elif verb == "cal_input":
+            if self.cal is None:
+                return
+            ok, why = self.cal.answer(a.get("value", True))
+            if not ok:
+                self.event(f"arm load calibration: {why}")
+            self.publish_state()
+        else:
+            self._cal_end("cancelled")
+
+    def on_servo(self, m: ArmServoState):
+        cal = self.cal
+        if cal is None:
+            return
+        t = self.now()
+        hw = self.hw
+        serious = any(int(b) & (4 | 8) for b in m.status)            # overheat or over-current: stop
+        obs = dict(t=t, q=list(m.position), q_enc=list(m.position_raw), duty=list(m.duty), volts=list(m.volts),
+                   temp=[float(v) for v in m.temp_c], current=list(m.current) if len(m.current) else [0.0] * 6,
+                   w=list(m.velocity), goal_vel=list(m.goal_velocity), goal_acc=list(m.goal_acceleration),
+                   g=list(m.gravity_vec), moving=t < self.cal_until, ok=not serious and hw is not None and hw.connected)
+        prompt = cal.prompt
+        for act in cal.step(t, obs):
+            op = act["op"]
+            here = np.array(m.goal) if len(m.goal) == 6 else self.q_now()
+            if op == "move":
+                P = self.task.poses
+                path, why = mo.plan_checked(self.kin, here, np.asarray(act["q"], float),
+                                            via=[P[n] for n in ("high", "ready") if n in P])
+                if path is None:
+                    cal.refused(why)
+                    continue
+                mot = mo.Motion(path, mo.speeds(self.kin) * act.get("frac", 0.3) / mo.SPEED_FRAC, t)
+                self.send(ArmMotion.MOVE, mot.t, mot.q, guard=ArmMotion.GUARD_OFF)
+                self.cal_until = mot.t_end + 0.06
+            elif op == "line":
+                if not self.kin.path_clear(act["q0"], act["q1"])[0]:
+                    cal.refused("the sweep isn't clear")
+                    continue
+                self.send(ArmMotion.MOVE, [t, t + act["duration"]], [act["q0"], act["q1"]], ArmMotion.LINEAR,
+                          guard=ArmMotion.GUARD_OFF)
+                self.cal_until = t + act["duration"] + 0.06
+            elif op == "done":
+                self._cal_finish(act.get("result"))
+                return
+        if cal.prompt is not prompt:
+            self.publish_state()
+
+    def _cal_finish(self, result):
+        from omni_calib.results import Store
+        cal = self.cal
+        if result is None:
+            self._cal_end(cal.why or "no result")
+            return
+        run = Store(self.calib_store).add("arm_load", "arm_load", result["value"], result["metrics"],
+                                          method=f"{len(cal.records)} records, the console's procedure")
+        if run["passed"]:
+            tmp = self.load_model_path + ".tmp"
+            os.makedirs(os.path.dirname(self.load_model_path) or ".", exist_ok=True)
+            with open(tmp, "w") as f:
+                json.dump(dict(result["value"], source=f"arm_load {time.strftime('%Y-%m-%d %H:%M')}"), f, indent=1,
+                          default=float)
+            os.replace(tmp, self.load_model_path)        # the driver rereads it
+            self.event(f"arm load calibration passed: {result['summary']}; applied")
+        else:
+            self.event(f"arm load calibration kept but not applied ({'; '.join(run['failures'])}): {result['summary']}")
+        self.cal_last = dict(summary=result["summary"], passed=run["passed"], failures=run["failures"],
+                             metrics={k: v for k, v in result["metrics"].items() if not isinstance(v, dict)})
+        self._cal_end(None)
+
+    def _cal_end(self, why):
+        if self.cal_sub is not None:
+            self.destroy_subscription(self.cal_sub)
+        self.cal_sub = None
+        if why:
+            self.event(f"arm load calibration: {why}")
+            self.cal_last = dict(summary=why, passed=False, failures=[], metrics={})
+        self.cal = None
+        self.send(ArmMotion.HOLD)
+        self.goal, self.motion, self.source = self.q_now(), None, "hold"
+        self.publish_state()
+
     def _move_to(self, q, target, name):
         t = self.now()
         P = self.task.poses
@@ -625,7 +760,8 @@ class ArmBrain(Node):
         up = self.connected and self.now() - self.t_hw < self.hw_stale
         s = dict(connected=bool(up), source=self.source, port=self.hw.port if self.hw is not None else "",
                  tidy=self.task.status() if (self.tidy_on or self.task.state != "IDLE") else None,
-                 tidy_on=self.tidy_on, events=list(self.events), found=self.finder.result)
+                 tidy_on=self.tidy_on, events=list(self.events), found=self.finder.result,
+                 cal=self.cal.status() if self.cal is not None else None, cal_last=self.cal_last)
         if self.hw is not None:
             s["wrist_cam"] = camera_view(self.kin, np.array(self.hw.position))
         self.p_state.publish(String(data=json.dumps(s)))

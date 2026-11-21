@@ -321,7 +321,7 @@ TEENSY_NETS = {
     "22/CTX1": "CAN1_TX", "23/CRX1": "CAN1_RX", "24": "CAM_TRIG", "25": "SYNC_OUT", "26": "CAM_STROBE",
     "27": "SP_D27", "28": "LED_R", "29": "LED_G", "30/CRX3": "CAN3_RX", "31/CTX3": "CAN3_TX", "32": "SP_D32",
     "33": "SP_D33", "34": "SP_D34", "35": "NEO_3V3", "36": "SP_D36", "37": "SP_D37", "38/A14": "SP_D38",
-    "39/A15": "SP_A15", "40/A16": "SP_A16", "41/A17": "VBUS_ADC",
+    "39/A15": "SP_A15", "40/A16": "SP_A16", "41/A17": "SP_A17",
 }
 # what the firmware's pin map must change to match this board (tools/check.py reports these)
 FIRMWARE_TO_CHANGE = {
@@ -333,6 +333,8 @@ FIRMWARE_TO_CHANGE = {
     "V_12": "pin 40 is a spare: the rails are measured by the INA3221 (I2C)",
     "I_BUS": "pin 39 is a spare: currents are measured by the INA3221 / INA226 (I2C)",
     "LED": "pin 28 is now LED_R of the RGB status LED (with 29 G, 5 B), driven directly",
+    "V_BUS": "pin 41 is a spare (no divider): the pack voltage is the INA226's bus voltage (I2C, 0x41); "
+             "a missing or stale reading must count as low (the 21 V stop fails safe)",
 }
 
 
@@ -386,13 +388,6 @@ def c(s, ref, x, y, value, top, bottom, polarized=False):
     s.connect(ref, "2", bottom)
 
 
-def node_out(s, net, a, b):
-    """a wire from a to b ending in a label (direction a -> b)"""
-    s.wire(a, b)
-    d = (1 if b[0] > a[0] else -1 if b[0] < a[0] else 0, 1 if b[1] > a[1] else -1 if b[1] < a[1] else 0)
-    s.label(net, b, d)
-
-
 def low_side(s, q, rpd, x, y, gate, drain, value="2N7000"):
     """2N7000 low-side switch, gate straight from the pin with a 100k pull-down (off at reset)"""
     s.part(q, "Transistor_FET:Q_NMOS_SGD", x, y, value, TO92, ref_at=(5.08, 2.54), val_at=(5.08, 5.08))
@@ -436,7 +431,7 @@ def build() -> Sheet:
            "the 3-pad jumper sets the bias: 1-2 = pull-up, 2-3 = pull-down.", 50.8, y, size=1.524)
     y = spare(s, "J18", 83.82, y + 12.7, ["GND", "SP_D32", "SP_D33", "SP_D36", "SP_D37", "SP_D38"], "J18: GPIO",
               note="32, 33 [beams]; 36 [IR]; 37 [bumper]; 38 A14")
-    spare(s, "J19", 83.82, y, ["+3V3", "GND", "SP_A15", "SP_D34"], "J19: analog + GPIO", note="39 = A15, 34")
+    spare(s, "J19", 83.82, y, ["+3V3", "GND", "SP_A15", "SP_D34", "SP_A17"], "J19: analog + GPIO", note="39 = A15, 34, 41 = A17")
 
     # ===== column B: CAN buses, buzzer, RGB LED, NeoPixel
     X = 210.82
@@ -483,32 +478,18 @@ def build() -> Sheet:
     r(s, "R26", X - 20.32, yy + 7.62, "330R", "NEO_3V3", "NEO_DIN")
     conn(s, "J20", X + 12.7, yy - 2.54, ["+5V", "NEO_DIN", "GND"], "J20: NeoPixel (1 +5V, 2 DIN, 3 GND)")
 
-    # ===== column C: pack voltage, I2C power monitors, spares
+    # ===== column C: I2C power monitors, spares
+    # Nov 19 (Fernando): no pack divider (was J1 + 100k / 10k on A17): the INA226 on the pack's high side reads the pack
+    # voltage too (its bus voltage, 0-36 V), so pin 41 is a spare on J19
     X = 340.36
-    y = conn(s, "J1", X, 48.26, ["VBUS_IN", "GND"], "J1: pack voltage sense",
-             note="1 pack + (after the main switch and fuse), 2 GND")
-    s.note("Pack voltage (pin 41 = A17; firmware V_BUS_DIVIDER 11.0)", X - 33.02, y, size=1.778, bold=True)
-    x0, y0 = X - 25.4, y + 20.32
-    s.part("R1", "Device:R", x0, y0, "100k", R_TH)
-    s.connect("R1", "1", "VBUS_IN")
-    s.part("R2", "Device:R", x0, y0 + 7.62, "10k", R_TH)
-    s.connect("R2", "2", "GND")
-    s.part("C1", "Device:C", x0 + 10.16, y0 + 7.62, "100n", C_TH)
-    s.connect("C1", "2", "GND")
-    j, cp = (x0, y0 + 3.81), (x0 + 10.16, y0 + 3.81)
-    s.wire(j, cp)
-    s.junction(j)
-    s.junction(cp)
-    node_out(s, "VBUS_ADC", cp, (x0 + 17.78, y0 + 3.81))
-    s.same_net("VBUS_ADC", ("R1", "2"), ("R2", "1"), ("C1", "1"))
-    s.note("0-36 V in -> 0-3.3 V; analog, so the 21 V stop needs no I2C", x0 - 5.08, y0 + 22.86)
-    y += 48.26
+    y = 48.26
     s.note("Power monitors on I2C (Wire, 18 / 19), in the power stack on cables", X - 33.02, y, size=1.778, bold=True)
     y = conn(s, "J12", X, y + 5.08, ["+3V3", "GND", "I2C_SDA", "I2C_SCL"], "J12: INA3221 (arm 12 V, 19 V, 5 V)",
              note="1 VS 3V3, 2 GND, 3 SDA, 4 SCL; address 0x40")
-    y = conn(s, "J21", X, y, ["+3V3", "GND", "I2C_SDA", "I2C_SCL"], "J21: INA226 (robot total current)",
+    y = conn(s, "J21", X, y, ["+3V3", "GND", "I2C_SDA", "I2C_SCL"], "J21: INA226 (robot total current, pack voltage)",
              note="same bus; set its address to 0x41 (both modules default to 0x40)\n"
-                  "external 50 A / 75 mV shunt; the modules' pull-ups serve the bus")
+                  "external 50 A / 75 mV shunt; the modules' pull-ups serve the bus\n"
+                  "its bus voltage is the pack (VBUS to the pack side): the 21 V stop reads it")
     y = spare(s, "J11", X, y, ["GND", "+3V3", "SP_D0", "SP_D1", "SP_D27", "SP_A16"], "J11: Serial1, GPIO",
               note="0 RX1, 1 TX1, 27, 40 = A16")
     spare(s, "J16", X, y, ["GND", "+3V3", "SP_D14", "SP_D15", "SP_D16", "SP_D17"], "J16: Serial3, Serial4",
@@ -534,6 +515,26 @@ def build() -> Sheet:
 
 
 # ---------------------------------------------------------------------------------------------- project files
+def model3d(path, offset=(0, 0, 0), rot_z=0):
+    """a footprint's 3D model line: offset in KiCad's 3D frame (mm; y up, i.e. the footprint's -y; z up from the board's top);
+    KiCad turns the model by -rot_z about z (a file rotate of 90 turns the model's +x to the footprint's 3D -y)"""
+    return (f'  (model "{path}" (offset (xyz {offset[0]:g} {offset[1]:g} {offset[2]:g})) (scale (xyz 1 1 1)) '
+            f'(rotate (xyz 0 0 {rot_z:g})))')
+
+
+SOCKET_H = 8.5                      # KiCad's PinSocket vertical body
+# Fernando's Teensy 4.1 model (models/teensy_4_1.step, copied from cad/v16/reference/electronics: his SolidWorks part): USB at -x, centred on its
+# board, the board z -0.8..0.8, its male headers' plastic z -3.61..-1.11 and pins to -10.31. Seated on the sockets, the plastic sits on
+# their tops: z + 8.5 + 3.61.
+TEENSY_Z = SOCKET_H + 3.61
+# The SN65HVD230 module's model (models/can.step from cad/v16/reference/electronics: x 0..16.4, its board y 0..1 and the transceiver
+# y 1..2, z -14.65..0; its six pin holes at z -1.06, centred on x 8.68, its two mounting holes at z -12.65). Standing in its 1x6 socket:
+# turned over (rotate x 180) so the pin holes are down, on a male header (plastic 2.5) on the socket, the pin row centred on the
+# socket's (y -6.35), its board centred over the pins. KiCad turns x first, then z: model (x, y, z) -> (-y, -x, -z) + offset.
+CAN_MODEL = ("${KIPRJMOD}/models/can_colour.step", (0.5, 8.68 - 6.35, SOCKET_H + 2.5), (180, 0, 90))
+# (the *_colour.step copies: tools/paint_models.py paints the two uncoloured models)
+
+
 def teensy_footprint() -> str:
     pads = []
     for i in range(48):
@@ -554,7 +555,10 @@ def teensy_footprint() -> str:
             f'  (tags "Teensy 4.1 socket")\n'
             f'  (property "Reference" "U1" (at 7.62 -4.5 0) (layer "F.SilkS") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
             f'  (property "Value" "Teensy41_Socket" (at 7.62 62 0) (layer "F.Fab") (uuid "{uid()}") (effects (font (size 1 1) (thickness 0.15))))\n'
-            f"  (attr through_hole)\n{silk}\n" + "\n".join(pads) + "\n  (embedded_fonts no)\n)\n")
+            f"  (attr through_hole)\n{silk}\n" + "\n".join(pads) + "\n  (embedded_fonts no)\n"
+            + model3d("${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x24_P2.54mm_Vertical.step") + "\n"
+            + model3d("${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x24_P2.54mm_Vertical.step", (15.24, 0, 0)) + "\n"
+            + model3d("${KIPRJMOD}/models/teensy_4_1_colour.step", (7.62, -29.21, TEENSY_Z), 90) + "\n)\n")
 
 
 def buzzer_footprint() -> str:
@@ -578,7 +582,8 @@ def buzzer_footprint() -> str:
             f'(remove_unused_layers no) (uuid "{uid()}"))\n'
             f'  (pad "2" thru_hole oval (at 7.05 0) (size 2.9 1.9) (drill oval 2.0 0.9) (layers "*.Cu" "*.Mask") '
             f'(remove_unused_layers no) (uuid "{uid()}"))\n'
-            f'  (embedded_fonts no)\n)\n')
+            f'  (embedded_fonts no)\n'
+            + model3d("${KIPRJMOD}/models/buzzer_12085.step") + "\n)\n")
 
 
 ELRS_FP = "ELRS_Rx_Socket_1x04_P2.54mm"
@@ -600,9 +605,7 @@ def elrs_footprint() -> str:
         return (f'  (fp_rect (start {a[0]} {a[1]}) (end {b[0]} {b[1]}) (stroke (width {w}) (type solid)) (fill no) '
                 f'(layer "{layer}") (uuid "{uid()}"))')
 
-    def model(path):
-        return f'  (model "{path}" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))'
-
+    model = model3d
     silk = [line((-1.33, 1.27), (-1.33, 8.95), "F.SilkS", 0.12), line((-1.33, 1.27), (1.33, 1.27), "F.SilkS", 0.12),
             line((-1.33, 8.95), (1.33, 8.95), "F.SilkS", 0.12), line((0, -1.33), (1.33, -1.33), "F.SilkS", 0.12),
             line((1.33, -1.33), (1.33, 0), "F.SilkS", 0.12), line((1.33, 1.27), (1.33, 8.95), "F.SilkS", 0.12),

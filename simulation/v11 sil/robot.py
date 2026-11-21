@@ -125,7 +125,12 @@ class Robot:
         self.a_wheel = [model.actuator(f"wheel{i}").id for i in range(1, nw + 1)]
         # payload "arm" (design.md 15): no catch module, so no flywheels, trigger or tilt; the arm's servos instead
         catch = self.has_catch = p.payload == "catch"
-        self.arm = arm_so101.ArmServos(model, data, arm_so101.start_pose(p)) if p.payload == "arm" else None
+        self.arm = None
+        if p.payload == "arm" and getattr(p, "arm_model", "simple") == "detailed":   # design.md 4.5: arm_detailed.py
+            import arm_detailed
+            self.arm = arm_detailed.DetailedArm(model, data, p, arm_so101.start_pose(p), seed=p.arm_seed)
+        elif p.payload == "arm":
+            self.arm = arm_so101.ArmServos(model, data, arm_so101.start_pose(p))
         self.a_fly = [model.actuator(f"flywheel_{s}").id for s in "LR"] if catch else []
         # trigger: the trapdoor / plunger position servo, or (roller feed) the two feed-wheel gearmotors
         self.a_feed = [model.actuator(f"feed_{s}").id for s in "LR"] if p.feed_wheels and catch else []

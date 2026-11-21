@@ -116,8 +116,13 @@ export function ArmTab() {
           ${a && a.ok === false && html`<span class="badge red" style="margin-left: 4px">servo fault</span>`}</h2>
         ${a?.joints ? html`<div class="kv">
           ${a.names.map((/** @type {string} */ n, /** @type {number} */ k) => html`<span class="k">${n.replace("_", " ")}</span>
-            <span class="mono">${a.joints[k].toFixed(1)}°  load ${Math.round(a.loads[k] * 100)}%  ${a.temps[k]} °C</span>`)}
+            <span class="mono">${a.joints[k].toFixed(1)}°  load ${Math.round(a.loads[k] * 100)}%  ${a.temps[k]} °C${
+              a.external && k < 5 ? `  push ${a.external[k] >= 0 ? "+" : ""}${a.external[k].toFixed(2)} N m` : ""}${
+              a.strained?.[k] ? "  STRAINED" : ""}</span>`)}
           <span class="k">supply</span><span class="mono">${a.volts} V</span>
+          ${a.force && html`<span class="k" title="The outside torques as one force at the fingertip (design.md 4.5)">outside force</span>
+            <span class="mono">${Math.hypot(...a.force).toFixed(1)} N (${a.force.map((/** @type {number} */ f) => f.toFixed(1)).join(", ")})</span>`}
+          ${a.load_model && html`<span class="k">load model</span><span>${a.load_model}${a.reflexes ? `, ${a.reflexes} reflexes${a.reflex ? ` (last: ${a.reflex})` : ""}` : ""}</span>`}
           <span class="k">moved by</span><span>${a.source}</span>
         </div>` : html`<p class="dim">No arm state.</p>`}
       </div>

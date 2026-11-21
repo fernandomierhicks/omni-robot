@@ -1,0 +1,788 @@
+[
+ {
+  "seed": 0,
+  "calibration": {
+   "seed": 0,
+   "quick": false,
+   "refit": "C:\\Users\\ferna\\AppData\\Local\\Temp\\claude\\1f3bf725fee54378\\6dd30252-d20c-40c9-8bed-c3aaabfd0645\\scratchpad\\rec\\records_seed0.pkl",
+   "records": 5981,
+   "sim_s": null,
+   "temps": null,
+   "bus": null,
+   "human": {
+    "weights": {
+     "A": 0.16344740720652548,
+     "B": 0.33045387598651377
+    },
+    "hang_mm": {
+     "A": 9.57684644937175,
+     "B": 8.123735695572767
+    },
+    "points": {
+     "A": [
+      -0.0135,
+      0.0,
+      -0.09442315355062825
+     ],
+     "B": [
+      -0.0135,
+      0.0,
+      -0.09587626430442722
+     ]
+    }
+   },
+   "truth": {
+    "masses": {
+     "arm_shoulder": 0.111,
+     "arm_upper_arm": 0.1018,
+     "arm_lower_arm": 0.1109,
+     "arm_wrist": 0.0773,
+     "arm_gripper": 0.0908,
+     "arm_jaw": 0.0114
+    },
+    "compliance": [
+     0.0113,
+     0.014,
+     0.0196,
+     0.0262,
+     0.024
+    ],
+    "cal_err_deg": [
+     0.47,
+     0.09,
+     0.47,
+     0.15,
+     0.96
+    ]
+   },
+   "model_path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\simulation\\v11 sil\\studies\\results\\arm_load_seed0.json",
+   "metrics": {
+    "static_rms_nm": 0.08484776810196955,
+    "weight_err_n": 1.1750475587295854,
+    "ruler_rms_mm": 0.9758652273266885,
+    "per_joint_rms_nm": [
+     0.004397071582295501,
+     0.15983871023464483,
+     0.09240419085430987,
+     0.042611265699578744,
+     0.008585847628138299
+    ],
+    "nominal_static_rms_nm": 0.2904029537090323,
+    "nominal_weight_err_n": 2.8926154070742505,
+    "nominal_ruler_rms_mm": 3.1457490944558684,
+    "sweep_rms_nm": [
+     0.04017702501676668,
+     0.24103463595950064,
+     0.20474998019259277,
+     0.10049764464965158,
+     0.03501215392083954
+    ],
+    "records": 5981,
+    "use_current": false,
+    "pull": {
+     "calibrated": [
+      2.2332259047514595,
+      0.21474041891006096,
+      1.2039130951617631
+     ],
+     "nominal": [
+      1.7641467966342177,
+      0.3459945178790706,
+      2.0546510967959644
+     ],
+     "scale_n": 4.905
+    }
+   },
+   "summary": "still torque 0.085 N m rms (nominal 0.290), weight 1.18 N (nominal 2.89), heights 1.0 mm (nominal 3.1)"
+  },
+  "legacy": {
+   "label": "legacy",
+   "still": {
+    "rms_nm": 0.2796,
+    "per_joint_rms_nm": [
+     0.0054,
+     0.4692,
+     0.3885,
+     0.1395,
+     0.0145
+    ],
+    "weight_force_err_n": 2.771,
+    "unloaded_outside_seen": 12,
+    "n": 24
+   },
+   "moves": {
+    "moves": 24,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     2.26,
+     2.58,
+     2.78,
+     2.57,
+     2.39
+    ]
+   },
+   "press": {
+    "fired": false,
+    "contact": true,
+    "peak_force_before_reflex_n": 25.19
+   },
+   "push": {
+    "fired": false,
+    "seen_n": 0.0
+   },
+   "reach": {
+    "rms_mm": 10.15,
+    "vertical_rms_mm": 3.13,
+    "n": 9
+   },
+   "temps": [
+    25,
+    25,
+    27,
+    25,
+    25,
+    25
+   ]
+  },
+  "nominal": {
+   "label": "nominal",
+   "still": {
+    "rms_nm": 0.2791,
+    "per_joint_rms_nm": [
+     0.0064,
+     0.4722,
+     0.3858,
+     0.1318,
+     0.0133
+    ],
+    "weight_force_err_n": 2.747,
+    "unloaded_outside_seen": 12,
+    "n": 24
+   },
+   "moves": {
+    "moves": 24,
+    "false_reflexes": 24,
+    "peak_over_threshold": [
+     2.31,
+     3.09,
+     3.02,
+     2.46,
+     2.39
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.628,
+    "force_at_reflex_n": 20.51,
+    "joints": [
+     1
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 20.71
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.04,
+    "force_n": 8.89,
+    "joints": [
+     2
+    ]
+   },
+   "reach": {
+    "rms_mm": 5.81,
+    "vertical_rms_mm": 1.42,
+    "n": 9
+   },
+   "temps": [
+    25,
+    25,
+    26,
+    24,
+    25,
+    25
+   ]
+  },
+  "calibrated": {
+   "label": "calibrated",
+   "still": {
+    "rms_nm": 0.1831,
+    "per_joint_rms_nm": [
+     0.004,
+     0.3034,
+     0.259,
+     0.0918,
+     0.0093
+    ],
+    "weight_force_err_n": 1.884,
+    "unloaded_outside_seen": 12,
+    "n": 24
+   },
+   "moves": {
+    "moves": 24,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     0.65,
+     1.59,
+     1.19,
+     1.31,
+     0.62
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.424,
+    "force_at_reflex_n": 11.86,
+    "joints": [
+     3
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 11.95
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.0,
+    "force_n": 5.47,
+    "joints": [
+     0
+    ]
+   },
+   "reach": {
+    "rms_mm": 4.7,
+    "vertical_rms_mm": 2.32,
+    "n": 9
+   },
+   "temps": [
+    25,
+    25,
+    26,
+    24,
+    25,
+    25
+   ]
+  }
+ },
+ {
+  "seed": 1,
+  "calibration": {
+   "seed": 1,
+   "quick": false,
+   "refit": "C:\\Users\\ferna\\AppData\\Local\\Temp\\claude\\1f3bf725fee54378\\6dd30252-d20c-40c9-8bed-c3aaabfd0645\\scratchpad\\rec\\records_seed1.pkl",
+   "records": 6004,
+   "sim_s": null,
+   "temps": null,
+   "bus": null,
+   "human": {
+    "weights": {
+     "A": 0.13253710717277065,
+     "B": 0.3077054050766412
+    },
+    "hang_mm": {
+     "A": 12.174360573287153,
+     "B": 8.170412360380597
+    },
+    "points": {
+     "A": [
+      -0.0135,
+      0.0,
+      -0.09182563942671285
+     ],
+     "B": [
+      -0.0135,
+      0.0,
+      -0.09582958763961939
+     ]
+    }
+   },
+   "truth": {
+    "masses": {
+     "arm_shoulder": 0.0885,
+     "arm_upper_arm": 0.1171,
+     "arm_lower_arm": 0.1078,
+     "arm_wrist": 0.0855,
+     "arm_gripper": 0.0775,
+     "arm_jaw": 0.0124
+    },
+    "compliance": [
+     0.0101,
+     0.0125,
+     0.0176,
+     0.0219,
+     0.0326
+    ],
+    "cal_err_deg": [
+     -2.04,
+     -0.47,
+     -0.32,
+     -0.54,
+     -0.71
+    ]
+   },
+   "model_path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\simulation\\v11 sil\\studies\\results\\arm_load_seed1.json",
+   "metrics": {
+    "static_rms_nm": 0.09086051742961546,
+    "weight_err_n": 1.0949844288945576,
+    "ruler_rms_mm": 0.5937899702526576,
+    "per_joint_rms_nm": [
+     0.004605963610624597,
+     0.12954070582092497,
+     0.14419494567229477,
+     0.06000197264727561,
+     0.009150939488434628
+    ],
+    "nominal_static_rms_nm": 0.29332264739457165,
+    "nominal_weight_err_n": 2.399595097667499,
+    "nominal_ruler_rms_mm": 1.349129608590476,
+    "sweep_rms_nm": [
+     0.04035743533302369,
+     0.19136741035156127,
+     0.18943698786562294,
+     0.09407369202307568,
+     0.03535500809019289
+    ],
+    "records": 6004,
+    "use_current": false,
+    "pull": {
+     "calibrated": [
+      1.8400666745282523,
+      -0.23365247126781488,
+      1.3259373373540637
+     ],
+     "nominal": [
+      1.5730542790457342,
+      -0.3748372297721669,
+      2.1349319745755797
+     ],
+     "scale_n": 5.886000000000001
+    }
+   },
+   "summary": "still torque 0.091 N m rms (nominal 0.293), weight 1.09 N (nominal 2.40), heights 0.6 mm (nominal 1.3)"
+  },
+  "legacy": {
+   "label": "legacy",
+   "still": {
+    "rms_nm": 0.2284,
+    "per_joint_rms_nm": [
+     0.0055,
+     0.321,
+     0.3755,
+     0.129,
+     0.0124
+    ],
+    "weight_force_err_n": 2.602,
+    "unloaded_outside_seen": 10,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     2.01,
+     2.89,
+     2.86,
+     2.45,
+     2.25
+    ]
+   },
+   "press": {
+    "fired": false,
+    "contact": true,
+    "peak_force_before_reflex_n": 24.23
+   },
+   "push": {
+    "fired": false,
+    "seen_n": 0.02
+   },
+   "reach": {
+    "rms_mm": 5.98,
+    "vertical_rms_mm": 1.24,
+    "n": 5
+   },
+   "temps": [
+    25,
+    24,
+    26,
+    22,
+    24,
+    24
+   ]
+  },
+  "nominal": {
+   "label": "nominal",
+   "still": {
+    "rms_nm": 0.2285,
+    "per_joint_rms_nm": [
+     0.0063,
+     0.3213,
+     0.3756,
+     0.1286,
+     0.0136
+    ],
+    "weight_force_err_n": 2.541,
+    "unloaded_outside_seen": 10,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 23,
+    "peak_over_threshold": [
+     2.34,
+     3.43,
+     3.07,
+     2.48,
+     2.19
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.624,
+    "force_at_reflex_n": 19.24,
+    "joints": [
+     1
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 19.79
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.74,
+    "force_n": 8.44,
+    "joints": [
+     2
+    ]
+   },
+   "reach": {
+    "rms_mm": 7.34,
+    "vertical_rms_mm": 0.38,
+    "n": 5
+   },
+   "temps": [
+    25,
+    24,
+    24,
+    22,
+    24,
+    24
+   ]
+  },
+  "calibrated": {
+   "label": "calibrated",
+   "still": {
+    "rms_nm": 0.1409,
+    "per_joint_rms_nm": [
+     0.0035,
+     0.1894,
+     0.2362,
+     0.0863,
+     0.0096
+    ],
+    "weight_force_err_n": 1.833,
+    "unloaded_outside_seen": 12,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     0.74,
+     0.94,
+     0.76,
+     0.72,
+     0.75
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.375,
+    "force_at_reflex_n": 10.62,
+    "joints": [
+     3
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 10.71
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.02,
+    "force_n": 5.92,
+    "joints": [
+     0
+    ]
+   },
+   "reach": {
+    "rms_mm": 5.93,
+    "vertical_rms_mm": 0.72,
+    "n": 5
+   },
+   "temps": [
+    25,
+    25,
+    24,
+    22,
+    24,
+    24
+   ]
+  }
+ },
+ {
+  "seed": 2,
+  "calibration": {
+   "seed": 2,
+   "quick": false,
+   "refit": "C:\\Users\\ferna\\AppData\\Local\\Temp\\claude\\1f3bf725fee54378\\6dd30252-d20c-40c9-8bed-c3aaabfd0645\\scratchpad\\rec\\records_seed2.pkl",
+   "records": 5915,
+   "sim_s": null,
+   "temps": null,
+   "bus": null,
+   "human": {
+    "weights": {
+     "A": 0.14571276697628965,
+     "B": 0.3259708335363516
+    },
+    "hang_mm": {
+     "A": 11.296972923596597,
+     "B": 15.595769978310546
+    },
+    "points": {
+     "A": [
+      -0.0135,
+      0.0,
+      -0.0927030270764034
+     ],
+     "B": [
+      -0.0135,
+      0.0,
+      -0.08840423002168946
+     ]
+    }
+   },
+   "truth": {
+    "masses": {
+     "arm_shoulder": 0.0968,
+     "arm_upper_arm": 0.1162,
+     "arm_lower_arm": 0.1169,
+     "arm_wrist": 0.0817,
+     "arm_gripper": 0.0843,
+     "arm_jaw": 0.0116
+    },
+    "compliance": [
+     0.01,
+     0.0151,
+     0.0211,
+     0.0232,
+     0.0358
+    ],
+    "cal_err_deg": [
+     0.41,
+     0.54,
+     -1.34,
+     1.8,
+     -0.79
+    ]
+   },
+   "model_path": "C:\\Dropbox\\Personal Projects\\Robotics\\omni-robot\\simulation\\v11 sil\\studies\\results\\arm_load_seed2.json",
+   "metrics": {
+    "static_rms_nm": 0.0824737150173406,
+    "weight_err_n": 1.0733882267900174,
+    "ruler_rms_mm": 0.6378789027383688,
+    "per_joint_rms_nm": [
+     0.0041019147646037726,
+     0.12653832685923225,
+     0.12614670472826436,
+     0.044804591192248784,
+     0.007768652974173966
+    ],
+    "nominal_static_rms_nm": 0.27097494316879445,
+    "nominal_weight_err_n": 2.529047561093122,
+    "nominal_ruler_rms_mm": 3.1964474953626536,
+    "sweep_rms_nm": [
+     0.04042149019735296,
+     0.2261976409594248,
+     0.21338543272286428,
+     0.09225735125593251,
+     0.035696187674662205
+    ],
+    "records": 5915,
+    "use_current": false,
+    "pull": {
+     "calibrated": [
+      1.840967023382445,
+      -0.04674545314030375,
+      1.3011357002878976
+     ],
+     "nominal": [
+      1.5897497177987105,
+      -0.06547788812293527,
+      2.2361780703830947
+     ],
+     "scale_n": 4.4145
+    }
+   },
+   "summary": "still torque 0.082 N m rms (nominal 0.271), weight 1.07 N (nominal 2.53), heights 0.6 mm (nominal 3.2)"
+  },
+  "legacy": {
+   "label": "legacy",
+   "still": {
+    "rms_nm": 0.1853,
+    "per_joint_rms_nm": [
+     0.0057,
+     0.2982,
+     0.2677,
+     0.1047,
+     0.0126
+    ],
+    "weight_force_err_n": 2.46,
+    "unloaded_outside_seen": 6,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     1.5,
+     2.65,
+     2.92,
+     2.42,
+     2.15
+    ]
+   },
+   "press": {
+    "fired": false,
+    "contact": true,
+    "peak_force_before_reflex_n": 24.12
+   },
+   "push": {
+    "fired": false,
+    "seen_n": 0.21
+   },
+   "reach": {
+    "rms_mm": 6.45,
+    "vertical_rms_mm": 2.35,
+    "n": 10
+   },
+   "temps": [
+    25,
+    26,
+    29,
+    26,
+    25,
+    23
+   ]
+  },
+  "nominal": {
+   "label": "nominal",
+   "still": {
+    "rms_nm": 0.1833,
+    "per_joint_rms_nm": [
+     0.0051,
+     0.2981,
+     0.2613,
+     0.1033,
+     0.0125
+    ],
+    "weight_force_err_n": 2.364,
+    "unloaded_outside_seen": 10,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 23,
+    "peak_over_threshold": [
+     1.51,
+     2.76,
+     3.26,
+     2.31,
+     2.26
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.649,
+    "force_at_reflex_n": 19.7,
+    "joints": [
+     1
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 20.84
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.52,
+    "force_n": 7.42,
+    "joints": [
+     2
+    ]
+   },
+   "reach": {
+    "rms_mm": 3.49,
+    "vertical_rms_mm": 1.32,
+    "n": 10
+   },
+   "temps": [
+    25,
+    26,
+    28,
+    26,
+    24,
+    23
+   ]
+  },
+  "calibrated": {
+   "label": "calibrated",
+   "still": {
+    "rms_nm": 0.1027,
+    "per_joint_rms_nm": [
+     0.0033,
+     0.146,
+     0.1622,
+     0.0707,
+     0.0086
+    ],
+    "weight_force_err_n": 1.723,
+    "unloaded_outside_seen": 12,
+    "n": 24
+   },
+   "moves": {
+    "moves": 25,
+    "false_reflexes": 0,
+    "peak_over_threshold": [
+     0.69,
+     1.89,
+     1.42,
+     1.73,
+     0.67
+    ]
+   },
+   "press": {
+    "fired": true,
+    "delay_s": 0.442,
+    "force_at_reflex_n": 12.36,
+    "joints": [
+     3
+    ],
+    "contact": true,
+    "peak_force_before_reflex_n": 12.45
+   },
+   "push": {
+    "fired": true,
+    "seen_n": 0.0,
+    "force_n": 4.83,
+    "joints": [
+     0
+    ]
+   },
+   "reach": {
+    "rms_mm": 4.17,
+    "vertical_rms_mm": 0.6,
+    "n": 10
+   },
+   "temps": [
+    25,
+    26,
+    28,
+    26,
+    25,
+    23
+   ]
+  }
+ }
+]

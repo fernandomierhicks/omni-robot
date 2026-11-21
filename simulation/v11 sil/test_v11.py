@@ -2885,3 +2885,109 @@ def test_plain_rollers_drag_with_their_load_and_an_incline_builds():
     load = r.wheel_loads()
     pin = p.roller_pin_mu * p.roller_pin_radius * load[0]
     assert m.dof_frictionloss[rr.roller_dofs[0]].min() >= pin - 1e-9 > 0.0
+
+
+# -- design.md 4.5: the detailed arm (arm_detailed.py) and its emulated STS3215s (servo_emulator.py) -----------------
+
+def _status(sid, err, params=b""):
+    body = bytes([sid, len(params) + 2, err]) + params
+    return b"\xff\xff" + body + bytes([(~sum(body)) & 0xFF])
+
+
+def _pkt(sid, instr, params=b""):
+    body = bytes([sid, len(params) + 2, instr]) + params
+    return b"\xff\xff" + body + bytes([(~sum(body)) & 0xFF])
+
+
+def test_the_emulated_servos_answer_as_the_protocol_says():
+    """PING, READ, WRITE (EEPROM kept through a power cycle only when unlocked), REG_WRITE + ACTION, SYNC_READ of any
+    range, a broadcast with no reply, an unknown id silent."""
+    import servo_emulator as SE
+    rng = np.random.default_rng(0)
+    sv = {k: SE.Sts3215(k, SE.SensorTruth(), rng, angle0=0.1 * k) for k in (1, 2)}
+    bus = SE.ServoBus(sv)
+    bus.write(_pkt(1, 0x01))
+    assert bus.read() == _status(1, 0)
+    bus.write(_pkt(9, 0x01))
+    assert bus.read() == b""
+    bus.write(_pkt(2, 0x02, bytes([56, 2])))                    # present position of the joint at 0.2 rad
+    r = bus.read()
+    assert r[:5] == b"\xff\xff\x02\x04\x00" and abs((r[5] | r[6] << 8) - (2048 + 0.2 / SE.TICK)) <= 2
+    bus.write(_pkt(1, 0x03, bytes([21, 16])))                   # P with the lock on: acts, not kept
+    assert bus.read() == _status(1, 0) and sv[1].get("p_gain") == 16 and sv[1].saved["p_gain"] == 32
+    for data in (bytes([55, 0]), bytes([21, 20]), bytes([55, 1])):
+        bus.write(_pkt(1, 0x03, data))
+    bus.read()
+    assert sv[1].saved["p_gain"] == 20
+    again = SE.Sts3215(1, SE.SensorTruth(), rng, eeprom=sv[1].saved)       # a power cycle
+    assert again.get("p_gain") == 20 and again.get("torque_enable") == 1
+    bus.write(_pkt(0xFE, 0x03, bytes([48, 0xF4, 0x01])))        # broadcast torque limit 500: no reply
+    assert bus.read() == b"" and sv[2].get("torque_limit") == 500
+    bus.write(_pkt(2, 0x04, bytes([48, 0x2C, 0x01])))           # REG_WRITE 300, then ACTION
+    bus.read()
+    assert sv[2].get("torque_limit") == 500
+    bus.write(_pkt(0xFE, 0x05))
+    assert sv[2].get("torque_limit") == 300
+    bus.write(_pkt(0xFE, 0x82, bytes([56, 15, 1, 2])))           # SYNC_READ position .. current
+    r = bus.read()
+    assert len(r) == 2 * (6 + 15) and bus.stats.errors == 0
+
+
+def test_the_detailed_arm_holds_still_and_sags_past_its_encoders():
+    """At LeRobot's P 16 the arm holds within its encoders' flicker; the links hang below what the encoders read by
+    the horn's twist (torque / stiffness); a hot servo unloads and comes back when its torque is switched on."""
+    import arm_detailed as AD
+    from robot_export import arm_params
+    from robot_model import build_model
+    p = arm_params(arm_model="detailed")
+    m = build_model(p)
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    q0 = np.array([0.2, -0.3, 0.5, 0.4, 0.1, -0.17])
+    arm = AD.DetailedArm(m, d, p, q0, seed=1)
+    for sv in arm.servos.values():
+        sv._put("p_gain", 16)
+    E = []
+    for k in range(4000):
+        arm.step(m.opt.timestep)
+        mujoco.mj_step(m, d)
+        if k > 3000:
+            E.append([sv.get("goal_position") - sv.pos for sv in arm.servos.values()])
+    assert np.array(E).std(axis=0).max() < 1.0                  # no hunting: the last bit's flicker
+    tau = d.actuator_force[arm.a]
+    sag = arm.shaft_angles() - arm.q()
+    assert np.allclose(sag, tau / [s.k_flex for s in arm.truth]) and abs(sag[1]) > 1e-3
+    sv = arm.servos[3]
+    sv._put("max_temp", 20)                                     # it's 24 C in here: too hot
+    for _ in range(40):
+        arm.step(m.opt.timestep)
+        mujoco.mj_step(m, d)
+    assert sv.unloaded and sv.status_error() & 4 and arm.duty[2] == 0.0
+    sv._put("max_temp", 70)
+    sv.write_bytes(40, bytes([1]))                              # torque on again
+    assert not sv.unloaded
+
+
+def test_the_robots_driver_runs_the_detailed_arm():
+    """omni_cpp's driver on the emulated bus: it writes its servo settings, reads current, and reaches a goal."""
+    import servo_emulator as SE
+    _omni_arm()
+    import sil_pick  # noqa: F401
+    from arm_sil import MOVE, CppArmDriver
+    from omni_arm.kinematics import CONFIG
+    p, m, d, r = _pick_robot(arm_model="detailed", arm_seed=2)
+    bus = SE.ServoBus(r.arm.servos)
+    drv = CppArmDriver(bus, CONFIG)
+    assert drv.connect() == [] and "id 2 p_gain 32 -> 16" in drv.config_notes()
+    st = drv.read(0.0)
+    goal = np.array([0.3, -0.4, 0.5, 0.3, 0.2, -0.1])
+    drv.command(MOVE, [0.0, 1.0], [st.q, goal])
+    every = int(round(0.02 / m.opt.timestep))
+    for k in range(int(2.0 / m.opt.timestep)):
+        if k % every == 0:
+            drv.cycle(d.time)
+        r.step()
+    ld = drv.load_state()
+    st = drv.read(2.0)
+    assert np.array(st.q) == pytest.approx(goal, abs=0.02) and ld.has_current and bus.n_errors == 0
+    assert np.abs(np.array(st.q[:5]) - r.arm.q()[:5]).max() > 1e-3        # the encoders aren't the truth

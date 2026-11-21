@@ -12,13 +12,19 @@ constexpr double kPi = 3.14159265358979323846;
 namespace {
 
 const std::map<std::string, Reg>& table() {
+    // the STS / SMS memory table (LeRobot's Feetech tables): EEPROM below 40
     static const std::map<std::string, Reg> t = {
-        {"id", {5, 1}},           {"baud", {6, 1}},          {"min_limit", {9, 2}},     {"max_limit", {11, 2}},
-        {"homing_offset", {31, 2}}, {"mode", {33, 1}},       {"torque_enable", {40, 1}}, {"acceleration", {41, 1}},
-        {"goal_position", {42, 2}}, {"goal_time", {44, 2}},  {"goal_speed", {46, 2}},   {"torque_limit", {48, 2}},
-        {"lock", {55, 1}},        {"present_position", {56, 2}}, {"present_speed", {58, 2}}, {"present_load", {60, 2}},
-        {"present_voltage", {62, 1}}, {"present_temperature", {63, 1}}, {"moving", {66, 1}},
-        {"present_current", {69, 2}}};
+        {"model_number", {3, 2}}, {"id", {5, 1}}, {"baud", {6, 1}}, {"return_delay", {7, 1}},
+        {"response_level", {8, 1}}, {"min_limit", {9, 2}}, {"max_limit", {11, 2}}, {"max_temp", {13, 1}},
+        {"max_volt", {14, 1}}, {"min_volt", {15, 1}}, {"max_torque", {16, 2}}, {"unload_cond", {19, 1}},
+        {"led_alarm", {20, 1}}, {"p_gain", {21, 1}}, {"d_gain", {22, 1}}, {"i_gain", {23, 1}},
+        {"startup_force", {24, 2}}, {"cw_dead", {26, 1}}, {"ccw_dead", {27, 1}}, {"protect_current", {28, 2}},
+        {"homing_offset", {31, 2}}, {"mode", {33, 1}}, {"protect_torque", {34, 1}}, {"protect_time", {35, 1}},
+        {"overload_torque", {36, 1}}, {"overcurrent_time", {38, 1}},
+        {"torque_enable", {40, 1}}, {"acceleration", {41, 1}}, {"goal_position", {42, 2}}, {"goal_time", {44, 2}},
+        {"goal_speed", {46, 2}}, {"torque_limit", {48, 2}}, {"lock", {55, 1}}, {"present_position", {56, 2}},
+        {"present_speed", {58, 2}}, {"present_load", {60, 2}}, {"present_voltage", {62, 1}},
+        {"present_temperature", {63, 1}}, {"status", {65, 1}}, {"moving", {66, 1}}, {"present_current", {69, 2}}};
     return t;
 }
 
@@ -145,9 +151,23 @@ bool Bus::ping(int sid) {
     return replies({sid}).count(sid) > 0;
 }
 
+bool Bus::read(int sid, const std::string& reg_name, int& value) {
+    Reg r = reg(reg_name);
+    send(packet((uint8_t)sid, INST_READ, {(uint8_t)r.addr, (uint8_t)r.size}));
+    auto got = replies({sid});
+    auto it = got.find(sid);
+    if (it == got.end() || (int)it->second.params.size() != r.size) return false;
+    const auto& q = it->second.params;
+    int v = r.size == 1 ? q[0] : (q[0] | q[1] << 8);
+    if (reg_name == "homing_offset") v = from_sm(v, 11);
+    value = v;
+    return true;
+}
+
 bool Bus::write(int sid, const std::string& reg_name, int value, bool reply) {
     Reg r = reg(reg_name);
     std::vector<uint8_t> params = {(uint8_t)r.addr};
+    if (reg_name == "homing_offset") value = to_sm(value, 11);
     if (r.size == 1) params.push_back((uint8_t)(value & 0xFF));
     else u16(params, value);
     send(packet((uint8_t)sid, INST_WRITE, params));
@@ -165,20 +185,26 @@ void Bus::sync_write_goals(const std::vector<std::pair<int, int>>& goals) {
     send(packet(BROADCAST, INST_SYNC_WRITE, params));
 }
 
-std::map<int, ServoStatus> Bus::sync_read_status(const std::vector<int>& ids) {
-    std::vector<uint8_t> params = {STATUS_ADDR, STATUS_LEN};
+std::map<int, ServoStatus> Bus::sync_read_status(const std::vector<int>& ids, int len) {
+    std::vector<uint8_t> params = {STATUS_ADDR, (uint8_t)len};
     for (int i : ids) params.push_back((uint8_t)i);
     send(packet(BROADCAST, INST_SYNC_READ, params));
     std::map<int, ServoStatus> out;
     for (auto& [sid, p] : replies(ids)) {
         const auto& q = p.params;
-        if ((int)q.size() != STATUS_LEN) continue;
+        if ((int)q.size() != len || len < STATUS_LEN_V1) continue;
         ServoStatus s;
         s.position = q[0] | q[1] << 8;
         s.speed = from_sm(q[2] | q[3] << 8, 15);
         s.load = from_sm(q[4] | q[5] << 8, 10) * LOAD_UNIT;
         s.volts = q[6] * 0.1;
         s.temp_c = q[7];
+        if (len >= STATUS_LEN) {                      // 64 async flag, 65 status, 66 moving, 67-68, 69-70 current
+            s.status = q[9];
+            s.moving = q[10] != 0;
+            s.current = from_sm(q[13] | q[14] << 8, 15) * CURRENT_UNIT;
+            s.has_current = true;
+        }
         s.ok = p.code == 0;
         out[sid] = s;
     }

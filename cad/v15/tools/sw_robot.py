@@ -5,7 +5,7 @@ Every file it reads or writes is inside cad/v15 (cad/solidworks.md section 17): 
 mate_api.py / sw_native.py, the vendor RPLIDAR part is reference/parts/RPLIDAR.SLDPRT, and the D435 is a STEP part (reference/parts/d435_source.step).
 
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py import
-    C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py roller wheel motor unsprung static
+    C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py roller wheel motor unsprung static plunger
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py pod
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py group_frame group_mounts group_bumper group_battery group_reference
     C:/Users/ferna/cadenv/Scripts/python.exe sw_robot.py group_upper      (then group_electronics, group_arm, group_fasteners, group_harness: one per call)
@@ -37,7 +37,8 @@ V15_pod_static_FL, V15_unsprung_FL ...); wheel, motor and roller stay one per ha
        |- V15_unsprung_<pod>    fork halves, 2 x 627 (in the arms), rings, 6804 retainer, wheel, motor, tie bolts, ring / motor screws
        |  |- V15_wheel    hub, cartridge cup + cap, 6804, 12 x V15_roller (core, sleeve, tread, 2 x 687), 12 axles, 3 cartridge + 3 rotor screws
        |  +- V15_motor    stator, rotor, XT30 plug, pins, leads
-       +- 4 spring plungers
+       +- 4 V15_spring_plunger_<k>  (rigid; Nov 19: its parts apart: PETG cap, printed sleeve, M3 x 45 screw, seat washer, 2 top
+                                     washers, nyloc; the sleeve concentric in the tower's guide, the cap's R8 dome tangent to the pad)
     |- V15_harness        the leads along harness_route.py's routes and their plugs (purchased items, review only; Nov 14)
 Every printed part carries a PRINT_BED reference plane at its bed face.
 SolidWorks leaks memory over many opens: run a few stages per call.
@@ -268,19 +269,38 @@ def aliases(a, name):
     a.alias_nested('unsprung', S.keys_of_file('V15_unsprung_' + name))
 
 
+def stage_plunger(sw):
+    """Nov 19 (Fernando: "split it into its actual parts"): each plunger a rigid sub-assembly V15_spring_plunger_<k>[_m] of its parts
+    (manifest plungers.pieces: cap, sleeve, M3 x 45 screw, seat washer, two top washers, nyloc), written at the plunger's axis and moved onto it"""
+    for h in HANDS:
+        _, _, axes = hand(h)
+        for pk, xy in axes.items():
+            T = np.eye(4)
+            T[:2, 3] = xy
+            fixed_asm(sw, 'spring_plunger_' + pk + h, [(k, part(k + h), T) for k in MAN['plungers']['pieces']])
+
+
 def tangent(a, name, plunger_key, fork_key, axis_xy, pad_z):
-    """tangent mate between the plunger's dome (its only spherical face) and the fork pad's top face under it"""
+    """tangent mate between the plunger's dome (its spherical face of radius plungers.dome_r: the cap's R8; the cap's pocket and the screw's head
+    are spheres too) and the fork pad's top face under it. The plunger may be a sub-assembly: its leaf parts are searched"""
     from mate_api import placements, compare, mates_of
     sph = []
-    cp = a.mater.comp(a.name_of(plunger_key))
-    r = cp.GetBodies3(c.swSolidBody)
-    for bd in (r[0] if isinstance(r, tuple) else r) or []:
-        for f in wrap(bd, sld.IBody2).GetFaces() or []:
-            f = wrap(f, sld.IFace2)
-            if wrap(f.GetSurface(), sld.ISurface).IsSphere():
-                sph.append(f)
+    m = a.mater
+    top = a.name_of(plunger_key)
+    m.comp(top)
+    kids = [k for k in m._comps if k.startswith(top + '/') and not m._comps[k].IsSuppressed()]
+    leaves = [k for k in kids if not any(o.startswith(k + '/') for o in kids)] or [top]
+    dome_r = MAN['plungers'].get('dome_r')
+    for leaf in leaves:
+        r = m.comp(leaf).GetBodies3(c.swSolidBody)
+        for bd in (r[0] if isinstance(r, tuple) else r) or []:
+            for f in wrap(bd, sld.IBody2).GetFaces() or []:
+                f = wrap(f, sld.IFace2)
+                s = wrap(f.GetSurface(), sld.ISurface)
+                if s.IsSphere() and (dome_r is None or abs(s.SphereParams[3] * 1e3 - dome_r) < 0.01):
+                    sph.append(f)
     if len(sph) != 1:
-        raise RuntimeError(f'{plunger_key}: {len(sph)} spherical faces')
+        raise RuntimeError(f'{plunger_key}: {len(sph)} spherical faces of R{dome_r}')
     xy = np.array(axis_xy, float)
     pads = [f for f in a.mater.faces(a.name_of(fork_key)) if f['kind'] == 'plane' and f['n'] @ np.array([0, 0, 1.0]) > 0.9999
             and abs(f['off'] - pad_z) < 0.02 and np.all(f['aabb'][0][:2] <= xy + 0.1) and np.all(f['aabb'][1][:2] >= xy - 0.1)]
@@ -312,8 +332,8 @@ def stage_pod(sw):
         a = Asm(sw, asm_path('pod_' + name))
         a.add('static', asm_path('pod_static_' + name), np.eye(4), fixed=True)
         a.add('unsprung', asm_path('unsprung_' + name), np.eye(4))
-        for pk in PLUNGERS:
-            a.add('spring_plunger_' + pk, part(f'spring_plunger_{pk}{h}'), np.eye(4))
+        for pk in PLUNGERS:                                            # Nov 19: rigid sub-assemblies of the plunger's parts (stage_plunger)
+            a.add('spring_plunger_' + pk, asm_path(f'spring_plunger_{pk}{h}'), np.eye(4))
         a.save(check=False)
         a.refresh()
         aliases(a, name)
@@ -569,7 +589,7 @@ def stage_interference(sw, suppress=(), out='interference.json'):
                          mm3=round(it.Volume * 1e9, 3)))
     mgr.Done()
     sw.CloseDoc(m.GetTitle())
-    fst = lambda f: f.startswith(('fst_', 'spring_plunger', 'washer'))      # noqa: E731
+    fst = lambda f: f.startswith(('fst_', 'spring_plunger', 'plunger_', 'washer'))      # noqa: E731  (Nov 19: the plunger's parts)
     fov = [r for r in rows if any(f.startswith('env_d435_fov') for f in r['files'])]   # round 15: the FOV envelopes start inside the camera
     rows = [r for r in rows if r not in fov]
     part_part_all = [r for r in rows if not any(fst(f) for f in r['files'])]

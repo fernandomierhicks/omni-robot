@@ -1,0 +1,1645 @@
+{
+ "proposal": "pod_mid",
+ "poses_deg": {
+  "droop": 2.133,
+  "nominal": 0.0,
+  "bump": -10.726
+ },
+ "build_info": {
+  "outer_arm_top_r": 1.4,
+  "outer_arm_bed_chamfer": 0.6,
+  "dish_floor": "R1.5 on 1 edges",
+  "stub_root": "R1.5 on 1 edges",
+  "motor_plate_top_r": 1.4,
+  "motor_plate_bed_chamfer": 0.6,
+  "xt30_notch": {
+   "azimuth_deg": 89.8,
+   "rim_r": 29.5,
+   "depth": 2.0
+  },
+  "hanger_o_bed": "bed chamfer refused",
+  "hanger_o_top": "R1 on 22 edges",
+  "hanger_o_bottom": "R1 on 22 edges",
+  "hanger_i_bed": "bed chamfer refused",
+  "hanger_i_top": "R1 on 22 edges",
+  "hanger_i_bottom": "R1 on 22 edges",
+  "beam_back_corners": "R4 on 2 edges",
+  "beam_front_corners": "R0.8 on 2 edges",
+  "beam_bottom_edges": "R1 on 7 edges",
+  "beam_bed": "chamfer 0.6 on 4 of 4 bed edges",
+  "beam_boss_root": "R1 on 1 edges",
+  "lug_edges": "R1.5 on 5 edges",
+  "lug_bed": "chamfer 0.6 on 6 of 6 bed edges",
+  "tower_o_edges": "R2 on 4/4 horizontal + 2/4 vertical",
+  "tower_o_bed": "chamfer 0.6 on 6 of 6 bed edges",
+  "tower_o_tab0": "R2 on 5 edges",
+  "tower_o_tab1": "R2 on 5 edges",
+  "tower_o_mirror_valid": true,
+  "tower_i_edges": "R2 on 4/4 horizontal + 2/4 vertical",
+  "tower_i_bed": "chamfer 0.6 on 6 of 6 bed edges",
+  "tower_i_tab0": "R2 on 5 edges",
+  "tower_i_tab1": "R2 on 5 edges",
+  "tower_i_mirror_valid": true
+ },
+ "droop": {
+  "axle": [
+   0.06,
+   -3.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_hanger_outer / bearing_627_outer": 6.69,
+   "rx_hanger_inner / bearing_627_inner": 6.69,
+   "rx_beam / bearing_627_inner": 6.69,
+   "rx_pin / bearing_627_outer": 6.13
+  },
+  "gaps_mm": {
+   "rx_hanger_outer_to_fork": 1.0,
+   "rx_hanger_outer_to_wheel_envelope": 18.75,
+   "rx_hanger_outer_to_harness": 88.12,
+   "rx_hanger_inner_to_fork": 1.0,
+   "rx_hanger_inner_to_wheel_envelope": 99.0,
+   "rx_hanger_inner_to_harness": 32.01,
+   "rx_beam_to_fork": 1.0,
+   "rx_beam_to_wheel_envelope": 3.54,
+   "rx_beam_to_harness": 68.66,
+   "rx_pin_to_fork": 5.97,
+   "rx_pin_to_wheel_envelope": 12.29,
+   "rx_pin_to_harness": 100.53,
+   "rx_lug_to_fork": 0.0,
+   "rx_lug_to_wheel_envelope": 99.0,
+   "rx_lug_to_harness": 87.98,
+   "rx_tower_outer_to_fork": 3.39,
+   "rx_tower_outer_to_wheel_envelope": 2.67,
+   "rx_tower_outer_to_harness": 80.88,
+   "rx_tower_inner_to_fork": 3.39,
+   "rx_tower_inner_to_wheel_envelope": 7.81,
+   "rx_tower_inner_to_harness": 28.01,
+   "rx_deck_to_fork": 2.0,
+   "rx_deck_to_wheel_envelope": 2.2,
+   "rx_deck_to_harness": 4.02,
+   "bar_to_lug_droop_stop": 0.0,
+   "beam_front_screws_driver_to_fork": 2.56,
+   "beam_front_screws_driver_to_lug": 14.75,
+   "rails_to_pads": 3.39,
+   "deck_to_fork_and_rings": 2.0,
+   "hangers_to_fork": 1.0,
+   "towers_base_to_fork": 6.29,
+   "plunger_top_washer_gap": 0.36
+  },
+  "plunger_lift_mm": {
+   "o1": -1.14,
+   "o2": -0.75,
+   "i1": -1.14,
+   "i2": -0.75
+  }
+ },
+ "nominal": {
+  "axle": [
+   0.0,
+   0.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_hanger_outer / bearing_627_outer": 6.69,
+   "rx_hanger_inner / bearing_627_inner": 6.69,
+   "rx_beam / bearing_627_inner": 6.69,
+   "rx_pin / bearing_627_outer": 6.13
+  },
+  "gaps_mm": {
+   "rx_hanger_outer_to_fork": 1.0,
+   "rx_hanger_outer_to_wheel_envelope": 18.75,
+   "rx_hanger_outer_to_harness": 88.18,
+   "rx_hanger_inner_to_fork": 1.0,
+   "rx_hanger_inner_to_wheel_envelope": 99.0,
+   "rx_hanger_inner_to_harness": 32.17,
+   "rx_beam_to_fork": 1.0,
+   "rx_beam_to_wheel_envelope": 3.6,
+   "rx_beam_to_harness": 68.4,
+   "rx_pin_to_fork": 5.97,
+   "rx_pin_to_wheel_envelope": 12.29,
+   "rx_pin_to_harness": 100.53,
+   "rx_lug_to_fork": 0.89,
+   "rx_lug_to_wheel_envelope": 99.0,
+   "rx_lug_to_harness": 88.19,
+   "rx_tower_outer_to_fork": 2.92,
+   "rx_tower_outer_to_wheel_envelope": 2.24,
+   "rx_tower_outer_to_harness": 80.18,
+   "rx_tower_inner_to_fork": 2.92,
+   "rx_tower_inner_to_wheel_envelope": 7.48,
+   "rx_tower_inner_to_harness": 26.81,
+   "rx_deck_to_fork": 2.0,
+   "rx_deck_to_wheel_envelope": 2.02,
+   "rx_deck_to_harness": 4.55,
+   "bar_to_lug_droop_stop": 0.89,
+   "beam_front_screws_driver_to_fork": 3.75,
+   "beam_front_screws_driver_to_lug": 14.75,
+   "rails_to_pads": 2.92,
+   "deck_to_fork_and_rings": 2.0,
+   "hangers_to_fork": 1.0,
+   "towers_base_to_fork": 5.6,
+   "plunger_top_washer_gap": 1.5
+  },
+  "plunger_lift_mm": {
+   "o1": 0.0,
+   "o2": 0.0,
+   "i1": 0.0,
+   "i2": 0.0
+  }
+ },
+ "bump": {
+  "axle": [
+   1.41,
+   15.0
+  ],
+  "interference_mm3": {},
+  "press_fits_mm3": {
+   "rx_hanger_outer / bearing_627_outer": 6.69,
+   "rx_hanger_inner / bearing_627_inner": 6.69,
+   "rx_beam / bearing_627_inner": 6.69,
+   "rx_pin / bearing_627_outer": 6.13
+  },
+  "gaps_mm": {
+   "rx_hanger_outer_to_fork": 1.0,
+   "rx_hanger_outer_to_wheel_envelope": 18.75,
+   "rx_hanger_outer_to_harness": 89.38,
+   "rx_hanger_inner_to_fork": 1.0,
+   "rx_hanger_inner_to_wheel_envelope": 99.0,
+   "rx_hanger_inner_to_harness": 35.28,
+   "rx_beam_to_fork": 1.0,
+   "rx_beam_to_wheel_envelope": 2.44,
+   "rx_beam_to_harness": 67.22,
+   "rx_pin_to_fork": 5.97,
+   "rx_pin_to_wheel_envelope": 12.29,
+   "rx_pin_to_harness": 100.53,
+   "rx_lug_to_fork": 5.4,
+   "rx_lug_to_wheel_envelope": 99.0,
+   "rx_lug_to_harness": 89.07,
+   "rx_tower_outer_to_fork": 0.0,
+   "rx_tower_outer_to_wheel_envelope": 2.14,
+   "rx_tower_outer_to_harness": 77.24,
+   "rx_tower_inner_to_fork": 0.0,
+   "rx_tower_inner_to_wheel_envelope": 7.44,
+   "rx_tower_inner_to_harness": 20.44,
+   "rx_deck_to_fork": 1.96,
+   "rx_deck_to_wheel_envelope": 1.99,
+   "rx_deck_to_harness": 16.62,
+   "bar_to_lug_droop_stop": 5.4,
+   "beam_front_screws_driver_to_fork": 6.6,
+   "beam_front_screws_driver_to_lug": 14.75,
+   "rails_to_pads": 0.0,
+   "deck_to_fork_and_rings": 1.96,
+   "hangers_to_fork": 1.0,
+   "towers_base_to_fork": 0.0,
+   "plunger_top_washer_gap": 5.99
+  },
+  "plunger_lift_mm": {
+   "o1": 6.5,
+   "o2": 4.49,
+   "i1": 6.5,
+   "i2": 4.49
+  }
+ },
+ "fork_to_wheel_envelope_mm": {
+  "pod_fork_outer": 1.47,
+  "pod_fork_inner": 7.44,
+  "rx_ring_outer": 4.64,
+  "rx_ring_inner": 9.36
+ },
+ "fork_to_wheel_envelope_outside_r16_mm (the arms; the 6804 stub inside r 16 is unchanged from pod_lean)": {
+  "pod_fork_outer": 1.99,
+  "pod_fork_inner": 7.44
+ },
+ "retainer_to_wheel_envelope_mm": 2.97,
+ "fork_to_harness_mm": 2.72,
+ "fork_halves_overlap_mm3": 0.0,
+ "lead_tie": null,
+ "springs": {
+  "count": 4,
+  "in_series_per_bore": 2,
+  "lever_mm": 26.0,
+  "where": "ahead of the pivot, over each arm (pod.py plungers, dome down on the arm pad)",
+  "wheel_rate_N_per_mm": 2.16,
+  "compression_mm_each_spring_far_bore": {
+   "droop": 3.95,
+   "nominal": 4.33,
+   "bump": 7.54
+  },
+  "compression_mm_stack_far_bore": {
+   "droop": 7.9,
+   "nominal": 8.66,
+   "bump": 15.09
+  },
+  "stack_free_mm": 37.0,
+  "stack_solid_mm": 18.46,
+  "bump_percent_of_free": 40.8,
+  "long_life_limit_mm": 8.27,
+  "plunger": "M4 x 45 button head (pod.py)",
+  "rate": "ASSUMED (VERIFY: kitchen-scale test)"
+ },
+ "printed_parts": {
+  "pod_fork_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 72.5,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 61.8,
+   "bed": {
+    "height": 99.1,
+    "as_exported": [
+     122.1,
+     63.2
+    ],
+    "best": [
+     104.7,
+     104.6
+    ],
+    "rotate_deg": 51.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 147.3
+   }
+  },
+  "pod_fork_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 69.78,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 99.5,
+   "bed": {
+    "height": 12.0,
+    "as_exported": [
+     130.6,
+     68.4
+    ],
+    "best": [
+     113.2,
+     113.1
+    ],
+    "rotate_deg": 51.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 138.8
+   }
+  },
+  "rx_hanger_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 17.52,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 690.7,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     71.5,
+     21.5
+    ],
+    "best": [
+     63.9,
+     63.9
+    ],
+    "rotate_deg": 45.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 188.1
+   }
+  },
+  "rx_hanger_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 17.51,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 685.2,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     71.5,
+     21.5
+    ],
+    "best": [
+     63.9,
+     63.9
+    ],
+    "rotate_deg": 45.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 188.1
+   }
+  },
+  "rx_beam": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 52.29,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 387.9,
+   "bed": {
+    "height": 85.1,
+    "as_exported": [
+     38.4,
+     19.5
+    ],
+    "best": [
+     38.4,
+     19.5
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 213.6
+   }
+  },
+  "rx_pin": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 0.38,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 7.0,
+    "as_exported": [
+     10.0,
+     10.0
+    ],
+    "best": [
+     10.0,
+     10.0
+    ],
+    "rotate_deg": 115.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 242.0
+   }
+  },
+  "rx_lug": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 6.31,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 84.3,
+   "bed": {
+    "height": 24.0,
+    "as_exported": [
+     12.8,
+     24.2
+    ],
+    "best": [
+     23.8,
+     23.8
+    ],
+    "rotate_deg": 41.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 228.2
+   }
+  },
+  "rx_tower_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 24.9,
+   "print_up": [
+    0,
+    0,
+    -1
+   ],
+   "overhang_mm2": 315.9,
+   "bed": {
+    "height": 36.4,
+    "as_exported": [
+     27.0,
+     51.0
+    ],
+    "best": [
+     45.4,
+     45.4
+    ],
+    "rotate_deg": 47.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 206.6
+   }
+  },
+  "rx_tower_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 24.9,
+   "print_up": [
+    0,
+    0,
+    -1
+   ],
+   "overhang_mm2": 315.9,
+   "bed": {
+    "height": 36.4,
+    "as_exported": [
+     27.0,
+     51.0
+    ],
+    "best": [
+     45.4,
+     45.4
+    ],
+    "rotate_deg": 42.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 206.6
+   }
+  },
+  "rx_ring_outer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.06,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 3.0,
+    "as_exported": [
+     36.0,
+     36.0
+    ],
+    "best": [
+     36.0,
+     36.0
+    ],
+    "rotate_deg": 35.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 216.0
+   }
+  },
+  "rx_ring_inner": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 2.06,
+   "print_up": [
+    -1,
+    0,
+    0
+   ],
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 3.0,
+    "as_exported": [
+     36.0,
+     36.0
+    ],
+    "best": [
+     36.0,
+     36.0
+    ],
+    "rotate_deg": 35.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 216.0
+   }
+  },
+  "pod_retainer": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 1.89,
+   "print_up": [
+    1,
+    0,
+    0
+   ],
+   "overhang_mm2": 106.2,
+   "bed": {
+    "height": 12.7,
+    "as_exported": [
+     23.0,
+     23.0
+    ],
+    "best": [
+     23.0,
+     23.0
+    ],
+    "rotate_deg": 35.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 229.0
+   }
+  },
+  "rx_deck": {
+   "solids": 1,
+   "valid": true,
+   "volume_cm3": 393.08,
+   "print_up": [
+    0,
+    0,
+    1
+   ],
+   "overhang_mm2": 1422.3,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     162.0,
+     217.0
+    ],
+    "best": [
+     217.0,
+     162.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 35.0
+   }
+  }
+ },
+ "bed_fit_failures": [],
+ "hole_audit": {
+  "thread": {
+   "bolt_tie_1_outer#0": {
+    "pod_fork_outer": 23.1
+   },
+   "bolt_tie_1_inner#1": {
+    "pod_fork_outer": 24.6
+   },
+   "bolt_ring_o_1#2": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_o_2#3": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_o_3#4": {
+    "pod_fork_outer": 7.5
+   },
+   "bolt_ring_i_1#5": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_ring_i_2#6": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_ring_i_3#7": {
+    "pod_fork_inner": 7.5
+   },
+   "bolt_retainer#12": {
+    "pod_retainer": 6.0
+   },
+   "bolt_pivot_o#13": {
+    "rx_beam": 8.1
+   },
+   "bolt_pivot_i#14": {
+    "rx_beam": 13.9
+   },
+   "bolt_up_1#15": {
+    "rx_deck": 12.9
+   },
+   "bolt_up_2#16": {
+    "rx_deck": 12.9
+   },
+   "bolt_up_3#17": {
+    "rx_deck": 14.9
+   },
+   "bolt_up_4#18": {
+    "rx_deck": 14.9
+   },
+   "bolt_up_5#19": {
+    "rx_deck": 14.9
+   },
+   "bolt_up_6#20": {
+    "rx_deck": 14.9
+   },
+   "bolt_up_7#21": {
+    "rx_deck": 14.9
+   },
+   "bolt_lug#22": {
+    "rx_deck": 12.4
+   },
+   "bolt_towerfix_1#31": {
+    "rx_deck": 10.3
+   },
+   "bolt_towerfix_2#32": {
+    "rx_deck": 10.3
+   }
+  },
+  "partial": {
+   "bolt_tower_1#23 / rx_tower_outer": 0.15,
+   "bolt_tower_2#25 / rx_tower_outer": 0.15,
+   "bolt_tower_3#27 / rx_tower_inner": 0.15,
+   "bolt_tower_4#29 / rx_tower_inner": 0.15
+  },
+  "across_layers": {},
+  "soft_across_layers": {},
+  "head": {},
+  "no_hole": {}
+ },
+ "blind_holes": {},
+ "pod_envelope_swept": {
+  "x": [
+   -78.0,
+   84.0
+  ],
+  "y": [
+   -95.0,
+   122.0
+  ],
+  "z": [
+   -39.1,
+   78.5
+  ],
+  "pod_lean_for_comparison": {
+   "x": [
+    -52.5,
+    78.6
+   ],
+   "y_back": 103.0,
+   "z_top": "56.9 (+ nuts 63.4)"
+  }
+ },
+ "hand_loads": {
+  "assumptions": {
+   "robot_kg": 10.0,
+   "static_wheel_N": 24.5,
+   "bump_N": 61.3,
+   "side_hit_N": "30 along x at z -60 (a threshold edge)",
+   "peak_traction_N": "59 (AK40-10 peak 4.1 N.m at R70, VERIFY)",
+   "motor_output_bearing_x": "~+10 (VERIFY on the motor)"
+  },
+  "static": {
+   "springs_total_N": 76.0,
+   "per_spring_N": 19.0,
+   "pivot_total_N": 51.5,
+   "per_pivot_N": 25.8
+  },
+  "bump": {
+   "springs_total_N": 190.1,
+   "per_spring_N": 47.5,
+   "pivot_total_N": 128.8,
+   "per_pivot_N": 64.4
+  },
+  "hub_load_split": {
+   "row_1": {
+    "outer_6804": 0.63,
+    "motor": 0.37
+   },
+   "row_2": {
+    "outer_6804": -0.17,
+    "motor": 1.17
+   },
+   "note": "the motor side takes 0.4-1.2 of the wheel load, the 6804 -0.2..0.6: the fork is loaded unevenly whatever the springs do, so its cross members carry torsion every time the rows hand over"
+  },
+  "side_hit": {
+   "roll_Nm": 1.8,
+   "yaw_Nm": 2.42,
+   "pivot_bearing_couple_N": 32.4,
+   "axial_N": 30.0,
+   "bearing_span_mm": 93.1
+  },
+  "traction": {
+   "pivot_horizontal_N": 58.6,
+   "note": "pivot level with the axle: drive torque does not load the springs"
+  }
+ },
+ "deck": {
+  "z_pod": [
+   10.0,
+   30.0
+  ],
+  "z_robot": [
+   80.0,
+   100.0
+  ],
+  "opening_clearance_mm": 2.0,
+  "hanger_and_beam_tops_on_deck_pct": 96.9,
+  "pod_out_downward": "the opening is the plan of everything of the pod above the deck underside in every pose, + CLR"
+ },
+ "droop_stop": {
+  "where": "the fork bar's back face (28 below the pivot) lands on the face of a lug hanging from the beam, on the centre plane",
+  "drawn": "the lug is a box turned by the droop angle about the pivot, so its face is the bar's back face at droop",
+  "travel_mm": "nominal -> droop: the bar's back face moves back about 0.75 (top) to 1.3 (bottom)",
+  "replaces": "the droop screws and their arc slots"
+ },
+ "cartridge_screw_access": {
+  "head_r": 26.0,
+  "clear_azimuths_deg": [
+   80,
+   90,
+   100,
+   110,
+   120,
+   130,
+   140,
+   150,
+   160,
+   170,
+   180,
+   190,
+   200,
+   210,
+   220,
+   230,
+   240,
+   250,
+   260,
+   270
+  ],
+  "n_clear": 20,
+  "of": 36,
+  "note": "turn the wheel to bring each screw into a clear azimuth; the three are 120 deg apart"
+ },
+ "alignment": {
+  "boss_h": 1.5,
+  "pocket_depth": 1.7,
+  "clearance_per_side": 0.15,
+  "walls": {
+   "towers (deck top)": {
+    "pocket_area_mm2": 656.7,
+    "inside_deck": true,
+    "min_wall_to_opening_mm": 2.83
+   },
+   "hangers + beam (deck underside)": {
+    "pocket_area_mm2": 1459.9,
+    "inside_deck": true,
+    "min_wall_to_opening_mm": 2.83
+   }
+  },
+  "lug": "the separate droop lug: a boss in a pocket in the beam's underside, the lug bolt through both",
+  "note": "shallow, wide bosses (cad/solidworks.md 18): the tower base, each hanger top, the beam top into deck pockets"
+ },
+ "beam_relief": {
+  "line": 143.0,
+  "depth": "through",
+  "area_mm2": 57.2,
+  "why": "FR's beam corner lay under RR's dovetail tab (270 deg seam); chassis_mid checks every tab against the seats"
+ },
+ "print_orientation": {
+  "rx_hanger_outer": {
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  "rx_hanger_inner": {
+   "up": [
+    -1,
+    0,
+    0
+   ]
+  },
+  "rx_beam": {
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  "rx_pin": {
+   "up": [
+    -1,
+    0,
+    0
+   ]
+  },
+  "rx_lug": {
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  "rx_tower_outer": {
+   "up": [
+    0,
+    0,
+    -1
+   ]
+  },
+  "rx_tower_inner": {
+   "up": [
+    0,
+    0,
+    -1
+   ]
+  },
+  "rx_deck": {
+   "up": [
+    0,
+    0,
+    1
+   ]
+  },
+  "pod_fork_outer": {
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  "pod_fork_inner": {
+   "up": [
+    -1,
+    0,
+    0
+   ]
+  }
+ },
+ "towers": {
+  "springs_in_series": 2,
+  "spring_bore_mm": 21.34,
+  "top_z_pod": 63.34,
+  "top_z_robot": 133.34,
+  "height_over_deck": 33.34,
+  "plunger": "M3 x 45 button head dome down in a PETG cap (R8 on the pad), printed \u00d84.9 sleeve in a \u00d85.0 guide (13/64\" drill), 2 washers + nyloc on top (plunger.py, baseline Nov 19)",
+  "spring_bore_d": 8.8,
+  "bump_stop": "the overhang's underside (stop=True)",
+  "fix_screw": "M3 x 40, head seat 58.0 (counterbore 5.3 deep), 12 mm in the deck",
+  "stack_preload_mm": 5.0,
+  "long_bolt_nut": "in a 5.5 AF x 2.5 recess in the top of each 12 mm stub tab (Nov 15 evening; the hex wells are gone)"
+ },
+ "marks": {
+  "numbers": "1 FL, 2 FR, 3 RL, 4 RR (top view, front up)",
+  "per_pod": {
+   "FL": {
+    "rx_hanger_outer": [
+     {
+      "mark": "1 OUT",
+      "placed": true,
+      "at": [
+       -57.4,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       14.1,
+       3.7
+      ]
+     }
+    ],
+    "rx_hanger_inner": [
+     {
+      "mark": "1 IN",
+      "placed": true,
+      "at": [
+       62.7,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       8.2,
+       3.6
+      ]
+     }
+    ],
+    "rx_tower_outer": [
+     {
+      "mark": "1 OUT",
+      "placed": true,
+      "at": [
+       -64.4,
+       56.1,
+       46.7
+      ],
+      "size": [
+       16.9,
+       4.4
+      ]
+     }
+    ],
+    "rx_tower_inner": [
+     {
+      "mark": "1 IN",
+      "placed": true,
+      "at": [
+       69.7,
+       56.1,
+       46.7
+      ],
+      "size": [
+       9.9,
+       4.3
+      ]
+     }
+    ],
+    "rx_beam": [
+     {
+      "mark": "1",
+      "placed": true,
+      "at": [
+       -7.2,
+       104.0,
+       -8.0
+      ],
+      "size": [
+       1.6,
+       4.3
+      ]
+     },
+     {
+      "mark": "UP",
+      "placed": true,
+      "at": [
+       2.9,
+       112.0,
+       1.0
+      ],
+      "size": [
+       11.6,
+       6.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -23.5,
+       112.0,
+       1.5
+      ],
+      "size": [
+       18.5,
+       3.8
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       23.7,
+       112.0,
+       1.0
+      ],
+      "size": [
+       12.4,
+       3.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -25.9,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       16.8,
+       3.4
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       30.2,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       11.3,
+       3.4
+      ]
+     }
+    ],
+    "pod_fork_outer": [
+     {
+      "mark": "1 OUT + arrow",
+      "placed": true,
+      "at": [
+       -49.4,
+       40.0,
+       0.0
+      ],
+      "size": [
+       22.9,
+       8.1
+      ]
+     }
+    ],
+    "pod_fork_inner": [
+     {
+      "mark": "1 IN + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       48.0,
+       2.0
+      ],
+      "size": [
+       15.9,
+       8.1
+      ]
+     },
+     {
+      "mark": "XT30 + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       0.1,
+       19.0
+      ],
+      "size": [
+       13.9,
+       5.4
+      ]
+     }
+    ]
+   },
+   "RL": {
+    "rx_hanger_outer": [
+     {
+      "mark": "3 OUT",
+      "placed": true,
+      "at": [
+       -57.4,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       14.4,
+       3.7
+      ]
+     }
+    ],
+    "rx_hanger_inner": [
+     {
+      "mark": "3 IN",
+      "placed": true,
+      "at": [
+       62.7,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       8.5,
+       3.7
+      ]
+     }
+    ],
+    "rx_tower_outer": [
+     {
+      "mark": "3 OUT",
+      "placed": true,
+      "at": [
+       -64.4,
+       56.1,
+       46.7
+      ],
+      "size": [
+       17.3,
+       4.4
+      ]
+     }
+    ],
+    "rx_tower_inner": [
+     {
+      "mark": "3 IN",
+      "placed": true,
+      "at": [
+       69.7,
+       56.1,
+       46.7
+      ],
+      "size": [
+       10.3,
+       4.4
+      ]
+     }
+    ],
+    "rx_beam": [
+     {
+      "mark": "3",
+      "placed": true,
+      "at": [
+       -6.7,
+       104.0,
+       -8.0
+      ],
+      "size": [
+       2.8,
+       4.4
+      ]
+     },
+     {
+      "mark": "UP",
+      "placed": true,
+      "at": [
+       2.9,
+       112.0,
+       1.0
+      ],
+      "size": [
+       11.6,
+       6.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -23.5,
+       112.0,
+       1.5
+      ],
+      "size": [
+       18.5,
+       3.8
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       23.7,
+       112.0,
+       1.0
+      ],
+      "size": [
+       12.4,
+       3.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -25.9,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       16.8,
+       3.4
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       30.2,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       11.3,
+       3.4
+      ]
+     }
+    ],
+    "pod_fork_outer": [
+     {
+      "mark": "3 OUT + arrow",
+      "placed": true,
+      "at": [
+       -49.4,
+       40.0,
+       0.0
+      ],
+      "size": [
+       23.3,
+       8.1
+      ]
+     }
+    ],
+    "pod_fork_inner": [
+     {
+      "mark": "3 IN + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       48.0,
+       2.0
+      ],
+      "size": [
+       16.3,
+       8.1
+      ]
+     },
+     {
+      "mark": "XT30 + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       0.1,
+       19.0
+      ],
+      "size": [
+       13.9,
+       5.4
+      ]
+     }
+    ]
+   },
+   "RR": {
+    "rx_hanger_outer": [
+     {
+      "mark": "4 OUT",
+      "placed": true,
+      "at": [
+       -57.4,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       14.6,
+       3.7
+      ]
+     }
+    ],
+    "rx_hanger_inner": [
+     {
+      "mark": "4 IN",
+      "placed": true,
+      "at": [
+       62.7,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       8.7,
+       3.6
+      ]
+     }
+    ],
+    "rx_tower_outer": [
+     {
+      "mark": "4 OUT",
+      "placed": true,
+      "at": [
+       -64.4,
+       56.1,
+       46.7
+      ],
+      "size": [
+       17.5,
+       4.4
+      ]
+     }
+    ],
+    "rx_tower_inner": [
+     {
+      "mark": "4 IN",
+      "placed": true,
+      "at": [
+       69.7,
+       56.1,
+       46.7
+      ],
+      "size": [
+       10.4,
+       4.3
+      ]
+     }
+    ],
+    "rx_beam": [
+     {
+      "mark": "4",
+      "placed": true,
+      "at": [
+       -6.7,
+       104.0,
+       -8.0
+      ],
+      "size": [
+       3.0,
+       4.3
+      ]
+     },
+     {
+      "mark": "UP",
+      "placed": true,
+      "at": [
+       2.9,
+       112.0,
+       1.0
+      ],
+      "size": [
+       11.6,
+       6.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -23.5,
+       112.0,
+       1.5
+      ],
+      "size": [
+       18.5,
+       3.8
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       23.7,
+       112.0,
+       1.0
+      ],
+      "size": [
+       12.4,
+       3.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -25.9,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       16.8,
+       3.4
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       30.2,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       11.3,
+       3.4
+      ]
+     }
+    ],
+    "pod_fork_outer": [
+     {
+      "mark": "4 OUT + arrow",
+      "placed": true,
+      "at": [
+       -49.4,
+       40.0,
+       0.0
+      ],
+      "size": [
+       23.5,
+       8.1
+      ]
+     }
+    ],
+    "pod_fork_inner": [
+     {
+      "mark": "4 IN + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       48.0,
+       2.0
+      ],
+      "size": [
+       16.4,
+       8.1
+      ]
+     },
+     {
+      "mark": "XT30 + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       0.1,
+       19.0
+      ],
+      "size": [
+       13.9,
+       5.4
+      ]
+     }
+    ]
+   },
+   "FR": {
+    "rx_hanger_outer": [
+     {
+      "mark": "2 OUT",
+      "placed": true,
+      "at": [
+       -57.4,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       14.5,
+       3.7
+      ]
+     }
+    ],
+    "rx_hanger_inner": [
+     {
+      "mark": "2 IN",
+      "placed": true,
+      "at": [
+       62.7,
+       56.0,
+       -10.0
+      ],
+      "size": [
+       8.6,
+       3.6
+      ]
+     }
+    ],
+    "rx_tower_outer": [
+     {
+      "mark": "2 OUT",
+      "placed": true,
+      "at": [
+       -64.4,
+       56.1,
+       46.7
+      ],
+      "size": [
+       17.4,
+       4.4
+      ]
+     }
+    ],
+    "rx_tower_inner": [
+     {
+      "mark": "2 IN",
+      "placed": true,
+      "at": [
+       69.7,
+       56.1,
+       46.7
+      ],
+      "size": [
+       10.3,
+       4.3
+      ]
+     }
+    ],
+    "rx_beam": [
+     {
+      "mark": "2",
+      "placed": true,
+      "at": [
+       -6.7,
+       104.0,
+       -8.0
+      ],
+      "size": [
+       2.8,
+       4.3
+      ]
+     },
+     {
+      "mark": "UP",
+      "placed": true,
+      "at": [
+       2.9,
+       112.0,
+       1.0
+      ],
+      "size": [
+       11.6,
+       6.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -23.5,
+       112.0,
+       1.5
+      ],
+      "size": [
+       18.5,
+       3.8
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       23.7,
+       112.0,
+       1.0
+      ],
+      "size": [
+       12.4,
+       3.8
+      ]
+     },
+     {
+      "mark": "OUT",
+      "placed": true,
+      "at": [
+       -25.9,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       16.8,
+       3.4
+      ]
+     },
+     {
+      "mark": "IN",
+      "placed": true,
+      "at": [
+       30.2,
+       100.9,
+       -8.0
+      ],
+      "size": [
+       11.3,
+       3.4
+      ]
+     }
+    ],
+    "pod_fork_outer": [
+     {
+      "mark": "2 OUT + arrow",
+      "placed": true,
+      "at": [
+       -49.4,
+       40.0,
+       0.0
+      ],
+      "size": [
+       23.4,
+       8.1
+      ]
+     }
+    ],
+    "pod_fork_inner": [
+     {
+      "mark": "2 IN + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       48.0,
+       2.0
+      ],
+      "size": [
+       16.3,
+       8.1
+      ]
+     },
+     {
+      "mark": "XT30 + arrow",
+      "placed": true,
+      "at": [
+       54.7,
+       0.1,
+       19.0
+      ],
+      "size": [
+       13.9,
+       5.4
+      ]
+     }
+    ]
+   }
+  },
+  "xt30_notch": {
+   "azimuth_deg": 89.8,
+   "rim_r": 29.5,
+   "depth": 2.0
+  }
+ }
+}

@@ -87,6 +87,10 @@ class CoreConfig:
     objects: str = "toys"
     n_objects: int = 6
     joint_err_deg: float = 1.0           # the arm's servos off their calibration (arm_bus)
+    # design.md 4.5: "simple" (arm_so101.ArmServos and arm_bus, every earlier result) or "detailed" (arm_detailed.py's
+    # motors, gearboxes, backlash, friction, flex and heat under servo_emulator.py's firmware, sensors and bus; its truth
+    # drawn from seed): the arm the arm load calibration is tried on
+    arm_model: str = "simple"
     # the arm robot's depth camera (design.md 4.11): "stereo" (the head's pair, robot_export.ARM) or "d435" (the RealSense
     # D435 on the arm riser's front, robot_export.ARM_D435: the tidy's looks and Nav2's near-field depth)
     arm_camera: str = "stereo"
@@ -140,11 +144,14 @@ def arm_kw(c: CoreConfig) -> dict:
         raise ValueError(f"arm_camera {c.arm_camera!r}: 'stereo' or 'd435'")
     if c.front_cam not in ("none", "imx662"):
         raise ValueError(f"front_cam {c.front_cam!r}: 'none' or 'imx662'")
-    return dict(arm_robot(c.arm_camera), floor_objects=toy_objects(c), front_camera=c.front_cam)
+    if c.arm_model not in ("simple", "detailed"):
+        raise ValueError(f"arm_model {c.arm_model!r}: 'simple' or 'detailed'")
+    return dict(arm_robot(c.arm_camera), floor_objects=toy_objects(c), front_camera=c.front_cam,
+                arm_model=c.arm_model, arm_seed=c.seed)
 
 
 MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world",
-                "terrain", "arm_camera", "props", "front_cam")
+                "terrain", "arm_camera", "props", "front_cam", "arm_model")
 
 
 def model_params(c: CoreConfig):
@@ -199,7 +206,10 @@ class SimCore:
         self.m, self.d, self.r = self.drv.m, self.drv.d, self.drv.r
         self.dt = self.m.opt.timestep
         self.bus_sim = None
-        if c.payload == "arm":                          # the SO-101's servo bus (arm_bus; the bridge serves it on TCP)
+        if c.payload == "arm" and c.arm_model == "detailed":    # design.md 4.5: the emulated STS3215s
+            from servo_emulator import ServoBus
+            self.bus_sim = ServoBus(self.r.arm.servos)
+        elif c.payload == "arm":                        # the SO-101's servo bus (arm_bus; the bridge serves it on TCP)
             from arm_bus import ServoBusSim
             self.bus_sim = ServoBusSim(self.r.arm, joint_err_deg=c.joint_err_deg, seed=c.seed)
         self.r.floor_div, self.r.post_div = c.floor_div, c.post_div

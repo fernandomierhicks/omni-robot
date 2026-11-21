@@ -37,7 +37,7 @@ echo "BUILD123D DONE"
 [ "$1" = "sw" ] || exit 0
 run sw_parts      $PY sw_robot_parts.py        # the part STEPs and the manifest
 n=0
-for stages in "import" "roller wheel motor unsprung static" "pod" "group_frame group_mounts group_bumper group_battery group_reference" \
+for stages in "import" "roller wheel motor unsprung static plunger" "pod" "group_frame group_mounts group_bumper group_battery group_reference" \
               "group_upper" "group_electronics" "group_arm" "group_fasteners" "group_harness" "robot" "test paths" \
               "interference_base" "interference_harness" "views_close"; do
   n=$((n + 1))

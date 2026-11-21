@@ -93,7 +93,10 @@ SIM_STEPS = {
                   {"key": "person", "label": "A person walking (Follow)", "kind": "bool", "default": "false"},
                   {"key": "clutter", "label": "clutter (off, toys, all)", "kind": "text", "default": "toys"},
                   {"key": "terrain", "label": "Terrain course (kitchen)", "kind": "bool", "default": "false"},
-                  {"key": "props", "label": "Furnished house (signs, a person)", "kind": "bool", "default": "false"}]
+                  {"key": "props", "label": "Furnished house (signs, a person)", "kind": "bool", "default": "false"},
+                  # design.md 4.5: the detailed arm (motors, gearboxes, flex, heat, emulated servos) for the arm load
+                  # calibration; simple = every earlier result
+                  {"key": "arm_model", "label": "arm model (simple, detailed)", "kind": "text", "default": "simple"}]
          + VIEW_ARGS},
         {"id": "catch", "label": "Play catch", "group": "robot", "cmd": ["bash", "{omni_sh}", "catch", "web:=false"],
          "hint": "The open field: a thrower 6-7 m away, the stereo cameras, the robot's own catch code; return throws "

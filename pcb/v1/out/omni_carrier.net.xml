@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Dropbox\Personal Projects\Robotics\omni-robot\pcb\v1\omni_carrier.kicad_sch</source>
-    <date>2026-11-18T23:55:52</date>
+    <date>2026-11-19T17:49:49</date>
     <tool>Eeschema 10.0.7</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -38,31 +38,7 @@
       <property name="ki_keywords" value="quartz resonator ceramic"/>
       <property name="ki_fp_filters" value="*Buzzer*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>558dc3c1-ed55-5b36-8dd2-6e53641dd9bc</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="C1">
-      <value>100n</value>
-      <footprint>Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm</footprint>
-      <fields>
-        <field name="Footprint">Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
-      <property name="Sheetname" value="omni_carrier"/>
-      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
-      <property name="ki_keywords" value="cap capacitor"/>
-      <property name="ki_fp_filters" value="C_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>a4282d6e-9ef1-5123-b1e5-77e7b48ced31</tstamps>
+      <tstamps>f5ab4573-d420-508a-929f-7f31d5a20073</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -134,7 +110,7 @@
       <property name="ki_keywords" value="diode"/>
       <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>ed0c0b61-a7c4-5b71-9bc1-daf0984bdb2c</tstamps>
+      <tstamps>30a50b81-746b-597e-bcf2-27b3e965c997</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -252,30 +228,6 @@
         </unit>
       </units>
     </comp>
-    <comp ref="J1">
-      <value>XH2</value>
-      <footprint>Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</footprint>
-      <fields>
-        <field name="Footprint">Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Sheetname" value="omni_carrier"/>
-      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
-      <property name="ki_keywords" value="connector"/>
-      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>a5b11859-349c-5780-968f-8ea759c737bc</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
     <comp ref="J3">
       <value>XH6</value>
       <footprint>Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical</footprint>
@@ -290,7 +242,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>fc42d266-aa1b-52d0-81f6-2d835926a7a7</tstamps>
+      <tstamps>f2df5a3c-8f08-5177-96c1-8515fecf8e88</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -318,7 +270,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>39b75d45-67c8-5445-b323-04b1321575d3</tstamps>
+      <tstamps>07a1afb6-c22a-5b10-802c-ad7b40cedd44</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -342,7 +294,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>af9adacb-03f2-5165-9c95-240cba3044e5</tstamps>
+      <tstamps>44632f8f-83fb-5c10-9f19-75aa9a833121</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -368,7 +320,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>39abfc89-dc50-5c85-8516-df03483297f4</tstamps>
+      <tstamps>a239a4bf-90ba-51f7-8b1c-13079c5201ca</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -392,7 +344,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>ba017180-e9ba-5bb5-9735-090505987226</tstamps>
+      <tstamps>558dc3c1-ed55-5b36-8dd2-6e53641dd9bc</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -416,7 +368,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>5709afff-3476-5fe2-8074-479af36491a5</tstamps>
+      <tstamps>dd5fbbbd-f430-56e8-9e4f-b73a45f2614f</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -444,7 +396,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>b90c4560-5039-5c66-a12b-32d231a89f7f</tstamps>
+      <tstamps>a4c3aabe-37ab-5d48-93b8-88d0e7312ef1</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -470,7 +422,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>29b6ba70-2629-5bbb-8929-78735d2e7cc5</tstamps>
+      <tstamps>ea1e6259-df61-5008-8806-2ac2ceb36368</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -496,7 +448,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>b28bd6af-5b08-5513-8d4e-37890aebed6b</tstamps>
+      <tstamps>17d02564-cc6b-56d0-b6e6-254c04e4236a</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -522,7 +474,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>4a240a4c-ceca-51a9-9ca9-c0f68ecf02b1</tstamps>
+      <tstamps>4f8df2f6-81e7-530c-aae7-1919931f088b</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -550,7 +502,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>753f6a3f-3e8c-5728-ab24-c5a4cd3389f7</tstamps>
+      <tstamps>f88573bd-b4f0-5f57-83a4-9620fdcc43b2</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -593,20 +545,20 @@
       </units>
     </comp>
     <comp ref="J19">
-      <value>XH4</value>
-      <footprint>Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical</footprint>
+      <value>XH5</value>
+      <footprint>Connector_JST:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical</footprint>
       <fields>
-        <field name="Footprint">Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical</field>
+        <field name="Footprint">Connector_JST:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
-      <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <libsource lib="Connector_Generic" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value="omni_carrier"/>
       <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>31fbb53c-5d61-5fb5-b0ce-84214b0629c9</tstamps>
+      <tstamps>6bb20096-9ba2-5d96-9cc5-64e77d13a616</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -614,6 +566,7 @@
             <pin num="2"/>
             <pin num="3"/>
             <pin num="4"/>
+            <pin num="5"/>
           </pins>
         </unit>
       </units>
@@ -632,7 +585,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>d2860d54-f326-5fac-bf07-a00d3846c23b</tstamps>
+      <tstamps>3f3b34d3-9d4a-59e3-a898-c01cf1ab5e0c</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -657,7 +610,7 @@
       <property name="ki_keywords" value="connector"/>
       <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>5bd80ffa-1fda-5cd0-b85a-b24e66812c39</tstamps>
+      <tstamps>7f9c4920-c41a-5ff7-81c7-f6fda6dda57b</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -684,7 +637,7 @@
       <property name="ki_keywords" value="Solder Jumper SPDT"/>
       <property name="ki_fp_filters" value="SolderJumper*Open*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>eb341ef6-8087-5c5b-9863-dd8266c06514</tstamps>
+      <tstamps>52fa5ea4-765c-51eb-843b-a46f4920d9a5</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -710,7 +663,7 @@
       <property name="ki_keywords" value="Solder Jumper SPDT"/>
       <property name="ki_fp_filters" value="SolderJumper*Open*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>4538b689-61bb-5e2f-acb7-2fa98b77be5c</tstamps>
+      <tstamps>4a5de204-a5f3-517c-b4d0-2dce7648afd6</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -736,7 +689,7 @@
       <property name="ki_keywords" value="Solder Jumper SPDT"/>
       <property name="ki_fp_filters" value="SolderJumper*Open*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>8eaeab67-c3fe-5ea5-87f1-31fc1e93571f</tstamps>
+      <tstamps>f5cb459f-4784-500d-af34-50e8c14168a5</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -788,7 +741,7 @@
       <property name="ki_keywords" value="Solder Jumper SPDT"/>
       <property name="ki_fp_filters" value="SolderJumper*Open*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>510dd21e-91d6-5a7f-bf4c-e2c5c0c1ecd3</tstamps>
+      <tstamps>5498aad1-df9e-5047-b894-1410a0c87c0d</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -812,61 +765,13 @@
       <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
       <property name="ki_keywords" value="transistor NMOS N-MOS N-MOSFET"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>12da8502-adc3-599f-859b-c141438b93fc</tstamps>
+      <tstamps>1714eba8-c1a2-5299-b7da-fe4b7ef909a6</tstamps>
       <units>
         <unit name="A">
           <pins>
             <pin num="2"/>
             <pin num="3"/>
             <pin num="1"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="R1">
-      <value>100k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Footprint">Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value="omni_carrier"/>
-      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <property name="ki_fp_filters" value="R_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>6627d6e7-4ec3-56c9-98fe-bf9e54b99a71</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
-          </pins>
-        </unit>
-      </units>
-    </comp>
-    <comp ref="R2">
-      <value>10k</value>
-      <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Footprint">Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</field>
-        <field name="Datasheet"/>
-        <field name="Description"/>
-      </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value="omni_carrier"/>
-      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <property name="ki_fp_filters" value="R_*"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>dc26731a-d078-5cd0-bc7e-9e1e998d702f</tstamps>
-      <units>
-        <unit name="A">
-          <pins>
-            <pin num="1"/>
-            <pin num="2"/>
           </pins>
         </unit>
       </units>
@@ -885,7 +790,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>1714eba8-c1a2-5299-b7da-fe4b7ef909a6</tstamps>
+      <tstamps>ae83b5d5-88e4-53ee-a48e-24c10efa5e86</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -933,7 +838,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>cdb5c93e-fcf1-5e07-b9d4-a89e30af5c5d</tstamps>
+      <tstamps>37039323-98e6-5e6d-9bf0-4fd7e28966a2</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -957,7 +862,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>8ad13e71-ff00-5348-a381-41e9dd4b3d58</tstamps>
+      <tstamps>3fb921ca-30f5-5988-ab12-fad907c59fa6</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -981,7 +886,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>2f50de42-fd3d-5cfe-8364-12a461217c5e</tstamps>
+      <tstamps>0f26122c-a389-5268-aac7-9e01161a1b51</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1005,7 +910,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>b787625e-a3fd-5cbb-b8ad-bdd5da2ed0b8</tstamps>
+      <tstamps>56f53de7-c3cd-53e5-b32f-a72cb2ac3ceb</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1155,7 +1060,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>81c74760-b225-5891-ad4b-8a33f8ee785f</tstamps>
+      <tstamps>15233a8f-9ab2-56c9-8b9f-17e407188493</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1180,7 +1085,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>32f17edd-9118-57a7-aa77-dfc6fc15b9b9</tstamps>
+      <tstamps>1c9e0b65-bb02-5c28-84c2-c4275121d314</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1205,7 +1110,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>29578ab0-1178-57f4-ba40-ffe82ee21c04</tstamps>
+      <tstamps>733e4a8a-6587-5be1-9d26-33f39af48580</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1230,7 +1135,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>a16b3345-6b09-5993-97f3-1c025ae95706</tstamps>
+      <tstamps>76480ea6-973a-5405-b444-67056577c3de</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1255,7 +1160,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>6a7f3022-a716-50d7-83b1-0f32104e0f00</tstamps>
+      <tstamps>ae34c71f-5d75-5d81-8654-426c516a602e</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1280,7 +1185,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>80fd62df-bfcd-5c02-a2c5-01cdfb33d950</tstamps>
+      <tstamps>311eae93-56a5-5c86-bf39-18748f899c43</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1305,7 +1210,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>1fe3bab0-efb3-55c9-b6a9-3d5bf978b3ae</tstamps>
+      <tstamps>ece8a7e2-5548-5dc4-8116-62006f15ecfe</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1330,7 +1235,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>e37bc35f-47c5-58fd-bffb-af90057ec0e1</tstamps>
+      <tstamps>49a4a74e-7785-57ef-bdd8-bf768599ac29</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1355,7 +1260,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>5f21e540-7b31-5c7a-b5ca-be8d7d53d725</tstamps>
+      <tstamps>c6657044-020e-5980-984d-b35d1d3c4ca0</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1380,7 +1285,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>d0b32b55-86ab-5609-be3c-df22a76371c8</tstamps>
+      <tstamps>f9c4cdbd-4685-54d3-94e2-b164091a110e</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1405,7 +1310,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>1a3a4c2c-9cf1-5b70-8c98-db86bcfcbde7</tstamps>
+      <tstamps>ba250cc7-edde-5db4-b263-cbd851fe0535</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1430,7 +1335,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>9d414d00-03cc-5c4f-ad5a-b8e42c5dc0ef</tstamps>
+      <tstamps>ebdf2af5-1b43-51a4-81ae-a88a26bcfd51</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1455,7 +1360,7 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>1a6b25df-acc6-5b77-bbe2-61afcd41674e</tstamps>
+      <tstamps>83d8b48b-f275-5e4e-91c8-bd7ec3139eb3</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1480,7 +1385,32 @@
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>866055c8-2b69-5e4e-936d-b743e98eaa56</tstamps>
+      <tstamps>b28bf4fa-cae7-5d1f-9c20-4518d8dab9c4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R49">
+      <value>10k DNI</value>
+      <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="omni_carrier"/>
+      <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
+      <property name="dnp"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>55dce7fb-0a92-56e5-a928-1eb36c03bd1a</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1571,7 +1501,7 @@
       <property name="Sheetname" value="omni_carrier"/>
       <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>a9abd084-c09f-5a53-8e30-c81bdde7375c</tstamps>
+      <tstamps>e154d811-e551-5eef-b04c-e9c53c270618</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1597,7 +1527,7 @@
       <property name="Sheetname" value="omni_carrier"/>
       <property name="Sheetfile" value="omni_carrier.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>7741c634-ab41-5cd6-afa3-b7c55c4fa718</tstamps>
+      <tstamps>ced9fceb-4724-5095-af90-cd342a04b324</tstamps>
       <units>
         <unit name="A">
           <pins>
@@ -1667,6 +1597,26 @@
         <pin num="4" name="Pin_4" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x05">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Connector_Generic" part="Conn_01x06">
       <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
       <footprints>
@@ -1703,23 +1653,6 @@
       <pins>
         <pin num="1" name="+" type="passive"/>
         <pin num="2" name="-" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="C">
-      <description>Unpolarized capacitor</description>
-      <footprints>
-        <fp>C_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">C</field>
-        <field name="Value">C</field>
-        <field name="Footprint"/>
-        <field name="Datasheet"/>
-        <field name="Description">Unpolarized capacitor</field>
-      </fields>
-      <pins>
-        <pin num="1" name="" type="passive"/>
-        <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Device" part="C_Polarized">
@@ -1978,24 +1911,24 @@
     </net>
     <net code="3" name="/BIAS_J11" class="Default">
       <node ref="JP11" pin="2" pinfunction="C_2" pintype="passive"/>
-      <node ref="R37" pin="2" pintype="passive"/>
       <node ref="R38" pin="2" pintype="passive"/>
       <node ref="R39" pin="2" pintype="passive"/>
       <node ref="R40" pin="2" pintype="passive"/>
+      <node ref="R41" pin="2" pintype="passive"/>
     </net>
     <net code="4" name="/BIAS_J16" class="Default">
       <node ref="JP16" pin="2" pinfunction="C_2" pintype="passive"/>
-      <node ref="R41" pin="2" pintype="passive"/>
       <node ref="R42" pin="2" pintype="passive"/>
       <node ref="R43" pin="2" pintype="passive"/>
       <node ref="R44" pin="2" pintype="passive"/>
+      <node ref="R45" pin="2" pintype="passive"/>
     </net>
     <net code="5" name="/BIAS_J17" class="Default">
       <node ref="JP17" pin="2" pinfunction="C_2" pintype="passive"/>
-      <node ref="R45" pin="2" pintype="passive"/>
       <node ref="R46" pin="2" pintype="passive"/>
       <node ref="R47" pin="2" pintype="passive"/>
       <node ref="R48" pin="2" pintype="passive"/>
+      <node ref="R49" pin="2" pintype="passive"/>
     </net>
     <net code="6" name="/BIAS_J18" class="Default">
       <node ref="JP18" pin="2" pinfunction="C_2" pintype="passive"/>
@@ -2009,6 +1942,7 @@
       <node ref="JP19" pin="2" pinfunction="C_2" pintype="passive"/>
       <node ref="R35" pin="2" pintype="passive"/>
       <node ref="R36" pin="2" pintype="passive"/>
+      <node ref="R37" pin="2" pintype="passive"/>
     </net>
     <net code="8" name="/BUZZER" class="Default">
       <node ref="Q1" pin="2" pinfunction="G_2" pintype="input"/>
@@ -2145,114 +2079,107 @@
     </net>
     <net code="40" name="/SP_A16" class="Default">
       <node ref="J11" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
-      <node ref="R40" pin="1" pintype="passive"/>
+      <node ref="R41" pin="1" pintype="passive"/>
       <node ref="U1" pin="41" pinfunction="40/A16_41" pintype="bidirectional"/>
     </net>
-    <net code="41" name="/SP_D0" class="Default">
-      <node ref="J11" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+    <net code="41" name="/SP_A17" class="Default">
+      <node ref="J19" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
       <node ref="R37" pin="1" pintype="passive"/>
+      <node ref="U1" pin="40" pinfunction="41/A17_40" pintype="bidirectional"/>
+    </net>
+    <net code="42" name="/SP_D0" class="Default">
+      <node ref="J11" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R38" pin="1" pintype="passive"/>
       <node ref="U1" pin="2" pinfunction="0/RX1_2" pintype="bidirectional"/>
     </net>
-    <net code="42" name="/SP_D1" class="Default">
+    <net code="43" name="/SP_D1" class="Default">
       <node ref="J11" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
-      <node ref="R38" pin="1" pintype="passive"/>
+      <node ref="R39" pin="1" pintype="passive"/>
       <node ref="U1" pin="3" pinfunction="1/TX1_3" pintype="bidirectional"/>
     </net>
-    <net code="43" name="/SP_D2" class="Default">
+    <net code="44" name="/SP_D2" class="Default">
       <node ref="J17" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
-      <node ref="R45" pin="1" pintype="passive"/>
+      <node ref="R46" pin="1" pintype="passive"/>
       <node ref="U1" pin="4" pinfunction="2_4" pintype="bidirectional"/>
     </net>
-    <net code="44" name="/SP_D3" class="Default">
+    <net code="45" name="/SP_D3" class="Default">
       <node ref="J17" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
-      <node ref="R46" pin="1" pintype="passive"/>
+      <node ref="R47" pin="1" pintype="passive"/>
       <node ref="U1" pin="5" pinfunction="3_5" pintype="bidirectional"/>
     </net>
-    <net code="45" name="/SP_D14" class="Default">
+    <net code="46" name="/SP_D14" class="Default">
       <node ref="J16" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
-      <node ref="R41" pin="1" pintype="passive"/>
+      <node ref="R42" pin="1" pintype="passive"/>
       <node ref="U1" pin="37" pinfunction="14/TX3_37" pintype="bidirectional"/>
     </net>
-    <net code="46" name="/SP_D15" class="Default">
+    <net code="47" name="/SP_D15" class="Default">
       <node ref="J16" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
-      <node ref="R42" pin="1" pintype="passive"/>
+      <node ref="R43" pin="1" pintype="passive"/>
       <node ref="U1" pin="36" pinfunction="15/RX3_36" pintype="bidirectional"/>
     </net>
-    <net code="47" name="/SP_D16" class="Default">
+    <net code="48" name="/SP_D16" class="Default">
       <node ref="J16" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
-      <node ref="R43" pin="1" pintype="passive"/>
+      <node ref="R44" pin="1" pintype="passive"/>
       <node ref="U1" pin="35" pinfunction="16/RX4_35" pintype="bidirectional"/>
     </net>
-    <net code="48" name="/SP_D17" class="Default">
+    <net code="49" name="/SP_D17" class="Default">
       <node ref="J16" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
-      <node ref="R44" pin="1" pintype="passive"/>
+      <node ref="R45" pin="1" pintype="passive"/>
       <node ref="U1" pin="34" pinfunction="17/TX4_34" pintype="bidirectional"/>
     </net>
-    <net code="49" name="/SP_D20" class="Default">
+    <net code="50" name="/SP_D20" class="Default">
       <node ref="J17" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
-      <node ref="R47" pin="1" pintype="passive"/>
+      <node ref="R48" pin="1" pintype="passive"/>
       <node ref="U1" pin="31" pinfunction="20/TX5_31" pintype="bidirectional"/>
     </net>
-    <net code="50" name="/SP_D21" class="Default">
+    <net code="51" name="/SP_D21" class="Default">
       <node ref="J17" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
-      <node ref="R48" pin="1" pintype="passive"/>
+      <node ref="R49" pin="1" pintype="passive"/>
       <node ref="U1" pin="30" pinfunction="21/RX5_30" pintype="bidirectional"/>
     </net>
-    <net code="51" name="/SP_D27" class="Default">
+    <net code="52" name="/SP_D27" class="Default">
       <node ref="J11" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
-      <node ref="R39" pin="1" pintype="passive"/>
+      <node ref="R40" pin="1" pintype="passive"/>
       <node ref="U1" pin="19" pinfunction="27_19" pintype="bidirectional"/>
     </net>
-    <net code="52" name="/SP_D32" class="Default">
+    <net code="53" name="/SP_D32" class="Default">
       <node ref="J18" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="R30" pin="1" pintype="passive"/>
       <node ref="U1" pin="24" pinfunction="32_24" pintype="bidirectional"/>
     </net>
-    <net code="53" name="/SP_D33" class="Default">
+    <net code="54" name="/SP_D33" class="Default">
       <node ref="J18" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
       <node ref="R31" pin="1" pintype="passive"/>
       <node ref="U1" pin="48" pinfunction="33_48" pintype="bidirectional"/>
     </net>
-    <net code="54" name="/SP_D34" class="Default">
+    <net code="55" name="/SP_D34" class="Default">
       <node ref="J19" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
       <node ref="R36" pin="1" pintype="passive"/>
       <node ref="U1" pin="47" pinfunction="34_47" pintype="bidirectional"/>
     </net>
-    <net code="55" name="/SP_D36" class="Default">
+    <net code="56" name="/SP_D36" class="Default">
       <node ref="J18" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
       <node ref="R32" pin="1" pintype="passive"/>
       <node ref="U1" pin="45" pinfunction="36_45" pintype="bidirectional"/>
     </net>
-    <net code="56" name="/SP_D37" class="Default">
+    <net code="57" name="/SP_D37" class="Default">
       <node ref="J18" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
       <node ref="R33" pin="1" pintype="passive"/>
       <node ref="U1" pin="44" pinfunction="37_44" pintype="bidirectional"/>
     </net>
-    <net code="57" name="/SP_D38" class="Default">
+    <net code="58" name="/SP_D38" class="Default">
       <node ref="J18" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
       <node ref="R34" pin="1" pintype="passive"/>
       <node ref="U1" pin="43" pinfunction="38/A14_43" pintype="bidirectional"/>
     </net>
-    <net code="58" name="/SYNC_OUT" class="Default">
+    <net code="59" name="/SYNC_OUT" class="Default">
       <node ref="J13" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
       <node ref="U1" pin="17" pinfunction="25_17" pintype="bidirectional"/>
     </net>
-    <net code="59" name="/VBUS_ADC" class="Default">
-      <node ref="C1" pin="1" pintype="passive"/>
-      <node ref="R1" pin="2" pintype="passive"/>
-      <node ref="R2" pin="1" pintype="passive"/>
-      <node ref="U1" pin="40" pinfunction="41/A17_40" pintype="bidirectional"/>
-    </net>
-    <net code="60" name="/VBUS_IN" class="Default">
-      <node ref="J1" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
-      <node ref="R1" pin="1" pintype="passive"/>
-    </net>
-    <net code="61" name="GND" class="Power,Default">
-      <node ref="C1" pin="2" pintype="passive"/>
+    <net code="60" name="GND" class="Power,Default">
       <node ref="C5" pin="2" pintype="passive"/>
       <node ref="C6" pin="2" pintype="passive"/>
       <node ref="D3" pin="1" pinfunction="K_1" pintype="passive"/>
-      <node ref="J1" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J11" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
       <node ref="J12" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
       <node ref="J13" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
@@ -2272,7 +2199,6 @@
       <node ref="JP19" pin="3" pinfunction="B_3" pintype="passive"/>
       <node ref="Q1" pin="1" pinfunction="S_1" pintype="passive"/>
       <node ref="R12" pin="2" pintype="passive"/>
-      <node ref="R2" pin="2" pintype="passive"/>
       <node ref="U1" pin="1" pinfunction="GND_1" pintype="passive"/>
       <node ref="U1" pin="26" pinfunction="GND_26" pintype="passive"/>
       <node ref="U1" pin="39" pinfunction="GND_39" pintype="passive"/>

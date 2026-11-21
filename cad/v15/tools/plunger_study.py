@@ -1,4 +1,6 @@
-"""Nov 18 (Fernando): the spring plungers. PROPOSAL / try-out, not in the pod build yet.
+"""Nov 18 (Fernando): the spring plungers. **Nov 19 (Fernando: "make the M3 the baseline towers now"): the M3 set is the baseline**: pod_mid
+draws the towers with the stop surface and these bores / guides (build_tower), and its assembly takes the plunger (cap_m3, sleeve, hardware)
+and its lift (lift_of) from here; sw_robot_parts / robot_step draw the coils and the coloured pieces. The M4 cap stays a try-out.
 
     python -B plunger_study.py cap        the M4 cap to print and try now
     python -B plunger_study.py m3         the M3 plunger proposal: sleeve, towers with the bigger bores and the smooth guide, assemblies

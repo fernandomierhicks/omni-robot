@@ -459,7 +459,7 @@ void run_arm(ArmCheck& c, const std::string& op, std::istringstream& is) {
         } else if (what == "read") {
             std::vector<int> ids;
             for (int i; is >> i;) ids.push_back(i);
-            for (auto& [id, s] : bus.sync_read_status(ids))
+            for (auto& [id, s] : bus.sync_read_status(ids, sts::STATUS_LEN_V1))
                 std::printf("%d %d %d %.17g %.17g %d %d;", id, s.position, s.speed, s.load, s.volts, s.temp_c, s.ok ? 1 : 0);
             std::printf("\n");
         } else {                                        // goals id:ticks ...

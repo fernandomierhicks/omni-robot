@@ -208,3 +208,22 @@ def test_wireless_parsing():
             "wlan0: 0000   54.  -56.  -256        0      0      0      0      0        0\n")
     assert st.parse_wireless(text) == {"iface": "wlan0", "quality": 54.0, "dbm": -56.0}
     assert st.parse_wireless("header\nheader\n") is None
+
+
+def test_the_arm_load_calibration_runs_through_the_arm_verb():
+    """design.md 4.5: Calibrate's card starts it, answers its prompts and cancels it (arm_brain runs it); the arm's
+    load fields and the procedure's state reach the page's status."""
+    c = ready()
+    c.on_arm_state(dict(connected=True, out=False, source="hold", events=[], tidy=None, tidy_on=False,
+                        load_model="nominal", strained=[False] * 6, force=[0.0, 0.0, 0.0], reflexes=0,
+                        cal=dict(step=3, steps=130, prompt=dict(kind="weigh", unit="g", text="Weigh it"))), c.now)
+    r = c.command("arm", {"do": "cal_load"})
+    assert r.ok and ("arm", {"verb": "cal_load", "quick": False}) in r.effects
+    r = c.command("arm", {"do": "cal_input", "value": 152})
+    assert r.ok and ("arm", {"verb": "cal_input", "value": 152}) in r.effects
+    assert c.command("arm", {"do": "cal_cancel"}).effects == (("arm", {"verb": "cal_cancel"}),)
+    arm = c.summary()["arm"]
+    assert arm["cal"]["prompt"]["kind"] == "weigh" and arm["load_model"] == "nominal"
+    c.command("mission", {"name": "CALIBRATE"})
+    if c.mission not in ("IDLE", "MANUAL"):
+        assert not c.command("arm", {"do": "cal_load"}).ok                  # the robot must be still

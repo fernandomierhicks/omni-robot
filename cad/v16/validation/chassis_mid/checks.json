@@ -1,0 +1,1553 @@
+{
+ "layout": {
+  "D": 154.0,
+  "slide": -20.0,
+  "deck_z": [
+   80.0,
+   100.0
+  ],
+  "deck_z_v14": [
+   40.0,
+   62.0
+  ],
+  "r_deck": 229,
+  "r_hold": 227.2,
+  "r_opening": 220.1,
+  "r_moving": 218.8,
+  "bumper_inside_r": 229.5,
+  "robot_diameter": 465.0,
+  "robot_diameter_v14": 450.3,
+  "bumper_to_moving_mm": 10.7,
+  "opening_clearance_mm": 2.0
+ },
+ "pods_plan_gaps_mm": {
+  "side_FL_RL": 14.8,
+  "side_FR_RR": 14.8,
+  "front_FL_FR": 54.6,
+  "back_RL_RR": 54.6
+ },
+ "deck_pieces": {
+  "FL": {
+   "volume_cm3": 508.3,
+   "solids": 1,
+   "valid": true,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     236.0,
+     251.6
+    ],
+    "best": [
+     248.3,
+     248.3
+    ],
+    "rotate_deg": 3.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 3.7
+   },
+   "hanger_beam_tops_on_deck_pct": 96.9,
+   "tower_bases_on_deck_pct": 63.6,
+   "pod_up_screws_on_own_piece": "8 of 8",
+   "pod_up_screws_edge_margin_mm": 6.59,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 2.0,
+   "top_edges": "top edges R1"
+  },
+  "RL": {
+   "volume_cm3": 519.0,
+   "solids": 1,
+   "valid": true,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     235.0,
+     239.0
+    ],
+    "best": [
+     239.0,
+     235.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 13.0
+   },
+   "hanger_beam_tops_on_deck_pct": 96.9,
+   "tower_bases_on_deck_pct": 63.6,
+   "pod_up_screws_on_own_piece": "8 of 8",
+   "pod_up_screws_edge_margin_mm": 7.0,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 2.0,
+   "top_edges": "top edges R1"
+  },
+  "RR": {
+   "volume_cm3": 465.6,
+   "solids": 1,
+   "valid": true,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     247.4,
+     232.0
+    ],
+    "best": [
+     245.0,
+     244.8
+    ],
+    "rotate_deg": 86.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 7.0
+   },
+   "hanger_beam_tops_on_deck_pct": 96.9,
+   "tower_bases_on_deck_pct": 63.6,
+   "pod_up_screws_on_own_piece": "8 of 8",
+   "pod_up_screws_edge_margin_mm": 7.0,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 2.0,
+   "top_edges": "top edges R1"
+  },
+  "FR": {
+   "volume_cm3": 383.4,
+   "solids": 1,
+   "valid": true,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     222.4,
+     218.6
+    ],
+    "best": [
+     222.3,
+     222.2
+    ],
+    "rotate_deg": 1.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 29.7
+   },
+   "hanger_beam_tops_on_deck_pct": 96.9,
+   "tower_bases_on_deck_pct": 63.6,
+   "pod_up_screws_on_own_piece": "8 of 8",
+   "pod_up_screws_edge_margin_mm": 6.59,
+   "tower_screws_edge_margin_mm": 10.41,
+   "plan_gap_to_openings_mm": 2.0,
+   "top_edges": "top edges R1"
+  }
+ },
+ "cantilever_strips_removed_mm2": {
+  "FL": 30.8,
+  "RL": 29.5,
+  "RR": 41.2,
+  "FR": 42.5
+ },
+ "joints": {
+  "kind": "dovetail half-laps across the seams (lower piece: bottom half tab; upper piece: socket + its top half over it), 2 x M3 x 16 each, down from the top into the tab",
+  "order": "FL and RR first, RL and FR dropped onto them",
+  "seams_cross_at": [
+   6.0,
+   -10.0
+  ],
+  "laps": [
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 45.0
+   },
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 100.0
+   },
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 155.0
+   },
+   {
+    "seam_deg": 90.0,
+    "lower": "FL",
+    "upper": "RL",
+    "r": 205.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 40.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 100.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 155.0
+   },
+   {
+    "seam_deg": 180.0,
+    "lower": "RR",
+    "upper": "RL",
+    "r": 190.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 45.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 75.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 155.0
+   },
+   {
+    "seam_deg": 270.0,
+    "lower": "RR",
+    "upper": "FR",
+    "r": 200.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 65.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 110.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 155.0
+   },
+   {
+    "seam_deg": 0.0,
+    "lower": "FL",
+    "upper": "FR",
+    "r": 200.0
+   }
+  ],
+  "per_seam": {
+   "90.0": 4,
+   "180.0": 4,
+   "270.0": 4,
+   "0.0": 4
+  },
+  "socket_clearance_per_face": 0.05,
+  "fillet_r": 0.5,
+  "fillets": "the tab's far corners and the socket's two lips at the seam (vertical edges); the key: R1 outside corners"
+ },
+ "alignment_pockets": {
+  "depth": 1.7,
+  "per_pod": {
+   "FL": [
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "FL"
+     ],
+     "wall_to_edge_mm": [
+      5.96
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "FL"
+     ],
+     "wall_to_edge_mm": [
+      14.77
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "FL"
+     ],
+     "wall_to_edge_mm": [
+      7.48
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 877.6,
+     "pieces": [
+      "FL"
+     ],
+     "wall_to_edge_mm": [
+      26.65
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "FL"
+     ],
+     "wall_to_edge_mm": [
+      19.15
+     ],
+     "near_tabs_mm": []
+    }
+   ],
+   "RL": [
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "RL"
+     ],
+     "wall_to_edge_mm": [
+      26.76
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "RL"
+     ],
+     "wall_to_edge_mm": [
+      5.96
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "RL"
+     ],
+     "wall_to_edge_mm": [
+      18.1
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 877.6,
+     "pieces": [
+      "RL"
+     ],
+     "wall_to_edge_mm": [
+      25.69
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "RL"
+     ],
+     "wall_to_edge_mm": [
+      7.48
+     ],
+     "near_tabs_mm": []
+    }
+   ],
+   "RR": [
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "RR"
+     ],
+     "wall_to_edge_mm": [
+      26.76
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "RR"
+     ],
+     "wall_to_edge_mm": [
+      5.96
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "RR"
+     ],
+     "wall_to_edge_mm": [
+      31.15
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 877.6,
+     "pieces": [
+      "RR"
+     ],
+     "wall_to_edge_mm": [
+      29.89
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "RR"
+     ],
+     "wall_to_edge_mm": [
+      7.48
+     ],
+     "near_tabs_mm": []
+    }
+   ],
+   "FR": [
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "FR"
+     ],
+     "wall_to_edge_mm": [
+      5.96
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "top",
+     "area_mm2": 328.3,
+     "pieces": [
+      "FR"
+     ],
+     "wall_to_edge_mm": [
+      14.77
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "FR"
+     ],
+     "wall_to_edge_mm": [
+      7.48
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 877.6,
+     "pieces": [
+      "FR"
+     ],
+     "wall_to_edge_mm": [
+      24.75
+     ],
+     "near_tabs_mm": []
+    },
+    {
+     "face": "underside",
+     "area_mm2": 291.1,
+     "pieces": [
+      "FR"
+     ],
+     "wall_to_edge_mm": [
+      6.77
+     ],
+     "near_tabs_mm": []
+    }
+   ]
+  },
+  "seats_on_another_piece_mm2": {},
+  "note": "a pocket must be in one piece (wall >= 0 inside it); seats_on_another_piece must be empty (Nov 15: FR's beam under RR's tab)"
+ },
+ "deck_marks": {
+  "FL": {
+   "placed": true,
+   "text": "1",
+   "xy": [
+    185.2,
+    114.0
+   ]
+  },
+  "RL": {
+   "placed": true,
+   "text": "3",
+   "xy": [
+    -43.7,
+    202.7
+   ]
+  },
+  "RR": {
+   "placed": true,
+   "text": "4",
+   "xy": [
+    -44.7,
+    -198.8
+   ]
+  },
+  "FR": {
+   "placed": true,
+   "text": "2",
+   "xy": [
+    72.6,
+    -38.4
+   ]
+  }
+ },
+ "accessory_holes": {
+  "per_piece": {
+   "FL": {
+    "tie_pairs": 17,
+    "m3_pilots": 50
+   },
+   "RL": {
+    "tie_pairs": 22,
+    "m3_pilots": 58
+   },
+   "RR": {
+    "tie_pairs": 20,
+    "m3_pilots": 66
+   },
+   "FR": {
+    "tie_pairs": 13,
+    "m3_pilots": 43
+   }
+  },
+  "m3_pilots": 217,
+  "tie_pairs": 72,
+  "pitch": 15.0,
+  "stagger": true,
+  "fill_sep": 10.6,
+  "min_pilot_spacing_mm": 10.31,
+  "note": "zip-tie pairs and M3 pilots (\u00d82.8, through) where the deck has room: a 15 mm lattice and (Nov 18) its centre points, then the pockets left at >= fill_sep; none over the battery, its straps, the stand pads"
+ },
+ "deck_volume_cm3": {
+  "total": 1876.3,
+  "v14_frame": 1141.3
+ },
+ "base_items_vs_pods": {
+  "overlap_mm3": {},
+  "min_gap_mm": {
+   "bumper_FL / FL static": 2.34,
+   "bumper_FL / FL moving": 10.74,
+   "pedestal / FL moving": 5.26,
+   "support_side_L / FL static": 5.0,
+   "support_side_L / FL moving": 10.85,
+   "support_front_L / FL moving": 6.72,
+   "bracket_battery_clip_0 / FL moving": 15.51,
+   "battery / FL moving": 26.82,
+   "strap_battery_1 / FL moving": 41.62,
+   "bumper_RL / RL static": 2.34,
+   "bumper_RL / RL moving": 10.74,
+   "support_side_L / RL static": 5.13,
+   "support_side_L / RL moving": 14.88,
+   "bracket_battery_clip_1 / RL moving": 31.77,
+   "battery / RL moving": 43.09,
+   "strap_battery_0 / RL moving": 53.6,
+   "bumper_RR / RR static": 2.34,
+   "bumper_RR / RR moving": 10.74,
+   "support_side_R / RR static": 5.13,
+   "support_side_R / RR moving": 14.88,
+   "bracket_battery_clip_2 / RR moving": 31.77,
+   "battery / RR moving": 43.09,
+   "strap_battery_0 / RR moving": 53.6,
+   "bumper_FR / FR static": 2.33,
+   "bumper_FR / FR moving": 10.74,
+   "pedestal / FR moving": 5.26,
+   "support_side_R / FR static": 5.0,
+   "support_side_R / FR moving": 10.85,
+   "support_front_R / FR moving": 6.72,
+   "bracket_battery_clip_3 / FR moving": 15.51,
+   "battery / FR moving": 26.82,
+   "strap_battery_1 / FR moving": 41.62
+  },
+  "note": "moving: wheel parts at one roller angle; the fins were cut from the wheel's revolved envelope + 3"
+ },
+ "fins": {
+  "per_fin": {
+   "support_spine": {
+    "edge_min_z": 100.0,
+    "edge_max_z": 104.0,
+    "deck_ok_mm": 293,
+    "length_mm": 293,
+    "feet": [
+     [
+      44.6,
+      57.9
+     ],
+     [
+      93.1,
+      129.9
+     ],
+     [
+      165.1,
+      182.0
+     ],
+     [
+      241.7,
+      258.8
+     ],
+     [
+      318.5,
+      335.4
+     ]
+    ],
+    "arches": 2,
+    "screws": 6,
+    "screw_u": [
+     51.2,
+     100.6,
+     123.9,
+     173.6,
+     250.2,
+     326.9
+    ],
+    "tie_slots": 6
+   },
+   "support_side_L": {
+    "edge_min_z": 100.0,
+    "edge_max_z": 135.3,
+    "deck_ok_mm": 143,
+    "length_mm": 161,
+    "feet": [
+     [
+      153.1,
+      177.9
+     ],
+     [
+      203.1,
+      237.4
+     ]
+    ],
+    "arches": 0,
+    "screws": 3,
+    "screw_u": [
+     170.4,
+     215.1,
+     226.9
+    ],
+    "tie_slots": 2
+   },
+   "support_side_R": {
+    "edge_min_z": 100.0,
+    "edge_max_z": 135.3,
+    "deck_ok_mm": 143,
+    "length_mm": 161,
+    "feet": [
+     [
+      153.1,
+      177.9
+     ],
+     [
+      203.1,
+      237.4
+     ]
+    ],
+    "arches": 0,
+    "screws": 3,
+    "screw_u": [
+     170.4,
+     215.1,
+     226.9
+    ],
+    "tie_slots": 2
+   },
+   "support_front_L": {
+    "edge_min_z": 100.0,
+    "edge_max_z": 100.0,
+    "deck_ok_mm": 26,
+    "length_mm": 26,
+    "feet": [
+     [
+      84.6,
+      108.4
+     ]
+    ],
+    "arches": 0,
+    "screws": 2,
+    "screw_u": [
+     90.6,
+     99.4
+    ],
+    "tie_slots": 0
+   },
+   "support_front_R": {
+    "edge_min_z": 100.0,
+    "edge_max_z": 100.0,
+    "deck_ok_mm": 26,
+    "length_mm": 26,
+    "feet": [
+     [
+      84.6,
+      108.4
+     ]
+    ],
+    "arches": 0,
+    "screws": 2,
+    "screw_u": [
+     90.6,
+     99.4
+    ],
+    "tie_slots": 0
+   }
+  },
+  "volume_cm3": {
+   "support_spine": 224.7,
+   "support_side_L": 98.1,
+   "support_side_R": 98.0,
+   "support_front_L": 15.5,
+   "support_front_R": 15.5
+  },
+  "feet_screws": 16,
+  "feet_on": [
+   "FL",
+   "FR",
+   "RL",
+   "RR"
+  ],
+  "solids": {
+   "support_spine": [
+    1,
+    true
+   ],
+   "support_side_L": [
+    1,
+    true
+   ],
+   "support_side_R": [
+    1,
+    true
+   ],
+   "support_front_L": [
+    1,
+    true
+   ],
+   "support_front_R": [
+    1,
+    true
+   ]
+  },
+  "rule": "lower edge 3 mm off the moving parts, 2 off the static ones, + R3 rounding; feet on solid deck; M3 x 25 up from below",
+  "overlap_with_base_parts_mm3": {}
+ },
+ "bumper": {
+  "z": [
+   40.0,
+   80.0
+  ],
+  "tabs": [
+   {
+    "quarter": "FL",
+    "deg": 15.0,
+    "screw_xy": [
+     214.9,
+     57.6
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "FL",
+    "deg": 45.0,
+    "screw_xy": [
+     157.3,
+     157.3
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "FL",
+    "deg": 75.0,
+    "screw_xy": [
+     57.6,
+     214.9
+    ],
+    "into": "deck_FL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 105.0,
+    "screw_xy": [
+     -57.6,
+     214.9
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 135.0,
+    "screw_xy": [
+     -157.3,
+     157.3
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RL",
+    "deg": 165.0,
+    "screw_xy": [
+     -214.9,
+     57.6
+    ],
+    "into": "deck_RL"
+   },
+   {
+    "quarter": "RR",
+    "deg": 195.0,
+    "screw_xy": [
+     -214.9,
+     -57.6
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "RR",
+    "deg": 225.0,
+    "screw_xy": [
+     -157.3,
+     -157.3
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "RR",
+    "deg": 255.0,
+    "screw_xy": [
+     -57.6,
+     -214.9
+    ],
+    "into": "deck_RR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 285.0,
+    "screw_xy": [
+     57.6,
+     -214.9
+    ],
+    "into": "deck_FR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 315.0,
+    "screw_xy": [
+     157.3,
+     -157.3
+    ],
+    "into": "deck_FR"
+   },
+   {
+    "quarter": "FR",
+    "deg": 345.0,
+    "screw_xy": [
+     214.9,
+     -57.6
+    ],
+    "into": "deck_FR"
+   }
+  ],
+  "per_quarter": {
+   "FL": 3,
+   "RL": 3,
+   "RR": 3,
+   "FR": 3
+  },
+  "solids": {
+   "bumper_FL": [
+    1,
+    true
+   ],
+   "bumper_RL": [
+    1,
+    true
+   ],
+   "bumper_RR": [
+    1,
+    true
+   ],
+   "bumper_FR": [
+    1,
+    true
+   ]
+  },
+  "screw": "M3 x 16 pan up through the tab (counterbored) into a \u00d82.8 pilot through the deck: 12.9 mm of thread"
+ },
+ "battery": {
+  "at": {
+   "x": [
+    -56.5,
+    79.5
+   ],
+   "y": [
+    -23.0,
+    23.0
+   ],
+   "z": [
+    37.0,
+    80.0
+   ]
+  },
+  "lowest_z": 35.5,
+  "clips": 4,
+  "clip_screws": "M3 x 10 up into the deck",
+  "straps": 2,
+  "lead_hole": {
+   "xy": [
+    -128.0,
+    -17.0
+   ],
+   "d": 12.0,
+   "in_piece": "RR",
+   "wall_to_opening_mm": 8.1
+  },
+  "plan_gap_to_pods_mm": 10.2,
+  "out": "strap open, XT90 unplugged under the deck, the pack drops out (robot on the stand)",
+  "cg_drop_mm": 146.5,
+  "note": "cg_drop: the pack centre vs v14 (on the second floor)"
+ },
+ "printed": {
+  "deck_FL": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none (counterbore and hole roofs)",
+   "overhang_mm2": 1871.8,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     236.0,
+     251.6
+    ],
+    "best": [
+     248.3,
+     248.3
+    ],
+    "rotate_deg": 3.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 3.7
+   }
+  },
+  "deck_RL": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none (counterbore and hole roofs)",
+   "overhang_mm2": 3522.5,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     235.0,
+     239.0
+    ],
+    "best": [
+     239.0,
+     235.0
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 13.0
+   }
+  },
+  "deck_RR": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none (counterbore and hole roofs)",
+   "overhang_mm2": 1891.6,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     247.4,
+     232.0
+    ],
+    "best": [
+     245.0,
+     244.8
+    ],
+    "rotate_deg": 86.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 7.0
+   }
+  },
+  "deck_FR": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none (counterbore and hole roofs)",
+   "overhang_mm2": 3382.2,
+   "bed": {
+    "height": 20.0,
+    "as_exported": [
+     222.4,
+     218.6
+    ],
+    "best": [
+     222.3,
+     222.2
+    ],
+    "rotate_deg": 1.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 29.7
+   }
+  },
+  "deck_key": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none",
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 6.0,
+    "as_exported": [
+     39.9,
+     39.9
+    ],
+    "best": [
+     39.9,
+     39.9
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 212.1
+   }
+  },
+  "bumper_FL": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 70.0,
+   "bed": {
+    "height": 40.0,
+    "as_exported": [
+     231.3,
+     231.3
+    ],
+    "best": [
+     231.3,
+     231.3
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 20.7
+   }
+  },
+  "bumper_RL": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 70.0,
+   "bed": {
+    "height": 40.0,
+    "as_exported": [
+     231.3,
+     231.3
+    ],
+    "best": [
+     231.3,
+     231.3
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 20.7
+   }
+  },
+  "bumper_RR": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 70.0,
+   "bed": {
+    "height": 40.0,
+    "as_exported": [
+     231.3,
+     231.3
+    ],
+    "best": [
+     231.3,
+     231.3
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 20.7
+   }
+  },
+  "bumper_FR": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 70.0,
+   "bed": {
+    "height": 40.0,
+    "as_exported": [
+     231.3,
+     231.3
+    ],
+    "best": [
+     231.3,
+     231.3
+    ],
+    "rotate_deg": 0.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 20.7
+   }
+  },
+  "pedestal": {
+   "solids": 1,
+   "valid": true,
+   "up": "+z",
+   "supports": "none",
+   "overhang_mm2": 1890.8,
+   "bed": {
+    "height": 31.7,
+    "as_exported": [
+     73.0,
+     73.0
+    ],
+    "best": [
+     73.0,
+     73.0
+    ],
+    "rotate_deg": 65.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 179.0
+   }
+  },
+  "support_spine": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none (the arches and the generated lower edge open upward)",
+   "overhang_mm2": 384.8,
+   "bed": {
+    "height": 76.5,
+    "as_exported": [
+     292.0,
+     16.0
+    ],
+    "best": [
+     217.8,
+     217.8
+    ],
+    "rotate_deg": 45.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": false,
+    "spare_mm": 34.2
+   }
+  },
+  "support_side_L": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none (the arches and the generated lower edge open upward)",
+   "overhang_mm2": 112.2,
+   "bed": {
+    "height": 76.5,
+    "as_exported": [
+     127.4,
+     121.4
+    ],
+    "best": [
+     124.8,
+     124.1
+    ],
+    "rotate_deg": 178.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 127.2
+   }
+  },
+  "support_side_R": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none (the arches and the generated lower edge open upward)",
+   "overhang_mm2": 112.2,
+   "bed": {
+    "height": 76.5,
+    "as_exported": [
+     127.4,
+     121.4
+    ],
+    "best": [
+     124.8,
+     124.1
+    ],
+    "rotate_deg": 1.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 127.2
+   }
+  },
+  "support_front_L": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none (the arches and the generated lower edge open upward)",
+   "overhang_mm2": 13.2,
+   "bed": {
+    "height": 76.5,
+    "as_exported": [
+     29.6,
+     27.6
+    ],
+    "best": [
+     25.0,
+     16.0
+    ],
+    "rotate_deg": 144.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 227.0
+   }
+  },
+  "support_front_R": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none (the arches and the generated lower edge open upward)",
+   "overhang_mm2": 13.2,
+   "bed": {
+    "height": 76.5,
+    "as_exported": [
+     29.6,
+     27.6
+    ],
+    "best": [
+     25.0,
+     16.0
+    ],
+    "rotate_deg": 126.0,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 227.0
+   }
+  },
+  "bracket_battery_clip_0": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     27.5,
+     16.5
+    ],
+    "best": [
+     26.2,
+     26.1
+    ],
+    "rotate_deg": 66.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 225.8
+   }
+  },
+  "bracket_battery_clip_1": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     27.5,
+     16.5
+    ],
+    "best": [
+     26.2,
+     26.1
+    ],
+    "rotate_deg": 23.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 225.8
+   }
+  },
+  "bracket_battery_clip_2": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     27.5,
+     16.5
+    ],
+    "best": [
+     26.2,
+     26.1
+    ],
+    "rotate_deg": 66.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 225.8
+   }
+  },
+  "bracket_battery_clip_3": {
+   "solids": 1,
+   "valid": true,
+   "up": "-z",
+   "supports": "none",
+   "overhang_mm2": 0.0,
+   "bed": {
+    "height": 30.0,
+    "as_exported": [
+     27.5,
+     16.5
+    ],
+    "best": [
+     26.2,
+     26.1
+    ],
+    "rotate_deg": 23.5,
+    "limit": 252.0,
+    "fits": true,
+    "fits_as_exported": true,
+    "spare_mm": 225.8
+   }
+  }
+ },
+ "bed_fit_failures": [],
+ "hole_audit": {
+  "screws": 150,
+  "thread_min_mm": 7.0,
+  "short_of_6mm": {},
+  "partial": {
+   "bolt_lap_0_0#0 / deck_FL": 0.15,
+   "bolt_lap_0_1#1 / deck_FL": 0.15,
+   "bolt_lap_1_0#2 / deck_FL": 0.15,
+   "bolt_lap_1_1#3 / deck_FL": 0.15,
+   "bolt_lap_2_0#4 / deck_FL": 0.15,
+   "bolt_lap_2_1#5 / deck_FL": 0.15,
+   "bolt_lap_3_0#6 / deck_FL": 0.15,
+   "bolt_lap_3_1#7 / deck_FL": 0.15,
+   "bolt_lap_4_0#8 / deck_RR": 0.15,
+   "bolt_lap_4_1#9 / deck_RR": 0.15,
+   "bolt_lap_5_0#10 / deck_RR": 0.15,
+   "bolt_lap_5_1#11 / deck_RR": 0.15,
+   "bolt_lap_6_0#12 / deck_RR": 0.15,
+   "bolt_lap_6_1#13 / deck_RR": 0.15,
+   "bolt_lap_7_0#14 / deck_RR": 0.15,
+   "bolt_lap_7_1#15 / deck_RR": 0.15,
+   "bolt_lap_8_0#16 / deck_RR": 0.15,
+   "bolt_lap_8_1#17 / deck_RR": 0.15,
+   "bolt_lap_9_0#18 / deck_RR": 0.15,
+   "bolt_lap_9_1#19 / deck_RR": 0.15,
+   "bolt_lap_10_0#20 / deck_RR": 0.15,
+   "bolt_lap_10_1#21 / deck_RR": 0.15,
+   "bolt_lap_11_0#22 / deck_RR": 0.15,
+   "bolt_lap_11_1#23 / deck_RR": 0.15,
+   "bolt_lap_12_0#24 / deck_FL": 0.15,
+   "bolt_lap_12_1#25 / deck_FL": 0.15,
+   "bolt_lap_13_0#26 / deck_FL": 0.15,
+   "bolt_lap_13_1#27 / deck_FL": 0.15,
+   "bolt_lap_14_0#28 / deck_FL": 0.15,
+   "bolt_lap_14_1#29 / deck_FL": 0.15,
+   "bolt_lap_15_0#30 / deck_FL": 0.15,
+   "bolt_lap_15_1#31 / deck_FL": 0.15,
+   "bolt_key_0#64 / deck_RR": 0.15,
+   "bolt_key_1#65 / deck_FR": 0.15,
+   "FL/bolt_tower_1#80 / FL/rx_tower_outer": 0.15,
+   "FL/bolt_tower_2#82 / FL/rx_tower_outer": 0.15,
+   "FL/bolt_tower_3#84 / FL/rx_tower_inner": 0.15,
+   "FL/bolt_tower_4#86 / FL/rx_tower_inner": 0.15,
+   "RL/bolt_tower_1#100 / RL/rx_tower_outer": 0.15,
+   "RL/bolt_tower_2#102 / RL/rx_tower_outer": 0.15,
+   "RL/bolt_tower_3#104 / RL/rx_tower_inner": 0.15,
+   "RL/bolt_tower_4#106 / RL/rx_tower_inner": 0.15,
+   "RR/bolt_tower_1#120 / RR/rx_tower_outer": 0.15,
+   "RR/bolt_tower_2#122 / RR/rx_tower_outer": 0.15,
+   "RR/bolt_tower_3#124 / RR/rx_tower_inner": 0.15,
+   "RR/bolt_tower_4#126 / RR/rx_tower_inner": 0.15,
+   "FR/bolt_tower_1#140 / FR/rx_tower_outer": 0.15,
+   "FR/bolt_tower_2#142 / FR/rx_tower_outer": 0.15,
+   "FR/bolt_tower_3#144 / FR/rx_tower_inner": 0.15,
+   "FR/bolt_tower_4#146 / FR/rx_tower_inner": 0.15
+  },
+  "across_layers": {},
+  "soft_across_layers": {},
+  "heads_in_parts": {},
+  "no_hole": {},
+  "blind_holes_mm_of_plastic": {
+   "bolt_fin_0#32 / support_spine": 30.0,
+   "bolt_fin_1#33 / support_spine": 66.5,
+   "bolt_fin_2#34 / support_spine": 66.5,
+   "bolt_fin_3#35 / support_spine": 66.5,
+   "bolt_fin_4#36 / support_spine": 66.5,
+   "bolt_fin_5#37 / support_spine": 59.5,
+   "bolt_fin_6#38 / support_side_L": 66.5,
+   "bolt_fin_7#39 / support_side_L": 66.5,
+   "bolt_fin_8#40 / support_side_L": 66.5,
+   "bolt_fin_9#41 / support_side_R": 66.5,
+   "bolt_fin_10#42 / support_side_R": 66.5,
+   "bolt_fin_11#43 / support_side_R": 66.5,
+   "bolt_fin_12#44 / support_front_L": 66.5,
+   "bolt_fin_13#45 / support_front_L": 66.5,
+   "bolt_fin_14#46 / support_front_R": 66.5,
+   "bolt_fin_15#47 / support_front_R": 66.5
+  },
+  "note": "partial: a hole that is not a full circle in a part (a seam, an edge); across layers: a thread-forming pilot > 45 deg off the part's print axis; blind: the hole stops inside its printed part, mm of plastic left on its axis"
+ },
+ "lidar": {
+  "scan_z": 163.0,
+  "supports": [
+   {
+    "support": "support_spine",
+    "nearest": 54.4,
+    "bearing": -179.6,
+    "shadow_deg": 5.3
+   },
+   {
+    "support": "support_side_L",
+    "nearest": 78.0,
+    "bearing": 137.1,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_side_R",
+    "nearest": 78.0,
+    "bearing": -136.3,
+    "shadow_deg": 3.7
+   },
+   {
+    "support": "support_front_L",
+    "nearest": 84.1,
+    "bearing": 36.4,
+    "shadow_deg": 4.1
+   },
+   {
+    "support": "support_front_R",
+    "nearest": 84.1,
+    "bearing": -35.6,
+    "shadow_deg": 4.1
+   }
+  ],
+  "blind_total_deg": 20.9,
+  "v14_blind_total_deg": 20.9
+ },
+ "computer_on_the_deck": {
+  "fits": true,
+  "positions": 5,
+  "nearest_centre": [
+   0,
+   0,
+   0
+  ],
+  "top_z": 155.0,
+  "scan_plane": 163.0,
+  "note": "not moved (Nov 14): the spine fin runs through that spot and the bin deck over the second floor would come down with it; see README"
+ },
+ "stand": {
+  "pads_xy": [
+   [
+    197.2,
+    17.3
+   ],
+   [
+    -20.7,
+    196.9
+   ],
+   [
+    -197.2,
+    17.3
+   ],
+   [
+    -20.7,
+    -196.9
+   ]
+  ],
+  "n_pads": 4,
+  "pad_d": 24.0,
+  "socket": "\u00d88.4 through the deck (a \u00d88 peg from below)",
+  "pod_drop_part_height_mm": 140.0,
+  "lift_over_floor_mm": 105.0,
+  "pad_height_over_bench_mm": 185.0,
+  "note": "the robot on four pegs, its normal floor lifted by lift_over_floor_mm: a pod (or the battery) lowered onto the bench slides out radially under the bumper between two pegs"
+ },
+ "lidar_pedestal": {
+  "height_mm": 31.7,
+  "height_v14_mm": 69.7
+ },
+ "heights": {
+  "pod_and_tower_top_z": 142.0,
+  "wheel_top_bump_z": 155.0,
+  "scan_plane_z": 163.0,
+  "floor2_under": 176.5,
+  "lowest_chassis_z": {
+   "deck": 80.0,
+   "bumper": 40.0
+  }
+ }
+}

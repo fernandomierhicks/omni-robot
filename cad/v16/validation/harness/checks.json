@@ -1,0 +1,777 @@
+{
+ "leads": {
+  "BAT_AS": {
+   "od": 7.0,
+   "bend_r_allowed": 14.0,
+   "bends": 10,
+   "tightest_bend_r": 2.6,
+   "bends_under_allowed": 6,
+   "length_drawn_mm": 105
+  },
+  "AS_INA": {
+   "od": 7.0,
+   "bend_r_allowed": 14.0,
+   "bends": 3,
+   "tightest_bend_r": 6.5,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 95
+  },
+  "M_FR": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 8,
+   "tightest_bend_r": 5.1,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 180
+  },
+  "M_FL": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 9,
+   "tightest_bend_r": 4.3,
+   "bends_under_allowed": 6,
+   "length_drawn_mm": 259
+  },
+  "M_RR": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 7,
+   "tightest_bend_r": 5.1,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 119
+  },
+  "M_RL": {
+   "od": 8.0,
+   "bend_r_allowed": 16.0,
+   "bends": 18,
+   "tightest_bend_r": 3.9,
+   "bends_under_allowed": 14,
+   "length_drawn_mm": 301
+  },
+  "BLK_12": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 7,
+   "tightest_bend_r": 6.1,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 263
+  },
+  "BLK_5": {
+   "od": 3.8,
+   "bend_r_allowed": 8.0,
+   "bends": 7,
+   "tightest_bend_r": 8.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 176
+  },
+  "BLK_19": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 6,
+   "tightest_bend_r": 2.6,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 217
+  },
+  "SIG_DOWN": {
+   "od": 5.0,
+   "bend_r_allowed": 15.0,
+   "bends": 8,
+   "tightest_bend_r": 6.6,
+   "bends_under_allowed": 6,
+   "length_drawn_mm": 396
+  },
+  "BUTTON": {
+   "od": 3.0,
+   "bend_r_allowed": 8.0,
+   "bends": 5,
+   "tightest_bend_r": 3.4,
+   "bends_under_allowed": 1,
+   "length_drawn_mm": 374
+  },
+  "C12_OUT": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 16,
+   "tightest_bend_r": 2.8,
+   "bends_under_allowed": 10,
+   "length_drawn_mm": 503
+  },
+  "C5_OUT": {
+   "od": 3.8,
+   "bend_r_allowed": 8.0,
+   "bends": 10,
+   "tightest_bend_r": 4.0,
+   "bends_under_allowed": 4,
+   "length_drawn_mm": 233
+  },
+  "C19_OUT": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 4,
+   "tightest_bend_r": 10.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 83
+  },
+  "R12": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 7,
+   "tightest_bend_r": 2.5,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 265
+  },
+  "R19": {
+   "od": 5.0,
+   "bend_r_allowed": 10.0,
+   "bends": 6,
+   "tightest_bend_r": 3.2,
+   "bends_under_allowed": 5,
+   "length_drawn_mm": 83
+  },
+  "R5_DISP": {
+   "od": 3.8,
+   "bend_r_allowed": 8.0,
+   "bends": 5,
+   "tightest_bend_r": 6.9,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 191
+  },
+  "R5_HUB": {
+   "od": 3.8,
+   "bend_r_allowed": 8.0,
+   "bends": 7,
+   "tightest_bend_r": 8.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 252
+  },
+  "I2C_3221": {
+   "od": 4.0,
+   "bend_r_allowed": 12.0,
+   "bends": 3,
+   "tightest_bend_r": 5.8,
+   "bends_under_allowed": 3,
+   "length_drawn_mm": 223
+  },
+  "IMU": {
+   "od": 4.5,
+   "bend_r_allowed": 14.0,
+   "bends": 2,
+   "tightest_bend_r": 1.6,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 43
+  },
+  "TEENSY": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 4,
+   "tightest_bend_r": 5.4,
+   "bends_under_allowed": 4,
+   "length_drawn_mm": 91
+  },
+  "D435": {
+   "od": 4.6,
+   "bend_r_allowed": 23.0,
+   "bends": 2,
+   "tightest_bend_r": 3.3,
+   "bends_under_allowed": 1,
+   "length_drawn_mm": 52
+  },
+  "SO101": {
+   "od": 5.0,
+   "bend_r_allowed": 25.0,
+   "bends": 2,
+   "tightest_bend_r": 0.6,
+   "bends_under_allowed": 2,
+   "length_drawn_mm": 86
+  },
+  "HUB": {
+   "od": 5.0,
+   "bend_r_allowed": 25.0,
+   "bends": 7,
+   "tightest_bend_r": 2.7,
+   "bends_under_allowed": 7,
+   "length_drawn_mm": 148
+  },
+  "LIDAR": {
+   "od": 3.5,
+   "bend_r_allowed": 10.0,
+   "bends": 6,
+   "tightest_bend_r": 10.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 300
+  },
+  "LIDARUSB": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 7,
+   "tightest_bend_r": 4.4,
+   "bends_under_allowed": 6,
+   "length_drawn_mm": 184
+  },
+  "HDMI": {
+   "od": 6.0,
+   "bend_r_allowed": 6.0,
+   "bends": 5,
+   "tightest_bend_r": 6.0,
+   "bends_under_allowed": 0,
+   "length_drawn_mm": 151
+  },
+  "MIC": {
+   "od": 3.8,
+   "bend_r_allowed": 19.0,
+   "bends": 4,
+   "tightest_bend_r": 10.9,
+   "bends_under_allowed": 1,
+   "length_drawn_mm": 289
+  }
+ },
+ "leads_static_clearance_mm": {
+  "per_lead": {
+   "BAT_AS": {
+    "min_mm": -1.56,
+    "against": "support_spine"
+   },
+   "AS_INA": {
+    "min_mm": 4.94,
+    "against": "support_spine"
+   },
+   "M_FR": {
+    "min_mm": 2.33,
+    "against": "plug_blk_m3"
+   },
+   "M_FL": {
+    "min_mm": 0.89,
+    "against": "support_spine"
+   },
+   "M_RR": {
+    "min_mm": 1.99,
+    "against": "plug_blk_m3"
+   },
+   "M_RL": {
+    "min_mm": 1.78,
+    "against": "bracket_battery_clip_1"
+   },
+   "BLK_12": {
+    "min_mm": 1.86,
+    "against": "support_spine"
+   },
+   "BLK_5": {
+    "min_mm": 2.74,
+    "against": "support_side_R"
+   },
+   "BLK_19": {
+    "min_mm": 2.46,
+    "against": "floor2_RR"
+   },
+   "SIG_DOWN": {
+    "min_mm": 2.88,
+    "against": "plug_c19v_in"
+   },
+   "BUTTON": {
+    "min_mm": 1.37,
+    "against": "plug_switch_main_1"
+   },
+   "C12_OUT": {
+    "min_mm": -1.44,
+    "against": "bolt_ina3221_floor#65"
+   },
+   "C5_OUT": {
+    "min_mm": -1.74,
+    "against": "lidar_adapter"
+   },
+   "C19_OUT": {
+    "min_mm": 2.94,
+    "against": "lidar_adapter"
+   },
+   "R12": {
+    "min_mm": 2.31,
+    "against": "plug_servo_adapter_0"
+   },
+   "R19": {
+    "min_mm": 2.1,
+    "against": "bracket_computer_2"
+   },
+   "R5_DISP": {
+    "min_mm": 1.86,
+    "against": "deck_bin"
+   },
+   "R5_HUB": {
+    "min_mm": 1.17,
+    "against": "bracket_computer_2"
+   },
+   "I2C_3221": {
+    "min_mm": 4.34,
+    "against": "ina3221"
+   },
+   "IMU": {
+    "min_mm": 12.24,
+    "against": "plug_carrier_J4"
+   },
+   "TEENSY": {
+    "min_mm": 0.8,
+    "against": "plug_imu"
+   },
+   "D435": {
+    "min_mm": -2.05,
+    "against": "plug_imu"
+   },
+   "SO101": {
+    "min_mm": 10.57,
+    "against": "floor2_FL"
+   },
+   "HUB": {
+    "min_mm": -0.2,
+    "against": "computer"
+   },
+   "LIDAR": {
+    "min_mm": 1.76,
+    "against": "floor2_RR"
+   },
+   "LIDARUSB": {
+    "min_mm": 0.44,
+    "against": "computer"
+   },
+   "HDMI": {
+    "min_mm": 2.5,
+    "against": "deck_bin"
+   },
+   "MIC": {
+    "min_mm": 2.47,
+    "against": "deck_bin"
+   }
+  },
+  "under_0": [
+   "BAT_AS",
+   "C12_OUT",
+   "C5_OUT",
+   "D435",
+   "HUB"
+  ],
+  "under_2": [
+   "BAT_AS",
+   "M_FL",
+   "M_RR",
+   "M_RL",
+   "BLK_12",
+   "BUTTON",
+   "C12_OUT",
+   "C5_OUT",
+   "R5_DISP",
+   "R5_HUB",
+   "TEENSY",
+   "D435",
+   "HUB",
+   "LIDAR",
+   "LIDARUSB"
+  ],
+  "centreline_inside_a_part": {
+   "C5_OUT": [
+    "lidar_adapter"
+   ],
+   "D435": [
+    "plug_imu"
+   ]
+  },
+  "in_d435_fields": {},
+  "note": "centreline samples every 0.5 mm to the nearest surface sample of any part (~1 per mm2, +-0.3 mm) minus the lead's radius; its own two plugs and its last r + 1.5 mm at each end left out"
+ },
+ "plugs_overlap_mm3": {
+  "plug_ina3221_1_in / bolt_ina3221_floor#65": 8.39,
+  "plug_ina3221_i2c / bolt_ina3221_floor#64": 1.48,
+  "plug_hub_d1 / bolt_usb_hub_floor#67": 3.22,
+  "plug_carrier_J15 / plug_d435": 37.77,
+  "plug_carrier_J20 / plug_d435": 29.99,
+  "plug_carrier_J11 / plug_d435": 10.76,
+  "plug_teensy_usb / post_deck_1": 500.39,
+  "plug_lidar_ad_usb / bolt_ina3221_floor#63": 19.75,
+  "plug_ina226_i2c / plug_blk_m2": 21.91,
+  "plug_hub_d1 / plug_hub_d2": 449.61
+ },
+ "leads_sharing_a_path": {
+  "pairs": {
+   "M_FR / M_FL": -5.4,
+   "M_FR / M_RL": -0.5,
+   "M_FR / BLK_5": -4.5,
+   "M_FR / BLK_19": -4.2,
+   "M_FR / LIDAR": -1.7,
+   "M_FL / M_RR": -0.1,
+   "M_FL / BLK_12": -3.5,
+   "M_FL / BLK_19": -2.8,
+   "M_RR / M_RL": -5.0,
+   "M_RR / SIG_DOWN": -2.5,
+   "BLK_12 / BLK_5": -1.8,
+   "BLK_12 / BLK_19": -4.6,
+   "BLK_12 / C12_OUT": -4.7,
+   "BLK_5 / BLK_19": -1.6,
+   "BLK_19 / SIG_DOWN": -2.6,
+   "SIG_DOWN / C5_OUT": -3.5,
+   "SIG_DOWN / I2C_3221": -3.6,
+   "BUTTON / C5_OUT": -2.9,
+   "BUTTON / I2C_3221": -2.7,
+   "C12_OUT / R19": -4.4,
+   "C12_OUT / R5_HUB": -4.3,
+   "C12_OUT / I2C_3221": -4.2,
+   "C5_OUT / LIDAR": -2.6,
+   "R12 / R19": -4.8,
+   "R12 / R5_DISP": -1.0,
+   "R12 / R5_HUB": -3.9,
+   "R19 / R5_HUB": -3.9,
+   "R5_DISP / R5_HUB": -3.8,
+   "R5_DISP / LIDARUSB": -2.3,
+   "TEENSY / D435": -3.6,
+   "HDMI / MIC": -3.2
+  },
+  "note": "negative = the two drawn tubes overlap by that much: built, they lie side by side in one bundle"
+ },
+ "moving_pods_min_mm": {
+  "per_lead": {
+   "BAT_AS": {
+    "min_mm": 14.58,
+    "against": "RR/bump/roller_tread_2_3",
+    "pose": "bump"
+   },
+   "AS_INA": {
+    "min_mm": 51.96,
+    "against": "FR/bump/pod_fork_inner",
+    "pose": "bump"
+   },
+   "M_FR": {
+    "min_mm": 15.16,
+    "against": "FR/bump/pod_fork_inner",
+    "pose": "bump"
+   },
+   "M_FL": {
+    "min_mm": 10.35,
+    "against": "FL/bump/pod_fork_inner",
+    "pose": "bump"
+   },
+   "M_RR": {
+    "min_mm": 16.72,
+    "against": "RR/droop/plunger_i1",
+    "pose": "droop"
+   },
+   "M_RL": {
+    "min_mm": 11.53,
+    "against": "RL/bump/pod_fork_inner",
+    "pose": "bump"
+   },
+   "BLK_12": {
+    "min_mm": 3.92,
+    "against": "FL/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "BLK_5": {
+    "min_mm": 4.52,
+    "against": "FR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "BLK_19": {
+    "min_mm": 11.2,
+    "against": "RR/bump/plunger_i2",
+    "pose": "bump"
+   },
+   "SIG_DOWN": {
+    "min_mm": 4.69,
+    "against": "RR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "BUTTON": {
+    "min_mm": 3.61,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "C12_OUT": {
+    "min_mm": 21.22,
+    "against": "FL/static/bolt_up_7",
+    "pose": "droop"
+   },
+   "C5_OUT": {
+    "min_mm": 20.5,
+    "against": "FR/bump/roller_tread_2_1",
+    "pose": "bump"
+   },
+   "C19_OUT": {
+    "min_mm": 38.12,
+    "against": "RR/bump/roller_tread_1_2",
+    "pose": "bump"
+   },
+   "R12": {
+    "min_mm": 30.86,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "R19": {
+    "min_mm": 30.9,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "R5_DISP": {
+    "min_mm": 33.51,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "R5_HUB": {
+    "min_mm": 32.62,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "I2C_3221": {
+    "min_mm": 32.21,
+    "against": "RR/bump/roller_tread_1_3",
+    "pose": "bump"
+   },
+   "IMU": {
+    "min_mm": 58.94,
+    "against": "FR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "TEENSY": {
+    "min_mm": 70.65,
+    "against": "FR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "D435": {
+    "min_mm": 57.08,
+    "against": "FR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "SO101": {
+    "min_mm": 47.62,
+    "against": "FL/bump/plunger_i2",
+    "pose": "bump"
+   },
+   "HUB": {
+    "min_mm": 41.27,
+    "against": "RL/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "LIDAR": {
+    "min_mm": 8.91,
+    "against": "FR/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "LIDARUSB": {
+    "min_mm": 37.61,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   },
+   "HDMI": {
+    "min_mm": 81.54,
+    "against": "RL/bump/roller_tread_2_3",
+    "pose": "bump"
+   },
+   "MIC": {
+    "min_mm": 62.28,
+    "against": "RL/bump/roller_tread_2_3",
+    "pose": "bump"
+   }
+  },
+  "under_4mm": {
+   "BLK_12": {
+    "min_mm": 3.92,
+    "against": "FL/bump/plunger_i1",
+    "pose": "bump"
+   },
+   "BUTTON": {
+    "min_mm": 3.61,
+    "against": "RR/bump/roller_tread_2_2",
+    "pose": "bump"
+   }
+  },
+  "note": "fork, wheel, motor, rings, retainer, plungers in droop / nominal / bump, and the hangers and beam (they drop out with the pod); a motor lead's fixed leg on its fork and its first 20 mm of service loop past the tie are left out; samples +-0.4 mm"
+ },
+ "arm_sweep_min_mm": {
+  "per_lead": {
+   "BAT_AS": 149.9,
+   "AS_INA": 118.1,
+   "M_FR": 90.3,
+   "M_FL": 79.0,
+   "M_RR": 129.9,
+   "M_RL": 130.2,
+   "BLK_12": 83.9,
+   "BLK_5": 85.6,
+   "BLK_19": 127.6,
+   "SIG_DOWN": 94.2,
+   "BUTTON": 118.2,
+   "C12_OUT": 95.3,
+   "C5_OUT": 138.6,
+   "C19_OUT": 140.5,
+   "R12": 72.5,
+   "R19": 106.8,
+   "R5_DISP": 53.8,
+   "R5_HUB": 95.3,
+   "I2C_3221": 87.8,
+   "IMU": 67.4,
+   "TEENSY": 83.1,
+   "D435": 60.8,
+   "SO101": 78.8,
+   "HUB": 79.1,
+   "LIDAR": 87.7,
+   "LIDARUSB": 91.3,
+   "HDMI": 53.0,
+   "MIC": 88.5
+  },
+  "min": 53.0,
+  "under_4mm": {},
+  "note": "to the nearest swept-arm cell centre minus half its diagonal and the lead radius (a lower bound on the grid)"
+ },
+ "scan_band": {
+  "per_lead": {
+   "BLK_19": {
+    "samples": 22,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.86
+   },
+   "SIG_DOWN": {
+    "samples": 22,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.89
+   },
+   "BUTTON": {
+    "samples": 18,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 1.12
+   },
+   "C12_OUT": {
+    "samples": 22,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 0.86
+   },
+   "C5_OUT": {
+    "samples": 19,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 1.02
+   },
+   "LIDAR": {
+    "samples": 19,
+    "outside_fin_shadows": 0,
+    "blind_added_deg": 0.0,
+    "shadow_margin_deg": 1.09
+   }
+  },
+  "blind_added_deg": 0.0,
+  "note": "a lead's full width, as the lidar sees it, wherever its centreline is within 3 mm + r of the scan plane; inside a fin's shadow it adds nothing (margin: deg of the shadow's half width left beside the lead)"
+ },
+ "bends_under_allowed": {
+  "BAT_AS": {
+   "tightest": 2.6,
+   "allowed": 14.0,
+   "n": 6
+  },
+  "AS_INA": {
+   "tightest": 6.5,
+   "allowed": 14.0,
+   "n": 2
+  },
+  "M_FR": {
+   "tightest": 5.1,
+   "allowed": 16.0,
+   "n": 5
+  },
+  "M_FL": {
+   "tightest": 4.3,
+   "allowed": 16.0,
+   "n": 6
+  },
+  "M_RR": {
+   "tightest": 5.1,
+   "allowed": 16.0,
+   "n": 5
+  },
+  "M_RL": {
+   "tightest": 3.9,
+   "allowed": 16.0,
+   "n": 14
+  },
+  "BLK_12": {
+   "tightest": 6.1,
+   "allowed": 10.0,
+   "n": 3
+  },
+  "BLK_19": {
+   "tightest": 2.6,
+   "allowed": 10.0,
+   "n": 5
+  },
+  "SIG_DOWN": {
+   "tightest": 6.6,
+   "allowed": 15.0,
+   "n": 6
+  },
+  "BUTTON": {
+   "tightest": 3.4,
+   "allowed": 8.0,
+   "n": 1
+  },
+  "C12_OUT": {
+   "tightest": 2.8,
+   "allowed": 10.0,
+   "n": 10
+  },
+  "C5_OUT": {
+   "tightest": 4.0,
+   "allowed": 8.0,
+   "n": 4
+  },
+  "R12": {
+   "tightest": 2.5,
+   "allowed": 10.0,
+   "n": 3
+  },
+  "R19": {
+   "tightest": 3.2,
+   "allowed": 10.0,
+   "n": 5
+  },
+  "R5_DISP": {
+   "tightest": 6.9,
+   "allowed": 8.0,
+   "n": 3
+  },
+  "I2C_3221": {
+   "tightest": 5.8,
+   "allowed": 12.0,
+   "n": 3
+  },
+  "IMU": {
+   "tightest": 1.6,
+   "allowed": 14.0,
+   "n": 2
+  },
+  "TEENSY": {
+   "tightest": 5.4,
+   "allowed": 19.0,
+   "n": 4
+  },
+  "D435": {
+   "tightest": 3.3,
+   "allowed": 23.0,
+   "n": 1
+  },
+  "SO101": {
+   "tightest": 0.6,
+   "allowed": 25.0,
+   "n": 2
+  },
+  "HUB": {
+   "tightest": 2.7,
+   "allowed": 25.0,
+   "n": 7
+  },
+  "LIDARUSB": {
+   "tightest": 4.4,
+   "allowed": 19.0,
+   "n": 6
+  },
+  "MIC": {
+   "tightest": 10.9,
+   "allowed": 19.0,
+   "n": 1
+  }
+ }
+}

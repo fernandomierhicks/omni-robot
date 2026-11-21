@@ -1,0 +1,32 @@
+{
+ "drop": {
+  "note": "every part that leaves (pods at droop: all but the towers, plungers, springs and the screws that come out first; the battery: the pack, its straps opened), lowered straight down: an item that stays blocks it where its triangles lie wholly below a 5 mm slab of the moving part inside that slab's plan (mm2 of overlap)",
+  "per_item": {
+   "FL": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "RL": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "RR": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "FR": {
+    "parts": 65,
+    "clear": true,
+    "blocked_by_mm2": {}
+   },
+   "battery": {
+    "parts": 1,
+    "clear": true,
+    "blocked_by_mm2": {}
+   }
+  }
+ }
+}

@@ -379,6 +379,14 @@ class SimParams:
                                        # grey arm, white bin, riser, decks; orange hubs and bumper), the catch robot in its earlier colours;
                                        # "legacy" = the earlier colours for both (yellow arm, orange bin and riser): pre-Nov 13 renders
     arm_payload_kg: float = 0.0        # held at the arm's tool point
+    arm_model: str = "simple"          # the arm's servos: "simple" (arm_so101.ArmServos, every result before Nov 20) or
+                                       # "detailed" (arm_detailed.py: motors, gearboxes, backlash, friction, horn and
+                                       # link flex, heat, the servos' firmware and sensors as servo_emulator.py; est)
+    arm_seed: int = 0                  # "detailed": the seed of its truth (each servo's build, the links' masses)
+    arm_datums: tuple = ()             # Nov 20 (proposal, removable): touch blocks on the plate the fingertip zeroes the
+                                       # arm against: ((name, x, y, size x, size y, height) m, robot frame, on the
+                                       # plate's top); arm_so101.datums_xml
+    arm_datum_err: float = 0.0003      # m rms: each block's place off its drawing (print and assembly), from arm_seed
     arm_bin: tuple | None = None       # (x, y, length, width, height) m: an open bin on the plate the arm drops into
     arm_pick: bool = False             # the picking arm (arm_so101.py): finger pads that grasp loose objects, fingertips
                                        # that touch the floor (the gripper's capsule trimmed to the fingers' roots) and

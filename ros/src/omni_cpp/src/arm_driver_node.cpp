@@ -4,11 +4,15 @@
 // v11 sim runs too; this node adds the port, the joint states, TF and /arm/out. It plays the motions the arm brain
 // sends, one at a time. Nothing else writes /arm/motion.
 //
-// Subscribes /arm/motion (omni_interfaces/ArmMotion: MOVE waypoints with quintic or linear segments, HOLD, RELAX).
-// Publishes /arm/joint_states (every cycle), /tf base_link -> arm_shoulder .. arm_gripper, arm_jaw, arm_tool,
+// Subscribes /arm/motion (omni_interfaces/ArmMotion: MOVE waypoints with quintic or linear segments, HOLD, RELAX; guarded
+// or not), imu_topic (sensor_msgs/Imu: gravity's direction in base_link for the load model; none: straight down).
+// Publishes /arm/joint_states (every cycle; effort = the duty), /arm/servo (omni_interfaces/ArmServoState every cycle: the
+// telemetry and the load estimate, design.md 4.5), /tf base_link -> arm_shoulder .. arm_gripper, arm_jaw, arm_tool,
 // arm_wrist_cam_optical (tf_hz, default every cycle), /arm/out (Bool, 10 Hz), /arm/hw (omni_interfaces/ArmHardware: 5 Hz
-// and on a change of motion). Parameters: port ("tcp:host:port" | "serial:/dev/ttyACM0" | a device), calibration (a
-// LeRobot calibration json; "" = the sim's nominal one), rate (50), tf_hz (0 = rate), config ("" | d435 | a json path).
+// and on a change of motion or a reflex). Parameters: port ("tcp:host:port" | "serial:/dev/ttyACM0" | a device),
+// calibration (a LeRobot calibration json; "" = the sim's nominal one), load_calibration (the arm load calibration's json,
+// omni_calib arm_load; "" = the nominal model; reread when the file changes), rate (50), tf_hz (0 = rate), config
+// ("" | d435 | a json path), the servo settings written at connect, the strain detector and the reflex.
 #include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
@@ -25,6 +29,7 @@
 #include <cstring>
 #include <fstream>
 #include <memory>
+#include <filesystem>
 #include <optional>
 #include <sstream>
 
@@ -32,13 +37,16 @@
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "omni_cpp/arm_driver_core.hpp"
 #include "omni_cpp/arm_kin.hpp"
+#include "omni_cpp/arm_load.hpp"
 #include "omni_cpp/params.hpp"
 #include "omni_cpp/arm_motion.hpp"
 #include "omni_cpp/feetech.hpp"
 #include "omni_interfaces/msg/arm_hardware.hpp"
 #include "omni_interfaces/msg/arm_motion.hpp"
+#include "omni_interfaces/msg/arm_servo_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
+#include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "tf2_msgs/msg/tf_message.hpp"
@@ -47,6 +55,7 @@ namespace omni {
 
 using omni_interfaces::msg::ArmHardware;
 using omni_interfaces::msg::ArmMotion;
+using omni_interfaces::msg::ArmServoState;
 
 namespace {
 
@@ -185,7 +194,38 @@ public:
         rate_ = P::number(*this, "rate", 50.0, 5.0, 200.0, "Hz: the bus cycle (read, play, write)", true);
         double tf_hz = P::number(*this, "tf_hz", 0.0, 0.0, 200.0, "Hz: the arm's TF (0 = every cycle)", true);
         std::string config = P::text(*this, "config", "", "the robot_arm*.json: \"\" | d435 | a path");
-        core_ = std::make_unique<ArmDriverCore>(config_file(config), cal);
+        load_path_ = P::text(*this, "load_calibration", "",
+                             "the arm load calibration json (omni_calib arm_load; \"\" = the nominal model), reread when it changes", true);
+        core_ = std::make_unique<ArmDriverCore>(config_file(config), cal, "");
+        load_model();
+        // the servo settings written at connect where they differ (design.md 4.5; est: LeRobot's SO-101 follower)
+        ServoSettings& ss = core_->settings;
+        ss.write = P::flag(*this, "servo_write_settings", true, "write the servo settings below at connect where they differ (EEPROM)");
+        ss.p_gain = (int)P::integer(*this, "servo_p_gain", 16, 1, 64, "the servos' position P (Feetech 21; LeRobot 16, factory 32)");
+        ss.d_gain = (int)P::integer(*this, "servo_d_gain", 32, 0, 64, "the servos' D (22)");
+        ss.max_temp = (int)P::integer(*this, "servo_max_temp", 65, 40, 80, "C: a servo unloads past this (13)");
+        ss.protect_current = (int)P::integer(*this, "servo_protect_current", 500, 50, 600, "6.5 mA: the arm joints' current limit (28)");
+        ss.grip_protect_current = (int)P::integer(*this, "servo_grip_protect_current", 250, 50, 600, "6.5 mA: the gripper's (LeRobot 250)");
+        ss.overload_torque = (int)P::integer(*this, "servo_overload_torque", 80, 10, 100, "%: the arm joints' overload level (36)");
+        ss.grip_overload_torque = (int)P::integer(*this, "servo_grip_overload_torque", 25, 10, 100, "%: the gripper's (LeRobot 25)");
+        // the strain detector and the reflex (design.md 4.5)
+        core_->detector.tau = P::number(*this, "strain_tau", 0.04, 0.0, 1.0, "s: the outside torque's low-pass", true);
+        core_->detector.n = (int)P::integer(*this, "strain_cycles", 4, 1, 50, "cycles over the threshold before a joint is strained", true);
+        core_->reflex.on = P::flag(*this, "reflex", true, "a strained joint (guarded motion) stops the arm and backs it off");
+        core_->reflex.nominal_ok = P::flag(*this, "reflex_nominal", false,
+                                           "the reflex fires on the nominal model too (before the arm load calibration)");
+        core_->reflex.backoff = P::number(*this, "reflex_backoff", 0.05, 0.0, 0.3, "rad: how far the strained joints give");
+        core_->reflex.soft_torque = (int)P::integer(*this, "reflex_soft_torque", 350, 0, 1000,
+                                                    "0.1 %: the strained joints' torque limit until the next command");
+        core_->trim_cfg.on = P::flag(*this, "hold_trim", true,
+                                     "holding still, nudge the goals sent until the encoders read the goal (the servos' droop)");
+        core_->trim_cfg.rate = P::number(*this, "hold_trim_rate", 3.0, 0.0, 20.0, "1/s: the hold trim's integral rate");
+        core_->trim_cfg.max = P::number(*this, "hold_trim_max", 0.07, 0.0, 0.2, "rad: the most the hold trim adds");
+        core_->deflect.on = P::flag(*this, "deflect", true, "settled, a joint pushed off its goal is strained");
+        core_->deflect.angle = P::number(*this, "deflect_angle", 0.012, 0.002, 0.1, "rad: how far it may give");
+        core_->deflect.settle = P::number(*this, "deflect_settle", 1.0, 0.2, 5.0,
+                                          "s after a motion: the hold trim settles the droop, then the cue watches");
+        imu_topic_ = P::text(*this, "imu_topic", "/imu", "sensor_msgs/Imu: gravity's direction for the load model");
         core_->arm_torque = (int)P::integer(*this, "arm_torque", ARM_TORQUE, 0, 1000,
                                             "the arm joints' torque limit, 0.1 % of stall (written at each torque-on)");
         core_->grip_torque = (int)P::integer(*this, "grip_torque", GRIP_TORQUE, 0, 1000,
@@ -196,6 +236,16 @@ public:
         live_->bind("arm_torque", &core_->arm_torque);
         live_->bind("grip_torque", &core_->grip_torque);
         live_->bind("retry_s", &retry_s_);
+        live_->bind("reflex", &core_->reflex.on);
+        live_->bind("reflex_nominal", &core_->reflex.nominal_ok);
+        live_->bind("hold_trim", &core_->trim_cfg.on);
+        live_->bind("hold_trim_rate", &core_->trim_cfg.rate);
+        live_->bind("hold_trim_max", &core_->trim_cfg.max);
+        live_->bind("deflect", &core_->deflect.on);
+        live_->bind("deflect_angle", &core_->deflect.angle);
+        live_->bind("deflect_settle", &core_->deflect.settle);
+        live_->bind("reflex_backoff", &core_->reflex.backoff);
+        live_->bind("reflex_soft_torque", &core_->reflex.soft_torque);
         tf_every_ = tf_hz > 0 ? std::max(1, (int)std::lround(rate_ / tf_hz)) : 1;
         out_every_ = std::max(1, (int)(rate_ / 10));
         hw_every_ = std::max(1, (int)(rate_ / 5));
@@ -203,6 +253,9 @@ public:
         p_js_ = create_publisher<sensor_msgs::msg::JointState>("/arm/joint_states", 10);
         p_out_ = create_publisher<std_msgs::msg::Bool>("/arm/out", 10);
         p_hw_ = create_publisher<ArmHardware>("/arm/hw", 10);
+        p_servo_ = create_publisher<ArmServoState>("/arm/servo", 10);
+        s_imu_ = create_subscription<sensor_msgs::msg::Imu>(imu_topic_, rclcpp::SensorDataQoS(),
+                                                            [this](sensor_msgs::msg::Imu::ConstSharedPtr m) { on_imu(*m); });
         p_tf_ = create_publisher<tf2_msgs::msg::TFMessage>("/tf", rclcpp::QoS(100));
         s_motion_ = create_subscription<ArmMotion>("/arm/motion", 10, [this](ArmMotion::ConstSharedPtr m) { on_motion(*m); });
         timer_ = rclcpp::create_timer(this, get_clock(), rclcpp::Duration::from_seconds(1.0 / rate_), [this] { tick(); });
@@ -211,6 +264,43 @@ public:
 
 private:
     double now_s() { return now().seconds(); }
+
+    // -- the load model (design.md 4.5) -----------------------------------------------------------------------------
+    void load_model() {
+        load_mtime_ = {};
+        if (load_path_.empty()) {
+            core_->set_load_model(LoadModel::nominal(core_->fk()));
+            return;
+        }
+        try {
+            core_->set_load_model(LoadModel::load(load_path_, core_->fk()));
+            load_mtime_ = std::filesystem::last_write_time(load_path_);
+            RCLCPP_INFO(get_logger(), "arm load model: %s", core_->model.source.c_str());
+        } catch (const std::exception& e) {
+            core_->set_load_model(LoadModel::nominal(core_->fk()));
+            RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 60000, "arm load model %s: %s (the nominal model)",
+                                 load_path_.c_str(), e.what());
+        }
+    }
+
+    void check_load_file() {
+        if (load_path_.empty()) return;
+        std::error_code ec;
+        auto t = std::filesystem::last_write_time(load_path_, ec);
+        if (!ec && t != load_mtime_) load_model();
+    }
+
+    void on_imu(const sensor_msgs::msg::Imu& m) {
+        // world -> base: gravity (0, 0, -9.81) in the IMU's frame (taken as base_link's; its mount offset is ~1 deg)
+        double x = m.orientation.x, y = m.orientation.y, z = m.orientation.z, w = m.orientation.w;
+        double n = std::sqrt(x * x + y * y + z * z + w * w);
+        if (n < 0.5) return;
+        x /= n, y /= n, z /= n, w /= n;
+        // the third row of R (world from body) is the world z in body coordinates
+        Vec3 up = {2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y)};
+        core_->set_gravity({-9.81 * up[0], -9.81 * up[1], -9.81 * up[2]});
+        t_imu_ = now_s();
+    }
 
     // -- the bus (the driving itself is ArmDriverCore's, the code the sim runs too) ---------------------------------
     void connect() {
@@ -232,6 +322,7 @@ private:
             }
             port_ = std::move(port);
             RCLCPP_INFO(get_logger(), "arm connected on %s: holding where it is", port_spec_.c_str());
+            for (auto& n : core_->config_notes) RCLCPP_INFO(get_logger(), "servo settings: %s", n.c_str());
             publish_hw();
         } catch (const std::exception& e) {
             RCLCPP_WARN(get_logger(), "servo bus %s: %s (retrying)", port_spec_.c_str(), e.what());
@@ -251,7 +342,8 @@ private:
         motion_id_ = m.id;
         std::string why;
         try {
-            if (!core_->command(m.command, m.interpolation == ArmMotion::LINEAR, m.times, m.waypoints, why)) {
+            if (!core_->command(m.command, m.interpolation == ArmMotion::LINEAR, m.times, m.waypoints, why,
+                                m.guard != ArmMotion::GUARD_OFF)) {
                 RCLCPP_WARN(get_logger(), "arm motion %u: %s", m.id, why.c_str());
                 return;
             }
@@ -268,8 +360,11 @@ private:
             if (++k_ % hw_every_ == 0) publish_hw();
             return;
         }
+        if (now_s() - t_imu_ > 1.0) core_->set_gravity({0, 0, -9.81});   // no IMU: straight down
+        if (k_ % std::max(1, (int)rate_) == 0) check_load_file();
+        int reflexes = core_->reflexes;
         try {
-            core_->read();
+            core_->read(now_s());
         } catch (const std::exception& e) {
             lost(e);
             return;
@@ -289,7 +384,30 @@ private:
             p_out_->publish(b);
         }
         if (k_ % tf_every_ == 0) publish_tf();
-        if (k_ % hw_every_ == 0 || was_moving != core_->moving) publish_hw();
+        publish_servo();
+        if (core_->reflexes != reflexes)
+            RCLCPP_WARN(get_logger(), "arm strained: %s; stopped and backed off", core_->reflex_why.c_str());
+        if (k_ % hw_every_ == 0 || was_moving != core_->moving || core_->reflexes != reflexes) publish_hw();
+    }
+
+    void publish_servo() {
+        const ArmDriverCore& c = *core_;
+        ArmServoState m;
+        m.header.stamp = now();
+        auto put = [](std::vector<double>& v, const Joints& a) { v.assign(a.begin(), a.end()); };
+        put(m.position, c.q), put(m.position_raw, c.q_enc), put(m.velocity, c.dq), put(m.goal, c.goal);
+        put(m.goal_velocity, c.goal_vel), put(m.goal_acceleration, c.goal_acc), put(m.duty, c.load);
+        if (c.has_current) put(m.current, c.current);
+        put(m.volts, c.volts_j), put(m.gravity, c.est.grav), put(m.motor, c.est.motor), put(m.external, c.est.ext);
+        put(m.band, c.est.band), put(m.filtered, c.detector.filt);
+        for (int i = 0; i < 6; ++i) {
+            m.temp_c.push_back((uint8_t)c.temp_c[i]);
+            m.status.push_back((uint8_t)c.status[i]);
+            m.strained.push_back(c.detector.strained[i]);
+        }
+        for (int i = 0; i < 3; ++i) m.tool_force[i] = c.tool_force_n[i], m.gravity_vec[i] = c.gravity[i];
+        m.guard = c.guard;
+        p_servo_->publish(m);
     }
 
     // -- outputs --------------------------------------------------------------------------------------------------
@@ -341,6 +459,15 @@ private:
         m.tool_out = on && c.fk().tool_out(c.q);
         m.motion_id = motion_id_;
         m.moving = c.moving;
+        if (c.has_current) m.current.assign(c.current.begin(), c.current.end());
+        m.external.assign(c.est.ext.begin(), c.est.ext.end());
+        for (int i = 0; i < 6; ++i) m.strained.push_back(c.detector.strained[i]);
+        for (int i = 0; i < 3; ++i) m.tool_force[i] = c.tool_force_n[i];
+        m.load_model = c.model.source;
+        m.reflexes = (uint32_t)c.reflexes;
+        m.reflex = c.reflex_why;
+        m.reflex_active = c.reflex_active;
+        m.servo_notes = c.config_notes;
         p_hw_->publish(m);
     }
 
@@ -356,6 +483,11 @@ private:
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr p_js_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr p_out_;
     rclcpp::Publisher<ArmHardware>::SharedPtr p_hw_;
+    rclcpp::Publisher<ArmServoState>::SharedPtr p_servo_;
+    rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr s_imu_;
+    std::string load_path_, imu_topic_;
+    std::filesystem::file_time_type load_mtime_{};
+    double t_imu_ = -1e9;
     rclcpp::Publisher<tf2_msgs::msg::TFMessage>::SharedPtr p_tf_;
     rclcpp::Subscription<ArmMotion>::SharedPtr s_motion_;
     rclcpp::TimerBase::SharedPtr timer_;

@@ -26,7 +26,7 @@ FW_TO_NET = {
     "CAM_TRIG": "CAM_TRIG", "SYNC_OUT": "SYNC_OUT", "CAM_STROBE": "CAM_STROBE", "RC_RX": "RC_RX", "RC_TX": "RC_TX",
     "ROBOCLAW_RX": "SP_D15", "ROBOCLAW_TX": "SP_D14", "SERVO_BUS": "SP_D17", "DSHOT_L": "SP_D2", "DSHOT_R": "SP_D3",
     "IR_EMIT": "SP_D36", "BEAM_CATCH": "SP_D33", "BEAM_FEED_EXIT": "SP_D32",
-    "BUMPER_FRONT": "SP_D37", "BUMPER_REAR": "SP_D38", "V_BUS": "VBUS_ADC", "BUZZER": "BUZZER",
+    "BUMPER_FRONT": "SP_D37", "BUMPER_REAR": "SP_D38", "BUZZER": "BUZZER",
 }
 # pins this board deliberately changes (gen_sch.FIRMWARE_TO_CHANGE): reported, not failed
 

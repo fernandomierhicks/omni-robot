@@ -435,3 +435,69 @@ def test_start_and_place_check_what_the_arm_holds(kin):
     assert t.status()["held"]["id"] == 4 and t.status()["mode"] == "place"
     t.stop(0.1)                                                             # stopped while holding: into the bin
     assert t.state == "TO_BIN" and t.place is None
+
+
+# -- statics (design.md 4.5): gravity, a point's torque, the Jacobian -------------------------------------------------
+
+def _potential(kin, q, g):
+    """The links' potential energy in gravity g: -sum m g . p."""
+    _, T = kin.joint_frames(q)
+    return -sum(l["mass"] * np.asarray(g) @ (T[l["body"]][:3, :3] @ l["com"] + T[l["body"]][:3, 3])
+                for l in kin.cfg.inertials)
+
+
+def test_gravity_is_minus_the_slope_of_the_potential(kin):
+    rng = np.random.default_rng(5)
+    g = np.array([0.4, -0.2, -9.79])                                  # a tilted base
+    for _ in range(10):
+        q = np.r_[rng.uniform(-1, 1, 5), 0.0]
+        G = kin.gravity(q, g)
+        for j in range(5):
+            dq = np.zeros(6)
+            dq[j] = 1e-6
+            slope = (_potential(kin, q + dq, g) - _potential(kin, q - dq, g)) / 2e-6
+            assert G[j] == pytest.approx(-slope, abs=1e-6)
+        assert G[5] == 0.0
+    assert abs(kin.gravity(np.zeros(6))[0]) < 1e-9                   # level: nothing turns the pan
+
+
+def test_a_points_torque_is_its_jacobian_transposed(kin):
+    rng = np.random.default_rng(6)
+    for _ in range(10):
+        q = np.r_[rng.uniform(-1, 1, 5), 0.0]
+        p = rng.normal(0, 0.03, 3)
+        f = rng.normal(0, 3, 3)
+        J = kin.jacobian(q, p)
+        assert np.allclose(kin.point_torque(q, f, p)[:5], J.T @ f, atol=1e-12)
+        dq = np.zeros(6)
+        dq[2] = 1e-6                                                  # and the Jacobian is the point's motion
+        _, T0 = kin.joint_frames(q)
+        _, T1 = kin.joint_frames(q + dq)
+        P0 = T0["arm_gripper"][:3, :3] @ p + T0["arm_gripper"][:3, 3]
+        P1 = T1["arm_gripper"][:3, :3] @ p + T1["arm_gripper"][:3, 3]
+        assert np.allclose((P1 - P0) / 1e-6, J[:, 2], atol=1e-6)
+
+
+def test_the_links_inertia_is_the_kinetic_energys_mass_matrix(kin):
+    """inertia_torque(q, a) = M(q) a with M from the links' kinetic energy (point masses): d KE / d qdot = M qdot."""
+    rng = np.random.default_rng(7)
+
+    def ke(q, qd):
+        e = 1e-7
+        _, T0 = kin.joint_frames(q)
+        _, T1 = kin.joint_frames(q + e * qd)
+        tot = 0.0
+        for l in kin.cfg.inertials:
+            p0 = T0[l["body"]][:3, :3] @ l["com"] + T0[l["body"]][:3, 3]
+            p1 = T1[l["body"]][:3, :3] @ l["com"] + T1[l["body"]][:3, 3]
+            tot += 0.5 * l["mass"] * np.sum(((p1 - p0) / e) ** 2)
+        return tot
+
+    for _ in range(5):
+        q = np.r_[rng.uniform(-1, 1, 5), 0.0]
+        qd = np.r_[rng.normal(0, 1, 5), 0.0]
+        Mqd = kin.inertia_torque(q, qd)
+        for j in range(5):
+            h = np.zeros(6)
+            h[j] = 1e-4
+            assert Mqd[j] == pytest.approx((ke(q, qd + h) - ke(q, qd - h)) / 2e-4, abs=2e-6)

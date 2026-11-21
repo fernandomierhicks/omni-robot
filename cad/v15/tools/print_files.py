@@ -61,6 +61,11 @@ POD_PARTS = (
     dict(folder='retainer_6804', title='6804 retainer', stem='pod_retainer', how='one', src=POD / 'pod_retainer.step', per_pod=1, any=True),
     dict(folder='wheel_cartridge_cup', title='Wheel cartridge cup', stem='wheel_cartridge', how='one', src=WHEEL / 'wheel_cartridge.step', per_pod=1, any=True),
     dict(folder='roller_sleeve', title='Roller sleeve', stem='roller_sleeve', how='one', src=WHEEL / 'roller_sleeve.step', per_pod=12, any=True),
+    # Nov 19 (Fernando: the M3 plunger is the baseline): its PETG cap and printed sleeve, 4 per pod
+    dict(folder='plunger_cap', title='Plunger cap (PETG)', stem='plunger_cap_m3', how='one', src=POD / 'plunger_cap_m3.step', per_pod=4, any=True,
+         note='PETG; pocket down on the bed'),
+    dict(folder='plunger_sleeve', title='Plunger sleeve (PETG)', stem='plunger_sleeve_m3', how='one', src=POD / 'plunger_sleeve_m3.step', per_pod=4,
+         any=True, note='PETG; standing, either end down; open the tower guides with a 13/64" drill'),
 )
 # first floor: every file is its own piece, one of each
 FLOOR_PARTS = (

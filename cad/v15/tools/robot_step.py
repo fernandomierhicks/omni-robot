@@ -37,6 +37,32 @@ def reimport(path):
                 bbox_max=[round(v, 1) for v in tuple(bb.max)])
 
 
+def pods_placed():
+    """CM.pods_placed(0, labelled=True); Nov 19 (Fernando: the STEPs as the SolidWorks assembly): each M3 plunger as its seven parts
+    (sw_robot_parts.m3_pieces: cap yellow, sleeve cyan, the steel magenta) and its bore's two coil springs, in place of the pod build's fused
+    plunger and spring tube"""
+    import sw_robot_parts as SP
+    import base as B
+    m3 = {}
+    pieces = SP.m3_pieces()
+    for pk, (xs, y) in SP.PLUNGERS.items():
+        at = b_location(xs, y)
+        for k, (s, c) in pieces.items():
+            m3[f'{k}_{pk}'] = (s.moved(at), c)
+        m3[f'spring_{pk}'] = (SP.m3_springs(xs, y), H.MAGENTA)
+    out = {}
+    for i, (n, (st, mv)) in enumerate(CM.pods_placed(0.0, labelled=True).items()):
+        st = {k: v for k, v in st.items() if not k.startswith(('plunger_', 'spring_'))}
+        st.update({k: (B.place3d(s, i), c) for k, (s, c) in m3.items()})
+        out[n] = (st, mv)
+    return out
+
+
+def b_location(x, y):
+    import build123d as b
+    return b.Location((x, y, 0))
+
+
 def main():
     items = {}
     parts, hw, _ = WD.base()
@@ -44,9 +70,11 @@ def main():
         items[f'base/{k}'] = (s, CM.colour(k))
     for k, s in hw.items():
         items[f'base/{k}'] = (s, H.MAGENTA)
-    for n, (st, mv) in CM.pods_placed(0.0, labelled=True).items():    # Nov 15: each pod's parts with its number and IN / OUT
+    for n, (st, mv) in pods_placed().items():                          # Nov 15: each pod's parts with its number and IN / OUT
         for k, s in {**st, **mv}.items():
-            if k.startswith(POD_PRINTED):
+            if isinstance(s, tuple):                                   # an M3 plunger's piece in its own colour
+                items[f'{n}/{k}'] = s
+            elif k.startswith(POD_PRINTED):
                 items[f'{n}/{k}'] = (s, R.colour(k))
             elif k.startswith(POD_HARDWARE):
                 items[f'{n}/{k}'] = (H.step_model(k, s), H.MAGENTA)

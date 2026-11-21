@@ -15,8 +15,11 @@ namespace omni::sts {
 constexpr uint8_t INST_PING = 0x01, INST_READ = 0x02, INST_WRITE = 0x03, INST_SYNC_READ = 0x82, INST_SYNC_WRITE = 0x83;
 constexpr uint8_t BROADCAST = 0xFE;
 constexpr int TICKS = 4096;
-constexpr int STATUS_ADDR = 56, STATUS_LEN = 8;       // present position .. temperature, one SYNC_READ
-constexpr double LOAD_UNIT = 0.001;
+constexpr int STATUS_ADDR = 56, STATUS_LEN = 15;      // present position .. present current, one SYNC_READ
+constexpr int STATUS_LEN_V1 = 8;                       // position .. temperature (a servo set answering only these)
+constexpr double LOAD_UNIT = 0.001;                    // present load: the PWM duty in 0.1 % (est, VERIFY)
+constexpr double CURRENT_UNIT = 0.0065;                // present current: A per count (est, VERIFY)
+constexpr int EEPROM_END = 40;                         // addresses below: kept through a power cycle when unlocked
 
 struct Reg {
     int addr, size;
@@ -57,9 +60,11 @@ JointCal nominal_calibration(int id, double lo, double hi);
 
 struct ServoStatus {
     int position = 0, speed = 0;                      // ticks; ticks/s
-    double load = 0, volts = 0;
-    int temp_c = 0;
-    bool ok = false;
+    double load = 0, volts = 0;                       // duty -1..1; V
+    double current = 0;                               // A (signed)
+    int temp_c = 0, status = 0;                       // C; the error bits it reports (65)
+    bool moving = false, has_current = false;
+    bool ok = false;                                  // its reply carried no error
 };
 
 class Port {
@@ -77,8 +82,10 @@ public:
     explicit Bus(Port& port, double timeout_s = 0.01, Clock clock = nullptr);
     bool ping(int sid);
     bool write(int sid, const std::string& reg_name, int value, bool reply = true);
+    // READ one register (sign-magnitude ones decoded): false when it didn't answer
+    bool read(int sid, const std::string& reg_name, int& value);
     void sync_write_goals(const std::vector<std::pair<int, int>>& goals);   // {id, ticks}: goal position, time 0, speed 0
-    std::map<int, ServoStatus> sync_read_status(const std::vector<int>& ids);
+    std::map<int, ServoStatus> sync_read_status(const std::vector<int>& ids, int len = STATUS_LEN);
     int n_timeouts = 0, n_tx = 0, n_rx = 0;
     Parser parser;
 

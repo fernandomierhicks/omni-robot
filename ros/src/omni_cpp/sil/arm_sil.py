@@ -6,6 +6,7 @@ the sources on first use into a small C library (arm_sil.cpp) and loaded with ct
     drv.connect()                                        # [] = every servo answered: torque on, holding
     drv.command(MOVE, times, waypoints)                  # an ArmMotion, as arm_brain sends it
     st = drv.cycle(t)                                    # read, play, write: the arm's state (ArmHw)
+    ld = drv.load_state()                                # what it makes of the load (design.md 4.5: ArmLoad)
 """
 
 from __future__ import annotations
@@ -21,7 +22,7 @@ from pathlib import Path
 PKG = Path(__file__).resolve().parents[1]           # ros/src/omni_cpp
 MOVE, HOLD, RELAX = 0, 1, 2                          # omni_interfaces/ArmMotion
 SOURCES = ["sil/arm_sil.cpp", "src/arm_driver_core.cpp", "src/feetech.cpp", "src/arm_kin.cpp", "src/arm_motion.cpp",
-           "src/json_value.cpp"]
+           "src/arm_load.cpp", "src/json_value.cpp"]
 
 _WRITE = C.CFUNCTYPE(None, C.POINTER(C.c_uint8), C.c_uint32)
 _READ = C.CFUNCTYPE(C.c_uint32, C.POINTER(C.c_uint8), C.c_uint32)
@@ -58,16 +59,26 @@ def lib():
         L = C.CDLL(str(build()))
         L.arm_error.restype = C.c_char_p
         L.arm_create.restype = C.c_void_p
-        L.arm_create.argtypes = [C.c_char_p, C.c_char_p]
+        L.arm_create.argtypes = [C.c_char_p, C.c_char_p, C.c_char_p]
         L.arm_destroy.argtypes = [C.c_void_p]
         L.arm_connect.argtypes = [C.c_void_p, _WRITE, _READ, C.c_double, C.POINTER(C.c_int)]
         L.arm_command.argtypes = [C.c_void_p, C.c_int, C.c_int, C.POINTER(C.c_double), C.c_uint32,
-                                  C.POINTER(C.c_double), C.c_uint32]
-        L.arm_read.argtypes = [C.c_void_p]
+                                  C.POINTER(C.c_double), C.c_uint32, C.c_int]
+        L.arm_read.argtypes = [C.c_void_p, C.c_double]
         L.arm_drive.argtypes = [C.c_void_p, C.c_double]
         d6, i6, ip, dp = C.c_double * 6, C.c_int * 6, C.POINTER(C.c_int), C.POINTER(C.c_double)
         L.arm_state.argtypes = [C.c_void_p, d6, d6, d6, d6, i6, dp, ip, i6, ip, i6, ip]
         L.arm_bus_stats.argtypes = [C.c_void_p, C.c_int * 4]
+        L.arm_load_state.argtypes = [C.c_void_p, d6, d6, d6, d6, d6, d6, d6, i6, i6, d6, d6, d6, C.c_double * 3,
+                                     C.c_int * 3]
+        L.arm_set_gravity.argtypes = [C.c_void_p, C.c_double, C.c_double, C.c_double]
+        L.arm_set_load_model.argtypes = [C.c_void_p, C.c_char_p]
+        L.arm_settings.argtypes = [C.c_void_p, C.c_int, C.c_int, C.c_int, C.c_double, C.c_int, C.c_double, C.c_int,
+                                   C.c_int, C.c_int, C.c_int, C.c_int, C.c_double]
+        L.arm_config_notes.restype = C.c_char_p
+        L.arm_config_notes.argtypes = [C.c_void_p]
+        L.arm_estimate.argtypes = [C.c_void_p, C.c_double * 48, C.c_double * 3, C.c_double * 24, d6, d6,
+                                   C.c_double * 3]
         _LIB.append(L)
     return _LIB[0]
 
@@ -92,11 +103,32 @@ class ArmHw:
     errors: tuple = ()
 
 
+@dataclass
+class ArmLoad:
+    """The driver's load estimate (design.md 4.5; omni_interfaces/ArmServoState)."""
+    q_enc: list
+    current: list
+    gravity: list            # N m on each joint
+    motor: list              # N m the servo's motor gives
+    external: list           # N m from outside (0 inside the friction band at rest)
+    band: list               # N m: the band's half width (0 moving)
+    filtered: list           # the detector's
+    strained: list = field(default_factory=list)
+    status: list = field(default_factory=list)       # the servos' error bits
+    volts: list = field(default_factory=list)        # each servo's supply
+    goal_vel: list = field(default_factory=list)     # the played goal's
+    goal_acc: list = field(default_factory=list)
+    tool_force: list = field(default_factory=list)   # N, base_link
+    reflexes: int = 0
+    reflex_active: bool = False
+    has_current: bool = False
+
+
 class CppArmDriver:
-    def __init__(self, port, config: str | Path, calibration: str | Path = ""):
+    def __init__(self, port, config: str | Path, calibration: str | Path = "", load: str | Path = ""):
         self.port = port
         self.L = lib()
-        self.h = self.L.arm_create(str(config).encode(), str(calibration).encode())
+        self.h = self.L.arm_create(str(config).encode(), str(calibration).encode(), str(load).encode())
         if not self.h:
             raise RuntimeError(f"arm driver: {self.L.arm_error().decode()}")
 
@@ -126,19 +158,58 @@ class CppArmDriver:
         n = self._check(self.L.arm_connect(self.h, self._cb[0], self._cb[1], timeout_s, miss), "connect")
         return list(miss[:n])
 
-    def command(self, cmd: int, times=(), waypoints=(), linear: bool = False) -> bool:
-        """An ArmMotion (MOVE / HOLD / RELAX). waypoints: n rows of 6 joint angles. False if refused (why())."""
+    def command(self, cmd: int, times=(), waypoints=(), linear: bool = False, guard: bool = True) -> bool:
+        """An ArmMotion (MOVE / HOLD / RELAX). waypoints: n rows of 6 joint angles. guard False: no reflex for this
+        motion. False if refused (why())."""
         flat = [float(v) for row in waypoints for v in row]
         n = len(times)
         T = (C.c_double * max(1, n))(*[float(t) for t in times])
         W = (C.c_double * max(1, len(flat)))(*flat)
-        return bool(self._check(self.L.arm_command(self.h, cmd, int(linear), T, n, W, len(flat)), "command"))
+        return bool(self._check(self.L.arm_command(self.h, cmd, int(linear), T, n, W, len(flat), int(guard)),
+                                "command"))
+
+    def load_state(self) -> ArmLoad:
+        d6, i6 = C.c_double * 6, C.c_int * 6
+        a = [d6() for _ in range(7)]
+        st, sb, f3, c3 = i6(), i6(), (C.c_double * 3)(), (C.c_int * 3)()
+        vj, gv, ga = d6(), d6(), d6()
+        self.L.arm_load_state(self.h, *a, st, sb, vj, gv, ga, f3, c3)
+        return ArmLoad(*[list(x) for x in a], strained=[bool(v) for v in st], status=list(sb), volts=list(vj),
+                       goal_vel=list(gv), goal_acc=list(ga), tool_force=list(f3), reflexes=c3[0],
+                       reflex_active=bool(c3[1]), has_current=bool(c3[2]))
+
+    def set_gravity(self, g):
+        self.L.arm_set_gravity(self.h, *[float(v) for v in g])
+
+    def set_load_model(self, path: str | Path = ""):
+        self._check(self.L.arm_set_load_model(self.h, str(path).encode()), "load model")
+
+    def settings(self, arm_torque: int = 1000, grip_torque: int = 500, reflex: bool = True, backoff: float = 0.05,
+                 soft_torque: int = 350, tau: float = 0.04, n: int = 4, write_servo_settings: bool = True,
+                 model_angles: bool = True, reflex_nominal: bool = False, hold_trim: bool = True,
+                 deflect: float = 0.012):
+        """The driver's settings (the node's parameters). reflex_nominal: the reflex fires on the nominal model too."""
+        self.L.arm_settings(self.h, arm_torque, grip_torque, int(reflex), backoff, soft_torque, tau, n,
+                            int(write_servo_settings), int(model_angles), int(reflex_nominal), int(hold_trim),
+                            float(deflect))
+
+    def config_notes(self) -> list:
+        return [n for n in self.L.arm_config_notes(self.h).decode().split("\n") if n]
+
+    def estimate(self, q, w, duty, volts, temp, current, goal_vel, goal_acc, g=(0.0, 0.0, -9.81)) -> dict:
+        """The driver's load model on one sample (no bus): {grav, motor, ext, band, q_true, q_enc_goal, force}."""
+        vals = [float(v) for row in (q, w, duty, volts, temp, current, goal_vel, goal_acc) for v in row]
+        out, t6, e6, f3 = (C.c_double * 24)(), (C.c_double * 6)(), (C.c_double * 6)(), (C.c_double * 3)()
+        self.L.arm_estimate(self.h, (C.c_double * 48)(*vals), (C.c_double * 3)(*g), out, t6, e6, f3)
+        o = list(out)
+        return dict(grav=o[0:6], motor=o[6:12], ext=o[12:18], band=o[18:24], q_true=list(t6), q_enc_goal=list(e6),
+                    force=list(f3))
 
     def why(self) -> str:
         return self.L.arm_error().decode()
 
     def read(self, t: float = 0.0) -> ArmHw:
-        self._check(self.L.arm_read(self.h), "read")
+        self._check(self.L.arm_read(self.h, t), "read")
         return self.state(t)
 
     def drive(self, t: float):

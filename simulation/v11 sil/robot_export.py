@@ -578,6 +578,21 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
             c, h = m.geom_pos[gi], float(m.geom_size[gi][1]) if m.geom_type[gi] == mujoco.mjtGeom.mjGEOM_CAPSULE else 0.0
             caps.append(dict(name=nm, body=body, a=[float(v) for v in c - h * ax], b=[float(v) for v in c + h * ax],
                              r=float(m.geom_size[gi][0])))
+    # each moving body's mass and centre in its frame (design.md 4.5: the robot's gravity model starts from the
+    # official model's; its arm load calibration corrects it); the gripper carries the jaw (at its zero), the wrist
+    # camera and the payload's placeholder
+    inertials = []
+    for b in ["arm_shoulder", "arm_upper_arm", "arm_lower_arm", "arm_wrist", "arm_gripper"]:
+        bid = m.body(b).id
+        mass, mom = float(m.body_mass[bid]), m.body_mass[bid] * m.body_ipos[bid]
+        if b == "arm_gripper":
+            for c in ("arm_jaw", "arm_wrist_cam", "arm_payload"):
+                cid_ = m.body(c).id
+                R = np.zeros(9)
+                mujoco.mju_quat2Mat(R, m.body_quat[cid_])
+                mass += float(m.body_mass[cid_])
+                mom = mom + m.body_mass[cid_] * (m.body_pos[cid_] + R.reshape(3, 3) @ m.body_ipos[cid_])
+        inertials.append(dict(body=b, mass=mass, com=[float(v) for v in mom / mass]))
     cams = []
     base = m.body("base").id
     for name in ("left", "right"):
@@ -660,8 +675,10 @@ def arm_json(p: SimParams, robot: dict = ARM) -> dict:
                            self_gripper=[[[b[2], b[4], b[0]], [b[3], b[5], b[1]]] for b in A.SELF_BOXES],
                            self_jaw=[[[b[2], b[0], b[4]], [b[3], b[1], b[5]]] for b in A.JAW_BOXES]),
             capsules=caps,
+            inertials=inertials,
+            # current_feedback: the servos report Present Current (69); the STS3235 / STS3250 don't list it
             servos=dict(model="STS3215", ids=list(ARM_SERVO_IDS), stall_torque=A.SERVO_STALL, speed=A.SERVO_SPEED,
-                        ticks_per_turn=4096, baud=1000000),
+                        ticks_per_turn=4096, baud=1000000, current_feedback=True),
         ),
         bin=dict(centre=[bx, by, float(g.plate_top)], size=[L, W, H]),
         poses={k: list(v) for k, v in ARM_POSES.items()},

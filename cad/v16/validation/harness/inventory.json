@@ -1,0 +1,2689 @@
+{
+ "ports": {
+  "pc_usb3_1": {
+   "p": [
+    -14.0,
+    -40.0,
+    204.5
+   ],
+   "d": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "front USB-A 3: the D435"
+  },
+  "pc_usb3_2": {
+   "p": [
+    -14.0,
+    -22.0,
+    204.5
+   ],
+   "d": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "front USB-A 3: the Teensy"
+  },
+  "pc_usbc": {
+   "p": [
+    -14.0,
+    12.0,
+    204.5
+   ],
+   "d": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "USB-C",
+   "drawn": false,
+   "note": "front USB-C: the USB hub"
+  },
+  "pc_usb2_1": {
+   "p": [
+    -126.0,
+    32.0,
+    199.5
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "rear USB-A 2: the mic array"
+  },
+  "pc_usb2_2": {
+   "p": [
+    -126.0,
+    32.0,
+    216.5
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "rear USB-A 2: the lidar's adapter"
+  },
+  "pc_hdmi": {
+   "p": [
+    -126.0,
+    0.0,
+    206.5
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "HDMI-A",
+   "drawn": false,
+   "note": "rear HDMI: the face"
+  },
+  "pc_dc": {
+   "p": [
+    -126.0,
+    -40.0,
+    206.5
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "computer",
+   "conn": "DC5525",
+   "drawn": false,
+   "note": "rear DC in, 19 V"
+  },
+  "as_in": {
+   "p": [
+    -85.7,
+    -22.3,
+    112.5
+   ],
+   "d": [
+    -0.7071,
+    0.7071,
+    0.0
+   ],
+   "dev": "anti_spark",
+   "conn": "XT60",
+   "drawn": false,
+   "note": "6S in from the deck's lead hole"
+  },
+  "as_out": {
+   "p": [
+    -48.6,
+    -41.8,
+    112.5
+   ],
+   "d": [
+    0.7071,
+    0.7071,
+    -0.0
+   ],
+   "dev": "anti_spark",
+   "conn": "XT60",
+   "drawn": false,
+   "note": "6S out (switched), on its side toward the spine (its -L end faces the block 6 mm off; its other side faces the rear-right pod's opening)"
+  },
+  "as_btn": {
+   "p": [
+    -75.1,
+    -32.9,
+    120.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "anti_spark",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "the main button (latching): on = closed"
+  },
+  "ina226_in": {
+   "p": [
+    24.7,
+    -37.3,
+    113.0
+   ],
+   "d": [
+    0.7071,
+    0.7071,
+    0.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT60",
+   "drawn": false,
+   "note": "the INA226's IN+ at the block's +L end (the INA226 stands on the block beside it; the 30 A fuse is inline on this lead; its IN- joins the block's bus inside). Nov 18: the wedge between the spine, the right side fin and the rear-right pod's opening leaves room for this lead only along the spine"
+  },
+  "ina226_i2c": {
+   "p": [
+    -21.9,
+    -68.4,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "the INA226: VS 3V3, GND, SDA, SCL (address 0x41)"
+  },
+  "blk_can": {
+   "p": [
+    -9.2,
+    -50.0,
+    113.0
+   ],
+   "d": [
+    -0.7071,
+    0.7071,
+    0.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CAN1 junction: the carrier's lead meets the drives' chain here"
+  },
+  "blk_sense": {
+   "p": [
+    3.5,
+    -37.3,
+    113.0
+   ],
+   "d": [
+    -0.7071,
+    0.7071,
+    0.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "the signal lead's block end: pack sense (+, GND) here, its CAN and I2C breakouts to the CAN junction and the INA226 beside it"
+  },
+  "blk_m1": {
+   "p": [
+    -24.0,
+    -80.4,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: m1"
+  },
+  "blk_m2": {
+   "p": [
+    -18.0,
+    -74.4,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: m2"
+  },
+  "blk_m3": {
+   "p": [
+    -12.0,
+    -68.4,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: m3"
+  },
+  "blk_m4": {
+   "p": [
+    -6.0,
+    -62.4,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: m4"
+  },
+  "blk_12": {
+   "p": [
+    0.0,
+    -56.3,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: 12"
+  },
+  "blk_5": {
+   "p": [
+    6.0,
+    -50.3,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: 5"
+  },
+  "blk_19": {
+   "p": [
+    12.0,
+    -44.3,
+    121.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "xt30_block",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "XT30 out: 19"
+  },
+  "c12v_in": {
+   "p": [
+    14.0,
+    152.0,
+    118.5
+   ],
+   "d": [
+    -0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "conv_12v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "input lead (6S)"
+  },
+  "c12v_out": {
+   "p": [
+    30.0,
+    152.0,
+    118.5
+   ],
+   "d": [
+    -0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "conv_12v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "output lead"
+  },
+  "c5v_in": {
+   "p": [
+    22.8,
+    -150.1,
+    118.5
+   ],
+   "d": [
+    0.2588,
+    0.9659,
+    0.0
+   ],
+   "dev": "conv_5v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "input lead (6S)"
+  },
+  "c5v_out": {
+   "p": [
+    38.3,
+    -154.2,
+    118.5
+   ],
+   "d": [
+    0.2588,
+    0.9659,
+    0.0
+   ],
+   "dev": "conv_5v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "output lead"
+  },
+  "c19v_in": {
+   "p": [
+    -37.0,
+    -157.0,
+    205.0
+   ],
+   "d": [
+    -1.0,
+    -0.0,
+    -0.0
+   ],
+   "dev": "conv_19v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "input lead (6S)"
+  },
+  "c19v_out": {
+   "p": [
+    -37.0,
+    -173.0,
+    205.0
+   ],
+   "d": [
+    -1.0,
+    -0.0,
+    -0.0
+   ],
+   "dev": "conv_19v",
+   "conn": "XT30",
+   "drawn": false,
+   "note": "output lead"
+  },
+  "ina3221_1_in": {
+   "p": [
+    -115.0,
+    -112.5,
+    188.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH1 IN+ (from the converter)"
+  },
+  "ina3221_1_out": {
+   "p": [
+    -115.0,
+    -87.5,
+    188.0
+   ],
+   "d": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH1 IN- (to the load)"
+  },
+  "ina3221_2_in": {
+   "p": [
+    -105.0,
+    -112.5,
+    188.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH2 IN+ (from the converter)"
+  },
+  "ina3221_2_out": {
+   "p": [
+    -105.0,
+    -87.5,
+    188.0
+   ],
+   "d": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH2 IN- (to the load)"
+  },
+  "ina3221_3_in": {
+   "p": [
+    -95.0,
+    -112.5,
+    188.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH3 IN+ (from the converter)"
+  },
+  "ina3221_3_out": {
+   "p": [
+    -95.0,
+    -87.5,
+    188.0
+   ],
+   "d": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "CH3 IN- (to the load)"
+  },
+  "ina3221_i2c": {
+   "p": [
+    -121.0,
+    -100.0,
+    188.0
+   ],
+   "d": [
+    -1.0,
+    -0.0,
+    -0.0
+   ],
+   "dev": "ina3221",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "VS 3V3, GND, SDA, SCL (address 0x40)"
+  },
+  "hub_up": {
+   "p": [
+    -60.0,
+    106.0,
+    191.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "dev": "usb_hub",
+   "conn": "USB-C",
+   "drawn": false,
+   "note": "upstream, to the computer's USB-C"
+  },
+  "hub_d1": {
+   "p": [
+    5.0,
+    126.0,
+    191.0
+   ],
+   "d": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "usb_hub",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "downstream 1 (the servo bus adapter)"
+  },
+  "hub_d2": {
+   "p": [
+    5.0,
+    114.0,
+    191.0
+   ],
+   "d": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "usb_hub",
+   "conn": "USB-A",
+   "drawn": false,
+   "note": "downstream 2 (spare)"
+  },
+  "hub_pwr": {
+   "p": [
+    -85.0,
+    120.0,
+    191.0
+   ],
+   "d": [
+    -1.0,
+    -0.0,
+    -0.0
+   ],
+   "dev": "usb_hub",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "5 V in (powered hub)"
+  },
+  "carrier_J1": {
+   "p": [
+    55.4,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "carrier J1 (vertical JST XH)"
+  },
+  "carrier_J3": {
+   "p": [
+    51.3,
+    -63.9,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH6",
+   "drawn": false,
+   "note": "carrier J3 (vertical JST XH)"
+  },
+  "carrier_J4": {
+   "p": [
+    37.2,
+    -63.9,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "carrier J4 (vertical JST XH)"
+  },
+  "carrier_J6": {
+   "p": [
+    37.2,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "carrier J6 (vertical JST XH)"
+  },
+  "carrier_J10": {
+   "p": [
+    46.3,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH2",
+   "drawn": false,
+   "note": "carrier J10 (vertical JST XH)"
+  },
+  "carrier_J12": {
+   "p": [
+    67.0,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "carrier J12 (vertical JST XH)"
+  },
+  "carrier_J13": {
+   "p": [
+    95.2,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "carrier J13 (vertical JST XH)"
+  },
+  "carrier_J15": {
+   "p": [
+    79.5,
+    -63.9,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "carrier J15 (vertical JST XH)"
+  },
+  "carrier_J20": {
+   "p": [
+    66.7,
+    -63.9,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH3",
+   "drawn": false,
+   "note": "carrier J20 (vertical JST XH)"
+  },
+  "carrier_J21": {
+   "p": [
+    81.1,
+    -118.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "carrier J21 (vertical JST XH)"
+  },
+  "carrier_J11": {
+   "p": [
+    117.4,
+    -69.7,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH6",
+   "drawn": false,
+   "note": "carrier J11 (vertical JST XH)"
+  },
+  "carrier_J16": {
+   "p": [
+    117.4,
+    -89.4,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH6",
+   "drawn": false,
+   "note": "carrier J16 (vertical JST XH)"
+  },
+  "carrier_J17": {
+   "p": [
+    117.4,
+    -109.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH6",
+   "drawn": false,
+   "note": "carrier J17 (vertical JST XH)"
+  },
+  "carrier_J18": {
+   "p": [
+    29.9,
+    -102.2,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH6",
+   "drawn": false,
+   "note": "carrier J18 (vertical JST XH)"
+  },
+  "carrier_J19": {
+   "p": [
+    90.8,
+    -109.1,
+    199.1
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "carrier",
+   "conn": "XH4",
+   "drawn": false,
+   "note": "carrier J19 (vertical JST XH)"
+  },
+  "teensy_usb": {
+   "p": [
+    27.1,
+    -82.4,
+    203.7
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "carrier",
+   "conn": "micro-B",
+   "drawn": false,
+   "note": "Teensy 4.1 USB"
+  },
+  "bat_deck": {
+   "p": [
+    -128.0,
+    -17.0,
+    101.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "battery",
+   "conn": "lead",
+   "drawn": true,
+   "note": "the pack's 12 AWG lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+  },
+  "imu": {
+   "p": [
+    25.6,
+    -40.0,
+    211.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "imu",
+   "conn": "Dupont1x8",
+   "drawn": true,
+   "note": "BNO085 header housing, lead up (drawn)"
+  },
+  "d435": {
+   "p": [
+    59.8,
+    -60.8,
+    197.6
+   ],
+   "d": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "dev": "d435",
+   "conn": "USB-C",
+   "drawn": true,
+   "note": "the D435's USB-C lead end at the riser's rear (d435_riser.py)"
+  },
+  "sa_usb": {
+   "p": [
+    41.0,
+    75.5,
+    243.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "dev": "servo_adapter",
+   "conn": "USB-C",
+   "drawn": true,
+   "note": "servo bus adapter USB-C (drawn lead end)"
+  },
+  "sa_dc": {
+   "p": [
+    41.5,
+    22.5,
+    214.0
+   ],
+   "d": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "dev": "servo_adapter",
+   "conn": "DC5525",
+   "drawn": false,
+   "note": "servo bus adapter DC in (ASSUMED on the +y end, over its USB-C)"
+  },
+  "lidar": {
+   "p": [
+    92.8,
+    -27.2,
+    136.0
+   ],
+   "d": [
+    -0.7071,
+    -0.7071,
+    0.0
+   ],
+   "dev": "lidar",
+   "conn": "lidar",
+   "drawn": false,
+   "note": "A2M8 base, toward the right rear (its lead's exit: VERIFY)"
+  },
+  "lidar_ad_in": {
+   "p": [
+    -80.0,
+    -146.0,
+    189.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "dev": "lidar_adapter",
+   "conn": "lidar",
+   "drawn": false,
+   "note": "A2M8 USB adapter board, lidar in"
+  },
+  "lidar_ad_usb": {
+   "p": [
+    -80.0,
+    -124.0,
+    189.0
+   ],
+   "d": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "dev": "lidar_adapter",
+   "conn": "micro-B",
+   "drawn": false,
+   "note": "A2M8 USB adapter board, USB out"
+  },
+  "switch_main": {
+   "p": [
+    -167.9,
+    -48.5,
+    200.0
+   ],
+   "d": [
+    1.0,
+    -0.0,
+    0.0
+   ],
+   "dev": "switch_main",
+   "conn": "spade",
+   "drawn": true,
+   "note": "the main button (Fernando's rocker, latching = the e-stop) on floor 2's rear rim: the lead leaves its two drawn 4.8 mm receptacles (upper.main_switch) toward the floor's middle"
+  },
+  "disp_hdmi": {
+   "p": [
+    -154.8,
+    -19.0,
+    322.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "dev": "display",
+   "conn": "HDMI-A",
+   "drawn": false,
+   "note": "5 in panel HDMI, at its bottom edge (ASSUMED)"
+  },
+  "disp_pwr": {
+   "p": [
+    -154.8,
+    20.0,
+    322.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "dev": "display",
+   "conn": "micro-B",
+   "drawn": false,
+   "note": "5 in panel 5 V (micro-USB power only, ASSUMED)"
+  },
+  "mic_usb": {
+   "p": [
+    -163.0,
+    -64.0,
+    410.0
+   ],
+   "d": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "dev": "mic_array",
+   "conn": "micro-B",
+   "drawn": false,
+   "note": "USB mic array (ASSUMED micro-B at its -y end)"
+  },
+  "motor_FL": {
+   "p": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": "pod FL",
+   "conn": "XT30(2+2)",
+   "drawn": true,
+   "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+  },
+  "motor_RL": {
+   "p": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": "pod RL",
+   "conn": "XT30(2+2)",
+   "drawn": true,
+   "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+  },
+  "motor_RR": {
+   "p": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": "pod RR",
+   "conn": "XT30(2+2)",
+   "drawn": true,
+   "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+  },
+  "motor_FR": {
+   "p": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "d": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": "pod FR",
+   "conn": "XT30(2+2)",
+   "drawn": true,
+   "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+  }
+ },
+ "connections": [
+  {
+   "id": "BAT",
+   "a": "battery",
+   "b": "bat_deck",
+   "sig": "6S pack (18-25.2 V) in: the pack, its pigtail, the XT90 pair under the deck, the board lead up through the deck's lead hole",
+   "conn": "XT90 pair",
+   "lead": "bat",
+   "awg": 10,
+   "amps": 30.0,
+   "route": false,
+   "survive": "battery removal (v15): robot on its stand, unplug the XT90 under the deck, open the straps, the pack drops out",
+   "od": 9.0,
+   "bend_r": 12.0,
+   "what": "the pack's own XT90 pigtail, 2 x 10 AWG (HRB 6S 3300: VERIFY connector, gauge and length)",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": {
+    "p": [
+     -128.0,
+     -17.0,
+     101.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "battery",
+    "conn": "lead",
+    "drawn": true,
+    "note": "the pack's 12 AWG lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+   }
+  },
+  {
+   "id": "BAT_AS",
+   "a": "bat_deck",
+   "b": "as_in",
+   "sig": "6S in: the pack's lead from the deck's lead hole to the anti-spark switch",
+   "conn": "lead / XT60",
+   "lead": "pair12",
+   "awg": 12,
+   "amps": 30.0,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 7.0,
+   "bend_r": 14.0,
+   "what": "2 x 12 AWG silicone, twisted",
+   "length_mm": 137,
+   "a_port": {
+    "p": [
+     -128.0,
+     -17.0,
+     101.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "battery",
+    "conn": "lead",
+    "drawn": true,
+    "note": "the pack's 12 AWG lead out of the deck's lead hole (chassis_mid.LEAD_HOLE), drawn from the XT90 pair under the deck (battery_items)"
+   },
+   "b_port": {
+    "p": [
+     -85.7,
+     -22.3,
+     112.5
+    ],
+    "d": [
+     -0.7071,
+     0.7071,
+     0.0
+    ],
+    "dev": "anti_spark",
+    "conn": "XT60",
+    "drawn": false,
+    "note": "6S in from the deck's lead hole"
+   }
+  },
+  {
+   "id": "AS_INA",
+   "a": "as_out",
+   "b": "ina226_in",
+   "sig": "6S switched, through the 30 A inline fuse (blade holder on this lead)",
+   "conn": "XT60 both ends",
+   "lead": "pair12",
+   "awg": 12,
+   "amps": 30.0,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 7.0,
+   "bend_r": 14.0,
+   "what": "2 x 12 AWG silicone, twisted",
+   "length_mm": 164,
+   "a_port": {
+    "p": [
+     -48.6,
+     -41.8,
+     112.5
+    ],
+    "d": [
+     0.7071,
+     0.7071,
+     -0.0
+    ],
+    "dev": "anti_spark",
+    "conn": "XT60",
+    "drawn": false,
+    "note": "6S out (switched), on its side toward the spine (its -L end faces the block 6 mm off; its other side faces the rear-right pod's opening)"
+   },
+   "b_port": {
+    "p": [
+     24.7,
+     -37.3,
+     113.0
+    ],
+    "d": [
+     0.7071,
+     0.7071,
+     0.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT60",
+    "drawn": false,
+    "note": "the INA226's IN+ at the block's +L end (the INA226 stands on the block beside it; the 30 A fuse is inline on this lead; its IN- joins the block's bus inside). Nov 18: the wedge between the spine, the right side fin and the rear-right pod's opening leaves room for this lead only along the spine"
+   }
+  },
+  {
+   "id": "INA_BLK",
+   "a": "ina226 IN-",
+   "b": "block bus",
+   "sig": "6S metered, into the distribution block",
+   "conn": "inside the block (the INA226 stands on its side)",
+   "lead": null,
+   "awg": 12,
+   "amps": 30.0,
+   "route": false,
+   "survive": "",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": null
+  },
+  {
+   "id": "BAL",
+   "a": "battery",
+   "b": null,
+   "sig": "6S balance lead (charging only)",
+   "conn": "JST XH 7P",
+   "lead": null,
+   "awg": 22,
+   "amps": 0.0,
+   "route": false,
+   "survive": "stays with the pack; its XH7 tucked against the pack's front end",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": null
+  },
+  {
+   "id": "M_FR",
+   "a": "motor_FR",
+   "b": "blk_m2",
+   "sig": "drive bus 6S + CAN1 in / out (the chain runs through every drive lead)",
+   "conn": "XT30(2+2)-F at the motor / XT30 + XH4 at the block",
+   "lead": "motor",
+   "awg": 18,
+   "amps": 7.3,
+   "route": true,
+   "survive": "pod removal (v15: the pod drops out downward): unplug the XT30 at the motor through the deck's opening and cut the tie at the motor plate; a service loop from that tie up onto the deck takes the fork's travel",
+   "od": 8.0,
+   "bend_r": 16.0,
+   "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
+   "length_mm": 178,
+   "a_port": {
+    "p": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "dev": "pod FR",
+    "conn": "XT30(2+2)",
+    "drawn": true,
+    "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+   },
+   "b_port": {
+    "p": [
+     -18.0,
+     -74.4,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: m2"
+   }
+  },
+  {
+   "id": "M_FL",
+   "a": "motor_FL",
+   "b": "blk_m1",
+   "sig": "drive bus 6S + CAN1 in / out (the chain runs through every drive lead)",
+   "conn": "XT30(2+2)-F at the motor / XT30 + XH4 at the block",
+   "lead": "motor",
+   "awg": 18,
+   "amps": 7.3,
+   "route": true,
+   "survive": "pod removal (v15: the pod drops out downward): unplug the XT30 at the motor through the deck's opening and cut the tie at the motor plate; a service loop from that tie up onto the deck takes the fork's travel",
+   "od": 8.0,
+   "bend_r": 16.0,
+   "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
+   "length_mm": 256,
+   "a_port": {
+    "p": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "dev": "pod FL",
+    "conn": "XT30(2+2)",
+    "drawn": true,
+    "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+   },
+   "b_port": {
+    "p": [
+     -24.0,
+     -80.4,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: m1"
+   }
+  },
+  {
+   "id": "M_RR",
+   "a": "motor_RR",
+   "b": "blk_m4",
+   "sig": "drive bus 6S + CAN1 in / out (the chain runs through every drive lead)",
+   "conn": "XT30(2+2)-F at the motor / XT30 + XH4 at the block",
+   "lead": "motor",
+   "awg": 18,
+   "amps": 7.3,
+   "route": true,
+   "survive": "pod removal (v15: the pod drops out downward): unplug the XT30 at the motor through the deck's opening and cut the tie at the motor plate; a service loop from that tie up onto the deck takes the fork's travel",
+   "od": 8.0,
+   "bend_r": 16.0,
+   "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
+   "length_mm": 117,
+   "a_port": {
+    "p": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "dev": "pod RR",
+    "conn": "XT30(2+2)",
+    "drawn": true,
+    "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+   },
+   "b_port": {
+    "p": [
+     -6.0,
+     -62.4,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: m4"
+   }
+  },
+  {
+   "id": "M_RL",
+   "a": "motor_RL",
+   "b": "blk_m3",
+   "sig": "drive bus 6S + CAN1 in / out (the chain runs through every drive lead)",
+   "conn": "XT30(2+2)-F at the motor / XT30 + XH4 at the block",
+   "lead": "motor",
+   "awg": 18,
+   "amps": 7.3,
+   "route": true,
+   "survive": "pod removal (v15: the pod drops out downward): unplug the XT30 at the motor through the deck's opening and cut the tie at the motor plate; a service loop from that tie up onto the deck takes the fork's travel",
+   "od": 8.0,
+   "bend_r": 16.0,
+   "what": "2 x 18 AWG silicone (bus +/-) + 2 twisted pairs 26 AWG (CAN in, CAN out) in braided sleeve",
+   "length_mm": 308,
+   "a_port": {
+    "p": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "dev": "pod RL",
+    "conn": "XT30(2+2)",
+    "drawn": true,
+    "note": "the CAD's motor bundle from its lead stubs to its tie on the motor plate (motor_leg_pod), nominal (v15)"
+   },
+   "b_port": {
+    "p": [
+     -12.0,
+     -68.4,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: m3"
+   }
+  },
+  {
+   "id": "BLK_12",
+   "a": "blk_12",
+   "b": "c12v_in",
+   "sig": "6S to the 12 V converter",
+   "conn": "XT30 both ends",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 6.0,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 306,
+   "a_port": {
+    "p": [
+     0.0,
+     -56.3,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: 12"
+   },
+   "b_port": {
+    "p": [
+     14.0,
+     152.0,
+     118.5
+    ],
+    "d": [
+     -0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "conv_12v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "input lead (6S)"
+   }
+  },
+  {
+   "id": "BLK_5",
+   "a": "blk_5",
+   "b": "c5v_in",
+   "sig": "6S to the 5 V converter",
+   "conn": "XT30 both ends",
+   "lead": "pair20",
+   "awg": 20,
+   "amps": 1.5,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 3.8,
+   "bend_r": 8.0,
+   "what": "2 x 20 AWG silicone, twisted",
+   "length_mm": 217,
+   "a_port": {
+    "p": [
+     6.0,
+     -50.3,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: 5"
+   },
+   "b_port": {
+    "p": [
+     22.8,
+     -150.1,
+     118.5
+    ],
+    "d": [
+     0.2588,
+     0.9659,
+     0.0
+    ],
+    "dev": "conv_5v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "input lead (6S)"
+   }
+  },
+  {
+   "id": "BLK_19",
+   "a": "blk_19",
+   "b": "c19v_in",
+   "sig": "6S up to the 19 V converter (second floor)",
+   "conn": "XT30 both ends",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 4.5,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 265,
+   "a_port": {
+    "p": [
+     12.0,
+     -44.3,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "XT30 out: 19"
+   },
+   "b_port": {
+    "p": [
+     -37.0,
+     -157.0,
+     205.0
+    ],
+    "d": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "dev": "conv_19v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "input lead (6S)"
+   }
+  },
+  {
+   "id": "SIG_DOWN",
+   "a": "blk_sense",
+   "b": "carrier_J1",
+   "sig": "one signal lead, carrier <-> distribution block: pack sense (+, GND) to J1, CAN1 H / L to J6 (U2's 120 ohm is this end of the chain), the INA226's I2C to J21; short breakouts at both ends",
+   "conn": "XH2 + XH2 + XH4 at each end",
+   "lead": "sig8",
+   "awg": 26,
+   "amps": 0.1,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 5.0,
+   "bend_r": 15.0,
+   "what": "8 x 26 AWG in a jacket: CAN H / L (a twisted pair), pack sense +/-, I2C 3V3 / GND / SDA / SCL",
+   "length_mm": 408,
+   "a_port": {
+    "p": [
+     3.5,
+     -37.3,
+     113.0
+    ],
+    "d": [
+     -0.7071,
+     0.7071,
+     0.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "the signal lead's block end: pack sense (+, GND) here, its CAN and I2C breakouts to the CAN junction and the INA226 beside it"
+   },
+   "b_port": {
+    "p": [
+     55.4,
+     -118.1,
+     199.1
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "carrier",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "carrier J1 (vertical JST XH)"
+   }
+  },
+  {
+   "id": "BUTTON",
+   "a": "switch_main",
+   "b": "as_btn",
+   "sig": "the main button (latching = off / e-stop) to the anti-spark switch's control input",
+   "conn": "spades / XH2",
+   "lead": "btn2",
+   "awg": 24,
+   "amps": 0.05,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 3.0,
+   "bend_r": 8.0,
+   "what": "2 x 24 AWG, jacketed (the main button to the anti-spark switch)",
+   "length_mm": 354,
+   "a_port": {
+    "p": [
+     -167.9,
+     -48.5,
+     200.0
+    ],
+    "d": [
+     1.0,
+     -0.0,
+     0.0
+    ],
+    "dev": "switch_main",
+    "conn": "spade",
+    "drawn": true,
+    "note": "the main button (Fernando's rocker, latching = the e-stop) on floor 2's rear rim: the lead leaves its two drawn 4.8 mm receptacles (upper.main_switch) toward the floor's middle"
+   },
+   "b_port": {
+    "p": [
+     -75.1,
+     -32.9,
+     120.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "anti_spark",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "the main button (latching): on = closed"
+   }
+  },
+  {
+   "id": "C12_OUT",
+   "a": "c12v_out",
+   "b": "ina3221_1_in",
+   "sig": "12 V out, up to the INA3221 CH1",
+   "conn": "XT30 / XH2",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 6.7,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 542,
+   "a_port": {
+    "p": [
+     30.0,
+     152.0,
+     118.5
+    ],
+    "d": [
+     -0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "conv_12v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "output lead"
+   },
+   "b_port": {
+    "p": [
+     -115.0,
+     -112.5,
+     188.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH1 IN+ (from the converter)"
+   }
+  },
+  {
+   "id": "C5_OUT",
+   "a": "c5v_out",
+   "b": "ina3221_3_in",
+   "sig": "5 V out, up to the INA3221 CH3",
+   "conn": "XT30 / XH2",
+   "lead": "pair20",
+   "awg": 20,
+   "amps": 2.5,
+   "route": true,
+   "survive": "first floor: reached between the fins through the lidar layer, or with the second floor lifted (unplug at the slot's top first)",
+   "od": 3.8,
+   "bend_r": 8.0,
+   "what": "2 x 20 AWG silicone, twisted",
+   "length_mm": 262,
+   "a_port": {
+    "p": [
+     38.3,
+     -154.2,
+     118.5
+    ],
+    "d": [
+     0.2588,
+     0.9659,
+     0.0
+    ],
+    "dev": "conv_5v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "output lead"
+   },
+   "b_port": {
+    "p": [
+     -95.0,
+     -112.5,
+     188.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH3 IN+ (from the converter)"
+   }
+  },
+  {
+   "id": "C19_OUT",
+   "a": "c19v_out",
+   "b": "ina3221_2_in",
+   "sig": "19 V out to the INA3221 CH2",
+   "conn": "XT30 / XH2",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 4.5,
+   "route": true,
+   "survive": "",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 111,
+   "a_port": {
+    "p": [
+     -37.0,
+     -173.0,
+     205.0
+    ],
+    "d": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "dev": "conv_19v",
+    "conn": "XT30",
+    "drawn": false,
+    "note": "output lead"
+   },
+   "b_port": {
+    "p": [
+     -105.0,
+     -112.5,
+     188.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH2 IN+ (from the converter)"
+   }
+  },
+  {
+   "id": "R12",
+   "a": "ina3221_1_out",
+   "b": "sa_dc",
+   "sig": "12 V to the servo bus adapter (the SO-101)",
+   "conn": "XH2 / DC 5.5x2.1 (Waveshare: VERIFY)",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 6.7,
+   "route": true,
+   "survive": "arm module removal: unplug at the module (the DC plug at the servo adapter)",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 329,
+   "a_port": {
+    "p": [
+     -115.0,
+     -87.5,
+     188.0
+    ],
+    "d": [
+     -0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH1 IN- (to the load)"
+   },
+   "b_port": {
+    "p": [
+     41.5,
+     22.5,
+     214.0
+    ],
+    "d": [
+     0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "servo_adapter",
+    "conn": "DC5525",
+    "drawn": false,
+    "note": "servo bus adapter DC in (ASSUMED on the +y end, over its USB-C)"
+   }
+  },
+  {
+   "id": "R19",
+   "a": "ina3221_2_out",
+   "b": "pc_dc",
+   "sig": "19 V to the computer",
+   "conn": "XH2 / DC 5.5x2.5",
+   "lead": "pair18",
+   "awg": 18,
+   "amps": 4.5,
+   "route": true,
+   "survive": "bin deck lift: unplug at the computer, or 150 mm slack",
+   "od": 5.0,
+   "bend_r": 10.0,
+   "what": "2 x 18 AWG silicone, twisted",
+   "length_mm": 141,
+   "a_port": {
+    "p": [
+     -105.0,
+     -87.5,
+     188.0
+    ],
+    "d": [
+     -0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH2 IN- (to the load)"
+   },
+   "b_port": {
+    "p": [
+     -126.0,
+     -40.0,
+     206.5
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "DC5525",
+    "drawn": false,
+    "note": "rear DC in, 19 V"
+   }
+  },
+  {
+   "id": "R5_DISP",
+   "a": "ina3221_3_out",
+   "b": "disp_pwr",
+   "sig": "5 V to the face display and the speaker amp (branch at the crown)",
+   "conn": "XH2 / micro-B",
+   "lead": "pair20",
+   "awg": 20,
+   "amps": 2.0,
+   "route": true,
+   "survive": "bin deck lift: unplug at the computer, or 150 mm slack",
+   "od": 3.8,
+   "bend_r": 8.0,
+   "what": "2 x 20 AWG silicone, twisted",
+   "length_mm": 249,
+   "a_port": {
+    "p": [
+     -95.0,
+     -87.5,
+     188.0
+    ],
+    "d": [
+     -0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH3 IN- (to the load)"
+   },
+   "b_port": {
+    "p": [
+     -154.8,
+     20.0,
+     322.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "dev": "display",
+    "conn": "micro-B",
+    "drawn": false,
+    "note": "5 in panel 5 V (micro-USB power only, ASSUMED)"
+   }
+  },
+  {
+   "id": "R5_HUB",
+   "a": "ina3221_3_out",
+   "b": "hub_pwr",
+   "sig": "5 V to the powered USB hub",
+   "conn": "XH2 both ends",
+   "lead": "pair20",
+   "awg": 20,
+   "amps": 1.5,
+   "route": true,
+   "survive": "",
+   "od": 3.8,
+   "bend_r": 8.0,
+   "what": "2 x 20 AWG silicone, twisted",
+   "length_mm": 280,
+   "a_port": {
+    "p": [
+     -95.0,
+     -87.5,
+     188.0
+    ],
+    "d": [
+     -0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CH3 IN- (to the load)"
+   },
+   "b_port": {
+    "p": [
+     -85.0,
+     120.0,
+     191.0
+    ],
+    "d": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "dev": "usb_hub",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "5 V in (powered hub)"
+   }
+  },
+  {
+   "id": "SBUS",
+   "a": "servo_adapter",
+   "b": "SO-101 base servo",
+   "sig": "Feetech TTL half-duplex bus + 12 V",
+   "conn": "5264 3P (SO-101 kit cable)",
+   "lead": null,
+   "awg": null,
+   "amps": 6.6,
+   "route": false,
+   "survive": "arm kit: inside the SO-101, routed by its own clips",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": null
+  },
+  {
+   "id": "CAN1",
+   "a": "carrier_J6",
+   "b": "blk_can",
+   "sig": "CAN1 H / L to the drives' chain: in SIG_DOWN (its breakouts)",
+   "conn": "XH2 both ends",
+   "lead": null,
+   "awg": 26,
+   "amps": 0.1,
+   "route": false,
+   "survive": "",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": {
+    "p": [
+     37.2,
+     -118.1,
+     199.1
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "carrier",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "carrier J6 (vertical JST XH)"
+   },
+   "b_port": {
+    "p": [
+     -9.2,
+     -50.0,
+     113.0
+    ],
+    "d": [
+     -0.7071,
+     0.7071,
+     0.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XH2",
+    "drawn": false,
+    "note": "CAN1 junction: the carrier's lead meets the drives' chain here"
+   }
+  },
+  {
+   "id": "I2C_226",
+   "a": "carrier_J21",
+   "b": "ina226_i2c",
+   "sig": "I2C to the INA226 (robot total current): in SIG_DOWN (its breakouts)",
+   "conn": "XH4 both ends",
+   "lead": null,
+   "awg": 26,
+   "amps": 0.01,
+   "route": false,
+   "survive": "",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": {
+    "p": [
+     81.1,
+     -118.1,
+     199.1
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "carrier",
+    "conn": "XH4",
+    "drawn": false,
+    "note": "carrier J21 (vertical JST XH)"
+   },
+   "b_port": {
+    "p": [
+     -21.9,
+     -68.4,
+     121.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "xt30_block",
+    "conn": "XH4",
+    "drawn": false,
+    "note": "the INA226: VS 3V3, GND, SDA, SCL (address 0x41)"
+   }
+  },
+  {
+   "id": "I2C_3221",
+   "a": "carrier_J12",
+   "b": "ina3221_i2c",
+   "sig": "I2C to the INA3221 (12 V, 19 V, 5 V)",
+   "conn": "XH4 both ends",
+   "lead": "i2c4",
+   "awg": 26,
+   "amps": 0.01,
+   "route": true,
+   "survive": "",
+   "od": 4.0,
+   "bend_r": 12.0,
+   "what": "4 x 26 AWG in a jacket (3V3, GND, SDA, SCL; or 5 V, GND, TX, RX)",
+   "length_mm": 257,
+   "a_port": {
+    "p": [
+     67.0,
+     -118.1,
+     199.1
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "carrier",
+    "conn": "XH4",
+    "drawn": false,
+    "note": "carrier J12 (vertical JST XH)"
+   },
+   "b_port": {
+    "p": [
+     -121.0,
+     -100.0,
+     188.0
+    ],
+    "d": [
+     -1.0,
+     -0.0,
+     -0.0
+    ],
+    "dev": "ina3221",
+    "conn": "XH4",
+    "drawn": false,
+    "note": "VS 3V3, GND, SDA, SCL (address 0x40)"
+   }
+  },
+  {
+   "id": "IMU",
+   "a": "carrier_J3",
+   "b": "imu",
+   "sig": "BNO085: J3 data (SCL/SCK, SDA/MISO, AD0/MOSI, CS, INT, RST) + J4 power, in one jacket",
+   "conn": "XH6 + XH2 / the board's header",
+   "lead": "imu8",
+   "awg": 26,
+   "amps": 0.05,
+   "route": true,
+   "survive": "",
+   "od": 4.5,
+   "bend_r": 14.0,
+   "what": "8 x 26 AWG in a jacket (the BNO085: J4 power + J3 data)",
+   "length_mm": 56,
+   "a_port": {
+    "p": [
+     51.3,
+     -63.9,
+     199.1
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "carrier",
+    "conn": "XH6",
+    "drawn": false,
+    "note": "carrier J3 (vertical JST XH)"
+   },
+   "b_port": {
+    "p": [
+     25.6,
+     -40.0,
+     211.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "imu",
+    "conn": "Dupont1x8",
+    "drawn": true,
+    "note": "BNO085 header housing, lead up (drawn)"
+   }
+  },
+  {
+   "id": "TEENSY",
+   "a": "teensy_usb",
+   "b": "pc_usb3_2",
+   "sig": "USB 2 (Teensy native CDC; also the Teensy's power)",
+   "conn": "micro-B / USB-A",
+   "lead": "usb2",
+   "awg": null,
+   "amps": 0.3,
+   "route": true,
+   "survive": "",
+   "od": 3.8,
+   "bend_r": 19.0,
+   "what": "USB 2 lead",
+   "length_mm": 183,
+   "a_port": {
+    "p": [
+     27.1,
+     -82.4,
+     203.7
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "carrier",
+    "conn": "micro-B",
+    "drawn": false,
+    "note": "Teensy 4.1 USB"
+   },
+   "b_port": {
+    "p": [
+     -14.0,
+     -22.0,
+     204.5
+    ],
+    "d": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "USB-A",
+    "drawn": false,
+    "note": "front USB-A 3: the Teensy"
+   }
+  },
+  {
+   "id": "D435",
+   "a": "d435",
+   "b": "pc_usb3_1",
+   "sig": "USB 3 (5 Gb/s)",
+   "conn": "USB-C / USB-A",
+   "lead": "usb3",
+   "awg": null,
+   "amps": 0.7,
+   "route": true,
+   "survive": "arm module removal: unplug at the module (USB-C at the camera; the lead stays on the floor)",
+   "od": 4.6,
+   "bend_r": 23.0,
+   "what": "USB 3 lead (the D435 lead is drawn \u00d84.5, VERIFY)",
+   "length_mm": 85,
+   "a_port": {
+    "p": [
+     59.8,
+     -60.8,
+     197.6
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "d435",
+    "conn": "USB-C",
+    "drawn": true,
+    "note": "the D435's USB-C lead end at the riser's rear (d435_riser.py)"
+   },
+   "b_port": {
+    "p": [
+     -14.0,
+     -40.0,
+     204.5
+    ],
+    "d": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "USB-A",
+    "drawn": false,
+    "note": "front USB-A 3: the D435"
+   }
+  },
+  {
+   "id": "SO101",
+   "a": "sa_usb",
+   "b": "hub_d1",
+   "sig": "USB (servo bus adapter), through the hub",
+   "conn": "USB-C / USB-A",
+   "lead": "usbc",
+   "awg": null,
+   "amps": 0.1,
+   "route": true,
+   "survive": "arm module removal: unplug at the module (USB-C at the adapter)",
+   "od": 5.0,
+   "bend_r": 25.0,
+   "what": "USB-C lead",
+   "length_mm": 138,
+   "a_port": {
+    "p": [
+     41.0,
+     75.5,
+     243.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "dev": "servo_adapter",
+    "conn": "USB-C",
+    "drawn": true,
+    "note": "servo bus adapter USB-C (drawn lead end)"
+   },
+   "b_port": {
+    "p": [
+     5.0,
+     126.0,
+     191.0
+    ],
+    "d": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "usb_hub",
+    "conn": "USB-A",
+    "drawn": false,
+    "note": "downstream 1 (the servo bus adapter)"
+   }
+  },
+  {
+   "id": "HUB",
+   "a": "hub_up",
+   "b": "pc_usbc",
+   "sig": "USB 2 uplink of the hub",
+   "conn": "USB-C both ends",
+   "lead": "usbc",
+   "awg": null,
+   "amps": 0.1,
+   "route": true,
+   "survive": "",
+   "od": 5.0,
+   "bend_r": 25.0,
+   "what": "USB-C lead",
+   "length_mm": 224,
+   "a_port": {
+    "p": [
+     -60.0,
+     106.0,
+     191.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     -0.0
+    ],
+    "dev": "usb_hub",
+    "conn": "USB-C",
+    "drawn": false,
+    "note": "upstream, to the computer's USB-C"
+   },
+   "b_port": {
+    "p": [
+     -14.0,
+     12.0,
+     204.5
+    ],
+    "d": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "USB-C",
+    "drawn": false,
+    "note": "front USB-C: the USB hub"
+   }
+  },
+  {
+   "id": "LIDAR",
+   "a": "lidar",
+   "b": "lidar_ad_in",
+   "sig": "A2M8 UART + 5 V (its own lead)",
+   "conn": "A2M8 connector both ends",
+   "lead": "lidar",
+   "awg": null,
+   "amps": 0.6,
+   "route": true,
+   "survive": "second floor lift: unplug at the adapter",
+   "od": 3.5,
+   "bend_r": 10.0,
+   "what": "the A2M8's own lead to its USB adapter (VERIFY)",
+   "length_mm": 290,
+   "a_port": {
+    "p": [
+     92.8,
+     -27.2,
+     136.0
+    ],
+    "d": [
+     -0.7071,
+     -0.7071,
+     0.0
+    ],
+    "dev": "lidar",
+    "conn": "lidar",
+    "drawn": false,
+    "note": "A2M8 base, toward the right rear (its lead's exit: VERIFY)"
+   },
+   "b_port": {
+    "p": [
+     -80.0,
+     -146.0,
+     189.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    "dev": "lidar_adapter",
+    "conn": "lidar",
+    "drawn": false,
+    "note": "A2M8 USB adapter board, lidar in"
+   }
+  },
+  {
+   "id": "LIDARUSB",
+   "a": "lidar_ad_usb",
+   "b": "pc_usb2_2",
+   "sig": "USB 2 (A2M8 adapter)",
+   "conn": "micro-B / USB-A",
+   "lead": "usb2",
+   "awg": null,
+   "amps": 0.6,
+   "route": true,
+   "survive": "bin deck lift: unplug at the computer, or 150 mm slack",
+   "od": 3.8,
+   "bend_r": 19.0,
+   "what": "USB 2 lead",
+   "length_mm": 274,
+   "a_port": {
+    "p": [
+     -80.0,
+     -124.0,
+     189.0
+    ],
+    "d": [
+     0.0,
+     1.0,
+     0.0
+    ],
+    "dev": "lidar_adapter",
+    "conn": "micro-B",
+    "drawn": false,
+    "note": "A2M8 USB adapter board, USB out"
+   },
+   "b_port": {
+    "p": [
+     -126.0,
+     32.0,
+     216.5
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "USB-A",
+    "drawn": false,
+    "note": "rear USB-A 2: the lidar's adapter"
+   }
+  },
+  {
+   "id": "HDMI",
+   "a": "pc_hdmi",
+   "b": "disp_hdmi",
+   "sig": "HDMI video to the 5 in face",
+   "conn": "HDMI-A both ends (FPC cable)",
+   "lead": "hdmi",
+   "awg": null,
+   "amps": 0.0,
+   "route": true,
+   "survive": "bin deck lift: unplug at the computer, or 150 mm slack",
+   "od": 6.0,
+   "bend_r": 6.0,
+   "what": "flat FPC HDMI cable (a round HDMI lead is \u00d87, R 35: too stiff here), ASSUMED",
+   "length_mm": 212,
+   "a_port": {
+    "p": [
+     -126.0,
+     0.0,
+     206.5
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "HDMI-A",
+    "drawn": false,
+    "note": "rear HDMI: the face"
+   },
+   "b_port": {
+    "p": [
+     -154.8,
+     -19.0,
+     322.0
+    ],
+    "d": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "dev": "display",
+    "conn": "HDMI-A",
+    "drawn": false,
+    "note": "5 in panel HDMI, at its bottom edge (ASSUMED)"
+   }
+  },
+  {
+   "id": "MIC",
+   "a": "mic_usb",
+   "b": "pc_usb2_1",
+   "sig": "USB audio: 4-mic array in, playback out to the amp (AEC reference)",
+   "conn": "micro-B / USB-A",
+   "lead": "usb2",
+   "awg": null,
+   "amps": 0.3,
+   "route": true,
+   "survive": "bin deck lift: unplug at the computer, or 150 mm slack",
+   "od": 3.8,
+   "bend_r": 19.0,
+   "what": "USB 2 lead",
+   "length_mm": 383,
+   "a_port": {
+    "p": [
+     -163.0,
+     -64.0,
+     410.0
+    ],
+    "d": [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    "dev": "mic_array",
+    "conn": "micro-B",
+    "drawn": false,
+    "note": "USB mic array (ASSUMED micro-B at its -y end)"
+   },
+   "b_port": {
+    "p": [
+     -126.0,
+     32.0,
+     199.5
+    ],
+    "d": [
+     -1.0,
+     0.0,
+     0.0
+    ],
+    "dev": "computer",
+    "conn": "USB-A",
+    "drawn": false,
+    "note": "rear USB-A 2: the mic array"
+   }
+  },
+  {
+   "id": "SPK",
+   "a": "mic array audio out",
+   "b": "speaker",
+   "sig": "3.5 mm line out -> class-D amp (PAM8302 class, ASSUMED) -> 4 ohm 3 W speaker",
+   "conn": "3.5 mm / XH2",
+   "lead": null,
+   "awg": 24,
+   "amps": 0.9,
+   "route": false,
+   "survive": "on the crown (amp beside the speaker, not drawn)",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": null
+  },
+  {
+   "id": "STATUS",
+   "a": "carrier_J15 / J20",
+   "b": "RGB LED, NeoPixel strip",
+   "sig": "RGB status LED, NeoPixel strip (Nov 18: the buzzer and the ELRS receiver are on the carrier itself, no leads)",
+   "conn": "XH4 / XH3",
+   "lead": null,
+   "awg": 26,
+   "amps": 0.5,
+   "route": false,
+   "survive": "not placed yet: where the face shows them (open)",
+   "od": null,
+   "bend_r": null,
+   "what": "",
+   "length_mm": null,
+   "a_port": null,
+   "b_port": null
+  }
+ ]
+}

@@ -25,9 +25,9 @@ of C++ nodes:
 
 | | `arm_driver` (omni_cpp, C++) | `arm_brain` (this package, node name `arm_node`) |
 | --- | --- | --- |
-| Does | Owns the servo bus: SYNC_READ / SYNC_WRITE at 50 Hz, calibration, torque, `/arm/joint_states`, `/tf`, `/arm/out`, plays motions | `/arm/request`, planning (`pose`, `jog`, `stop`), the `FollowJointTrajectory` action, the tidy task |
-| Topics | In `/arm/motion` (`omni_interfaces/ArmMotion`: MOVE waypoints with times, HOLD, RELAX). Out `/arm/hw` (`ArmHardware`, 5 Hz: connected, joints, loads, temperatures, volts, goal, moving) | Out `/arm/motion`, `/arm/state` (JSON, the task and who drives; the console merges it with `/arm/hw`), `/pick/cmd_vel` |
-| Awake | Every cycle | On a request; while tidying, once per joint-state message. The tidy's odom, depth, wrist and joint-state subscriptions exist only then |
+| Does | Owns the servo bus: SYNC_READ (position .. current) / SYNC_WRITE at 50 Hz, calibration, torque, `/arm/joint_states`, `/tf`, `/arm/out`, plays motions. At connect it writes the servo settings that differ (P 16 / D 32, max temperature, protections). Each cycle the load model (`arm_load.hpp`, below) and the strain detector; a guarded motion's strained joint fires the reflex; holding still, the hold trim | `/arm/request`, planning (`pose`, `jog`, `stop`), the `FollowJointTrajectory` action, the tidy task, the arm load calibration (`cal_load`) |
+| Topics | In `/arm/motion` (`omni_interfaces/ArmMotion`: MOVE waypoints with times, HOLD, RELAX; `guard`), `/imu` (gravity's direction). Out `/arm/hw` (`ArmHardware`, 5 Hz: connected, joints, loads, temperatures, volts, goal, moving; currents, outside torques, strain, tool force, the reflex, the load model, what connect changed), `/arm/servo` (`ArmServoState`, every cycle: the telemetry and the load estimate) | Out `/arm/motion`, `/arm/state` (JSON, the task and who drives, the calibration's prompt and last result; the console merges it with `/arm/hw`), `/pick/cmd_vel` |
+| Awake | Every cycle | On a request; while tidying, once per joint-state message; while calibrating, once per `/arm/servo`. The tidy's and the calibration's subscriptions exist only then |
 
 The brain is the only writer of `/arm/motion`. A motion goes out whole and the driver plays it (quintic segments, or straight
 lines for a trajectory goal); the first waypoint is replaced by the driver's own goal so a motion that starts while another
@@ -40,6 +40,23 @@ bus against recorded packets and a stand-in servo bus (`ros/src/omni_cpp/test`).
 loads `ArmDriverCore` through `omni_cpp/sil/arm_sil.py` (a small C library built with g++ / zig c++ on first use) and feeds it
 the tidy task's motions with `brain_core.MotionSync`, exactly as `arm_brain` does over `/arm/motion`.
 
+**The load on the arm (design.md 4.5; implemented Nov 20, simulated on the detailed arm, no servo measured).** Per arm
+joint the driver turns the servo's duty (Present Load, taken as the PWM duty: VERIFY), the supply voltage, the goal's
+speed and acceleration (or the current, where the servos report it and that fits better) into the motor's torque, takes
+off the links' gravity (their masses from `robot_arm*.json` `arm.inertials`, the official model's, or the calibration's)
+and their inertia, and allows for the gearbox's friction: moving, a kinetic friction in the motion's direction; still,
+a band (the STS3215's ~1:345 gearbox holds a good share of gravity by friction, so a still reading says little: an
+outside torque counts only past the band). What is left is the outside torque on each joint and, through the
+Jacobian, one force at the fingertip. The strain detector low-passes it (40 ms) and wants it past the joint's threshold
+(still or moving) 4 cycles running. Then, for a guarded motion and a calibrated model, the reflex: the motion stops,
+the strained joints give 0.05 rad with the force at 35 % torque until the next command (the tidy stops too). On the
+nominal model (the datasheet's servo, wide bands) the detector reports and the reflex waits (`reflex_nominal`): in the
+sim it tripped on every tidy-speed move. Joint angles in and out are true angles (encoder + the calibrated zero + the
+sag past the encoder). Holding still under a guarded motion the hold trim nudges the goals sent until the encoders read
+the goal (the servos' own droop, ~1 deg at P 16), frozen while an outside torque is felt. Unguarded (the calibration's
+motions): the servos raw, no reflex, no trim. The model comes from **Calibrate › Arm: load and gravity**
+(`omni_calib/arm_load.py`, its README item 10); the driver rereads `load_calibration` when the file changes.
+
 **On the real arm (VERIFY each):**
 
 1. Set the servo ids 1–6 (shoulder_pan … gripper) and calibrate them with LeRobot's tool (`lerobot-calibrate`, SO-101 follower). Pass its JSON as `calibration:=<file>`.
@@ -47,6 +64,8 @@ the tidy task's motions with `brain_core.MotionSync`, exactly as `arm_brain` doe
 3. Start with `rate` 50 and the gripper at 50% torque (`driver.GRIP_TORQUE`, the C++ driver's `GRIP_TORQUE`). Watch the servo temperatures in `/arm/hw`.
 4. The e-stop cuts the arm's 12 V rail and the arm drops (no brakes). Decide on a brake-by-shorting circuit, or a stow before the e-stop (open item in design.md 11).
 5. The wrist camera is a 32 × 32 mm UVC module on a printed bracket beside the fixed jaw (`arm_so101.WRIST_CAM`). Measure its pose and lens, then update the sim and re-export.
+6. First connect: read `/arm/hw` `servo_notes` (the settings the driver wrote). Read back a servo's registers 21-36 after a power cycle (do the EEPROM writes stick?) and hang a known weight to check Present Load is the duty and Present Current's unit (servo_emulator.py's assumptions).
+7. Run **Calibrate › Arm: load and gravity** (two weights of ~150 g and ~300 g on a string loop, the kitchen scale, calipers, a ruler, the luggage scale; ~10 min). It is applied only when it passes `omni_calib.results.LIMITS["arm_load"]`; the reflex works from then on.
 
 **The AI's find and pick (implemented and simulated Nov 4; no real camera yet).** `/arm/request` `find {id, color, shape,
 max_range}` asks the sim for a depth frame and a colour frame. Both come from the same camera: `/stereo/left/image_color`,

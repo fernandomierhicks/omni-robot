@@ -33,6 +33,7 @@ export function CalibrateTab() {
         unit="deg" ask="Past the mark by" />
       <${Proc} title="IMU level" proc="imu_level" res=${res.imu_level} live=${live} run=${run} gate=${g}
         text="On the flattest floor you have. It measures roll and pitch at rest, turns half round and measures again: the mean is the IMU's mounting offset, the difference the floor's slope." />
+      <${ArmLoad} st=${st} />
       <${Launcher} cal=${cal} st=${st} run=${run} />
       <${Latency} res=${res.camera_latency} run=${run} />
     </div>
@@ -95,6 +96,45 @@ function Launcher({ cal, st, run }) {
     ${last && html`<div class="result"><span class="dim">${clock(last.t)}:</span> ${last.summary}
       <table class="t" style="margin-top: 4px"><tbody>${last.rows.map((/** @type {any} */ r) => html`<tr class="mono">
         <td>${r.rpm} rpm</td><td>${r.distance_m} m</td><td>${r.exit_speed} m/s</td><td>table ${r.table_rpm}</td><td>×${r.ratio}</td></tr>`)}</tbody></table></div>`}
+  </div>`;
+}
+
+/** The arm load calibration (design.md 4.5, omni_calib arm_load): arm_brain moves the arm through its holds and sweeps
+ *  and stops for the person's steps (weigh, hang, ruler, pull); a passed run is applied, the driver rereads it.
+ *  @param {{st: any}} p */
+function ArmLoad({ st }) {
+  const g = useGate("arm");
+  const [v, setV] = useState("");
+  const a = st?.arm;
+  const c = a?.cal;
+  const pr = c?.prompt;
+  const last = a?.cal_last;
+  const arm = (/** @type {Record<string, any>} */ args) => act("arm", args);
+  const send = (/** @type {any} */ value) => arm({ do: "cal_input", value }).then(() => setV(""));
+  const numeric = pr && ["weigh", "hang", "ruler", "pull"].includes(pr.kind);
+  return html`<div class="card">
+    <h2>Arm: load and gravity</h2>
+    <p class="dim" style="margin: 0 0 8px">The arm learns what its servos' readings mean: its links' weights, each
+      joint's friction, its joints' true zeros and sag. It moves by itself for about 9 minutes and stops for you a few
+      times: two weights (about 150 g and 300 g on a string loop) to weigh on the kitchen scale and hang from the fixed
+      finger, the string's place with the calipers, fingertip heights with a ruler, one pull with the luggage scale.
+      Then it can tell a push or a stuck door from its own weight, and back off.</p>
+    ${a && html`<div class="dim" style="font-size: 12px; margin-bottom: 6px">Model in use: ${a.load_model || "–"}${a.reflexes ? ` · ${a.reflexes} reflexes` : ""}</div>`}
+    ${c ? html`
+      <div class="row"><b class="grow">Step ${c.step} of ${c.steps}${c.weight ? ` · weight ${c.weight} hanging` : ""}</b>
+        <button class="btn small danger" onClick=${() => arm({ do: "cal_cancel" })}>Cancel</button></div>
+      <progress max=${c.steps} value=${c.step} style="width: 100%"></progress>
+      ${pr ? html`<div class="banner" style="margin-top: 6px"><div>${pr.text}</div>
+          ${numeric ? html`<div class="row" style="margin-top: 6px">
+              <input type="number" step="0.1" value=${v} onInput=${(/** @type {any} */ e) => setV(e.currentTarget.value)} /> ${pr.unit}
+              <button class="btn primary small" disabled=${v === ""} onClick=${() => send(parseFloat(v))}>Done</button></div>`
+            : html`<button class="btn primary small" style="margin-top: 6px" onClick=${() => send(true)}>Continue</button>`}</div>`
+        : html`<div class="dim" style="margin-top: 4px">Moving by itself: keep clear of the arm.</div>`}`
+      : html`<button class="btn go" disabled=${!g.ok || !a} title=${g.why || ""} onClick=${() => {
+          if (confirm("Start the arm load calibration? The arm moves by itself: keep 60 cm clear in front of it.")) arm({ do: "cal_load" });
+        }}>Start</button>`}
+    ${last && html`<div class="result"><span class=${last.passed ? "badge green" : "badge"}>${last.passed ? "applied" : "not applied"}</span>
+      ${last.summary}${last.failures?.length ? html`<div class="dim">${last.failures.join("; ")}</div>` : ""}</div>`}
   </div>`;
 }
 

@@ -55,7 +55,30 @@ a read corrupts the others).
 - **No bus voltage on CAN** (manual 4.3; MIT replies carry none either). The UART's `COMM_GET_VALUES` (0x45: frame
   `AA 01 45 18 61 BB`) returns input voltage (int16 / 10 V), input and phase current, MOSFET and **motor (winding)**
   temperatures, duty, Id/Iq, Vd/Vq (manual 4.3.2.1). Using it on the robot would take a UART per motor to the Teensy
-  (3.3 V levels, the driver's VCC switch). The robot reads its pack on the Teensy's A17 divider instead.
+  (3.3 V levels, the driver's VCC switch). The robot reads its pack on the INA226 instead.
+
+## UART (measured Nov 19, one motor on the R-link from a PC, read-only polls plus one gentle step)
+
+Scripts and the step's data: [characterization/ak40_uart](../../characterization/ak40_uart/README.md).
+
+- **Telemetry works at 921600:** `COMM_GET_VALUES` answers with a **90-byte** frame (payload 0x55, longer than the
+  manual's 0x49; the head fields decode as documented, the tail after the 24 reserved bytes is unverified). The masked
+  `COMM_GET_VALUES_SETUP` (0x13; bit n of the manual's table = `1 << (n-1)`, the mask is echoed) gives a 31-byte reply
+  for MOS and winding temperature, input current, Iq, duty, speed, input voltage and fault.
+- **Rate:** pipelined requests answered 100 % at 2 kHz (masked) and 1 kHz (full; the wire limit), CRC errors 0. One
+  run of command + query every 1 ms lost 55 of 1500 replies, a repeat lost none (cause unknown; UART has no ACK).
+  The PC's ~16 ms round trip is the FTDI adapter's latency timer, not the motor.
+- **The winding temperature is real:** 21.7 °C at rest beside 34.4 °C on the MOSFETs (the manual's example reads
+  −80 °C, i.e. no thermistor). The CAN status carries only the driver board's.
+- **The motor acts within ~1 ms of a UART velocity command:** a step to 10 rad/s output shows duty moving 1 ms after
+  the command, speed at 3 ms, Iq rising over ~10 ms, 90 % at 73 ms (the ~148 rad/s² ramp). So the CAN bench's ~5.5 ms
+  "inside the motor" is most likely the speed loop's lag behind its ramp (tunable `s_pid_kp/ki`), not fixed
+  processing (inference: same loop, but the CAN path's own processing time was not measured here).
+- At a 10 rad/s hold on 23.8 V: Iq 0.24 A, input current 0.05 A, duty 0.27 (→ saturation near 37 rad/s, matching the
+  measured top speed).
+- **Not adopted for the robot:** CAN already carries speed, current, position and a stall error at 500 Hz; UART would
+  add the winding temperature, per-motor bus voltage/current and duty at the cost of four single-ended point-to-point
+  leads (all four of the carrier's free UARTs: Serial1, 3, 4, 5) and no acknowledgement.
 
 ## Measured (hardware, wheels up, 24 V bench supply)
 
@@ -98,7 +121,8 @@ ramp (`DriveMotor.accel_limit`) were already there.
 ## Open (in order of value)
 
 1. **Split the motor's ~5.5 ms** (needs motion, attended; the baseline firmware gets a current-mode option in the
-   motor test rather than a side sketch): a small **current** step. If the reported current responds within ~1–2 ms
+   motor test rather than a side sketch). Partly answered over UART (Nov 19, above): the drive output moves within
+   ~1 ms, so the lag is likely the speed loop; confirm on CAN with a small **current** step. If the reported current responds within ~1–2 ms
    of its frame, the 5.5 ms lives in the velocity loop (tunable `s_pid_kp/ki`, or avoidable); if it is ~5 ms late
    too, it's fixed processing or reporting. Then raise `s_pid_kp` in the tool and repeat the 50 rad/s² triangles.
 2. **Query-reply mode** on one motor: the reply's arrival after its command bounds the turnaround and gives status at

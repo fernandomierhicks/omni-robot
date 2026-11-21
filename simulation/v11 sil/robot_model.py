@@ -1404,6 +1404,7 @@ def _robot(p: SimParams, g: Geometry) -> str:
       {_catch_module(p, g) if p.payload == "catch" else arm_so101.body_xml(p, g.plate_top)}
       {arm_so101.bracket_xml(p, top, g.plate_top) if p.payload == "arm" else ""}
       {arm_so101.bin_xml(p, g.plate_top) if p.payload == "arm" else ""}
+      {arm_so101.datums_xml(p, g.plate_top) if p.payload == "arm" else ""}
     </body>"""
 
 
@@ -1671,7 +1672,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
                       gate_act,
                       f'<position name="tilt" joint="tilt" kp="60" kv="1.0" forcelimited="true" forcerange="{_f(-p.tilt_torque, p.tilt_torque)}"/>']
     else:
-        actuators.append(arm_so101.actuators_xml())
+        actuators.append(arm_so101.actuators_xml(p))
     if p.hopper == "indexer":
         actuators.append(f'<position name="indexer" joint="indexer" kp="{p.indexer_kp}" kv="{0.1 * p.indexer_kp ** 0.5:.3g}" '
                          f'forcelimited="true" forcerange="{_f(-p.indexer_torque, p.indexer_torque)}"/>')
@@ -1732,7 +1733,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
             "funnel_net", p.funnel_throat_radius + 0.002, g.throat_z + 0.002 / math.tan(alpha),
             p.funnel_rim_radius + 0.002, g.rim_z, n=60, wraps=10), ""
     else:
-        payload_assets, payload_defaults = arm_so101.assets_xml(), arm_so101.defaults_xml()
+        payload_assets, payload_defaults = arm_so101.assets_xml(), arm_so101.defaults_xml(p)
     if house:
         visual, sky = house_scene.VISUAL_XML, house_scene.SKY_XML
         scene_assets, lights = house_scene.assets_xml(), house_scene.lights_xml()

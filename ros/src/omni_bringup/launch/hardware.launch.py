@@ -74,12 +74,14 @@ def arm_nodes(a: dict, mcu: str | None) -> list:
     if not port:
         return [LogInfo(msg="hardware: arm:=true but no servo bus adapter found (" + ", ".join(SERVO_PATTERNS)
                             + "): plug it in (and its 12 V) and start the robot again, or set arm_port")]
+    load_json = os.path.join(state, "arm_load_model.json")       # design.md 4.5: the arm load calibration's model
     return [
         LogInfo(msg=f"hardware: the arm on {port}, calibration {cal}"),
         Node(package="omni_cpp", executable="arm_driver", name="arm_driver", output="screen",
-             parameters=[robot_params(), {"port": f"serial:{port}", "calibration": cal, "config": "d435"}]),
+             parameters=[robot_params(), {"port": f"serial:{port}", "calibration": cal, "config": "d435",
+                                          "load_calibration": load_json}]),
         Node(package="omni_arm", executable="arm_brain", name="arm_node", output="screen",
-             parameters=[robot_params(), {"odom_topic": "/odom", "config": "d435"}]),
+             parameters=[robot_params(), {"odom_topic": "/odom", "config": "d435", "load_model_path": load_json}]),
     ]
 
 

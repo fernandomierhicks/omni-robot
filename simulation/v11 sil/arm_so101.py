@@ -278,6 +278,27 @@ def bin_xml(p, plate_top: float) -> str:
         f'<site name="arm_bin" pos="{_f(x, y, z0 + H)}" group="5"/>'
 
 
+# Nov 20 (proposal): two touch blocks beside the arm's adapter, where the fingertip reaches them fingers down and from
+# the side (the sim's coarse layout: clear of its camera pods); removable, nothing else uses them
+DATUMS = (("datum_L", 0.150, 0.130, 0.020, 0.020, 0.070), ("datum_R", 0.150, -0.130, 0.020, 0.020, 0.070))
+
+
+def datum_truth(p, plate_top: float) -> list:
+    """[(name, centre xyz robot frame, half sizes)]: where each block really stands (its drawing + its error)."""
+    rng = np.random.default_rng(getattr(p, "arm_seed", 0) + 8080)
+    out = []
+    for name, x, y, sx, sy, h in getattr(p, "arm_datums", ()):
+        e = rng.normal(0.0, getattr(p, "arm_datum_err", 0.0), 3)
+        out.append((name, np.array([x, y, plate_top + h / 2]) + e, np.array([sx / 2, sy / 2, h / 2])))
+    return out
+
+
+def datums_xml(p, plate_top: float) -> str:
+    """The touch blocks: rigid, the arm's links and fingertips touch them (conaffinity 2)."""
+    return "".join(f'<geom name="{nm}" type="box" size="{_f(*hs)}" pos="{_f(*c)}" contype="0" conaffinity="2" '
+                   f'friction="0.6 0.005 0.0001" rgba="0.9 0.5 0.1 1" mass="0"/>' for nm, c, hs in datum_truth(p, plate_top))
+
+
 def bracket_xml(p, deck_top: float, plate_top: float) -> str:
     """params.arm_mount_z: the nose bracket from the deck's front lobe up to the arm's adapter (decor, est mass in
     M_BASE_EXTRA's spirit: 0.06 kg of PETG)."""
@@ -354,8 +375,13 @@ def body_xml(p, plate_top: float) -> str:
             f'{ET.tostring(root, encoding="unicode")}</body>')
 
 
-def defaults_xml() -> str:
-    return (f'<default class="arm_sts3215"><joint damping="0.60" frictionloss="0.052" armature="0.028"/></default>'
+def defaults_xml(p=None) -> str:
+    # "detailed" (arm_detailed.py): the motor's damping, friction and rotor are the drivetrain's, outside MuJoCo; the
+    # joint keeps the output bearing's friction and a little inertia for the horn (est)
+    joint = ('<joint damping="0.002" frictionloss="0.004" armature="5e-5"/>'
+             if getattr(p, "arm_model", "simple") == "detailed" else
+             '<joint damping="0.60" frictionloss="0.052" armature="0.028"/>')
+    return (f'<default class="arm_sts3215">{joint}</default>'
             f'<default class="arm_visual"><geom type="mesh" group="1" contype="0" conaffinity="0" density="0"/></default>'
             # floor only: the floor's conaffinity has bit 2, the robot's structure doesn't
             f'<default class="arm_link"><geom contype="2" conaffinity="0" density="0" material="so101_print" '
@@ -374,8 +400,11 @@ def assets_xml() -> str:
     return mats + "".join(f'<mesh name="so101_{m}" file="{(ARM_DIR / (m + ".stl")).as_posix()}"/>' for m in MESHES)
 
 
-def actuators_xml() -> str:
+def actuators_xml(p=None) -> str:
     rng = {e.get("name"): e.get("range") for e in ET.fromstring(_TREE).iter("joint")}
+    if getattr(p, "arm_model", "simple") == "detailed":
+        # the drivetrain's spring (arm_detailed sets kp, kv and the set point every step)
+        return "".join(f'<position name="{name(j)}" joint="{name(j)}" kp="1" kv="0"/>' for j in JOINTS)
     return "".join(f'<position name="{name(j)}" joint="{name(j)}" kp="{KP}" kv="{KV}" forcelimited="true" '
                    f'forcerange="{_f(-SERVO_STALL, SERVO_STALL)}" ctrlrange="{rng[j]}"/>' for j in JOINTS)
 

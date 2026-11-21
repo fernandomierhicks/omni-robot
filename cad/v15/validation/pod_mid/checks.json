@@ -30,12 +30,12 @@
   "beam_boss_root": "R1 on 1 edges",
   "lug_edges": "R1.5 on 5 edges",
   "lug_bed": "chamfer 0.6 on 6 of 6 bed edges",
-  "tower_o_edges": "R2 on 7/7 horizontal + 4/9 vertical",
+  "tower_o_edges": "R2 on 4/4 horizontal + 2/4 vertical",
   "tower_o_bed": "chamfer 0.6 on 6 of 6 bed edges",
   "tower_o_tab0": "R2 on 5 edges",
   "tower_o_tab1": "R2 on 5 edges",
   "tower_o_mirror_valid": true,
-  "tower_i_edges": "R2 on 7/7 horizontal + 4/9 vertical",
+  "tower_i_edges": "R2 on 4/4 horizontal + 2/4 vertical",
   "tower_i_bed": "chamfer 0.6 on 6 of 6 bed edges",
   "tower_i_tab0": "R2 on 5 edges",
   "tower_i_tab1": "R2 on 5 edges",
@@ -70,10 +70,10 @@
    "rx_lug_to_wheel_envelope": 99.0,
    "rx_lug_to_harness": 87.98,
    "rx_tower_outer_to_fork": 3.39,
-   "rx_tower_outer_to_wheel_envelope": 2.76,
-   "rx_tower_outer_to_harness": 80.5,
+   "rx_tower_outer_to_wheel_envelope": 2.67,
+   "rx_tower_outer_to_harness": 80.88,
    "rx_tower_inner_to_fork": 3.39,
-   "rx_tower_inner_to_wheel_envelope": 7.86,
+   "rx_tower_inner_to_wheel_envelope": 7.81,
    "rx_tower_inner_to_harness": 28.01,
    "rx_deck_to_fork": 2.0,
    "rx_deck_to_wheel_envelope": 2.2,
@@ -85,12 +85,12 @@
    "deck_to_fork_and_rings": 2.0,
    "hangers_to_fork": 1.0,
    "towers_base_to_fork": 6.29,
-   "plunger_nut_gap": 0.35
+   "plunger_top_washer_gap": 0.36
   },
   "plunger_lift_mm": {
-   "o1": -1.15,
+   "o1": -1.14,
    "o2": -0.75,
-   "i1": -1.15,
+   "i1": -1.14,
    "i2": -0.75
   }
  },
@@ -123,10 +123,10 @@
    "rx_lug_to_wheel_envelope": 99.0,
    "rx_lug_to_harness": 88.19,
    "rx_tower_outer_to_fork": 2.92,
-   "rx_tower_outer_to_wheel_envelope": 2.3,
-   "rx_tower_outer_to_harness": 79.73,
+   "rx_tower_outer_to_wheel_envelope": 2.24,
+   "rx_tower_outer_to_harness": 80.18,
    "rx_tower_inner_to_fork": 2.92,
-   "rx_tower_inner_to_wheel_envelope": 7.5,
+   "rx_tower_inner_to_wheel_envelope": 7.48,
    "rx_tower_inner_to_harness": 26.81,
    "rx_deck_to_fork": 2.0,
    "rx_deck_to_wheel_envelope": 2.02,
@@ -138,7 +138,7 @@
    "deck_to_fork_and_rings": 2.0,
    "hangers_to_fork": 1.0,
    "towers_base_to_fork": 5.6,
-   "plunger_nut_gap": 1.5
+   "plunger_top_washer_gap": 1.5
   },
   "plunger_lift_mm": {
    "o1": 0.0,
@@ -177,7 +177,7 @@
    "rx_lug_to_harness": 89.07,
    "rx_tower_outer_to_fork": 0.0,
    "rx_tower_outer_to_wheel_envelope": 2.14,
-   "rx_tower_outer_to_harness": 76.62,
+   "rx_tower_outer_to_harness": 77.24,
    "rx_tower_inner_to_fork": 0.0,
    "rx_tower_inner_to_wheel_envelope": 7.44,
    "rx_tower_inner_to_harness": 20.44,
@@ -190,14 +190,14 @@
    "rails_to_pads": 0.0,
    "deck_to_fork_and_rings": 1.96,
    "hangers_to_fork": 1.0,
-   "towers_base_to_fork": 1.0,
-   "plunger_nut_gap": 5.93
+   "towers_base_to_fork": 0.0,
+   "plunger_top_washer_gap": 5.99
   },
   "plunger_lift_mm": {
-   "o1": 6.43,
-   "o2": 4.43,
-   "i1": 6.43,
-   "i2": 4.43
+   "o1": 6.5,
+   "o2": 4.49,
+   "i1": 6.5,
+   "i2": 4.49
   }
  },
  "fork_to_wheel_envelope_mm": {
@@ -430,13 +430,13 @@
   "rx_tower_outer": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 24.05,
+   "volume_cm3": 24.9,
    "print_up": [
     0,
     0,
     -1
    ],
-   "overhang_mm2": 317.6,
+   "overhang_mm2": 315.9,
    "bed": {
     "height": 36.4,
     "as_exported": [
@@ -444,26 +444,26 @@
      51.0
     ],
     "best": [
-     45.8,
-     45.8
+     45.4,
+     45.4
     ],
-    "rotate_deg": 45.0,
+    "rotate_deg": 47.5,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 206.2
+    "spare_mm": 206.6
    }
   },
   "rx_tower_inner": {
    "solids": 1,
    "valid": true,
-   "volume_cm3": 24.05,
+   "volume_cm3": 24.9,
    "print_up": [
     0,
     0,
     -1
    ],
-   "overhang_mm2": 316.5,
+   "overhang_mm2": 315.9,
    "bed": {
     "height": 36.4,
     "as_exported": [
@@ -471,14 +471,14 @@
      51.0
     ],
     "best": [
-     45.8,
-     45.8
+     45.4,
+     45.4
     ],
-    "rotate_deg": 135.0,
+    "rotate_deg": 42.5,
     "limit": 252.0,
     "fits": true,
     "fits_as_exported": true,
-    "spare_mm": 206.2
+    "spare_mm": 206.6
    }
   },
   "rx_ring_outer": {
@@ -680,7 +680,7 @@
   ],
   "z": [
    -39.1,
-   77.6
+   78.5
   ],
   "pod_lean_for_comparison": {
    "x": [
@@ -885,7 +885,9 @@
   "top_z_pod": 63.34,
   "top_z_robot": 133.34,
   "height_over_deck": 33.34,
-  "plunger": "M4 x 45",
+  "plunger": "M3 x 45 button head dome down in a PETG cap (R8 on the pad), printed \u00d84.9 sleeve in a \u00d85.0 guide (13/64\" drill), 2 washers + nyloc on top (plunger_study.py, baseline Nov 19)",
+  "spring_bore_d": 8.8,
+  "bump_stop": "the overhang's underside (stop=True)",
   "fix_screw": "M3 x 40, head seat 58.0 (counterbore 5.3 deep), 12 mm in the deck",
   "stack_preload_mm": 5.0,
   "long_bolt_nut": "in a 5.5 AF x 2.5 recess in the top of each 12 mm stub tab (Nov 15 evening; the hex wells are gone)"

@@ -406,3 +406,23 @@ def test_the_robots_own_missions_are_tasks_through_the_mcp_tools():
     finally:
         robot.close()
         f.close()
+
+
+def test_the_arm_effort_sense_reads_the_load_model(fake):
+    """design.md 4.5: robot_arm_effort reports each joint's outside torque and strain, the fingertip force, the reflex."""
+    robot = Robot("127.0.0.1", fake.port, free_port(), free_port(), lease=False)
+    assert wait(lambda: "/console/status" in fake.subs)
+    arm = dict(names=["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper"],
+               joints=[0, -10, 20, 5, 0, -9], temps=[30] * 6, current=[0.1] * 6,
+               external=[0.0, -0.42, 0.18, 0.0, 0.0, 0.0], strained=[False, True, False, False, False, False],
+               force=[0.0, 0.0, -3.0], load_model="arm_load 2026-11-20", reflexes=1, reflex="shoulder_lift -0.42 N m",
+               reflex_active=True)
+    fake.publish("/console/status", dict(STATUS, arm=arm))
+    assert wait(lambda: (robot.status_raw()[0] or {}).get("arm") is not None)
+    r = robot.arm_effort()
+    d = r["data"]
+    assert r["ok"] and d["calibrated"] and d["joints"][1]["strained"] and d["joints"][1]["outside_nm"] == -0.42
+    assert d["joints"][5]["outside_nm"] is None and "3.0 N" in r["message"] and "strained" in r["message"]
+    st = robot.status()["data"]["arm"]
+    assert st["strained"] and st["outside_force_n"] == [0.0, 0.0, -3.0]
+    robot.close() if hasattr(robot, "close") else None
