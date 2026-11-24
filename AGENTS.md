@@ -20,7 +20,7 @@ The active simulator is **`simulation/v11 sil`**; the arm baseline is `robot_exp
 | ROS launch / navigation / bridges | [ros/README.md](ros/README.md), `ros/omni.sh`, affected package/config; use design.md for current hardware assumptions |
 | Arm / face / calibration | READMEs in `ros/src/omni_arm`, `omni_face`, `omni_calib` |
 | Console / supervisor / web UI | [console instructions](ros/src/omni_console/AGENTS.md) and affected source |
-| AI control (Claude / Codex via MCP) | [omni_mcp README](ros/tools/omni_mcp/README.md) (the original plan, `ai_robot_architecture.md`, was removed Nov 14: `git show 6a9883f^:ai_robot_architecture.md`); its own venv `C:\Users\ferna\.venvs\omni-mcp` |
+| AI control (Claude / Codex via MCP, the voice brain, skills) | [omni_mcp README](ros/tools/omni_mcp/README.md) (the original plan, `ai_robot_architecture.md`, was removed Nov 14: `git show 6a9883f^:ai_robot_architecture.md`); its own venv `C:\Users\ferna\.venvs\omni-mcp`. One tool table (`toolkit.py`) serves MCP and the voice brain (`omni_face/brain.py`): change tools there |
 | Firmware / SIL | [firmware README](firmware/README.md), [pin map](firmware/PINS.md) |
 | Parts database | [database README](database/README.md) |
 | Drive motor (AK40-10: settings, protocol, measured timing) | [components/ak40-10/README.md](components/ak40-10/README.md) and its CubeMars manual |
@@ -31,7 +31,7 @@ Old `§1–31` references generally mean `design full history.md`; legacy `desig
 
 ## Environment and running processes
 
-- Windows Python: `C:\Users\ferna\.venvs\omni-robot-sim\Scripts\python.exe`. Each venv has a requirements file: `simulation/requirements.txt` (sim), `ros/requirements-robot.txt` (robot nodes' pip-only packages, WSL / robot computer), `ros/tools/omni_mcp/requirements.txt`, `characterization/realsense/requirements.txt`. PATH `python` is PlatformIO's interpreter; never install into it. RealSense bench tools use `C:\Users\ferna\.venvs\realsense` separately.
+- Windows Python: `C:\Users\ferna\.venvs\omni-robot-sim\Scripts\python.exe`. Each venv has a requirements file: `simulation/requirements.txt` (sim), `ros/requirements-robot.txt` (robot nodes' pip-only packages, WSL / robot computer), `ros/tools/omni_mcp/requirements.txt`, `characterization/realsense/requirements.txt`, and the main PC's voice/chat venvs `C:\Users\ferna\.venvs\omni-voice` (`ros/src/omni_face/requirements-voice.txt`) and `omni-voice-cb` (Chatterbox, `requirements-voice-cb.txt`). PATH `python` is PlatformIO's interpreter; never install into it. RealSense bench tools use `C:\Users\ferna\.venvs\realsense` separately.
 - ROS 2 Jazzy runs in `Ubuntu-24.04` WSL. Use `ros/omni.sh <step>` to mirror/build in `~/omni_ws` on ext4; never build on `/mnt/c`. WSL Python is `~/.venvs/omni-ros`. Render MuJoCo on Windows (`ros/tools/mujoco_view.py`), not WSL.
 - Alongside Fernando's stack, use another `ROS_DOMAIN_ID` and separate ports (e.g. `mcu_port:=5771`). Stop only your own launch/processes by PID; do not use `omni.sh stop`, `stop-console` or broad `pkill` against shared sessions. His console may own 8080/9090.
 - Pi deployment/network details live in `rpi.md`. On the 4 GB Pi, keep package builds sequential with `-j2`; do not start an unrestricted parallel ROS build. Use Ethernet and synchronized clocks for meaningful split-computer timing/load measurements.
@@ -57,7 +57,7 @@ Run checks relevant to the changed subsystem, using the correct interpreter/envi
 | v11 model / SIL / exports | From `simulation/v11 sil`: `python -m pytest -q test_v11.py`, plus affected study/tests |
 | ROS-free package cores | `python -m pytest -q ros/src/<package>/test`; `omni_cpp/test` checks Python/C++ parity; `omni_mcu/test` the protocol |
 | ROS-dependent launch / nodes | Relevant package tests in WSL; affected step through `ros/omni.sh` |
-| AI control / omni_mcp | `C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pytest -q ros/tools/omni_mcp/test`, console `test_ai.py`, arm `test_color_vision.py`; end to end `ros/tools/ai_smoke.py` against the arm step |
+| AI control / omni_mcp | `C:\Users\ferna\.venvs\omni-mcp\Scripts\python.exe -m pytest -q ros/tools/omni_mcp/test`, console `test_ai.py`, arm `test_color_vision.py`; the voice brain `ros/src/omni_face/test/test_brain.py` in the voice venv; end to end `ros/tools/ai_smoke.py` against the arm step |
 | Firmware | `pio run -e arm` and `pio run -e catch` in `firmware/`, affected SIL/parity checks and pin checks |
 | Database | From `database`: `python actuator_db.py validate` and `python -m pytest -q` |
 | CAD | Follow `cad/AGENTS.md` and the active version's validation procedure |

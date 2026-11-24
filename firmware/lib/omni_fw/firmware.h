@@ -8,9 +8,12 @@
 //              the base has stopped, and after the e-stop is released (the robot computer must ask for AUTO again)
 //   AUTO       the robot computer's CMDs drive the base and the module, inside this firmware's limits (the profile's caps;
 //              the robot computer can only ask for less)
-//   MANUAL     the RC transmitter's switch: the sticks drive the base directly, robot computer or not (design.md 15). Leaving
-//              it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest with the
-//              motors still enabled, then disables them: never a cut at speed
+//   MANUAL     the sticks drive the base directly, without the robot computer's lidar guard: the deliberate fallback.
+//              Normally (protocol 10) the RC's drive switch (ch 5) drives through the robot computer: STATE carries
+//              the sticks, mode_manager's lidar guard shapes them, they come back as CMDs (AUTO). MANUAL only when the
+//              computer can't drive (no link, the fault stop latched) and the switch has been turned off and on again
+//              since. Leaving it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest
+//              with the motors still enabled, then disables them: never a cut at speed
 //   ESTOP      the e-stop chain is open: motor power is already off in hardware; everything is reset
 // Rules (design.md 14): every stop is ramped; no CMD for CMD_TIMEOUT -> ramped stop, flywheels off; a bumper ->
 // ramped stop (only with HAS_BUMPERS: the arm robot has no switches yet); firing needs AUTO, the flywheels at speed and
@@ -25,7 +28,7 @@
 // (DRIVE_IDLE, the motor test between pushes) or turning the other wheels, a robot with motors missing tests the ones
 // it has, and drives nothing else (STATE reports each silent motor as DM_NO_REPLY). It latches (FAULT_STOP) until the robot computer asks for DISARM (its mode ended) with the pack at
 // BATT_LOW + BATT_RESUME or more; only then does a request for AUTO re-arm (which clears the motors' errors). MANUAL is
-// not stopped: the RC operator keeps the sticks to move the robot off.
+// not stopped: the RC operator (the drive switch off and on) keeps the sticks to move the robot off.
 #pragma once
 
 #include <stddef.h>
@@ -161,6 +164,7 @@ private:
     uint64_t t_batt_low_us_ = 0;     // since when the pack reads under BATT_LOW (0: it doesn't)
     bool fault_stop_ = false;
     bool ramp_out_ = false;          // MANUAL just ended: ramping the base to rest before the motors are disabled
+    bool rc_rearm_ = false;          // the drive switch was off since the computer stopped driving (MANUAL may start)
     bool bumper_ = false;            // a bumper is pressed (always false without HAS_BUMPERS)
 
     // module

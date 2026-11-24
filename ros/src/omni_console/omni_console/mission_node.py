@@ -24,8 +24,8 @@ Publishes  /console/status    std_msgs/String JSON, 10 Hz (wall clock): mission,
            /console/throw     std_msgs/String JSON (latched): the last throw's record with its path (the throw radar)
            /keepout_filter_mask /speed_filter_mask (nav_msgs/OccupancyGrid) and /keepout_filter_info
            /speed_filter_info (nav2_msgs/CostmapFilterInfo), latched: the no-go zones and edges for Nav2's filters
-           /cmd_vel           geometry_msgs/Twist: the console's stick in MANUAL (or /cmd_vel_smoothed, through Nav2's
-                              collision monitor, when obstacle slow-down is on and it runs)
+           /cmd_vel/manual    geometry_msgs/Twist: the console's stick in MANUAL (mode_manager's lidar guard shapes it)
+           /drive_guard/enable (latched Bool): the "Obstacle slow-down" setting; /drive_guard/bypass (Bool) in Goalie
            /thrower/cmd       omni_interfaces/McuCommand, 20 Hz in THROWER: tilt, flywheel rpm, fire_seq
            /wheels/cmd        omni_interfaces/McuCommand, 20 Hz in MOTORS while the stick is held (and 0.3 s of
                               zeros after): a, b, c, v_end = each wheel's rad/s (mode_manager WHEELS)
@@ -382,8 +382,8 @@ class MissionNode(Node):
         self.settings_path = state_dir / "console.json"
         self.maps_dir = Path(os.path.expanduser(P("places_dir", str(state_dir)).value))
         self.scan_topic = P("scan_topic", "/scan_filtered").value
-        # where the console's driving goes when it bypasses Nav2's collision monitor: the mode manager's "manual"
-        # input (priority 90, above Nav2's /cmd_vel); stack.py passes /cmd_vel without the firmware (v10's bridge)
+        # where the console's driving goes: the mode manager's "manual" input (priority 90, above Nav2's /cmd_vel),
+        # under its lidar guard; stack.py passes /cmd_vel without the firmware (v10's bridge)
         cmd_vel_topic = P("cmd_vel_topic", "/cmd_vel/manual").value
         # a slower computer's top navigation speed, m/s (stack.py nav_profile:=pi); 0 = the console's settings only
         self.speed_cap = float(P("speed_cap", 0.0).value)
@@ -461,7 +461,11 @@ class MissionNode(Node):
         self.p_plan = self.create_publisher(String, "/console/plan", 5)
         self.p_camera = self.create_publisher(String, "/console/camera", 5)
         self.p_cmd = self.create_publisher(Twist, cmd_vel_topic, 10)
-        self.p_cmd_safe = self.create_publisher(Twist, "/cmd_vel_smoothed", 10)
+        # the mode manager's lidar guard (Nov 23): on / off (the setting), held off for Goalie; its state for the page
+        self.p_guard_enable = self.create_publisher(Bool, "/drive_guard/enable", LATCHED)
+        self.p_guard_bypass = self.create_publisher(Bool, "/drive_guard/bypass", 10)
+        self.guard_enable_sent = None
+        self.guard_state, self.guard_t = None, -1e9
         self.p_thrower = self.create_publisher(McuCommand, "/thrower/cmd", 10)
         self.p_wheels = self.create_publisher(McuCommand, "/wheels/cmd", 10)
         self.p_initial = self.create_publisher(PoseWithCovarianceStamped, "/initialpose", 1)
@@ -483,6 +487,7 @@ class MissionNode(Node):
         self.feed = Feed(self.on_mcu, self.on_info, self.on_track, self.on_target)
         lm = self.load = LoadMeter(self.get_logger().warn)
         self.create_subscription(String, "/mcu/link", self.on_link, 5)
+        self.create_subscription(String, "/drive_guard/state", self.on_guard, 5)
         self.create_subscription(String, "/localization/health", self.on_loc_health, 5)     # omni_slam, 2 Hz
         self.create_subscription(String, "/robot_mode", self.on_robot_mode, LATCHED)
         self.create_subscription(CatchStatus, "/catch/status", lm.wrap("catch", self.on_catch), 10)
@@ -492,6 +497,7 @@ class MissionNode(Node):
         self.create_subscription(Log, "/rosout", lm.wrap("rosout", self.on_log), 50)
         self.create_subscription(Twist, "/console/cmd_vel", lm.wrap("stick", self.on_console_twist), 10)
         self.create_subscription(String, "/console/heartbeat", self.on_heartbeat, 10)
+        self.create_subscription(String, "/face/affect", self.on_affect, 5)     # omni_face: its feeling, 2 Hz
         self.arm_brain, self.t_arm_brain, self.arm_hw, self.t_arm_hw = {}, -math.inf, {}, -math.inf
         self.create_subscription(String, "/arm/state", lm.wrap("arm", self.on_arm_state), 5)       # omni_arm: the task
         # omni_perception's people node (front_cam:=imx662, design.md 4.12): the lidar and the camera together; kept as
@@ -641,9 +647,23 @@ class MissionNode(Node):
         except ValueError:
             pass
 
+    def on_guard(self, m: String):
+        """mode_manager's lidar guard (/drive_guard/state, 10 Hz): status, limit, free distance, the scan's age."""
+        try:
+            self.guard_state, self.guard_t = json.loads(m.data), time.monotonic()
+        except ValueError:
+            pass
+
     def on_loc_health(self, m: String):
         try:
             self.core.on_loc_health(json.loads(m.data), time.monotonic())
+        except (ValueError, AttributeError):
+            pass
+
+    def on_affect(self, m: String):
+        """omni_face's feeling: the pace its mood allows its own driving (emotion.nav), for the core."""
+        try:
+            self.core.on_affect(json.loads(m.data), time.monotonic())
         except (ValueError, AttributeError):
             pass
 
@@ -1208,17 +1228,22 @@ class MissionNode(Node):
     # -- outputs -----------------------------------------------------------------------------------------------
     def drive_tick(self):
         """The driving missions' twist (missions.Console.drive_output): the stick in MANUAL, the follower, a program,
-        a calibration drive. Through Nav2's collision monitor when it runs (Manual: if its setting says so)."""
+        a calibration drive, on the mode manager's manual input. Its lidar guard (Nov 23, mode_manager) shapes every
+        twist whoever sends it; the "Obstacle slow-down" setting switches it (/drive_guard/enable, latched), Goalie
+        holds it off (/drive_guard/bypass: the ball it must meet is an obstacle to the lidar)."""
         tw = self.core.drive_output(time.monotonic())
         self.run_effects(self.core.pop_fx())
+        on = bool(self.core.values["manual.obstacle_stop"])
+        if on != self.guard_enable_sent:
+            self.p_guard_enable.publish(Bool(data=on))
+            self.guard_enable_sent = on
+        if self.core.mission == "GOALIE":
+            self.p_guard_bypass.publish(Bool(data=True))
         if tw is None:
             return
         m = Twist()
         m.linear.x, m.linear.y, m.angular.z = tw
-        # Manual: as its setting says; Goalie never (the ball it must meet is an obstacle to the collision monitor)
-        guard = (self.core.values["manual.obstacle_stop"] if self.core.mission == "MANUAL" else
-                 self.core.mission != "GOALIE")
-        (self.p_cmd_safe if guard and self.core.caps["collision"] else self.p_cmd).publish(m)
+        self.p_cmd.publish(m)
 
     def wheels_tick(self):
         """The motor test's wheel speeds (missions.Console.motors_output) on /wheels/cmd: mode_manager's WHEELS."""
@@ -1414,6 +1439,8 @@ class MissionNode(Node):
         s["consoles"] = len(self.consoles)
         tw = self.core.last_cmd if self.core.manual_active(now) else None      # what was sent (slow bands applied)
         s["manual"] = dict(active=tw is not None, cmd=None if tw is None else [round(v, 2) for v in tw])
+        g = self.guard_state
+        s["guard"] = None if g is None or now - self.guard_t > 1.0 else g     # mode_manager's lidar guard, 10 Hz
         s["lidar"] = self.lidar_health()
         s["lidar_test"] = self.read_lidar_test()
         rows = checks.preflight(s, self.fw_expected)     # the Test workspace; failures refuse the starts they block

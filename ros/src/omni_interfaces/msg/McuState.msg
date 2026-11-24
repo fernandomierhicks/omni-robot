@@ -33,3 +33,6 @@ float64 sync_rtt_ms           # the link's best round trip
 float32[4] wheel_cmd          # each wheel's commanded speed, rad/s (protocol 7)
 float32[4] wheel_vel          # each wheel's measured speed, its motor's feedback, rad/s
 float32[4] wheel_cur          # each wheel motor's current, its feedback, A (protocol 9; signed like wheel_vel)
+bool rc_ok                    # protocol 10: the RC receiver's link is up
+bool rc_direct                # protocol 10: MANUAL, the sticks driving the base directly (no lidar guard)
+float32[8] rc                 # protocol 10: the RC channels, -1..1 (ch 5, rc[4] > 0.5: the drive switch)

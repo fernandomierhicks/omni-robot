@@ -5246,3 +5246,12 @@ The full dated log is in the history's Nov 7 snapshot.
 The Section 2 Power row before Fernando simplified the power path (one latching main switch before the fuse as the e-stop; no contactor, power board or motor fuses):
 
 | Power | Rails (Fernando's picks): 19 V 10 A buck (computer; bench-test its 22 V input floor), 12 V 8 A (arm), 5 V 5 A; 30 A main fuse, 7.5 A per motor; e-stop cuts only the motor bus and arm. Proposed Teensy carrier with `BUS_EN`. |
+
+
+## November 23, 2026 — design.md 4.14 Chat bullet before the voice brain
+
+The section 4.14 Chat bullet before the voice brain was built (Fernando, Nov 23: "the voice should be able to run commands", defaults of the handoff):
+
+- **Chat:** a sentence after its name that isn't a command goes to Claude (`chat.py`, on the PC) with the character bible, the facts now and a small memory; it replies with words and a feeling. Claude Haiku 5.5 since Nov 23 (speed). It only talks: a spoken multi-step request ("spin 3 turns, forward 2 m, come back to me") is not turned into actions; the voice runs single commands, and chaining tasks today goes through `omni_mcp` (Claude Code / Codex). Needs the PC's Anthropic credentials (none set yet; todo.md).
+
+and in its Open / VERIFY bullet: "voice-to-plan (the chat calling the AI toolkit's primitives) is proposed, not built."

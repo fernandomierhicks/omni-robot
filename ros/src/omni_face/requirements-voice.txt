@@ -1,0 +1,16 @@
+# The main PC's voice + chat venv: C:\Users\ferna\.venvs\omni-voice (Python 3.11; omni_face voice_server.py,
+# voice_lab.py, chat.py). Install torch first with CUDA:
+#   python -m pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
+# then: python -m pip install -r requirements-voice.txt
+# Chatterbox pins torch 2.6 / numpy 1.26 / transformers 5.2: it has its own venv (requirements-voice-cb.txt).
+qwen-tts==0.1.1          # Qwen3-TTS (pins transformers 4.57)
+kokoro-onnx==0.6.1
+pocket-tts==4.0.1
+pyworld>=0.3.5
+pedalboard>=0.9
+soundfile>=0.13          # writes MP3 (libsndfile 1.2)
+numpy
+scipy
+anthropic>=2.0           # chat.py, brain.py
+websockets               # brain.py: the robot through rosbridge (ros/tools/omni_mcp robot_client.py)
+pytest

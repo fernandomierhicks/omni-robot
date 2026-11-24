@@ -98,6 +98,26 @@ HUMOR_SAY = {v: w for w, v in {**_ONES, **_TENS}.items()} | {25: "twenty five", 
 _HUMOR = re.compile(r"^(?:set )?(?:your )?humou?r(?: setting)?(?: to| at)? (.+?)(?: percent| per cent|%)?$")
 
 
+# the voice brain's plans (brain.py): "say go" -> one of these, with or without the name, while a plan waits
+CONFIRM_YES = ("go", "go ahead", "yes", "yeah", "yep", "sure", "do it", "okay", "ok", "okay go", "ok go",
+               "yes please", "sounds good", "let's go", "go for it", "yes go")
+CONFIRM_NO = ("no", "nope", "don't", "do not", "cancel", "never mind", "nevermind", "stop", "no thanks", "not now",
+              "forget it", "no don't")
+# "come to me", "go over there": not a saved place, a sentence for the voice brain
+NOT_PLACES = ("me", "here", "there", "him", "her", "them", "us", "you", "over here", "over there")
+
+
+def confirmation(text: str) -> str | None:
+    """'yes' | 'no' | None: an answer to a plan the voice brain proposed ("Omni, go" or just "go")."""
+    t = strip_wake(text)[1]
+    t = re.sub(r"\s+", " ", re.sub(r"\b(please|now|um|uh|then)\b", " ", t)).strip()
+    if t in CONFIRM_YES:
+        return "yes"
+    if t in CONFIRM_NO:
+        return "no"
+    return None
+
+
 def number(words: str) -> int | None:
     """'seventy five' / '75' / 'one hundred' -> 75 / 75 / 100; None if it isn't a number."""
     w = words.strip().replace("-", " ")
@@ -168,16 +188,19 @@ def parse(text: str, places=(), woke: bool | None = None) -> Intent | None:
         v = max(0, min(100, number(m.group(1))))
         return Intent("humor", "set", dict(key="face.humor", value=v), f"Humor at {v} percent.")
     m = re.match(r"^(?:go|drive|take me|head|come) (?:over )?(?:to|into) (?:the |my |your )?(.+)$", t)
-    if m:
+    if m and m.group(1).strip() not in NOT_PLACES:
         want = m.group(1).strip()
         name = by.get(want) or next((by[k] for k in by if want in k or k in want), None)
         if name is None:
             return Intent("unknown_place", None, dict(place=want), f"I don't know where the {want} is.")
         return Intent("goto", "goto", dict(place=name), REPLY["goto"].format(place=name), moves=True)
-    # free text: a phrase inside a longer sentence ("robot, can you please follow me now")
+    # free text: a phrase inside a slightly longer sentence ("robot, could you follow me there"); "stop" anywhere.
+    # A sentence much longer than the phrase is a request for the voice brain ("go dance in the kitchen"), not the
+    # phrase it happens to contain.
+    n = len(t.split())
     for name, ps in PHRASES:
         for p in sorted(ps, key=len, reverse=True):
-            if len(p) > 3 and re.search(rf"\b{re.escape(p)}\b", t):
+            if len(p) > 3 and re.search(rf"\b{re.escape(p)}\b", t) and (name == "stop" or n - len(p.split()) <= 2):
                 return _intent(name, by)
     return None
 

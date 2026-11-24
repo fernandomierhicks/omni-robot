@@ -6,7 +6,8 @@ takes camera snapshots from web_video_server. The model chooses tasks. The robot
 stops by itself when this server goes away (the lease). This side needs no ROS.
 
 **Status (Nov 5, 2026):** phases 1–4 are implemented and smoke-tested in the sim only, on both arm cameras. Hardware
-(phase 5) and voice (phase 6) haven't been started. Nothing here has been physically validated. A model (Claude, in a
+(phase 5) hasn't been started. Voice (phase 6) is built (Nov 23): the voice brain and skills below, tested with a
+scripted model only (no API key on the PC yet). Nothing here has been physically validated. A model (Claude, in a
 Claude Code session without the MCP tools registered) has driven it through `call.py` and an attached script; the MCP
 transport itself is exercised by `ai_smoke.py`'s child-process checks. For what was run and what passed, see "Checks"
 below.
@@ -130,6 +131,65 @@ maps, firmware and the shell.
 - `no_robot`
 - `no_camera`
 
+## One toolkit, two clients (Nov 23)
+
+`toolkit.py` is the tool table, written once: each `robot_*` tool is a typed function whose signature is its argument
+schema and whose docstring is its description. `server.py` registers the MCP ones (Claude Code, Codex);
+`omni_face/brain.py` (the voice brain, in the PC's voice service) hands the voice ones to the Claude API, plus
+`robot_wait` (blocks until a task ends) and without the developer tools (topics, tf, map, floor labels, session).
+`robot_client.py` is the MCP-free `Robot` (`from server import Robot` still works for scripts and `ai_smoke.py`).
+
+## The voice brain as a Claude Code session (Nov 23; Fernando: "session kept open")
+
+The robot's voice brain runs as a Claude Code session left open on the PC, on the subscription's login (no API key).
+`../voice_brain.cmd` starts it: `claude` with `voice_mcp.json` only (`server.py --voice`, MCP server `omni_voice`), the
+omni tools, the Monitor, the follower and reads under `ros/` allowed, and the opening instruction to follow
+`voice_brain_prompt.md`.
+
+- **The voice desk** (`voice_desk.py`, files in `~/.local/share/omni_voice/desk`): the voice service appends each
+  heard sentence to `inbox.jsonl`; the session's Monitor runs `voice_follow.sh`, which prints one line per new
+  sentence (`{id, heard, facts}`) from a saved cursor, so a re-armed Monitor (they expire after an hour) loses
+  nothing, and beats a heartbeat (the voice service tells the person when nobody is listening). Sentences older than
+  2 min aren't delivered. `robot_voice_reply` writes `outbox.jsonl` while the voice service still waits (10 s), else
+  it says the answer through the console.
+- **`server.py --voice`** (`voice_tools.py`): the toolkit plus `robot_voice_reply`, `robot_skills`, `robot_skill` /
+  `_wait` / `_stop` (skills run in the background), `robot_propose_plan` (says the plan with `pending`, waits for the
+  desk's "yes" / "no"), `robot_save_skill` (checked and dry-run, then kept), `robot_remind`. Motion tools sit behind
+  the gate: per heard sentence one motion at once; a second, a several-step move or an untried skill only after a
+  confirmed plan. The AI lease is taken when a motion starts and let go after 20 s with no AI task or skill, so
+  another AI client can drive in between.
+- **Not verified:** the session itself (Claude Code with these flags, the Monitor re-arming over hours, the
+  permission rules matching) hasn't been run yet: the first start is attended. The plumbing is tested
+  (`test_voice_desk.py`: the desk, the voice service's side, the voice tools through MCP on the console's core) and
+  the server starts over stdio with its 39 tools.
+
+## Skills (Nov 23; voice_brain_handoff_2026-11-23.md, Fernando's defaults)
+
+A skill is a small routine built from the robot's actions, one tool for the voice brain. **Format: restricted Python**
+(`skillbox.py` docstring): a docstring, `SKILL = dict(name, says, params, moves, max_s)` and `run(robot, ...)`, which
+calls only `robot.<method>(keyword=...)` (`skillbox.API`: status, pose, places, rooms, people, nearest_person, move,
+turn, goto, approach, find, pick, mission, arm_pose, say, express, gesture, photo, scan, wait, now, log) and returns a
+sentence.
+
+- **Hand-written** (`skills/`): `come_here`, `face_me`, `take_photo` (wrist camera from the `look` pose; saved under
+  `OMNI_PHOTOS`, default `~/omni_photos`, not on the screen yet), `dance_at`, `celebrate`, `body_language` (wave is the
+  arm's flourish: no real wave gesture yet), `show_around`, `check_room`, `where_is`, `watch_door`. Not built: the
+  handshake / high five (needs the arm load calibration first, handoff step 5).
+- **Running** (`run_skill`): its own process (`python -I skill_child.py`), answered over stdin/stdout by `RealAPI` (the
+  robot through `robot_client`, under the caller's AI lease) or `FakeAPI` (a made-up house for dry runs and tests);
+  killed at `max_s` (at most 900 s) or when the brain's request is stopped, and the task it started is cancelled.
+  `skill_check.py` refuses imports other than math and random, names and attributes starting with `_`, frame and code
+  attributes, eval / exec / open / getattr, classes, `with`, and code at the top level; the child gets a short list of
+  builtins. That keeps out the ordinary ways round it; **it is not a hardened sandbox**, and the robot's safety never
+  depends on it: every action is a console AI verb under the lease, the speed caps, the collision monitor and a
+  person's stop.
+- **Invented** (`inventor.py`): Claude Opus 5.5 at high effort (`OMNI_INVENT_MODEL`, `OMNI_INVENT_EFFORT`) writes one
+  from the API reference and three examples, or says it isn't feasible; it must pass the check and a dry run in
+  `FakeAPI`'s house (one retry with the errors), then it is saved in `OMNI_SKILLS_DIR` (default
+  `~/.local/share/omni_voice/skills`, a `.json` beside each: the request, when, tried, kept). The brain asks before
+  its first run. The voice service lists them at `/skills` and `/skills/page` (keep, rename, delete); not on the
+  console yet.
+
 ## Safety rules (enforced on the robot, in omni_console/missions.py)
 
 - **The lease.** `lease.py` renews a 3 s lease every second. When it lapses, the console cancels the AI's task and holds
@@ -149,6 +209,16 @@ maps, firmware and the shell.
   use a fake rosbridge and cover status caching, reconnection, event paging, image downscaling, the error when rosbridge
   is down, lease renewal, the session and request ids, and the MCP tools end to end on the console's real core (a spin of
   5 turns measured as 1800°, a duplicate `request_id`, a stop). A lapsed lease stops the robot within the TTL.
+  `test_skills.py`: the check's refusals, the sandbox's time limit and stop, every hand-written skill in `FakeAPI`'s
+  house, the library, and the inventor with a scripted model. The voice brain's own tests are
+  `ros/src/omni_face/test/test_brain.py` (the voice venv).
+- **The voice brain's skills in the sim (Nov 23; arm step, `map:=house objects:=colours person:=true`, a separate
+  domain and ports; a scripted model in Claude's place, the real brain, lease, gate, sandbox and console verbs; single
+  runs, positions from the robot's own pose, not the sim's truth):** take a picture (arm to `look`, an upright wrist
+  frame saved, stowed; 12 s); is anyone in the kitchen (drove there, looked round, came back to 2 cm and 7°; nobody
+  seen; 77 s); dance in the living room (drove there, danced; 81 s); come to me (drove ~3 m to the walking sim person;
+  20 s); where's the red block (three quarter turns, not seen from the living room: an honest miss); a two-step move
+  (refused by the gate, `propose_plan`, "go", then 271° turned of 270). Not run with a real model.
 - **The console's AI verbs:** `ros/src/omni_console/test/test_ai.py`.
 - **Find and the single-object pick:** `ros/src/omni_arm/test/test_color_vision.py`.
 - **In the sim, end to end:** `ros/tools/ai_smoke.py` against the arm step with `objects:=colours` (see its

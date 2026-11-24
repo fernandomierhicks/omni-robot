@@ -580,6 +580,17 @@ class ArmBrain(Node):
                 self.event(f"jog {name.replace('_', ' ')}: {why}")
                 return
             self.play(mo.Motion([here, target], mo.speeds(self.kin), t))
+        elif verb == "express":                          # a feeling's gesture (gestures.py): only when free
+            from omni_arm import gestures
+            playing = self.motion is not None and not self.motion.done(t)
+            if self.tidy_on or self.starting or self.cal is not None or playing or self.source not in ("hold",):
+                return                                   # busy: the feeling shows on the face instead
+            m, why = gestures.motion(self.kin, here, str(a.get("gesture", "")), float(a.get("size", 0.3)), t,
+                                     holding=self.task.held is not None)
+            if m is None:
+                self.get_logger().info(f"express {a.get('gesture')}: refused, {why}")
+                return
+            self.play(m)
         elif verb == "hold":
             self._halt()
             self.send(ArmMotion.HOLD)

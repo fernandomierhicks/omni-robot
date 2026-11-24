@@ -233,7 +233,10 @@ SPRING_SOLID = 12.0                # Nov 20 (Fernando, measured): the coils touc
 SPRING_OD, SPRING_ID = 7.85, 4.25  # Nov 20 (Fernando)
 SPRINGS = {'yellow 8x25': (6.1, 10.0),   # N/mm, long-life working deflection mm (max 12.5)
            '7.7x18.5 (Nov 14)': (10.4, 18.5 - 9.23 - 1.0),
-           '7.85x4.25x20.2 (Nov 20)': (10.4, SPRING_L0 - SPRING_SOLID - 0.5)}   # RATE UNKNOWN (VERIFY: kitchen-scale test); 10.4 kept from Nov 14
+           '7.85x4.25x20.2 (Nov 20)': (7.6, SPRING_L0 - SPRING_SOLID - 0.5)}   # Nov 21: 7.6 N/mm ESTIMATED (was 10.4 kept from Nov 14): a JIS
+                                   # yellow (extra light) 8 x 20 die spring, which these match, is listed at 7.6 (Century DJ-8X20YCS 7.62, Raymond
+                                   # ASF 8x20 0.78 kgf/mm, Dingli DTF8-20 7.8). VERIFY with the kitchen-scale test (5 mm: ~38 N, 3.9 kg).
+                                   # Reports only: the towers come from STACK_PRELOAD_AT_DROOP. sim studies/springs_v16.py
 SPRING_DESIGN = '7.85x4.25x20.2 (Nov 20)'   # its rate gives C_NOM (reports, the old M4 pod layers); the towers are set by STACK_PRELOAD_AT_DROOP
 SPRINGS_IN_SERIES = 1              # Nov 20 (Fernando: "double bore per tower but assume we will only use one spring per bore, so shorter towers"):
                                    # one spring per bore, two bores per tower (v15 Nov 15 - Nov 20: two springs stacked in series in each bore)

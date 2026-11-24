@@ -15,8 +15,14 @@ Subscribes /console/status      std_msgs/String JSON (the operator console, 10 H
            /face/clip           std_msgs/String JSON {path, caption}: a short WAV to play as it is (the console's Call
                                 page: a caller's push-to-talk, saved by the supervisor); sent to the displays whole
 Publishes  /face/state          std_msgs/String JSON, 2 Hz: what the face shows (for the console and logs)
+           /face/affect         std_msgs/String JSON, 2 Hz: what it feels (affect.Affect.snapshot: its emotion, valence,
+                                arousal, mood, the pace its mood allows its driving) and the levels; the console's
+                                emotion.nav pace reads it
            /console/events      std_msgs/String JSON: what it heard and what it did about it (source "voice")
-Calls      /console/command     omni_interfaces/ConsoleCommand: a voice command's verb, as if clicked on the page
+Calls      /console/command     omni_interfaces/ConsoleCommand: a voice command's verb, as if clicked on the page; a
+                                feeling's body gesture (the console's `express`: it plays it only if that part is free)
+Chat (Nov 21): a sentence after its name that isn't a command (or typed on the Face tab) goes to the display as
+{"chat": {id, text, context}}; the display asks the PC's chat (chat.py) and sends back {"chat_reply": {...}}.
 Serves     TCP port (9881): one JSON line per tick, {"face": {...}, "out": [{"kind": "say"|"sound"|"clip", ...}], "listen":
            bool, "voice": the voice preset (voice.PRESETS)}, plus {"grammar": [...]} when the phrases change, to every display connected (the panel's on the
            robot; the window on Windows in the sim); a display sends back {"heard": text, "conf": 0-1, "echo": bool}
@@ -49,7 +55,9 @@ from omni_params import Params
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from omni_face.commands import decide, phrases
+from omni_face.affect import Levels
+from omni_face.commands import confirmation, decide, phrases, strip_wake
+from omni_face.expression import SOUND_STYLES
 from omni_face.moments import Brain, BrainConfig
 
 VOICE_LEVELS = ("off", "chat only", "on")
@@ -84,6 +92,9 @@ class FaceNode(Node):
             self.srv = None
         self.displays: list = []                    # [socket, bytes received so far]
         self.p_state = self.create_publisher(String, "/face/state", 5)
+        self.p_affect = self.create_publisher(String, "/face/affect", 5)
+        self.chat_n = 0
+        self.chat_pending_until = -1e9              # the voice brain waits for "go" until then
         self.p_events = self.create_publisher(String, "/console/events", 20)
         self.console_cli = self.create_client(ConsoleCommand, "/console/command")
         self.create_subscription(String, "/console/status", self.on_status, 5)
@@ -135,6 +146,9 @@ class FaceNode(Node):
             self.preset = str(vals["face.preset"])
         if vals.get("face.voice") in VOICE_LEVELS:
             self.voice = vals["face.voice"]
+        self.brain.levels = Levels.from_settings(vals, self.brain.levels)     # the console's Emotion settings
+        if vals.get("emotion.sound_style") in SOUND_STYLES:
+            self.brain.sound_style = vals["emotion.sound_style"]
         g = phrases(self.places)
         if g != self.grammar:
             self.grammar = g
@@ -156,11 +170,22 @@ class FaceNode(Node):
         d = m.data.strip()
         if d.startswith("{"):
             try:
-                self.say.append(dict(json.loads(d)))
+                req = dict(json.loads(d))
+                self._pending(req.pop("pending", None))   # the voice brain's plan, said later: it waits for "go"
+                self.say.append(req)
                 return
             except (ValueError, TypeError):
                 pass
         self.say.append(d)
+
+    def _pending(self, seconds):
+        """The voice brain (brain.py) proposed a plan: for `seconds` a bare "go" / "no" goes to it."""
+        try:
+            s = float(seconds or 0.0)
+        except (TypeError, ValueError):
+            return
+        if s > 0:
+            self.chat_pending_until = time.monotonic() + min(60.0, s)
 
     def on_clip(self, m: String):
         """A caller's push-to-talk: the WAV file's bytes go to the displays (which may be another machine: the sim's
@@ -179,13 +204,33 @@ class FaceNode(Node):
         self.clips.append(dict(kind="clip", wav=wav, caption=str(d.get("caption", ""))[:80], prio=3))
 
     # -- what it heard ------------------------------------------------------------------------------------------
+    def ask_chat(self, now: float, rest: str, source: str):
+        """A sentence for the PC's chat / voice brain (chat.py, brain.py), through the display."""
+        self.chat_n += 1
+        self.brain.on_heard(now, rest)
+        self.brain.thinking(now)
+        ctx = dict(self.brain.chat_context(now), voice=self.voice)
+        self.send_all(dict(chat=dict(id=self.chat_n, text=rest, context=ctx)))
+        self.emit("info", f"Heard “{rest}” ({source}): asking my chat")
+
     def on_heard(self, text: str, conf: float, echo: bool, source: str = "mic"):
         now = time.monotonic()
+        yn = confirmation(text) if now < self.chat_pending_until and not echo and conf >= 0.55 else None
+        if yn is not None and self.displays:
+            # the voice brain waits for an answer to its plan: "go" / "no", with or without the name ("stop" also
+            # stops the robot below, as always)
+            self.chat_pending_until = -1e9
+            self.ask_chat(now, yn, source)
+            if yn == "yes" or strip_wake(text)[1] not in ("stop",):
+                return
         action, rest, intent = decide(text, conf, echo, self.brain.listening(now), self.places, self.voice)
         if action == "ignore":
             return                                  # not meant for it, or its own voice
         if action == "wake":
             self.brain.on_wake(now)
+            return
+        if action == "unknown" and rest and conf >= 0.55 and not echo and self.displays:
+            self.ask_chat(now, rest, source)        # anything after its name it doesn't know: the voice brain (the PC)
             return
         if action == "unknown":
             self.brain.on_unknown(now, rest)
@@ -232,6 +277,9 @@ class FaceNode(Node):
         for o in outs:
             if o.kind == "say":
                 self.get_logger().info(f"says: {o.value}")
+            elif o.kind == "express":
+                self.express(o.value)
+        outs = [o for o in outs if o.kind != "express"]           # the body's: the console's, not the display's
         self.accept()
         self.read_displays()
         self.send_all(dict(face=d, out=[o.as_dict() for o in outs] + self.clips,
@@ -240,6 +288,23 @@ class FaceNode(Node):
         self.n_tick += 1
         if self.n_tick % 5 == 0:
             self.p_state.publish(String(data=json.dumps(d)))
+            if self.brain.affect is not None:
+                a = dict(self.brain.affect.snapshot(now), on=self.brain.levels.on, levels={
+                    k: self.brain.levels.level(k) for k in ("speech", "sounds", "face", "base", "arm")},
+                    nav=self.brain.levels.nav_ok())
+                self.p_affect.publish(String(data=json.dumps(a)))
+
+    def express(self, value: str):
+        """A feeling's body gesture: the console plays it if that part of the robot is free (its `express`)."""
+        if not self.console_cli.service_is_ready():
+            return
+        try:
+            args = dict(json.loads(value), by="face")
+        except (ValueError, TypeError):
+            return
+        fut = self.console_cli.call_async(ConsoleCommand.Request(verb="express", args=json.dumps(args)))
+        fut.add_done_callback(lambda f: f.result() is not None and f.result().ok and
+                              self.get_logger().info(f"body: {f.result().message}"))
 
     def send_all(self, obj):
         line = (json.dumps(obj) + "\n").encode()
@@ -278,6 +343,13 @@ class FaceNode(Node):
                     if "heard" in m:
                         self.get_logger().info(f"heard: {m['heard']} ({float(m.get('conf', 0)):.2f})")
                         self.on_heard(str(m["heard"]), float(m.get("conf", 0.0)), bool(m.get("echo")))
+                    if isinstance(m.get("chat_reply"), dict):
+                        r = m["chat_reply"]
+                        self._pending(r.get("pending"))      # its plan waits for "go"
+                        self.brain.chat_reply(time.monotonic(), r)
+                        self.emit("warn" if r.get("error") else "info",
+                                  f"Chat: “{r.get('say', '')}” ({r.get('emotion', '')})"
+                                  + (f" [{r['error']}]" if r.get("error") else ""))
                 except (ValueError, TypeError):
                     pass
 

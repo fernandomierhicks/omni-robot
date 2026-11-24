@@ -27,7 +27,7 @@ namespace fw {
 enum MsgType : uint8_t { MSG_CMD = 0x01, MSG_STATE = 0x81, MSG_IMU = 0x82, MSG_INFO = 0x83, MSG_TIME = 0x84 };
 enum TimeKind : uint8_t { TE_SYNC = 1, TE_CAM_TRIGGER = 2, TE_CAM_STROBE = 3 };
 
-constexpr uint16_t PROTOCOL_VERSION = 9;      // bump with any change to the bodies below (and in protocol.py)
+constexpr uint16_t PROTOCOL_VERSION = 10;     // bump with any change to the bodies below (and in protocol.py)
                                               // 6: CmdBody.protocol (the MCU drops a CMD of another version);
                                               //    StateBody.cmd_rejected, tick_late, tick_max_us
                                               // 7: DRIVE_WHEELS (each wheel's speed: the console's motor test);
@@ -36,6 +36,9 @@ constexpr uint16_t PROTOCOL_VERSION = 9;      // bump with any change to the bod
                                               //    (which wheels are there: the console's health)
                                               // 9: StateBody.wheel_cur (each motor's current); DRIVE_WHEELS takes
                                               //    its ramp in CmdBody.a_brake (the wheel-load captures)
+                                              // 10: StateBody.rc_ok, rc_direct, rc[8]: the RC sticks at 200 Hz, so
+                                              //    the robot computer drives from them through its lidar guard
+                                              //    (mode_manager); MANUAL only as the deliberate fallback (firmware.h)
 constexpr uint8_t DM_NO_REPLY = 0xFF;         // StateBody.dm_err only: no reply from this motor for
                                               // DM_FEEDBACK_TIMEOUT (unplugged, unpowered, wrong id), never a
                                               // motor's own code
@@ -109,6 +112,9 @@ struct StateBody {
     float wheel_vel[4];          // protocol 7: each wheel's measured speed, rad/s (its motor's feedback)
     float wheel_cur[4];          // protocol 9: each wheel motor's current, A, as its feedback reports it (the AK40-10's
                                  //   status; signed like the wheel's speed; 0 on the Damiao build)
+    uint8_t rc_ok;               // protocol 10: the RC receiver's link is up (failsafe = 0)
+    uint8_t rc_direct;           // protocol 10: MANUAL, the sticks driving the base directly (no lidar guard)
+    int16_t rc[8];               // protocol 10: channels x 1000 (-1000..1000), as INFO's; ch 5 (rc[4]) > 0.5: drive
 };
 
 struct ImuBody {
@@ -139,7 +145,7 @@ struct TimeBody {
 #pragma pack(pop)
 
 static_assert(sizeof(CmdBody) == 76, "CmdBody layout changed: update omni_mcu/protocol.py");
-static_assert(sizeof(StateBody) == 170,"StateBody layout changed: update omni_mcu/protocol.py");
+static_assert(sizeof(StateBody) == 188,"StateBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(ImuBody) == 48, "ImuBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(InfoBody) == 48, "InfoBody layout changed: update omni_mcu/protocol.py");
 static_assert(sizeof(TimeBody) == 20, "TimeBody layout changed: update omni_mcu/protocol.py");
@@ -156,7 +162,7 @@ public:
     uint32_t errors = 0;
 
 private:
-    uint8_t buf_[256];
+    uint8_t buf_[256];           // a payload of up to ~250 bytes (STATE: 2 + 188 + 2)
     size_t n_ = 0;
     bool overflow_ = false;
 };

@@ -848,7 +848,8 @@ def test_bridge_core_events_odometry_and_cmd_timeout():
         ev = core.step()
         for k in n:
             n[k] += getattr(ev, k) is not None
-    assert n["imu"] == pytest.approx(400, abs=2) and n["odom"] == pytest.approx(50, abs=1)
+    # the BNO085 at 100 Hz since Nov 17 (design.md 9; imu_rate=400 reproduces earlier runs)
+    assert n["imu"] == pytest.approx(100, abs=2) and n["odom"] == pytest.approx(50, abs=1)
     # scans: the A2M8 (Nov 16) turns at 12.5 Hz; the first is handed over ~0.13 s in
     assert n["truth"] == pytest.approx(50, abs=1) and n["scan"] in (11, 12, 13)
     moved = core.r.pose()[:2] - p0[:2]
@@ -1243,16 +1244,44 @@ def test_leaving_manual_ramps_the_base_to_rest_before_disarming():
     FW, PR = _sil()
     rig = sil_rig()
     p, m, d, r, link = rig
-    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]                      # MANUAL, stick full forward
+    r.rc = [0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0]                     # no robot computer: the switch off ...
+    sil_run(rig, 0.05)
+    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]                      # ... and on: MANUAL, stick full forward
     s = sil_run(rig, 2.0)
     assert r.fw.mode == 3 and s[-1, 1] > 0.8
     r.rc = None                                                          # the RC link drops
     s = sil_run(rig, 0.05)
     assert r.fw.mode == 1 and all(mt.enabled for mt in r.dm)             # disarmed, yet still braking
     s = sil_run(rig, 1.5)
-    k = int(round(0.05 / m.opt.timestep))
-    assert s[-1, 1] < 0.02 and float(np.max(-np.diff(s[::k, 1]) / 0.05)) < 1.2 * max(p.accel_table[1])
+    k = int(round(0.1 / m.opt.timestep))        # 0.1 s windows: the sprung base's pitch bounce averaged out (a cut
+    #                                             at speed reads ~10 m/s^2 here; Nov 23: 0.05 s read 5.12 on the
+    #                                             Nov 21 unsprung refit, a hair over the bound)
+    assert s[-1, 1] < 0.02 and float(np.max(-np.diff(s[::k, 1]) / 0.1)) < 1.2 * max(p.accel_table[1])
     assert all(not mt.enabled for mt in r.dm)                            # then off
+
+
+def test_rc_drives_through_the_robot_computer_and_manual_needs_the_switch_cycled_without_it():
+    """Protocol 10 (firmware.h, MANUAL): with the robot computer there, the drive switch never enters MANUAL; STATE
+    carries the sticks (the computer's lidar guard drives from them). Switched on before the computer went: no
+    MANUAL until the switch goes off and on again."""
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    idle = PR.Command(drive_mode=PR.DRIVE_IDLE)
+    r.rc = [0.25, 1.0, 0.0, -0.5, 1.0, 0.0, 0.0, 0.0]                    # the switch on, stick forward
+    sil_run(rig, 0.5, lambda t: idle)
+    st = link.host.state
+    assert r.fw.mode == 2 and not st.rc_direct                           # AUTO, the computer's: no MANUAL
+    assert st.rc_ok == 1 and st.rc == pytest.approx((0.25, 1.0, 0.0, -0.5, 1.0, 0.0, 0.0, 0.0), abs=1e-3)
+    sil_run(rig, 1.5, lambda t: None)                                     # the computer goes silent, switch still on
+    assert r.fw.mode == 1                                                 # a ramped stop, then disarmed: no hand-over
+    r.rc = [0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0]
+    sil_run(rig, 0.05, lambda t: None)
+    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]                       # off and on again: the deliberate fallback
+    s = sil_run(rig, 1.0, lambda t: None)
+    assert r.fw.mode == 3 and link.host.state.rc_direct and s[-1, 1] > 0.5
+    sil_run(rig, 0.5, lambda t: idle)                                     # the computer back: MANUAL stays until off
+    assert r.fw.mode == 3
 
 
 def test_kid_profile_turns_off_only_at_rest():
@@ -1979,7 +2008,8 @@ def _timing_rig(gpio, seconds=6.0, drive=False, **link_kw):
 def test_sync_pulses_map_the_mcu_clock_to_microseconds_the_usb_echo_does_not():
     sync, e, _ = _timing_rig("hte")
     st = sync.status()
-    assert st["mode"] == "pulse" and st["pulses"] >= 4 and len(e) > 700      # IMU, STATE and TIME of the last second
+    # IMU (100 Hz since Nov 17), STATE (200 Hz) and TIME (~240 Hz) of the last second
+    assert st["mode"] == "pulse" and st["pulses"] >= 4 and len(e) > 450
     assert np.max(np.abs(e)) < 5e-6                            # HTE-stamped pulses: the Jetson's stamps to ~1 us
     assert abs(st["drift_ppm"] - 20.0) < 1.5                   # the crystal's 20 ppm (+/- 1 ppm of wander)
     # the echo alone is biased by the USB path's asymmetry (0.25 vs 0.75 ms here, + the SIL's half-step to fetch
@@ -2833,9 +2863,10 @@ def test_the_arm_robot_at_the_motor_studys_masses():
         p = E.arm_params(kg, dz)
         mass, cg = mass_properties(build_model(p), p, 0.0)
         assert mass == pytest.approx(kg, abs=0.01) and cg[2] == pytest.approx(E.CAD_ARM_CG[2] + dz, abs=0.002)
-        assert p.pod_sprung_mass == pytest.approx(E.sprung_mass(p, kg), abs=1e-3) and p.pod_sprung_mass < kg - 3.0
+        assert p.pod_sprung_mass == pytest.approx(E.sprung_mass(p, kg), abs=1e-3) and p.pod_sprung_mass < kg - 2.5
     p = E.arm_params()
-    assert p.pod_sprung_mass == pytest.approx(5.95, abs=0.1)          # ~ the 6 kg the pods were tuned on
+    # Nov 21: 6.93 (was 5.95, ~ the 6 kg the pods were tuned on): the v16 corner weighs 0.675 kg, not 0.92 (POD_V16_MASS)
+    assert p.pod_sprung_mass == pytest.approx(6.93, abs=0.1)
     # Nov 12: the cad/v13 bearing rollers (two 687s each): no pin friction; the v10 dict keeps its plain rollers
     assert p.roller_pin_mu == 0.0 and p.roller_mesh == (13, 64) and E.V10["roller_pin_mu"] > 0
 

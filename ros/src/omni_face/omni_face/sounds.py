@@ -221,3 +221,88 @@ def sound(name: str, rate: int = 22050, volume: float = 0.5) -> np.ndarray:
 
 NAMES = ("hello", "catch", "miss", "launch", "whoosh", "alert", "warn", "beep", "yawn", "snore", "giggle", "sneeze",
          "hic", "babble", "aww", "woozy", "whistle", "sigh", "boing", "sparkle", "listen", "heard", "huh", "scan", "tada")
+
+
+# -- chirps: its feelings in its own robot language (expression.REACTIONS; Nov 21) ---------------------------------
+# Each emotion is a contour, the way intonation carries feeling without words: a question rises at the end, joy
+# bounces up in major steps, sadness slides down slowly, worry trembles, frustration buzzes low, a startle jumps high
+# and tumbles. A syllable is (start Hz, end Hz, seconds, timbre, gap after); timbres: "chip" (a clean glide with a
+# little FM sparkle), "coo" (a soft vowel-like tone), "buzz" (a rough low square), "trem" (trembling). Each emotion
+# has VARIANTS seeded variations (small changes of pitch and timing): played in turn, no two in a row the same.
+VARIANTS = 3
+
+
+def _syll(f0, f1, dur, rate, timbre="chip"):
+    n = max(8, int(dur * rate))
+    t = np.arange(n) / rate
+    f = np.geomspace(max(40.0, f0), max(40.0, f1), n)
+    if timbre == "trem":
+        f = f * (1 + 0.045 * np.sin(2 * np.pi * 11 * t))
+    ph = 2 * np.pi * np.cumsum(f) / rate
+    if timbre == "buzz":
+        w = 0.55 * np.sign(np.sin(ph)) + 0.45 * np.sin(ph)
+        w = np.convolve(w, np.ones(6) / 6, "same")                 # a softer edge
+    elif timbre == "coo":
+        w = np.sin(ph) + 0.25 * np.sin(2 * ph) + 0.08 * np.sin(3 * ph)
+    else:                                                          # chip: a glide with a little FM sparkle
+        w = np.sin(ph + 0.6 * np.sin(2.0 * ph)) * 0.8 + 0.2 * np.sin(2 * ph)
+    att = 0.006 if timbre in ("chip", "buzz") else 0.03
+    return w * _env(n, rate, att, min(0.06, dur * 0.4))
+
+
+def _contour(emotion: str, rng) -> list:
+    """The emotion's syllables, varied a little by rng: [(f0, f1, s, timbre, gap)]."""
+    j = lambda x, s=0.06: x * (1 + rng.uniform(-s, s))          # noqa: E731  (a little variation)
+    b = j(900.0, 0.08)                                           # its "voice": around 900 Hz
+    if emotion == "happy":                                       # bouncy, up in major steps, a skip at the end
+        return [(j(b), j(b * 1.26), j(0.07), "chip", 0.03), (j(b * 1.12), j(b * 1.5), j(0.07), "chip", 0.03),
+                (j(b * 1.5), j(b * 1.68), j(0.11), "chip", 0.0)]
+    if emotion == "excited":                                     # quick and high, a trill climbing up
+        k = int(rng.integers(5, 7))
+        return [(j(b * (1.1 + 0.12 * i)), j(b * (1.3 + 0.12 * i)), j(0.045), "chip", 0.012) for i in range(k)] + \
+            [(j(b * 1.9), j(b * 2.4), j(0.14), "chip", 0.0)]
+    if emotion == "proud":                                       # ta-da: up a fifth, then a flourish
+        return [(j(b), j(b), j(0.09), "chip", 0.04), (j(b * 1.5), j(b * 1.5), j(0.09), "chip", 0.03),
+                (j(b * 2.0), j(b * 1.8), j(0.06), "chip", 0.01), (j(b * 1.8), j(b * 2.0), j(0.2), "coo", 0.0)]
+    if emotion == "affection":                                   # warm, low, a slow fall with a lift: "ooo-woo"
+        return [(j(b * 0.62), j(b * 0.8), j(0.22), "coo", 0.04), (j(b * 0.8), j(b * 0.58), j(0.38), "coo", 0.0)]
+    if emotion == "content":                                     # two soft notes, settling down
+        return [(j(b * 0.9), j(b * 0.9), j(0.12), "coo", 0.04), (j(b * 0.75), j(b * 0.72), j(0.2), "coo", 0.0)]
+    if emotion == "relieved":                                    # a long fall: "phew"
+        return [(j(b * 1.2), j(b * 0.5), j(0.55), "coo", 0.0)]
+    if emotion == "curious":                                     # a question: low, then rising at the end
+        return [(j(b * 0.8), j(b * 0.78), j(0.1), "chip", 0.05), (j(b * 0.85), j(b * 1.45), j(0.24), "chip", 0.0)]
+    if emotion == "surprised":                                   # a quick whoop up
+        return [(j(b * 0.7), j(b * 1.9), j(0.16), "chip", 0.02), (j(b * 1.9), j(b * 1.7), j(0.08), "chip", 0.0)]
+    if emotion == "startled":                                    # a sharp jump high, then tumbling down
+        return [(j(b * 2.2), j(b * 2.6), j(0.05), "chip", 0.02), (j(b * 2.4), j(b * 0.9), j(0.18), "trem", 0.0)]
+    if emotion == "focused":                                     # a short, low double blip: "on it"
+        return [(j(b * 0.7), j(b * 0.7), j(0.05), "chip", 0.04), (j(b * 0.84), j(b * 0.84), j(0.06), "chip", 0.0)]
+    if emotion == "effort":                                      # a low strained buzz, rising
+        return [(j(b * 0.25), j(b * 0.36), j(0.45), "buzz", 0.0)]
+    if emotion == "worried":                                     # trembling, minor, wavering down
+        return [(j(b * 1.0), j(b * 1.19), j(0.16), "trem", 0.05), (j(b * 1.12), j(b * 0.84), j(0.3), "trem", 0.0)]
+    if emotion == "frustrated":                                  # two low, harsh buzzes: "bzzt-bzzt"
+        return [(j(b * 0.3), j(b * 0.27), j(0.12), "buzz", 0.06), (j(b * 0.3), j(b * 0.24), j(0.18), "buzz", 0.0)]
+    if emotion == "sad":                                         # a slow slide down, minor
+        return [(j(b * 0.84), j(b * 0.7), j(0.25), "coo", 0.06), (j(b * 0.7), j(b * 0.47), j(0.5), "coo", 0.0)]
+    if emotion == "tired":                                       # a yawn: up a little, then a long low fall
+        return [(j(b * 0.5), j(b * 0.65), j(0.3), "coo", 0.0), (j(b * 0.65), j(b * 0.35), j(0.6), "coo", 0.0)]
+    if emotion == "bored":                                       # flat and low: "meh-meh"
+        return [(j(b * 0.55), j(b * 0.55), j(0.18), "coo", 0.08), (j(b * 0.5), j(b * 0.49), j(0.26), "coo", 0.0)]
+    return [(b, b, 0.08, "chip", 0.0)]
+
+
+CHIRP_EMOTIONS = ("happy", "excited", "proud", "affection", "content", "relieved", "curious", "surprised", "startled",
+                  "focused", "effort", "worried", "frustrated", "sad", "tired", "bored", "love")
+
+
+def chirp(emotion: str, rate: int = 22050, volume: float = 0.45, variant: int = 0) -> np.ndarray:
+    """A chirp for the emotion ("love" is affection), variant 0..VARIANTS-1: int16 mono."""
+    emotion = "affection" if emotion == "love" else emotion
+    rng = np.random.default_rng(1000 + 17 * variant + CHIRP_EMOTIONS.index(emotion if emotion in CHIRP_EMOTIONS
+                                                                             else "happy"))
+    parts = []
+    for f0, f1, d, timbre, gap in _contour(emotion, rng):
+        parts += [_syll(f0, f1, d, rate, timbre), np.zeros(int(gap * rate))]
+    return _normal(np.concatenate(parts), volume)

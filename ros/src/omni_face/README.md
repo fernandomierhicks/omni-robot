@@ -44,7 +44,84 @@ on the robot); `OMNI_VOICE_FX=0` turns them off, `OMNI_KOKORO_VOICE` forces one 
 same lines into `~/omni_voice_audition`; `python -m omni_face.voice say "text" --preset bright --play` tries a line.
 Heavier neural voices (Chatterbox, Orpheus, F5) sound richer but want a CUDA GPU; the robot computer has none.
 
-**Its character** (`moments.py`, Nov 5: "more real, funny, cool, not so hardcoded, like TARS or EVE"): a capable
+**The PC's voices (Nov 21, Fernando: "voice can be processed on the main PC; delays matter less").**
+`voice_server.py` (HTTP 9884) runs on the main PC in its own venvs and makes every line with its feeling:
+`C:\Users\ferna\.venvs\omni-voice` (torch 2.11 CUDA: Qwen3-TTS, Kokoro, Pocket TTS, pyworld, pedalboard, anthropic)
+and `C:\Users\ferna\.venvs\omni-voice-cb` (torch 2.6 CUDA: Chatterbox, as a worker; the two pin different torch and
+transformers). The face window starts it when it isn't running (`OMNI_VOICE_PY`); `voice.py`'s Server backend asks it
+first and falls back to the local Kokoro. Its voices (`voice_engines.VOICES`): Qwen3-TTS CustomVoice (a natural
+actor told how to feel) and VoiceDesign (original voices described in words: dry machine, bright robot, small bot),
+Chatterbox (cloned from those designs; exaggeration by feeling), Chatterbox Turbo (real `[laugh]` `[sigh]`), Pocket
+TTS (CPU, cloned), Kokoro with the new chains, and a classic droid for contrast. The character comes from
+`voice_fx.py`: WORLD (pyworld) changes pitch, formants (the head's size) and intonation independently (the old
+resampling moved them together: the chipmunk; its 4 ms comb was the tin can), then a pedalboard chain (band limits,
+presence, light drive, a whisper of ring modulation, shimmer, a small room). Engines without a feeling of their own
+get it as intonation range and pace (`EMOTION_PROSODY`). **Audition:** `python -m omni_face.voice_lab render` (the
+voice venv, from `ros/src/omni_face`) renders 34 phrases, each with its feeling and what to listen for, in every
+voice plus the chirps, into `~/omni_voice_audition`. Pick one in the Face tab's **Voice**. The robot computer reaches
+the service over the LAN (`--bind 0.0.0.0`, `OMNI_VOICE_SERVER=http://<pc>:9884`).
+
+**Its feelings (Nov 21, Fernando: Disney-level, "subtle but there" through tasks, each channel 0-10).** `affect.py`:
+every moment is felt (`APPRAISAL`: event -> emotion, intensity), moving a fast valence/arousal state that fades into a
+slow mood, coloured by needs (battery, company, boredom); failures in a row build frustration, the success after them
+is pride. Grounded in real signals: the tidy's picks and slips, the arm's reflex (startled), localization lost and
+found, faults, the battery, voice praise and greetings, Follow's person, the catch game, speed and spins.
+`expression.py`: one feeling, every channel at once (`REACTIONS`): the face's antic, a vocalization ("whoa!", in its
+own voice) or a chirp (`sounds.chirp`: its robot language, a contour per feeling: questions rise, sadness falls,
+worry trembles), and body gestures the console plays only when that part is free (omni_console `gestures.py`: a
+wiggle, recoil, lean, closed and at most 6 cm / 14 deg; omni_arm `gestures.py`: nod, tilt, flinch, checked like any
+motion). **Levels**, the Face tab's Emotion settings, 0-10 each (5 as designed): Talk, Chirps and sounds, Face motion,
+Wheel gestures, Arm gestures; a level sets how often (0 never, 2x at 10) and how big. **Mood sets driving pace** (on:
+tired or sad drives up to 15 % slower, never faster; off: navigation exactly as set). Emotion off: as before. The
+display's eyes now spring toward the feeling's look with overshoot, breathe, make micro-saccades, blink with squash
+and stretch (and on a big look away), lead the turn while driving, and each feeling has its mouth; the face level
+scales it all.
+
+**Its chat (Nov 21).** A sentence after its name that isn't a command (the Windows recognizer's dictation after the
+wake word, or typed on the Face tab) goes to `chat.py` on the PC (the display relays it; WSL has no DNS): Claude
+answers as the robot from `CHARACTER.md` (its character bible), the facts now (feeling, mission, battery, time, what
+just happened) and its memory (the last exchanges and notes it chose to keep, `~/.local/share/omni_voice`), with a
+feeling; the face thinks while it waits, then feels and says it. Model `OMNI_CHAT_MODEL` (default Claude Haiku 5.5 at
+low effort since Nov 23, for speed; another model such as `claude-opus-5-5` also gets the API's server-side fallback
+on a refusal, which Haiku doesn't have). It needs the PC's Anthropic credentials (`ANTHROPIC_API_KEY`
+or `ant auth login`); without them it says its thinking module is offline. Vosk on the robot has no dictation yet.
+
+**Its voice brain is a Claude Code session (Nov 23, Fernando: "session kept open; route all unknown things to Claude
+even if it's slow"; the default, `OMNI_VOICE_BRAIN=claude_code`).** Anything after its name that isn't a command (one
+word or many) goes to the voice service, which drops it in the voice desk (`ros/tools/omni_mcp/voice_desk.py`). A
+Claude Code session left open on the PC (double-click `ros/tools/voice_brain.cmd`; it uses the Claude subscription's
+login, no API key) follows the desk with its Monitor, acts through `omni_mcp server.py --voice` (the toolkit, skills,
+propose-plan, save-a-skill, reminders) and answers with `robot_voice_reply`. An answer within ~10 s is the voice's own
+reply; otherwise the robot says "One moment." and speaks the answer through the console when it comes. The "go" check
+is enforced in that MCP server, per heard sentence; it holds the AI lease only while acting. Without the session
+running the robot says so. Slower than the API brain below (Claude Code's turns), and it counts against the
+subscription's usage limits. Its instructions: `omni_mcp/voice_brain_prompt.md`.
+
+**The API voice brain (Nov 23; `brain.py`; `OMNI_VOICE_BRAIN=api`, needs an API key; `chat` goes back to talk-only
+`chat.py`).** The same design without Claude Code. Claude Haiku 5.5 (`OMNI_BRAIN_MODEL`) runs a tool loop
+over the robot's toolkit (`ros/tools/omni_mcp/toolkit.py`: the same table Claude Code gets through MCP) and its skills
+(`omni_mcp/skillbox.py`: ready routines such as come to me, look at me, take a picture, dance in the kitchen, is anyone
+in the office, where's the red block, show me around, watch the door, celebrate, wave / nod; one tool each). It holds
+an AI lease only while it acts (session `voice-…`), so the console's rules apply as to any AI client: speed caps,
+collision monitor, one task at a time, a person always wins ("Omni, stop" ends its task and the request).
+- **One ready action starts at once** (it says a few words, then reports the evidence when done). **More than one
+  motion, a several-step move, or a new skill's first run waits for "go"** (code-enforced: the brain refuses the call
+  until `propose_plan` came back confirmed). It says the plan; for 35 s a bare "go" / "yes" or "no" (no name needed)
+  goes to it (`commands.confirmation`, the face node's pending window; the plan's line carries `pending`).
+- **Nothing fits but it's feasible:** it says "Let me work that out", Claude Opus 5.5 (`omni_mcp/inventor.py`) writes a
+  new skill, which is checked and dry-run before it is saved (`~/.local/share/omni_voice/skills`), then it says what
+  the skill will do and waits for "go". Invented skills are listed at `http://127.0.0.1:9884/skills/page` (keep,
+  rename, delete).
+- **Remind me in N minutes** says the line later (not kept over a service restart). "Me" is the nearest person the
+  robot sees (no voice direction or recognition yet). Under "chat only" it is offered no motion.
+- **What the person hears:** the voice service answers as soon as there is something to say (the answer, the plan,
+  "Let me work that out", or "On it" as a task starts); the request then runs on, and its last line comes through the
+  console's say verb with the feeling the model reports. Something said while it works gets a talk-only answer.
+- Needs `websockets` in the voice venv (`requirements-voice.txt`). Tests: `test_brain.py` in the voice venv (a
+  scripted model on the console's real core). Not yet run with a real model (no API key on the PC yet, todo.md).
+
+**Its character** (`moments.py`, Nov 5: "more real, funny, cool, not so hardcoded, like TARS or EVE"; Nov 21:
+`CHARACTER.md` is the bible, `lines.py` the feelings' lines): a capable
 machine with a dry sense of humour. It says little and means it, understated, honest about being a robot, never mean,
 now and then warm. Every line set has plain lines and wry ones (`moments.Lines`); the **Humor** setting (0-100 %,
 default 75; the Face tab, or "Omni, humor sixty percent", "Omni, what's your humor setting") is the chance of a wry
@@ -100,7 +177,9 @@ dance, what's your battery, what's your name, how are you, what time is it, hell
 sixty percent (sets the console's Humor, 0-100), what's your humor setting. The
 console's commands go through `/console/command` as if clicked (the console's checks and the MCU's interlocks
 apply); "chat only" refuses the ones that drive, stop always works. While it is speaking only "stop" is taken. The
-Face tab can type a command as if heard (`/face/hear`), and lists what it heard.
+Face tab can type a command as if heard (`/face/hear`), and lists what it heard. A phrase inside a longer sentence
+counts only when the sentence is at most two words longer ("stop" anywhere): "go dance in the kitchen" is a request
+for the voice brain, not the face's dance; "come to me" / "go over there" are not places.
 
 Tests: `python -m pytest -q ros/src/omni_face/test` (on Windows it also synthesizes "Hey omni, follow me" and
 recognizes it with the sim's recognizer).

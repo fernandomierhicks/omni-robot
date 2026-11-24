@@ -38,7 +38,14 @@ export function FaceTab() {
             microphone (Windows' recognizer, the mic icon on the face window; <kbd>L</kbd> there switches it off).</li>
           <li><b>Humor</b> is how often it picks the dry, funny version of a line over the plain one (0: strictly
             business, no jokes). "Omni, humor sixty percent" sets it too. <b>Voice</b> is who it sounds like:
-            deadpan (low and dry), bright (light and clean) or cute (the earlier one).</li>
+            deadpan (low and dry), bright (light and clean) or cute (the earlier one); the others are made on the
+            main PC with each line's feeling.</li>
+          <li><b>Emotion</b>: it feels what happens to it (praise, a pick that works, a grab that slips, a push, a
+            flat battery) and shows it. Each channel is a 0-10 dial: <b>Talk</b>, <b>Chirps and sounds</b>,
+            <b>Face motion</b>, <b>Wheel gestures</b> (only resting in Drive, nobody at the stick) and <b>Arm
+            gestures</b> (only with the arm free). 0 turns a channel off, 5 is as designed. <b>Mood sets driving
+            pace</b> off keeps navigation exactly as set. A sentence after its name that isn't a command
+            ("Omni, what do you think of cats?") is answered by its chat.</li>
         </ul>
       <//>
       <h3>Say</h3>

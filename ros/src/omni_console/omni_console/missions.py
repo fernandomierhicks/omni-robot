@@ -81,6 +81,7 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     Setting,
     TILT_RANGE,
     TRICKS,
+    FEELINGS,
     VERB_FEATURE,
     VERBS,
     VERSION,
@@ -188,6 +189,9 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         self.act = None                    # the running activity record
         self.who = "console"               # who sent the command being handled: console | voice | ai | ...
         self.last_level = "info"           # the last event's level: how a task that ended by itself went
+        # its feelings (omni_face /face/affect) and the wheel gesture playing (gestures.Playing), its last start
+        self.affect, self.t_affect = None, -math.inf
+        self.gesture, self.t_gesture = None, -math.inf
 
     def set_map(self, name, places: dict | None, routes: dict | None, zones: dict | None = None,
                 edges: dict | None = None, rooms: dict | None = None):
@@ -482,6 +486,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                 return Reply(True, f"Marked '{a['item']}' done", self.health.report(1, math.inf))
             if verb == "say":
                 return self._say(a)
+            if verb == "express":
+                return self._express(a)
             if verb == "hear":
                 text = str(a.get("text", "")).strip()[:SAY_MAX]
                 if not text:
@@ -544,13 +550,87 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         trick = a.get("act")
         if trick is not None and trick not in TRICKS:
             return Reply(False, f"trick: one of {', '.join(TRICKS)}")
-        if not text and trick is None:
+        feel = a.get("feel")                       # a feeling to feel now (omni_face: face, sounds, the body if free)
+        if feel is not None and feel not in FEELINGS:
+            return Reply(False, f"feel: one of {', '.join(FEELINGS)}")
+        if not text and trick is None and feel is None:
             return Reply(False, "Type something for the robot to say")
         mood, act = EXPRESSIONS[expr]
-        req = dict(text=text, mood=mood, act=trick or act)
+        req = dict(text=text, mood=None if feel and expr == "auto" else mood, act=trick or act)
+        if feel:
+            req.update(feel=feel, intensity=max(0.0, min(1.0, float(a.get("intensity", 0.6)))))
         if text:
             self.event("info", f"Robot says: {text}")
-        return Reply(True, f"Saying: {text}" if text else f"Trick: {trick}", None, (("face", req),))
+        return Reply(True, f"Saying: {text}" if text else f"Trick: {trick}" if trick else f"Feeling {feel}", None,
+                     (("face", req),))
+
+    # -- its feelings in the body (omni_face expression.py; gestures.py, omni_arm gestures.py) --------------------
+    def on_affect(self, d: dict, now: float):
+        """omni_face's /face/affect: what it feels (its emotion, and the pace its mood allows: affect.tempo)."""
+        if isinstance(d, dict):
+            self.affect, self.t_affect = d, now
+
+    def tempo(self) -> float:
+        """The pace its own driving takes from its mood (0.85-1.0), 1.0 unless emotion and emotion.nav are on (the
+        switch that keeps navigation exactly as set)."""
+        v = self.values
+        if not (v["emotion.on"] and v["emotion.nav"]) or self.affect is None or self.now - self.t_affect > 5.0:
+            return 1.0
+        try:
+            return max(0.85, min(1.0, float(self.affect.get("tempo", 1.0))))
+        except (TypeError, ValueError):
+            return 1.0
+
+    def base_free(self, now: float) -> str:
+        """"" if a wheel gesture may play now, else why not: only resting in MANUAL with nobody at the stick for 2 s,
+        no fault, no AI task, not the RC's manual switch."""
+        if self.mission != "MANUAL":
+            return "the base is busy" if self.mission != "IDLE" else "the motors are off"
+        if self.manual_in is not None or now - self.t_manual < 2.0:
+            return "someone is driving"
+        if (self.mcu or {}).get("faults"):
+            return "a fault"
+        if self.rc_manual:
+            return "the RC has it"
+        if self.ai_book.running() is not None:
+            return "an AI task runs"
+        return ""
+
+    def _express(self, a: dict) -> Reply:
+        """omni_face asks the body to show a feeling: {emotion, intensity, base: gesture or None, arm: gesture or
+        None}. Each part plays only if its level allows (emotion.base / emotion.arm > 0) and that part of the robot is
+        free; never during a task. The size is the level / 10 times the moment's intensity."""
+        from omni_console.gestures import GAP, GESTURES, Playing, size_for
+        v = self.values
+        if not v["emotion.on"]:
+            return Reply(False, "Emotion is off")
+        k = max(0.0, min(1.0, float(a.get("intensity", 0.5))))
+        done, why = [], []
+        fx = ()
+        base, arm = a.get("base"), a.get("arm")
+        if base:
+            no = ("not a gesture" if base not in GESTURES else "wheel gestures are off" if v["emotion.base"] < 1
+                  else "one just played" if self.now - self.t_gesture < GAP else self.base_free(self.now))
+            if no:
+                why.append(f"wheels: {no}")
+            else:
+                self.gesture = Playing(base, size_for(v["emotion.base"], k), self.now)
+                self.t_gesture = self.now
+                done.append(f"wheels {base}")
+        if arm:
+            busy = self.mission in ("TIDY", "FETCH", "TOWER", "CALIBRATE")
+            s = self.arm or {}
+            no = ("arm gestures are off" if v["emotion.arm"] < 1 else "the arm isn't connected" if not self._arm_up()
+                  else "the arm is busy" if busy or s.get("tidy_on") or s.get("cal") or s.get("source") not in
+                  ("hold", None) else "")
+            if no:
+                why.append(f"arm: {no}")
+            else:
+                size = max(0.0, min(1.0, v["emotion.arm"] / 10.0)) * (0.6 + 0.4 * k)
+                fx = (("arm", dict(verb="express", gesture=str(arm), size=round(size, 3))),)
+                done.append(f"arm {arm}")
+        msg = (", ".join(done) or "nothing") + (f" ({'; '.join(why)})" if why else "")
+        return Reply(bool(done), f"Feeling {a.get('emotion', '')}: {msg}", None, fx)
 
     # -- the arm (design.md 11) -----------------------------------------------------------------------------------
     def _arm_up(self) -> bool:
@@ -682,6 +762,7 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         facing = self.values["goto.facing"]
         if facing == "spinning" and self.mission == "EXPLORE":
             facing = "forward"
+        speed = speed * self.tempo()                 # its mood's pace (emotion.nav off: exactly as set)
         return "nav_limits", speed, math.radians(turn_deg), facing, math.radians(self.values["goto.spin"])
 
     def _need_nav(self) -> Reply | None:
@@ -911,10 +992,22 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         self.now = now
         self.fx_queue += self._ai_tick(now)
         tw = None
+        if self.gesture is not None and (self.mission != "MANUAL" or self.manual_in is not None or
+                                         self.gesture.done(now) or self.base_free(now) not in ("",)):
+            if self.mission == "MANUAL" and not self.gesture.done(now) and self.manual_in is None:
+                self.zero_until = now + ZERO_TAIL                  # stopped short (a fault): a clean stop
+            self.gesture = None                     # a feeling's gesture ends at any stick, mission, fault or its end
         if self.mission == "MANUAL":
             tw = self.manual_output(now)
+            if tw is None and self.gesture is not None:
+                tw = self.gesture.twist(now)
+                if tw is None:
+                    self.gesture, self.zero_until = None, now + ZERO_TAIL
         elif self.mission == "FOLLOW" and self.follower is not None:
             tw = self.follow_cmd if now - self.t_follow < 0.5 else (0.0, 0.0, 0.0)      # no scan: stop
+            k = self.tempo()
+            if k < 1.0:
+                tw = (tw[0] * k, tw[1] * k, tw[2])
         elif self.mission in FUN_MISSIONS:
             tw = self.fun_twist(now)
         elif self.mission == "PROGRAM" and self.runner is not None:
@@ -1451,7 +1544,9 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                                                                   ball=self.now - self.t_ball < 0.5),
                     fun=None if self.fun is None else {k: v for k, v in self.fun.items()
                                                        if k in ("kind", "phase", "what", "text", "i")},
-                    dance=None if self.dance is None else dict(routine=self.dance.routine, bpm=self.dance.bpm))
+                    dance=None if self.dance is None else dict(routine=self.dance.routine, bpm=self.dance.bpm),
+                    emotion=dict(tempo=round(self.tempo(), 3),
+                                 gesture=None if self.gesture is None else self.gesture.name))
 
     @staticmethod
     def mode_of(mission: str) -> str:

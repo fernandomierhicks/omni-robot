@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import glob
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -56,7 +57,26 @@ PRESETS = {
                    fx="shimmer"),
     "cute": dict(kokoro=(("af_heart", 1.0),), sapi="Zira|Aria|Jenny", pitch=1.12, pace=1.0, fx=""),
 }
-PRESET = os.environ.get("OMNI_VOICE_PRESET", "deadpan")
+# the main PC's voices (Nov 21; voice_server.py, voice_engines.VOICES): a preset with "server" is said there, with the
+# line's feeling; its kokoro / sapi entries are the fallback here when the service doesn't answer
+SERVER_URL = os.environ.get("OMNI_VOICE_SERVER", "http://127.0.0.1:9884")
+for _sid, _fb in (("qwen_natural", "am_michael"), ("qwen_dry", "am_michael"), ("qwen_bright", "af_heart"),
+                  ("qwen_small", "af_heart"), ("cb_bright", "af_heart"), ("cbt_dry", "am_michael"),
+                  ("pocket_alba", "af_heart"), ("kokoro_dry", "am_michael"), ("kokoro_bright", "af_heart"),
+                  ("droid", "am_michael"),
+                  # round 2 (Nov 22): the robotic men, their feelings kept (voice_engines._ROBOT_MEN)
+                  ("ryan_synth_light", "am_michael"), ("ryan_synth", "am_michael"), ("ryan_synth_strong", "am_michael"),
+                  ("ryan_vocoder", "am_michael"), ("ryan_metal", "am_michael"), ("ryan_digital", "am_michael"),
+                  ("aiden_synth", "am_michael"), ("aiden_vocoder", "am_michael"), ("dry_synth", "am_michael"),
+                  ("michael_synth", "am_michael"),
+                  # round 3: Fernando's pick (cbt_dry) with more emotion and a little more robot
+                  ("cbt_robot", "am_michael"), ("cbt_emotion", "am_michael"), ("cbt_vocoder", "am_michael"),
+                  ("cbt_metal", "am_michael"),
+                  # round 4: his new pick cbt_vocoder, eight steps more robotic
+                  *((f"cbt_voc{i}", "am_michael") for i in range(1, 9))):
+    PRESETS[_sid] = dict(server=_sid, kokoro=((_fb, 1.0),), sapi="David|Guy" if _fb.startswith("am") else "Aria|Zira",
+                         pitch=1.0, pace=1.0, fx="")
+PRESET = os.environ.get("OMNI_VOICE_PRESET", "cbt_vocoder")   # Fernando's pick (Nov 23), round 3; fallback: Kokoro
 # a persona's change to the preset's pitch (x) and pace (x)
 STYLES = {"": (1.0, 1.0), "patrol": (0.93, 0.95), "explore": (1.03, 1.05), "tidy": (1.02, 1.04),
           "catch": (1.02, 1.03)}
@@ -161,6 +181,39 @@ class Sapi(Backend):
             self.proc.stdin.write(f"{out}\t{pattern}\t{line}\n")
             self.proc.stdin.flush()
             return self.proc.stdout.readline().strip() == "ok" and out.exists()
+
+
+class Server:
+    """The main PC's voice service (voice_server.py): POST /tts -> a WAV. up() is checked at most every 10 s."""
+
+    def __init__(self, url: str = SERVER_URL):
+        self.url = url.rstrip("/")
+        self.t_check, self.ok, self.voices = -1e9, False, []
+
+    def up(self) -> bool:
+        import time
+        if time.monotonic() - self.t_check > 10.0:
+            self.t_check = time.monotonic()
+            try:
+                with urllib.request.urlopen(self.url + "/health", timeout=1.0) as r:
+                    d = json.loads(r.read())
+                self.ok, self.voices = bool(d.get("ok")), list(d.get("voices") or [])
+            except (OSError, ValueError):
+                self.ok = False
+        return self.ok
+
+    def synth(self, text: str, out: Path, voice: str, emotion: str = "", timeout: float = 90.0) -> bool:
+        req = urllib.request.Request(self.url + "/tts", data=json.dumps(dict(text=text, voice=voice,
+                                                                              emotion=emotion)).encode(),
+                                     headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = r.read()
+        except OSError:
+            self.ok = False
+            return False
+        out.write_bytes(data)
+        return out.exists() and len(data) > 1000
 
 
 def kokoro_files(d: Path = KOKORO_DIR):
@@ -283,10 +336,12 @@ class Voice:
     """speak(text) -> the cached WAV (made now if needed, None if there's no voice). style: a persona (STYLES);
     preset: who it sounds like (PRESETS), changed any time (the console's setting)."""
 
-    def __init__(self, backend: Backend | None = None, pitch: float | None = None, preset: str | None = None):
+    def __init__(self, backend: Backend | None = None, pitch: float | None = None, preset: str | None = None,
+                 server: Server | None = None):
         self.b = backend or choose()
         self.preset = preset if preset in PRESETS else PRESET if PRESET in PRESETS else "deadpan"
         self.pitch = pitch                 # None: the preset's (OMNI_VOICE_PITCH overrides both)
+        self.server = server               # the main PC's voices (a preset with "server"); None: local only
         self.dir = CACHE / self.b.name
         self.dir.mkdir(parents=True, exist_ok=True)
         self.failures = 0
@@ -301,10 +356,24 @@ class Voice:
             return True
         return False
 
-    def wav(self, text: str, style: str = "") -> Path | None:
-        if self.b.name == "none" or not text.strip():
+    def wav(self, text: str, style: str = "", emotion: str = "") -> Path | None:
+        """The line spoken (a cached WAV), with a feeling (emotion: affect.EMOTIONS; the PC's voices voice it, the
+        local ones ignore it)."""
+        if not text.strip():
             return None
         pr = PRESETS[self.preset]
+        if pr.get("server") and self.server is not None and self.server.up():
+            d = CACHE / "server_copy" / pr["server"]
+            d.mkdir(parents=True, exist_ok=True)
+            p = d / (hashlib.sha1(f"{emotion}|{text}".encode()).hexdigest()[:16] + ".wav")
+            if p.exists() and p.stat().st_size > 1000:
+                return p
+            tmp = p.with_suffix(".tmp.wav")
+            if self.server.synth(text, tmp, pr["server"], emotion):
+                os.replace(tmp, p)
+                return p                          # else: said here, by the local fallback below
+        if self.b.name == "none":
+            return None
         sp, sr = STYLES.get(style, STYLES[""])
         base = float(os.environ.get("OMNI_VOICE_PITCH") or self.pitch or pr["pitch"])
         pitch, rate = base * sp, pr["pace"] * sr

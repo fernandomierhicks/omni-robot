@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "omni_voice": {
+      "command": "C:\\Users\\ferna\\.venvs\\omni-mcp\\Scripts\\python.exe",
+      "args": ["ros/tools/omni_mcp/server.py", "--voice"],
+      "env": { "OMNI_HOST": "127.0.0.1", "OMNI_ROSBRIDGE_PORT": "9090", "OMNI_VIDEO_PORT": "8081" }
+    }
+  }
+}

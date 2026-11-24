@@ -1,0 +1,6 @@
+# Chatterbox's own venv: C:\Users\ferna\.venvs\omni-voice-cb (Python 3.11; omni_face voice_cb_worker.py, started by
+# voice_engines.CbWorker). Its pins clash with Qwen3-TTS's, hence the second venv. Install torch first with CUDA:
+#   python -m pip install "setuptools<81" torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+# then: python -m pip install -r requirements-voice-cb.txt
+chatterbox-tts==0.1.7
+soundfile

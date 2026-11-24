@@ -174,7 +174,13 @@ D435_LOOK_BACK = 0.10
 # "Printed-140-2x6-687-v13"); each roller turns on two 687s, so no pin friction (the v10 PLA-on-M3 rollers had
 # roller_pin_mu 0.3). V10 keeps the v10 wheel for reproduction. Only wheel_model="rollers" sees the roller shape
 WHEEL_V13 = dict(wheel="Printed-140-2x6-687-v13", roller_pin_mu=0.0, roller_pin_radius=0.0)
-ARM = dict(ARM_V7, **{**V10, **WHEEL_V13}, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
+# Nov 21 (Fernando weighed three cad/v16 deck quarters with their pods, wheels and motors in: 3 kg, so 1.0 kg a quarter):
+# the unsprung corner re-estimated from the CAD's volumes at the density that weighing gives (~0.46 g/cm^3 printed):
+# the wheel 0.37 kg (printed 0.28, 24 x 687, the 6804, screws; was 0.515), the fork 0.065 and its plungers and 627s 0.05
+# (with the AK40-10's 0.19: 0.675 kg a corner, was 0.92). The robot's total stays the CAD estimate (CAD_ARM_MASS_KG):
+# the ballast takes the difference, so the pods carry ~1 kg more. studies/springs_v16.py
+POD_V16_MASS = dict(wheel_mass=0.37, m_pod=0.065, m_pod_suspension=0.05)
+ARM = dict(ARM_V7, **{**V10, **WHEEL_V13, **POD_V16_MASS}, arm_riser=0.037, camera_head_xz=(ARM_V7["camera_head_xz"][0], ARM_V7["camera_head_xz"][1] + HEAD_LIFT),
            d435_box=True, **D435_RISER)
 # cad/v9/out/ARM_KIT.md (the arm robot's CAD estimate, the SO-101 stowed; v10 keeps v9's base) plus the D435's 72 g
 CAD_ARM_MASS_KG = 9.56 + 0.072

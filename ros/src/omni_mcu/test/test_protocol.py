@@ -62,7 +62,8 @@ def _state_frame(seq=1, t_mcu=1_000_000, **kw):
              v_cmd_x=0.0, v_cmd_y=0.0, w_cmd=0.0, fly_rpm=(0.0, 0.0), fly_target_rpm=0.0, tilt=0.0, tilt_cmd=0.0,
              beams=0, fly_ready=0, fire_seq_done=0, fire_rejected=0, v_bus=24.0, cmd_count=5, rx_errors=0,
              cmd_rejected=3, tick_late=2, tick_max_us=1400, wheel_cmd=(1.0, -2.0, 0.0, 0.5),
-             wheel_vel=(0.9, -1.9, 0.0, 0.4), wheel_cur=(0.35, -1.2, 0.0, 6.5))
+             wheel_vel=(0.9, -1.9, 0.0, 0.4), wheel_cur=(0.35, -1.2, 0.0, 6.5), rc_ok=1, rc_direct=0,
+             rc=(0, 1000, -250, 0, 1000, 0, -1000, 0))
     v.update(kw)
     flat = []
     for x in v.values():
@@ -70,7 +71,7 @@ def _state_frame(seq=1, t_mcu=1_000_000, **kw):
     return P.frame(P.MSG_STATE, seq, P.STATE_FMT.pack(*flat))
 
 
-def test_host_link_decodes_a_state_with_protocol_6_counters_7_wheels_and_9_currents():
+def test_host_link_decodes_a_state_with_protocol_6_counters_7_wheels_9_currents_and_10_rc():
     link = P.HostLink()
     out = link.feed(_state_frame(), 5_000_000_000)
     assert len(out) == 1 and isinstance(out[0], P.State)
@@ -79,6 +80,8 @@ def test_host_link_decodes_a_state_with_protocol_6_counters_7_wheels_and_9_curre
     assert (s.cmd_rejected, s.tick_late, s.tick_max_us) == (3, 2, 1400)
     assert s.wheel_cmd == pytest.approx((1.0, -2.0, 0.0, 0.5)) and s.wheel_vel == pytest.approx((0.9, -1.9, 0.0, 0.4))
     assert s.wheel_cur == pytest.approx((0.35, -1.2, 0.0, 6.5))
+    assert (s.rc_ok, s.rc_direct) == (1, 0)
+    assert s.rc == pytest.approx((0.0, 1.0, -0.25, 0.0, 1.0, 0.0, -1.0, 0.0))
 
 
 def test_stream_decoder_skips_garbage_and_corrupt_frames():

@@ -66,7 +66,7 @@ class Sapi(Listener):
     each phrase; from the default microphone, or from a WAV (then it exits at the file's end)."""
     name = "sapi"
     SCRIPT = r"""
-param([string]$Grammar, [string]$Wav, [int]$Parent = 0)
+param([string]$Grammar, [string]$Wav, [int]$Parent = 0, [int]$Chat = 0)
 Add-Type -AssemblyName System.Speech
 $e = New-Object System.Speech.Recognition.SpeechRecognitionEngine (New-Object System.Globalization.CultureInfo "en-US")
 $g = Get-Content -LiteralPath $Grammar -Encoding UTF8 | ConvertFrom-Json
@@ -78,6 +78,12 @@ $bare = New-Object System.Speech.Recognition.GrammarBuilder; $bare.Append($cmds)
 $all = New-Object System.Speech.Recognition.Choices
 $all.Add($withCmd); $all.Add($alone); $all.Add($bare)
 $e.LoadGrammar((New-Object System.Speech.Recognition.Grammar (New-Object System.Speech.Recognition.GrammarBuilder $all)))
+if ($Chat) {
+  # chat (Nov 21): the name, then anything (dictation), below the commands: "omni, what do you think of cats"
+  $free = New-Object System.Speech.Recognition.GrammarBuilder; $free.Append($wake); $free.AppendDictation()
+  $gf = New-Object System.Speech.Recognition.Grammar $free; $gf.Weight = 0.3; $gf.Priority = -1; $gf.Name = "chat"
+  $e.LoadGrammar($gf)
+}
 if ($Wav) { $e.SetInputToWaveFile($Wav) } else { $e.SetInputToDefaultAudioDevice() }
 [Console]::Out.WriteLine("R"); [Console]::Out.Flush()
 while ($true) {
@@ -107,6 +113,8 @@ while ($true) {
         args = [POWERSHELL, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", str(self.script),
                 "-Grammar", str(self._grammar_file(phrases))] + (["-Wav", str(wav)] if wav else
                                                                  ["-Parent", str(os.getpid())])
+        if not wav and os.environ.get("OMNI_FACE_CHAT", "1") != "0":
+            args += ["-Chat", "1"]                       # the name, then anything: free talk for chat.py
         return subprocess.Popen(args, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                 text=True, encoding="utf-8", creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
 

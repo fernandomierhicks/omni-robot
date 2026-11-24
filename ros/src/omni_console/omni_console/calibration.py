@@ -7,7 +7,7 @@ runs on the robot with a tape measure; each result is saved with its time (calib
   launcher     fire at a list of rpm (Thrower bench mode); you measure each landing    -> rpm correction to the table
   camera_latency  the LED + photodiode test (design.md 7), entered by hand             -> recorded
 
-The driving ones run as the mission CALIBRATE; the robot moves slowly (0.25 m/s, 45 deg/s) and the collision monitor
+The driving ones run as the mission CALIBRATE; the robot moves slowly (0.25 m/s, 45 deg/s) and the lidar guard
 stops it as in any mode. Nothing is applied by itself: the results are numbers to put into the firmware's parameters or
 the launcher table (robot_export.py), after a few repeats agree.
 """

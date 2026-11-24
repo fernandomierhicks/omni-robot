@@ -172,7 +172,8 @@ def state_body(rnd, t_mcu, echo_t1, echo_rx):
          rnd.randint(0, 1), rnd.randint(0, 65535), rnd.randint(0, 9), rnd.uniform(20, 29), rnd.randint(0, 65535),
          rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(0, 9), rnd.randint(900, 2000),   # + protocol 6's counters
          *[rnd.uniform(-10, 10) for _ in range(8)],                                           # + protocol 7's wheels
-         *[rnd.uniform(-7, 7) for _ in range(4)]]                                             # + protocol 9's currents
+         *[rnd.uniform(-7, 7) for _ in range(4)],                                             # + protocol 9's currents
+         rnd.randint(0, 1), rnd.randint(0, 1), *[rnd.randint(-1000, 1000) for _ in range(8)]]  # + protocol 10's RC
     return P.STATE_FMT.pack(*v)
 
 

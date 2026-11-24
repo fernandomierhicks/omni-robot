@@ -90,7 +90,7 @@ def test_catch_game_catches_misses_streaks_and_prompts():
         assert not any(o.value in ("catch", "miss") for o in outs)    # nothing decided yet
         last = dict(toss=n, caught=True, speed=6.0)
         st, outs = b.update(11.0 + 10 * k, cat("aim", n, n, last=last))
-        assert any(o.value == "catch" for o in outs) and st.mood == "happy"
+        assert any(o.value == "catch" for o in outs) and st.mood in ("happy", "excited")    # (excited: emotion on)
     assert moments.STREAK_SAY[3] in says(outs, 2) and st.score["streak"] == 3
     b.update(49.0, cat("flight", n + 1, n, last=last))
     st, outs = b.update(50.0, cat("wait", n + 1, n, last=dict(toss=n + 1, caught=False, predicted=[2.5, 0.0])))
@@ -152,7 +152,7 @@ def test_personas_patrol_is_stern_explore_eager_tidy_cheerful():
     st, _ = b.update(50.0, tidy(0))
     assert st.persona == "tidy" and st.mood == "cheerful" and st.label == "Tidying up"
     st, outs = b.update(60.0, tidy(1))
-    assert "tada" in plays(outs) and says(outs, 1) and st.mood == "happy"
+    assert "tada" in plays(outs) and says(outs, 1) and st.mood in ("happy", "proud")      # (proud: emotion on)
     st, _ = b.update(70.0, status())
     assert st.persona == "" and st.mood == "idle"                      # itself again
     # patrol's antics are its own: scans and looks, no giggles
@@ -336,7 +336,7 @@ def test_the_tidy_says_its_picks_its_misses_and_how_it_ended():
     b.update(0.0, status())
     b.update(1.0, tidy(picked=0, failed=0, skipped=0))
     st, outs = b.update(30.0, tidy(picked=0, failed=1, skipped=0))      # a grab failed
-    assert "miss" in plays(outs) and said_one(T["failed"], says(outs)[0]) and st.mood == "sad"
+    assert "miss" in plays(outs) and said_one(T["failed"], says(outs)[0]) and st.mood in ("sad", "frustrated")
     _, outs = b.update(100.0, tidy(picked=0, failed=1, skipped=1))      # one too big
     assert said_one(T["skipped"], says(outs)[0])
     _, outs = b.update(130.0, tidy(picked=1, failed=1, skipped=1))      # the first one in the bin: always a word
@@ -561,7 +561,8 @@ def test_the_display_draws_every_mood_antic_card_and_the_demo_at_800x480():
             pv.t_act -= 1.0
             pv.draw(s, FaceState(**kw), 1.0, 0.4)
         assert s.get_at((W // 2, 300))[:3] == bg                       # between the eyes and the mouth
-        assert s.get_at((W // 2 - 225, 215))[:3] == eye, name          # the left eye (beside its pupil)
+        got = s.get_at((W // 2 - 225, 215))[:3]                         # the left eye (beside its pupil): its
+        assert all(abs(g - e) <= 14 for g, e in zip(got, eye)), (name, got)   # colour, breathing a little (+-5 %)
     # the eyes sit in the panel's middle: an open idle eye's centre is lit, the space between the eyes is not
     view2 = FaceView()
     view2.draw(s, FaceState(mood="idle", gaze=[0.0, 0.0]), 1.0)

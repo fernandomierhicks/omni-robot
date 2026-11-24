@@ -31,10 +31,9 @@ export function FollowTab() {
         </ol>
         The robot sees legs in its lidar (about 15 cm off the floor), so long skirts and pets confuse it. Furniture
         on the map is ignored. If it loses you for 2 s it stops and waits: step in front of it again.
-        <b>Stop</b> or <kbd>Space</kbd> ends it. With navigation running, its collision monitor still stops it short of
-        walls.
+        <b>Stop</b> or <kbd>Space</kbd> ends it. The lidar guard still stops it short of walls.
       <//>
-      ${st && !st.caps?.collision && html`<${Banner} title="No collision monitor.">Navigation isn't running, so nothing but the firmware's limits stops the robot short of things: follow in an open space.<//>`}
+      ${st && st.guard && st.guard.status !== "clear" && st.guard.status !== "slowing" && html`<${Banner} title="The lidar guard is ${st.guard.status === "off" ? "off" : "blind"}.">${st.guard.status === "off" ? "Obstacle slow-down is off (Drive's settings)" : "No lidar scans"}, so nothing but the firmware's limits stops the robot short of things: follow in an open space.<//>`}
       ${f ? html`<div class="card">
           <div style="font-size: 18px; font-weight: 700; color: var(--white)">${f.mode === "tag" ? "Tag" : "Follow me"}</div>
           <div style="margin: 6px 0">${f.text}</div>

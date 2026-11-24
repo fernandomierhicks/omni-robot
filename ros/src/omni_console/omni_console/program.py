@@ -12,8 +12,8 @@ Moves are closed on the odometry pose (odom frame, from the node at 20 Hz): a P 
 within 2 cm / 1.5 deg, and a time limit per block (a block that can't finish stops the program and says why). Each
 block is measured from where the previous one should have ended (the intended pose), not where it did, so the small
 leftovers don't add up: a square comes back to its start. The MCU
-still applies its own limits (kid profile, ramps), and the node sends these commands through Nav2's collision monitor
-when navigation runs, so a program can't drive into a wall the lidar sees.
+still applies its own limits (kid profile, ramps), and the mode manager's lidar guard shapes these commands, so a
+program can't drive into a wall the lidar sees.
 
 The runner also measures what it drove on the same odometry (measured(): the turn unwrapped, the path length, the
 fastest turn rate) and estimates a program's duration (estimate()): the AI's move reports both

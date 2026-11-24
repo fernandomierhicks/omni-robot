@@ -10,5 +10,6 @@ pytest
 pillow
 imageio
 imageio-ffmpeg
+pupil-apriltags    # the robot's tag detector (omni_calib.detect) on rendered frames: studies/door_open.py
 pygame>=2.6        # v7 house.py: keyboard / gamepad driving
 ziglang            # Windows: builds the firmware SIL library without Visual Studio (firmware/sil/build_sil.py)

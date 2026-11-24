@@ -47,6 +47,9 @@
    13,
    64
   ],
+  "wheel_mass": 0.37,
+  "m_pod": 0.065,
+  "m_pod_suspension": 0.05,
   "d435_box": true,
   "d435_pos": [
    0.1908,

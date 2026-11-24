@@ -14,6 +14,12 @@ namespace fw {
 
 static constexpr uint64_t MS = 1000;
 
+// an RC channel (-1..1) as INFO and STATE carry it: x 1000, rounded
+static int16_t rc_permille(float x) {
+    float v = std::isfinite(x) ? (x < -1.0f ? -1.0f : (x > 1.0f ? 1.0f : x)) : 0.0f;
+    return (int16_t)(v * 1000.0f + (v >= 0.0f ? 0.5f : -0.5f));
+}
+
 Limits Firmware::limits() const {
     const float* p = profile_ == PROFILE_KID ? prm::KID_LIMITS : prm::ADULT_LIMITS;
     return Limits{p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]};
@@ -188,7 +194,10 @@ void Firmware::send_state(const FwHwInputs& in) {
         s.wheel_vel[i] = fb_[i].vel;
         s.wheel_cur[i] = wheel_cur_[i];
     }
-    uint8_t buf[192];
+    s.rc_ok = in.rc_ok ? 1 : 0;                   // protocol 10: the sticks, for the robot computer's guarded driving
+    s.rc_direct = mode_ == MODE_MANUAL ? 1 : 0;
+    for (int i = 0; i < 8; ++i) s.rc[i] = rc_permille(in.rc[i]);
+    uint8_t buf[256];
     size_t n = frame_encode(MSG_STATE, seq_state_++, &s, sizeof(s), buf, sizeof(buf));
     push_tx(buf, n);
 }
@@ -479,11 +488,8 @@ void Firmware::send_info(const FwHwInputs& in) {
     const char* id = FW_BUILD;
     for (size_t i = 0; i < sizeof(b.build) && id[i]; ++i) b.build[i] = id[i];
     b.rc_ok = in.rc_ok ? 1 : 0;
-    b.rc_manual = (in.rc_ok && in.rc[4] > 0.5f) ? 1 : 0;
-    for (int i = 0; i < 8; ++i) {
-        float v = in.rc[i] < -1.0f ? -1.0f : (in.rc[i] > 1.0f ? 1.0f : in.rc[i]);
-        b.rc[i] = (int16_t)(v * 1000.0f + (v >= 0.0f ? 0.5f : -0.5f));
-    }
+    b.rc_manual = (in.rc_ok && in.rc[4] > 0.5f) ? 1 : 0;     // the drive switch (protocol 10: the computer drives)
+    for (int i = 0; i < 8; ++i) b.rc[i] = rc_permille(in.rc[i]);
     for (int i = 0; i < prm::N_WHEELS && i < 4; ++i) {
         b.dm_t_rotor[i] = fb_[i].t_rotor;
         b.dm_t_mos[i] = fb_[i].t_mos;
@@ -569,8 +575,15 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
         fault_stop_ = false;
     if (fault_stop_) faults_ |= F_FAULT_STOP;
 
-    // mode
-    bool manual = in.rc_ok && in.rc[4] > 0.5f;
+    // mode. The RC's drive switch (ch 5) normally drives through the robot computer (protocol 10: STATE carries the
+    // sticks; its lidar guard shapes them and they come back as CMDs). MANUAL, the sticks straight to the base, only
+    // when the computer can't drive (no link, or the fault stop latched) and the switch was turned off and on again
+    // since: never a surprise hand-over at speed. Once in MANUAL it stays until the switch goes off.
+    bool rc_sw = in.rc_ok && in.rc[4] > 0.5f;
+    bool host_can = link_ok && !fault_stop_;
+    if (host_can) rc_rearm_ = false;
+    else if (!rc_sw) rc_rearm_ = true;
+    bool manual = rc_sw && (mode_ == MODE_MANUAL || (!host_can && rc_rearm_));
     bool want_auto = link_ok && cmd_.req_mode == REQ_AUTO && !fault_stop_;
     if (in.estop) {
         if (mode_ != MODE_ESTOP) {

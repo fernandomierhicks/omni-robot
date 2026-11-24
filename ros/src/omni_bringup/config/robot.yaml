@@ -21,6 +21,31 @@ mode_manager:
     twist_topics: ["/cmd_vel/joy", "/cmd_vel/manual", "/cmd_vel"]    # TELEOP's sources (read-only)
     twist_priorities: [100, 90, 50]                                   # the highest fresh one drives
     twist_timeouts: [0.5, 0.5, 0.5]                                   # s each stays fresh
+    # the RC through the robot computer (protocol 10): its sticks from /mcu/state while the drive switch (ch 5) is on
+    rc_priority: 200               # above every twist source: a person at the sticks wins (read-only)
+    rc_timeout: 0.2                # s: the sticks stay fresh this long (/mcu/state at 200 Hz) (live)
+    rc_max_speed: 2.0              # m/s at full stick: the adult profile's cap (the firmware caps it anyway) (live)
+    rc_max_turn: 2.0               # rad/s at full yaw stick (the firmware's own MANUAL used 2.0) (live)
+    rc_deadband: 0.04              # of full travel, each stick (live)
+    rc_expo: 0.0                   # 0 linear .. 1 cubic (live)
+    rc_bypass_channel: 6           # the RC channel holding the guard off while high (1-8, 0 = none) (live)
+    joy_bypass_button: 2           # the flight stick's button (/joy) holding the guard off while pressed (-1 = none) (live)
+    bypass_timeout: 0.3            # s: a true /drive_guard/bypass holds the guard off this long (live)
+    # the drive guard (Nov 23, design.md 2): every TELEOP / PICK twist capped by the lidar, no SLAM or Nav2 needed
+    guard: true                    # on (the console's switch is /drive_guard/enable) (live)
+    guard_radius: 0.24             # m: the robot as a circle, its outermost part (cad/v16's bumper r 0.2325; the
+                                   # sim's stowed arm reaches 0.24 ahead, its body ring 0.225); 0 = the arm config's
+                                   # robot_radius, the deck's 0.217 (read-only)
+    guard_buffer: 0.10             # m: a full-speed stop ends this far short of what the lidar sees (live)
+    guard_decel: 2.5               # m/s^2: the braking the speed law assumes; the firmware brakes at 2.8-4.3 (est) (live)
+    guard_latency: 0.10            # s: a lower limit to the wheels braking: tick, link, jerk ramp, motor (est) (live)
+    guard_touch_speed: 0.05        # m/s: the creep at the buffer, falling to 0 at contact (live)
+    guard_self_margin: 0.01        # m: returns this far inside the rim are the robot itself (live)
+    guard_slide: true              # cut only the part of the motion into an obstacle, glide along it (Nov 24) (live)
+    guard_max_gap: 30.0            # deg: empty scan runs narrower than this filled from their flanks: blind wedges (live)
+    guard_no_scan_speed: 0.3       # m/s: the cap once the scans stop coming (the lidar lost) (live)
+    guard_scan_timeout: 0.5        # s: a scan older than this is lost (live)
+    guard_scan_topic: /scan_filtered   # the de-skewed, floor-filtered scan (read-only)
 
 mcu_link:
   ros__parameters:

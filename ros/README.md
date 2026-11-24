@@ -165,11 +165,24 @@ Foxglove's Parameters panel shows and sets the same. In C++ declare new ones wit
 can only ask under).
 
 **Who drives (TELEOP).** Each source has its own topic and the mode manager takes the highest-priority one that is
-fresh (0.5 s): `/cmd_vel/joy` (100, the joystick), `/cmd_vel/manual` (90: Foxglove's Teleop panel, the console's stick
-when it bypasses Nav2's collision monitor), `/cmd_vel` (50: Nav2's collision monitor; the console's guarded driving
-goes through it). `/cmd_vel/lock` (Bool) true stops TELEOP; `/cmd_vel/active` names the source in charge. Publish to
-the right topic: two writers never share one. With the arm robot a missing or stale `/arm/out` caps the base as if the
-arm were out (`mode_manager` parameter `arm`, true in the arm step).
+fresh (0.5 s): the RC (200: its sticks from `/mcu/state`, protocol 10, while its drive switch, ch 5, is on; it drives
+whatever the mode), `/cmd_vel/joy` (100, the joystick), `/cmd_vel/manual` (90: the console's stick, Foxglove's Teleop
+panel), `/cmd_vel` (50: Nav2's collision monitor). `/cmd_vel/lock` (Bool) true stops TELEOP; `/cmd_vel/active` names
+the source in charge (`rc` for the RC). Publish to the right topic: two writers never share one. With the arm robot a
+missing or stale `/arm/out` caps the base as if the arm were out (`mode_manager` parameter `arm`, true in the arm step).
+
+**The lidar drive guard (Nov 23).** The mode manager caps every TELEOP and PICK twist, whoever sends it, so the base
+can still stop `guard_buffer` (10 cm) short of what the lidar sees, braking at `guard_decel` after `guard_latency`;
+the last centimetres at a creep (`guard_touch_speed`, falling to 0 at contact); driving away is never limited. It
+slides (`guard_slide`, Nov 24): only the part of the motion into the obstacle is cut, so a diagonal push at a wall
+glides along it at the asked speed along it; square on it slows as before. Only
+the lidar and odometry: no SLAM, map or Nav2 (`omni_cpp` `drive_guard.hpp`). Blind wedges of the scan (behind the
+robot's own posts) are filled from their flanks. Off: `/drive_guard/enable` false (latched; the console's "Obstacle
+slow-down"), or the `guard` parameter. Held off for a moment: the RC's channel 6 high, the flight stick's button 3
+(`joy_bypass_button` 2 on `/joy`), `/drive_guard/bypass` true (the console sends it in Goalie). No scans yet: it
+passes (status `no_lidar`); scans stopped: 0.3 m/s. `/drive_guard/state` (JSON, 10 Hz) says which, the limit and the
+free distance. The sim's RC receiver is `/sim/rc` (`sensor_msgs/Joy`, axes = the 8 channels). Results:
+[guard_drive](../simulation/v11%20sil/studies/results/guard_drive/README.md); `tools/guard_drive.py` drives it.
 
 Arguments are `name:=value` after the step:
 

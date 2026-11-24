@@ -41,7 +41,16 @@ the bin (a word for the first and about half of the rest), a grab that failed, o
 
 The screen faces forward (design.md 12.2: the 5 in panel between the cameras; on the arm robot over the bin, also
 forward), so where the eyes look is worked out in the screen's own direction (facing_deg, 0 = forward): a target in
-front of the screen is looked at, one behind it is glanced at from the nearer side.
+front of the screen is looked at, one behind it is glanced at from the nearer side. Driving, the eyes lead the turn
+(they look where it is about to go before the body gets there).
+
+Feelings (Nov 21, affect.py, expression.py): every moment above is also felt (Brain.feel: an event -> an emotion
+that fades into a slow mood), and the feeling shows on every channel at once as far as its level allows (the
+console's Emotion settings, 0-10 each: speech, sounds, face, base, arm; and whether its mood may set the pace of
+its own driving). The face shows the emotion (FaceState.emotion, its strength, valence and arousal: the display's
+eyes blend continuously), each line is spoken with it (Out.emotion: the voice's prosody), and a reaction adds an
+antic, a vocalization or chirp, and a body gesture the console plays only when that part of the robot is free.
+Emotion off: the moods, lines and antics as before, nothing moves for a feeling.
 """
 
 from __future__ import annotations
@@ -52,7 +61,10 @@ import re
 import time as _time
 from dataclasses import dataclass, replace
 
+from omni_face import lines as react_lines
 from omni_face import sounds
+from omni_face.affect import EMOTIONS, SHOW_MIN, Affect, Levels
+from omni_face.expression import Expressor
 
 
 def Lines(plain=(), wry=()) -> dict:
@@ -254,6 +266,10 @@ ANTICS = {
     "sigh": (2.2, "sigh", "sleepy"), "love": (3.0, "aww", "happy"), "dizzy": (3.2, "woozy", None),
     "wheee": (2.2, None, "surprised"), "dance": (5.0, None, "happy"), "listen": (6.0, "listen", "surprised"),
     "think": (1.6, None, "focused"), "quip": (3.0, None, None), "scan": (2.8, "scan", "stern"),
+    # the feelings' antics (expression.REACTIONS): their sound is the reaction's own (a vocalization or chirp)
+    "bounce": (1.4, None, "excited"), "proud": (2.0, None, "proud"), "tilt": (1.8, None, "curious"),
+    "pop": (1.0, None, "surprised"), "startle": (1.3, None, "startled"), "strain": (1.8, None, "effort"),
+    "glance": (1.6, None, "worried"), "huff": (1.4, None, "frustrated"), "droop": (2.2, None, "sad"),
 }
 # which antics fit (weights): resting (idle, parked), sleepy (resting a long time), moving, waiting for a throw. Mostly
 # quiet looks and hums; the cartoon ones (giggles, sneezes, hiccups) are rare (Fernando, Nov 5: "a little annoying")
@@ -335,13 +351,16 @@ DAYPART = ((5, "night"), (12, "morning"), (18, "afternoon"), (22, "evening"), (2
 
 @dataclass
 class Out:
-    kind: str                      # "say" | "sound"
+    kind: str                      # "say" | "sound" | "vocal" (a voiced "whoa!") | "express" (the console: the body)
     value: str
     prio: int = 1
     style: str = ""                # how it's said: the persona (voice.STYLES)
+    emotion: str = ""              # with what feeling (the voice's prosody; "": plainly)
+    gain: float = 1.0              # a sound's loudness (the sounds level)
 
     def as_dict(self) -> dict:
-        return dict(kind=self.kind, value=self.value, prio=self.prio, style=self.style)
+        return dict(kind=self.kind, value=self.value, prio=self.prio, style=self.style, emotion=self.emotion,
+                    gain=self.gain)
 
 
 @dataclass
@@ -364,6 +383,11 @@ class FaceState:
     heard: str = ""                # what it just heard (a voice command), shown for a moment
     listening: bool = False        # it heard its name and waits for a command
     persona: str = ""              # who it is in this mission (PERSONAS: patrol, explore, tidy, catch), "" = itself
+    emotion: str = ""              # what it feels now (affect.EMOTIONS), "" = emotion off
+    strength: float = 0.0          # how much (0-1)
+    valence: float = 0.0           # -1..1 (the display blends the eyes in this plane)
+    arousal: float = 0.0
+    face_level: float = 5.0        # 0-10: how much the eyes and mouth move (the console's emotion.face)
 
     def as_dict(self) -> dict:
         return dict(self.__dict__)
@@ -427,6 +451,98 @@ class Brain:
         self.recent: dict = {}         # line set -> its lines said last (not again until the others have had a turn)
         self.metres, self.last_xy = 0.0, None                # driven this session (odometry)
         self.picked_today = 0          # things put in the bin this session
+        # its feelings (affect.py) and how they show (expression.py); levels: the console's Emotion settings
+        self.affect: Affect | None = None                    # made at the first update (it needs the time)
+        self.levels = Levels()
+        self.sound_style = "mix"       # its reactions' sounds: mix | voice (a voiced "whoa!") | chirps (beeps)
+        self.expr = Expressor(seed + 1)
+        self.emo_now = ""              # the emotion its lines are spoken with this tick
+        self.reflexes = None           # the arm's reflex count (a new one: it was pushed, design.md 4.5)
+        self.happened: list = []       # (t, event) felt lately (chat_context)
+
+    # -- its feelings (affect.py, expression.py) -------------------------------------------------------------------
+    def feel(self, event: str, now: float, outs: list, k: float | None = None, antic: bool = True,
+             line: bool = True, body: bool = True) -> tuple:
+        """Something happened: feel it (affect.APPRAISAL), and let it show on each channel as far as its level allows:
+        an antic (unless one plays, or antic=False: the caller shows its own), a vocalization or chirp, a body gesture
+        request for the console (body=False: not now), and a reaction line (lines.REACT[event], line=False: the
+        caller says its own). -> (emotion, intensity)."""
+        if self.affect is None:
+            self.affect = Affect(now)
+        emo, k = self.affect.feel(event, now, k)
+        self.happened = (self.happened + [(now, event)])[-8:]          # for chat.py: what just happened
+        if not self.levels.on or emo not in EMOTIONS:
+            return emo, k
+        name, extra = self.expr.react(emo, k, now, self.levels, self.sound_style, body_ok=body)
+        if name and antic and name in ANTICS and (self.act is None or self.act[0] in ("look", "think", "smile")):
+            self.start_act(now, name, outs)
+        for d in extra:
+            gain = self._gain() if d["kind"] == "sound" else 1.0
+            outs.append(Out(d["kind"], d["value"], d.get("prio", 1), self.persona.get("name", ""),
+                            d.get("emotion", emo), gain))
+        if line and event in react_lines.REACT:
+            s = self.choose(f"react.{event}", react_lines.REACT[event])
+            if s:
+                self._say(outs, s, 1, key=f"react.{event}", now=now, every=20.0, emotion=emo)
+        return emo, k
+
+    # -- chat (chat.py on the PC, through the face node and the display) ------------------------------------------
+    def chat_context(self, now: float) -> dict:
+        """What is true now, for the chat's model: its feeling, mission, battery, the time, today's counts, and what
+        happened in the last 10 minutes."""
+        st = self.last_status or {}
+        mcu = st.get("mcu") or {}
+        t = _time.localtime()
+        f = self.facts()
+        recent = [e.replace("_", " ") for tt, e in self.happened if now - tt < 600.0
+                  and e not in ("hello", "asked", "heard_name")]
+        emo = self.affect.emotion(now) if self.affect is not None else ("neutral", 0.0)
+        return dict(feeling=f"{emo[0]} ({emo[1]:.1f})", mission=MISSION_LABEL.get(st.get("mission") or "IDLE", ""),
+                    battery=None if mcu.get("battery_pct") is None else round(mcu["battery_pct"]),
+                    time=f"{t.tm_hour}:{t.tm_min:02d} ({f['daypart']})", picked_today=self.picked_today or None,
+                    metres=f["metres"], recent=recent[-5:])
+
+    def thinking(self, now: float):
+        """It was asked something and waits for the chat: a thinking look (dots) until the answer comes."""
+        self.start_act(now, "think", self.queued, 6.0, asked=True)
+
+    def chat_reply(self, now: float, d: dict):
+        """The chat's answer: felt (its emotion and intensity, as anything else it feels), then said with it."""
+        if self.act is not None and self.act[0] == "think":
+            self.act = None
+        text = str(d.get("say") or "").strip()
+        emo = d.get("emotion") if d.get("emotion") in EMOTIONS else None
+        if emo and self.levels.on:
+            try:
+                k = max(0.0, min(1.0, float(d.get("intensity", 0.5))))
+            except (TypeError, ValueError):
+                k = 0.5
+            self.feel(emo, now, self.queued, k=k, line=False)
+        if text:
+            self._say(self.queued, text, 2, now=now, answer=True, emotion=emo if self.levels.on else "")
+
+    def _gain(self) -> float:
+        """A sound's loudness from the sounds level: quieter below the design's 5."""
+        return round(min(1.0, 0.5 + 0.1 * self.levels.level("sounds")), 2) if self.levels.on else 1.0
+
+    def _sound(self, outs, name: str, prio: int = 1, asked: bool = False):
+        """Play a sound if the sounds level lets it (alerts at priority 3 and sounds someone asked for always do)."""
+        if prio >= 3 or asked or not self.levels.on:
+            outs.append(Out("sound", name, prio))
+            return
+        p = min(1.0, self.levels.often("sounds"))
+        if p <= 0.0 or (p < 1.0 and self.rng.random() >= p):
+            return
+        outs.append(Out("sound", name, prio, gain=self._gain()))
+
+    def _speech_ok(self, prio: int) -> bool:
+        """Whether a line of this priority is said at the speech level (5: all, as designed; 0: only faults and
+        answers). Chatter (1) thins out faster than the game's and the missions' results (2)."""
+        if prio >= 3 or not self.levels.on:
+            return True
+        lvl = self.levels.level("speech")
+        p = min(1.0, lvl / 3.0) if prio == 2 else min(1.0, (lvl / 5.0) ** 1.5)
+        return p > 0.0 and (p >= 1.0 or self.rng.random() < p)
 
     # -- choosing what to say (its character: Lines, the humor setting) --------------------------------------------
     def facts(self) -> dict:
@@ -461,29 +577,40 @@ class Brain:
     def pick(self, key: str) -> str:
         return self.choose(key, SAY[key]) or all_lines(SAY[key])[0]
 
-    def _say(self, outs, text, prio, key=None, now=None, every=0.0):
-        """Say text, at most once per `every` s for its key."""
+    def _say(self, outs, text, prio, key=None, now=None, every=0.0, answer=False, emotion=None):
+        """Say text, at most once per `every` s for its key, if the speech level lets it (answer: it was asked, so
+        it always answers). emotion: how it's said (default: what it feels now; faults plainly)."""
         if not text:
             return
         k = key or text
         if every and now is not None and now - self.last_said.get(k, -1e9) < every:
             return
+        if not answer and not self._speech_ok(prio):
+            return
         if now is not None:
             self.last_said[k] = now
             self.t_said = now
-        outs.append(Out("say", text, prio, "" if prio >= 3 else self.persona.get("name", "")))   # faults: plainly
+        emo = "" if prio >= 3 else (emotion if emotion is not None else self.emo_now)
+        outs.append(Out("say", text, prio, "" if prio >= 3 else self.persona.get("name", ""), emo))   # faults: plainly
 
     def update(self, now: float, status: dict | None, pose=None, events=(), say=(), vel=None) -> tuple:
         """-> (FaceState, [Out]). pose: the robot's (x, y, yaw) in odom (where the ball's track is); vel: its body
         twist (vx, vy, wz) (the driving antics). say: plain text (chatter), or dicts {text, mood, act} (the
         operator's Say box: said at game priority, the face showing that mood or antic while it speaks)."""
         c, outs, st = self.c, [], FaceState()
+        if self.affect is None:
+            self.affect = Affect(now)
+        self.affect.tick(now)
+        self.emo_now = self.affect.emotion(now)[0] if self.levels.on else ""
         for req in say:
             self._say_request(now, req, outs)
         outs += self.queued
         self.queued = []
         for t, o in [x for x in self.later if x[0] <= now]:
-            outs.append(o)
+            if o.kind == "sound" and o.prio < 3:
+                self._sound(outs, o.value, o.prio)               # a nap's snores: as the sounds level lets them
+            elif o.kind != "say" or self._speech_ok(o.prio):
+                outs.append(o)
         self.later = [x for x in self.later if x[0] > now]
         for ev in events:
             if ev.get("level") in ("warn", "error") and ev.get("text"):
@@ -500,9 +627,11 @@ class Brain:
             self.last_xy = pose[:2]
         if not self.hello_said:
             self.hello_said = True
-            outs.append(Out("sound", "hello", 1))
+            self._sound(outs, "hello", 1)
+            self.feel("hello", now, outs, antic=False, line=False, body=False)
             self._say(outs, self.choose("hello", HELLO), 1)
         mcu = status.get("mcu") or {}
+        self.affect.battery(mcu.get("battery_pct"))
         st.kid = mcu.get("profile") == "kid"
         st.battery, st.battery_low = mcu.get("battery_pct"), bool(mcu.get("battery_low"))
         mission = status.get("mission") or "IDLE"
@@ -520,6 +649,7 @@ class Brain:
                 title, words = FAULT_WORDS.get(n, (n.replace("_", " ").title(), f"I have a problem: {n}."))
                 outs.append(Out("sound", "alert" if FAULT_LEVEL.get(n) == "error" else "warn", 3))
                 self._say(outs, words, 3)
+                self.affect.feel("fault", now)              # felt, not performed: the card and the alert say it
         self.faults_seen = set(shown)
         silent = bool(mcu) and (mcu.get("age") or 0) > 1.5
         if silent and not self.mcu_was_silent:
@@ -536,6 +666,7 @@ class Brain:
                            hint=hints.get(worst, ""))
         if st.battery_low and not self.batt_said:
             self.batt_said = True
+            self.feel("battery_low", now, outs, line=False, body=False)
             if "LOW_BATT" not in shown:
                 self._say(outs, self.pick("batt_low"), 2)
         if not st.battery_low:
@@ -545,10 +676,20 @@ class Brain:
         loc = status.get("localization") or {}
         level = loc.get("level")
         if level == "LOST" and self.loc_level != "LOST":
+            self.feel("lost", now, outs, line=False, body=False)
             self._say(outs, self.pick("lost"), 2)
         elif level in ("OK", "DEGRADED") and self.loc_level == "LOST":
+            self.feel("found", now, outs, line=False)
             self._say(outs, self.pick("found"), 1)
         self.loc_level = level
+
+        # -- the arm: its reflex fired (something pushed it: design.md 4.5) ------------------------------------------
+        arm = status.get("arm") or {}
+        rx = arm.get("reflexes")
+        if isinstance(rx, (int, float)):
+            if self.reflexes is not None and rx > self.reflexes:
+                self.feel("strain", now, outs, body=False)          # startled; the arm itself already backed off
+            self.reflexes = rx
 
         # -- the mission ----------------------------------------------------------------------------------------------
         st.persona = self.persona.get("name", "")
@@ -559,6 +700,8 @@ class Brain:
                 self.persona = now_persona
             if self.mission is not None and mission in MISSION_HELLO and now >= self.hush_until:
                 self._say(outs, self.choose(f"hello.{mission}", MISSION_HELLO[mission]), 1)
+            if self.mission is not None and mission not in ("IDLE", "MANUAL"):
+                self.feel("mission_start", now, outs, line=False, body=False)    # focused: the task has the body
             self.mission = mission
             self.t_ready, self.ready_n = now, 0
             self._reset_progress()
@@ -583,14 +726,29 @@ class Brain:
             st.prompt = (status.get("follow") or {}).get("text", "")[:40]
 
         # -- mood ------------------------------------------------------------------------------------------------------
+        emo, strength = self.affect.emotion(now)
+        fresh = self.levels.on and self.affect.strength(now) >= SHOW_MIN and \
+            not (self.persona.get("look") and emo in ("focused", "content", "neutral"))   # mild: the persona's look stays
         if self.moment and now < self.moment[1]:
             st.mood = self.moment[0]
         elif st.card is not None:
             st.mood = "alert" if st.card["level"] == "error" else "worried"
         elif level == "LOST":
             st.mood = "worried"
+        elif fresh and not (cat and cat.get("state") == "flight"):
+            st.mood = emo                                  # a feeling that just happened shows over the persona
         elif st.mood == "idle" and now - self.t_active > c.sleepy_after:
             st.mood = "sleepy"
+        elif self.levels.on and st.mood == "idle" and emo in ("happy", "excited", "tired", "bored", "worried", "sad"):
+            st.mood = emo                                  # its mood shows when nothing else does
+        if self.levels.on:
+            st.emotion, st.strength = emo, round(strength, 2)
+            st.valence, st.arousal = round(self.affect.v, 2), round(self.affect.a, 2)
+            st.face_level = self.levels.level("face")
+            if st.gaze is None and vel is not None:        # driving: the eyes lead the turn, toward where it goes
+                gx = max(-1.0, min(1.0, vel[2] / 1.6 + vel[1] / 0.5))
+                if abs(gx) > 0.12:
+                    st.gaze = [round(gx, 3), 0.05]
         if self.toast[1] > now:
             st.toast = self.toast[0]
         self._antics(now, status, st, vel, outs)
@@ -640,8 +798,10 @@ class Brain:
             i, n, lap = p.get("i"), p.get("n"), p.get("lap")
             if lap is not None and self.lap is not None and lap > self.lap:
                 self._line(o, "PATROL", "lap", now, every=30.0, lap=self.lap)       # (laps count from 1)
+                self.feel("checkpoint", now, outs, line=False, body=False)
             elif i is not None and self.patrol_i is not None and i != self.patrol_i:
                 self._line(o, "PATROL", "point", now, every=40.0, i=self.patrol_i + 1, n=n)
+                self.feel("checkpoint", now, outs, line=False, body=False)
             self.patrol_i = i if i is not None else self.patrol_i
             self.lap = lap if lap is not None else self.lap
         elif mission == "EXPLORE":
@@ -651,6 +811,7 @@ class Brain:
                 self.m2, step = m2, int(m2 // 25)
                 if self.m2_step is not None and step > self.m2_step:
                     self._line(o, "EXPLORE", "mapped", now, every=45.0, m2=step * 25)
+                    self.feel("mapped", now, outs, line=False, body=False)
                 self.m2_step = step if self.m2_step is None else max(step, self.m2_step)
             if e.get("phase") == "home" and self.explore_phase not in (None, "home"):
                 self._line(o, "EXPLORE", "home", now, 2, m2=round(self.m2) if self.m2 else None)
@@ -663,10 +824,15 @@ class Brain:
                           "tagged": "tagged", "count": "count"}.get(ph)
                 if moment:
                     self._line(o, "FOLLOW", moment, now, 2 if moment == "lost" else 1, every=6.0)
+                    ev = {"found": "person_found", "lost": "person_lost", "tagged": "caught"}.get(moment)
+                    if ev:
+                        self.feel(ev, now, outs, line=False, body=False)
             self.follow_phase = ph or was
             far = ph == "follow" and person and person[0] > 2.6
             self.far_since = (self.far_since or now) if far else None
             if far and now - self.far_since > 1.5:
+                if now - self.last_said.get("FOLLOW.far", -1e9) >= 25.0:
+                    self.feel("outrun", now, outs, line=False, body=False)
                 self._line(o, "FOLLOW", "far", now, every=25.0)
         elif mission == "PROGRAM":
             pr = status.get("program") or {}
@@ -679,16 +845,22 @@ class Brain:
             picked, failed, skipped = t.get("picked"), t.get("failed"), t.get("skipped")
             if picked is not None and self.picked is not None and picked > self.picked:
                 self.picked_today += picked - self.picked
-                outs.append(Out("sound", "tada", 2))
-                if picked == 1 or self.rng.random() < 0.5:          # a word for the first, about half of the rest
+                self._sound(outs, "tada", 2)
+                share = 0.5 * (self.levels.often("speech") if self.levels.on else 1.0)
+                if picked == 1 or self.rng.random() < share:      # a word for the first, about half of the rest
                     self._line(o, "TIDY", "picked", now, every=20.0, picked=picked)
-                self.moment = ("happy", now + self.c.mood_s)
+                emo, _ = self.feel("picked", now, outs, line=False, body=False)   # the arm is the task's: face + voice
+                if not self.levels.on:
+                    self.moment = ("happy", now + self.c.mood_s)
             elif failed is not None and self.tidy_failed is not None and failed > self.tidy_failed:
-                outs.append(Out("sound", "miss", 2))
+                self._sound(outs, "miss", 2)
                 self._line(o, "TIDY", "failed", now, every=30.0)
-                self.moment = ("sad", now + self.c.mood_s)
+                self.feel("grab_failed", now, outs, line=False, body=False)
+                if not self.levels.on:
+                    self.moment = ("sad", now + self.c.mood_s)
             elif skipped is not None and self.tidy_skipped is not None and skipped > self.tidy_skipped:
                 self._line(o, "TIDY", "skipped", now, every=60.0)
+                self.feel("too_big", now, outs, line=False, body=False)
             self.picked = picked if picked is not None else self.picked
             self.tidy_failed = failed if failed is not None else self.tidy_failed
             self.tidy_skipped = skipped if skipped is not None else self.tidy_skipped
@@ -698,7 +870,7 @@ class Brain:
         if mission == "GOTO":
             moment = "arrived" if task.startswith("Arrived") else "failed" if task.startswith("Could not reach") else None
             if moment:
-                outs.append(Out("sound", "tada" if moment == "arrived" else "miss", 2))
+                self._sound(outs, "tada" if moment == "arrived" else "miss", 2)
         elif mission == "PATROL":
             moment = "done" if task.endswith("finished") else "stopped" if task.startswith("Patrol stopped") else None
         elif mission == "EXPLORE":
@@ -716,29 +888,47 @@ class Brain:
         else:
             moment = None
         if moment:
+            # the task is over: the body is free again, so the feeling may show there too (the console checks)
+            ev = {"arrived": "arrived", "failed": "nav_failed", "stopped": "nav_failed", "empty": "tidy_empty",
+                  "done_missed": "tidy_done" if (self.picked or 0) > (self.tidy_failed or 0) else "arrived",
+                  "done": "tidy_done" if mission == "TIDY" else "arrived"}.get(moment)
+            if ev:
+                self.feel(ev, now, outs, line=False)
             self._line(outs, mission, moment, now, 2, place=self.goal_name, picked=self.picked,
                        failed=self.tidy_failed or None, m2=round(self.m2) if self.m2 else None)
-            if moment in ("arrived", "done", "done_missed"):
+            if moment in ("arrived", "done", "done_missed") and not self.levels.on:
                 self.moment = ("happy", now + self.c.mood_s)
 
     # -- the operator's Say box (/face/say) --------------------------------------------------------------------
     def _say_request(self, now, req, outs):
         if not isinstance(req, dict):
-            self._say(outs, str(req), 1, now=now)
+            self._say(outs, str(req), 1, now=now, answer=True)          # someone asked it to say this
             return
         text = str(req.get("text") or "").strip()[:300]
         mood, act = req.get("mood"), req.get("act")
+        emo = str(req.get("emotion") or "") or {"happy": "happy", "surprised": "excited", "sad": "sad",
+                                                "worried": "worried", "sleepy": "tired",
+                                                "focused": "focused"}.get(str(mood or ""), None)
+        feel = req.get("feel")
+        if feel in EMOTIONS:                               # asked to feel (an AI's robot_express, the console's say)
+            try:
+                k = max(0.0, min(1.0, float(req.get("intensity", 0.6))))
+            except (TypeError, ValueError):
+                k = 0.6
+            emo, _ = self.feel(feel, now, outs, k=k, antic=act not in ANTICS, line=False)
         if text:
-            self._say(outs, text, 2, now=now)
+            self._say(outs, text, 2, now=now, answer=True, emotion=emo)
         dur = 0.6 + 0.07 * len(text)                       # about how long it takes to say (SAPI / Piper ~15 chars/s)
         if act in ANTICS:
-            self.start_act(now, act, outs, max(dur, ANTICS[act][0]) if text and act not in ("sing", "dance") else None)
+            self.start_act(now, act, outs, max(dur, ANTICS[act][0]) if text and act not in ("sing", "dance") else None,
+                           asked=True)
         if mood:
             self.moment = (str(mood), now + max(dur, 2.0))
 
     # -- antics ---------------------------------------------------------------------------------------------------
-    def start_act(self, now, name, outs, seconds=None):
-        """Start an antic now: its sound (a song picked for sing / dance), its later sounds and words."""
+    def start_act(self, now, name, outs, seconds=None, asked=False):
+        """Start an antic now: its sound (a song picked for sing / dance), its later sounds and words. asked: someone
+        asked for it (a trick, a voice command): its sound plays whatever the sounds level."""
         dur, snd, _ = ANTICS[name]
         dur = seconds or dur
         self.n_act += 1
@@ -747,7 +937,7 @@ class Brain:
             dur = max(dur, sounds.song_seconds(snd) + 0.6)
         self.act = (name, now, dur, self.n_act)
         if snd:
-            outs.append(Out("sound", snd, 1))
+            self._sound(outs, snd, 1, asked=asked)
         if name == "nap":
             self.later += [(now + 1.5, Out("sound", "snore", 1)), (now + 4.5, Out("sound", "snore", 1))]
             if self.rng.random() < 0.5:
@@ -765,9 +955,12 @@ class Brain:
         elif name == "yawn" and self.rng.random() < 0.3:
             self.later.append((now + 2.0, Out("say", self.pick("yawn"), 1)))
         elif name == "wheee":
+            self.feel("fast", now, outs, antic=False, line=False, body=False)
             self._say(outs, self.pick("wheee"), 1, now=now)
         elif name == "dizzy":
-            self.later.append((now + 1.0, Out("say", self.pick("dizzy"), 1)))
+            self.feel("dizzy", now, outs, antic=False, line=False, body=False)
+            if self._speech_ok(1):
+                self.later.append((now + 1.0, Out("say", self.pick("dizzy"), 1, emotion="surprised")))
 
     def _antics(self, now, status, st, vel, outs):
         """Pick an antic now and then, react to the driving, and show the current one on the face."""
@@ -816,14 +1009,17 @@ class Brain:
                 self.act[0] not in ("wheee", "dizzy", "listen") and now - self.act[1] > 0.5:
             self.act = None                                       # no napping at the wheel: it wakes as it moves
             self.later = [x for x in self.later if x[1].prio > 1]
-        if every is None or busy or hushed or self.act is not None or mix is None or now - self.t_said < 4.0:
+        still = self.levels.on and self.levels.level("face") < 1          # face level 0: no antics of its own
+        if every is None or busy or hushed or still or self.act is not None or mix is None or now - self.t_said < 4.0:
             if every is not None and self.t_next_antic is not None and now > self.t_next_antic:
                 self.t_next_antic = now + 3.0                     # not now: try again in a moment
         elif now >= self.t_next_antic:
             names, w = zip(*ANTIC_MIX[mix].items())
             name = self.rng.choices(names, w)[0]
-            if name == "quip" and (now - self.last_said.get("quip", -1e9) < c.quip_every or
-                                   self.rng.random() * 100 >= c.humor):
+            quip_every = c.quip_every / max(0.2, self.levels.often("speech")) if self.levels.on else c.quip_every
+            if name == "quip" and (now - self.last_said.get("quip", -1e9) < quip_every or
+                                   self.rng.random() * 100 >= c.humor or
+                                   (self.levels.on and self.levels.level("speech") < 1)):
                 name = "smile"                                    # it talks little (and less, less funny): a smile
             self.start_act(now, name, outs)
             self.t_next_antic = now + self.rng.uniform(*every)
@@ -839,7 +1035,8 @@ class Brain:
         """It heard its name alone: listen for a command for a few seconds."""
         from omni_face.commands import LISTEN_S
         self.listen_until = now + LISTEN_S
-        self.start_act(now, "listen", self.queued, LISTEN_S)
+        self.start_act(now, "listen", self.queued, LISTEN_S, asked=True)
+        self.feel("heard_name", now, self.queued, antic=False, line=False, body=False)
 
     def listening(self, now) -> bool:
         return now < self.listen_until
@@ -853,7 +1050,8 @@ class Brain:
     def on_unknown(self, now, text=""):
         self.on_heard(now, text)
         self.queued.append(Out("sound", "huh", 2))
-        self._say(self.queued, self.choose("chat.unknown", CHAT["unknown"]), 2, now=now)
+        self.feel("not_understood", now, self.queued, line=False)        # a head tilt: curious, not cross
+        self._say(self.queued, self.choose("chat.unknown", CHAT["unknown"]), 2, now=now, answer=True)
 
     def answer(self, now, intent, ok=True, message=""):
         """Say the answer to a voice command: intent is a commands.Intent; for the console's ones, ok / message are
@@ -865,51 +1063,62 @@ class Brain:
                 self.c = replace(self.c, humor=float(intent.args["value"]))
                 q.append(Out("sound", "heard", 2))
                 self._say(q, next(s for top, s in HUMOR_SAY if self.c.humor <= top).format(
-                    humor=round(self.c.humor)), 2, now=now)
+                    humor=round(self.c.humor)), 2, now=now, answer=True)
             elif ok:
                 q.append(Out("sound", "heard", 2))
+                if intent.verb == "stop":
+                    self.feel("stop", now, q, line=False, body=False)
                 said = self.choose(f"reply.{name}", REPLIES[name], **intent.args) if name in REPLIES else None
-                self._say(q, said or intent.reply or message or "Okay.", 2, now=now)
+                self._say(q, said or intent.reply or message or "Okay.", 2, now=now, answer=True)
                 if intent.act:
-                    self.start_act(now, intent.act, q)
+                    self.start_act(now, intent.act, q, asked=True)
             else:
                 q.append(Out("sound", "huh", 2))
-                self._say(q, f"I can't do that now. {message}".strip(), 2, now=now)
+                self.feel("refused", now, q, line=False, body=False)
+                self._say(q, f"I can't do that now. {message}".strip(), 2, now=now, answer=True, emotion="sad")
             return
         st = self.last_status or {}
         mcu = st.get("mcu") or {}
         pct = mcu.get("battery_pct")
+        felt = {"good": "praise", "love": "love", "hello": "greeted", "thanks": "thanks", "joke": "joke"}.get(name)
+        if felt:                                          # its own antic below (love, smile): the rest of the reaction
+            emo, _ = self.feel(felt, now, q, antic=False, line=False)
+            self.emo_now = emo if self.levels.on else ""
+        elif self.affect is not None and (name in CHAT or name in ("battery", "time", "doing", "howareyou")):
+            self.affect.feel("asked", now)                # company: someone talked to it
         if name in CHAT:
-            self._say(q, self.choose(f"chat.{name}", CHAT[name]), 2, now=now)
+            self._say(q, self.choose(f"chat.{name}", CHAT[name]), 2, now=now, answer=True)
         if name == "joke":
             if self.c.humor <= 0:
-                self._say(q, self.choose("chat.no_jokes", CHAT["no_jokes"]), 2, now=now)
+                self._say(q, self.choose("chat.no_jokes", CHAT["no_jokes"]), 2, now=now, answer=True)
             else:
-                self._say(q, self.choose("joke", JOKES), 2, now=now)
+                self._say(q, self.choose("joke", JOKES), 2, now=now, answer=True)
                 self.later.append((now + 4.5, Out("sound", "giggle", 1)))
         elif name == "humor_ask":
-            self._say(q, f"Humor setting, {round(self.c.humor)} percent.", 2, now=now)
+            self._say(q, f"Humor setting, {round(self.c.humor)} percent.", 2, now=now, answer=True)
         elif name in ("sing", "dance"):
-            self.start_act(now, name, q)
+            self.start_act(now, name, q, asked=True)
         elif name == "battery":
             if pct is None:
-                self._say(q, "I can't feel my battery right now.", 2, now=now)
+                self._say(q, "I can't feel my battery right now.", 2, now=now, answer=True)
             else:
                 self._say(q, f"My battery is at {pct:.0f} percent." + (" I could use a charge." if pct < 25 else ""),
-                          2, now=now)
+                          2, now=now, answer=True)
         elif name == "howareyou":
             low = pct is not None and pct < 25
             bad = bool(mcu.get("faults"))
+            emo = self.affect.emotion(now)[0] if self.affect is not None and self.levels.on else ""
+            feel = self.choose(f"feel.{emo}", react_lines.HOW_I_FEEL[emo]) if emo in react_lines.HOW_I_FEEL else None
             self._say(q, "Not great. Something's wrong. Check the console." if bad else
                       f"A bit tired. My battery is at {pct:.0f} percent." if low else
-                      self.choose("chat.fine", CHAT["fine"]), 2, now=now)
+                      feel or self.choose("chat.fine", CHAT["fine"]), 2, now=now, answer=True)
         elif name == "doing":
             label = MISSION_LABEL.get(st.get("mission") or "IDLE", "")
             self._say(q, self.choose("chat.idle", CHAT["idle"]) if label in ("", "Ready") else f"I'm {label.lower()}.",
-                      2, now=now)
+                      2, now=now, answer=True)
         elif name == "time":
             t = _time.localtime()
-            self._say(q, f"It's {t.tm_hour % 12 or 12}:{t.tm_min:02d}.", 2, now=now)
+            self._say(q, f"It's {t.tm_hour % 12 or 12}:{t.tm_min:02d}.", 2, now=now, answer=True)
         elif name == "quiet":
             self.hush_until = now + 600.0
             self.act = None
@@ -918,14 +1127,14 @@ class Brain:
         elif name == "wake":
             self.act = None
             self.t_active = now
-            self.start_act(now, "look", q)
+            self.start_act(now, "look", q, asked=True)
         elif name in ("good", "love"):
-            self.start_act(now, "love", q)
+            self.start_act(now, "love", q, asked=True)
         elif name in ("hello", "thanks"):
-            self.start_act(now, "smile", q)
+            self.start_act(now, "smile", q, asked=True)
         elif name == "unknown_place":
             q.append(Out("sound", "huh", 2))
-            self._say(q, intent.reply, 2, now=now)
+            self._say(q, intent.reply, 2, now=now, answer=True)
 
     def _catch(self, now, cat, status, pose, st, outs):
         c = self.c
@@ -943,7 +1152,9 @@ class Brain:
             caught = bool(last.get("caught"))
             if caught:
                 self.streak += 1
-                outs.append(Out("sound", "catch", 2))
+                self._sound(outs, "catch", 2)
+                self.feel("streak" if self.streak in STREAK_SAY or self.streak > 10 else "caught", now, outs,
+                          line=False, body=False)
                 said = STREAK_SAY.get(self.streak)
                 best = self.best.get(player, 0)
                 if self.streak == 1:
@@ -957,24 +1168,27 @@ class Brain:
                     said = self.pick("fast")
                 self._say(outs, said or self.pick("caught"), 2)
                 self.best[player] = max(best, self.streak)
-                self.moment = ("happy", now + c.mood_s)
+                if not self.levels.on:
+                    self.moment = ("happy", now + c.mood_s)
             else:
                 self.streak = 0
-                outs.append(Out("sound", "miss", 2))
+                self._sound(outs, "miss", 2)
+                self.feel("missed", now, outs, line=False, body=False)
                 aim = last.get("aim")
                 pred = last.get("predicted")
                 if aim is None and pred:
                     aim = math.hypot(pred[0], pred[1])
                 self._say(outs, self.pick("far") if aim and aim > c.far_throw else self.pick("missed"), 2)
-                self.moment = ("sad", now + c.mood_s)
+                if not self.levels.on:
+                    self.moment = ("sad", now + c.mood_s)
             self.t_ready, self.ready_n = now, 0
         self.tosses, self.catches = tosses, catches
         if state != self.catch_state:
             if state == "launch":
-                outs.append(Out("sound", "launch", 2))
+                self._sound(outs, "launch", 2)
                 self._say(outs, self.pick("launch"), 2, key="launch", now=now, every=4.0)
             if state == "flight":
-                outs.append(Out("sound", "whoosh", 2))
+                self._sound(outs, "whoosh", 2)
             self.catch_state = state
             if state == "wait":
                 self.t_ready, self.ready_n = now, 0

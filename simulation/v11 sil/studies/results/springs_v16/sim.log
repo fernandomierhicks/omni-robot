@@ -1,0 +1,27 @@
+old sim pod: 3 N/mm, 2 N, zeta 0.6, -3/+15 {'8': {'pod_rate': 3000.0, 'pod_preload': 2.0, 'pod_damping_ratio': 0.6, 'pod_droop': 0.003, 'pod_travel': 0.018}, '9.63': {'pod_rate': 3000.0, 'pod_preload': 2.0, 'pod_damping_ratio': 0.6, 'pod_droop': 0.003, 'pod_travel': 0.018}}
+as drawn: 2 per tower, no damper {'8': {'pod_rate': 3284.4, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 3357.8, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}}
+as drawn: 2 per tower, zeta 0.6 (a damper) {'8': {'pod_rate': 3284.4, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.6}, '9.63': {'pod_rate': 3357.8, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.6}}
+1 per tower, far bore, no damper {'8': {'pod_rate': 2352.7, 'pod_preload': 0.57, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 2418.0, 'pod_preload': 0.57, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}}
+2 in series x 2, droop 6, preload 4, no damper {'8': {'pod_rate': 2580.0, 'pod_preload': 19.57, 'pod_droop': 0.006, 'pod_travel': 0.021, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 2580.0, 'pod_preload': 19.57, 'pod_droop': 0.006, 'pod_travel': 0.021, 'pod_damping_ratio': 0.1}}
+2 in series x 2, droop 6, bump 17, preload 4, no damper {'8': {'pod_rate': 2718.0, 'pod_preload': 19.57, 'pod_droop': 0.006, 'pod_travel': 0.023, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 2718.0, 'pod_preload': 19.57, 'pod_droop': 0.006, 'pod_travel': 0.023, 'pod_damping_ratio': 0.1}}
+192 jobs, 24 workers
+10/192 23 s
+20/192 27 s
+30/192 40 s
+40/192 45 s
+50/192 53 s
+60/192 64 s
+70/192 71 s
+80/192 79 s
+90/192 86 s
+100/192 95 s
+110/192 102 s
+120/192 108 s
+130/192 116 s
+140/192 124 s
+150/192 131 s
+160/192 138 s
+170/192 146 s
+180/192 156 s
+190/192 169 s
+192/192 178 s

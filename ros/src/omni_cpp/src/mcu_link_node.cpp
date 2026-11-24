@@ -398,6 +398,8 @@ private:
         m.v_bus = s.v_bus;
         for (int k = 0; k < 4; ++k)
             m.wheel_cmd[k] = s.wheel_cmd[k], m.wheel_vel[k] = s.wheel_vel[k], m.wheel_cur[k] = s.wheel_cur[k];
+        m.rc_ok = s.rc_ok, m.rc_direct = s.rc_direct;            // protocol 10: mode_manager drives from the sticks
+        for (int k = 0; k < 8; ++k) m.rc[k] = (float)(s.rc[k] / 1000.0);
         {
             std::lock_guard<std::mutex> g(mtx_);
             m.sync_rtt_ms = link_->sync.rtt_ns.value_or(0) * 1e-6;

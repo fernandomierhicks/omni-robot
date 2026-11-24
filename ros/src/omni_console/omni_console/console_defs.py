@@ -41,7 +41,7 @@ VERBS = ("ping", "schema", "stop", "mission", "goto", "cancel", "set", "place_sa
          "calib_record", "calib_clear", "player_set", "stats", "health", "maint_done", "tidy", "arm", "say", "hear",
          "ai_lease", "move", "find", "pick", "task", "look", "room_save", "room_delete", "tf", "frames",
          "preflight", "tests", "test_record", "activity", "fetch", "message", "tower", "dance", "goalie", "clip",
-         "ai_mission", "motors", "motors_run")
+         "ai_mission", "motors", "motors_run", "express")
 CLIP_NAME = re.compile(r"^clip-[0-9]{10,16}\.wav$")   # the supervisor's /api/clip names
 AI_VERBS = ("ai_lease", "move", "find", "pick", "task", "look", "tf", "frames", "ai_mission")   # the AI client's own
 AI_MISSIONS = ("fetch", "message", "tower", "dance", "goalie")    # what ai_mission starts (console_fun.py), as a task
@@ -66,6 +66,9 @@ EXPRESSIONS = {"auto": (None, None), "happy": ("happy", "smile"), "excited": ("s
                "sad": ("sad", None), "worried": ("worried", None), "sleepy": ("sleepy", "yawn"),
                "love": ("happy", "love"), "silly": ("happy", "giggle"), "wink": (None, "wink"),
                "thinking": ("focused", "think")}
+# the feelings the robot can be asked to feel (the say verb's "feel"; omni_face affect.EMOTIONS, kept equal by a test)
+FEELINGS = ("neutral", "content", "happy", "excited", "proud", "affection", "relieved", "curious", "surprised",
+            "startled", "focused", "effort", "worried", "frustrated", "sad", "tired", "bored")
 # the antics the console can ask for (the Face tab's tricks; omni_face moments.ANTICS)
 TRICKS = ("sing", "hum", "whistle", "dance", "giggle", "smile", "wink", "love", "yawn", "nap", "sneeze", "hiccup",
           "babble", "look", "dizzy", "sigh", "quip")
@@ -215,8 +218,10 @@ SETTINGS = (
     Setting("manual.expo", ("manual",), "Stick softness", 0.3, "", 0.0, 1.0, 0.05,
             "0 = linear. Higher makes small stick moves gentler for fine positioning; full stick is still full speed."),
     Setting("manual.obstacle_stop", ("manual",), "Obstacle slow-down", True,
-            hint="Slows and stops before obstacles the lidar sees (Nav2's collision monitor). Only while navigation "
-                 "runs; without it the stick drives straight into things."),
+            hint="The lidar guard, for all driving (this stick, the RC, the flight stick, navigation): full speed, then "
+                 "it brakes to stop ~10 cm short of what the lidar sees and lets you creep the rest; never limits "
+                 "driving away. Needs only the lidar. Off: nothing stops the robot. Hold it off for a moment with the "
+                 "RC's channel 6 or the flight stick's button 3."),
     Setting("motors.max_speed", ("motors",), "Top wheel speed", WHEEL_TEST_MAX, "rad/s", 0.5, WHEEL_TEST_MAX, 0.5,
             "Wheel speed at full stick (1 rad/s is about 10 rpm). The top is the firmware's cap, 0.95 of the motor's "
             "own no-load speed (the arm robot's AK40-10: 37.2 rad/s, 355 rpm; it tops out at ~38.5 on 24 V); lower "
@@ -287,13 +292,52 @@ SETTINGS = (
     Setting("face.humor", ("face",), "Humor", 75.0, "%", 0.0, 100.0, 5.0,
             hint="How funny it tries to be: 0 is plain and businesslike, 100 is a wisecrack whenever it can. Also "
                  "by voice: \"Omni, humor sixty percent\". Faults are always said plainly."),
-    Setting("face.preset", ("face",), "Voice", "deadpan", options=("deadpan", "bright", "cute"),
-            hint="Who it sounds like. Deadpan: a calm, low, dry voice from a small speaker box (TARS-like). Bright: "
-                 "clean and light (EVE-like). Cute: the earlier high voice."),
+    Setting("face.preset", ("face",), "Voice", "cbt_vocoder",
+            options=("cbt_vocoder", "cbt_voc1", "cbt_voc2", "cbt_voc3", "cbt_voc4", "cbt_voc5", "cbt_voc6", "cbt_voc7",
+                     "cbt_voc8", "cbt_robot", "cbt_emotion", "cbt_metal", "cbt_dry", "dry_synth", "aiden_vocoder",
+                     "aiden_synth", "ryan_vocoder", "ryan_metal", "ryan_digital", "ryan_synth_strong", "ryan_synth",
+                     "ryan_synth_light", "michael_synth", "qwen_natural", "qwen_dry", "kokoro_dry", "cb_bright",
+                     "pocket_alba", "qwen_bright", "qwen_small", "kokoro_bright", "droid", "deadpan", "bright",
+                     "cute"),
+            hint="Who it sounds like (Fernando's pick, Nov 23: cbt_vocoder, Chatterbox Turbo's designed dry voice with "
+                 "a reference clip per feeling through a soft vocoder; cbt_voc1-8 the same voice, the same emotion, "
+                 "steps more robotic, metallic and synthesized). The others, kept to choose from: cbt_robot / "
+                 "cbt_emotion / cbt_metal the same voice as android, emotion only or light machine; cbt_dry the round-2 original; then his "
+                 "other favourites (dry_synth, aiden_vocoder, ryan_vocoder / metal / digital) and every voice "
+                 "auditioned. All are made on the main PC with each line's feeling (omni_face voice_server); "
+                 "deadpan / bright / cute are the robot's own older Kokoro voices. If the PC's voice service doesn't "
+                 "answer, it falls back to its own voice."),
     Setting("face.voice", ("face",), "Voice commands", "on", options=("off", "chat only", "on"),
             hint="Talk to the robot: its name first (\"Omni, follow me\"). Chat only: it answers and stops but "
                  "nothing else drives it. On: also follow, play catch, go to a saved place, explore. Off: the "
                  "microphones stay off."),
+    # its feelings (omni_face affect.py, expression.py; Fernando, Nov 21: each channel tunable 0-10)
+    Setting("emotion.on", ("face",), "Emotion", True,
+            hint="The robot feels what happens to it (a pick that works, a grab that slips, praise, being pushed, a "
+                 "flat battery) and shows it on its face, in its voice and sounds and, when they are free, with its "
+                 "wheels and arm. Off: its moods and lines as before, nothing moves for a feeling."),
+    Setting("emotion.speech", ("face",), "Talk", 5.0, "", 0.0, 10.0, 1.0,
+            "How often it speaks up on its own: 0 only faults and answers to what you ask, 5 as designed, 10 chatty."),
+    Setting("emotion.sounds", ("face",), "Chirps and sounds", 5.0, "", 0.0, 10.0, 1.0,
+            "How often (and how loud) it chirps, says \"whoa!\" or plays its little sounds: 0 silent (fault alerts "
+            "still sound), 5 as designed, 10 every chance it gets."),
+    Setting("emotion.face", ("face",), "Face motion", 6.0, "", 0.0, 10.0, 1.0,
+            "How much its eyes and mouth move and how far its expressions go: 0 calm (it still blinks and shows its "
+            "mood faintly), 5 as designed, 10 cartoon."),
+    Setting("emotion.base", ("face",), "Wheel gestures", 3.0, "", 0.0, 10.0, 1.0,
+            "How often and how big its wheel gestures are (a happy wiggle when you praise it, a recoil when "
+            "startled): only while it rests in Drive with nobody at the stick, never during a task. 0 never; at 10 "
+            "the largest strays 6 cm and turns 14 deg, always back where it started."),
+    Setting("emotion.arm", ("face",), "Arm gestures", 3.0, "", 0.0, 10.0, 1.0,
+            "How often and how big its arm gestures are (a nod, a head tilt, a flinch): only while the arm is free "
+            "and holds nothing, never during a pick. Every gesture is checked like any arm move and ends where it "
+            "began. 0 never."),
+    Setting("emotion.nav", ("face", "goto", "patrol", "explore", "follow"), "Mood sets driving pace", True,
+            hint="On: a tired or sad robot drives up to 15 % slower on its own (Go To, Patrol, Explore, Follow); it "
+                 "never drives faster than set. Off: navigation exactly as set, always."),
+    Setting("emotion.sound_style", ("face",), "Reaction sounds", "mix", options=("mix", "voice", "chirps"),
+            hint="What its reactions sound like: voice (\"whoa!\", \"hmm?\", \"ta-da!\" in its own voice), chirps "
+                 "(beeps with the feeling's intonation, its robot language), or a mix."),
     Setting("tidy.radius", ("tidy",), "How far", 2.0, "m", 0.5, 5.0, 0.25,
             "Only things within this distance of where the tidy started. The tidy drives itself (not Nav2), slowly, "
             "and only through floor its camera has seen free; it checks the whole circle, then comes back."),

@@ -75,7 +75,7 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile
 from rosgraph_msgs.msg import Clock
 from omni_interfaces.msg import TagDetection, TagDetections
-from sensor_msgs.msg import CameraInfo, Image, Imu, LaserScan, PointCloud2, PointField, TimeReference
+from sensor_msgs.msg import CameraInfo, Image, Imu, Joy, LaserScan, PointCloud2, PointField, TimeReference
 from std_msgs.msg import Bool, String
 from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 
@@ -216,6 +216,9 @@ class Bridge(Node):
             from omni_sim.mcu_port import McuPort
             self.port = McuPort(P("port", 5761).value, log=self.get_logger().info, bind=P("mcu_bind", "127.0.0.1").value)
             self.faults = FaultTopic(self, self.core.r)
+            # the RC receiver (protocol 10): /sim/rc (sensor_msgs/Joy) axes = its 8 channels, -1..1 (ch 5 > 0.5: the
+            # drive switch, ch 6: hold the lidar guard off); no axes = its link lost (failsafe)
+            self.create_subscription(Joy, "/sim/rc", self.on_rc, 10)
             self.publish_odom_tf = False                    # mcu_link publishes the MCU's odometry
             self.get_logger().info(f"firmware in the loop: its USB port is tcp:{self.port.bind}:{self.port.port}")
             if self.sync_gpio != "none":
@@ -282,6 +285,11 @@ class Bridge(Node):
                 self.get_logger().info(f"the Launcher's control port: tcp {cport}")
             except OSError as e:
                 self.get_logger().warn(f"control port {cport}: {e} (the Launcher can't change this sim)")
+
+    def on_rc(self, m: Joy):
+        """/sim/rc: the simulated RC receiver's channels into the firmware's inputs (sil_robot.SilRobot.rc)."""
+        ax = list(m.axes)
+        self.core.r.rc = None if not ax else [float(ax[i]) if i < len(ax) else 0.0 for i in range(8)]
 
     def on_control(self, req: dict) -> dict:
         """The Launcher (sim_world.ControlPort): {"get": 1} or the live world's changes; the reply is the sim's state."""

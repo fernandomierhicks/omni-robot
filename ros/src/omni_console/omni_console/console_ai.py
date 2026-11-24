@@ -182,9 +182,9 @@ class AiMixin:
         if "goto" in kinds:
             return self._err("bad_request", "move has no goto blocks: use goto (robot_goto) for places")
         if "move" in kinds and not self.caps["nav"]:
-            return self._err("not_localized", "Driving (forward, back, left, right) needs navigation running: its "
-                                              "collision monitor guards the moves. Turns and spins in place work "
-                                              "without it")
+            return self._err("not_localized", "Driving (forward, back, left, right) needs navigation running (the "
+                                              "mode manager's lidar guard stops every move short of walls). Turns "
+                                              "and spins in place work without it")
         if self._arm_out():
             return self._err("arm_out", "The arm is out: stow it first (robot_arm_pose stow); turning with it out "
                                         "hits things")

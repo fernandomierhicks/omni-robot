@@ -51,7 +51,41 @@ import pygame  # noqa: E402
 
 from omni_face import sounds  # noqa: E402
 from omni_face.moments import Brain, BrainConfig, FaceState  # noqa: E402
-from omni_face.voice import Voice, choose  # noqa: E402
+from omni_face.voice import Server, Voice, choose  # noqa: E402
+
+VOICE_PY = os.environ.get("OMNI_VOICE_PY", r"C:\Users\ferna\.venvs\omni-voice\Scripts\python.exe")
+
+
+def ensure_voice_server(server: Server, warm: str = "") -> str:
+    """The main PC's voice service (voice_server.py): started here (its own venv, no window) if it isn't running and
+    its venv is on this computer. -> what happened, for the log."""
+    if server.up():
+        return "the voice service is up"
+    if sys.platform != "win32" or not os.path.exists(VOICE_PY) or "127.0.0.1" not in server.url:
+        return "no voice service (local voice only)"
+    import subprocess
+    import tempfile
+    log = open(Path(tempfile.gettempdir()) / "omni_voice_server.log", "a")
+    subprocess.Popen([VOICE_PY, "-u", "-m", "omni_face.voice_server"] + (["--warm", warm] if warm else []),
+                     cwd=str(Path(__file__).resolve().parents[1]), stdout=log, stderr=subprocess.STDOUT,
+                     stdin=subprocess.DEVNULL, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    server.t_check = -1e9
+    return "starting the voice service"
+
+
+def chat_relay(server: Server, link, req: dict):
+    """The face node asks the PC's chat (chat.py, through voice_server's /chat): the reply goes back on the link."""
+    def run():
+        import urllib.request
+        body = json.dumps(dict(text=req.get("text", ""), context=req.get("context") or {})).encode()
+        try:
+            r = urllib.request.Request(server.url + "/chat", data=body, headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(r, timeout=45.0) as resp:
+                d = json.loads(resp.read())
+        except (OSError, ValueError) as e:
+            d = dict(say="My thinking module is offline right now.", emotion="sad", intensity=0.3, error=str(e))
+        link.send(dict(chat_reply=dict(d, id=req.get("id"))))
+    threading.Thread(target=run, daemon=True).start()
 
 W, H = 800, 480
 # the Launcher's face buttons (the sim's window on Windows): UDP datagrams {"mute", "size", "hidden"} on localhost, and
@@ -77,13 +111,29 @@ MOODS = {             # lid top, lid bottom, slant deg (+ = outer corner down), 
     "stern": (0.30, 0.10, -18.0, 0.96, (255, 85, 45), 0.75),       # patrol: narrowed, inner corners down, brows
     "eager": (0.0, 0.0, -4.0, 1.1, (120, 240, 110), 1.1),           # explore: wide open, big pupils
     "cheerful": (0.0, 0.0, 0.0, 1.0, (255, 215, 80), 0.95),         # tidy: smiling eyes (a cheek under each), blush
+    # the feelings (affect.EMOTIONS, Nov 21): each a look the eyes spring toward, blended by how strongly it's felt
+    "neutral": (0.06, 0.0, 0.0, 1.0, (110, 225, 255), 1.0),
+    "content": (0.16, 0.1, 2.0, 1.0, (130, 230, 225), 1.0),         # relaxed lids
+    "excited": (0.0, 0.0, -3.0, 1.12, (130, 255, 200), 1.18),       # wide, big pupils
+    "proud": (0.2, 0.0, -6.0, 1.03, (255, 220, 120), 0.95),         # a confident half lid over a cheek
+    "affection": (0.0, 0.0, 0.0, 1.02, (255, 160, 205), 1.1),       # "^ ^", pink
+    "relieved": (0.3, 0.0, 9.0, 1.0, (140, 220, 255), 1.0),         # soft, lids easing down
+    "curious": (0.0, 0.0, 0.0, 1.06, (150, 235, 255), 1.12),        # one eye opens wider (the tilt)
+    "startled": (0.0, 0.0, 0.0, 1.22, (225, 242, 255), 0.5),        # huge eyes, pinpoint pupils
+    "effort": (0.34, 0.26, -12.0, 0.95, (255, 170, 90), 0.8),       # squeezed
+    "frustrated": (0.3, 0.06, -16.0, 0.98, (255, 125, 85), 0.85),   # inner corners down
+    "tired": (0.5, 0.06, 6.0, 0.98, (100, 170, 210), 1.0),
+    "bored": (0.42, 0.14, 0.0, 1.0, (120, 170, 200), 0.9),          # flat half lids
 }
+SMILE_EYES = ("happy", "affection")                                 # drawn as "^ ^" arcs
+CHEEK_EYES = ("cheerful", "proud")                                  # a round cheek pushes up from below
+SPRING_W, SPRING_Z = 13.0, 0.52    # the eyes' spring (rad/s, damping): quick, with a little overshoot that settles
 # the personas' colours: the eyes (in the calm moods: sad, worried, alert and sleepy keep their own), the background,
 # and an accent (the top line, the scanner, sparkles)
 PALETTES = {"patrol": ((255, 85, 45), (30, 6, 4), (255, 150, 60)),
             "explore": ((120, 240, 110), (6, 22, 12), (255, 214, 120)),
             "tidy": ((255, 215, 80), (26, 18, 6), (255, 140, 200))}
-CALM = ("idle", "happy", "focused", "surprised", "stern", "eager", "cheerful")
+CALM = ("idle", "happy", "focused", "surprised", "stern", "eager", "cheerful", "neutral", "content")   # persona colours
 CARD = {"error": (150, 28, 32), "warn": (150, 98, 10)}
 # the layout (800 x 480): the eyes take the middle, a top line, a text band at the bottom
 TOP_H = 56                         # the top line: what it's doing, the score, the battery
@@ -144,28 +194,39 @@ class Audio:
             print(f"no audio device: {e}")
         self.voice, self.volume = voice, volume
         self.fx = {}
+        self.n_chirp: dict = {}                       # emotion -> the next variant (no two in a row the same)
         if self.ok:
             rate, _, ch = pygame.mixer.get_init()
+            stereo = lambda a: np.repeat(a[:, None], ch, axis=1) if ch > 1 else a     # noqa: E731
             for n in sounds.NAMES + sounds.SONGS:
-                a = sounds.sound(n, rate, 0.45)
-                self.fx[n] = pygame.sndarray.make_sound(np.repeat(a[:, None], ch, axis=1) if ch > 1 else a)
+                self.fx[n] = pygame.sndarray.make_sound(stereo(sounds.sound(n, rate, 0.45)))
+            for e in sounds.CHIRP_EMOTIONS:           # its feelings' chirps (expression.REACTIONS), a few variants each
+                for v in range(sounds.VARIANTS):
+                    self.fx[f"chirp_{e}#{v}"] = pygame.sndarray.make_sound(stereo(sounds.chirp(e, rate, 0.45, v)))
             self.chan = pygame.mixer.Channel(0)
             pygame.mixer.set_reserved(1)
         self.todo: queue.Queue = queue.Queue()
-        self.ready: list = []                         # heap: (-prio, seq, text, path, t_req)
+        self.ready: list = []                         # heap: (-prio, seq, text, path, t_req, caption shown)
         self.seq = itertools.count()
         self.lock = threading.Lock()
         self.cur = None                               # (prio, text, t_start, envelope)
         self.caption = ("", 0.0)
         threading.Thread(target=self._worker, daemon=True).start()
 
-    def play(self, name):
+    def play(self, name, gain=1.0):
+        if name.startswith("chirp_") and "#" not in name:          # a chirp: its next variant
+            e = name[6:]
+            v = self.n_chirp.get(e, random.randrange(sounds.VARIANTS))
+            self.n_chirp[e] = (v + 1 + random.randrange(sounds.VARIANTS - 1)) % sounds.VARIANTS
+            name = f"chirp_{e}#{v}"
         if self.ok and not self.mute and name in self.fx:
-            self.fx[name].set_volume(self.volume * 0.7)
+            self.fx[name].set_volume(self.volume * 0.7 * max(0.0, min(1.0, gain)))
             self.fx[name].play()
 
-    def say(self, text, prio=1, style=""):
-        self.todo.put((prio, next(self.seq), text, style, time.monotonic()))
+    def say(self, text, prio=1, style="", emotion="", caption=True):
+        """Speak text (made by the worker, in turn by priority), with a feeling (the voice's prosody). caption: show
+        the words (a vocalization, "whoa!", isn't captioned)."""
+        self.todo.put((prio, next(self.seq), text, style, time.monotonic(), emotion, caption))
 
     def clip(self, wav_b64: str, caption: str = "", prio: int = 3):
         """A caller's recorded words (the console's Call page): played as they are, in turn with its own voice."""
@@ -178,7 +239,7 @@ class Audio:
         except (ValueError, OSError):
             return
         with self.lock:
-            heapq.heappush(self.ready, (-prio, next(self.seq), caption or "(caller)", path, time.monotonic()))
+            heapq.heappush(self.ready, (-prio, next(self.seq), caption or "(caller)", path, time.monotonic(), True))
 
     def busy(self) -> bool:
         """Something is playing (its own voice or a sound): what the microphones hear now is mostly itself."""
@@ -186,10 +247,10 @@ class Audio:
 
     def _worker(self):
         while True:
-            prio, seq, text, style, t_req = self.todo.get()
-            path = self.voice.wav(text, style) if self.voice is not None else None
+            prio, seq, text, style, t_req, emotion, caption = self.todo.get()
+            path = self.voice.wav(text, style, emotion) if self.voice is not None else None
             with self.lock:
-                heapq.heappush(self.ready, (-prio, seq, text, path, t_req))
+                heapq.heappush(self.ready, (-prio, seq, text, path, t_req, caption))
 
     def tick(self):
         """Start the next phrase when its turn comes (call every frame)."""
@@ -199,18 +260,20 @@ class Audio:
             if not busy:
                 self.cur = None
             while self.ready:
-                p, seq, text, path, t_req = self.ready[0]
+                p, seq, text, path, t_req, caption = self.ready[0]
                 if -p <= 1 and now - t_req > 8.0:                # stale chatter
                     heapq.heappop(self.ready)
                     continue
                 if busy and -p <= self.cur[0]:
                     break
                 heapq.heappop(self.ready)
-                self._start(-p, text, path, now)
+                if path is None and not caption:                 # a vocalization with no voice: nothing to show
+                    continue
+                self._start(-p, text, path, now, caption)
                 busy = True
                 break
 
-    def _start(self, prio, text, path, now):
+    def _start(self, prio, text, path, now, caption=True):
         env, dur = np.zeros(1), 0.4 + 0.06 * len(text)            # no voice: the caption stays as long as it'd take
         if path is not None and self.ok and not self.mute:
             try:
@@ -233,7 +296,8 @@ class Audio:
             except pygame.error:
                 pass
         self.cur = (prio, text, now, env, dur)
-        self.caption = (text, now + dur + 1.2)
+        if caption:
+            self.caption = (text, now + dur + 1.2)
 
     def level(self) -> float:
         c = self.cur
@@ -251,16 +315,30 @@ class Audio:
 # -- the picture ----------------------------------------------------------------------------------------------------
 
 class FaceView:
+    """The eyes are alive (Nov 21, Disney's principles on a screen): their shape springs toward the feeling's look
+    with a little overshoot (SPRING_W, SPRING_Z), they breathe (a slow swell, quicker when aroused), make tiny
+    saccades around what they look at, blink with a squash and stretch (and often on a big look away), and a surprise
+    kicks them wide before they settle. The face level (FaceState.face_level, 0-10) scales it all: how far the
+    expressions go (e: 0.3 at 0, as designed at 5, a little more at 10) and how much everything moves (m: 0 at 0, 1 at
+    5, 2 at 10)."""
+
     def __init__(self):
         self.gaze = np.zeros(2)
+        self.gv = np.zeros(2)                       # the gaze's spring velocity
+        self.sacc, self.t_sacc = np.zeros(2), 0.0   # a micro-saccade's offset, the next one's time
+        self.last_target = np.zeros(2)
         self.wander = np.zeros(2)
         self.t_wander = 0.0
-        self.t_blink, self.blink = time.monotonic() + 3.0, 0.0
+        self.t_blink, self.blink, self.blink_len = time.monotonic() + 3.0, 0.0, 0.15
         self.p = np.array(MOODS["idle"][:4], float)
+        self.pv = np.zeros(4)                       # the shape's spring velocity
         self.col = np.array(MOODS["idle"][4], float)
         self.bgv = np.array(BG, float)
         self.bg = BG                                # the background now (the lids and cut-outs are drawn in it)
         self.pupil = 1.0
+        self.m, self.e = 1.0, 1.0                   # motion and expression gains (the face level)
+        self.breath = 0.0
+        self.mood = "idle"
         self.act, self.act_id, self.act_s, self.t_act = "", 0, 0.0, 0.0
         self.f = dict(big=font(44, True), mid=font(34), small=font(24), tiny=font(20), title=font(48, True),
                       hint=font(28), score=font(40, True), z=[font(22, True), font(30, True), font(40, True)],
@@ -269,31 +347,67 @@ class FaceView:
     # -- animation state ---------------------------------------------------------------------------------------
     def _anim(self, st: FaceState, dt):
         now = time.monotonic()
+        dt = max(0.0, min(dt, 2.0))
+        steps = max(1, int(math.ceil(dt / 0.02)))             # the springs in small steps: stable at any frame time
+        h = dt / steps
+        lvl = float(getattr(st, "face_level", 5.0))
+        self.m = max(0.0, min(2.0, lvl / 5.0))
+        self.e = 0.3 + 0.7 * min(1.25, lvl / 5.0)
         if st.act_id != self.act_id:                # a new antic: its animation starts now
             self.act, self.act_id, self.act_s, self.t_act = st.act, st.act_id, st.act_s, now
+            if st.act in ("pop", "startle"):         # a surprise kicks the eyes wide; the spring settles them
+                self.pv[3] += (2.4 if st.act == "startle" else 1.5) * self.m
+                self.pv[0] -= 1.2 * self.m
         if not st.act:
             self.act = ""
+        self.mood = st.mood
         m = MOODS.get(st.mood, MOODS["idle"])
+        rest = np.array(MOODS["idle"][:4], float)
+        target = rest + (np.array(m[:4], float) - rest) * self.e        # how far the expression goes
+        ar = float(getattr(st, "arousal", 0.0) or 0.0)
+        target[3] += 0.04 * ar * self.e
+        for _ in range(steps):
+            acc = SPRING_W ** 2 * (target - self.p) - 2 * SPRING_Z * SPRING_W * self.pv
+            self.pv += acc * h
+            self.p += self.pv * h
         pal = PALETTES.get(st.persona)
-        k = min(1.0, dt * 8)
-        self.p += (np.array(m[:4]) - self.p) * k
+        k = min(1.0, dt * 6)
         self.col += (np.array(pal[0] if pal and st.mood in CALM else m[4]) - self.col) * k
         self.bgv += (np.array(pal[1] if pal else BG) - self.bgv) * min(1.0, dt * 3)
         self.bg = tuple(int(round(c)) for c in self.bgv)
-        self.pupil += (m[5] - self.pupil) * k
+        self.pupil += (m[5] * (1.0 + 0.08 * ar * self.e) - self.pupil) * min(1.0, dt * 8)
+        f = 0.22 + 0.14 * max(0.0, ar)              # breathing: a slow swell, quicker when aroused
+        self.breath = math.sin(2 * math.pi * f * now)
         target = self._act_gaze(now)
         if target is None and st.gaze is None:
             if now > self.t_wander:
                 self.t_wander = now + random.uniform(1.5, 4.0)
-                self.wander = np.array([random.uniform(-0.6, 0.6), random.uniform(-0.3, 0.3)])
+                a = 0.25 + 0.75 * min(1.0, self.m)
+                self.wander = np.array([random.uniform(-0.6, 0.6) * a, random.uniform(-0.3, 0.3) * a])
             target = self.wander
         elif target is None:
             target = np.array(st.gaze, float)
-        self.gaze += (target - self.gaze) * min(1.0, dt * 10)
-        if now > self.t_blink:                      # blink: 0.15 s, every 2-6 s (slower when sleepy)
-            self.blink = 0.15
-            self.t_blink = now + random.uniform(2.0, 6.0) * (2.0 if st.mood == "sleepy" else 1.0)
+        if np.linalg.norm(target - self.last_target) > 0.55 and random.random() < 0.5 and self.blink <= 0:
+            self._start_blink(st)                   # people blink with a big look away
+        self.last_target = target.copy()
+        if now > self.t_sacc:                       # micro-saccades: tiny jumps round what it looks at
+            self.t_sacc = now + random.uniform(0.25, 1.1)
+            self.sacc = np.clip(np.random.normal(0, 0.05 * self.m, 2), -0.12, 0.12)
+        goal = target + self.sacc
+        for _ in range(steps):
+            self.gv += (20.0 ** 2 * (goal - self.gaze) - 2 * 0.75 * 20.0 * self.gv) * h
+            self.gaze += self.gv * h
+        if now > self.t_blink:
+            self._start_blink(st)
         self.blink = max(0.0, self.blink - dt)
+
+    def _start_blink(self, st):
+        """A blink: 0.15 s (slow when tired), every 2-6 s (rarer sleepy, more often worried or startled)."""
+        tired = st.mood in ("sleepy", "tired", "bored")
+        self.blink_len = 0.28 if tired else 0.15
+        self.blink = self.blink_len
+        self.t_blink = time.monotonic() + random.uniform(2.0, 6.0) * (
+            2.0 if tired else 0.6 if st.mood in ("worried", "startled") else 1.0)
 
     def _t(self):
         """Seconds into the current antic."""
@@ -314,11 +428,44 @@ class FaceView:
             return np.array([0.3, 0.5])
         if self.act == "scan":                      # a slow sweep to one side, the other, and back
             return np.array([0.95 * math.sin(2 * math.pi * t / max(self.act_s, 0.5)), -0.1])
+        if self.act == "glance":                    # worried: a quick look one way, the other, back
+            seq = [(-0.8, 0.0), (0.8, 0.0), (0.0, -0.1)]
+            return np.array(seq[min(2, int(t / 0.45))])
+        if self.act == "droop":
+            return np.array([0.0, -0.7])
+        if self.act == "proud":
+            return np.array([0.0, 0.35])
+        if self.act == "tilt":
+            return np.array([0.25, 0.25])
+        if self.act == "strain":
+            return np.array([0.0, -0.2])
         return None
 
     def _offset(self):
-        """The whole face's offset (px): bobbing to a song, a hiccup's jump, a sneeze's jolt, a dizzy wobble."""
+        """The whole face's offset (px), as much as the face level moves it."""
+        x, y = self._offset_raw()
+        k = min(1.5, self.m)
+        return x * k, y * k
+
+    def _offset_raw(self):
+        """Bobbing to a song, a hiccup's jump, a sneeze's jolt, a dizzy wobble; the feelings' moves: an excited
+        bounce, a proud lift, a startled jump and shiver, an effort's tremble, a huff's jolt, a sad droop."""
         a, t = self.act, self._t()
+        if a == "bounce":
+            return 0.0, -16 * abs(math.sin(2 * math.pi * 2.2 * t))
+        if a == "proud":
+            return 0.0, -12 * _ease(t / 0.35) * (1.0 if t < self.act_s - 0.4 else _ease((self.act_s - t) / 0.4))
+        if a == "startle":
+            decay = math.exp(-t * 4.0)
+            return 9 * math.sin(t * 70) * decay, -22 * _bump(t, 0.0, 0.35)
+        if a == "pop":
+            return 0.0, -10 * _bump(t, 0.0, 0.3)
+        if a == "strain":
+            return 3 * math.sin(t * 95), 2 * math.sin(t * 77)
+        if a == "huff":
+            return 0.0, 12 * _bump(t, 0.0, 0.25) - 6 * _bump(t, 0.25, 0.4)
+        if a == "droop":
+            return 0.0, 16 * _ease(t / 0.8) * (1.0 if t < self.act_s - 0.6 else _ease((self.act_s - t) / 0.6))
         if a in ("sing", "hum"):
             return 0.0, -10 * abs(math.sin(math.pi * 2.0 * t))
         if a == "dance":
@@ -342,11 +489,21 @@ class FaceView:
     # -- the eyes ------------------------------------------------------------------------------------------------
     def _eye(self, s, cx, cy, side, st):
         a, t = self.act, self._t()
-        col = tuple(int(c) for c in self.col)
+        glow = 1.0 + 0.05 * self.m * self.breath
+        col = tuple(int(max(0, min(255, c * glow))) for c in self.col)
         top, bot, slant, scale = self.p
-        w, h = EYE_W * scale, EYE_H * scale
+        top, bot = max(0.0, top), max(0.0, bot)
+        w, h = EYE_W * scale, EYE_H * scale * (1.0 + 0.018 * self.m * self.breath)
         if a == "listen" or a == "wheee":
             w, h = w * 1.08, h * 1.08
+        closing = math.sin(math.pi * (1.0 - self.blink / self.blink_len)) if self.blink > 0 else 0.0
+        if closing > 0 and a != "listen":           # squash and stretch: wider and flatter as it closes
+            w, h = w * (1.0 + 0.07 * closing * min(1.0, self.m + 0.3)), h * (1.0 - 0.06 * closing)
+        if a == "tilt" or self.mood == "curious":   # a head tilt: one eye higher and a little wider open
+            k = _ease(t / 0.3) if a == "tilt" else 0.6
+            cy -= side * 12 * k * self.e
+            if side > 0:
+                w, h = w * (1 + 0.07 * k), h * (1 + 0.1 * k)
         r = pygame.Rect(0, 0, w, h)
         r.center = (cx, cy)
         # the antics that replace the eye
@@ -367,12 +524,17 @@ class FaceView:
         # pupil and its glint
         px, py = cx + self.gaze[0] * w * 0.26, cy - self.gaze[1] * h * 0.22
         pr = 42 * self.pupil * scale
-        if st.mood != "happy":                      # happy eyes are plain arcs
+        if st.mood not in SMILE_EYES:               # smiling eyes are plain arcs
             pygame.draw.circle(s, (10, 18, 36), (px, py), pr)
-            pygame.draw.circle(s, (240, 250, 255), (px + pr * 0.35, py - pr * 0.4), pr * 0.28)
-        if st.mood == "happy":                      # "^ ^": the lower half covered by the cheek
+            pygame.draw.circle(s, (240, 250, 255), (px + pr * 0.35, py - pr * 0.4), pr * 0.28)    # two catchlights
+            pygame.draw.circle(s, (200, 220, 240), (px - pr * 0.3, py + pr * 0.35), pr * 0.12)
+            if st.mood == "excited":                # a sparkle in each eye
+                self._sparkle(s, px + pr * 0.35, py - pr * 0.4, pr * 0.42, (255, 255, 255))
+        if st.mood in SMILE_EYES:                   # "^ ^": the lower half covered by the cheek
             pygame.draw.ellipse(s, self.bg, pygame.Rect(cx - w * 0.75, cy - h * 0.05, w * 1.5, h * 1.1))
-        elif st.mood == "cheerful":                 # smiling eyes: a round cheek pushes up from below, blushing
+            if st.mood == "affection":
+                pygame.draw.ellipse(s, (215, 95, 150), pygame.Rect(cx - 42 + side * 34, cy + h * 0.3, 84, 28))
+        elif st.mood in CHEEK_EYES:                 # smiling eyes: a round cheek pushes up from below, blushing
             pygame.draw.ellipse(s, self.bg, pygame.Rect(cx - w * 0.62, cy + h * 0.14, w * 1.24, h * 0.8))
             pygame.draw.ellipse(s, (215, 95, 130), pygame.Rect(cx - 42 + side * 34, cy + h * 0.44, 84, 28))
         # lids: the top one slanted (outer corner = away from the face's centre line), the bottom one flat
@@ -385,7 +547,9 @@ class FaceView:
             extra = _ease(t / 0.4) if t < 0.4 else 0.0
         elif a == "sigh":
             extra = 0.25
-        cover = min(1.0, top + extra + (1.0 if self.blink > 0 and a != "listen" else 0.0))
+        elif a == "strain":
+            extra = 0.1
+        cover = min(1.0, top + extra + (closing if a != "listen" else 0.0))
         if a == "nap" and t >= self.act_s - 0.6:    # "huh?": wide awake at the end
             cover = 0.0
         outer, inner = (r.left, r.right) if side < 0 else (r.right, r.left)
@@ -437,7 +601,7 @@ class FaceView:
         a, t = self.act, self._t()
         col = tuple(int(c) for c in self.col)
         if speech_level > 0.02 and a not in ("yawn", "sneeze"):
-            mh = 8 + 30 * speech_level
+            mh = 8 + 30 * speech_level * (0.4 + 0.6 * min(1.4, self.m))
             if a in ("smile", "love", "giggle", "wheee") or a == "":
                 pygame.draw.rect(s, col, pygame.Rect(cx - 62, cy - mh / 2, 124, mh), border_radius=int(mh / 2))
             else:
@@ -477,6 +641,43 @@ class FaceView:
         elif a in ("", "look") and mood == "eager":               # an open grin
             pygame.draw.ellipse(s, col, pygame.Rect(cx - 40, cy - 18, 80, 42))
             pygame.draw.rect(s, self.bg, pygame.Rect(cx - 42, cy - 20, 84, 20))
+        else:
+            self._feeling_mouth(s, cx, cy, col, a, mood)
+
+    def _feeling_mouth(self, s, cx, cy, col, a, mood):
+        """The feelings' mouths at rest (and their antics'), as wide as the face level lets the expression go."""
+        e = self.e
+        kind = {"bounce": "grin", "proud": "smile", "huff": "frown", "droop": "frown", "startle": "o", "pop": "o",
+                "strain": "clench", "glance": "wavy", "tilt": "small_o"}.get(a)
+        if kind is None and a in ("", "look", "think"):
+            kind = {"happy": "smile", "content": "soft", "affection": "smile", "proud": "smile", "excited": "grin",
+                    "relieved": "soft", "sad": "frown", "frustrated": "frown", "worried": "wavy", "surprised": "o",
+                    "startled": "o", "curious": "small_o", "bored": "flat", "tired": "flat", "effort": "clench"}.get(mood)
+        if kind is None:
+            return
+        wd = 120 * (0.55 + 0.45 * e)
+        if kind in ("smile", "soft"):
+            depth = 60 if kind == "smile" else 36
+            arc(s, col, pygame.Rect(cx - wd / 2, cy - depth * 0.66 * e, wd, depth * e), math.pi * 1.1, math.pi * 1.9, 9)
+        elif kind == "grin":
+            pygame.draw.ellipse(s, col, pygame.Rect(cx - wd * 0.42, cy - 20, wd * 0.84, 46 * e + 8))
+            pygame.draw.rect(s, self.bg, pygame.Rect(cx - wd * 0.45, cy - 22, wd * 0.9, 22))
+        elif kind == "frown":
+            arc(s, col, pygame.Rect(cx - wd * 0.4, cy, wd * 0.8, 44 * e), math.pi * 0.12, math.pi * 0.88, 8)
+        elif kind == "wavy":
+            pts = [(cx - wd * 0.4 + i * wd * 0.04, cy + 7 * e * math.sin(i * 1.1)) for i in range(21)]
+            pygame.draw.lines(s, col, False, pts, 6)
+        elif kind == "o":
+            r = 10 + 14 * e
+            pygame.draw.ellipse(s, col, pygame.Rect(cx - r * 0.8, cy - r, r * 1.6, r * 2), 7)
+        elif kind == "small_o":
+            pygame.draw.circle(s, col, (cx + 14, cy), 8 + 5 * e, 6)
+        elif kind == "flat":
+            pygame.draw.line(s, col, (cx - wd * 0.28, cy + 4), (cx + wd * 0.28, cy + 4), 7)
+        elif kind == "clench":
+            rr = pygame.Rect(cx - wd * 0.36, cy - 12, wd * 0.72, 26)
+            pygame.draw.rect(s, col, rr, border_radius=8)
+            pygame.draw.line(s, self.bg, (rr.left + 6, cy + 1), (rr.right - 6, cy + 1), 3)
 
     # -- what floats around it ----------------------------------------------------------------------------------
     def _extras(self, s, ox, oy, st=None):
@@ -538,6 +739,29 @@ class FaceView:
                 x0 = 20 + 30 * ((t * 3 + i * 0.3) % 1.0)
                 pygame.draw.line(s, DIM, (x0, y), (x0 + 60, y), 4)
                 pygame.draw.line(s, DIM, (W - x0 - 60, y), (W - x0, y), 4)
+        elif a == "proud" and self.e > 0.4:         # a little sparkle of pride
+            for i, (x, y) in enumerate(((W / 2 - EYE_DX - 120, EYE_Y - 90), (W / 2 + EYE_DX + 118, EYE_Y - 100))):
+                k = _bump(t, 0.15 + 0.25 * i, 1.0)
+                if k > 0.05:
+                    self._sparkle(s, x + ox, y + oy, 8 + 16 * k)
+        elif a == "huff" and self.e > 0.4:          # two puffs of steam from the top
+            for side in (-1, 1):
+                k = min(1.0, t / 1.0)
+                if k < 1.0:
+                    c = tuple(int(v * (1 - k)) for v in (200, 200, 210))
+                    pygame.draw.circle(s, c, (W / 2 + side * (EYE_DX + 70 + 30 * k) + ox, EYE_Y - 120 - 60 * k + oy),
+                                       10 + 14 * k, 4)
+        elif a == "strain" and self.e > 0.4:        # a drop of sweat
+            y = EYE_Y - 110 + 50 * min(1.0, t / 1.4) + oy
+            x = W / 2 + EYE_DX + 112 + ox
+            pygame.draw.circle(s, HEARD, (x, y), 9)
+            pygame.draw.polygon(s, HEARD, [(x - 8, y - 3), (x + 8, y - 3), (x, y - 20)])
+        elif a == "startle" and t < 0.9:
+            img = self.f["mark"].render("!", True, ACCENT)
+            s.blit(img, (W / 2 + EYE_DX + 100 + ox, EYE_Y - 150 + oy - 10 * _bump(t, 0.0, 0.3)))
+        elif a == "tilt" and t > 0.3:
+            img = self.f["mark"].render("?", True, ACCENT)
+            s.blit(img, (W / 2 + EYE_DX + 95 + ox, EYE_Y - 140 + oy))
 
     def _note(self, s, x, y, alpha):
         img = pygame.Surface((44, 64), pygame.SRCALPHA)
@@ -658,6 +882,7 @@ class Link:
         self.listen, self.grammar = False, []
         self.voice = ""                               # the console's voice preset ("": the display's own)
         self.outs: queue.Queue = queue.Queue()
+        self.chats: queue.Queue = queue.Queue()       # the face node's chat requests (chat_relay)
         self.sock = None
         threading.Thread(target=self._run, daemon=True).start()
 
@@ -684,6 +909,8 @@ class Link:
                                 self.voice = str(m["voice"])
                             if "grammar" in m:
                                 self.grammar = list(m["grammar"])
+                            if isinstance(m.get("chat"), dict):
+                                self.chats.put(m["chat"])
                             for o in m.get("out", []):
                                 self.outs.put(o)
             except (OSError, ValueError):
@@ -864,7 +1091,9 @@ def main():
     if cur["hidden"]:
         show_window(False)
     canvas = pygame.Surface((W, H))
-    voice = Voice(choose(a.voice))
+    server = Server()
+    voice = Voice(choose(a.voice), server=server)
+    print(ensure_voice_server(server, os.environ.get("OMNI_VOICE_WARM", "")))
     audio = Audio(voice, cur["mute"])
     view = FaceView()
     link = None if a.demo else Link(a.host, a.port)
@@ -933,11 +1162,16 @@ def main():
                 mic = want
             for text, conf in ear.results() if ear is not None else ():
                 link.send(dict(heard=text, conf=conf, echo=audio.busy()))
+            while not link.chats.empty():
+                chat_relay(server, link, link.chats.get())
         for o in outs:
             if o.get("kind") == "sound":
-                audio.play(o["value"])
+                audio.play(o["value"], float(o.get("gain", 1.0)))
             elif o.get("kind") == "say":
-                audio.say(o["value"], int(o.get("prio", 1)), str(o.get("style") or ""))
+                audio.say(o["value"], int(o.get("prio", 1)), str(o.get("style") or ""), str(o.get("emotion") or ""))
+            elif o.get("kind") == "vocal":                  # a feeling's voiced "whoa!": no caption
+                audio.say(o["value"], int(o.get("prio", 1)), str(o.get("style") or ""), str(o.get("emotion") or ""),
+                          caption=False)
             elif o.get("kind") == "clip":
                 audio.clip(str(o.get("wav", "")), str(o.get("caption") or ""), int(o.get("prio", 3)))
         audio.tick()

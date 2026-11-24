@@ -11,7 +11,7 @@ robot keeps `distance` from them (the base is holonomic: it closes the gap along
 them). Lost for 2 s: it stops and waits.
 
 Tag. The same track, approached to 0.5 m ("Tagged!"), then the robot backs off to 1.5 m, counts 3 s and chases
-again, at the kid speed. The collision monitor (when navigation runs) still stops it short of anything in its path.
+again, at the kid speed. The mode manager's lidar guard still stops it short of anything in its path.
 """
 
 from __future__ import annotations

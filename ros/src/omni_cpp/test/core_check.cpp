@@ -30,6 +30,10 @@
 //           | sm|fsm <v> <bit> | cal <id> <drive> <min> <max> | rad <ticks> | ticks <rad> | nominal <id> <lo> <hi>
 //           | bus ping|write|read|goals ... | play <kind> <n> + a line of times and a line of n x 6 | sample <t>
 //   mux     ... | catch <18 numbers: drive tx ty tyaw v_end t_brake coast a_brake tilt t_tilt tilt_after fly fire>
+//   guard   cfg <radius> <buffer> <decel> <latency> <touch> <self_margin> [slide 0|1] | pts <n> + a line of x y pairs
+//           | scan <angle_min> <inc> <rmin> <rmax> <max_gap> <full> + a line of ranges (nan = none): the points become
+//           the guard's (prints the count and how many were filled) | free <ux> <uy> | speed <free>
+//           | limit <vx> <vy> <wz> (prints vx vy wz limit free limited) | safe <vx> <vy> <wz> (prints 1 if within the law)
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
@@ -46,6 +50,7 @@
 #include "omni_cpp/clock_sync.hpp"
 #include "omni_cpp/feetech.hpp"
 #include "omni_cpp/detector.hpp"
+#include "omni_cpp/drive_guard.hpp"
 #include "omni_cpp/game.hpp"
 #include "omni_cpp/heading.hpp"
 #include "omni_cpp/host_link.hpp"
@@ -504,12 +509,54 @@ int main(int argc, char** argv) {
     bool lidar_samples = true, lidar_anchors = true;
     CatchCheck cc;
     ArmCheck arm;
+    DriveGuard guard;
     std::string line;
     while (std::getline(std::cin, line)) {
         std::istringstream is(line);
         std::string op;
         if (!(is >> op)) continue;
-        if (core == "clock") {
+        if (core == "guard") {
+            if (op == "cfg") {
+                GuardConfig& c = guard.cfg;
+                is >> c.radius >> c.buffer >> c.decel >> c.latency >> c.touch_speed >> c.self_margin;
+                int slide;
+                if (is >> slide) c.slide = slide != 0;
+            } else if (op == "pts") {
+                std::vector<double> v = read_line_nums();
+                std::vector<GuardPoint> p;
+                for (size_t i = 0; i + 1 < v.size(); i += 2) p.push_back({v[i], v[i + 1]});
+                guard.set_points(p);
+            } else if (op == "scan") {
+                double a0, inc, rmin, rmax, gap;
+                int full;
+                is >> a0 >> inc >> rmin >> rmax >> gap >> full;
+                std::vector<float> r;
+                for (double x : read_line_nums()) r.push_back((float)x);
+                int filled = 0;
+                auto p = guard_scan_points(r, a0, inc, rmin, rmax, gap, full != 0, &filled);
+                std::printf("%zu %d\n", p.size(), filled);
+                guard.set_points(p);
+            } else if (op == "free") {
+                double ux, uy;
+                is >> ux >> uy;
+                num(guard.free_distance(ux, uy));
+                std::printf("\n");
+            } else if (op == "speed") {
+                double f;
+                is >> f;
+                num(guard.allowed_speed(f));
+                std::printf("\n");
+            } else if (op == "limit") {
+                double vx, vy, wz;
+                is >> vx >> vy >> wz;
+                GuardResult g = guard.limit(vx, vy, wz);
+                nums({g.vx, g.vy, g.wz, g.limit, g.free, g.limited ? 1.0 : 0.0});
+            } else if (op == "safe") {
+                double vx, vy, wz;
+                is >> vx >> vy >> wz;
+                std::printf("%d\n", guard.safe(vx, vy, wz) ? 1 : 0);
+            }
+        } else if (core == "clock") {
             if (op == "cfg") {
                 ClockSyncConfig c;
                 is >> c.echo_window_s >> c.pulse_window_s >> c.pulse_period_s >> c.edge_latency_ns >> c.refit_s;

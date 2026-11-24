@@ -1,0 +1,18 @@
+old sim pod: 3 N/mm, 2 N, zeta 0.6, -3/+15 {'8': {'pod_rate': 3000.0, 'pod_preload': 2.0, 'pod_damping_ratio': 0.6, 'pod_droop': 0.003, 'pod_travel': 0.018}, '9.63': {'pod_rate': 3000.0, 'pod_preload': 2.0, 'pod_damping_ratio': 0.6, 'pod_droop': 0.003, 'pod_travel': 0.018}}
+as drawn: 2 per tower, no damper {'8': {'pod_rate': 3284.4, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 3357.8, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}}
+as drawn: 2 per tower, zeta 0.6 (a damper) {'8': {'pod_rate': 3284.4, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.6}, '9.63': {'pod_rate': 3357.8, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.6}}
+as drawn: 2 per tower, no damper, rate to the bump force {'8': {'pod_rate': 4597.0, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 4597.0, 'pod_preload': 2.41, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}}
+1 per tower, far bore, no damper {'8': {'pod_rate': 2352.7, 'pod_preload': 0.57, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 2418.0, 'pod_preload': 0.57, 'pod_droop': 0.003, 'pod_travel': 0.018, 'pod_damping_ratio': 0.1}}
+2 in series x 2, droop 6, no damper {'8': {'pod_rate': 1643.0, 'pod_preload': 1.85, 'pod_droop': 0.006, 'pod_travel': 0.021, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 1711.9, 'pod_preload': 1.85, 'pod_droop': 0.006, 'pod_travel': 0.021, 'pod_damping_ratio': 0.1}}
+2 in series x 2, droop 6, bump 17, no damper {'8': {'pod_rate': 1643.0, 'pod_preload': 1.85, 'pod_droop': 0.006, 'pod_travel': 0.023, 'pod_damping_ratio': 0.1}, '9.63': {'pod_rate': 1711.9, 'pod_preload': 1.85, 'pod_droop': 0.006, 'pod_travel': 0.023, 'pod_damping_ratio': 0.1}}
+96 jobs, 24 workers
+10/96 21 s
+20/96 25 s
+30/96 36 s
+40/96 42 s
+50/96 53 s
+60/96 60 s
+70/96 69 s
+80/96 74 s
+90/96 82 s
+96/96 105 s
