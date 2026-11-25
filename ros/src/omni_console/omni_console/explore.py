@@ -3,8 +3,15 @@
 A frontier is free space next to unknown space. Each pass: the free cells far enough from walls that the robot fits
 (clearance), the part of them the robot can reach, the frontier cells grouped into clusters, and for every cluster big
 enough and inside the allowed radius a goal on reachable space next to it. The cheapest goal wins: distance minus a
-bonus for size, so a large opening across the room beats a crack nearby. Goals that failed are skipped (blacklist).
-Nav2 drives there; when the cluster has been seen (no unknown left around the goal) the mission picks the next one.
+bonus for size, so a large opening across the room beats a crack nearby. Goals that failed, and goals already reached
+(their opening can't be cleared from there), are skipped (blacklist). Nav2 drives there; when the cluster has been seen
+(no unknown left around the goal) the mission picks the next one.
+
+A cluster's goal is reached from one of its own cells (the one nearest its middle), never its centroid, and lies at
+least min_goal from the robot. A new map's first scan is a small starburst ringed by one frontier (slam_toolbox marks a
+cell free only after two rays pass it, min_pass_through), and that ring's centroid is the robot itself: the goal fell
+inside Nav2's goal tolerance, "succeeded" at once and was picked again, the robot never moved, slam_toolbox added no
+scans (it needs minimum_travel_distance) and the map stayed at ~2 m² (Nov 24, arm step, A2M8).
 """
 
 from __future__ import annotations
@@ -53,11 +60,15 @@ class ExploreParams:
     radius: float = 10.0            # m from the start: frontiers farther out are left alone
     min_frontier: float = 0.5       # m: smaller openings are ignored
     clearance: float = 0.35         # m from walls for a goal: robot radius 0.24 + margin, toward Nav2's 0.40 inflation
-    blacklist_r: float = 0.6        # m around a failed goal
+    blacklist_r: float = 0.6        # m around a failed or reached goal
+    min_goal: float = 0.5           # m from the robot: nearer goals are inside Nav2's tolerance or move it too little
+                                    # for slam_toolbox to add a scan (minimum_travel_distance 0.25)
+    max_reach: float = 1.0          # m from a frontier cell to the reachable floor its goal stands on
 
 
 def frontier_goal(g: Grid, robot: tuple, start: tuple, p: ExploreParams, blacklist=()) -> tuple:
-    """The next goal (x, y, yaw) or None, and a dict of counts for the operator."""
+    """The next goal (x, y, yaw) or None, and a dict of counts for the operator. blacklist: (x, y) of goals that failed
+    or were reached; a cluster whose goal lies within blacklist_r of one is left alone."""
     d = g.data
     unknown = d < 0
     occ = d >= OCC_MIN
@@ -84,21 +95,31 @@ def frontier_goal(g: Grid, robot: tuple, start: tuple, p: ExploreParams, blackli
         return None, info
     reach_dist, ridx = ndimage.distance_transform_edt(~reach, return_indices=True)
     sizes = ndimage.sum_labels(frontier, flab, index=np.arange(1, n + 1)) * g.res
-    centroids = ndimage.center_of_mass(frontier, flab, index=np.arange(1, n + 1))
+    cen = np.array(ndimage.center_of_mass(frontier, flab, index=np.arange(1, n + 1)), float).reshape(n, 2)
+    # every frontier cell's goal: the nearest reachable cell; usable if near enough the cell and far enough from the robot
+    fr, fc = np.nonzero(frontier)
+    lab_f = flab[fr, fc] - 1
+    gr_f, gc_f = ridx[0][fr, fc], ridx[1][fr, fc]
+    gx_f, gy_f = g.ox + (gc_f + 0.5) * g.res, g.oy + (gr_f + 0.5) * g.res
+    ok = ((reach_dist[fr, fc] * g.res <= p.max_reach)
+          & (np.hypot(gx_f - robot[0], gy_f - robot[1]) >= p.min_goal))
+    d_mid = (fr - cen[lab_f, 0]) ** 2 + (fc - cen[lab_f, 1]) ** 2
+    d_mid[~ok] = np.inf
+    order = np.lexsort((d_mid, lab_f))                     # by cluster, then nearest its middle first
+    labs, first = np.unique(lab_f[order], return_index=True)
+    pick = dict(zip(labs.tolist(), order[first].tolist()))
     best, best_cost, count = None, math.inf, 0
     for k in range(n):
         size = float(sizes[k])
         if size < p.min_frontier:
             continue
-        cy, cx = centroids[k]
-        r0, c0 = int(round(cy)), int(round(cx))
-        fx, fy = g.xy(r0, c0)
+        i = pick.get(k)
+        if i is None or not math.isfinite(d_mid[i]):      # no usable goal: no floor near it, or only at the robot
+            continue
+        fx, fy = g.xy(int(fr[i]), int(fc[i]))
         if math.hypot(fx - start[0], fy - start[1]) > p.radius:
             continue
-        if reach_dist[r0, c0] * g.res > 1.0:              # no reachable floor within 1 m of the opening
-            continue
-        gr, gc = int(ridx[0][r0, c0]), int(ridx[1][r0, c0])
-        gx, gy = g.xy(gr, gc)
+        gx, gy = float(gx_f[i]), float(gy_f[i])
         if any(math.hypot(gx - b[0], gy - b[1]) < p.blacklist_r for b in blacklist):
             continue
         count += 1

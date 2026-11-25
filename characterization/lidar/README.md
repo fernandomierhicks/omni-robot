@@ -170,7 +170,8 @@ Standard 21–30 % at 5 m, 63 % at 7 m and 19 % at 62°.
 The v11 sim's default lidar is now `SensorConfig.parts(lidar="A2M8", lidar_mode="Stability")`; `sensors.py`'s
 docstring has the details. The ROS steps take `lidar:=a2m8|a2m12`, `lidar_mode:=stability|boost|express|standard` and
 `lidar_stamp:=clock|sllidar|true` (`clock`, the default since Nov 17: as the robot's driver stamps, below).
-`lidar:=a2m12` reproduces earlier runs: 16 k samples/s, exactly 10 Hz, even angles and ideal stamps.
+`lidar:=a2m12` reproduces earlier runs: 16 k samples/s, exactly 10 Hz, even angles and ideal stamps. Pass
+`map:=house_a2m12` with it, the map it was built on; since Nov 24 `maps/house` is the A2M8's (design.md 4.6).
 
 | Modelled | From |
 | --- | --- |

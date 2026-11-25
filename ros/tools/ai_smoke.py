@@ -4,10 +4,12 @@ server (server.py as a child process, MCP JSON-RPC over its stdio) where it matt
 
   spin    5 turns at "max": the sim's true yaw (/ground_truth/odom, unwrapped) 1800 +- 3 deg, the duration within 15%
           of the robot's estimate
-  lease   the MCP process killed mid-spin: the robot stops (true yaw rate < 5 deg/s) within the lease TTL + 0.5 s
+  lease   the MCP process killed mid-spin: the task cancelled within the lease TTL + 0.5 s (wall: the console's clock),
+          then the robot stopped (true yaw rate < 5 deg/s) within 1 s of sim time
   dup     the same request_id twice: one task, one turn
   owner   the page takes control: a move is refused (owner_conflict)
-  goto    Nav2 to a map pose and back, with its evidence; an unknown place refused
+  goto    Nav2 to a map pose 0.8 m out (ahead, else the first clear side on the map) and back, with its evidence; an
+          unknown place refused
   blocked a goal Nav2 can't reach: the task FAILED with Nav2's reason, the robot still
   navlease the MCP process killed while Nav2 drives: the goal cancelled, the robot stops within the TTL + ~1 s
   pick    (objects:=colours) "go get the purple square object": find (look round, closer if the shape is a guess),
@@ -102,6 +104,11 @@ class Truth:
                 r = abs(math.degrees((s[i][1] - s[j][1]) / (s[i][2] - s[j][2])))
                 best = r if best is None else max(best, r)
         return None if best is None else round(best, 1)
+
+    def sim_between(self, t0: float, t1: float) -> float | None:
+        """Sim seconds between wall times t0 and t1 (the samples nearest each)."""
+        s = [x for x in self.samples if t0 <= x[0] <= t1]
+        return None if len(s) < 2 else round(s[-1][2] - s[0][2], 2)
 
     def span(self, t0: float, t1: float, tol_deg: float = 1.0) -> float | None:
         """Sim seconds the turn took between wall times t0 and t1: from leaving the start by tol_deg to coming within
@@ -252,16 +259,23 @@ def lease(robot: Robot, truth: Truth, env: dict) -> list:
     spinning = truth.rate()
     mcp.kill()
     t_kill = time.monotonic()
-    t_stop = None
+    t_cancel = t_stop = None
     while time.monotonic() - t_kill < 8.0:
+        if t_cancel is None and robot.call("task", dict(task_id=r["data"]["task_id"]))["data"]["state"] in TERMINAL:
+            t_cancel = time.monotonic()
         if abs(truth.rate(0.2)) < 5.0:
             t_stop = time.monotonic()
             break
         time.sleep(0.02)
     d = robot.call("task", dict(task_id=r["data"]["task_id"]))["data"]
     dt = None if t_stop is None else round(t_stop - t_kill, 2)
-    return [check("lease lapse stops the robot", t_stop is not None and dt <= 3.5 and d["state"] == "CANCELLED",
-                  spinning_deg_s=round(spinning, 1), stopped_after_s=dt, task=d["state"], why=d.get("message"))]
+    # The lease is the console's (wall clock): cancelled within its 3 s TTL (+0.5 s for the console's tick and this
+    # poll). Stopping from ~185 deg/s is the robot's (sim time: at half real time it takes twice the wall time).
+    dc = None if t_cancel is None else round(t_cancel - t_kill, 2)
+    brake = None if t_cancel is None or t_stop is None else truth.sim_between(t_cancel, t_stop)
+    return [check("lease lapse stops the robot", dc is not None and dc <= 3.5 and brake is not None and brake <= 1.0
+                  and d["state"] == "CANCELLED", spinning_deg_s=round(spinning, 1), cancelled_after_s=dc,
+                  stopped_after_s=dt, braking_sim_s=brake, task=d["state"], why=d.get("message"))]
 
 
 def dup(robot: Robot, truth: Truth, env: dict) -> list:
@@ -299,6 +313,15 @@ def owner(robot: Robot, truth: Truth, env: dict) -> list:
     return out
 
 
+def clear_on_map(g: dict, x: float, y: float, r: float) -> bool:
+    """Every known cell within r of (x, y) free (unknown counts as not clear)."""
+    c0, r0 = int((x - r - g["x0"]) / g["res"]), int((y - r - g["y0"]) / g["res"])
+    c1, r1 = int((x + r - g["x0"]) / g["res"]) + 1, int((y + r - g["y0"]) / g["res"]) + 1
+    if c0 < 0 or r0 < 0 or c1 > g["width"] or r1 > g["height"]:
+        return False
+    return bool((g["cells"][r0:r1, c0:c1] == 0).all())
+
+
 def goto(robot: Robot, truth: Truth, env: dict) -> list:
     hold_lease(robot, True)
     free_robot(robot)
@@ -309,7 +332,14 @@ def goto(robot: Robot, truth: Truth, env: dict) -> list:
     bad = robot.goto("kitchen")
     out = [check("goto unknown place refused", bad["data"].get("error") == "unknown_place", reply=bad["message"])]
     x, y, yaw = p["x"], p["y"], p["yaw_deg"]
-    gx, gy = x + 0.8 * math.cos(math.radians(yaw)), y + 0.8 * math.sin(math.radians(yaw))
+    # 0.8 m out, ahead if that's clear on the map, else to a side or behind: the robot faces wherever the earlier
+    # checks left it, and a goal in a wall "arrives" at the nearest free cell (Nav2's planner tolerance), ~0.3 m short
+    g = robot.map_grid()
+    for turn in (0, 90, -90, 180, 45, -45, 135, -135):
+        h = math.radians(yaw + turn)
+        gx, gy = x + 0.8 * math.cos(h), y + 0.8 * math.sin(h)
+        if clear_on_map(g, gx, gy, 0.45):
+            break
     r = robot.goto(x=gx, y=gy, yaw_deg=yaw + 90)
     d = until_done(robot, r["data"]["task_id"], 120) if r["ok"] else {}
     out.append(check("goto a map pose", d.get("state") == "SUCCEEDED" and d["evidence"]["distance_to_goal_m"] < 0.25,

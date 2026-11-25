@@ -578,11 +578,13 @@ void Firmware::tick(const FwHwInputs& in, FwHwOutputs& out) {
     // mode. The RC's drive switch (ch 5) normally drives through the robot computer (protocol 10: STATE carries the
     // sticks; its lidar guard shapes them and they come back as CMDs). MANUAL, the sticks straight to the base, only
     // when the computer can't drive (no link, or the fault stop latched) and the switch was turned off and on again
-    // since: never a surprise hand-over at speed. Once in MANUAL it stays until the switch goes off.
+    // since: never a surprise hand-over at speed. Once in MANUAL it stays until the switch goes off. "Off" is the
+    // receiver reporting the switch off: no RC link (boot, failsafe) is not a cycle, so a transmitter switched on
+    // before the computer has booted (or a link that drops and returns) drives through the computer, not around it.
     bool rc_sw = in.rc_ok && in.rc[4] > 0.5f;
     bool host_can = link_ok && !fault_stop_;
     if (host_can) rc_rearm_ = false;
-    else if (!rc_sw) rc_rearm_ = true;
+    else if (in.rc_ok && !rc_sw) rc_rearm_ = true;
     bool manual = rc_sw && (mode_ == MODE_MANUAL || (!host_can && rc_rearm_));
     bool want_auto = link_ok && cmd_.req_mode == REQ_AUTO && !fault_stop_;
     if (in.estop) {

@@ -242,8 +242,10 @@ def run_faults(page, a, st, cmd, wait, check):
     page.keyboard.down("q")                      # turning in place: nothing in the way can stop it but the MCU
     time.sleep(1.0)
     v0 = page.evaluate(TRUE_SPEED_JS)
+    if a.world_port:                     # the pace now (an idle sim at the start can read 1.0, then slow to ~0.5)
+        a.rtf = min(a.rtf, sim_rtf(a.world_port))
     pub("link", True, 4.0)
-    time.sleep(2.0)
+    time.sleep(max(2.0, 1.25 / a.rtf))           # the MCU's 0.5 s link watchdog, then braking (sim time)
     s2 = st()
     v1 = page.evaluate(TRUE_SPEED_JS)
     page.keyboard.up("q")

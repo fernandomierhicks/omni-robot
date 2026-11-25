@@ -75,6 +75,7 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     NAV_MISSIONS,
     NEW_MAP,
     Reply,
+    MAP_WAIT,
     SAY_MAX,
     SETTING,
     SETTINGS,
@@ -795,7 +796,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         elif self.slam["mode"] != "mapping":
             return Reply(False, "Exploring builds a map: press 'New map + explore' (or map in the SLAM tab first)")
         fx = list(self._enter("EXPLORE", "Exploring: waiting for the map", "info").effects) + fx
-        self.explore = dict(phase="wait", start=None, t0=self.now, blacklist=[], info={}, t_plan=0.0, t_goal=0.0)
+        self.explore = dict(phase="wait", start=None, t0=self.now, blacklist=[], reached=[], info={}, t_plan=0.0,
+                            t_goal=0.0)
         return Reply(True, "Exploring", None, tuple(fx))
 
     def _patrol(self, route: str) -> Reply:
@@ -1253,14 +1255,23 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             e.update(phase="explore", start=self.pose[1:], t0=now)
         if e["phase"] == "home":
             return []
+        if grid is not None and e["info"]:                 # the area mapped so far, not only at the last plan
+            e["info"]["known_m2"] = round(grid.known_area(), 1)
+            if self.goal is not None:
+                self.task = f"Exploring: {e['info']['frontiers']} openings left, {e['info']['known_m2']:.0f} m² mapped"
         time_up = now - e["t0"] > 60.0 * v["explore.max_time"]
-        need = self.goal is None and now >= e["t_plan"]
+        # after an arrival (or a failure) plan on the next /map, not the one from before the drive: slam_toolbox
+        # refreshes it every map_update_interval (2 s), and the stale map made reached openings look uncleared
+        fresh = grid is not e.get("stale") or now - e.get("t_done", -math.inf) > MAP_WAIT
+        need = self.goal is None and now >= e["t_plan"] and fresh
+        if grid is not None:
+            e["grid"] = grid
         seen = (self.goal is not None and grid is not None and now - e["t_goal"] > 2.0
                 and not still_open(grid, (self.goal["x"], self.goal["y"])))
         if time_up or ((need or seen) and grid is not None):
             goal, info = (None, e["info"]) if time_up else frontier_goal(
                 grid, self.pose[1:], e["start"],
-                ExploreParams(v["explore.radius"], v["explore.min_frontier"]), e["blacklist"])
+                ExploreParams(v["explore.radius"], v["explore.min_frontier"]), e["blacklist"] + e["reached"])
             e["info"] = info
             e["t_plan"] = now + 1.0
             if goal is None:
@@ -1420,7 +1431,11 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                 return
             if e["phase"] == "home":
                 self._finish_explore("back at the start" if ok else f"could not drive back: {why}")
-            elif not ok:
+                return
+            e["stale"], e["t_done"] = e.get("grid"), now   # the next plan waits for a map drawn after this drive
+            if ok:                                         # if its opening is still there, it can't be cleared from here
+                e["reached"].append((g["x"], g["y"]))
+            else:
                 e["blacklist"].append((g["x"], g["y"]))
                 self.event("warn", f"Skipping an opening at ({g['x']:.1f}, {g['y']:.1f}): {why}")
         elif self.mission == "PATROL":

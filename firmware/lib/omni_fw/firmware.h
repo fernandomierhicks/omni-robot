@@ -12,7 +12,7 @@
 //              Normally (protocol 10) the RC's drive switch (ch 5) drives through the robot computer: STATE carries
 //              the sticks, mode_manager's lidar guard shapes them, they come back as CMDs (AUTO). MANUAL only when the
 //              computer can't drive (no link, the fault stop latched) and the switch has been turned off and on again
-//              since. Leaving it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest
+//              since, off as the receiver reports it (no RC link at boot or in failsafe is not "off"). Leaving it (the switch, or the RC link lost) reports DISARMED at once but ramps the base to rest
 //              with the motors still enabled, then disables them: never a cut at speed
 //   ESTOP      the e-stop chain is open: motor power is already off in hardware; everything is reset
 // Rules (design.md 14): every stop is ramped; no CMD for CMD_TIMEOUT -> ramped stop, flywheels off; a bumper ->

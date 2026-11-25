@@ -14,7 +14,7 @@ Numbers and decisions: [../../design.md](../../design.md) (history §30 for the 
 simulator for the arm robot (design.md 5). Use `robot_export.ARM` / `ARM_D435` (`arm_params()`; the D435 on the arm riser is the
 arm robot's only camera). Defaults since the bench work: the AK40-10 drives in servo mode (`AkMotor`), refit to the Nov 13 bench
 with its 5.5 ms command latency (`SilRobot(ak_latency=)`, 0 reproduces earlier runs); the **RPLIDAR A2M8** lidar
-(`lidar_part="A2M12"` / `lidar:=a2m12` reproduce earlier runs) stamped as the robot's `rplidar_node` does (`lidar_stamp:=clock`;
+(`lidar_part="A2M12"` / `lidar:=a2m12 map:=house_a2m12` reproduce earlier runs) stamped as the robot's `rplidar_node` does (`lidar_stamp:=clock`;
 `sllidar` reproduces Nov 16); realistic D435 depth errors (`d435_noise:=ideal` reproduces earlier runs); the CAD's 687 rollers
 (below). The baselined pack is now the HRB 6S 3300 (design.md 2), but the sim still models the OVONIC (next paragraph) until the
 HRB is in `catalog.py`. The catch results in "Results in one place" are the parked catch robot's.

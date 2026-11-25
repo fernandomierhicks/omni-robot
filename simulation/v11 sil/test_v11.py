@@ -1284,6 +1284,29 @@ def test_rc_drives_through_the_robot_computer_and_manual_needs_the_switch_cycled
     assert r.fw.mode == 3
 
 
+def test_an_rc_link_coming_up_with_the_switch_on_before_the_computer_is_no_cycle():
+    """Power-on order (Nov 24 stack check): the transmitter on with its drive switch on, the receiver links before the
+    robot computer does. No RC link is not "off", so no MANUAL (which skips the lidar guard); the computer drives the
+    sticks once it is up. The same after an RC link that drops and returns without a computer."""
+    FW, PR = _sil()
+    rig = sil_rig()
+    p, m, d, r, link = rig
+    idle = PR.Command(drive_mode=PR.DRIVE_IDLE)
+    r.rc = None                                                          # boot: no receiver link, no computer
+    sil_run(rig, 0.05, lambda t: None)
+    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]                       # the receiver links, switch on, stick forward
+    s = sil_run(rig, 1.0, lambda t: None)
+    assert r.fw.mode != 3 and not link.host.state.rc_direct and abs(s[-1, 1]) < 0.02
+    sil_run(rig, 0.5, lambda t: idle)                                     # the computer comes up: AUTO, not MANUAL
+    assert r.fw.mode == 2 and not link.host.state.rc_direct
+    sil_run(rig, 1.5, lambda t: None)                                     # the computer goes silent again ...
+    r.rc = None                                                          # ... and the RC link drops and returns
+    sil_run(rig, 0.05, lambda t: None)
+    r.rc = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+    s = sil_run(rig, 1.0, lambda t: None)
+    assert r.fw.mode != 3 and abs(s[-1, 1]) < 0.02                       # still no MANUAL: never seen off
+
+
 def test_kid_profile_turns_off_only_at_rest():
     FW, PR = _sil()
     rig = sil_rig()

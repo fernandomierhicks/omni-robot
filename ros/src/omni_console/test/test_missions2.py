@@ -56,6 +56,40 @@ def test_no_frontier_when_all_known_or_out_of_range():
     assert frontier_goal(g2, (1.0, 1.5, 0.0), (1.0, 1.5), ExploreParams(), blacklist=[goal[:2]])[0] is None
 
 
+def test_a_new_maps_starburst_sends_the_robot_off_its_spot():
+    """A new map's first scan: a free disc ringed by one frontier, whose centroid is the robot. The goal must be a
+    reachable spot on the ring's side, out of Nav2's goal tolerance (Nov 24: it was the robot's own cell, forever)."""
+    rows = cols = 80
+    d = np.full((rows, cols), -1, np.int8)
+    yy, xx = np.mgrid[:rows, :cols]
+    d[(yy - 40) ** 2 + (xx - 40) ** 2 <= 22 ** 2] = 0                  # 1.1 m around the robot at (2, 2)
+    g = Grid(d, 0.05, 0.0, 0.0)
+    robot = (2.0, 2.0, 0.0)
+    goal, info = frontier_goal(g, robot, robot[:2], ExploreParams())
+    assert goal is not None and info["frontiers"] == 1
+    assert math.hypot(goal[0] - 2.0, goal[1] - 2.0) >= 0.5
+    # standing on it, the same opening gives another goal, never the robot's own spot; reached, it is left alone
+    goal2, _ = frontier_goal(g, (goal[0], goal[1], 0.0), robot[:2], ExploreParams())
+    assert goal2 is not None and math.hypot(goal2[0] - goal[0], goal2[1] - goal[1]) >= 0.5
+    assert frontier_goal(g, (goal[0], goal[1], 0.0), robot[:2], ExploreParams(), [goal[:2], goal2[:2]])[0] is None
+
+
+def test_explore_does_not_return_to_a_reached_goal():
+    c = ready()
+    c.set_slam(mode="mapping", managed=True)
+    c.command("explore")
+    c.pose = ("map", 1.0, 1.5, 0.0)
+    g = room()
+    c.tick(1.0, g)
+    first = (c.goal["x"], c.goal["y"])
+    c.on_nav_done(c.goal["seq"], "succeeded", 2.0)
+    c.pose = ("map", first[0], first[1], 0.0)
+    assert c.tick(3.5, g) == () and c.goal is None                  # no plan on the map from before the drive
+    fx = c.tick(4.0, room())                                        # the next map: the opening is still there
+    assert c.explore["reached"] == [first]
+    assert "nav_goal" in kinds(fx) and c.goal["name"] == "start"    # the only opening was reached: done, home
+
+
 def test_explore_mission_goes_to_frontiers_then_home():
     c = ready()
     assert not c.command("explore").ok                              # SLAM isn't mapping

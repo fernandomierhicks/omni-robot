@@ -29,6 +29,7 @@ DRIVE_MISSIONS = ("MANUAL", "FOLLOW", "PROGRAM", "CALIBRATE")   # the console dr
 LAUNCHER_RPMS = (2500.0, 3000.0, 3500.0, 4000.0, 4500.0)        # the launcher calibration's shots (est: the range used)
 MANUAL_TIMEOUT = 0.3               # s: the console's stick stops counting (dead man released, tab closed, Wi-Fi gone)
 ZERO_TAIL = 0.3                    # s of zero twist after that, then silence (Nav2 / Foxglove / the joystick may drive)
+MAP_WAIT = 6.0                     # s Explore waits for a fresh /map after a goal ends (slam_toolbox's interval is 2 s)
 KID_SPEED = 0.8                    # m/s, the firmware's kid cap (shown, not enforced, here)
 FLY_RPM_MAX = 6000.0               # the console's slider; the firmware caps by profile (kid lower)
 TILT_RANGE = (-30.0, 40.0)         # deg, the module's travel
