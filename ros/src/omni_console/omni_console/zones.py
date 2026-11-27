@@ -88,11 +88,15 @@ def covers(mask_geom, map_geom) -> bool:
 
 
 def masks(zones: dict, edges: dict, width: int, height: int, res: float, ox: float, oy: float):
-    """(keepout int8[h, w], speed int8[h, w]) on the map's grid (row 0 at the origin, as OccupancyGrid.data)."""
+    """(keepout int8[h, w], speed int8[h, w]) on the map's grid (row 0 at the origin, as OccupancyGrid.data). The
+    keepout mask is unknown (-1) outside the zones: Nav2's KeepoutFilter skips a mask's unknown cells but writes any
+    other value over a costmap cell that is unknown, so a 0 background made all unknown space free and NavFn
+    (allow_unknown false) planned through it: Explore's robot set off round the outside of the house for a frontier
+    past the den (Nov 26, world:=home, hm28)."""
     xs = ox + (np.arange(width) + 0.5) * res
     ys = oy + (np.arange(height) + 0.5) * res
     X, Y = np.meshgrid(xs, ys)
-    keep = np.zeros((height, width), dtype=np.int8)
+    keep = np.full((height, width), -1, dtype=np.int8)
     for poly in zones.values():
         p = np.asarray(poly)
         x0, y0 = p.min(axis=0)

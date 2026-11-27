@@ -204,7 +204,7 @@ def test_zone_and_edge_masks_and_the_speed_cap():
     edges = {"rug": dict(points=[[0.0, -1.0], [0.0, 1.0]], height_mm=12, speed=0.6, kind="rug")}
     keep, speed = masks(zones, edges, 80, 80, 0.05, -1.0, -1.5)                 # 4 x 4 m from (-1, -1.5)
     cell = lambda x, y: (int((y + 1.5) / 0.05), int((x + 1.0) / 0.05))          # noqa: E731
-    assert keep[cell(1.5, 1.5)] == 100 and keep[cell(0.5, 0.5)] == 0
+    assert keep[cell(1.5, 1.5)] == 100 and keep[cell(0.5, 0.5)] == -1       # unknown: Nav2 leaves the cell alone (hm28)
     assert speed[cell(0.1, 0.0)] == 60 and speed[cell(0.6, 0.0)] == 0 and speed[cell(0.0, 1.3)] == 60
     assert speed_cap(edges.values(), 0.2, 0.5)[0] == 0.6 and speed_cap(edges.values(), 0.5, 0.0)[0] is None
     # the masks stay while the map's rebuilds shift its bounds a little; a map that grows (mapping) gets new ones

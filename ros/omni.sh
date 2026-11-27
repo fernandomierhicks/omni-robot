@@ -39,7 +39,7 @@ sync() {
     mkdir -p "$WS/src" "$OMNI_SIM_DIR" "$OMNI_MAPS_DIR"
     rsync -a --delete --exclude '__pycache__' "$REPO/ros/src/" "$WS/src/"
     rsync -a --delete --exclude '__pycache__' --exclude 'sil/build/' --exclude '.pio/' "$REPO/firmware/" "$OMNI_FIRMWARE_DIR/"
-    rsync -a --delete --exclude '__pycache__' --exclude '.pytest_cache' --exclude 'renders/' \
+    rsync -a --delete --exclude '__pycache__' --exclude '.pytest_cache' --exclude 'renders/' --exclude 'cext/build/' \
         --exclude 'studies/results/' --exclude '*.mp4' "$SIM_WIN/" "$OMNI_SIM_DIR/"
     mkdir -p "$OMNI_SIM_DIR/studies/results"
     rsync -a --update "$REPO/ros/maps/" "$OMNI_MAPS_DIR/" 2>/dev/null || true

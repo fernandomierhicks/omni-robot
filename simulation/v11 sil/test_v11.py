@@ -568,6 +568,203 @@ def test_house_scene_builds_and_drives():
     assert "tile" in drv.under_wheels()
 
 
+# -- Nov 24: the home (home.py: the real house from its permit drawings) ---------------------------
+
+def test_home_plan_matches_the_drawings_outline_and_doors():
+    import home
+    w, h = home.PLAN["extent_m"]
+    assert abs(w - 63 * 0.3048) < 0.1 and abs(h - 65 * 0.3048) < 0.1          # FLOOR PLAN.PNG's 63 x 65 ft outline
+    ds = home.doors()
+    assert len(ds) == 18 and sum(outside for *_, outside in ds) == 5
+    assert all(frac == (0.0 if outside else 1.0) for *_, frac, outside in ds)   # outer doors shut, inner open
+    assert all(0.45 < width < 0.95 for _, _, _, _, width, _, _ in ds)
+    assert len(home.windows()) >= 20
+    with pytest.raises(ValueError):
+        home.doors(SimParams(world="home", home_doors=(("no such door", 1.0),)))
+
+
+def test_home_is_sealed_and_the_den_is_behind_its_step():
+    import home
+    from scipy import ndimage as ndi
+    from bridge_core import CoreConfig, SimCore
+    core = SimCore(CoreConfig(base="v7", world="home", shadow=(), live_world=True))
+    m, d = core.m, core.d
+    assert m.geom_group[m.geom("home_den_step").id] == 4         # neither the lidar nor a camera sees the stand-in
+    # what a camera sees (groups 0-2): the den's floor 165 mm under the family room's, the house's floor at 0; the
+    # physics plane (group 3) isn't drawn
+    assert m.geom_group[m.geom("floor").id] == 3
+    drawn, gid = np.array([1, 1, 1, 0, 0, 0], np.uint8), np.zeros(1, np.int32)
+    for xy, z_floor in (((-2.0, 5.0), home.FAMILY_H - home.DEN_DROP), ((-2.0, 1.5), home.FAMILY_H), ((3.6, -3.2), 0.0)):
+        dist = mujoco.mj_ray(m, d, np.array([*xy, 0.5]), np.array([0.0, 0.0, -1.0]), drawn, 1, -1, gid)
+        assert abs(0.5 - dist - z_floor) < 0.002, (xy, 0.5 - dist)
+    occ, x0, y0 = home.occupancy(m, d, 0.05, 0.15)
+    lab, _ = ndi.label(~occ)
+    start = lab[int((home.START[1] - y0) / 0.05), int((home.START[0] - x0) / 0.05)]
+    assert start != 0 and start != lab[0, 0]                      # outer doors shut, slider closed: no way out
+    said = []
+    t_end = d.time + 6.0
+    while d.time < t_end:                                         # north at the den's French doors
+        core.set_cmd(0.0, 0.5, 0.0)
+        ev = core.step()
+        if ev.hazard:
+            said.append(ev.hazard)
+    assert len(said) == 1 and core.r.pose()[1] < home.DEN[1]      # stopped at the step, said once
+    core.drv.teleport((-5.8, -1.0, 90.0))                         # up the hall, through bedroom 2's door
+    t_end = d.time + 8.0
+    while d.time < t_end:
+        core.set_cmd(0.5, 0.0, 0.0)
+        core.step()
+    assert home.room_at(core.r.pose()[:2]) == "bedroom 2"
+    core.world.set(clutter="all")                                 # the live world's things go in the home's rooms
+    placed = [d.xpos[core.world.bodies[k]][:2] for k in core.world.placed]
+    assert len(placed) >= 4 and not any(home.in_den(xy, 0.3) for xy in placed)
+
+
+def test_home_family_room_is_raised_and_its_ramps_climb_both_ways():
+    import floor
+    import home
+    from bridge_core import CoreConfig, SimCore
+    assert abs(home.FAMILY_H - (0.0127 + 0.1524 * math.tan(math.radians(20)))) < 1e-9      # 0.5 in + 20 deg over 6 in
+    ramps = [f for f in home.floor_features() if isinstance(f, floor.Ramp)]
+    assert len(ramps) == 2 and all(abs(r.angle_deg - 20.0) < 0.01 for r in ramps)
+    edges = floor.edges(SimParams(floor_features=home.floor_features()))
+    assert sorted(round(e[4], 4) for e in edges) == [0.0095] * 4 + [0.0127] * 2             # rug + ramp feet; no platform
+    core = SimCore(CoreConfig(base="v7", world="home", shadow=()))
+    m, d, b = core.m, core.d, core.m.body("base").id
+    assert d.xpos[b][2] > home.FAMILY_H - 0.01                    # the start is on the raised floor, resting
+
+    def drive(spot, secs):
+        core.drv.teleport(spot)
+        t_end = d.time + secs
+        while d.time < t_end:
+            core.set_cmd(0.5, 0.0, 0.0)
+            core.step()
+        return home.room_at(core.r.pose()[:2]), d.xpos[b][2]
+
+    room, z = drive((-5.8, 0.72, 0.0), 3.0)                       # from the hall up the west ramp
+    assert room == "family room" and z > home.FAMILY_H - 0.01
+    room, z = drive((2.0, -1.97, 180.0), 3.0)                     # from the hallway up the east ramp
+    assert room == "family room" and z > home.FAMILY_H - 0.01
+    room, z = drive((0.5, -1.97, 0.0), 3.0)                       # and down it again
+    assert room == "hallway" and z < 0.02
+
+
+# -- Nov 26: the course (course.py: the Nav2 / Explore stress course) ----------------------------------
+
+def test_course_is_sealed_connected_and_its_ramp_room_climbs():
+    import course
+    from scipy import ndimage as ndi
+    from bridge_core import CoreConfig, SimCore
+    core = SimCore(CoreConfig(base="drawn", world="course", payload="arm", arm_camera="d435", shadow=(),
+                              live_world=True, clutter="off"))
+    m, d, b = core.m, core.d, core.m.body("base").id
+    assert course.room_at(core.r.pose()[:2]) == "start room"
+    from home import occupancy
+    occ, x0, y0 = occupancy(m, d, 0.05, 0.15, area=course.AREA)
+    lab, _ = ndi.label(~occ)
+
+    def cell(xy):
+        return lab[int((xy[1] - y0) / 0.05), int((xy[0] - x0) / 0.05)]
+    start = cell(course.START)
+    assert start != 0 and start != lab[0, 0]                      # sealed: the outside isn't reachable
+    for name, xy in course.PLACES.items():                        # every named place is in the same free space
+        assert cell(xy) == start, name
+
+    def drive(spot, v, secs):
+        core.drv.teleport(spot)
+        t_end = d.time + secs
+        while d.time < t_end:
+            core.set_cmd(v, 0.0, 0.0)
+            core.step()
+        return course.room_at(core.r.pose()[:2]), d.xpos[b][2]
+
+    x, y = course.L(9.43, 4.0)
+    room, z = drive((x, y, -90.0), 0.4, 4.0)                      # from the hall up the ramp into the raised room
+    assert room == "ramp room" and z > course.RAMP_H - 0.01
+    x, y = course.L(2.0, 4.0)
+    room, _ = drive((x, y, 0.0), 1.0, 8.0)                        # east along the hall, no walls in the way
+    assert room == "hall" and core.r.pose()[0] > course.L(9.0, 0)[0]
+
+
+# -- Nov 26: the sim's speed (C++ hooks, cached segmentation, the occlusion's sliding max, air off) ----------
+
+def test_cpp_hooks_match_python():
+    """sim_hooks.CppHooks writes what Robot.pre_step's Python hooks write (contacts, floor field, rolling resistance,
+    arm servos), from the same state, to rounding; free runs stay together."""
+    import course
+    from bridge_core import CoreConfig, SimCore
+
+    def make(cpp):
+        c = SimCore(CoreConfig(base="drawn", world="course", payload="arm", arm_camera="d435", firmware=True,
+                               shadow=(), air="off", fw_div=2, floor_div=4, post_div=4, cpp_hooks=cpp))
+        c.drv.teleport((*course.L(9.43, 4.0), -90.0))              # at the ramp
+        return c
+    a, b = make(False), make(True)
+    assert a.r.cpp is None and b.r.cpp is not None and b.r.cpp.arm is not None and b.r.cpp.rr is not None
+    for k in range(120):
+        a.step()
+        mujoco.mj_copyData(b.d, b.m, a.d)
+        b.r._tick = b.r.cpp.h.tick = a.r._tick
+        b.r.arm.cmd[:] = a.r.arm.cmd
+        for name in ("pair_friction", "dof_frictionloss", "actuator_forcerange"):
+            getattr(b.m, name)[:] = getattr(a.m, name)
+        a.r.pre_step()
+        b.r.pre_step()
+        for x, y in ((a.m.pair_friction, b.m.pair_friction), (a.m.dof_frictionloss, b.m.dof_frictionloss),
+                     (a.m.actuator_forcerange, b.m.actuator_forcerange), (a.d.ctrl, b.d.ctrl),
+                     (a.d.qfrc_applied, b.d.qfrc_applied)):
+            assert np.max(np.abs(x - y)) < 1e-12
+        mujoco.mj_step(a.m, a.d)
+        a.r.post_step()
+    a, b = make(False), make(True)
+    for c in (a, b):
+        c.r.arm.set_pose(c.r.arm.target + 0.3)                     # a rebound goal array: re-pointed
+    for _ in range(2000):
+        a.step()
+        b.step()
+    assert np.hypot(*(a.r.pose()[:2] - b.r.pose()[:2])) < 1e-4
+    assert np.max(np.abs(a.r.arm.q() - b.r.arm.q())) < 1e-6
+
+
+def test_depth_occlusion_sliding_max_matches_the_loop():
+    import depth_noise as dn
+    rng = np.random.default_rng(3)
+    for top in (5.0, 40.0, 120.0):                                 # under, near and over the 64 px window
+        dd = rng.uniform(0, top, (40, 90))
+        dd[rng.random(dd.shape) < 0.2] = 0.0                       # no depth
+        dd[:, 30:45] += top / 2                                    # a nearer object
+        assert np.array_equal(dn._occluded(dd), dn._occluded_loop(dd))
+    assert not dn._occluded(np.zeros((3, 4))).any()
+
+
+def test_d435_cached_segmentation_matches_renderer():
+    from bridge_core import CoreConfig, SimCore
+    from sil_pick import PickCameras
+    core = SimCore(CoreConfig(base="drawn", world="course", payload="arm", arm_camera="d435", shadow=(), air="off"))
+    c = PickCameras(core.m, core.d, core.p, seed=0)
+    W, H = c.DEPTH_WH
+    ref = mujoco.Renderer(c.mr, H, W)
+    ref.enable_segmentation_rendering()
+    for _ in range(3):
+        for _ in range(200):
+            core.set_cmd(0.4, 0.0, 0.6)
+            core.step()
+        c._sync()
+        a = c.seg_albedo()
+        ref.update_scene(c.dr, camera=c.cl)
+        seg = ref.render()
+        gid = np.where((seg[..., 1] == mujoco.mjtObj.mjOBJ_GEOM) & (seg[..., 0] >= 0), seg[..., 0], -1)
+        assert np.array_equal(a, c.albedo[gid])
+
+
+def test_arm_robot_runs_without_air_and_drives_the_same():
+    """CoreConfig air "auto": off for the arm robot (MuJoCo's air was 3.8x the step), on for the catch robot."""
+    from bridge_core import CoreConfig, model_params
+    assert model_params(CoreConfig(base="drawn", payload="arm", arm_camera="d435")).air_density == 0.0
+    assert model_params(CoreConfig(base="drawn")).air_density > 1.0
+    assert model_params(CoreConfig(base="drawn", payload="arm", arm_camera="d435", air="on")).air_density > 1.0
+
+
 # -- v8: swerve (design.md 26) ---------------------------------------------------------------------
 
 def test_swerve_kinematics_flip_and_odometry():

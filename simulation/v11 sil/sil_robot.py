@@ -461,12 +461,15 @@ class SilRobot(Robot):
         if self._k % self.fw_div == 0:
             self._fw_tick()
         self._k += 1
-        if self.contacts is not None:
-            self.contacts.pre_step()
-        self._tick += 1
-        if self._tick % self.floor_div == 0:
-            for hook in self.floor:
-                hook.pre_step()
+        if self.cpp is not None:                     # contacts, floor (every floor_div) and the arm, in C++
+            self.cpp.pre(dt)
+        else:
+            if self.contacts is not None:
+                self.contacts.pre_step()
+            self._tick += 1
+            if self._tick % self.floor_div == 0:
+                for hook in self.floor:
+                    hook.pre_step()
         if self.swing_dofs is not None:
             d.qfrc_applied[self.swing_dofs] = -self.p.swing_preload * np.clip(d.qpos[self.swing_q] / 0.005, -1.0, 1.0)
         v_bus = self.battery.v
@@ -494,7 +497,7 @@ class SilRobot(Robot):
         if self.a_tilt is not None:
             lo, hi = self.p.tilt_limits
             d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_cmd, lo, hi)), dt)
-        if self.arm is not None:        # payload "arm": the arm's servos, commanded outside the firmware
+        if self.arm is not None and (self.cpp is None or self.cpp.arm is None):   # payload "arm": the arm's servos
             self.arm.step(dt)
 
     def post_step(self):

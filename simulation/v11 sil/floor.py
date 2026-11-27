@@ -12,7 +12,9 @@ floor isn't:
     correlation length, seed)) plus rectangular patches (floor_patches = ((x0, y0, x1, y1, mu), ...));
   - thresholds: a beveled strip across a doorway (Threshold), a convex prism on the floor;
   - carpet / rugs: a slab with its own grip, compliance and rolling resistance (Carpet); its edge is a step the
-    wheels must climb, square (a rug) or beveled (carpet edge trim).
+    wheels must climb, square (a rug) or beveled (carpet edge trim);
+  - a raised room (Nov 24, the home): a Platform (a Carpet with no edges of its own) reached over Ramps (a square
+    step, then a slope up to it).
 The wheels touch these only through explicit contact pairs (robot_model), so each feature has its own friction and
 softness. When any feature exists, the robot gets collision geoms for its battery and motor undersides ("belly",
 ~21 mm up), so it can ground out on an obstacle instead of passing through it.
@@ -111,6 +113,46 @@ class Incline:
 
 
 @dataclass(frozen=True)
+class Platform(Carpet):
+    """Nov 24 (the home): a raised floor, a room built up above the rest (its own grip, rolling resistance and
+    softness as a Carpet's). Walls and Ramps bound it, so it lists no edges of its own (edges())."""
+
+
+@dataclass(frozen=True)
+class Ramp:
+    """Nov 24 (the home): the way up onto a Platform: a square step `step` high at its foot, then a slope rising to
+    `height` over `run` (horizontal), its back meeting the platform's edge. The foot's middle at (x, y), rising along
+    yaw_deg (0 = toward +x), `length` across."""
+    x: float
+    y: float
+    yaw_deg: float = 0.0
+    length: float = 0.9
+    step: float = 0.0127
+    run: float = 0.1524
+    height: float = 0.068
+    mu: float = 0.85
+    rgba: tuple | None = None
+
+    def profile(self) -> list:
+        """(x, z) from the foot, convex, counter-clockwise: the step's face, the slope, the back."""
+        return [(0.0, -0.001), (self.run + 0.002, -0.001), (self.run + 0.002, self.height), (self.run, self.height),
+                (0.0, self.step)]
+
+    @property
+    def angle_deg(self) -> float:
+        return math.degrees(math.atan2(self.height - self.step, self.run))
+
+
+def height_at(p, xy) -> float:
+    """The floor's height at a point (the thickest Carpet / Platform over it, else 0): where to set a thing down."""
+    h = 0.0
+    for f in features(p):
+        if isinstance(f, Carpet) and f.contains(xy)[0]:
+            h = max(h, f.thickness)
+    return h
+
+
+@dataclass(frozen=True)
 class Wall:
     """v7, the house scene: a partition wall from (x0, y0) to (x1, y1) (the robot's deck and bumper hit it)."""
     x0: float
@@ -154,6 +196,12 @@ def edges(p) -> list:
             c, s = math.cos(math.radians(f.yaw_deg)), math.sin(math.radians(f.yaw_deg))
             h = f.length / 2
             out.append((f.x + s * h, f.y - c * h, f.x - s * h, f.y + c * h, f.height, False))
+        elif isinstance(f, Ramp):                        # its foot: a square step (the slope behind it is gentle)
+            c, s = math.cos(math.radians(f.yaw_deg)), math.sin(math.radians(f.yaw_deg))
+            h = f.length / 2
+            out.append((f.x + s * h, f.y - c * h, f.x - s * h, f.y + c * h, f.step, True))
+        elif isinstance(f, Platform):                    # bounded by walls and its ramps
+            continue
         elif isinstance(f, Carpet):
             sx, sy = f.bevel < 0.002, f.bevel_y < 0.002
             for a, b, sq in (((f.x0, f.y0), (f.x0, f.y1), sx), ((f.x1, f.y0), (f.x1, f.y1), sx),
@@ -178,7 +226,7 @@ def assets_xml(p) -> str:
         if isinstance(f, Threshold):
             a, b = f.top / 2, f.top / 2 + f.ramp
             out.append(_prism(f"floorfeat{k}", [(-b, -0.001), (b, -0.001), (a, f.height), (-a, f.height)], f.length))
-        elif isinstance(f, Incline):
+        elif isinstance(f, (Incline, Ramp)):
             out.append(_prism(f"floorfeat{k}", f.profile(), f.length))
         elif isinstance(f, Carpet):
             w, ln, t = abs(f.x1 - f.x0) / 2, abs(f.y1 - f.y0) / 2, f.thickness
@@ -193,10 +241,11 @@ def world_xml(p) -> str:
     wheels only through their pairs."""
     out = []
     for k, f in enumerate(features(p)):
-        if isinstance(f, (Threshold, Incline)):
+        if isinstance(f, (Threshold, Incline, Ramp)):
             q = (math.cos(math.radians(f.yaw_deg) / 2), 0, 0, math.sin(math.radians(f.yaw_deg) / 2))
+            look = f'rgba="{_f(*f.rgba)}"' if getattr(f, "rgba", None) else 'material="post"'
             out.append(f'<geom name="floorfeat{k}" type="mesh" mesh="floorfeat{k}" pos="{_f(f.x, f.y, 0)}" quat="{_f(*q)}" '
-                       f'contype="1" conaffinity="5" material="post" friction="{f.mu} 0.005 0.0001"/>')
+                       f'contype="1" conaffinity="5" {look} friction="{f.mu} 0.005 0.0001"/>')
         elif isinstance(f, Carpet):
             q = (math.cos(math.radians(f.yaw_deg) / 2), 0, 0, math.sin(math.radians(f.yaw_deg) / 2))
             rgba = getattr(f, "rgba", None) or (0.45, 0.2, 0.18, 1)
@@ -217,7 +266,7 @@ def wheel_pairs_xml(p, wheel_geoms) -> str:
     for k, f in enumerate(features(p)):
         if isinstance(f, Wall):
             continue
-        if isinstance(f, (Threshold, Incline)):
+        if isinstance(f, (Threshold, Incline, Ramp)):
             sol = 'solref="0.004 1" solreffriction="0.002 1" solimp="0.95 0.99 0.001"'
         else:
             sol = f'solref="{_f(f.softness)} 1" solreffriction="0.002 1" solimp="0.9 0.99 0.003"'
@@ -314,18 +363,22 @@ class RollingResistance:
                 self.roller_dofs.append(np.array([m.jnt_dofadr[j] for j in js], dtype=int))
         self.roller0 = [m.dof_frictionloss[ix].copy() for ix in self.roller_dofs]
 
+    def update_crr(self):
+        """The surface under each wheel, every 10th call (sim_hooks.py calls this, then C++ does the rest)."""
+        self._tick = getattr(self, "_tick", -1) + 1
+        if self._tick % 10 == 0 or not hasattr(self, "_crr"):      # the surface under a wheel: every 5 ms is plenty
+            crr = np.full(self.p.n_wheels, self.p.wheel_crr)
+            if self.carpets:
+                xy = self.d.xpos[self.hub][:, :2]
+                for c in self.carpets:
+                    crr = np.where(c.contains(xy), c.crr, crr)
+            self._crr = np.ascontiguousarray(crr, dtype=float)
+
     def pre_step(self):
         from robot_model import wheel_loads     # (robot_model imports this module)
         m, d = self.m, self.d
         load = wheel_loads(m, d, self.p, self._cache)
-        self._tick = getattr(self, "_tick", -1) + 1
-        if self._tick % 10 == 0 or not hasattr(self, "_crr"):      # the surface under a wheel: every 5 ms is plenty
-            crr = np.full(len(load), self.p.wheel_crr)
-            if self.carpets:
-                xy = d.xpos[self.hub][:, :2]
-                for c in self.carpets:
-                    crr = np.where(c.contains(xy), c.crr, crr)
-            self._crr = crr
+        self.update_crr()
         f = self._crr * load
         m.dof_frictionloss[self.drive] = self.drive0 + f * self.R
         pin = self.p.roller_pin_mu * self.p.roller_pin_radius * load     # plain rollers: friction on the pin

@@ -52,7 +52,9 @@ ros/
 │   └── omni_sim/          ← the MuJoCo bridges (house, catch), the firmware's USB port (mcu_port), viewer,
 │                            scoring (catch_scorer too), Nav2 goal runs, joystick relay                  → PC only
 ├── maps/                  ← saved maps (house = the main one, with its slam_toolbox pose graph, made with the A2M8
-│                            since Nov 24; house_a2m12 = the Oct 20 map, for lidar:=a2m12 runs: map:=house_a2m12)
+│                            since Nov 24; house_a2m12 = the Oct 20 map, for lidar:=a2m12 runs: map:=house_a2m12;
+│                            home = the real house's map made from its drawings, for world:=home localizer:=amcl,
+│                            its places with the den a no-go zone: simulation/v11 sil/home.py --map)
 ├── foxglove/omni_layout.json   ← Foxglove layout: 3D (map, scan, true house, robot), status, a Teleop panel
 ├── tools/mujoco_view.py        ← MuJoCo's 3D view of the ROS sim, drawn on Windows (the bridge starts it)
 ├── tools/joystick_sender.py    ← Windows side of the joystick relay (Extreme 3D; the 3Dconnexion is ignored)
@@ -136,13 +138,16 @@ bash "$O" robot        # everything at once for the console: Nav2 + slam_toolbox
                        # save, load), Manual, Go To, Explore, Patrol, Thrower; web_video_server on :8081
 bash "$O" arm          # the arm robot (the current build): 'robot' plus the SO-101, its nose D435 (the default and
                        # only arm camera; arm_camera:=stereo reproduces earlier runs) and the Tidy tab;
-                       # objects:=toys|clutter|colours, props:=true map:=house_furnished; depth_layer:=raw
-                       # (default) | height (proposed: omni_arm's fused height map, speed by certainty, the
-                       # AI's floor catalog) | floor (Nov 5's per-frame grid) | off
+                       # objects:=toys|clutter|colours, props:=true map:=house_furnished; depth_layer:=height
+                       # (default since Nov 25: omni_arm's fused height map, drops, ramps, speed by certainty,
+                       # the AI's floor catalog) | raw (the default before) | floor (Nov 5's per-frame grid) | off
                        # (the sim's D435 has realistic depth errors; d435_noise:=ideal is the Nov 4 model)
 bash "$O" catch        # v11: the catch game (thrower, cameras, the robot's catch code and firmware)
 bash "$O" catch-score tosses:=24   # the same, scored: studies/results/ros_catch.json
 bash "$O" sim          # just the bridge; also: auto-map, tour, goals, score-map, build, test, stop, status
+# world:=home on sim / map / localize / nav / robot / arm: the real house (simulation/v11 sil/home.py) instead of the
+# v7 house; map defaults to home; doors:="front=1,bedroom 1=0" opens / shuts its doors; the den (165 mm down) is off
+# limits: an invisible step stops the robot and the bridge warns (/sim/status hazard)
 bash "$O" console --autostart robot person:=true   # the page server + launcher (Launcher's "Console"); stop-console
 ```
 

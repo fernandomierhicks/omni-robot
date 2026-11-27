@@ -33,18 +33,62 @@ from collections import deque
 import numpy as np
 
 
-def floor_mask(a: np.ndarray, r: np.ndarray, cal: tuple, rp: tuple, margin: float) -> np.ndarray:
+def floor_mask(a: np.ndarray, r: np.ndarray, cal: tuple, rp: tuple, margin: float,
+               laser_xy: tuple = (0.0, 0.0)) -> np.ndarray:
     """Returns at or beyond the range where each ray meets the floor, less margin (scan_prep's floor filter).
-    cal = (tan tilt, azimuth, height): the unit's measured plane tilt; rp = the base's (roll, pitch)."""
+    cal = (tan tilt, azimuth, height): the unit's measured plane tilt, its height above the floor at rest; rp = the
+    base's (roll, pitch), scalars or one per sample (Nov 25: the base's at each sample's time, TiltHistory; a ramp
+    swings the pitch ~20 deg in 0.3 s). laser_xy: the laser's offset from base_link; the base tilts about the floor
+    point under base_link, so a laser ahead of it comes down nose-down (0.14 m ahead, 20 deg: 0.163 -> 0.105 m)."""
     tz, psi, h = cal
-    d = np.vstack([np.cos(a), np.sin(a), tz * np.cos(a - psi)])          # laser frame (= base frame axes)
-    roll, pitch = rp
-    cr, sr, cp, sp = math.cos(roll), math.sin(roll), math.cos(pitch), math.sin(pitch)
-    Rrp = np.array([[cp, sp * sr, sp * cr], [0.0, cr, -sr], [-sp, cp * sr, cp * cr]])   # Ry(pitch) Rx(roll)
-    w = Rrp @ d
-    slope = w[2] / np.hypot(w[0], w[1])
-    r_floor = np.where(slope < -1e-4, h / np.maximum(-slope, 1e-4), np.inf)
+    d0, d1, d2 = np.cos(a), np.sin(a), tz * np.cos(a - psi)              # laser frame (= base frame axes)
+    roll, pitch = (np.asarray(v, dtype=float) for v in rp)
+    cr, sr, cp, sp = np.cos(roll), np.sin(roll), np.cos(pitch), np.sin(pitch)
+    w0 = cp * d0 + sp * sr * d1 + sp * cr * d2                           # Ry(pitch) Rx(roll)
+    w1 = cr * d1 - sr * d2
+    w2 = -sp * d0 + cp * sr * d1 + cp * cr * d2
+    hz = -sp * laser_xy[0] + cp * sr * laser_xy[1] + cp * cr * h        # the laser's height, tilted
+    slope = w2 / np.hypot(w0, w1)
+    r_floor = np.where(slope < -1e-4, np.maximum(hz, 0.0) / np.maximum(-slope, 1e-4), np.inf)
     return np.isfinite(r) & (r >= r_floor - margin)
+
+
+class TiltHistory:
+    """The IMU's roll and pitch over the last `keep` seconds, read at any time: linear between the samples around it,
+    the first / last one outside them, (0, 0) while empty. Samples out of order are dropped; one more than 1 s before
+    the last (a clock jump) starts it over. omni_cpp scan.hpp's twin (scan_prep)."""
+
+    def __init__(self, keep: float = 2.0):
+        self.keep = keep
+        self.h: deque = deque()
+
+    def add(self, t: float, roll: float, pitch: float) -> None:
+        if self.h and t <= self.h[-1][0]:
+            if t >= self.h[-1][0] - 1.0:
+                return
+            self.h.clear()
+        self.h.append((t, roll, pitch))
+        while self.h[0][0] < t - self.keep:
+            self.h.popleft()
+
+    def at(self, t: float) -> tuple:
+        h = self.h
+        if not h:
+            return 0.0, 0.0
+        if t <= h[0][0]:
+            return h[0][1], h[0][2]
+        if t >= h[-1][0]:
+            return h[-1][1], h[-1][2]
+        lo, hi = 0, len(h) - 1                   # the last sample at or before t
+        while hi - lo > 1:
+            mid = (lo + hi) // 2
+            if h[mid][0] <= t:
+                lo = mid
+            else:
+                hi = mid
+        p, q = h[lo], h[lo + 1]
+        f = (t - p[0]) / (q[0] - p[0])
+        return p[1] + f * (q[1] - p[1]), p[2] + f * (q[2] - p[2])
 
 
 def sample_times(n: int, stamp: float, time_increment: float, order: int = 1) -> np.ndarray:

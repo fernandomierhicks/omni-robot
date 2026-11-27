@@ -3,6 +3,7 @@
 // omni_perception/scan_time.py.
 #pragma once
 
+#include <array>
 #include <cstddef>
 #include <deque>
 #include <functional>
@@ -19,6 +20,29 @@ struct LidarCal { double tan_tilt, azimuth, height; };
 // true for returns at or beyond the range where the ray meets the floor, less margin (roll, pitch: the base's)
 std::vector<bool> floor_mask(const std::vector<double>& a, const std::vector<double>& r, const LidarCal& cal,
                              double roll, double pitch, double margin);
+// the same with each sample's own roll and pitch (the base's at the sample's time: a ramp swings the pitch ~20 deg in
+// 0.3 s, about the time a turn takes to reach scan_prep; one pitch for the turn let the floor ahead through as a wall).
+// laser_x, laser_y: the laser's offset from base_link. The base tilts about the floor point under base_link, so a laser
+// ahead of it comes down nose-down (0.14 m ahead, 20 deg: 0.163 -> 0.105 m above the floor).
+std::vector<bool> floor_mask(const std::vector<double>& a, const std::vector<double>& r, const LidarCal& cal,
+                             const std::vector<double>& roll, const std::vector<double>& pitch, double margin,
+                             double laser_x = 0.0, double laser_y = 0.0);
+
+// the IMU's roll and pitch over the last `keep` seconds, read at any time: linear between the samples around it, the
+// first / last one outside them, (0, 0) while empty. Samples out of order are dropped; one more than 1 s before the
+// last (a clock jump) starts it over.
+class TiltHistory {
+public:
+    explicit TiltHistory(double keep_s = 2.0) : keep_(keep_s) {}
+    void add(double t, double roll, double pitch);
+    std::pair<double, double> at(double t) const;
+    bool empty() const { return h_.empty(); }
+    double t_last() const { return h_.empty() ? -std::numeric_limits<double>::infinity() : h_.back()[0]; }
+
+private:
+    double keep_;
+    std::deque<std::array<double, 3>> h_;       // (t, roll, pitch)
+};
 
 // each index's time; order -1: the array runs against time (the last index was measured first)
 std::vector<double> sample_times(size_t n, double stamp, double time_increment, int order = 1);

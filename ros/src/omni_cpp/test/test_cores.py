@@ -45,7 +45,7 @@ from omni_catch.tracker import TrackView, sphere_image                          
 from omni_console import rplidar                                                 # noqa: E402
 from omni_mcu import protocol as P                                               # noqa: E402
 from omni_mcu.clock_sync import ClockSync                                        # noqa: E402
-from omni_perception.scan_time import ScanClock, deskew, floor_mask, sample_times   # noqa: E402
+from omni_perception.scan_time import ScanClock, TiltHistory, deskew, floor_mask, sample_times   # noqa: E402
 
 
 def firmware_dir() -> Path:
@@ -343,6 +343,65 @@ def test_floor_mask_like_the_python():
     cc = run("scan", lines)
     assert py == cc
     assert any("1" in s for s in py)
+
+
+def test_floor_mask_per_sample_like_the_python():
+    rnd = np.random.default_rng(15)
+    n = 720
+    a = -math.pi + 2 * math.pi * np.arange(n) / n
+    lines, py = [], []
+    for _ in range(10):
+        r = rnd.uniform(0.2, 12.0, n)
+        r[rnd.random(n) < 0.1] = np.inf
+        cal = (math.tan(rnd.uniform(0, 0.03)), rnd.uniform(-math.pi, math.pi), rnd.uniform(0.1, 0.25))
+        roll = rnd.uniform(-0.1, 0.1) + 0.05 * np.sin(np.arange(n) / 90)
+        pitch = np.linspace(rnd.uniform(-0.35, 0.35), rnd.uniform(-0.35, 0.35), n)    # a ramp's swing in one turn
+        lxy = (rnd.uniform(-0.2, 0.2), rnd.uniform(-0.1, 0.1))
+        lines += [f"floorv {n} {cal[0]!r} {cal[1]!r} {cal[2]!r} 0.3 {lxy[0]!r} {lxy[1]!r}",
+                  *(" ".join(repr(float(v)) for v in x) for x in (a, r, roll, pitch))]
+        py.append("".join("1" if m else "0" for m in floor_mask(a, r, cal, (roll, pitch), 0.3, lxy)))
+    cc = run("scan", lines)
+    assert py == cc
+    assert any("1" in s for s in py)
+    # one pitch for every sample is the scalar mask
+    r = rnd.uniform(0.2, 3.0, n)
+    one = floor_mask(a, r, (0.0, 0.0, 0.2), (0.0, 0.2), 0.3)
+    assert one.any() and (one == floor_mask(a, r, (0.0, 0.0, 0.2), (np.zeros(n), np.full(n, 0.2)), 0.3)).all()
+    # nose down 20 deg with the laser 0.14 m ahead of base_link: 0.163 m up at rest, 0.105 m tilted; dead ahead the floor
+    # is 0.29 m out, not the 0.45 m the rest height would give
+    p, cal0 = math.radians(20), (0.0, 0.0, 0.163)
+    r35 = (np.zeros(1), np.array([0.35]))
+    assert floor_mask(*r35, cal0, (0.0, p), 0.0, (0.14, 0.0))[0]        # the floor at 0.29 m: dropped
+    assert not floor_mask(*r35, cal0, (0.0, p), 0.0)[0]                 # as if the laser stayed up: kept
+
+
+def test_tilt_history_like_the_python():
+    rnd = np.random.default_rng(16)
+    lines, py = [], []
+    for case in range(6):
+        t = np.cumsum(rnd.uniform(0.005, 0.015, 400)) + 100.0
+        if case == 1:
+            t[150:160] -= 0.03                    # out of order: dropped
+        if case == 2:
+            t[200:] -= 5.0                        # the clock went back: start over
+        rp = rnd.uniform(-0.3, 0.3, (400, 2))
+        q = rnd.uniform(t.min() - 0.5, t.max() + 0.5, 50)
+        add = [v for i in range(400) for v in (t[i], rp[i, 0], rp[i, 1])]
+        lines += ["tilt 2.0", " ".join(repr(float(v)) for v in add), " ".join(repr(float(v)) for v in q)]
+        h = TiltHistory(2.0)
+        for i in range(400):
+            h.add(float(t[i]), float(rp[i, 0]), float(rp[i, 1]))
+        py.append([v for x in q for v in h.at(float(x))])
+    cc = run("scan", lines)
+    for p, c in zip(py, cc):
+        assert all(close(u, float(v), 1e-12) for u, v in zip(p, c.split())), (p, c)
+    h = TiltHistory(1.0)
+    assert h.at(5.0) == (0.0, 0.0)
+    for k in range(300):
+        h.add(k * 0.01, 0.0, k * 0.001)
+    assert h.h[0][0] >= 2.99 - 1.0 - 1e-9                       # keeps a second
+    assert abs(h.at(2.505)[1] - 0.2505) < 1e-9                   # linear between
+    assert h.at(9.0)[1] == h.h[-1][2] and h.at(0.0)[1] == h.h[0][2]
 
 
 def test_deskew_like_the_python():

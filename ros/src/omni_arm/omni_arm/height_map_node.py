@@ -20,7 +20,9 @@ Publishes  /floor_obstacles/grid         nav_msgs/OccupancyGrid (latched): 100 w
                                          60 low, 80 obstacle, 100 drop), for the console's map and an AI
            /speed_limit                  nav2_msgs/SpeedLimit (absolute m/s; 0 = none) at 5 Hz: the lower of the height
                                          map's (height_map.speed_limit) and the zones'
-           /floor_obstacles/state        std_msgs/String JSON at 2 Hz: the speed limit and why, the classes' counts
+           /floor_obstacles/state        std_msgs/String JSON at 2 Hz: the speed limit and why, the classes' counts,
+                                         blind: null | "arm out" | "camera silent" (no drop can be seen: the console's
+                                         Explore waits, or stops)
            /floor_obstacles/catalog      std_msgs/String JSON (latched): the things found (height_map.Catalog: id, x, y,
                                          size, top, class, label, note, times) and "tiles", the ids in the picture below
            /floor_obstacles/candidates   sensor_msgs/Image rgb8 (again each second): the newest unlabelled things'
@@ -31,7 +33,8 @@ The catalog: at 2 Hz the small LOW and OBSTACLE regions within 2 m (height_map.t
 crop of the newest colour frame round each (if under 0.5 s old and the thing in it). It is kept in
 $OMNI_STATE_DIR/floor_catalog.json (state_dir) across restarts; the crops are not.
 
-While the arm is out its links are in the camera's view: frames are skipped. When it comes back in, the map forgets
+While the arm is out its links are in the camera's view: frames are skipped (counted in the 30 s report, and the state
+says blind). When it comes back in, the map forgets
 forget_radius round the robot (the thing it just picked: seen again when the camera looks). If no depth frame came
 for 1 s the speed limit drops to height_map.V_BLIND (the lidar still sees the tall things).
 
@@ -119,7 +122,7 @@ class HeightMapNode(Node):
         self.zone = 0.0                                    # the zones' limit, m/s (0 = none)
         self.cls, self.t_cls = None, -1e9
         self.limit, self.why = 0.0, ""
-        self.ms, self.skip = [], {"no map": 0, "no pose": 0}
+        self.ms, self.skip = [], {"no map": 0, "no pose": 0, "arm out": 0}
         self.tf = Buffer()
         self.tfl = TransformListener(self.tf, self)
         latched = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL, reliability=ReliabilityPolicy.RELIABLE)
@@ -270,7 +273,11 @@ class HeightMapNode(Node):
 
     def on_depth(self, m: Image):
         t = m.header.stamp.sec + m.header.stamp.nanosec * 1e-9
-        if self.out or self.K is None or t - self.t_last < self.dt * 0.95:
+        if self.K is None or t - self.t_last < self.dt * 0.95:
+            return
+        if self.out:                       # counted: a run blind behind the arm says so (Nov 25: a whole Explore)
+            self.t_last = t
+            self.skip["arm out"] += 1
             return
         if self.map.res is None:
             self.skip["no map"] += 1
@@ -309,11 +316,11 @@ class HeightMapNode(Node):
         t = self.now()
         if self.map.res is None:
             return
+        pose = self.pose(Time().to_msg())
         if t - self.t_cls >= self.pub_dt:
-            self.cls, self.t_cls = self.map.classes(t), t
+            self.cls, self.t_cls = self.map.classes(t, None if pose is None else pose[:2]), t
             self._grid(self.p_grid, self.map.occupancy(self.cls))
             self._grid(self.p_cls, (self.cls.astype(np.int16) * 20).astype(np.int8).ravel())
-        pose = self.pose(Time().to_msg())
         if pose is None or self.cls is None:
             return
         if self.t_cls == t:
@@ -338,8 +345,9 @@ class HeightMapNode(Node):
         self.limit, self.why = (v if limited else 0.0), why
         if int(t * 2) != int((t - 0.2) * 2):
             counts = {hm.NAMES[k]: int(np.sum(self.cls == k)) for k in range(len(hm.NAMES))}
+            blind = "arm out" if self.out else "camera silent" if t - self.map.t_frame > 1.0 else None
             self.p_state.publish(String(data=json.dumps({"speed_limit": round(self.limit, 2), "why": why,
-                                                         "cells": counts, "t": round(t, 1)})))
+                                                         "blind": blind, "cells": counts, "t": round(t, 1)})))
 
     def _grid(self, pub, data):
         g = self.map
@@ -358,7 +366,9 @@ class HeightMapNode(Node):
         if self.ms or skipped:
             ms = f", {np.median(self.ms):.0f} ms median, {max(self.ms):.0f} max" if self.ms else ""
             self.get_logger().info(f"{len(self.ms)} frames in 30 s{ms}{f' (skipped: {skipped})' if skipped else ''}; "
-                                   f"speed limit {self.limit:.2f} ({self.why})")
+                                   f"speed limit {self.limit:.2f} ({self.why}); floor {1000 * self.map.z:+.0f} mm on "
+                                   f"the map's datum, {self.map.n_unreg} of {self.map.n_reg + self.map.n_unreg} "
+                                   f"overlapping frames dropped as not agreeing")
         self.ms = []
         self.skip = dict.fromkeys(self.skip, 0)
 

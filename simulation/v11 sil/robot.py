@@ -201,6 +201,7 @@ class Robot:
         # post_div physics steps (1 = every step, as v2-v9 and every study)
         self.floor_div = 1
         self.post_div = 1
+        self.cpp = None              # Nov 26: sim_hooks.CppHooks (the contact, floor and arm hooks in C++; SimCore's opt-in)
         self._tick = 0
 
         self.wheel_cmd = np.zeros(nw)
@@ -216,12 +217,23 @@ class Robot:
         self.i_total = 0.0
 
     # -- sensors ------------------------------------------------------------
+    def _sensor_adr(self):
+        """The sensors read every step, by address (a lookup by name costs more than the read; Nov 26)."""
+        m = self.m
+        self._adr_pos, self._adr_quat = m.sensor("base_pos").adr[0], m.sensor("base_quat").adr[0]
+        self._adr_ws = np.array([m.sensor(f"wheel{i}_speed").adr[0] for i in range(1, self.nw + 1)])
+
     def pose(self):
-        pos = self.d.sensor("base_pos").data
-        return np.array([pos[0], pos[1], yaw_from_quat(self.d.sensor("base_quat").data)])
+        if not hasattr(self, "_adr_pos"):
+            self._sensor_adr()
+        s = self.d.sensordata
+        a = self._adr_pos
+        return np.array([s[a], s[a + 1], yaw_from_quat(s[self._adr_quat:self._adr_quat + 4])])
 
     def wheel_speeds(self):
-        return np.array([self.d.sensor(f"wheel{i}_speed").data[0] for i in range(1, self.nw + 1)])
+        if not hasattr(self, "_adr_pos"):
+            self._sensor_adr()
+        return self.d.sensordata[self._adr_ws]
 
     def wheel_loads(self):
         """Normal load on each wheel (N), from the force each pod carries (v7: any suspension), 0 once it lifts."""
@@ -441,12 +453,15 @@ class Robot:
     # -- physics glue ---------------------------------------------------------
     def pre_step(self):
         dt, d, m = self.m.opt.timestep, self.d, self.m
-        if self.contacts is not None:
-            self.contacts.pre_step()
-        self._tick += 1
-        if self._tick % self.floor_div == 0:
-            for hook in self.floor:
-                hook.pre_step()
+        if self.cpp is not None:                     # contacts, floor (every floor_div) and the arm, in C++
+            self.cpp.pre(dt)
+        else:
+            if self.contacts is not None:
+                self.contacts.pre_step()
+            self._tick += 1
+            if self._tick % self.floor_div == 0:
+                for hook in self.floor:
+                    hook.pre_step()
         if self.swing_dofs is not None:
             d.qfrc_applied[self.swing_dofs] = -self.p.swing_preload * np.clip(d.qpos[self.swing_q] / 0.005, -1.0, 1.0)
         v_bus = self.battery.v
@@ -510,7 +525,7 @@ class Robot:
         if self.a_tilt is not None:
             lo, hi = self.p.tilt_limits
             d.ctrl[self.a_tilt] = self.tilt_servo.step(float(np.clip(self.tilt_target, lo, hi)), dt)
-        if self.arm is not None:
+        if self.arm is not None and (self.cpp is None or self.cpp.arm is None):
             self.arm.step(dt)
         if self.a_index is not None:
             self._index_service()

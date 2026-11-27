@@ -4,10 +4,16 @@
 #     0.8, est a home pace, then 1.5). The drive motors could go faster (3.5 m/s diagonally at 0.95 of no-load), but
 #     stops and tipping are simulated to 2 m/s. The console's Go To speed is the velocity smoother's cap below it
 #     (2.0 by default: MPPI slows for the goal itself), the heading node turns it after that (forward by default)
-#   - the local costmap covers MPPI's horizon at top speed (2.8 s x 2.0 m/s = 5.6 m each way): trajectory points off
+#   - the local costmap covers MPPI's horizon at top speed (2.8 s x 2.0 m/s = 5.6 m each way until Nov 26; 1.5 s now,
+#     see time_steps, so it covers twice over): trajectory points off
 #     it are unknown space, scored as collisions, so a 3 m costmap held the robot to ~0.55 m/s (peaks 0.50-0.64 m/s
 #     with the 0.8 cap, Oct 27)
-#   - robot_radius 0.24 m (the v7 outline is 0.234 m), inflation sized so the 0.9 m doors stay open
+#   - robot_radius 0.24 m (the v7 outline is 0.234 m), inflation sized so the 0.9 m doors stay open. The robot pressed
+#     on the hallway ramp's doorway jamb 0.21 m from its centre and could not climb (world:=home, Nov 26, hm17; on the
+#     doorway's middle it does); 0.27 didn't stop it (hm22) and closed the 0.55 m between the kitchen island's stools
+#     and the counters (the robot passed before the legs were mapped, then Nav2 had no way back, hm24). What keeps
+#     routes on a doorway's middle is the inflation: 0.55 m at cost scaling 3 (0.40 / 6 until Nov 26: the cost fell
+#     to zero 0.40 m from a wall, so a route into the 1.09 m ramp doorway was free to hug a jamb); no jamb jam since
 #   - velocity smoother and collision monitor with y velocity; no route / docking servers
 bt_navigator:
   ros__parameters:
@@ -51,7 +57,11 @@ controller_server:
       yaw_goal_tolerance: 0.15             # (0.25)
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
-      time_steps: 56
+      # time_steps 30 (56 until Nov 26): a 1.5 s horizon. At 2.8 s, with 0.6 m/s of sampling noise, nearly every rollout
+      # through a 0.8 m gap clipped the inscribed zone late and MPPI sat at ~0.02 m/s (world:=course's spiral, 5 of 5;
+      # the home's 24 in door). 30: 6/6 course legs, the fastest on each, no creep (console), half the computation;
+      # 3 m at 2 m/s still covers a stop. (vx_std 0.3 also got through, slower.) Profiles patch the next three lines
+      time_steps: 30
       model_dt: 0.05
       batch_size: 2000
       ax_max: 2.0
@@ -147,7 +157,7 @@ local_costmap:
       width: 12                            # (3) MPPI's horizon at top speed each way (header)
       height: 12
       resolution: 0.05
-      robot_radius: 0.24
+      robot_radius: 0.24                 # the outline 0.234 + 6 mm (0.27 on Nov 26, hm22-24): see the header
       plugins: ["obstacle_layer", "inflation_layer"]
       filters: ["keepout_filter"]          # the console's no-go zones (omni_console zones.py, its Map edit tab)
       keepout_filter:
@@ -156,8 +166,8 @@ local_costmap:
         filter_info_topic: "/keepout_filter_info"
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 6.0
-        inflation_radius: 0.40
+        cost_scaling_factor: 3.0           # (6.0, 0.40 until Nov 26) cost reaches across a doorway, so routes
+        inflation_radius: 0.55             # keep to its middle: at 0.40 they cut a jamb (header, hm22)
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -182,7 +192,7 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_link
       transform_tolerance: 1.0     # (0.3) as the local costmap's
-      robot_radius: 0.24
+      robot_radius: 0.24                 # the outline 0.234 + 6 mm (0.27 on Nov 26, hm22-24): see the header
       resolution: 0.05
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -217,8 +227,8 @@ global_costmap:
         map_subscribe_transient_local: True
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 6.0
-        inflation_radius: 0.40
+        cost_scaling_factor: 3.0           # (6.0, 0.40 until Nov 26) cost reaches across a doorway, so routes
+        inflation_radius: 0.55             # keep to its middle: at 0.40 they cut a jamb (header, hm22)
       always_send_full_costmap: True
 
 planner_server:
@@ -229,7 +239,10 @@ planner_server:
     GridBased:
       plugin: "nav2_navfn_planner::NavfnPlanner"
       tolerance: 0.3
-      use_astar: true
+      # Dijkstra (Nov 26; A* before): NavFn's A* leaves the potential field partly unfilled and its path extraction
+      # then fails on reachable goals ("Failed to create a plan from potential when a legal potential was found"):
+      # on world:=course it refused the dead end, the spiral and the drive home along a hall it had just driven
+      use_astar: false
       allow_unknown: false
 
 smoother_server:

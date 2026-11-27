@@ -180,6 +180,17 @@ def preflight(s: dict, fw: dict | None = None) -> list:
     caps = s.get("caps") or {}
     out.append(_row("nav", "Navigation", "ok" if caps.get("nav") else "warn",
                     "Nav2 is active" if caps.get("nav") else "Nav2 isn't running: Go To, Patrol and Explore are off"))
+    fl = s.get("floor")                                 # omni_arm's height map: Explore waits / stops while blind
+    if fl is not None:
+        b = fl.get("blind")
+        out.append(_row("floor_cam", "Floor camera (drops)", "warn" if b else "ok",
+                        f"can't see a step down: {b}. Explore stows the arm and waits for it; it stops if it goes "
+                        "blind on the way" if b else "the height map sees the floor"))
+    st = s.get("stuck")                                 # missions._jammed: warn only, a new mode clears it
+    if st is not None:
+        out.append(_row("stuck", "Stuck", "warn",
+                        f"Got stuck at ({st.get('x', 0):.1f}, {st.get('y', 0):.1f}) on the way to {st.get('goal', '?')}"
+                        f": {st.get('why', '?')}. Look at that spot; starting a mode clears this"))
 
     loc = s.get("localization")
     if loc is None:

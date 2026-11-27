@@ -90,6 +90,12 @@ def scatter(names, centre, radius: float, seed: int = 0, min_gap: float = 0.25, 
     return objects_for(names, pts, rng.uniform(0, 180, len(names)))
 
 
+def floor_height(p, xy) -> float:
+    """The floor under a thing (floor.height_at; parked things, far outside every room, get 0)."""
+    from floor import height_at
+    return height_at(p, xy)
+
+
 def height(o) -> float:
     kind, size = o[0], o[1]
     return size[2] if kind in ("box", "puck") else size[1]
@@ -114,7 +120,8 @@ def world_xml(p) -> str:
         parked = x >= PARKED_X           # floats where it is, touching nothing, until sim_world puts it in the house
         ct, ca = (0, 0) if parked else (CONTYPE, CONAFFINITY)
         gc = ' gravcomp="1"' if parked else ""
-        out.append(f'<body name="obj{k}" pos="{x:.5g} {y:.5g} {h / 2 + 0.0005:.5g}" quat="{math.cos(a):.7g} 0 0 {math.sin(a):.7g}"{gc}>'
+        z0 = floor_height(p, (x, y))                    # on a rug or a raised floor (the home's family room)
+        out.append(f'<body name="obj{k}" pos="{x:.5g} {y:.5g} {z0 + h / 2 + 0.0005:.5g}" quat="{math.cos(a):.7g} 0 0 {math.sin(a):.7g}"{gc}>'
                    f'<freejoint name="obj{k}"/><inertial pos="0 0 0" mass="{kg:.5g}" diaginertia="{inertia:.3g} {inertia:.3g} {inertia:.3g}"/>'
                    f'<geom name="obj{k}" {geom} contype="{ct}" conaffinity="{ca}" condim="4" friction="0.8 0.01 0.0002" '
                    f'solref="0.004 1" solimp="0.95 0.99 0.001" density="0" rgba="{" ".join(f"{c:.3g}" for c in rgba)}"/></body>')

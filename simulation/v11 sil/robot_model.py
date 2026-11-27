@@ -1583,7 +1583,8 @@ def build_xml(p: SimParams = SimParams()) -> str:
     if house:
         import house_scene
     corners = [(-ax / 2, -ay / 2), (ax / 2, -ay / 2), (ax / 2, ay / 2), (-ax / 2, ay / 2)]
-    for k, (x0, y0) in enumerate([] if house or getattr(p, "props", False) else corners):   # the arena's netting posts (no house has them)
+    no_net = house or getattr(p, "props", False) or getattr(p, "world", "house") in ("home", "course")
+    for k, (x0, y0) in enumerate([] if no_net else corners):   # the arena's netting posts (no house has them)
         x1, y1 = corners[(k + 1) % 4]
         walls.append(f'<geom class="decor" type="cylinder" size="0.025" fromto="{_f(x0, y0, 0, x0, y0, wh)}" material="post"/>')
         n_mid = int(round(math.hypot(x1 - x0, y1 - y0) / 1.25))
@@ -1755,7 +1756,15 @@ def build_xml(p: SimParams = SimParams()) -> str:
     <light name="rim" pos="0 4 3" dir="0 -0.8 -0.5" directional="true" castshadow="false" diffuse="0.18 0.18 0.2"/>"""
         scene_world = _thrower(p)
         floor_mat = "floor"
-        if getattr(p, "props", False):                   # the v7 house furnished (house_props.py)
+        if getattr(p, "world", "house") == "home":      # the real house (home.py), furnished
+            import home
+            scene_assets += home.assets_xml(p)
+            scene_world += home.worldbody_xml(p)
+        elif getattr(p, "world", "house") == "course":  # Nov 26: the Nav2 / Explore stress course (course.py)
+            import course
+            scene_assets += course.assets_xml(p)
+            scene_world += course.worldbody_xml(p)
+        elif getattr(p, "props", False):                 # the v7 house furnished (house_props.py)
             import house_props
             scene_assets += house_props.assets_xml(p)
             scene_world += house_props.worldbody_xml(p)
@@ -1809,7 +1818,7 @@ def build_xml(p: SimParams = SimParams()) -> str:
 
   <worldbody>
     {lights}
-    <geom name="floor" type="plane" size="0 0 0.05" material="{floor_mat}" contype="1" conaffinity="{7 if p.floor_features else 3}" friction="{p.floor_mu} 0.005 0.0001"/>
+    <geom name="floor" type="plane" size="0 0 0.05" material="{floor_mat}"{' group="3"' if getattr(p, "world", "house") == "home" else ""} contype="1" conaffinity="{7 if p.floor_features else 3}" friction="{p.floor_mu} 0.005 0.0001"/>
     {floor_mod.world_xml(p)}
     {''.join(walls)}
     <camera name="side" pos="{_f(*side_cam)}" xyaxes="{xyaxes_looking_at(side_cam, (-0.45, 0.0, 1.0))}" fovy="62"/>

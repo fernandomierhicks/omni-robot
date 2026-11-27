@@ -162,6 +162,12 @@ class ViscoContacts:
         return self._op
 
     def pre_step(self):
+        self.ball_laws()
+        self.slides_step()
+
+    def ball_laws(self):
+        """The ball contacts' solref from their penetration (sim_hooks.py calls only this when C++ found a ball
+        contact or one was touched last step; C++ runs the slides)."""
         m, d = self.m, self.d
         touched = {}
         n = d.ncon
@@ -186,6 +192,9 @@ class ViscoContacts:
             if key not in touched:
                 (m.pair_solref if key[0] == "pair" else m.geom_solref)[key[1]] = law.solref(0.0)
         self._touched = {k: v[0] for k, v in touched.items()}
+
+    def slides_step(self):
+        d = self.d
         # Maxwell arms: F = -k_m (x - x_d), the dashpot end x_d relaxing toward x with time constant tau
         for j, (qa, va, km) in enumerate(self.slides):
             x = d.qpos[qa]

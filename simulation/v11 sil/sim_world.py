@@ -33,7 +33,7 @@ GOAL_HALF = 0.6                   # m: the posts either side of the goal's middl
 SHOT_MAX_S = 4.0                  # s (sim): the longest a shot is watched
 PARK = (40.0, 40.0)               # m: where things wait while off (the lidar reaches 12 m; >= arm_objects.PARKED_X)
 PERSON_PARK = (50.0, 50.0, 0.0)   # robot_model._person's own spot
-DOORS = ((-3.0, 2.0), (0.45, 2.0), (3.45, 2.0))      # house.HOUSE_FEATURES' doorways
+DOORS = ((-3.0, 2.0), (0.45, 2.0), (3.45, 2.0))      # house.HOUSE_FEATURES' doorways (the home: home.door_centres)
 ROOMS_X, ROOMS_Y = (-5.6, 5.6), (-4.1, 4.1)          # inside the outer walls with a margin
 HALL_Y = (0.3, 2.3)               # the hallway (and the doorways' mouths) stays clear of obstacles
 
@@ -122,7 +122,7 @@ class World:
             x, y, yaw = (float(v) for v in spots[k])
             hit = mujoco.mj_ray(self.m, self.d, np.array([x, y, 2.0]), np.array([0.0, 0.0, -1.0]), None, 1, -1, gid)
             ground = 2.0 - hit if hit >= 0 else 0.0
-            if ground > 0.03:
+            if ground - arm_objects.floor_height(self.core.p, (x, y)) > 0.03:
                 self._park(k)
                 ok.append(False)
                 continue
@@ -152,7 +152,7 @@ class World:
             hit = mujoco.mj_ray(self.m, self.d, np.array([float(x), float(y), 2.0]), np.array([0.0, 0.0, -1.0]),
                                 None, 1, -1, gid)
             ground = 2.0 - hit if hit >= 0 else 0.0
-            if ground > 0.03:
+            if ground - arm_objects.floor_height(self.core.p, (float(x), float(y))) > 0.03:
                 ok.append(False)
                 continue
             self._put(o, float(x), float(y), ground + arm_objects.height(self.objs[o]) / 2 + 0.003, float(yaw))
@@ -249,7 +249,8 @@ class World:
     def _toys(self, on: bool):
         for k, (kind, size, x, y, yaw, _, _) in enumerate(self.toys):
             if on:
-                self._put(k, x, y, arm_objects.height((kind, size)) / 2 + 0.02, yaw)    # dropped 2 cm (rugs)
+                z0 = arm_objects.floor_height(self.core.p, (x, y))       # a rug, the home's raised family room
+                self._put(k, x, y, z0 + arm_objects.height((kind, size)) / 2 + 0.02, yaw)    # dropped 2 cm
             else:
                 self._park(k)
 
@@ -264,8 +265,9 @@ class World:
         mujoco.mj_fwdPosition(self.m, self.d)
         rng = np.random.default_rng(self.seed + 5000)        # the same arrangement each time (when there's room)
         rx, ry, _ = self.core.r.pose()
-        from bridge_core import ARM_AREA
-        keep = [((rx, ry), 1.2), (ARM_AREA[0], ARM_AREA[1] + 0.4)]
+        from bridge_core import arm_area
+        centre, radius = arm_area(self.core.cfg)
+        keep = [((rx, ry), 1.2), (centre, radius + 0.4)]
         if self.person:
             p = self.d.mocap_pos[self.mocap]
             keep.append(((p[0], p[1]), 1.0))
@@ -277,20 +279,37 @@ class World:
         mujoco.mj_fwdPosition(self.m, self.d)
         return len(self.placed)
 
+    def _spot(self, rng):
+        """A candidate spot on the floor: in a room, not the hallway, not a doorway (the home: a room it may have
+        things in, not the den or a closet)."""
+        if self.core.cfg.world in ("home", "course"):
+            import importlib
+            w = importlib.import_module(self.core.cfg.world)
+            x0, y0, x1, y1 = w.ROOMS[w.CLUTTER_ROOMS[int(rng.integers(len(w.CLUTTER_ROOMS)))]]
+            if self.core.cfg.world == "course":                  # its rooms are in local coordinates
+                (x0, y0), (x1, y1) = w.L(x0, y0), w.L(x1, y1)
+            x, y = rng.uniform(x0 + 0.3, x1 - 0.3), rng.uniform(y0 + 0.3, y1 - 0.3)
+            return None if any(math.hypot(x - a, y - b) < 0.9 for a, b in w.door_centres()) else (x, y)
+        x, y = rng.uniform(*ROOMS_X), rng.uniform(*ROOMS_Y)
+        if HALL_Y[0] < y < HALL_Y[1] or any(math.hypot(x - a, y - b) < 1.0 for a, b in DOORS):
+            return None
+        return x, y
+
     def _place(self, k: int, rng, keep) -> bool:
         """A spot for obstacle k: in a room (not the hallway, not a doorway), clear of keep, on the floor or a rug,
         touching nothing else; else it stays parked."""
         h = arm_objects.height(self.objs[k])
         gid = np.array([-1], dtype=np.int32)
         for _ in range(300):
-            x, y = rng.uniform(*ROOMS_X), rng.uniform(*ROOMS_Y)
-            if HALL_Y[0] < y < HALL_Y[1] or any(math.hypot(x - a, y - b) < 1.0 for a, b in DOORS):
+            xy = self._spot(rng)
+            if xy is None:
                 continue
+            x, y = xy
             if any(math.hypot(x - a, y - b) < r for (a, b), r in keep):
                 continue
             hit = mujoco.mj_ray(self.m, self.d, np.array([x, y, 2.0]), np.array([0.0, 0.0, -1.0]), None, 1, -1, gid)
             ground = 2.0 - hit if hit >= 0 else 0.0
-            if ground > 0.03:                            # furniture, the robot, a wall
+            if ground - arm_objects.floor_height(self.core.p, (x, y)) > 0.03:   # furniture, the robot, a wall
                 continue
             self._put(k, x, y, ground + h / 2 + 0.003, float(rng.uniform(0, 180)))
             mujoco.mj_fwdPosition(self.m, self.d)

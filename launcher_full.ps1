@@ -33,12 +33,26 @@ function Start-Job2([string]$Name, [string]$CmdLine) {
     Update-Jobs
 }
 
+function Map-Name {
+    # Our home (simulation/v11 sil/home.py) and the test course (course.py) have their own maps unless another was typed
+    if ($cbCourse.Checked -and $tbMap.Text -eq "house") { return "course" }
+    if ($cbHome.Checked -and $tbMap.Text -eq "house") { return "home" }
+    return $tbMap.Text
+}
+function World-Opt {
+    # the house steps' world: the test course over our home over the v7 house
+    if ($cbCourse.Checked) { return " world:=course" }
+    if ($cbHome.Checked) { return " world:=home" }
+    return ""
+}
 function Start-Omni([string]$Name, [string]$Step, [string]$Extra = "") {
     $opts = "viewer:=$(($cbViewer.Checked).ToString().ToLower()) foxglove:=$(($cbFox.Checked).ToString().ToLower()) " +
             "rviz:=$(($cbRviz.Checked).ToString().ToLower()) fast:=$(($cbFast.Checked).ToString().ToLower()) " +
-            "map:=$($tbMap.Text) firmware:=$(($cbFw.Checked).ToString().ToLower()) kid:=$(($cbKid.Checked).ToString().ToLower()) " +
+            "map:=$(Map-Name) firmware:=$(($cbFw.Checked).ToString().ToLower()) kid:=$(($cbKid.Checked).ToString().ToLower()) " +
             "console:=$(($cbConsole.Checked).ToString().ToLower())"
     if ($Step -in "sim", "map", "localize") { $opts += " joy:=$(($cbJoy.Checked).ToString().ToLower())" }
+    # the house steps (not the scored tour / goals / auto-map: v9's tour is the v7 house's)
+    if ($Step -in "sim", "map", "localize", "nav", "robot", "arm") { $opts += (World-Opt) }
     if ($Step -in "robot", "arm") { $opts += " person:=$(($cbPerson.Checked).ToString().ToLower()) props:=$(($cbProps.Checked).ToString().ToLower())" }
     Start-Job2 $Name "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" $Step $opts $Extra"
 }
@@ -169,7 +183,9 @@ $cbFw = Add-Check $p1 "Firmware in the loop" $true "v11: the Teensy's C++ firmwa
 $cbKid = Add-Check $p1 "Kid mode" $false "The firmware's kid profile: 0.8 m/s, gentle accelerations, lobs only"
 $cbPerson = Add-Check $p1 "Person walking" $false "A person walks round the house, for the console's Follow tab (Console, 'Robot (all modes)' and 'Arm robot')"
 $cbProps = Add-Check $p1 "Furnished" $false "The house furnished: furniture, signs, pictures, tag faces, a person in the office (simulation/v11 sil/house_props.py; 'Robot (all modes)' and 'Arm robot')"
+$cbHome = Add-Check $p1 "Our home" $false "The real house from its permit drawings instead of the v7 house (simulation/v11 sil/home.py: walls, doors, windows, fixtures, est furniture; the den off limits). Map: home unless another is typed. Not the scored tour / goals / auto-map"
 $lm = New-Object System.Windows.Forms.Label; $lm.Text = "map:"; $lm.AutoSize = $true; $lm.Margin = New-Object System.Windows.Forms.Padding(12, 9, 0, 0); $p1.Controls.Add($lm)
+$cbCourse = Add-Check $p1 "Test course" $false "A compact made-up course that stresses Nav2 and Explore instead of a house (simulation/v11 sil/course.py: 16 m hall, dead ends, spiral, loops, a 24 in door, the home's ramp doorway). Over 'Our home' when both are ticked. Map: course unless another is typed"
 $tbMap = New-Object System.Windows.Forms.TextBox; $tbMap.Text = "house"; $tbMap.Width = 90; $tbMap.Margin = New-Object System.Windows.Forms.Padding(3, 6, 3, 3); $p1.Controls.Add($tbMap)
 $p1.SetFlowBreak($tbMap, $true)
 # the console as the launcher (design.md 2): its supervisor serves the page and starts / stops the steps from it
@@ -177,7 +193,8 @@ $cbStart = Add-Combo $p1 "console starts:" @("Robot (all modes)", "Arm robot: ti
 $bCon = Add-Button $p1 "Console (start here)" {
     $opts = "viewer:=$(($cbViewer.Checked).ToString().ToLower()) foxglove:=$(($cbFox.Checked).ToString().ToLower()) " +
             "fast:=$(($cbFast.Checked).ToString().ToLower()) firmware:=$(($cbFw.Checked).ToString().ToLower()) " +
-            "kid:=$(($cbKid.Checked).ToString().ToLower()) person:=$(($cbPerson.Checked).ToString().ToLower()) map:=$($tbMap.Text)"
+            "kid:=$(($cbKid.Checked).ToString().ToLower()) person:=$(($cbPerson.Checked).ToString().ToLower()) map:=$(Map-Name)"
+    $opts += (World-Opt)
     $step = if ($cbStart.SelectedIndex -eq 1) { "arm" } else { "robot" }
     Start-Job2 "ros_console" "`"$Wsl`" -d $Distro -- bash `"$OmniSh`" console --autostart $step $opts"
     $script:OpenTab = if ($step -eq "arm") { "tidy" } else { "home" }

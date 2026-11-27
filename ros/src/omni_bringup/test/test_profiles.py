@@ -125,6 +125,16 @@ def test_pi_slam_corrects_less_often_but_keeps_loop_closing():
     assert pi["correlation_search_space_resolution"] == full["correlation_search_space_resolution"]
 
 
+def test_a_loop_closure_cannot_move_the_robot_far():
+    # a closure's coarse match searches +-loop_search_space_dimension / 2 around the robot's estimate, the fine one
+    # +-correlation_search_space_dimension / 2: at 8 m a hallway matched 3.9 m off (Nov 25, world:=home)
+    for name in ("slam_mapping.yaml", "slam_localization.yaml"):
+        for profile in NAMES:
+            p = yaml.safe_load(stack.profiled(open(os.path.join(CONFIG, name)).read(), name, profile))
+            p = p["slam_toolbox"]["ros__parameters"]
+            assert (p["loop_search_space_dimension"] + p["correlation_search_space_dimension"]) / 2 <= 1.5, (name, profile)
+
+
 def test_the_depth_layer_still_goes_in_under_every_profile():
     for profile in NAMES:
         y = yaml.safe_load(stack.profiled(stack.with_depth_layer(open(os.path.join(CONFIG, "nav2.yaml")).read()),

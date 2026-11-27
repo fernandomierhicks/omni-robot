@@ -1,0 +1,7 @@
+image: home_hm41.pgm
+mode: trinary
+resolution: 0.0500
+origin: [-7.3143, -11.1515, 0.0000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25

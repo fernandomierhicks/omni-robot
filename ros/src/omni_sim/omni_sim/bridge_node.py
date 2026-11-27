@@ -37,6 +37,7 @@ the bus board's USB port) and renders its cameras on sim time (MuJoCo, EGL in WS
            /stereo/depth (+ /stereo/camera_info)      the left nose camera's depth, 32FC1, as a stereo matcher gives it
                                                       (sil_pick.PickCameras), when /arm/camera_request asks "depth"
            /arm_cam/image_raw (+ /arm_cam/camera_info)  the wrist camera, rgb8: on request ("wrist") and at wrist_hz
+                                                      while anything besides arm_brain subscribes (the console's view)
            /stereo/left/image_color                   the depth camera in colour, rgb8, registered to its depth (the same
                                                       camera_info): on request ("color") and at color_hz (2) while
                                                       anything subscribes (an AI's find, web_video_server's snapshot)
@@ -130,6 +131,17 @@ def yaw_quat(yaw: float):
     return 0.0, 0.0, math.sin(yaw / 2), math.cos(yaw / 2)        # x y z w
 
 
+def parse_doors(text: str) -> tuple:
+    """The doors parameter, "front=1,bedroom 1=0.5" -> (("front", 1.0), ("bedroom 1", 0.5)) (home.DOORS' names)."""
+    out = []
+    for part in filter(None, (t.strip() for t in text.split(","))):
+        name, _, val = part.rpartition("=")
+        if not name:
+            raise ValueError(f"doors: 'name=open 0..1', not {part!r}")
+        out.append((name.strip(), float(val)))
+    return tuple(out)
+
+
 class Bridge(Node):
     def __init__(self):
         super().__init__("mujoco_bridge")
@@ -176,6 +188,12 @@ class Bridge(Node):
                               thrower=P("thrower", True).value,
                               terrain=P("terrain", False).value,    # design.md 16: the kitchen's terrain course
                               props=P("props", False).value,        # the house furnished (house_props.py)
+                              # Nov 24: house (the v7 house) | home (the real house, home.py; the den off limits);
+                              # doors: the home's doors opened 0..1 over their defaults, "front=1,bedroom 1=0"
+                              world=P("world", "house").value, home_doors=parse_doors(P("doors", "").value),
+                              # Nov 26 (speed): MuJoCo's air auto (off for the arm robot) | on | off; the contact,
+                              # floor and arm hooks in C++ (sim_hooks.py)
+                              air=P("air", "auto").value, cpp_hooks=P("cpp_hooks", True).value,
                               **(dict(firmware=True) if sil else {}))
         # design.md 10: the robot computer's GPIO stamps of the firmware's SYNC_OUT edges, "hte" | "irq" | "none"
         # (/sim/sync_edge; mcu_link's sync_source:=topic)
@@ -188,7 +206,7 @@ class Bridge(Node):
         self.wall_clock = P("clock_mode", "sim").value == "wall"   # stamps = system time, no /clock (design.md 4.9, Pi in the loop)
         self.publish_odom_tf = P("publish_odom_tf", True).value
         self.exit_when_done = P("exit_when_done", False).value
-        self.get_logger().info(f"building the v7 house ({self.cfg})")
+        self.get_logger().info(f"building the {'home' if self.cfg.world == 'home' else 'v7 house'} ({self.cfg})")
         self.core = SimCore(self.cfg)
         sc = self.sc = self.core.sn.cfg
         self.n_scan = int(round(sc.lidar_rate / sc.lidar_scan_hz))
@@ -243,14 +261,18 @@ class Bridge(Node):
         if self.cfg.mode == "tour":
             self.p_phase.publish(String(data="tour"))
         # the lidar's scan-plane tilt as a one-time bench calibration would measure it: (tilt rad, azimuth rad, height
-        # of the scan plane above the floor m), with a calibration error (est 0.2 deg, 10 deg in azimuth)
+        # of the scan plane above the floor m), with a calibration error (est 0.2 deg, 10 deg in azimuth). The height
+        # is above the floor under the robot (Nov 25: world:=home starts it on the family room's raised floor, and its
+        # absolute z, 68 mm more, put scan_prep's predicted floor hits 40% too far: the floor came through as walls)
+        from floor import height_at
         tz, psi = self.core.sn.flat_tilt
         rng = np.random.default_rng(20_000 + self.cfg.seed)
         cal = Vector3Stamped()
         cal.header.frame_id = "laser"
         cal.vector.x = float(max(0.0, math.atan(tz) + rng.normal(0, math.radians(0.2))))
         cal.vector.y = float(psi + rng.normal(0, math.radians(10)))
-        cal.vector.z = float(self.core.d.site_xpos[self.core.m.site("lidar").id][2])
+        cal.vector.z = float(self.core.d.site_xpos[self.core.m.site("lidar").id][2]
+                             - height_at(self.core.p, self.core.r.pose()[:2]))
         self.p_cal = self.create_publisher(Vector3Stamped, "/lidar/tilt_cal", LATCHED)
         self.p_cal.publish(cal)
         self.world_parent = "odom" if self.no_ekf else "map"
@@ -269,7 +291,10 @@ class Bridge(Node):
                                bind=bind, color_hz=P("color_hz", 2.0).value,
                                d435_noise=P("d435_noise", "realistic").value,    # | ideal: the Nov 4 model
                                front_hz=P("front_hz", 5.0).value, front_wh=tuple(P("front_wh", [960, 540]).value),
-                               goalie_hz=P("goalie_hz", 15.0).value)   # the D435's rate while the Goalie's tracker runs
+                               goalie_hz=P("goalie_hz", 15.0).value,   # the D435's rate while the Goalie's tracker runs
+                               # Nov 26: auto = the cameras rendered on Windows's GPU when its render server is up
+                               # (sim_render.py; WSL renders on the CPU), here until then | local = always here
+                               render=P("render", "auto").value)
         self.catch = None
         if P("catch", False).value and getattr(self.core, "firmware", False) and self.core.bus_sim is None:
             self.catch = CatchSide(self, P("catch_dist", 6.5).value, P("catch_returns", True).value)
@@ -649,6 +674,9 @@ class Bridge(Node):
             if self.viewer is not None and k % 20 == 0 and time.perf_counter() - w_view > 1 / 30:
                 w_view = time.perf_counter()
                 self._sync_viewer()
+            if ev.hazard is not None:                         # home: the den's step (bridge_core._den_check)
+                self.get_logger().warn(ev.hazard)
+                self.p_status.publish(String(data=json.dumps(dict(t=round(d.time, 2), hazard=ev.hazard))))
             if ev.phase is not None:
                 self.p_phase.publish(String(data=ev.phase))
                 self.get_logger().info(f"phase: {ev.phase} at t = {d.time:.1f} s, {core.dist:.1f} m driven")
@@ -767,7 +795,7 @@ class ArmSide:
 
     def __init__(self, node, port: int, wrist_hz: float, d435_hz: float = 5.0, bind: str = "127.0.0.1",
                  color_hz: float = 2.0, d435_noise: str = "realistic", front_hz: float = 5.0,
-                 front_wh: tuple = (960, 540), goalie_hz: float = 15.0):
+                 front_wh: tuple = (960, 540), goalie_hz: float = 15.0, render: str = "auto"):
         from arm_bus import ServoPort
         from sil_pick import PickCameras
         import arm_objects
@@ -778,8 +806,21 @@ class ArmSide:
         self.port = ServoPort(c.bus_sim, port, log=node.get_logger().info,
                               bind=bind)
         self.cams = PickCameras(c.m, c.d, c.p, seed=c.cfg.seed, noise=d435_noise)   # sil_pick / depth_noise
+        # Nov 26: the raw renders on Windows (sim_render.py); the noise stays here, so the frames are the same
+        if render not in ("auto", "local"):
+            raise ValueError(f"render: auto or local, not {render!r}")
+        self.render = None
+        if render == "auto":
+            try:
+                from bridge_core import model_hello
+                from sim_render import RenderLink, camera_check
+                self.render = RenderLink(dict(core=model_hello(c.cfg), seed=c.cfg.seed, noise=d435_noise),
+                                         camera_check(self.cams), log=node.get_logger().info)
+            except OSError as e:                        # the port taken: render here
+                node.get_logger().warn(f"cameras: no render link ({e}); rendered here")
         self.wrist_dt = 1.0 / wrist_hz if wrist_hz > 0 else math.inf
         self.t_wrist = 0.0
+        self.wrist_own_subs = 1                 # arm_brain's own subscription (it asks for its frames)
         self.t_obj = 0.0
         self.pending = set()
         # design.md 4.11: the D435 streams (realsense2_camera's topics and frames); the stereo pair renders on request
@@ -901,14 +942,19 @@ class ArmSide:
 
     def step(self, t: float):
         self.port.exchange()
+        if self.render is not None and self.render.ready and self.cams.remote is None:
+            self.cams.remote = self.render
+            self.render = None                          # attached once: a link that fails isn't taken back
         if self.detailed and t - self.t_truth >= 0.5:
             self.t_truth = t
             self.publish_truth()
         # colour first: a node that pairs each depth frame with the newest colour gets the one of this same instant
-        if "color" in self.pending or (t - self.t_color >= self.color_dt and self.p_color.get_subscription_count() > 0):
-            self.pending.discard("color")
-            self.t_color = t
-            self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
+        asked = "color" in self.pending
+        if asked or t - self.t_color >= self.color_dt:
+            self.t_color = t                            # the watcher check once a period, not every tick (Nov 26)
+            if asked or self.p_color.get_subscription_count() > 0:
+                self.pending.discard("color")
+                self.p_color.publish(self._image(self.cams.color(), "rgb8", self.dframe, t))
         if "depth" in self.pending or t - self.t_depth >= self.depth_dt:
             # each frame with its camera_info, as camera drivers send them
             self.pending.discard("depth")
@@ -922,11 +968,16 @@ class ArmSide:
             else:
                 self.p_depth.publish(self._image(np.ascontiguousarray(z), "32FC1", self.dframe, t))
             self.p_dinfo.publish(self.dinfo)
-        if "wrist" in self.pending or t - self.t_wrist >= self.wrist_dt:
-            self.pending.discard("wrist")
-            self.t_wrist = t
-            self.p_wrist.publish(self._image(self.cams.wrist(), "rgb8", "arm_wrist_cam_optical", t))
-            self.p_winfo.publish(self.winfo)
+        # the wrist camera: every frame arm_brain's task asks for, and the wrist_hz preview only while something
+        # besides arm_brain watches (the console's Arm / Tidy tab through web_video_server). Nov 26: WSL renders on
+        # the CPU (llvmpipe), ~150 ms a frame with shadows: the preview alone was 12% of the sim's time
+        asked = "wrist" in self.pending
+        if asked or t - self.t_wrist >= self.wrist_dt:
+            self.t_wrist = t                            # the watcher check too: once a period, not every tick
+            if asked or self.p_wrist.get_subscription_count() > self.wrist_own_subs:
+                self.pending.discard("wrist")
+                self.p_wrist.publish(self._image(self.cams.wrist(), "rgb8", "arm_wrist_cam_optical", t))
+                self.p_winfo.publish(self.winfo)
         f = self.front
         if f is not None and t - f["t"] >= f["dt"] and f["pub"].get_subscription_count() > 0:
             f["t"] = t
@@ -957,6 +1008,9 @@ class ArmSide:
 
     def close(self):
         self.port.close()
+        for link in (self.render, self.cams.remote):
+            if link is not None:
+                link.close()
         self.cams.close()
 
 

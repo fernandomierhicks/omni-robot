@@ -45,8 +45,8 @@ servo_port (5763: the arm's servo bus on localhost TCP), arm_model (simple, ever
 detailed arm under emulated STS3215s, design.md 4.5, its truth drawn from seed; the arm load calibration's sim), arm_camera
 (d435, the default and the arm robot's camera: the
 RealSense D435 on the deck's nose gives the tidy's depth and Nav2's depth layer, design.md 4.11 | stereo: the parked
-catch robot's pair, for reproducing earlier arm runs), depth_layer (raw: the default, RAW_LAYER | height: proposed,
-omni_arm's fused height map, its speed limits | floor: Nov 5's per-frame grid | off), front_cam (none | imx662: the
+catch robot's pair, for reproducing earlier arm runs), depth_layer (height: the default since Nov 25, omni_arm's
+fused height map, its drops and speed limits | raw: the default before, RAW_LAYER | floor: Nov 5's per-frame grid | off), front_cam (none | imx662: the
 proposed forward IMX662 on the nose, design.md 4.12, rendered by the bridge, and omni_perception's people node: people
 from the lidar and the camera on /people, which the console's Follow then uses). robot (house steps): drawn (the interactive steps: the
 robot as cad/v7 draws it, robot_export.drawn_params: the CAD's masses, its scan plane and lidar shadows; lidar_mask:=false
@@ -54,6 +54,13 @@ drops the shadows) | v7 (the scored steps tour / auto_map / goals, as published)
 terrain (false; house steps, design.md 16): a terrain course in the kitchen's east end (square steps, triangular bumps).
 props (false; house steps): the house furnished (simulation/v11 sil/house_props.py: furniture, signs, pictures, tag faces, a
 person standing in the office) for the cameras and the lidar; no physics.
+world (house; house steps, Nov 24): house (the v7 house above) | home (the real house from its permit drawings,
+simulation/v11 sil/home.py: walls, doors, windows, fixtures, furniture; the den off limits, a no-go zone on maps/home);
+map then defaults to home (maps/home.yaml: the drawings' own map, for localizer:=amcl; slam_toolbox's localization needs
+a session mapped and saved as home). doors (home): its doors opened 0..1 over the defaults (inner open, outer shut),
+e.g. doors:="front=1,bedroom 1=0". terrain needs world house; props doesn't apply to the home (always furnished).
+course (Nov 26): simulation/v11 sil/course.py, a compact made-up course that stresses Nav2 and Explore (a 16 m hall,
+dead ends, a spiral, loops, a 24 in door, the home's ramp doorway); map then defaults to course.
 The arm robot's arm: omni_cpp's arm_driver (the servo bus, joint states and TF at 50 Hz) beside omni_arm's arm_brain
 (planning and the tidy, design.md 4.10). mcu_link, mode_manager, scan_prep, heading_node, catch_perception and
 catch_behavior are omni_cpp's C++ (design.md 4.9; their Python twins were deleted Nov 7, 2026). nav_profile (default = full, pi on a Raspberry Pi | lean | pi): lean sets Nav2 and
@@ -167,11 +174,12 @@ def describe(kind: str) -> LaunchDescription:
             DeclareLaunchArgument("arm_camera", default_value="d435"),
             # the sim's arm (design.md 4.5): simple | detailed (motors, gearboxes, flex, heat, emulated STS3215s)
             DeclareLaunchArgument("arm_model", default_value="simple"),
-            # the D435's layer in Nav2's costmaps (design.md 4.5, 4.11): raw (the default: the raw cloud in an
-            # ObstacleLayer, marking above 4 cm, RAW_LAYER; it sees no toy under 4 cm) | height (proposed: omni_arm's
-            # height_map, fused over the frames, obstacles and drops to Nav2, speed by certainty) | floor (Nov 5's
-            # per-frame grid: false marks on raised floor edges blocked goals) | off
-            DeclareLaunchArgument("depth_layer", default_value="raw"),
+            # the D435's layer in Nav2's costmaps (design.md 4.5, 4.11): height (the default since Nov 25: omni_arm's
+            # height_map, fused over the frames, obstacles and drops to Nav2, ramps told from steps, speed by
+            # certainty) | raw (the default before: the raw cloud in an ObstacleLayer, marking above 4 cm, RAW_LAYER;
+            # it sees no toy under 4 cm and no drop) | floor (Nov 5's per-frame grid: false marks on raised floor
+            # edges blocked goals) | off
+            DeclareLaunchArgument("depth_layer", default_value="height"),
             # the sim's D435 depth errors (simulation/v11 sil/depth_noise.py): realistic (since Nov 5) | ideal (Nov 4's)
             DeclareLaunchArgument("d435_noise", default_value="realistic"),
             # design.md 4.12 (proposal): none | imx662, the forward camera on the nose, and the people node with it
@@ -185,6 +193,9 @@ def describe(kind: str) -> LaunchDescription:
             # design.md 16: square steps and triangular bumps in the kitchen's east end (house.TERRAIN_COURSE)
             DeclareLaunchArgument("terrain", default_value="false"),
             DeclareLaunchArgument("props", default_value="false"),
+            # Nov 24: house | home (the real house, simulation/v11 sil/home.py); the home's doors, "name=0..1,..."
+            DeclareLaunchArgument("world", default_value="house"),
+            DeclareLaunchArgument("doors", default_value=""),
             DeclareLaunchArgument("lidar_mask", default_value="true"),
             # the sim's lidar (design.md 2, 4.6): a2m8 (the robot's since Nov 16) | a2m12 (earlier runs); the A2M8's
             # mode (stability, its default | boost | express | standard) and stamps (clock: omni_cpp rplidar_node's, the
@@ -280,7 +291,8 @@ def mcu_bind(a: dict) -> str:
 
 
 def clock_period(a: dict, default: float) -> float:
-    """The /clock period: the launch argument, or the step's default (1 ms with the firmware, 4 ms without)."""
+    """The /clock period: the launch argument, or the step's default (1 ms with the firmware, 4 ms without; the arm
+    step 4 ms since Nov 26)."""
     return float(a["clock_period"]) or default
 
 
@@ -356,8 +368,12 @@ def build(ctx, kind: str):
                                                    "localizer", "side", "mcu_host", "mcu_bind", "clock", "clock_period", "ghost",
                                                    "face", "ekf_hz", "arm_hz", "nav", "depth_layer", "d435_noise", "front_cam",
                                                    "lidar", "lidar_mode", "lidar_stamp", "lidar_bins", "lidar_hz", "scan_refine",
-                                                   "scan_latency")}
+                                                   "scan_latency", "world", "doors")}
     on = lambda k: a[k].lower() in ("1", "true", "yes")          # noqa: E731
+    if a["world"] not in ("house", "home", "course"):
+        raise RuntimeError(f"world: house, home or course, not {a['world']!r}")
+    if a["world"] in ("home", "course") and a["map"] == "house":  # the world's own map unless another is named
+        a["map"] = a["world"]
     a["nav_profile"] = resolved_profile(a["nav_profile"], a["side"])
     if a["clock"] not in ("sim", "wall"):
         raise RuntimeError(f"clock: sim or wall, not {a['clock']!r}")
@@ -396,13 +412,19 @@ def build(ctx, kind: str):
                                   "viewer": on("viewer"), "markers": on("foxglove") or on("rviz"),
                                   "fw_div": 2 if fast else 1, "hook_div": 4 if fast else 1,
                                   "lidar_cast_dt": 0.002 if fast else 0.001, "firmware": fw,
-                                  "clock_period": clock_period(a, 0.001 if fw else 0.004), "port": int(a["mcu_port"]),
+                                  # the arm step 4 ms (Nov 26): /clock at 1 kHz woke ~25 readers, most Python nodes,
+                                  # a thousand times a sim second and held the full stack to 0.82x real time (1.0x
+                                  # at 4 ms); the MCU clock's fit then 240-290 us rms (stamps <= ~0.35 ms off). The
+                                  # robot step keeps 1 ms (the catch game's timing); clock_period:=0.001 brings it back
+                                  "clock_period": clock_period(a, 0.004 if arm else (0.001 if fw else 0.004)),
+                                  "port": int(a["mcu_port"]),
                                   "mcu_bind": mcu_bind(a), "clock_mode": a["clock"],
                                   "person": on("person"), "timing": a["timing"], "sync_gpio": a["sync_gpio"],
                                   "tags": on("tags"), "base": a["robot"], "lidar_mask": on("lidar_mask"),
                                   "catch": on("catch") and fw and not arm, "catch_dist": float(a["dist"]),
                                   "catch_returns": on("returns"), "live_world": robot, "clutter": a["clutter"],
                                   "thrower": on("thrower"), "terrain": on("terrain"), "props": on("props"),
+                                  "world": a["world"], "doors": a["doors"],
                                   # OMNI_CONTROL_PORT: a second stack beside Fernando's (AGENTS.md), as rosbridge's
                                   "control_port": int(os.environ.get("OMNI_CONTROL_PORT", 9873)) if robot else 0,
                                   "d435_noise": a["d435_noise"],
@@ -596,12 +618,11 @@ def build(ctx, kind: str):
     return split_sides(a, acts, sim_side)
 
 
-# nav_profile:=lean (design.md 4.9): Nav2 and slam_toolbox set for a smaller computer. MPPI half the samples over a
-# 2.0 s horizon (4 m at 2 m/s) and a local costmap to match; the behavior tree ticked at 50 Hz; slam_toolbox corrects
+# nav_profile:=lean (design.md 4.9): Nav2 and slam_toolbox set for a smaller computer. MPPI half the samples (the
+# full profile's 1.5 s horizon since Nov 26; lean had cut 2.8 s to 2.0) and a local costmap of 9 m; the behavior tree ticked at 50 Hz; slam_toolbox corrects
 # every 0.2 s / 0.2 m instead of 0.1. Each line must still be in the config: a changed config fails loudly here.
 LEAN = {
     "nav2.yaml": [("    bt_loop_duration: 10\n", "    bt_loop_duration: 20\n"),
-                  ("      time_steps: 56\n", "      time_steps: 40\n"),
                   ("      batch_size: 2000\n", "      batch_size: 1000\n"),
                   ("      prune_distance: 6.0 ", "      prune_distance: 4.5 "),
                   ("      width: 12 ", "      width: 9 "),
@@ -636,7 +657,7 @@ PI = {
                   ("    controller_frequency: 20.0\n", "    controller_frequency: 10.0\n"),
                   ("    costmap_update_timeout: 1.0\n", "    costmap_update_timeout: 3.0\n"),      # the planner's
                   ("    costmap_update_timeout: 0.30\n", "    costmap_update_timeout: 1.0\n"),     # the controller's
-                  ("      time_steps: 56\n      model_dt: 0.05\n      batch_size: 2000\n",
+                  ("      time_steps: 30\n      model_dt: 0.05\n      batch_size: 2000\n",
                    "      time_steps: 24\n      model_dt: 0.1\n      batch_size: 400\n"),
                   ("      vx_std: 0.6 ", "      vx_std: 0.25 "),
                   ("      vy_std: 0.6\n", "      vy_std: 0.25\n"),
@@ -742,7 +763,7 @@ def profiled(text: str, name: str, profile: str) -> str:
 # VoxelLayer, cleared by Nav2's ray tracing; a toy's cell was erased by the rays to the floor beside it (floor_obstacles.py).
 # Nov 5, sim, 3 seeds: on-route toys driven over 7/12 -> 1/12, but false marks where the floor's level steps (a carpet's
 # edge, a 16 mm rug's, the kitchen's tile) closed passages: 41/48 route goals against 48/48 with RAW_LAYER
-# RAW_LAYER (depth_layer:=raw, the default; the layer of Nov 4-5): the driver's cloud in an
+# RAW_LAYER (depth_layer:=raw, the default until Nov 25; the layer of Nov 4-5): the driver's cloud in an
 FLOOR_LAYER = """      use_maximum: True
       depth_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
@@ -788,7 +809,8 @@ DEPTH_PLUGINS = [('      plugins: ["obstacle_layer", "inflation_layer"]\n',
                   '      plugins: ["static_layer", "obstacle_layer", "depth_layer", "inflation_layer"]\n')]
 
 
-# depth_layer:=height (proposed): omni_arm's height_map node, a height map fused over the frames (floor, level steps,
+# depth_layer:=height (the default since Nov 25: the only layer that sees drops, e.g. the home's den, and tells a
+# ramp from a step; the real D435 still to check): omni_arm's height_map node, a height map fused over the frames (floor, level steps,
 # low things, obstacles, drops, unknown), its obstacles and drops on the same grid and StaticLayer as FLOOR_LAYER. It
 # also sets the speed by how sure it is of the way ahead (height_map.speed_limit), so the console's floor-edge zones
 # (Nav2's SpeedFilter) publish to /speed_limit_zones and the node passes on the lower of the two on /speed_limit

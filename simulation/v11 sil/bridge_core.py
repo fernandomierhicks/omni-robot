@@ -68,7 +68,7 @@ class CoreConfig:
     cmd_timeout: float = 0.5             # s without /cmd_vel -> ramp to a stop (est; the MCU's heartbeat rule)
     shadow: tuple = ("wheels+IMU", "wheels+IMU+lidar")   # v9 estimators run alongside (() = none)
     mode: str = "cmd_vel"                # or "tour"
-    start: tuple = house.START           # (x, y, yaw deg) in the house
+    start: tuple = house.START           # (x, y, yaw deg) in the house (world home: left at this, home.START)
     tour_rounds: int = 1
     lidar_cast_dt: float = 0.002         # sensors.SensorConfig.lidar_cast_dt (speed; every sample keeps its own time)
     # firmware rates in physics steps (speed; design.md 28.2): the base controller (the MCU's velocity loop, 1 kHz as
@@ -107,6 +107,20 @@ class CoreConfig:
     # the house furnished (house_props.py): furniture, full-height walls, signs, pictures, tag faces, a person; seen by the
     # cameras and the lidar, no physics (ai_robot_architecture.md: things for the AI to find)
     props: bool = False
+    # Nov 24: "house" (the v7 house above) or "home" (the real house from its drawings, home.py: walls, doors, windows,
+    # fixtures and furniture; the den off limits). home_doors: ((name, open 0..1), ...) over its doors' defaults.
+    # Nov 26: "course" (course.py): a compact made-up course that stresses Nav2 and Explore (long hall, dead ends,
+    # spiral, loops, a 24 in door, the home's ramp doorway)
+    world: str = "house"
+    home_doors: tuple = ()
+    # Nov 26: MuJoCo's air (SimParams.air_density / air_viscosity): drag on every body, which the implicitfast
+    # integrator differentiates each step: 3.8x the step's cost (491 vs 129 us, the arm robot). Only a flying ball
+    # needs it. "auto" = on for the catch payload, off for the arm robot (its Goalie shots then fly without drag);
+    # "on" reproduces the arm runs before Nov 26
+    air: str = "auto"
+    # Nov 26: the contact, floor and arm hooks in C++ (sim_hooks.py, cext/sim_hooks.cpp; the ROS bridge turns it on):
+    # the same models, the sums in another order (not bit-identical to the Python hooks', which every study keeps)
+    cpp_hooks: bool = False
 
 
 @dataclass
@@ -119,14 +133,31 @@ class Events:
     truth: tuple | None = None           # (t, (x, y, z), quat wxyz, (vx, vy, wz) body)
     shadow: dict = field(default_factory=dict)   # variant -> (x, y, yaw) in the world, at truth times
     phase: str | None = None             # tour: "tour", "wall", "done" when it changes
+    hazard: str | None = None            # home: the robot reached the den's step (once per arrival)
 
 
 ARM_AREA = ((-1.9, 1.0), 0.8)           # the arm world's things: within 0.8 m of this, in the hallway and the living room
 
 
+def arm_area(c: CoreConfig) -> tuple:
+    """(centre, radius) of the arm world's things in c's world."""
+    if c.world in ("home", "course"):
+        import importlib
+        return importlib.import_module(c.world).ARM_AREA
+    return ARM_AREA
+
+
+def start_of(c: CoreConfig) -> tuple:
+    """Where the robot starts: c.start, or the home's (the course's) start when c.start is left at the v7 house's."""
+    if c.world in ("home", "course") and tuple(c.start) == tuple(house.START):
+        import importlib
+        return importlib.import_module(c.world).START
+    return tuple(c.start)
+
+
 def toy_objects(c: CoreConfig) -> tuple:
     """The things on the floor of the arm's world (design.md 11): n_objects from arm_objects.SETS[objects], scattered
-    in ARM_AREA (params.floor_objects entries)."""
+    in arm_area(c) (params.floor_objects entries)."""
     import arm_objects
     names = list(arm_objects.SETS[c.objects]) * 3
     rng = np.random.default_rng(c.seed + 900)
@@ -134,7 +165,8 @@ def toy_objects(c: CoreConfig) -> tuple:
         names = names[:c.n_objects]
     else:
         names = [names[k] for k in rng.permutation(len(names))[:c.n_objects]]
-    return arm_objects.scatter(names, ARM_AREA[0], ARM_AREA[1], seed=c.seed, keep_out=(house.START[:2], 0.5))
+    centre, radius = arm_area(c)
+    return arm_objects.scatter(names, centre, radius, seed=c.seed, keep_out=(start_of(c)[:2], 0.5))
 
 
 def arm_kw(c: CoreConfig) -> dict:
@@ -151,7 +183,7 @@ def arm_kw(c: CoreConfig) -> dict:
 
 
 MODEL_FIELDS = ("base", "assist", "wheel_model", "seed", "person", "payload", "objects", "n_objects", "live_world",
-                "terrain", "arm_camera", "props", "front_cam", "arm_model")
+                "terrain", "arm_camera", "props", "front_cam", "arm_model", "world", "home_doors", "air")
 
 
 def model_params(c: CoreConfig):
@@ -175,10 +207,16 @@ def model_params(c: CoreConfig):
         kw["floor_objects"] = sim_world.parked_objects(c)
     if c.props:
         kw["props"] = True
-    p = house.house_params(base, assist=c.assist, wheel_model=c.wheel_model, course=c.terrain, **kw)
+    if c.world == "home":
+        kw["home_doors"] = tuple(tuple(x) for x in c.home_doors)
+    p = house.house_params(base, assist=c.assist, wheel_model=c.wheel_model, course=c.terrain, world=c.world, **kw)
     if c.payload == "arm":
         from robot_export import study_from_env      # OMNI_SIM_STUDY (the Nov 1 motor study); unset: p as is
         p = study_from_env(p, "d435" if c.arm_camera == "d435" else "stereo")
+    if c.air not in ("auto", "on", "off"):
+        raise ValueError(f"air: auto, on or off, not {c.air!r}")
+    if c.air == "off" or (c.air == "auto" and c.payload == "arm"):
+        p = p.with_(air_density=0.0, air_viscosity=0.0)
     return p
 
 
@@ -195,8 +233,8 @@ class SimCore:
             from sensors import BLOCKED_CAD
             sensor_kw.setdefault("lidar_blocked", BLOCKED_CAD)
         self.drv = house.Driver(model_params(c))
-        if tuple(c.start) != tuple(house.START):
-            self.drv.teleport(c.start)
+        if start_of(c) != tuple(house.start_of(self.drv.p)):
+            self.drv.teleport(start_of(c))
         self.firmware = c.firmware and c.mode != "tour"
         if self.firmware:
             from sil_robot import SilRobot
@@ -213,6 +251,9 @@ class SimCore:
             from arm_bus import ServoBusSim
             self.bus_sim = ServoBusSim(self.r.arm, joint_err_deg=c.joint_err_deg, seed=c.seed)
         self.r.floor_div, self.r.post_div = c.floor_div, c.post_div
+        if c.cpp_hooks:
+            from sim_hooks import CppHooks
+            self.r.cpp = CppHooks(self.r)
         self._k = 0
         if self.firmware:
             self.sn, self.loc = self.r.sn, None
@@ -240,6 +281,9 @@ class SimCore:
         self._last_xy = self.r.pose()[:2].copy()
         self.walker = None
         self.world = None
+        self._den_geom, self._at_den, self._den_clear_t = None, False, -math.inf
+        if c.world == "home":
+            self._den_geom = self.m.geom("home_den_step").id
         if c.live_world:
             from sim_world import World
             self.world = World(self, person=c.person, clutter=c.clutter, thrower=c.thrower)
@@ -351,6 +395,7 @@ class SimCore:
             if d.time >= self._next_truth - 1e-9:
                 self._next_truth += 1 / c.truth_hz
                 ev.truth = self._truth()
+                ev.hazard = self._den_check()
             return ev
         if rd.imu3 is not None:
             ev.imu = rd.imu3
@@ -381,9 +426,31 @@ class SimCore:
         if d.time >= self._next_truth - 1e-9:
             self._next_truth += 1 / c.truth_hz
             ev.truth = self._truth()
+            ev.hazard = self._den_check()
             if self.loc is not None:
                 ev.shadow = {k: f.pose() for k, f in self.loc.f.items()}
         return ev
+
+    def _den_check(self) -> str | None:
+        """home: the robot's body against the den's step (home.py: a barrier stands in for the 165 mm drop). Said once
+        per arrival: the real robot would have driven off the step there."""
+        if self._den_geom is None:
+            return None
+        d = self.d
+        g1, g2 = d.contact.geom1[:d.ncon], d.contact.geom2[:d.ncon]
+        touching = bool(np.any(g1 == self._den_geom) or np.any(g2 == self._den_geom))
+        if touching:
+            self._den_clear_t = d.time
+        said = touching and not self._at_den
+        if said:
+            self._at_den = True
+        elif self._at_den and d.time - self._den_clear_t > 2.0:      # clear of it for 2 s: the next arrival counts
+            self._at_den = False
+        if not said:
+            return None
+        x, y, _ = self.r.pose()
+        return (f"the robot reached the den's step at ({x:.2f}, {y:.2f}): the den is 165 mm down and off limits, the "
+                f"real robot would have driven off the edge")
 
     def _truth(self):
         d = self.d

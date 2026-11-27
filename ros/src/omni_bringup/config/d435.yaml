@@ -3,7 +3,7 @@
 #   /d435/depth/image_rect_raw  16UC1 mm, 480 x 270  -> omni_arm's arm_node (config:=d435), the tidy's looks, and
 #                               with depth_layer:=floor (proposed) omni_arm's floor_obstacles (stack.FLOOR_LAYER)
 #   /d435/depth/camera_info
-#   /d435/depth/color/points    PointCloud2 -> Nav2's depth layer with depth_layer:=raw (the default, stack.RAW_LAYER)
+#   /d435/depth/color/points    PointCloud2 -> Nav2's depth layer with depth_layer:=raw (stack.RAW_LAYER; the default until Nov 25, now height)
 # Launch: ros2 launch realsense2_camera rs_launch.py camera_namespace:="" camera_name:=d435 \
 #           config_file:=$(ros2 pkg prefix omni_bringup)/share/omni_bringup/config/d435.yaml
 # base_link -> d435_link comes from robot_arm_d435.json's frames (simulation/v11 sil/robot_export.py); the driver adds

@@ -96,9 +96,9 @@ from omni_console import checks, session_log
 from omni_console import status as st
 from omni_console.ai_tasks import log_fields
 from omni_console.cdr import parse_ball_track, parse_laser_scan
-from omni_console.explore import Grid
+from omni_console.explore import Grid, with_blocked
 from omni_console.health import Health
-from omni_console.missions import NEW_MAP, VERSION, Console, load_json, save_json
+from omni_console.missions import NAV_MISSIONS, NEW_MAP, VERSION, Console, load_json, save_json
 from omni_console.people import detect as detect_people
 from omni_console.people import from_tracks
 from omni_console.slam import localization_params, pose_record, resume_pose, saved_maps, write_map_image
@@ -432,6 +432,7 @@ class MissionNode(Node):
         self.perception = None
         self.target = None
         self.grid_msg, self.grid = None, None
+        self.floor_grid_msg = None         # the height map's drops / floor obstacles: walls for Explore (with_blocked)
         self.consoles = {}                 # page id -> wall time last heard
         self.nav_handle = None
         self.t_plan = self.t_cam = 0.0
@@ -500,6 +501,9 @@ class MissionNode(Node):
         self.create_subscription(String, "/face/affect", self.on_affect, 5)     # omni_face: its feeling, 2 Hz
         self.arm_brain, self.t_arm_brain, self.arm_hw, self.t_arm_hw = {}, -math.inf, {}, -math.inf
         self.create_subscription(String, "/arm/state", lm.wrap("arm", self.on_arm_state), 5)       # omni_arm: the task
+        # omni_arm's height map (2 Hz): whether the floor camera can see a drop (Explore waits or stops when blind)
+        self.create_subscription(String, "/floor_obstacles/state", self.on_floor_state, 5)
+        self.create_subscription(OccupancyGrid, "/floor_obstacles/grid", self.on_floor_grid, MAP_QOS)
         # omni_perception's people node (front_cam:=imx662, design.md 4.12): the lidar and the camera together; kept as
         # it comes, decoded only while Follow runs
         self.people_msg, self.people_t = None, -math.inf
@@ -565,7 +569,7 @@ class MissionNode(Node):
         if g is None:
             return
         i = g.info
-        keep, speed = zone_masks(self.core.zones, self.core.edges, i.width, i.height, i.resolution,
+        keep, speed = zone_masks(self.core.nav_zones(), self.core.edges, i.width, i.height, i.resolution,
                                  i.origin.position.x, i.origin.position.y)
         for pub, data, info_pub, kind, mult in ((self.p_keep_mask, keep, self.p_keep_info, FILTER_KEEPOUT, 1.0),
                                                 (self.p_speed_mask, speed, self.p_speed_info, FILTER_SPEED_ABS, 0.01)):
@@ -723,6 +727,9 @@ class MissionNode(Node):
         except ValueError:
             pass
 
+    def on_floor_grid(self, m: OccupancyGrid):
+        self.floor_grid_msg = m                      # used at the next /map (Explore's fresh-map wait keys on it)
+
     def on_map(self, m: OccupancyGrid):
         self.grid_msg, self.grid = m, None
         i = m.info
@@ -851,6 +858,10 @@ class MissionNode(Node):
         return self.tf.frame_pose(child)
 
     def on_plan(self, m: PathMsg):
+        # Explore's learned blocks go on the plan (_block_ahead); a stalled goal in any nav mission creeps along it
+        # (missions._creep, Nov 26)
+        if self.core.mission in NAV_MISSIONS:
+            self.core.plan_xy = [(p.pose.position.x, p.pose.position.y) for p in m.poses[::4]]
         now = time.monotonic()
         if now - self.t_plan < 1.0 or self.p_plan.get_subscription_count() == 0:
             return
@@ -949,6 +960,14 @@ class MissionNode(Node):
                            current=[round(float(v), 3) for v in m.current], servo_notes=list(m.servo_notes))
         self.t_arm_hw = time.monotonic()
         self.arm_merged()
+
+    def on_floor_state(self, m: String):
+        try:
+            s = json.loads(m.data)
+        except ValueError:
+            return
+        if isinstance(s, dict):
+            self.core.on_floor_state(s, time.monotonic())
 
     def arm_merged(self):
         now = time.monotonic()
@@ -1293,7 +1312,8 @@ class MissionNode(Node):
         grid = None
         if self.core.mission == "EXPLORE" and self.grid_msg is not None:
             if self.grid is None:
-                self.grid = Grid.from_msg(self.grid_msg)
+                f = self.floor_grid_msg
+                self.grid = with_blocked(Grid.from_msg(self.grid_msg), None if f is None else Grid.from_msg(f))
             grid = self.grid
         self.run_effects(self.core.tick(time.monotonic(), grid))
 
@@ -1407,6 +1427,7 @@ class MissionNode(Node):
         self.consoles = {k: t for k, t in self.consoles.items() if now - t < 3.0}
         fp = self.frame_pose("base_link")
         self.core.pose = None if fp is None else fp[:4]
+        self.core.pose_t = None if fp is None else fp[4]    # the robot's clock (sim time in the sim): the jam check
         s = self.core.summary()
         s["t"] = time.time()
         s["source"] = self.log_source                 # "sim" when the sim stands in for the robot

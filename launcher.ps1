@@ -32,12 +32,12 @@ $script:Busy = $false           # a poll is running (a slow answer never stacks 
 $script:Quiet = $false          # the controls are being set from the settings (no events)
 
 # -- the settings (remembered) ----------------------------------------------------------------------------------
-$S = @{ robot = "catch"; map = "house"; kid = $false; person = $false; thrower = $true; terrain = $true; props = $false
+$S = @{ robot = "catch"; world = "house"; map = "house"; kid = $false; person = $false; thrower = $true; terrain = $true; props = $false
         clutter = @{ catch = "off"; arm = "toys" }; view = "follow"; face = @{ size = "normal"; mute = $false; hidden = $false } }
 if (Test-Path $SettingsFile) {
     try {
         $j = Get-Content -Raw $SettingsFile | ConvertFrom-Json
-        foreach ($k in "robot", "map", "kid", "person", "thrower", "terrain", "props", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
+        foreach ($k in "robot", "world", "map", "kid", "person", "thrower", "terrain", "props", "view") { if ($null -ne $j.$k) { $S[$k] = $j.$k } }
         if ($j.clutter) { foreach ($k in "catch", "arm") { if ($j.clutter.$k) { $S.clutter[$k] = $j.clutter.$k } } }
         if ($j.face) { foreach ($k in "size", "mute", "hidden") { if ($null -ne $j.face.$k) { $S.face[$k] = $j.face.$k } } }
     } catch { }
@@ -130,9 +130,14 @@ function Job-Running([string]$Name) { return ($script:Jobs[$Name] -and -not $scr
 function Step-Id { if ($S.robot -eq "arm") { return "arm" } else { return "robot" } }
 function Step-Args {
     # the step's options (supervisor.SIM_STEPS): always the 3D view, real time (fast), the firmware in the loop
-    $a = [ordered]@{ map = $S.map; kid = [bool]$S.kid; person = [bool]$S.person; clutter = (Clutter)
-                     terrain = [bool]$S.terrain; props = [bool]$S.props; viewer = $true; foxglove = $false; fast = $true
-                     firmware = $true }
+    # world home (the real house, simulation/v11 sil/home.py): its own map unless another was picked, no terrain course,
+    # always furnished
+    # world course (Nov 26, simulation/v11 sil/course.py): the Nav2 / Explore stress course, its own map likewise
+    $isHome = ($S.world -ne "house")
+    $map = $(if ($isHome -and $S.map -in "house", "home", "course") { $S.world } elseif (-not $isHome -and $S.map -in "home", "course") { "house" } else { $S.map })
+    $a = [ordered]@{ world = $S.world; map = $map; kid = [bool]$S.kid; person = [bool]$S.person; clutter = (Clutter)
+                     terrain = ([bool]$S.terrain -and -not $isHome); props = ([bool]$S.props -and -not $isHome); viewer = $true
+                     foxglove = $false; fast = $true; firmware = $true }
     if ($S.robot -ne "arm") { $a.thrower = [bool]$S.thrower }
     return $a
 }
@@ -257,6 +262,10 @@ $p2 = Add-Group "Robot (a change restarts the sim)"
 $rbRobot = Add-Radios $p2 "" @("Catch robot (catches and throws)", "Arm robot (tidies up; cad/v10 model)") @("catch", "arm") $S.robot {
     param($v) $S.robot = $v; Set-Radios $rbClutter (Clutter); Update-Enabled; Restart-IfRunning "the $v robot" }
 $p2.SetFlowBreak($rbRobot, $true)
+$rbWorld = Add-Radios $p2 "World:" @("The v7 house", "Our home (from its drawings)", "Test course") @("house", "home", "course") $S.world {
+    param($v) $S.world = $v; Update-Enabled; Restart-IfRunning $(if ($v -eq "home") { "our home" } elseif ($v -eq "course") { "the test course" } else { "the v7 house" }) }
+$tt.SetToolTip($rbWorld, "Our home: the real house from its permit drawings (walls, doors, windows, fixtures, est furniture); the den is off limits (165 mm step down) and a no-go zone on its map. Test course: a compact made-up course that stresses Nav2 and Explore (16 m hall, dead ends, spiral, loops, a 24 in door, the home's ramp doorway)")
+$p2.SetFlowBreak($rbWorld, $true)
 $lm = New-Object System.Windows.Forms.Label; $lm.Text = "Map:"; $lm.AutoSize = $true; $lm.Margin = New-Object System.Windows.Forms.Padding(6, 9, 2, 0)
 $p2.Controls.Add($lm)
 $cbMap = New-Object System.Windows.Forms.ComboBox
@@ -373,6 +382,8 @@ function Update-LogList {
 $script:SimState = $null
 function Update-Enabled {
     $cbThrower.Enabled = ($S.robot -ne "arm")
+    $cbTerrain.Enabled = ($S.world -eq "house")      # the terrain course and the props are the v7 house's
+    $cbProps.Enabled = ($S.world -eq "house")
 }
 function Restart-IfRunning([string]$What) {
     Save-Settings

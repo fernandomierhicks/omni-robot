@@ -113,17 +113,51 @@ TRADE_BASES = {"drawn": "X4 + pods", "x4-rigid": "X4 rigid", "x4-rocker": "X4 ro
 
 
 def house_params(base: str = "v8", assist: bool = True, wheel_model: str = "rollers", course: bool = False,
-                 **kw) -> SimParams:
+                 world: str = "house", **kw) -> SimParams:
+    """world "house": this file's v7 house; "home" (Nov 24): the real house (home.py), its doors as home_doors says."""
     if base in TRADE_BASES:
         import base_trade
         from robot_export import V11
         drawn = {k: v for k, v in V11.items() if k not in ("wheel_model", "limits", "base_max_speed")}
         base, kw = "v7", {**drawn, **base_trade.base_kw(TRADE_BASES[base]), **kw}
+    if world == "home":
+        import home
+        if course:
+            raise ValueError("the terrain course is the v7 house's (world 'house')")
+        kw.pop("props", None)                         # the home is always furnished
+        return SimParams(**{**BASES[base], **kw}, wheel_model=wheel_model, world="home", area_size=home.AREA,
+                         home_xy=home.START[:2], thrower_xy=home.THROWER_PARK,
+                         floor_features=home.floor_features(), floor_patches=home.tile_patches(),
+                         floor_mu_field=(0.05, 0.6, 11), terrain_assist=assist,
+                         limits="firmware", base_max_speed=2.0, wall_height=0.6)
+    if world == "course":                             # Nov 26: the Nav2 / Explore stress course (course.py)
+        import course as crs
+        if course:
+            raise ValueError("the terrain course is the v7 house's (world 'house')")
+        kw.pop("props", None)
+        return SimParams(**{**BASES[base], **kw}, wheel_model=wheel_model, world="course", area_size=crs.AREA,
+                         home_xy=crs.START[:2], thrower_xy=crs.THROWER_PARK, floor_features=crs.floor_features(),
+                         floor_patches=(), floor_mu_field=(0.05, 0.6, 11), terrain_assist=assist,
+                         limits="firmware", base_max_speed=2.0, wall_height=0.6)
+    if world != "house":
+        raise ValueError(f"world: 'house', 'home' or 'course', not {world!r}")
     return SimParams(**{**BASES[base], **kw}, wheel_model=wheel_model, area_size=(12.2, 9.2), home_xy=START[:2],
                      thrower_xy=(START[0] - 3.0, START[1]),
                      floor_features=HOUSE_FEATURES + (TERRAIN_COURSE if course else ()), floor_patches=HOUSE_PATCHES,
                      floor_mu_field=(0.05, 0.6, 11), terrain_assist=assist, limits="firmware", base_max_speed=2.0,
                      wall_height=0.6)
+
+
+def start_of(p) -> tuple:
+    """Where the robot starts in p's world (x, y, yaw deg)."""
+    w = getattr(p, "world", "house")
+    if w == "home":
+        import home
+        return home.START
+    if w == "course":
+        import course
+        return course.START
+    return START
 
 
 class Driver:
@@ -144,13 +178,15 @@ class Driver:
         self.tilt_peak = 0.0
         self.air_ms = self.air_run = 0.0
         self.fire_t = None
-        self.teleport(START)
+        self.teleport(start_of(p))
 
     def teleport(self, spot):
         m, d = self.m, self.d
         x, y, yaw = spot
         yaw = math.radians(yaw)
-        d.qpos[self.base_adr:self.base_adr + 7] = [x, y, 0.004, math.cos(yaw / 2), 0, 0, math.sin(yaw / 2)]
+        import floor
+        z = 0.004 + floor.height_at(self.p, (x, y))                # on a rug or a raised floor (the home's family room)
+        d.qpos[self.base_adr:self.base_adr + 7] = [x, y, z, math.cos(yaw / 2), 0, 0, math.sin(yaw / 2)]
         d.qvel[self.base_dof:self.base_dof + 6] = 0
         self.r.ctl.reset()
         self.r._hold_yaw = yaw

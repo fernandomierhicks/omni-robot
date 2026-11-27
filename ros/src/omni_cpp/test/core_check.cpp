@@ -697,6 +697,25 @@ int main(int argc, char** argv) {
                 auto a = read_line_nums(), r = read_line_nums();
                 for (bool b : floor_mask(a, r, cal, roll, pitch, margin)) std::printf("%d", (int)b);
                 std::printf("\n");
+            } else if (op == "floorv") {           // each sample's roll and pitch
+                size_t n;
+                LidarCal cal;
+                double margin, lx, ly;
+                is >> n >> cal.tan_tilt >> cal.azimuth >> cal.height >> margin >> lx >> ly;
+                auto a = read_line_nums(), r = read_line_nums(), roll = read_line_nums(), pitch = read_line_nums();
+                for (bool b : floor_mask(a, r, cal, roll, pitch, margin, lx, ly)) std::printf("%d", (int)b);
+                std::printf("\n");
+            } else if (op == "tilt") {             // adds (t roll pitch triples), then reads at the query times
+                double keep;
+                is >> keep;
+                auto add = read_line_nums(), q = read_line_nums();
+                TiltHistory h(keep);
+                for (size_t i = 0; i + 2 < add.size(); i += 3) h.add(add[i], add[i + 1], add[i + 2]);
+                for (double t : q) {
+                    auto rp = h.at(t);
+                    num(rp.first), std::printf(" "), num(rp.second), std::printf(" ");
+                }
+                std::printf("\n");
             } else if (op == "deskew") {
                 size_t n, n_out;
                 int n_key;

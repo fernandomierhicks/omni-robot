@@ -448,6 +448,10 @@ class SimParams:
     floor_features: tuple = ()         # floor.Threshold / floor.Carpet objects
     props: bool = False                # the v7 house furnished (house_props.py): furniture, full-height walls, signs,
                                        # pictures, the tags' faces, a person; decoration the cameras and lidar see
+    world: str = "house"               # Nov 24: "house" (the v7 house: house.py, floor_features' walls) or "home" (the real
+                                       # house from its permit drawings, home.py: walls, doors, windows, fixtures, furniture)
+    home_doors: tuple = ()             # home: ((door name, open 0..1), ...) over home.DOORS' defaults (inner doors open as
+                                       # drawn, outer doors shut)
     slow_zones: tuple = ()             # firmware ((x0, y0, x1, y1, v), ...): mapped areas (a threshold) crossed at <= v m/s;
                                        # the speed cap drops before the base's braking distance reaches them
     timestep: float = 0.0005

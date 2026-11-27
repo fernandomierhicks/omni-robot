@@ -63,6 +63,25 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     FW_LIMITS,
     HUMAN_HOLD,
     HUMAN_VERBS,
+    BACKOUT_CLEAR,
+    BACKOUT_MAX,
+    BACKOUT_MOVED,
+    BACKOUT_S,
+    BACKOUT_STALL,
+    BACKOUT_SPEED,
+    BLOCK_AHEAD,
+    BLOCK_R,
+    CREEP_AFTER,
+    CREEP_LEN,
+    CREEP_S,
+    CREEP_SPEED,
+    TRAIL_N,
+    TRAIL_STEP,
+    EXPLORE_NEAR,
+    EXPLORE_NEAR_S,
+    HOME_RETRIES,
+    HOME_RETRY_S,
+    JAM_MOVE,
     KID_SPEED,
     LAUNCHER_RPMS,
     MANUAL_TIMEOUT,
@@ -83,6 +102,9 @@ from omni_console.console_defs import (  # noqa: F401  (re-exported: tests and t
     TILT_RANGE,
     TRICKS,
     FEELINGS,
+    FLOOR_GRACE,
+    FLOOR_STALE,
+    FLOOR_WAIT,
     VERB_FEATURE,
     VERBS,
     VERSION,
@@ -121,6 +143,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                     pass
         self.places, self.routes = {}, {}
         self.zones, self.edges, self.rooms = {}, {}, {}
+        self.blocks = []                   # (x, y): where Explore found it couldn't pass (nav_zones; cleared per run)
+        self.plan_xy = None                # Nav2's global plan [(x, y), ...] (the node sets it), for blocks
         self.tf = None                     # the node's TfLite (lookup, frames): the tf verb's read-only answers
         self.set_map(None, places, routes)
         self.programs = {}
@@ -160,8 +184,17 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         self.arm_ev = 0                            # the last arm event passed on
         self.slam = dict(mode=None, map=None, managed=False, maps=[], busy=False)
         self.pose = None                   # (frame, x, y, yaw), from the node
+        self.pose_t = None                 # its TF stamp, s on the robot's clock (None: use now)
         self.explore = None                # dict: phase, start, t0, blacklist, info, t_plan, t_goal
         self.patrol = None                 # dict: route, points, i, step, lap, laps, dwell_until, fails
+        # the jam check of GOTO / EXPLORE / PATROL: where it last made headway (x, y), the goal-driving time since
+        # (still), and the last tick; the start of the task (home when the map has no place 'home'); the stuck fault
+        self.jam = None                    # dict(x, y, still, t)
+        self.creep = None                  # dict(path, i, t0, start): following Nav2's plan through a tight spot
+        self.nav_home = None               # (x, y, yaw) in map
+        self.homing = False                # the GOTO home after a jam: stuck again there = the fault
+        self.stuck = None                  # dict(x, y, why): latched until a person starts another mode
+        self.floor, self.t_floor = None, -math.inf     # omni_arm's /floor_obstacles/state (the height map), when
         self.thrower = dict(rpm=0.0, tilt=0.0, seq=0)
         # the motor test: the wheels the stick drives (0-based, the firmware's order); a profile motors_run plays
         self.motors = dict(wheels=[0], profile=None)
@@ -200,6 +233,7 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         rooms (named outlines, map frame: what "the kitchen" means; the AI reads them, nothing drives by them)."""
         from omni_console.zones import check_edge, check_zone
         self.map_name = name
+        self.nav_home = None
         self.places, self.routes, self.zones, self.edges, self.rooms = {}, {}, {}, {}, {}
         for n, z in (rooms or {}).items():
             try:
@@ -690,6 +724,21 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
     #    console_calib.CalibMixin -----------------------------------------------------------------------------
 
 
+    def on_floor_state(self, s: dict, now: float):
+        """omni_arm's height map state (2 Hz): its speed limit, and blind (null | "arm out" | "camera silent")."""
+        self.floor, self.t_floor = s, now
+
+    def floor_blind(self, now: float) -> str | None:
+        """Why the floor camera can't see a drop now, or None (it can, or this robot has no height map: the catch
+        robot, depth_layer:=raw). The arm robot needs one: its height map is all that keeps a new map's robot off a
+        step down (Nov 25: the arm never read as stowed, every frame was skipped, and Explore drove to the den's
+        edge)."""
+        if self.t_floor == -math.inf and not self.caps.get("arm"):
+            return None
+        if now - self.t_floor > FLOOR_STALE:
+            return "no word from the height map"
+        return (self.floor or {}).get("blind") or None
+
     def on_arm_state(self, s: dict, now: float):
         """omni_arm's /arm/state (5 Hz). A tidy that ended by itself ends the mission; its events become ours."""
         was = self.arm
@@ -751,9 +800,14 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         """Effects for a new Nav2 goal (replacing any), and the goal it becomes."""
         fx = [("nav_cancel",)] if self.goal is not None else []
         self.goal_seq += 1
-        self.goal = dict(x=x, y=y, yaw=yaw, name=name, seq=self.goal_seq)
+        self.creep, self.plan_xy = None, None              # a creep follows the old goal's plan
+        lim = self._nav_limits(speed, turn_deg)
+        here = self.pose[1:3] if self.pose is not None and self.pose[0] == "map" else (x, y)
+        v = max(0.05, lim[1])
+        self.goal = dict(x=x, y=y, yaw=yaw, name=name, seq=self.goal_seq, t0=self.robot_now(), v=v,
+                         limit=self.values["goto.goal_time"] + 3.0 * math.hypot(x - here[0], y - here[1]) / v)
         self.d0 = None
-        fx.append(self._nav_limits(speed, turn_deg))
+        fx.append(lim)
         fx.append(("nav_goal", x, y, yaw, self.goal_seq))
         return fx
 
@@ -796,8 +850,13 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         elif self.slam["mode"] != "mapping":
             return Reply(False, "Exploring builds a map: press 'New map + explore' (or map in the SLAM tab first)")
         fx = list(self._enter("EXPLORE", "Exploring: waiting for the map", "info").effects) + fx
+        if self.caps.get("arm"):
+            fx.append(("arm", dict(verb="stop")))       # the arm stows: out, it hides the floor camera's drops
         self.explore = dict(phase="wait", start=None, t0=self.now, blacklist=[], reached=[], info={}, t_plan=0.0,
-                            t_goal=0.0)
+                            t_goal=0.0, t_blind=None)
+        if self.blocks:
+            self.blocks = []
+            fx.append(("masks",))
         return Reply(True, "Exploring", None, tuple(fx))
 
     def _patrol(self, route: str) -> Reply:
@@ -1038,6 +1097,12 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             else:
                 self.task = f"Program '{p.name}': {p.label()}"
                 self.progress = max(0, p.i) / max(1, len(p.steps))
+        elif self.mission == "EXPLORE" and self.explore is not None:
+            tw = self._backout_twist()
+            if tw is None and self.creep is not None:
+                tw = self._creep_twist()
+        elif self.mission in NAV_MISSIONS and self.creep is not None:
+            tw = self._creep_twist()
         elif self.mission == "CALIBRATE" and self.calib_run is not None:
             c = self.calib_run
             tw = c.tick(now, self.odom_pose, self.mcu)
@@ -1213,6 +1278,13 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             self.runner = None
         if mission != "CALIBRATE":
             self.calib_run = None
+        self.jam, self.homing = None, False              # a new task: its own jam check (_jammed sets homing after)
+        if mission != "EXPLORE":
+            self._drop_blocks()
+        if mission != "IDLE":
+            self.stuck = None                            # the stuck fault holds through the stop, until a new mode
+        if mission in NAV_MISSIONS:
+            self.nav_home = tuple(self.pose[1:4]) if self.pose is not None and self.pose[0] == "map" else None
         mode = MODE_OF[mission]
         if mode != self.robot_mode or self.pending_mode is not None:
             fx.append(("set_mode", mode, self.values["profile.kid"]))
@@ -1232,6 +1304,8 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         """Every ~0.5 s from the node (grid: explore.Grid of the current map while exploring). Returns effects."""
         self.now = now
         fx = self._ai_tick(now)
+        if not fx:
+            fx = self._jam_tick(now)
         if not fx and self.mission in FUN_MISSIONS:
             fx = self.fun_tick(now)
         if not fx and self.mission == "EXPLORE" and self.explore is not None:
@@ -1241,25 +1315,129 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         self.activity_sync()
         return tuple(fx)
 
+    # -- the jam check: no headway toward a Nav2 goal, or a goal taking too long --------------------------------------
+    def robot_now(self) -> float:
+        """The robot's clock: the pose's TF stamp (sim time in the sim, which runs ~0.35x real time in WSL: on the
+        console's wall clock a moving robot timed out, Nov 25), else the console's."""
+        return self.now if self.pose_t is None else self.pose_t
+
+    def _jam_tick(self, now: float) -> list:
+        """GOTO / EXPLORE / PATROL: a goal out for goto.stuck_time without the robot getting JAM_MOVE from where it
+        last got to, or a goal past its own time limit (_nav_goal), is a jam (_jammed). Robot time (robot_now). The
+        still clock runs only while a goal is out and carries across goals: Explore replanning while wedged, or Nav2
+        aborting goal after goal from the same spot, is still a jam. A goal's time limit also catches wheels spinning
+        against something the lidar can't see, where the pose keeps moving (Nov 25, the sim's den barrier).
+        Explore stalled on its way to a frontier goal skips that opening first, once per spot: the controller failing
+        the last bit (Nov 25, hm9: 0.17 m short, it drove off at once toward home) or a way that closed (Nov 26, hm18: a
+        door open across the hallway) is not a wedged robot. Stalled again without headway, it is a jam."""
+        if self.mission not in NAV_MISSIONS or self.pose is None or self.pose[0] != "map":
+            return []
+        now = self.robot_now()
+        x, y = self.pose[1], self.pose[2]
+        j, g = self.jam, self.goal
+        if j is None or math.hypot(x - j["x"], y - j["y"]) >= JAM_MOVE:
+            self.jam = j = dict(x=x, y=y, still=0.0, t=now, skipped=False, plan=list(self.plan_xy or []))
+        elif self.plan_xy and not j["still"]:            # the plan it follows while making headway (blocks)
+            j["plan"] = list(self.plan_xy)
+        dt, j["t"] = min(1.0, max(0.0, now - j["t"])), now
+        if g is None:
+            return []
+        j["still"] += dt
+        if (j["still"] >= CREEP_AFTER and not j.get("crept") and self.creep is None
+                and not (self.explore or {}).get("backout")):
+            j["crept"] = True                              # once per spot (headway makes a new jam dict)
+            self._creep(f"no headway for {j['still']:.0f} s")
+        if j["still"] >= self.values["goto.stuck_time"]:
+            e = self.explore
+            if (self.mission == "EXPLORE" and e is not None and e["phase"] == "explore" and g["name"] == "frontier"
+                    and not j.get("skipped")):
+                j.update(still=0.0, skipped=True)
+                if self._excuse(g, "no headway"):          # wedged, not a way that closed: no block, goal kept
+                    self.goal = None
+                    e["stale"], e["t_done"] = e.get("grid"), self.now
+                    return [("nav_cancel",)]
+                fx = self._explore_skip(self.now, f"no headway for {self.values['goto.stuck_time']:.0f} s on the way",
+                                        reached=False)
+                if math.hypot(x - g["x"], y - g["y"]) > 2 * EXPLORE_NEAR:
+                    fx += self._block_ahead(x, y, j.get("plan"))
+                self._backout("no headway", BACKOUT_STALL)  # and off whatever holds it, the way it came (hm30)
+                return fx
+            return self._jammed(f"no headway for {j['still']:.0f} s")
+        if now - g.get("t0", now) > g.get("limit", math.inf):
+            return self._jammed(f"not there after {now - g['t0']:.0f} s")
+        return []
+
+    def _jammed(self, why: str) -> list:
+        """Stuck on the way to a goal: the stuck fault (status.stuck, an error event), the goal given up, and a drive
+        home (GOTO 'home'): the map's place 'home', else where the task started (Explore: where exploring started).
+        Stuck on the way home, already home, or no home known: IDLE (the motors off) to wait for a person. The fault
+        holds until a person starts another mode."""
+        x, y = self.pose[1], self.pose[2]
+        g, e, v = self.goal, self.explore, self.values
+        label = "its goal" if g is None else (g["name"] or f"({g['x']:.1f}, {g['y']:.1f})")
+        stuck = dict(x=round(x, 2), y=round(y, 2), why=why, goal=label)
+        home = self.places.get("home") or (e or {}).get("start") or self.nav_home
+        homing = self.homing or (e is not None and e["phase"] == "home")
+        area = (e or {}).get("info", {}).get("known_m2")
+        what = f"Stuck at ({x:.1f}, {y:.1f}) on the way to {label} ({why}" + (f"; {area:.0f} m² mapped)" if area
+                                                                             else ")")
+        if homing or home is None or math.hypot(home[0] - x, home[1] - y) < JAM_MOVE:
+            fx = list(self._enter("IDLE", f"{what}: free it, then start a mode again", "error").effects)
+            self.stuck = stuck
+            return fx
+        speed = {"EXPLORE": v["explore.speed"], "PATROL": v["patrol.speed"]}.get(self.mission, v["goto.speed"])
+        fx = list(self._enter("GOTO", f"{what}: driving home", "error").effects)
+        self.homing, self.stuck = True, stuck
+        return fx + self._nav_goal(home[0], home[1], home[2], "home", speed, v["goto.turn"])
+
     def _explore_tick(self, now: float, grid) -> list:
         from omni_console.explore import ExploreParams, frontier_goal, still_open
         e = self.explore
         v = self.values
+        blind = self.floor_blind(now)
         if e["phase"] == "wait":
             ready = (self.slam["mode"] == "mapping" and grid is not None and self.pose is not None
                      and self.pose[0] == "map")
-            if not ready:
-                if now - e["t0"] > 45.0:
-                    self._finish_explore("the map never came (is SLAM running?)", "warn")
+            if not ready or blind:
+                if ready:
+                    self.task = f"Exploring: waiting for the floor camera ({blind})"
+                if now - e["t0"] > FLOOR_WAIT:
+                    self._finish_explore("the map never came (is SLAM running?)" if not ready else
+                                         f"the floor camera can't see drops ({blind})", "warn")
                 return []
-            e.update(phase="explore", start=self.pose[1:], t0=now)
+            e.update(phase="explore", start=self.pose[1:], t0=now, t0_robot=self.robot_now())
+        if blind:                                          # no drop can be seen: stop rather than drive on blind
+            e["t_blind"] = now if e["t_blind"] is None else e["t_blind"]
+            if now - e["t_blind"] >= FLOOR_GRACE:
+                cancel = self.goal is not None
+                self._finish_explore(f"stopped: the floor camera can't see drops ({blind})", "error")
+                return [("nav_cancel",)] if cancel else []
+        else:
+            e["t_blind"] = None
+        if e.get("backout"):                               # drive_output drives it; no goal meanwhile
+            return []
         if e["phase"] == "home":
+            if self.goal is None and e.get("t_home") is not None and now >= e["t_home"] and e["start"] is not None:
+                e["t_home"] = None
+                sx, sy, syaw = e["start"]
+                return self._nav_goal(sx, sy, syaw, "start", v["explore.speed"], v["goto.turn"])
             return []
         if grid is not None and e["info"]:                 # the area mapped so far, not only at the last plan
             e["info"]["known_m2"] = round(grid.known_area(), 1)
             if self.goal is not None:
                 self.task = f"Exploring: {e['info']['frontiers']} openings left, {e['info']['known_m2']:.0f} m² mapped"
-        time_up = now - e["t0"] > 60.0 * v["explore.max_time"]
+        # on the robot's clock (robot_now), as the jam check: the sim runs at ~0.35x real time in WSL
+        time_up = self.robot_now() - e.get("t0_robot", e["t0"]) > 60.0 * v["explore.max_time"]
+        g = self.goal                                      # hovering just short of a frontier goal: there
+        if (g is not None and g["name"] == "frontier" and self.pose is not None and self.pose[0] == "map"
+                and math.hypot(self.pose[1] - g["x"], self.pose[2] - g["y"]) < EXPLORE_NEAR):
+            rt = self.robot_now()
+            if e.get("near") is None or e["near"][0] != g["seq"]:
+                e["near"] = (g["seq"], rt)
+            if rt - e["near"][1] >= EXPLORE_NEAR_S:
+                return self._explore_skip(now, "there", reached=True)
+        else:
+            e["near"] = None
         # after an arrival (or a failure) plan on the next /map, not the one from before the drive: slam_toolbox
         # refreshes it every map_update_interval (2 s), and the stale map made reached openings look uncleared
         fresh = grid is not e.get("stale") or now - e.get("t_done", -math.inf) > MAP_WAIT
@@ -1274,10 +1452,21 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
                 ExploreParams(v["explore.radius"], v["explore.min_frontier"]), e["blacklist"] + e["reached"])
             e["info"] = info
             e["t_plan"] = now + 1.0
+            if goal is None and not time_up and e["blacklist"] and not e.get("second"):
+                # the skipped spots once more, from wherever the robot is now: a failure is often the moment's (a
+                # floor mark since cleared, the robot's own spot; Nov 26, hm23 left the kitchen north this way)
+                e["second"] = True                         # and without the blocks (hm23: one shut bedroom 3's door)
+                self.event("info", f"Trying the {len(e['blacklist'])} skipped openings once more")
+                e["blacklist"] = []
+                self._drop_blocks()
+                goal, info = frontier_goal(grid, self.pose[1:], e["start"],
+                                           ExploreParams(v["explore.radius"], v["explore.min_frontier"]), e["reached"])
+                e["info"] = info
             if goal is None:
                 why = "time is up" if time_up else "nothing left to explore"
                 if v["explore.return_home"] and e["start"] is not None:
                     e["phase"] = "home"
+                    self._drop_blocks()
                     self.task = f"Exploring done ({why}): driving back"
                     self.event("info", self.task)
                     sx, sy, syaw = e["start"]
@@ -1291,8 +1480,188 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             return self._nav_goal(goal[0], goal[1], goal[2], "frontier", v["explore.speed"], v["goto.turn"])
         return []
 
+    def _block_ahead(self, x: float, y: float, plan=None) -> list:
+        """A no-go spot where the robot stalled on its way (Nov 26, hm18-19: a door open across the hallway left a gap
+        the global planner took and the robot couldn't pass, goal after goal): on Nav2's plan BLOCK_AHEAD from the robot
+        (else nothing), a BLOCK_R disc in the keepout mask for the rest of this Explore and its drive home. It closes a
+        1 m corridor by itself (the keepout filter isn't inflated) and stays clear of the robot's own cell. The plan is
+        the one it followed while it last made headway (Nav2 replans during its recoveries: the plan of the moment led
+        back the other way, and the block closed the hallway behind the robot, hm21), searched on from its point
+        nearest the robot."""
+        pts = plan if plan else (self.plan_xy or [])
+        if not pts:
+            return []
+        k0 = min(range(len(pts)), key=lambda k: math.hypot(pts[k][0] - x, pts[k][1] - y))
+        e = self.explore or {}
+        for px, py in pts[k0:]:
+            if math.hypot(px - x, py - y) >= BLOCK_AHEAD:
+                from omni_console.explore import connected
+                grid, start = e.get("grid"), e.get("start")
+                if (grid is not None and start is not None
+                        and not connected(grid, (x, y), start[:2], self.blocks + [(px, py)], BLOCK_R)):
+                    self.event("warn", f"Not marking ({px:.1f}, {py:.1f}) impassable: it would cut the way back")
+                    return []
+                self.blocks.append((round(px, 2), round(py, 2)))
+                self.event("warn", f"Marked ({px:.1f}, {py:.1f}) as impassable for this exploration")
+                return [("masks",)]
+        return []
+
+    def nav_zones(self) -> dict:
+        """The no-go zones for Nav2's keepout mask: the map's, and Explore's blocks as small polygons while it explores
+        (not on the way back: a block must never keep the robot from home)."""
+        if not self.blocks or self.explore is None or self.explore["phase"] != "explore":
+            return self.zones
+        z = dict(self.zones)
+        for k, (bx, by) in enumerate(self.blocks):
+            z[f"_block{k}"] = [(bx + BLOCK_R * math.cos(a * math.pi / 4), by + BLOCK_R * math.sin(a * math.pi / 4))
+                               for a in range(8)]
+        return z
+
+    def _explore_skip(self, now: float, why: str, reached: bool) -> list:
+        """Done with the frontier goal out without Nav2's verdict: within EXPLORE_NEAR of it (reached, as a success),
+        or stalled just short of it (skipped, as a failure). The goal is cancelled; the next plan waits for a fresh map
+        as after any drive (_nav_done)."""
+        g, e = self.goal, self.explore
+        self.goal = None
+        e["stale"], e["t_done"] = e.get("grid"), now
+        (e["reached"] if reached else e["blacklist"]).append((g["x"], g["y"]))
+        if not reached:
+            self.event("warn", f"Skipping an opening at ({g['x']:.1f}, {g['y']:.1f}): {why}")
+        return [("nav_cancel",)]
+
+    # -- backing out of a tight spot (Nov 26, hm23): the robot drove in beside the kitchen island's stools, whose seats
+    # the floor camera marked only once it stood there; from inside Nav2's inscribed radius NavFn finds no path and the
+    # backup recovery refuses ("collision ahead"), so goal after goal failed from the one spot for 400 s and the whole
+    # kitchen north and the rooms past it were blacklisted and never seen
+    def _boxed(self) -> bool:
+        """Is the robot nearer walls or floor marks (Explore's grid) than Nav2 can plan from?"""
+        from omni_console.explore import clearance_at
+        grid = (self.explore or {}).get("grid")
+        return (grid is not None and self.pose is not None and self.pose[0] == "map"
+                and clearance_at(grid, self.pose[1:3]) < BACKOUT_CLEAR)
+
+    def _backout(self, why: str, min_len: float = 0.0) -> bool:
+        """Start backing out along the robot's own trail (at least min_len) to the nearest point Nav2 can plan from
+        (drive_output drives it, on the manual input above Nav2's). False: no such point within BACKOUT_MAX of trail.
+        Stalled on a doorway's jamb by a ramp (Nov 26, hm30) the wheels' slip had put the pose 0.4 m off, onto the
+        doorway's middle, so the spot didn't look tight; Explore skipped the goal, jammed, and Nav2 couldn't drive home
+        from there: a stall backs out too."""
+        from omni_console.explore import backout_path
+        e = self.explore
+        if e is None or e.get("grid") is None or self.pose is None or self.pose[0] != "map":
+            return False
+        x, y = self.pose[1], self.pose[2]
+        path = backout_path(e["grid"], list(e.get("trail") or []) + [(x, y)], BACKOUT_CLEAR, BACKOUT_MAX, min_len)
+        if not path:
+            return False
+        e["backout"] = dict(path=path, i=0, t0=self.robot_now(), start=(x, y))
+        self.task = "Exploring: backing out of a tight spot"
+        self.event("warn", f"Backing out of a tight spot at ({x:.1f}, {y:.1f}) the way it came ({why})")
+        return True
+
+    # -- creeping along Nav2's plan through a tight spot (Nov 26, world:=course: MPPI asked 0.01-0.04 m/s at the spiral's
+    # 0.8 m gap for a minute, the guard clear, while NavFn's plan ran down the gap's middle; the home's 24 in door)
+    def _creep(self, why: str) -> bool:
+        """Start following Nav2's current plan CREEP_LEN m from its point nearest the robot (drive_output drives it on
+        the manual input, above Nav2's; the drive guard still applies). False: no plan to follow."""
+        if self.pose is None or self.pose[0] != "map" or not self.plan_xy or len(self.plan_xy) < 2:
+            return False
+        x, y = self.pose[1], self.pose[2]
+        pts = self.plan_xy
+        k = min(range(len(pts)), key=lambda i: (pts[i][0] - x) ** 2 + (pts[i][1] - y) ** 2)
+        path, run = [tuple(pts[k])], 0.0
+        for a, b in zip(pts[k:], pts[k + 1:]):
+            run += math.hypot(b[0] - a[0], b[1] - a[1])
+            path.append(tuple(b))
+            if run >= CREEP_LEN:
+                break
+        if run < 0.2:                                      # the goal is right here: nothing to creep along
+            return False
+        self.creep = dict(path=path, i=0, t0=self.robot_now(), start=(x, y))
+        self.event("warn", f"Creeping along the plan from ({x:.1f}, {y:.1f}) through a tight spot ({why})")
+        return True
+
+    def _creep_twist(self):
+        """The creep's twist (body frame), or None when no creep is on (it ends at its path's end or after CREEP_S)."""
+        c = self.creep
+        if c is None or self.pose is None or self.pose[0] != "map" or self.mission not in NAV_MISSIONS:
+            self.creep = None
+            return None
+        _, x, y, yaw = self.pose
+        path = c["path"]
+        while c["i"] < len(path) and math.hypot(path[c["i"]][0] - x, path[c["i"]][1] - y) < (
+                0.08 if c["i"] < len(path) - 1 else 0.04):
+            c["i"] += 1
+        if c["i"] >= len(path) or self.robot_now() - c["t0"] > CREEP_S:
+            sx, sy = c["start"]
+            self.event("info", f"Creep {'done' if c['i'] >= len(path) else 'timed out'}: "
+                               f"{math.hypot(x - sx, y - sy):.2f} m from where it stalled")
+            self.creep = None
+            return (0.0, 0.0, 0.0)
+        tx, ty = path[c["i"]]
+        dx, dy = tx - x, ty - y
+        d = math.hypot(dx, dy)
+        v = CREEP_SPEED if c["i"] < len(path) - 1 else min(CREEP_SPEED, max(0.04, d))
+        dx, dy = dx / d * v, dy / d * v
+        cs, sn = math.cos(yaw), math.sin(yaw)
+        return (cs * dx + sn * dy, -sn * dx + cs * dy, 0.0)
+
+    def _excuse(self, g: dict, why: str) -> bool:
+        """A frontier goal failed with the robot in a tight spot: the spot's fault, so the goal isn't blacklisted and
+        the robot backs out. Once per goal: failing again it is blacklisted as usual."""
+        e = self.explore
+        if e is None or not self._boxed():
+            return False
+        ex = e.setdefault("excused", [])
+        if any(math.hypot(g["x"] - a, g["y"] - b) < 0.3 for a, b in ex) or not self._backout(why):
+            return False
+        ex.append((g["x"], g["y"]))
+        return True
+
+    def _backout_twist(self):
+        """EXPLORE's own driving: None while Nav2 drives (the trail recorded: where the robot's body has been), a
+        back-out's twist (body frame; the base is holonomic) while one is on."""
+        e = self.explore
+        if self.pose is None or self.pose[0] != "map":
+            return None
+        _, x, y, yaw = self.pose
+        b = e.get("backout")
+        tr = e.setdefault("trail", [])
+        if b is None:
+            if not tr or math.hypot(x - tr[-1][0], y - tr[-1][1]) >= TRAIL_STEP:
+                tr.append((x, y))
+                del tr[:-TRAIL_N]
+            return None
+        path = b["path"]
+        while b["i"] < len(path) and math.hypot(path[b["i"]][0] - x, path[b["i"]][1] - y) < (
+                0.05 if b["i"] < len(path) - 1 else 0.02):        # passing through; the last point itself
+            b["i"] += 1
+        if b["i"] >= len(path) or self.robot_now() - b["t0"] > BACKOUT_S:
+            e["backout"] = None
+            sx, sy = b.get("start", (x, y))
+            if math.hypot(x - sx, y - sy) >= BACKOUT_MOVED:
+                self.jam = None                            # it got off: headway starts again from here (else the
+            #                                                next stall without headway is a jam, as before)
+            e["trail"] = tr[:max(0, len(tr) - len(path))] + [(x, y)]
+            self.task = "Exploring: out of the tight spot" if b["i"] >= len(path) else "Exploring: backing out timed out"
+            return (0.0, 0.0, 0.0)
+        tx, ty = path[b["i"]]
+        dx, dy = tx - x, ty - y
+        d = math.hypot(dx, dy)
+        v = BACKOUT_SPEED if b["i"] < len(path) - 1 else min(BACKOUT_SPEED, max(0.04, d))
+        dx, dy = dx / d * v, dy / d * v
+        c, s = math.cos(yaw), math.sin(yaw)
+        return (c * dx + s * dy, -s * dx + c * dy, 0.0)
+
+    def _drop_blocks(self):
+        """Explore's blocks off Nav2's keepout mask (the run is over)."""
+        if self.blocks:
+            self.blocks = []
+            self.fx_queue.append(("masks",))
+
     def _finish_explore(self, why: str, level: str = "info"):
         area = (self.explore or {}).get("info", {}).get("known_m2")
+        self._drop_blocks()
         self.explore, self.goal = None, None
         self.mission, self.progress = "MANUAL", None
         self.task = f"Exploring done: {why}" + (f", {area:.0f} m² mapped" if area else "")
@@ -1380,6 +1749,9 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
     def on_nav_feedback(self, seq: int, distance: float):
         if self.goal is None or seq != self.goal["seq"]:
             return
+        g = self.goal                    # the time limit grows to Nav2's route (around walls: Nov 25, ~3x the line)
+        if "v" in g and math.isfinite(distance):
+            g["limit"] = max(g["limit"], self.values["goto.goal_time"] + 3.0 * distance / g["v"])
         if self.mission == "GOTO":
             if self.d0 is None or distance > self.d0:
                 self.d0 = max(distance, 1e-3)
@@ -1410,6 +1782,17 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             return
         why = {"aborted": "Nav2 gave up (blocked or no path)", "rejected": "Nav2 refused the goal",
                "canceled": "cancelled by Nav2"}.get(outcome, outcome)
+        if self.mission == "GOTO" and self.homing:            # the drive home after a jam
+            s = self.stuck or {}
+            if ok:
+                self.mission, self.progress, self.homing = "MANUAL", None, False
+                self.task = f"Home after getting stuck at ({s.get('x', 0):.1f}, {s.get('y', 0):.1f}): {s.get('why')}"
+                self.event("warn", self.task)
+            else:
+                self.fx_queue += list(self._enter("IDLE", f"Stuck: could not drive home either ({why}): free it, then "
+                                                          "start a mode again", "error").effects)
+                self.stuck = s or dict(why=why)
+            return
         if self.mission == "GOTO":
             name = g["name"] or f"({g['x']:.1f}, {g['y']:.1f})"
             self.mission, self.progress = "MANUAL", None
@@ -1430,11 +1813,20 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
             if e is None:
                 return
             if e["phase"] == "home":
+                if not ok and e.get("home_tries", 0) < HOME_RETRIES:      # a passing mark may have closed the way
+                    e["home_tries"] = e.get("home_tries", 0) + 1
+                    e["t_home"] = now + HOME_RETRY_S
+                    if self._boxed():                                     # and out of a tight spot first
+                        self._backout(f"driving back: {why}")
+                    self.event("warn", f"Driving back: {why}; trying again ({e['home_tries']} of {HOME_RETRIES})")
+                    return
                 self._finish_explore("back at the start" if ok else f"could not drive back: {why}")
                 return
             e["stale"], e["t_done"] = e.get("grid"), now   # the next plan waits for a map drawn after this drive
             if ok:                                         # if its opening is still there, it can't be cleared from here
                 e["reached"].append((g["x"], g["y"]))
+            elif self._excuse(g, why):                     # the robot's tight spot, not the goal: backing out
+                pass
             else:
                 e["blacklist"].append((g["x"], g["y"]))
                 self.event("warn", f"Skipping an opening at ({g['x']:.1f}, {g['y']:.1f}): {why}")
@@ -1531,9 +1923,11 @@ class Console(AiMixin, CalibMixin, EditMixin, FunMixin):
         return dict(mission=self.mission, task=self.task, progress=self.progress, goal=g, robot_mode=self.robot_mode,
                     kid=self.values["profile.kid"], caps=dict(self.caps, arm=self._arm_up()), version=VERSION,
                     control=self.control(self.now), cap=self.speed_cap(), activity_n=self.activity_n,
-                    slam=dict(self.slam),
+                    slam=dict(self.slam), stuck=self.stuck,
+                    floor=None if self.t_floor == -math.inf and not self.caps.get("arm")
+                    else dict(blind=self.floor_blind(self.now)),
                     explore=None if e is None else dict(phase=e["phase"], start=e["start"], info=e["info"],
-                                                         failed=e["blacklist"]),
+                                                         failed=e["blacklist"], blocks=self.blocks),
                     patrol=None if p is None else dict(route=p["route"], i=p["i"], n=len(p["points"]),
                                                        lap=p["lap"], laps=p["laps"]),
                     thrower=dict(self.thrower, fire_tilt_max=launch_limits()[0] - launch_limits()[1])

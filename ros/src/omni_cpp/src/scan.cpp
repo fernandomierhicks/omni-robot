@@ -46,19 +46,46 @@ void polyfit1(const std::vector<double>& x, const std::vector<double>& y, double
 
 std::vector<bool> floor_mask(const std::vector<double>& a, const std::vector<double>& r, const LidarCal& cal,
                              double roll, double pitch, double margin) {
-    double cr = std::cos(roll), sr = std::sin(roll), cp = std::cos(pitch), sp = std::sin(pitch);
+    return floor_mask(a, r, cal, std::vector<double>(a.size(), roll), std::vector<double>(a.size(), pitch), margin);
+}
+
+std::vector<bool> floor_mask(const std::vector<double>& a, const std::vector<double>& r, const LidarCal& cal,
+                             const std::vector<double>& roll, const std::vector<double>& pitch, double margin,
+                             double laser_x, double laser_y) {
     std::vector<bool> out(a.size());
     for (size_t i = 0; i < a.size(); ++i) {
         if (!std::isfinite(r[i])) continue;
+        double cr = std::cos(roll[i]), sr = std::sin(roll[i]), cp = std::cos(pitch[i]), sp = std::sin(pitch[i]);
         double d0 = std::cos(a[i]), d1 = std::sin(a[i]), d2 = cal.tan_tilt * std::cos(a[i] - cal.azimuth);
         double w0 = cp * d0 + sp * sr * d1 + sp * cr * d2;       // Ry(pitch) Rx(roll), laser frame = base axes
         double w1 = cr * d1 - sr * d2;
         double w2 = -sp * d0 + cp * sr * d1 + cp * cr * d2;
+        double hz = -sp * laser_x + cp * sr * laser_y + cp * cr * cal.height;   // the laser's height, tilted
         double slope = w2 / std::hypot(w0, w1);
-        double r_floor = slope < -1e-4 ? cal.height / std::max(-slope, 1e-4) : INF;
+        double r_floor = slope < -1e-4 ? std::max(hz, 0.0) / std::max(-slope, 1e-4) : INF;
         out[i] = r[i] >= r_floor - margin;
     }
     return out;
+}
+
+void TiltHistory::add(double t, double roll, double pitch) {
+    if (!h_.empty() && t <= h_.back()[0]) {
+        if (t >= h_.back()[0] - 1.0) return;    // out of order
+        h_.clear();                             // the clock went back
+    }
+    h_.push_back({t, roll, pitch});
+    while (h_.front()[0] < t - keep_) h_.pop_front();
+}
+
+std::pair<double, double> TiltHistory::at(double t) const {
+    if (h_.empty()) return {0.0, 0.0};
+    if (t <= h_.front()[0]) return {h_.front()[1], h_.front()[2]};
+    if (t >= h_.back()[0]) return {h_.back()[1], h_.back()[2]};
+    auto it = std::upper_bound(h_.begin(), h_.end(), t,
+                               [](double v, const std::array<double, 3>& s) { return v < s[0]; });
+    const auto &p = *(it - 1), &q = *it;
+    double f = (t - p[0]) / (q[0] - p[0]);
+    return {p[1] + f * (q[1] - p[1]), p[2] + f * (q[2] - p[2])};
 }
 
 std::vector<double> sample_times(size_t n, double stamp, double time_increment, int order) {

@@ -88,6 +88,37 @@ def incidence_deg(z: np.ndarray, K: tuple) -> np.ndarray:
     return np.where(bad, 90.0, ang)
 
 
+def _occluded(dd: np.ndarray, k_max: int = 64) -> np.ndarray:
+    """Pixels some k = 1..k_max columns to the right of which a nearer surface stands out by >= k px of disparity
+    (dd[u + k] - dd[u] >= k, k up to floor(max disparity) as well, past the image's edge 0): the right imager
+    doesn't see them. Nov 26: the same test as a sliding max, max_{u < j <= u + W} (dd[j] - j) >= dd[u] - u, by block
+    prefix / suffix maxima (van Herk / Gil-Werman): a few passes instead of up to 64 (_occluded_loop, the old form)."""
+    h, w = dd.shape
+    W = int(min(np.nanmax(dd) if dd.size else 0, k_max))
+    if W < 1:
+        return np.zeros(dd.shape, bool)
+    e = dd - np.arange(w)[None, :]
+    nb = (w + 1 + W + W - 1) // W                         # blocks covering columns 0 .. w + W (padded with -inf)
+    pad = np.full((h, nb * W), -np.inf)
+    pad[:, :w] = e
+    blk = pad.reshape(h, nb, W)
+    pre = np.maximum.accumulate(blk, axis=2).reshape(h, -1)
+    suf = np.maximum.accumulate(blk[:, :, ::-1], axis=2)[:, :, ::-1].reshape(h, -1)
+    u = np.arange(w)
+    win = np.maximum(suf[:, u + 1], pre[:, u + W])          # max over j = u + 1 .. u + W
+    return win >= e
+
+
+def _occluded_loop(dd: np.ndarray, k_max: int = 64) -> np.ndarray:
+    """The per-k form (_occluded's reference, test_v11)."""
+    occl = np.zeros(dd.shape, bool)
+    for k in range(1, int(min(np.nanmax(dd) if dd.size else 0, k_max)) + 1):
+        right = np.zeros_like(dd)
+        right[:, :-k] = dd[:, k:]
+        occl |= (right - dd) >= k
+    return occl
+
+
 def d435(z_true: np.ndarray, K: tuple, f_match: float, baseline: float, rng: np.random.Generator,
          n: D435Noise = D435Noise(), albedo: np.ndarray | None = None, scale: float | None = None,
          portrait: bool = False) -> np.ndarray:
@@ -127,13 +158,8 @@ def d435(z_true: np.ndarray, K: tuple, f_match: float, baseline: float, rng: np.
                 mix = rng.random(z.shape)
                 out = np.where(fly, mix * zz + (1 - mix) * nb, out)
     # stereo occlusion: background left of a nearer object's left edge isn't seen by the right imager
-    occl = np.zeros(z.shape, bool)
     dd = d_true.T if portrait else d_true
-    occl = occl.T if portrait else occl
-    for k in range(1, int(min(np.nanmax(dd) if dd.size else 0, 64)) + 1):
-        right = np.zeros_like(dd)
-        right[:, :-k] = dd[:, k:]
-        occl |= (right - dd) >= k
+    occl = _occluded(dd)
     drop |= (occl.T if portrait else occl) & valid
     # IR-dark surfaces
     if albedo is not None and n.dark_p > 0:

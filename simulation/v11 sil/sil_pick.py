@@ -125,10 +125,14 @@ class PickCameras:
             # the dark-surface term: each geom's albedo (its material's colour, else its own), by a segmentation render
             self.ren_s = None
             if self.noise.dark_p > 0:
+                # a plain colour renderer drawn with MuJoCo's segment / ID-colour flags (Nov 26): Renderer's own
+                # segmentation mode rebuilds its segment-id table in Python from every scene geom each frame (80-130
+                # ms a frame, more than the render); the table only changes with the scene's geom list, so it is
+                # kept (_seg_lut) and the albedo read straight through it
                 self.ren_s = mujoco.Renderer(mr, H, W)
-                self.ren_s.enable_segmentation_rendering()
                 rgba = np.where((mr.geom_matid >= 0)[:, None], mr.mat_rgba[np.maximum(mr.geom_matid, 0)], mr.geom_rgba)
                 self.albedo = np.r_[rgba[:, :3].mean(axis=1), 1.0]     # the last: no geom (background)
+                self._lut, self._lut_key = None, None
         else:
             self.f_match = 2 * fy                       # the matcher runs on the full 1280 x 800 pair
             self.b = p.camera_baseline
@@ -137,25 +141,51 @@ class PickCameras:
         self.n_depth = self.n_wrist = 0
         self.ms: list = []
 
-    def _sync(self):
-        self.dr.qpos[:] = self.d.qpos
+    def _sync(self, qpos=None):
+        self.dr.qpos[:] = self.d.qpos if qpos is None else qpos
         mujoco.mj_kinematics(self.mr, self.dr)
         mujoco.mj_camlight(self.mr, self.dr)
 
+    # Nov 26: the renders before any noise. The noise (self.rng) is always applied here, so a remote renderer (the ROS
+    # bridge's Windows render server, sim_render.py: WSL renders on the CPU) gives the same frames, draw for draw
+    remote = None                                       # an object with raw(kind, qpos), or None: render here
+    RAW = ("depth", "albedo", "wrist", "color")
+
+    def raw(self, kind: str, qpos=None) -> np.ndarray:
+        """kind "depth" (float32 m, DEPTH_WH), "albedo" (float64, the dark-surface term's), "wrist" / "color" (uint8
+        rgb), rendered at qpos (default: the sim's now), here or by self.remote (dropped if it fails)."""
+        if self.remote is not None and qpos is None:
+            try:
+                return self.remote.raw(kind, self.d.qpos)
+            except (OSError, ValueError) as e:
+                print(f"sil_pick: remote render failed ({e}); rendering here", flush=True)
+                self.remote = None
+        self._sync(qpos)
+        if kind == "depth":
+            self.ren_d.update_scene(self.dr, camera=self.cl)
+            return self.ren_d.render()
+        if kind == "albedo":
+            return self.seg_albedo()
+        if kind == "wrist":
+            self.ren_w.update_scene(self.dr, camera=self.cw)
+            return self.ren_w.render()
+        if kind == "color":
+            if self.ren_c is None:
+                W, H = self.DEPTH_WH
+                self.ren_c = mujoco.Renderer(self.mr, H, W)
+            self.ren_c.update_scene(self.dr, camera=self.cl)
+            return self.ren_c.render()
+        raise ValueError(f"raw: {kind!r} is not one of {self.RAW}")
+
     def depth(self) -> np.ndarray:
         w0 = time.perf_counter()
-        self._sync()
-        self.ren_d.update_scene(self.dr, camera=self.cl)
-        z = self.ren_d.render().astype(np.float64)
+        z = self.raw("depth").astype(np.float64)
         fb = self.f_match * self.b
         if self.d435:
             import depth_noise
             albedo = None
             if self.ren_s is not None:
-                self.ren_s.update_scene(self.dr, camera=self.cl)
-                seg = self.ren_s.render()
-                gid = np.where((seg[..., 1] == mujoco.mjtObj.mjOBJ_GEOM) & (seg[..., 0] >= 0), seg[..., 0], -1)
-                albedo = self.albedo[gid]
+                albedo = self.raw("albedo")
             z = depth_noise.d435(z, self.Kd, self.f_match, self.b, self.rng, self.noise, albedo, self.scale,
                                  portrait=self.DEPTH_WH[0] < self.DEPTH_WH[1])
         else:
@@ -166,11 +196,38 @@ class PickCameras:
         self.ms.append(1000 * (time.perf_counter() - w0))
         return z.astype(np.float32)
 
+    def _seg_lut(self, scn) -> np.ndarray:
+        """Segment id (as the ID colour packs it: scene geom index + 1, 0 = background) -> albedo; rebuilt when the
+        scene's geom list changes (its count, or the first and last geoms' ids)."""
+        n = scn.ngeom
+        key = (n, (scn.geoms[0].objtype, scn.geoms[0].objid) if n else None,
+               (scn.geoms[n - 1].objtype, scn.geoms[n - 1].objid) if n else None)
+        if key != self._lut_key:
+            lut = np.full(n + 2, self.albedo[-1])
+            G = int(mujoco.mjtObj.mjOBJ_GEOM)
+            for g in scn.geoms[:n]:
+                if g.segid != -1 and g.objtype == G and g.objid >= 0:
+                    lut[g.segid + 1] = self.albedo[g.objid]
+            self._lut, self._lut_key = lut, key
+        return self._lut
+
+    def seg_albedo(self) -> np.ndarray:
+        """The albedo of the geom under each depth pixel (the dark-surface term), from an ID-colour render."""
+        r = self.ren_s
+        r.update_scene(self.dr, camera=self.cl)
+        scn = r.scene
+        flags = scn.flags.copy()
+        scn.flags[mujoco.mjtRndFlag.mjRND_SEGMENT] = True
+        scn.flags[mujoco.mjtRndFlag.mjRND_IDCOLOR] = True
+        img = r.render()
+        np.copyto(scn.flags, flags)
+        segid = img[..., 0].astype(np.int64) | (img[..., 1].astype(np.int64) << 8) | (img[..., 2].astype(np.int64) << 16)
+        lut = self._seg_lut(scn)
+        return lut[np.minimum(segid, len(lut) - 1)]
+
     def wrist(self) -> np.ndarray:
         w0 = time.perf_counter()
-        self._sync()
-        self.ren_w.update_scene(self.dr, camera=self.cw)
-        img = self.ren_w.render().astype(np.float32)
+        img = self.raw("wrist").astype(np.float32)
         img += self.rng.normal(0, 2.0, img.shape)
         self.n_wrist += 1
         self.ms.append(1000 * (time.perf_counter() - w0))
@@ -179,12 +236,7 @@ class PickCameras:
     def color(self) -> np.ndarray:
         """The depth camera's view in colour (rgb8 at DEPTH_WH, 2 levels of noise): pixel for pixel its depth's."""
         w0 = time.perf_counter()
-        if self.ren_c is None:
-            W, H = self.DEPTH_WH
-            self.ren_c = mujoco.Renderer(self.mr, H, W)
-        self._sync()
-        self.ren_c.update_scene(self.dr, camera=self.cl)
-        img = self.ren_c.render().astype(np.float32)
+        img = self.raw("color").astype(np.float32)
         img += self.rng.normal(0, 2.0, img.shape)
         self.ms.append(1000 * (time.perf_counter() - w0))
         return np.clip(img, 0, 255).astype(np.uint8)

@@ -1,6 +1,8 @@
 // scan_prep: /scan -> /scan_filtered for slam_toolbox and Nav2 (design.md 28), in C++ (its Python original,
-// omni_perception/scan_prep.py, was deleted Nov 7). Drops the A2M12's floor returns (/lidar/tilt_cal, the BNO085's
-// roll and pitch), then de-skews each scan with odom -> base_link at every sample's time and re-bins it by angle.
+// omni_perception/scan_prep.py, was deleted Nov 7). Drops the lidar's floor returns (/lidar/tilt_cal, the BNO085's
+// roll and pitch at each sample's time: Nov 25, a ramp's pitch swing with the turn's ~0.2 s delivery and de-skew wait
+// had let the floor through as phantom walls), then de-skews each scan with odom -> base_link at every sample's time
+// and re-bins it by angle.
 // Scans wait for the EKF's transform up to their last sample (0.3 s at most), never blocking the executor.
 // Empty bins stay +inf (REP-117): slam_toolbox's Karto skips inf / NaN beams, and a finite stand-in past range_max
 // would become a scan-matching point (Karto matches every beam's point; its range threshold only limits the map's
@@ -8,9 +10,13 @@
 //
 // Parameters: margin (m before the predicted floor hit), floor, deskew, deskew_keys (odom poses per turn),
 // time_order (-1: the array runs against time), refine_stamps + latency (scan_time.ScanClock).
+#include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <deque>
+#include <stdexcept>
+#include <string>
+#include <tuple>
 
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "omni_cpp/params.hpp"
@@ -60,11 +66,11 @@ public:
                 cal_ = LidarCal{std::tan(m->vector.x), m->vector.y, m->vector.z};
                 has_cal_ = true;
             });
-        s_imu_ = create_subscription<sensor_msgs::msg::Imu>("/imu", 50, [this](sensor_msgs::msg::Imu::ConstSharedPtr m) {
+        s_imu_ = create_subscription<sensor_msgs::msg::Imu>("/imu", 200, [this](sensor_msgs::msg::Imu::ConstSharedPtr m) {
             if (m->orientation_covariance[0] < 0) return;
             const auto& q = m->orientation;
-            roll_ = std::atan2(2 * (q.w * q.x + q.y * q.z), 1 - 2 * (q.x * q.x + q.y * q.y));
-            pitch_ = std::asin(std::max(-1.0, std::min(1.0, 2 * (q.w * q.y - q.z * q.x))));
+            tilt_.add(secs(m->header.stamp), std::atan2(2 * (q.w * q.x + q.y * q.z), 1 - 2 * (q.x * q.x + q.y * q.y)),
+                      std::asin(std::max(-1.0, std::min(1.0, 2 * (q.w * q.y - q.z * q.x)))));
         });
         s_scan_ = create_subscription<LaserScan>("/scan", 10, [this](LaserScan::SharedPtr m) { on_scan(m); });
         t_drain_ = rclcpp::create_timer(this, get_clock(), rclcpp::Duration::from_seconds(0.005), [this] { drain(); });
@@ -101,15 +107,22 @@ private:
                 std::atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z))};
     }
 
+    // the laser's place on the base (base_link -> laser, static: looked up until found)
+    bool laser_offset(const std::string& frame) {
+        if (has_laser_off_) return true;
+        try {
+            auto tr = buf_->lookupTransform("base_link", frame, tf2::TimePointZero);
+            laser_x_ = tr.transform.translation.x, laser_y_ = tr.transform.translation.y, has_laser_off_ = true;
+        } catch (const tf2::TransformException&) {
+        }
+        return has_laser_off_;
+    }
+
     std::vector<double> deskew_scan(const LaserScan& m, const std::vector<double>& a, const std::vector<double>& r,
-                                    double t0) {
+                                    const std::vector<double>& ts, double t0) {
         if (m.time_increment <= 0) return r;
         try {
-            if (!has_laser_off_) {
-                auto tr = buf_->lookupTransform("base_link", m.header.frame_id, tf2::TimePointZero);
-                laser_x_ = tr.transform.translation.x, laser_y_ = tr.transform.translation.y, has_laser_off_ = true;
-            }
-            auto ts = sample_times(r.size(), t0, m.time_increment, order_);
+            if (!laser_offset(m.header.frame_id)) throw std::runtime_error("no base_link -> " + m.header.frame_id);
             return deskew(a, r, ts, [this](double t) { return odom_pose(t); }, laser_x_, laser_y_, t0, m.angle_min,
                           m.angle_increment, r.size(), n_key_);
         } catch (const std::exception& e) {
@@ -125,8 +138,14 @@ private:
         std::vector<double> r(m.ranges.begin(), m.ranges.end()), a(n);
         for (size_t i = 0; i < n; ++i) a[i] = m.angle_min + m.angle_increment * (double)i;
         ++n_scans_;
+        // each sample's time: the floor filter takes the base's roll / pitch at it, the de-skew its odom pose
+        auto ts = sample_times(n, secs(m.header.stamp), std::max(0.0, (double)m.time_increment), order_);
         if (floor_ && has_cal_) {
-            auto drop = floor_mask(a, r, cal_, roll_, pitch_, margin_);
+            std::vector<double> roll(n), pitch(n);
+            for (size_t i = 0; i < n; ++i) std::tie(roll[i], pitch[i]) = tilt_.at(ts[i]);
+            if (n && !tilt_.empty() && std::max(ts.front(), ts.back()) > tilt_.t_last() + 0.05) ++n_tilt_late_;
+            laser_offset(m.header.frame_id);
+            auto drop = floor_mask(a, r, cal_, roll, pitch, margin_, laser_x_, laser_y_);
             for (size_t i = 0; i < n; ++i) {
                 n_in_ += std::isfinite(r[i]);
                 if (drop[i]) ++n_drop_, r[i] = std::numeric_limits<double>::infinity();
@@ -138,7 +157,7 @@ private:
         out.time_increment = m.time_increment, out.scan_time = m.scan_time;
         out.range_min = m.range_min, out.range_max = m.range_max;
         if (deskew_) {
-            r = deskew_scan(m, a, r, secs(m.header.stamp));
+            r = deskew_scan(m, a, r, ts, secs(m.header.stamp));
             out.time_increment = 0.0f;
         }
         out.ranges.resize(r.size());
@@ -156,6 +175,8 @@ private:
             msg += b;
         }
         if (floor_ && !has_cal_) msg += " (no /lidar/tilt_cal yet: no floor filter)";
+        if (floor_ && has_cal_ && tilt_.empty()) msg += " (no IMU orientation yet: floor filter as if level)";
+        if (n_tilt_late_) msg += ", " + std::to_string(n_tilt_late_) + " ahead of the IMU";
         if (deskew_) msg += ", de-skew failed on " + std::to_string(n_skew_fail_);
         RCLCPP_INFO(get_logger(), "%s", msg.c_str());
     }
@@ -167,8 +188,8 @@ private:
     std::unique_ptr<params::Live> live_;
     LidarCal cal_{};
     bool has_cal_ = false;
-    double roll_ = 0, pitch_ = 0;
-    int64_t n_in_ = 0, n_drop_ = 0, n_scans_ = 0, n_skew_fail_ = 0;
+    TiltHistory tilt_{2.0};
+    int64_t n_in_ = 0, n_drop_ = 0, n_scans_ = 0, n_skew_fail_ = 0, n_tilt_late_ = 0;
     bool has_laser_off_ = false;
     double laser_x_ = 0, laser_y_ = 0;
     std::deque<LaserScan::SharedPtr> queue_;

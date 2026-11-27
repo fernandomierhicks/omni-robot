@@ -25,6 +25,36 @@ ARM_POSES = ("stow", "ready", "high", "drop", "look")   # look: the wrist camera
 ARM_JOG_MAX = 30.0                 # deg: one jog of one joint (omni_arm's motion.JOG_MAX)
 ARM_STALE = 2.0                    # s without /arm/state: the arm node isn't running
 NAV_MISSIONS = ("GOTO", "EXPLORE", "PATROL")
+JAM_MOVE = 0.5          # m: getting this far from where it was is headway (Nav2's backup recovery moves 0.3 m)
+EXPLORE_NEAR = 0.3      # m from a frontier goal for EXPLORE_NEAR_S (robot time): there (the lidar sees all round).
+EXPLORE_NEAR_S = 8.0    # Nav2 wants 0.10 m and in a small room MPPI hovered 0.17 m short in the goal's inflation for
+                        # 100 s (Nov 25, hm9, bathroom 1). Not at once: a new map's first goals are 0.5-0.7 m off and
+                        # cutting them short left slam_toolbox no travel to add a scan: "nothing left" at 2 m² (hm10)
+BLOCK_AHEAD, BLOCK_R = 0.7, 0.45   # m: Explore's learned no-go spot, on the plan this far ahead, this big (missions
+                        # _block_ahead). Nav2 applies its keepout filter after inflation, so the disc must close a 1 m
+                        # corridor by itself (0.15 m left a strip the planner took, hm20); its edge stays 0.25 m from
+                        # the robot's centre, off the robot's own cell
+HOME_RETRIES, HOME_RETRY_S = 2, 10.0   # Explore's drive back: Nav2 giving up is tried again this often, after this
+                        # long (a floor-camera mark may clear; Nov 25, hm12 gave up at once with the map done)
+BACKOUT_CLEAR = 0.29    # m from walls (and floor marks) Nav2 can plan from: its robot_radius 0.24 + a cell. Nearer, a
+                        # goal's failure is the robot's spot, not the goal's (missions _backout)
+BACKOUT_MAX = 2.0       # m of its own trail Explore backs out along, at most
+BACKOUT_SPEED = 0.12    # m/s backing out (the drive guard still shapes it)
+BACKOUT_S = 30.0        # s (robot time): a back-out ends after this, there or not
+BACKOUT_STALL = 0.5     # m: a stall on the way to a frontier backs out at least this far (missions _backout)
+BACKOUT_MOVED = 0.2     # m: a back-out that moved the robot this far restarts the jam check's headway
+TRAIL_STEP, TRAIL_N = 0.1, 60   # m between the trail's points, points kept (6 m)
+# Nov 26 (world:=course): MPPI stalls in tight gaps (a 0.8 m gap leaves the robot's centre ~0.3 m: nearly every sampled
+# trajectory clips the inscribed zone, so it asks ~0.02 m/s and sits; the home's 24 in door). After CREEP_AFTER s of no
+# headway toward a goal the console follows Nav2's own plan (NavFn keeps it centred) CREEP_LEN m at CREEP_SPEED on the
+# manual input, the guard still shaping it, then hands back to MPPI. Once per spot (headway resets it)
+CREEP_AFTER = 10.0      # s (robot time) of no headway
+CREEP_LEN = 1.5         # m of the plan, from its point nearest the robot
+CREEP_SPEED = 0.12      # m/s
+CREEP_S = 30.0          # s (robot time): a creep ends after this, there or not
+FLOOR_STALE = 2.0       # s without the height map's state (2 Hz): it isn't running
+FLOOR_GRACE = 3.0       # s the floor camera may be blind while Explore drives before it stops
+FLOOR_WAIT = 45.0       # s Explore waits at the start for the map and the floor camera
 DRIVE_MISSIONS = ("MANUAL", "FOLLOW", "PROGRAM", "CALIBRATE")   # the console drives: drive_output()
 LAUNCHER_RPMS = (2500.0, 3000.0, 3500.0, 4000.0, 4500.0)        # the launcher calibration's shots (est: the range used)
 MANUAL_TIMEOUT = 0.3               # s: the console's stick stops counting (dead man released, tab closed, Wi-Fi gone)
@@ -245,9 +275,18 @@ SETTINGS = (
                  "it spins all the way there (Explore drives forward instead: spinning maps worse)."),
     Setting("goto.spin", ("goto", "patrol"), "Spin rate", 120.0, "deg/s", 45.0, 220.0, 5.0,
             "How fast it spins when driving is 'spinning' (the kid profile caps turning at 115 deg/s)."),
-    Setting("explore.radius", ("explore",), "How far", 10.0, "m", 2.0, 30.0, 0.5,
-            "Openings farther than this from where exploring started are left alone."),
-    Setting("explore.max_time", ("explore",), "Time limit", 10.0, "min", 1.0, 60.0, 1.0,
+    Setting("goto.stuck_time", ("goto", "patrol", "explore"), "Stuck after", 40.0, "s", 10.0, 180.0, 5.0,
+            "On the way to a goal, this long without getting 0.5 m from where it was means it's stuck: it gives up "
+            "the goal, says so and drives home (the place 'home', else where the task started). Stuck on the way home "
+            "too: it stops and waits for help."),
+    Setting("goto.goal_time", ("goto", "patrol", "explore"), "Time per goal", 60.0, "s", 20.0, 600.0, 10.0,
+            "A goal not reached after this long plus three times its drive time (along Nav2's route, else the "
+            "straight line) is stuck too (the same as above)."),
+    Setting("explore.radius", ("explore",), "How far", 15.0, "m", 2.0, 30.0, 0.5,
+            "Openings farther than this from where exploring started are left alone."),   # (10 until Nov 25: the
+            # home's kitchen and back hall are 11.3 m from the family room and were never explored, hm12)
+    Setting("explore.max_time", ("explore",), "Time limit", 30.0, "min", 1.0, 60.0, 1.0,   # (10 until Nov 25: the
+            # home's whole reachable floor took ~12 min of robot time, hm16)
             "Stops exploring after this long, mapped or not."),
     Setting("explore.min_frontier", ("explore",), "Smallest opening", 0.5, "m", 0.2, 2.0, 0.1,
             "Gaps into unknown space narrower than this are ignored (chair legs, clutter)."),
